@@ -1,0 +1,136 @@
+name: UI-009R2D2 finalize
+on:
+  push:
+    branches: [ui009r2d2-deploy]
+    paths: ['.github/workflows/ui009r2d2-deploy.yml']
+permissions:
+  contents: write
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ui009r2d2-deploy
+          fetch-depth: 0
+      - name: Apply exact D2 production patch
+        shell: bash
+        run: |
+          cat > /tmp/d2.patch <<'PATCH'
+--- a/app/render/terrainSurface.js
++++ b/app/render/terrainSurface.js
+@@ -29,25 +29,65 @@
+ function absAssetUrl(entry, set) { return new URL(assetUrl(entry, set), document.baseURI).href; }
+ function errorText(error) { return error instanceof Error ? `${error.name}: ${error.message}` : String(error); }
+ function timeoutAfter(ms, label) { return new Promise((_, reject) => setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms)); }
+-async function imageFromUrl(url, entry, stage, capabilities) {
+-    return await Promise.race([new Promise((resolve, reject) => { const img = new Image(); if ('decoding' in img)
+-            img.decoding = 'async'; img.onload = () => resolve({ source: img, width: img.naturalWidth || img.width, height: img.naturalHeight || img.height }); img.onerror = () => reject(new TerrainSurfaceResourceError(`Terrain image failed: ${url}`, { stage, url, assetId: entry.id, family: entry.family, preferredApi: 'HTMLImageElement.onload', cause: 'image error event', capabilities })); img.src = url; }), timeoutAfter(RESOURCE_TIMEOUT_MS, `Image ${entry.id}`).catch(error => { if (error instanceof TerrainSurfaceResourceError)
+-            throw error; throw new TerrainSurfaceResourceError(`Terrain image timeout: ${url}`, { stage: 'timeout', url, assetId: entry.id, family: entry.family, preferredApi: 'HTMLImageElement.onload', cause: errorText(error), capabilities }); })]);
++export async function imageFromUrl(url, entry, stage, capabilities, timeoutMs = RESOURCE_TIMEOUT_MS) {
++    return await new Promise((resolve, reject) => {
++        const img = new Image();
++        if ('decoding' in img)
++            img.decoding = 'async';
++        let settled = false;
++        const timer = setTimeout(() => { if (settled)
++            return; settled = true; img.onload = null; img.onerror = null; try {
++            img.src = '';
++        }
++        catch { } reject(new TerrainSurfaceResourceError(`Terrain image timeout: ${url}`, { stage: 'timeout', url, assetId: entry.id, family: entry.family, preferredApi: 'HTMLImageElement.onload', cause: `Image ${entry.id} timed out after ${timeoutMs}ms`, capabilities })); }, timeoutMs);
++        const finish = () => { clearTimeout(timer); img.onload = null; img.onerror = null; };
++        img.onload = () => { if (settled)
++            return; settled = true; finish(); resolve({ source: img, width: img.naturalWidth || img.width, height: img.naturalHeight || img.height }); };
++        img.onerror = () => { if (settled)
++            return; settled = true; finish(); reject(new TerrainSurfaceResourceError(`Terrain image failed: ${url}`, { stage, url, assetId: entry.id, family: entry.family, preferredApi: 'HTMLImageElement.onload', cause: 'image error event', capabilities })); };
++        img.src = url;
++    });
+ }
+-async function loadTerrainImage(entry, set, capabilities) {
+-    const url = absAssetUrl(entry, set);
+-    let response;
+-    let blob;
+-    let fetchFailure, bitmapFailure, blobImageFailure;
++export async function fetchTerrainBlobWithAbort(url, entry, capabilities, timeoutMs = RESOURCE_TIMEOUT_MS) {
++    const controller = new AbortController();
++    let timer;
++    let timedOut = false;
+     try {
+-        response = await Promise.race([fetch(url, { cache: 'force-cache' }), timeoutAfter(RESOURCE_TIMEOUT_MS, `Fetch ${entry.id}`)]);
++        timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
++        const response = await fetch(url, { signal: controller.signal });
+         if (!response.ok)
+-            throw new TerrainSurfaceResourceError(`Terrain asset HTTP ${response.status}: ${url}`, { stage: 'http', url, assetId: entry.id, family: entry.family, httpStatus: response.status, preferredApi: 'fetch', capabilities });
+-        blob = await response.blob();
++            throw new TerrainSurfaceResourceError(`Terrain asset HTTP ${response.status}: ${url}`, { stage: 'http', url, assetId: entry.id, family: entry.family, httpStatus: response.status, preferredApi: 'fetch+AbortController', capabilities });
++        return { response, blob: await response.blob() };
+     }
+     catch (error) {
+         if (error instanceof TerrainSurfaceResourceError)
+             throw error;
++        if (timedOut || controller.signal.aborted)
++            throw new TerrainSurfaceResourceError(`Terrain fetch timeout: ${url}`, { stage: 'timeout', url, assetId: entry.id, family: entry.family, preferredApi: 'fetch+AbortController', cause: `Fetch ${entry.id} timed out after ${timeoutMs}ms and was aborted`, capabilities });
++        throw new TerrainSurfaceResourceError(`Terrain fetch failed: ${url}`, { stage: 'fetch', url, assetId: entry.id, family: entry.family, preferredApi: 'fetch+AbortController', cause: errorText(error), capabilities });
++    }
++    finally {
++        if (timer !== undefined)
++            clearTimeout(timer);
++    }
++}
++export async function loadTerrainImage(entry, set, capabilities) {
++    const url = absAssetUrl(entry, set);
++    let directFailure, fetchFailure, bitmapFailure, blobImageFailure;
++    let response, blob;
++    try {
++        return await imageFromUrl(url, entry, 'direct-image-load', capabilities);
++    }
++    catch (error) {
++        directFailure = error;
++        console.warn('EASTFRONT terrain direct image fallback', entry.id, url, error);
++    }
++    try {
++        const result = await fetchTerrainBlobWithAbort(url, entry, capabilities);
++        response = result.response;
++        blob = result.blob;
++    }
++    catch (error) {
+         fetchFailure = error;
+     }
+     if (blob && capabilities.createImageBitmap) {
+@@ -75,16 +115,14 @@
+                 URL.revokeObjectURL(objectUrl);
+         }
+     }
+-    try {
+-        return await imageFromUrl(url, entry, 'direct-image-load', capabilities);
+-    }
+-    catch (error) {
+-        const causes = [fetchFailure ? `fetch=${errorText(fetchFailure)}` : '', bitmapFailure ? `createImageBitmap=${errorText(bitmapFailure)}` : '', blobImageFailure ? `blobImage=${errorText(blobImageFailure)}` : '', `directImage=${errorText(error)}`].filter(Boolean).join('; ');
+-        const details = { stage: fetchFailure ? 'fetch' : 'direct-image-load', url, assetId: entry.id, family: entry.family, preferredApi: capabilities.createImageBitmap ? 'fetch→createImageBitmap→HTMLImageElement(blob)→HTMLImageElement(url)' : 'fetch→HTMLImageElement(blob)→HTMLImageElement(url)', cause: causes, capabilities };
+-        if (response)
+-            details.httpStatus = response.status;
+-        throw new TerrainSurfaceResourceError(`All terrain image decode/load paths failed: ${url}`, details);
+-    }
++    const causes = [`directImage=${errorText(directFailure)}`, fetchFailure ? `fetch=${errorText(fetchFailure)}` : '', bitmapFailure ? `createImageBitmap=${errorText(bitmapFailure)}` : '', blobImageFailure ? `blobImage=${errorText(blobImageFailure)}` : ''].filter(Boolean).join('; ');
++    const fetchDetails = fetchFailure instanceof TerrainSurfaceResourceError ? fetchFailure.details : undefined;
++    const details = { stage: fetchDetails?.stage ?? 'direct-image-load', url, assetId: entry.id, family: entry.family, preferredApi: capabilities.createImageBitmap ? 'HTMLImageElement(url)→fetch+AbortController→createImageBitmap→HTMLImageElement(blob)' : 'HTMLImageElement(url)→fetch+AbortController→HTMLImageElement(blob)', cause: causes, capabilities };
++    if (fetchDetails?.httpStatus !== undefined)
++        details.httpStatus = fetchDetails.httpStatus;
++    else if (response)
++        details.httpStatus = response.status;
++    throw new TerrainSurfaceResourceError(`All terrain image load/decode paths failed: ${url}`, details);
+ }
+ function createImageCache(set) {
+     const cache = new Map(), resolved = new Map(), urls = new Set(), capabilities = terrainSurfaceCapabilities();
+PATCH
+          git apply /tmp/d2.patch
+          sed -i "s/UI-009R2D1/UI-009R2D2/" app/web/preview.js
+          rm .github/workflows/ui009r2d2-deploy.yml
+          git add -A
+          tree=$(git write-tree)
+          echo "tree=$tree"
+          test "$tree" = "97ea7f66f48b09de390013ddf349fde68ff37219"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "UI-009R2D2 fix mobile terrain request lifecycle"
+          git push origin HEAD:ui009r2d2-deploy
