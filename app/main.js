@@ -1,0 +1,297 @@
+import { coreHexKey, isDeploymentPhase } from './core-adapter/core.js';
+import { createLocalGameSession, loadProductionMapFromUrl } from './core-adapter/session.js';
+import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitLosses, commitMoveDraft, commitRailRepair, commitRetreat, commitSchwerpunkt, confirmPrivacyGate, declareAttack, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, extendRetreatDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, selectAttackTarget, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectRetreater, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, undoRetreatStep, useDefenderArtillery, } from './interaction/intents.js';
+import { deriveBrowserRenderModel } from './render/coreModel.js';
+import { coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
+import { selectTerrainLod } from './render/terrainAssets.js';
+import { HEX_SIZE } from './geometry/hex.js';
+import { createPresentationState } from './state/presentation.js';
+import { clampZoom, createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, zoomViewport } from './web/preview.js';
+const rootElement = document.querySelector('#app');
+if (!rootElement)
+    throw new Error('#app missing');
+const root = rootElement;
+const query = new URLSearchParams(location.search);
+const developerUi = productionDeveloperUiAllowed(location.hostname, location.search);
+let presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches);
+let session = null;
+let productionMap = null;
+let appStatus = 'LOADING';
+let fatalMessage = '';
+let mapViewport = defaultMapViewport();
+function esc(value) { return value.replace(/[&<>\"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[char] ?? char)); }
+function parseHex(value) { const [q, r] = value.split(',').map(Number); return { q: q, r: r }; }
+function sideLabel(side) { return side === 'GERMAN' ? 'German Side' : 'Soviet Side'; }
+function phaseLabel(phase) { return phase.replaceAll('_', ' '); }
+function issueHtml(issues) { return issues.length ? `<div class="issue-list">${issues.map((issue) => `<span>${esc(issue.code)} · ${esc(issue.message)}</span>`).join('')}</div>` : '<div class="issue-list"><span>Core preview: legal</span></div>'; }
+function bindKeyboardActivation(element, action) { element.addEventListener('keydown', (event) => { const e = event; if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    action();
+} }); }
+function lastActionPanel(current) {
+    const result = current.lastResult;
+    const validation = result?.issues.map((issue) => issue.code).join(', ') || '—';
+    const events = result?.events.map((event) => event.type).join(', ') || '—';
+    const integrity = current.integrityIssues.length === 0 ? 'PASS' : current.integrityIssues.map((issue) => issue.code).join(', ');
+    return `<section class="panel-block integration-debug"><span class="eyebrow">CORE ACTION DEBUG</span><div><span>Last action</span><strong>${result ? esc(result.action.type) : '—'}</strong></div><div><span>Accepted</span><strong>${result ? String(result.accepted) : '—'}</strong></div><div><span>Action ID</span><strong>${result ? esc(result.actionId) : '—'}</strong></div><div><span>Validation</span><strong>${esc(validation)}</strong></div><div><span>Events</span><strong>${esc(events)}</strong></div><div><span>Integrity</span><strong class="${current.integrityIssues.length === 0 ? 'ok' : 'bad'}">${esc(integrity)}</strong></div></section>`;
+}
+function selectedSummary(model) { const unit = model.selectedCounter; if (!unit)
+    return '<p>Tap a visible counter to inspect it.</p>'; return `<strong>${esc(unit.id)}</strong><span>${unit.side} · ${unit.type}${unit.entrenched ? ' · ENTRENCHED' : ''}</span><span>${unit.stats.attack}-${unit.stats.defense}-${unit.stats.movement} · Step ${unit.step} · ${unit.supplyState}</span><span>Hex ${coreHexKey(unit.hex)}</span>`; }
+function deploymentPanel(model) { const deployment = model.deployment; if (!deployment)
+    return ''; const active = model.activeSide === model.viewerSide; const selected = presentation.selectedDeploymentUnitId; const rows = deployment.roster.map((row) => `<button type="button" class="roster-row ${row.placed ? 'placed' : 'unplaced'} ${selected === row.id ? 'selected' : ''}" data-deploy-unit-id="${esc(row.id)}" ${active ? '' : 'disabled'}><span>${esc(row.id)}</span><small>${row.type} · ${row.stats.attack}-${row.stats.defense}-${row.stats.movement}</small><b>${row.placed ? 'ON MAP' : 'RESERVE'}</b></button>`).join(''); return `<section class="panel-block deployment-panel"><span class="eyebrow">${sideLabel(model.viewerSide).toUpperCase()} DEPLOYMENT</span><div class="deployment-progress"><strong>${deployment.deployed}/${deployment.total}</strong><span>${deployment.complete ? 'Complete' : 'Place all units'}</span></div><div class="roster-list">${rows}</div><button id="ready-button" class="primary-action" type="button" ${active ? '' : 'disabled'}>READY</button>${!active ? '<p class="privacy-note">Viewer is not the active deployment side. Enemy setup remains hidden by the Core projection.</p>' : ''}</section>`; }
+function modifierHtml(mods) { return ''; }
+function combatContextHtml(context, label) {
+    const m = context.modifiers;
+    const rows = [['Terrain', m.terrainShift], ['River', m.riverShift], ['Engineer', m.engineerShift], ['Combined Arms', m.combinedArmsShift], ['Armor penalty', m.unsupportedArmorShift], ['AT', m.antiTankShift], ['Attacker Artillery', m.attackerArtilleryShift], ['Defender Artillery', m.defenderArtilleryShift], ['Flank', m.flankShift], ['Entrenchment', m.entrenchmentShift], ['HQ', m.hqShift], ['Second attack', m.secondAttackShift]].filter(([, v]) => v !== 0);
+    return `<div class="combat-card"><h3>${label}</h3><div class="combat-grid"><span>Attack</span><strong>${context.attackStrength}</strong><span>Defense</span><strong>${context.defenseStrength}</strong><span>Base odds</span><strong>${esc(context.baseOdds)}</strong><span>Base column</span><strong>${context.baseCRTColumn}</strong><span>Final shift</span><strong>${context.finalShift}</strong><span>Final CRT</span><strong>${esc(context.finalCRTColumnLabel)}</strong></div>${rows.length ? `<div class="modifier-list">${rows.map(([k, v]) => `<span>${k}</span><strong>${Number(v) > 0 ? '+' : ''}${v}</strong>`).join('')}<span>Raw / capped</span><strong>${m.rawShift} / ${m.cappedShift}</strong></div>` : ''}</div>`;
+}
+function battleHistoryHtml(model) { const h = model.combat?.history ?? []; return h.length ? `<section class="panel-block battle-history"><span class="eyebrow">BATTLE HISTORY</span>${h.map((b) => `<div class="battle-history-row"><span>${esc(b.battleId)}${b.sourceBattleId ? ` ← ${esc(b.sourceBattleId)}` : ''}<br>${b.attackerSide}→${b.defenderSide} @ ${coreHexKey(b.target)}</span><strong>${b.crtResult ?? b.stage}</strong></div>`).join('')}</section>` : ''; }
+function combatPanel(model) {
+    const c = model.combat;
+    if (!c)
+        return '';
+    const pending = c.pending, tx = c.battle;
+    if (!pending) {
+        const a = c.attackDraft;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">COMBAT · ATTACK MODE</span><p>Select a controlled direct attacker, add/remove it from the draft, then choose a highlighted adjacent enemy Hex.</p>${model.selectedCounter ? `<button id="attack-toggle-selected" class="secondary-action">${a.attackerUnitIds.includes(model.selectedCounter.id) ? 'REMOVE' : 'ADD'} ${esc(model.selectedCounter.id)}</button>` : ''}<div class="combat-unit-list">${a.attackerUnitIds.map((id) => `<span class="phase-pill">${esc(id)}</span>`).join('') || '<span>No attackers selected</span>'}</div><div class="phase-metric"><span>Target</span><strong>${a.target ? coreHexKey(a.target) : '—'}</strong></div>${a.target ? `<div class="button-row"><button id="attack-art-none" class="mini-button ${!a.selectedArtilleryId ? 'active' : ''}">No Artillery</button>${a.artilleryUnitIds.map((id) => `<button class="mini-button ${a.selectedArtilleryId === id ? 'active' : ''}" data-attack-artillery="${esc(id)}">${esc(id)}</button>`).join('')}</div>` : ''}${a.preview ? combatContextHtml(a.preview, 'PRE-REACTION PREVIEW') : issueHtml(a.issues)}<div class="button-row"><button id="attack-clear" class="secondary-action">CLEAR</button><button id="attack-declare" class="secondary-action">DECLARE ATTACK</button></div><button id="ready-button" class="primary-action">READY / END COMBAT</button></section>${battleHistoryHtml(model)}`;
+    }
+    const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">COMBAT TRANSACTION · ${pending.kind}</span><div class="phase-metric"><span>Battle</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>Decision owner</span><strong>${esc(pending.decisionOwnerControllerId)}</strong></div>`;
+    let body = '';
+    if (pending.kind === 'DEFENDER_REACTION') {
+        body = `<p>Defender reaction window. Choose eligible defensive artillery or pass to resolve Core dice/CRT.</p><div class="combat-unit-list">${pending.eligibleArtilleryUnitIds.map((id) => `<button class="mini-button" data-defender-artillery="${esc(id)}">ART ${esc(id)}</button>`).join('') || '<span>No eligible defensive artillery.</span>'}</div><button id="pass-reaction" class="secondary-action">PASS REACTION / RESOLVE</button>`;
+    }
+    else if (pending.kind === 'LOSS_ALLOCATION' && c.loss) {
+        body = `<p>Allocate ${c.loss.steps} loss step(s). Draft is presentation-only until commit.</p><div class="combat-unit-list">${c.loss.eligibleUnitIds.map((id) => `<button class="mini-button" data-loss-unit="${esc(id)}">${esc(id)} · cap ${c.loss.capacityByUnitId[id] ?? 0}</button>`).join('')}</div><div class="loss-draft">${c.loss.draft.join(' → ') || 'No drafted losses'}</div><div class="button-row"><button id="loss-undo" class="secondary-action">UNDO</button><button id="loss-clear" class="secondary-action">CLEAR</button></div><button id="loss-commit" class="secondary-action">COMMIT LOSSES</button>`;
+    }
+    else if (pending.kind === 'RETREAT' && c.retreat) {
+        body = `<p>Required retreat: ${c.retreat.steps} step(s). Resolve units in an explicit order.</p><div class="combat-unit-list">${c.retreat.unitIds.map((id) => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${id}: ${path.map(coreHexKey).join('→') || '—'}`).join('<br>')}</div><div class="button-row"><button id="retreat-undo" class="secondary-action">UNDO STEP</button><button id="retreat-commit" class="secondary-action">COMMIT RETREAT</button></div>`;
+    }
+    else if (pending.kind === 'ADVANCE_AFTER_COMBAT') {
+        body = `<p>Advance into the vacated combat target, or pass.</p><div class="combat-unit-list">${pending.eligibleUnitIds.map((id) => `<button class="mini-button" data-advance-unit="${esc(id)}">ADVANCE ${esc(id)}</button>`).join('')}</div><button id="pass-advance" class="secondary-action">PASS ADVANCE</button>`;
+    }
+    else if (pending.kind === 'BREAKTHROUGH_OPTION' && c.breakthrough) {
+        body = `<p>Breakthrough path contains only extra Hexes after the original target. Max for selected unit: ${c.breakthrough.maxHexes}.</p><div class="combat-unit-list">${c.breakthrough.eligibleUnitIds.map((id) => `<button class="mini-button ${c.breakthrough.selectedUnitId === id ? 'active' : ''}" data-breakthrough-unit="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${c.breakthrough.path.map(coreHexKey).join(' → ') || 'No extra Hex drafted'}</div><div class="button-row"><button id="breakthrough-undo" class="secondary-action">UNDO</button><button id="breakthrough-commit" class="secondary-action">COMMIT</button></div><button id="pass-breakthrough" class="secondary-action">PASS ALL BREAKTHROUGH</button>`;
+    }
+    else if (pending.kind === 'SCHWERPUNKT_OPTION' && c.schwerpunkt) {
+        body = `<p>Optional German Schwerpunkt second attack. Select adjacent highlighted Soviet target.</p><div class="phase-metric"><span>Target</span><strong>${c.schwerpunkt.target ? coreHexKey(c.schwerpunkt.target) : '—'}</strong></div><div class="combat-unit-list">${c.schwerpunkt.eligibleUnitIds.map((id) => `<button class="mini-button" data-schwerpunkt-unit="${esc(id)}">ATTACK WITH ${esc(id)}</button>`).join('')}</div><button id="pass-schwerpunkt" class="secondary-action">PASS SCHWERPUNKT</button>`;
+    }
+    const resolved = tx?.resolution ? `<div class="combat-card"><h3>RESOLVED CORE CRT</h3><div class="dice-box"><span class="die">${tx.resolution.dice.die1}</span><span class="die">${tx.resolution.dice.die2}</span><strong>= ${tx.resolution.dice.total}</strong></div><div class="combat-grid"><span>CRT</span><strong>${tx.resolution.crtResult}</strong><span>Attacker loss</span><strong>${tx.resolution.attackerLossSteps}</strong><span>Defender loss</span><strong>${tx.resolution.defenderLossSteps}</strong><span>Defender retreat</span><strong>${tx.resolution.defenderRetreatSteps}</strong></div></div>` : '';
+    const context = tx?.context ? combatContextHtml(tx.context, 'RESOLVED COMBAT CONTEXT') : '';
+    return header + body + resolved + context + '</section>' + battleHistoryHtml(model);
+}
+function phasePanel(model) {
+    if (model.deployment)
+        return '';
+    const ready = `<button id="ready-button" class="primary-action" type="button">READY / END PHASE</button>`;
+    if (model.phase === 'GERMAN_SUPPLY_RAIL' && model.railRepair) {
+        const r = model.railRepair;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">GERMAN SUPPLY / RAIL</span><p>Optional Rail Repair uses real Core railway edges. Ready skips repair.</p><div class="phase-metric"><span>Plan</span><strong>${r.selectedEdgeKeys.length} edges</strong></div><div class="phase-metric"><span>Repair used</span><strong>${r.alreadyUsed ? 'YES' : 'NO'}</strong></div><button id="rail-mode" class="secondary-action ${presentation.interactionMode === 'RAIL_REPAIR' ? 'active' : ''}">RAIL REPAIR MODE</button><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId ? 'active' : ''}">No Engineer</button>${r.engineers.map((eng) => `<button class="mini-button ${eng.selected ? 'active' : ''}" data-rail-engineer="${esc(eng.id)}">${esc(eng.id)}</button>`).join('')}</div>${issueHtml(r.issues)}<div class="button-row"><button id="rail-clear" class="secondary-action">CLEAR PLAN</button><button id="rail-commit" class="secondary-action">COMMIT REPAIR</button></div>${ready}</section>`;
+    }
+    if ((model.phase === 'GERMAN_MOVEMENT' || model.phase === 'SOVIET_MOVEMENT')) {
+        const m = model.movement;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">MOVEMENT</span><p>Select a controlled unit, then tap adjacent Hexes to draft a path. The Counter stays put until Core accepts Commit Move.</p>${m ? `<div class="phase-metric"><span>Path</span><strong>${m.path.length} steps</strong></div><div class="phase-metric"><span>MP</span><strong>${m.spentMP}/${m.maxMP}</strong></div>${issueHtml(m.issues)}<div class="button-row"><button id="move-undo" class="secondary-action">UNDO STEP</button><button id="move-cancel" class="secondary-action">CANCEL PATH</button></div><button id="move-commit" class="secondary-action">COMMIT MOVE</button>` : '<p>Select one of your units to begin.</p>'}${ready}</section>`;
+    }
+    if (model.phase === 'GERMAN_COMBAT' || model.phase === 'SOVIET_COMBAT')
+        return combatPanel(model);
+    if (model.phase === 'SOVIET_REINFORCEMENT_SUPPLY' && model.reinforcement) {
+        const r = model.reinforcement;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">SOVIET REINFORCEMENT / SUPPLY</span><div class="phase-metric"><span>Available</span><strong>${r.available.length}</strong></div><div class="phase-metric"><span>Delayed</span><strong>${r.delayed.length}</strong></div>${r.deployable ? '<p class="warning-note">Deployable reinforcement remains. Core will reject Ready until it is handled.</p>' : ''}<div class="reinforcement-list">${r.available.map((row) => `<button class="reinforcement-row ${r.selectedId === row.id ? 'selected' : ''}" data-reinforcement-id="${esc(row.id)}"><span>${esc(row.id)} · ${row.type}</span><b>T${row.scheduledTurn}</b><small>${row.delayed ? 'DELAYED · ' : ''}${row.stats ? `${row.stats.attack}-${row.stats.defense}-${row.stats.movement}` : row.resolution}</small></button>`).join('') || '<p>No available reinforcements.</p>'}</div><p>${r.selectedId ? 'Tap a highlighted East Rail Exit to deploy the selected reinforcement.' : 'Select a reinforcement to deploy.'}</p>${ready}</section>`;
+    }
+    if ((model.phase === 'GERMAN_RECOVERY' || model.phase === 'SOVIET_RECOVERY') && model.recovery) {
+        const r = model.recovery;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">RECOVERY</span><div class="phase-metric"><span>Recovered</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>Side RP</span><strong>${model.rp[model.activeSide]}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>Selected cost</span><strong>${r.selectedCost ?? '—'} RP</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">RECOVER 1 STEP</button>` : '<p>Select a damaged controlled unit. Recovery bases are softly outlined on the map.</p>'}${ready}</section>`;
+    }
+    if ((model.phase === 'GERMAN_ENTRENCHMENT' || model.phase === 'SOVIET_ENTRENCHMENT') && model.entrench) {
+        const e = model.entrench;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">ENTRENCHMENT</span>${model.selectedCounter ? `${issueHtml(e.selectedIssues)}<button id="entrench-unit" class="secondary-action">ENTRENCH UNIT</button>` : '<p>Select a controlled unit to preview Entrench legality.</p>'}${ready}</section>`;
+    }
+    return `<section class="panel-block phase-actions"><span class="eyebrow">PHASE</span><p>${phaseLabel(model.phase)}</p>${ready}</section>`;
+}
+function viewerSwitch(model) { if (!isDeploymentPhase(session.state) || !presentation.debug)
+    return ''; return `<section class="panel-block"><span class="eyebrow">HIDDEN-VIEW REGRESSION</span><p>Development-only viewer switch.</p><div class="viewer-buttons"><button data-view-side="SOVIET" class="mini-button ${model.viewerSide === 'SOVIET' ? 'active' : ''}">Soviet</button><button data-view-side="GERMAN" class="mini-button ${model.viewerSide === 'GERMAN' ? 'active' : ''}">German</button></div></section>`; }
+function privacyGate() { const gate = presentation.privacyGate; if (!gate)
+    return ''; if (gate === 'COMBAT_DECISION') {
+    const owner = session?.state.pendingDecision?.decisionOwnerControllerId ?? '';
+    const side = owner && session?.state.controllers[owner]?.side === 'SOVIET' ? 'Soviet' : 'German';
+    return privacyHandoffMarkup(gate, side);
+} return privacyHandoffMarkup(gate); }
+function gameOver(model) { return gameOverMarkup(model.victory.winner, model.victory.reason, model.turn); }
+function startNewGame() { if (!productionMap) {
+    appStatus = 'FATAL';
+    fatalMessage = 'Production map is unavailable.';
+    render();
+    return;
+} session = createFreshProductionSession(productionMap, 17); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; mapViewport = defaultMapViewport(); appStatus = 'PLAYING'; fatalMessage = ''; render(); }
+function restartGame() { if (window.confirm('Start a new game?\nCurrent progress will be lost.'))
+    startNewGame(); }
+function clampPan(wrap) { const maxX = wrap.clientWidth * (mapViewport.zoom - 1) / 2, maxY = wrap.clientHeight * (mapViewport.zoom - 1) / 2; mapViewport.panX = Math.max(-maxX, Math.min(maxX, mapViewport.panX)); mapViewport.panY = Math.max(-maxY, Math.min(maxY, mapViewport.panY)); }
+function applyMapViewport() { const wrap = document.querySelector('#map-wrap'), svg = document.querySelector('#eastfront-map'); if (!wrap || !svg)
+    return; clampPan(wrap); svg.style.transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`; svg.style.transformOrigin = '50% 50%'; wrap.dataset.zoom = mapViewport.zoom.toFixed(2); const readout = document.querySelector('#zoom-readout'); if (readout)
+    readout.textContent = `${Math.round(mapViewport.zoom * 100)}%`; }
+function bindMapViewport() { const wrap = document.querySelector('#map-wrap'); if (!wrap)
+    return; applyMapViewport(); let gesture = null; let suppressClick = false; wrap.addEventListener('pointerdown', (event) => { const e = event; if (e.button !== 0)
+    return; gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, startX: mapViewport.panX, startY: mapViewport.panY, moved: false }; wrap.setPointerCapture?.(e.pointerId); }); wrap.addEventListener('pointermove', (event) => { const e = event; if (!gesture || gesture.id !== e.pointerId)
+    return; const dx = e.clientX - gesture.x, dy = e.clientY - gesture.y; if (Math.hypot(dx, dy) > 5)
+    gesture.moved = true; if (!gesture.moved)
+    return; mapViewport.panX = gesture.startX + dx; mapViewport.panY = gesture.startY + dy; clampPan(wrap); applyMapViewport(); e.preventDefault(); }); const finish = (event) => { if (!gesture || gesture.id !== event.pointerId)
+    return; suppressClick = gesture.moved; gesture = null; }; wrap.addEventListener('pointerup', (e) => finish(e)); wrap.addEventListener('pointercancel', (e) => finish(e)); wrap.addEventListener('click', (event) => { if (suppressClick) {
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClick = false;
+} }, true); wrap.addEventListener('wheel', (event) => { const e = event; e.preventDefault(); mapViewport = zoomViewport(mapViewport, e.deltaY < 0 ? .15 : -.15); render(); }, { passive: false }); }
+function render() {
+    const profile = responsiveProfile(window.innerWidth, window.innerHeight);
+    if (appStatus === 'LOADING') {
+        root.innerHTML = loadingMarkup();
+        return;
+    }
+    if (appStatus === 'FATAL') {
+        root.innerHTML = fatalMarkup(fatalMessage || 'Required production resources could not be initialized.');
+        bind();
+        return;
+    }
+    if (appStatus === 'HOME') {
+        root.innerHTML = homeMarkup(profile);
+        bind();
+        return;
+    }
+    if (!session) {
+        appStatus = 'FATAL';
+        fatalMessage = 'No active production session.';
+        root.innerHTML = fatalMarkup(fatalMessage);
+        bind();
+        return;
+    }
+    if (presentation.privacyGate) {
+        root.innerHTML = mobileAdvisoryMarkup(profile) + privacyGate();
+        bind();
+        return;
+    }
+    const model = deriveBrowserRenderModel(session, presentation);
+    if (model.phase === 'GAME_OVER' || model.victory.winner) {
+        root.innerHTML = mobileAdvisoryMarkup(profile) + gameOver(model);
+        bind();
+        return;
+    }
+    const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip"><span>TURN <strong>${model.turn}</strong></span><span>${model.activeSide}</span><span>${phaseLabel(model.phase)}</span></div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · 20×32 Production Map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="EASTFRONT operational map">${(() => { const vb = viewBoxForHexes(model.hexes); const usableWidth = Math.max(560, window.innerWidth - (presentation.panelCollapsed ? 24 : 280)); const screenHexWidth = usableWidth * ((Math.sqrt(3) * HEX_SIZE) / vb.width) * mapViewport.zoom; const lod = selectTerrainLod(screenHexWidth); return coreSvgMarkup(model, { debug: developerUi && presentation.debug, rendererMode: developerUi ? presentation.rendererMode : 'production', assetSet: 'p5', lod, scenarioSeed: session.state.random.seed }); })()}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}"><section class="panel-block selection-block"><span class="eyebrow">SELECTED UNIT</span>${selectedSummary(model)}</section>${presentation.message ? `<section class="panel-block status-message"><span class="eyebrow">CORE RESULT</span><p>${esc(presentation.message)}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</aside></main><footer><span>Core v0.2.25 frozen · Geometry locked</span><span>EASTFRONT Web Preview · Build UI-008</span></footer>`;
+    bind();
+}
+function bind() {
+    document.querySelector('#new-game-button')?.addEventListener('click', () => startNewGame());
+    document.querySelector('#reload-button')?.addEventListener('click', () => location.reload());
+    if (!session)
+        return;
+    document.querySelector('#privacy-confirm')?.addEventListener('click', () => { confirmPrivacyGate(session, presentation); render(); });
+    document.querySelector('#restart-button')?.addEventListener('click', () => restartGame());
+    document.querySelector('#renderer-toggle')?.addEventListener('click', () => { presentation.rendererMode = presentation.rendererMode === 'production' ? 'prototype' : 'production'; render(); });
+    document.querySelector('#debug-toggle')?.addEventListener('click', () => { presentation.debug = !presentation.debug; render(); });
+    document.querySelector('#panel-toggle')?.addEventListener('click', () => { presentation.panelCollapsed = !presentation.panelCollapsed; render(); });
+    document.querySelector('#zoom-out')?.addEventListener('click', () => { mapViewport = zoomViewport(mapViewport, -.2); render(); });
+    document.querySelector('#zoom-in')?.addEventListener('click', () => { mapViewport = zoomViewport(mapViewport, .2); render(); });
+    document.querySelector('#zoom-reset')?.addEventListener('click', () => { mapViewport = defaultMapViewport(); render(); });
+    document.querySelector('#ready-button')?.addEventListener('click', () => { readyForPhase(session, presentation); render(); });
+    bindMapViewport();
+    document.querySelector('#rail-mode')?.addEventListener('click', () => { enterRailRepairMode(presentation); render(); });
+    document.querySelector('#rail-clear')?.addEventListener('click', () => { cancelRailRepair(presentation); render(); });
+    document.querySelector('#rail-commit')?.addEventListener('click', () => { commitRailRepair(session, presentation); render(); });
+    document.querySelector('#rail-no-engineer')?.addEventListener('click', () => { selectRailEngineer(presentation, null); render(); });
+    document.querySelectorAll('[data-rail-engineer]').forEach((el) => el.addEventListener('click', () => { selectRailEngineer(presentation, el.dataset.railEngineer ?? null); render(); }));
+    document.querySelector('#move-undo')?.addEventListener('click', () => { undoMoveDraft(presentation); render(); });
+    document.querySelector('#move-cancel')?.addEventListener('click', () => { cancelMoveDraft(presentation); render(); });
+    document.querySelector('#move-commit')?.addEventListener('click', () => { commitMoveDraft(session, presentation); render(); });
+    document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
+    document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
+    document.querySelectorAll('[data-deploy-unit-id]').forEach((element) => { const id = element.dataset.deployUnitId; if (!id)
+        return; const action = () => { selectDeploymentRosterUnit(presentation, id); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id)
+        return; const action = () => { selectCounter(session, presentation, id); render(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id)
+        return; element.addEventListener('click', (event) => { event.stopPropagation(); selectCounter(session, presentation, id); render(); }); });
+    document.querySelectorAll('[data-role="deployment-hex"]').forEach((element) => { const key = element.dataset.hex; if (!key)
+        return; const action = () => { deploySelectedUnit(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key)
+        return; const action = () => { extendMoveDraft(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-role="rail-repair-edge"]').forEach((element) => { const key = element.dataset.edgeKey; if (!key)
+        return; const action = () => { if (presentation.interactionMode !== 'RAIL_REPAIR')
+        enterRailRepairMode(presentation); toggleRailRepairEdge(session, presentation, key); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-reinforcement-id]').forEach((element) => { const id = element.dataset.reinforcementId; if (!id)
+        return; element.addEventListener('click', () => { selectReinforcement(presentation, id); render(); }); });
+    document.querySelectorAll('[data-role="reinforcement-entry"]').forEach((element) => { const key = element.dataset.hex; if (!key)
+        return; const action = () => { deploySelectedReinforcement(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelector('#attack-toggle-selected')?.addEventListener('click', () => { if (presentation.selectedUnitId)
+        toggleAttackUnit(session, presentation, presentation.selectedUnitId); render(); });
+    document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); render(); });
+    document.querySelector('#attack-declare')?.addEventListener('click', () => { declareAttack(session, presentation); render(); });
+    document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); render(); });
+    document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); render(); }));
+    document.querySelectorAll('[data-role="attack-target"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
+        selectAttackTarget(presentation, parseHex(key));
+        render();
+    } }));
+    document.querySelector('#pass-reaction')?.addEventListener('click', () => { passCombatReaction(session, presentation); render(); });
+    document.querySelectorAll('[data-defender-artillery]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.defenderArtillery; if (id) {
+        useDefenderArtillery(session, presentation, id);
+        render();
+    } }));
+    document.querySelectorAll('[data-loss-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.lossUnit; if (id) {
+        appendLossDraft(session, presentation, id);
+        render();
+    } }));
+    document.querySelector('#loss-undo')?.addEventListener('click', () => { undoLossDraft(presentation); render(); });
+    document.querySelector('#loss-clear')?.addEventListener('click', () => { clearLossDraft(presentation); render(); });
+    document.querySelector('#loss-commit')?.addEventListener('click', () => { commitLosses(session, presentation); render(); });
+    document.querySelectorAll('[data-retreater]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.retreater; if (id) {
+        selectRetreater(presentation, id);
+        render();
+    } }));
+    document.querySelectorAll('[data-role="retreat-option"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
+        extendRetreatDraft(session, presentation, parseHex(key));
+        render();
+    } }));
+    document.querySelector('#retreat-undo')?.addEventListener('click', () => { undoRetreatStep(presentation); render(); });
+    document.querySelector('#retreat-commit')?.addEventListener('click', () => { commitRetreat(session, presentation); render(); });
+    document.querySelectorAll('[data-advance-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.advanceUnit; if (id) {
+        advanceAfterCombat(session, presentation, id);
+        render();
+    } }));
+    document.querySelector('#pass-advance')?.addEventListener('click', () => { passAdvance(session, presentation); render(); });
+    document.querySelectorAll('[data-breakthrough-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.breakthroughUnit; if (id) {
+        selectBreakthroughUnit(presentation, id);
+        render();
+    } }));
+    document.querySelectorAll('[data-role="breakthrough-option"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
+        extendBreakthroughDraft(session, presentation, parseHex(key));
+        render();
+    } }));
+    document.querySelector('#breakthrough-undo')?.addEventListener('click', () => { undoBreakthroughDraft(presentation); render(); });
+    document.querySelector('#breakthrough-commit')?.addEventListener('click', () => { commitBreakthrough(session, presentation); render(); });
+    document.querySelector('#pass-breakthrough')?.addEventListener('click', () => { passBreakthrough(session, presentation); render(); });
+    document.querySelectorAll('[data-role="schwerpunkt-target"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
+        selectSchwerpunktTarget(presentation, parseHex(key));
+        render();
+    } }));
+    document.querySelectorAll('[data-schwerpunkt-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.schwerpunktUnit; if (id) {
+        commitSchwerpunkt(session, presentation, id);
+        render();
+    } }));
+    document.querySelector('#pass-schwerpunkt')?.addEventListener('click', () => { passSchwerpunkt(session, presentation); render(); });
+    document.querySelectorAll('[data-view-side]').forEach((element) => { const side = element.dataset.viewSide; if (!side)
+        return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
+}
+async function boot() { appStatus = 'LOADING'; render(); try {
+    const [map] = await Promise.all([loadProductionMapFromUrl(), loadProductionRuntimeManifest()]);
+    productionMap = map;
+    appStatus = 'HOME';
+    session = null;
+    render();
+}
+catch (error) {
+    console.error('EASTFRONT startup failed', error);
+    appStatus = 'FATAL';
+    fatalMessage = 'Required production resources could not be loaded.';
+    render();
+} }
+window.addEventListener('resize', () => { if (appStatus === 'HOME' || appStatus === 'PLAYING')
+    render(); });
+void boot();
