@@ -8,9 +8,10 @@ function imageTransform(entry, c, seed, salt = '') {
     return `translate(${p.x} ${p.y}) rotate(${rot}) scale(${mirror} 1) translate(${-p.x} ${-p.y})`;
 }
 export function terrainAssetTransform(entry, c, seed, salt = '') { return imageTransform(entry, c, seed, salt); }
+function svgImageHref(url) { return `href="${url}" xlink:href="${url}"`; }
 function image(entry, c, size, seed, assetSet, opacity = 1, extra = '', salt = '') {
     const p = hexToPixel(c);
-    return `<image href="${assetUrl(entry, assetSet)}" x="${p.x - size / 2}" y="${p.y - size / 2}" width="${size}" height="${size}" preserveAspectRatio="xMidYMid slice" opacity="${opacity}" transform="${imageTransform(entry, c, seed, salt)}" data-asset-id="${entry.id}" data-family="${entry.family}" ${extra}/>`;
+    return `<image ${svgImageHref(assetUrl(entry, assetSet))} x="${p.x - size / 2}" y="${p.y - size / 2}" width="${size}" height="${size}" preserveAspectRatio="xMidYMid slice" opacity="${opacity}" transform="${imageTransform(entry, c, seed, salt)}" data-asset-id="${entry.id}" data-family="${entry.family}" ${extra}/>`;
 }
 function clipId(c) { return `prod-clip-${c.q}-${c.r}`.replaceAll('-', 'n'); }
 function hillMaskId(c) { return `prod-hill-mask-${c.q}-${c.r}`.replaceAll('-', 'n'); }
@@ -100,7 +101,7 @@ function renderGlobalSubstrate(model, seed, assetSet) {
     const pts = model.hexes.flatMap(h => hexPolygon(h.coord));
     const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
     const minX = Math.min(...xs) - HEX_SIZE, maxX = Math.max(...xs) + HEX_SIZE, minY = Math.min(...ys) - HEX_SIZE, maxY = Math.max(...ys) + HEX_SIZE;
-    return `<defs><pattern id="prod-ground-pattern" patternUnits="userSpaceOnUse" width="220" height="220" patternTransform="translate(${seed % 97} ${seed % 71}) rotate(${(seed % 4) * 90})"><image href="${assetUrl(chosen, assetSet)}" x="0" y="0" width="220" height="220" preserveAspectRatio="xMidYMid slice"/></pattern></defs><rect x="${minX}" y="${minY}" width="${maxX - minX}" height="${maxY - minY}" fill="url(#prod-ground-pattern)" class="prod-ground-substrate"/>`;
+    return `<defs><pattern id="prod-ground-pattern" patternUnits="userSpaceOnUse" width="220" height="220" patternTransform="translate(${seed % 97} ${seed % 71}) rotate(${(seed % 4) * 90})"><image ${svgImageHref(assetUrl(chosen, assetSet))} x="0" y="0" width="220" height="220" preserveAspectRatio="xMidYMid slice"/></pattern></defs><rect x="${minX}" y="${minY}" width="${maxX - minX}" height="${maxY - minY}" fill="url(#prod-ground-pattern)" class="prod-ground-substrate"/>`;
 }
 function renderPlain(c, seed, lod, assetSet) {
     let layers = '';
@@ -144,7 +145,7 @@ function renderHill(c, seed, lod, assetSet) {
     if (material)
         layers += image(material, c, HEX_SIZE * 2.38, seed, assetSet, lod === 'far' ? .62 : .9, '', 'hill-material');
     const p = hexToPixel(c), size = HEX_SIZE * 2.38, mask = hillMaskId(c), t = imageTransform(e, c, seed, 'hill-height-mask');
-    layers += `<defs><mask id="${mask}" maskUnits="userSpaceOnUse" x="${p.x - size / 2}" y="${p.y - size / 2}" width="${size}" height="${size}"><image href="${assetUrl(e, assetSet)}" x="${p.x - size / 2}" y="${p.y - size / 2}" width="${size}" height="${size}" preserveAspectRatio="xMidYMid slice" transform="${t}" data-role="hill-height-mask"/></mask></defs>`;
+    layers += `<defs><mask id="${mask}" maskUnits="userSpaceOnUse" x="${p.x - size / 2}" y="${p.y - size / 2}" width="${size}" height="${size}"><image ${svgImageHref(assetUrl(e, assetSet))} x="${p.x - size / 2}" y="${p.y - size / 2}" width="${size}" height="${size}" preserveAspectRatio="xMidYMid slice" transform="${t}" data-role="hill-height-mask"/></mask></defs>`;
     layers += `<polygon points="${polygonPointsString(c)}" fill="#efe6bd" opacity="${lod === 'far' ? .12 : .20}" mask="url(#${mask})" transform="translate(-2 -2)" data-role="hill-nw-light"/>`;
     return layers;
 }
@@ -221,9 +222,9 @@ function renderHexTerrain(model, hex, seed, lod, assetSet) {
             break;
     }
     const baseOpacity = hex.terrain === 'PLAIN' ? .15 : hex.terrain === 'HILL' || hex.terrain === 'ROUGH' ? .22 : .1;
-    return `<g data-hex="${key}" class="production-terrain-cell terrain-${hex.terrain.toLowerCase().replace('_', '-')}"><defs><clipPath id="${clip}"><polygon points="${polygonPointsString(c)}"/></clipPath></defs><polygon points="${polygonPointsString(c)}" fill="${terrainBaseFill(hex.terrain)}" opacity="${baseOpacity}"/><g clip-path="url(#${clip})">${layers}</g></g>`;
+    return `<g data-hex="${key}" class="production-terrain-cell terrain-${hex.terrain.toLowerCase().replace('_', '-')}"><polygon points="${polygonPointsString(c)}" fill="${terrainBaseFill(hex.terrain)}" opacity="${baseOpacity}"/><g clip-path="url(#${clip})">${layers}</g></g>`;
 }
-function segmentAsset(entry, a, b, height, assetSet, opacity = 1, className = '') { const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy), angle = Math.atan2(dy, dx) * 180 / Math.PI, cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2; return `<image href="${assetUrl(entry, assetSet)}" x="${-len / 2}" y="${-height / 2}" width="${len}" height="${height}" preserveAspectRatio="none" opacity="${opacity}" class="${className}" data-asset-id="${entry.id}" data-family="${entry.family}" transform="translate(${cx} ${cy}) rotate(${angle})"/>`; }
+function segmentAsset(entry, a, b, height, assetSet, opacity = 1, className = '') { const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy), angle = Math.atan2(dy, dx) * 180 / Math.PI, cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2; return `<image ${svgImageHref(assetUrl(entry, assetSet))} x="${-len / 2}" y="${-height / 2}" width="${len}" height="${height}" preserveAspectRatio="none" opacity="${opacity}" class="${className}" data-asset-id="${entry.id}" data-family="${entry.family}" transform="translate(${cx} ${cy}) rotate(${angle})"/>`; }
 function renderProductionInfrastructure(model, seed, lod, assetSet) {
     let out = '';
     for (const edge of model.edges) {
@@ -269,7 +270,7 @@ function renderProductionInfrastructure(model, seed, lod, assetSet) {
             const a = hexToPixel(edge.a), b = hexToPixel(edge.b), cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2, angle = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
             const family = edge.railway?.present ? 'bridge_rail' : 'bridge_road', list = terrainAssetCatalog.byFamily(family), br = list[unorderedEdgeVisualSeed(seed, edge.a, edge.b, 'bridge') % list.length];
             if (br)
-                out += `<image href="${assetUrl(br, assetSet)}" x="-27" y="-14" width="54" height="28" preserveAspectRatio="xMidYMid meet" class="prod-bridge" data-asset-id="${br.id}" transform="translate(${cx} ${cy}) rotate(${angle})"/>`;
+                out += `<image ${svgImageHref(assetUrl(br, assetSet))} x="-27" y="-14" width="54" height="28" preserveAspectRatio="xMidYMid meet" class="prod-bridge" data-asset-id="${br.id}" transform="translate(${cx} ${cy}) rotate(${angle})"/>`;
         }
     }
     return `<g id="production-infrastructure-layer">${out}</g>`;
