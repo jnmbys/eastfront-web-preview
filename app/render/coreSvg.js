@@ -207,12 +207,15 @@ function renderDebug(model) {
     const counters = model.counters.map((counter) => { const group = model.counters.filter((other) => coreHexKey(other.hex) === coreHexKey(counter.hex)).sort((a, b) => a.id.localeCompare(b.id)); const index = group.findIndex((other) => other.id === counter.id); const bounds = deriveCounterBounds(counter, index, group.length); const hit = deriveTouchHitArea(counter); const anchor = hexToPixel(counter.hex); return `<g><rect x="${bounds.x}" y="${bounds.y}" width="${bounds.width}" height="${bounds.height}" class="debug-counter-bounds"/><rect x="${hit.center.x - hit.side / 2}" y="${hit.center.y - hit.side / 2}" width="${hit.side}" height="${hit.side}" class="debug-touch-bounds"/><path d="M${anchor.x - 4} ${anchor.y} H${anchor.x + 4} M${anchor.x} ${anchor.y - 4} V${anchor.y + 4}" class="counter-anchor-debug"/></g>`; }).join('');
     return `<g id="debug-layer">${hexes}${edges}${counters}</g>`;
 }
+export function coreSvgStaticMarkup(model, options) {
+    const mode = options.rendererMode ?? 'prototype', assetSet = options.assetSet ?? 'p5', lod = options.lod ?? 'medium', seed = options.scenarioSeed ?? 17;
+    return mode === 'production' ? renderProductionBase(model, seed, lod, assetSet, options.marshContinuity ?? true) : `<g id="terrain-layer">${renderTerrain(model)}</g>${renderInfrastructure(model)}`;
+}
+export function coreSvgDynamicMarkup(model, options) {
+    return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${renderCounters(model)}${options.debug ? renderDebug(model) : ''}`;
+}
 export function coreSvgMarkup(model, options) {
-    const vb = viewBoxForHexes(model.hexes);
-    const mode = options.rendererMode ?? 'prototype';
-    const assetSet = options.assetSet ?? 'p5';
-    const lod = options.lod ?? 'medium';
-    const seed = options.scenarioSeed ?? 17;
-    const base = mode === 'production' ? renderProductionBase(model, seed, lod, assetSet, options.marshContinuity ?? true) : `<g id="terrain-layer">${renderTerrain(model)}</g>${renderInfrastructure(model)}`;
-    return `<svg id="eastfront-map" data-renderer-mode="${mode}" data-asset-set="${assetSet}" data-lod="${lod}" viewBox="${vb.minX} ${vb.minY} ${vb.width} ${vb.height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Strategic Reset F operational map"><defs><filter id="counterShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-opacity=".33"/></filter><filter id="selectedShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".46"/></filter></defs>${base}${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${renderCounters(model)}${options.debug ? renderDebug(model) : ''}</svg>`;
+    const vb = viewBoxForHexes(model.hexes), mode = options.rendererMode ?? 'prototype', assetSet = options.assetSet ?? 'p5', lod = options.lod ?? 'medium';
+    const staticMarkup = coreSvgStaticMarkup(model, options), dynamicMarkup = coreSvgDynamicMarkup(model, options);
+    return `<svg id="eastfront-map" data-renderer-mode="${mode}" data-asset-set="${assetSet}" data-lod="${lod}" viewBox="${vb.minX} ${vb.minY} ${vb.width} ${vb.height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Strategic Reset F operational map"><defs><filter id="counterShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-opacity=".33"/></filter><filter id="selectedShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".46"/></filter></defs><g id="map-static-layer">${staticMarkup}</g><g id="map-dynamic-layer">${dynamicMarkup}</g></svg>`;
 }

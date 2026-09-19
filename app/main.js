@@ -2,11 +2,12 @@ import { coreHexKey, isDeploymentPhase } from './core-adapter/core.js';
 import { createLocalGameSession, loadProductionMapFromUrl } from './core-adapter/session.js';
 import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitLosses, commitMoveDraft, commitRailRepair, commitRetreat, commitSchwerpunkt, confirmPrivacyGate, declareAttack, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, extendRetreatDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, selectAttackTarget, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectRetreater, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, undoRetreatStep, useDefenderArtillery, } from './interaction/intents.js';
 import { deriveBrowserRenderModel } from './render/coreModel.js';
-import { coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
+import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
 import { selectTerrainLod } from './render/terrainAssets.js';
 import { HEX_SIZE } from './geometry/hex.js';
 import { createPresentationState } from './state/presentation.js';
-import { clampZoom, createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, zoomViewport } from './web/preview.js';
+import { createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, zoomViewport } from './web/preview.js';
+import { beginMapGesture, clampMapViewport, dragSuppressesTap, gesturePanViewport, updateMapGesture } from './web/mapInteraction.js';
 const rootElement = document.querySelector('#app');
 if (!rootElement)
     throw new Error('#app missing');
@@ -124,21 +125,107 @@ function startNewGame() { if (!productionMap) {
 } session = createFreshProductionSession(productionMap, 17); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; mapViewport = defaultMapViewport(); appStatus = 'PLAYING'; fatalMessage = ''; render(); }
 function restartGame() { if (window.confirm('Start a new game?\nCurrent progress will be lost.'))
     startNewGame(); }
-function clampPan(wrap) { const maxX = wrap.clientWidth * (mapViewport.zoom - 1) / 2, maxY = wrap.clientHeight * (mapViewport.zoom - 1) / 2; mapViewport.panX = Math.max(-maxX, Math.min(maxX, mapViewport.panX)); mapViewport.panY = Math.max(-maxY, Math.min(maxY, mapViewport.panY)); }
-function applyMapViewport() { const wrap = document.querySelector('#map-wrap'), svg = document.querySelector('#eastfront-map'); if (!wrap || !svg)
-    return; clampPan(wrap); svg.style.transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`; svg.style.transformOrigin = '50% 50%'; wrap.dataset.zoom = mapViewport.zoom.toFixed(2); const readout = document.querySelector('#zoom-readout'); if (readout)
-    readout.textContent = `${Math.round(mapViewport.zoom * 100)}%`; }
-function bindMapViewport() { const wrap = document.querySelector('#map-wrap'); if (!wrap)
-    return; applyMapViewport(); let gesture = null; let suppressClick = false; wrap.addEventListener('pointerdown', (event) => { const e = event; if (e.button !== 0)
-    return; gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, startX: mapViewport.panX, startY: mapViewport.panY, moved: false }; wrap.setPointerCapture?.(e.pointerId); }); wrap.addEventListener('pointermove', (event) => { const e = event; if (!gesture || gesture.id !== e.pointerId)
-    return; const dx = e.clientX - gesture.x, dy = e.clientY - gesture.y; if (Math.hypot(dx, dy) > 5)
-    gesture.moved = true; if (!gesture.moved)
-    return; mapViewport.panX = gesture.startX + dx; mapViewport.panY = gesture.startY + dy; clampPan(wrap); applyMapViewport(); e.preventDefault(); }); const finish = (event) => { if (!gesture || gesture.id !== event.pointerId)
-    return; suppressClick = gesture.moved; gesture = null; }; wrap.addEventListener('pointerup', (e) => finish(e)); wrap.addEventListener('pointercancel', (e) => finish(e)); wrap.addEventListener('click', (event) => { if (suppressClick) {
-    event.preventDefault();
-    event.stopPropagation();
-    suppressClick = false;
-} }, true); wrap.addEventListener('wheel', (event) => { const e = event; e.preventDefault(); mapViewport = zoomViewport(mapViewport, e.deltaY < 0 ? .15 : -.15); render(); }, { passive: false }); }
+function mapContentMetrics(wrap, svg) {
+    const vb = svg.viewBox.baseVal, bbox = svg.getBBox(), rect = svg.getBoundingClientRect();
+    const elementWidth = rect.width / Math.max(mapViewport.zoom, .001), elementHeight = rect.height / Math.max(mapViewport.zoom, .001);
+    const scale = Math.min(elementWidth / Math.max(vb.width, 1), elementHeight / Math.max(vb.height, 1));
+    return { viewportWidth: wrap.clientWidth, viewportHeight: wrap.clientHeight, contentWidth: bbox.width * scale, contentHeight: bbox.height * scale };
+}
+function clampPan(wrap, svg) { mapViewport = clampMapViewport(mapViewport, mapContentMetrics(wrap, svg)); }
+function applyMapViewport() {
+    const wrap = document.querySelector('#map-wrap'), svg = document.querySelector('#eastfront-map');
+    if (!wrap || !svg)
+        return;
+    clampPan(wrap, svg);
+    svg.style.transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;
+    svg.style.transformOrigin = '50% 50%';
+    wrap.dataset.zoom = mapViewport.zoom.toFixed(2);
+    const readout = document.querySelector('#zoom-readout');
+    if (readout)
+        readout.textContent = `${Math.round(mapViewport.zoom * 100)}%`;
+}
+function bindMapViewport() {
+    const wrap = document.querySelector('#map-wrap');
+    if (!wrap)
+        return;
+    applyMapViewport();
+    let gesture = null;
+    let suppressNextClick = false;
+    let panFrame = null;
+    let latest = null;
+    const flushPan = () => { panFrame = null; if (!gesture || !gesture.state.dragging || !latest)
+        return; const svg = document.querySelector('#eastfront-map'); if (!svg)
+        return; mapViewport = clampMapViewport(gesturePanViewport(gesture.state, latest.x, latest.y, mapViewport.zoom), mapContentMetrics(wrap, svg)); applyMapViewport(); };
+    const queuePan = (x, y) => { latest = { x, y }; if (panFrame === null)
+        panFrame = requestAnimationFrame(flushPan); };
+    wrap.addEventListener('pointerdown', (event) => { const e = event; if (e.button !== 0 || gesture)
+        return; gesture = { state: beginMapGesture(e.pointerId, e.clientX, e.clientY, mapViewport), originalTarget: e.target, captured: false }; latest = { x: e.clientX, y: e.clientY }; });
+    wrap.addEventListener('pointermove', (event) => { const e = event; if (!gesture || gesture.state.pointerId !== e.pointerId)
+        return; const next = updateMapGesture(gesture.state, e.clientX, e.clientY); const becameDragging = !gesture.state.dragging && next.dragging; gesture.state = next; if (!gesture.state.dragging)
+        return; if (becameDragging && !gesture.captured) {
+        try {
+            wrap.setPointerCapture?.(e.pointerId);
+            gesture.captured = true;
+        }
+        catch {
+            gesture.captured = false;
+        }
+    } queuePan(e.clientX, e.clientY); e.preventDefault(); });
+    const finish = (event, cancelled = false) => { if (!gesture || gesture.state.pointerId !== event.pointerId)
+        return; const suppressTap = dragSuppressesTap(gesture.state, cancelled); if (suppressTap) {
+        latest = { x: event.clientX, y: event.clientY };
+        if (panFrame !== null) {
+            cancelAnimationFrame(panFrame);
+            panFrame = null;
+        }
+        flushPan();
+        suppressNextClick = true;
+    }
+    else if (panFrame !== null) {
+        cancelAnimationFrame(panFrame);
+        panFrame = null;
+    } if (gesture.captured && wrap.hasPointerCapture?.(event.pointerId)) {
+        try {
+            wrap.releasePointerCapture?.(event.pointerId);
+        }
+        catch { }
+    } gesture = null; latest = null; };
+    wrap.addEventListener('pointerup', (e) => finish(e, false));
+    wrap.addEventListener('pointercancel', (e) => finish(e, true));
+    wrap.addEventListener('click', (event) => { if (!suppressNextClick)
+        return; event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); suppressNextClick = false; }, true);
+    wrap.addEventListener('wheel', (event) => { const e = event; e.preventDefault(); mapViewport = zoomViewport(mapViewport, e.deltaY < 0 ? .15 : -.15); render(); }, { passive: false });
+}
+function mapRenderOptions(model, lodOverride) {
+    const vb = viewBoxForHexes(model.hexes), usableWidth = Math.max(560, window.innerWidth - (presentation.panelCollapsed ? 24 : 280));
+    const screenHexWidth = usableWidth * ((Math.sqrt(3) * HEX_SIZE) / vb.width) * mapViewport.zoom;
+    const lod = lodOverride ?? selectTerrainLod(screenHexWidth);
+    return { debug: developerUi && presentation.debug, rendererMode: developerUi ? presentation.rendererMode : 'production', assetSet: 'p5', lod, scenarioSeed: session.state.random.seed };
+}
+function sidePanelMarkup(model) {
+    return `<section class="panel-block selection-block"><span class="eyebrow">SELECTED UNIT</span>${selectedSummary(model)}</section>${presentation.message ? `<section class="panel-block status-message"><span class="eyebrow">CORE RESULT</span><p>${esc(presentation.message)}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}`;
+}
+function refreshDynamicView() {
+    if (!session || presentation.privacyGate) {
+        render();
+        return;
+    }
+    const model = deriveBrowserRenderModel(session, presentation);
+    if (model.phase === 'GAME_OVER' || model.victory.winner) {
+        render();
+        return;
+    }
+    const svg = document.querySelector('#eastfront-map'), dynamic = document.querySelector('#map-dynamic-layer'), panel = document.querySelector('#side-panel');
+    if (!svg || !dynamic || !panel) {
+        render();
+        return;
+    }
+    const lod = svg.dataset.lod ?? mapRenderOptions(model).lod;
+    dynamic.innerHTML = coreSvgDynamicMarkup(model, mapRenderOptions(model, lod));
+    panel.innerHTML = sidePanelMarkup(model);
+    bindDynamic();
+    applyMapViewport();
+}
 function render() {
     const profile = responsiveProfile(window.innerWidth, window.innerHeight);
     if (appStatus === 'LOADING') {
@@ -174,7 +261,7 @@ function render() {
         return;
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
-    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip"><span>TURN <strong>${model.turn}</strong></span><span>${model.activeSide}</span><span>${phaseLabel(model.phase)}</span></div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · 20×32 Production Map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="EASTFRONT operational map">${(() => { const vb = viewBoxForHexes(model.hexes); const usableWidth = Math.max(560, window.innerWidth - (presentation.panelCollapsed ? 24 : 280)); const screenHexWidth = usableWidth * ((Math.sqrt(3) * HEX_SIZE) / vb.width) * mapViewport.zoom; const lod = selectTerrainLod(screenHexWidth); return coreSvgMarkup(model, { debug: developerUi && presentation.debug, rendererMode: developerUi ? presentation.rendererMode : 'production', assetSet: 'p5', lod, scenarioSeed: session.state.random.seed }); })()}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}"><section class="panel-block selection-block"><span class="eyebrow">SELECTED UNIT</span>${selectedSummary(model)}</section>${presentation.message ? `<section class="panel-block status-message"><span class="eyebrow">CORE RESULT</span><p>${esc(presentation.message)}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</aside></main><footer><span>Core v0.2.25 frozen · Geometry locked</span><span>EASTFRONT Web Preview · Build UI-008</span></footer>`;
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip"><span>TURN <strong>${model.turn}</strong></span><span>${model.activeSide}</span><span>${phaseLabel(model.phase)}</span></div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · 20×32 Production Map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="EASTFRONT operational map">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>Core v0.2.25 frozen · Geometry locked</span><span>EASTFRONT Web Preview · Build UI-009R1</span></footer>`;
     bind();
 }
 function bind() {
@@ -190,8 +277,13 @@ function bind() {
     document.querySelector('#zoom-out')?.addEventListener('click', () => { mapViewport = zoomViewport(mapViewport, -.2); render(); });
     document.querySelector('#zoom-in')?.addEventListener('click', () => { mapViewport = zoomViewport(mapViewport, .2); render(); });
     document.querySelector('#zoom-reset')?.addEventListener('click', () => { mapViewport = defaultMapViewport(); render(); });
-    document.querySelector('#ready-button')?.addEventListener('click', () => { readyForPhase(session, presentation); render(); });
     bindMapViewport();
+    bindDynamic();
+}
+function bindDynamic() {
+    if (!session)
+        return;
+    document.querySelector('#ready-button')?.addEventListener('click', () => { readyForPhase(session, presentation); render(); });
     document.querySelector('#rail-mode')?.addEventListener('click', () => { enterRailRepairMode(presentation); render(); });
     document.querySelector('#rail-clear')?.addEventListener('click', () => { cancelRailRepair(presentation); render(); });
     document.querySelector('#rail-commit')?.addEventListener('click', () => { commitRailRepair(session, presentation); render(); });
@@ -203,13 +295,13 @@ function bind() {
     document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
     document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
     document.querySelectorAll('[data-deploy-unit-id]').forEach((element) => { const id = element.dataset.deployUnitId; if (!id)
-        return; const action = () => { selectDeploymentRosterUnit(presentation, id); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+        return; const action = () => { selectDeploymentRosterUnit(presentation, id); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id)
-        return; const action = () => { selectCounter(session, presentation, id); render(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
+        return; const action = () => { selectCounter(session, presentation, id); refreshDynamicView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id)
-        return; element.addEventListener('click', (event) => { event.stopPropagation(); selectCounter(session, presentation, id); render(); }); });
+        return; element.addEventListener('click', (event) => { event.stopPropagation(); selectCounter(session, presentation, id); refreshDynamicView(); }); });
     document.querySelectorAll('[data-role="deployment-hex"]').forEach((element) => { const key = element.dataset.hex; if (!key)
-        return; const action = () => { deploySelectedUnit(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+        return; const action = () => { deploySelectedUnit(session, presentation, parseHex(key)); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { extendMoveDraft(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="rail-repair-edge"]').forEach((element) => { const key = element.dataset.edgeKey; if (!key)
