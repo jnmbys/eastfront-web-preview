@@ -156,7 +156,8 @@ async function drawGround(ctx:CanvasRenderingContext2D,cache:ImageCache,model:Br
 
 export interface TerrainWorldBaseLayer {
   readonly id: string;
-  paint(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, seed: number): Promise<{ imageDraws: number; uniqueAssets: number }>;
+  readonly replacesCityMarkers?: boolean;
+  paint(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, seed: number, lod?: TerrainLod): Promise<{ imageDraws: number; uniqueAssets: number }>;
 }
 
 export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:number,assetSet:TerrainAssetSet='p5',lod:TerrainLod='medium',worldBase?:TerrainWorldBaseLayer):Promise<CachedTerrainSurface>{
@@ -166,10 +167,10 @@ export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:nu
   try{
     let imageDraws=0,worldAssets=0;
     if(worldBase){
-      const result=await worldBase.paint(ctx,model,seed);imageDraws=result.imageDraws;worldAssets=result.uniqueAssets;
+      const result=await worldBase.paint(ctx,model,seed,lod);imageDraws=result.imageDraws;worldAssets=result.uniqueAssets;
       canvas.dataset.worldSurface=worldBase.id;
       // Keep existing settlement markers and canonical infrastructure readable.
-      for(const h of model.hexes)if(h.terrain==='CITY'||h.terrain==='MAIN_CITY'||h.terrain==='OUTER_CITY')imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);
+      if(!worldBase.replacesCityMarkers)for(const h of model.hexes)if(h.terrain==='CITY'||h.terrain==='MAIN_CITY'||h.terrain==='OUTER_CITY')imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);
     }else{
       imageDraws=await drawGround(ctx,cache,model,seed);bump(cats,'Ground');
       for(const h of model.hexes)imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);

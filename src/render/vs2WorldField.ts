@@ -6,7 +6,7 @@ export const VS2_WORLD_H = HEX_SIZE * SQRT3;
 export const VS2_REGIONS = ['plain', 'forest', 'hill', 'rough', 'marsh', 'city', 'lake'] as const;
 export type VS2Region = typeof VS2_REGIONS[number];
 export interface VS2RegionSample { readonly weights: readonly number[]; readonly coverage: number; }
-export interface VS2RegionField { sample(x: number, y: number): VS2RegionSample; readonly boundaryCount: number; }
+export interface VS2RegionField { sample(x: number, y: number): VS2RegionSample; readonly boundaryCount: number; regionAt(x: number, y: number): VS2Region | undefined; }
 type Cell = { region: number; polygon: readonly Point[] };
 type Boundary = { a: Point; b: Point; left: number; right: number };
 const key = (x: number, y: number) => `${x},${y}`;
@@ -62,6 +62,11 @@ export function createVS2RegionField(hexes: BrowserRenderModel['hexes']): VS2Reg
   }
   return {
     boundaryCount,
+    regionAt(x, y) {
+      const k = key(Math.floor(x / VS2_WORLD_H), Math.floor(y / VS2_WORLD_H));
+      const region = (buckets.get(k) ?? []).find(cell => contains(cell.polygon, x, y))?.region;
+      return region === undefined ? undefined : VS2_REGIONS[region];
+    },
     sample(x, y) {
       const k = key(Math.floor(x / VS2_WORLD_H), Math.floor(y / VS2_WORLD_H));
       const owner = (buckets.get(k) ?? []).find(cell => contains(cell.polygon, x, y))?.region ?? -1;

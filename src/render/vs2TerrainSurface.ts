@@ -1,6 +1,6 @@
-import { viewBoxForHexes } from './coreSvg.js';
 import { loadTerrainImage, terrainSurfaceCapabilities, type TerrainWorldBaseLayer } from './terrainSurface.js';
-import { createVS2RegionField } from './vs2WorldField.js';
+import { projectVS2Terrain } from './vs2Projection.js';
+import { planVS2CityClusters } from './vs2CityClusters.js';
 import { rasterizeVS2WorldSurface, VS2_WORLD_MATERIAL_IDS, type VS2Texture } from './vs2WorldRaster.js';
 import { vs2AssetCatalog, type VS2AssetCatalog, type VS2AssetEntry } from './vs2Assets.js';
 
@@ -11,7 +11,7 @@ export interface VS2TerrainAssetReference {
 
 /** World-surface prototype hook; existing grid and infrastructure stay separate. */
 export interface VS2TerrainSurfaceHooks {
-  readonly stage: 'world-surface-prototype';
+  readonly stage: 'surface-integration-prototype';
   readonly renderAvailable: true;
   readonly assets: VS2AssetCatalog;
   readonly worldBase: TerrainWorldBaseLayer;
@@ -22,7 +22,7 @@ export function createVS2TerrainSurfaceHooks(
   assets: VS2AssetCatalog = vs2AssetCatalog,
 ): VS2TerrainSurfaceHooks {
   return {
-    stage: 'world-surface-prototype',
+    stage: 'surface-integration-prototype',
     renderAvailable: true,
     assets,
     worldBase: createVS2WorldBaseLayer(assets),
@@ -35,8 +35,9 @@ export function createVS2TerrainSurfaceHooks(
 
 export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalog): TerrainWorldBaseLayer {
   return {
-    id: 'vs2-002-world-prototype',
-    async paint(ctx, model, seed) {
+    id: 'vs2-002-surface-integration',
+    replacesCityMarkers: true,
+    async paint(ctx, model, seed, lod = 'medium') {
       const textures = new Map<string, VS2Texture>(), capabilities = terrainSurfaceCapabilities();
       // Decode sequentially through the established direct-image/fetch fallback.
       // Retain only CPU texture pixels; release each decoded image immediately.
@@ -56,8 +57,8 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
             data: pixels.getImageData(0, 0, image.width, image.height).data });
         } finally { image.release?.(); scratch.width = 0; scratch.height = 0; }
       }
-      const bounds = viewBoxForHexes(model.hexes), pixelSize = 2;
-      const raster = rasterizeVS2WorldSurface(createVS2RegionField(model.hexes), textures, seed, bounds, pixelSize);
+      const projection = projectVS2Terrain(model), bounds = projection.rasterBounds, pixelSize = projection.pixelSize;
+      const raster = rasterizeVS2WorldSurface(projection.field, textures, seed, bounds, pixelSize);
       const surface = document.createElement('canvas');
       try {
         surface.width = raster.width; surface.height = raster.height;
@@ -66,7 +67,24 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
         const image = pixels.createImageData(raster.width, raster.height); image.data.set(raster.data); pixels.putImageData(image, 0, 0);
         ctx.drawImage(surface, bounds.minX, bounds.minY, raster.width * pixelSize, raster.height * pixelSize);
       } finally { textures.clear(); surface.width = 0; surface.height = 0; }
-      return { imageDraws: 1, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length };
+      const placements = planVS2CityClusters(projection, seed, lod, assets);
+      const cityAssets = [...new Set(placements.map(p => p.assetId))].sort();
+      for (const id of cityAssets) {
+        const entry = assets.byId(id)!;
+        const image = await loadTerrainImage({ id, family: entry.family, file: entry.file,
+          sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities,
+          new URL(assets.url(entry), document.baseURI).href);
+        try {
+          for (const p of placements.filter(p => p.assetId === id)) {
+            ctx.save();
+            try {
+              ctx.globalAlpha = p.opacity;
+              ctx.drawImage(image.source, p.x - entry.anchor[0]! * p.width, p.y - entry.anchor[1]! * p.height, p.width, p.height);
+            } finally { ctx.restore(); }
+          }
+        } finally { image.release?.(); }
+      }
+      return { imageDraws: 1 + placements.length, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + cityAssets.length };
     },
   };
 }

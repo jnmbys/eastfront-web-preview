@@ -153,7 +153,7 @@ test('VS2 world pass loads exactly the selected namespace materials sequentially
     const hooks = createVS2TerrainSurfaceHooks();
     assert.equal(hooks.renderAvailable, true);
     assert.equal(hooks.lookupAsset('unknown'), undefined);
-    const result = await hooks.worldBase.paint({ drawImage() { draws++; } }, { hexes: [hex(0, 0, 'PLAIN')] }, 17);
+    const result = await hooks.worldBase.paint({ drawImage() { draws++; } }, { hexes: [hex(0, 0, 'PLAIN')], edges: [] }, 17);
     assert.equal(result.uniqueAssets, 9); assert.equal(draws, 1); assert.equal(peak, 1);
     assert.equal(urls.length, VS2_WORLD_MATERIAL_IDS.length);
     assert(urls.every(url => url.startsWith('https://example.test/game/assets/terrain/vs2-002/assets/')));
