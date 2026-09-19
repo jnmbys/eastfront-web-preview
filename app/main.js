@@ -4,7 +4,7 @@ import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair,
 import { deriveBrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
 import { selectTerrainLod } from './render/terrainAssets.js';
-import { buildCachedTerrainSurface } from './render/terrainSurface.js';
+import { buildCachedTerrainSurface, formatTerrainSurfaceFailure, terrainSurfaceCapabilities } from './render/terrainSurface.js';
 import { HEX_SIZE } from './geometry/hex.js';
 import { createPresentationState } from './state/presentation.js';
 import { createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, zoomViewport } from './web/preview.js';
@@ -393,9 +393,10 @@ function bindDynamic() {
     document.querySelectorAll('[data-view-side]').forEach((element) => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
 }
-async function boot() { appStatus = 'LOADING'; render(); try {
+async function boot() { appStatus = 'LOADING'; render(); let phase = 'manifest/map'; try {
     const [map] = await Promise.all([loadProductionMapFromUrl(), loadProductionRuntimeManifest()]);
     productionMap = map;
+    phase = 'static-terrain-surface';
     const terrainSession = createFreshProductionSession(map, 17), terrainPresentation = createPresentationState(false, false), terrainModel = deriveBrowserRenderModel(terrainSession, terrainPresentation);
     cachedTerrainSurface = await buildCachedTerrainSurface(terrainModel, terrainSession.state.random.seed, 'p5', 'medium');
     console.info('EASTFRONT cached terrain surface ready', cachedTerrainSurface.stats);
@@ -404,9 +405,11 @@ async function boot() { appStatus = 'LOADING'; render(); try {
     render();
 }
 catch (error) {
-    console.error('EASTFRONT startup failed', error);
+    const detail = phase === 'static-terrain-surface' ? formatTerrainSurfaceFailure(error) : (error instanceof Error ? `${error.name}: ${error.message}` : String(error));
+    const diagnostic = { phase, detail, capabilities: terrainSurfaceCapabilities() };
+    console.error('EASTFRONT startup failed', diagnostic, error);
     appStatus = 'FATAL';
-    fatalMessage = 'Required production resources could not be loaded.';
+    fatalMessage = `Required production resources could not be loaded. ${detail}`;
     render();
 } }
 window.addEventListener('resize', () => { if (appStatus === 'HOME' || appStatus === 'PLAYING')

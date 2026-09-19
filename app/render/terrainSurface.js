@@ -2,15 +2,109 @@ import { HEX_SIZE, hexPolygon, hexToPixel, sharedHexEdge } from '../geometry/hex
 import { viewBoxForHexes } from './coreSvg.js';
 import { assetUrl, entryVisibleAtLod, terrainAssetCatalog, unorderedEdgeVisualSeed, visualSeed, } from './terrainAssets.js';
 import { marshContinuityDecision } from './productionTerrain.js';
+export class TerrainSurfaceResourceError extends Error {
+    details;
+    constructor(message, details) { super(message); this.name = 'TerrainSurfaceResourceError'; this.details = details; }
+}
 let terrainSurfaceBuildCount = 0;
+const RESOURCE_TIMEOUT_MS = 15000;
+const MAX_RETAINED_TERRAIN_IMAGES = 16;
+export function terrainSurfaceCapabilities() {
+    let canvas2d = false;
+    try {
+        const c = document.createElement('canvas');
+        canvas2d = Boolean(c.getContext('2d'));
+    }
+    catch { }
+    return { createImageBitmap: typeof globalThis.createImageBitmap === 'function', offscreenCanvas: typeof globalThis.OffscreenCanvas === 'function', htmlImageDecode: typeof HTMLImageElement !== 'undefined' && typeof HTMLImageElement.prototype.decode === 'function', canvas2d };
+}
+export function formatTerrainSurfaceFailure(error) {
+    if (error instanceof TerrainSurfaceResourceError) {
+        const d = error.details;
+        const bits = [`stage=${d.stage}`, d.assetId ? `asset=${d.assetId}` : '', d.family ? `family=${d.family}` : '', d.url ? `url=${d.url}` : '', d.httpStatus !== undefined ? `http=${d.httpStatus}` : '', d.preferredApi ? `api=${d.preferredApi}` : '', d.cause ? `cause=${d.cause}` : '', `capabilities=createImageBitmap:${d.capabilities.createImageBitmap},OffscreenCanvas:${d.capabilities.offscreenCanvas},HTMLImageElement.decode:${d.capabilities.htmlImageDecode},Canvas2D:${d.capabilities.canvas2d}`].filter(Boolean);
+        return `Terrain surface startup failure: ${bits.join(' | ')}`;
+    }
+    return error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+}
 function absAssetUrl(entry, set) { return new URL(assetUrl(entry, set), document.baseURI).href; }
+function errorText(error) { return error instanceof Error ? `${error.name}: ${error.message}` : String(error); }
+function timeoutAfter(ms, label) { return new Promise((_, reject) => setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms)); }
+async function imageFromUrl(url, entry, stage, capabilities) {
+    return await Promise.race([new Promise((resolve, reject) => { const img = new Image(); if ('decoding' in img)
+            img.decoding = 'async'; img.onload = () => resolve({ source: img, width: img.naturalWidth || img.width, height: img.naturalHeight || img.height }); img.onerror = () => reject(new TerrainSurfaceResourceError(`Terrain image failed: ${url}`, { stage, url, assetId: entry.id, family: entry.family, preferredApi: 'HTMLImageElement.onload', cause: 'image error event', capabilities })); img.src = url; }), timeoutAfter(RESOURCE_TIMEOUT_MS, `Image ${entry.id}`).catch(error => { if (error instanceof TerrainSurfaceResourceError)
+            throw error; throw new TerrainSurfaceResourceError(`Terrain image timeout: ${url}`, { stage: 'timeout', url, assetId: entry.id, family: entry.family, preferredApi: 'HTMLImageElement.onload', cause: errorText(error), capabilities }); })]);
+}
+async function loadTerrainImage(entry, set, capabilities) {
+    const url = absAssetUrl(entry, set);
+    let response;
+    let blob;
+    let fetchFailure, bitmapFailure, blobImageFailure;
+    try {
+        response = await Promise.race([fetch(url, { cache: 'force-cache' }), timeoutAfter(RESOURCE_TIMEOUT_MS, `Fetch ${entry.id}`)]);
+        if (!response.ok)
+            throw new TerrainSurfaceResourceError(`Terrain asset HTTP ${response.status}: ${url}`, { stage: 'http', url, assetId: entry.id, family: entry.family, httpStatus: response.status, preferredApi: 'fetch', capabilities });
+        blob = await response.blob();
+    }
+    catch (error) {
+        if (error instanceof TerrainSurfaceResourceError)
+            throw error;
+        fetchFailure = error;
+    }
+    if (blob && capabilities.createImageBitmap) {
+        try {
+            const bitmap = await Promise.race([globalThis.createImageBitmap(blob), timeoutAfter(RESOURCE_TIMEOUT_MS, `createImageBitmap ${entry.id}`)]);
+            return { source: bitmap, width: bitmap.width, height: bitmap.height, release: () => bitmap.close() };
+        }
+        catch (error) {
+            bitmapFailure = error;
+            console.warn('EASTFRONT terrain createImageBitmap fallback', entry.id, url, error);
+        }
+    }
+    if (blob) {
+        let objectUrl;
+        try {
+            objectUrl = URL.createObjectURL(blob);
+            return await imageFromUrl(objectUrl, entry, 'html-image-load', capabilities);
+        }
+        catch (error) {
+            blobImageFailure = error;
+            console.warn('EASTFRONT terrain blob HTMLImage fallback failed', entry.id, url, error);
+        }
+        finally {
+            if (objectUrl)
+                URL.revokeObjectURL(objectUrl);
+        }
+    }
+    try {
+        return await imageFromUrl(url, entry, 'direct-image-load', capabilities);
+    }
+    catch (error) {
+        const causes = [fetchFailure ? `fetch=${errorText(fetchFailure)}` : '', bitmapFailure ? `createImageBitmap=${errorText(bitmapFailure)}` : '', blobImageFailure ? `blobImage=${errorText(blobImageFailure)}` : '', `directImage=${errorText(error)}`].filter(Boolean).join('; ');
+        const details = { stage: fetchFailure ? 'fetch' : 'direct-image-load', url, assetId: entry.id, family: entry.family, preferredApi: capabilities.createImageBitmap ? 'fetch→createImageBitmap→HTMLImageElement(blob)→HTMLImageElement(url)' : 'fetch→HTMLImageElement(blob)→HTMLImageElement(url)', cause: causes, capabilities };
+        if (response)
+            details.httpStatus = response.status;
+        throw new TerrainSurfaceResourceError(`All terrain image decode/load paths failed: ${url}`, details);
+    }
+}
 function createImageCache(set) {
-    const cache = new Map();
-    const urls = new Set();
-    return { urls, get(entry) { const url = absAssetUrl(entry, set); urls.add(url); let promise = cache.get(url); if (!promise) {
-            promise = new Promise((resolve, reject) => { const img = new Image(); img.decoding = 'async'; img.onload = () => resolve(img); img.onerror = () => reject(new Error(`Terrain surface asset failed: ${url}`)); img.src = url; });
+    const cache = new Map(), resolved = new Map(), urls = new Set(), capabilities = terrainSurfaceCapabilities();
+    function touch(url, image) { resolved.delete(url); resolved.set(url, image); while (resolved.size > MAX_RETAINED_TERRAIN_IMAGES) {
+        const oldest = resolved.keys().next().value;
+        if (!oldest)
+            break;
+        const victim = resolved.get(oldest);
+        resolved.delete(oldest);
+        cache.delete(oldest);
+        victim?.release?.();
+    } }
+    return { urls, get(entry) { const url = absAssetUrl(entry, set); urls.add(url); const existing = resolved.get(url); if (existing) {
+            touch(url, existing);
+            return Promise.resolve(existing);
+        } let promise = cache.get(url); if (!promise) {
+            promise = loadTerrainImage(entry, set, capabilities).then(image => { touch(url, image); return image; }).catch(error => { cache.delete(url); throw error; });
             cache.set(url, promise);
-        } return promise; } };
+        } return promise; }, releaseAll() { for (const image of resolved.values())
+            image.release?.(); resolved.clear(); cache.clear(); } };
 }
 function pathHex(ctx, c) { const pts = hexPolygon(c); ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y); for (let i = 1; i < pts.length; i++)
     ctx.lineTo(pts[i].x, pts[i].y); ctx.closePath(); }
@@ -20,14 +114,7 @@ function terrainBaseFill(t) { switch (t) {
     case 'ROUGH': return '#91896f';
     default: return '#aca888';
 } }
-function drawCover(ctx, img, x, y, w, h) {
-    const source = img;
-    const sw = source.naturalWidth || source.width || w, sh = source.naturalHeight || source.height || h;
-    const scale = Math.max(w / sw, h / sh);
-    const cw = w / scale, ch = h / scale;
-    const sx = (sw - cw) / 2, sy = (sh - ch) / 2;
-    ctx.drawImage(img, sx, sy, cw, ch, x, y, w, h);
-}
+function drawCover(ctx, img, x, y, w, h) { const sw = img.width || w, sh = img.height || h, scale = Math.max(w / sw, h / sh), cw = w / scale, ch = h / scale, sx = (sw - cw) / 2, sy = (sh - ch) / 2; ctx.drawImage(img.source, sx, sy, cw, ch, x, y, w, h); }
 function rotation(entry, c, seed, salt) { return entry.rotation === '60deg' ? (visualSeed(seed, c, `${entry.id}|${salt}|rot`) % 6) * (Math.PI / 3) : 0; }
 function mirror(entry, c, seed, salt) { return entry.mirror && visualSeed(seed, c, `${entry.id}|${salt}|mirror`) % 2 === 1 ? -1 : 1; }
 async function drawHexAsset(ctx, cache, entry, c, size, seed, opacity, salt, composite = 'source-over') {
@@ -142,7 +229,7 @@ async function drawTerrainHex(ctx, cache, model, hex, seed, lod, set, cats) {
     }
     return draws;
 }
-async function drawSegment(ctx, cache, e, a, b, height, opacity) { const img = await cache.get(e), dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy), angle = Math.atan2(dy, dx); ctx.save(); ctx.globalAlpha = opacity; ctx.translate((a.x + b.x) / 2, (a.y + b.y) / 2); ctx.rotate(angle); ctx.drawImage(img, -len / 2, -height / 2, len, height); ctx.restore(); }
+async function drawSegment(ctx, cache, e, a, b, height, opacity) { const img = await cache.get(e), dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy), angle = Math.atan2(dy, dx); ctx.save(); ctx.globalAlpha = opacity; ctx.translate((a.x + b.x) / 2, (a.y + b.y) / 2); ctx.rotate(angle); ctx.drawImage(img.source, -len / 2, -height / 2, len, height); ctx.restore(); }
 async function drawInfrastructure(ctx, cache, model, seed, lod, cats) {
     let draws = 0;
     for (const edge of model.edges) {
@@ -352,15 +439,6 @@ function buildSurfacePlan(model, seed, lod) {
     return { entries: planned, publicPlan: Object.freeze({ assetIds: Object.freeze(planned.map(e => e.id)), assetFiles: Object.freeze(planned.map(e => e.file)), categories: Object.freeze({ ...categories }) }) };
 }
 export function terrainSurfacePlan(model, seed, lod = 'medium') { return buildSurfacePlan(model, seed, lod).publicPlan; }
-async function preloadPlannedAssets(cache, entries, concurrency = 6) {
-    let cursor = 0;
-    const workers = Array.from({ length: Math.min(concurrency, entries.length) }, async () => { while (cursor < entries.length) {
-        const entry = entries[cursor++];
-        if (entry)
-            await cache.get(entry);
-    } });
-    await Promise.all(workers);
-}
 async function drawGround(ctx, cache, model, seed) { const ground = terrainAssetCatalog.byFamily('ground'), e = ground[seed % ground.length] ?? ground[0]; if (!e)
     return 0; const img = await cache.get(e), pts = model.hexes.flatMap(h => hexPolygon(h.coord)), xs = pts.map(p => p.x), ys = pts.map(p => p.y), minX = Math.min(...xs) - HEX_SIZE, maxX = Math.max(...xs) + HEX_SIZE, minY = Math.min(...ys) - HEX_SIZE, maxY = Math.max(...ys) + HEX_SIZE; ctx.save(); ctx.translate(seed % 97, seed % 71); const tile = 220; for (let y = Math.floor((minY - (seed % 71)) / tile) * tile; y < maxY; y += tile)
     for (let x = Math.floor((minX - (seed % 97)) / tile) * tile; x < maxX; x += tile)
@@ -376,23 +454,32 @@ export async function buildCachedTerrainSurface(model, seed, assetSet = 'p5', lo
     canvas.dataset.lod = lod;
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx)
-        throw new Error('Canvas 2D is unavailable for production terrain surface.');
+        throw new TerrainSurfaceResourceError('Canvas 2D is unavailable for production terrain surface.', { stage: 'canvas-context', capabilities: terrainSurfaceCapabilities() });
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.fillStyle = '#bbb393';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.translate(-viewBox.minX, -viewBox.minY);
     const cache = createImageCache(assetSet), planned = buildSurfacePlan(model, seed, lod), cats = {};
-    await preloadPlannedAssets(cache, planned.entries);
-    let imageDraws = await drawGround(ctx, cache, model, seed);
-    bump(cats, 'Ground');
-    for (const h of model.hexes)
-        imageDraws += await drawTerrainHex(ctx, cache, model, h, seed, lod, assetSet, cats);
-    drawMarshContinuity(ctx, model, seed, lod);
-    imageDraws += await drawInfrastructure(ctx, cache, model, seed, lod, cats);
-    canvas.setAttribute('aria-hidden', 'true');
-    const stats = { width: canvas.width, height: canvas.height, imageDraws, uniqueAssets: cache.urls.size, categories: planned.publicPlan.categories };
-    canvas.dataset.buildCount = String(++terrainSurfaceBuildCount);
-    canvas.dataset.categories = JSON.stringify(stats.categories);
-    return { canvas, viewBox, seed, assetSet, lod, stats };
+    try {
+        let imageDraws = await drawGround(ctx, cache, model, seed);
+        bump(cats, 'Ground');
+        for (const h of model.hexes)
+            imageDraws += await drawTerrainHex(ctx, cache, model, h, seed, lod, assetSet, cats);
+        drawMarshContinuity(ctx, model, seed, lod);
+        imageDraws += await drawInfrastructure(ctx, cache, model, seed, lod, cats);
+        canvas.setAttribute('aria-hidden', 'true');
+        const stats = { width: canvas.width, height: canvas.height, imageDraws, uniqueAssets: cache.urls.size, categories: planned.publicPlan.categories };
+        canvas.dataset.buildCount = String(++terrainSurfaceBuildCount);
+        canvas.dataset.categories = JSON.stringify(stats.categories);
+        return { canvas, viewBox, seed, assetSet, lod, stats };
+    }
+    catch (error) {
+        if (error instanceof TerrainSurfaceResourceError)
+            throw error;
+        throw new TerrainSurfaceResourceError('Terrain surface canvas draw failed', { stage: 'canvas-draw', cause: errorText(error), capabilities: terrainSurfaceCapabilities() });
+    }
+    finally {
+        cache.releaseAll();
+    }
 }
