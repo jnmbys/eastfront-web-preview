@@ -1,6 +1,6 @@
 import { createLocalGameSession } from '../core-adapter/session.js';
 export const WEB_PREVIEW_VERSION = '0.0.10';
-export const WEB_PREVIEW_BUILD = 'UI-009R2D1';
+export const WEB_PREVIEW_BUILD = 'UI-009R2D2';
 export function responsiveProfile(width, height) {
     if (width < 700 || (width < 820 && height > width))
         return 'MOBILE_NARROW';
