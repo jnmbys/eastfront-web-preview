@@ -4,6 +4,7 @@ import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair,
 import { deriveBrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
 import { selectTerrainLod } from './render/terrainAssets.js';
+import { buildCachedTerrainSurface } from './render/terrainSurface.js';
 import { HEX_SIZE } from './geometry/hex.js';
 import { createPresentationState } from './state/presentation.js';
 import { createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, zoomViewport } from './web/preview.js';
@@ -20,6 +21,7 @@ let productionMap = null;
 let appStatus = 'LOADING';
 let fatalMessage = '';
 let mapViewport = defaultMapViewport();
+let cachedTerrainSurface = null;
 function esc(value) { return value.replace(/[&<>\"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[char] ?? char)); }
 function parseHex(value) { const [q, r] = value.split(',').map(Number); return { q: q, r: r }; }
 function sideLabel(side) { return side === 'GERMAN' ? 'German Side' : 'Soviet Side'; }
@@ -117,9 +119,9 @@ function privacyGate() { const gate = presentation.privacyGate; if (!gate)
     return privacyHandoffMarkup(gate, side);
 } return privacyHandoffMarkup(gate); }
 function gameOver(model) { return gameOverMarkup(model.victory.winner, model.victory.reason, model.turn); }
-function startNewGame() { if (!productionMap) {
+function startNewGame() { if (!productionMap || !cachedTerrainSurface) {
     appStatus = 'FATAL';
-    fatalMessage = 'Production map is unavailable.';
+    fatalMessage = 'Production map surface is unavailable.';
     render();
     return;
 } session = createFreshProductionSession(productionMap, 17); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; mapViewport = defaultMapViewport(); appStatus = 'PLAYING'; fatalMessage = ''; render(); }
@@ -137,8 +139,14 @@ function applyMapViewport() {
     if (!wrap || !svg)
         return;
     clampPan(wrap, svg);
-    svg.style.transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;
+    const transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;
+    svg.style.transform = transform;
     svg.style.transformOrigin = '50% 50%';
+    const terrain = document.querySelector('#terrain-surface');
+    if (terrain) {
+        terrain.style.transform = transform;
+        terrain.style.transformOrigin = '50% 50%';
+    }
     wrap.dataset.zoom = mapViewport.zoom.toFixed(2);
     const readout = document.querySelector('#zoom-readout');
     if (readout)
@@ -200,7 +208,20 @@ function mapRenderOptions(model, lodOverride) {
     const vb = viewBoxForHexes(model.hexes), usableWidth = Math.max(560, window.innerWidth - (presentation.panelCollapsed ? 24 : 280));
     const screenHexWidth = usableWidth * ((Math.sqrt(3) * HEX_SIZE) / vb.width) * mapViewport.zoom;
     const lod = lodOverride ?? selectTerrainLod(screenHexWidth);
-    return { debug: developerUi && presentation.debug, rendererMode: developerUi ? presentation.rendererMode : 'production', assetSet: 'p5', lod, scenarioSeed: session.state.random.seed };
+    const rendererMode = developerUi ? presentation.rendererMode : 'production';
+    return { debug: developerUi && presentation.debug, rendererMode, assetSet: 'p5', lod, scenarioSeed: session.state.random.seed, staticTerrainSurface: rendererMode === 'production' };
+}
+function mountCachedTerrainSurface() {
+    if (!cachedTerrainSurface)
+        return;
+    const wrap = document.querySelector('#map-wrap'), svg = document.querySelector('#eastfront-map');
+    if (!wrap || !svg)
+        return;
+    const canvas = cachedTerrainSurface.canvas;
+    if (canvas.parentElement !== wrap)
+        wrap.insertBefore(canvas, svg);
+    canvas.dataset.imageDraws = String(cachedTerrainSurface.stats.imageDraws);
+    canvas.dataset.uniqueAssets = String(cachedTerrainSurface.stats.uniqueAssets);
 }
 function sidePanelMarkup(model) {
     return `<section class="panel-block selection-block"><span class="eyebrow">SELECTED UNIT</span>${selectedSummary(model)}</section>${presentation.message ? `<section class="panel-block status-message"><span class="eyebrow">CORE RESULT</span><p>${esc(presentation.message)}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}`;
@@ -261,7 +282,8 @@ function render() {
         return;
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
-    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip"><span>TURN <strong>${model.turn}</strong></span><span>${model.activeSide}</span><span>${phaseLabel(model.phase)}</span></div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · 20×32 Production Map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="EASTFRONT operational map">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>Core v0.2.25 frozen · Geometry locked</span><span>EASTFRONT Web Preview · Build UI-009R1</span></footer>`;
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip"><span>TURN <strong>${model.turn}</strong></span><span>${model.activeSide}</span><span>${phaseLabel(model.phase)}</span></div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · 20×32 Production Map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="EASTFRONT operational map">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>Core v0.2.25 frozen · Geometry locked</span><span>EASTFRONT Web Preview · Build UI-009R2</span></footer>`;
+    mountCachedTerrainSurface();
     bind();
 }
 function bind() {
@@ -374,6 +396,9 @@ function bindDynamic() {
 async function boot() { appStatus = 'LOADING'; render(); try {
     const [map] = await Promise.all([loadProductionMapFromUrl(), loadProductionRuntimeManifest()]);
     productionMap = map;
+    const terrainSession = createFreshProductionSession(map, 17), terrainPresentation = createPresentationState(false, false), terrainModel = deriveBrowserRenderModel(terrainSession, terrainPresentation);
+    cachedTerrainSurface = await buildCachedTerrainSurface(terrainModel, terrainSession.state.random.seed, 'p5', 'medium');
+    console.info('EASTFRONT cached terrain surface ready', cachedTerrainSurface.stats);
     appStatus = 'HOME';
     session = null;
     render();

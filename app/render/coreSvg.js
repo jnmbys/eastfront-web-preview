@@ -207,8 +207,13 @@ function renderDebug(model) {
     const counters = model.counters.map((counter) => { const group = model.counters.filter((other) => coreHexKey(other.hex) === coreHexKey(counter.hex)).sort((a, b) => a.id.localeCompare(b.id)); const index = group.findIndex((other) => other.id === counter.id); const bounds = deriveCounterBounds(counter, index, group.length); const hit = deriveTouchHitArea(counter); const anchor = hexToPixel(counter.hex); return `<g><rect x="${bounds.x}" y="${bounds.y}" width="${bounds.width}" height="${bounds.height}" class="debug-counter-bounds"/><rect x="${hit.center.x - hit.side / 2}" y="${hit.center.y - hit.side / 2}" width="${hit.side}" height="${hit.side}" class="debug-touch-bounds"/><path d="M${anchor.x - 4} ${anchor.y} H${anchor.x + 4} M${anchor.x} ${anchor.y - 4} V${anchor.y + 4}" class="counter-anchor-debug"/></g>`; }).join('');
     return `<g id="debug-layer">${hexes}${edges}${counters}</g>`;
 }
+function renderProductionGridOnly(model) {
+    return `<g id="production-grid-layer">${model.hexes.map((h) => `<polygon points="${polygonPointsString(h.coord)}" class="production-grid" data-grid-hex="${coreHexKey(h.coord)}"/>`).join('')}</g>`;
+}
 export function coreSvgStaticMarkup(model, options) {
     const mode = options.rendererMode ?? 'prototype', assetSet = options.assetSet ?? 'p5', lod = options.lod ?? 'medium', seed = options.scenarioSeed ?? 17;
+    if (mode === 'production' && options.staticTerrainSurface)
+        return renderProductionGridOnly(model);
     return mode === 'production' ? renderProductionBase(model, seed, lod, assetSet, options.marshContinuity ?? true) : `<g id="terrain-layer">${renderTerrain(model)}</g>${renderInfrastructure(model)}`;
 }
 export function coreSvgDynamicMarkup(model, options) {
