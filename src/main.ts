@@ -154,3 +154,9 @@ function bindDynamic():void{
 async function boot():Promise<void>{appStatus='LOADING';render();let phase='manifest/map';try{const [map]=await Promise.all([loadProductionMapFromUrl(),loadProductionRuntimeManifest()]);productionMap=map;phase='static-terrain-surface';const terrainSession=createFreshProductionSession(map,17),terrainPresentation=createPresentationState(false,false),terrainModel=deriveBrowserRenderModel(terrainSession,terrainPresentation);cachedTerrainSurface=await buildCachedTerrainSurface(terrainModel,terrainSession.state.random.seed,'p5','medium');console.info('EASTFRONT cached terrain surface ready',cachedTerrainSurface.stats);appStatus='HOME';session=null;render();}catch(error){const detail=phase==='static-terrain-surface'?formatTerrainSurfaceFailure(error):(error instanceof Error?`${error.name}: ${error.message}`:String(error));const diagnostic={phase,detail,capabilities:terrainSurfaceCapabilities()};console.error('EASTFRONT startup failed',diagnostic,error);appStatus='FATAL';fatalMessage=`Required production resources could not be loaded. ${detail}`;render();}}
 window.addEventListener('resize',()=>{if(appStatus==='HOME'||appStatus==='PLAYING')render();});
 void boot();
+
+// Explicit, lazy Checkpoint A hook. Production startup keeps the V1 loader.
+export async function loadVS2TerrainSurfaceHooks() {
+  const { createVS2TerrainSurfaceHooks } = await import('./render/vs2TerrainSurface.js');
+  return createVS2TerrainSurfaceHooks();
+}
