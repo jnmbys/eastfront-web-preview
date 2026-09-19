@@ -1,0 +1,34 @@
+name: UI-009R2 finalize
+on:
+  push:
+    branches: [ui009r2-terrain-surface]
+    paths:
+      - '.github/workflows/ui009r2-finalize.yml'
+permissions:
+  contents: write
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ui009r2-terrain-surface
+          fetch-depth: 0
+      - name: Apply exact production payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .ui009r2/part* | base64 -d > /tmp/ui009r2.tar.gz
+          tar -xzf /tmp/ui009r2.tar.gz
+          test "$(git hash-object app/main.js)" = "ab9d12d486574d2015859782c7f665bb8a0ac7b3"
+          test "$(git hash-object app/render/coreSvg.js)" = "96ffaa3c48424bc46ab9fd299590f14d18cfa587"
+          test "$(git hash-object app/render/terrainSurface.js)" = "0ccccdb6fb257f4697af883695cc3dc21f3344fa"
+          test "$(git hash-object app/web/preview.js)" = "f960f4d00285d3466755eef6fce5fa2e8e617b21"
+          test "$(git hash-object index.html)" = "1ce30969cc18923bda7af0f5445193394a895af4"
+          test "$(git hash-object styles.css)" = "c1e70b12da23e1212670b3bd2036926824fb0e7e"
+          rm -rf .ui009r2 .github/workflows/ui009r2-finalize.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "UI-009R2 stage cached terrain surface"
+          git push origin HEAD:ui009r2-terrain-surface
