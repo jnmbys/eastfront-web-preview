@@ -75,8 +75,8 @@ export async function fetchTerrainBlobWithAbort(url:string,entry:TerrainAssetEnt
     throw new TerrainSurfaceResourceError(`Terrain fetch failed: ${url}`,{stage:'fetch',url,assetId:entry.id,family:entry.family,preferredApi:'fetch+AbortController',cause:errorText(error),capabilities});
   }finally{if(timer!==undefined)clearTimeout(timer);}
 }
-export async function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities):Promise<LoadedTerrainImage>{
-  const url=absAssetUrl(entry,set);let directFailure:unknown,fetchFailure:unknown,bitmapFailure:unknown,blobImageFailure:unknown;let response:Response|undefined,blob:Blob|undefined;
+export async function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride?:string):Promise<LoadedTerrainImage>{
+  const url=urlOverride??absAssetUrl(entry,set);let directFailure:unknown,fetchFailure:unknown,bitmapFailure:unknown,blobImageFailure:unknown;let response:Response|undefined,blob:Blob|undefined;
   try{return await imageFromUrl(url,entry,'direct-image-load',capabilities);}catch(error){directFailure=error;console.warn('EASTFRONT terrain direct image fallback',entry.id,url,error);}
   try{const result=await fetchTerrainBlobWithAbort(url,entry,capabilities);response=result.response;blob=result.blob;}catch(error){fetchFailure=error;}
   if(blob&&capabilities.createImageBitmap){try{const bitmap=await Promise.race([globalThis.createImageBitmap(blob),timeoutAfter(RESOURCE_TIMEOUT_MS,`createImageBitmap ${entry.id}`)]);return {source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()};}catch(error){bitmapFailure=error;console.warn('EASTFRONT terrain createImageBitmap fallback',entry.id,url,error);}}
@@ -154,16 +154,29 @@ function buildSurfacePlan(model:BrowserRenderModel,seed:number,lod:TerrainLod):{
 export function terrainSurfacePlan(model:BrowserRenderModel,seed:number,lod:TerrainLod='medium'):TerrainSurfacePlan{return buildSurfacePlan(model,seed,lod).publicPlan;}
 async function drawGround(ctx:CanvasRenderingContext2D,cache:ImageCache,model:BrowserRenderModel,seed:number):Promise<number>{const ground=terrainAssetCatalog.byFamily('ground'),e=ground[seed%ground.length]??ground[0];if(!e)return 0;const img=await cache.get(e),pts=model.hexes.flatMap(h=>hexPolygon(h.coord)),xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),minX=Math.min(...xs)-HEX_SIZE,maxX=Math.max(...xs)+HEX_SIZE,minY=Math.min(...ys)-HEX_SIZE,maxY=Math.max(...ys)+HEX_SIZE;ctx.save();ctx.translate(seed%97,seed%71);const tile=220;for(let y=Math.floor((minY-(seed%71))/tile)*tile;y<maxY;y+=tile)for(let x=Math.floor((minX-(seed%97))/tile)*tile;x<maxX;x+=tile)drawCover(ctx,img,x,y,tile,tile);ctx.restore();return Math.ceil((maxX-minX)/tile)*Math.ceil((maxY-minY)/tile);}
 
-export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:number,assetSet:TerrainAssetSet='p5',lod:TerrainLod='medium'):Promise<CachedTerrainSurface>{
+export interface TerrainWorldBaseLayer {
+  readonly id: string;
+  paint(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, seed: number): Promise<{ imageDraws: number; uniqueAssets: number }>;
+}
+
+export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:number,assetSet:TerrainAssetSet='p5',lod:TerrainLod='medium',worldBase?:TerrainWorldBaseLayer):Promise<CachedTerrainSurface>{
   const viewBox=viewBoxForHexes(model.hexes),canvas=document.createElement('canvas');canvas.id='terrain-surface';canvas.className='terrain-surface';canvas.width=Math.ceil(viewBox.width);canvas.height=Math.ceil(viewBox.height);canvas.dataset.surface='cached-production';canvas.dataset.seed=String(seed);canvas.dataset.lod=lod;
   const ctx=canvas.getContext('2d',{alpha:false});if(!ctx)throw new TerrainSurfaceResourceError('Canvas 2D is unavailable for production terrain surface.',{stage:'canvas-context',capabilities:terrainSurfaceCapabilities()});ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.fillStyle='#bbb393';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.translate(-viewBox.minX,-viewBox.minY);
   const cache=createImageCache(assetSet),planned=buildSurfacePlan(model,seed,lod),cats:Record<string,number>={};
   try{
-    let imageDraws=await drawGround(ctx,cache,model,seed);bump(cats,'Ground');
-    for(const h of model.hexes)imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);
-    drawMarshContinuity(ctx,model,seed,lod);
+    let imageDraws=0,worldAssets=0;
+    if(worldBase){
+      const result=await worldBase.paint(ctx,model,seed);imageDraws=result.imageDraws;worldAssets=result.uniqueAssets;
+      canvas.dataset.worldSurface=worldBase.id;
+      // Keep existing settlement markers and canonical infrastructure readable.
+      for(const h of model.hexes)if(h.terrain==='CITY'||h.terrain==='MAIN_CITY'||h.terrain==='OUTER_CITY')imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);
+    }else{
+      imageDraws=await drawGround(ctx,cache,model,seed);bump(cats,'Ground');
+      for(const h of model.hexes)imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);
+      drawMarshContinuity(ctx,model,seed,lod);
+    }
     imageDraws+=await drawInfrastructure(ctx,cache,model,seed,lod,cats);
-    canvas.setAttribute('aria-hidden','true');const stats={width:canvas.width,height:canvas.height,imageDraws,uniqueAssets:cache.urls.size,categories:planned.publicPlan.categories};canvas.dataset.buildCount=String(++terrainSurfaceBuildCount);canvas.dataset.categories=JSON.stringify(stats.categories);
+    canvas.setAttribute('aria-hidden','true');const stats={width:canvas.width,height:canvas.height,imageDraws,uniqueAssets:cache.urls.size+worldAssets,categories:planned.publicPlan.categories};canvas.dataset.buildCount=String(++terrainSurfaceBuildCount);canvas.dataset.categories=JSON.stringify(stats.categories);
     return {canvas,viewBox,seed,assetSet,lod,stats};
   }catch(error){if(error instanceof TerrainSurfaceResourceError)throw error;throw new TerrainSurfaceResourceError('Terrain surface canvas draw failed',{stage:'canvas-draw',cause:errorText(error),capabilities:terrainSurfaceCapabilities()});}finally{cache.releaseAll();}
 }
