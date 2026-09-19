@@ -1,0 +1,142 @@
+TAP version 13
+# Subtest: UI009R1 pointerdown alone remains TAP candidate and does not start drag
+ok 1 - UI009R1 pointerdown alone remains TAP candidate and does not start drag
+  ---
+  duration_ms: 0.833644
+  type: 'test'
+  ...
+# Subtest: UI009R1 movement at or below 6 CSS px remains TAP
+ok 2 - UI009R1 movement at or below 6 CSS px remains TAP
+  ---
+  duration_ms: 0.141087
+  type: 'test'
+  ...
+# Subtest: UI009R1 movement above threshold becomes DRAG and suppresses tap
+ok 3 - UI009R1 movement above threshold becomes DRAG and suppresses tap
+  ---
+  duration_ms: 0.171021
+  type: 'test'
+  ...
+# Subtest: UI009R1 pointercancel semantics never convert a drag into a click suppression leak
+ok 4 - UI009R1 pointercancel semantics never convert a drag into a click suppression leak
+  ---
+  duration_ms: 0.099626
+  type: 'test'
+  ...
+# Subtest: UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport
+ok 5 - UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport
+  ---
+  duration_ms: 0.669021
+  type: 'test'
+  ...
+# Subtest: UI009R1 map smaller than viewport stays centered on that axis
+ok 6 - UI009R1 map smaller than viewport stays centered on that axis
+  ---
+  duration_ms: 0.109651
+  type: 'test'
+  ...
+# Subtest: UI009R1 zoom recomputes pan range from rendered content bounds
+ok 7 - UI009R1 zoom recomputes pan range from rendered content bounds
+  ---
+  duration_ms: 0.233493
+  type: 'test'
+  ...
+# Subtest: UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds
+ok 8 - UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds
+  ---
+  duration_ms: 0.153375
+  type: 'test'
+  ...
+# Subtest: UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState
+ok 9 - UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState
+  ---
+  duration_ms: 18.786243
+  type: 'test'
+  ...
+# Subtest: UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical
+ok 10 - UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical
+  ---
+  duration_ms: 97.075254
+  type: 'test'
+  ...
+# Subtest: UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical
+ok 11 - UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical
+  ---
+  duration_ms: 77.47823
+  type: 'test'
+  ...
+# Subtest: UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action
+ok 12 - UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action
+  ---
+  duration_ms: 6.89056
+  type: 'test'
+  ...
+# Subtest: UI009R1 hidden Soviet deployment remains zero-leak after handoff
+ok 13 - UI009R1 hidden Soviet deployment remains zero-leak after handoff
+  ---
+  duration_ms: 208.202506
+  type: 'test'
+  ...
+# Subtest: UI009R1 source captures pointer only after threshold arbitration and coalesces pan with rAF
+ok 14 - UI009R1 source captures pointer only after threshold arbitration and coalesces pan with rAF
+  ---
+  duration_ms: 0.425034
+  type: 'test'
+  ...
+# Subtest: UI009R1 drag suppression is map-local and map touch-action does not disable the whole page
+ok 15 - UI009R1 drag suppression is map-local and map touch-action does not disable the whole page
+  ---
+  duration_ms: 0.348682
+  type: 'test'
+  ...
+# Subtest: UI009R1 frozen Core, Geometry and P5R1 remain exact
+ok 16 - UI009R1 frozen Core, Geometry and P5R1 remain exact
+  ---
+  duration_ms: 14.281464
+  type: 'test'
+  ...
+# Subtest: UI009R2 Strategic Reset F cached terrain plan covers every release-critical static category
+ok 17 - UI009R2 Strategic Reset F cached terrain plan covers every release-critical static category
+  ---
+  duration_ms: 35.678159
+  type: 'test'
+  ...
+# Subtest: UI009R2 static terrain plan is deterministic for the same canonical map and visual seed
+ok 18 - UI009R2 static terrain plan is deterministic for the same canonical map and visual seed
+  ---
+  duration_ms: 24.451015
+  type: 'test'
+  ...
+# Subtest: UI009R2 production live SVG removes raster terrain while retaining grid and interactive deployment layer
+ok 19 - UI009R2 production live SVG removes raster terrain while retaining grid and interactive deployment layer
+  ---
+  duration_ms: 19.289702
+  type: 'test'
+  ...
+# Subtest: UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths
+ok 20 - UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths
+  ---
+  duration_ms: 0.330365
+  type: 'test'
+  ...
+# Subtest: UI009R2 pan and zoom transform the same cached canvas without mutating/repainting it
+ok 21 - UI009R2 pan and zoom transform the same cached canvas without mutating/repainting it
+  ---
+  duration_ms: 0.15647
+  type: 'test'
+  ...
+# Subtest: UI009R2 cache preloads a bounded deterministic asset plan before raster composition
+ok 22 - UI009R2 cache preloads a bounded deterministic asset plan before raster composition
+  ---
+  duration_ms: 0.118844
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 514.609468

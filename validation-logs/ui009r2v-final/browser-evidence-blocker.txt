@@ -1,0 +1,17 @@
+UI-009R2V local visual gate attempt: BLOCKED BY EXECUTION ENVIRONMENT
+
+One headless Chromium attempt was made against a local pure-static production build with a temporary proof page that invoked the real buildCachedTerrainSurface() on Strategic Reset F.
+
+Result: no screenshot produced before 30s timeout.
+Observed Chromium errors included repeated EGL/ANGLE display initialization failures:
+- xcb_connect() failed
+- eglInitialize: Not initialized
+- Initialization of all EGL display types failed
+- GPU process exited during initialization
+
+Per task instruction, no repeat browser automation was attempted.
+Deterministic/static fallback evidence used instead:
+- 22/22 targeted regression PASS
+- R2 surface plan covers Ground/Plain, Forest, City, Marsh, Hill/Rough, River, Road, Railway, Bridge
+- production audit CLEAN
+- 123/123 runtime rasters HTTP 200, 0 missing 404

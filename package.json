@@ -1,0 +1,25 @@
+{
+  "name": "eastfront-web-preview",
+  "version": "0.0.10",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run build && node scripts/serve.mjs dist",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "build": "node scripts/clean-dist.mjs && tsc && node scripts/copy-static.mjs",
+    "snapshot:svg": "npm run build && node scripts/export-snapshots.mjs",
+    "snapshot:integration": "npm run build && npm run audit:production && node scripts/export-ui008-snapshots.mjs",
+    "audit:p5": "node scripts/audit-ui007-assets.mjs",
+    "audit:p5r1": "node scripts/audit-ui007-assets.mjs",
+    "audit:production": "node scripts/audit-ui008-dist.mjs",
+    "preview": "node scripts/serve.mjs dist",
+    "smoke:production": "npm run build && node scripts/run-ui008-production-smoke.mjs",
+    "measure:ui008": "npm run build && node scripts/measure-ui008-performance.mjs",
+    "smoke:combat": "npm run build && node scripts/run-ui008-deep-combat-smoke.mjs",
+    "verify:static": "npm run build && node scripts/verify-ui008-static.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

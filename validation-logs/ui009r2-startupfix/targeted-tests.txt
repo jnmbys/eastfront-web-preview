@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: UI009R1 pointerdown alone remains TAP candidate and does not start drag
+ok 1 - UI009R1 pointerdown alone remains TAP candidate and does not start drag
+  ---
+  duration_ms: 0.956853
+  type: 'test'
+  ...
+# Subtest: UI009R1 movement at or below 6 CSS px remains TAP
+ok 2 - UI009R1 movement at or below 6 CSS px remains TAP
+  ---
+  duration_ms: 0.343474
+  type: 'test'
+  ...
+# Subtest: UI009R1 movement above threshold becomes DRAG and suppresses tap
+ok 3 - UI009R1 movement above threshold becomes DRAG and suppresses tap
+  ---
+  duration_ms: 1.143192
+  type: 'test'
+  ...
+# Subtest: UI009R1 pointercancel semantics never convert a drag into a click suppression leak
+ok 4 - UI009R1 pointercancel semantics never convert a drag into a click suppression leak
+  ---
+  duration_ms: 0.264058
+  type: 'test'
+  ...
+# Subtest: UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport
+ok 5 - UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport
+  ---
+  duration_ms: 0.948682
+  type: 'test'
+  ...
+# Subtest: UI009R1 map smaller than viewport stays centered on that axis
+ok 6 - UI009R1 map smaller than viewport stays centered on that axis
+  ---
+  duration_ms: 0.178061
+  type: 'test'
+  ...
+# Subtest: UI009R1 zoom recomputes pan range from rendered content bounds
+ok 7 - UI009R1 zoom recomputes pan range from rendered content bounds
+  ---
+  duration_ms: 0.254503
+  type: 'test'
+  ...
+# Subtest: UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds
+ok 8 - UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds
+  ---
+  duration_ms: 0.233863
+  type: 'test'
+  ...
+# Subtest: UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState
+ok 9 - UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState
+  ---
+  duration_ms: 16.388625
+  type: 'test'
+  ...
+# Subtest: UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical
+ok 10 - UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical
+  ---
+  duration_ms: 87.588547
+  type: 'test'
+  ...
+# Subtest: UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical
+ok 11 - UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical
+  ---
+  duration_ms: 79.445018
+  type: 'test'
+  ...
+# Subtest: UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action
+ok 12 - UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action
+  ---
+  duration_ms: 5.095106
+  type: 'test'
+  ...
+# Subtest: UI009R1 hidden Soviet deployment remains zero-leak after handoff
+ok 13 - UI009R1 hidden Soviet deployment remains zero-leak after handoff
+  ---
+  duration_ms: 157.169623
+  type: 'test'
+  ...
+# Subtest: UI009R1 source captures pointer only after threshold arbitration and coalesces pan with rAF
+ok 14 - UI009R1 source captures pointer only after threshold arbitration and coalesces pan with rAF
+  ---
+  duration_ms: 0.156209
+  type: 'test'
+  ...
+# Subtest: UI009R1 drag suppression is map-local and map touch-action does not disable the whole page
+ok 15 - UI009R1 drag suppression is map-local and map touch-action does not disable the whole page
+  ---
+  duration_ms: 0.223228
+  type: 'test'
+  ...
+# Subtest: UI009R1 frozen Core, Geometry and P5R1 remain exact
+ok 16 - UI009R1 frozen Core, Geometry and P5R1 remain exact
+  ---
+  duration_ms: 7.714067
+  type: 'test'
+  ...
+# Subtest: UI009R2 startup loader has optional bitmap decode and mandatory HTMLImage fallbacks
+ok 17 - UI009R2 startup loader has optional bitmap decode and mandatory HTMLImage fallbacks
+  ---
+  duration_ms: 0.740016
+  type: 'test'
+  ...
+# Subtest: UI009R2 startup resource failures preserve exact URL asset family HTTP stage and capabilities
+ok 18 - UI009R2 startup resource failures preserve exact URL asset family HTTP stage and capabilities
+  ---
+  duration_ms: 0.281583
+  type: 'test'
+  ...
+# Subtest: UI009R2 production fatal screen exposes startup detail instead of generic-only resource failure
+ok 19 - UI009R2 production fatal screen exposes startup detail instead of generic-only resource failure
+  ---
+  duration_ms: 0.181316
+  type: 'test'
+  ...
+# Subtest: UI009R2 Strategic Reset F cached terrain plan covers every release-critical static category
+ok 20 - UI009R2 Strategic Reset F cached terrain plan covers every release-critical static category
+  ---
+  duration_ms: 39.429099
+  type: 'test'
+  ...
+# Subtest: UI009R2 static terrain plan is deterministic for the same canonical map and visual seed
+ok 21 - UI009R2 static terrain plan is deterministic for the same canonical map and visual seed
+  ---
+  duration_ms: 31.088892
+  type: 'test'
+  ...
+# Subtest: UI009R2 production live SVG removes raster terrain while retaining grid and interactive deployment layer
+ok 22 - UI009R2 production live SVG removes raster terrain while retaining grid and interactive deployment layer
+  ---
+  duration_ms: 21.053219
+  type: 'test'
+  ...
+# Subtest: UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths
+ok 23 - UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths
+  ---
+  duration_ms: 0.386798
+  type: 'test'
+  ...
+# Subtest: UI009R2 pan and zoom transform the same cached canvas without mutating/repainting it
+ok 24 - UI009R2 pan and zoom transform the same cached canvas without mutating/repainting it
+  ---
+  duration_ms: 0.161877
+  type: 'test'
+  ...
+# Subtest: UI009R2 terrain cache avoids all-at-once preload and bounds decoded-image residency
+ok 25 - UI009R2 terrain cache avoids all-at-once preload and bounds decoded-image residency
+  ---
+  duration_ms: 0.115119
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 445.763863

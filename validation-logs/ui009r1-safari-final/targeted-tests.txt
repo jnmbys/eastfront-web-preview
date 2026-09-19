@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: UI009R1 pointerdown alone remains TAP candidate and does not start drag
+ok 1 - UI009R1 pointerdown alone remains TAP candidate and does not start drag
+  ---
+  duration_ms: 0.853159
+  type: 'test'
+  ...
+# Subtest: UI009R1 movement at or below 6 CSS px remains TAP
+ok 2 - UI009R1 movement at or below 6 CSS px remains TAP
+  ---
+  duration_ms: 0.179683
+  type: 'test'
+  ...
+# Subtest: UI009R1 movement above threshold becomes DRAG and suppresses tap
+ok 3 - UI009R1 movement above threshold becomes DRAG and suppresses tap
+  ---
+  duration_ms: 0.176108
+  type: 'test'
+  ...
+# Subtest: UI009R1 pointercancel semantics never convert a drag into a click suppression leak
+ok 4 - UI009R1 pointercancel semantics never convert a drag into a click suppression leak
+  ---
+  duration_ms: 0.099957
+  type: 'test'
+  ...
+# Subtest: UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport
+ok 5 - UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport
+  ---
+  duration_ms: 0.772031
+  type: 'test'
+  ...
+# Subtest: UI009R1 map smaller than viewport stays centered on that axis
+ok 6 - UI009R1 map smaller than viewport stays centered on that axis
+  ---
+  duration_ms: 0.10936
+  type: 'test'
+  ...
+# Subtest: UI009R1 zoom recomputes pan range from rendered content bounds
+ok 7 - UI009R1 zoom recomputes pan range from rendered content bounds
+  ---
+  duration_ms: 0.161106
+  type: 'test'
+  ...
+# Subtest: UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds
+ok 8 - UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds
+  ---
+  duration_ms: 0.139784
+  type: 'test'
+  ...
+# Subtest: UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState
+ok 9 - UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState
+  ---
+  duration_ms: 15.82031
+  type: 'test'
+  ...
+# Subtest: UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical
+ok 10 - UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical
+  ---
+  duration_ms: 88.225267
+  type: 'test'
+  ...
+# Subtest: UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical
+ok 11 - UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical
+  ---
+  duration_ms: 72.359149
+  type: 'test'
+  ...
+# Subtest: UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action
+ok 12 - UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action
+  ---
+  duration_ms: 7.03931
+  type: 'test'
+  ...
+# Subtest: UI009R1 hidden Soviet deployment remains zero-leak after handoff
+ok 13 - UI009R1 hidden Soviet deployment remains zero-leak after handoff
+  ---
+  duration_ms: 149.736438
+  type: 'test'
+  ...
+# Subtest: UI009R1 source captures pointer only after threshold arbitration and coalesces pan with rAF
+ok 14 - UI009R1 source captures pointer only after threshold arbitration and coalesces pan with rAF
+  ---
+  duration_ms: 0.149529
+  type: 'test'
+  ...
+# Subtest: UI009R1 drag suppression is map-local and map touch-action does not disable the whole page
+ok 15 - UI009R1 drag suppression is map-local and map touch-action does not disable the whole page
+  ---
+  duration_ms: 0.183278
+  type: 'test'
+  ...
+# Subtest: UI009R1 frozen Core, Geometry and P5R1 remain exact
+ok 16 - UI009R1 frozen Core, Geometry and P5R1 remain exact
+  ---
+  duration_ms: 8.017112
+  type: 'test'
+  ...
+# Subtest: Safari compatibility: SVG root declares xlink namespace
+ok 17 - Safari compatibility: SVG root declares xlink namespace
+  ---
+  duration_ms: 59.741469
+  type: 'test'
+  ...
+# Subtest: Safari compatibility: every production raster image has href and xlink:href to the same relative asset
+ok 18 - Safari compatibility: every production raster image has href and xlink:href to the same relative asset
+  ---
+  duration_ms: 47.637892
+  type: 'test'
+  ...
+# Subtest: Safari compatibility: per-Hex production clip ids are defined exactly once
+ok 19 - Safari compatibility: per-Hex production clip ids are defined exactly once
+  ---
+  duration_ms: 42.550861
+  type: 'test'
+  ...
+# Subtest: Strategic Reset F production renderer contains all release-critical terrain and infrastructure families
+ok 20 - Strategic Reset F production renderer contains all release-critical terrain and infrastructure families
+  ---
+  duration_ms: 40.003254
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 427.699904
