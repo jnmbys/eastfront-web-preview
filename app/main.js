@@ -1,3 +1,4 @@
+import { combatAttackPanel } from './ui/combatAttackPanel.js';
 import { deploymentFocus, deploymentRejection } from './ui/deploymentPolish.js';
 import { createDeploymentTouch, chooseDeploymentTarget, confirmDeploymentTarget } from './ui/deploymentTouch.js';
 import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
@@ -106,10 +107,8 @@ function combatPanel(model) {
     if (!c)
         return '';
     const pending = c.pending, tx = c.battle;
-    if (!pending) {
-        const a = c.attackDraft;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">COMBAT · ATTACK MODE</span><p>Select a controlled direct attacker, add/remove it from the draft, then choose a highlighted adjacent enemy Hex.</p>${model.selectedCounter ? `<button id="attack-toggle-selected" class="secondary-action">${a.attackerUnitIds.includes(model.selectedCounter.id) ? 'REMOVE' : 'ADD'} ${esc(model.selectedCounter.id)}</button>` : ''}<div class="combat-unit-list">${a.attackerUnitIds.map((id) => `<span class="phase-pill">${esc(id)}</span>`).join('') || '<span>No attackers selected</span>'}</div><div class="phase-metric"><span>Target</span><strong>${a.target ? coreHexKey(a.target) : '—'}</strong></div>${a.target ? `<div class="button-row"><button id="attack-art-none" class="mini-button ${!a.selectedArtilleryId ? 'active' : ''}">No Artillery</button>${a.artilleryUnitIds.map((id) => `<button class="mini-button ${a.selectedArtilleryId === id ? 'active' : ''}" data-attack-artillery="${esc(id)}">${esc(id)}</button>`).join('')}</div>` : ''}${a.preview ? combatContextHtml(a.preview, 'PRE-REACTION PREVIEW') : issueHtml(a.issues)}<div class="button-row"><button id="attack-clear" class="secondary-action">CLEAR</button><button id="attack-declare" class="secondary-action" ${!a.target || !a.attackerUnitIds.length || a.issues.length ? 'disabled' : ''}>DECLARE ATTACK</button></div><button id="ready-button" class="primary-action"><span class="advance-label"><small>COMBAT</small>End combat</span><span class="advance-arrow" aria-hidden="true">›</span></button></section>${battleHistoryHtml(model)}`;
-    }
+    if (!pending)
+        return combatAttackPanel(model, c.attackDraft.preview ? combatContextHtml(c.attackDraft.preview, 'COMBAT DETAILS') : '') + battleHistoryHtml(model);
     const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">COMBAT TRANSACTION · ${pending.kind}</span><div class="phase-metric"><span>Battle</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>Decision owner</span><strong>${esc(pending.decisionOwnerControllerId)}</strong></div>`;
     let body = '';
     if (pending.kind === 'DEFENDER_REACTION') {
@@ -341,10 +340,12 @@ function refreshDynamicView() {
     }
     const lod = svg.dataset.lod ?? mapRenderOptions(model).lod;
     dynamic.innerHTML = coreSvgDynamicMarkup(model, mapRenderOptions(model, lod));
+    const openDetails = Array.from(panel.querySelectorAll('details')).map(el => el.open);
     const panelScroll = panel.querySelector('.command-panel-scroll')?.scrollTop ?? 0;
     const rosterScroll = panel.querySelector('.roster-list')?.scrollTop ?? 0;
     const locationScroll = panel.querySelector('.location-grid')?.scrollTop ?? 0;
     panel.innerHTML = sidePanelMarkup(model);
+    panel.querySelectorAll('details').forEach((el, i) => { el.open = openDetails[i] ?? false; });
     const scroll = panel.querySelector('.command-panel-scroll');
     if (scroll)
         scroll.scrollTop = panelScroll;
@@ -440,6 +441,13 @@ function paintCombatTargets() {
 }
 function bindDynamic() {
     paintCombatTargets();
+    document.querySelectorAll('[data-attack-unit]').forEach(el => el.addEventListener('click', () => {
+        const id = el.dataset.attackUnit;
+        if (!id || !session)
+            return;
+        toggleAttackUnit(session, presentation, id);
+        refreshDynamicView();
+    }));
     if (!session)
         return;
     document.querySelector('#confirm-deployment')?.addEventListener('click', event => {
@@ -484,9 +492,12 @@ function bindDynamic() {
     document.querySelector('#attack-toggle-selected')?.addEventListener('click', () => { if (presentation.selectedUnitId)
         toggleAttackUnit(session, presentation, presentation.selectedUnitId); render(); });
     document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); render(); });
-    document.querySelector('#attack-declare')?.addEventListener('click', () => { declareAttack(session, presentation); render(); });
-    document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); render(); });
-    document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); render(); }));
+    document.querySelector('#attack-declare')?.addEventListener('click', () => { const button = document.querySelector('#attack-declare'); if (button) {
+        button.disabled = true;
+        button.textContent = 'Submitting attack…';
+    } declareAttack(session, presentation); render(); });
+    document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); refreshDynamicView(); });
+    document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); refreshDynamicView(); }));
     document.querySelectorAll('[data-role="attack-target"]').forEach((el) => { const action = () => { const key = el.dataset.hex; if (key) {
         routeCombatTarget(session, presentation, parseHex(key));
         refreshDynamicView();

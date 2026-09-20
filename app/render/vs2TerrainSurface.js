@@ -1,9 +1,10 @@
 import { paintVS2Infrastructure } from './vs2Infrastructure.js';
+import { paintVS2PlainTraces, paintVS2MarshReeds, paintVS2RiverbankDetails } from './vs2PlainTraces.js';
 import { paintVS2Forest } from './vs2ForestSurface.js';
 import { VS2_PRESENTATION } from './vs2Presentation.js';
 import { loadTerrainImage, terrainSurfaceCapabilities } from './terrainSurface.js';
 import { projectVS2Terrain } from './vs2Projection.js';
-import { planVS2CityClusters } from './vs2CityClusters.js';
+import { planVS2CityClusters, planVS2CityBlocks, paintVS2CityMassing, planVS2CityCourts, paintVS2CityCourts } from './vs2CityClusters.js';
 import { rasterizeVS2WorldSurface, VS2_WORLD_MATERIAL_IDS } from './vs2WorldRaster.js';
 import { vs2AssetCatalog } from './vs2Assets.js';
 export function createVS2TerrainSurfaceHooks(assets = vs2AssetCatalog) {
@@ -69,20 +70,17 @@ export function createVS2WorldBaseLayer(assets = vs2AssetCatalog) {
                 surface.width = 0;
                 surface.height = 0;
             }
+            paintVS2PlainTraces(ctx, projection, seed);
+            paintVS2MarshReeds(ctx, projection, seed);
+            paintVS2RiverbankDetails(ctx, projection, seed);
             const forest = await paintVS2Forest(ctx, projection, seed, lod, assets);
             // Stable city layout at every LOD. Far uses silhouettes of cached footprints,
             // without loading component images whose manifest disallows Far.
             const placements = planVS2CityClusters(projection, seed, 'medium', assets);
+            const blocks = planVS2CityBlocks(projection, seed);
+            paintVS2CityCourts(ctx, planVS2CityCourts(projection, blocks));
             if (VS2_PRESENTATION[lod].citySummary) {
-                ctx.save();
-                try {
-                    ctx.fillStyle = '#746b59';
-                    for (const p of placements)
-                        ctx.fillRect(p.x - p.width / 2, p.y - p.height / 2, p.width, p.height);
-                }
-                finally {
-                    ctx.restore();
-                }
+                paintVS2CityMassing(ctx, blocks);
                 return { imageDraws: 1 + forest.imageDraws, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + forest.uniqueAssets };
             }
             const cityAssets = [...new Set(placements.map(p => p.assetId))].sort();
@@ -106,6 +104,8 @@ export function createVS2WorldBaseLayer(assets = vs2AssetCatalog) {
                     image.release?.();
                 }
             }
+            // Native core silhouettes remain legible above the small component textures.
+            paintVS2CityMassing(ctx, blocks);
             return { imageDraws: 1 + forest.imageDraws + placements.length, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + forest.uniqueAssets + cityAssets.length };
         },
     };

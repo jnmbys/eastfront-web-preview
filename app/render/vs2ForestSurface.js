@@ -72,8 +72,16 @@ export async function paintVS2Forest(ctx, projection, seed, lod, assets = vs2Ass
         for (let y = 0; y < layer.height; y++)
             for (let x = 0; x < layer.width; x++) {
                 const i = (y * layer.width + x) * 4 + 3;
-                if (image.data[i])
+                if (image.data[i]) {
                     image.data[i] = image.data[i] * coverage(bounds.minX + (x + 0.5) * pixel, bounds.minY + (y + 0.5) * pixel);
+                    // Broad woodland warmth varies through the continuous crown layer, not per Hex.
+                    const wx = bounds.minX + (x + 0.5) * pixel, wy = bounds.minY + (y + 0.5) * pixel;
+                    const warmth = 0.5 + Math.sin(wx / 125 + Math.sin(wy / 165)) * 0.5;
+                    image.data[i - 3] = (image.data[i - 3] - 105) * 1.08 + 105;
+                    image.data[i - 3] = image.data[i - 3] * (0.80 + warmth * 0.18);
+                    image.data[i - 2] = (image.data[i - 2] - 95) * 1.08 + 108;
+                    image.data[i - 1] = image.data[i - 1] * (0.78 + warmth * 0.08);
+                }
             }
         target.putImageData(image, 0, 0);
         ctx.drawImage(layer, bounds.minX, bounds.minY, bounds.width, bounds.height);
