@@ -64,7 +64,9 @@ test('C city groups cover every real city and reject entire footprints over infr
   assert.equal(p.cityCells.length, 9); assert(placements.length >= 18);
   for (const c of p.cityCells) {
     const center = hexToPixel(c.coord);
-    assert(placements.filter(b => Math.hypot(b.x - center.x, b.y - center.y) < 42).length >= 2);
+    const local = placements.filter(b => Math.hypot(b.x - center.x, b.y - center.y) < 42);
+    assert(local.length >= 1);
+    assert(local.reduce((sum, b) => sum + b.width * b.height, 0) >= 240, 'Each city retains a readable built-up footprint');
   }
   for (const b of placements) {
     assert(p.canPlaceCity(b, b.width, b.height));

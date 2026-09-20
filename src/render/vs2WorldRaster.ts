@@ -1,5 +1,6 @@
 import { vs2AssetCatalog, type VS2AssetEntry } from './vs2Assets.js';
 import { VS2_WORLD_H, vs2VisualValue, vs2WorldNoise, type VS2RegionField } from './vs2WorldField.js';
+import { vs2ReliefLight, vs2MarshEnvironment } from './vs2TerrainDetail.js';
 import type { ViewBoxSpec } from './coreSvg.js';
 
 export interface VS2Texture { readonly width: number; readonly height: number; readonly data: Uint8ClampedArray; }
@@ -48,16 +49,30 @@ export function rasterizeVS2WorldSurface(
   });
   const width = Math.ceil(bounds.width / pixelSize), height = Math.ceil(bounds.height / pixelSize), data = new Uint8ClampedArray(width * height * 4);
   const regionMaterials = [0, 2, 3, 4, 5, 6];
-  const lake = [105, 143, 149], background = [187, 179, 147];
+  const lake = [67, 123, 140], background = [187, 179, 147];
   for (let row = 0; row < height; row++) {
     const y = bounds.minY + (row + 0.5) * pixelSize;
     for (let col = 0; col < width; col++) {
       const x = bounds.minX + (col + 0.5) * pixelSize, index = (row * width + col) * 4;
       const { weights, coverage } = field.sample(x, y);
       const dry = vs2WorldNoise(seed, 'dryness', x, y, VS2_WORLD_H * 4) * 0.48;
-      const moisture = vs2WorldNoise(seed, 'marsh-moisture', x, y, VS2_WORLD_H * 1.8);
       const macro = 1 + (luminance(samples[7]!, x, y) - 0.5) * 0.16;
       const relief = 1 + (luminance(samples[8]!, x, y) - 0.5) * 0.08;
+      // Broad value groups carry terrain identity; source microtexture stays secondary.
+      // Everything is sampled in world space, never in a Hex-local UV domain.
+      const meadow = vs2WorldNoise(seed, 'F-meadow', x, y, VS2_WORLD_H * 1.7);
+      const hillLight = weights[2]! > 0 ? vs2ReliefLight(seed, x, y, false) : 0;
+      const roughLight = weights[3]! > 0 ? vs2ReliefLight(seed, x, y, true) : 0;
+      const { water: pool, mud } = weights[4]! > 0 ? vs2MarshEnvironment(seed, x, y) : { water: 0, mud: 0 };
+      const marshInterior = Math.max(0, Math.min(1, (weights[4]! - 0.3) / 0.65));
+      const marshBlend = marshInterior * marshInterior * (3 - 2 * marshInterior);
+      const palette = [
+        [148 + dry * 65 + meadow * 14, 170 + meadow * 14 - dry * 17, 95 + meadow * 12],
+        [90 + meadow * 25, 115 + meadow * 24, 56 + meadow * 9],
+        [180 + hillLight, 154 + hillLight * 0.93, 105 + hillLight * 0.76],
+        [155 + roughLight, 143 + roughLight * 0.95, 114 + roughLight * 0.85],
+        [132 - pool * 54 - mud * 12, 153 - pool * 11 - mud * 18, 91 + pool * 44 - mud * 7], [177, 161, 130],
+      ];
       for (let c = 0; c < 3; c++) {
         let value = weights[6]! * lake[c]!;
         for (let region = 0; region < regionMaterials.length; region++) {
@@ -66,8 +81,15 @@ export function rasterizeVS2WorldSurface(
           if (region === 0) material = material * (1 - dry) + channel(samples[1]!, x, y, c) * dry;
           // Ground colour under the continuous canopy pass.
           if (region === 1) material *= [0.68, 0.80, 0.64][c]!;
-          if (region === 4) { const wet = 0.28 + Math.max(0, moisture - 0.35) * 0.65; material = material * (1 - wet) + [82, 137, 141][c]! * wet; }
+          if (region === 4) { const wet = 0.14 + pool * 0.45; material = material * (1 - wet) + [82, 137, 141][c]! * wet; }
           if (region === 2 || region === 3) material *= relief;
+          material = material * (region === 3 ? 0.36 : 0.22) + palette[region]![c]! * (region === 3 ? 0.64 : 0.78);
+          // Dry grassy rim -> moist sediment -> interior pools, inside the existing mask.
+          // The canonical region field and all semantic ownership remain untouched.
+          if (region === 4) {
+            const fringe = palette[0]![c]! * 0.55 + [145, 144, 92][c]! * 0.45;
+            material = fringe * (1 - marshBlend) + material * marshBlend;
+          }
           value += weight * material;
         }
         data[index + c] = value * macro * coverage + background[c]! * (1 - coverage);

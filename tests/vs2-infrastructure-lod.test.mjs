@@ -66,14 +66,16 @@ test('D forest union remains continuous across same-terrain shared edges and cle
   assert(plans[0].length > 0); assert.deepEqual(plans[0], plans[1]); assert.deepEqual(plans[1], plans[2]);
 });
 
-test('D marsh maintains a distinct wet colour at player scale without darkening forest or using hex-local pools', () => {
+test('F1 marsh remains distinct from dry plain and forest while allowing earthy reed/mud colours', () => {
   const textures = new Map(VS2_WORLD_MATERIAL_IDS.map(id => [id, { width: 2, height: 2, data: new Uint8ClampedArray([150, 150, 150, 255, 150, 150, 150, 255, 150, 150, 150, 255, 150, 150, 150, 255]) }]));
   const render = region => rasterizeVS2WorldSurface({ sample: () => ({ weights: [0, 1, 2, 3, 4, 5, 6].map(i => i === region ? 1 : 0), coverage: 1 }) }, textures, 17, { minX: -80, minY: -80, width: 160, height: 160 }, 4).data;
-  const marsh = render(4), forest = render(1), plain = render(0);
+  const marsh = render(4), forest = render(1), plain = render(0), lake = render(6);
   let mr = 0, mg = 0, mb = 0, fg = 0, pr = 0;
   for (let i = 0; i < marsh.length; i += 4) { mr += marsh[i]; mg += marsh[i + 1]; mb += marsh[i + 2]; fg += forest[i + 1]; pr += plain[i]; }
   const pixels = marsh.length / 4;
-  assert((mg - mr) / pixels > 14); assert((mb - mr) / pixels > 14);
+  assert((mg - mr) / pixels > 14);
+  const lakeBlueRed = lake.reduce((s, value, i) => s + (i % 4 === 2 ? value : i % 4 === 0 ? -value : 0), 0) / pixels;
+  assert(lakeBlueRed > (mb - mr) / pixels + 20, 'Marsh must not collapse to lake-blue');
   assert((mg - fg) / pixels > 10); assert((pr - mr) / pixels > 20);
 });
 
@@ -123,10 +125,10 @@ test('D all LODs render the complete 20×32 map with cities, canopy, canonical p
       }
       const projection = projectVS2Terrain(model, VS2_PRESENTATION[lod].pixelSize);
       const cityPlan = planVS2CityClusters(projection, 17, 'medium');
-      assert.equal(cityPlan.length, 40);
+      assert(cityPlan.length >= 18); // Larger F settlement footprints replace D's 40 tiny stamps.
       if (lod === 'far') {
         const summaries = env.calls.slice(callStart).filter(c => c.fill && c.canvas === surface.canvas).slice(1);
-        assert.equal(summaries.length, cityPlan.length);
+        assert(summaries.length >= cityPlan.length); // Cached settlement mass without Far-disallowed textures.
         assert(!urls.some(url => url.includes('/city/reuse_')));
       } else assert(urls.some(url => url.includes('/city/reuse_')));
       for (const part of ['/forest/', '/road/', '/rail/', '/river/', '/bridge/']) assert(urls.some(url => url.includes(part)));

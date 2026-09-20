@@ -94,12 +94,19 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
   for (const isMajor of [false, true]) {
     const selected = rivers.flatMap(c => c.segments.filter(s => major.has(s.key) === isMajor).map(s => ({ kind: 'river' as const, segments: [s] })));
     const width = isMajor ? 8.8 : 5.2;
-    joins(selected, width, '#78979a', 0.9);
+    joins(selected, width + 8, '#8b9561', 0.24);
+    joins(selected, width + 3.5, '#a0956b', 0.34);
+    joins(selected, width, '#62858a', 0.9);
     if (lod !== 'far') await draw('VS2_RIVER_WET_BANK', selected, isMajor ? 9.4 : 7, 0.80);
     await draw('VS2_RIVER_WATER', selected, width, 0.95);
+    // A continuous water body unifies tangent-rotated texture brightness at bends.
+    joins(selected, width * 0.82, '#4d8997', 0.77);
+    joins(selected, width * 0.25, '#adcfca', 0.22);
   }
-  joins(roads, style.roadWidth, '#b2a58b', 0.8);
+  joins(roads, style.roadWidth + 1.2, '#817c52', 0.26);
+  joins(roads, style.roadWidth, '#c8b586', 0.85);
   await draw('VS2_ROAD_SURFACE_01', roads, style.roadWidth, 0.86);
+  joins(roads, style.roadWidth * 0.46, '#d9c99e', 0.36);
   joins(rails, style.railWidth * 0.65, '#74776d', 0.55);
   await draw('VS2_RAIL_BALLAST', rails, style.railWidth, style.railOpacity);
   if (lod !== 'far') {

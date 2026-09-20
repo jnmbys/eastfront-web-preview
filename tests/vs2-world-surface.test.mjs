@@ -153,10 +153,21 @@ test('VS2 world pass loads exactly the selected namespace materials sequentially
     const hooks = createVS2TerrainSurfaceHooks();
     assert.equal(hooks.renderAvailable, true);
     assert.equal(hooks.lookupAsset('unknown'), undefined);
-    const result = await hooks.worldBase.paint({ drawImage() { draws++; } }, { hexes: [hex(0, 0, 'PLAIN')], edges: [] }, 17);
+    const result = await hooks.worldBase.paint(new Proxy({ drawImage() { draws++; } }, { get: (o, k) => o[k] ?? (() => {}) }), { hexes: [hex(0, 0, 'PLAIN')], edges: [] }, 17);
     assert.equal(result.uniqueAssets, 9); assert.equal(draws, 1); assert.equal(peak, 1);
     assert.equal(urls.length, VS2_WORLD_MATERIAL_IDS.length);
     assert(urls.every(url => url.startsWith('https://example.test/game/assets/terrain/vs2-002/assets/')));
     assert(canvases.every(c => c.width === 0 && c.height === 0));
   } finally { globalThis.document = oldDocument; globalThis.Image = oldImage; }
+});
+
+test('F2 hill, rough and marsh materials remain crop-invariant and seed-separated', () => {
+ const bounds={minX:-64,minY:-32,width:128,height:64};
+ for(const region of [2,3,4]){
+  const field={sample:()=>({weights:Array.from({length:7},(_,i)=>Number(i===region)),coverage:1})};
+  const all=rasterizeVS2WorldSurface(field,textures(),17,bounds);
+  const crop=rasterizeVS2WorldSurface(field,textures(),17,{...bounds,minX:0,width:64});
+  for(let row=0;row<crop.height;row++)assert.deepEqual(crop.data.slice(row*crop.width*4,(row+1)*crop.width*4),all.data.slice((row*all.width+32)*4,(row*all.width+64)*4));
+  assert.notEqual(hash(all.data),hash(rasterizeVS2WorldSurface(field,textures(),18,bounds).data));
+ }
 });
