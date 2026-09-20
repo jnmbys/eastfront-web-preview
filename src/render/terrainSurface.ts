@@ -157,6 +157,7 @@ async function drawGround(ctx:CanvasRenderingContext2D,cache:ImageCache,model:Br
 export interface TerrainWorldBaseLayer {
   readonly id: string;
   readonly replacesCityMarkers?: boolean;
+  paintInfrastructure?(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod): Promise<{ imageDraws: number; uniqueAssets: number }>;
   paint(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, seed: number, lod?: TerrainLod): Promise<{ imageDraws: number; uniqueAssets: number }>;
 }
 
@@ -176,7 +177,8 @@ export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:nu
       for(const h of model.hexes)imageDraws+=await drawTerrainHex(ctx,cache,model,h,seed,lod,assetSet,cats);
       drawMarshContinuity(ctx,model,seed,lod);
     }
-    imageDraws+=await drawInfrastructure(ctx,cache,model,seed,lod,cats);
+    if(worldBase?.paintInfrastructure){const infrastructure=await worldBase.paintInfrastructure(ctx,model,lod);imageDraws+=infrastructure.imageDraws;worldAssets+=infrastructure.uniqueAssets;}
+    else imageDraws+=await drawInfrastructure(ctx,cache,model,seed,lod,cats);
     canvas.setAttribute('aria-hidden','true');const stats={width:canvas.width,height:canvas.height,imageDraws,uniqueAssets:cache.urls.size+worldAssets,categories:planned.publicPlan.categories};canvas.dataset.buildCount=String(++terrainSurfaceBuildCount);canvas.dataset.categories=JSON.stringify(stats.categories);
     return {canvas,viewBox,seed,assetSet,lod,stats};
   }catch(error){if(error instanceof TerrainSurfaceResourceError)throw error;throw new TerrainSurfaceResourceError('Terrain surface canvas draw failed',{stage:'canvas-draw',cause:errorText(error),capabilities:terrainSurfaceCapabilities()});}finally{cache.releaseAll();}

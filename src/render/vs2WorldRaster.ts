@@ -55,6 +55,7 @@ export function rasterizeVS2WorldSurface(
       const x = bounds.minX + (col + 0.5) * pixelSize, index = (row * width + col) * 4;
       const { weights, coverage } = field.sample(x, y);
       const dry = vs2WorldNoise(seed, 'dryness', x, y, VS2_WORLD_H * 4) * 0.48;
+      const moisture = vs2WorldNoise(seed, 'marsh-moisture', x, y, VS2_WORLD_H * 1.8);
       const macro = 1 + (luminance(samples[7]!, x, y) - 0.5) * 0.16;
       const relief = 1 + (luminance(samples[8]!, x, y) - 0.5) * 0.08;
       for (let c = 0; c < 3; c++) {
@@ -63,8 +64,9 @@ export function rasterizeVS2WorldSurface(
           const weight = weights[region]!; if (!weight) continue;
           let material = channel(samples[regionMaterials[region]!]!, x, y, c);
           if (region === 0) material = material * (1 - dry) + channel(samples[1]!, x, y, c) * dry;
-          // Ground-only woodland tone; canopy/stamp composition is a later stage.
+          // Ground colour under the continuous canopy pass.
           if (region === 1) material *= [0.68, 0.80, 0.64][c]!;
+          if (region === 4) { const wet = 0.28 + Math.max(0, moisture - 0.35) * 0.65; material = material * (1 - wet) + [82, 137, 141][c]! * wet; }
           if (region === 2 || region === 3) material *= relief;
           value += weight * material;
         }

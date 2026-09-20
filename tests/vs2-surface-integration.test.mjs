@@ -94,7 +94,7 @@ test('C city plans are order-independent, seed-dependent, and leave scenario/RNG
   assert.equal(coreSvgMarkup(model, options), svg);
 });
 
-test('C real-map cache draws projected raster, VS2 city components, then existing infrastructure without legacy city duplication', async () => {
+test('C real-map cache draws projected raster, VS2 city components, then VS2 infrastructure without legacy duplication', async () => {
   const { model } = realMap(), p = projectVS2Terrain(model);
   const oldDocument = globalThis.document, oldImage = globalThis.Image;
   const calls = [], urls = [];
@@ -118,9 +118,9 @@ test('C real-map cache draws projected raster, VS2 city components, then existin
     const rasterIndex = calls.findIndex(c => c.args.length === 4 && c.args[0] === p.rasterBounds.minX && c.args[1] === p.rasterBounds.minY && c.args[2] === p.rasterBounds.width && c.args[3] === p.rasterBounds.height);
     assert(rasterIndex >= 0);
     const cityIndex = calls.findIndex(c => c.args.length === 4 && c.source.url?.includes('/vs2-002/assets/city/'));
-    const infrastructureIndex = calls.findIndex(c => c.source.url?.includes('/p4r3/'));
+    const infrastructureIndex = calls.findIndex(c => c.source.url?.includes('/vs2-002/assets/river/'));
     assert(cityIndex > rasterIndex); assert(infrastructureIndex > cityIndex);
     assert(!urls.some(url => url.includes('/p4r3/city/')));
-    for (const part of ['/road/', '/railway/', '/river/', '/bridge/']) assert(urls.some(url => url.includes(part)));
+    for (const part of ['/road/', '/rail/', '/river/', '/bridge/']) assert(urls.some(url => url.includes(part)));
   } finally { globalThis.document = oldDocument; globalThis.Image = oldImage; }
 });
