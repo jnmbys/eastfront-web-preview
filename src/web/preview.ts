@@ -4,6 +4,14 @@ import { createLocalGameSession, type LocalGameSession } from '../core-adapter/s
 
 export const WEB_PREVIEW_VERSION = '0.0.10';
 export const WEB_PREVIEW_BUILD = 'UI-009R2D2';
+export const TERRAIN_VISUAL_SEED = 17;
+
+/** New games get fresh entropy; explicit seeds still support exact replay. */
+export function createGameplaySeed():number {
+  const value = new Uint32Array(1);
+  do { globalThis.crypto.getRandomValues(value); } while(value[0] === 0);
+  return value[0]!;
+}
 
 export type ResponsiveProfile = 'DESKTOP' | 'IPAD_LANDSCAPE' | 'MOBILE_NARROW';
 
@@ -18,7 +26,7 @@ export function productionDeveloperUiAllowed(hostname:string,query:string):boole
   return local&&new URLSearchParams(query).get('dev')==='1';
 }
 
-export function createFreshProductionSession(rawMap:LegacyMapData,seed=17):LocalGameSession {
+export function createFreshProductionSession(rawMap:LegacyMapData,seed=createGameplaySeed()):LocalGameSession {
   return createLocalGameSession(rawMap,seed);
 }
 
