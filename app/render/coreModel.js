@@ -134,7 +134,7 @@ export function deriveBrowserRenderModel(session, presentation) {
             if (active) {
                 const unit = session.state.units[active];
                 const path = presentation.retreatDrafts[active] ?? [];
-                if (unit)
+                if (unit && path.length < pending.retreatSteps)
                     options = getLegalRetreatStepOptions(session.state, session.rules, unit, path.at(-1) ?? unit.hex);
             }
             retreat = { steps: pending.retreatSteps, unitIds: [...pending.unitIds], activeUnitId: active, drafts: Object.fromEntries(Object.entries(presentation.retreatDrafts).map(([id, path]) => [id, path.map((h) => ({ ...h }))])), options };

@@ -119,7 +119,7 @@ function combatPanel(model) {
         body = `<p>Allocate ${c.loss.steps} loss step(s). Draft is presentation-only until commit.</p><div class="combat-unit-list">${c.loss.eligibleUnitIds.map((id) => `<button class="mini-button" data-loss-unit="${esc(id)}">${esc(id)} · cap ${c.loss.capacityByUnitId[id] ?? 0}</button>`).join('')}</div><div class="loss-draft">${c.loss.draft.join(' → ') || 'No drafted losses'}</div><div class="button-row"><button id="loss-undo" class="secondary-action">UNDO</button><button id="loss-clear" class="secondary-action">CLEAR</button></div><button id="loss-commit" class="secondary-action">COMMIT LOSSES</button>`;
     }
     else if (pending.kind === 'RETREAT' && c.retreat) {
-        body = `<p>Required retreat: ${c.retreat.steps} step(s). Resolve units in an explicit order.</p><div class="combat-unit-list">${c.retreat.unitIds.map((id) => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${id}: ${path.map(coreHexKey).join('→') || '—'}`).join('<br>')}</div><div class="button-row"><button id="retreat-undo" class="secondary-action">UNDO STEP</button><button id="retreat-commit" class="secondary-action">COMMIT RETREAT</button></div>`;
+        body = `<p>Required retreat: ${c.retreat.steps} step(s). Resolve units in an explicit order.</p><div class="combat-unit-list">${c.retreat.unitIds.map((id) => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}">${esc(id)}</button>`).join('')}</div><p>Choose a retreat destination for <strong>${esc(c.retreat.activeUnitId ?? '—')}</strong>. Plan each listed unit, then commit all paths.</p><div class="button-row">${c.retreat.options.map(hex => `<button class="secondary-action" data-retreat-destination="${coreHexKey(hex)}">${esc(model.hexes.find(h => coreHexKey(h.coord) === coreHexKey(hex))?.terrain ?? 'Hex')} · ${coreHexKey(hex)}</button>`).join('') || '<span>No further legal step shown for this unit. Review the other units before committing.</span>'}</div><div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${id}: ${path.map(coreHexKey).join('→') || '—'}`).join('<br>')}</div><div class="button-row"><button id="retreat-undo" class="secondary-action">UNDO STEP</button><button id="retreat-commit" class="secondary-action">COMMIT RETREAT</button></div>`;
     }
     else if (pending.kind === 'ADVANCE_AFTER_COMBAT') {
         body = `<p>Advance into the vacated combat target, or pass.</p><div class="combat-unit-list">${pending.eligibleUnitIds.map((id) => `<button class="mini-button" data-advance-unit="${esc(id)}">ADVANCE ${esc(id)}</button>`).join('')}</div><button id="pass-advance" class="secondary-action">PASS ADVANCE</button>`;
@@ -507,10 +507,10 @@ function bindDynamic() {
         selectRetreater(presentation, id);
         render();
     } }));
-    document.querySelectorAll('[data-role="retreat-option"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
+    document.querySelectorAll('[data-role="retreat-option"], [data-retreat-destination]').forEach((el) => { const action = () => { const key = el.dataset.hex ?? el.dataset.retreatDestination; if (key) {
         extendRetreatDraft(session, presentation, parseHex(key));
-        render();
-    } }));
+        refreshDynamicView();
+    } }; el.addEventListener('click', action); bindKeyboardActivation(el, action); });
     document.querySelector('#retreat-undo')?.addEventListener('click', () => { undoRetreatStep(presentation); render(); });
     document.querySelector('#retreat-commit')?.addEventListener('click', () => { commitRetreat(session, presentation); render(); });
     document.querySelectorAll('[data-advance-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.advanceUnit; if (id) {
