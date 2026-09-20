@@ -1,5 +1,6 @@
 import {
   analyzeBreakthroughAction,
+  validateAttackAction,
   coreHexKey,
   getLegalRetreatStepOptions,
   getNeighbors,
@@ -29,6 +30,11 @@ function sameHex(a:HexCoord,b:HexCoord):boolean{return a.q===b.q&&a.r===b.r;}
 function adjacent(a:HexCoord,b:HexCoord):boolean{return getNeighbors(a).some((candidate)=>sameHex(candidate,b));}
 
 export function selectCounter(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
+  const clicked=session.state.units[unitId];
+  const viewerSide=session.state.controllers[session.activeViewerControllerId]?.side;
+  if(clicked?.alive&&clicked.side!==viewerSide&&isCombatTargetSelection(session,presentation)){
+    routeCombatTarget(session,presentation,clicked.hex);return;
+  }
   const unit=session.state.units[unitId];
   if(!unit)return;
   presentation.selectedUnitId=unitId;
@@ -200,6 +206,23 @@ export function toggleAttackUnit(session:LocalGameSession,presentation:Presentat
   if(unit.side!==side||unit.controllerId!==session.activeViewerControllerId){presentation.message='Select a controlled attacker.';return;}
   const set=new Set(presentation.attackUnitIds);if(set.has(unitId))set.delete(unitId);else set.add(unitId);
   presentation.attackUnitIds=[...set].sort();presentation.interactionMode='ATTACK';presentation.message=`Attack draft: ${presentation.attackUnitIds.length} direct attacker(s).`;
+}
+export function isCombatTargetSelection(session:LocalGameSession,presentation:PresentationState):boolean {
+  return (session.state.phase==='GERMAN_COMBAT'||session.state.phase==='SOVIET_COMBAT')
+    &&presentation.interactionMode==='ATTACK'&&presentation.attackUnitIds.length>0
+    &&!session.state.pendingDecision&&!presentation.privacyGate
+    &&session.state.controllers[session.activeViewerControllerId]?.side===session.state.activeSide;
+}
+export function combatTargetIssues(session:LocalGameSession,presentation:PresentationState,target:HexCoord){
+  return validateAttackAction(session.state,session.rules,{type:'ATTACK',controllerId:session.activeViewerControllerId,
+    attackerUnitIds:[...presentation.attackUnitIds],target:{...target},
+    ...(presentation.attackerArtilleryUnitId?{support:{attackerArtilleryUnitId:presentation.attackerArtilleryUnitId}}:{})});
+}
+export function routeCombatTarget(session:LocalGameSession,presentation:PresentationState,target:HexCoord):boolean {
+  if(!isCombatTargetSelection(session,presentation))return false;
+  const issues=combatTargetIssues(session,presentation,target);
+  if(issues.length){presentation.message=`Cannot select attack target: ${issuesMessage(issues)}`;return true;}
+  selectAttackTarget(presentation,target);return true;
 }
 export function selectAttackTarget(presentation:PresentationState,target:HexCoord):void {presentation.attackTarget={...target};presentation.interactionMode='ATTACK';presentation.message=`Target ${coreHexKey(target)} selected.`;}
 export function selectAttackerArtillery(presentation:PresentationState,unitId:EntityId|null):void {presentation.attackerArtilleryUnitId=unitId;presentation.interactionMode='ATTACK';}
