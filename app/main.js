@@ -1,3 +1,6 @@
+import { languageControl, bindLanguageControl } from './localization/languageControl.js';
+import { issueText } from './localization/issues.js';
+import { t, msg, enumLabel, phaseName, formatMessage } from './localization/index.js';
 import { combatAttackPanel } from './ui/combatAttackPanel.js';
 import { deploymentFocus, deploymentRejection } from './ui/deploymentPolish.js';
 import { createDeploymentTouch, chooseDeploymentTarget, confirmDeploymentTarget } from './ui/deploymentTouch.js';
@@ -66,9 +69,9 @@ function chooseCounterTarget(id) {
     return chosen;
 }
 function parseHex(value) { const [q, r] = value.split(',').map(Number); return { q: q, r: r }; }
-function sideLabel(side) { return side === 'GERMAN' ? 'German Side' : 'Soviet Side'; }
-function phaseLabel(phase) { return phase.replaceAll('_', ' '); }
-function issueHtml(issues) { return issues.length ? `<div class="issue-list">${issues.map((issue) => `<span>${esc(issue.code)} · ${esc(issue.message)}</span>`).join('')}</div>` : '<div class="issue-list"><span>Core preview: legal</span></div>'; }
+function sideLabel(side) { return t('faction.side', { side: enumLabel(side) }); }
+function phaseLabel(phase) { return phaseName(phase); }
+function issueHtml(issues) { return issues.length ? `<div class="issue-list">${issues.map((issue) => `<span>${esc(issueText(issue))}</span>`).join('')}</div>` : `<div class="issue-list"><span>${t('common.legal')}</span></div>`; }
 function bindKeyboardActivation(element, action) { element.addEventListener('keydown', (event) => { const e = event; if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault();
     action();
@@ -83,8 +86,8 @@ function lastActionPanel(current) {
 function selectedSummary(model) {
     const unit = model.selectedCounter;
     if (!unit)
-        return '<div class="command-empty"><span class="command-reticle" aria-hidden="true">◇</span><p>Select a unit to inspect strength, supply and movement.</p></div>';
-    return `<div class="unit-dossier">${rosterEmblem(unit.type)}<div><span class="eyebrow">${unitLabel(unit.type)}</span><strong>${esc(unit.id)}</strong><span>${unit.side}</span></div></div><dl class="unit-readings"><div><dt>Attack</dt><dd>${unit.stats.attack}</dd></div><div><dt>Defense</dt><dd>${unit.stats.defense}</dd></div><div><dt>Movement</dt><dd>${unit.stats.movement}</dd></div></dl><div class="unit-status"><span>Supply</span><strong>${esc(unit.supplyState.replaceAll('_', ' '))}</strong><span>Status</span><strong>Step ${unit.step}${unit.entrenched ? ' · Entrenched' : ''}</strong><span>Position</span><strong>${coreHexKey(unit.hex)}</strong></div>`;
+        return `<div class="command-empty"><span class="command-reticle" aria-hidden="true">◇</span><p>${t('unit.inspect')}</p></div>`;
+    return `<div class="unit-dossier">${rosterEmblem(unit.type)}<div><span class="eyebrow">${unitLabel(unit.type)}</span><strong>${esc(unit.id)}</strong><span>${enumLabel(unit.side)}</span></div></div><dl class="unit-readings"><div><dt>${t('common.attack')}</dt><dd>${unit.stats.attack}</dd></div><div><dt>${t('common.defense')}</dt><dd>${unit.stats.defense}</dd></div><div><dt>${t('common.movement')}</dt><dd>${unit.stats.movement}</dd></div></dl><div class="unit-status"><span>${t('common.supply')}</span><strong>${enumLabel(unit.supplyState)}</strong><span>${t('common.status')}</span><strong>${t('unit.step', { step: unit.step })}${unit.entrenched ? t('unit.entrenchedSuffix') : ''}</strong><span>${t('common.position')}</span><strong>${coreHexKey(unit.hex)}</strong></div>`;
 }
 // Decorative roster identity only; canonical unit types and actions are unchanged.
 function rosterEmblem(type) {
@@ -94,72 +97,72 @@ function rosterEmblem(type) {
     return `<span class="roster-emblem" aria-hidden="true"><svg viewBox="0 0 28 28">${symbols[type] ?? '<path d="M14 4L24 14L14 24L4 14Z"/>'}</svg></span>`;
 }
 function deploymentPanel(model) { const deployment = model.deployment; if (!deployment)
-    return ''; const active = model.activeSide === model.viewerSide; const selected = presentation.selectedDeploymentUnitId; const rows = deployment.roster.map((row) => `<button type="button" class="roster-row ${row.placed ? 'placed' : 'unplaced'} ${selected === row.id ? 'selected' : ''}" data-deploy-unit-id="${esc(row.id)}" ${active ? '' : 'disabled'} aria-pressed="${selected === row.id}">${rosterEmblem(row.type)}<span>${unitLabel(row.type)}</span><small>${esc(row.id)} · ${unitDescription(row.type)}<br>A ${row.stats.attack} · D ${row.stats.defense} · M ${row.stats.movement}</small><b>${row.placed ? 'ON MAP' : 'RESERVE'}</b></button>`).join(''); return `<section class="panel-block deployment-panel"><span class="eyebrow">${sideLabel(model.viewerSide).toUpperCase()} DEPLOYMENT</span><div class="deployment-progress"><strong>${deployment.deployed}/${deployment.total}</strong><span>${deployment.complete ? 'Complete' : 'Place all units'}</span></div><ol class="deployment-steps"><li class="${selected ? 'done' : 'current'}">Select unit</li><li class="${selected ? 'current' : ''}">Choose position</li><li>Deploy</li></ol><p class="deployment-guidance" role="status">${selected ? `Selected: ${esc(selected)} — choose a terrain card or tap the map, then confirm deployment.` : 'Choose a reserve unit to begin deployment.'}</p><div class="roster-list">${rows}</div>${deploymentFeedback(deploymentTouch)}${deploymentLocations(model, selected, deploymentTouch)}<button id="ready-button" class="primary-action" type="button" ${active ? '' : 'disabled'}><span class="advance-label">Confirm deployment</span><span class="advance-arrow" aria-hidden="true">›</span></button>${!active ? '<p class="privacy-note">Viewer is not the active deployment side. Enemy setup remains hidden by the Core projection.</p>' : ''}</section>`; }
+    return ''; const active = model.activeSide === model.viewerSide; const selected = presentation.selectedDeploymentUnitId; const rows = deployment.roster.map((row) => `<button type="button" class="roster-row ${row.placed ? 'placed' : 'unplaced'} ${selected === row.id ? 'selected' : ''}" data-deploy-unit-id="${esc(row.id)}" ${active ? '' : 'disabled'} aria-pressed="${selected === row.id}">${rosterEmblem(row.type)}<span>${unitLabel(row.type)}</span><small>${esc(row.id)} · ${unitDescription(row.type)}<br>${t('unit.readings', { ...row.stats })}</small><b>${row.placed ? t('deployment.onMap') : t('deployment.reserve')}</b></button>`).join(''); return `<section class="panel-block deployment-panel"><span class="eyebrow">${t('deployment.title', { side: sideLabel(model.viewerSide).toUpperCase() })}</span><div class="deployment-progress"><strong>${deployment.deployed}/${deployment.total}</strong><span>${deployment.complete ? t('deployment.complete') : t('deployment.placeAll')}</span></div><ol class="deployment-steps"><li class="${selected ? 'done' : 'current'}">${t('deployment.selectUnit')}</li><li class="${selected ? 'current' : ''}">${t('deployment.choosePosition')}</li><li>${t('deployment.deploy')}</li></ol><p class="deployment-guidance" role="status">${selected ? t('deployment.selectedHelp', { id: esc(selected) }) : t('deployment.begin')}</p><div class="roster-list">${rows}</div>${deploymentFeedback(deploymentTouch)}${deploymentLocations(model, selected, deploymentTouch)}<button id="ready-button" class="primary-action" type="button" ${active ? '' : 'disabled'}><span class="advance-label">${t('deployment.confirmPhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>${!active ? `<p class="privacy-note">${t('deployment.hidden')}</p>` : ''}</section>`; }
 function modifierHtml(mods) { return ''; }
 function combatContextHtml(context, label) {
     const m = context.modifiers;
-    const rows = [['Terrain', m.terrainShift], ['River', m.riverShift], ['Engineer', m.engineerShift], ['Combined Arms', m.combinedArmsShift], ['Armor penalty', m.unsupportedArmorShift], ['AT', m.antiTankShift], ['Attacker Artillery', m.attackerArtilleryShift], ['Defender Artillery', m.defenderArtilleryShift], ['Flank', m.flankShift], ['Entrenchment', m.entrenchmentShift], ['HQ', m.hqShift], ['Second attack', m.secondAttackShift]].filter(([, v]) => v !== 0);
-    return `<div class="combat-card"><h3>${label}</h3><div class="combat-grid"><span>Attack</span><strong>${context.attackStrength}</strong><span>Defense</span><strong>${context.defenseStrength}</strong><span>Base odds</span><strong>${esc(context.baseOdds)}</strong><span>Base column</span><strong>${context.baseCRTColumn}</strong><span>Final shift</span><strong>${context.finalShift}</strong><span>Final CRT</span><strong>${esc(context.finalCRTColumnLabel)}</strong></div>${rows.length ? `<div class="modifier-list">${rows.map(([k, v]) => `<span>${k}</span><strong>${Number(v) > 0 ? '+' : ''}${v}</strong>`).join('')}<span>Raw / capped</span><strong>${m.rawShift} / ${m.cappedShift}</strong></div>` : ''}</div>`;
+    const rows = [[t('common.terrain'), m.terrainShift], [t('combat.river'), m.riverShift], [t('combat.engineer'), m.engineerShift], [t('combat.combinedArms'), m.combinedArmsShift], [t('combat.armorPenalty'), m.unsupportedArmorShift], [t('combat.antiTank'), m.antiTankShift], [t('combat.attackerArtillery'), m.attackerArtilleryShift], [t('combat.defenderArtillery'), m.defenderArtilleryShift], [t('combat.flank'), m.flankShift], [t('combat.entrenchment'), m.entrenchmentShift], [t('combat.hq'), m.hqShift], [t('combat.secondAttack'), m.secondAttackShift]].filter(([, v]) => v !== 0);
+    return `<div class="combat-card"><h3>${label}</h3><div class="combat-grid"><span>${t('common.attack')}</span><strong>${context.attackStrength}</strong><span>${t('common.defense')}</span><strong>${context.defenseStrength}</strong><span>${t('combat.baseOdds')}</span><strong>${esc(context.baseOdds)}</strong><span>${t('combat.baseColumn')}</span><strong>${context.baseCRTColumn}</strong><span>${t('combat.finalShift')}</span><strong>${context.finalShift}</strong><span>${t('combat.finalCRT')}</span><strong>${esc(context.finalCRTColumnLabel)}</strong></div>${rows.length ? `<div class="modifier-list">${rows.map(([k, v]) => `<span>${k}</span><strong>${Number(v) > 0 ? '+' : ''}${v}</strong>`).join('')}<span>${t('combat.rawCapped')}</span><strong>${m.rawShift} / ${m.cappedShift}</strong></div>` : ''}</div>`;
 }
-function battleHistoryHtml(model) { const h = model.combat?.history ?? []; return h.length ? `<section class="panel-block battle-history"><span class="eyebrow">BATTLE HISTORY</span>${h.map((b) => `<div class="battle-history-row"><span>${esc(b.battleId)}${b.sourceBattleId ? ` ← ${esc(b.sourceBattleId)}` : ''}<br>${b.attackerSide}→${b.defenderSide} @ ${coreHexKey(b.target)}</span><strong>${b.crtResult ?? b.stage}</strong></div>`).join('')}</section>` : ''; }
+function battleHistoryHtml(model) { const h = model.combat?.history ?? []; return h.length ? `<section class="panel-block battle-history"><span class="eyebrow">${t('combat.history')}</span>${h.map((b) => `<div class="battle-history-row"><span>${esc(b.battleId)}${b.sourceBattleId ? ` ← ${esc(b.sourceBattleId)}` : ''}<br>${enumLabel(b.attackerSide)}→${enumLabel(b.defenderSide)} @ ${coreHexKey(b.target)}</span><strong>${b.crtResult ?? enumLabel(b.stage)}</strong></div>`).join('')}</section>` : ''; }
 function combatPanel(model) {
     const c = model.combat;
     if (!c)
         return '';
     const pending = c.pending, tx = c.battle;
     if (!pending)
-        return combatAttackPanel(model, c.attackDraft.preview ? combatContextHtml(c.attackDraft.preview, 'COMBAT DETAILS') : '') + battleHistoryHtml(model);
-    const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">COMBAT TRANSACTION · ${pending.kind}</span><div class="phase-metric"><span>Battle</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>Decision owner</span><strong>${esc(pending.decisionOwnerControllerId)}</strong></div>`;
+        return combatAttackPanel(model, c.attackDraft.preview ? combatContextHtml(c.attackDraft.preview, t('combat.details')) : '') + battleHistoryHtml(model);
+    const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">${t('combat.transaction', { kind: enumLabel(pending.kind) })}</span><div class="phase-metric"><span>${t('combat.battle')}</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>${t('combat.decisionOwner')}</span><strong>${enumLabel(session?.state.controllers[pending.decisionOwnerControllerId]?.side ?? pending.decisionOwnerControllerId)}</strong></div>`;
     let body = '';
     if (pending.kind === 'DEFENDER_REACTION') {
-        body = `<p>Defender reaction window. Choose eligible defensive artillery or pass to resolve Core dice/CRT.</p><div class="combat-unit-list">${pending.eligibleArtilleryUnitIds.map((id) => `<button class="mini-button" data-defender-artillery="${esc(id)}">ART ${esc(id)}</button>`).join('') || '<span>No eligible defensive artillery.</span>'}</div><button id="pass-reaction" class="secondary-action">PASS REACTION / RESOLVE</button>`;
+        body = `<p>${t('combat.defenderHelp')}</p><div class="combat-unit-list">${pending.eligibleArtilleryUnitIds.map((id) => `<button class="mini-button" data-defender-artillery="${esc(id)}">${t('combat.artilleryUnit', { id: esc(id) })}</button>`).join('') || `<span>${t('combat.noDefensiveArtillery')}</span>`}</div><button id="pass-reaction" class="secondary-action">${t('combat.passReaction')}</button>`;
     }
     else if (pending.kind === 'LOSS_ALLOCATION' && c.loss) {
-        body = `<p>Allocate ${c.loss.steps} loss step(s). Draft is presentation-only until commit.</p><div class="combat-unit-list">${c.loss.eligibleUnitIds.map((id) => `<button class="mini-button" data-loss-unit="${esc(id)}">${esc(id)} · cap ${c.loss.capacityByUnitId[id] ?? 0}</button>`).join('')}</div><div class="loss-draft">${c.loss.draft.join(' → ') || 'No drafted losses'}</div><div class="button-row"><button id="loss-undo" class="secondary-action">UNDO</button><button id="loss-clear" class="secondary-action">CLEAR</button></div><button id="loss-commit" class="secondary-action">COMMIT LOSSES</button>`;
+        body = `<p>${t('combat.allocateHelp', { steps: c.loss.steps })}</p><div class="combat-unit-list">${c.loss.eligibleUnitIds.map((id) => `<button class="mini-button" data-loss-unit="${esc(id)}">${t('combat.capacity', { id: esc(id), count: c.loss.capacityByUnitId[id] ?? 0 })}</button>`).join('')}</div><div class="loss-draft">${c.loss.draft.join(' → ') || t('combat.noLossDraft')}</div><div class="button-row"><button id="loss-undo" class="secondary-action">${t('common.undo')}</button><button id="loss-clear" class="secondary-action">${t('common.clear')}</button></div><button id="loss-commit" class="secondary-action">${t('combat.commitLosses')}</button>`;
     }
     else if (pending.kind === 'RETREAT' && c.retreat) {
-        body = `<p>Required retreat: ${c.retreat.steps} step(s). Resolve units in an explicit order.</p><div class="combat-unit-list">${c.retreat.unitIds.map((id) => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}">${esc(id)}</button>`).join('')}</div><p>Choose a retreat destination for <strong>${esc(c.retreat.activeUnitId ?? '—')}</strong>. Plan each listed unit, then commit all paths.</p><div class="button-row">${c.retreat.options.map(hex => `<button class="secondary-action" data-retreat-destination="${coreHexKey(hex)}">${esc(model.hexes.find(h => coreHexKey(h.coord) === coreHexKey(hex))?.terrain ?? 'Hex')} · ${coreHexKey(hex)}</button>`).join('') || '<span>No further legal step shown for this unit. Review the other units before committing.</span>'}</div><div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${id}: ${path.map(coreHexKey).join('→') || '—'}`).join('<br>')}</div><div class="button-row"><button id="retreat-undo" class="secondary-action">UNDO STEP</button><button id="retreat-commit" class="secondary-action">COMMIT RETREAT</button></div>`;
+        body = `<p>${t('combat.retreatHelp', { steps: c.retreat.steps })}</p><div class="combat-unit-list">${c.retreat.unitIds.map((id) => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}">${esc(id)}</button>`).join('')}</div><p>${t('combat.retreatDestination', { id: `<strong>${esc(c.retreat.activeUnitId ?? '—')}</strong>` })}</p><div class="button-row">${c.retreat.options.map(hex => `<button class="secondary-action" data-retreat-destination="${coreHexKey(hex)}">${enumLabel(model.hexes.find(h => coreHexKey(h.coord) === coreHexKey(hex))?.terrain ?? 'Hex')} · ${coreHexKey(hex)}</button>`).join('') || `<span>${t('combat.noRetreatStep')}</span>`}</div><div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${id}: ${path.map(coreHexKey).join('→') || '—'}`).join('<br>')}</div><div class="button-row"><button id="retreat-undo" class="secondary-action">${t('common.undoStep')}</button><button id="retreat-commit" class="secondary-action">${t('combat.commitRetreat')}</button></div>`;
     }
     else if (pending.kind === 'ADVANCE_AFTER_COMBAT') {
-        body = `<p>Advance into the vacated combat target, or pass.</p><div class="combat-unit-list">${pending.eligibleUnitIds.map((id) => `<button class="mini-button" data-advance-unit="${esc(id)}">ADVANCE ${esc(id)}</button>`).join('')}</div><button id="pass-advance" class="secondary-action">PASS ADVANCE</button>`;
+        body = `<p>${t('combat.advanceHelp')}</p><div class="combat-unit-list">${pending.eligibleUnitIds.map((id) => `<button class="mini-button" data-advance-unit="${esc(id)}">${t('combat.advanceUnit', { id: esc(id) })}</button>`).join('')}</div><button id="pass-advance" class="secondary-action">${t('combat.passAdvance')}</button>`;
     }
     else if (pending.kind === 'BREAKTHROUGH_OPTION' && c.breakthrough) {
-        body = `<p>Breakthrough path contains only extra Hexes after the original target. Max for selected unit: ${c.breakthrough.maxHexes}.</p><div class="combat-unit-list">${c.breakthrough.eligibleUnitIds.map((id) => `<button class="mini-button ${c.breakthrough.selectedUnitId === id ? 'active' : ''}" data-breakthrough-unit="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${c.breakthrough.path.map(coreHexKey).join(' → ') || 'No extra Hex drafted'}</div><div class="button-row"><button id="breakthrough-undo" class="secondary-action">UNDO</button><button id="breakthrough-commit" class="secondary-action">COMMIT</button></div><button id="pass-breakthrough" class="secondary-action">PASS ALL BREAKTHROUGH</button>`;
+        body = `<p>${t('combat.breakthroughHelp', { max: c.breakthrough.maxHexes })}</p><div class="combat-unit-list">${c.breakthrough.eligibleUnitIds.map((id) => `<button class="mini-button ${c.breakthrough.selectedUnitId === id ? 'active' : ''}" data-breakthrough-unit="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${c.breakthrough.path.map(coreHexKey).join(' → ') || t('combat.noBreakthroughDraft')}</div><div class="button-row"><button id="breakthrough-undo" class="secondary-action">${t('common.undo')}</button><button id="breakthrough-commit" class="secondary-action">${t('common.commit')}</button></div><button id="pass-breakthrough" class="secondary-action">${t('combat.passBreakthrough')}</button>`;
     }
     else if (pending.kind === 'SCHWERPUNKT_OPTION' && c.schwerpunkt) {
-        body = `<p>Optional German Schwerpunkt second attack. Select adjacent highlighted Soviet target.</p><div class="phase-metric"><span>Target</span><strong>${c.schwerpunkt.target ? coreHexKey(c.schwerpunkt.target) : '—'}</strong></div><div class="combat-unit-list">${c.schwerpunkt.eligibleUnitIds.map((id) => `<button class="mini-button" data-schwerpunkt-unit="${esc(id)}">ATTACK WITH ${esc(id)}</button>`).join('')}</div><button id="pass-schwerpunkt" class="secondary-action">PASS SCHWERPUNKT</button>`;
+        body = `<p>${t('combat.schwerpunktHelp')}</p><div class="phase-metric"><span>${t('common.target')}</span><strong>${c.schwerpunkt.target ? coreHexKey(c.schwerpunkt.target) : '—'}</strong></div><div class="combat-unit-list">${c.schwerpunkt.eligibleUnitIds.map((id) => `<button class="mini-button" data-schwerpunkt-unit="${esc(id)}">${t('combat.attackWith', { id: esc(id) })}</button>`).join('')}</div><button id="pass-schwerpunkt" class="secondary-action">${t('combat.passSchwerpunkt')}</button>`;
     }
-    const resolved = tx?.resolution ? `<div class="combat-card"><h3>RESOLVED CORE CRT</h3><div class="dice-box"><span class="die">${tx.resolution.dice.die1}</span><span class="die">${tx.resolution.dice.die2}</span><strong>= ${tx.resolution.dice.total}</strong></div><div class="combat-grid"><span>CRT</span><strong>${tx.resolution.crtResult}</strong><span>Attacker loss</span><strong>${tx.resolution.attackerLossSteps}</strong><span>Defender loss</span><strong>${tx.resolution.defenderLossSteps}</strong><span>Defender retreat</span><strong>${tx.resolution.defenderRetreatSteps}</strong></div></div>` : '';
-    const context = tx?.context ? combatContextHtml(tx.context, 'RESOLVED COMBAT CONTEXT') : '';
+    const resolved = tx?.resolution ? `<div class="combat-card"><h3>${t('combat.resolvedCRT')}</h3><div class="dice-box"><span class="die">${tx.resolution.dice.die1}</span><span class="die">${tx.resolution.dice.die2}</span><strong>= ${tx.resolution.dice.total}</strong></div><div class="combat-grid"><span>${t('combat.crt')}</span><strong>${tx.resolution.crtResult}</strong><span>${t('combat.attackerLoss')}</span><strong>${tx.resolution.attackerLossSteps}</strong><span>${t('combat.defenderLoss')}</span><strong>${tx.resolution.defenderLossSteps}</strong><span>${t('combat.defenderRetreat')}</span><strong>${tx.resolution.defenderRetreatSteps}</strong></div></div>` : '';
+    const context = tx?.context ? combatContextHtml(tx.context, t('combat.resolvedContext')) : '';
     return header + body + resolved + context + '</section>' + battleHistoryHtml(model);
 }
 function phasePanel(model) {
     if (model.deployment)
         return '';
-    const ready = `<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>Advance phase</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
+    const ready = `<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
     if (model.phase === 'GERMAN_SUPPLY_RAIL' && model.railRepair) {
         const r = model.railRepair;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">GERMAN SUPPLY / RAIL</span><p>Optional Rail Repair uses real Core railway edges. Ready skips repair.</p><div class="phase-metric"><span>Plan</span><strong>${r.selectedEdgeKeys.length} edges</strong></div><div class="phase-metric"><span>Repair used</span><strong>${r.alreadyUsed ? 'YES' : 'NO'}</strong></div><button id="rail-mode" class="secondary-action ${presentation.interactionMode === 'RAIL_REPAIR' ? 'active' : ''}">RAIL REPAIR MODE</button><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId ? 'active' : ''}">No Engineer</button>${r.engineers.map((eng) => `<button class="mini-button ${eng.selected ? 'active' : ''}" data-rail-engineer="${esc(eng.id)}">${esc(eng.id)}</button>`).join('')}</div>${issueHtml(r.issues)}<div class="button-row"><button id="rail-clear" class="secondary-action">CLEAR PLAN</button><button id="rail-commit" class="secondary-action">COMMIT REPAIR</button></div>${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('rail.title')}</span><p>${t('rail.help')}</p><div class="phase-metric"><span>${t('rail.plan')}</span><strong>${t('rail.edges', { count: r.selectedEdgeKeys.length })}</strong></div><div class="phase-metric"><span>${t('rail.used')}</span><strong>${r.alreadyUsed ? t('common.yes') : t('common.no')}</strong></div><button id="rail-mode" class="secondary-action ${presentation.interactionMode === 'RAIL_REPAIR' ? 'active' : ''}">${t('rail.mode')}</button><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId ? 'active' : ''}">${t('rail.noEngineer')}</button>${r.engineers.map((eng) => `<button class="mini-button ${eng.selected ? 'active' : ''}" data-rail-engineer="${esc(eng.id)}">${esc(eng.id)}</button>`).join('')}</div>${issueHtml(r.issues)}<div class="button-row"><button id="rail-clear" class="secondary-action">${t('rail.clear')}</button><button id="rail-commit" class="secondary-action">${t('rail.commit')}</button></div>${ready}</section>`;
     }
     if ((model.phase === 'GERMAN_MOVEMENT' || model.phase === 'SOVIET_MOVEMENT')) {
         const m = model.movement;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">MOVEMENT</span><p>Select a controlled unit, then tap adjacent Hexes to draft a path. The Counter stays put until Core accepts Commit Move.</p>${m ? `<div class="phase-metric"><span>Path</span><strong>${m.path.length} steps</strong></div><div class="phase-metric"><span>MP</span><strong>${m.spentMP}/${m.maxMP}</strong></div>${issueHtml(m.issues)}<div class="button-row"><button id="move-undo" class="secondary-action">UNDO STEP</button><button id="move-cancel" class="secondary-action">CANCEL PATH</button></div><button id="move-commit" class="secondary-action">COMMIT MOVE</button>` : '<p>Select one of your units to begin.</p>'}${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('movement.title')}</span><p>${t('movement.help')}</p>${m ? `<div class="phase-metric"><span>${t('movement.path')}</span><strong>${t('movement.steps', { count: m.path.length })}</strong></div><div class="phase-metric"><span>${t('movement.mp')}</span><strong>${m.spentMP}/${m.maxMP}</strong></div>${issueHtml(m.issues)}<div class="button-row"><button id="move-undo" class="secondary-action">${t('common.undoStep')}</button><button id="move-cancel" class="secondary-action">${t('movement.cancel')}</button></div><button id="move-commit" class="secondary-action">${t('movement.commit')}</button>` : `<p>${t('common.selectUnit')}</p>`}${ready}</section>`;
     }
     if (model.phase === 'GERMAN_COMBAT' || model.phase === 'SOVIET_COMBAT')
         return combatPanel(model);
     if (model.phase === 'SOVIET_REINFORCEMENT_SUPPLY' && model.reinforcement) {
         const r = model.reinforcement;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">SOVIET REINFORCEMENT / SUPPLY</span><div class="phase-metric"><span>Available</span><strong>${r.available.length}</strong></div><div class="phase-metric"><span>Delayed</span><strong>${r.delayed.length}</strong></div>${r.deployable ? '<p class="warning-note">Deployable reinforcement remains. Core will reject Ready until it is handled.</p>' : ''}<div class="reinforcement-list">${r.available.map((row) => `<button class="reinforcement-row ${r.selectedId === row.id ? 'selected' : ''}" data-reinforcement-id="${esc(row.id)}"><span>${esc(row.id)} · ${row.type}</span><b>T${row.scheduledTurn}</b><small>${row.delayed ? 'DELAYED · ' : ''}${row.stats ? `${row.stats.attack}-${row.stats.defense}-${row.stats.movement}` : row.resolution}</small></button>`).join('') || '<p>No available reinforcements.</p>'}</div><p>${r.selectedId ? 'Tap a highlighted East Rail Exit to deploy the selected reinforcement.' : 'Select a reinforcement to deploy.'}</p>${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('reinforcement.title')}</span><div class="phase-metric"><span>${t('common.available')}</span><strong>${r.available.length}</strong></div><div class="phase-metric"><span>${t('common.delayed')}</span><strong>${r.delayed.length}</strong></div>${r.deployable ? `<p class="warning-note">${t('reinforcement.required')}</p>` : ''}<div class="reinforcement-list">${r.available.map((row) => `<button class="reinforcement-row ${r.selectedId === row.id ? 'selected' : ''}" data-reinforcement-id="${esc(row.id)}"><span>${esc(row.id)} · ${unitLabel(row.type)}</span><b>${t('game.turn', { turn: row.scheduledTurn })}</b><small>${row.delayed ? t('reinforcement.delayedPrefix') : ''}${row.stats ? `${row.stats.attack}-${row.stats.defense}-${row.stats.movement}` : enumLabel(row.resolution)}</small></button>`).join('') || `<p>${t('reinforcement.none')}</p>`}</div><p>${r.selectedId ? t('reinforcement.entryHelp') : t('reinforcement.selectHelp')}</p>${ready}</section>`;
     }
     if ((model.phase === 'GERMAN_RECOVERY' || model.phase === 'SOVIET_RECOVERY') && model.recovery) {
         const r = model.recovery;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">RECOVERY</span><div class="phase-metric"><span>Recovered</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>Side RP</span><strong>${model.rp[model.activeSide]}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>Selected cost</span><strong>${r.selectedCost ?? '—'} RP</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">RECOVER 1 STEP</button>` : '<p>Select a damaged controlled unit. Recovery bases are softly outlined on the map.</p>'}${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span><div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.activeSide]}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${r.selectedCost ?? '—'} ${t('resource.rp')}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">${t('recovery.commit')}</button>` : `<p>${t('recovery.help')}</p>`}${ready}</section>`;
     }
     if ((model.phase === 'GERMAN_ENTRENCHMENT' || model.phase === 'SOVIET_ENTRENCHMENT') && model.entrench) {
         const e = model.entrench;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">ENTRENCHMENT</span>${model.selectedCounter ? `${issueHtml(e.selectedIssues)}<button id="entrench-unit" class="secondary-action">ENTRENCH UNIT</button>` : '<p>Select a controlled unit to preview Entrench legality.</p>'}${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('entrenchment.title')}</span>${model.selectedCounter ? `${issueHtml(e.selectedIssues)}<button id="entrench-unit" class="secondary-action">${t('entrenchment.commit')}</button>` : `<p>${t('entrenchment.help')}</p>`}${ready}</section>`;
     }
-    return `<section class="panel-block phase-actions"><span class="eyebrow">PHASE</span><p>${phaseLabel(model.phase)}</p>${ready}</section>`;
+    return `<section class="panel-block phase-actions"><span class="eyebrow">${t('common.phase')}</span><p>${phaseLabel(model.phase)}</p>${ready}</section>`;
 }
 function viewerSwitch(model) { if (!isDeploymentPhase(session.state) || !presentation.debug)
     return ''; return `<section class="panel-block"><span class="eyebrow">HIDDEN-VIEW REGRESSION</span><p>Development-only viewer switch.</p><div class="viewer-buttons"><button data-view-side="SOVIET" class="mini-button ${model.viewerSide === 'SOVIET' ? 'active' : ''}">Soviet</button><button data-view-side="GERMAN" class="mini-button ${model.viewerSide === 'GERMAN' ? 'active' : ''}">German</button></div></section>`; }
@@ -172,11 +175,11 @@ function privacyGate() { const gate = presentation.privacyGate; if (!gate)
 function gameOver(model) { return gameOverMarkup(model.victory.winner, model.victory.reason, model.turn); }
 function startNewGame() { deploymentTouch = createDeploymentTouch(); if (!productionMap || !cachedTerrainSurface) {
     appStatus = 'FATAL';
-    fatalMessage = 'Production map surface is unavailable.';
+    fatalMessage = msg('game.noMap');
     render();
     return;
 } session = createFreshProductionSession(productionMap); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
-function restartGame() { if (window.confirm('Start a new game?\nCurrent progress will be lost.'))
+function restartGame() { if (window.confirm(t('game.restartPrompt')))
     startNewGame(); }
 function applyMapViewport() {
     const wrap = document.querySelector('#map-wrap'), svg = document.querySelector('#eastfront-map');
@@ -321,7 +324,7 @@ function mountCachedTerrainSurface() {
     canvas.dataset.uniqueAssets = String(cachedTerrainSurface.stats.uniqueAssets);
 }
 function sidePanelMarkup(model) {
-    return `<div class="command-panel-scroll"><section class="panel-block selection-block"><span class="eyebrow command-title">COMMAND PANEL</span>${selectedSummary(model)}</section>${presentation.message && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">ORDER REPORT</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(presentation.message)}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
+    return `<div class="command-panel-scroll"><section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${presentation.message && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 function refreshDynamicView() {
     if (!session || presentation.privacyGate) {
@@ -362,10 +365,11 @@ function render() {
     const profile = responsiveProfile(window.innerWidth, window.innerHeight);
     if (appStatus === 'LOADING') {
         root.innerHTML = loadingMarkup();
+        bind();
         return;
     }
     if (appStatus === 'FATAL') {
-        root.innerHTML = fatalMarkup(fatalMessage || 'Required production resources could not be initialized.');
+        root.innerHTML = fatalMarkup(fatalMessage || t('game.noResources'));
         bind();
         return;
     }
@@ -376,7 +380,7 @@ function render() {
     }
     if (!session) {
         appStatus = 'FATAL';
-        fatalMessage = 'No active production session.';
+        fatalMessage = msg('game.noSession');
         root.innerHTML = fatalMarkup(fatalMessage);
         bind();
         return;
@@ -393,12 +397,13 @@ function render() {
         return;
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
-    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · Operations map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="EASTFRONT operational map">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>STRATEGIC RESET F</span><span>EASTFRONT · Operational Command</span></footer>`;
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.activeSide]}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
     mountCachedTerrainSurface();
     bind();
     paintDeploymentFocus();
 }
 function bind() {
+    bindLanguageControl(root, render);
     document.querySelector('#new-game-button')?.addEventListener('click', () => startNewGame());
     document.querySelector('#reload-button')?.addEventListener('click', () => location.reload());
     if (!session)
@@ -453,7 +458,7 @@ function bindDynamic() {
     document.querySelector('#confirm-deployment')?.addEventListener('click', event => {
         const button = event.currentTarget;
         button.disabled = true;
-        button.textContent = 'DEPLOYING…';
+        button.textContent = t('deployment.submitting');
         confirmDeploymentTarget(deploymentTouch, session, presentation);
         refreshDynamicView();
     });
@@ -494,7 +499,7 @@ function bindDynamic() {
     document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); render(); });
     document.querySelector('#attack-declare')?.addEventListener('click', () => { const button = document.querySelector('#attack-declare'); if (button) {
         button.disabled = true;
-        button.textContent = 'Submitting attack…';
+        button.textContent = t('combat.submitting');
     } declareAttack(session, presentation); render(); });
     document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); refreshDynamicView(); });
     document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); refreshDynamicView(); }));
@@ -573,7 +578,7 @@ catch (error) {
     const diagnostic = { phase, detail, capabilities: terrainSurfaceCapabilities() };
     console.error('EASTFRONT startup failed', diagnostic, error);
     appStatus = 'FATAL';
-    fatalMessage = `Required production resources could not be loaded. ${detail}`;
+    fatalMessage = msg('game.resourceFailure', { detail });
     render();
 } }
 window.addEventListener('resize', () => { if (appStatus === 'HOME' || appStatus === 'PLAYING')

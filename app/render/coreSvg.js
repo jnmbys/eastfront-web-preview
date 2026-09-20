@@ -1,3 +1,4 @@
+import { t, enumLabel } from '../localization/index.js';
 import { coreHexKey } from '../core-adapter/core.js';
 import { HEX_SIZE, hexPolygon, hexToPixel, pointString, polygonPointsString, sharedHexEdge } from '../geometry/hex.js';
 import { deriveBridgeGeometry, deriveCounterBounds, deriveCounterPlacement, deriveTouchHitArea, SELECTED_VISUAL_SCALE } from './derive.js';
@@ -72,12 +73,12 @@ function renderDeploymentZone(model) {
     if (!model.deployment)
         return '';
     return `<g id="deployment-zone-layer">${model.deployment.zoneKeys.map((key) => { const hex = model.hexes.find((candidate) => coreHexKey(candidate.coord) === key); if (!hex)
-        return ''; return `<polygon data-role="deployment-hex" data-hex="${key}" points="${polygonPointsString(hex.coord)}" class="deployment-zone" role="button" tabindex="0" aria-label="Deployment hex ${key}"/>`; }).join('')}</g>`;
+        return ''; return `<polygon data-role="deployment-hex" data-hex="${key}" points="${polygonPointsString(hex.coord)}" class="deployment-zone" role="button" tabindex="0" aria-label="${t('map.deploymentHex', { hex: key })}"/>`; }).join('')}</g>`;
 }
 function renderMoveOptions(model) {
     if (model.moveOptions.length === 0)
         return '';
-    return `<g id="movement-preview-layer">${model.moveOptions.map((option) => `<polygon data-role="move-option" data-hex="${coreHexKey(option.hex)}" data-legal="${option.legal}" points="${polygonPointsString(option.hex)}" class="move-option ${option.legal ? 'move-legal' : 'move-illegal'}" role="button" tabindex="0" aria-label="${option.legal ? 'Legal' : 'Illegal'} move ${coreHexKey(option.hex)}"/>`).join('')}</g>`;
+    return `<g id="movement-preview-layer">${model.moveOptions.map((option) => `<polygon data-role="move-option" data-hex="${coreHexKey(option.hex)}" data-legal="${option.legal}" points="${polygonPointsString(option.hex)}" class="move-option ${option.legal ? 'move-legal' : 'move-illegal'}" role="button" tabindex="0" aria-label="${t(option.legal ? 'map.legalMove' : 'map.illegalMove', { hex: coreHexKey(option.hex) })}"/>`).join('')}</g>`;
 }
 function renderMovementPath(model) {
     if (!model.movement || !model.selectedCounter || model.movement.path.length === 0)
@@ -90,7 +91,7 @@ function renderRailInteraction(model) {
     if (!model.railRepair)
         return '';
     const selected = new Set(model.railRepair.selectedEdgeKeys), active = new Set(model.railRepair.activeEdgeKeys);
-    return `<g id="rail-interaction-layer">${model.edges.filter((edge) => edge.railway?.present).map((edge) => { const a = hexToPixel(edge.a), b = hexToPixel(edge.b); return `${line(a, b, `rail-repair-highlight ${active.has(edge.key) ? 'rail-active' : ''} ${selected.has(edge.key) ? 'rail-selected' : ''}`, `data-edge-key="${esc(edge.key)}"`)}${line(a, b, 'rail-hit-corridor', `data-role="rail-repair-edge" data-edge-key="${esc(edge.key)}" role="button" tabindex="0" aria-label="Rail edge ${esc(edge.key)}"`)}`; }).join('')}</g>`;
+    return `<g id="rail-interaction-layer">${model.edges.filter((edge) => edge.railway?.present).map((edge) => { const a = hexToPixel(edge.a), b = hexToPixel(edge.b); return `${line(a, b, `rail-repair-highlight ${active.has(edge.key) ? 'rail-active' : ''} ${selected.has(edge.key) ? 'rail-selected' : ''}`, `data-edge-key="${esc(edge.key)}"`)}${line(a, b, 'rail-hit-corridor', `data-role="rail-repair-edge" data-edge-key="${esc(edge.key)}" role="button" tabindex="0" aria-label="${t('map.railEdge', { edge: esc(edge.key) })}"`)}`; }).join('')}</g>`;
 }
 function renderReinforcementEntries(model) {
     if (!model.reinforcement)
@@ -125,8 +126,8 @@ export function renderCounter(counter, stackIndex, stackSize) {
     const p = deriveCounterPlacement(counter, stackIndex, stackSize), side = p.side, half = side / 2, scale = counter.selected ? SELECTED_VISUAL_SCALE : 1;
     const faction = counter.side === 'GERMAN' ? 'german' : 'soviet', face = faction === 'german' ? '#344c60' : '#62413d', edge = faction === 'german' ? '#96b1c4' : '#c09a83';
     const damage = counter.step === 1 ? '/' : counter.step === 2 ? '//' : '';
-    const status = counter.step === 0 ? 'Full strength' : counter.step === 1 ? 'Damage level 1' : 'Damage level 2';
-    const label = `${counter.side} ${counter.type} ${counter.id}; ${status}; attack ${counter.stats.attack}, defense ${counter.stats.defense}, movement ${counter.stats.movement}; ${counter.supplyState}; ${stackSize} unit(s) in hex${counter.entrenched ? '; entrenched' : ''}`;
+    const status = counter.step === 0 ? t('counter.fullStrength') : t('counter.damage', { step: counter.step });
+    const label = t('counter.label', { side: enumLabel(counter.side), type: enumLabel(counter.type), id: counter.id, status, ...counter.stats, supply: enumLabel(counter.supplyState), count: stackSize, entrenched: counter.entrenched ? t('counter.entrenchedSuffix') : '' });
     const symbolScale = stackSize > 1 ? .72 : .9;
     return `<g data-unit-id="${esc(counter.id)}" data-hex="${coreHexKey(counter.hex)}" data-anchor-x="${p.authoritativeAnchor.x}" data-anchor-y="${p.authoritativeAnchor.y}" data-damage="${counter.step}" class="counter-visual counter counter-v2 ${faction} ${counter.selected ? 'selected' : ''}" transform="translate(${p.visualCenter.x} ${p.visualCenter.y})" role="button" tabindex="0" aria-label="${esc(label)}" aria-pressed="${counter.selected}"><title>${esc(label)}</title><g class="counter-face" transform="scale(${scale})">
   <rect class="counter-body" x="${-half}" y="${-half}" width="${side}" height="${side}" rx="3" fill="${face}" stroke="${counter.selected ? '#f6d797' : edge}" stroke-width="${counter.selected ? 2.5 : 1.3}"/>
@@ -138,9 +139,9 @@ export function renderCounter(counter, stackIndex, stackSize) {
   <path d="M${-half + 3} ${half - 12}H${half - 3}V${half - 3}H${-half + 3}Z" fill="#0b151f" fill-opacity=".7"/>
   <text x="0" y="${half - 5}" text-anchor="middle" class="counter-stats" fill="#f5ead7">${counter.stats.attack}-${counter.stats.defense}-${counter.stats.movement}</text>
   ${damage ? `<path class="counter-damage-edge" d="M${-half + 1} ${-half + 12}V${half - 13}" fill="none" stroke="#edc193" stroke-width="2.5" stroke-dasharray="3 2"/><text class="damage-mark" x="${-half + 3}" y="${half - 14}">${damage}</text>` : ''}
-  ${counter.supplyState === 'OUT_OF_SUPPLY' ? `<g class="oos-icon" transform="translate(${half - 5} 0)"><title>Out of supply</title><path d="M-3 -4L3 2M-3 2L3 -4"/><circle cy="-1" r="5"/></g>` : ''}
+  ${counter.supplyState === 'OUT_OF_SUPPLY' ? `<g class="oos-icon" transform="translate(${half - 5} 0)"><title>${t('status.outOfSupply')}</title><path d="M-3 -4L3 2M-3 2L3 -4"/><circle cy="-1" r="5"/></g>` : ''}
   ${counter.entrenched ? `<path class="entrench-icon" d="M${-half + 3} -10v4h7V-10"/>` : ''}
-  ${stackSize > 1 && stackIndex === stackSize - 1 ? `<g class="stack-badge" transform="translate(${half - 3} ${half - 2})"><title>${stackSize} units in this hex</title><circle r="6"/><text y="2.3" text-anchor="middle">${stackSize}</text></g>` : ''}
+  ${stackSize > 1 && stackIndex === stackSize - 1 ? `<g class="stack-badge" transform="translate(${half - 3} ${half - 2})"><title>${t('counter.stack', { count: stackSize })}</title><circle r="6"/><text y="2.3" text-anchor="middle">${stackSize}</text></g>` : ''}
   </g></g>`;
 }
 function renderCombatGeometry(model) {
@@ -232,5 +233,5 @@ export function coreSvgDynamicMarkup(model, options) {
 export function coreSvgMarkup(model, options) {
     const vb = viewBoxForHexes(model.hexes), mode = options.rendererMode ?? 'prototype', assetSet = options.assetSet ?? 'p5', lod = options.lod ?? 'medium';
     const staticMarkup = coreSvgStaticMarkup(model, options), dynamicMarkup = coreSvgDynamicMarkup(model, options);
-    return `<svg id="eastfront-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-renderer-mode="${mode}" data-asset-set="${assetSet}" data-lod="${lod}" viewBox="${vb.minX} ${vb.minY} ${vb.width} ${vb.height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Strategic Reset F operational map"><defs><filter id="counterShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-opacity=".33"/></filter><filter id="selectedShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".46"/></filter></defs><g id="map-static-layer">${staticMarkup}</g><g id="map-dynamic-layer">${dynamicMarkup}</g></svg>`;
+    return `<svg id="eastfront-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-renderer-mode="${mode}" data-asset-set="${assetSet}" data-lod="${lod}" viewBox="${vb.minX} ${vb.minY} ${vb.width} ${vb.height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('map.accessible')}"><defs><filter id="counterShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-opacity=".33"/></filter><filter id="selectedShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".46"/></filter></defs><g id="map-static-layer">${staticMarkup}</g><g id="map-dynamic-layer">${dynamicMarkup}</g></svg>`;
 }

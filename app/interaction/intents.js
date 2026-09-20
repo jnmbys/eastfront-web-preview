@@ -1,8 +1,10 @@
+import { msg, enumMessage, phaseMessage } from '../localization/index.js';
+import { joinIssues } from '../localization/issues.js';
 import { analyzeBreakthroughAction, validateAttackAction, coreHexKey, getLegalRetreatStepOptions, getNeighbors, } from '../core-adapter/core.js';
 import { controllerIdForSide, dispatchGameAction, setActiveViewer } from '../core-adapter/session.js';
 import { clearActionDrafts, clearCombatDrafts } from '../state/presentation.js';
 function issuesMessage(issues) {
-    return issues.map((issue) => `${issue.code}: ${issue.message}`).join(' · ');
+    return joinIssues(issues);
 }
 function sameHex(a, b) { return a.q === b.q && a.r === b.r; }
 function adjacent(a, b) { return getNeighbors(a).some((candidate) => sameHex(candidate, b)); }
@@ -53,10 +55,10 @@ export function selectCounter(session, presentation, unitId) {
             presentation.attackUnitIds = [unitId];
             presentation.attackTarget = null;
             presentation.attackerArtilleryUnitId = null;
-            presentation.message = 'Choose a highlighted enemy to preview your attack.';
+            presentation.message = msg('feedback.chooseEnemy');
         }
         else
-            presentation.message = 'This unit has no legal attack available. Select another unit.';
+            presentation.message = msg('feedback.noLegalAttack');
     }
 }
 export function selectDeploymentRosterUnit(presentation, unitId) {
@@ -67,7 +69,7 @@ export function selectDeploymentRosterUnit(presentation, unitId) {
 export function deploySelectedUnit(session, presentation, hex) {
     const id = presentation.selectedDeploymentUnitId;
     if (!id) {
-        presentation.message = 'Select a deployment unit first.';
+        presentation.message = msg('feedback.selectDeployment');
         return;
     }
     const action = { type: 'DEPLOY_INITIAL_UNIT', controllerId: session.activeViewerControllerId, deploymentUnitId: id, hex };
@@ -76,7 +78,7 @@ export function deploySelectedUnit(session, presentation, hex) {
         presentation.message = issuesMessage(outcome.result.issues);
         return;
     }
-    presentation.message = `${id} deployed to ${coreHexKey(hex)}.`;
+    presentation.message = msg('feedback.deployed', { id, hex: coreHexKey(hex) });
     presentation.selectedUnitId = id;
     const roster = session.scenario.deployment?.units.filter((unit) => unit.side === session.state.controllers[session.activeViewerControllerId]?.side) ?? [];
     const next = roster.find((unit) => !session.state.units[unit.id]);
@@ -90,7 +92,7 @@ export function readyForPhase(session, presentation) {
         presentation.message = issuesMessage(outcome.result.issues);
         return;
     }
-    presentation.message = `${beforePhase} complete.`;
+    presentation.message = msg('feedback.phaseComplete', { phase: phaseMessage(beforePhase) });
     presentation.selectedUnitId = null;
     presentation.selectedDeploymentUnitId = null;
     clearActionDrafts(presentation);
@@ -116,25 +118,25 @@ export function confirmPrivacyGate(session, presentation) {
         setActiveViewer(session, controllerIdForSide(session, 'SOVIET'));
     presentation.privacyGate = null;
     clearActionDrafts(presentation);
-    presentation.message = gate === 'REVEAL_BOTH' ? 'Deployment revealed. German Turn 1.' : `${session.state.activeSide} interface active.`;
+    presentation.message = gate === 'REVEAL_BOTH' ? msg('feedback.deploymentRevealed') : msg('feedback.sideActive', { side: enumMessage(session.state.activeSide) });
 }
 export function switchViewerForDevelopment(session, presentation, side) {
     setActiveViewer(session, controllerIdForSide(session, side));
     presentation.selectedUnitId = null;
     presentation.selectedDeploymentUnitId = null;
     clearActionDrafts(presentation);
-    presentation.message = `Development viewer switched to ${side}.`;
+    presentation.message = msg('feedback.developerViewer', { side: enumMessage(side) });
 }
 /** Presentation-only path drafting. Counter remains at authoritative Core hex until commit. */
 export function extendMoveDraft(session, presentation, destination) {
     const id = presentation.selectedUnitId;
     if (!id) {
-        presentation.message = 'Select a controlled unit first.';
+        presentation.message = msg('feedback.selectControlled');
         return;
     }
     const unit = session.state.units[id];
     if (!unit) {
-        presentation.message = 'Selected unit is unavailable.';
+        presentation.message = msg('feedback.unitUnavailable');
         return;
     }
     const tail = presentation.pathDraft.at(-1) ?? unit.hex;
@@ -142,28 +144,28 @@ export function extendMoveDraft(session, presentation, destination) {
         const previous = presentation.pathDraft.length > 1 ? presentation.pathDraft.at(-2) : unit.hex;
         if (sameHex(destination, previous)) {
             presentation.pathDraft.pop();
-            presentation.message = 'Removed last path step.';
+            presentation.message = msg('feedback.undoPath');
             return;
         }
     }
     if (!adjacent(tail, destination)) {
-        presentation.message = 'Path draft can only extend to an adjacent Hex.';
+        presentation.message = msg('feedback.adjacentOnly');
         return;
     }
     presentation.pathDraft.push({ ...destination });
     presentation.interactionMode = 'MOVE_PATH';
-    presentation.message = `Path drafted to ${coreHexKey(destination)}. Commit only when ready.`;
+    presentation.message = msg('feedback.pathDraft', { hex: coreHexKey(destination) });
 }
 export function undoMoveDraft(presentation) {
     if (presentation.pathDraft.length > 0)
         presentation.pathDraft.pop();
-    presentation.message = presentation.pathDraft.length ? 'Removed last path step.' : 'Path draft cleared.';
+    presentation.message = presentation.pathDraft.length ? msg('feedback.undoPath') : msg('feedback.pathCleared');
 }
-export function cancelMoveDraft(presentation) { presentation.pathDraft = []; presentation.message = 'Movement draft cancelled.'; }
+export function cancelMoveDraft(presentation) { presentation.pathDraft = []; presentation.message = msg('feedback.moveCancelled'); }
 export function commitMoveDraft(session, presentation) {
     const id = presentation.selectedUnitId;
     if (!id || presentation.pathDraft.length === 0) {
-        presentation.message = 'Draft at least one movement step first.';
+        presentation.message = msg('feedback.needPath');
         return;
     }
     const action = { type: 'MOVE', controllerId: session.activeViewerControllerId, unitId: id, path: presentation.pathDraft.map((hex) => ({ ...hex })) };
@@ -174,15 +176,15 @@ export function commitMoveDraft(session, presentation) {
     }
     const finalHex = action.path.at(-1);
     presentation.pathDraft = [];
-    presentation.message = `${id} moved to ${coreHexKey(finalHex)} through ${action.path.length} step${action.path.length === 1 ? '' : 's'}.`;
+    presentation.message = msg('feedback.moved', { id, hex: coreHexKey(finalHex), count: action.path.length });
 }
 /** UI-003 compatibility: single tap now drafts one step rather than mutating state immediately. */
 export function attemptMove(session, presentation, destination) { extendMoveDraft(session, presentation, destination); }
-export function enterRailRepairMode(presentation) { presentation.interactionMode = 'RAIL_REPAIR'; presentation.message = 'Tap railway edges to add/remove them from the repair plan.'; }
+export function enterRailRepairMode(presentation) { presentation.interactionMode = 'RAIL_REPAIR'; presentation.message = msg('feedback.railMode'); }
 export function toggleRailRepairEdge(session, presentation, edgeKey) {
     const edge = session.state.edges[edgeKey];
     if (!edge?.railway?.present) {
-        presentation.message = 'That edge is not railway.';
+        presentation.message = msg('feedback.notRailway');
         return;
     }
     const set = new Set(presentation.railRepairEdgeKeys);
@@ -192,13 +194,13 @@ export function toggleRailRepairEdge(session, presentation, edgeKey) {
         set.add(edgeKey);
     presentation.railRepairEdgeKeys = [...set].sort();
     presentation.interactionMode = 'RAIL_REPAIR';
-    presentation.message = `Rail plan: ${presentation.railRepairEdgeKeys.length} edge${presentation.railRepairEdgeKeys.length === 1 ? '' : 's'} selected.`;
+    presentation.message = msg('feedback.railPlan', { count: presentation.railRepairEdgeKeys.length });
 }
 export function selectRailEngineer(presentation, unitId) { presentation.selectedEngineerUnitId = unitId; presentation.interactionMode = 'RAIL_REPAIR'; }
-export function cancelRailRepair(presentation) { presentation.railRepairEdgeKeys = []; presentation.selectedEngineerUnitId = null; presentation.message = 'Rail Repair plan cleared.'; }
+export function cancelRailRepair(presentation) { presentation.railRepairEdgeKeys = []; presentation.selectedEngineerUnitId = null; presentation.message = msg('feedback.railCleared'); }
 export function commitRailRepair(session, presentation) {
     if (presentation.railRepairEdgeKeys.length === 0) {
-        presentation.message = 'Select at least one railway edge.';
+        presentation.message = msg('feedback.needRail');
         return;
     }
     const action = { type: 'RAIL_REPAIR', controllerId: session.activeViewerControllerId, edgeKeys: [...presentation.railRepairEdgeKeys], ...(presentation.selectedEngineerUnitId ? { engineerUnitId: presentation.selectedEngineerUnitId } : {}) };
@@ -207,7 +209,7 @@ export function commitRailRepair(session, presentation) {
         presentation.message = issuesMessage(outcome.result.issues);
         return;
     }
-    presentation.message = `Rail Repair accepted: ${action.edgeKeys.length} edge${action.edgeKeys.length === 1 ? '' : 's'}.`;
+    presentation.message = msg('feedback.railAccepted', { count: action.edgeKeys.length });
     presentation.railRepairEdgeKeys = [];
     presentation.selectedEngineerUnitId = null;
 }
@@ -215,7 +217,7 @@ export function selectReinforcement(presentation, id) { presentation.selectedRei
 export function deploySelectedReinforcement(session, presentation, entryHex) {
     const id = presentation.selectedReinforcementId;
     if (!id) {
-        presentation.message = 'Select a Soviet reinforcement first.';
+        presentation.message = msg('feedback.needReinforcement');
         return;
     }
     const action = { type: 'DEPLOY_REINFORCEMENT', controllerId: session.activeViewerControllerId, reinforcementId: id, entryHex };
@@ -224,28 +226,28 @@ export function deploySelectedReinforcement(session, presentation, entryHex) {
         presentation.message = issuesMessage(outcome.result.issues);
         return;
     }
-    presentation.message = `${id} deployed at ${coreHexKey(entryHex)}.`;
+    presentation.message = msg('feedback.reinforced', { id, hex: coreHexKey(entryHex) });
     presentation.selectedReinforcementId = null;
 }
 export function recoverSelectedUnit(session, presentation) {
     const id = presentation.selectedUnitId;
     if (!id) {
-        presentation.message = 'Select a damaged controlled unit first.';
+        presentation.message = msg('feedback.needDamaged');
         return;
     }
     const action = { type: 'REPAIR_UNIT', controllerId: session.activeViewerControllerId, unitId: id };
     const outcome = dispatchGameAction(session, action);
-    presentation.message = outcome.result.accepted ? `${id} recovered one damage step.` : issuesMessage(outcome.result.issues);
+    presentation.message = outcome.result.accepted ? msg('feedback.recovered', { id }) : issuesMessage(outcome.result.issues);
 }
 export function entrenchSelectedUnit(session, presentation) {
     const id = presentation.selectedUnitId;
     if (!id) {
-        presentation.message = 'Select a controlled unit first.';
+        presentation.message = msg('feedback.selectControlled');
         return;
     }
     const action = { type: 'ENTRENCH', controllerId: session.activeViewerControllerId, unitId: id };
     const outcome = dispatchGameAction(session, action);
-    presentation.message = outcome.result.accepted ? `${id} entrenched.` : issuesMessage(outcome.result.issues);
+    presentation.message = outcome.result.accepted ? msg('feedback.entrenched', { id }) : issuesMessage(outcome.result.issues);
 }
 function syncCombatDecisionHandoff(session, presentation) {
     const owner = session.state.pendingDecision?.decisionOwnerControllerId;
@@ -261,21 +263,21 @@ function syncCombatDecisionHandoff(session, presentation) {
     }
 }
 function combatOutcomeMessage(action, accepted, issues) {
-    return accepted ? `${action} accepted by Core.` : issuesMessage(issues);
+    return accepted ? msg('feedback.combatAccepted', { action: enumMessage(action) }) : issuesMessage(issues);
 }
 export function toggleAttackUnit(session, presentation, unitId) {
     if (session.state.pendingDecision) {
-        presentation.message = 'Resolve the current combat decision before declaring another attack.';
+        presentation.message = msg('feedback.pendingCombat');
         return;
     }
     const unit = session.state.units[unitId];
     if (!unit || !unit.alive) {
-        presentation.message = 'Unit unavailable.';
+        presentation.message = msg('feedback.unavailable');
         return;
     }
     const side = session.state.controllers[session.activeViewerControllerId]?.side;
     if (unit.side !== side || unit.controllerId !== session.activeViewerControllerId) {
-        presentation.message = 'Select a controlled attacker.';
+        presentation.message = msg('feedback.needAttacker');
         return;
     }
     const set = new Set(presentation.attackUnitIds);
@@ -285,7 +287,7 @@ export function toggleAttackUnit(session, presentation, unitId) {
         set.add(unitId);
     presentation.attackUnitIds = [...set].sort();
     presentation.interactionMode = 'ATTACK';
-    presentation.message = `Attack draft: ${presentation.attackUnitIds.length} direct attacker(s).`;
+    presentation.message = msg('feedback.attackDraft', { count: presentation.attackUnitIds.length });
 }
 export function isCombatTargetSelection(session, presentation) {
     return (session.state.phase === 'GERMAN_COMBAT' || session.state.phase === 'SOVIET_COMBAT')
@@ -303,18 +305,18 @@ export function routeCombatTarget(session, presentation, target) {
         return false;
     const issues = combatTargetIssues(session, presentation, target);
     if (issues.length) {
-        presentation.message = `Cannot select attack target: ${issuesMessage(issues)}`;
+        presentation.message = msg('feedback.invalidTarget', { issues: issuesMessage(issues) });
         return true;
     }
     selectAttackTarget(presentation, target);
     return true;
 }
-export function selectAttackTarget(presentation, target) { presentation.attackTarget = { ...target }; presentation.interactionMode = 'ATTACK'; presentation.message = `Target ${coreHexKey(target)} selected.`; }
+export function selectAttackTarget(presentation, target) { presentation.attackTarget = { ...target }; presentation.interactionMode = 'ATTACK'; presentation.message = msg('feedback.targetSelected', { hex: coreHexKey(target) }); }
 export function selectAttackerArtillery(presentation, unitId) { presentation.attackerArtilleryUnitId = unitId; presentation.interactionMode = 'ATTACK'; }
-export function clearAttackDraft(presentation) { presentation.attackUnitIds = []; presentation.attackTarget = null; presentation.attackerArtilleryUnitId = null; presentation.message = 'Attack draft cleared.'; }
+export function clearAttackDraft(presentation) { presentation.attackUnitIds = []; presentation.attackTarget = null; presentation.attackerArtilleryUnitId = null; presentation.message = msg('feedback.attackCleared'); }
 export function declareAttack(session, presentation) {
     if (!presentation.attackTarget || presentation.attackUnitIds.length === 0) {
-        presentation.message = 'Choose attacker(s) and an enemy target Hex first.';
+        presentation.message = msg('feedback.needTarget');
         return;
     }
     const action = { type: 'ATTACK', controllerId: session.activeViewerControllerId, attackerUnitIds: [...presentation.attackUnitIds], target: { ...presentation.attackTarget }, ...(presentation.attackerArtilleryUnitId ? { support: { attackerArtilleryUnitId: presentation.attackerArtilleryUnitId } } : {}) };
@@ -329,7 +331,7 @@ export function declareAttack(session, presentation) {
 export function passCombatReaction(session, presentation) {
     const pending = session.state.pendingDecision;
     if (pending?.kind !== 'DEFENDER_REACTION') {
-        presentation.message = 'No defender reaction is pending.';
+        presentation.message = msg('feedback.noReaction');
         return;
     }
     const outcome = dispatchGameAction(session, { type: 'PASS_REACTION', controllerId: session.activeViewerControllerId, battleId: pending.battleId });
@@ -342,7 +344,7 @@ export function passCombatReaction(session, presentation) {
 export function useDefenderArtillery(session, presentation, artilleryUnitId) {
     const pending = session.state.pendingDecision;
     if (pending?.kind !== 'DEFENDER_REACTION') {
-        presentation.message = 'No defender reaction is pending.';
+        presentation.message = msg('feedback.noReaction');
         return;
     }
     const action = { type: 'COMBAT_REACTION', controllerId: session.activeViewerControllerId, battleId: pending.battleId, reaction: { kind: 'DEFENDER_ARTILLERY', artilleryUnitId } };
@@ -356,19 +358,19 @@ export function useDefenderArtillery(session, presentation, artilleryUnitId) {
 export function appendLossDraft(session, presentation, unitId) {
     const pending = session.state.pendingDecision;
     if (pending?.kind !== 'LOSS_ALLOCATION' || !pending.eligibleUnitIds.includes(unitId)) {
-        presentation.message = 'Unit is not eligible for this loss allocation.';
+        presentation.message = msg('feedback.invalidLossUnit');
         return;
     }
     presentation.lossDraft.push(unitId);
     presentation.interactionMode = 'LOSS_ALLOCATION';
-    presentation.message = `Loss draft: ${presentation.lossDraft.length}/${pending.lossSteps} step(s).`;
+    presentation.message = msg('feedback.lossDraft', { count: presentation.lossDraft.length, steps: pending.lossSteps });
 }
-export function undoLossDraft(presentation) { presentation.lossDraft.pop(); presentation.message = 'Removed last drafted loss.'; }
-export function clearLossDraft(presentation) { presentation.lossDraft = []; presentation.message = 'Loss draft cleared.'; }
+export function undoLossDraft(presentation) { presentation.lossDraft.pop(); presentation.message = msg('feedback.undoLoss'); }
+export function clearLossDraft(presentation) { presentation.lossDraft = []; presentation.message = msg('feedback.lossCleared'); }
 export function commitLosses(session, presentation) {
     const pending = session.state.pendingDecision;
     if (pending?.kind !== 'LOSS_ALLOCATION') {
-        presentation.message = 'No loss allocation is pending.';
+        presentation.message = msg('feedback.noLoss');
         return;
     }
     const action = { type: 'ALLOCATE_LOSSES', controllerId: session.activeViewerControllerId, battleId: pending.battleId, unitIdsByStep: [...presentation.lossDraft] };
@@ -384,35 +386,35 @@ export function selectRetreater(presentation, unitId) { presentation.activeRetre
 export function extendRetreatDraft(session, presentation, destination) {
     const pending = session.state.pendingDecision, id = presentation.activeRetreaterId ?? (pending?.kind === 'RETREAT' ? pending.unitIds[0] : null);
     if (pending?.kind !== 'RETREAT' || !id) {
-        presentation.message = 'Choose a required retreater first.';
+        presentation.message = msg('feedback.needRetreater');
         return;
     }
     const unit = session.state.units[id];
     if (!unit) {
-        presentation.message = 'Retreater unavailable.';
+        presentation.message = msg('feedback.retreaterUnavailable');
         return;
     }
     const path = presentation.retreatDrafts[id] ?? [];
     if (path.length >= pending.retreatSteps) {
-        presentation.message = 'Required retreat distance already planned. Choose the next unit or commit.';
+        presentation.message = msg('feedback.retreatComplete');
         return;
     }
     const from = path.at(-1) ?? unit.hex;
     const legal = getLegalRetreatStepOptions(session.state, session.rules, unit, from).some((hex) => sameHex(hex, destination));
     if (!legal) {
-        presentation.message = 'Core retreat helper marks that next Hex illegal.';
+        presentation.message = msg('feedback.illegalRetreat');
         return;
     }
     selectRetreater(presentation, id);
     presentation.retreatDrafts[id] = [...path, { ...destination }];
-    presentation.message = `${id} retreat draft: ${presentation.retreatDrafts[id].length} step(s).`;
+    presentation.message = msg('feedback.retreatDraft', { id, count: presentation.retreatDrafts[id].length });
 }
 export function undoRetreatStep(presentation) { const id = presentation.activeRetreaterId; if (id)
     presentation.retreatDrafts[id]?.pop(); }
 export function commitRetreat(session, presentation) {
     const pending = session.state.pendingDecision;
     if (pending?.kind !== 'RETREAT') {
-        presentation.message = 'No retreat is pending.';
+        presentation.message = msg('feedback.noRetreat');
         return;
     }
     const ordered = [...presentation.retreatOrder, ...pending.unitIds.filter((id) => !presentation.retreatOrder.includes(id))];
@@ -444,7 +446,7 @@ export function extendBreakthroughDraft(session, presentation, destination) {
         return;
     }
     presentation.breakthroughPath = [...action.path];
-    presentation.message = `Breakthrough draft: ${action.path.length} extra Hex(es).`;
+    presentation.message = msg('feedback.breakthroughDraft', { count: action.path.length });
 }
 export function undoBreakthroughDraft(presentation) { presentation.breakthroughPath.pop(); }
 export function commitBreakthrough(session, presentation) { const p = session.state.pendingDecision, id = presentation.breakthroughUnitId; if (p?.kind !== 'BREAKTHROUGH_OPTION' || !id)
