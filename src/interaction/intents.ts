@@ -57,6 +57,13 @@ export function selectCounter(session:LocalGameSession,presentation:Presentation
   else if((session.state.phase==='GERMAN_COMBAT'||session.state.phase==='SOVIET_COMBAT')&&!session.state.pendingDecision) presentation.interactionMode='ATTACK';
   else presentation.interactionMode='SELECT';
   presentation.message=null;
+  if(presentation.interactionMode==='ATTACK'&&!presentation.privacyGate&&presentation.attackUnitIds.length===0
+    &&unit.alive&&unit.controllerId===session.activeViewerControllerId&&viewerSide===session.state.activeSide){
+    const legal=getNeighbors(unit.hex).some(target=>validateAttackAction(session.state,session.rules,
+      {type:'ATTACK',controllerId:session.activeViewerControllerId,attackerUnitIds:[unitId],target}).length===0);
+    if(legal){presentation.attackUnitIds=[unitId];presentation.attackTarget=null;presentation.attackerArtilleryUnitId=null;presentation.message='Choose a highlighted enemy to preview your attack.';}
+    else presentation.message='This unit has no legal attack available. Select another unit.';
+  }
 }
 
 export function selectDeploymentRosterUnit(presentation:PresentationState,unitId:EntityId):void {
