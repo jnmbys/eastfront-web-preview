@@ -109,19 +109,32 @@ function unitSymbol(type:UnitState['type']):string{
   if(type==='PANZER'||type==='TANK'||type==='HEAVY_TANK')return `<ellipse cx="0" cy="0" rx="11" ry="6.5"/>${type==='HEAVY_TANK'?'<text x="0" y="3" text-anchor="middle" class="unit-mini-label">H</text>':''}`;
   if(type==='MOTORIZED')return `<ellipse cx="0" cy="0" rx="12" ry="7"/><path d="M-9 -7 L9 7 M9 -7 L-9 7"/>`;
   if(type==='ARTILLERY')return `<circle cx="0" cy="0" r="5.5" fill="currentColor"/><path d="M-13 0 H13"/>`;
-  if(type==='ENGINEER')return `<text x="0" y="4" text-anchor="middle" class="unit-letter-label">E</text>`;
+  if(type==='ENGINEER')return `<path d="M-11 7V-5H11V7M-11 1H11M-5 -5V7M5 -5V7"/>`;
   if(type==='RECON')return `<path d="M0 -9 L10 0 L0 9 L-10 0 Z"/>`;
-  if(type==='ANTI_TANK')return `<text x="0" y="4" text-anchor="middle" class="unit-letter-label">AT</text>`;
+  if(type==='ANTI_TANK')return `<path d="M0 -10L12 8H-12ZM-7 3H7"/>`;
   return `<text x="0" y="4" text-anchor="middle" class="unit-letter-label">HQ</text>`;
 }
-function renderCounter(counter:CounterModel,stackIndex:number,stackSize:number):string{
-  const p=deriveCounterPlacement(counter,stackIndex,stackSize); const side=p.side; const scale=counter.selected?SELECTED_VISUAL_SCALE:1;
-  const faction=counter.side==='GERMAN'?'german':'soviet'; const damage=counter.step===1?'/':counter.step===2?'//':'';
-  const oos=counter.supplyState==='OUT_OF_SUPPLY'?`<g class="oos-icon" transform="translate(${side/2-7} ${-side/2+8})"><path d="M-5 -2 q3 -5 7 -1 l2 2 M5 2 q-3 5 -7 1 l-2 -2 M-2 -2 l4 4"/></g>`:'';
-  const entrenched=counter.entrenched?`<g class="entrench-icon" transform="translate(${-side/2+7} ${-side/2+9})"><path d="M-5 2 Q0 -4 5 2 M-6 4 H6"/></g>`:'';
-  const stackBadge=stackSize>1&&stackIndex===stackSize-1?`<g class="stack-badge" transform="translate(${-side/2+5.5} ${side/2-5.5})"><circle r="5.2"/><text y="2.2" text-anchor="middle">${stackSize}</text></g>`:'';
-  const stat=`${counter.stats.attack}-${counter.stats.defense}-${counter.stats.movement}`;
-  return `<g data-unit-id="${esc(counter.id)}" data-hex="${coreHexKey(counter.hex)}" data-anchor-x="${p.authoritativeAnchor.x}" data-anchor-y="${p.authoritativeAnchor.y}" class="counter-visual counter ${faction} ${counter.selected?'selected':''}" transform="translate(${p.visualCenter.x} ${p.visualCenter.y})" role="button" tabindex="0" aria-label="${counter.side} ${counter.type} ${esc(counter.id)}" aria-pressed="${counter.selected}"><g class="counter-face" transform="scale(${scale})"><rect class="counter-body" x="${-side/2}" y="${-side/2}" width="${side}" height="${side}" rx="2.8"/><path class="counter-top-rule" d="M${-side/2+5} ${-side/2+8} H${side/2-5}"/><text x="${-side/2+4}" y="${-side/2+7}" class="counter-id">${esc(counter.id.replace(/^(G|S)-/,''))}</text><g class="unit-symbol" transform="translate(0 -4)">${unitSymbol(counter.type)}</g><line x1="${-side/2+5}" y1="${side/2-13}" x2="${side/2-5}" y2="${side/2-13}" class="stats-rule"/><text x="0" y="${side/2-4}" text-anchor="middle" class="counter-stats">${stat}</text>${damage?`<text x="${-side/2+5}" y="${-side/2+17}" class="damage-mark">${damage}</text>`:''}${oos}${entrenched}${stackBadge}</g></g>`;
+export function renderCounter(counter:CounterModel,stackIndex:number,stackSize:number):string{
+  const p=deriveCounterPlacement(counter,stackIndex,stackSize),side=p.side,half=side/2,scale=counter.selected?SELECTED_VISUAL_SCALE:1;
+  const faction=counter.side==='GERMAN'?'german':'soviet',face=faction==='german'?'#344c60':'#62413d',edge=faction==='german'?'#96b1c4':'#c09a83';
+  const damage=counter.step===1?'/':counter.step===2?'//':'';
+  const status=counter.step===0?'Full strength':counter.step===1?'Damage level 1':'Damage level 2';
+  const label=`${counter.side} ${counter.type} ${counter.id}; ${status}; attack ${counter.stats.attack}, defense ${counter.stats.defense}, movement ${counter.stats.movement}; ${counter.supplyState}; ${stackSize} unit(s) in hex${counter.entrenched?'; entrenched':''}`;
+  const symbolScale=stackSize>1?.72:.9;
+  return `<g data-unit-id="${esc(counter.id)}" data-hex="${coreHexKey(counter.hex)}" data-anchor-x="${p.authoritativeAnchor.x}" data-anchor-y="${p.authoritativeAnchor.y}" data-damage="${counter.step}" class="counter-visual counter counter-v2 ${faction} ${counter.selected?'selected':''}" transform="translate(${p.visualCenter.x} ${p.visualCenter.y})" role="button" tabindex="0" aria-label="${esc(label)}" aria-pressed="${counter.selected}"><title>${esc(label)}</title><g class="counter-face" transform="scale(${scale})">
+  <rect class="counter-body" x="${-half}" y="${-half}" width="${side}" height="${side}" rx="3" fill="${face}" stroke="${counter.selected?'#f6d797':edge}" stroke-width="${counter.selected?2.5:1.3}"/>
+  <rect class="counter-inset" x="${-half+2.5}" y="${-half+2.5}" width="${side-5}" height="${side-5}" rx="1.5" fill="none" stroke="${edge}" stroke-opacity=".32" stroke-width=".6"/>
+  <path d="M${-half+3} ${-half+10}H${half-3}" stroke="${edge}" stroke-opacity=".45"/>
+  <text class="counter-country" x="${-half+4}" y="${-half+7}" fill="#f4e8d5" font-size="5.3" font-weight="800">${counter.side==='GERMAN'?'DE':'SU'}</text>
+  <text class="counter-id" x="${half-4}" y="${-half+7}" text-anchor="end" textLength="${Math.min(side-19,counter.id.replace(/^(G|S)-/,'').length*2.8)}" lengthAdjust="spacingAndGlyphs" fill="#dfded6">${esc(counter.id.replace(/^(G|S)-/,''))}</text>
+  <g class="unit-symbol" color="#f1e8d5" transform="translate(0 -2) scale(${symbolScale})">${unitSymbol(counter.type)}</g>
+  <path d="M${-half+3} ${half-12}H${half-3}V${half-3}H${-half+3}Z" fill="#0b151f" fill-opacity=".7"/>
+  <text x="0" y="${half-5}" text-anchor="middle" class="counter-stats" fill="#f5ead7">${counter.stats.attack}-${counter.stats.defense}-${counter.stats.movement}</text>
+  ${damage?`<path class="counter-damage-edge" d="M${-half+1} ${-half+12}V${half-13}" fill="none" stroke="#edc193" stroke-width="2.5" stroke-dasharray="3 2"/><text class="damage-mark" x="${-half+3}" y="${half-14}">${damage}</text>`:''}
+  ${counter.supplyState==='OUT_OF_SUPPLY'?`<g class="oos-icon" transform="translate(${half-5} 0)"><title>Out of supply</title><path d="M-3 -4L3 2M-3 2L3 -4"/><circle cy="-1" r="5"/></g>`:''}
+  ${counter.entrenched?`<path class="entrench-icon" d="M${-half+3} -10v4h7V-10"/>`:''}
+  ${stackSize>1&&stackIndex===stackSize-1?`<g class="stack-badge" transform="translate(${half-3} ${half-2})"><title>${stackSize} units in this hex</title><circle r="6"/><text y="2.3" text-anchor="middle">${stackSize}</text></g>`:''}
+  </g></g>`;
 }
 
 function renderCombatGeometry(model:BrowserRenderModel):string{
