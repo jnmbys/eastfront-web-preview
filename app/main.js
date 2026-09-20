@@ -11,7 +11,7 @@ import { selectTerrainLod } from './render/terrainAssets.js';
 import { buildCachedTerrainSurface, formatTerrainSurfaceFailure, terrainSurfaceCapabilities } from './render/terrainSurface.js';
 import { HEX_SIZE } from './geometry/hex.js';
 import { createPresentationState } from './state/presentation.js';
-import { createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION } from './web/preview.js';
+import { TERRAIN_VISUAL_SEED, createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION } from './web/preview.js';
 import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport } from './web/mapInteraction.js';
 const rootElement = document.querySelector('#app');
 if (!rootElement)
@@ -175,7 +175,7 @@ function startNewGame() { deploymentTouch = createDeploymentTouch(); if (!produc
     fatalMessage = 'Production map surface is unavailable.';
     render();
     return;
-} session = createFreshProductionSession(productionMap, 17); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
+} session = createFreshProductionSession(productionMap); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
 function restartGame() { if (window.confirm('Start a new game?\nCurrent progress will be lost.'))
     startNewGame(); }
 function applyMapViewport() {
@@ -302,7 +302,7 @@ function mapRenderOptions(model, lodOverride) {
     const screenHexWidth = usableWidth * ((Math.sqrt(3) * HEX_SIZE) / vb.width) * mapViewport.zoom;
     const lod = lodOverride ?? selectTerrainLod(screenHexWidth);
     const rendererMode = developerUi ? presentation.rendererMode : 'production';
-    return { debug: developerUi && presentation.debug, rendererMode, assetSet: 'p5', lod, scenarioSeed: session.state.random.seed, staticTerrainSurface: rendererMode === 'production' };
+    return { debug: developerUi && presentation.debug, rendererMode, assetSet: 'p5', lod, scenarioSeed: TERRAIN_VISUAL_SEED, staticTerrainSurface: rendererMode === 'production' };
 }
 function mountCachedTerrainSurface() {
     if (!cachedTerrainSurface)
@@ -556,10 +556,10 @@ async function boot() { appStatus = 'LOADING'; render(); let phase = 'manifest/m
     const [map] = await Promise.all([loadProductionMapFromUrl(), loadProductionRuntimeManifest()]);
     productionMap = map;
     phase = 'static-terrain-surface';
-    const terrainSession = createFreshProductionSession(map, 17), terrainPresentation = createPresentationState(false, false), terrainModel = deriveBrowserRenderModel(terrainSession, terrainPresentation);
+    const terrainSession = createFreshProductionSession(map, TERRAIN_VISUAL_SEED), terrainPresentation = createPresentationState(false, false), terrainModel = deriveBrowserRenderModel(terrainSession, terrainPresentation);
     const vs2 = await loadVS2TerrainSurfaceHooks();
     for (const lod of ['far', 'medium', 'close']) {
-        cachedTerrainSurface = await buildCachedTerrainSurface(terrainModel, terrainSession.state.random.seed, 'p5', lod, vs2.worldBase);
+        cachedTerrainSurface = await buildCachedTerrainSurface(terrainModel, TERRAIN_VISUAL_SEED, 'p5', lod, vs2.worldBase);
         cachedTerrainSurfaces.set(lod, cachedTerrainSurface);
     }
     cachedTerrainSurface = cachedTerrainSurfaces.get('medium');
