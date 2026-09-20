@@ -4,14 +4,14 @@ import {createPresentationState} from '../dist/app/state/presentation.js';
 import {deriveBrowserRenderModel} from '../dist/app/render/coreModel.js';
 import {selectDeploymentRosterUnit} from '../dist/app/interaction/intents.js';
 import {createDeploymentTouch,chooseDeploymentTarget,confirmDeploymentTarget} from '../dist/app/ui/deploymentTouch.js';
-import {deploymentLocations,deploymentFeedback} from '../dist/app/ui/commandPresentation.js';
+import {deploymentLocations,deploymentConfirm,deploymentFeedback} from '../dist/app/ui/commandPresentation.js';
 const raw=JSON.parse(readFileSync('vendor/eastfront-digital-core/reference/strategic-reset-f-map.json'));
 const setup=()=>({s:createFreshProductionSession(raw,17),p:createPresentationState(false,false),ui:createDeploymentTouch()});
 test('target selection is presentation-only; confirmation uses existing Core action and selects next reserve',()=>{
  const {s,p,ui}=setup(),m=deriveBrowserRenderModel(s,p),id=m.deployment.roster[0].id,key=m.deployment.zoneKeys[0];
  selectDeploymentRosterUnit(p,id);const before=JSON.stringify(s.state);
  assert.ok(chooseDeploymentTarget(ui,m,id,key));assert.equal(JSON.stringify(s.state),before);
- const cards=deploymentLocations(m,id,ui);assert.ok(cards.includes('CONFIRM DEPLOYMENT'));assert.ok(cards.includes('aria-pressed="true"'));assert.ok(cards.includes('Deployment area'));
+ const cards=deploymentLocations(m,id,ui);assert.ok(deploymentConfirm(m,id,ui).includes('CONFIRM DEPLOYMENT'));assert.ok(cards.includes('aria-pressed="true"'));assert.ok(cards.includes('Terrain ·'));
  confirmDeploymentTarget(ui,s,p);assert.equal(s.lastResult.action.type,'DEPLOY_INITIAL_UNIT');assert.equal(s.lastResult.accepted,true);assert.equal(ui.status,'deployed');assert.notEqual(p.selectedDeploymentUnitId,id);
 });
 test('same-hex repeated deployment preserves Core stacking rejection and clear invalid feedback',()=>{

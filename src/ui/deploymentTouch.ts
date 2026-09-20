@@ -1,3 +1,4 @@
+import {deploymentRejection} from './deploymentPolish.js';
 import type {LocalGameSession} from '../core-adapter/session.js';
 import type {PresentationState} from '../state/presentation.js';
 import type {BrowserRenderModel} from '../render/coreModel.js';
@@ -14,6 +15,6 @@ export function confirmDeploymentTarget(ui:DeploymentTouch,session:LocalGameSess
  const id=ui.unitId,[q,r]=ui.key.split(',').map(Number);
  deploySelectedUnit(session,presentation,{q:q!,r:r!});
  const accepted=session.lastResult?.accepted===true;
- ui.status=accepted?'deployed':'invalid';ui.message=accepted?`${id} deployed. Next reserve selected when available.`:(presentation.message??'Deployment rejected.');
+ ui.status=accepted?'deployed':'invalid';ui.message=accepted?`${id} deployed. Next reserve selected when available.`:deploymentRejection(session.lastResult?.issues??[]);
  if(accepted){ui.key=null;ui.unitId=null;}
 }

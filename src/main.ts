@@ -1,5 +1,6 @@
+import {deploymentFocus,deploymentRejection} from './ui/deploymentPolish.js';
 import {createDeploymentTouch,chooseDeploymentTarget,confirmDeploymentTarget} from './ui/deploymentTouch.js';
-import { commandHeader, deploymentLocations, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
+import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
 import { coreHexKey, isDeploymentPhase, type LegacyMapData, type Side } from './core-adapter/core.js';
 import { createLocalGameSession, loadProductionMapFromUrl, type LocalGameSession } from './core-adapter/session.js';
 import {
@@ -20,10 +21,15 @@ const rootElement=document.querySelector<HTMLElement>('#app');if(!rootElement)th
 const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:LocalGameSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'PLAYING'|'FATAL'='LOADING';let fatalMessage='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
 function esc(value:string):string{return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));}
 let deploymentTouch=createDeploymentTouch();
+function paintDeploymentFocus():void{
+ const svg=document.querySelector('#eastfront-map');if(!svg||!session)return;
+ svg.querySelector('#deployment-focus')?.remove();
+ svg.insertAdjacentHTML('beforeend',deploymentFocus(deriveBrowserRenderModel(session,presentation),deploymentTouch,presentation.selectedDeploymentUnitId));
+}
 function chooseTouchTarget(key:string):void{
  if(!session)return;
  if(chooseDeploymentTarget(deploymentTouch,deriveBrowserRenderModel(session,presentation),presentation.selectedDeploymentUnitId,key)){
-  if(presentation.panelCollapsed){presentation.panelCollapsed=false;render();}else refreshDynamicView();document.querySelector('#confirm-deployment')?.scrollIntoView({block:'nearest'});
+  if(presentation.panelCollapsed){presentation.panelCollapsed=false;render();}else refreshDynamicView();
  }
 }
 function chooseCounterTarget(id:string):boolean{
@@ -31,7 +37,7 @@ function chooseCounterTarget(id:string):boolean{
  const model=deriveBrowserRenderModel(session,presentation),counter=model.counters.find(c=>c.id===id);
  if(!counter)return false;
  const chosen=chooseDeploymentTarget(deploymentTouch,model,presentation.selectedDeploymentUnitId,coreHexKey(counter.hex));
- if(chosen){if(presentation.panelCollapsed){presentation.panelCollapsed=false;render();}else refreshDynamicView();document.querySelector('#confirm-deployment')?.scrollIntoView({block:'nearest'});}return chosen;
+ if(chosen){if(presentation.panelCollapsed){presentation.panelCollapsed=false;render();}else refreshDynamicView();}return chosen;
 }
 function parseHex(value:string){const [q,r]=value.split(',').map(Number);return {q:q!,r:r!};}
 function sideLabel(side:Side):string{return side==='GERMAN'?'German Side':'Soviet Side';}
@@ -132,7 +138,7 @@ function mountCachedTerrainSurface():void{
   if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;cachedTerrainSurface=cachedTerrainSurfaces.get(svg.dataset.lod as TerrainLod)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);
 }
 function sidePanelMarkup(model:BrowserRenderModel):string{
-  return `<section class="panel-block selection-block"><span class="eyebrow command-title">COMMAND PANEL</span>${selectedSummary(model)}</section>${presentation.message?`<section class="panel-block status-message"><span class="eyebrow">ORDER REPORT</span><p>${esc(presentation.message)}</p></section>`:''}${deploymentPanel(model)}${phasePanel(model)}${developerUi?viewerSwitch(model):''}${developerUi?lastActionPanel(session!):''}`;
+  return `<div class="command-panel-scroll"><section class="panel-block selection-block"><span class="eyebrow command-title">COMMAND PANEL</span>${selectedSummary(model)}</section>${presentation.message&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">ORDER REPORT</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(session!.lastResult?.issues??[])):esc(presentation.message)}</p></section>`:''}${deploymentPanel(model)}${phasePanel(model)}${developerUi?viewerSwitch(model):''}${developerUi?lastActionPanel(session!):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
 }
 function refreshDynamicView():void{
   if(!session||presentation.privacyGate){render();return;}
@@ -142,12 +148,15 @@ function refreshDynamicView():void{
   if(!svg||!dynamic||!panel){render();return;}
   const lod=(svg.dataset.lod as TerrainLod|undefined)??mapRenderOptions(model).lod;
   dynamic.innerHTML=coreSvgDynamicMarkup(model,mapRenderOptions(model,lod));
+  const panelScroll=panel.querySelector('.command-panel-scroll')?.scrollTop??0;
   const rosterScroll=panel.querySelector('.roster-list')?.scrollTop??0;
   const locationScroll=panel.querySelector('.location-grid')?.scrollTop??0;
   panel.innerHTML=sidePanelMarkup(model);
+  const scroll=panel.querySelector('.command-panel-scroll');if(scroll)scroll.scrollTop=panelScroll;
   const roster=panel.querySelector('.roster-list'),locations=panel.querySelector('.location-grid');
   if(roster)roster.scrollTop=rosterScroll;if(locations)locations.scrollTop=locationScroll;
   bindDynamic();
+  paintDeploymentFocus();
   applyMapViewport();
 }
 function render():void{
@@ -159,7 +168,7 @@ function render():void{
   if(presentation.privacyGate){root.innerHTML=mobileAdvisoryMarkup(profile)+privacyGate();bind();return;}
   const model=deriveBrowserRenderModel(session,presentation);if(model.phase==='GAME_OVER'||model.victory.winner){root.innerHTML=mobileAdvisoryMarkup(profile)+gameOver(model);bind();return;}
   const debugControls=developerUi?`<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode==='production'?'on':''}">${presentation.rendererMode==='production'?'Production':'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug?'on':''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug?'ON':'OFF'}</strong></button></div>`:'';
-  root.innerHTML=`${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed?'panel-collapsed':'panel-open'} ${presentation.debug?'debug-active':''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · Operations map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom*100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug?'debug-on':''}" aria-label="EASTFRONT operational map">${coreSvgMarkup(model,mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>STRATEGIC RESET F</span><span>EASTFRONT · Operational Command</span></footer>`;mountCachedTerrainSurface();bind();
+  root.innerHTML=`${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>WEB PREVIEW · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip"><span>CP <strong>${model.cp[model.activeSide]}</strong></span><span>RP <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="Start a fresh production game">NEW GAME</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">PANEL</button></div></header><main class="workspace ${presentation.panelCollapsed?'panel-collapsed':'panel-open'} ${presentation.debug?'debug-active':''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>Strategic Reset F · Operations map</strong><span>${sideLabel(model.viewerSide)} view · ${phaseLabel(model.phase)}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="Map zoom controls"><button id="zoom-out" class="map-control-button" type="button" aria-label="Zoom out">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom*100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="Zoom in">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="Fit map">FIT</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug?'debug-on':''}" aria-label="EASTFRONT operational map">${coreSvgMarkup(model,mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>STRATEGIC RESET F</span><span>EASTFRONT · Operational Command</span></footer>`;mountCachedTerrainSurface();bind();paintDeploymentFocus();
 }
 function bind():void{
   document.querySelector('#new-game-button')?.addEventListener('click',()=>startNewGame());document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
