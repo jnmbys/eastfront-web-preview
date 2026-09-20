@@ -7,7 +7,7 @@ import {
 } from '../dist/vendor/eastfront-digital-core/dist/index.js';
 import {controllerIdForSide,createLocalGameSession,dispatchGameAction,setActiveViewer} from '../dist/app/core-adapter/session.js';
 import {
-  advanceAfterCombat,appendLossDraft,clearAttackDraft,commitBreakthrough,commitLosses,commitRetreat,commitSchwerpunkt,confirmPrivacyGate,declareAttack,extendBreakthroughDraft,extendRetreatDraft,passAdvance,passBreakthrough,passCombatReaction,passSchwerpunkt,selectAttackTarget,selectBreakthroughUnit,selectRetreater,selectSchwerpunktTarget,toggleAttackUnit,useDefenderArtillery,
+  advanceAfterCombat,appendLossDraft,clearAttackDraft,commitBreakthrough,commitLosses,commitRetreat,commitSchwerpunkt,confirmPrivacyGate,declareAttack,extendBreakthroughDraft,extendRetreatDraft,passAdvance,passBreakthrough,passCombatReaction,passSchwerpunkt,selectCounter,selectAttackTarget,selectBreakthroughUnit,selectRetreater,selectSchwerpunktTarget,toggleAttackUnit,useDefenderArtillery,
 } from '../dist/app/interaction/intents.js';
 import {deriveBrowserRenderModel} from '../dist/app/render/coreModel.js';
 import {coreSvgMarkup} from '../dist/app/render/coreSvg.js';
@@ -77,3 +77,21 @@ test('real production map declares and resolves one complete combat transaction 
 });
 
 test('UI-005 keeps frozen geometry SHA exactly locked',async()=>{const bytes=await readFile(new URL('../src/geometry/hex.ts',import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),'283b0445e3bff1bc412dd76536ce49e517ffa1dd35dc26c1f8c194b88ba9ab7a');});
+
+
+test('retreat default selection accepts a step without first clicking the unit button',()=>{
+ const s=retreatFixture(),bid=declare(s);passReactionCore(s,bid);setActiveViewer(s,S);const p=createPresentationState();
+ const model=deriveBrowserRenderModel(s,p),option=model.combat.retreat.options[0];assert(option);const before=cloneState(s);
+ extendRetreatDraft(s,p,option);assert.equal(p.activeRetreaterId,'d');assert.equal(p.retreatDrafts.d.length,1);assert.equal(cloneState(s),before);
+ assert.equal(deriveBrowserRenderModel(s,p).combat.retreat.options.length,0);
+ extendRetreatDraft(s,p,option);assert.equal(p.retreatDrafts.d.length,1);
+ commitRetreat(s,p);assert.equal(s.lastResult.accepted,true);
+});
+test('friendly counter on legal retreat destination routes to path instead of inspect',()=>{
+ const s=retreatFixture(),bid=declare(s);passReactionCore(s,bid);setActiveViewer(s,S);const p=createPresentationState();
+ const option=getLegalRetreatStepOptions(s.state,s.rules,s.state.units.d)[0];assert(option);
+ s.state.units.friend=unit('friend','S-INF','SOVIET','INFANTRY',option);
+ assert(getLegalRetreatStepOptions(s.state,s.rules,s.state.units.d).some(h=>key(h)===key(option)));
+ const before=cloneState(s);selectCounter(s,p,'friend');assert.deepEqual(p.retreatDrafts.d,[option]);assert.notEqual(p.selectedUnitId,'friend');assert.equal(cloneState(s),before);
+ commitRetreat(s,p);assert.equal(s.lastResult.accepted,true);
+});

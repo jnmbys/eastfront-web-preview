@@ -31,6 +31,17 @@ function adjacent(a:HexCoord,b:HexCoord):boolean{return getNeighbors(a).some((ca
 
 export function selectCounter(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
   const clicked=session.state.units[unitId];
+  const retreat=session.state.pendingDecision;
+  if(retreat?.kind==='RETREAT'&&clicked?.alive&&!presentation.privacyGate
+    &&retreat.decisionOwnerControllerId===session.activeViewerControllerId){
+    const active=presentation.activeRetreaterId??retreat.unitIds[0];
+    const mover=active?session.state.units[active]:null;
+    const path=active?presentation.retreatDrafts[active]??[]:[];
+    if(mover&&path.length<retreat.retreatSteps&&getLegalRetreatStepOptions(session.state,session.rules,mover,path.at(-1)??mover.hex).some(h=>sameHex(h,clicked.hex))){
+      extendRetreatDraft(session,presentation,clicked.hex);return;
+    }
+    if(retreat.unitIds.includes(unitId)){selectRetreater(presentation,unitId);return;}
+  }
   const viewerSide=session.state.controllers[session.activeViewerControllerId]?.side;
   if(clicked?.alive&&clicked.side!==viewerSide&&isCombatTargetSelection(session,presentation)){
     routeCombatTarget(session,presentation,clicked.hex);return;
@@ -256,10 +267,11 @@ export function commitLosses(session:LocalGameSession,presentation:PresentationS
 }
 export function selectRetreater(presentation:PresentationState,unitId:EntityId):void {presentation.activeRetreaterId=unitId;if(!presentation.retreatOrder.includes(unitId))presentation.retreatOrder.push(unitId);presentation.interactionMode='RETREAT';}
 export function extendRetreatDraft(session:LocalGameSession,presentation:PresentationState,destination:HexCoord):void {
-  const pending=session.state.pendingDecision,id=presentation.activeRetreaterId;if(pending?.kind!=='RETREAT'||!id){presentation.message='Choose a required retreater first.';return;}
+  const pending=session.state.pendingDecision,id=presentation.activeRetreaterId??(pending?.kind==='RETREAT'?pending.unitIds[0]:null);if(pending?.kind!=='RETREAT'||!id){presentation.message='Choose a required retreater first.';return;}
   const unit=session.state.units[id];if(!unit){presentation.message='Retreater unavailable.';return;}
-  const path=presentation.retreatDrafts[id]??[];const from=path.at(-1)??unit.hex;
+  const path=presentation.retreatDrafts[id]??[];if(path.length>=pending.retreatSteps){presentation.message='Required retreat distance already planned. Choose the next unit or commit.';return;}const from=path.at(-1)??unit.hex;
   const legal=getLegalRetreatStepOptions(session.state,session.rules,unit,from).some((hex)=>sameHex(hex,destination));if(!legal){presentation.message='Core retreat helper marks that next Hex illegal.';return;}
+  selectRetreater(presentation,id);
   presentation.retreatDrafts[id]=[...path,{...destination}];presentation.message=`${id} retreat draft: ${presentation.retreatDrafts[id].length} step(s).`;
 }
 export function undoRetreatStep(presentation:PresentationState):void {const id=presentation.activeRetreaterId;if(id)presentation.retreatDrafts[id]?.pop();}
