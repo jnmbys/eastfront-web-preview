@@ -3,15 +3,15 @@ import { createDeploymentTouch, chooseDeploymentTarget, confirmDeploymentTarget 
 import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
 import { coreHexKey, isDeploymentPhase } from './core-adapter/core.js';
 import { createLocalGameSession, loadProductionMapFromUrl } from './core-adapter/session.js';
-import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitLosses, commitMoveDraft, commitRailRepair, commitRetreat, commitSchwerpunkt, confirmPrivacyGate, declareAttack, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, extendRetreatDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, selectAttackTarget, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectRetreater, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, undoRetreatStep, useDefenderArtillery, } from './interaction/intents.js';
+import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitLosses, commitMoveDraft, commitRailRepair, commitRetreat, commitSchwerpunkt, confirmPrivacyGate, declareAttack, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, extendRetreatDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, routeCombatTarget, isCombatTargetSelection, combatTargetIssues, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectRetreater, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, undoRetreatStep, useDefenderArtillery, } from './interaction/intents.js';
 import { deriveBrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
 import { selectTerrainLod } from './render/terrainAssets.js';
 import { buildCachedTerrainSurface, formatTerrainSurfaceFailure, terrainSurfaceCapabilities } from './render/terrainSurface.js';
 import { HEX_SIZE } from './geometry/hex.js';
 import { createPresentationState } from './state/presentation.js';
-import { createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, zoomViewport } from './web/preview.js';
-import { beginMapGesture, clampMapViewport, dragSuppressesTap, gesturePanViewport, updateMapGesture } from './web/mapInteraction.js';
+import { createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION } from './web/preview.js';
+import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport } from './web/mapInteraction.js';
 const rootElement = document.querySelector('#app');
 if (!rootElement)
     throw new Error('#app missing');
@@ -108,7 +108,7 @@ function combatPanel(model) {
     const pending = c.pending, tx = c.battle;
     if (!pending) {
         const a = c.attackDraft;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">COMBAT · ATTACK MODE</span><p>Select a controlled direct attacker, add/remove it from the draft, then choose a highlighted adjacent enemy Hex.</p>${model.selectedCounter ? `<button id="attack-toggle-selected" class="secondary-action">${a.attackerUnitIds.includes(model.selectedCounter.id) ? 'REMOVE' : 'ADD'} ${esc(model.selectedCounter.id)}</button>` : ''}<div class="combat-unit-list">${a.attackerUnitIds.map((id) => `<span class="phase-pill">${esc(id)}</span>`).join('') || '<span>No attackers selected</span>'}</div><div class="phase-metric"><span>Target</span><strong>${a.target ? coreHexKey(a.target) : '—'}</strong></div>${a.target ? `<div class="button-row"><button id="attack-art-none" class="mini-button ${!a.selectedArtilleryId ? 'active' : ''}">No Artillery</button>${a.artilleryUnitIds.map((id) => `<button class="mini-button ${a.selectedArtilleryId === id ? 'active' : ''}" data-attack-artillery="${esc(id)}">${esc(id)}</button>`).join('')}</div>` : ''}${a.preview ? combatContextHtml(a.preview, 'PRE-REACTION PREVIEW') : issueHtml(a.issues)}<div class="button-row"><button id="attack-clear" class="secondary-action">CLEAR</button><button id="attack-declare" class="secondary-action">DECLARE ATTACK</button></div><button id="ready-button" class="primary-action"><span class="advance-label"><small>COMBAT</small>End combat</span><span class="advance-arrow" aria-hidden="true">›</span></button></section>${battleHistoryHtml(model)}`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">COMBAT · ATTACK MODE</span><p>Select a controlled direct attacker, add/remove it from the draft, then choose a highlighted adjacent enemy Hex.</p>${model.selectedCounter ? `<button id="attack-toggle-selected" class="secondary-action">${a.attackerUnitIds.includes(model.selectedCounter.id) ? 'REMOVE' : 'ADD'} ${esc(model.selectedCounter.id)}</button>` : ''}<div class="combat-unit-list">${a.attackerUnitIds.map((id) => `<span class="phase-pill">${esc(id)}</span>`).join('') || '<span>No attackers selected</span>'}</div><div class="phase-metric"><span>Target</span><strong>${a.target ? coreHexKey(a.target) : '—'}</strong></div>${a.target ? `<div class="button-row"><button id="attack-art-none" class="mini-button ${!a.selectedArtilleryId ? 'active' : ''}">No Artillery</button>${a.artilleryUnitIds.map((id) => `<button class="mini-button ${a.selectedArtilleryId === id ? 'active' : ''}" data-attack-artillery="${esc(id)}">${esc(id)}</button>`).join('')}</div>` : ''}${a.preview ? combatContextHtml(a.preview, 'PRE-REACTION PREVIEW') : issueHtml(a.issues)}<div class="button-row"><button id="attack-clear" class="secondary-action">CLEAR</button><button id="attack-declare" class="secondary-action" ${!a.target || !a.attackerUnitIds.length || a.issues.length ? 'disabled' : ''}>DECLARE ATTACK</button></div><button id="ready-button" class="primary-action"><span class="advance-label"><small>COMBAT</small>End combat</span><span class="advance-arrow" aria-hidden="true">›</span></button></section>${battleHistoryHtml(model)}`;
     }
     const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">COMBAT TRANSACTION · ${pending.kind}</span><div class="phase-metric"><span>Battle</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>Decision owner</span><strong>${esc(pending.decisionOwnerControllerId)}</strong></div>`;
     let body = '';
@@ -176,21 +176,13 @@ function startNewGame() { deploymentTouch = createDeploymentTouch(); if (!produc
     fatalMessage = 'Production map surface is unavailable.';
     render();
     return;
-} session = createFreshProductionSession(productionMap, 17); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; mapViewport = defaultMapViewport(); appStatus = 'PLAYING'; fatalMessage = ''; render(); }
+} session = createFreshProductionSession(productionMap, 17); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
 function restartGame() { if (window.confirm('Start a new game?\nCurrent progress will be lost.'))
     startNewGame(); }
-function mapContentMetrics(wrap, svg) {
-    const vb = svg.viewBox.baseVal, bbox = svg.getBBox(), rect = svg.getBoundingClientRect();
-    const elementWidth = rect.width / Math.max(mapViewport.zoom, .001), elementHeight = rect.height / Math.max(mapViewport.zoom, .001);
-    const scale = Math.min(elementWidth / Math.max(vb.width, 1), elementHeight / Math.max(vb.height, 1));
-    return { viewportWidth: wrap.clientWidth, viewportHeight: wrap.clientHeight, contentWidth: bbox.width * scale, contentHeight: bbox.height * scale };
-}
-function clampPan(wrap, svg) { mapViewport = clampMapViewport(mapViewport, mapContentMetrics(wrap, svg)); }
 function applyMapViewport() {
     const wrap = document.querySelector('#map-wrap'), svg = document.querySelector('#eastfront-map');
     if (!wrap || !svg)
         return;
-    clampPan(wrap, svg);
     const transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;
     svg.style.transform = transform;
     svg.style.transformOrigin = '50% 50%';
@@ -209,52 +201,102 @@ function bindMapViewport() {
     if (!wrap)
         return;
     applyMapViewport();
+    const points = new Map();
     let gesture = null;
+    let pinch = null;
     let suppressNextClick = false;
     let panFrame = null;
     let latest = null;
-    const flushPan = () => { panFrame = null; if (!gesture || !gesture.state.dragging || !latest)
-        return; const svg = document.querySelector('#eastfront-map'); if (!svg)
-        return; mapViewport = clampMapViewport(gesturePanViewport(gesture.state, latest.x, latest.y, mapViewport.zoom), mapContentMetrics(wrap, svg)); applyMapViewport(); };
+    const local = (e) => { const r = wrap.getBoundingClientRect(); return { x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 }; };
+    const capture = (id) => { try {
+        wrap.setPointerCapture?.(id);
+    }
+    catch { /* Capture may end during cancellation. */ } };
+    const cancelFrame = () => { if (panFrame !== null)
+        cancelAnimationFrame(panFrame); panFrame = null; };
+    const flushPan = () => { panFrame = null; if (!gesture?.dragging || !latest)
+        return; mapViewport = gesturePanViewport(gesture, latest.x, latest.y, mapViewport.zoom); applyMapViewport(); };
     const queuePan = (x, y) => { latest = { x, y }; if (panFrame === null)
         panFrame = requestAnimationFrame(flushPan); };
-    wrap.addEventListener('pointerdown', (event) => { const e = event; if (e.button !== 0 || gesture)
-        return; gesture = { state: beginMapGesture(e.pointerId, e.clientX, e.clientY, mapViewport), originalTarget: e.target, captured: false }; latest = { x: e.clientX, y: e.clientY }; });
-    wrap.addEventListener('pointermove', (event) => { const e = event; if (!gesture || gesture.state.pointerId !== e.pointerId)
-        return; const next = updateMapGesture(gesture.state, e.clientX, e.clientY); const becameDragging = !gesture.state.dragging && next.dragging; gesture.state = next; if (!gesture.state.dragging)
-        return; if (becameDragging && !gesture.captured) {
-        try {
-            wrap.setPointerCapture?.(e.pointerId);
-            gesture.captured = true;
+    const rebase = () => {
+        const entries = [...points.entries()];
+        pinch = null;
+        gesture = null;
+        latest = null;
+        if (entries.length >= 2)
+            pinch = { view: { ...mapViewport }, a: { ...entries[0][1] }, b: { ...entries[1][1] } };
+        else if (entries.length === 1) {
+            const [id, p] = entries[0];
+            gesture = beginMapGesture(id, p.x, p.y, mapViewport);
+            gesture.dragging = suppressNextClick;
         }
-        catch {
-            gesture.captured = false;
-        }
-    } queuePan(e.clientX, e.clientY); e.preventDefault(); });
-    const finish = (event, cancelled = false) => { if (!gesture || gesture.state.pointerId !== event.pointerId)
-        return; const suppressTap = dragSuppressesTap(gesture.state, cancelled); if (suppressTap) {
-        latest = { x: event.clientX, y: event.clientY };
-        if (panFrame !== null) {
-            cancelAnimationFrame(panFrame);
-            panFrame = null;
-        }
+    };
+    wrap.addEventListener('pointerdown', (event) => {
+        const e = event;
+        if (e.button !== 0)
+            return;
+        if (points.size === 0)
+            suppressNextClick = false;
+        cancelFrame();
         flushPan();
-        suppressNextClick = true;
-    }
-    else if (panFrame !== null) {
-        cancelAnimationFrame(panFrame);
-        panFrame = null;
-    } if (gesture.captured && wrap.hasPointerCapture?.(event.pointerId)) {
-        try {
-            wrap.releasePointerCapture?.(event.pointerId);
+        points.set(e.pointerId, local(e));
+        rebase();
+        if (points.size >= 2) {
+            suppressNextClick = true;
+            for (const id of points.keys())
+                capture(id);
+            e.preventDefault();
         }
-        catch { }
-    } gesture = null; latest = null; };
-    wrap.addEventListener('pointerup', (e) => finish(e, false));
+    });
+    wrap.addEventListener('pointermove', (event) => {
+        const e = event;
+        if (!points.has(e.pointerId))
+            return;
+        const p = local(e);
+        points.set(e.pointerId, p);
+        if (pinch) {
+            const [a, b] = [...points.values()];
+            mapViewport = pinchMapViewport(pinch.view, pinch.a, pinch.b, a, b);
+            applyMapViewport();
+            e.preventDefault();
+            return;
+        }
+        if (!gesture)
+            return;
+        gesture = updateMapGesture(gesture, p.x, p.y);
+        if (!gesture.dragging)
+            return;
+        capture(e.pointerId);
+        queuePan(p.x, p.y);
+        e.preventDefault();
+    });
+    const finish = (event, cancelled = false) => {
+        if (!points.has(event.pointerId))
+            return;
+        cancelFrame();
+        if (!pinch && gesture) {
+            if (!cancelled)
+                latest = local(event);
+            flushPan();
+            suppressNextClick = suppressNextClick || dragSuppressesTap(gesture, cancelled);
+        }
+        points.delete(event.pointerId);
+        rebase();
+        if (wrap.hasPointerCapture?.(event.pointerId)) {
+            try {
+                wrap.releasePointerCapture?.(event.pointerId);
+            }
+            catch { }
+        }
+    };
+    wrap.addEventListener('pointerup', (e) => finish(e));
     wrap.addEventListener('pointercancel', (e) => finish(e, true));
+    wrap.addEventListener('lostpointercapture', (e) => finish(e, true));
+    wrap.addEventListener('pointerleave', (e) => { const p = e; if (!wrap.hasPointerCapture?.(p.pointerId))
+        finish(p, true); });
     wrap.addEventListener('click', (event) => { if (!suppressNextClick)
-        return; event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); suppressNextClick = false; }, true);
-    wrap.addEventListener('wheel', (event) => { const e = event; e.preventDefault(); mapViewport = zoomViewport(mapViewport, e.deltaY < 0 ? .15 : -.15); render(); }, { passive: false });
+        return; event.preventDefault(); event.stopPropagation(); event.stopImmediatePropagation(); }, true);
+    wrap.addEventListener('wheel', (event) => { const e = event; e.preventDefault(); cancelFrame(); flushPan(); mapViewport = zoomMapAt(mapViewport, mapViewport.zoom + (e.deltaY < 0 ? .15 : -.15), local(e)); applyMapViewport(); rebase(); }, { passive: false });
 }
 function mapRenderOptions(model, lodOverride) {
     const vb = viewBoxForHexes(model.hexes), usableWidth = Math.max(560, window.innerWidth - (presentation.panelCollapsed ? 24 : 280));
@@ -365,13 +407,39 @@ function bind() {
     document.querySelector('#renderer-toggle')?.addEventListener('click', () => { presentation.rendererMode = presentation.rendererMode === 'production' ? 'prototype' : 'production'; render(); });
     document.querySelector('#debug-toggle')?.addEventListener('click', () => { presentation.debug = !presentation.debug; render(); });
     document.querySelector('#panel-toggle')?.addEventListener('click', () => { presentation.panelCollapsed = !presentation.panelCollapsed; render(); });
-    document.querySelector('#zoom-out')?.addEventListener('click', () => { mapViewport = zoomViewport(mapViewport, -.2); render(); });
-    document.querySelector('#zoom-in')?.addEventListener('click', () => { mapViewport = zoomViewport(mapViewport, .2); render(); });
-    document.querySelector('#zoom-reset')?.addEventListener('click', () => { mapViewport = defaultMapViewport(); render(); });
+    document.querySelector('#zoom-out')?.addEventListener('click', () => { mapViewport = zoomMapAt(mapViewport, mapViewport.zoom - .2, { x: 0, y: 0 }); applyMapViewport(); });
+    document.querySelector('#zoom-in')?.addEventListener('click', () => { mapViewport = zoomMapAt(mapViewport, mapViewport.zoom + .2, { x: 0, y: 0 }); applyMapViewport(); });
+    document.querySelector('#zoom-reset')?.addEventListener('click', () => { mapViewport = defaultMapViewport(); applyMapViewport(); });
     bindMapViewport();
     bindDynamic();
 }
+function paintCombatTargets() {
+    if (!session)
+        return;
+    const enabled = isCombatTargetSelection(session, presentation);
+    const legal = new Set();
+    if (enabled)
+        for (const unit of Object.values(session.state.units)) {
+            if (unit.alive && unit.side !== session.state.activeSide) {
+                const key = coreHexKey(unit.hex);
+                if (!legal.has(key) && combatTargetIssues(session, presentation, unit.hex).length === 0)
+                    legal.add(key);
+            }
+        }
+    document.querySelectorAll('[data-unit-id], [data-role="attack-target"]').forEach(el => {
+        const key = el.dataset.hex ?? '', attackable = enabled && legal.has(key);
+        const selected = attackable && !!presentation.attackTarget && coreHexKey(presentation.attackTarget) === key;
+        el.classList.toggle('attackable-enemy', attackable);
+        el.classList.toggle('selected-combat-target', selected);
+        if (el.dataset.role === 'attack-target') {
+            el.classList.toggle('unavailable-combat-target', !attackable);
+            el.setAttribute('aria-disabled', String(!attackable));
+            el.setAttribute('aria-pressed', String(selected));
+        }
+    });
+}
 function bindDynamic() {
+    paintCombatTargets();
     if (!session)
         return;
     document.querySelector('#confirm-deployment')?.addEventListener('click', event => {
@@ -419,10 +487,10 @@ function bindDynamic() {
     document.querySelector('#attack-declare')?.addEventListener('click', () => { declareAttack(session, presentation); render(); });
     document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); render(); });
     document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); render(); }));
-    document.querySelectorAll('[data-role="attack-target"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
-        selectAttackTarget(presentation, parseHex(key));
-        render();
-    } }));
+    document.querySelectorAll('[data-role="attack-target"]').forEach((el) => { const action = () => { const key = el.dataset.hex; if (key) {
+        routeCombatTarget(session, presentation, parseHex(key));
+        refreshDynamicView();
+    } }; el.addEventListener('click', action); bindKeyboardActivation(el, action); });
     document.querySelector('#pass-reaction')?.addEventListener('click', () => { passCombatReaction(session, presentation); render(); });
     document.querySelectorAll('[data-defender-artillery]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.defenderArtillery; if (id) {
         useDefenderArtillery(session, presentation, id);

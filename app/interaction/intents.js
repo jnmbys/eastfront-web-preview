@@ -1,4 +1,4 @@
-import { analyzeBreakthroughAction, coreHexKey, getLegalRetreatStepOptions, getNeighbors, } from '../core-adapter/core.js';
+import { analyzeBreakthroughAction, validateAttackAction, coreHexKey, getLegalRetreatStepOptions, getNeighbors, } from '../core-adapter/core.js';
 import { controllerIdForSide, dispatchGameAction, setActiveViewer } from '../core-adapter/session.js';
 import { clearActionDrafts, clearCombatDrafts } from '../state/presentation.js';
 function issuesMessage(issues) {
@@ -7,6 +7,12 @@ function issuesMessage(issues) {
 function sameHex(a, b) { return a.q === b.q && a.r === b.r; }
 function adjacent(a, b) { return getNeighbors(a).some((candidate) => sameHex(candidate, b)); }
 export function selectCounter(session, presentation, unitId) {
+    const clicked = session.state.units[unitId];
+    const viewerSide = session.state.controllers[session.activeViewerControllerId]?.side;
+    if (clicked?.alive && clicked.side !== viewerSide && isCombatTargetSelection(session, presentation)) {
+        routeCombatTarget(session, presentation, clicked.hex);
+        return;
+    }
     const unit = session.state.units[unitId];
     if (!unit)
         return;
@@ -253,6 +259,28 @@ export function toggleAttackUnit(session, presentation, unitId) {
     presentation.attackUnitIds = [...set].sort();
     presentation.interactionMode = 'ATTACK';
     presentation.message = `Attack draft: ${presentation.attackUnitIds.length} direct attacker(s).`;
+}
+export function isCombatTargetSelection(session, presentation) {
+    return (session.state.phase === 'GERMAN_COMBAT' || session.state.phase === 'SOVIET_COMBAT')
+        && presentation.interactionMode === 'ATTACK' && presentation.attackUnitIds.length > 0
+        && !session.state.pendingDecision && !presentation.privacyGate
+        && session.state.controllers[session.activeViewerControllerId]?.side === session.state.activeSide;
+}
+export function combatTargetIssues(session, presentation, target) {
+    return validateAttackAction(session.state, session.rules, { type: 'ATTACK', controllerId: session.activeViewerControllerId,
+        attackerUnitIds: [...presentation.attackUnitIds], target: { ...target },
+        ...(presentation.attackerArtilleryUnitId ? { support: { attackerArtilleryUnitId: presentation.attackerArtilleryUnitId } } : {}) });
+}
+export function routeCombatTarget(session, presentation, target) {
+    if (!isCombatTargetSelection(session, presentation))
+        return false;
+    const issues = combatTargetIssues(session, presentation, target);
+    if (issues.length) {
+        presentation.message = `Cannot select attack target: ${issuesMessage(issues)}`;
+        return true;
+    }
+    selectAttackTarget(presentation, target);
+    return true;
 }
 export function selectAttackTarget(presentation, target) { presentation.attackTarget = { ...target }; presentation.interactionMode = 'ATTACK'; presentation.message = `Target ${coreHexKey(target)} selected.`; }
 export function selectAttackerArtillery(presentation, unitId) { presentation.attackerArtilleryUnitId = unitId; presentation.interactionMode = 'ATTACK'; }

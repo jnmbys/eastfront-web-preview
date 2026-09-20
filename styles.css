@@ -184,3 +184,9 @@ footer{background:#0c131c;border-color:#344150;color:#97a7ba}
 .counter-v2 .counter-id{font-size:5px;font-weight:600;fill:#e0ded5;opacity:1;letter-spacing:.01em}.counter-v2 .counter-country{font-family:system-ui,sans-serif;letter-spacing:.06em}.counter-v2 .counter-stats{fill:#f5ead7;font-size:8px;font-weight:700;letter-spacing:0;font-variant-numeric:tabular-nums}.counter-v2 .unit-symbol{stroke:#f1e8d5;stroke-width:2;fill:none}.counter-v2 .unit-mini-label,.counter-v2 .unit-letter-label{fill:#f1e8d5}.counter-v2[data-damage="2"] .unit-symbol{opacity:.65}.counter-v2 .damage-mark{fill:#f4cc9b;font-size:9px;stroke:#1c2028;stroke-width:.5}.counter-v2 .oos-icon{stroke:#f2c69d;stroke-width:1.4}.counter-v2 .stack-badge circle{fill:#111e2b;stroke:#d6bd8c;stroke-width:1}.counter-v2 .stack-badge text{fill:#fff1d6;font-size:7px;font-weight:800}
 .counter-v2.selected .counter-body{stroke:#f6d797;stroke-width:2.5}.counter-v2.selected{filter:drop-shadow(0 0 3px #ecc582aa)}.counter-v2:focus-visible .counter-body{stroke:#dbf3ff;stroke-width:3}.counter-v2:active .counter-inset{stroke:#fff2cd;stroke-opacity:1;stroke-width:1.4}
 @media(hover:hover){.counter-v2:hover .counter-inset{stroke-opacity:.9}}
+
+/* Combat target routing feedback: canonical enemy hex and counter. */
+.counter.attackable-enemy .counter-face{filter:drop-shadow(0 0 3px #c9a86c)}
+.counter.selected-combat-target .counter-face{filter:drop-shadow(0 0 5px #f2d69a) drop-shadow(0 0 2px #fff3d7)}
+.combat-target-option.selected-combat-target{stroke:#ffe0a1;stroke-width:4;stroke-dasharray:none;fill:rgba(211,170,91,.3)}
+.combat-target-option.unavailable-combat-target{fill:transparent;stroke:transparent;cursor:not-allowed}

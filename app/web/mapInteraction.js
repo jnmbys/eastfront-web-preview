@@ -32,3 +32,17 @@ export function gesturePanViewport(gesture, x, y, zoom) {
 export function dragSuppressesTap(gesture, cancelled = false) {
     return gesture.dragging && !cancelled;
 }
+/** Preserve the world point beneath the pointer; only FIT recentres the map. */
+export function zoomMapAt(view, requestedZoom, focus) {
+    const zoom = Math.max(1, Math.min(2.5, requestedZoom));
+    const ratio = zoom / view.zoom;
+    return { zoom, panX: focus.x - (focus.x - view.panX) * ratio, panY: focus.y - (focus.y - view.panY) * ratio };
+}
+export function pinchMapViewport(view, startA, startB, a, b) {
+    const mid = (p, q) => ({ x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 });
+    const from = mid(startA, startB), to = mid(a, b);
+    const initialDistance = Math.hypot(startA.x - startB.x, startA.y - startB.y);
+    const distance = Math.hypot(a.x - b.x, a.y - b.y);
+    const next = zoomMapAt(view, view.zoom * (initialDistance > 0 ? distance / initialDistance : 1), from);
+    return { ...next, panX: next.panX + to.x - from.x, panY: next.panY + to.y - from.y };
+}
