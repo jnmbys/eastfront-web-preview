@@ -1,5 +1,6 @@
 import { msg, enumMessage, phaseMessage, type Message } from '../localization/index.js';
 import { joinIssues } from '../localization/issues.js';
+import { continueCombatFlow } from './combatFlow.js';
 import {
   analyzeBreakthroughAction,
   validateAttackAction,
@@ -254,6 +255,12 @@ export function declareAttack(session:LocalGameSession,presentation:Presentation
   if(!outcome.result.accepted)return;
   presentation.selectedBattleId=outcome.result.battleId??session.state.pendingDecision?.battleId??null;clearCombatDrafts(presentation);syncCombatDecisionHandoff(session,presentation);
 }
+/** One primary ATTACK command; all transitions still dispatch canonical Core actions. */
+export function attackAndContinue(session:LocalGameSession,presentation:PresentationState):void {
+  const before=session.state;
+  declareAttack(session,presentation);
+  if(session.state!==before)continueCombatFlow(session,presentation);
+}
 export function passCombatReaction(session:LocalGameSession,presentation:PresentationState):void {
   const pending=session.state.pendingDecision;if(pending?.kind!=='DEFENDER_REACTION'){presentation.message=msg('feedback.noReaction');return;}
   const outcome=dispatchGameAction(session,{type:'PASS_REACTION',controllerId:session.activeViewerControllerId,battleId:pending.battleId});presentation.message=combatOutcomeMessage('PASS_REACTION',outcome.result.accepted,outcome.result.issues);if(outcome.result.accepted){presentation.selectedBattleId=pending.battleId;syncCombatDecisionHandoff(session,presentation);}
@@ -266,6 +273,15 @@ export function useDefenderArtillery(session:LocalGameSession,presentation:Prese
 export function appendLossDraft(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
   const pending=session.state.pendingDecision;if(pending?.kind!=='LOSS_ALLOCATION'||!pending.eligibleUnitIds.includes(unitId)){presentation.message=msg('feedback.invalidLossUnit');return;}
   presentation.lossDraft.push(unitId);presentation.interactionMode='LOSS_ALLOCATION';presentation.message=msg('feedback.lossDraft',{count:presentation.lossDraft.length,steps:pending.lossSteps});
+}
+export function chooseLossAndContinue(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
+  const p=session.state.pendingDecision;
+  if(p?.kind!=='LOSS_ALLOCATION'||presentation.privacyGate||p.decisionOwnerControllerId!==session.activeViewerControllerId)return;
+  appendLossDraft(session,presentation,unitId);
+  if(presentation.lossDraft.length===p.lossSteps){
+    commitLosses(session,presentation);
+    if(session.lastResult?.accepted)continueCombatFlow(session,presentation);
+  }
 }
 export function undoLossDraft(presentation:PresentationState):void {presentation.lossDraft.pop();presentation.message=msg('feedback.undoLoss');}
 export function clearLossDraft(presentation:PresentationState):void {presentation.lossDraft=[];presentation.message=msg('feedback.lossCleared');}

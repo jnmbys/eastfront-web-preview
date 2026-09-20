@@ -143,19 +143,20 @@ function renderCombatGeometry(model:BrowserRenderModel):string{
   let out='<g id="combat-geometry-layer">';
   if(!combat.pending){
     const selected=new Set(combat.attackDraft.attackerUnitIds);
-    for(const hex of combat.attackDraft.targetHexes)out+=`<polygon data-role="attack-target" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="combat-target-option ${combat.attackDraft.target&&coreHexKey(combat.attackDraft.target)===coreHexKey(hex)?'selected':''}" role="button" tabindex="0"/>`;
+    for(const hex of combat.attackDraft.targetHexes)out+=`<polygon data-role="attack-target" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="combat-target-option ${combat.attackDraft.target&&coreHexKey(combat.attackDraft.target)===coreHexKey(hex)?'selected':''}" role="button" aria-label="${t('combat.flow.targetHex',{hex:coreHexKey(hex)})}" tabindex="0"/>`;
     if(combat.attackDraft.target){const target=hexToPixel(combat.attackDraft.target);for(const id of selected){const c=model.counters.find((u)=>u.id===id);if(c)out+=line(hexToPixel(c.hex),target,'combat-attack-line');}}
   }
   if(combat.retreat){
-    for(const hex of combat.retreat.options)out+=`<polygon data-role="retreat-option" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="retreat-option" role="button" tabindex="0"/>`;
+    for(const hex of combat.retreat.options)out+=`<polygon data-role="retreat-option" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="retreat-option" role="button" aria-label="${t('combat.flow.retreatHex',{hex:coreHexKey(hex)})}" tabindex="0"/>`;
     for(const [id,path] of Object.entries(combat.retreat.drafts)){const c=model.counters.find((u)=>u.id===id);if(!c||path.length===0)continue;const pts=[c.hex,...path].map(hexToPixel);out+=`<polyline class="retreat-draft-line" points="${pts.map(pointString).join(' ')}"/>`;}
   }
+  if(combat.advance&&combat.advance.unitIds.length){const hex=combat.advance.target;out+=`<polygon data-role="advance-option" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="retreat-option advance-option" role="button" aria-label="${t('combat.flow.advanceHex',{hex:coreHexKey(hex)})}" tabindex="0"/>`;}
   if(combat.breakthrough){
     for(const option of combat.breakthrough.options)out+=`<polygon data-role="breakthrough-option" data-hex="${coreHexKey(option.hex)}" data-legal="${option.legal}" points="${polygonPointsString(option.hex)}" class="breakthrough-option ${option.legal?'legal':'illegal'}" role="button" tabindex="0"/>`;
     const tx=combat.battle;if(tx&&combat.breakthrough.path.length){const pts=[tx.targetHex,...combat.breakthrough.path].map(hexToPixel);out+=`<polyline class="breakthrough-draft-line" points="${pts.map(pointString).join(' ')}"/>`;}
   }
   if(combat.schwerpunkt){for(const hex of combat.schwerpunkt.targetOptions)out+=`<polygon data-role="schwerpunkt-target" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="schwerpunkt-target ${combat.schwerpunkt.target&&coreHexKey(combat.schwerpunkt.target)===coreHexKey(hex)?'selected':''}" role="button" tabindex="0"/>`;}
-  if(combat.battle){out+=`<polygon points="${polygonPointsString(combat.battle.targetHex)}" class="combat-battle-target" data-battle-id="${esc(combat.battle.battleId)}"/>`;}
+  if(combat.battle&&combat.battle.stage!=='CLOSED'){out+=`<polygon points="${polygonPointsString(combat.battle.targetHex)}" class="combat-battle-target" data-battle-id="${esc(combat.battle.battleId)}"/>`;}
   return out+'</g>';
 }
 

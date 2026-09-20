@@ -38,5 +38,5 @@ test('advanced multi attacker selection preserves existing attackers and dispatc
 });
 test('unavailable attacker is not automatically selected and basic preview keeps advanced controls collapsed',()=>{
  const {s,p}=setup();p.attackUnitIds=[];s.state.units.g.hasAttacked=true;selectCounter(s,p,'g');assert.deepEqual(p.attackUnitIds,[]);
- const h=combatAttackPanel(deriveBrowserRenderModel(s,p),'');assert.match(h,/id="attack-declare"[^>]*disabled/);assert.doesNotMatch(h,/<details[^>]*\sopen/);assert.match(h,/Add supporting units/);
+ const h=combatAttackPanel(deriveBrowserRenderModel(s,p),'');assert.match(h,/id="attack-declare"[^>]*disabled/);assert.doesNotMatch(h,/<details[^>]*\sopen/);assert.match(h,/Advanced options/);
 });

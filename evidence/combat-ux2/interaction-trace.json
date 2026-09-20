@@ -1,0 +1,64 @@
+{
+  "baselineCommit": "e6529395eccb48527fb4c096cb71bcd8d283abb1",
+  "method": "Actual compiled main.ts event handlers through a minimal DOM adapter; not a browser layout or hit-test check",
+  "scenario": "Strategic Reset F, 640 hexes, full legal deployment",
+  "fixtureSeed": 17,
+  "seedNote": "Deterministic test fixture only; NEW GAME continues to use fresh entropy",
+  "primaryClicks": 3,
+  "trace": [
+    {
+      "click": 1,
+      "label": "选择攻击方",
+      "pending": null,
+      "draft": [
+        "G-PZ-01"
+      ],
+      "target": null,
+      "battleStage": null,
+      "viewer": "G-HUMAN-1",
+      "camera": "{\"zoom\":1.8,\"panX\":94,\"panY\":-61}"
+    },
+    {
+      "click": 2,
+      "label": "选择敌军",
+      "pending": null,
+      "draft": [
+        "G-PZ-01"
+      ],
+      "target": {
+        "q": 3,
+        "r": -1
+      },
+      "battleStage": null,
+      "viewer": "G-HUMAN-1",
+      "camera": "{\"zoom\":1.8,\"panX\":94,\"panY\":-61}"
+    },
+    {
+      "click": 3,
+      "label": "攻击",
+      "pending": null,
+      "draft": [],
+      "target": null,
+      "battleStage": "CLOSED",
+      "viewer": "G-HUMAN-1",
+      "camera": "{\"zoom\":1.8,\"panX\":94,\"panY\":-61}"
+    }
+  ],
+  "closed": true,
+  "resolution": {
+    "dice": {
+      "die1": 1,
+      "die2": 2,
+      "total": 3
+    },
+    "crtResult": "A3R",
+    "attackerLossSteps": 3,
+    "defenderLossSteps": 0,
+    "attackerRetreatSteps": 1,
+    "defenderRetreatSteps": 0,
+    "retreatConvertedToLoss": false
+  },
+  "integrityIssues": [],
+  "cameraPreserved": true,
+  "manualBrowser": "Blocked: net::ERR_BLOCKED_BY_CLIENT for http://127.0.0.1:4173/"
+}

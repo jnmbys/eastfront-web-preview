@@ -189,7 +189,17 @@ footer{background:#0c131c;border-color:#344150;color:#97a7ba}
 .counter.attackable-enemy .counter-face{filter:drop-shadow(0 0 3px #c9a86c)}
 .counter.selected-combat-target .counter-face{filter:drop-shadow(0 0 5px #f2d69a) drop-shadow(0 0 2px #fff3d7)}
 .combat-target-option.selected-combat-target{stroke:#ffe0a1;stroke-width:4;stroke-dasharray:none;fill:rgba(211,170,91,.3)}
-.combat-target-option.unavailable-combat-target{fill:transparent;stroke:transparent;cursor:not-allowed}
+.combat-target-option.unavailable-combat-target{fill:rgba(145,69,59,.07);stroke:#95584f;stroke-dasharray:2 5;cursor:not-allowed}
+.counter.unavailable-combat-target{opacity:.55;cursor:not-allowed}
+.advance-option{stroke:#a7c69a;fill:rgba(139,181,121,.2)}
+.combat-crt-scroll{max-width:100%;overflow-x:auto;margin-top:12px}
+.combat-crt{border-collapse:collapse;font-size:11px;white-space:nowrap;width:100%}
+.combat-crt caption{text-align:left;padding:8px 0}
+.combat-crt th,.combat-crt td{padding:5px;border:1px solid #bda37533;text-align:center}
+.combat-modifier-summary,.combat-result-summary{font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.attack-preview .attack-matchup{padding:10px;gap:5px}
+.attack-preview .attack-matchup strong{font-size:14px;line-height:1.4}
+.attack-preview .attack-odds{margin:8px 0}
 
 /* Combat UX Pass 1: concise preview with secondary tactical controls. */
 .attack-matchup{display:grid;gap:10px;padding:16px 12px;background:#0d1822;border:1px solid #9b835755;border-radius:6px;overflow-wrap:anywhere}.attack-matchup>span{color:#c8ad78;font-size:11px;letter-spacing:.16em}.attack-matchup strong{font-family:Georgia,serif;font-size:16px;font-weight:500;color:#eee7d7}.attack-odds{display:flex;justify-content:space-between;gap:12px;margin:14px 0}.attack-odds strong{display:block;font-size:23px;font-variant-numeric:tabular-nums;color:#e9d2a4}.combat-confirm{width:100%;min-height:52px;margin:14px 0}.combat-advanced{border-top:1px solid #bda37533;margin:8px 0}.combat-advanced summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:#dfc998;touch-action:manipulation}.combat-advanced summary::before{content:'＋';margin-right:8px}.combat-advanced[open] summary::before{content:'−'}.combat-advanced button{min-height:44px;white-space:normal;text-align:left}.combat-advanced button:active,.combat-confirm:active{transform:translateY(1px)}.combat-confirm:disabled{opacity:.45;cursor:not-allowed}.attack-guidance{line-height:1.5}

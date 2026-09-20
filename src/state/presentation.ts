@@ -26,6 +26,7 @@ export interface PresentationState {
   retreatOrder: EntityId[];
   retreatDrafts: Record<EntityId, HexCoord[]>;
   activeRetreaterId: EntityId | null;
+  advanceUnitId: EntityId | null;
   breakthroughUnitId: EntityId | null;
   breakthroughPath: HexCoord[];
   schwerpunktTarget: HexCoord | null;
@@ -39,13 +40,14 @@ export function createPresentationState(debug = false, panelCollapsed = false): 
     privacyGate:null, message:null, interactionMode:'SELECT', pathDraft:[], railRepairEdgeKeys:[],
     selectedEngineerUnitId:null, selectedReinforcementId:null, attackUnitIds:[], attackTarget:null,
     attackerArtilleryUnitId:null, selectedBattleId:null, lossDraft:[], retreatOrder:[], retreatDrafts:{},
-    activeRetreaterId:null, breakthroughUnitId:null, breakthroughPath:[], schwerpunktTarget:null, rendererMode:'production', productionAssetSet:'p5',
+    activeRetreaterId:null, advanceUnitId:null, breakthroughUnitId:null, breakthroughPath:[], schwerpunktTarget:null, rendererMode:'production', productionAssetSet:'p5',
   };
 }
 
 export function clearCombatDrafts(presentation:PresentationState):void {
   presentation.attackUnitIds=[];presentation.attackTarget=null;presentation.attackerArtilleryUnitId=null;
   presentation.lossDraft=[];presentation.retreatOrder=[];presentation.retreatDrafts={};presentation.activeRetreaterId=null;
+  presentation.advanceUnitId=null;
   presentation.breakthroughUnitId=null;presentation.breakthroughPath=[];presentation.schwerpunktTarget=null;
 }
 
