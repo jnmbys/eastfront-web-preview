@@ -13,3 +13,7 @@ Validation: typecheck PASS; build PASS. Selected existing loader, interaction an
 BEFORE-AFTER.html is a self-contained static comparison. Home uses actual production markup; deployment uses actual roster functions and a fresh production scenario projection. HUD arrangement is representative, with a fixed D terrain export. It is not a browser screenshot or interactive game. The supported browser previously returned ERR_BLOCKED_BY_CLIENT for the local server; browser layout, actual touch behavior, clipping and final contrast at player scale remain unverified. No claim of release-quality visual acceptance is made without that review.
 
 To reproduce: npm run build; node evidence/ui-visual-pass-a/create-review.mjs. Open BEFORE-AFTER.html and resize the window. For actual play, serve dist through the existing preview script. UI source language and localization workflow are unchanged. Existing terrain and renderer issues from E are outside this pass.
+
+## Review delivery correction
+
+The original delivered ZIP was confirmed unreadable locally. A newly constructed review archive and four independent HTML views replace that delivery. HTML views remain static comparisons, not screenshots. Updated stale Home test expectations to the existing production version v0.0.10 / UI-009R2D2. Typecheck and build pass; the same targeted suites now pass 40/40. No production UI changes in this correction. Desktop, Huawei and iPad visual acceptance remains pending real browser/device review.
