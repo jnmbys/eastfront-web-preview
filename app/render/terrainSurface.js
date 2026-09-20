@@ -71,8 +71,8 @@ export async function fetchTerrainBlobWithAbort(url, entry, capabilities, timeou
             clearTimeout(timer);
     }
 }
-export async function loadTerrainImage(entry, set, capabilities) {
-    const url = absAssetUrl(entry, set);
+export async function loadTerrainImage(entry, set, capabilities, urlOverride) {
+    const url = urlOverride ?? absAssetUrl(entry, set);
     let directFailure, fetchFailure, bitmapFailure, blobImageFailure;
     let response, blob;
     try {
@@ -481,7 +481,7 @@ async function drawGround(ctx, cache, model, seed) { const ground = terrainAsset
     return 0; const img = await cache.get(e), pts = model.hexes.flatMap(h => hexPolygon(h.coord)), xs = pts.map(p => p.x), ys = pts.map(p => p.y), minX = Math.min(...xs) - HEX_SIZE, maxX = Math.max(...xs) + HEX_SIZE, minY = Math.min(...ys) - HEX_SIZE, maxY = Math.max(...ys) + HEX_SIZE; ctx.save(); ctx.translate(seed % 97, seed % 71); const tile = 220; for (let y = Math.floor((minY - (seed % 71)) / tile) * tile; y < maxY; y += tile)
     for (let x = Math.floor((minX - (seed % 97)) / tile) * tile; x < maxX; x += tile)
         drawCover(ctx, img, x, y, tile, tile); ctx.restore(); return Math.ceil((maxX - minX) / tile) * Math.ceil((maxY - minY) / tile); }
-export async function buildCachedTerrainSurface(model, seed, assetSet = 'p5', lod = 'medium') {
+export async function buildCachedTerrainSurface(model, seed, assetSet = 'p5', lod = 'medium', worldBase) {
     const viewBox = viewBoxForHexes(model.hexes), canvas = document.createElement('canvas');
     canvas.id = 'terrain-surface';
     canvas.className = 'terrain-surface';
@@ -500,14 +500,34 @@ export async function buildCachedTerrainSurface(model, seed, assetSet = 'p5', lo
     ctx.translate(-viewBox.minX, -viewBox.minY);
     const cache = createImageCache(assetSet), planned = buildSurfacePlan(model, seed, lod), cats = {};
     try {
-        let imageDraws = await drawGround(ctx, cache, model, seed);
-        bump(cats, 'Ground');
-        for (const h of model.hexes)
-            imageDraws += await drawTerrainHex(ctx, cache, model, h, seed, lod, assetSet, cats);
-        drawMarshContinuity(ctx, model, seed, lod);
-        imageDraws += await drawInfrastructure(ctx, cache, model, seed, lod, cats);
+        let imageDraws = 0, worldAssets = 0;
+        if (worldBase) {
+            const result = await worldBase.paint(ctx, model, seed, lod);
+            imageDraws = result.imageDraws;
+            worldAssets = result.uniqueAssets;
+            canvas.dataset.worldSurface = worldBase.id;
+            // Keep existing settlement markers and canonical infrastructure readable.
+            if (!worldBase.replacesCityMarkers)
+                for (const h of model.hexes)
+                    if (h.terrain === 'CITY' || h.terrain === 'MAIN_CITY' || h.terrain === 'OUTER_CITY')
+                        imageDraws += await drawTerrainHex(ctx, cache, model, h, seed, lod, assetSet, cats);
+        }
+        else {
+            imageDraws = await drawGround(ctx, cache, model, seed);
+            bump(cats, 'Ground');
+            for (const h of model.hexes)
+                imageDraws += await drawTerrainHex(ctx, cache, model, h, seed, lod, assetSet, cats);
+            drawMarshContinuity(ctx, model, seed, lod);
+        }
+        if (worldBase?.paintInfrastructure) {
+            const infrastructure = await worldBase.paintInfrastructure(ctx, model, lod);
+            imageDraws += infrastructure.imageDraws;
+            worldAssets += infrastructure.uniqueAssets;
+        }
+        else
+            imageDraws += await drawInfrastructure(ctx, cache, model, seed, lod, cats);
         canvas.setAttribute('aria-hidden', 'true');
-        const stats = { width: canvas.width, height: canvas.height, imageDraws, uniqueAssets: cache.urls.size, categories: planned.publicPlan.categories };
+        const stats = { width: canvas.width, height: canvas.height, imageDraws, uniqueAssets: cache.urls.size + worldAssets, categories: planned.publicPlan.categories };
         canvas.dataset.buildCount = String(++terrainSurfaceBuildCount);
         canvas.dataset.categories = JSON.stringify(stats.categories);
         return { canvas, viewBox, seed, assetSet, lod, stats };
