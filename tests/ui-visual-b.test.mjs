@@ -1,3 +1,5 @@
+import { setLocale, t, enumLabel, phaseName, formatMessage } from '../dist/app/localization/index.js';
+setLocale('en-US');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -20,5 +22,5 @@ test('large deployment controls use only projected positions and preserve Core d
 });
 test('command HUD displays authoritative phase side and turn without inventing date',()=>{
  const s=createFreshProductionSession(raw,17),m=deriveBrowserRenderModel(s,createPresentationState(false,false));
- const html=commandHeader(m);assert.ok(html.includes(m.activeSide));assert.ok(html.includes(String(m.turn).padStart(2,'0')));assert.ok(html.includes('DEPLOYMENT'));assert.ok(!html.includes('1941'));
+ const html=commandHeader(m);assert.ok(html.includes(m.activeSide));assert.ok(html.includes(t('game.turn',{turn:m.turn})));assert.ok(html.includes(phaseName(m.phase,false)));assert.ok(!html.includes('1941'));
 });

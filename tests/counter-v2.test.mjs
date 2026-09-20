@@ -1,3 +1,5 @@
+import { setLocale, t, enumLabel, phaseName, formatMessage } from '../dist/app/localization/index.js';
+setLocale('en-US');
 import test from 'node:test';import assert from 'node:assert/strict';
 import {renderCounter} from '../dist/app/render/coreSvg.js';import {deriveCounterPlacement} from '../dist/app/render/derive.js';
 const base={id:'S-I-01',side:'SOVIET',type:'INFANTRY',step:0,stats:{attack:3,defense:3,movement:2},supplyState:'SUPPLIED',hex:{q:10,r:-4},selected:false,entrenched:false};

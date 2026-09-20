@@ -1,3 +1,5 @@
+import { setLocale, t, enumLabel, phaseName, formatMessage } from '../dist/app/localization/index.js';
+setLocale('en-US');
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {createFreshProductionSession} from '../dist/app/web/preview.js';
 import {createPresentationState} from '../dist/app/state/presentation.js';
@@ -21,7 +23,7 @@ test('same-hex repeated deployment preserves Core stacking rejection and clear i
   assert.ok(chooseDeploymentTarget(ui,m,row.id,key));const before=JSON.stringify(s.state);
   confirmDeploymentTarget(ui,s,p);
   assert.equal(s.lastResult.action.type,'DEPLOY_INITIAL_UNIT');
-  if(!s.lastResult.accepted){assert.equal(JSON.stringify(s.state),before);assert.equal(ui.status,'invalid');assert.ok(deploymentFeedback(ui).includes('role="alert"'));assert.ok(ui.message.length>0);rejected=true;break;}
+  if(!s.lastResult.accepted){assert.equal(JSON.stringify(s.state),before);assert.equal(ui.status,'invalid');assert.ok(deploymentFeedback(ui).includes('role="alert"'));assert.ok(formatMessage(ui.message).length>0);rejected=true;break;}
  }
  assert.ok(rejected,'Core must reject overstacking');
 });

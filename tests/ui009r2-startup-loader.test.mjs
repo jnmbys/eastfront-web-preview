@@ -25,6 +25,6 @@ test('UI009R2 startup resource failures preserve exact URL asset family HTTP sta
 test('UI009R2 production fatal screen exposes startup detail instead of generic-only resource failure',()=>{
   assert(main.includes('formatTerrainSurfaceFailure(error)'));
   assert(main.includes("phase='static-terrain-surface'"));
-  assert(main.includes('fatalMessage=`Required production resources could not be loaded. ${detail}`'));
+  assert(main.includes("fatalMessage=msg('game.resourceFailure',{detail})"));
   assert(main.includes("console.error('EASTFRONT startup failed',diagnostic,error)"));
 });

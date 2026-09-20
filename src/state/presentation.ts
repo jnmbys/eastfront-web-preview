@@ -1,3 +1,4 @@
+import type { Message } from '../localization/index.js';
 import type { BattleId, EntityId, HexCoord } from '../core-adapter/core.js';
 import type { RendererMode, TerrainAssetSet } from '../render/terrainAssets.js';
 
@@ -11,7 +12,7 @@ export interface PresentationState {
   debug: boolean;
   panelCollapsed: boolean;
   privacyGate: PrivacyGate;
-  message: string | null;
+  message: Message | null;
   interactionMode: InteractionMode;
   pathDraft: HexCoord[];
   railRepairEdgeKeys: string[];

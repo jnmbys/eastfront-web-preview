@@ -1,3 +1,5 @@
+import { setLocale, t, enumLabel, phaseName, formatMessage } from '../dist/app/localization/index.js';
+setLocale('en-US');
 import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {readFile,readdir,stat} from 'node:fs/promises';
 import {deploymentHexKeysForSide} from '../dist/vendor/eastfront-digital-core/dist/index.js';
 import {createLocalGameSession,controllerIdForSide,dispatchGameAction,setActiveViewer} from '../dist/app/core-adapter/session.js';

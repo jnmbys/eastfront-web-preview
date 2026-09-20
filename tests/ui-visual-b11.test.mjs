@@ -1,3 +1,5 @@
+import { setLocale, t, enumLabel, phaseName, formatMessage } from '../dist/app/localization/index.js';
+setLocale('en-US');
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {createFreshProductionSession} from '../dist/app/web/preview.js';import {createPresentationState} from '../dist/app/state/presentation.js';import {deriveBrowserRenderModel} from '../dist/app/render/coreModel.js';
 import {createDeploymentTouch,chooseDeploymentTarget} from '../dist/app/ui/deploymentTouch.js';import {deploymentFocus,deploymentRejection} from '../dist/app/ui/deploymentPolish.js';import {deploymentConfirm} from '../dist/app/ui/commandPresentation.js';import {hexPolygon} from '../dist/app/geometry/hex.js';

@@ -1,3 +1,5 @@
+import { languageControl } from '../localization/languageControl.js';
+import { t, enumLabel, formatMessage, type Message } from '../localization/index.js';
 import type { LegacyMapData } from '../core-adapter/core.js';
 import type { PrivacyGate } from '../state/presentation.js';
 import { createLocalGameSession, type LocalGameSession } from '../core-adapter/session.js';
@@ -35,31 +37,31 @@ function esc(value:string):string {
 }
 
 export function loadingMarkup():string {
-  return `<main class="preview-state preview-loading" data-preview-state="loading"><div class="preview-state-card"><span class="preview-kicker">EASTFRONT</span><h1>Loading EASTFRONT…</h1><p>Preparing Strategic Reset F and production assets.</p></div></main>`;
+  return `<main class="preview-state preview-loading" data-preview-state="loading"><div class="preview-state-card">${languageControl()}<span class="preview-kicker">EASTFRONT</span><h1>${t('game.loading')}</h1><p>${t('game.preparing')}</p></div></main>`;
 }
 
 export function homeMarkup(profile:ResponsiveProfile):string {
   const narrow=profile==='MOBILE_NARROW';
   return `<main class="preview-home" data-preview-state="home" data-responsive-profile="${profile}">
-    <section class="preview-home-card">
+    <section class="preview-home-card">${languageControl()}
       <div class="preview-brand-mark" aria-hidden="true">E</div>
       <span class="preview-kicker">EASTFRONT · 东线突击</span>
-      <h1>Operational Hex Wargame</h1>
-      <p class="preview-home-copy">A hot-seat operational campaign on the Strategic Reset F 20×32 map.</p>
-      ${narrow?'<p class="mobile-advisory" role="note">For the best experience, use landscape or a larger screen.</p>':''}
-      <button id="new-game-button" class="preview-new-game" type="button">NEW GAME</button>
-      <details class="preview-about"><summary>About / Controls</summary><p>Tap counters and highlighted Hexes to act. Drag the map to pan; use + / − to zoom. Hidden deployment uses pass-device privacy handoffs.</p></details>
-      <footer class="preview-home-version">EASTFRONT Web Preview · v${WEB_PREVIEW_VERSION} · ${WEB_PREVIEW_BUILD}</footer>
+      <h1>${t('game.title')}</h1>
+      <p class="preview-home-copy">${t('game.description')}</p>
+      ${narrow?`<p class="mobile-advisory" role="note">${t('game.advisory')}</p>`:''}
+      <button id="new-game-button" class="preview-new-game" type="button">${t('game.newGame')}</button>
+      <details class="preview-about"><summary>${t('game.controls')}</summary><p>${t('game.controlsHelp')}</p></details>
+      <footer class="preview-home-version">${t('game.webPreview')} · v${WEB_PREVIEW_VERSION} · ${WEB_PREVIEW_BUILD}</footer>
     </section>
   </main>`;
 }
 
-export function fatalMarkup(message:string):string {
-  return `<main class="preview-state preview-fatal" data-preview-state="fatal"><div class="preview-state-card"><span class="preview-kicker">EASTFRONT</span><h1>Unable to start EASTFRONT</h1><p>${esc(message)}</p><button id="reload-button" class="preview-new-game" type="button">RELOAD</button></div></main>`;
+export function fatalMarkup(message:Message):string {
+  return `<main class="preview-state preview-fatal" data-preview-state="fatal"><div class="preview-state-card">${languageControl()}<span class="preview-kicker">EASTFRONT</span><h1>${t('game.unableToStart')}</h1><p>${esc(formatMessage(message))}</p><button id="reload-button" class="preview-new-game" type="button">${t('game.reload')}</button></div></main>`;
 }
 
 export function mobileAdvisoryMarkup(profile:ResponsiveProfile):string {
-  return profile==='MOBILE_NARROW'?'<div class="mobile-game-advisory" role="note">For the best experience, use landscape or a larger screen.</div>':'';
+  return profile==='MOBILE_NARROW'?`<div class="mobile-game-advisory" role="note">${t('game.advisory')}</div>`:'';
 }
 
 export interface MapViewport { zoom:number; panX:number; panY:number; }
@@ -93,14 +95,14 @@ export async function loadProductionRuntimeManifest(url='./assets/terrain/p4r3/m
 
 
 export function privacyHandoffMarkup(gate:Exclude<PrivacyGate,null>,combatSide:'German'|'Soviet'='German'):string {
-  if(gate==='COMBAT_DECISION')return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card"><span class="eyebrow">COMBAT DECISION HANDOFF</span><h1>${combatSide} Side decision required.</h1><p>Pass device, then continue. GameState is not changed by this gate.</p><button id="privacy-confirm" class="primary-action" type="button">CONTINUE AS ${combatSide.toUpperCase()}</button></div></div>`;
-  if(gate==='PASS_TO_GERMAN')return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card"><span class="eyebrow">HOT-SEAT PRIVACY</span><h1>Soviet deployment locked.</h1><p>Pass the device to the German player.</p><button id="privacy-confirm" class="primary-action" type="button">BEGIN GERMAN DEPLOYMENT</button></div></div>`;
-  if(gate==='REVEAL_BOTH')return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card"><span class="eyebrow">DEPLOYMENT COMPLETE</span><h1>Both sides are ready.</h1><p>The full board will now be revealed for German Turn 1.</p><button id="privacy-confirm" class="primary-action" type="button">BEGIN TURN 1</button></div></div>`;
+  if(gate==='COMBAT_DECISION')return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card">${languageControl()}<span class="eyebrow">${t('privacy.combatTitle')}</span><h1>${t('privacy.combatDecision',{side:enumLabel(combatSide.toUpperCase())})}</h1><p>${t('privacy.combatHelp')}</p><button id="privacy-confirm" class="primary-action" type="button">${t('privacy.continueAs',{side:enumLabel(combatSide.toUpperCase()).toUpperCase()})}</button></div></div>`;
+  if(gate==='PASS_TO_GERMAN')return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card">${languageControl()}<span class="eyebrow">${t('privacy.title')}</span><h1>${t('privacy.sovietLocked')}</h1><p>${t('privacy.passGerman')}</p><button id="privacy-confirm" class="primary-action" type="button">${t('privacy.beginGerman')}</button></div></div>`;
+  if(gate==='REVEAL_BOTH')return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card">${languageControl()}<span class="eyebrow">${t('privacy.deploymentComplete')}</span><h1>${t('privacy.ready')}</h1><p>${t('privacy.reveal')}</p><button id="privacy-confirm" class="primary-action" type="button">${t('privacy.beginTurnOne')}</button></div></div>`;
   const side=gate==='PASS_TURN_TO_GERMAN'?'German':'Soviet';
-  return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card"><span class="eyebrow">PLAYER TURN HANDOFF</span><h1>Pass device to ${side} side.</h1><p>The authoritative GameState is unchanged by this presentation gate.</p><button id="privacy-confirm" class="primary-action" type="button">BEGIN ${side.toUpperCase()} PLAYER TURN</button></div></div>`;
+  return `<div class="privacy-gate" data-preview-state="privacy-handoff"><div class="privacy-card">${languageControl()}<span class="eyebrow">${t('privacy.turnTitle')}</span><h1>${t('privacy.passTurn',{side:enumLabel(side.toUpperCase())})}</h1><p>${t('privacy.turnHelp')}</p><button id="privacy-confirm" class="primary-action" type="button">${t('privacy.beginTurn',{side:enumLabel(side.toUpperCase()).toUpperCase()})}</button></div></div>`;
 }
 
 
 export function gameOverMarkup(winner:string|null,reason:string|null,turn:number):string {
-  return `<div class="game-over-panel" data-preview-state="game-over"><div class="game-over-card"><span class="eyebrow">GAME OVER</span><h1>${esc(winner??'No Winner')}</h1><p>${esc(reason??'No victory reason supplied by Core.')}</p><p>Turn ${turn}</p><span class="phase-pill">Authoritative Core victory state · no further actions</span><button id="new-game-button" class="primary-action game-over-restart" type="button">NEW GAME</button></div></div>`;
+  return `<div class="game-over-panel" data-preview-state="game-over"><div class="game-over-card">${languageControl()}<span class="eyebrow">${t('game.over')}</span><h1>${esc(winner?enumLabel(winner):t('game.noWinner'))}</h1><p>${esc(reason?enumLabel(reason):t('game.noVictoryReason'))}</p><p>${t('game.turn',{turn})}</p><span class="phase-pill">${t('game.finished')}</span><button id="new-game-button" class="primary-action game-over-restart" type="button">${t('game.newGame')}</button></div></div>`;
 }

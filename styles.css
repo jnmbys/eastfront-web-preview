@@ -196,3 +196,18 @@ footer{background:#0c131c;border-color:#344150;color:#97a7ba}
 
 /* VS2 terrain hierarchy only: existing grid and all hit targets stay intact. */
 .terrain-surface[data-world-surface="vs2-002-surface-integration"] + #eastfront-map .production-grid{stroke-opacity:.23}
+
+/* Localization: system CJK fallbacks and text-fit adjustments only. */
+:root{--ui-cjk-font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Noto Sans SC",sans-serif;font-family:var(--ui-cjk-font)}
+.language-select{font:inherit;font-size:12px;min-height:44px;max-width:120px;padding:6px;border:1px solid var(--line,#596362);border-radius:3px;background:#1b2634;color:#e7dfd0;cursor:pointer}
+.preview-home-card>.language-select,.preview-state-card>.language-select,.privacy-card>.language-select,.game-over-card>.language-select{display:block;margin:0 0 16px auto}
+html[lang="zh-CN"] :is(h1,h2,h3,button,select,.eyebrow,.campaign-heading,.campaign-heading>strong,.campaign-turn,.campaign-turn>strong,.campaign-side,.map-toolbar strong,.unit-dossier,.attack-matchup strong,.deployment-location-heading,.location-card,.location-card>strong,.preview-kicker){font-family:var(--ui-cjk-font);letter-spacing:.025em}
+html[lang="zh-CN"] :is(.panel-block p,.deployment-guidance,.deployment-feedback,.attack-guidance,.combat-card,.privacy-card p){line-height:1.6}
+html[lang="zh-CN"] :is(.primary-action,.secondary-action,.mini-button,.location-card,.deployment-confirm p){white-space:normal;overflow-wrap:anywhere;line-height:1.45}
+html[lang="zh-CN"] .fit-button{min-width:64px;padding-inline:6px}
+html[lang="zh-CN"] .campaign-turn strong{font-size:16px;white-space:nowrap}
+html[lang="zh-CN"] :is(.combat-grid,.modifier-list){grid-template-columns:minmax(0,1fr) auto}
+html[lang="zh-CN"] .resource-strip{gap:5px}
+html[lang="zh-CN"] .resource-strip>span{padding-inline:5px;letter-spacing:0}
+@media(min-width:901px) and (max-width:1250px){.resource-strip{flex-wrap:wrap}.topbar{min-height:82px;height:auto;padding-block:5px}.resource-strip .language-select{min-height:44px}}
+@media(max-width:760px){.resource-strip .language-select{max-width:100px;font-size:11px;padding-inline:3px}.resource-strip .menu-button{padding-inline:6px}}
