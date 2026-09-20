@@ -1,0 +1,557 @@
+{
+  "rendererCommit": "5d68a233a667ab2fc5864fcc25a8dff7c79a1cfe",
+  "backend": "@napi-rs/canvas Skia; offline production-function exports, not browser screenshots",
+  "seed": 17,
+  "map": {
+    "rows": 20,
+    "cols": 32,
+    "hexes": 640,
+    "sha256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "gridRule": ".production-grid{fill:none;stroke:#655f4e;stroke-width:.75;stroke-opacity:.64;vector-effect:non-scaling-stroke;pointer-events:none}",
+  "captures": [
+    {
+      "file": "01-full-vs2-far.png",
+      "description": "Full Strategic Reset F, all 640 hexes; production grid only; no UI, units or deployment tint.",
+      "lod": "far",
+      "width": 1920,
+      "height": 1440,
+      "camera": {
+        "minX": -69.97306695894642,
+        "minY": -1020.6,
+        "width": 2540.568553208356,
+        "height": 2293.2
+      },
+      "worldToScreenScale": 0.6279434850863422,
+      "sha256": "594b303ad83e5f4d17989978885037e93a9fab7b1b4b5892d95c94c8120ee576",
+      "surfaceStats": {
+        "width": 2541,
+        "height": 2294,
+        "imageDraws": 777,
+        "uniqueAssets": 19,
+        "categories": {
+          "Ground": 1,
+          "Forest": 92,
+          "Plain": 460,
+          "Hill/Rough": 55,
+          "Marsh": 19,
+          "City": 9,
+          "Lake": 5,
+          "Road": 60,
+          "Railway": 132,
+          "River": 108,
+          "Bridge": 6
+        }
+      }
+    },
+    {
+      "file": "02-full-v1-same-camera.png",
+      "description": "Legacy V1/P5R1 cached renderer, identical seed/camera/grid/output size to image 01.",
+      "lod": "far",
+      "width": 1920,
+      "height": 1440,
+      "camera": {
+        "minX": -69.97306695894642,
+        "minY": -1020.6,
+        "width": 2540.568553208356,
+        "height": 2293.2
+      },
+      "worldToScreenScale": 0.6279434850863422,
+      "sha256": "f649c9cc2d5540329705b7cd467429ee96482b4be2c2df986acc7a9e027a9155",
+      "surfaceStats": {
+        "width": 2541,
+        "height": 2294,
+        "imageDraws": 1055,
+        "uniqueAssets": 54,
+        "categories": {
+          "Ground": 1,
+          "Forest": 92,
+          "Plain": 460,
+          "Hill/Rough": 55,
+          "Marsh": 19,
+          "City": 9,
+          "Lake": 5,
+          "Road": 60,
+          "Railway": 132,
+          "River": 108,
+          "Bridge": 6
+        }
+      }
+    },
+    {
+      "file": "03-north-forest-close.png",
+      "description": "North forest belt centred at canonical H4; includes forest gaps and neighbouring plain.",
+      "lod": "close",
+      "width": 1280,
+      "height": 808,
+      "camera": {
+        "minX": 184.22293742524994,
+        "minY": -205,
+        "width": 650,
+        "height": 410
+      },
+      "worldToScreenScale": 1.9692307692307693,
+      "sha256": "1f5660f41d25a6d217df2b9707863eb26eeff7aca6940bafbef86603cd23be75",
+      "surfaceStats": {
+        "width": 2541,
+        "height": 2294,
+        "imageDraws": 1471,
+        "uniqueAssets": 30,
+        "categories": {
+          "Ground": 1,
+          "Forest": 92,
+          "Plain": 460,
+          "Hill/Rough": 55,
+          "Marsh": 19,
+          "City": 9,
+          "Lake": 5,
+          "Road": 60,
+          "Railway": 132,
+          "River": 108,
+          "Bridge": 6
+        }
+      }
+    },
+    {
+      "file": "04-central-plain-hill-infrastructure.png",
+      "description": "Central plain/hill and transport approaches centred at P9.",
+      "lod": "close",
+      "width": 1280,
+      "height": 808,
+      "camera": {
+        "minX": 802.5650757273393,
+        "minY": -142,
+        "width": 650,
+        "height": 410
+      },
+      "worldToScreenScale": 1.9692307692307693,
+      "sha256": "e976f9c39c4ad589acdff9e0326082fb7c9343c9499685f5c9b19be5c8bf0b82",
+      "surfaceStats": {
+        "width": 2541,
+        "height": 2294,
+        "imageDraws": 1471,
+        "uniqueAssets": 30,
+        "categories": {
+          "Ground": 1,
+          "Forest": 92,
+          "Plain": 460,
+          "Hill/Rough": 55,
+          "Marsh": 19,
+          "City": 9,
+          "Lake": 5,
+          "Road": 60,
+          "Railway": 132,
+          "River": 108,
+          "Bridge": 6
+        }
+      }
+    },
+    {
+      "file": "05-south-marsh-river.png",
+      "description": "Southern marsh/river corridor centred at P17.",
+      "lod": "close",
+      "width": 1280,
+      "height": 808,
+      "camera": {
+        "minX": 1093.5496113989107,
+        "minY": 362,
+        "width": 650,
+        "height": 410
+      },
+      "worldToScreenScale": 1.9692307692307693,
+      "sha256": "4de50beb4d9236240202d912a126b2f701ae1b3999d436eb980dc0d7ddc9840f",
+      "surfaceStats": {
+        "width": 2541,
+        "height": 2294,
+        "imageDraws": 1471,
+        "uniqueAssets": 30,
+        "categories": {
+          "Ground": 1,
+          "Forest": 92,
+          "Plain": 460,
+          "Hill/Rough": 55,
+          "Marsh": 19,
+          "City": 9,
+          "Lake": 5,
+          "Road": 60,
+          "Railway": 132,
+          "River": 108,
+          "Bridge": 6
+        }
+      }
+    },
+    {
+      "file": "06-city-railway-road.png",
+      "description": "R10 city and canonical railway/road approaches.",
+      "lod": "close",
+      "width": 1280,
+      "height": 808,
+      "camera": {
+        "minX": 1068.057343563125,
+        "minY": -66.5,
+        "width": 410,
+        "height": 259
+      },
+      "worldToScreenScale": 3.1196911196911197,
+      "sha256": "c54558c3a0b563440f6f9c3d2db586d6e888c3cdd646514bb477e31d2bc08369",
+      "surfaceStats": {
+        "width": 2541,
+        "height": 2294,
+        "imageDraws": 1471,
+        "uniqueAssets": 30,
+        "categories": {
+          "Ground": 1,
+          "Forest": 92,
+          "Plain": 460,
+          "Hill/Rough": 55,
+          "Marsh": 19,
+          "City": 9,
+          "Lake": 5,
+          "Road": 60,
+          "Railway": 132,
+          "River": 108,
+          "Bridge": 6
+        }
+      }
+    }
+  ],
+  "assetReads": [
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/ground/grass.webp",
+      "sha256": "f673fe1a7e59847c3752ab5a4d0261b3fa0b397671c6159ad3e07f48e3e399cf"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/ground/dry_soil.webp",
+      "sha256": "fa060295b65e5b0a663e0f3d1b29a8fec9b34f626851eca3abfa30c2185897fe"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/ground/moist_soil.webp",
+      "sha256": "3ff0734a6f0bc7d1ff2fb827d189aa1c297a50759bc1e59c1422200e12ae261b"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/relief/slope_material.webp",
+      "sha256": "4cfbca5b462addc9052e3581162a8424c497ebb20af8686d1028ff69887be3b7"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/rough/broken_soil.webp",
+      "sha256": "febc06440d4f66b3028d0bab960c881ecfffba9390b97bdb146aedb2ed96d22e"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/marsh/wet_ground.webp",
+      "sha256": "e391bb89e08a2d7738872bdcf88b9d72700621be0c9e1f0a73c4c53838c87fd1"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/settlement_ground.webp",
+      "sha256": "c88df83849afbf8f581a047758554dfc7d02a3b28d1d1a2b4a88f324ac6fc14e"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/masks/macro_value.png",
+      "sha256": "12f179ca3f5b129ed120e79dde6272fdb8675d4bed5d49d914e7cc8a03916d0f"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/masks/gentle_shade.png",
+      "sha256": "3432a372ee3a0191173f4dbbf456d84353d7f59c9ece400d34939c5ca52f1faf"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/forest/dense_branch.png",
+      "sha256": "e5297596a6507473a2af15df282a65ad6fce4e1bdd1b3814e6de95b2a5a28661"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/forest/dense_long.png",
+      "sha256": "c13ab80937ff39f89f85c7e236eb147bbf05a2eff6eb423be1fad09288290d2c"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/forest/medium_fork.png",
+      "sha256": "18f56eeb9f4b143b8b63f8d19213ffcf6cbf506d4c08e3fe8f306c945cae9899"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/forest/medium_open.png",
+      "sha256": "9347fab14e24fa49167bb6eadbc5b61fc4fc83498d49917ff14e6e678b5529dd"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/forest/sparse_fragment.png",
+      "sha256": "c9d058844543d5b5c9d1dc13f77f03f8b31bcb91ba56e2d901e48df2d62dcf57"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/forest/sparse_scatter.png",
+      "sha256": "88b2aac0d13695cb8575c69e5243a5b66cfa2d3badbfa725c42948edb8600367"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/river/reuse_water_01.webp",
+      "sha256": "a02cdc8b68088c0e7ac3aff37ed9a50acdde991ec8fe2e2947b41396cd14592b"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/road/reuse_ROAD_01.png",
+      "sha256": "3ed5cb550d307459f7145a51232212de605b70591054bf768748679a07912f1b"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/rail/reuse_BALLAST_01.png",
+      "sha256": "7032bbe81dfe7cc3785e0b70e450b54520e8f49bc4e5bbbddc9f8f2ab0805802"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/bridge/deck_material.webp",
+      "sha256": "53c2364c347db471d90f85f275829573d8825264cf068bfaf630e831a38cacc4"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/ground/ground_02.webp",
+      "sha256": "bbe37f183e3b383a288a133eb04a931d95d6f64b91c0cbf37d6186721cd91433"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F10.png",
+      "sha256": "d20ed18b7ff2296c4f33a50799439f9f2365d94d564e6bbbf3d932973af023d9"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P05.webp",
+      "sha256": "faad7a7f7c40f0445a0c760c9ea0b941823094cc985a64b6b16289515517701b"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F12.png",
+      "sha256": "804aebb69e20bfd9c78a4765f9d09eb0af1d31c8dedd64587bdbf7ff9d3b0d37"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P07.webp",
+      "sha256": "fdd134ce7b6c9d3b6c7728c91113b918095adad7b5828798ac34021daf3eaa05"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P08.webp",
+      "sha256": "ae4769f3e88eb3bb557791bf01df6a24a0f21e04ef2e29256fd110fbca7d3d1d"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P01.webp",
+      "sha256": "38b639a5da016812f51e486791837e8a573c128b871d7de910d2388895cb15a7"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P02.webp",
+      "sha256": "163e6500f570f8ee77c32fa93c587a11a37f7773c18ab601743d2754aaee3c16"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P03.webp",
+      "sha256": "118df9274f3b08a7f9613883e1e8fe2ae5cceda016d6648e6fcaee941408d9a2"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P04.webp",
+      "sha256": "8b48c5d30dbac6ed6187199f7d0657827e405ceecf5fbf1ec6888c5052bdebae"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/plain/ground/P06.webp",
+      "sha256": "74fd2d165d00556bb944bbec73621a5571aefbb83818dce9c611e1205253d809"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F09.png",
+      "sha256": "86a990962af9bdfa6aa5accb25dfcaaac6e32526857245ed5a4fca28a77761da"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/hill/material/H02_material.png",
+      "sha256": "20cac5a710ce5f3864118f4e60e8d51f723dd06f614518e5df1b828140b35dc1"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M06.png",
+      "sha256": "7cc548b2391509f22c86b18b692e291e4b8826fccfec8305bdeb05e3d001ec28"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F05.png",
+      "sha256": "954fb62716606d801007600f83b0d817fba84ee91c25a7b4bf03135673468f12"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F04.png",
+      "sha256": "fe327e6f5768d0b5dafc0fea9cf7a65dbd4cb650ec54fad767b272d476e1c5cc"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/hill/material/H04_material.png",
+      "sha256": "e9e9fb075a59ca7fd5998423fd2a26815e6aca45e8ce30741aebf2eb2816ea5b"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M04.png",
+      "sha256": "754f27e832eff90df7c99a315139bd6429d0367c146ee28497d7aa23f0450187"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F01.png",
+      "sha256": "a392f8e8c07ea2afe488d4b2fd162e994987426392127bb68f6793e07de88a6e"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F08.png",
+      "sha256": "3e8a32c177f54dbf0dcc0503c6ada747d0d4a77b89932a889005e8949013f979"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F06.png",
+      "sha256": "9241dca9e1de42f27cd34b49688127386becd728e9a40e1b984fa81641da9d58"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/medium/M06.png",
+      "sha256": "71e0d04fa323d861a4d64d88957a7040e9397d3392dda62c09522c93ff731972"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M08.png",
+      "sha256": "8ae0383fe942c662327e2a004238060df6d283ad265a40c56b1f86dc6291efa0"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F11.png",
+      "sha256": "195954d9693504b562f2ff61c2974103ae1364679b596206f436acd98ff72668"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/hill/material/H03_material.png",
+      "sha256": "0af4f7ee70ba0278cf218a42f88573525a49e9227825b071d7e430fa57ac07d9"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M02.png",
+      "sha256": "6c0e6d6c3fc770051af985facceaf6349864ff02184b7f5cf989a24100627811"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M07.png",
+      "sha256": "2cda448859166c716a4f004701a0ed1ee491f3522770a309912853f1a4d02a5a"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F07.png",
+      "sha256": "9575ce57165da88e511da826fc55bfe8b266265e9a5bcf76498fe21b858a6dbc"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F03.png",
+      "sha256": "82ebfb0e932c7977b07cd3b82e8ec1551c5a052bae47ec873061adfe2fd4c91c"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/forest/mass/F02.png",
+      "sha256": "7070a4f13d8fb004fc8cd0041082df801f765a967a8f66372364d7007a6ab8ea"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/medium/M05.png",
+      "sha256": "adb35b10fa5b59d6784dd94b08e180bc5a5c05c52c18071f781100e4e45af66a"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/hill/material/H05_material.png",
+      "sha256": "1b8e9362ba90f686e9b85bbb6f00e5fed8ec398f2cb1965b6c13c7f65a44e748"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/hill/material/H01_material.png",
+      "sha256": "0610d1489dcff51b7cd2b93a6260bf15d292443c152d3fcc656293d0b1571adc"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/hill/material/H06_material.png",
+      "sha256": "1822371cca1051d4dca2ea8d84443fae4d1f54d3515acc499faf6dd9834d4d5c"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/medium/M04.png",
+      "sha256": "33a9bd95f555be93101dcb5335701779c35304da787e38e1f47b7fee4f895adc"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M01.png",
+      "sha256": "e591cc5b7789ef17daeb4397fbc26911ac5e5f056426e365b43ebf7cf37fa441"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/medium/M01.png",
+      "sha256": "39e9c7072eefc49423cf18f9f4daa238339a285b4cacff7b2d8f12aa06132b43"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M05.png",
+      "sha256": "306d1bea0ddbe89720e1222071c342e13c0708e343fac229658abe5714c52967"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/major/L03.png",
+      "sha256": "8b1b1da813f222ebce7d70a0cbff6047aa211a0bf9164c0e0a87380f862a2557"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/major/L02.png",
+      "sha256": "ccff81441600169439300c1ec24ffc94cca904a2238d1e42c14287f54abbd304"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/city/small/S02.png",
+      "sha256": "914593e3fb5c28b412fd0aff47418728f9ff360fce19659f63b870352890c55e"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/marsh/wet/M03.png",
+      "sha256": "a64dc13f04a1c4cea44275da3fcc3423c079dc83f93a42cf0cfc30d15db23417"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/road/ROAD_02.png",
+      "sha256": "e4f5e382c3eec0619cdc584343829d155eb1bfb7eb8f37e0ac9c8eb1c22a2bc7"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/railway/BALLAST_03.png",
+      "sha256": "5ce35e38f9f8f6bcbcc0a86b5594f43860ec9db79f9a38064b726eb680a24824"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/road/ROAD_03.png",
+      "sha256": "7b680bee7044ff4462d5177193467d48fe8895c37c2eb800114d9e59ea618765"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/road/ROAD_01.png",
+      "sha256": "3ed5cb550d307459f7145a51232212de605b70591054bf768748679a07912f1b"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/road/ROAD_04.png",
+      "sha256": "74a2512346d7f129fe0c767831805042116132f88822731cd31ab60d26bb87f7"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/railway/BALLAST_02.png",
+      "sha256": "7854b3b69a415842bb49262c70a3577ae790f92ec35c97ba3e86773b0c88060b"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/railway/BALLAST_04.png",
+      "sha256": "b8efe4b5a697b7aa63dd35774bd07f491a88b5f7c085803db496243ecd8af3f1"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/railway/BALLAST_01.png",
+      "sha256": "7032bbe81dfe7cc3785e0b70e450b54520e8f49bc4e5bbbddc9f8f2ab0805802"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/river/water_01.webp",
+      "sha256": "a02cdc8b68088c0e7ac3aff37ed9a50acdde991ec8fe2e2947b41396cd14592b"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/bridge/rail/BT02.png",
+      "sha256": "ea189a7b6f6c5dfb7ae1c86888ca3cd646f05dfcd266a7fe56c5e27fa5f8091a"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/bridge/rail/BT01.png",
+      "sha256": "11d226761ed4d202716044244d0da15d624b077d2f34430d31b2882466894036"
+    },
+    {
+      "file": "dist/assets/terrain/p4r3/bridge/rail/BT03.png",
+      "sha256": "8ac4dd6fd979d0aaaab7b5c32591cac8c9bd7e45fdcac9f61c22cafb0f05d2cc"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC01.png",
+      "sha256": "5978502f013489c0fc841f67d0362628fddaec250769cf7af2d0e2a103718af1"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC02.png",
+      "sha256": "dea330ea1623801e81ed9084ef067d3fd5b0b7f3b485bf23ae69c7fcafd750e6"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC03.png",
+      "sha256": "44879fca51cf73c8c57b6123e6273000314aa6f86b94bb160a3f45b65d37193e"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC04.png",
+      "sha256": "17b360e04d3880c724ec6cc34edca372156f7bb5c239ad68bfea6c408598c604"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC05.png",
+      "sha256": "e544a97bbad20ddc652a1faf5574ac2d830d1a63e855a880f1f0baf329c641a7"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC06.png",
+      "sha256": "4a722f1477986b24cd37343fbe8019b5fdd937fa843b3f6f2f8a86bbb1ed0f51"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC07.png",
+      "sha256": "1b1c461a5255992794f97d92d58c9552a122c50ece4b66561e0d2694d6816888"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/city/reuse_BC08.png",
+      "sha256": "25eba898527adc81175b16974e5575a81bbf64b9108d69df09d7512e3d3f4812"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/river/reuse_bank_01.png",
+      "sha256": "1757bb655a5c12533d7990602560c09ac71cc1e7c78191be269b6d5e72520aff"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/rail/reuse_sleeper_motif.png",
+      "sha256": "fdc363e93f6e0f4326148991351279782e7a33171cdff4bddb3838d3f86eefc5"
+    },
+    {
+      "file": "dist/assets/terrain/vs2-002/assets/rail/reuse_rail_pair.png",
+      "sha256": "7997e86f8f47d394ae87ef3bb0590ec82a4c6142569e080ac0e753456a9acb1e"
+    }
+  ],
+  "sourceStateUnchanged": true
+}
