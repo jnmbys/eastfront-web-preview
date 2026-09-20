@@ -152,7 +152,7 @@ function renderCombatGeometry(model) {
     if (!combat.pending) {
         const selected = new Set(combat.attackDraft.attackerUnitIds);
         for (const hex of combat.attackDraft.targetHexes)
-            out += `<polygon data-role="attack-target" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="combat-target-option ${combat.attackDraft.target && coreHexKey(combat.attackDraft.target) === coreHexKey(hex) ? 'selected' : ''}" role="button" tabindex="0"/>`;
+            out += `<polygon data-role="attack-target" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="combat-target-option ${combat.attackDraft.target && coreHexKey(combat.attackDraft.target) === coreHexKey(hex) ? 'selected' : ''}" role="button" aria-label="${t('combat.flow.targetHex', { hex: coreHexKey(hex) })}" tabindex="0"/>`;
         if (combat.attackDraft.target) {
             const target = hexToPixel(combat.attackDraft.target);
             for (const id of selected) {
@@ -164,7 +164,7 @@ function renderCombatGeometry(model) {
     }
     if (combat.retreat) {
         for (const hex of combat.retreat.options)
-            out += `<polygon data-role="retreat-option" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="retreat-option" role="button" tabindex="0"/>`;
+            out += `<polygon data-role="retreat-option" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="retreat-option" role="button" aria-label="${t('combat.flow.retreatHex', { hex: coreHexKey(hex) })}" tabindex="0"/>`;
         for (const [id, path] of Object.entries(combat.retreat.drafts)) {
             const c = model.counters.find((u) => u.id === id);
             if (!c || path.length === 0)
@@ -172,6 +172,10 @@ function renderCombatGeometry(model) {
             const pts = [c.hex, ...path].map(hexToPixel);
             out += `<polyline class="retreat-draft-line" points="${pts.map(pointString).join(' ')}"/>`;
         }
+    }
+    if (combat.advance && combat.advance.unitIds.length) {
+        const hex = combat.advance.target;
+        out += `<polygon data-role="advance-option" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="retreat-option advance-option" role="button" aria-label="${t('combat.flow.advanceHex', { hex: coreHexKey(hex) })}" tabindex="0"/>`;
     }
     if (combat.breakthrough) {
         for (const option of combat.breakthrough.options)
@@ -186,7 +190,7 @@ function renderCombatGeometry(model) {
         for (const hex of combat.schwerpunkt.targetOptions)
             out += `<polygon data-role="schwerpunkt-target" data-hex="${coreHexKey(hex)}" points="${polygonPointsString(hex)}" class="schwerpunkt-target ${combat.schwerpunkt.target && coreHexKey(combat.schwerpunkt.target) === coreHexKey(hex) ? 'selected' : ''}" role="button" tabindex="0"/>`;
     }
-    if (combat.battle) {
+    if (combat.battle && combat.battle.stage !== 'CLOSED') {
         out += `<polygon points="${polygonPointsString(combat.battle.targetHex)}" class="combat-battle-target" data-battle-id="${esc(combat.battle.battleId)}"/>`;
     }
     return out + '</g>';

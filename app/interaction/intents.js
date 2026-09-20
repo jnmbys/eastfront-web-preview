@@ -1,5 +1,6 @@
 import { msg, enumMessage, phaseMessage } from '../localization/index.js';
 import { joinIssues } from '../localization/issues.js';
+import { continueCombatFlow } from './combatFlow.js';
 import { analyzeBreakthroughAction, validateAttackAction, coreHexKey, getLegalRetreatStepOptions, getNeighbors, } from '../core-adapter/core.js';
 import { controllerIdForSide, dispatchGameAction, setActiveViewer } from '../core-adapter/session.js';
 import { clearActionDrafts, clearCombatDrafts } from '../state/presentation.js';
@@ -328,6 +329,13 @@ export function declareAttack(session, presentation) {
     clearCombatDrafts(presentation);
     syncCombatDecisionHandoff(session, presentation);
 }
+/** One primary ATTACK command; all transitions still dispatch canonical Core actions. */
+export function attackAndContinue(session, presentation) {
+    const before = session.state;
+    declareAttack(session, presentation);
+    if (session.state !== before)
+        continueCombatFlow(session, presentation);
+}
 export function passCombatReaction(session, presentation) {
     const pending = session.state.pendingDecision;
     if (pending?.kind !== 'DEFENDER_REACTION') {
@@ -364,6 +372,17 @@ export function appendLossDraft(session, presentation, unitId) {
     presentation.lossDraft.push(unitId);
     presentation.interactionMode = 'LOSS_ALLOCATION';
     presentation.message = msg('feedback.lossDraft', { count: presentation.lossDraft.length, steps: pending.lossSteps });
+}
+export function chooseLossAndContinue(session, presentation, unitId) {
+    const p = session.state.pendingDecision;
+    if (p?.kind !== 'LOSS_ALLOCATION' || presentation.privacyGate || p.decisionOwnerControllerId !== session.activeViewerControllerId)
+        return;
+    appendLossDraft(session, presentation, unitId);
+    if (presentation.lossDraft.length === p.lossSteps) {
+        commitLosses(session, presentation);
+        if (session.lastResult?.accepted)
+            continueCombatFlow(session, presentation);
+    }
 }
 export function undoLossDraft(presentation) { presentation.lossDraft.pop(); presentation.message = msg('feedback.undoLoss'); }
 export function clearLossDraft(presentation) { presentation.lossDraft = []; presentation.message = msg('feedback.lossCleared'); }

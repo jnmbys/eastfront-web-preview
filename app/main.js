@@ -1,3 +1,4 @@
+import { continueCombatFlow, chooseRetreatDestination, chooseRetreater, chooseAdvancer, chooseAdvanceDestination, routeCombatDecisionCounter, undoRetreatDestination } from './interaction/combatFlow.js';
 import { languageControl, bindLanguageControl } from './localization/languageControl.js';
 import { issueText } from './localization/issues.js';
 import { t, msg, enumLabel, phaseName, formatMessage } from './localization/index.js';
@@ -6,8 +7,8 @@ import { deploymentFocus, deploymentRejection } from './ui/deploymentPolish.js';
 import { createDeploymentTouch, chooseDeploymentTarget, confirmDeploymentTarget } from './ui/deploymentTouch.js';
 import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
 import { coreHexKey, isDeploymentPhase } from './core-adapter/core.js';
-import { createLocalGameSession, loadProductionMapFromUrl } from './core-adapter/session.js';
-import { advanceAfterCombat, appendLossDraft, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitLosses, commitMoveDraft, commitRailRepair, commitRetreat, commitSchwerpunkt, confirmPrivacyGate, declareAttack, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, extendRetreatDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, routeCombatTarget, isCombatTargetSelection, combatTargetIssues, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectRetreater, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, undoRetreatStep, useDefenderArtillery, } from './interaction/intents.js';
+import { createLocalGameSession, loadProductionMapFromUrl, dispatchGameAction } from './core-adapter/session.js';
+import { chooseLossAndContinue, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitMoveDraft, commitRailRepair, commitSchwerpunkt, confirmPrivacyGate, attackAndContinue, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, routeCombatTarget, isCombatTargetSelection, combatTargetIssues, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, useDefenderArtillery, } from './interaction/intents.js';
 import { deriveBrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
 import { selectTerrainLod } from './render/terrainAssets.js';
@@ -115,26 +116,26 @@ function combatPanel(model) {
     const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">${t('combat.transaction', { kind: enumLabel(pending.kind) })}</span><div class="phase-metric"><span>${t('combat.battle')}</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>${t('combat.decisionOwner')}</span><strong>${enumLabel(session?.state.controllers[pending.decisionOwnerControllerId]?.side ?? pending.decisionOwnerControllerId)}</strong></div>`;
     let body = '';
     if (pending.kind === 'DEFENDER_REACTION') {
-        body = `<p>${t('combat.defenderHelp')}</p><div class="combat-unit-list">${pending.eligibleArtilleryUnitIds.map((id) => `<button class="mini-button" data-defender-artillery="${esc(id)}">${t('combat.artilleryUnit', { id: esc(id) })}</button>`).join('') || `<span>${t('combat.noDefensiveArtillery')}</span>`}</div><button id="pass-reaction" class="secondary-action">${t('combat.passReaction')}</button>`;
+        body = `<p>${t('combat.flow.defender')}</p><div class="combat-unit-list">${c.reaction.artillery.map(id => `<button class="mini-button" data-defender-artillery="${esc(id)}">${t('combat.artilleryUnit', { id: esc(id) })}</button>`).join('')}${c.reaction.hq.map(id => `<button class="mini-button" data-defender-hq="${esc(id)}">${t('combat.flow.lastStand', { id: esc(id) })}</button>`).join('')}</div><button id="pass-reaction" class="secondary-action">${t('combat.flow.declineSupport')}</button>`;
     }
     else if (pending.kind === 'LOSS_ALLOCATION' && c.loss) {
-        body = `<p>${t('combat.allocateHelp', { steps: c.loss.steps })}</p><div class="combat-unit-list">${c.loss.eligibleUnitIds.map((id) => `<button class="mini-button" data-loss-unit="${esc(id)}">${t('combat.capacity', { id: esc(id), count: c.loss.capacityByUnitId[id] ?? 0 })}</button>`).join('')}</div><div class="loss-draft">${c.loss.draft.join(' → ') || t('combat.noLossDraft')}</div><div class="button-row"><button id="loss-undo" class="secondary-action">${t('common.undo')}</button><button id="loss-clear" class="secondary-action">${t('common.clear')}</button></div><button id="loss-commit" class="secondary-action">${t('combat.commitLosses')}</button>`;
+        body = `<p>${t('combat.flow.allocateHelp', { steps: c.loss.steps })}</p><div class="combat-unit-list">${c.loss.eligibleUnitIds.map((id) => `<button class="mini-button" data-loss-unit="${esc(id)}">${t('combat.capacity', { id: esc(id), count: c.loss.capacityByUnitId[id] ?? 0 })}</button>`).join('')}</div><div class="loss-draft">${c.loss.draft.join(' → ') || t('combat.noLossDraft')}</div><div class="button-row"><button id="loss-undo" class="secondary-action">${t('common.undo')}</button><button id="loss-clear" class="secondary-action">${t('common.clear')}</button></div>`;
     }
     else if (pending.kind === 'RETREAT' && c.retreat) {
-        body = `<p>${t('combat.retreatHelp', { steps: c.retreat.steps })}</p><div class="combat-unit-list">${c.retreat.unitIds.map((id) => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}">${esc(id)}</button>`).join('')}</div><p>${t('combat.retreatDestination', { id: `<strong>${esc(c.retreat.activeUnitId ?? '—')}</strong>` })}</p><div class="button-row">${c.retreat.options.map(hex => `<button class="secondary-action" data-retreat-destination="${coreHexKey(hex)}">${enumLabel(model.hexes.find(h => coreHexKey(h.coord) === coreHexKey(hex))?.terrain ?? 'Hex')} · ${coreHexKey(hex)}</button>`).join('') || `<span>${t('combat.noRetreatStep')}</span>`}</div><div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${id}: ${path.map(coreHexKey).join('→') || '—'}`).join('<br>')}</div><div class="button-row"><button id="retreat-undo" class="secondary-action">${t('common.undoStep')}</button><button id="retreat-commit" class="secondary-action">${t('combat.commitRetreat')}</button></div>`;
+        body = `<h3>${t('combat.flow.retreat')}</h3><p>${t('combat.flow.retreatHelp', { id: esc(c.retreat.activeUnitId ?? '—') })}</p>${c.retreat.unitIds.length > 1 ? `<p>${t('combat.flow.retreatOrder')}</p><div class="combat-unit-list">${c.retreat.unitIds.map(id => `<button class="mini-button ${c.retreat.activeUnitId === id ? 'active' : ''}" data-retreater="${esc(id)}" ${c.retreat.completeUnitIds.includes(id) ? 'disabled' : ''}>${esc(id)}</button>`).join('')}</div>` : ''}<div class="loss-draft">${Object.entries(c.retreat.drafts).map(([id, path]) => `${esc(id)}: ${path.map(coreHexKey).join(' → ') || '—'}`).join('<br>')}</div>${Object.values(c.retreat.drafts).some(path => path.length) ? `<button id="retreat-undo" class="secondary-action">${t('common.undoStep')}</button>` : ''}`;
     }
-    else if (pending.kind === 'ADVANCE_AFTER_COMBAT') {
-        body = `<p>${t('combat.advanceHelp')}</p><div class="combat-unit-list">${pending.eligibleUnitIds.map((id) => `<button class="mini-button" data-advance-unit="${esc(id)}">${t('combat.advanceUnit', { id: esc(id) })}</button>`).join('')}</div><button id="pass-advance" class="secondary-action">${t('combat.passAdvance')}</button>`;
+    else if (pending.kind === 'ADVANCE_AFTER_COMBAT' && c.advance) {
+        body = `<h3>${t('combat.flow.advance')}</h3><p>${c.advance.selectedUnitId ? t('combat.flow.advanceHelp', { id: esc(c.advance.selectedUnitId) }) : t('combat.flow.chooseAdvancer')}</p>${c.advance.unitIds.length > 1 ? `<div class="combat-unit-list">${c.advance.unitIds.map(id => `<button class="mini-button ${c.advance.selectedUnitId === id ? 'active' : ''}" aria-pressed="${c.advance.selectedUnitId === id}" data-advance-unit="${esc(id)}">${t('combat.flow.advancer', { id: esc(id) })}</button>`).join('')}</div>` : ''}<button id="pass-advance" class="secondary-action">${t('combat.passAdvance')}</button>`;
     }
     else if (pending.kind === 'BREAKTHROUGH_OPTION' && c.breakthrough) {
-        body = `<p>${t('combat.breakthroughHelp', { max: c.breakthrough.maxHexes })}</p><div class="combat-unit-list">${c.breakthrough.eligibleUnitIds.map((id) => `<button class="mini-button ${c.breakthrough.selectedUnitId === id ? 'active' : ''}" data-breakthrough-unit="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${c.breakthrough.path.map(coreHexKey).join(' → ') || t('combat.noBreakthroughDraft')}</div><div class="button-row"><button id="breakthrough-undo" class="secondary-action">${t('common.undo')}</button><button id="breakthrough-commit" class="secondary-action">${t('common.commit')}</button></div><button id="pass-breakthrough" class="secondary-action">${t('combat.passBreakthrough')}</button>`;
+        body = `<p>${t('combat.flow.breakthrough', { max: c.breakthrough.maxHexes })}</p><div class="combat-unit-list">${c.breakthrough.eligibleUnitIds.map((id) => `<button class="mini-button ${c.breakthrough.selectedUnitId === id ? 'active' : ''}" data-breakthrough-unit="${esc(id)}">${esc(id)}</button>`).join('')}</div><div class="loss-draft">${c.breakthrough.path.map(coreHexKey).join(' → ') || t('combat.noBreakthroughDraft')}</div><div class="button-row"><button id="breakthrough-undo" class="secondary-action">${t('common.undo')}</button><button id="breakthrough-commit" class="secondary-action">${t('common.commit')}</button></div><button id="pass-breakthrough" class="secondary-action">${t('combat.passBreakthrough')}</button>`;
     }
     else if (pending.kind === 'SCHWERPUNKT_OPTION' && c.schwerpunkt) {
-        body = `<p>${t('combat.schwerpunktHelp')}</p><div class="phase-metric"><span>${t('common.target')}</span><strong>${c.schwerpunkt.target ? coreHexKey(c.schwerpunkt.target) : '—'}</strong></div><div class="combat-unit-list">${c.schwerpunkt.eligibleUnitIds.map((id) => `<button class="mini-button" data-schwerpunkt-unit="${esc(id)}">${t('combat.attackWith', { id: esc(id) })}</button>`).join('')}</div><button id="pass-schwerpunkt" class="secondary-action">${t('combat.passSchwerpunkt')}</button>`;
+        body = `<p>${t('combat.flow.schwerpunkt')}</p><div class="phase-metric"><span>${t('common.target')}</span><strong>${c.schwerpunkt.target ? coreHexKey(c.schwerpunkt.target) : '—'}</strong></div><div class="combat-unit-list">${c.schwerpunkt.eligibleUnitIds.map((id) => `<button class="mini-button" data-schwerpunkt-unit="${esc(id)}" ${c.schwerpunkt.choices.some(choice => choice.unitId === id && c.schwerpunkt.target && coreHexKey(choice.target) === coreHexKey(c.schwerpunkt.target)) ? '' : 'disabled'}>${t('combat.attackWith', { id: esc(id) })}</button>`).join('')}</div><button id="pass-schwerpunkt" class="secondary-action">${t('combat.passSchwerpunkt')}</button>`;
     }
     const resolved = tx?.resolution ? `<div class="combat-card"><h3>${t('combat.resolvedCRT')}</h3><div class="dice-box"><span class="die">${tx.resolution.dice.die1}</span><span class="die">${tx.resolution.dice.die2}</span><strong>= ${tx.resolution.dice.total}</strong></div><div class="combat-grid"><span>${t('combat.crt')}</span><strong>${tx.resolution.crtResult}</strong><span>${t('combat.attackerLoss')}</span><strong>${tx.resolution.attackerLossSteps}</strong><span>${t('combat.defenderLoss')}</span><strong>${tx.resolution.defenderLossSteps}</strong><span>${t('combat.defenderRetreat')}</span><strong>${tx.resolution.defenderRetreatSteps}</strong></div></div>` : '';
     const context = tx?.context ? combatContextHtml(tx.context, t('combat.resolvedContext')) : '';
-    return header + body + resolved + context + '</section>' + battleHistoryHtml(model);
+    return header + body + (tx?.resolution ? `<p class="combat-result-summary" role="status">${t('combat.lastResult', { result: tx.resolution.crtResult })} · ${t('combat.dice', { ...tx.resolution.dice })}</p>` : '') + `<details class="combat-advanced"><summary>${t('combat.flow.resultDetails')}</summary>${resolved}${context}</details></section>`;
 }
 function phasePanel(model) {
     if (model.deployment)
@@ -324,7 +325,7 @@ function mountCachedTerrainSurface() {
     canvas.dataset.uniqueAssets = String(cachedTerrainSurface.stats.uniqueAssets);
 }
 function sidePanelMarkup(model) {
-    return `<div class="command-panel-scroll"><section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${presentation.message && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
+    return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${model.combat ? '' : phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 function refreshDynamicView() {
     if (!session || presentation.privacyGate) {
@@ -397,7 +398,7 @@ function render() {
         return;
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
-    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.activeSide]}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.activeSide]}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
     mountCachedTerrainSurface();
     bind();
     paintDeploymentFocus();
@@ -408,7 +409,8 @@ function bind() {
     document.querySelector('#reload-button')?.addEventListener('click', () => location.reload());
     if (!session)
         return;
-    document.querySelector('#privacy-confirm')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); confirmPrivacyGate(session, presentation); render(); });
+    document.querySelector('#privacy-confirm')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); confirmPrivacyGate(session, presentation); if (session.state.pendingDecision)
+        continueCombatFlow(session, presentation); render(); });
     document.querySelector('#restart-button')?.addEventListener('click', () => restartGame());
     document.querySelector('#renderer-toggle')?.addEventListener('click', () => { presentation.rendererMode = presentation.rendererMode === 'production' ? 'prototype' : 'production'; render(); });
     document.querySelector('#debug-toggle')?.addEventListener('click', () => { presentation.debug = !presentation.debug; render(); });
@@ -418,6 +420,52 @@ function bind() {
     document.querySelector('#zoom-reset')?.addEventListener('click', () => { mapViewport = defaultMapViewport(); applyMapViewport(); });
     bindMapViewport();
     bindDynamic();
+}
+function showCombatView() {
+    const panel = document.querySelector('#side-panel');
+    if (panel && panel.dataset.viewerControllerId !== session?.activeViewerControllerId) {
+        render();
+        return;
+    }
+    if (presentation.panelCollapsed && (presentation.attackTarget || session?.state.pendingDecision)) {
+        presentation.panelCollapsed = false;
+        render();
+    }
+    else
+        refreshDynamicView();
+    const scroll = document.querySelector('.command-panel-scroll');
+    if (scroll)
+        scroll.scrollTop = 0;
+}
+function runCombatAction(action) {
+    action();
+    if (session?.lastResult?.accepted)
+        continueCombatFlow(session, presentation);
+    showCombatView();
+}
+let combatSubmitting = false;
+async function submitCombatAttack() {
+    if (combatSubmitting || !session)
+        return;
+    const button = document.querySelector('#attack-declare');
+    if (!button || button.disabled)
+        return;
+    combatSubmitting = true;
+    button.disabled = true;
+    button.textContent = t('combat.submitting');
+    button.setAttribute('aria-busy', 'true');
+    const current = session, currentPresentation = presentation;
+    try {
+        // Let the busy feedback paint before Core applies the complete transaction chain.
+        await new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 0)));
+        if (session !== current || presentation !== currentPresentation)
+            return;
+        attackAndContinue(current, presentation);
+        showCombatView();
+    }
+    finally {
+        combatSubmitting = false;
+    }
 }
 function paintCombatTargets() {
     if (!session)
@@ -434,6 +482,8 @@ function paintCombatTargets() {
         }
     document.querySelectorAll('[data-unit-id], [data-role="attack-target"]').forEach(el => {
         const key = el.dataset.hex ?? '', attackable = enabled && legal.has(key);
+        const enemy = enabled && Object.values(session.state.units).some(unit => unit.alive && unit.side !== session.state.activeSide && coreHexKey(unit.hex) === key);
+        el.classList.toggle('unavailable-combat-target', enemy && !attackable);
         const selected = attackable && !!presentation.attackTarget && coreHexKey(presentation.attackTarget) === key;
         el.classList.toggle('attackable-enemy', attackable);
         el.classList.toggle('selected-combat-target', selected);
@@ -479,10 +529,12 @@ function bindDynamic() {
         return; const action = () => { deploymentTouch = createDeploymentTouch(); selectDeploymentRosterUnit(presentation, id); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id)
         return; const action = () => { if (chooseCounterTarget(id))
-        return; selectCounter(session, presentation, id); refreshDynamicView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
+        return; if (!routeCombatDecisionCounter(session, presentation, id))
+        selectCounter(session, presentation, id); showCombatView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id)
         return; element.addEventListener('click', (event) => { event.stopPropagation(); if (chooseCounterTarget(id))
-        return; selectCounter(session, presentation, id); refreshDynamicView(); }); });
+        return; if (!routeCombatDecisionCounter(session, presentation, id))
+        selectCounter(session, presentation, id); showCombatView(); }); });
     document.querySelectorAll('[data-role="deployment-hex"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { chooseTouchTarget(key); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key)
@@ -497,43 +549,43 @@ function bindDynamic() {
     document.querySelector('#attack-toggle-selected')?.addEventListener('click', () => { if (presentation.selectedUnitId)
         toggleAttackUnit(session, presentation, presentation.selectedUnitId); render(); });
     document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); render(); });
-    document.querySelector('#attack-declare')?.addEventListener('click', () => { const button = document.querySelector('#attack-declare'); if (button) {
-        button.disabled = true;
-        button.textContent = t('combat.submitting');
-    } declareAttack(session, presentation); render(); });
+    document.querySelector('#attack-declare')?.addEventListener('click', () => { void submitCombatAttack(); });
     document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); refreshDynamicView(); });
     document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); refreshDynamicView(); }));
     document.querySelectorAll('[data-role="attack-target"]').forEach((el) => { const action = () => { const key = el.dataset.hex; if (key) {
         routeCombatTarget(session, presentation, parseHex(key));
-        refreshDynamicView();
+        showCombatView();
     } }; el.addEventListener('click', action); bindKeyboardActivation(el, action); });
-    document.querySelector('#pass-reaction')?.addEventListener('click', () => { passCombatReaction(session, presentation); render(); });
+    document.querySelector('#pass-reaction')?.addEventListener('click', () => { runCombatAction(() => passCombatReaction(session, presentation)); });
     document.querySelectorAll('[data-defender-artillery]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.defenderArtillery; if (id) {
-        useDefenderArtillery(session, presentation, id);
-        render();
+        runCombatAction(() => useDefenderArtillery(session, presentation, id));
     } }));
+    document.querySelectorAll('[data-defender-hq]').forEach(el => el.addEventListener('click', () => { const pending = session.state.pendingDecision, hqUnitId = el.dataset.defenderHq; if (pending?.kind === 'DEFENDER_REACTION' && hqUnitId)
+        runCombatAction(() => { dispatchGameAction(session, { type: 'COMBAT_REACTION', controllerId: session.activeViewerControllerId, battleId: pending.battleId, reaction: { kind: 'DEFENDER_HQ_COMMAND', hqUnitId, command: 'LAST_STAND' } }); }); }));
+    document.querySelectorAll('[data-role="advance-option"]').forEach(el => { const action = () => { if (el.dataset.hex) {
+        chooseAdvanceDestination(session, presentation, parseHex(el.dataset.hex));
+        showCombatView();
+    } }; el.addEventListener('click', action); bindKeyboardActivation(el, action); });
     document.querySelectorAll('[data-loss-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.lossUnit; if (id) {
-        appendLossDraft(session, presentation, id);
-        render();
+        chooseLossAndContinue(session, presentation, id);
+        showCombatView();
     } }));
     document.querySelector('#loss-undo')?.addEventListener('click', () => { undoLossDraft(presentation); render(); });
     document.querySelector('#loss-clear')?.addEventListener('click', () => { clearLossDraft(presentation); render(); });
-    document.querySelector('#loss-commit')?.addEventListener('click', () => { commitLosses(session, presentation); render(); });
     document.querySelectorAll('[data-retreater]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.retreater; if (id) {
-        selectRetreater(presentation, id);
-        render();
+        chooseRetreater(session, presentation, id);
+        refreshDynamicView();
     } }));
     document.querySelectorAll('[data-role="retreat-option"], [data-retreat-destination]').forEach((el) => { const action = () => { const key = el.dataset.hex ?? el.dataset.retreatDestination; if (key) {
-        extendRetreatDraft(session, presentation, parseHex(key));
-        refreshDynamicView();
+        chooseRetreatDestination(session, presentation, parseHex(key));
+        showCombatView();
     } }; el.addEventListener('click', action); bindKeyboardActivation(el, action); });
-    document.querySelector('#retreat-undo')?.addEventListener('click', () => { undoRetreatStep(presentation); render(); });
-    document.querySelector('#retreat-commit')?.addEventListener('click', () => { commitRetreat(session, presentation); render(); });
+    document.querySelector('#retreat-undo')?.addEventListener('click', () => { undoRetreatDestination(presentation); refreshDynamicView(); });
     document.querySelectorAll('[data-advance-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.advanceUnit; if (id) {
-        advanceAfterCombat(session, presentation, id);
-        render();
+        chooseAdvancer(session, presentation, id);
+        refreshDynamicView();
     } }));
-    document.querySelector('#pass-advance')?.addEventListener('click', () => { passAdvance(session, presentation); render(); });
+    document.querySelector('#pass-advance')?.addEventListener('click', () => { runCombatAction(() => passAdvance(session, presentation)); });
     document.querySelectorAll('[data-breakthrough-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.breakthroughUnit; if (id) {
         selectBreakthroughUnit(presentation, id);
         render();
@@ -543,17 +595,16 @@ function bindDynamic() {
         render();
     } }));
     document.querySelector('#breakthrough-undo')?.addEventListener('click', () => { undoBreakthroughDraft(presentation); render(); });
-    document.querySelector('#breakthrough-commit')?.addEventListener('click', () => { commitBreakthrough(session, presentation); render(); });
-    document.querySelector('#pass-breakthrough')?.addEventListener('click', () => { passBreakthrough(session, presentation); render(); });
+    document.querySelector('#breakthrough-commit')?.addEventListener('click', () => { runCombatAction(() => commitBreakthrough(session, presentation)); });
+    document.querySelector('#pass-breakthrough')?.addEventListener('click', () => { runCombatAction(() => passBreakthrough(session, presentation)); });
     document.querySelectorAll('[data-role="schwerpunkt-target"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
         selectSchwerpunktTarget(presentation, parseHex(key));
         render();
     } }));
     document.querySelectorAll('[data-schwerpunkt-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.schwerpunktUnit; if (id) {
-        commitSchwerpunkt(session, presentation, id);
-        render();
+        runCombatAction(() => commitSchwerpunkt(session, presentation, id));
     } }));
-    document.querySelector('#pass-schwerpunkt')?.addEventListener('click', () => { passSchwerpunkt(session, presentation); render(); });
+    document.querySelector('#pass-schwerpunkt')?.addEventListener('click', () => { runCombatAction(() => passSchwerpunkt(session, presentation)); });
     document.querySelectorAll('[data-view-side]').forEach((element) => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
 }

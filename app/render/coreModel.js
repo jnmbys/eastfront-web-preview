@@ -1,4 +1,5 @@
-import { analyzeLossRequirement, buildCombatContext, computeActiveGermanRailNetwork, computeLegalSovietReinforcementEntryHexKeys, computeRecoveryBaseHexKeys, deploymentHexKeysForSide, evaluateDeploymentSideStatus, getAvailableSovietReinforcements, getLegalRetreatStepOptions, getCurrentTurnSovietReinforcements, getDelayedSovietReinforcements, getNeighbors, getRecoveryUnitLimit, getUnitStats, hasDeployableSovietReinforcement, hasGermanRailRepairActionThisTurn, validArtillerySupport, validateAttackAction, validateBreakthroughAction, isDeploymentPhase, resolveSovietReinforcementTemplate, validateEntrenchAction, validateMoveAction, validateRailRepairAction, validateRecoveryAction, } from '../core-adapter/core.js';
+import { advanceChoices, reactionChoices, retreatPlan, schwerpunktChoices } from '../interaction/combatFlow.js';
+import { analyzeLossRequirement, buildCombatContext, computeActiveGermanRailNetwork, computeLegalSovietReinforcementEntryHexKeys, computeRecoveryBaseHexKeys, deploymentHexKeysForSide, evaluateDeploymentSideStatus, getAvailableSovietReinforcements, getCurrentTurnSovietReinforcements, getDelayedSovietReinforcements, getNeighbors, getRecoveryUnitLimit, getUnitStats, hasDeployableSovietReinforcement, hasGermanRailRepairActionThisTurn, validArtillerySupport, validateAttackAction, validateBreakthroughAction, isDeploymentPhase, resolveSovietReinforcementTemplate, validateEntrenchAction, validateMoveAction, validateRailRepairAction, validateRecoveryAction, } from '../core-adapter/core.js';
 import { deploymentProjection } from '../core-adapter/session.js';
 function counterFromUnit(session, unit, selectedUnitId) {
     return { id: unit.id, side: unit.side, type: unit.type, step: unit.step, stats: getUnitStats(unit, session.rules), supplyState: unit.supplyState, controllerId: unit.controllerId, hex: { ...unit.hex }, selected: unit.id === selectedUnitId, entrenched: unit.entrenched };
@@ -129,16 +130,11 @@ export function deriveBrowserRenderModel(session, presentation) {
         }
         let retreat = null;
         if (pending?.kind === 'RETREAT') {
-            const active = presentation.activeRetreaterId ?? pending.unitIds[0] ?? null;
-            let options = [];
-            if (active) {
-                const unit = session.state.units[active];
-                const path = presentation.retreatDrafts[active] ?? [];
-                if (unit && path.length < pending.retreatSteps)
-                    options = getLegalRetreatStepOptions(session.state, session.rules, unit, path.at(-1) ?? unit.hex);
-            }
-            retreat = { steps: pending.retreatSteps, unitIds: [...pending.unitIds], activeUnitId: active, drafts: Object.fromEntries(Object.entries(presentation.retreatDrafts).map(([id, path]) => [id, path.map((h) => ({ ...h }))])), options };
+            const plan = retreatPlan(session, presentation);
+            retreat = { steps: pending.retreatSteps, unitIds: [...pending.unitIds], activeUnitId: plan.activeUnitId, drafts: structuredClone(presentation.retreatDrafts), options: plan.options, completeUnitIds: plan.completeUnitIds };
         }
+        const advanceIds = advanceChoices(session);
+        const advance = pending?.kind === 'ADVANCE_AFTER_COMBAT' && battle ? { unitIds: advanceIds, selectedUnitId: advanceIds.includes(presentation.advanceUnitId ?? '') ? presentation.advanceUnitId : advanceIds.length === 1 ? advanceIds[0] : null, target: { ...battle.targetHex } } : null;
         let breakthrough = null;
         if (pending?.kind === 'BREAKTHROUGH_OPTION' && battle) {
             const selected = presentation.breakthroughUnitId ?? pending.eligibleUnitIds[0] ?? null;
@@ -153,20 +149,12 @@ export function deriveBrowserRenderModel(session, presentation) {
         }
         let schwerpunkt = null;
         if (pending?.kind === 'SCHWERPUNKT_OPTION') {
-            const targets = new Map();
-            for (const id of pending.eligibleUnitIds) {
-                const u = session.state.units[id];
-                if (!u)
-                    continue;
-                for (const h of getNeighbors(u.hex)) {
-                    if (Object.values(session.state.units).some((d) => d.alive && d.side === 'SOVIET' && d.hex.q === h.q && d.hex.r === h.r))
-                        targets.set(`${h.q},${h.r}`, { ...h });
-                }
-            }
-            schwerpunkt = { eligibleUnitIds: [...pending.eligibleUnitIds], target: presentation.schwerpunktTarget ? { ...presentation.schwerpunktTarget } : null, targetOptions: [...targets.values()] };
+            const choices = schwerpunktChoices(session);
+            const targets = new Map(choices.map(c => [`${c.target.q},${c.target.r}`, c.target]));
+            schwerpunkt = { eligibleUnitIds: [...new Set(choices.map(c => c.unitId))], target: presentation.schwerpunktTarget ? { ...presentation.schwerpunktTarget } : null, targetOptions: [...targets.values()], choices };
         }
         const history = Object.values(session.state.combatTransactions).map((tx) => ({ battleId: tx.battleId, sourceBattleId: tx.sourceBattleId, attackerSide: tx.attackerSide, defenderSide: tx.defenderSide, target: { ...tx.targetHex }, stage: tx.stage, crtResult: tx.resolution?.crtResult ?? null })).sort((a, b) => a.battleId.localeCompare(b.battleId));
-        combat = { attackDraft: { attackerUnitIds, target: attackTarget ? { ...attackTarget } : null, targetHexes, artilleryUnitIds, selectedArtilleryId: presentation.attackerArtilleryUnitId, issues: attackIssues, preview }, battle, pending, loss, retreat, breakthrough, schwerpunkt, history };
+        combat = { attackDraft: { attackerUnitIds, target: attackTarget ? { ...attackTarget } : null, targetHexes, artilleryUnitIds, selectedArtilleryId: presentation.attackerArtilleryUnitId, issues: attackIssues, preview }, battle, pending, reaction: reactionChoices(session), advance, crt: { columns: session.rules.crt.columns, table: session.rules.crt.table }, loss, retreat, breakthrough, schwerpunkt, history };
     }
     return { phase: session.state.phase, turn: session.state.turn, activeSide: session.state.activeSide, rp: { ...session.state.rp }, cp: { ...session.state.cp }, viewerControllerId: session.activeViewerControllerId, viewerSide: viewer.side, hexes: Object.values(session.state.hexes), edges: Object.values(session.state.edges), counters, deployment, movement, moveOptions, selectedCounter, railRepair, reinforcement, recovery, entrench, combat, victory: { ...session.state.victory } };
 }
