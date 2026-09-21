@@ -1,3 +1,4 @@
+import {DynamicMapRenderer} from '../dist/app/render/dynamicMap.js';
 import {modelControls,bindModelControls} from '../dist/app/ui/modelControls.js';
 import {FogRuntime} from '../dist/app/fog/runtime.js';
 import {sessionPlayerView} from '../dist/app/core-adapter/session.js';
@@ -29,7 +30,7 @@ const raw=JSON.parse(readFileSync('vendor/eastfront-digital-core/reference/strat
 const main=readFileSync('dist/app/main.js','utf8');
 const setup=(seed=17)=>({s:createLocalGameSession(raw,seed),p:createPresentationState(false,false),d:touch.createDeploymentTouch()});
 function panels(s,p,d){
- const ctx=vm.createContext({...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
+ const ctx=vm.createContext({DynamicMapRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
  vm.runInContext(main.slice(main.indexOf('function sideLabel('),main.indexOf('function startNewGame(')),ctx);
  vm.runInContext(main.slice(main.indexOf('function sidePanelMarkup('),main.indexOf('function refreshDynamicView(')),ctx);
  return ctx;
@@ -165,7 +166,7 @@ test('counter mechanics and symbols are identical across locales; only accessibl
 });
 test('main render and binding preserve the existing camera transform during language switching',()=>{
  const {s,p,d}=setup();const context=panels(s,p,d);const elements={};
- for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[],querySelector:()=>null};
+ for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[],querySelector:()=>null};
  const control={value:'zh-CN',addEventListener(event,handler){this.change=handler;},focus(){}};
  const root={innerHTML:'',querySelectorAll:selector=>selector==='[data-language-select]'?[control]:[],querySelector:selector=>selector==='[data-language-select]'?control:null};
  Object.assign(context,{fogSurface:new FogRuntime(),sessionPlayerView,unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,modelControls,bindModelControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});

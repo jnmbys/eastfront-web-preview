@@ -211,7 +211,7 @@ export function deriveBrowserRenderModel(session:LocalGameSession,presentation:P
     combat={attackDraft:{attackerUnitIds,primaryAttackerId:primary,eligibleAttackerIds,target:attackTarget?{...attackTarget}:null,targetHexes,artilleryUnitIds,selectedArtilleryId:presentation.attackerArtilleryUnitId,issues:attackIssues,preview},battle:publicBattle,pending,reaction:reactionChoices(session),advance,crt:{columns:session.rules.crt.columns,table:session.rules.crt.table},loss,retreat,breakthrough,schwerpunkt,history};
   }
 
-  const projected:BrowserRenderModel=structuredClone({playerView,readOnly,phase:session.state.phase,turn:session.state.turn,activeSide:session.state.activeSide,rp:Object.fromEntries(Object.entries(playerView.resources).map(([side,value])=>[side,value.rp])),cp:Object.fromEntries(Object.entries(playerView.resources).map(([side,value])=>[side,value.cp])),viewerControllerId:session.activeViewerControllerId,viewerSide:playerView.viewer==='OBSERVER'?viewer.side:playerView.viewer,hexes:playerView.hexes,edges:playerView.edges,counters,deployment,movement,moveOptions,selectedCounter,railRepair,reinforcement,recovery,entrench,combat,victory:playerView.victory});
+  const projected:BrowserRenderModel={playerView,hexes:playerView.hexes,edges:playerView.edges,...structuredClone({readOnly,phase:session.state.phase,turn:session.state.turn,activeSide:session.state.activeSide,rp:Object.fromEntries(Object.entries(playerView.resources).map(([side,value])=>[side,value.rp])),cp:Object.fromEntries(Object.entries(playerView.resources).map(([side,value])=>[side,value.cp])),viewerControllerId:session.activeViewerControllerId,viewerSide:playerView.viewer==='OBSERVER'?viewer.side:playerView.viewer,counters,deployment,movement,moveOptions,selectedCounter,railRepair,reinforcement,recovery,entrench,combat,victory:playerView.victory})};
   const hiddenIds=Object.values(session.state.units).filter(u=>u.side!==viewer.side&&!visibleIds.has(u.id)).map(u=>u.id);
   const scrubIssues=(value:unknown):void=>{
     if(!value||typeof value!=='object')return;
@@ -220,6 +220,6 @@ export function deriveBrowserRenderModel(session:LocalGameSession,presentation:P
     }
     for(const child of Object.values(value))scrubIssues(child);
   };
-  if(playerView.viewer!=='OBSERVER')scrubIssues(projected);
+  if(playerView.viewer!=='OBSERVER')for(const value of [projected.movement,projected.railRepair,projected.recovery,projected.entrench,projected.combat])scrubIssues(value);
   return projected;
 }

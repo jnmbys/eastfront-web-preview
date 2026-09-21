@@ -42,7 +42,7 @@ test('UI009R2 terrain surface is created only during boot, never by selection/de
   const sections=[
     ['function refreshDynamicView():void','function render():void'],
     ['function render():void','function bind():void'],
-    ['function bindDynamic():void','async function boot():Promise<void>'],
+    ['function bindDynamic(model?:BrowserRenderModel):void','async function boot():Promise<void>'],
   ];
   for(const [name,next] of sections){const start=mainSource.indexOf(name),end=mainSource.indexOf(next,start+1);assert(start>=0&&end>start,name);assert.equal(mainSource.slice(start,end).includes('buildCachedTerrainSurface('),false,`${name} must not rebuild terrain`);}
 });

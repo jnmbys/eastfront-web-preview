@@ -67,6 +67,15 @@ export class SvgUnitPresentation {
     }
   }
   bind(root:ParentNode|null,identities:readonly UnitPresenceIdentity[]=[]):void {
+    const sameRoot=root===this.root&&root!==null;
+    if(sameRoot){
+      const counters=Array.from(root.querySelectorAll('[data-unit-id]'));
+      if(counters.length===this.bindings.size&&counters.every(el=>this.bindings.get(el.getAttribute('data-unit-id')??'')?.counter===el)){
+        this.fallbackLod=(root.querySelector('#eastfront-map')?.getAttribute('data-lod') as TerrainLod)??'medium';
+        if(!this.fittedHexWidth){const svg=root.querySelector<SVGSVGElement>('#eastfront-map'),width=Number(svg?.getAttribute('viewBox')?.split(/\s+/)[2]);this.fittedHexWidth=width&&svg?.clientWidth?svg.clientWidth*Math.sqrt(3)*HEX_SIZE/width:0;}
+        this.presence.syncSelection(new Map([...this.bindings].map(([id,b])=>[id,b.counter])));return;
+      }
+    }
     this.zoomObserver?.disconnect();this.resizeObserver?.disconnect();
     this.clear();this.bindings.clear();this.displayedMode='';this.root=root;this.layer=null;if(!root){this.presence.dispose();return;}
     const svg=root.querySelector<SVGSVGElement>('#eastfront-map');

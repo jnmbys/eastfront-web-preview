@@ -1,0 +1,23 @@
+import {performance} from 'node:perf_hooks';
+import {resolve} from 'node:path';import {pathToFileURL} from 'node:url';
+const base=resolve(process.argv[2]??'.');const load=p=>import(pathToFileURL(base+'/'+p).href);
+const {productionFixture}=await load('tests/helpers/combat-fixture.mjs');
+const {sessionPlayerView}=await load('dist/app/core-adapter/session.js');
+const {deriveBrowserRenderModel}=await load('dist/app/render/coreModel.js');
+const {coreSvgDynamicMarkup}=await load('dist/app/render/coreSvg.js');
+const {deriveFogPlan,rasterizeFog}=await load('dist/app/fog/surface.js');
+const {svgDom}=await load('tests/helpers/svg-dom.mjs');
+const {UnitAnimationRuntime}=await load('dist/app/presentation/runtime.js');
+const {clock}=await load('tests/helpers/animation-fixture.mjs');
+const intents=await load('dist/app/interaction/intents.js');
+const {s,p}=await productionFixture(8246,{'G-PZ-02':'2,0','G-I-01':'2,-1'});
+const rows=[];function measure(name,fn,n=20){const a=[];let value;for(let i=0;i<n;i++){const t=performance.now();value=fn();a.push(performance.now()-t);}a.sort((a,b)=>a-b);rows.push({name,medianMs:a[Math.floor(n/2)],p95Ms:a[Math.ceil(n*.95)-1],maxMs:a.at(-1)});return value;}
+measure('sessionPlayerView',()=>sessionPlayerView(s));
+let m=measure('BrowserRenderModel',()=>deriveBrowserRenderModel(s,p));
+let html=measure('dynamicMarkup',()=>coreSvgDynamicMarkup(m,{debug:false,rendererMode:'production',staticTerrainSurface:true}));
+let root=measure('parseDynamicSVG_software',()=>svgDom(`<svg id="eastfront-map" data-lod="medium"><g id="map-dynamic-layer">${html}</g></svg>`));
+const run=new UnitAnimationRuntime(clock());
+measure('remountCounterPresence',()=>run.sync(s,root));
+const view=sessionPlayerView(s),plan=measure('FogPlan',()=>deriveFogPlan(view));measure('FogRaster',()=>rasterizeFog(plan),5);
+const before=root.ownerDocument.created;measure('sameDOM_runtime_sync',()=>run.sync(s,root));
+console.log(JSON.stringify({kind:'production modules, software DOM; not browser FPS',units:m.counters.length,dynamicNodes:root.querySelectorAll('*').length,presenceNodesAllocatedBy20SameDOMSyncs:root.ownerDocument.created-before,rows},null,2));run.dispose();

@@ -26,6 +26,9 @@ export interface LocalGameSession {
   viewOverride?: Viewer;
   knowledge?: Partial<Record<Side,Knowledge>>;
   visibilityRevision?: number;
+  /** Host-owned revisions for explicit in-place import/replay and knowledge replacement. */
+  stateRevision?: number;
+  knowledgeRevision?: number;
   scenario: ScenarioConfig;
   rules: typeof defaultRules;
   engine: RulesEngine;
@@ -88,6 +91,7 @@ export function dispatchGameAction(session: LocalGameSession, action: Action): D
     return {result, stateReplaced:false, integrityIssues:session.integrityIssues};
   }
   session.state = result.state;
+  session.stateRevision=(session.stateRevision??0)+1;
   session.integrityIssues = validateGameStateIntegrity(session.state, session.rules, session.scenario);
   session.knowledge??={};
   for(const side of ['GERMAN','SOVIET'] as const){
@@ -114,11 +118,22 @@ export function loadProductionMapFromUrl(url = './vendor/eastfront-digital-core/
   });
 }
 
+/** One immutable detached projection per live session. Identity + explicit revisions
+ * invalidate accepted actions, replay/import and knowledge changes; UI state is not a key. */
+const playerViews=new WeakMap<LocalGameSession,{state:GameState;revision:number;viewer:Viewer;rules:LocalGameSession['rules'];knowledge:Knowledge|undefined;knowledgeRevision:number;view:ReturnType<typeof derivePlayerView>}>();
+function freezeProjection<T>(value:T):T {
+  if(value&&typeof value==='object'&&!Object.isFrozen(value)){for(const child of Object.values(value))freezeProjection(child);Object.freeze(value);}
+  return value;
+}
 /** Trusted local host projection boundary; renderer receives only this detached DTO. */
 export function sessionPlayerView(session:LocalGameSession){
   const viewer=session.viewOverride??session.state.controllers[session.activeViewerControllerId]?.side;
   if(!viewer)throw new Error('Unknown viewer');
-  return derivePlayerView(session.state,viewer,session.rules,viewer==='OBSERVER'?undefined:session.knowledge?.[viewer]);
+  const knowledge=viewer==='OBSERVER'?undefined:session.knowledge?.[viewer],revision=session.stateRevision??0,knowledgeRevision=session.knowledgeRevision??0;
+  const cached=playerViews.get(session);
+  if(cached&&cached.state===session.state&&cached.revision===revision&&cached.viewer===viewer&&cached.rules===session.rules&&cached.knowledge===knowledge&&cached.knowledgeRevision===knowledgeRevision)return cached.view;
+  const view=freezeProjection(derivePlayerView(session.state,viewer,session.rules,knowledge));
+  playerViews.set(session,{state:session.state,revision,viewer,rules:session.rules,knowledge,knowledgeRevision,view});return view;
 }
 /** Host/debug capability. Never expose unrestricted observer selection in production hotseat. */
 export function setInspectionViewer(session:LocalGameSession,viewer:Viewer):void { session.viewOverride=viewer; }

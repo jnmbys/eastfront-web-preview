@@ -10,18 +10,21 @@ interface Cached {plan:FogPlan;fog:string;recon:string|null;}
 /** Bounded images and one active CSS transition. No RAF, terrain build, or authoritative inputs. */
 export class FogRuntime {
   private cache=new Map<string,Cached>();private masks=new Map<string,string>();private current:Cached|null=null;private layer:SVGGElement|null=null;
+  private plannedView:PlayerViewState|null=null;private plannedRecon:string|null=null;private planned:FogPlan|null=null;
   private cleanup:()=>void=()=>{};private builds=0;
   constructor(private readonly encoder:FogEncoder=encode){}
   get buildCount():number{return this.builds;}
   settle():void{this.cleanup();this.cleanup=()=>{};}
-  clear():void{this.settle();this.layer?.replaceChildren();this.layer=null;this.current=null;this.cache.clear();this.masks.clear();}
+  clear():void{this.settle();this.layer?.replaceChildren();this.layer=null;this.current=null;this.cache.clear();this.masks.clear();this.plannedView=null;this.planned=null;}
   sync(svg:SVGSVGElement|null,view:PlayerViewState|null,selectedUnitId:string|null=null,instant=false):void {
     if(!svg||!view){this.clear();return;}
     const layer=svg.querySelector<SVGGElement>('#fog-surface-layer');if(!layer)return;
-    const plan=deriveFogPlan(view,selectedUnitId),previous=this.current;
+    const recon=view.units.find(u=>u.id===selectedUnitId&&u.side===view.viewer&&u.type==='RECON')?.id??null;
+    const plan=this.plannedView===view&&this.plannedRecon===recon&&this.planned?this.planned:deriveFogPlan(view,recon),previous=this.current;
     const sameViewer=previous?.plan.viewer===plan.viewer;
     // Never crossfade a former viewer's observation footprint or retain it in cache.
     if(!sameViewer){this.clear();}
+    this.plannedView=view;this.plannedRecon=recon;this.planned=plan;
     if(this.layer===layer&&this.current?.plan.key===plan.key){if(instant)this.settle();return;}
     this.settle();this.layer=layer;layer.replaceChildren();
     let entry=this.cache.get(plan.key);
