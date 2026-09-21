@@ -9,9 +9,10 @@ export class SvgNode {
  setAttribute(key,value){this.attrs[key]=String(value);this.writes++;}
  removeAttribute(key){delete this.attrs[key];this.writes++;}
  appendChild(child){child.remove();child.parentNode=this;this.children.push(child);return child;}
+ insertBefore(child,reference){child.remove();child.parentNode=this;const index=this.children.indexOf(reference);if(index<0)this.children.push(child);else this.children.splice(index,0,child);return child;}
  remove(){if(this.parentNode){this.parentNode.children=this.parentNode.children.filter(n=>n!==this);this.parentNode=null;}}
  cloneNode(deep){const node=new SvgNode(this.tagName,this.attrs,this.ownerDocument);node.text=this.text;if(deep)for(const child of this.children)node.appendChild(child.cloneNode(true));return node;}
- matches(selector){if(selector==='*')return true;if(selector.startsWith('#'))return this.getAttribute('id')===selector.slice(1);const attr=selector.match(/^\[([^=\]]+)(?:="([^"]*)")?\]$/);if(attr)return attr[2]===undefined?this.getAttribute(attr[1])!==null:this.getAttribute(attr[1])===attr[2];return this.tagName===selector;}
+ matches(selector){if(selector==='*')return true;if(selector.startsWith('.'))return (this.getAttribute('class')??'').split(/\s+/).includes(selector.slice(1));if(selector.startsWith('#'))return this.getAttribute('id')===selector.slice(1);const attr=selector.match(/^\[([^=\]]+)(?:="([^"]*)")?\]$/);if(attr)return attr[2]===undefined?this.getAttribute(attr[1])!==null:this.getAttribute(attr[1])===attr[2];return this.tagName===selector;}
  querySelectorAll(selector){return this.children.flatMap(n=>[...(n.matches(selector)?[n]:[]),...n.querySelectorAll(selector)]);}
  querySelector(selector){return this.querySelectorAll(selector)[0]??null;}
  serialize(){return `<${this.tagName}${Object.entries(this.attrs).map(([k,v])=>` ${k}="${escape(v)}"`).join('')}>${this.text}${this.children.map(n=>n.serialize()).join('')}</${this.tagName}>`;}

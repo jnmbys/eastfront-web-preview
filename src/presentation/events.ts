@@ -23,10 +23,15 @@ export type UnitCueEvent = Identity & Readonly<{
 export type CombatPresentationEvent = Identity & Readonly<{
   kind:'combat-started'|'combat-fire'|'combat-result'|'combat-completed';
   battleId:string; unitIds:readonly string[]; attackers:readonly CueParticipant[];
+  supporters?:readonly CueParticipant[];
 }>;
 export type PresentationEvent = UnitTravelEvent | UnitCueEvent | CombatPresentationEvent;
 
 export function isTravelEvent(event:PresentationEvent):event is UnitTravelEvent { return 'path' in event; }
+/** Supporting fire is separate from the actual attack group / Counter selection. */
+export function firingParticipants(event:CombatPresentationEvent):readonly CueParticipant[] {
+  return [...event.attackers,...(event.supporters??[])];
+}
 
 /** Existing Counter V2 placement is the only authority for local stack offsets. */
 function stackOffset(state:Readonly<GameState>,id:string):Point {
@@ -62,7 +67,22 @@ export function derivePresentationEvents(before:Readonly<GameState>,result:Reado
     const attackers=(tx?.attackerUnitIds??[]).flatMap(id=>{
       const cue=participant(before,id,defender?hexToPixel(defender.hex):undefined);return cue?[cue]:[];
     });
-    events.push({...identity(),kind,battleId,unitIds:[...(tx?.attackerUnitIds??[]),...(tx?.defenderUnitIds??[])],attackers});
+    const supporters:CueParticipant[]=[];
+    // Only resolved context proves support actually contributed. Never infer from range,
+    // a draft selection, or the mere existence of a nearby artillery unit.
+    if(kind==='combat-fire'&&tx?.context){
+      const firstAttacker=tx.attackerUnitIds.map(id=>before.units[id]).find(Boolean);
+      const supportTargets:[string|null,Point|undefined][]=[
+        [tx.context.attackerArtilleryUnitId,defender?hexToPixel(defender.hex):undefined],
+        [tx.context.defenderArtilleryUnitId,firstAttacker?hexToPixel(firstAttacker.hex):undefined],
+      ];
+      for(const [id,target]of supportTargets){
+        if(!id||!target||attackers.some(a=>a.unitId===id)||supporters.some(a=>a.unitId===id))continue;
+        if(before.units[id]?.type!=='ARTILLERY')continue;
+        const cue=participant(before,id,target);if(cue)supporters.push(cue);
+      }
+    }
+    events.push({...identity(),kind,battleId,unitIds:[...(tx?.attackerUnitIds??[]),...(tx?.defenderUnitIds??[])],attackers,...(supporters.length?{supporters}:{})});
   };
   const travel=(kind:TravelKind,unitId:string,acceptedPath:readonly HexCoord[])=>{
     const source=before.units[unitId],destination=after.units[unitId];

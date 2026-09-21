@@ -1,5 +1,5 @@
 import { hexToPixel, type Point } from '../geometry/hex.js';
-import { isTravelEvent, type CueCharacter, type CueParticipant, type PresentationEvent, type UnitTravelEvent } from './events.js';
+import { isTravelEvent, firingParticipants, type CueCharacter, type CueParticipant, type PresentationEvent, type UnitTravelEvent } from './events.js';
 import { ANIMATION_TIMING as T, SPEED_MULTIPLIER, type AnimationSpeed } from './timing.js';
 import { ZERO, mix, travelEase, travelAccent, cueAccent, fireDelay, fireStagger } from './motion.js';
 
@@ -31,7 +31,7 @@ const travelTiming:Record<UnitTravelEvent['kind'],number>={move:T.MOVE_STEP,retr
 
 export function eventDuration(event:PresentationEvent):number {
   if(isTravelEvent(event))return Math.max(1,event.path.length-1)*travelTiming[event.kind];
-  switch(event.kind){case 'combat-started':return T.COMBAT_WINDUP;case 'combat-fire':return T.COMBAT_FIRE+fireStagger(event.attackers.length);case 'hit':return T.HIT_REACTION;case 'destroyed':return T.DESTROYED;default:return T.COMBAT_RESULT;}
+  switch(event.kind){case 'combat-started':return T.COMBAT_WINDUP;case 'combat-fire':return T.COMBAT_FIRE+fireStagger(firingParticipants(event).length);case 'hit':return T.HIT_REACTION;case 'destroyed':return T.DESTROYED;default:return T.COMBAT_RESULT;}
 }
 
 /** One short reaction per affected unit, then losses disappear together. Travel retains
@@ -67,7 +67,7 @@ export class AnimationCoordinator {
     const normalized:AnimationStep[]=[];
     for(const step of steps){
       for(const event of step.parallel)if(isTravelEvent(event))this.paths.set(event,event.path.map(hex=>hexToPixel(hex)));
-      const ids=step.parallel.flatMap(e=>'unitId'in e?[e.unitId]:e.kind==='combat-started'||e.kind==='combat-fire'?e.attackers.map(a=>a.unitId):[]);
+      const ids=step.parallel.flatMap(e=>'unitId'in e?[e.unitId]:e.kind==='combat-started'||e.kind==='combat-fire'?(e.kind==='combat-fire'?firingParticipants(e):e.attackers).map(a=>a.unitId):[]);
       if(new Set(ids).size!==ids.length)normalized.push(...step.parallel.map(event=>({parallel:[event]})));
       else normalized.push({parallel:[...step.parallel]});
     }
@@ -133,8 +133,9 @@ export class AnimationCoordinator {
       }else if(event.kind==='hit'||event.kind==='destroyed'){
         this.cue(event.participant,event.kind,progress,index>=0);
       }else if(event.kind==='combat-started'||event.kind==='combat-fire'){
-        event.attackers.forEach((participant,at)=>{
-          const local=event.kind==='combat-fire'?Math.max(0,Math.min(1,((index>=0?this.active!.elapsed:0)-fireDelay(at,event.attackers.length))/T.COMBAT_FIRE)):progress;
+        const participants=event.kind==='combat-fire'?firingParticipants(event):event.attackers;
+        participants.forEach((participant,at)=>{
+          const local=event.kind==='combat-fire'?Math.max(0,Math.min(1,((index>=0?this.active!.elapsed:0)-fireDelay(at,participants.length))/T.COMBAT_FIRE)):progress;
           this.cue(participant,event.kind==='combat-fire'?'firing':'windup',local,index>=0);
         });
       }

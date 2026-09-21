@@ -116,7 +116,11 @@ test('UA002 all non-presentation source, startup shell, loader, VS2, Camera and 
  for(const [path,hash]of Object.entries(hashes))assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'),hash,path);
 });
 test('UA002 battle frames only update active units and reusable effect paths; no SVG rebuild or terrain writes',()=>{
- const h=tacticalRun(),root=h.dom(),nodes=root.querySelectorAll('*'),staticNodes=nodes.filter(n=>n.getAttribute('data-unit-id')===null&&n.getAttribute('data-hit-unit-id')===null);
+ const h=tacticalRun(),root=h.dom(),nodes=root.querySelectorAll('*');
+ // UA003 adds a lightweight companion layer; it is active unit artwork, not terrain.
+ const presence=root.querySelector('[data-unit-presence-layer]');
+ const companions=new Set(presence?[presence,...presence.querySelectorAll('*')]:[]);
+ const staticNodes=nodes.filter(n=>n.getAttribute('data-unit-id')===null&&n.getAttribute('data-hit-unit-id')===null&&!companions.has(n));
  const writes=staticNodes.map(n=>n.writes),allocations=root.ownerDocument.created;
  for(let i=0;i<80;i++)h.time.tick(16);
  assert.deepEqual(staticNodes.map(n=>n.writes),writes);assert(root.ownerDocument.created-allocations<=5);assert.equal(h.dom(),root);clean(h);

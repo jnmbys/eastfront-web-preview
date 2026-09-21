@@ -3,6 +3,8 @@ import { selectTerrainLod, type TerrainLod } from '../render/terrainAssets.js';
 import type { UnitPresentationState, AnimationLifecycle } from './coordinator.js';
 import type { PresentationEvent } from './events.js';
 import { CUE_PROFILES, EFFECT_LOD } from './motion.js';
+import { UnitPresenceLayer } from './unitPresence.js';
+import { selectPresenceLod, type UnitPresenceIdentity } from './unitPresenceTypes.js';
 
 interface Binding {
   counter:Element;hit:Element|undefined;transform:string;hitTransform:string|null;opacity:string|null;
@@ -34,11 +36,17 @@ export class SvgUnitPresentation {
   private layer:Element|null=null;
   private fallbackLod:TerrainLod='medium';
   private fittedHexWidth=0;
+  private readonly presence=new UnitPresenceLayer();
+  private zoomObserver:MutationObserver|null=null;
+  private resizeObserver:ResizeObserver|null=null;
+  private lastStates:ReadonlyMap<string,UnitPresentationState>=new Map();
+  private presenceLod:TerrainLod|null=null;
 
   prepare(events:readonly PresentationEvent[]):void {
     for(const event of events){
       if(event.kind!=='destroyed'||this.ghosts.has(event.unitId))continue;
       const binding=this.bindings.get(event.unitId);if(!binding)continue;
+      this.presence.capture(event.unitId);
       binding.effect?.remove();delete binding.effect;
       const clone=inertClone(binding.counter);clone.setAttribute('data-presentation-ghost',event.unitId);
       this.ghosts.set(event.unitId,{...binding,counter:clone,hit:undefined});
@@ -50,10 +58,12 @@ export class SvgUnitPresentation {
   lifecycle(event:PresentationEvent,lifecycle:AnimationLifecycle):void {
     if(event.kind==='destroyed'&&lifecycle!=='started'){
       this.ghosts.get(event.unitId)?.counter.remove();this.ghosts.delete(event.unitId);
+      this.presence.removeGhost(event.unitId);
     }
   }
-  bind(root:ParentNode|null):void {
-    this.clear();this.bindings.clear();this.root=root;this.layer=null;if(!root)return;
+  bind(root:ParentNode|null,identities:readonly UnitPresenceIdentity[]=[]):void {
+    this.zoomObserver?.disconnect();this.resizeObserver?.disconnect();
+    this.clear();this.bindings.clear();this.root=root;this.layer=null;if(!root){this.presence.dispose();return;}
     const svg=root.querySelector<SVGSVGElement>('#eastfront-map');
     this.layer=root.querySelector('#counter-layer');
     this.fallbackLod=(svg?.getAttribute('data-lod') as TerrainLod)??'medium';
@@ -68,31 +78,51 @@ export class SvgUnitPresentation {
       const stale=this.bindings.get(id);stale?.counter.remove();stale?.hit?.remove();this.bindings.delete(id);
       this.layer?.appendChild(ghost.counter);
     }
+    this.presence.bind(this.layer,identities,new Map([...this.bindings].map(([id,binding])=>[id,binding.counter])));
+    // React to the existing Camera scalar; no camera writes and no idle RAF loop.
+    if(typeof MutationObserver!=='undefined'){
+      this.zoomObserver=new MutationObserver(()=>this.paint(this.lastStates));
+      this.zoomObserver.observe(root as Node,{attributes:true,attributeFilter:['data-zoom']});
+    }
+    if(typeof ResizeObserver!=='undefined'&&svg){
+      this.resizeObserver=new ResizeObserver(()=>{
+        this.fittedHexWidth=width&&svg.clientWidth?svg.clientWidth*Math.sqrt(3)*HEX_SIZE/width:0;
+        this.paint(this.lastStates);
+      });this.resizeObserver.observe(svg);
+    }
   }
   paint(states:ReadonlyMap<string,UnitPresentationState>):void {
+    this.lastStates=states;
     for(const id of this.touched)if(!states.has(id))this.restore(id);
     this.touched.clear();
     // Camera already writes this scalar. Reading it cannot force layout or move the camera.
     const zoom=Number((this.root as Element|null)?.getAttribute?.('data-zoom'))||1;
     const lod=this.fittedHexWidth?selectTerrainLod(this.fittedHexWidth*zoom):this.fallbackLod;
+    this.presenceLod=this.fittedHexWidth?selectPresenceLod(this.fittedHexWidth*zoom,this.presenceLod):this.fallbackLod;
+    this.presence.setLod(this.presenceLod);
     const weight=EFFECT_LOD[lod];
     for(const [id,state]of states){
       const binding=this.ghosts.get(id)??this.bindings.get(id);if(!binding)continue;
       const {x,y}=state.currentVisualPosition,dx=state.motionOffset.x*weight,dy=state.motionOffset.y*weight;
       const scale=1+(state.scale-1)*weight;
       const accent=dx||dy||scale!==1?` translate(${dx} ${dy}) scale(${scale})`:'';
-      binding.counter.setAttribute('transform',`translate(${x} ${y})${accent}`);
+      const transform=`translate(${x} ${y})${accent}`;
+      binding.counter.setAttribute('transform',transform);
       binding.counter.setAttribute('opacity',String(state.visible?state.opacity:0));
       binding.counter.setAttribute('data-animation-phase',state.phase);
       binding.hit?.setAttribute('transform',`translate(${state.currentCanonicalPosition.x-binding.anchorX} ${state.currentCanonicalPosition.y-binding.anchorY})`);
       this.effect(binding,state,weight,lod);
+      this.presence.paint(id,state,transform,state.visible?state.opacity:0);
       this.touched.add(id);
     }
   }
   clear():void {for(const id of this.touched)this.restore(id);this.touched.clear();}
   dispose():void {
+    this.zoomObserver?.disconnect();this.resizeObserver?.disconnect();this.zoomObserver=null;this.resizeObserver=null;
     this.clear();for(const ghost of this.ghosts.values())ghost.counter.remove();
     this.ghosts.clear();this.bindings.clear();this.layer=null;this.root=null;
+    this.presence.dispose();this.lastStates=new Map();
+    this.presenceLod=null;
   }
   private binding(counter:Element,hit:Element|undefined):Binding {
     return {counter,hit,transform:counter.getAttribute('transform')??'',hitTransform:hit?.getAttribute('transform')??null,
@@ -127,6 +157,7 @@ export class SvgUnitPresentation {
     effect.setAttribute('opacity',String(state.effect*weight));
   }
   private restore(id:string):void {
+    this.presence.restore(id);
     const binding=this.ghosts.get(id)??this.bindings.get(id);if(!binding)return;
     binding.effect?.remove();delete binding.effect;
     binding.counter.setAttribute('transform',binding.transform);binding.counter.removeAttribute('data-animation-phase');

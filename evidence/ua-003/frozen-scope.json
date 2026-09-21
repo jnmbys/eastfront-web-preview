@@ -1,0 +1,41 @@
+{
+  "baselineCommit": "1bbc481a25976d765d7f7e67aeaa1a6ca1c828ca",
+  "baselineTree": "f630f420be6a1796e9e4ba0c988b330df43821d4",
+  "baselineFiles": 877,
+  "changedBaselineFiles": [
+    "src/presentation/coordinator.ts",
+    "src/presentation/events.ts",
+    "src/presentation/runtime.ts",
+    "src/presentation/svgUnits.ts",
+    "tests/helpers/svg-dom.mjs",
+    "tests/ua002-tactical.test.mjs"
+  ],
+  "newRuntimeFiles": [
+    "src/presentation/unitPresence.ts",
+    "src/presentation/unitPresenceSvg.ts",
+    "src/presentation/unitPresenceTypes.ts"
+  ],
+  "runtimeChangesOnlyIn": "src/presentation/",
+  "frozenRuntimeFilesVerified": 458,
+  "allOldTestsRetained": true,
+  "testAdaptations": [
+    "Software SVG DOM gains standard insertBefore and class selector support.",
+    "UA002 frame-write test recognizes the new active unit companion subtree; static-map writes and allocation assertions remain."
+  ],
+  "frozen": [
+    "vendor/Core",
+    "Core adapter / seed generation",
+    "Geometry",
+    "canonical map / Scenario",
+    "Combat rules / CRT / odds / legality / supply / victory",
+    "Counter V2 renderer / hit targets / stack geometry",
+    "Combat UX2.1 / interaction routing",
+    "Camera mechanics / zoom / FIT",
+    "VS2 terrain / cached world surfaces / assets",
+    "Startup shell / progress / loader order / HTMLImageElement-first / fallback / timeout / cache",
+    "Localization / zh-CN default / en-US",
+    "UA002 timing.ts and motion.ts"
+  ],
+  "noExternalAssetsAdded": true,
+  "deployment": "UA003 is a source checkpoint only; public Pages remains UA002."
+}
