@@ -184,8 +184,8 @@ test('baseline loader strategy, timeout, cache and VS2 semantics differ only by 
     assert.equal(createHash('sha256').update(withoutObservation(read(path))).digest('hex'),expected,path);
   }
 });
-test('UA-001 presentation modules and fresh-game session adapter remain byte-identical',()=>{
-  for(const [path,expected] of Object.entries(baseline).filter(([path])=>!path.startsWith('src/render/'))) {
+test('UA-001 transition boundary and fresh-game session adapter remain byte-identical',()=>{
+  for(const [path,expected] of Object.entries(baseline).filter(([path])=>path==='src/core-adapter/session.ts'||path==='src/presentation/transitionBus.ts')) {
     assert.equal(createHash('sha256').update(read(path)).digest('hex'),expected,path);
   }
 });

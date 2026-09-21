@@ -249,8 +249,8 @@ test('UA001 actual VS2 world cache is built once and never repainted by 60 anima
 
 test('UA001 combat lifecycle hooks preserve setup → fire → result → reaction order and skip notifications',()=>{
  const time=clock(),seen=[],c=new AnimationCoordinator(time,()=>{},(e,stage)=>seen.push(`${e.kind}:${stage}`));
- const cue=kind=>({id:kind,actionId:'accepted',kind,battleId:'b',unitIds:['g','d']});
- c.enqueue(sequenceEvents([cue('combat-started'),cue('combat-fire'),cue('combat-result'),{id:'hit',actionId:'accepted',kind:'hit',unitId:'d',position:{x:0,y:0}}]));
+ const cue=kind=>({id:kind,actionId:'accepted',kind,battleId:'b',unitIds:['g','d'],attackers:[]});
+ c.enqueue(sequenceEvents([cue('combat-started'),cue('combat-fire'),cue('combat-result'),{id:'hit',actionId:'accepted',kind:'hit',unitId:'d',position:{x:0,y:0},participant:{unitId:'d',position:{x:0,y:0},offset:{x:0,y:0},direction:{x:1,y:0},character:'generic'}}]));
  time.tick(500);assert.deepEqual(seen,['combat-started:started','combat-started:finished','combat-fire:started','combat-fire:finished','combat-result:started','combat-result:finished','hit:started','hit:finished']);
  c.enqueue(sequenceEvents([travel()]));c.skip();assert.deepEqual(seen.slice(-2),['move:started','move:skipped']);assert.equal(time.pending(),0);
 });

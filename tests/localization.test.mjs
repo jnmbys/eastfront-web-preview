@@ -162,7 +162,7 @@ test('counter mechanics and symbols are identical across locales; only accessibl
 });
 test('main render and binding preserve the existing camera transform during language switching',()=>{
  const {s,p,d}=setup();const context=panels(s,p,d);const elements={};
- for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[]};
+ for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[],querySelector:()=>null};
  const control={value:'zh-CN',addEventListener(event,handler){this.change=handler;},focus(){}};
  const root={innerHTML:'',querySelectorAll:selector=>selector==='[data-language-select]'?[control]:[],querySelector:selector=>selector==='[data-language-select]'?control:null};
  Object.assign(context,{unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});

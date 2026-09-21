@@ -11,7 +11,8 @@ export class UnitAnimationRuntime {
   private unsubscribe:()=>void=()=>{};
   private requestedSpeed:AnimationSpeed='normal';
   private reducedMotion=false;
-  constructor(clock:AnimationClock){this.coordinator=new AnimationCoordinator(clock,states=>this.renderer.paint(states));}
+  constructor(clock:AnimationClock){this.coordinator=new AnimationCoordinator(clock,states=>this.renderer.paint(states),
+    (event,lifecycle)=>this.renderer.lifecycle(event,lifecycle));}
   get speed():AnimationSpeed{return this.requestedSpeed;}
   get effectiveSpeed():AnimationSpeed{return this.coordinator.animationSpeed;}
   setSpeed(speed:AnimationSpeed):void {this.requestedSpeed=speed;this.coordinator.setSpeed(this.reducedMotion?'instant':speed);}
@@ -21,6 +22,7 @@ export class UnitAnimationRuntime {
     if(this.session!==session){
       this.unsubscribe();this.coordinator.reset();this.renderer.dispose();this.session=session;
       this.unsubscribe=session?observePresentationTransitions(session,events=>{
+        this.renderer.prepare(events);
         this.coordinator.enqueue(sequenceEvents(events));
       }):()=>{};
     }

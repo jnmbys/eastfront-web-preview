@@ -4,16 +4,25 @@ import { deriveCounterPlacement } from '../render/derive.js';
 
 type Identity = Readonly<{ id:string; actionId:string }>;
 export type TravelKind = 'move' | 'retreat' | 'advance' | 'breakthrough';
+export type CueCharacter = 'generic' | 'infantry' | 'armor' | 'artillery';
+/** Detached render anchors and broad, existing unit-type character. No rule values. */
+export interface CueParticipant {
+  readonly unitId:string;
+  readonly position:Point;
+  readonly offset:Point;
+  readonly direction:Point;
+  readonly character:CueCharacter;
+}
 export type UnitTravelEvent = Identity & Readonly<{
   kind:TravelKind; unitId:string; path:readonly Readonly<HexCoord>[];
   sourceOffset:Point; destinationOffset:Point;
 }>;
 export type UnitCueEvent = Identity & Readonly<{
-  kind:'hit'|'destroyed'; unitId:string; position:Point;
+  kind:'hit'|'destroyed'; unitId:string; position:Point; participant:CueParticipant;
 }>;
 export type CombatPresentationEvent = Identity & Readonly<{
   kind:'combat-started'|'combat-fire'|'combat-result'|'combat-completed';
-  battleId:string; unitIds:readonly string[];
+  battleId:string; unitIds:readonly string[]; attackers:readonly CueParticipant[];
 }>;
 export type PresentationEvent = UnitTravelEvent | UnitCueEvent | CombatPresentationEvent;
 
@@ -28,6 +37,20 @@ function stackOffset(state:Readonly<GameState>,id:string):Point {
   return {x:placement.visualCenter.x-placement.authoritativeAnchor.x,y:placement.visualCenter.y-placement.authoritativeAnchor.y};
 }
 
+function character(type:string):CueCharacter {
+  if(['PANZER','TANK','HEAVY_TANK'].includes(type))return 'armor';
+  if(type==='ARTILLERY')return 'artillery';
+  if(['INFANTRY','ELITE_INFANTRY','JAGER'].includes(type))return 'infantry';
+  return 'generic';
+}
+
+function participant(state:Readonly<GameState>,id:string,target?:Point):CueParticipant|undefined {
+  const unit=state.units[id];if(!unit)return;
+  const position=hexToPixel(unit.hex),dx=target?target.x-position.x:0,dy=target?target.y-position.y:0;
+  const length=Math.hypot(dx,dy);
+  return {unitId:id,position,offset:stackOffset(state,id),direction:length?{x:dx/length,y:dy/length}:{x:1,y:0},character:character(unit.type)};
+}
+
 /** Read-only projection of accepted facts. No engine calls, legality checks or random draws. */
 export function derivePresentationEvents(before:Readonly<GameState>,result:Readonly<ActionResult>):readonly PresentationEvent[] {
   if(!result.accepted)return Object.freeze([]);
@@ -35,7 +58,11 @@ export function derivePresentationEvents(before:Readonly<GameState>,result:Reado
   const identity=()=>({id:`${result.actionId}:presentation:${events.length}`,actionId:result.actionId});
   const combat=(kind:CombatPresentationEvent['kind'],battleId:string)=>{
     const tx=after.combatTransactions[battleId];
-    events.push({...identity(),kind,battleId,unitIds:[...(tx?.attackerUnitIds??[]),...(tx?.defenderUnitIds??[])]});
+    const defender=tx?.defenderUnitIds.map(id=>before.units[id]??after.units[id]).find(Boolean);
+    const attackers=(tx?.attackerUnitIds??[]).flatMap(id=>{
+      const cue=participant(before,id,defender?hexToPixel(defender.hex):undefined);return cue?[cue]:[];
+    });
+    events.push({...identity(),kind,battleId,unitIds:[...(tx?.attackerUnitIds??[]),...(tx?.defenderUnitIds??[])],attackers});
   };
   const travel=(kind:TravelKind,unitId:string,acceptedPath:readonly HexCoord[])=>{
     const source=before.units[unitId],destination=after.units[unitId];
@@ -57,8 +84,8 @@ export function derivePresentationEvents(before:Readonly<GameState>,result:Reado
       case 'CRTResolved':combat('combat-fire',event.battleId);combat('combat-result',event.battleId);break;
       case 'CombatCompleted':combat('combat-completed',event.battleId);break;
       case 'UnitStepLost':case 'UnitDestroyed':{
-        const unit=before.units[event.unitId]??after.units[event.unitId];
-        if(unit)events.push({...identity(),kind:event.type==='UnitStepLost'?'hit':'destroyed',unitId:event.unitId,position:hexToPixel(unit.hex)});
+        const cue=participant(before,event.unitId)??participant(after,event.unitId);
+        if(cue)events.push({...identity(),kind:event.type==='UnitStepLost'?'hit':'destroyed',unitId:event.unitId,position:cue.position,participant:cue});
         break;
       }
     }

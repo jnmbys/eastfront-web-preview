@@ -1,0 +1,38 @@
+{
+  "baselineCommit": "8a817dc0abfa1999ac9262108c139ca508fa798a",
+  "baselineTree": "68c404eb633401448eb64b8040ffbc909fa83678",
+  "baselineFileCount": 712,
+  "unchangedBaselineFiles": 703,
+  "changedBaselineFiles": [
+    "src/presentation/coordinator.ts",
+    "src/presentation/events.ts",
+    "src/presentation/runtime.ts",
+    "src/presentation/svgUnits.ts",
+    "src/presentation/timing.ts",
+    "tests/helpers/animation-fixture.mjs",
+    "tests/localization.test.mjs",
+    "tests/startup-progress.test.mjs",
+    "tests/ua001-animation.test.mjs"
+  ],
+  "runtimeChangesOnlyIn": "src/presentation/",
+  "newRuntimeFile": "src/presentation/motion.ts",
+  "frozenScopes": [
+    "vendor/Core",
+    "core-adapter",
+    "interaction/Combat UX2.1",
+    "Geometry",
+    "Scenario/canonical map",
+    "VS2/assets/cache",
+    "Camera",
+    "Counter V2 renderer",
+    "localization/default zh-CN",
+    "main startup and loader shell",
+    "styles.css"
+  ],
+  "testAdaptations": [
+    "Existing animation DOM fixture now supports SVG children, cloning, removal and serialization.",
+    "Localization DOM stub adds querySelector; original assertions unchanged.",
+    "UA001 lifecycle synthetic facts include cue participants; original assertions unchanged.",
+    "Startup test retains session/transitionBus byte freeze; UA002 intentionally supersedes presentation-module byte freeze. All startup loader/VS2 byte-freeze and behavior tests remain; all other source files receive a new baseline byte-freeze gate."
+  ]
+}
