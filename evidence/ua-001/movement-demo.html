@@ -1,0 +1,19 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>EASTFRONT UA-001 movement review</title>
+<link rel="stylesheet" href="../../styles.css"><style>
+body{margin:0;padding:24px;display:block;overflow:auto;background:#101923;color:#eee4d1;font:15px sans-serif}main{max-width:1000px;margin:auto}h1{font-size:22px}.review-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0}#map-wrap{height:420px;width:100%;overflow:hidden;border:1px solid #68746f;background:#252e32}#eastfront-map{width:100%;height:100%}button{padding:10px}pre{white-space:pre-wrap;line-height:1.7}.note{color:#aebbbf}
+</style><main><h1>EASTFRONT UA-001 · 移动动画独立验收场景</h1><p class="note">使用正式 Core MOVE、Counter V2、Geometry 和 animation runtime。此场景用于检查动画边界，不代表 VS2 地形或真机验收。</p><div class="review-toolbar"><button id="replay">重新播放移动</button><button id="locale">中文 / English</button><span id="controls"></span></div><div id="map-wrap"></div><pre id="status"></pre></main>
+<script type="module">
+import {movementFixture,move} from '../../tests/helpers/animation-fixture.mjs';
+import {deriveBrowserRenderModel} from '../../dist/app/render/coreModel.js';
+import {coreSvgMarkup} from '../../dist/app/render/coreSvg.js';
+import {dispatchGameAction} from '../../dist/app/core-adapter/session.js';
+import {UnitAnimationRuntime} from '../../dist/app/presentation/runtime.js';
+import {animationControls,bindAnimationControls} from '../../dist/app/ui/animationControls.js';
+import {setLocale,getLocale} from '../../dist/app/localization/index.js';
+const runtime=new UnitAnimationRuntime({now:()=>performance.now(),request:f=>requestAnimationFrame(f),cancel:i=>cancelAnimationFrame(i)}),wrap=document.querySelector('#map-wrap');
+const motion=matchMedia('(prefers-reduced-motion: reduce)');runtime.setReducedMotion(motion.matches);motion.addEventListener('change',()=>runtime.setReducedMotion(motion.matches));
+let f=movementFixture();
+function render(){const model=deriveBrowserRenderModel(f.s,f.p);model.hexes=model.hexes.filter(h=>h.coord.q>=-1&&h.coord.q<=3&&h.coord.r>=-1&&h.coord.r<=2);wrap.innerHTML=coreSvgMarkup(model,{debug:false,rendererMode:'prototype'});runtime.sync(f.s,wrap);document.querySelector('#controls').innerHTML=animationControls(runtime);bindAnimationControls(document,runtime);}
+function replay(){f=movementFixture();render();const result=dispatchGameAction(f.s,move()).result;render();document.querySelector('#status').textContent=JSON.stringify({accepted:result.accepted,canonicalHex:f.s.state.units.g.hex,gameplayRandom:f.s.state.random,explanation:'Core destination is committed before presentation starts. Skip/speed/language never change this state.'},null,2);}
+document.querySelector('#replay').onclick=replay;document.querySelector('#locale').onclick=()=>{setLocale(getLocale()==='zh-CN'?'en-US':'zh-CN');render();};render();
+</script></html>

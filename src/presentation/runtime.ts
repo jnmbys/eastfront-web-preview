@@ -1,0 +1,32 @@
+import { AnimationCoordinator, sequenceEvents, type AnimationClock } from './coordinator.js';
+import { observePresentationTransitions } from './transitionBus.js';
+import { SvgUnitPresentation } from './svgUnits.js';
+import type { AnimationSpeed } from './timing.js';
+
+/** UI-owned lifetime. Observers receive only detached immutable presentation facts. */
+export class UnitAnimationRuntime {
+  readonly coordinator:AnimationCoordinator;
+  private readonly renderer=new SvgUnitPresentation();
+  private session:object|null=null;
+  private unsubscribe:()=>void=()=>{};
+  private requestedSpeed:AnimationSpeed='normal';
+  private reducedMotion=false;
+  constructor(clock:AnimationClock){this.coordinator=new AnimationCoordinator(clock,states=>this.renderer.paint(states));}
+  get speed():AnimationSpeed{return this.requestedSpeed;}
+  get effectiveSpeed():AnimationSpeed{return this.coordinator.animationSpeed;}
+  setSpeed(speed:AnimationSpeed):void {this.requestedSpeed=speed;this.coordinator.setSpeed(this.reducedMotion?'instant':speed);}
+  setReducedMotion(reduced:boolean):void {this.reducedMotion=reduced;this.setSpeed(this.requestedSpeed);}
+  skip():void {this.coordinator.skip();}
+  sync(session:object|null,root:ParentNode|null):void {
+    if(this.session!==session){
+      this.unsubscribe();this.coordinator.reset();this.renderer.dispose();this.session=session;
+      this.unsubscribe=session?observePresentationTransitions(session,events=>{
+        this.coordinator.enqueue(sequenceEvents(events));
+      }):()=>{};
+    }
+    // No visible map (privacy, HOME or game over): settle and release old DOM references.
+    if(!root){this.coordinator.reset();this.renderer.dispose();return;}
+    this.renderer.bind(root);this.renderer.paint(this.coordinator.snapshot());
+  }
+  dispose():void {this.unsubscribe();this.coordinator.dispose();this.renderer.dispose();this.session=null;}
+}

@@ -1,0 +1,21 @@
+✔ zh-CN is the default player language (1.136534ms)
+✔ zh-CN and en-US cover every stable key with identical interpolation parameters (2.552149ms)
+✔ English fallback, missing key and missing parameter detection are explicit (0.221773ms)
+✔ all canonical player-facing enums and validation codes have mappings (1.950276ms)
+✔ stored feedback and Core rejections translate at render time, retaining identifiers (24.032853ms)
+✔ language preference persists when available and works when storage is denied (1.930196ms)
+✔ real language change handler preserves GameState, RNG, camera, drafts and scroll positions (52.171204ms)
+✔ Chinese production flow: new game, deployment confirmation, movement plan, attack preview, resolve, end phase; same state as English (965.640747ms)
+✔ every pending Combat UX panel and all actual phases render Chinese with CRT codes retained (458.496226ms)
+✔ language changes leave the next dice sequence identical; New Game still requests fresh seeds independently of terrain (9.427713ms)
+✔ counter mechanics and symbols are identical across locales; only accessible text changes (0.794983ms)
+✔ main render and binding preserve the existing camera transform during language switching (38.14219ms)
+✔ fatal-screen messages also retranslate without changing diagnostics (0.238908ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1684.069606

@@ -1,0 +1,39 @@
+✔ UA001 projection reads frozen actual Core results without mutating either GameState (13.428685ms)
+✔ UA001 accepted MOVE retains real source and every canonical path waypoint (1.385799ms)
+✔ UA001 rejected moves never publish, replace state or schedule animation (3.284778ms)
+✔ UA001 move starts at source before first frame while Core has already reached destination (2.462924ms)
+✔ UA001 multi-step movement passes exact canonical centers and settles to canonical Counter V2 destination (1.946921ms)
+✔ UA001 skip and natural finish have identical counter, hit target and GameState (3.003556ms)
+✔ UA001 normal, fast and instant produce byte-identical complete GameStates (3.670967ms)
+✔ UA001 projection, queue and rendering never call gameplay RNG or global entropy (2.49338ms)
+✔ UA001 stack departure and arrival use frozen Counter V2 offsets; all counters settle to current layout (1.372158ms)
+✔ UA001 moving expanded touch target follows canonical visual anchor and keeps existing identity (0.916585ms)
+✔ UA001 camera transform remains untouched across movement frames and repeated dynamic remounts (1.328793ms)
+✔ UA001 language changes during and after movement preserve progress, positions and full state (4.976415ms)
+✔ UA001 sequential barriers hold waiting movers at actual sources without destination flash (0.294973ms)
+✔ UA001 optional parallel barriers advance disjoint units together (0.130385ms)
+✔ UA001 conflicting parallel clips serialize; long frames complete multiple barriers with cleanup (0.171267ms)
+✔ UA001 interruption can finish the old queue and replace it without late callbacks (0.159249ms)
+✔ UA001 speed changes retain current interpolation and fast mode finishes sooner (1.299609ms)
+✔ UA001 reduced motion settles immediately and can change during animation without altering rules (2.021082ms)
+✔ UA001 session replacement, hidden map and disposal cancel frames and remove stale observers (1.183355ms)
+✔ UA001 NEW GAME retains fresh combat seed behavior with animation runtime attached (48.080267ms)
+✔ UA001 ATTACK publishes setup after acceptance, fire only after resolved Core result, without delaying UX2.1 (22.604079ms)
+✔ UA001 pending defender choice cannot enqueue fire or result before Core resolves combat (1.518067ms)
+✔ UA001 actual retreat, advance and breakthrough results produce ordered movement hooks (12.471289ms)
+✔ UA001 actual destruction yields a presentation hook without retaining combat truth (1.049274ms)
+✔ UA001 combat GameState and RNG match animation-disabled flow across speeds and six seeds (39.862249ms)
+✔ UA001 multi-attacker map selection remains intact while animation is registered (7.749464ms)
+✔ UA001 animation observer exceptions cannot undo or reject accepted Core actions (0.544357ms)
+✔ UA001 frame work never writes non-unit SVG/canvas or rebuilds VS2 through repeated render (4.696145ms)
+✔ UA001 player animation controls are bilingual and operate without changing state (1.882925ms)
+✔ UA001 actual VS2 world cache is built once and never repainted by 60 animation frames/remounts (1731.733725ms)
+✔ UA001 combat lifecycle hooks preserve setup → fire → result → reaction order and skip notifications (0.345939ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2040.725589

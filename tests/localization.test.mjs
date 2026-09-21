@@ -1,3 +1,5 @@
+import {UnitAnimationRuntime} from '../dist/app/presentation/runtime.js';
+import {animationControls,bindAnimationControls} from '../dist/app/ui/animationControls.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -160,10 +162,10 @@ test('counter mechanics and symbols are identical across locales; only accessibl
 });
 test('main render and binding preserve the existing camera transform during language switching',()=>{
  const {s,p,d}=setup();const context=panels(s,p,d);const elements={};
- for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={style:{},dataset:{},textContent:'',addEventListener(){}};
+ for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[]};
  const control={value:'zh-CN',addEventListener(event,handler){this.change=handler;},focus(){}};
  const root={innerHTML:'',querySelectorAll:selector=>selector==='[data-language-select]'?[control]:[],querySelector:selector=>selector==='[data-language-select]'?control:null};
- Object.assign(context,{root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});
+ Object.assign(context,{unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});
  vm.runInContext(main.slice(main.indexOf('function applyMapViewport('),main.indexOf('function mapRenderOptions(')),context);
  vm.runInContext(main.slice(main.indexOf('function render('),main.indexOf('function paintCombatTargets(')),context);
  const state=s.state,camera=context.mapViewport,before=JSON.stringify({state:s.state,p,d,camera});
