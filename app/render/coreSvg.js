@@ -1,3 +1,5 @@
+import { compactUnitPlate } from './compactUnitPlate.js';
+import { contactMarkers } from './contactMarkers.js';
 import { t, enumLabel } from '../localization/index.js';
 import { coreHexKey } from '../core-adapter/core.js';
 import { HEX_SIZE, hexPolygon, hexToPixel, pointString, polygonPointsString, sharedHexEdge } from '../geometry/hex.js';
@@ -143,7 +145,7 @@ export function renderCounter(counter, stackIndex, stackSize) {
   ${counter.supplyState === 'OUT_OF_SUPPLY' ? `<g class="oos-icon" transform="translate(${half - 5} 0)"><title>${t('status.outOfSupply')}</title><path d="M-3 -4L3 2M-3 2L3 -4"/><circle cy="-1" r="5"/></g>` : ''}
   ${counter.entrenched ? `<path class="entrench-icon" d="M${-half + 3} -10v4h7V-10"/>` : ''}
   ${stackSize > 1 && stackIndex === stackSize - 1 ? `<g class="stack-badge" transform="translate(${half - 3} ${half - 2})"><title>${t('counter.stack', { count: stackSize })}</title><circle r="6"/><text y="2.3" text-anchor="middle">${stackSize}</text></g>` : ''}
-  </g></g>`;
+  </g>${compactUnitPlate(counter, stackIndex, stackSize)}</g>`;
 }
 function renderCombatGeometry(model) {
     const combat = model.combat;
@@ -233,10 +235,10 @@ export function coreSvgStaticMarkup(model, options) {
     return mode === 'production' ? renderProductionBase(model, seed, lod, assetSet, options.marshContinuity ?? true) : `<g id="terrain-layer">${renderTerrain(model)}</g>${renderInfrastructure(model)}`;
 }
 export function coreSvgDynamicMarkup(model, options) {
-    return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${renderCounters(model)}${options.debug ? renderDebug(model) : ''}`;
+    return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${contactMarkers(model.playerView)}${renderCounters(model)}${options.debug ? renderDebug(model) : ''}`;
 }
 export function coreSvgMarkup(model, options) {
     const vb = viewBoxForHexes(model.hexes), mode = options.rendererMode ?? 'prototype', assetSet = options.assetSet ?? 'p5', lod = options.lod ?? 'medium';
     const staticMarkup = coreSvgStaticMarkup(model, options), dynamicMarkup = coreSvgDynamicMarkup(model, options);
-    return `<svg id="eastfront-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-renderer-mode="${mode}" data-asset-set="${assetSet}" data-lod="${lod}" viewBox="${vb.minX} ${vb.minY} ${vb.width} ${vb.height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('map.accessible')}"><defs><filter id="counterShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-opacity=".33"/></filter><filter id="selectedShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".46"/></filter></defs><g id="map-static-layer">${staticMarkup}</g><g id="map-dynamic-layer">${dynamicMarkup}</g></svg>`;
+    return `<svg id="eastfront-map" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-renderer-mode="${mode}" data-asset-set="${assetSet}" data-lod="${lod}" viewBox="${vb.minX} ${vb.minY} ${vb.width} ${vb.height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('map.accessible')}"><defs><filter id="counterShadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-opacity=".33"/></filter><filter id="selectedShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".46"/></filter></defs><g id="map-static-layer">${staticMarkup}</g><g id="fog-surface-layer" pointer-events="none" aria-hidden="true"></g><g id="map-dynamic-layer">${dynamicMarkup}</g></svg>`;
 }

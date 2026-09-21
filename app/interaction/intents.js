@@ -1,3 +1,4 @@
+import { sessionPlayerView, setInspectionViewer } from '../core-adapter/session.js';
 import { msg, enumMessage, phaseMessage } from '../localization/index.js';
 import { joinIssues } from '../localization/issues.js';
 import { continueCombatFlow } from './combatFlow.js';
@@ -12,6 +13,10 @@ function issuesMessage(issues) {
 function sameHex(a, b) { return a.q === b.q && a.r === b.r; }
 function adjacent(a, b) { return getNeighbors(a).some((candidate) => sameHex(candidate, b)); }
 export function selectCounter(session, presentation, unitId) {
+    if (session.state.units[unitId]?.side !== session.state.controllers[session.activeViewerControllerId]?.side && !sessionPlayerView(session).units.some(u => u.id === unitId)) {
+        presentation.message = msg('fow.insufficient');
+        return;
+    }
     const clicked = session.state.units[unitId];
     const retreat = session.state.pendingDecision;
     if (retreat?.kind === 'RETREAT' && clicked?.alive && !presentation.privacyGate
@@ -115,6 +120,7 @@ export function confirmPrivacyGate(session, presentation) {
     const gate = presentation.privacyGate;
     if (!gate)
         return;
+    delete session.viewOverride;
     if (gate === 'COMBAT_DECISION') {
         const owner = session.state.pendingDecision?.decisionOwnerControllerId;
         if (owner)
@@ -128,12 +134,9 @@ export function confirmPrivacyGate(session, presentation) {
     clearActionDrafts(presentation);
     presentation.message = gate === 'REVEAL_BOTH' ? msg('feedback.deploymentRevealed') : msg('feedback.sideActive', { side: enumMessage(session.state.activeSide) });
 }
-export function switchViewerForDevelopment(session, presentation, side) {
-    setActiveViewer(session, controllerIdForSide(session, side));
-    presentation.selectedUnitId = null;
-    presentation.selectedDeploymentUnitId = null;
-    clearActionDrafts(presentation);
-    presentation.message = msg('feedback.developerViewer', { side: enumMessage(side) });
+/** Inspection keeps controller authority and every legal draft unchanged. */
+export function switchViewerForDevelopment(session, _presentation, side) {
+    setInspectionViewer(session, side);
 }
 /** Presentation-only path drafting. Counter remains at authoritative Core hex until commit. */
 export function extendMoveDraft(session, presentation, destination) {

@@ -1,3 +1,5 @@
+import { modelControls, bindModelControls } from './ui/modelControls.js';
+import { FogRuntime } from './fog/runtime.js';
 import { startupProgress } from './web/startupProgress.js';
 import { observeTerrainLoad } from './render/terrainLoadProgress.js';
 import { UnitAnimationRuntime } from './presentation/runtime.js';
@@ -11,7 +13,7 @@ import { deploymentFocus, deploymentRejection } from './ui/deploymentPolish.js';
 import { createDeploymentTouch, chooseDeploymentTarget, confirmDeploymentTarget } from './ui/deploymentTouch.js';
 import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
 import { coreHexKey, isDeploymentPhase } from './core-adapter/core.js';
-import { createLocalGameSession, loadProductionMapFromUrl, dispatchGameAction } from './core-adapter/session.js';
+import { createLocalGameSession, loadProductionMapFromUrl, dispatchGameAction, sessionPlayerView } from './core-adapter/session.js';
 import { chooseLossAndContinue, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitMoveDraft, commitRailRepair, commitSchwerpunkt, confirmPrivacyGate, attackAndContinue, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, routeCombatTarget, isCombatTargetSelection, combatTargetIssues, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleSupportingAttacker, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, useDefenderArtillery, } from './interaction/intents.js';
 import { deriveBrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
@@ -38,12 +40,20 @@ const cachedTerrainSurfaces = new Map();
 function esc(value) { return value.replace(/[&<>\"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[char] ?? char)); }
 let deploymentTouch = createDeploymentTouch();
 const unitAnimations = new UnitAnimationRuntime({ now: () => performance.now(), request: callback => requestAnimationFrame(callback), cancel: id => cancelAnimationFrame(id) });
+const fogSurface = new FogRuntime();
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 unitAnimations.setReducedMotion(reducedMotion.matches);
-const updateReducedMotion = () => unitAnimations.setReducedMotion(reducedMotion.matches);
+const updateReducedMotion = () => { unitAnimations.setReducedMotion(reducedMotion.matches); if (reducedMotion.matches)
+    fogSurface.settle(); };
 reducedMotion.addEventListener('change', updateReducedMotion);
 window.addEventListener('pagehide', () => { unitAnimations.skip(); });
+window.addEventListener('pagehide', () => fogSurface.settle());
+function syncFogSurface() {
+    const svg = document.querySelector('#eastfront-map');
+    fogSurface.sync(svg, session && !presentation.privacyGate ? sessionPlayerView(session) : null, presentation.selectedUnitId, unitAnimations.effectiveSpeed === 'instant');
+}
 function paintDeploymentFocus() {
+    syncFogSurface();
     unitAnimations.sync(session, document.querySelector('#map-wrap'));
     const svg = document.querySelector('#eastfront-map');
     if (!svg || !session)
@@ -124,7 +134,7 @@ function combatPanel(model) {
     const pending = c.pending, tx = c.battle;
     if (!pending)
         return combatAttackPanel(model, c.attackDraft.preview ? combatContextHtml(c.attackDraft.preview, t('combat.details')) : '') + battleHistoryHtml(model);
-    const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">${t('combat.transaction', { kind: enumLabel(pending.kind) })}</span><div class="phase-metric"><span>${t('combat.battle')}</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>${t('combat.decisionOwner')}</span><strong>${enumLabel(session?.state.controllers[pending.decisionOwnerControllerId]?.side ?? pending.decisionOwnerControllerId)}</strong></div>`;
+    const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">${t('combat.transaction', { kind: enumLabel(pending.kind) })}</span><div class="phase-metric"><span>${t('combat.battle')}</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>${t('combat.decisionOwner')}</span><strong>${enumLabel(pending.side)}</strong></div>`;
     let body = '';
     if (pending.kind === 'DEFENDER_REACTION') {
         body = `<p>${t('combat.flow.defender')}</p><div class="combat-unit-list">${c.reaction.artillery.map(id => `<button class="mini-button" data-defender-artillery="${esc(id)}">${t('combat.artilleryUnit', { id: esc(id) })}</button>`).join('')}${c.reaction.hq.map(id => `<button class="mini-button" data-defender-hq="${esc(id)}">${t('combat.flow.lastStand', { id: esc(id) })}</button>`).join('')}</div><button id="pass-reaction" class="secondary-action">${t('combat.flow.declineSupport')}</button>`;
@@ -149,6 +159,8 @@ function combatPanel(model) {
     return header + body + (tx?.resolution ? `<p class="combat-result-summary" role="status">${t('combat.lastResult', { result: tx.resolution.crtResult })} · ${t('combat.dice', { ...tx.resolution.dice })}</p>` : '') + `<details class="combat-advanced"><summary>${t('combat.flow.resultDetails')}</summary>${resolved}${context}</details></section>`;
 }
 function phasePanel(model) {
+    if (model.readOnly)
+        return `<p>${t('fow.inspection')}</p>`;
     if (model.deployment)
         return '';
     const ready = `<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
@@ -168,7 +180,7 @@ function phasePanel(model) {
     }
     if ((model.phase === 'GERMAN_RECOVERY' || model.phase === 'SOVIET_RECOVERY') && model.recovery) {
         const r = model.recovery;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span><div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.activeSide]}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${r.selectedCost ?? '—'} ${t('resource.rp')}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">${t('recovery.commit')}</button>` : `<p>${t('recovery.help')}</p>`}${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span><div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.viewerSide] ?? '—'}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${r.selectedCost ?? '—'} ${t('resource.rp')}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">${t('recovery.commit')}</button>` : `<p>${t('recovery.help')}</p>`}${ready}</section>`;
     }
     if ((model.phase === 'GERMAN_ENTRENCHMENT' || model.phase === 'SOVIET_ENTRENCHMENT') && model.entrench) {
         const e = model.entrench;
@@ -176,8 +188,8 @@ function phasePanel(model) {
     }
     return `<section class="panel-block phase-actions"><span class="eyebrow">${t('common.phase')}</span><p>${phaseLabel(model.phase)}</p>${ready}</section>`;
 }
-function viewerSwitch(model) { if (!isDeploymentPhase(session.state) || !presentation.debug)
-    return ''; return `<section class="panel-block"><span class="eyebrow">HIDDEN-VIEW REGRESSION</span><p>Development-only viewer switch.</p><div class="viewer-buttons"><button data-view-side="SOVIET" class="mini-button ${model.viewerSide === 'SOVIET' ? 'active' : ''}">Soviet</button><button data-view-side="GERMAN" class="mini-button ${model.viewerSide === 'GERMAN' ? 'active' : ''}">German</button></div></section>`; }
+function viewerSwitch(model) { if (!presentation.debug)
+    return ''; return `<section class="panel-block"><span class="eyebrow">${t('fow.view')}</span><div class="viewer-buttons">${['GERMAN', 'SOVIET', 'OBSERVER'].map(side => `<button data-view-side="${side}" class="mini-button ${model.playerView.viewer === side ? 'active' : ''}">${t(side === 'GERMAN' ? 'fow.german' : side === 'SOVIET' ? 'fow.soviet' : 'fow.observer')}</button>`).join('')}</div></section>`; }
 function privacyGate() { const gate = presentation.privacyGate; if (!gate)
     return ''; if (gate === 'COMBAT_DECISION') {
     const owner = session?.state.pendingDecision?.decisionOwnerControllerId ?? '';
@@ -336,7 +348,7 @@ function mountCachedTerrainSurface() {
     canvas.dataset.uniqueAssets = String(cachedTerrainSurface.stats.uniqueAssets);
 }
 function sidePanelMarkup(model) {
-    return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${model.combat ? '' : phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
+    return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${model.combat ? '' : phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 function refreshDynamicView() {
     if (!session || presentation.privacyGate) {
@@ -416,14 +428,19 @@ function render() {
         return;
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
-    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.activeSide]}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls">${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.viewerSide] ?? '—'}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.viewerSide] ?? '—'}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: model.playerView.viewer === 'OBSERVER' ? t('fow.observer') : sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls">${modelControls(unitAnimations)}${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
     mountCachedTerrainSurface();
     bind();
     paintDeploymentFocus();
 }
 function bind() {
     unitAnimations.sync(session, document.querySelector('#map-wrap'));
+    syncFogSurface();
     bindAnimationControls(root, unitAnimations);
+    bindModelControls(root, unitAnimations);
+    document.querySelector('#animation-skip')?.addEventListener('click', () => fogSurface.settle());
+    document.querySelector('#animation-speed')?.addEventListener('change', () => { if (unitAnimations.effectiveSpeed === 'instant')
+        fogSurface.settle(); });
     bindLanguageControl(root, render);
     document.querySelector('#new-game-button')?.addEventListener('click', () => startNewGame());
     document.querySelector('#reload-button')?.addEventListener('click', () => location.reload());
@@ -492,9 +509,10 @@ function paintCombatTargets() {
         return;
     const enabled = isCombatTargetSelection(session, presentation);
     const legal = new Set();
+    const knownUnits = sessionPlayerView(session).units;
     if (enabled)
-        for (const unit of Object.values(session.state.units)) {
-            if (unit.alive && unit.side !== session.state.activeSide) {
+        for (const unit of knownUnits) {
+            if (unit.side !== session.state.activeSide) {
                 const key = coreHexKey(unit.hex);
                 if (!legal.has(key) && combatTargetIssues(session, presentation, unit.hex).length === 0)
                     legal.add(key);
@@ -502,7 +520,7 @@ function paintCombatTargets() {
         }
     document.querySelectorAll('[data-unit-id], [data-role="attack-target"]').forEach(el => {
         const key = el.dataset.hex ?? '', attackable = enabled && legal.has(key);
-        const enemy = enabled && Object.values(session.state.units).some(unit => unit.alive && unit.side !== session.state.activeSide && coreHexKey(unit.hex) === key);
+        const enemy = enabled && knownUnits.some(unit => unit.side !== session.state.activeSide && coreHexKey(unit.hex) === key);
         el.classList.toggle('unavailable-combat-target', enemy && !attackable);
         const selected = attackable && !!presentation.attackTarget && coreHexKey(presentation.attackTarget) === key;
         el.classList.toggle('attackable-enemy', attackable);
@@ -515,6 +533,10 @@ function paintCombatTargets() {
     });
 }
 function bindDynamic() {
+    document.querySelectorAll('[data-view-side]').forEach(element => { const side = element.dataset.viewSide; if (!side)
+        return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
+    if (session && deriveBrowserRenderModel(session, presentation).readOnly)
+        return;
     paintCombatTargets();
     document.querySelectorAll('[data-remove-attacker]').forEach(el => el.addEventListener('click', () => {
         const id = el.dataset.removeAttacker;
@@ -632,8 +654,6 @@ function bindDynamic() {
         runCombatAction(() => commitSchwerpunkt(session, presentation, id));
     } }));
     document.querySelector('#pass-schwerpunkt')?.addEventListener('click', () => { runCombatAction(() => passSchwerpunkt(session, presentation)); });
-    document.querySelectorAll('[data-view-side]').forEach((element) => { const side = element.dataset.viewSide; if (!side)
-        return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
 }
 async function boot() {
     appStatus = 'LOADING';

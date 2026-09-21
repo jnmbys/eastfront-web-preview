@@ -1,3 +1,5 @@
+import { derivePlayerView, rememberPlayerView } from '../player-view/playerView.js';
+import { filterPresentationEvents } from '../player-view/presentationVisibility.js';
 import { publishPresentationTransition } from '../presentation/transitionBus.js';
 import { RulesEngine, createDeploymentGameState, defaultRules, defaultScenario, importLegacyMap, isDeploymentPhase, projectDeploymentView, validateGameStateIntegrity, } from './core.js';
 export function controllerIdForSide(session, side) {
@@ -41,6 +43,7 @@ export function setActiveViewer(session, controllerId) {
  */
 export function dispatchGameAction(session, action) {
     const previousState = session.state;
+    const beforeView = sessionPlayerView(session);
     const result = session.engine.apply(session.state, action);
     session.lastResult = result;
     if (!result.accepted) {
@@ -48,7 +51,17 @@ export function dispatchGameAction(session, action) {
     }
     session.state = result.state;
     session.integrityIssues = validateGameStateIntegrity(session.state, session.rules, session.scenario);
-    publishPresentationTransition(session, previousState, result);
+    session.knowledge ??= {};
+    for (const side of ['GERMAN', 'SOVIET']) {
+        const observedBefore = derivePlayerView(previousState, side, session.rules, session.knowledge[side]);
+        const memory = rememberPlayerView(observedBefore);
+        session.knowledge[side] = rememberPlayerView(derivePlayerView(session.state, side, session.rules, memory));
+    }
+    const afterView = sessionPlayerView(session);
+    const afterIds = new Set(afterView.units.map(u => u.id));
+    if (beforeView.units.some(u => session.state.units[u.id]?.alive && !afterIds.has(u.id)))
+        session.visibilityRevision = (session.visibilityRevision ?? 0) + 1;
+    publishPresentationTransition(session, previousState, result, events => filterPresentationEvents(events, beforeView, afterView));
     return { result, stateReplaced: true, integrityIssues: session.integrityIssues };
 }
 export function deploymentProjection(session) {
@@ -63,3 +76,12 @@ export function loadProductionMapFromUrl(url = './vendor/eastfront-digital-core/
         return await response.json();
     });
 }
+/** Trusted local host projection boundary; renderer receives only this detached DTO. */
+export function sessionPlayerView(session) {
+    const viewer = session.viewOverride ?? session.state.controllers[session.activeViewerControllerId]?.side;
+    if (!viewer)
+        throw new Error('Unknown viewer');
+    return derivePlayerView(session.state, viewer, session.rules, viewer === 'OBSERVER' ? undefined : session.knowledge?.[viewer]);
+}
+/** Host/debug capability. Never expose unrestricted observer selection in production hotseat. */
+export function setInspectionViewer(session, viewer) { session.viewOverride = viewer; }

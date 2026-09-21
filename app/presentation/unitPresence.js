@@ -46,6 +46,7 @@ export class UnitPresenceLayer {
             return;
         this.lod = lod;
         this.layer?.setAttribute('visibility', lod === 'far' ? 'hidden' : 'visible');
+        this.layer?.setAttribute('opacity', lod === 'far' ? '0' : '1');
         this.layer?.setAttribute('data-presence-lod', lod);
         for (const binding of [...this.units.values(), ...this.ghosts.values()]) {
             const { x, y, scale } = this.composition(binding);
@@ -58,6 +59,8 @@ export class UnitPresenceLayer {
         const binding = this.ghosts.get(id) ?? this.units.get(id);
         if (!binding)
             return;
+        if (this.lod === 'far')
+            return;
         // Identical parent transform guarantees travel, recoil and settle remain synchronized.
         binding.root.setAttribute('transform', transform);
         binding.root.setAttribute('opacity', String(opacity * PRESENCE_LOD[this.lod].opacity));
@@ -67,7 +70,8 @@ export class UnitPresenceLayer {
         const ground = this.composition(binding), from = binding.from ?? ground;
         const travel = ['moving', 'retreating', 'advancing', 'breakthrough'].includes(state.phase);
         const p = travel ? state.progress * state.progress * (3 - 2 * state.progress) : 1;
-        binding.pedestal.setAttribute('transform', `translate(${from.x + (ground.x - from.x) * p} ${from.y + (ground.y - from.y) * p}) scale(${from.scale + (ground.scale - from.scale) * p})`);
+        const x = from.x + (ground.x - from.x) * p, y = from.y + (ground.y - from.y) * p, scale = from.scale + (ground.scale - from.scale) * p;
+        binding.pedestal.setAttribute('transform', `translate(${x} ${y}) scale(${scale})`);
         const directional = state.phase === 'firing' || ['moving', 'retreating', 'advancing', 'breakthrough'].includes(state.phase);
         const angle = directional ? Math.atan2(state.direction.y, state.direction.x) * 180 / Math.PI : binding.facing;
         // Silhouette stays isometric; the small cue orients toward the accepted target.
@@ -76,9 +80,11 @@ export class UnitPresenceLayer {
         binding.body.setAttribute('transform', `scale(${facing} 1)${collapse}`);
         const fire = state.phase === 'firing' ? state.effect : 0;
         binding.flash.setAttribute('transform', `rotate(${angle})`);
-        binding.flash.setAttribute('opacity', String(fire * (this.lod === 'far' ? 0 : 1)));
+        binding.flash.setAttribute('opacity', String(fire));
         binding.emphasis.setAttribute('opacity', String(['windup', 'hit', 'destroyed'].includes(state.phase) ? state.effect * .55 : 0));
         binding.emphasis.setAttribute('stroke', state.phase === 'hit' || state.phase === 'destroyed' ? '#efb39d' : '#e0c98d');
+        // Plate/proxy follow this same stack-entry interpolation, without another clock.
+        return { x: x - ground.x, y: y - ground.y + PRESENCE_PROFILE[binding.family].foot * (scale - ground.scale) };
     }
     restore(id) {
         const binding = this.ghosts.get(id) ?? this.units.get(id);
@@ -121,8 +127,8 @@ export class UnitPresenceLayer {
         // Nested under the same anchor/motion transform as the model: no floating CSS shadow.
         // Two small translucent ellipses give broad ambient grounding and a tight contact core.
         const ground = node(doc, 'g', { 'data-presence-contact': '' }, pedestal);
-        node(doc, 'ellipse', { cx: -1, cy: profile.foot, rx: profile.shadow + 3, ry: 6, fill: '#16211e', 'fill-opacity': .19 }, ground);
-        node(doc, 'ellipse', { cx: 0, cy: profile.foot - 1, rx: profile.shadow, ry: 3.6, fill: '#101b1b', 'fill-opacity': .48 }, ground);
+        node(doc, 'ellipse', { cx: -1, cy: profile.foot, rx: profile.shadow + 3, ry: 4.5, fill: '#16211e', 'fill-opacity': .22 }, ground);
+        node(doc, 'ellipse', { cx: 0, cy: profile.foot - 1, rx: profile.shadow, ry: 2.8, fill: '#101b1b', 'fill-opacity': .52 }, ground);
         const classes = counter.getAttribute('class') ?? '';
         if (/selected|combat-attacker-(primary|selected)/.test(classes))
             node(doc, 'ellipse', { cx: 0, cy: profile.foot, rx: profile.shadow + 2, ry: 5, fill: 'none', stroke: palette.accent, 'stroke-opacity': .45, 'stroke-width': 1 }, pedestal);

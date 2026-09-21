@@ -13,26 +13,22 @@ export const PRESENCE_LOD = Object.freeze({ far: { opacity: 0 }, medium: { opaci
  * Family profiles keep infantry formations, vehicles and gun trails legible at Medium.
  * Counter width and its existing stack displacement are the only composition inputs. */
 export const PRESENCE_PROFILE = Object.freeze({
-    infantry: { width: 52, foot: 10, medium: 1.10, close: 1.42, shadow: 24, muzzle: 27 },
-    armor: { width: 54, foot: 10, medium: 1.12, close: 1.43, shadow: 25, muzzle: 30 },
-    motorized: { width: 53, foot: 10, medium: 1.08, close: 1.36, shadow: 24, muzzle: 27 },
-    artillery: { width: 48, foot: 11, medium: 1.18, close: 1.56, shadow: 22, muzzle: 28 },
-    'anti-tank': { width: 46, foot: 9, medium: 1.18, close: 1.51, shadow: 23, muzzle: 27 },
-    engineer: { width: 43, foot: 10, medium: 1.22, close: 1.57, shadow: 21, muzzle: 24 },
-    recon: { width: 40, foot: 9, medium: 1.30, close: 1.66, shadow: 21, muzzle: 24 },
-    headquarters: { width: 32, foot: 10, medium: 1.52, close: 1.98, shadow: 18, muzzle: 22 },
+    infantry: { width: 52, foot: 10, medium: 0.9, close: 1.1, shadow: 24, muzzle: 27 },
+    armor: { width: 54, foot: 10, medium: 0.91, close: 1.11, shadow: 25, muzzle: 30 },
+    motorized: { width: 53, foot: 10, medium: 0.9, close: 1.1, shadow: 24, muzzle: 27 },
+    artillery: { width: 48, foot: 11, medium: 1, close: 1.22, shadow: 22, muzzle: 28 },
+    'anti-tank': { width: 46, foot: 9, medium: 1.02, close: 1.25, shadow: 23, muzzle: 27 },
+    engineer: { width: 43, foot: 10, medium: 1.08, close: 1.33, shadow: 21, muzzle: 24 },
+    recon: { width: 40, foot: 9, medium: 1.16, close: 1.42, shadow: 21, muzzle: 24 },
+    headquarters: { width: 32, foot: 10, medium: 1.4, close: 1.75, shadow: 18, muzzle: 22 },
 });
-export function presenceComposition(family, half, stackSign, heavy, lod) {
-    const profile = PRESENCE_PROFILE[family], close = lod === 'close';
-    const scale = profile[close ? 'close' : 'medium'] * (stackSign ? .86 : 1) * (heavy ? 1.06 : 1);
-    // Solo models occupy the rear ground strip. In a stack both models fan out onto
-    // the near ground strip, keeping them clear of the preceding occupied Counter row.
-    // The existing sign determines left/right and slight depth. Neither this display
-    // offset nor the shadow is a hex anchor or an input surface.
-    const gap = close ? 12 : 9;
-    const top = family === 'infantry' ? 21 : family === 'armor' ? 18 : family === 'artillery' ? 20 : 15;
-    const y = stackSign ? half + (close ? 9 : 7) + top * scale : -half - gap - profile.foot * scale;
-    return { x: stackSign * (close ? 25 : 20), y, scale };
+export function presenceComposition(family, _half, stackSign, heavy, lod) {
+    const profile = PRESENCE_PROFILE[family];
+    const scale = profile[lod === 'close' ? 'close' : 'medium'] * (stackSign ? .60 : 1) * (heavy ? 1.06 : 1);
+    // Counter supplies the existing stack sign and motion anchor. Cancel only its
+    // small vertical display stagger so model feet stay at the canonical ground plane.
+    const groundY = stackSign < 0 ? 6 : stackSign > 0 ? -7 : 0;
+    return { x: stackSign * 12.5, y: groundY - profile.foot * scale, scale };
 }
 /** Two screen pixels of hysteresis prevent detail flicker during a slow pinch.
  * Thresholds still come from the existing LOD selector; Camera/terrain are untouched. */

@@ -9,12 +9,12 @@ export function observePresentationTransitions(session, observer) {
         observers.delete(session); };
 }
 /** Called after canonical state adoption. Presentation failures cannot reject an action. */
-export function publishPresentationTransition(session, before, result) {
+export function publishPresentationTransition(session, before, result, project = events => events) {
     const set = observers.get(session);
     if (!set?.size || !result.accepted)
         return;
     try {
-        const events = derivePresentationEvents(before, result);
+        const events = project(derivePresentationEvents(before, result));
         for (const observer of set) {
             try {
                 observer(events);
