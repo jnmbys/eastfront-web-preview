@@ -43,20 +43,40 @@ function nearest(points) {
             for (const p of bins.get(`${a},${b}`) ?? [])
                 best = Math.min(best, (p.x - x) ** 2 + (p.y - y) ** 2); return Math.sqrt(best); };
 }
+let fogGround = null;
+/** One world-sized cache, bounded independently of number of viewers/actions. */
+function groundFor(plan, width, height) {
+    const key = JSON.stringify([plan.bounds, width, height, plan.map]);
+    if (fogGround?.key === key)
+        return fogGround;
+    const ground = { key, coverage: new Float64Array(width * height), broad: new Float64Array(width * height), fine: new Float64Array(width * height) };
+    const board = nearest(plan.map);
+    for (let y = 0; y < height; y++)
+        for (let x = 0; x < width; x++) {
+            const wx = plan.bounds.minX + (x + .5) * plan.bounds.width / width, wy = plan.bounds.minY + (y + .5) * plan.bounds.height / height, i = y * width + x;
+            ground.coverage[i] = 1 - smooth((board(wx, wy) - HEX_SIZE * .97) / 9);
+            if (ground.coverage[i] > 0) {
+                ground.broad[i] = noise(wx, wy, 156);
+                ground.fine[i] = noise(wx + 29, wy - 47, 61);
+            }
+        }
+    fogGround = ground;
+    return ground;
+}
 /** One low-resolution, world-space RGBA veil. Flat neutral colour reduces saturation/contrast by alpha compositing. */
 export function rasterizeFog(plan, kind = 'fog') {
     const pitch = Math.max(FOG_STYLE.pixelPitch, Math.max(plan.bounds.width, plan.bounds.height) / FOG_STYLE.maxDimension);
     const width = Math.ceil(plan.bounds.width / pitch), height = Math.ceil(plan.bounds.height / pitch), rgba = new Uint8ClampedArray(width * height * 4);
     if (plan.viewer === 'OBSERVER' || (kind === 'recon' && !plan.recon.length))
         return { width, height, rgba };
-    const visible = nearest(kind === 'recon' ? plan.recon : plan.visible), board = nearest(plan.map);
+    const visible = nearest(kind === 'recon' ? plan.recon : plan.visible), ground = groundFor(plan, width, height);
     for (let y = 0; y < height; y++)
         for (let x = 0; x < width; x++) {
             const wx = plan.bounds.minX + (x + .5) * plan.bounds.width / width, wy = plan.bounds.minY + (y + .5) * plan.bounds.height / height;
-            const coverage = 1 - smooth((board(wx, wy) - HEX_SIZE * .97) / 9);
+            const coverage = ground.coverage[y * width + x];
             if (coverage <= 0)
                 continue;
-            const broad = noise(wx, wy, 156), fine = noise(wx + 29, wy - 47, 61), dist = visible(wx, wy);
+            const broad = ground.broad[y * width + x], fine = ground.fine[y * width + x], dist = visible(wx, wy);
             const amount = smooth((dist - FOG_STYLE.clearRadius + (broad - .5) * FOG_STYLE.edgeVariation + (fine - .5) * 5) / FOG_STYLE.feather);
             const i = (y * width + x) * 4;
             if (kind === 'recon') {

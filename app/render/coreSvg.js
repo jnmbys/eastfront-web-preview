@@ -234,8 +234,11 @@ export function coreSvgStaticMarkup(model, options) {
         return renderProductionGridOnly(model);
     return mode === 'production' ? renderProductionBase(model, seed, lod, assetSet, options.marshContinuity ?? true) : `<g id="terrain-layer">${renderTerrain(model)}</g>${renderInfrastructure(model)}`;
 }
+export function coreSvgOverlayMarkup(model, options) {
+    return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${contactMarkers(model.playerView)}${options.debug ? renderDebug(model) : ''}`;
+}
 export function coreSvgDynamicMarkup(model, options) {
-    return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${contactMarkers(model.playerView)}${renderCounters(model)}${options.debug ? renderDebug(model) : ''}`;
+    return `<g id="interaction-overlays">${coreSvgOverlayMarkup(model, options)}</g>${renderCounters(model)}`;
 }
 export function coreSvgMarkup(model, options) {
     const vb = viewBoxForHexes(model.hexes), mode = options.rendererMode ?? 'prototype', assetSet = options.assetSet ?? 'p5', lod = options.lod ?? 'medium';

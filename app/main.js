@@ -1,3 +1,4 @@
+import { DynamicMapRenderer } from './render/dynamicMap.js';
 import { modelControls, bindModelControls } from './ui/modelControls.js';
 import { FogRuntime } from './fog/runtime.js';
 import { startupProgress } from './web/startupProgress.js';
@@ -47,19 +48,22 @@ const updateReducedMotion = () => { unitAnimations.setReducedMotion(reducedMotio
     fogSurface.settle(); };
 reducedMotion.addEventListener('change', updateReducedMotion);
 window.addEventListener('pagehide', () => { unitAnimations.skip(); });
+window.addEventListener('pagehide', () => releaseMapViewport());
 window.addEventListener('pagehide', () => fogSurface.settle());
 function syncFogSurface() {
     const svg = document.querySelector('#eastfront-map');
     fogSurface.sync(svg, session && !presentation.privacyGate ? sessionPlayerView(session) : null, presentation.selectedUnitId, unitAnimations.effectiveSpeed === 'instant');
 }
-function paintDeploymentFocus() {
+function paintDeploymentFocus(model) {
     syncFogSurface();
     unitAnimations.sync(session, document.querySelector('#map-wrap'));
     const svg = document.querySelector('#eastfront-map');
     if (!svg || !session)
         return;
     svg.querySelector('#deployment-focus')?.remove();
-    svg.insertAdjacentHTML('beforeend', deploymentFocus(deriveBrowserRenderModel(session, presentation), deploymentTouch, presentation.selectedDeploymentUnitId));
+    if (!isDeploymentPhase(session.state))
+        return;
+    svg.insertAdjacentHTML('beforeend', deploymentFocus(model ?? deriveBrowserRenderModel(session, presentation), deploymentTouch, presentation.selectedDeploymentUnitId));
 }
 function chooseTouchTarget(key) {
     if (!session)
@@ -74,7 +78,7 @@ function chooseTouchTarget(key) {
     }
 }
 function chooseCounterTarget(id) {
-    if (!session)
+    if (!session || !isDeploymentPhase(session.state))
         return false;
     const model = deriveBrowserRenderModel(session, presentation), counter = model.counters.find(c => c.id === id);
     if (!counter)
@@ -210,19 +214,26 @@ function applyMapViewport() {
     if (!wrap || !svg)
         return;
     const transform = `translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;
-    svg.style.transform = transform;
-    svg.style.transformOrigin = '50% 50%';
+    if (svg.style.transform !== transform) {
+        svg.style.transform = transform;
+        svg.style.transformOrigin = '50% 50%';
+    }
     const terrain = document.querySelector('#terrain-surface');
-    if (terrain) {
+    if (terrain && terrain.style.transform !== transform) {
         terrain.style.transform = transform;
         terrain.style.transformOrigin = '50% 50%';
     }
-    wrap.dataset.zoom = mapViewport.zoom.toFixed(2);
-    const readout = document.querySelector('#zoom-readout');
-    if (readout)
-        readout.textContent = `${Math.round(mapViewport.zoom * 100)}%`;
+    const zoom = mapViewport.zoom.toFixed(2);
+    if (wrap.dataset.zoom !== zoom) {
+        wrap.dataset.zoom = zoom;
+        const readout = document.querySelector('#zoom-readout');
+        if (readout)
+            readout.textContent = `${Math.round(mapViewport.zoom * 100)}%`;
+    }
 }
+let releaseMapViewport = () => { };
 function bindMapViewport() {
+    releaseMapViewport();
     const wrap = document.querySelector('#map-wrap');
     if (!wrap)
         return;
@@ -233,13 +244,17 @@ function bindMapViewport() {
     let suppressNextClick = false;
     let panFrame = null;
     let latest = null;
-    const local = (e) => { const r = wrap.getBoundingClientRect(); return { x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 }; };
+    let bounds = wrap.getBoundingClientRect();
+    const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(() => { bounds = wrap.getBoundingClientRect(); });
+    resizeObserver?.observe(wrap);
+    const local = (e) => { const r = bounds; return { x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 }; };
     const capture = (id) => { try {
         wrap.setPointerCapture?.(id);
     }
     catch { /* Capture may end during cancellation. */ } };
     const cancelFrame = () => { if (panFrame !== null)
         cancelAnimationFrame(panFrame); panFrame = null; };
+    releaseMapViewport = () => { cancelFrame(); resizeObserver?.disconnect(); };
     const flushPan = () => { panFrame = null; if (!gesture?.dragging || !latest)
         return; mapViewport = gesturePanViewport(gesture, latest.x, latest.y, mapViewport.zoom); applyMapViewport(); };
     const queuePan = (x, y) => { latest = { x, y }; if (panFrame === null)
@@ -350,6 +365,7 @@ function mountCachedTerrainSurface() {
 function sidePanelMarkup(model) {
     return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(session.lastResult?.issues ?? [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${model.combat ? '' : phasePanel(model)}${developerUi ? viewerSwitch(model) : ''}${developerUi && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
+const dynamicMap = new DynamicMapRenderer();
 function refreshDynamicView() {
     if (!session || presentation.privacyGate) {
         render();
@@ -366,7 +382,7 @@ function refreshDynamicView() {
         return;
     }
     const lod = svg.dataset.lod ?? mapRenderOptions(model).lod;
-    dynamic.innerHTML = coreSvgDynamicMarkup(model, mapRenderOptions(model, lod));
+    dynamicMap.update(dynamic, model, mapRenderOptions(model, lod));
     const openDetails = Array.from(panel.querySelectorAll('details')).map(el => el.open);
     const panelScroll = panel.querySelector('.command-panel-scroll')?.scrollTop ?? 0;
     const rosterScroll = panel.querySelector('.roster-list')?.scrollTop ?? 0;
@@ -381,8 +397,8 @@ function refreshDynamicView() {
         roster.scrollTop = rosterScroll;
     if (locations)
         locations.scrollTop = locationScroll;
-    bindDynamic();
-    paintDeploymentFocus();
+    bindDynamic(model);
+    paintDeploymentFocus(model);
     applyMapViewport();
 }
 function render() {
@@ -429,11 +445,13 @@ function render() {
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
     root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.viewerSide] ?? '—'}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.viewerSide] ?? '—'}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: model.playerView.viewer === 'OBSERVER' ? t('fow.observer') : sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls">${modelControls(unitAnimations)}${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
+    dynamicMap.adopt(document.querySelector('#map-dynamic-layer'), model, mapRenderOptions(model));
     mountCachedTerrainSurface();
     bind();
-    paintDeploymentFocus();
+    paintDeploymentFocus(model);
 }
 function bind() {
+    releaseMapViewport();
     unitAnimations.sync(session, document.querySelector('#map-wrap'));
     syncFogSurface();
     bindAnimationControls(root, unitAnimations);
@@ -532,10 +550,11 @@ function paintCombatTargets() {
         }
     });
 }
-function bindDynamic() {
+const boundUnitInputs = new WeakSet();
+function bindDynamic(model) {
     document.querySelectorAll('[data-view-side]').forEach(element => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
-    if (session && deriveBrowserRenderModel(session, presentation).readOnly)
+    if (session && (model ?? deriveBrowserRenderModel(session, presentation)).readOnly)
         return;
     paintCombatTargets();
     document.querySelectorAll('[data-remove-attacker]').forEach(el => el.addEventListener('click', () => {
@@ -567,27 +586,27 @@ function bindDynamic() {
     document.querySelector('#rail-commit')?.addEventListener('click', () => { commitRailRepair(session, presentation); render(); });
     document.querySelector('#rail-no-engineer')?.addEventListener('click', () => { selectRailEngineer(presentation, null); render(); });
     document.querySelectorAll('[data-rail-engineer]').forEach((el) => el.addEventListener('click', () => { selectRailEngineer(presentation, el.dataset.railEngineer ?? null); render(); }));
-    document.querySelector('#move-undo')?.addEventListener('click', () => { undoMoveDraft(presentation); render(); });
-    document.querySelector('#move-cancel')?.addEventListener('click', () => { cancelMoveDraft(presentation); render(); });
-    document.querySelector('#move-commit')?.addEventListener('click', () => { commitMoveDraft(session, presentation); render(); });
+    document.querySelector('#move-undo')?.addEventListener('click', () => { undoMoveDraft(presentation); refreshDynamicView(); });
+    document.querySelector('#move-cancel')?.addEventListener('click', () => { cancelMoveDraft(presentation); refreshDynamicView(); });
+    document.querySelector('#move-commit')?.addEventListener('click', () => { commitMoveDraft(session, presentation); refreshDynamicView(); });
     document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
     document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
     document.querySelectorAll('[data-deploy-destination]').forEach(element => element.addEventListener('click', () => { const key = element.dataset.deployDestination; if (!key)
         return; chooseTouchTarget(key); }));
     document.querySelectorAll('[data-deploy-unit-id]').forEach((element) => { const id = element.dataset.deployUnitId; if (!id)
         return; const action = () => { deploymentTouch = createDeploymentTouch(); selectDeploymentRosterUnit(presentation, id); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
-    document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id)
-        return; const action = () => { if (chooseCounterTarget(id))
+    document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id || boundUnitInputs.has(element))
+        return; boundUnitInputs.add(element); const action = () => { if (chooseCounterTarget(id))
         return; if (!routeCombatDecisionCounter(session, presentation, id))
         selectCounter(session, presentation, id); showCombatView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
-    document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id)
-        return; element.addEventListener('click', (event) => { event.stopPropagation(); if (chooseCounterTarget(id))
+    document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id || boundUnitInputs.has(element))
+        return; boundUnitInputs.add(element); element.addEventListener('click', (event) => { event.stopPropagation(); if (chooseCounterTarget(id))
         return; if (!routeCombatDecisionCounter(session, presentation, id))
         selectCounter(session, presentation, id); showCombatView(); }); });
     document.querySelectorAll('[data-role="deployment-hex"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { chooseTouchTarget(key); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key)
-        return; const action = () => { extendMoveDraft(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+        return; const action = () => { extendMoveDraft(session, presentation, parseHex(key)); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="rail-repair-edge"]').forEach((element) => { const key = element.dataset.edgeKey; if (!key)
         return; const action = () => { if (presentation.interactionMode !== 'RAIL_REPAIR')
         enterRailRepairMode(presentation); toggleRailRepairEdge(session, presentation, key); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
@@ -596,8 +615,8 @@ function bindDynamic() {
     document.querySelectorAll('[data-role="reinforcement-entry"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { deploySelectedReinforcement(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelector('#attack-toggle-selected')?.addEventListener('click', () => { if (presentation.selectedUnitId)
-        toggleAttackUnit(session, presentation, presentation.selectedUnitId); render(); });
-    document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); render(); });
+        toggleAttackUnit(session, presentation, presentation.selectedUnitId); refreshDynamicView(); });
+    document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); refreshDynamicView(); });
     document.querySelector('#attack-declare')?.addEventListener('click', () => { void submitCombatAttack(); });
     document.querySelector('#attack-art-none')?.addEventListener('click', () => { selectAttackerArtillery(presentation, null); refreshDynamicView(); });
     document.querySelectorAll('[data-attack-artillery]').forEach((el) => el.addEventListener('click', () => { selectAttackerArtillery(presentation, el.dataset.attackArtillery ?? null); refreshDynamicView(); }));
@@ -619,8 +638,8 @@ function bindDynamic() {
         chooseLossAndContinue(session, presentation, id);
         showCombatView();
     } }));
-    document.querySelector('#loss-undo')?.addEventListener('click', () => { undoLossDraft(presentation); render(); });
-    document.querySelector('#loss-clear')?.addEventListener('click', () => { clearLossDraft(presentation); render(); });
+    document.querySelector('#loss-undo')?.addEventListener('click', () => { undoLossDraft(presentation); refreshDynamicView(); });
+    document.querySelector('#loss-clear')?.addEventListener('click', () => { clearLossDraft(presentation); refreshDynamicView(); });
     document.querySelectorAll('[data-retreater]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.retreater; if (id) {
         chooseRetreater(session, presentation, id);
         refreshDynamicView();
@@ -637,13 +656,13 @@ function bindDynamic() {
     document.querySelector('#pass-advance')?.addEventListener('click', () => { runCombatAction(() => passAdvance(session, presentation)); });
     document.querySelectorAll('[data-breakthrough-unit]').forEach((el) => el.addEventListener('click', () => { const id = el.dataset.breakthroughUnit; if (id) {
         selectBreakthroughUnit(presentation, id);
-        render();
+        refreshDynamicView();
     } }));
     document.querySelectorAll('[data-role="breakthrough-option"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {
         extendBreakthroughDraft(session, presentation, parseHex(key));
-        render();
+        refreshDynamicView();
     } }));
-    document.querySelector('#breakthrough-undo')?.addEventListener('click', () => { undoBreakthroughDraft(presentation); render(); });
+    document.querySelector('#breakthrough-undo')?.addEventListener('click', () => { undoBreakthroughDraft(presentation); refreshDynamicView(); });
     document.querySelector('#breakthrough-commit')?.addEventListener('click', () => { runCombatAction(() => commitBreakthrough(session, presentation)); });
     document.querySelector('#pass-breakthrough')?.addEventListener('click', () => { runCombatAction(() => passBreakthrough(session, presentation)); });
     document.querySelectorAll('[data-role="schwerpunkt-target"]').forEach((el) => el.addEventListener('click', () => { const key = el.dataset.hex; if (key) {

@@ -18,6 +18,9 @@ export class FogRuntime {
     masks = new Map();
     current = null;
     layer = null;
+    plannedView = null;
+    plannedRecon = null;
+    planned = null;
     cleanup = () => { };
     builds = 0;
     constructor(encoder = encode) {
@@ -25,7 +28,7 @@ export class FogRuntime {
     }
     get buildCount() { return this.builds; }
     settle() { this.cleanup(); this.cleanup = () => { }; }
-    clear() { this.settle(); this.layer?.replaceChildren(); this.layer = null; this.current = null; this.cache.clear(); this.masks.clear(); }
+    clear() { this.settle(); this.layer?.replaceChildren(); this.layer = null; this.current = null; this.cache.clear(); this.masks.clear(); this.plannedView = null; this.planned = null; }
     sync(svg, view, selectedUnitId = null, instant = false) {
         if (!svg || !view) {
             this.clear();
@@ -34,12 +37,16 @@ export class FogRuntime {
         const layer = svg.querySelector('#fog-surface-layer');
         if (!layer)
             return;
-        const plan = deriveFogPlan(view, selectedUnitId), previous = this.current;
+        const recon = view.units.find(u => u.id === selectedUnitId && u.side === view.viewer && u.type === 'RECON')?.id ?? null;
+        const plan = this.plannedView === view && this.plannedRecon === recon && this.planned ? this.planned : deriveFogPlan(view, recon), previous = this.current;
         const sameViewer = previous?.plan.viewer === plan.viewer;
         // Never crossfade a former viewer's observation footprint or retain it in cache.
         if (!sameViewer) {
             this.clear();
         }
+        this.plannedView = view;
+        this.plannedRecon = recon;
+        this.planned = plan;
         if (this.layer === layer && this.current?.plan.key === plan.key) {
             if (instant)
                 this.settle();

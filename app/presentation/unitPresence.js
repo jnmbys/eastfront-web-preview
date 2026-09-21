@@ -31,6 +31,15 @@ export class UnitPresenceLayer {
             this.layer.appendChild(ghost.root);
         this.setLod(this.lod, true);
     }
+    syncSelection(counters) {
+        for (const [id, binding] of this.units) {
+            const selected = /selected|combat-attacker-(primary|selected)/.test(counters.get(id)?.getAttribute('class') ?? '');
+            if (selected !== binding.selected) {
+                binding.selected = selected;
+                binding.selection.setAttribute('opacity', selected ? '1' : '0');
+            }
+        }
+    }
     capture(id) {
         const entry = this.units.get(id);
         if (!entry)
@@ -130,8 +139,8 @@ export class UnitPresenceLayer {
         node(doc, 'ellipse', { cx: -1, cy: profile.foot, rx: profile.shadow + 3, ry: 4.5, fill: '#16211e', 'fill-opacity': .22 }, ground);
         node(doc, 'ellipse', { cx: 0, cy: profile.foot - 1, rx: profile.shadow, ry: 2.8, fill: '#101b1b', 'fill-opacity': .52 }, ground);
         const classes = counter.getAttribute('class') ?? '';
-        if (/selected|combat-attacker-(primary|selected)/.test(classes))
-            node(doc, 'ellipse', { cx: 0, cy: profile.foot, rx: profile.shadow + 2, ry: 5, fill: 'none', stroke: palette.accent, 'stroke-opacity': .45, 'stroke-width': 1 }, pedestal);
+        const selected = /selected|combat-attacker-(primary|selected)/.test(classes);
+        const selection = node(doc, 'ellipse', { opacity: selected ? 1 : 0, cx: 0, cy: profile.foot, rx: profile.shadow + 2, ry: 5, fill: 'none', stroke: palette.accent, 'stroke-opacity': .45, 'stroke-width': 1 }, pedestal);
         const emphasis = node(doc, 'ellipse', { cx: 0, cy: profile.foot, rx: profile.shadow + 3, ry: 6, fill: 'none', stroke: '#e0c98d', 'stroke-width': 1.3, opacity: 0 }, pedestal);
         const body = node(doc, 'g', { transform: `scale(${facing} 1)` }, pedestal);
         node(doc, 'use', { href: `#presence-${family}` }, body);
@@ -143,6 +152,6 @@ export class UnitPresenceLayer {
         // Compact vector cue. Direction comes solely from the existing accepted participant.
         const burst = family === 'armor' || family === 'artillery' || family === 'anti-tank';
         node(doc, 'path', { d: burst ? `M${profile.muzzle} 0l4-2-1-3 4 4 4 1-5 2 1 3-4-3Z` : `M${profile.muzzle - 5}-5l5 1-2 2 5 2-7-1 m1 5l5 1`, fill: burst ? '#fff0bc' : 'none', stroke: '#fff0bc', 'stroke-width': 1.1 }, flash);
-        return { root, pedestal, body, detail, flash, emphasis, transform, half, stackSign, heavy, facing, family, from: null };
+        return { root, selection, selected, pedestal, body, detail, flash, emphasis, transform, half, stackSign, heavy, facing, family, from: null };
     }
 }
