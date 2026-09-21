@@ -14,14 +14,14 @@ import { loadingMarkup, fatalMarkup, responsiveProfile } from '../dist/app/web/p
 
 const read = path => readFileSync(new URL('../' + path, import.meta.url), 'utf8');
 const main = read('dist/app/main.js');
-const boot = main.slice(main.indexOf('async function boot()'), main.indexOf("window.addEventListener('resize'"));
+const boot = main.slice(main.indexOf('async function boot('), main.indexOf("window.addEventListener('resize'"));
 const render = main.slice(main.indexOf('function render()'), main.indexOf('function bind()'));
 const deferred = () => { let resolve, reject; const promise = new Promise((a,b) => {resolve=a;reject=b;}); return {promise,resolve,reject}; };
 function bootHarness(overrides = {}) {
   const progress = new StartupProgress(), calls = [], frames = [], snapshots = [];
   progress.subscribe(s => snapshots.push(s));
   const root = { innerHTML: '' };
-  const context = { startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
+  const context = { isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
     productionMap: null, cachedTerrainSurface: null, cachedTerrainSurfaces: new Map(), TERRAIN_VISUAL_SEED: 17,
     loadProductionMapFromUrl: async () => { calls.push('map'); return { map: true }; },
     loadProductionRuntimeManifest: async () => { calls.push('manifest'); return {}; },
@@ -172,6 +172,7 @@ test('VS2 observer on/off produces identical draw trace, pixels, resource order 
 });
 
 const baseline=JSON.parse(read('tests/fixtures/startup-baseline-sha256.json'));
+const mpBoundary=JSON.parse(read('tests/fixtures/performance-frozen-sha256.json'));
 function withoutObservation(source) {
   return source.replace(/^import \{ report(?:TerrainLoad|LoadedTerrainImage) \} from '\.\/terrainLoadProgress.js';\n/m,'')
     .replace(/^\s*reportTerrainLoad\([^\n]+\);\n/gm,'')
@@ -186,7 +187,7 @@ test('baseline loader strategy, timeout, cache and VS2 semantics differ only by 
 });
 test('UA-001 transition boundary and session adapter match recorded FOW integration',()=>{
   for(const [path,expected] of Object.entries(baseline).filter(([path])=>path==='src/core-adapter/session.ts'||path==='src/presentation/transitionBus.ts')) {
-    assert.equal(createHash('sha256').update(read(path)).digest('hex'),expected,path);
+    assert.equal(createHash('sha256').update(read(path)).digest('hex'),path==='src/presentation/transitionBus.ts'?mpBoundary[path]:expected,path);
   }
 });
 test('loading stages and counters are complete in zh-CN/en-US and language changes retain progress',()=>{

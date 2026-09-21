@@ -2,8 +2,8 @@ export const DEFAULTS = Object.freeze({
   port:8787,host:'127.0.0.1',allowedOrigins:['http://localhost:4173','http://127.0.0.1:4173'],
   reconnectGraceMs:60_000,emptyRoomTimeoutMs:120_000,roomTimeoutMs:7_200_000,
   heartbeatMs:15_000,handshakeTimeoutMs:10_000,sweepMs:1_000,
-  maxRooms:200,maxConnections:500,maxMessageBytes:4096,maxBufferedBytes:1_048_576,
-  messagesPerWindow:40,rateWindowMs:10_000,
+  maxRooms:200,maxConnections:500,maxMessageBytes:32768,maxBufferedBytes:1_048_576,
+  messagesPerWindow:200,rateWindowMs:10_000,
 });
 export type ServerConfig = {-readonly [K in keyof typeof DEFAULTS]:typeof DEFAULTS[K] extends number?number:typeof DEFAULTS[K] extends string?string:string[]};
 export function configFromEnv(env:NodeJS.ProcessEnv=process.env):ServerConfig {

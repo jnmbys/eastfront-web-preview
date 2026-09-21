@@ -18,3 +18,8 @@ export function publishPresentationTransition(session:object,before:Readonly<Gam
     for(const observer of set){try{observer(events);}catch(error){console.error('Presentation observer failed',error);}}
   }catch(error){console.error('Presentation projection failed',error);}
 }
+
+/** Network boundary: events have already been derived and privacy-filtered by the host. */
+export function publishAuthorizedEvents(session:object,events:readonly PresentationEvent[]):void {
+  for(const observer of observers.get(session)??[]){try{observer(events);}catch(error){console.error('Presentation observer failed',error);}}
+}

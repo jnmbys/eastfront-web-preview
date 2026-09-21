@@ -1,6 +1,7 @@
+import {isNetworkAction,isQueryDraft,shape,id,revision,type NetworkAction,type QueryDraft,type MatchSnapshot,type ActionReply,type MatchOrder} from './gameplayProtocol.js';
 import type { PlayerViewState } from '../player-view/playerView.js';
 
-export const PROTOCOL_VERSION = 1 as const;
+export const PROTOCOL_VERSION = 2 as const;
 export const SEATS = ['GERMANY', 'SOVIET'] as const;
 export type SeatId = typeof SEATS[number];
 export type PlayerSide = 'GERMAN' | 'SOVIET';
@@ -19,6 +20,8 @@ export type ErrorCode = 'BAD_MESSAGE'|'VERSION_MISMATCH'|'UNSUPPORTED_MESSAGE'|'
   'ALREADY_IDENTIFIED'|'INVALID_TOKEN'|'SESSION_CONNECTED'|'ALREADY_IN_ROOM'|'ROOM_NOT_FOUND'|
   'ROOM_FULL'|'NOT_IN_ROOM'|'ROOM_PHASE'|'SEAT_TAKEN'|'NO_SEAT'|'CAPACITY'|'RATE_LIMIT'|'MATCH_FAILED';
 export interface ClientPayloads {
+  SUBMIT_ACTION:{matchId:string;expectedRevision:number;action:NetworkAction};
+  QUERY_MATCH:{matchId:string;expectedRevision:number;draft:QueryDraft};RESYNC_MATCH:{matchId:string};
   HELLO:{displayName:string};RECONNECT:{reconnectToken:string};CREATE_ROOM:Record<string,never>;
   JOIN_ROOM:{roomCode:string};SELECT_SEAT:{seat:SeatId};SET_READY:{ready:boolean};LEAVE_ROOM:Record<string,never>;
 }
@@ -29,7 +32,9 @@ export interface ServerPayloads {
   WELCOME:{connectionId:string;controllerId:string;reconnectToken:string;reconnected:boolean};
   ROOM_CREATED:{room:RoomState};ROOM_STATE:{room:RoomState|null};ROOM_ERROR:{code:ErrorCode};
   MATCH_STARTING:{roomId:string};MATCH_CREATED:MatchInfo;
-  PLAYER_VIEW_SNAPSHOT:{matchId:string;revision:number;view:AuthorizedPlayerView};
+  PLAYER_VIEW_SNAPSHOT:MatchSnapshot;
+  ACTION_ACCEPTED:ActionReply;ACTION_REJECTED:ActionReply;
+  MATCH_QUERY:MatchOrder & {model:import('../core-adapter/browserProjection.js').BrowserRenderModel;forcedAction:NetworkAction|null};
   CONNECTION_STATE:{state:'CONNECTED'|'DISCONNECTED'};
 }
 type Envelope<M> = {[K in keyof M]:{protocolVersion:typeof PROTOCOL_VERSION;messageType:K;requestId:string|null;payload:M[K]}}[keyof M];
@@ -54,6 +59,9 @@ export function parseClientMessage(text:string):ParseResult {
   if(!object(v.payload))return fail('BAD_MESSAGE');
   const p=v.payload;let valid=false;
   switch(v.messageType){
+    case 'SUBMIT_ACTION':valid=shape(p,{matchId:id,expectedRevision:revision,action:isNetworkAction});break;
+    case 'QUERY_MATCH':valid=shape(p,{matchId:id,expectedRevision:revision,draft:isQueryDraft});break;
+    case 'RESYNC_MATCH':valid=shape(p,{matchId:id});break;
     case 'HELLO':valid=exact(p,['displayName'])&&typeof p.displayName==='string'&&p.displayName.trim().length>0&&p.displayName.length<=32&&!/[\u0000-\u001f\u007f]/.test(p.displayName);break;
     case 'RECONNECT':valid=exact(p,['reconnectToken'])&&typeof p.reconnectToken==='string'&&/^[A-Za-z0-9_-]{43}$/.test(p.reconnectToken);break;
     case 'CREATE_ROOM':case 'LEAVE_ROOM':valid=exact(p,[]);break;

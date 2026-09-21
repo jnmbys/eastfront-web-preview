@@ -20,7 +20,9 @@
     "verify:static": "npm run build && node scripts/verify-ui008-static.mjs",
     "server:build": "tsc -p server/tsconfig.json && node server/copy-runtime.mjs",
     "server": "npm run server:build && node .server-dist/server/index.js",
-    "test:multiplayer": "npm run build && npm run server:build && node --test tests/mp001*.test.mjs"
+    "test:multiplayer": "npm run build && npm run server:build && node --test tests/mp001*.test.mjs",
+    "test:mp002": "npm run build && npm run server:build && node --test tests/mp001-*.test.mjs tests/mp002-*.test.mjs",
+    "verify:mp002:browser": "npm run build && npm run server:build && node scripts/verify-mp002-browser.mjs"
   },
   "devDependencies": {
     "@types/node": "26.6.2",

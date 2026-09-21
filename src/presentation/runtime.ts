@@ -23,8 +23,8 @@ export class UnitAnimationRuntime {
   setSpeed(speed:AnimationSpeed):void {this.requestedSpeed=speed;this.coordinator.setSpeed(this.reducedMotion?'instant':speed);}
   setReducedMotion(reduced:boolean):void {this.reducedMotion=reduced;this.setSpeed(this.requestedSpeed);}
   skip():void {this.coordinator.skip();}
-  sync(session:LocalGameSession|null,root:ParentNode|null):void {
-    const view=session?sessionPlayerView(session):null;
+  sync(session:LocalGameSession|{playerView:import('../player-view/playerView.js').PlayerViewState;visibilityRevision:number}|null,root:ParentNode|null):void {
+    const view=session?('playerView' in session?session.playerView:sessionPlayerView(session)):null;
     const viewerKey=`${view?.viewer}:${session?.visibilityRevision??0}`;
     if(this.viewerKey!==viewerKey){this.coordinator.reset();this.renderer.dispose();this.viewerKey=viewerKey;}
     if(this.session!==session){

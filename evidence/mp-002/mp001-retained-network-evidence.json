@@ -1,0 +1,69 @@
+{
+  "protocolVersion": 2,
+  "transport": "real loopback WebSockets",
+  "evidence": [
+    {
+      "flow": "two-client-production-start",
+      "roomCode": "6896UE",
+      "steps": [
+        "A CREATE_ROOM",
+        "B JOIN_ROOM (lowercase)",
+        "A Germany",
+        "B Soviet",
+        "A READY",
+        "B READY",
+        "server STARTING",
+        "server MATCH_CREATED",
+        "separate PLAYER_VIEW_SNAPSHOT"
+      ],
+      "matchId": "8dd888d9-f36c-407b-90a9-784d5444d071",
+      "scenarioId": "strategic-reset-f",
+      "germany": {
+        "viewer": "GERMAN",
+        "enemyUnits": 0,
+        "authoritativeState": false
+      },
+      "soviet": {
+        "viewer": "SOVIET",
+        "enemyUnits": 0,
+        "authoritativeState": false
+      },
+      "result": "PASS"
+    },
+    {
+      "flow": "nonempty-hidden-deployment-challenge",
+      "setup": "trusted test factory via official Core deployment actions",
+      "germanFriendlyUnits": 26,
+      "sovietFriendlyUnits": 32,
+      "enemyIdsLeaked": 0,
+      "result": "PASS"
+    },
+    {
+      "flow": "simultaneous-seat-claim",
+      "successfulClaims": 1,
+      "rejectedClaims": 1,
+      "result": "PASS"
+    },
+    {
+      "flow": "disconnect-reconnect",
+      "controllerPreserved": true,
+      "connectionChanged": true,
+      "seatReserved": true,
+      "token": "REDACTED",
+      "result": "PASS"
+    },
+    {
+      "flow": "invalid-protocol-attempts",
+      "attempts": [
+        "malformed JSON",
+        "protocolVersion 99",
+        "FORCE_START_MATCH",
+        "viewer OBSERVER",
+        "SET_GAME_STATE"
+      ],
+      "allRejected": true,
+      "serverStillOperational": true,
+      "result": "PASS"
+    }
+  ]
+}

@@ -33,7 +33,7 @@ export async function network(t,options={}){
       const existing=messages.findLast(predicate);if(existing)return Promise.resolve(existing);
       return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{listeners.delete(listener);reject(new Error('Network response timed out'));},timeout);const listener=m=>{if(predicate(m)){clearTimeout(timer);listeners.delete(listener);resolve(m);}};listeners.add(listener);});
     };
-    const request=(type,payload={})=>{const id=randomUUID();const reply=wait(m=>m.requestId===id);ws.send(JSON.stringify(clientMessage(type,payload,id)));return reply;};
+    const request=(type,payload={},id=randomUUID())=>{const reply=wait(m=>m.requestId===id);ws.send(JSON.stringify(clientMessage(type,payload,id)));return reply;};
     const p={ws,messages,wait,request,get room(){return messages.findLast(m=>m.messageType==='ROOM_STATE')?.payload.room;},get welcome(){return messages.findLast(m=>m.messageType==='WELCOME')?.payload;}};
     all.push(p);
     if(token)await request('RECONNECT',{reconnectToken:token});else if(name!==null)await request('HELLO',{displayName:name});

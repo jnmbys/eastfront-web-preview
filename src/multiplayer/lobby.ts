@@ -13,11 +13,12 @@ export function addMultiplayerHomeButton(root:HTMLElement,onOpen:()=>void):void 
   root.querySelector('#multiplayer-button')?.addEventListener('click',onOpen);
 }
 /** Scoped lobby mount. Network events cannot call the battle render function. */
-export function mountLobby(root:HTMLElement,onBack:()=>void):()=>void {
+export function mountLobby(root:HTMLElement,onBack:()=>void,onMatch?:(client:LobbyClient)=>void):()=>void {
   let client:LobbyClient|null=null,disposed=false,loading=true,url='',name='',code='',notice:MPText|null=null,leaving=false;
   try{name=sessionStorage.getItem('eastfront.mp.name')??'';}catch{}
   const draw=()=>{
     if(disposed)return;
+    if(onMatch&&client?.state.snapshot){disposed=true;window.removeEventListener('pagehide',pagehide);onMatch(client);return;}
     const state=client?.state,room=state?.room,online=client?.canMutate===true;
     if(leaving&&online&&!room){dispose();onBack();return;}
     const connection=state?.connection??'DISCONNECTED';
@@ -37,7 +38,7 @@ export function mountLobby(root:HTMLElement,onBack:()=>void):()=>void {
           <strong class="mp-ready-label">${mt(occupied.ready?'ready':'notReady')}</strong>
           <button data-mp-seat="${seat}" class="secondary-action" ${!online||room.status!=='LOBBY'||(occupied.controllerId!==null&&!self)||self?'disabled':''}>${mt(seat==='GERMANY'?'chooseGermany':'chooseSoviet')}</button></article>`;
       }).join('')}</div>
-      ${room.status==='IN_GAME'?`<div class="mp-match" role="status"><h2>${mt('created')}</h2><p>${mt(state?.view?'snapshot':'activeReconnect')}</p><p>${mt('foundation')}</p>${state?.match?`<small>${mt('match')} · ${esc(state.match.matchId)}</small>`:''}</div>`:
+      ${room.status==='IN_GAME'?`<div class="mp-match" role="status"><h2>${mt('created')}</h2><p>${mt(state?.view?'snapshot':'activeReconnect')}</p>${state?.match?`<small>${mt('match')} · ${esc(state.match.matchId)}</small>`:''}</div>`:
         `<button id="mp-ready" class="primary-action mp-ready-button" ${!online||!mine||room.status!=='LOBBY'?'disabled':''}>${ready?mt('unready'):mt('prepare')}</button>${ready?`<p class="mp-help">${mt('waiting')}</p>`:''}`}
       <div class="mp-footer"><button id="mp-back" class="secondary-action">${mt('back')}</button>${connection==='DISCONNECTED'?`<button id="mp-reconnect" class="secondary-action">${mt('reconnect')}</button>`:''}<button id="mp-leave" class="secondary-action" ${!online?'disabled':''}>${mt('leave')}</button></div>`:
       `<p class="mp-help">${mt('intro')}</p><label class="mp-field">${mt('name')}<input id="mp-name" maxlength="32" autocomplete="nickname" ${connection==='CONNECTED'?'disabled':''} value="${esc(name)}"></label>

@@ -1,0 +1,62 @@
+{
+  "protocolVersion": 2,
+  "evidence": [
+    {
+      "flow": "full-production-scenario",
+      "seed": 17,
+      "transport": "two real WebSocket clients",
+      "actions": 224,
+      "types": [
+        "DEPLOY_INITIAL_UNIT",
+        "READY_FOR_PHASE_END",
+        "MOVE",
+        "ATTACK",
+        "PASS_REACTION",
+        "DEPLOY_REINFORCEMENT"
+      ],
+      "matchRevision": 224,
+      "turn": 16,
+      "status": "FINISHED",
+      "victory": {
+        "winner": "SOVIET",
+        "reason": "SOVIET_CAPITAL_DEFENDED_TO_TURN_LIMIT",
+        "turn": 16,
+        "checkedAtPhase": "GERMAN_ENTRENCHMENT"
+      },
+      "idempotentReplayEveryAction": true,
+      "localEquivalentEveryAction": true,
+      "identicalRng": true,
+      "privateSnapshotsEveryAction": true,
+      "reconnectContinued": true,
+      "roundTripMs": {
+        "median": 90.3823969999994,
+        "p95": 107.60470700000042,
+        "max": 181.5613599999997
+      },
+      "result": "PASS"
+    },
+    {
+      "flow": "combat-branch-fixture",
+      "seed": 8246,
+      "fixture": "trusted server factory, frozen Core and rules",
+      "transport": "two real WebSocket clients",
+      "types": [
+        "ATTACK",
+        "PASS_REACTION",
+        "RETREAT",
+        "ADVANCE_AFTER_COMBAT",
+        "BREAKTHROUGH",
+        "SCHWERPUNKT_ATTACK",
+        "PASS_REACTION",
+        "READY_FOR_PHASE_END"
+      ],
+      "decisionReconnect": true,
+      "stateFrozenDuringDisconnect": true,
+      "privateSnapshotsEveryAction": true,
+      "idempotentReplayEveryAction": true,
+      "localEquivalentEveryAction": true,
+      "identicalRng": true,
+      "result": "PASS"
+    }
+  ]
+}

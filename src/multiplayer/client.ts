@@ -1,17 +1,21 @@
+import type {MatchSnapshot} from './gameplayProtocol.js';
 import {PROTOCOL_VERSION,clientMessage,type ClientPayloads,type ServerMessage,type RoomState,type MatchInfo,type AuthorizedPlayerView} from './protocol.js';
 import {CLIENT_NETWORK} from './config.js';
 import type {MPText} from './catalog.js';
 export interface LobbyState {
   connection:'DISCONNECTED'|'CONNECTING'|'RECONNECTING'|'CONNECTED';controllerId:string|null;
-  room:RoomState|null;match:MatchInfo|null;view:AuthorizedPlayerView|null;pending:boolean;synced:boolean;error:MPText|null;
+  snapshot:MatchSnapshot|null;room:RoomState|null;match:MatchInfo|null;view:AuthorizedPlayerView|null;pending:boolean;synced:boolean;error:MPText|null;
 }
 /** Owns only authorized network DTOs. It never constructs a LocalGameSession. */
 export class LobbyClient {
-  readonly state:LobbyState={connection:'DISCONNECTED',controllerId:null,room:null,match:null,view:null,pending:false,synced:false,error:null};
+  readonly state:LobbyState={connection:'DISCONNECTED',controllerId:null,snapshot:null,room:null,match:null,view:null,pending:false,synced:false,error:null};
+  private listeners=new Set<(message:ServerMessage|null)=>void>();
+  subscribe(listener:(message:ServerMessage|null)=>void):()=>void {this.listeners.add(listener);return ()=>this.listeners.delete(listener);}
+  private notify(message:ServerMessage|null=null):void {this.changed();for(const listener of this.listeners)listener(message);}
   private socket:WebSocket|null=null;private token:string|null=null;private stopped=true;
   private retry:ReturnType<typeof setTimeout>|null=null;private deadline:ReturnType<typeof setTimeout>|null=null;
   private attempts=0;private pendingId:string|null=null;private name='';
-  private offline=()=>{this.state.connection='DISCONNECTED';this.state.synced=false;this.state.pending=false;this.changed();this.socket?.close();};
+  private offline=()=>{this.state.connection='DISCONNECTED';this.state.synced=false;this.state.pending=false;this.notify();this.socket?.close();};
   private online=()=>{if(!this.stopped&&!this.socket)this.open();};
   constructor(private url:string,private changed:()=>void){try{this.token=sessionStorage.getItem(this.storageKey);}catch{/* memory-only identity */}window.addEventListener('offline',this.offline);window.addEventListener('online',this.online);}
   private get storageKey(){return `eastfront.mp.identity:${this.url}`;}
@@ -24,8 +28,8 @@ export class LobbyClient {
   private open():void {
     if(this.stopped)return;if(this.retry!==null)clearTimeout(this.retry);this.retry=null;
     this.state.connection=this.token?'RECONNECTING':'CONNECTING';this.state.synced=false;this.state.pending=false;this.pendingId=null;
-    this.changed();let socket:WebSocket;
-    try{socket=new WebSocket(this.url);}catch{this.state.connection='DISCONNECTED';this.state.error='unavailable';this.changed();return;}
+    this.notify();let socket:WebSocket;
+    try{socket=new WebSocket(this.url);}catch{this.state.connection='DISCONNECTED';this.state.error='unavailable';this.notify();return;}
     this.socket=socket;this.clearDeadline();this.deadline=setTimeout(()=>socket.close(),CLIENT_NETWORK.requestTimeoutMs);
     socket.onopen=()=>{if(this.socket!==socket)return;this.sendHandshake();};
     socket.onmessage=event=>{
@@ -38,7 +42,7 @@ export class LobbyClient {
     socket.onerror=()=>{this.state.error='unavailable';socket.close();};
     socket.onclose=()=>{
       if(this.socket!==socket)return;this.socket=null;this.clearDeadline();
-      this.state.connection='DISCONNECTED';this.state.synced=false;this.state.pending=false;this.pendingId=null;this.changed();
+      this.state.connection='DISCONNECTED';this.state.synced=false;this.state.pending=false;this.pendingId=null;this.notify();
       if(!this.stopped){this.retry=setTimeout(()=>this.open(),Math.min(CLIENT_NETWORK.maxRetryMs,CLIENT_NETWORK.initialRetryMs*2**this.attempts++));}
     };
   }
@@ -49,7 +53,11 @@ export class LobbyClient {
     this.clearDeadline();this.deadline=setTimeout(()=>{this.state.error='unavailable';this.socket?.close();},CLIENT_NETWORK.requestTimeoutMs);
   }
   send<K extends Exclude<keyof ClientPayloads,'HELLO'|'RECONNECT'>>(type:K,payload:ClientPayloads[K]):void {
-    if(!this.canMutate)return;this.state.error=null;this.sendRaw(type,payload);this.changed();
+    if(!this.canMutate)return;this.state.error=null;this.sendRaw(type,payload);this.notify();
+  }
+  resyncMatch(matchId:string):void {
+    if(this.state.connection!=='CONNECTED'||this.socket?.readyState!==WebSocket.OPEN)return;
+    this.sendRaw('RESYNC_MATCH',{matchId});this.notify();
   }
   private receive(message:ServerMessage):void {
     if(message.requestId===this.pendingId){this.state.pending=false;this.pendingId=null;this.clearDeadline();}
@@ -79,10 +87,11 @@ export class LobbyClient {
       case 'MATCH_CREATED':this.state.match=message.payload;break;
       case 'PLAYER_VIEW_SNAPSHOT':
         if(this.state.match?.matchId!==message.payload.matchId||message.payload.view.viewer!==this.state.match.viewer||'authoritativeState' in message.payload.view){this.state.error='invalidServer';this.stopped=true;this.socket?.close();break;}
-        this.state.view=message.payload.view;break;
+        this.state.view=message.payload.view;this.state.snapshot=message.payload;break;
+      case 'ACTION_ACCEPTED':case 'ACTION_REJECTED':case 'MATCH_QUERY':break;
       default:this.state.error='invalidServer';this.stopped=true;this.socket?.close();
     }
-    if(repaint)this.changed();
+    if(repaint)this.notify(message);
   }
   dispose():void {window.removeEventListener('offline',this.offline);window.removeEventListener('online',this.online);this.stopped=true;if(this.retry!==null)clearTimeout(this.retry);this.clearDeadline();const socket=this.socket;this.socket=null;socket?.close();}
 }

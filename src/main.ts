@@ -1,3 +1,7 @@
+import {NetworkPlayerSession} from './multiplayer/networkSession.js';
+import type {LobbyClient} from './multiplayer/client.js';
+import {mt} from './multiplayer/catalog.js';
+import {isNetwork,isSessionDeployment,sessionPlayerView,dispatchGameAction,deriveBrowserRenderModel,type PlayerSession} from './multiplayer/playerSession.js';
 import { addMultiplayerHomeButton, mountLobby } from './multiplayer/lobby.js';
 import {DynamicMapRenderer} from './render/dynamicMap.js';
 import {modelControls,bindModelControls} from './ui/modelControls.js';
@@ -7,7 +11,7 @@ import { startupProgress } from './web/startupProgress.js';
 import { observeTerrainLoad } from './render/terrainLoadProgress.js';
 import { UnitAnimationRuntime } from './presentation/runtime.js';
 import { animationControls, bindAnimationControls } from './ui/animationControls.js';
-import { continueCombatFlow, chooseRetreatDestination, chooseRetreater, chooseAdvancer, chooseAdvanceDestination, routeCombatDecisionCounter, undoRetreatDestination } from './interaction/combatFlow.js';
+import { continueCombatFlow, chooseRetreatDestination, chooseRetreater, chooseAdvancer, chooseAdvanceDestination, routeCombatDecisionCounter, undoRetreatDestination } from './multiplayer/playerSession.js';
 import { languageControl, bindLanguageControl } from './localization/languageControl.js';
 import { issueText } from './localization/issues.js';
 import { t, msg, enumLabel, phaseName, formatMessage, type Message } from './localization/index.js';
@@ -16,13 +20,13 @@ import {deploymentFocus,deploymentRejection} from './ui/deploymentPolish.js';
 import {createDeploymentTouch,chooseDeploymentTarget,confirmDeploymentTarget} from './ui/deploymentTouch.js';
 import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
 import { coreHexKey, isDeploymentPhase, type LegacyMapData, type Side } from './core-adapter/core.js';
-import { createLocalGameSession, loadProductionMapFromUrl, dispatchGameAction, sessionPlayerView, type LocalGameSession } from './core-adapter/session.js';
+import { createLocalGameSession, loadProductionMapFromUrl, type LocalGameSession } from './core-adapter/session.js';
 import {
   chooseLossAndContinue,cancelMoveDraft,cancelRailRepair,clearAttackDraft,clearLossDraft,commitBreakthrough,commitMoveDraft,commitRailRepair,commitSchwerpunkt,confirmPrivacyGate,attackAndContinue,deploySelectedReinforcement,deploySelectedUnit,
   enterRailRepairMode,entrenchSelectedUnit,extendBreakthroughDraft,extendMoveDraft,passAdvance,passBreakthrough,passCombatReaction,passSchwerpunkt,readyForPhase,recoverSelectedUnit,routeCombatTarget,isCombatTargetSelection,combatTargetIssues,selectAttackerArtillery,selectBreakthroughUnit,selectCounter,selectDeploymentRosterUnit,
   selectRailEngineer,selectReinforcement,selectSchwerpunktTarget,switchViewerForDevelopment,toggleAttackUnit,toggleSupportingAttacker,toggleRailRepairEdge,undoBreakthroughDraft,undoLossDraft,undoMoveDraft,useDefenderArtillery,
-} from './interaction/intents.js';
-import { deriveBrowserRenderModel, type BrowserRenderModel } from './render/coreModel.js';
+} from './multiplayer/playerSession.js';
+import { type BrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes, type CoreSvgOptions } from './render/coreSvg.js';
 import { selectTerrainLod, type TerrainLod } from './render/terrainAssets.js';
 import { buildCachedTerrainSurface, formatTerrainSurfaceFailure, terrainSurfaceCapabilities, type CachedTerrainSurface } from './render/terrainSurface.js';
@@ -32,9 +36,10 @@ import { TERRAIN_VISUAL_SEED, createFreshProductionSession, defaultMapViewport, 
 import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport, type MapGestureState, type MapPoint } from './web/mapInteraction.js';
 
 const rootElement=document.querySelector<HTMLElement>('#app');if(!rootElement)throw new Error('#app missing');const root=rootElement;
-const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:LocalGameSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'MULTIPLAYER'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
+const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:PlayerSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'MULTIPLAYER'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
 function esc(value:string):string{return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));}
 let deploymentTouch=createDeploymentTouch();
+let forceNetworkRender=false;
 const unitAnimations=new UnitAnimationRuntime({now:()=>performance.now(),request:callback=>requestAnimationFrame(callback),cancel:id=>cancelAnimationFrame(id)});
 const fogSurface=new FogRuntime();
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -53,7 +58,7 @@ function paintDeploymentFocus(model?:BrowserRenderModel):void{
  unitAnimations.sync(session,document.querySelector('#map-wrap'));
  const svg=document.querySelector('#eastfront-map');if(!svg||!session)return;
  svg.querySelector('#deployment-focus')?.remove();
- if(!isDeploymentPhase(session.state))return;
+ if(!isSessionDeployment(session))return;
  svg.insertAdjacentHTML('beforeend',deploymentFocus(model??deriveBrowserRenderModel(session,presentation),deploymentTouch,presentation.selectedDeploymentUnitId));
 }
 function chooseTouchTarget(key:string):void{
@@ -63,7 +68,7 @@ function chooseTouchTarget(key:string):void{
  }
 }
 function chooseCounterTarget(id:string):boolean{
- if(!session||!isDeploymentPhase(session.state))return false;
+ if(!session||!isSessionDeployment(session))return false;
  const model=deriveBrowserRenderModel(session,presentation),counter=model.counters.find(c=>c.id===id);
  if(!counter)return false;
  const chosen=chooseDeploymentTarget(deploymentTouch,model,presentation.selectedDeploymentUnitId,coreHexKey(counter.hex));
@@ -118,7 +123,7 @@ function combatPanel(model:BrowserRenderModel):string{
 }
 
 function phasePanel(model:BrowserRenderModel):string{
-  if(model.readOnly)return `<p>${t('fow.inspection')}</p>`;
+  if(model.readOnly)return `<p>${isNetwork(session)?esc(session.statusText):t('fow.inspection')}</p>`;
   if(model.deployment)return '';
   const ready=`<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
   if(model.phase==='GERMAN_SUPPLY_RAIL'&&model.railRepair){const r=model.railRepair;return `<section class="panel-block phase-actions"><span class="eyebrow">${t('rail.title')}</span><p>${t('rail.help')}</p><div class="phase-metric"><span>${t('rail.plan')}</span><strong>${t('rail.edges',{count:r.selectedEdgeKeys.length})}</strong></div><div class="phase-metric"><span>${t('rail.used')}</span><strong>${r.alreadyUsed?t('common.yes'):t('common.no')}</strong></div><button id="rail-mode" class="secondary-action ${presentation.interactionMode==='RAIL_REPAIR'?'active':''}">${t('rail.mode')}</button><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId?'active':''}">${t('rail.noEngineer')}</button>${r.engineers.map((eng)=>`<button class="mini-button ${eng.selected?'active':''}" data-rail-engineer="${esc(eng.id)}">${esc(eng.id)}</button>`).join('')}</div>${issueHtml(r.issues)}<div class="button-row"><button id="rail-clear" class="secondary-action">${t('rail.clear')}</button><button id="rail-commit" class="secondary-action">${t('rail.commit')}</button></div>${ready}</section>`;}
@@ -131,11 +136,11 @@ function phasePanel(model:BrowserRenderModel):string{
 }
 function viewerSwitch(model:BrowserRenderModel):string{if(!presentation.debug)return '';return `<section class="panel-block"><span class="eyebrow">${t('fow.view')}</span><div class="viewer-buttons">${(['GERMAN','SOVIET','OBSERVER'] as const).map(side=>`<button data-view-side="${side}" class="mini-button ${model.playerView.viewer===side?'active':''}">${t(side==='GERMAN'?'fow.german':side==='SOVIET'?'fow.soviet':'fow.observer')}</button>`).join('')}</div></section>`;}
 
-function privacyGate():string{const gate=presentation.privacyGate;if(!gate)return '';if(gate==='COMBAT_DECISION'){const owner=session?.state.pendingDecision?.decisionOwnerControllerId??'';const side=owner&&session?.state.controllers[owner]?.side==='SOVIET'?'Soviet':'German';return privacyHandoffMarkup(gate,side);}return privacyHandoffMarkup(gate);}
+function privacyGate():string{const gate=presentation.privacyGate;if(!gate)return '';if(gate==='COMBAT_DECISION'){const owner=(session?sessionPlayerView(session).pendingDecision:null)?.decisionOwnerControllerId??'';const side=owner&&session&&sessionPlayerView(session).pendingDecision?.side==='SOVIET'?'Soviet':'German';return privacyHandoffMarkup(gate,side);}return privacyHandoffMarkup(gate);}
 function gameOver(model:BrowserRenderModel):string{return gameOverMarkup(model.victory.winner,model.victory.reason,model.turn);}
 
 function startNewGame():void{deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
-function restartGame():void{if(window.confirm(t('game.restartPrompt')))startNewGame();}
+function restartGame():void{if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
   const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
@@ -198,10 +203,11 @@ function mountCachedTerrainSurface():void{
   if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;cachedTerrainSurface=cachedTerrainSurfaces.get(svg.dataset.lod as TerrainLod)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);
 }
 function sidePanelMarkup(model:BrowserRenderModel):string{
-  return `<div class="command-panel-scroll">${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(session!.lastResult?.issues??[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model)}${model.combat?'':phasePanel(model)}${developerUi?viewerSwitch(model):''}${developerUi&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session!):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
+  return `<div class="command-panel-scroll">${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
 }
 const dynamicMap=new DynamicMapRenderer();
 function refreshDynamicView():void{
+  if(isNetwork(session))session.requestProjection(presentation);
   if(!session||presentation.privacyGate){render();return;}
   const model=deriveBrowserRenderModel(session,presentation);
   if(model.phase==='GAME_OVER'||model.victory.winner){render();return;}
@@ -221,8 +227,18 @@ function refreshDynamicView():void{
   bindDynamic(model);
   paintDeploymentFocus(model);
   applyMapViewport();
+  updateNetworkStatus();
+  const hud=document.querySelector('.command-hud');if(hud)hud.innerHTML=commandHeader(model);
+  const mapLabel=document.querySelector('.map-toolbar>div:first-child>span');if(mapLabel)mapLabel.textContent=t('map.viewer',{side:sideLabel(model.viewerSide),phase:phaseLabel(model.phase)});
+  if(isNetwork(session)){const resources=document.querySelectorAll('.resource-strip>span>strong');if(resources[0])resources[0].textContent=String(model.cp[model.viewerSide]??'—');if(resources[1])resources[1].textContent=String(model.rp[model.viewerSide]??'—');}
 }
 function render():void{
+  if(isNetwork(session)&&appStatus==='PLAYING'&&session.playerView.phase!=='GAME_OVER'&&!forceNetworkRender&&document.querySelector('#map-dynamic-layer')&&document.querySelector('#side-panel')){
+    const workspace=document.querySelector('.workspace');workspace?.classList.toggle('panel-collapsed',presentation.panelCollapsed);workspace?.classList.toggle('panel-open',!presentation.panelCollapsed);
+    document.querySelector('#side-panel')?.setAttribute('aria-hidden',String(presentation.panelCollapsed));
+    refreshDynamicView();return;
+  }
+  forceNetworkRender=false;
   const profile=responsiveProfile(window.innerWidth,window.innerHeight);
   if(appStatus==='LOADING'){root.innerHTML=loadingMarkup(startupProgress.snapshot);bind();return;}
   if(appStatus==='FATAL'){root.innerHTML=fatalMarkup(fatalMessage||t('game.noResources'));bind();return;}
@@ -239,9 +255,10 @@ function render():void{
   }
   if(!session){appStatus='FATAL';fatalMessage=msg('game.noSession');root.innerHTML=fatalMarkup(fatalMessage);bind();return;}
   if(presentation.privacyGate){root.innerHTML=mobileAdvisoryMarkup(profile)+privacyGate();bind();return;}
+  if(isNetwork(session))session.requestProjection(presentation);
   const model=deriveBrowserRenderModel(session,presentation);if(model.phase==='GAME_OVER'||model.victory.winner){root.innerHTML=mobileAdvisoryMarkup(profile)+gameOver(model);bind();return;}
   const debugControls=developerUi?`<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode==='production'?'on':''}">${presentation.rendererMode==='production'?'Production':'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug?'on':''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug?'ON':'OFF'}</strong></button></div>`:'';
-  root.innerHTML=`${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.viewerSide]??'—'}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.viewerSide]??'—'}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed?'panel-collapsed':'panel-open'} ${presentation.debug?'debug-active':''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer',{side:model.playerView.viewer==='OBSERVER'?t('fow.observer'):sideLabel(model.viewerSide),phase:phaseLabel(model.phase)})}</span></div><div class="map-controls">${modelControls(unitAnimations)}${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom*100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug?'debug-on':''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model,mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;dynamicMap.adopt(document.querySelector<SVGGElement>('#map-dynamic-layer'),model,mapRenderOptions(model));mountCachedTerrainSurface();bind();paintDeploymentFocus(model);
+  root.innerHTML=`${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.viewerSide]??'—'}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.viewerSide]??'—'}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${isNetwork(session)?mt('leave'):t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed?'panel-collapsed':'panel-open'} ${presentation.debug?'debug-active':''}" data-responsive-profile="${profile}"><section class="map-card ${isNetwork(session)?'network-map-card':''}"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer',{side:model.playerView.viewer==='OBSERVER'?t('fow.observer'):sideLabel(model.viewerSide),phase:phaseLabel(model.phase)})}</span></div><div class="map-controls">${modelControls(unitAnimations)}${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom*100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div>${isNetwork(session)?'<p id="network-match-status" class="network-match-status" role="status"></p>':''}<div id="map-wrap" class="map-wrap ${presentation.debug?'debug-on':''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model,mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;dynamicMap.adopt(document.querySelector<SVGGElement>('#map-dynamic-layer'),model,mapRenderOptions(model));mountCachedTerrainSurface();bind();paintDeploymentFocus(model);updateNetworkStatus();
 }
 function bind():void{
   releaseMapViewport();
@@ -251,21 +268,21 @@ function bind():void{
   bindModelControls(root,unitAnimations);
   document.querySelector('#animation-skip')?.addEventListener('click',()=>fogSurface.settle());
   document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
-  bindLanguageControl(root,render);
-  if(appStatus==='HOME')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();});});
+  bindLanguageControl(root,()=>{forceNetworkRender=true;render();});
+  if(appStatus==='HOME')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
   document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)requestAnimationFrame(()=>requestAnimationFrame(startNewGame));});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(!session)return;
-  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(session!.state.pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
+  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
 function showCombatView():void{
   const panel=document.querySelector<HTMLElement>('#side-panel');
   if(panel&&panel.dataset.viewerControllerId!==session?.activeViewerControllerId){render();return;}
-  if(presentation.panelCollapsed&&(presentation.attackTarget||session?.state.pendingDecision)){presentation.panelCollapsed=false;render();}
+  if(presentation.panelCollapsed&&(presentation.attackTarget||(session?sessionPlayerView(session).pendingDecision:null))){presentation.panelCollapsed=false;render();}
   else refreshDynamicView();
   const scroll=document.querySelector('.command-panel-scroll');if(scroll)scroll.scrollTop=0;
 }
 function runCombatAction(action:()=>void):void{
-  action();if(session?.lastResult?.accepted)continueCombatFlow(session,presentation);showCombatView();
+  action();if(session&&!isNetwork(session)&&session.lastResult?.accepted)continueCombatFlow(session,presentation);showCombatView();
 }
 let combatSubmitting=false;
 async function submitCombatAttack():Promise<void>{
@@ -286,11 +303,11 @@ function paintCombatTargets():void{
   const legal=new Set<string>();
   const knownUnits=sessionPlayerView(session).units;
   if(enabled)for(const unit of knownUnits){
-    if(unit.side!==session.state.activeSide){const key=coreHexKey(unit.hex);if(!legal.has(key)&&combatTargetIssues(session,presentation,unit.hex).length===0)legal.add(key);}
+    if(unit.side!==sessionPlayerView(session).activeSide){const key=coreHexKey(unit.hex);if(!legal.has(key)&&combatTargetIssues(session,presentation,unit.hex).length===0)legal.add(key);}
   }
   document.querySelectorAll<SVGElement>('[data-unit-id], [data-role="attack-target"]').forEach(el=>{
     const key=el.dataset.hex??'',attackable=enabled&&legal.has(key);
-    const enemy=enabled&&knownUnits.some(unit=>unit.side!==session!.state.activeSide&&coreHexKey(unit.hex)===key);
+    const enemy=enabled&&knownUnits.some(unit=>unit.side!==sessionPlayerView(session!).activeSide&&coreHexKey(unit.hex)===key);
     el.classList.toggle('unavailable-combat-target',enemy&&!attackable);
     const selected=attackable&&!!presentation.attackTarget&&coreHexKey(presentation.attackTarget)===key;
     el.classList.toggle('attackable-enemy',attackable);el.classList.toggle('selected-combat-target',selected);
@@ -303,7 +320,7 @@ function paintCombatTargets():void{
 const boundUnitInputs=new WeakSet<Element>();
 function bindDynamic(model?:BrowserRenderModel):void{
   document.querySelectorAll<HTMLButtonElement>('[data-view-side]').forEach(element=>{const side=element.dataset.viewSide as Viewer|undefined;if(!side)return;element.addEventListener('click',()=>{switchViewerForDevelopment(session!,presentation,side);render();});});
-  if(session&&(model??deriveBrowserRenderModel(session,presentation)).readOnly)return;
+  if(session&&((model??deriveBrowserRenderModel(session,presentation)).readOnly||isNetwork(session)&&!session.interactive))return;
   paintCombatTargets();
   document.querySelectorAll<HTMLElement>('[data-remove-attacker]').forEach(el=>el.addEventListener('click',()=>{
     const id=el.dataset.removeAttacker;if(!id||!session)return;toggleSupportingAttacker(session,presentation,id);refreshDynamicView();
@@ -314,7 +331,7 @@ function bindDynamic(model?:BrowserRenderModel):void{
   if(!session)return;
   document.querySelector<HTMLButtonElement>('#confirm-deployment')?.addEventListener('click',event=>{
    const button=event.currentTarget as HTMLButtonElement;button.disabled=true;button.textContent=t('deployment.submitting');
-   confirmDeploymentTarget(deploymentTouch,session!,presentation);refreshDynamicView();
+   if(isNetwork(session!)){if(deploymentTouch.key)deploySelectedUnit(session!,presentation,parseHex(deploymentTouch.key));}else confirmDeploymentTarget(deploymentTouch,session!,presentation);refreshDynamicView();
   });
   document.querySelector('#ready-button')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});
   document.querySelector('#rail-mode')?.addEventListener('click',()=>{enterRailRepairMode(presentation);render();});document.querySelector('#rail-clear')?.addEventListener('click',()=>{cancelRailRepair(presentation);render();});document.querySelector('#rail-commit')?.addEventListener('click',()=>{commitRailRepair(session!,presentation);render();});document.querySelector('#rail-no-engineer')?.addEventListener('click',()=>{selectRailEngineer(presentation,null);render();});document.querySelectorAll<HTMLElement>('[data-rail-engineer]').forEach((el)=>el.addEventListener('click',()=>{selectRailEngineer(presentation,el.dataset.railEngineer??null);render();}));
@@ -326,14 +343,35 @@ function bindDynamic(model?:BrowserRenderModel):void{
   document.querySelectorAll<SVGLineElement>('[data-role="rail-repair-edge"]').forEach((element)=>{const key=element.dataset.edgeKey;if(!key)return;const action=()=>{if(presentation.interactionMode!=='RAIL_REPAIR')enterRailRepairMode(presentation);toggleRailRepairEdge(session!,presentation,key);render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});document.querySelectorAll<HTMLElement>('[data-reinforcement-id]').forEach((element)=>{const id=element.dataset.reinforcementId;if(!id)return;element.addEventListener('click',()=>{selectReinforcement(presentation,id);render();});});document.querySelectorAll<SVGPolygonElement>('[data-role="reinforcement-entry"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{deploySelectedReinforcement(session!,presentation,parseHex(key));render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
   document.querySelector('#attack-toggle-selected')?.addEventListener('click',()=>{if(presentation.selectedUnitId)toggleAttackUnit(session!,presentation,presentation.selectedUnitId);refreshDynamicView();});document.querySelector('#attack-clear')?.addEventListener('click',()=>{clearAttackDraft(presentation);refreshDynamicView();});document.querySelector('#attack-declare')?.addEventListener('click',()=>{void submitCombatAttack();});document.querySelector('#attack-art-none')?.addEventListener('click',()=>{selectAttackerArtillery(presentation,null);refreshDynamicView();});document.querySelectorAll<HTMLElement>('[data-attack-artillery]').forEach((el)=>el.addEventListener('click',()=>{selectAttackerArtillery(presentation,el.dataset.attackArtillery??null);refreshDynamicView();}));
   document.querySelectorAll<SVGPolygonElement>('[data-role="attack-target"]').forEach((el)=>{const action=()=>{const key=el.dataset.hex;if(key){routeCombatTarget(session!,presentation,parseHex(key));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});document.querySelector('#pass-reaction')?.addEventListener('click',()=>{runCombatAction(()=>passCombatReaction(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-defender-artillery]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.defenderArtillery;if(id){runCombatAction(()=>useDefenderArtillery(session!,presentation,id));}}));
-  document.querySelectorAll<HTMLElement>('[data-defender-hq]').forEach(el=>el.addEventListener('click',()=>{const pending=session!.state.pendingDecision,hqUnitId=el.dataset.defenderHq;if(pending?.kind==='DEFENDER_REACTION'&&hqUnitId)runCombatAction(()=>{dispatchGameAction(session!,{type:'COMBAT_REACTION',controllerId:session!.activeViewerControllerId,battleId:pending.battleId,reaction:{kind:'DEFENDER_HQ_COMMAND',hqUnitId,command:'LAST_STAND'}});});}));
+  document.querySelectorAll<HTMLElement>('[data-defender-hq]').forEach(el=>el.addEventListener('click',()=>{const pending=sessionPlayerView(session!).pendingDecision,hqUnitId=el.dataset.defenderHq;if(pending?.kind==='DEFENDER_REACTION'&&hqUnitId)runCombatAction(()=>{dispatchGameAction(session!,{type:'COMBAT_REACTION',controllerId:session!.activeViewerControllerId,battleId:pending.battleId,reaction:{kind:'DEFENDER_HQ_COMMAND',hqUnitId,command:'LAST_STAND'}});});}));
   document.querySelectorAll<SVGPolygonElement>('[data-role="advance-option"]').forEach(el=>{const action=()=>{if(el.dataset.hex){chooseAdvanceDestination(session!,presentation,parseHex(el.dataset.hex));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});
   document.querySelectorAll<HTMLElement>('[data-loss-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.lossUnit;if(id){chooseLossAndContinue(session!,presentation,id);showCombatView();}}));document.querySelector('#loss-undo')?.addEventListener('click',()=>{undoLossDraft(presentation);refreshDynamicView();});document.querySelector('#loss-clear')?.addEventListener('click',()=>{clearLossDraft(presentation);refreshDynamicView();});
   document.querySelectorAll<HTMLElement>('[data-retreater]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.retreater;if(id){chooseRetreater(session!,presentation,id);refreshDynamicView();}}));document.querySelectorAll<HTMLElement|SVGPolygonElement>('[data-role="retreat-option"], [data-retreat-destination]').forEach((el)=>{const action=()=>{const key=el.dataset.hex??el.dataset.retreatDestination;if(key){chooseRetreatDestination(session!,presentation,parseHex(key));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});document.querySelector('#retreat-undo')?.addEventListener('click',()=>{undoRetreatDestination(presentation);refreshDynamicView();});
   document.querySelectorAll<HTMLElement>('[data-advance-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.advanceUnit;if(id){chooseAdvancer(session!,presentation,id);refreshDynamicView();}}));document.querySelector('#pass-advance')?.addEventListener('click',()=>{runCombatAction(()=>passAdvance(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-breakthrough-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.breakthroughUnit;if(id){selectBreakthroughUnit(presentation,id);refreshDynamicView();}}));document.querySelectorAll<SVGPolygonElement>('[data-role="breakthrough-option"]').forEach((el)=>el.addEventListener('click',()=>{const key=el.dataset.hex;if(key){extendBreakthroughDraft(session!,presentation,parseHex(key));refreshDynamicView();}}));document.querySelector('#breakthrough-undo')?.addEventListener('click',()=>{undoBreakthroughDraft(presentation);refreshDynamicView();});document.querySelector('#breakthrough-commit')?.addEventListener('click',()=>{runCombatAction(()=>commitBreakthrough(session!,presentation));});document.querySelector('#pass-breakthrough')?.addEventListener('click',()=>{runCombatAction(()=>passBreakthrough(session!,presentation));});document.querySelectorAll<SVGPolygonElement>('[data-role="schwerpunkt-target"]').forEach((el)=>el.addEventListener('click',()=>{const key=el.dataset.hex;if(key){selectSchwerpunktTarget(presentation,parseHex(key));render();}}));document.querySelectorAll<HTMLElement>('[data-schwerpunkt-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.schwerpunktUnit;if(id){runCombatAction(()=>commitSchwerpunkt(session!,presentation,id));}}));document.querySelector('#pass-schwerpunkt')?.addEventListener('click',()=>{runCombatAction(()=>passSchwerpunkt(session!,presentation));});
 
 }
-async function boot():Promise<void>{
+
+function updateNetworkStatus():void {
+  if(!isNetwork(session))return;
+  const status=document.querySelector<HTMLElement>('#network-match-status');if(status){status.textContent=session.statusText;status.dataset.status=session.status;status.dataset.revision=String(session.matchRevision);status.dataset.interactive=String(session.interactive);}
+  if(!session.interactive)document.querySelectorAll<HTMLButtonElement>('#side-panel button').forEach(b=>b.disabled=true);
+}
+async function enterNetworkMatch(client:LobbyClient):Promise<void> {
+  presentation=createPresentationState(false,window.matchMedia('(max-width: 1100px)').matches);deploymentTouch=createDeploymentTouch();
+  const network=new NetworkPlayerSession(client,presentation,kind=>{
+    if(session!==network||appStatus!=='PLAYING')return;
+    if(kind==='resync'){unitAnimations.skip();deploymentTouch=createDeploymentTouch();}
+    if(kind==='status'){updateNetworkStatus();return;}
+    if(kind==='view')deploymentTouch=createDeploymentTouch();
+    refreshDynamicView();
+  });
+  session=network;
+  if(!cachedTerrainSurface)await boot(network.renderModel());
+  if(!cachedTerrainSurface){network.dispose();return;}
+  session=network;appStatus='PLAYING';presentation.privacyGate=null;render();
+}
+
+async function boot(networkModel?:BrowserRenderModel):Promise<void>{
   appStatus='LOADING';render();
   const stopObserving=observeTerrainLoad(startupProgress.observe);
   let phase='manifest/map';
@@ -341,7 +379,7 @@ async function boot():Promise<void>{
     const [map]=await Promise.all([loadProductionMapFromUrl(),loadProductionRuntimeManifest()]);
     productionMap=map;startupProgress.complete('resources');
     phase='static-terrain-surface';
-    const terrainSession=createFreshProductionSession(map,TERRAIN_VISUAL_SEED),terrainPresentation=createPresentationState(false,false),terrainModel=deriveBrowserRenderModel(terrainSession,terrainPresentation);
+    const terrainModel=networkModel??deriveBrowserRenderModel(createFreshProductionSession(map,TERRAIN_VISUAL_SEED),createPresentationState(false,false));
     const vs2=await loadVS2TerrainSurfaceHooks();
     startupProgress.complete('model');startupProgress.building();
     for(const lod of ['far','medium','close'] as const){

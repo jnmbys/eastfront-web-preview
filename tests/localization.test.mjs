@@ -1,3 +1,4 @@
+import {isNetwork} from '../dist/app/multiplayer/playerSession.js';
 import {DynamicMapRenderer} from '../dist/app/render/dynamicMap.js';
 import {modelControls,bindModelControls} from '../dist/app/ui/modelControls.js';
 import {FogRuntime} from '../dist/app/fog/runtime.js';
@@ -30,7 +31,7 @@ const raw=JSON.parse(readFileSync('vendor/eastfront-digital-core/reference/strat
 const main=readFileSync('dist/app/main.js','utf8');
 const setup=(seed=17)=>({s:createLocalGameSession(raw,seed),p:createPresentationState(false,false),d:touch.createDeploymentTouch()});
 function panels(s,p,d){
- const ctx=vm.createContext({DynamicMapRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
+ const ctx=vm.createContext({isNetwork,DynamicMapRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
  vm.runInContext(main.slice(main.indexOf('function sideLabel('),main.indexOf('function startNewGame(')),ctx);
  vm.runInContext(main.slice(main.indexOf('function sidePanelMarkup('),main.indexOf('function refreshDynamicView(')),ctx);
  return ctx;
@@ -98,7 +99,7 @@ test('real language change handler preserves GameState, RNG, camera, drafts and 
  for(const language of ['en-US','zh-CN']){control.change(language);assert.equal(s.state,state);assert.equal(s.state.random,random);assert.equal(JSON.stringify({state:s.state,p,d,camera}),before);assert.equal(control.root.scrolls['.command-panel-scroll'].scrollTop,71);assert.equal(control.root.scrolls['.roster-list'].scrollTop,83);assert.equal(control.root.details[0].open,true);}
  assert.equal(renders,2);assert.match(text,/确认部署/);assert.deepEqual(getMissingKeys(),[]);
  // Assert the real main binder uses this handler with the existing render path.
- assert.match(main,/bindLanguageControl\(root, render\)/);assert.match(main,/function bindMapViewport\(\)[\s\S]*?applyMapViewport\(\)/);
+ assert.match(main,/bindLanguageControl\(root, \(\) => \{ forceNetworkRender = true; render\(\); \}\)/);assert.match(main,/function bindMapViewport\(\)[\s\S]*?applyMapViewport\(\)/);
 });
 function deployBoth({s,p,d}){
  for(const side of ['SOVIET','GERMAN']){
@@ -169,7 +170,7 @@ test('main render and binding preserve the existing camera transform during lang
  for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[],querySelector:()=>null};
  const control={value:'zh-CN',addEventListener(event,handler){this.change=handler;},focus(){}};
  const root={innerHTML:'',querySelectorAll:selector=>selector==='[data-language-select]'?[control]:[],querySelector:selector=>selector==='[data-language-select]'?control:null};
- Object.assign(context,{fogSurface:new FogRuntime(),sessionPlayerView,unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,modelControls,bindModelControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});
+ Object.assign(context,{fogSurface:new FogRuntime(),sessionPlayerView,unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,modelControls,bindModelControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},updateNetworkStatus(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});
  vm.runInContext(main.slice(main.indexOf('function syncFogSurface('),main.indexOf('function paintDeploymentFocus(')),context);
  vm.runInContext(main.slice(main.indexOf('function applyMapViewport('),main.indexOf('function mapRenderOptions(')),context);
  vm.runInContext(main.slice(main.indexOf('function render('),main.indexOf('function paintCombatTargets(')),context);

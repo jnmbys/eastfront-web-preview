@@ -1,3 +1,5 @@
+import {actionOwner,queryModel,forcedAction,validateIntent,applyIntent} from './gameplay.js';
+import type {PresentationEvent} from '../src/presentation/events.js';
 import {createHash,randomBytes,randomInt,randomUUID} from 'node:crypto';
 import {SEATS,parseClientMessage,serverMessage,type ClientMessage,type ErrorCode,type RoomState,type ServerMessage,type ServerPayloads,type SeatId} from '../src/multiplayer/protocol.js';
 import {DEFAULTS,type ServerConfig} from './config.js';
@@ -5,6 +7,11 @@ import {createMatchSession,playerSnapshot,type MatchSession} from './match.js';
 const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 /** Uses Node entropy only, with no access to a game/session RNG. */
 export function generateRoomCode():string {return Array.from({length:6},()=>alphabet[randomInt(alphabet.length)]).join('');}
+function canonical(v:unknown):string {
+  if(Array.isArray(v))return `[${v.map(canonical).join(',')}]`;
+  if(v!==null&&typeof v==='object')return `{${Object.keys(v).sort().map(k=>`${JSON.stringify(k)}:${canonical((v as Record<string,unknown>)[k])}`).join(',')}}`;
+  return JSON.stringify(v);
+}
 const tokenKey=(token:string)=>createHash('sha256').update(token).digest('hex');
 const emptySeat=()=>({controllerType:'EMPTY' as const,controllerId:null,ready:false});
 interface Identity {controllerId:string;displayName:string;tokenHash:string;connectionId:string|null;roomId:string|null;disconnectedAt:number|null;}
@@ -35,7 +42,7 @@ export class RoomAuthority {
     const result=parseClientMessage(raw);
     if(!result.ok){this.emit(connectionId,'ROOM_ERROR',{code:result.code},result.requestId);return;}
     const m=result.message;
-    if(c.requests.has(m.requestId)){this.emit(connectionId,'ROOM_ERROR',{code:'BAD_MESSAGE'},m.requestId);return;}
+    if(m.messageType!=='SUBMIT_ACTION'&&c.requests.has(m.requestId)){this.emit(connectionId,'ROOM_ERROR',{code:'BAD_MESSAGE'},m.requestId);return;}
     c.requests.add(m.requestId);if(c.requests.size>128)c.requests.delete(c.requests.values().next().value!);
     try{this.handle(connectionId,c,m);}catch(error){this.emit(connectionId,'ROOM_ERROR',{code:error instanceof Rejection?error.code:'MATCH_FAILED'},m.requestId);}
   }
@@ -55,7 +62,7 @@ export class RoomAuthority {
       c.controllerId=identity.controllerId;
       this.emit(connectionId,'WELCOME',{connectionId,controllerId:identity.controllerId,reconnectToken:token,reconnected:m.messageType==='RECONNECT'},m.requestId);
       const room=identity.roomId?this.#rooms.get(identity.roomId):undefined;
-      if(room){this.refreshClients(room);this.changed(room,m.requestId);if(room.state.matchId)this.sendMatchInfo(connectionId,identity.controllerId,this.#matches.get(room.state.matchId)!);}
+      if(room){this.refreshClients(room);this.changed(room,m.requestId);if(room.state.matchId){const match=this.#matches.get(room.state.matchId)!;this.sendMatchInfo(connectionId,identity.controllerId,match);this.connectionStatus(room,match);this.snapshot(connectionId,identity.controllerId,match,true);}}
       else this.emit(connectionId,'ROOM_STATE',{room:null},m.requestId);
       return;
     }
@@ -79,8 +86,37 @@ export class RoomAuthority {
     }
     const room=identity.roomId?this.#rooms.get(identity.roomId):undefined;
     if(!room||!room.state.clients.some(p=>p.controllerId===identity.controllerId))reject('NOT_IN_ROOM');
+    if(m.messageType==='SUBMIT_ACTION'||m.messageType==='RESYNC_MATCH'||m.messageType==='QUERY_MATCH'){
+      const match=room.state.matchId?this.#matches.get(room.state.matchId):undefined;
+      if(!match||match.matchId!==m.payload.matchId||!match.controllerAssignments.some(a=>a.controllerId===identity.controllerId))reject('NOT_IN_ROOM');
+      room.lastActivity=this.now();
+      if(m.messageType==='RESYNC_MATCH'){this.snapshot(connectionId,identity.controllerId,match,true,[],m.requestId);return;}
+      if(m.messageType==='QUERY_MATCH'){
+        if(m.payload.expectedRevision!==match.matchRevision){this.snapshot(connectionId,identity.controllerId,match,true,[],m.requestId);return;}
+        const model=queryModel(match,identity.controllerId,m.payload.draft),forced=forcedAction(match,identity.controllerId,m.payload.draft);
+        this.emit(connectionId,'MATCH_QUERY',{...this.order(match,identity.controllerId),model,forcedAction:forced},m.requestId);return;
+      }
+      const cache=match.receipts[identity.controllerId]!,fingerprint=canonical(m.payload),existing=cache.get(m.requestId);
+      if(existing){
+        if(existing.fingerprint!==fingerprint){this.emit(connectionId,'ACTION_REJECTED',{...this.order(match,identity.controllerId),acceptedRevision:null,actionSequence:match.actionSequence,code:'REQUEST_REUSED'},m.requestId);return;}
+        const {fingerprint:_,...reply}=existing;this.emit(connectionId,reply.acceptedRevision===null?'ACTION_REJECTED':'ACTION_ACCEPTED',{...this.order(match,identity.controllerId),...reply},m.requestId);return;
+      }
+      let code:import('../src/multiplayer/gameplayProtocol.js').ActionError|undefined;
+      if(cache.size>=4096)code='REQUEST_LIMIT';
+      else if(match.status!=='ACTIVE')code='MATCH_UNAVAILABLE';
+      else if(m.payload.expectedRevision!==match.matchRevision)code='STALE_REVISION';
+      else code=validateIntent(match,identity.controllerId,m.payload.action)??undefined;
+      let events:Map<string,readonly PresentationEvent[]>|null=null;
+      if(!code){events=applyIntent(match,identity.controllerId,m.payload.action);if(!events)code='INVALID_ACTION';}
+      const receipt={fingerprint,acceptedRevision:code?null:match.matchRevision,actionSequence:match.actionSequence,...(code?{code}:{})};
+      if(cache.size<4096)cache.set(m.requestId,receipt);
+      const {fingerprint:_,...reply}=receipt;
+      this.emit(connectionId,code?'ACTION_REJECTED':'ACTION_ACCEPTED',{...this.order(match,identity.controllerId),...reply},m.requestId);
+      if(events)this.broadcastSnapshots(room,match,false,events);
+      return;
+    }
     if(m.messageType==='LEAVE_ROOM'){
-      if(room.state.status==='IN_GAME'){this.close(room,m.requestId);return;}
+      if(room.state.status==='IN_GAME'){const match=this.#matches.get(room.state.matchId!)!;if(match.status!=='FINISHED'){match.status='ABORTED';this.broadcastSnapshots(room,match);}this.close(room,m.requestId);return;}
       identity.roomId=null;this.releaseSeat(room,identity.controllerId);this.refreshClients(room);this.changed(room,m.requestId);
       this.emit(connectionId,'ROOM_STATE',{room:null},m.requestId);return;
     }
@@ -124,11 +160,26 @@ export class RoomAuthority {
       this.#matches.set(match.matchId,match);room.state.matchId=match.matchId;room.state.status='IN_GAME';this.changed(room);
       for(const snapshot of snapshots){const connection=this.#identities.get(snapshot.id)?.connectionId;if(!connection)continue;
         this.sendMatchInfo(connection,snapshot.id,match);
-        this.emit(connection,'PLAYER_VIEW_SNAPSHOT',{matchId:match.matchId,revision:0,view:snapshot.view});}
+        this.snapshot(connection,snapshot.id,match,true);}
     }catch{
       room.state.status='LOBBY';for(const seat of SEATS)room.state.seats[seat].ready=false;this.changed(room);
       for(const client of room.state.clients){const connection=this.#identities.get(client.controllerId)?.connectionId;if(connection)this.emit(connection,'ROOM_ERROR',{code:'MATCH_FAILED'});}
     }
+  }
+  private order(match:MatchSession,controllerId:string){return {matchId:match.matchId,matchRevision:match.matchRevision,serverSequence:++match.serverSequences[controllerId]!};}
+  private snapshot(connectionId:string,controllerId:string,match:MatchSession,resync=false,events:readonly PresentationEvent[]=[],requestId:string|null=null):void {
+    const model=queryModel(match,controllerId);
+    this.emit(connectionId,'PLAYER_VIEW_SNAPSHOT',{...this.order(match,controllerId),revision:match.matchRevision,format:'snapshot-v1',resync,status:match.status,
+      canAct:match.status==='ACTIVE'&&actionOwner(match)===model.viewerControllerId,view:playerSnapshot(match,controllerId),model,events:resync?[]:events,forcedAction:forcedAction(match,controllerId)},requestId);
+  }
+  private broadcastSnapshots(room:Room,match:MatchSession,resync=false,events=new Map<string,readonly PresentationEvent[]>()):void {
+    for(const client of room.state.clients){const connection=this.#identities.get(client.controllerId)?.connectionId;
+      if(connection)this.snapshot(connection,client.controllerId,match,resync,events.get(client.controllerId)??[]);}
+  }
+  private connectionStatus(room:Room,match:MatchSession):void {
+    if(match.status==='FINISHED'||match.status==='ABORTED')return;
+    match.status=room.state.clients.every(c=>c.connected)?'ACTIVE':'WAITING_FOR_RECONNECT';
+    this.broadcastSnapshots(room,match);
   }
   private sendMatchInfo(connectionId:string,controllerId:string,match:MatchSession):void {
     const a=match.controllerAssignments.find(a=>a.controllerId===controllerId);if(!a)return;
@@ -140,9 +191,10 @@ export class RoomAuthority {
     if(!identity||identity.connectionId!==connectionId)return;
     identity.connectionId=null;identity.disconnectedAt=this.now();
     const room=identity.roomId?this.#rooms.get(identity.roomId):undefined;
-    if(room){if(room.state.status==='LOBBY')for(const seat of SEATS)room.state.seats[seat].ready=false;this.refreshClients(room);this.changed(room);}
+    if(room){if(room.state.status==='LOBBY')for(const seat of SEATS)room.state.seats[seat].ready=false;this.refreshClients(room);this.changed(room);if(room.state.matchId)this.connectionStatus(room,this.#matches.get(room.state.matchId)!);}
   }
   private close(room:Room,requestId:string|null=null):void {
+    if(room.state.matchId){const m=this.#matches.get(room.state.matchId);if(m&&m.status!=='ABORTED'&&m.status!=='FINISHED'){m.status='ABORTED';this.broadcastSnapshots(room,m);}}
     room.state.status='CLOSED';this.changed(room,requestId);
     for(const client of room.state.clients){const identity=this.#identities.get(client.controllerId);if(identity){identity.roomId=null;if(identity.connectionId)this.emit(identity.connectionId,'ROOM_STATE',{room:null},requestId);}}
     this.#codes.delete(room.state.roomCode);this.#rooms.delete(room.state.roomId);if(room.state.matchId)this.#matches.delete(room.state.matchId);
@@ -152,7 +204,7 @@ export class RoomAuthority {
     const now=this.now();
     for(const identity of this.#identities.values())if(identity.disconnectedAt!==null&&now-identity.disconnectedAt>=this.config.reconnectGraceMs){
       const room=identity.roomId?this.#rooms.get(identity.roomId):undefined;
-      if(room){if(room.state.status==='IN_GAME')this.close(room);else{identity.roomId=null;this.releaseSeat(room,identity.controllerId);this.refreshClients(room);this.changed(room);}}
+      if(room){if(room.state.status==='IN_GAME'){const match=this.#matches.get(room.state.matchId!)!;if(match.status!=='FINISHED'){match.status='ABORTED';this.broadcastSnapshots(room,match);}this.close(room);}else{identity.roomId=null;this.releaseSeat(room,identity.controllerId);this.refreshClients(room);this.changed(room);}}
       this.#tokens.delete(identity.tokenHash);this.#identities.delete(identity.controllerId);
     }
     for(const room of this.#rooms.values())if((room.emptySince!==null&&now-room.emptySince>=this.config.emptyRoomTimeoutMs)||now-room.lastActivity>=this.config.roomTimeoutMs)this.close(room);

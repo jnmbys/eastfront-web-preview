@@ -1,3 +1,5 @@
+> Multiplayer gameplay now uses the MP-002 authoritative server and shared Local/Network UI adapter. See [MP-002 architecture, commands and validation](docs/MP-002.md). The earlier MP-001 notes below describe its original checkpoint.
+
 # EASTFRONT Web Preview v0.0.10 — Task UI-009R2D2
 
 Status: **RELEASE BLOCKED pending Huawei tablet real-device verification**.

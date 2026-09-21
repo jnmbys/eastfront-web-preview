@@ -1,3 +1,4 @@
+import type {MatchStatus,ActionError} from '../src/multiplayer/gameplayProtocol.js';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { createFreshProductionSession } from '../src/web/preview.js';
@@ -10,6 +11,9 @@ export interface ControllerAssignment {controllerId:string;coreControllerId:stri
 /** Server private. Never serialize this object. Core controller IDs remain canonical. */
 export interface MatchSession {
   matchId:string;scenarioId:string;createdAt:number;authoritative:LocalGameSession;
+  matchRevision:number;actionSequence:number;status:MatchStatus;
+  serverSequences:Record<string,number>;disclosedBattles:Record<string,Set<string>>;
+  receipts:Record<string,Map<string,{fingerprint:string;acceptedRevision:number|null;actionSequence:number;code?:ActionError}>>;
   controllerAssignments:ControllerAssignment[];viewerAssignments:Record<string,PlayerSide>;
 }
 export function createMatchSession(room:RoomState,now:number):MatchSession {
@@ -20,7 +24,9 @@ export function createMatchSession(room:RoomState,now:number):MatchSession {
     const viewer=sideForSeat(seat);
     return {seat,controllerId:owner.controllerId,coreControllerId:controllerIdForSide(authoritative,viewer),viewer};
   });
-  return {matchId:randomUUID(),scenarioId:authoritative.scenario.id,createdAt:now,authoritative,controllerAssignments,
+  return {matchRevision:0,actionSequence:0,status:'ACTIVE',serverSequences:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,0])),
+    disclosedBattles:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,new Set<string>()])),
+    receipts:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,new Map()])),matchId:randomUUID(),scenarioId:authoritative.scenario.id,createdAt:now,authoritative,controllerAssignments,
     viewerAssignments:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,a.viewer]))};
 }
 export function playerSnapshot(match:MatchSession,controllerId:string):AuthorizedPlayerView {

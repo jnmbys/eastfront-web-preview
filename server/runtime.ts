@@ -1,3 +1,4 @@
+import {PROTOCOL_VERSION} from '../src/multiplayer/protocol.js';
 import {createServer} from 'node:http';
 import {WebSocketServer,WebSocket} from 'ws';
 import {RoomAuthority} from './authority.js';
@@ -7,7 +8,7 @@ export function createMultiplayerServer(config:ServerConfig=configFromEnv(),auth
   const http=createServer((request,response)=>{
     response.setHeader('Content-Type','application/json');response.setHeader('Cache-Control','no-store');
     response.statusCode=request.url==='/health'?200:404;
-    response.end(JSON.stringify(request.url==='/health'?{status:'ok',protocolVersion:1}:{error:'not_found'}));
+    response.end(JSON.stringify(request.url==='/health'?{status:'ok',protocolVersion:PROTOCOL_VERSION}:{error:'not_found'}));
   });
   const sockets=new WebSocketServer({noServer:true,maxPayload:config.maxMessageBytes,perMessageDeflate:false});
   const peers=new Map<WebSocket,{id:string;alive:boolean;openedAt:number}>();

@@ -1,5 +1,6 @@
 import {getLocale} from '../localization/index.js';
 const en = {
+  syncing:'Syncing',submitting:'Submitting',reconnected:'Reconnected',outdated:'State outdated, resyncing',opponentDeploying:'Opponent is deploying',opponentDecision:'Waiting for opponent decision',matchLost:'Match connection lost',waitingReconnect:'Waiting for opponent to reconnect',aborted:'Opponent connection timed out or left. Network session ended.',actionRejected:'Action rejected. Check the current legal options.',
   title:'Multiplayer',create:'Create Room',join:'Join Room',code:'Room Code',name:'Nickname',
   germany:'Germany',soviet:'Soviet',chooseGermany:'Choose Germany',chooseSoviet:'Choose Soviet',
   prepare:'Ready',ready:'Ready',notReady:'Not Ready',unready:'Cancel Ready',leave:'Leave Room',back:'Back',
@@ -24,6 +25,7 @@ const en = {
   'error.RATE_LIMIT':'Too many requests. Please wait a moment.', 'error.MATCH_FAILED':'The match could not be created. Please ready up again.',
 } as const;
 const zh:Record<keyof typeof en,string> = {
+  syncing:'正在同步',submitting:'正在提交',reconnected:'连接已恢复',outdated:'状态已过期，正在重新同步',opponentDeploying:'对方正在部署',opponentDecision:'等待对方决定',matchLost:'对局连接中断',waitingReconnect:'等待对手重新连接',aborted:'对手连接超时或已离开，网络对局已结束。',actionRejected:'操作未被接受，请检查当前合法选项。',
   title:'多人游戏',create:'创建房间',join:'加入房间',code:'房间码',name:'玩家昵称',
   germany:'德国',soviet:'苏联',chooseGermany:'选择德国',chooseSoviet:'选择苏联',
   prepare:'准备',ready:'已准备',notReady:'未准备',unready:'取消准备',leave:'离开房间',back:'返回',

@@ -37,12 +37,12 @@ test('UI009R2 production live SVG removes raster terrain while retaining grid an
 test('UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths',()=>{
   const calls=[...mainSource.matchAll(/buildCachedTerrainSurface\s*\(/g)];
   assert.equal(calls.length,1,'cached terrain builder must have exactly one runtime call');
-  const boot=mainSource.slice(mainSource.indexOf('async function boot()'));
+  const boot=mainSource.slice(mainSource.indexOf('async function boot('));
   assert(boot.includes('buildCachedTerrainSurface'));
   const sections=[
     ['function refreshDynamicView():void','function render():void'],
     ['function render():void','function bind():void'],
-    ['function bindDynamic(model?:BrowserRenderModel):void','async function boot():Promise<void>'],
+    ['function bindDynamic(model?:BrowserRenderModel):void','async function boot('],
   ];
   for(const [name,next] of sections){const start=mainSource.indexOf(name),end=mainSource.indexOf(next,start+1);assert(start>=0&&end>start,name);assert.equal(mainSource.slice(start,end).includes('buildCachedTerrainSurface('),false,`${name} must not rebuild terrain`);}
 });

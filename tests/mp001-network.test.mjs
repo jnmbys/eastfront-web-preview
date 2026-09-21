@@ -24,7 +24,7 @@ test('MP001 wire: nonempty hidden deployment DTO contains own units and no enemy
   let secretIds;
   const h=await network(t,{factory:(...args)=>{
     const m=createMatchSession(...args),s=m.authoritative;
-    // Trusted test-only setup uses official deploy/ready actions; no network gameplay endpoint exists.
+    // Trusted test-only setup uses official deploy/ready actions; fixture bypasses network gameplay for the retained MP-001 initial privacy test.
     for(const side of ['SOVIET','GERMAN']){
       const controllerId=controllerIdForSide(s,side),zone=deploymentHexKeysForSide(s.state,s.scenario,side);
       const units=s.scenario.deployment.units.filter(u=>u.side===side);
@@ -78,8 +78,8 @@ test('MP001 wire: origin enforcement and oversized frames cannot crash runtime',
   const h=await network(t);
   const bad=new WebSocket(`ws://127.0.0.1:${h.port}/ws`,{origin:'https://untrusted.invalid'});
   await new Promise(resolve=>bad.once('error',resolve));
-  const a=await h.peer();const closed=new Promise(resolve=>a.ws.once('close',resolve));a.ws.send('a'.repeat(5000));await closed;
+  const a=await h.peer();const closed=new Promise(resolve=>a.ws.once('close',resolve));a.ws.send('a'.repeat(32769));await closed;
   const b=await h.peer();await b.request('CREATE_ROOM');assert(b.room);
 });
 
-test.after(()=>{mkdirSync('evidence/mp-001',{recursive:true});writeFileSync('evidence/mp-001/network-evidence.json',JSON.stringify({protocolVersion:1,transport:'real loopback WebSockets',evidence},null,2)+'\n');});
+test.after(()=>{mkdirSync('evidence/mp-002',{recursive:true});writeFileSync('evidence/mp-002/mp001-retained-network-evidence.json',JSON.stringify({protocolVersion:2,transport:'real loopback WebSockets',evidence},null,2)+'\n');});

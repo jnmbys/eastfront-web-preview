@@ -9,3 +9,6 @@
 @media(max-width:600px){.mp-shell{padding:12px}.mp-lobby{padding:20px 16px}.mp-header h1{font-size:24px}.mp-seats{gap:12px}.mp-seat{padding:16px 12px}.mp-seat h2{font-size:23px}.mp-player{font-size:16px;min-height:42px}.mp-code-row{padding:14px}.mp-code-row strong{font-size:27px}.mp-code-row button{padding:12px;font-size:14px}.mp-lobby button{padding:12px 10px}.mp-header{gap:10px}}
 @media(max-width:350px){.mp-seats{grid-template-columns:1fr}.mp-code-row{flex-wrap:wrap}}
 @media(min-width:700px) and (max-height:850px){.mp-shell{padding:16px}.mp-lobby{padding:24px}.mp-header{padding-bottom:12px}.mp-status{margin:8px 0;padding:6px 0}.mp-seats{margin:14px 0}.mp-seat{padding:18px}.mp-seat h2{margin:8px 0 12px}.mp-player,.mp-seat-connection{margin:10px 0}.mp-ready-label{padding:12px 0}.mp-footer{margin-top:16px}.mp-help{margin:12px 0}}
+
+.network-match-status{margin:0;padding:8px 18px;color:#dccba2;background:#142637;font-size:14px;min-height:34px}.network-match-status[data-status="WAITING_FOR_RECONNECT"],.network-match-status[data-status="ABORTED"]{color:#ffd399}
+.map-card.network-map-card{grid-template-rows:52px auto minmax(0,1fr)}@media(max-width:760px){.map-card.network-map-card{grid-template-rows:auto auto minmax(0,1fr)}}
