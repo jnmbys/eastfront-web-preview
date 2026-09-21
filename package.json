@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "npm run build && node scripts/serve.mjs dist",
-    "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit && tsc -p server/tsconfig.json --noEmit",
+    "test": "npm run build && npm run server:build && node --test tests/*.test.mjs",
     "build": "node scripts/clean-dist.mjs && tsc && node scripts/copy-static.mjs",
     "snapshot:svg": "npm run build && node scripts/export-snapshots.mjs",
     "snapshot:integration": "npm run build && npm run audit:production && node scripts/export-ui008-snapshots.mjs",
@@ -17,9 +17,20 @@
     "smoke:production": "npm run build && node scripts/run-ui008-production-smoke.mjs",
     "measure:ui008": "npm run build && node scripts/measure-ui008-performance.mjs",
     "smoke:combat": "npm run build && node scripts/run-ui008-deep-combat-smoke.mjs",
-    "verify:static": "npm run build && node scripts/verify-ui008-static.mjs"
+    "verify:static": "npm run build && node scripts/verify-ui008-static.mjs",
+    "server:build": "tsc -p server/tsconfig.json && node server/copy-runtime.mjs",
+    "server": "npm run server:build && node .server-dist/server/index.js",
+    "test:multiplayer": "npm run build && npm run server:build && node --test tests/mp001*.test.mjs"
   },
   "devDependencies": {
+    "@types/node": "26.6.2",
+    "@types/ws": "8.18.1",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "ws": "8.21.3"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

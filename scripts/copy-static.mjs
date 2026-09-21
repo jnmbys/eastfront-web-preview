@@ -14,3 +14,7 @@ await cp('public/assets/terrain/p4r3','dist/assets/terrain/p4r3',{recursive:true
 await cp('public/assets/terrain/vs2-002','dist/assets/terrain/vs2-002',{recursive:true});
 // tsc reformats imported JSON; restore the authoritative manifest bytes.
 await copyFile('src/assets/VS2_ASSET_MANIFEST.json','dist/app/assets/VS2_ASSET_MANIFEST.json');
+
+// Multiplayer config is explicit for static hosting; no production localhost fallback.
+await copyFile('multiplayer.css','dist/multiplayer.css');
+await writeFile('dist/multiplayer-config.json',JSON.stringify({serverUrl:process.env.MULTIPLAYER_SERVER_URL??''},null,2)+'\n');

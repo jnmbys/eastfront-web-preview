@@ -1,3 +1,4 @@
+import { addMultiplayerHomeButton, mountLobby } from './multiplayer/lobby.js';
 import {DynamicMapRenderer} from './render/dynamicMap.js';
 import {modelControls,bindModelControls} from './ui/modelControls.js';
 import { FogRuntime } from './fog/runtime.js';
@@ -31,7 +32,7 @@ import { TERRAIN_VISUAL_SEED, createFreshProductionSession, defaultMapViewport, 
 import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport, type MapGestureState, type MapPoint } from './web/mapInteraction.js';
 
 const rootElement=document.querySelector<HTMLElement>('#app');if(!rootElement)throw new Error('#app missing');const root=rootElement;
-const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:LocalGameSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
+const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:LocalGameSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'MULTIPLAYER'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
 function esc(value:string):string{return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));}
 let deploymentTouch=createDeploymentTouch();
 const unitAnimations=new UnitAnimationRuntime({now:()=>performance.now(),request:callback=>requestAnimationFrame(callback),cancel:id=>cancelAnimationFrame(id)});
@@ -225,7 +226,9 @@ function render():void{
   const profile=responsiveProfile(window.innerWidth,window.innerHeight);
   if(appStatus==='LOADING'){root.innerHTML=loadingMarkup(startupProgress.snapshot);bind();return;}
   if(appStatus==='FATAL'){root.innerHTML=fatalMarkup(fatalMessage||t('game.noResources'));bind();return;}
+  if(appStatus==='MULTIPLAYER')return;
   if(appStatus==='HOME'){
+    if(!cachedTerrainSurface){root.innerHTML=homeMarkup(profile);bind();return;}
     const markup=homeMarkup(profile);
     if(startupProgress.snapshot.stage!=='ready'){
       // All caches and home markup are ready. Paint the real 100% once before home.
@@ -249,7 +252,8 @@ function bind():void{
   document.querySelector('#animation-skip')?.addEventListener('click',()=>fogSurface.settle());
   document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
   bindLanguageControl(root,render);
-  document.querySelector('#new-game-button')?.addEventListener('click',()=>startNewGame());document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
+  if(appStatus==='HOME')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();});});
+  document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)requestAnimationFrame(()=>requestAnimationFrame(startNewGame));});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(!session)return;
   document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(session!.state.pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
@@ -356,7 +360,8 @@ async function boot():Promise<void>{
   }finally{stopObserving();}
 }
 window.addEventListener('resize',()=>{if(appStatus==='HOME'||appStatus==='PLAYING')render();});
-void boot();
+// Lobby and HOME need no terrain/session. Local play retains the full Startup Loading UX1 path.
+appStatus='HOME';render();
 
 // Lazy world-surface hook; the existing boot-time cache and image loader remain in use.
 export async function loadVS2TerrainSurfaceHooks() {
