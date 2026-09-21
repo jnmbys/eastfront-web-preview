@@ -34,7 +34,10 @@ export class UnitAnimationRuntime {
             this.renderer.dispose();
             return;
         }
-        this.renderer.bind(root);
+        // Remount boundary only. Pass detached identity, never GameState, to the renderer.
+        // The canonical Counter DOM controls visibility (including deployment privacy).
+        const identities = Object.values(session?.state.units ?? {}).map(({ id, side, type }) => ({ id, side, type }));
+        this.renderer.bind(root, identities);
         this.renderer.paint(this.coordinator.snapshot());
     }
     dispose() { this.unsubscribe(); this.coordinator.dispose(); this.renderer.dispose(); this.session = null; }

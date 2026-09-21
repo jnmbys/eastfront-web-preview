@@ -1,6 +1,10 @@
 import { hexEqual, hexToPixel } from '../geometry/hex.js';
 import { deriveCounterPlacement } from '../render/derive.js';
 export function isTravelEvent(event) { return 'path' in event; }
+/** Supporting fire is separate from the actual attack group / Counter selection. */
+export function firingParticipants(event) {
+    return [...event.attackers, ...(event.supporters ?? [])];
+}
 /** Existing Counter V2 placement is the only authority for local stack offsets. */
 function stackOffset(state, id) {
     const unit = state.units[id];
@@ -40,7 +44,26 @@ export function derivePresentationEvents(before, result) {
             const cue = participant(before, id, defender ? hexToPixel(defender.hex) : undefined);
             return cue ? [cue] : [];
         });
-        events.push({ ...identity(), kind, battleId, unitIds: [...(tx?.attackerUnitIds ?? []), ...(tx?.defenderUnitIds ?? [])], attackers });
+        const supporters = [];
+        // Only resolved context proves support actually contributed. Never infer from range,
+        // a draft selection, or the mere existence of a nearby artillery unit.
+        if (kind === 'combat-fire' && tx?.context) {
+            const firstAttacker = tx.attackerUnitIds.map(id => before.units[id]).find(Boolean);
+            const supportTargets = [
+                [tx.context.attackerArtilleryUnitId, defender ? hexToPixel(defender.hex) : undefined],
+                [tx.context.defenderArtilleryUnitId, firstAttacker ? hexToPixel(firstAttacker.hex) : undefined],
+            ];
+            for (const [id, target] of supportTargets) {
+                if (!id || !target || attackers.some(a => a.unitId === id) || supporters.some(a => a.unitId === id))
+                    continue;
+                if (before.units[id]?.type !== 'ARTILLERY')
+                    continue;
+                const cue = participant(before, id, target);
+                if (cue)
+                    supporters.push(cue);
+            }
+        }
+        events.push({ ...identity(), kind, battleId, unitIds: [...(tx?.attackerUnitIds ?? []), ...(tx?.defenderUnitIds ?? [])], attackers, ...(supporters.length ? { supporters } : {}) });
     };
     const travel = (kind, unitId, acceptedPath) => {
         const source = before.units[unitId], destination = after.units[unitId];
