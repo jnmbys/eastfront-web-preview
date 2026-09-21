@@ -1,4 +1,5 @@
 import { advanceChoices, reactionChoices, retreatPlan, schwerpunktChoices } from '../interaction/combatFlow.js';
+import { eligibleAdditionalAttackerIds, isCombatTargetSelection, primaryAttackerId } from '../interaction/attackGroup.js';
 import {
   analyzeLossRequirement,
   buildCombatContext,
@@ -50,6 +51,7 @@ export interface CounterModel {
   controllerId: EntityId;
   hex: HexCoord;
   selected: boolean;
+  combatRole?: 'primary' | 'selected' | 'eligible';
   entrenched: boolean;
 }
 export interface DeploymentRosterRow extends ScenarioInitialDeploymentUnit { placed:boolean; stats:UnitStats; type:UnitState['type']; }
@@ -66,7 +68,7 @@ export interface EntrenchModel { selectedIssues:ValidationIssue[]; }
 
 export interface CombatHistoryRow { battleId:string;sourceBattleId:string|null;attackerSide:Side;defenderSide:Side;target:HexCoord;stage:CombatTransaction['stage'];crtResult:string|null; }
 export interface CombatUiModel {
-  attackDraft:{attackerUnitIds:string[];target:HexCoord|null;targetHexes:HexCoord[];artilleryUnitIds:string[];selectedArtilleryId:string|null;issues:ValidationIssue[];preview:CombatContext|null};
+  attackDraft:{attackerUnitIds:string[];primaryAttackerId:string|null;eligibleAttackerIds:string[];target:HexCoord|null;targetHexes:HexCoord[];artilleryUnitIds:string[];selectedArtilleryId:string|null;issues:ValidationIssue[];preview:CombatContext|null};
   battle:CombatTransaction|null; pending:GameState['pendingDecision'];
   reaction:{artillery:string[];hq:string[]};
   advance:null|{unitIds:string[];selectedUnitId:string|null;target:HexCoord};
@@ -170,6 +172,15 @@ export function deriveBrowserRenderModel(session:LocalGameSession,presentation:P
     const battle=battleId?session.state.combatTransactions[battleId]??null:null;
     const attackTarget=presentation.attackTarget;
     const attackerUnitIds=presentation.attackUnitIds.filter((id)=>session.state.units[id]?.alive);
+    const primary=primaryAttackerId(presentation);
+    const eligibleAttackerIds=eligibleAdditionalAttackerIds(session,presentation);
+    if(isCombatTargetSelection(session,presentation)&&attackTarget){
+      for(const counter of counters){
+        if(counter.id===primary){counter.combatRole='primary';counter.selected=true;}
+        else if(attackerUnitIds.includes(counter.id))counter.combatRole='selected';
+        else if(eligibleAttackerIds.includes(counter.id))counter.combatRole='eligible';
+      }
+    }
     const targetKeys=new Set<string>();
     for(const id of attackerUnitIds){const u=session.state.units[id];if(!u)continue;for(const h of getNeighbors(u.hex)){const defenders=Object.values(session.state.units).filter((d)=>d.alive&&d.side!==u.side&&d.hex.q===h.q&&d.hex.r===h.r);if(defenders.length)targetKeys.add(`${h.q},${h.r}`);}}
     const targetHexes=[...targetKeys].map((key)=>{const [q,r]=key.split(',').map(Number);return {q:q!,r:r!};});
@@ -191,7 +202,7 @@ export function deriveBrowserRenderModel(session:LocalGameSession,presentation:P
     let schwerpunkt:CombatUiModel['schwerpunkt']=null;
     if(pending?.kind==='SCHWERPUNKT_OPTION'){const choices=schwerpunktChoices(session);const targets=new Map(choices.map(c=>[`${c.target.q},${c.target.r}`,c.target]));schwerpunkt={eligibleUnitIds:[...new Set(choices.map(c=>c.unitId))],target:presentation.schwerpunktTarget?{...presentation.schwerpunktTarget}:null,targetOptions:[...targets.values()],choices};}
     const history=Object.values(session.state.combatTransactions).map((tx)=>({battleId:tx.battleId,sourceBattleId:tx.sourceBattleId,attackerSide:tx.attackerSide,defenderSide:tx.defenderSide,target:{...tx.targetHex},stage:tx.stage,crtResult:tx.resolution?.crtResult??null})).sort((a,b)=>a.battleId.localeCompare(b.battleId));
-    combat={attackDraft:{attackerUnitIds,target:attackTarget?{...attackTarget}:null,targetHexes,artilleryUnitIds,selectedArtilleryId:presentation.attackerArtilleryUnitId,issues:attackIssues,preview},battle,pending,reaction:reactionChoices(session),advance,crt:{columns:session.rules.crt.columns,table:session.rules.crt.table},loss,retreat,breakthrough,schwerpunkt,history};
+    combat={attackDraft:{attackerUnitIds,primaryAttackerId:primary,eligibleAttackerIds,target:attackTarget?{...attackTarget}:null,targetHexes,artilleryUnitIds,selectedArtilleryId:presentation.attackerArtilleryUnitId,issues:attackIssues,preview},battle,pending,reaction:reactionChoices(session),advance,crt:{columns:session.rules.crt.columns,table:session.rules.crt.table},loss,retreat,breakthrough,schwerpunkt,history};
   }
 
   return {phase:session.state.phase,turn:session.state.turn,activeSide:session.state.activeSide,rp:{...session.state.rp},cp:{...session.state.cp},viewerControllerId:session.activeViewerControllerId,viewerSide:viewer.side,hexes:Object.values(session.state.hexes),edges:Object.values(session.state.edges),counters,deployment,movement,moveOptions,selectedCounter,railRepair,reinforcement,recovery,entrench,combat,victory:{...session.state.victory}};

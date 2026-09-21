@@ -11,7 +11,7 @@ import { createLocalGameSession, loadProductionMapFromUrl, dispatchGameAction, t
 import {
   chooseLossAndContinue,cancelMoveDraft,cancelRailRepair,clearAttackDraft,clearLossDraft,commitBreakthrough,commitMoveDraft,commitRailRepair,commitSchwerpunkt,confirmPrivacyGate,attackAndContinue,deploySelectedReinforcement,deploySelectedUnit,
   enterRailRepairMode,entrenchSelectedUnit,extendBreakthroughDraft,extendMoveDraft,passAdvance,passBreakthrough,passCombatReaction,passSchwerpunkt,readyForPhase,recoverSelectedUnit,routeCombatTarget,isCombatTargetSelection,combatTargetIssues,selectAttackerArtillery,selectBreakthroughUnit,selectCounter,selectDeploymentRosterUnit,
-  selectRailEngineer,selectReinforcement,selectSchwerpunktTarget,switchViewerForDevelopment,toggleAttackUnit,toggleRailRepairEdge,undoBreakthroughDraft,undoLossDraft,undoMoveDraft,useDefenderArtillery,
+  selectRailEngineer,selectReinforcement,selectSchwerpunktTarget,switchViewerForDevelopment,toggleAttackUnit,toggleSupportingAttacker,toggleRailRepairEdge,undoBreakthroughDraft,undoLossDraft,undoMoveDraft,useDefenderArtillery,
 } from './interaction/intents.js';
 import { deriveBrowserRenderModel, type BrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes, type CoreSvgOptions } from './render/coreSvg.js';
@@ -250,6 +250,9 @@ function paintCombatTargets():void{
 }
 function bindDynamic():void{
   paintCombatTargets();
+  document.querySelectorAll<HTMLElement>('[data-remove-attacker]').forEach(el=>el.addEventListener('click',()=>{
+    const id=el.dataset.removeAttacker;if(!id||!session)return;toggleSupportingAttacker(session,presentation,id);refreshDynamicView();
+  }));
   document.querySelectorAll<HTMLElement>('[data-attack-unit]').forEach(el=>el.addEventListener('click',()=>{
     const id=el.dataset.attackUnit;if(!id||!session)return;toggleAttackUnit(session,presentation,id);refreshDynamicView();
   }));

@@ -31,9 +31,9 @@ test('single attacker auto-selection is legal, non-mutating, and matches manual 
  selectCounter(s,p,'d');routeCombatTarget(manual.s,manual.p,{q:0,r:0});declareAttack(s,p);declareAttack(manual.s,manual.p);
  assert.equal(s.lastResult.accepted,true);assert.deepEqual(s.state,manual.s.state);
 });
-test('advanced multi attacker selection preserves existing attackers and dispatches combined attack',()=>{
+test('map multi attacker selection preserves existing attackers and dispatches combined attack',()=>{
  const {s,p}=setup();s.state.units.g2=unit('g2','G-INF','GERMAN','INFANTRY',{q:0,r:-1});selectCounter(s,p,'d');
- selectCounter(s,p,'g2');assert.deepEqual(p.attackUnitIds,['g']);toggleAttackUnit(s,p,'g2');assert.deepEqual(p.attackUnitIds,['g','g2']);
+ selectCounter(s,p,'g2');assert.deepEqual(p.attackUnitIds,['g','g2']);assert.equal(p.selectedUnitId,'g');
  assert.equal(deriveBrowserRenderModel(s,p).combat.attackDraft.issues.length,0);declareAttack(s,p);assert.equal(s.lastResult.accepted,true);assert.deepEqual(s.lastResult.action.attackerUnitIds,['g','g2']);
 });
 test('unavailable attacker is not automatically selected and basic preview keeps advanced controls collapsed',()=>{

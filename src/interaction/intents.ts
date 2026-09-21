@@ -1,6 +1,8 @@
 import { msg, enumMessage, phaseMessage, type Message } from '../localization/index.js';
 import { joinIssues } from '../localization/issues.js';
 import { continueCombatFlow } from './combatFlow.js';
+import { additionalAttackerIssues, isCombatTargetSelection, primaryAttackerId } from './attackGroup.js';
+export { isCombatTargetSelection } from './attackGroup.js';
 import {
   analyzeBreakthroughAction,
   validateAttackAction,
@@ -49,6 +51,9 @@ export function selectCounter(session:LocalGameSession,presentation:Presentation
   if(clicked?.alive&&clicked.side!==viewerSide&&isCombatTargetSelection(session,presentation)){
     routeCombatTarget(session,presentation,clicked.hex);return;
   }
+  if(clicked?.side===viewerSide&&isCombatTargetSelection(session,presentation)&&presentation.attackTarget){
+    toggleSupportingAttacker(session,presentation,unitId);return;
+  }
   const unit=session.state.units[unitId];
   if(!unit)return;
   presentation.selectedUnitId=unitId;
@@ -64,7 +69,7 @@ export function selectCounter(session:LocalGameSession,presentation:Presentation
     &&unit.alive&&unit.controllerId===session.activeViewerControllerId&&viewerSide===session.state.activeSide){
     const legal=getNeighbors(unit.hex).some(target=>validateAttackAction(session.state,session.rules,
       {type:'ATTACK',controllerId:session.activeViewerControllerId,attackerUnitIds:[unitId],target}).length===0);
-    if(legal){presentation.attackUnitIds=[unitId];presentation.attackTarget=null;presentation.attackerArtilleryUnitId=null;presentation.message=msg('feedback.chooseEnemy');}
+    if(legal){presentation.attackUnitIds=[unitId];presentation.primaryAttackerId=unitId;presentation.attackTarget=null;presentation.attackerArtilleryUnitId=null;presentation.message=msg('feedback.chooseEnemy');}
     else presentation.message=msg('feedback.noLegalAttack');
   }
 }
@@ -221,18 +226,33 @@ function combatOutcomeMessage(action:string,accepted:boolean,issues:readonly {co
 }
 
 export function toggleAttackUnit(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
+  if(isCombatTargetSelection(session,presentation)&&presentation.attackTarget&&unitId!==primaryAttackerId(presentation)){
+    toggleSupportingAttacker(session,presentation,unitId);return;
+  }
   if(session.state.pendingDecision){presentation.message=msg('feedback.pendingCombat');return;}
   const unit=session.state.units[unitId];if(!unit||!unit.alive){presentation.message=msg('feedback.unavailable');return;}
   const side=session.state.controllers[session.activeViewerControllerId]?.side;
   if(unit.side!==side||unit.controllerId!==session.activeViewerControllerId){presentation.message=msg('feedback.needAttacker');return;}
   const set=new Set(presentation.attackUnitIds);if(set.has(unitId))set.delete(unitId);else set.add(unitId);
-  presentation.attackUnitIds=[...set].sort();presentation.interactionMode='ATTACK';presentation.message=msg('feedback.attackDraft',{count:presentation.attackUnitIds.length});
+  const primary=primaryAttackerId(presentation);
+  presentation.attackUnitIds=[...set].sort();presentation.primaryAttackerId=primary&&set.has(primary)?primary:presentation.attackUnitIds[0]??null;
+  if(unitId===primary&&!set.has(unitId)&&presentation.primaryAttackerId)presentation.selectedUnitId=presentation.primaryAttackerId;
+  presentation.interactionMode='ATTACK';presentation.message=msg('feedback.attackDraft',{count:presentation.attackUnitIds.length});
 }
-export function isCombatTargetSelection(session:LocalGameSession,presentation:PresentationState):boolean {
-  return (session.state.phase==='GERMAN_COMBAT'||session.state.phase==='SOVIET_COMBAT')
-    &&presentation.interactionMode==='ATTACK'&&presentation.attackUnitIds.length>0
-    &&!session.state.pendingDecision&&!presentation.privacyGate
-    &&session.state.controllers[session.activeViewerControllerId]?.side===session.state.activeSide;
+/** Map and compact chips edit the same draft; never dispatch or consume RNG. */
+export function toggleSupportingAttacker(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
+  if(!isCombatTargetSelection(session,presentation)||!presentation.attackTarget)return;
+  const primary=primaryAttackerId(presentation);
+  if(unitId===primary){presentation.selectedUnitId=primary;presentation.message=msg('combat.group.primaryHelp');return;}
+  const selected=presentation.attackUnitIds.includes(unitId);
+  if(!selected){
+    const issues=additionalAttackerIssues(session,presentation,unitId);
+    if(issues.length){presentation.message=msg('combat.group.unavailable',{issues:issuesMessage(issues)});return;}
+  }
+  presentation.primaryAttackerId=primary;
+  presentation.attackUnitIds=selected?presentation.attackUnitIds.filter(id=>id!==unitId):[...presentation.attackUnitIds,unitId].sort();
+  presentation.selectedUnitId=primary;
+  presentation.message=msg(selected?'combat.group.removed':'combat.group.added',{id:unitId,count:presentation.attackUnitIds.length});
 }
 export function combatTargetIssues(session:LocalGameSession,presentation:PresentationState,target:HexCoord){
   return validateAttackAction(session.state,session.rules,{type:'ATTACK',controllerId:session.activeViewerControllerId,
@@ -247,7 +267,7 @@ export function routeCombatTarget(session:LocalGameSession,presentation:Presenta
 }
 export function selectAttackTarget(presentation:PresentationState,target:HexCoord):void {presentation.attackTarget={...target};presentation.interactionMode='ATTACK';presentation.message=msg('feedback.targetSelected',{hex:coreHexKey(target)});}
 export function selectAttackerArtillery(presentation:PresentationState,unitId:EntityId|null):void {presentation.attackerArtilleryUnitId=unitId;presentation.interactionMode='ATTACK';}
-export function clearAttackDraft(presentation:PresentationState):void {presentation.attackUnitIds=[];presentation.attackTarget=null;presentation.attackerArtilleryUnitId=null;presentation.message=msg('feedback.attackCleared');}
+export function clearAttackDraft(presentation:PresentationState):void {presentation.attackUnitIds=[];presentation.primaryAttackerId=null;presentation.attackTarget=null;presentation.attackerArtilleryUnitId=null;presentation.message=msg('feedback.attackCleared');}
 export function declareAttack(session:LocalGameSession,presentation:PresentationState):void {
   if(!presentation.attackTarget||presentation.attackUnitIds.length===0){presentation.message=msg('feedback.needTarget');return;}
   const action:AttackAction={type:'ATTACK',controllerId:session.activeViewerControllerId,attackerUnitIds:[...presentation.attackUnitIds],target:{...presentation.attackTarget},...(presentation.attackerArtilleryUnitId?{support:{attackerArtilleryUnitId:presentation.attackerArtilleryUnitId}}:{})};

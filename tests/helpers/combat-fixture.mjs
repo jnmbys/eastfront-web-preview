@@ -12,14 +12,14 @@ export function fixture(seed=2722,units=ordinary()){
  return {s:{state,scenario:defaultScenario,rules:defaultRules,engine:new RulesEngine(defaultRules,defaultScenario),activeViewerControllerId:G,lastResult:null,integrityIssues:[]},p:createPresentationState(false,false)};
 }
 
-export async function productionFixture(seed=17){
+export async function productionFixture(seed=17,germanPositions={}){
  const {readFile}=await import('node:fs/promises');
  const {createLocalGameSession,dispatchGameAction}=await import('../../dist/app/core-adapter/session.js');
  const {deploymentHexKeysForSide}=await import('../../dist/app/core-adapter/core.js');
  const raw=JSON.parse(await readFile(new URL('../../vendor/eastfront-digital-core/reference/strategic-reset-f-map.json',import.meta.url),'utf8'));
  const s=createLocalGameSession(raw,seed);
  const apply=action=>{const r=dispatchGameAction(s,action).result;if(!r.accepted)throw new Error(JSON.stringify(r.issues));};
- for(const [side,cid,special]of [['SOVIET',S,{'S-I-01':'3,-1'}],['GERMAN',G,{'G-PZ-01':'2,-1'}]]){
+ for(const [side,cid,special]of [['SOVIET',S,{'S-I-01':'3,-1'}],['GERMAN',G,{'G-PZ-01':'2,-1',...germanPositions}]]){
   s.activeViewerControllerId=cid;const counts={},zone=deploymentHexKeysForSide(s.state,s.scenario,side),ids=s.scenario.deployment.units.filter(u=>u.side===side).map(u=>u.id).sort();
   for(const [id,k]of Object.entries(special)){apply({type:'DEPLOY_INITIAL_UNIT',controllerId:cid,deploymentUnitId:id,hex:s.state.hexes[k].coord});counts[k]=(counts[k]??0)+1;}
   for(const id of ids){if(id in special)continue;const k=zone.find(k=>(counts[k]??0)<2&&!Object.values(special).includes(k));apply({type:'DEPLOY_INITIAL_UNIT',controllerId:cid,deploymentUnitId:id,hex:s.state.hexes[k].coord});counts[k]=(counts[k]??0)+1;}
