@@ -8,7 +8,7 @@ import { createDeploymentTouch, chooseDeploymentTarget, confirmDeploymentTarget 
 import { commandHeader, deploymentLocations, deploymentConfirm, deploymentFeedback, unitDescription, unitLabel } from './ui/commandPresentation.js';
 import { coreHexKey, isDeploymentPhase } from './core-adapter/core.js';
 import { createLocalGameSession, loadProductionMapFromUrl, dispatchGameAction } from './core-adapter/session.js';
-import { chooseLossAndContinue, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitMoveDraft, commitRailRepair, commitSchwerpunkt, confirmPrivacyGate, attackAndContinue, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, routeCombatTarget, isCombatTargetSelection, combatTargetIssues, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, useDefenderArtillery, } from './interaction/intents.js';
+import { chooseLossAndContinue, cancelMoveDraft, cancelRailRepair, clearAttackDraft, clearLossDraft, commitBreakthrough, commitMoveDraft, commitRailRepair, commitSchwerpunkt, confirmPrivacyGate, attackAndContinue, deploySelectedReinforcement, deploySelectedUnit, enterRailRepairMode, entrenchSelectedUnit, extendBreakthroughDraft, extendMoveDraft, passAdvance, passBreakthrough, passCombatReaction, passSchwerpunkt, readyForPhase, recoverSelectedUnit, routeCombatTarget, isCombatTargetSelection, combatTargetIssues, selectAttackerArtillery, selectBreakthroughUnit, selectCounter, selectDeploymentRosterUnit, selectRailEngineer, selectReinforcement, selectSchwerpunktTarget, switchViewerForDevelopment, toggleAttackUnit, toggleSupportingAttacker, toggleRailRepairEdge, undoBreakthroughDraft, undoLossDraft, undoMoveDraft, useDefenderArtillery, } from './interaction/intents.js';
 import { deriveBrowserRenderModel } from './render/coreModel.js';
 import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes } from './render/coreSvg.js';
 import { selectTerrainLod } from './render/terrainAssets.js';
@@ -496,6 +496,13 @@ function paintCombatTargets() {
 }
 function bindDynamic() {
     paintCombatTargets();
+    document.querySelectorAll('[data-remove-attacker]').forEach(el => el.addEventListener('click', () => {
+        const id = el.dataset.removeAttacker;
+        if (!id || !session)
+            return;
+        toggleSupportingAttacker(session, presentation, id);
+        refreshDynamicView();
+    }));
     document.querySelectorAll('[data-attack-unit]').forEach(el => el.addEventListener('click', () => {
         const id = el.dataset.attackUnit;
         if (!id || !session)

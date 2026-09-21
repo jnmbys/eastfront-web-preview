@@ -8,6 +8,13 @@ export function combatAttackPanel(model, details) {
     const a = c.attackDraft, preview = a.preview;
     const key = (h) => `${h.q},${h.r}`;
     const label = (id) => { const u = model.counters.find(u => u.id === id); return u ? `${unitLabel(u.side)} ${unitLabel(u.type)} · ${id}` : id; };
+    const chipIds = a.primaryAttackerId ? [a.primaryAttackerId, ...a.attackerUnitIds.filter(id => id !== a.primaryAttackerId)] : a.attackerUnitIds;
+    const chips = chipIds.map(id => {
+        const unit = model.counters.find(u => u.id === id), name = unit ? `${unitLabel(unit.type)} · ${id}` : id;
+        return id === a.primaryAttackerId || !a.target
+            ? `<span class="combat-attacker-chip ${id === a.primaryAttackerId ? 'primary' : ''}" title="${t(id === a.primaryAttackerId ? 'combat.group.primary' : 'combat.group.selected')}">${esc(name)}</span>`
+            : `<button type="button" class="combat-attacker-chip" data-remove-attacker="${esc(id)}" aria-label="${esc(t('combat.group.remove', { unit: label(id) }))}">${esc(name)} <span aria-hidden="true">×</span></button>`;
+    }).join('');
     const defenders = a.target ? model.counters.filter(u => u.side !== model.viewerSide && key(u.hex) === key(a.target)) : [];
     const terrain = a.target ? model.hexes.find(h => key(h.coord) === key(a.target))?.terrain : null;
     const enabled = !!a.target && a.attackerUnitIds.length > 0 && a.issues.length === 0 && !!preview;
@@ -18,10 +25,11 @@ export function combatAttackPanel(model, details) {
     const crt = `<div class="combat-crt-scroll"><table class="combat-crt"><caption>${t('combat.flow.crtTable')}</caption><thead><tr><th>${t('combat.flow.diceTotal')}</th>${c.crt.columns.map(label => `<th>${esc(label)}</th>`).join('')}</tr></thead><tbody>${Object.entries(c.crt.table).map(([roll, results]) => `<tr><th>${roll}</th>${results.map(result => `<td>${esc(result)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
     return `<section class="panel-block phase-actions attack-preview"><span class="eyebrow">${t('combat.flow.preview')}</span>
  <p class="attack-guidance">${!a.attackerUnitIds.length ? t('common.selectUnit') : !a.target ? t('combat.chooseEnemy') : t('combat.flow.ready')}</p>
- <div class="attack-matchup"><strong>${a.attackerUnitIds.map(id => esc(label(id))).join('<br>') || t('combat.selectAttacker')}</strong><span>${t('combat.versus')}</span><strong>${defenders.map(u => esc(label(u.id))).join('<br>') || t('combat.selectEnemy')}</strong></div>
+ <div class="attack-matchup"><div class="combat-attack-group"><span class="combat-group-count">${t('combat.group.count', { count: a.attackerUnitIds.length })}</span><div class="combat-attacker-chips">${chips || t('combat.selectAttacker')}</div></div><span>${t('combat.versus')}</span><strong>${defenders.map(u => esc(label(u.id))).join('<br>') || t('combat.selectEnemy')}</strong></div>
+ ${a.target && a.eligibleAttackerIds.length ? `<p class="combat-group-hint">${t('combat.group.hint')}</p>` : ''}
  <div class="phase-metric"><span>${t('common.target')}</span><strong>${a.target ? key(a.target) : '—'}</strong></div>
  ${terrain ? `<div class="phase-metric"><span>${t('common.terrain')}</span><strong>${unitLabel(terrain)}</strong></div>` : ''}
- ${preview ? `<div class="attack-odds"><span>${t('combat.odds')} <strong>${esc(preview.finalCRTColumnLabel)}</strong></span><span>${t('combat.modifiers')} <strong>${preview.finalShift > 0 ? '+' : ''}${preview.finalShift}</strong></span></div><p class="combat-modifier-summary"><span>${t('combat.flow.majorModifiers')}</span> · ${modifiers.join(' · ') || t('combat.flow.noModifiers')}</p><small>${t('combat.previewHelp')}</small>` : ''}
+ ${preview ? `<div class="phase-metric"><span>${t('combat.group.strength')}</span><strong>${preview.attackStrength}</strong></div><div class="attack-odds"><span>${t('combat.odds')} <strong>${esc(preview.finalCRTColumnLabel)}</strong></span><span>${t('combat.modifiers')} <strong>${preview.finalShift > 0 ? '+' : ''}${preview.finalShift}</strong></span></div><p class="combat-modifier-summary"><span>${t('combat.flow.majorModifiers')}</span> · ${modifiers.join(' · ') || t('combat.flow.noModifiers')}</p><small>${t('combat.previewHelp')}</small>` : ''}
  <div role="status" aria-live="polite">${a.issues.map(i => `<p>${esc(issueText(i))}</p>`).join('')}</div>
  <button id="attack-declare" class="primary-action combat-confirm" ${enabled ? '' : 'disabled'}>${t('combat.attack')}</button>
  <details class="combat-advanced"><summary>${t('combat.flow.advanced')}</summary>

@@ -1,4 +1,5 @@
 import { advanceChoices, reactionChoices, retreatPlan, schwerpunktChoices } from '../interaction/combatFlow.js';
+import { eligibleAdditionalAttackerIds, isCombatTargetSelection, primaryAttackerId } from '../interaction/attackGroup.js';
 import { analyzeLossRequirement, buildCombatContext, computeActiveGermanRailNetwork, computeLegalSovietReinforcementEntryHexKeys, computeRecoveryBaseHexKeys, deploymentHexKeysForSide, evaluateDeploymentSideStatus, getAvailableSovietReinforcements, getCurrentTurnSovietReinforcements, getDelayedSovietReinforcements, getNeighbors, getRecoveryUnitLimit, getUnitStats, hasDeployableSovietReinforcement, hasGermanRailRepairActionThisTurn, validArtillerySupport, validateAttackAction, validateBreakthroughAction, isDeploymentPhase, resolveSovietReinforcementTemplate, validateEntrenchAction, validateMoveAction, validateRailRepairAction, validateRecoveryAction, } from '../core-adapter/core.js';
 import { deploymentProjection } from '../core-adapter/session.js';
 function counterFromUnit(session, unit, selectedUnitId) {
@@ -92,6 +93,20 @@ export function deriveBrowserRenderModel(session, presentation) {
         const battle = battleId ? session.state.combatTransactions[battleId] ?? null : null;
         const attackTarget = presentation.attackTarget;
         const attackerUnitIds = presentation.attackUnitIds.filter((id) => session.state.units[id]?.alive);
+        const primary = primaryAttackerId(presentation);
+        const eligibleAttackerIds = eligibleAdditionalAttackerIds(session, presentation);
+        if (isCombatTargetSelection(session, presentation) && attackTarget) {
+            for (const counter of counters) {
+                if (counter.id === primary) {
+                    counter.combatRole = 'primary';
+                    counter.selected = true;
+                }
+                else if (attackerUnitIds.includes(counter.id))
+                    counter.combatRole = 'selected';
+                else if (eligibleAttackerIds.includes(counter.id))
+                    counter.combatRole = 'eligible';
+            }
+        }
         const targetKeys = new Set();
         for (const id of attackerUnitIds) {
             const u = session.state.units[id];
@@ -154,7 +169,7 @@ export function deriveBrowserRenderModel(session, presentation) {
             schwerpunkt = { eligibleUnitIds: [...new Set(choices.map(c => c.unitId))], target: presentation.schwerpunktTarget ? { ...presentation.schwerpunktTarget } : null, targetOptions: [...targets.values()], choices };
         }
         const history = Object.values(session.state.combatTransactions).map((tx) => ({ battleId: tx.battleId, sourceBattleId: tx.sourceBattleId, attackerSide: tx.attackerSide, defenderSide: tx.defenderSide, target: { ...tx.targetHex }, stage: tx.stage, crtResult: tx.resolution?.crtResult ?? null })).sort((a, b) => a.battleId.localeCompare(b.battleId));
-        combat = { attackDraft: { attackerUnitIds, target: attackTarget ? { ...attackTarget } : null, targetHexes, artilleryUnitIds, selectedArtilleryId: presentation.attackerArtilleryUnitId, issues: attackIssues, preview }, battle, pending, reaction: reactionChoices(session), advance, crt: { columns: session.rules.crt.columns, table: session.rules.crt.table }, loss, retreat, breakthrough, schwerpunkt, history };
+        combat = { attackDraft: { attackerUnitIds, primaryAttackerId: primary, eligibleAttackerIds, target: attackTarget ? { ...attackTarget } : null, targetHexes, artilleryUnitIds, selectedArtilleryId: presentation.attackerArtilleryUnitId, issues: attackIssues, preview }, battle, pending, reaction: reactionChoices(session), advance, crt: { columns: session.rules.crt.columns, table: session.rules.crt.table }, loss, retreat, breakthrough, schwerpunkt, history };
     }
     return { phase: session.state.phase, turn: session.state.turn, activeSide: session.state.activeSide, rp: { ...session.state.rp }, cp: { ...session.state.cp }, viewerControllerId: session.activeViewerControllerId, viewerSide: viewer.side, hexes: Object.values(session.state.hexes), edges: Object.values(session.state.edges), counters, deployment, movement, moveOptions, selectedCounter, railRepair, reinforcement, recovery, entrench, combat, victory: { ...session.state.victory } };
 }

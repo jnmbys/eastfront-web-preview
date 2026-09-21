@@ -1,6 +1,8 @@
 import { msg, enumMessage, phaseMessage } from '../localization/index.js';
 import { joinIssues } from '../localization/issues.js';
 import { continueCombatFlow } from './combatFlow.js';
+import { additionalAttackerIssues, isCombatTargetSelection, primaryAttackerId } from './attackGroup.js';
+export { isCombatTargetSelection } from './attackGroup.js';
 import { analyzeBreakthroughAction, validateAttackAction, coreHexKey, getLegalRetreatStepOptions, getNeighbors, } from '../core-adapter/core.js';
 import { controllerIdForSide, dispatchGameAction, setActiveViewer } from '../core-adapter/session.js';
 import { clearActionDrafts, clearCombatDrafts } from '../state/presentation.js';
@@ -31,6 +33,10 @@ export function selectCounter(session, presentation, unitId) {
         routeCombatTarget(session, presentation, clicked.hex);
         return;
     }
+    if (clicked?.side === viewerSide && isCombatTargetSelection(session, presentation) && presentation.attackTarget) {
+        toggleSupportingAttacker(session, presentation, unitId);
+        return;
+    }
     const unit = session.state.units[unitId];
     if (!unit)
         return;
@@ -54,6 +60,7 @@ export function selectCounter(session, presentation, unitId) {
         const legal = getNeighbors(unit.hex).some(target => validateAttackAction(session.state, session.rules, { type: 'ATTACK', controllerId: session.activeViewerControllerId, attackerUnitIds: [unitId], target }).length === 0);
         if (legal) {
             presentation.attackUnitIds = [unitId];
+            presentation.primaryAttackerId = unitId;
             presentation.attackTarget = null;
             presentation.attackerArtilleryUnitId = null;
             presentation.message = msg('feedback.chooseEnemy');
@@ -267,6 +274,10 @@ function combatOutcomeMessage(action, accepted, issues) {
     return accepted ? msg('feedback.combatAccepted', { action: enumMessage(action) }) : issuesMessage(issues);
 }
 export function toggleAttackUnit(session, presentation, unitId) {
+    if (isCombatTargetSelection(session, presentation) && presentation.attackTarget && unitId !== primaryAttackerId(presentation)) {
+        toggleSupportingAttacker(session, presentation, unitId);
+        return;
+    }
     if (session.state.pendingDecision) {
         presentation.message = msg('feedback.pendingCombat');
         return;
@@ -286,15 +297,36 @@ export function toggleAttackUnit(session, presentation, unitId) {
         set.delete(unitId);
     else
         set.add(unitId);
+    const primary = primaryAttackerId(presentation);
     presentation.attackUnitIds = [...set].sort();
+    presentation.primaryAttackerId = primary && set.has(primary) ? primary : presentation.attackUnitIds[0] ?? null;
+    if (unitId === primary && !set.has(unitId) && presentation.primaryAttackerId)
+        presentation.selectedUnitId = presentation.primaryAttackerId;
     presentation.interactionMode = 'ATTACK';
     presentation.message = msg('feedback.attackDraft', { count: presentation.attackUnitIds.length });
 }
-export function isCombatTargetSelection(session, presentation) {
-    return (session.state.phase === 'GERMAN_COMBAT' || session.state.phase === 'SOVIET_COMBAT')
-        && presentation.interactionMode === 'ATTACK' && presentation.attackUnitIds.length > 0
-        && !session.state.pendingDecision && !presentation.privacyGate
-        && session.state.controllers[session.activeViewerControllerId]?.side === session.state.activeSide;
+/** Map and compact chips edit the same draft; never dispatch or consume RNG. */
+export function toggleSupportingAttacker(session, presentation, unitId) {
+    if (!isCombatTargetSelection(session, presentation) || !presentation.attackTarget)
+        return;
+    const primary = primaryAttackerId(presentation);
+    if (unitId === primary) {
+        presentation.selectedUnitId = primary;
+        presentation.message = msg('combat.group.primaryHelp');
+        return;
+    }
+    const selected = presentation.attackUnitIds.includes(unitId);
+    if (!selected) {
+        const issues = additionalAttackerIssues(session, presentation, unitId);
+        if (issues.length) {
+            presentation.message = msg('combat.group.unavailable', { issues: issuesMessage(issues) });
+            return;
+        }
+    }
+    presentation.primaryAttackerId = primary;
+    presentation.attackUnitIds = selected ? presentation.attackUnitIds.filter(id => id !== unitId) : [...presentation.attackUnitIds, unitId].sort();
+    presentation.selectedUnitId = primary;
+    presentation.message = msg(selected ? 'combat.group.removed' : 'combat.group.added', { id: unitId, count: presentation.attackUnitIds.length });
 }
 export function combatTargetIssues(session, presentation, target) {
     return validateAttackAction(session.state, session.rules, { type: 'ATTACK', controllerId: session.activeViewerControllerId,
@@ -314,7 +346,7 @@ export function routeCombatTarget(session, presentation, target) {
 }
 export function selectAttackTarget(presentation, target) { presentation.attackTarget = { ...target }; presentation.interactionMode = 'ATTACK'; presentation.message = msg('feedback.targetSelected', { hex: coreHexKey(target) }); }
 export function selectAttackerArtillery(presentation, unitId) { presentation.attackerArtilleryUnitId = unitId; presentation.interactionMode = 'ATTACK'; }
-export function clearAttackDraft(presentation) { presentation.attackUnitIds = []; presentation.attackTarget = null; presentation.attackerArtilleryUnitId = null; presentation.message = msg('feedback.attackCleared'); }
+export function clearAttackDraft(presentation) { presentation.attackUnitIds = []; presentation.primaryAttackerId = null; presentation.attackTarget = null; presentation.attackerArtilleryUnitId = null; presentation.message = msg('feedback.attackCleared'); }
 export function declareAttack(session, presentation) {
     if (!presentation.attackTarget || presentation.attackUnitIds.length === 0) {
         presentation.message = msg('feedback.needTarget');

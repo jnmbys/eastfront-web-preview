@@ -1,5 +1,16 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+    "combat.group.count": "Attackers: {count}",
+    "combat.group.hint": "Tap a highlighted friendly unit to join the attack. Tap it again to remove it.",
+    "combat.group.primary": "Primary attacker",
+    "combat.group.selected": "Additional attacker selected",
+    "combat.group.eligible": "Eligible attacker",
+    "combat.group.remove": "Remove {unit} from the attack",
+    "combat.group.strength": "Total attack strength",
+    "combat.group.added": "{id} joined the attack. Attackers: {count}.",
+    "combat.group.removed": "{id} removed from the attack. Attackers: {count}.",
+    "combat.group.unavailable": "Cannot join this attack: {issues}",
+    "combat.group.primaryHelp": "Primary attacker retained. Tap other highlighted units to join the attack.",
     "combat.flow.allocateHelp": "Choose units to take {steps} loss step(s). Apply automatically when all steps are assigned.",
     "combat.flow.preview": "Combat preview",
     "combat.flow.advanced": "Advanced options",
