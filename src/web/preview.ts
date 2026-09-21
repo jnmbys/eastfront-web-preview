@@ -1,3 +1,5 @@
+import { startupLoadingMarkup } from './startupView.js';
+import type { StartupSnapshot } from './startupProgress.js';
 import { languageControl } from '../localization/languageControl.js';
 import { t, enumLabel, formatMessage, type Message } from '../localization/index.js';
 import type { LegacyMapData } from '../core-adapter/core.js';
@@ -36,8 +38,8 @@ function esc(value:string):string {
   return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));
 }
 
-export function loadingMarkup():string {
-  return `<main class="preview-state preview-loading" data-preview-state="loading"><div class="preview-state-card">${languageControl()}<span class="preview-kicker">EASTFRONT</span><h1>${t('game.loading')}</h1><p>${t('game.preparing')}</p></div></main>`;
+export function loadingMarkup(progress?:StartupSnapshot):string {
+  return startupLoadingMarkup(progress);
 }
 
 export function homeMarkup(profile:ResponsiveProfile):string {

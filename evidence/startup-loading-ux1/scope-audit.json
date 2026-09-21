@@ -1,0 +1,29 @@
+{
+  "baselineCommit": "cd360123402deb4b0c8520cbc861a6268b27b9ed",
+  "baselineTree": "59332aa20e33c151ef93226ab29e52d07e5da434",
+  "baselineWorkingTree": "CLEAN",
+  "typecheck": "PASS",
+  "build": "PASS",
+  "tests": {
+    "baseline": 285,
+    "new": 16,
+    "final": 301,
+    "passed": 301,
+    "failed": 0,
+    "skipped": 0
+  },
+  "byteUnchangedPaths": [
+    "src/core-adapter",
+    "src/geometry",
+    "src/presentation",
+    "src/interaction",
+    "vendor",
+    "src/assets",
+    "public"
+  ],
+  "loaderAudit": "Baseline SHA-256 guards remove only the added observation calls; original image paths, timeouts, cache and VS2 generation match exactly. Runtime direct/blob/bitmap/failure and VS2 observer on/off tests PASS.",
+  "gameplaySeed": "Existing fresh NEW GAME tests PASS; createGameplaySeed/createFreshProductionSession/startNewGame unchanged.",
+  "manualBrowser": "browser manual validation pending",
+  "manualBlocker": "Cloud browser preview server rejected loopback listener with EPERM. No browser, Huawei device, or 300-500ms timing PASS claimed.",
+  "uiOnlyScheduling": "Two requestAnimationFrame callbacks present actual 100% after cached surfaces and home markup are ready; no resource await/order changes."
+}

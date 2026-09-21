@@ -1,3 +1,4 @@
+import { reportLoadedTerrainImage } from './terrainLoadProgress.js';
 import type { HexCoord, TerrainType } from '../core-adapter/core.js';
 import { HEX_SIZE, hexPolygon, hexToPixel, sharedHexEdge } from '../geometry/hex.js';
 import type { BrowserRenderModel } from './coreModel.js';
@@ -77,10 +78,10 @@ export async function fetchTerrainBlobWithAbort(url:string,entry:TerrainAssetEnt
 }
 export async function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride?:string):Promise<LoadedTerrainImage>{
   const url=urlOverride??absAssetUrl(entry,set);let directFailure:unknown,fetchFailure:unknown,bitmapFailure:unknown,blobImageFailure:unknown;let response:Response|undefined,blob:Blob|undefined;
-  try{return await imageFromUrl(url,entry,'direct-image-load',capabilities);}catch(error){directFailure=error;console.warn('EASTFRONT terrain direct image fallback',entry.id,url,error);}
+  try{return reportLoadedTerrainImage(await imageFromUrl(url,entry,'direct-image-load',capabilities));}catch(error){directFailure=error;console.warn('EASTFRONT terrain direct image fallback',entry.id,url,error);}
   try{const result=await fetchTerrainBlobWithAbort(url,entry,capabilities);response=result.response;blob=result.blob;}catch(error){fetchFailure=error;}
-  if(blob&&capabilities.createImageBitmap){try{const bitmap=await Promise.race([globalThis.createImageBitmap(blob),timeoutAfter(RESOURCE_TIMEOUT_MS,`createImageBitmap ${entry.id}`)]);return {source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()};}catch(error){bitmapFailure=error;console.warn('EASTFRONT terrain createImageBitmap fallback',entry.id,url,error);}}
-  if(blob){let objectUrl:string|undefined;try{objectUrl=URL.createObjectURL(blob);return await imageFromUrl(objectUrl,entry,'html-image-load',capabilities);}catch(error){blobImageFailure=error;console.warn('EASTFRONT terrain blob HTMLImage fallback failed',entry.id,url,error);}finally{if(objectUrl)URL.revokeObjectURL(objectUrl);}}
+  if(blob&&capabilities.createImageBitmap){try{const bitmap=await Promise.race([globalThis.createImageBitmap(blob),timeoutAfter(RESOURCE_TIMEOUT_MS,`createImageBitmap ${entry.id}`)]);return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});}catch(error){bitmapFailure=error;console.warn('EASTFRONT terrain createImageBitmap fallback',entry.id,url,error);}}
+  if(blob){let objectUrl:string|undefined;try{objectUrl=URL.createObjectURL(blob);return reportLoadedTerrainImage(await imageFromUrl(objectUrl,entry,'html-image-load',capabilities));}catch(error){blobImageFailure=error;console.warn('EASTFRONT terrain blob HTMLImage fallback failed',entry.id,url,error);}finally{if(objectUrl)URL.revokeObjectURL(objectUrl);}}
   const causes=[`directImage=${errorText(directFailure)}`,fetchFailure?`fetch=${errorText(fetchFailure)}`:'',bitmapFailure?`createImageBitmap=${errorText(bitmapFailure)}`:'',blobImageFailure?`blobImage=${errorText(blobImageFailure)}`:''].filter(Boolean).join('; ');
   const fetchDetails=fetchFailure instanceof TerrainSurfaceResourceError?fetchFailure.details:undefined;
   const details:TerrainSurfaceFailureDetails={stage:fetchDetails?.stage??'direct-image-load',url,assetId:entry.id,family:entry.family,preferredApi:capabilities.createImageBitmap?'HTMLImageElement(url)→fetch+AbortController→createImageBitmap→HTMLImageElement(blob)':'HTMLImageElement(url)→fetch+AbortController→HTMLImageElement(blob)',cause:causes,capabilities};

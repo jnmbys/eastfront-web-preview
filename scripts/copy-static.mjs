@@ -1,6 +1,8 @@
-import { copyFile, cp, mkdir } from 'node:fs/promises';
+import { startupLoadingMarkup } from '../dist/app/web/startupView.js';
+import { copyFile, cp, mkdir, readFile, writeFile } from 'node:fs/promises';
 await mkdir('dist', { recursive: true });
-await copyFile('index.html','dist/index.html');
+// Static localized feedback is visible before the main module graph downloads.
+await writeFile('dist/index.html',(await readFile('index.html','utf8')).replace('<!--startup-feedback-->',startupLoadingMarkup()));
 await copyFile('styles.css','dist/styles.css');
 await mkdir('dist/vendor/eastfront-digital-core', { recursive:true });
 await cp('vendor/eastfront-digital-core/dist','dist/vendor/eastfront-digital-core/dist',{recursive:true});

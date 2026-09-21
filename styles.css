@@ -236,3 +236,13 @@ html[lang="zh-CN"] .resource-strip>span{padding-inline:5px;letter-spacing:0}
 .animation-controls select { min-height:36px; padding:4px 7px; color:#eee4d1; background:#172431; border:1px solid #7b6b50; border-radius:5px; font:inherit; }
 @media (pointer:coarse) { .animation-controls select, .animation-controls button { min-height:44px; } }
 @media(max-width:1100px) { .animation-controls label { display:none; } }
+.startup-progress{margin:28px auto 0;max-width:400px}
+.startup-track{height:6px;overflow:hidden;background:#0d1622;border:1px solid #556171;border-radius:2px}
+.startup-fill{display:block;height:100%;width:100%;background:#b39a68;transform-origin:left center;transition:transform 180ms ease-out}
+.startup-steps{margin:13px 0 20px;color:#c9b78f;font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.05em}
+.preview-loading .startup-stage{margin:0 0 7px;color:#ede5d5;font-size:16px}
+.preview-loading .startup-items{margin:0;color:#a8b4c2;font-size:12px;min-height:2em;font-variant-numeric:tabular-nums}
+.startup-progress:not([data-startup-stage="ready"]):not([data-startup-stage="failed"]) .startup-stage{animation:startup-breath 1.8s ease-in-out infinite}
+.startup-progress[data-startup-stage="ready"] .startup-fill{transition:none}
+@keyframes startup-breath{0%,100%{opacity:1}50%{opacity:.64}}
+@media(prefers-reduced-motion:reduce){.startup-fill{transition:none}.startup-progress .startup-stage{animation:none!important}}

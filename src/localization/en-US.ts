@@ -1,5 +1,15 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+  "startup.progress": "Startup steps completed",
+  "startup.steps": "Startup steps · {completed} / {total}",
+  "startup.initializing": "Initializing game",
+  "startup.assets": "Loading map assets",
+  "startup.building": "Building battlefield",
+  "startup.ready": "Ready",
+  "startup.failed": "Loading failed",
+  "startup.batch": "Current asset batch · {completed} / {total}",
+  "startup.loaded": "{completed} assets loaded",
+
   "animation.speed": "Animation",
   "animation.normal": "Normal",
   "animation.fast": "Fast",

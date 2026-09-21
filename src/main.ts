@@ -1,3 +1,5 @@
+import { startupProgress } from './web/startupProgress.js';
+import { observeTerrainLoad } from './render/terrainLoadProgress.js';
 import { UnitAnimationRuntime } from './presentation/runtime.js';
 import { animationControls, bindAnimationControls } from './ui/animationControls.js';
 import { continueCombatFlow, chooseRetreatDestination, chooseRetreater, chooseAdvancer, chooseAdvanceDestination, routeCombatDecisionCounter, undoRetreatDestination } from './interaction/combatFlow.js';
@@ -200,9 +202,17 @@ function refreshDynamicView():void{
 }
 function render():void{
   const profile=responsiveProfile(window.innerWidth,window.innerHeight);
-  if(appStatus==='LOADING'){root.innerHTML=loadingMarkup();bind();return;}
+  if(appStatus==='LOADING'){root.innerHTML=loadingMarkup(startupProgress.snapshot);bind();return;}
   if(appStatus==='FATAL'){root.innerHTML=fatalMarkup(fatalMessage||t('game.noResources'));bind();return;}
-  if(appStatus==='HOME'){root.innerHTML=homeMarkup(profile);bind();return;}
+  if(appStatus==='HOME'){
+    const markup=homeMarkup(profile);
+    if(startupProgress.snapshot.stage!=='ready'){
+      // All caches and home markup are ready. Paint the real 100% once before home.
+      startupProgress.finish();
+      requestAnimationFrame(()=>requestAnimationFrame(render));return;
+    }
+    root.innerHTML=markup;bind();return;
+  }
   if(!session){appStatus='FATAL';fatalMessage=msg('game.noSession');root.innerHTML=fatalMarkup(fatalMessage);bind();return;}
   if(presentation.privacyGate){root.innerHTML=mobileAdvisoryMarkup(profile)+privacyGate();bind();return;}
   const model=deriveBrowserRenderModel(session,presentation);if(model.phase==='GAME_OVER'||model.victory.winner){root.innerHTML=mobileAdvisoryMarkup(profile)+gameOver(model);bind();return;}
@@ -289,7 +299,32 @@ function bindDynamic():void{
   document.querySelectorAll<HTMLElement>('[data-advance-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.advanceUnit;if(id){chooseAdvancer(session!,presentation,id);refreshDynamicView();}}));document.querySelector('#pass-advance')?.addEventListener('click',()=>{runCombatAction(()=>passAdvance(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-breakthrough-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.breakthroughUnit;if(id){selectBreakthroughUnit(presentation,id);render();}}));document.querySelectorAll<SVGPolygonElement>('[data-role="breakthrough-option"]').forEach((el)=>el.addEventListener('click',()=>{const key=el.dataset.hex;if(key){extendBreakthroughDraft(session!,presentation,parseHex(key));render();}}));document.querySelector('#breakthrough-undo')?.addEventListener('click',()=>{undoBreakthroughDraft(presentation);render();});document.querySelector('#breakthrough-commit')?.addEventListener('click',()=>{runCombatAction(()=>commitBreakthrough(session!,presentation));});document.querySelector('#pass-breakthrough')?.addEventListener('click',()=>{runCombatAction(()=>passBreakthrough(session!,presentation));});document.querySelectorAll<SVGPolygonElement>('[data-role="schwerpunkt-target"]').forEach((el)=>el.addEventListener('click',()=>{const key=el.dataset.hex;if(key){selectSchwerpunktTarget(presentation,parseHex(key));render();}}));document.querySelectorAll<HTMLElement>('[data-schwerpunkt-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.schwerpunktUnit;if(id){runCombatAction(()=>commitSchwerpunkt(session!,presentation,id));}}));document.querySelector('#pass-schwerpunkt')?.addEventListener('click',()=>{runCombatAction(()=>passSchwerpunkt(session!,presentation));});
   document.querySelectorAll<HTMLButtonElement>('[data-view-side]').forEach((element)=>{const side=element.dataset.viewSide as Side|undefined;if(!side)return;element.addEventListener('click',()=>{switchViewerForDevelopment(session!,presentation,side);render();});});
 }
-async function boot():Promise<void>{appStatus='LOADING';render();let phase='manifest/map';try{const [map]=await Promise.all([loadProductionMapFromUrl(),loadProductionRuntimeManifest()]);productionMap=map;phase='static-terrain-surface';const terrainSession=createFreshProductionSession(map,TERRAIN_VISUAL_SEED),terrainPresentation=createPresentationState(false,false),terrainModel=deriveBrowserRenderModel(terrainSession,terrainPresentation);const vs2=await loadVS2TerrainSurfaceHooks();for(const lod of ['far','medium','close'] as const){cachedTerrainSurface=await buildCachedTerrainSurface(terrainModel,TERRAIN_VISUAL_SEED,'p5',lod,vs2.worldBase);cachedTerrainSurfaces.set(lod,cachedTerrainSurface);}cachedTerrainSurface=cachedTerrainSurfaces.get('medium')!;console.info('EASTFRONT cached terrain surface ready',cachedTerrainSurface.stats);appStatus='HOME';session=null;render();}catch(error){const detail=phase==='static-terrain-surface'?formatTerrainSurfaceFailure(error):(error instanceof Error?`${error.name}: ${error.message}`:String(error));const diagnostic={phase,detail,capabilities:terrainSurfaceCapabilities()};console.error('EASTFRONT startup failed',diagnostic,error);appStatus='FATAL';fatalMessage=msg('game.resourceFailure',{detail});render();}}
+async function boot():Promise<void>{
+  appStatus='LOADING';render();
+  const stopObserving=observeTerrainLoad(startupProgress.observe);
+  let phase='manifest/map';
+  try{
+    const [map]=await Promise.all([loadProductionMapFromUrl(),loadProductionRuntimeManifest()]);
+    productionMap=map;startupProgress.complete('resources');
+    phase='static-terrain-surface';
+    const terrainSession=createFreshProductionSession(map,TERRAIN_VISUAL_SEED),terrainPresentation=createPresentationState(false,false),terrainModel=deriveBrowserRenderModel(terrainSession,terrainPresentation);
+    const vs2=await loadVS2TerrainSurfaceHooks();
+    startupProgress.complete('model');startupProgress.building();
+    for(const lod of ['far','medium','close'] as const){
+      cachedTerrainSurface=await buildCachedTerrainSurface(terrainModel,TERRAIN_VISUAL_SEED,'p5',lod,vs2.worldBase);
+      cachedTerrainSurfaces.set(lod,cachedTerrainSurface);startupProgress.complete(lod);
+    }
+    cachedTerrainSurface=cachedTerrainSurfaces.get('medium')!;
+    console.info('EASTFRONT cached terrain surface ready',cachedTerrainSurface.stats);
+    appStatus='HOME';session=null;render();
+  }catch(error){
+    startupProgress.fail();
+    const detail=phase==='static-terrain-surface'?formatTerrainSurfaceFailure(error):(error instanceof Error?`${error.name}: ${error.message}`:String(error));
+    const diagnostic={phase,detail,capabilities:terrainSurfaceCapabilities()};
+    console.error('EASTFRONT startup failed',diagnostic,error);
+    appStatus='FATAL';fatalMessage=msg('game.resourceFailure',{detail});render();
+  }finally{stopObserving();}
+}
 window.addEventListener('resize',()=>{if(appStatus==='HOME'||appStatus==='PLAYING')render();});
 void boot();
 
