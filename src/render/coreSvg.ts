@@ -1,3 +1,4 @@
+import {compactUnitPlate} from './compactUnitPlate.js';
 import { contactMarkers } from './contactMarkers.js';
 import { t, enumLabel } from '../localization/index.js';
 import { coreHexKey, type HexCoord, type HexEdge, type TerrainType, type UnitState } from '../core-adapter/core.js';
@@ -137,7 +138,7 @@ export function renderCounter(counter:CounterModel,stackIndex:number,stackSize:n
   ${counter.supplyState==='OUT_OF_SUPPLY'?`<g class="oos-icon" transform="translate(${half-5} 0)"><title>${t('status.outOfSupply')}</title><path d="M-3 -4L3 2M-3 2L3 -4"/><circle cy="-1" r="5"/></g>`:''}
   ${counter.entrenched?`<path class="entrench-icon" d="M${-half+3} -10v4h7V-10"/>`:''}
   ${stackSize>1&&stackIndex===stackSize-1?`<g class="stack-badge" transform="translate(${half-3} ${half-2})"><title>${t('counter.stack',{count:stackSize})}</title><circle r="6"/><text y="2.3" text-anchor="middle">${stackSize}</text></g>`:''}
-  </g></g>`;
+  </g>${compactUnitPlate(counter,stackIndex,stackSize)}</g>`;
 }
 
 function renderCombatGeometry(model:BrowserRenderModel):string{

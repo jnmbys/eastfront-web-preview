@@ -1,5 +1,16 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+  "models.infantry": "INF",
+  "models.armor": "ARM",
+  "models.motorized": "MOT",
+  "models.artillery": "ART",
+  "models.anti-tank": "AT",
+  "models.engineer": "ENG",
+  "models.recon": "REC",
+  "models.headquarters": "HQ",
+  "models.label": "Unit Models",
+  "models.auto": "Auto",
+  "models.off": "Off",
   "fow.contact": "Enemy Contact",
   "fow.lastKnown": "Last Known Position",
   "fow.lastKnownTurn": "Last Known Position · Turn {turn}",

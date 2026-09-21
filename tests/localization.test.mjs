@@ -1,3 +1,4 @@
+import {modelControls,bindModelControls} from '../dist/app/ui/modelControls.js';
 import {FogRuntime} from '../dist/app/fog/runtime.js';
 import {sessionPlayerView} from '../dist/app/core-adapter/session.js';
 import {UnitAnimationRuntime} from '../dist/app/presentation/runtime.js';
@@ -159,7 +160,7 @@ test('language changes leave the next dice sequence identical; New Game still re
 });
 test('counter mechanics and symbols are identical across locales; only accessible text changes',()=>{
  const counter={id:'G-PZ-01',side:'GERMAN',type:'PANZER',step:1,stats:{attack:8,defense:4,movement:6},supplyState:'OUT_OF_SUPPLY',hex:{q:2,r:-1},selected:true,entrenched:true};
- const normalize=s=>s.replace(/aria-label="[^"]*"/g,'').replace(/<title>[^<]*<\/title>/g,'');
+ const normalize=s=>s.replace(/aria-label="[^"]*"/g,'').replace(/<title>[^<]*<\/title>/g,'').replace(/(<text class="compact-category"[^>]*>)[^<]*/g,'$1');
  setLocale('en-US');const a=renderCounter(counter,1,2);setLocale('zh-CN');const b=renderCounter(counter,1,2);assert.equal(normalize(a),normalize(b));assert.match(b,/补给中断/);assert.match(b,/本格共有 2 个单位/);
 });
 test('main render and binding preserve the existing camera transform during language switching',()=>{
@@ -167,7 +168,7 @@ test('main render and binding preserve the existing camera transform during lang
  for(const id of ['#map-wrap','#eastfront-map','#zoom-readout'])elements[id]={style:{},dataset:{},textContent:'',addEventListener(){},querySelectorAll:()=>[],querySelector:()=>null};
  const control={value:'zh-CN',addEventListener(event,handler){this.change=handler;},focus(){}};
  const root={innerHTML:'',querySelectorAll:selector=>selector==='[data-language-select]'?[control]:[],querySelector:selector=>selector==='[data-language-select]'?control:null};
- Object.assign(context,{fogSurface:new FogRuntime(),sessionPlayerView,unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});
+ Object.assign(context,{fogSurface:new FogRuntime(),sessionPlayerView,unitAnimations:new UnitAnimationRuntime({now:()=>0,request:()=>0,cancel(){}}),animationControls,bindAnimationControls,modelControls,bindModelControls,root,document:{querySelector:selector=>elements[selector]??null,querySelectorAll:()=>[]},window:{innerWidth:1180,innerHeight:820},appStatus:'PLAYING',mapViewport:{zoom:1.7,panX:81,panY:-53},deriveBrowserRenderModel,languageControl,bindLanguageControl,coreSvgMarkup,mapRenderOptions:()=>({debug:false,rendererMode:'production',staticTerrainSurface:true}),mountCachedTerrainSurface(){},paintDeploymentFocus(){},bindDynamic(){},fatalMessage:'',startNewGame(){throw new Error('Must not start a game');},defaultMapViewport(){throw new Error('Must not reset camera');}});
  vm.runInContext(main.slice(main.indexOf('function syncFogSurface('),main.indexOf('function paintDeploymentFocus(')),context);
  vm.runInContext(main.slice(main.indexOf('function applyMapViewport('),main.indexOf('function mapRenderOptions(')),context);
  vm.runInContext(main.slice(main.indexOf('function render('),main.indexOf('function paintCombatTargets(')),context);

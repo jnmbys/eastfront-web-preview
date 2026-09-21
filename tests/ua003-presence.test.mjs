@@ -22,10 +22,12 @@ const flash=(h,id)=>presence(h,id)?.querySelector('[data-presence-fire]');
 function lod(h,value){h.dom().querySelector('#eastfront-map').setAttribute('data-lod',value);h.runtime.sync(h.s,h.dom());return h;}
 function clean(h){assert.equal(h.time.pending(),0);assert.equal(h.runtime.coordinator.snapshot().size,0);assert.equal(h.dom().querySelectorAll('[data-presence-phase]').length,0);assert.equal(ghost(h),null);for(const el of h.dom().querySelectorAll('[data-presence-fire]'))assert.equal(el.getAttribute('opacity'),'0');}
 function synchronized(h){for(const [id]of h.runtime.coordinator.snapshot()){const p=presence(h,id)??ghost(h),c=h.dom().counter(id)??h.dom().querySelector('[data-presentation-ghost]');if(p&&c)assert.equal(p.getAttribute('transform'),c.getAttribute('transform'),id);}}
+// Display mode owns visibility only; all canonical Counter artwork remains byte-identical.
+function canonicalCounter(node){const c=node.cloneNode(true);c.removeAttribute('data-unit-display');const face=c.querySelector('.counter-face');face?.removeAttribute('visibility');face?.removeAttribute('opacity');const plate=c.querySelector('.compact-unit');plate?.setAttribute('visibility','hidden');c.querySelector('.compact-plate')?.removeAttribute('opacity');c.querySelector('.model-hit-proxy')?.setAttribute('pointer-events','none');return c.serialize();}
 const allTemplates=()=>Object.entries(defaultRules.unitTemplates).map(([id,t],i)=>unit(id,id,t.side,t.type,{q:i%5-2,r:Math.floor(i/5)-2}));
 for(const level of ['far','medium','close'])test(`UA003 ${level} LOD preserves Counter and selects the expected presence detail`,()=>{
- const h=harness(),counter=h.dom().counter('g').serialize();lod(h,level);
- assert.equal(h.dom().counter('g').serialize(),counter);
+ const h=harness(),counter=canonicalCounter(h.dom().counter('g'));lod(h,level);
+ assert.equal(canonicalCounter(h.dom().counter('g')),counter);
  assert.equal(h.dom().querySelector('[data-unit-presence-layer]').getAttribute('visibility'),level==='far'?'hidden':'visible');
  const p=presence(h,'g');assert(p);assert.equal(p.querySelector('use').getAttribute('href'),'#presence-infantry');
  assert.equal(p.querySelectorAll('[visibility]')[0].getAttribute('visibility'),level==='close'?'visible':'hidden');
@@ -54,7 +56,7 @@ test('UA003 presence cannot intercept pointer/touch, focus, accessibility, or ga
  assert.equal(h.dom().counter('g').getAttribute('role'),'button');assert(h.dom().hit('g'));h.runtime.dispose();
 });
 test('UA003 presence paints behind every Counter; identity, NATO symbol, stats, damage and selection remain identical',()=>{
- const f=movementFixture(),h=harness(f),expected=mapDom(f.s,f.p);assert.equal(h.dom().counter('g').serialize(),expected.counter('g').serialize());
+ const f=movementFixture(),h=harness(f),expected=mapDom(f.s,f.p);assert.equal(canonicalCounter(h.dom().counter('g')),canonicalCounter(expected.counter('g')));
  const layer=h.dom().querySelector('[data-unit-presence-layer]'),c=h.dom().querySelector('#counter-layer');assert.equal(layer.parentNode,c.parentNode);assert(layer.parentNode.children.indexOf(layer)<layer.parentNode.children.indexOf(c));h.runtime.dispose();
 });
 test('UA003 two-unit stack uses each exact Counter anchor with separate pedestal positions',()=>{
@@ -93,7 +95,7 @@ test('UA003 defensive support targets the actual attacker without changing attac
  const h=supportRun(true),fire=h.events.find(e=>e.kind==='combat-fire');assert.deepEqual(fire.supporters.map(a=>a.unitId),['ga','sa']);assert.deepEqual(fire.attackers.map(a=>a.unitId),['g']);h.time.tick(T.COMBAT_WINDUP+90);assert(Number(flash(h,'sa').getAttribute('opacity'))>0);h.finish();clean(h);
 });
 test('UA003 hit feedback leaves step, GameState and Counter damage artwork unchanged',()=>{
- const h=tacticalRun(),accepted=json(h.s.state),counter=mapDom(h.s,h.p).counter('d').serialize();h.time.tick(T.COMBAT_WINDUP+T.COMBAT_FIRE+45);assert.equal(presence(h,'d').getAttribute('data-presence-phase'),'hit');synchronized(h);assert.equal(json(h.s.state),accepted);h.finish();assert.equal(h.dom().counter('d').serialize(),counter);clean(h);
+ const h=tacticalRun(),accepted=json(h.s.state),counter=canonicalCounter(mapDom(h.s,h.p).counter('d'));h.time.tick(T.COMBAT_WINDUP+T.COMBAT_FIRE+45);assert.equal(presence(h,'d').getAttribute('data-presence-phase'),'hit');synchronized(h);assert.equal(json(h.s.state),accepted);h.finish();assert.equal(canonicalCounter(h.dom().counter('d')),counter);clean(h);
 });
 test('UA003 destroyed presence is inert immediately after accepted death and fully removed at completion',()=>{
  const h=battleRun({destroy:true});assert(!presence(h,'g'));assert(ghost(h));assert.equal(h.dom().counter('g'),null);const p=ghost(h);for(const n of [p,...p.querySelectorAll('*')]){assert.equal(n.getAttribute('pointer-events'),'none');assert.equal(n.getAttribute('data-unit-id'),null);assert.equal(n.getAttribute('tabindex'),null);}assert.equal(p.getAttribute('aria-hidden'),'true');h.time.tick(T.COMBAT_WINDUP+T.COMBAT_FIRE+T.HIT_REACTION+80);assert.equal(ghost(h).getAttribute('data-presence-phase'),'destroyed');assert(Number(ghost(h).getAttribute('opacity'))<.5);h.finish();clean(h);assert(!presence(h,'g'));
@@ -132,5 +134,5 @@ test('UA003 slow pinch near LOD thresholds does not flicker or create nodes',()=
 test('UA003 heavy tank respects the existing smaller stacked Counter footprint',()=>{
  const heavy=unit('h','S-HEAVY','SOVIET','HEAVY_TANK',{q:0,r:0}),infantry=unit('i','S-INF','SOVIET','INFANTRY',{q:0,r:0});
  const solo=lod(harness(movementFixture([heavy])),'close'),stacked=lod(harness(movementFixture([heavy,infantry])),'close');
- const scale=h=>Number(presence(h,'h').children[0].getAttribute('transform').match(/scale\(([^)]+)\)/)[1]);assert.equal(scale(stacked),scale(solo)*.86);assert.equal(presence(stacked,'h').getAttribute('transform'),stacked.dom().counter('h').getAttribute('transform'));solo.runtime.dispose();stacked.runtime.dispose();
+ const scale=h=>Number(presence(h,'h').children[0].getAttribute('transform').match(/scale\(([^)]+)\)/)[1]);assert.equal(scale(stacked),scale(solo)*.60);assert.equal(presence(stacked,'h').getAttribute('transform'),stacked.dom().counter('h').getAttribute('transform'));solo.runtime.dispose();stacked.runtime.dispose();
 });

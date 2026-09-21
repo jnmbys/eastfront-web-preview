@@ -1,3 +1,4 @@
+import type {ModelDisplay} from './modelDisplay.js';
 import { HEX_SIZE } from '../geometry/hex.js';
 import { selectTerrainLod, type TerrainLod } from '../render/terrainAssets.js';
 import type { UnitPresentationState, AnimationLifecycle } from './coordinator.js';
@@ -7,7 +8,7 @@ import { UnitPresenceLayer } from './unitPresence.js';
 import { selectPresenceLod, type UnitPresenceIdentity } from './unitPresenceTypes.js';
 
 interface Binding {
-  counter:Element;hit:Element|undefined;transform:string;hitTransform:string|null;opacity:string|null;
+  counter:Element;compact:Element|null;hit:Element|undefined;transform:string;hitTransform:string|null;opacity:string|null;
   anchorX:number;anchorY:number;effect?:Element;
 }
 const NS='http://www.w3.org/2000/svg';
@@ -41,6 +42,10 @@ export class SvgUnitPresentation {
   private resizeObserver:ResizeObserver|null=null;
   private lastStates:ReadonlyMap<string,UnitPresentationState>=new Map();
   private presenceLod:TerrainLod|null=null;
+  private requestedModels:ModelDisplay='auto';
+  private displayedMode='';
+  get modelDisplay():ModelDisplay{return this.requestedModels;}
+  setModelDisplay(mode:ModelDisplay):void{this.requestedModels=mode;this.paint(this.lastStates);}
 
   prepare(events:readonly PresentationEvent[]):void {
     for(const event of events){
@@ -49,7 +54,7 @@ export class SvgUnitPresentation {
       this.presence.capture(event.unitId);
       binding.effect?.remove();delete binding.effect;
       const clone=inertClone(binding.counter);clone.setAttribute('data-presentation-ghost',event.unitId);
-      this.ghosts.set(event.unitId,{...binding,counter:clone,hit:undefined});
+      this.ghosts.set(event.unitId,{...binding,counter:clone,compact:clone.querySelector('.compact-unit'),hit:undefined});
       // Core already removed this unit. Its old DOM must stop receiving input immediately.
       binding.counter.remove();binding.hit?.remove();this.bindings.delete(event.unitId);this.touched.delete(event.unitId);
       this.layer?.appendChild(clone);
@@ -63,7 +68,7 @@ export class SvgUnitPresentation {
   }
   bind(root:ParentNode|null,identities:readonly UnitPresenceIdentity[]=[]):void {
     this.zoomObserver?.disconnect();this.resizeObserver?.disconnect();
-    this.clear();this.bindings.clear();this.root=root;this.layer=null;if(!root){this.presence.dispose();return;}
+    this.clear();this.bindings.clear();this.displayedMode='';this.root=root;this.layer=null;if(!root){this.presence.dispose();return;}
     const svg=root.querySelector<SVGSVGElement>('#eastfront-map');
     this.layer=root.querySelector('#counter-layer');
     this.fallbackLod=(svg?.getAttribute('data-lod') as TerrainLod)??'medium';
@@ -99,7 +104,23 @@ export class SvgUnitPresentation {
     const zoom=Number((this.root as Element|null)?.getAttribute?.('data-zoom'))||1;
     const lod=this.fittedHexWidth?selectTerrainLod(this.fittedHexWidth*zoom):this.fallbackLod;
     this.presenceLod=this.fittedHexWidth?selectPresenceLod(this.fittedHexWidth*zoom,this.presenceLod):this.fallbackLod;
-    this.presence.setLod(this.presenceLod);
+    const models=this.requestedModels==='auto'&&this.presenceLod!=='far';
+    this.presence.setLod(models?this.presenceLod:'far');
+    const display=models?'model':'counter';
+    if(display!==this.displayedMode){
+      this.displayedMode=display;
+      for(const binding of [...this.bindings.values(),...this.ghosts.values()]){
+        binding.counter.setAttribute('data-unit-display',display);
+        // Attribute visibility also supports software rendering and inert destroyed clones.
+        binding.counter.querySelector('.counter-face')?.setAttribute('visibility',models?'hidden':'visible');
+        binding.counter.querySelector('.counter-face')?.setAttribute('opacity',models?'0':'1');
+        binding.counter.querySelector('.compact-plate')?.setAttribute('opacity',models?'1':'0');
+        binding.counter.querySelector('.compact-unit')?.setAttribute('visibility',models?'visible':'hidden');
+        binding.hit?.setAttribute('visibility',models?'hidden':'visible');
+        binding.hit?.setAttribute('pointer-events',models?'none':'all');
+        binding.counter.querySelector('.model-hit-proxy')?.setAttribute('pointer-events',models&&binding.counter.getAttribute('data-presentation-ghost')===null?'all':'none');
+      }
+    }
     const weight=EFFECT_LOD[lod];
     for(const [id,state]of states){
       const binding=this.ghosts.get(id)??this.bindings.get(id);if(!binding)continue;
@@ -112,7 +133,9 @@ export class SvgUnitPresentation {
       binding.counter.setAttribute('data-animation-phase',state.phase);
       binding.hit?.setAttribute('transform',`translate(${state.currentCanonicalPosition.x-binding.anchorX} ${state.currentCanonicalPosition.y-binding.anchorY})`);
       this.effect(binding,state,weight,lod);
-      this.presence.paint(id,state,transform,state.visible?state.opacity:0);
+      const composition=this.presence.paint(id,state,transform,state.visible?state.opacity:0);
+      if(composition&&(composition.x||composition.y))binding.compact?.setAttribute('transform',`translate(${composition.x} ${composition.y})`);
+      else if(binding.compact?.getAttribute('transform')!=null)binding.compact.removeAttribute('transform');
       this.touched.add(id);
     }
   }
@@ -122,10 +145,10 @@ export class SvgUnitPresentation {
     this.clear();for(const ghost of this.ghosts.values())ghost.counter.remove();
     this.ghosts.clear();this.bindings.clear();this.layer=null;this.root=null;
     this.presence.dispose();this.lastStates=new Map();
-    this.presenceLod=null;
+    this.presenceLod=null;this.displayedMode='';
   }
   private binding(counter:Element,hit:Element|undefined):Binding {
-    return {counter,hit,transform:counter.getAttribute('transform')??'',hitTransform:hit?.getAttribute('transform')??null,
+    return {counter,compact:counter.querySelector('.compact-unit'),hit,transform:counter.getAttribute('transform')??'',hitTransform:hit?.getAttribute('transform')??null,
       opacity:counter.getAttribute('opacity'),anchorX:Number(counter.getAttribute('data-anchor-x')),anchorY:Number(counter.getAttribute('data-anchor-y'))};
   }
   private effect(binding:Binding,state:UnitPresentationState,weight:number,lod:TerrainLod):void {
@@ -159,7 +182,7 @@ export class SvgUnitPresentation {
   private restore(id:string):void {
     this.presence.restore(id);
     const binding=this.ghosts.get(id)??this.bindings.get(id);if(!binding)return;
-    binding.effect?.remove();delete binding.effect;
+    binding.effect?.remove();delete binding.effect;if(binding.compact?.getAttribute('transform')!=null)binding.compact.removeAttribute('transform');
     binding.counter.setAttribute('transform',binding.transform);binding.counter.removeAttribute('data-animation-phase');
     if(binding.opacity===null)binding.counter.removeAttribute('opacity');else binding.counter.setAttribute('opacity',binding.opacity);
     if(binding.hit){if(binding.hitTransform===null)binding.hit.removeAttribute('transform');else binding.hit.setAttribute('transform',binding.hitTransform);}

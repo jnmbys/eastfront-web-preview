@@ -15,6 +15,7 @@ import {dispatchGameAction} from '../dist/app/core-adapter/session.js';
 import {hexToPixel} from '../dist/app/geometry/hex.js';
 import {setLocale} from '../dist/app/localization/index.js';
 import {SeededRNG} from '../dist/vendor/eastfront-digital-core/dist/random/SeededRNG.js';
+function settledDom(s,p){const root=mapDom(s,p),renderer=new SvgUnitPresentation();renderer.bind(root);renderer.paint(new Map());renderer.dispose();return root;}
 const json=JSON.stringify;
 const attrs=h=>h.dom().querySelectorAll('[data-unit-id]').map(node=>node.attrs);
 const ghost=h=>h.dom().querySelector('[data-presentation-ghost]');
@@ -65,7 +66,7 @@ test('UA002 all three actual attackers fire with bounded stagger and real unit-t
  assert.deepEqual([...seen].sort(),[...tx.attackerUnitIds].sort());assert(fireDelay(99,100)<=T.FIRE_STAGGER_CAP);assert(fireStagger(100)<=84);assert(duration(h.events)<1000);h.finish();clean(h);
 });
 test('UA002 hit changes only transient rendering, then restores canonical Counter damage artwork',()=>{
- const h=tacticalRun(),state=json(h.s.state),step=h.s.state.units.d.step,original=mapDom(h.s,h.p).counter('d').serialize();
+ const h=tacticalRun(),state=json(h.s.state),step=h.s.state.units.d.step,original=settledDom(h.s,h.p).counter('d').serialize();
  h.time.tick(fireEnd(h)+T.HIT_REACTION*.375);const cue=h.runtime.coordinator.snapshot().get('d');
  assert.equal(cue.phase,'hit');assert.notEqual(cue.motionOffset.x,0);assert.equal(h.s.state.units.d.step,step);assert.equal(json(h.s.state),state);
  h.finish();assert.equal(h.dom().counter('d').serialize(),original);clean(h);
@@ -84,7 +85,7 @@ for(const phase of ['firing','hit','destroyed'])test(`UA002 Skip during ${phase}
  const h=battleRun({destroy:true});const accepted=json(h.s.state);
  const at=phase==='firing'?T.COMBAT_WINDUP+T.COMBAT_FIRE/2:fireEnd(h)+(phase==='hit'?T.HIT_REACTION/2:T.HIT_REACTION+T.DESTROYED/2);
  h.time.tick(at);assert.equal(h.runtime.coordinator.snapshot().get('g').phase,phase);h.runtime.skip();
- assert.equal(json(h.s.state),accepted);assert.deepEqual(attrs(h),mapDom(h.s,h.p).querySelectorAll('[data-unit-id]').map(n=>n.attrs));assert.equal(h.dom().hit('g'),null);clean(h);
+ assert.equal(json(h.s.state),accepted);assert.deepEqual(attrs(h),settledDom(h.s,h.p).querySelectorAll('[data-unit-id]').map(n=>n.attrs));assert.equal(h.dom().hit('g'),null);clean(h);
 });
 test('UA002 normal, fast, instant and reduced motion preserve byte-identical tactical GameState and RNG',()=>{
  const runs=['normal','fast','instant'].map(tacticalRun),truth=json(runs[0].s.state);

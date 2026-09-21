@@ -1,3 +1,4 @@
+import {readModelDisplay,type ModelDisplay} from './modelDisplay.js';
 import { AnimationCoordinator, sequenceEvents, type AnimationClock } from './coordinator.js';
 import { observePresentationTransitions } from './transitionBus.js';
 import { SvgUnitPresentation } from './svgUnits.js';
@@ -14,7 +15,9 @@ export class UnitAnimationRuntime {
   private requestedSpeed:AnimationSpeed='normal';
   private reducedMotion=false;
   constructor(clock:AnimationClock){this.coordinator=new AnimationCoordinator(clock,states=>this.renderer.paint(states),
-    (event,lifecycle)=>this.renderer.lifecycle(event,lifecycle));}
+    (event,lifecycle)=>this.renderer.lifecycle(event,lifecycle));this.renderer.setModelDisplay(readModelDisplay());}
+  get modelDisplay():ModelDisplay{return this.renderer.modelDisplay;}
+  setModelDisplay(mode:ModelDisplay):void{this.renderer.setModelDisplay(mode);}
   get speed():AnimationSpeed{return this.requestedSpeed;}
   get effectiveSpeed():AnimationSpeed{return this.coordinator.animationSpeed;}
   setSpeed(speed:AnimationSpeed):void {this.requestedSpeed=speed;this.coordinator.setSpeed(this.reducedMotion?'instant':speed);}

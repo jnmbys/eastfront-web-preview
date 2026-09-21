@@ -1,5 +1,16 @@
 import type { enUS } from './en-US.js';
 export const zhCN = {
+  "models.infantry": "步",
+  "models.armor": "装",
+  "models.motorized": "摩",
+  "models.artillery": "炮",
+  "models.anti-tank": "反坦",
+  "models.engineer": "工",
+  "models.recon": "侦",
+  "models.headquarters": "部",
+  "models.label": "单位模型",
+  "models.auto": "自动",
+  "models.off": "关闭",
   "fow.contact": "敌军接触",
   "fow.lastKnown": "最后已知位置",
   "fow.lastKnownTurn": "最后已知位置 · 第 {turn} 回合",
