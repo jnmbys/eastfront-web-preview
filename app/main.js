@@ -1,3 +1,5 @@
+import { UnitAnimationRuntime } from './presentation/runtime.js';
+import { animationControls, bindAnimationControls } from './ui/animationControls.js';
 import { continueCombatFlow, chooseRetreatDestination, chooseRetreater, chooseAdvancer, chooseAdvanceDestination, routeCombatDecisionCounter, undoRetreatDestination } from './interaction/combatFlow.js';
 import { languageControl, bindLanguageControl } from './localization/languageControl.js';
 import { issueText } from './localization/issues.js';
@@ -33,7 +35,14 @@ let cachedTerrainSurface = null;
 const cachedTerrainSurfaces = new Map();
 function esc(value) { return value.replace(/[&<>\"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[char] ?? char)); }
 let deploymentTouch = createDeploymentTouch();
+const unitAnimations = new UnitAnimationRuntime({ now: () => performance.now(), request: callback => requestAnimationFrame(callback), cancel: id => cancelAnimationFrame(id) });
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+unitAnimations.setReducedMotion(reducedMotion.matches);
+const updateReducedMotion = () => unitAnimations.setReducedMotion(reducedMotion.matches);
+reducedMotion.addEventListener('change', updateReducedMotion);
+window.addEventListener('pagehide', () => { unitAnimations.skip(); });
 function paintDeploymentFocus() {
+    unitAnimations.sync(session, document.querySelector('#map-wrap'));
     const svg = document.querySelector('#eastfront-map');
     if (!svg || !session)
         return;
@@ -398,12 +407,14 @@ function render() {
         return;
     }
     const debugControls = developerUi ? `<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode === 'production' ? 'on' : ''}">${presentation.rendererMode === 'production' ? 'Production' : 'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug ? 'on' : ''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug ? 'ON' : 'OFF'}</strong></button></div>` : '';
-    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.activeSide]}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls"><div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
+    root.innerHTML = `${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.activeSide]}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.activeSide]}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed ? 'panel-collapsed' : 'panel-open'} ${presentation.debug ? 'debug-active' : ''}" data-responsive-profile="${profile}"><section class="map-card"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer', { side: sideLabel(model.viewerSide), phase: phaseLabel(model.phase) })}</span></div><div class="map-controls">${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom * 100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div><div id="map-wrap" class="map-wrap ${presentation.debug ? 'debug-on' : ''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model, mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;
     mountCachedTerrainSurface();
     bind();
     paintDeploymentFocus();
 }
 function bind() {
+    unitAnimations.sync(session, document.querySelector('#map-wrap'));
+    bindAnimationControls(root, unitAnimations);
     bindLanguageControl(root, render);
     document.querySelector('#new-game-button')?.addEventListener('click', () => startNewGame());
     document.querySelector('#reload-button')?.addEventListener('click', () => location.reload());

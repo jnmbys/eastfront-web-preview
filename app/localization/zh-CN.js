@@ -1,4 +1,9 @@
 export const zhCN = {
+    "animation.speed": "动画速度",
+    "animation.normal": "正常",
+    "animation.fast": "快速",
+    "animation.instant": "即时",
+    "animation.skip": "跳过动画",
     "combat.group.count": "攻击单位：{count}",
     "combat.group.hint": "点击高亮友军加入攻击，再次点击即可移除。",
     "combat.group.primary": "主攻击者",

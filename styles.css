@@ -229,3 +229,10 @@ html[lang="zh-CN"] .resource-strip{gap:5px}
 html[lang="zh-CN"] .resource-strip>span{padding-inline:5px;letter-spacing:0}
 @media(min-width:901px) and (max-width:1250px){.resource-strip{flex-wrap:wrap}.topbar{min-height:82px;height:auto;padding-block:5px}.resource-strip .language-select{min-height:44px}}
 @media(max-width:760px){.resource-strip .language-select{max-width:100px;font-size:11px;padding-inline:3px}.resource-strip .menu-button{padding-inline:6px}}
+
+/* UA-001: compact presentation controls; no Counter, camera or terrain styles. */
+.animation-controls { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:11px; }
+.animation-controls label { color:var(--muted,#bbc0bc); }
+.animation-controls select { min-height:36px; padding:4px 7px; color:#eee4d1; background:#172431; border:1px solid #7b6b50; border-radius:5px; font:inherit; }
+@media (pointer:coarse) { .animation-controls select, .animation-controls button { min-height:44px; } }
+@media(max-width:1100px) { .animation-controls label { display:none; } }

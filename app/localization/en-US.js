@@ -1,5 +1,10 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+    "animation.speed": "Animation",
+    "animation.normal": "Normal",
+    "animation.fast": "Fast",
+    "animation.instant": "Instant",
+    "animation.skip": "Skip animation",
     "combat.group.count": "Attackers: {count}",
     "combat.group.hint": "Tap a highlighted friendly unit to join the attack. Tap it again to remove it.",
     "combat.group.primary": "Primary attacker",

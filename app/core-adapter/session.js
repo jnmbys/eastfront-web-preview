@@ -1,3 +1,4 @@
+import { publishPresentationTransition } from '../presentation/transitionBus.js';
 import { RulesEngine, createDeploymentGameState, defaultRules, defaultScenario, importLegacyMap, isDeploymentPhase, projectDeploymentView, validateGameStateIntegrity, } from './core.js';
 export function controllerIdForSide(session, side) {
     const controller = Object.values(session.state.controllers).find((candidate) => candidate.side === side);
@@ -39,6 +40,7 @@ export function setActiveViewer(session, controllerId) {
  * Rejected actions are surfaced but do not replace the browser session's canonical state.
  */
 export function dispatchGameAction(session, action) {
+    const previousState = session.state;
     const result = session.engine.apply(session.state, action);
     session.lastResult = result;
     if (!result.accepted) {
@@ -46,6 +48,7 @@ export function dispatchGameAction(session, action) {
     }
     session.state = result.state;
     session.integrityIssues = validateGameStateIntegrity(session.state, session.rules, session.scenario);
+    publishPresentationTransition(session, previousState, result);
     return { result, stateReplaced: true, integrityIssues: session.integrityIssues };
 }
 export function deploymentProjection(session) {
