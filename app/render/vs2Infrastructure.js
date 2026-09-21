@@ -1,3 +1,4 @@
+import { reportTerrainLoad } from './terrainLoadProgress.js';
 import { HEX_SIZE, SQRT3, hexToPixel, sharedHexEdge } from '../geometry/hex.js';
 import { vs2AssetCatalog } from './vs2Assets.js';
 import { loadTerrainImage, terrainSurfaceCapabilities } from './terrainSurface.js';
@@ -62,6 +63,8 @@ export function planVS2Infrastructure(model) {
 }
 export async function paintVS2Infrastructure(ctx, model, lod, assets = vs2AssetCatalog) {
     const plan = planVS2Infrastructure(model), style = VS2_PRESENTATION[lod], capabilities = terrainSurfaceCapabilities();
+    // Draw calls depend on actual path/bridge branches; no invented total.
+    reportTerrainLoad({ kind: 'assets', total: null });
     let imageDraws = 0;
     const used = new Set();
     const draw = async (id, chains, width, opacity) => {
@@ -173,5 +176,6 @@ export async function paintVS2Infrastructure(ctx, model, lod, assets = vs2AssetC
             await draw(kind === 'road' ? 'VS2_ROAD_SURFACE_01' : lod === 'far' ? 'VS2_RAIL_BALLAST' : 'VS2_RAIL_RAIL_PAIR', top, kind === 'road' ? style.roadWidth : lod === 'far' ? style.railWidth : 2.2, kind === 'road' ? 0.86 : 0.8);
         }
     }
+    reportTerrainLoad({ kind: 'building' });
     return { imageDraws, uniqueAssets: used.size };
 }

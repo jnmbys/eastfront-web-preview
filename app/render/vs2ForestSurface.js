@@ -1,3 +1,4 @@
+import { reportTerrainLoad } from './terrainLoadProgress.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
 import { VS2_WORLD_H, vs2VisualValue } from './vs2WorldField.js';
 import { vs2AssetCatalog } from './vs2Assets.js';
@@ -54,6 +55,7 @@ export async function paintVS2Forest(ctx, projection, seed, lod, assets = vs2Ass
     if (!target)
         throw new Error('VS2 canopy Canvas 2D unavailable');
     const ids = [...new Set(plan.map(p => p.assetId))].sort(), capabilities = terrainSurfaceCapabilities();
+    reportTerrainLoad({ kind: 'assets', total: ids.length });
     try {
         for (const id of ids) {
             const entry = assets.byId(id);
@@ -68,6 +70,7 @@ export async function paintVS2Forest(ctx, projection, seed, lod, assets = vs2Ass
                 image.release?.();
             }
         }
+        reportTerrainLoad({ kind: 'building' });
         const image = target.getImageData(0, 0, layer.width, layer.height), coverage = createVS2ForestCoverage(projection);
         for (let y = 0; y < layer.height; y++)
             for (let x = 0; x < layer.width; x++) {

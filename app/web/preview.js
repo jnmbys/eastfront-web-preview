@@ -1,3 +1,4 @@
+import { startupLoadingMarkup } from './startupView.js';
 import { languageControl } from '../localization/languageControl.js';
 import { t, enumLabel, formatMessage } from '../localization/index.js';
 import { createLocalGameSession } from '../core-adapter/session.js';
@@ -29,8 +30,8 @@ export function createFreshProductionSession(rawMap, seed = createGameplaySeed()
 function esc(value) {
     return value.replace(/[&<>\"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[char] ?? char));
 }
-export function loadingMarkup() {
-    return `<main class="preview-state preview-loading" data-preview-state="loading"><div class="preview-state-card">${languageControl()}<span class="preview-kicker">EASTFRONT</span><h1>${t('game.loading')}</h1><p>${t('game.preparing')}</p></div></main>`;
+export function loadingMarkup(progress) {
+    return startupLoadingMarkup(progress);
 }
 export function homeMarkup(profile) {
     const narrow = profile === 'MOBILE_NARROW';

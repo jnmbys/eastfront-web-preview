@@ -1,3 +1,4 @@
+import { reportTerrainLoad } from './terrainLoadProgress.js';
 import { paintVS2Infrastructure } from './vs2Infrastructure.js';
 import { paintVS2PlainTraces, paintVS2MarshReeds, paintVS2RiverbankDetails } from './vs2PlainTraces.js';
 import { paintVS2Forest } from './vs2ForestSurface.js';
@@ -28,6 +29,7 @@ export function createVS2WorldBaseLayer(assets = vs2AssetCatalog) {
             const textures = new Map(), capabilities = terrainSurfaceCapabilities();
             // Decode sequentially through the established direct-image/fetch fallback.
             // Retain only CPU texture pixels; release each decoded image immediately.
+            reportTerrainLoad({ kind: 'assets', total: VS2_WORLD_MATERIAL_IDS.length });
             for (const id of VS2_WORLD_MATERIAL_IDS) {
                 const entry = assets.byId(id);
                 if (!entry)
@@ -51,6 +53,7 @@ export function createVS2WorldBaseLayer(assets = vs2AssetCatalog) {
                     scratch.height = 0;
                 }
             }
+            reportTerrainLoad({ kind: 'building' });
             const projection = projectVS2Terrain(model, VS2_PRESENTATION[lod].pixelSize), bounds = projection.rasterBounds, pixelSize = projection.pixelSize;
             const raster = rasterizeVS2WorldSurface(projection.field, textures, seed, bounds, pixelSize);
             const surface = document.createElement('canvas');
@@ -84,6 +87,7 @@ export function createVS2WorldBaseLayer(assets = vs2AssetCatalog) {
                 return { imageDraws: 1 + forest.imageDraws, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + forest.uniqueAssets };
             }
             const cityAssets = [...new Set(placements.map(p => p.assetId))].sort();
+            reportTerrainLoad({ kind: 'assets', total: cityAssets.length });
             for (const id of cityAssets) {
                 const entry = assets.byId(id);
                 const image = await loadTerrainImage({ id, family: entry.family, file: entry.file,
@@ -104,6 +108,7 @@ export function createVS2WorldBaseLayer(assets = vs2AssetCatalog) {
                     image.release?.();
                 }
             }
+            reportTerrainLoad({ kind: 'building' });
             // Native core silhouettes remain legible above the small component textures.
             paintVS2CityMassing(ctx, blocks);
             return { imageDraws: 1 + forest.imageDraws + placements.length, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + forest.uniqueAssets + cityAssets.length };

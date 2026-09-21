@@ -1,4 +1,13 @@
 export const zhCN = {
+    "startup.progress": "已完成启动步骤",
+    "startup.steps": "启动步骤 · {completed} / {total}",
+    "startup.initializing": "正在初始化游戏",
+    "startup.assets": "正在加载地图素材",
+    "startup.building": "正在构建战场",
+    "startup.ready": "准备完成",
+    "startup.failed": "加载失败",
+    "startup.batch": "当前素材批次 · {completed} / {total}",
+    "startup.loaded": "已加载 {completed} 项素材",
     "animation.speed": "动画速度",
     "animation.normal": "正常",
     "animation.fast": "快速",

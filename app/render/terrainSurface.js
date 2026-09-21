@@ -1,3 +1,4 @@
+import { reportLoadedTerrainImage } from './terrainLoadProgress.js';
 import { HEX_SIZE, hexPolygon, hexToPixel, sharedHexEdge } from '../geometry/hex.js';
 import { viewBoxForHexes } from './coreSvg.js';
 import { assetUrl, entryVisibleAtLod, terrainAssetCatalog, unorderedEdgeVisualSeed, visualSeed, } from './terrainAssets.js';
@@ -76,7 +77,7 @@ export async function loadTerrainImage(entry, set, capabilities, urlOverride) {
     let directFailure, fetchFailure, bitmapFailure, blobImageFailure;
     let response, blob;
     try {
-        return await imageFromUrl(url, entry, 'direct-image-load', capabilities);
+        return reportLoadedTerrainImage(await imageFromUrl(url, entry, 'direct-image-load', capabilities));
     }
     catch (error) {
         directFailure = error;
@@ -93,7 +94,7 @@ export async function loadTerrainImage(entry, set, capabilities, urlOverride) {
     if (blob && capabilities.createImageBitmap) {
         try {
             const bitmap = await Promise.race([globalThis.createImageBitmap(blob), timeoutAfter(RESOURCE_TIMEOUT_MS, `createImageBitmap ${entry.id}`)]);
-            return { source: bitmap, width: bitmap.width, height: bitmap.height, release: () => bitmap.close() };
+            return reportLoadedTerrainImage({ source: bitmap, width: bitmap.width, height: bitmap.height, release: () => bitmap.close() });
         }
         catch (error) {
             bitmapFailure = error;
@@ -104,7 +105,7 @@ export async function loadTerrainImage(entry, set, capabilities, urlOverride) {
         let objectUrl;
         try {
             objectUrl = URL.createObjectURL(blob);
-            return await imageFromUrl(objectUrl, entry, 'html-image-load', capabilities);
+            return reportLoadedTerrainImage(await imageFromUrl(objectUrl, entry, 'html-image-load', capabilities));
         }
         catch (error) {
             blobImageFailure = error;

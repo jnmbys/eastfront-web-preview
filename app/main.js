@@ -1,3 +1,5 @@
+import { startupProgress } from './web/startupProgress.js';
+import { observeTerrainLoad } from './render/terrainLoadProgress.js';
 import { UnitAnimationRuntime } from './presentation/runtime.js';
 import { animationControls, bindAnimationControls } from './ui/animationControls.js';
 import { continueCombatFlow, chooseRetreatDestination, chooseRetreater, chooseAdvancer, chooseAdvanceDestination, routeCombatDecisionCounter, undoRetreatDestination } from './interaction/combatFlow.js';
@@ -374,7 +376,7 @@ function refreshDynamicView() {
 function render() {
     const profile = responsiveProfile(window.innerWidth, window.innerHeight);
     if (appStatus === 'LOADING') {
-        root.innerHTML = loadingMarkup();
+        root.innerHTML = loadingMarkup(startupProgress.snapshot);
         bind();
         return;
     }
@@ -384,7 +386,14 @@ function render() {
         return;
     }
     if (appStatus === 'HOME') {
-        root.innerHTML = homeMarkup(profile);
+        const markup = homeMarkup(profile);
+        if (startupProgress.snapshot.stage !== 'ready') {
+            // All caches and home markup are ready. Paint the real 100% once before home.
+            startupProgress.finish();
+            requestAnimationFrame(() => requestAnimationFrame(render));
+            return;
+        }
+        root.innerHTML = markup;
         bind();
         return;
     }
@@ -626,30 +635,44 @@ function bindDynamic() {
     document.querySelectorAll('[data-view-side]').forEach((element) => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
 }
-async function boot() { appStatus = 'LOADING'; render(); let phase = 'manifest/map'; try {
-    const [map] = await Promise.all([loadProductionMapFromUrl(), loadProductionRuntimeManifest()]);
-    productionMap = map;
-    phase = 'static-terrain-surface';
-    const terrainSession = createFreshProductionSession(map, TERRAIN_VISUAL_SEED), terrainPresentation = createPresentationState(false, false), terrainModel = deriveBrowserRenderModel(terrainSession, terrainPresentation);
-    const vs2 = await loadVS2TerrainSurfaceHooks();
-    for (const lod of ['far', 'medium', 'close']) {
-        cachedTerrainSurface = await buildCachedTerrainSurface(terrainModel, TERRAIN_VISUAL_SEED, 'p5', lod, vs2.worldBase);
-        cachedTerrainSurfaces.set(lod, cachedTerrainSurface);
+async function boot() {
+    appStatus = 'LOADING';
+    render();
+    const stopObserving = observeTerrainLoad(startupProgress.observe);
+    let phase = 'manifest/map';
+    try {
+        const [map] = await Promise.all([loadProductionMapFromUrl(), loadProductionRuntimeManifest()]);
+        productionMap = map;
+        startupProgress.complete('resources');
+        phase = 'static-terrain-surface';
+        const terrainSession = createFreshProductionSession(map, TERRAIN_VISUAL_SEED), terrainPresentation = createPresentationState(false, false), terrainModel = deriveBrowserRenderModel(terrainSession, terrainPresentation);
+        const vs2 = await loadVS2TerrainSurfaceHooks();
+        startupProgress.complete('model');
+        startupProgress.building();
+        for (const lod of ['far', 'medium', 'close']) {
+            cachedTerrainSurface = await buildCachedTerrainSurface(terrainModel, TERRAIN_VISUAL_SEED, 'p5', lod, vs2.worldBase);
+            cachedTerrainSurfaces.set(lod, cachedTerrainSurface);
+            startupProgress.complete(lod);
+        }
+        cachedTerrainSurface = cachedTerrainSurfaces.get('medium');
+        console.info('EASTFRONT cached terrain surface ready', cachedTerrainSurface.stats);
+        appStatus = 'HOME';
+        session = null;
+        render();
     }
-    cachedTerrainSurface = cachedTerrainSurfaces.get('medium');
-    console.info('EASTFRONT cached terrain surface ready', cachedTerrainSurface.stats);
-    appStatus = 'HOME';
-    session = null;
-    render();
+    catch (error) {
+        startupProgress.fail();
+        const detail = phase === 'static-terrain-surface' ? formatTerrainSurfaceFailure(error) : (error instanceof Error ? `${error.name}: ${error.message}` : String(error));
+        const diagnostic = { phase, detail, capabilities: terrainSurfaceCapabilities() };
+        console.error('EASTFRONT startup failed', diagnostic, error);
+        appStatus = 'FATAL';
+        fatalMessage = msg('game.resourceFailure', { detail });
+        render();
+    }
+    finally {
+        stopObserving();
+    }
 }
-catch (error) {
-    const detail = phase === 'static-terrain-surface' ? formatTerrainSurfaceFailure(error) : (error instanceof Error ? `${error.name}: ${error.message}` : String(error));
-    const diagnostic = { phase, detail, capabilities: terrainSurfaceCapabilities() };
-    console.error('EASTFRONT startup failed', diagnostic, error);
-    appStatus = 'FATAL';
-    fatalMessage = msg('game.resourceFailure', { detail });
-    render();
-} }
 window.addEventListener('resize', () => { if (appStatus === 'HOME' || appStatus === 'PLAYING')
     render(); });
 void boot();
