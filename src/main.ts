@@ -1,3 +1,4 @@
+import { FogRuntime } from './fog/runtime.js';
 import type { Viewer } from './player-view/playerView.js';
 import { startupProgress } from './web/startupProgress.js';
 import { observeTerrainLoad } from './render/terrainLoadProgress.js';
@@ -32,12 +33,19 @@ const query=new URLSearchParams(location.search);const developerUi=productionDev
 function esc(value:string):string{return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));}
 let deploymentTouch=createDeploymentTouch();
 const unitAnimations=new UnitAnimationRuntime({now:()=>performance.now(),request:callback=>requestAnimationFrame(callback),cancel:id=>cancelAnimationFrame(id)});
+const fogSurface=new FogRuntime();
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 unitAnimations.setReducedMotion(reducedMotion.matches);
-const updateReducedMotion=()=>unitAnimations.setReducedMotion(reducedMotion.matches);
+const updateReducedMotion=()=>{unitAnimations.setReducedMotion(reducedMotion.matches);if(reducedMotion.matches)fogSurface.settle();};
 reducedMotion.addEventListener('change',updateReducedMotion);
 window.addEventListener('pagehide',()=>{unitAnimations.skip();});
+window.addEventListener('pagehide',()=>fogSurface.settle());
+function syncFogSurface():void{
+ const svg=document.querySelector<SVGSVGElement>('#eastfront-map');
+ fogSurface.sync(svg,session&&!presentation.privacyGate?sessionPlayerView(session):null,presentation.selectedUnitId,unitAnimations.effectiveSpeed==='instant');
+}
 function paintDeploymentFocus():void{
+ syncFogSurface();
  unitAnimations.sync(session,document.querySelector('#map-wrap'));
  const svg=document.querySelector('#eastfront-map');if(!svg||!session)return;
  svg.querySelector('#deployment-focus')?.remove();
@@ -224,7 +232,10 @@ function render():void{
 }
 function bind():void{
   unitAnimations.sync(session,document.querySelector('#map-wrap'));
+  syncFogSurface();
   bindAnimationControls(root,unitAnimations);
+  document.querySelector('#animation-skip')?.addEventListener('click',()=>fogSurface.settle());
+  document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
   bindLanguageControl(root,render);
   document.querySelector('#new-game-button')?.addEventListener('click',()=>startNewGame());document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(!session)return;

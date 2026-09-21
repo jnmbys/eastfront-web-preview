@@ -1,0 +1,155 @@
+{
+  "kind": "software-rendered",
+  "baseline": "887132ba162b92def89154d6ccb3907e27279613",
+  "fixture": "Arranged real roster on canonical production map; accepted Core MOVE for animation",
+  "terrainBuilds": 1,
+  "terrainDraws": 1451,
+  "files": [
+    "01-full-observer.png",
+    "01-full-german.png",
+    "01-full-soviet.png",
+    "02-matched-three-views.png",
+    "03-visible-fog-edge.png",
+    "04-forest-fog.png",
+    "05-city-fog.png",
+    "06-river-railway-fog.png",
+    "07-recon-selected.png",
+    "08-contact.png",
+    "09-last-known.png",
+    "10-spotting-comparison.png",
+    "11-move-reveal.gif",
+    "11-move-return.gif",
+    "12-viewer-switch-privacy.png"
+  ],
+  "visibility": {
+    "OBSERVER": {
+      "units": [
+        "G-I-01",
+        "G-PZ-01",
+        "G-PZ-02",
+        "G-REC-01",
+        "S-ART-01",
+        "S-I-01",
+        "S-I-02",
+        "S-I-03",
+        "S-TK-01"
+      ],
+      "contacts": [],
+      "lastKnown": [],
+      "observedHexCount": 640
+    },
+    "GERMAN": {
+      "units": [
+        "G-I-01",
+        "G-PZ-01",
+        "G-PZ-02",
+        "G-REC-01"
+      ],
+      "contacts": [
+        {
+          "visibility": "CONTACT",
+          "contactId": "contact:SOVIET:14,4",
+          "side": "SOVIET",
+          "hex": {
+            "q": 14,
+            "r": 4
+          },
+          "status": "CURRENT"
+        }
+      ],
+      "lastKnown": [
+        {
+          "contactId": "contact:SOVIET:17,6",
+          "side": "SOVIET",
+          "hex": {
+            "q": 17,
+            "r": 6
+          },
+          "lastSeenTurn": 1,
+          "status": "LAST_KNOWN",
+          "confidence": "UNCONFIRMED"
+        }
+      ],
+      "observedHexCount": 51
+    },
+    "SOVIET": {
+      "units": [
+        "S-ART-01",
+        "S-I-01",
+        "S-I-02",
+        "S-I-03",
+        "S-TK-01"
+      ],
+      "contacts": [],
+      "lastKnown": [],
+      "observedHexCount": 35
+    }
+  },
+  "animations": [
+    {
+      "action": {
+        "type": "MOVE",
+        "controllerId": "G-HUMAN-1",
+        "unitId": "G-PZ-02",
+        "path": [
+          {
+            "q": 6,
+            "r": 10
+          },
+          {
+            "q": 7,
+            "r": 10
+          },
+          {
+            "q": 8,
+            "r": 10
+          }
+        ],
+        "actionId": "A-000001"
+      },
+      "accepted": true,
+      "source": {
+        "q": 5,
+        "r": 10
+      },
+      "destination": {
+        "q": 8,
+        "r": 10
+      },
+      "visibilityImmediate": true,
+      "transitionMs": 220,
+      "canonicalStateUnchangedDuringFrames": true
+    }
+  ],
+  "privacy": {
+    "GERMAN": {
+      "hiddenIds": [
+        "S-I-01",
+        "S-TK-01",
+        "S-ART-01",
+        "S-I-02",
+        "S-I-03"
+      ],
+      "hiddenCounterNodes": 0,
+      "hiddenPresenceNodes": 0,
+      "viewerCrossfade": false
+    },
+    "SOVIET": {
+      "hiddenIds": [
+        "G-I-01",
+        "G-PZ-01",
+        "G-REC-01",
+        "G-PZ-02"
+      ],
+      "hiddenCounterNodes": 0,
+      "hiddenPresenceNodes": 0,
+      "viewerCrossfade": false
+    }
+  },
+  "riverRailFocus": {
+    "q": 20,
+    "r": 1
+  },
+  "terrainBuildsAfterAllFrames": 1,
+  "fogRasterBuilds": 6
+}
