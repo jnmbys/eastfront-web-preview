@@ -11,10 +11,10 @@ export function observePresentationTransitions(session:object,observer:Observer)
 }
 
 /** Called after canonical state adoption. Presentation failures cannot reject an action. */
-export function publishPresentationTransition(session:object,before:Readonly<GameState>,result:Readonly<ActionResult>):void {
+export function publishPresentationTransition(session:object,before:Readonly<GameState>,result:Readonly<ActionResult>,project:(events:readonly PresentationEvent[])=>readonly PresentationEvent[]=events=>events):void {
   const set=observers.get(session);if(!set?.size||!result.accepted)return;
   try{
-    const events=derivePresentationEvents(before,result);
+    const events=project(derivePresentationEvents(before,result));
     for(const observer of set){try{observer(events);}catch(error){console.error('Presentation observer failed',error);}}
   }catch(error){console.error('Presentation projection failed',error);}
 }

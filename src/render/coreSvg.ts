@@ -1,3 +1,4 @@
+import { contactMarkers } from './contactMarkers.js';
 import { t, enumLabel } from '../localization/index.js';
 import { coreHexKey, type HexCoord, type HexEdge, type TerrainType, type UnitState } from '../core-adapter/core.js';
 import { HEX_SIZE, hexPolygon, hexToPixel, pointString, polygonPointsString, sharedHexEdge, type Point } from '../geometry/hex.js';
@@ -187,7 +188,7 @@ export function coreSvgStaticMarkup(model:BrowserRenderModel,options:CoreSvgOpti
 }
 
 export function coreSvgDynamicMarkup(model:BrowserRenderModel,options:CoreSvgOptions):string{
-  return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${renderCounters(model)}${options.debug?renderDebug(model):''}`;
+  return `${renderRecoveryBases(model)}${renderDeploymentZone(model)}${renderReinforcementEntries(model)}${renderRailInteraction(model)}${renderMoveOptions(model)}${renderMovementPath(model)}${renderCombatGeometry(model)}${contactMarkers(model.playerView)}${renderCounters(model)}${options.debug?renderDebug(model):''}`;
 }
 
 export function coreSvgMarkup(model:BrowserRenderModel,options:CoreSvgOptions):string{

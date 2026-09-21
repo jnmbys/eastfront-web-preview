@@ -122,7 +122,7 @@ test('UA003 language remount preserves full presence state and GameState during 
 test('UA003 animation does not build terrain, clone SVG, or allocate companion elements per frame',()=>{
  const h=battleRun({multi:true}),root=h.dom(),docs=new Set([root,...root.querySelectorAll('*')].map(n=>n.ownerDocument)),before=[...docs].map(d=>d.created);const count=root.querySelectorAll('[data-presence-id]').length;for(let i=0;i<60;i++)h.time.tick(16);const allocated=[...docs].reduce((n,d,i)=>n+d.created-before[i],0);assert(allocated<=4);assert.equal(root.querySelectorAll('[data-presence-id]').length,count);clean(h);
 });
-test('UA003 all non-presentation runtime files, Counter, Camera, startup/loader, VS2 and Core remain frozen',()=>{
+test('UA003 frozen baseline with explicitly recorded FOW projection integration',()=>{
  const files=JSON.parse(readFileSync('tests/fixtures/ua003-frozen-sha256.json'));for(const [path,hash]of Object.entries(files))assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'),hash,path);
 });
 

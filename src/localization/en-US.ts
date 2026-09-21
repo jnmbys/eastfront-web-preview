@@ -1,5 +1,15 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+  "fow.contact": "Enemy Contact",
+  "fow.lastKnown": "Last Known Position",
+  "fow.lastKnownTurn": "Last Known Position · Turn {turn}",
+  "fow.insufficient": "Insufficient Intelligence",
+  "fow.view": "Player View",
+  "fow.german": "German View",
+  "fow.soviet": "Soviet View",
+  "fow.observer": "Observer View",
+  "fow.inspection": "Read-only inspection view",
+
   "startup.progress": "Startup steps completed",
   "startup.steps": "Startup steps · {completed} / {total}",
   "startup.initializing": "Initializing game",
@@ -241,7 +251,7 @@ export const enUS = {
   "privacy.beginGerman": "BEGIN GERMAN DEPLOYMENT",
   "privacy.deploymentComplete": "DEPLOYMENT COMPLETE",
   "privacy.ready": "Both sides are ready.",
-  "privacy.reveal": "The full board will now be revealed for German Turn 1.",
+  "privacy.reveal": "German Turn 1 will begin. Enemy formations are shown only when identified or contacted.",
   "privacy.beginTurnOne": "BEGIN TURN 1",
   "privacy.turnTitle": "PLAYER TURN HANDOFF",
   "privacy.turnHelp": "The authoritative GameState is unchanged by this presentation gate.",
@@ -352,7 +362,7 @@ export const enUS = {
   "feedback.deployedNext": "{id} deployed. Next reserve selected when available.",
   "feedback.deployed": "{id} deployed to {hex}.",
   "feedback.phaseComplete": "{phase} complete.",
-  "feedback.deploymentRevealed": "Deployment revealed. German Turn 1.",
+  "feedback.deploymentRevealed": "Deployment complete. German Turn 1; player visibility is active.",
   "feedback.sideActive": "{side} interface active.",
   "feedback.developerViewer": "Development viewer switched to {side}.",
   "feedback.selectControlled": "Select a controlled unit first.",

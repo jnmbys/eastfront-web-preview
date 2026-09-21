@@ -192,7 +192,11 @@ test('deterministic real flow reaches Turn 1 movement and executes one accepted 
   assert.equal(session.state.turn,1);
   assert.equal(Object.keys(session.state.units).length,58);
   const revealed=deriveBrowserRenderModel(session,presentation);
-  assert.equal(revealed.counters.length,58);
+  assert(revealed.counters.length<58);
+  assert.equal(revealed.counters.filter(c=>c.side==='GERMAN').length,26);
+  session.viewOverride='OBSERVER';
+  assert.equal(deriveBrowserRenderModel(session,presentation).counters.length,58);
+  delete session.viewOverride;
   ready(session,'GERMAN');
   assert.equal(session.state.phase,'GERMAN_MOVEMENT');
   const candidate=firstLegalGermanMove(session);

@@ -1,3 +1,5 @@
+import { derivePlayerView, rememberPlayerView, type Viewer, type Knowledge } from '../player-view/playerView.js';
+import { filterPresentationEvents } from '../player-view/presentationVisibility.js';
 import { publishPresentationTransition } from '../presentation/transitionBus.js';
 import {
   RulesEngine,
@@ -21,6 +23,9 @@ import {
 
 export interface LocalGameSession {
   state: GameState;
+  viewOverride?: Viewer;
+  knowledge?: Partial<Record<Side,Knowledge>>;
+  visibilityRevision?: number;
   scenario: ScenarioConfig;
   rules: typeof defaultRules;
   engine: RulesEngine;
@@ -76,6 +81,7 @@ export function setActiveViewer(session: LocalGameSession, controllerId: EntityI
  */
 export function dispatchGameAction(session: LocalGameSession, action: Action): DispatchOutcome {
   const previousState = session.state;
+  const beforeView = sessionPlayerView(session);
   const result = session.engine.apply(session.state, action);
   session.lastResult = result;
   if (!result.accepted) {
@@ -83,7 +89,16 @@ export function dispatchGameAction(session: LocalGameSession, action: Action): D
   }
   session.state = result.state;
   session.integrityIssues = validateGameStateIntegrity(session.state, session.rules, session.scenario);
-  publishPresentationTransition(session, previousState, result);
+  session.knowledge??={};
+  for(const side of ['GERMAN','SOVIET'] as const){
+    const observedBefore=derivePlayerView(previousState,side,session.rules,session.knowledge[side]);
+    const memory=rememberPlayerView(observedBefore)!;
+    session.knowledge[side]=rememberPlayerView(derivePlayerView(session.state,side,session.rules,memory))!;
+  }
+  const afterView = sessionPlayerView(session);
+  const afterIds=new Set(afterView.units.map(u=>u.id));
+  if(beforeView.units.some(u=>session.state.units[u.id]?.alive&&!afterIds.has(u.id)))session.visibilityRevision=(session.visibilityRevision??0)+1;
+  publishPresentationTransition(session, previousState, result, events=>filterPresentationEvents(events,beforeView,afterView));
   return {result, stateReplaced:true, integrityIssues:session.integrityIssues};
 }
 
@@ -98,3 +113,12 @@ export function loadProductionMapFromUrl(url = './vendor/eastfront-digital-core/
     return await response.json() as LegacyMapData;
   });
 }
+
+/** Trusted local host projection boundary; renderer receives only this detached DTO. */
+export function sessionPlayerView(session:LocalGameSession){
+  const viewer=session.viewOverride??session.state.controllers[session.activeViewerControllerId]?.side;
+  if(!viewer)throw new Error('Unknown viewer');
+  return derivePlayerView(session.state,viewer,session.rules,viewer==='OBSERVER'?undefined:session.knowledge?.[viewer]);
+}
+/** Host/debug capability. Never expose unrestricted observer selection in production hotseat. */
+export function setInspectionViewer(session:LocalGameSession,viewer:Viewer):void { session.viewOverride=viewer; }

@@ -22,6 +22,7 @@ function parse(html){return [...html.matchAll(/<(button|polygon|g|rect)\b([^>]*)
  const attrs=Object.fromEntries([...raw.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,k,v])=>[k,v]));if(/\sdisabled(?:\s|$)/.test(raw))attrs.disabled='';return node(attrs);
 });}
 export function combatDom(s,p){
+ delete s.viewOverride; // Interactive controller regression is a player, not an observer fixture.
  let mapNodes=[],panelNodes=[],painted='',mapHtml='';const frames=[];
  const scroll={scrollTop:0},svg={style:{},dataset:{lod:'medium'}},surface={style:{}},wrap={dataset:{}},readout={};
  const panel={dataset:{viewerControllerId:s.activeViewerControllerId},querySelectorAll:()=>[],querySelector:q=>q==='.command-panel-scroll'?scroll:null,set innerHTML(html){painted=html;panelNodes=parse(html);},get innerHTML(){return painted;}};

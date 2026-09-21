@@ -1,0 +1,30 @@
+Baseline: 365/365 PASS
+Final: 394/394 PASS
+New: 29 tests
+Typecheck: PASS
+Build: PASS
+Browser manual validation pending
+
+ hex geometry (63.43111ms)
+✔ C infrastructure envelopes exactly follow canonical Road/Rail centers and River shared edges (33.57006ms)
+✔ C rectangle clearance catches crossing segments, endpoints, and degenerate bridge envelopes (0.479199ms)
+✔ C city groups cover every real city and reject entire footprints over infrastructure or non-city terrain (536.025222ms)
+✔ C city plans are order-independent, seed-dependent, and leave scenario/RNG/live SVG untouched (1353.18912ms)
+✔ C real-map cache draws projected raster, VS2 city components, then VS2 infrastructure without legacy duplication (5528.148912ms)
+✔ VS2 masks union same-terrain cells without a seam on their shared edge (3.080702ms)
+✔ VS2 region transitions are continuous, normalized, and retain semantic centers (1.594953ms)
+✔ VS2 exterior feathering preserves holes and is independent of input order (11.176618ms)
+✔ VS2 raster has deterministic seed-separated pixels and uninterrupted world UV across crops (12.649047ms)
+✔ VS2 scalar masks use luminance rather than opaque alpha and bound value modulation (0.860321ms)
+✔ VS2 canonical map semantics, RNG, geometry and live grid remain unchanged (91.08189ms)
+✔ VS2 production cache invokes one world pass and preserves existing infrastructure/city loading (46.969778ms)
+✔ VS2 world pass loads exactly the selected namespace materials sequentially and releases scratch canvases (32.689544ms)
+✔ F2 hill, rough and marsh materials remain crop-invariant and seed-separated (118.779353ms)
+ℹ tests 394
+ℹ suites 0
+ℹ pass 394
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 33768.743865

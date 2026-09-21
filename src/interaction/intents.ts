@@ -1,3 +1,5 @@
+import type { Viewer } from '../player-view/playerView.js';
+import { sessionPlayerView, setInspectionViewer } from '../core-adapter/session.js';
 import { msg, enumMessage, phaseMessage, type Message } from '../localization/index.js';
 import { joinIssues } from '../localization/issues.js';
 import { continueCombatFlow } from './combatFlow.js';
@@ -35,6 +37,7 @@ function sameHex(a:HexCoord,b:HexCoord):boolean{return a.q===b.q&&a.r===b.r;}
 function adjacent(a:HexCoord,b:HexCoord):boolean{return getNeighbors(a).some((candidate)=>sameHex(candidate,b));}
 
 export function selectCounter(session:LocalGameSession,presentation:PresentationState,unitId:EntityId):void {
+  if(session.state.units[unitId]?.side!==session.state.controllers[session.activeViewerControllerId]?.side&&!sessionPlayerView(session).units.some(u=>u.id===unitId)){presentation.message=msg('fow.insufficient');return;}
   const clicked=session.state.units[unitId];
   const retreat=session.state.pendingDecision;
   if(retreat?.kind==='RETREAT'&&clicked?.alive&&!presentation.privacyGate
@@ -110,6 +113,7 @@ export function readyForPhase(session:LocalGameSession,presentation:Presentation
 export function confirmPrivacyGate(session:LocalGameSession,presentation:PresentationState):void {
   const gate=presentation.privacyGate;
   if(!gate)return;
+  delete session.viewOverride;
   if(gate==='COMBAT_DECISION'){const owner=session.state.pendingDecision?.decisionOwnerControllerId;if(owner)setActiveViewer(session,owner);}
   else if(gate==='PASS_TO_GERMAN'||gate==='REVEAL_BOTH'||gate==='PASS_TURN_TO_GERMAN') setActiveViewer(session,controllerIdForSide(session,'GERMAN'));
   else setActiveViewer(session,controllerIdForSide(session,'SOVIET'));
@@ -118,12 +122,9 @@ export function confirmPrivacyGate(session:LocalGameSession,presentation:Present
   presentation.message=gate==='REVEAL_BOTH'?msg('feedback.deploymentRevealed'):msg('feedback.sideActive',{side:enumMessage(session.state.activeSide)});
 }
 
-export function switchViewerForDevelopment(session:LocalGameSession,presentation:PresentationState,side:Side):void {
-  setActiveViewer(session,controllerIdForSide(session,side));
-  presentation.selectedUnitId=null;
-  presentation.selectedDeploymentUnitId=null;
-  clearActionDrafts(presentation);
-  presentation.message=msg('feedback.developerViewer',{side:enumMessage(side)});
+/** Inspection keeps controller authority and every legal draft unchanged. */
+export function switchViewerForDevelopment(session:LocalGameSession,_presentation:PresentationState,side:Viewer):void {
+  setInspectionViewer(session,side);
 }
 
 /** Presentation-only path drafting. Counter remains at authoritative Core hex until commit. */

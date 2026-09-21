@@ -55,6 +55,6 @@ test('UA003R1 a real VS2 cache is unchanged by enlarged models, zoom LOD, fire a
  try{const world=createVS2TerrainSurfaceHooks().worldBase,paint=world.paint.bind(world);const surface=await buildCachedTerrainSurface(model,17,'p5','medium',{...world,paint(...args){worldBuilds++;return paint(...args);}}),before={worldBuilds,draws,buildCount:surface.canvas.dataset.buildCount};const h=battleRun({multi:true});for(let i=0;i<80;i++){h.time.tick(16);if(i%10===0){h.remount();level(h,i%20?'medium':'close');}}assert.equal(worldBuilds,1);assert.deepEqual({worldBuilds,draws,buildCount:surface.canvas.dataset.buildCount},before);h.runtime.dispose();}finally{globalThis.document=oldDocument;globalThis.Image=oldImage;}
 });
 
-test('UA003R1 freezes every other runtime, asset, UA timing/queue, loader, Core and original test file',()=>{
+test('UA003R1 frozen baseline with explicitly recorded FOW integration and player/observer fixture updates',()=>{
  const frozen=JSON.parse(readFileSync('tests/fixtures/ua003r1-frozen-sha256.json'));for(const [path,hash]of Object.entries(frozen))assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'),hash,path);
 });

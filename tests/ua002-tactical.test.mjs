@@ -111,7 +111,7 @@ test('UA002 Combat UX2.1 actual DOM bindings retain duplicate-submit protection 
  const button=dom.click('#attack-declare');button.fire('click');await dom.paint();
  assert.equal(Object.values(h.s.state.combatTransactions).length,1);assert.deepEqual(Object.values(h.s.state.combatTransactions)[0].attackerUnitIds,['g','g2']);assert.equal(dom.camera(),camera);h.finish();
 });
-test('UA002 all non-presentation source, startup shell, loader, VS2, Camera and localization remain byte-identical',()=>{
+test('UA002 frozen baseline with explicitly recorded FOW projection integration',()=>{
  const hashes=JSON.parse(readFileSync('tests/fixtures/ua002-frozen-sha256.json'));
  for(const [path,hash]of Object.entries(hashes))assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'),hash,path);
 });

@@ -2,13 +2,14 @@ import { AnimationCoordinator, sequenceEvents, type AnimationClock } from './coo
 import { observePresentationTransitions } from './transitionBus.js';
 import { SvgUnitPresentation } from './svgUnits.js';
 import type { AnimationSpeed } from './timing.js';
-import type { LocalGameSession } from '../core-adapter/session.js';
+import { sessionPlayerView, type LocalGameSession } from '../core-adapter/session.js';
 
 /** UI-owned lifetime. Observers receive only detached immutable presentation facts. */
 export class UnitAnimationRuntime {
   readonly coordinator:AnimationCoordinator;
   private readonly renderer=new SvgUnitPresentation();
   private session:object|null=null;
+  private viewerKey='';
   private unsubscribe:()=>void=()=>{};
   private requestedSpeed:AnimationSpeed='normal';
   private reducedMotion=false;
@@ -20,6 +21,9 @@ export class UnitAnimationRuntime {
   setReducedMotion(reduced:boolean):void {this.reducedMotion=reduced;this.setSpeed(this.requestedSpeed);}
   skip():void {this.coordinator.skip();}
   sync(session:LocalGameSession|null,root:ParentNode|null):void {
+    const view=session?sessionPlayerView(session):null;
+    const viewerKey=`${view?.viewer}:${session?.visibilityRevision??0}`;
+    if(this.viewerKey!==viewerKey){this.coordinator.reset();this.renderer.dispose();this.viewerKey=viewerKey;}
     if(this.session!==session){
       this.unsubscribe();this.coordinator.reset();this.renderer.dispose();this.session=session;
       this.unsubscribe=session?observePresentationTransitions(session,events=>{
@@ -31,7 +35,7 @@ export class UnitAnimationRuntime {
     if(!root){this.coordinator.reset();this.renderer.dispose();return;}
     // Remount boundary only. Pass detached identity, never GameState, to the renderer.
     // The canonical Counter DOM controls visibility (including deployment privacy).
-    const identities=Object.values(session?.state.units??{}).map(({id,side,type})=>({id,side,type}));
+    const identities=(view?.units??[]).map(({id,side,type})=>({id,side,type}));
     this.renderer.bind(root,identities);this.renderer.paint(this.coordinator.snapshot());
   }
   dispose():void {this.unsubscribe();this.coordinator.dispose();this.renderer.dispose();this.session=null;}
