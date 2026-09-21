@@ -9,16 +9,19 @@ export function presenceNode(doc, tag, attrs, parent) {
 }
 // Original vector miniatures. Shared once per mounted map; no bitmap/loader dependency.
 // Coordinates are local artwork dimensions, never hex or stack geometry.
+const formation = [[-18, 0], [0, -5], [19, 2]];
 const artwork = {
     infantry: {
-        side: 'M-16 5l2-9h5l2 9h-3l-2-5-1 5Z M-3 1l2-9h5l2 9H3L2-4 0 1Z M9 7l2-9h5l2 9h-3l-2-5-1 5Z',
-        top: 'M-15-5l2-2 4 1 1 3-5 1Z M-2-9l2-2 4 1 1 3-5 1Z M10-3l2-2 4 1 1 3-5 1Z',
-        detail: 'M-13-2l4 2 5-2 M0-6l4 2 5-2 M12 0l4 2 5-2 M-15 5l4 1 M-2 1l4 1 M10 7l4 1',
+        side: formation.map(([x, y]) => `M${x - 5} ${y - 8}l4-3 5 2 2 8-3 2 1 7h-4l-2-7-2 7h-4l2-10-2-2Z M${x + 3} ${y - 5}l4-2 1-7-2-1-2 7-4 1Z`).join(' '),
+        top: formation.map(([x, y]) => `M${x - 4} ${y - 13}a4 3 0 1 1 8 0l-1 2-6 0Z M${x - 4} ${y - 8}l4-2 4 2-1 7-7-1Z`).join(' '),
+        facet: formation.map(([x, y]) => `M${x + 1} ${y - 8}l3 1-1 6-3-1Z`).join(' '),
+        detail: formation.map(([x, y]) => `M${x - 3} ${y - 14}l4-1 M${x - 2} ${y - 7}v4 M${x - 4} ${y + 6}h3 M${x + 1} ${y + 6}h2`).join(' '),
     },
     armor: {
-        side: 'M-20-3L-11-9 14-6 21 1 18 7-10 9-20 4Z',
-        top: 'M-19-4L-10-10 14-7 20-1 11 4-12 3Z M-7-9L0-13 9-10 9-5 2-2-7-5Z M6-10L25-13 26-10 8-6Z',
-        detail: 'M-16 1l5 3 27-1 M-16 5l4 2 M-6 6h3 M2 6h3 M10 5h3 M-8-8l8-3 7 2 M-13-5l-2 3 M-5-2l8 1',
+        side: 'M-24-3L-13-10 18-7 24 0 21 8-12 10-24 4Z M-24 0l11 5 33-2v5l-33 3-11-5Z M-20-8l9-6 29 3 3 4-31 0Z',
+        top: 'M-22-5L-11-12 18-9 23-2 11 4-12 3Z M-9-11L-1-18 11-15 13-8 4-3-9-6Z M9-14L29-17 30-13 11-9Z',
+        facet: 'M-9-6L4-3 13-8 11-12 3-7Z M-12 3l23 1 12-6-1 4-10 5-24-1Z',
+        detail: 'M-21 2l9 5 31-2 M-17 4v3 M-10 7v2 M-3 7v2 M4 6v2 M11 6v2 M18 5v2 M-7-12l7-4 8 2 M-3-12l4-2 4 1-3 2Z M14-14l12-2 M-17-6l-1 3 M-13-8l-1 3',
     },
     motorized: {
         side: 'M-21-2L-14-8 15-6 21 0 19 6-15 7-21 3Z M-16 4v5h5V5 M10 4v5h5V4',
@@ -26,9 +29,10 @@ const artwork = {
         detail: 'M-18-3l5-4 16 2 M9-6l5-1 4 4-8 2Z M-13 4h-2 M12 4h2 M25-3l2-1',
     },
     artillery: {
-        side: 'M-17 4L-5-4 1 0-12 9Z M-1 0L15 8 12 11-5 3Z M-9-5l6-3 7 6-1 8-7 2-5-6Z',
-        top: 'M-9-6L-1-11 7-7 3 0-4 2Z M1-9L23-15 25-11 4-3Z M-16 4L-5-4-2-2-13 7Z',
-        detail: 'M-6-3l5 2-1 6 M-4 1l6-2 M7-9l14-4 M4 3l9 5 M-11 5l4-4',
+        side: 'M-21 6L-5-4 0 0-16 11-22 10Z M-2 0L16 7 15 11-5 4Z M-13-5a5 7 0 1 1 1 13 5 7 0 1 1-1-13Z M3-7a4 6 0 1 1 1 12 4 6 0 1 1-1-12Z',
+        top: 'M-13-7L-3-14 8-10 5-3-6 0Z M1-12L25-20 27-15 5-6Z M-21 6L-5-4-2-1-17 9Z M-2-1l18 8-3 2-17-7Z',
+        facet: 'M-6 0L5-3 8-10 4-10 1-5-7-3Z',
+        detail: 'M-13-1a2 4 0 1 1 0 6 2 4 0 1 1 0-6Z M-15 2h5 M-13 0v6 M5-13l18-6 M-4-9l6-2 M-19 8l4-1 M11 7l3 1',
     },
     'anti-tank': {
         side: 'M-17 4L-6-2 1 0 14 6 12 9-16 8Z M-9-3v8h5V0 M5-3v8h5V0',
@@ -55,10 +59,15 @@ export function createPresenceDefinitions(doc) {
     const defs = presenceNode(doc, 'defs', { 'data-presence-definitions': '' });
     for (const [family, art] of Object.entries(artwork)) {
         const body = presenceNode(doc, 'g', { id: `presence-${family}` }, defs);
-        presenceNode(doc, 'path', { d: art.side, fill: '#172129', stroke: '#172129', 'stroke-width': 1.1, 'stroke-linejoin': 'round' }, body);
-        presenceNode(doc, 'path', { d: art.top, fill: 'currentColor', stroke: '#d9d5bf', 'stroke-opacity': .48, 'stroke-width': .55, 'stroke-linejoin': 'round' }, body);
+        // A narrow neutral under-edge separates dark silhouettes from both forest and stone.
+        // Shared vector paths only: no filter, bitmap, glow or terrain sampling.
+        presenceNode(doc, 'path', { d: art.side + ' ' + art.top, fill: 'none', stroke: '#c1b79a', 'stroke-opacity': .55, 'stroke-width': 2.6, 'stroke-linejoin': 'round' }, body);
+        presenceNode(doc, 'path', { d: art.side, fill: '#202a2b', stroke: '#1a2527', 'stroke-width': 1.1, 'stroke-linejoin': 'round' }, body);
+        presenceNode(doc, 'path', { d: art.top, fill: 'currentColor', stroke: '#253133', 'stroke-width': .8, 'stroke-linejoin': 'round' }, body);
+        if (art.facet)
+            presenceNode(doc, 'path', { d: art.facet, fill: '#1a2426', 'fill-opacity': .43 }, body);
         const detail = presenceNode(doc, 'g', { id: `presence-${family}-detail` }, defs);
-        presenceNode(doc, 'path', { d: art.detail, fill: 'none', stroke: '#eee2c7', 'stroke-opacity': .65, 'stroke-width': .7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, detail);
+        presenceNode(doc, 'path', { d: art.detail, fill: 'none', stroke: '#eee2c7', 'stroke-opacity': .78, 'stroke-width': .85, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, detail);
     }
     return defs;
 }
