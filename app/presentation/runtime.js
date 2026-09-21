@@ -9,7 +9,9 @@ export class UnitAnimationRuntime {
     unsubscribe = () => { };
     requestedSpeed = 'normal';
     reducedMotion = false;
-    constructor(clock) { this.coordinator = new AnimationCoordinator(clock, states => this.renderer.paint(states)); }
+    constructor(clock) {
+        this.coordinator = new AnimationCoordinator(clock, states => this.renderer.paint(states), (event, lifecycle) => this.renderer.lifecycle(event, lifecycle));
+    }
     get speed() { return this.requestedSpeed; }
     get effectiveSpeed() { return this.coordinator.animationSpeed; }
     setSpeed(speed) { this.requestedSpeed = speed; this.coordinator.setSpeed(this.reducedMotion ? 'instant' : speed); }
@@ -22,6 +24,7 @@ export class UnitAnimationRuntime {
             this.renderer.dispose();
             this.session = session;
             this.unsubscribe = session ? observePresentationTransitions(session, events => {
+                this.renderer.prepare(events);
                 this.coordinator.enqueue(sequenceEvents(events));
             }) : () => { };
         }

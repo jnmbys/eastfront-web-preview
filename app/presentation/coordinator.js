@@ -1,22 +1,43 @@
 import { hexToPixel } from '../geometry/hex.js';
 import { isTravelEvent } from './events.js';
 import { ANIMATION_TIMING as T, SPEED_MULTIPLIER } from './timing.js';
+import { ZERO, mix, travelEase, travelAccent, cueAccent, fireDelay, fireStagger } from './motion.js';
 const travelPhase = { move: 'moving', retreat: 'retreating', advance: 'advancing', breakthrough: 'breakthrough' };
 const travelTiming = { move: T.MOVE_STEP, retreat: T.RETREAT_STEP, advance: T.ADVANCE_STEP, breakthrough: T.BREAKTHROUGH_STEP };
-const mix = (a, b, t) => ({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
 export function eventDuration(event) {
     if (isTravelEvent(event))
         return Math.max(1, event.path.length - 1) * travelTiming[event.kind];
     switch (event.kind) {
         case 'combat-started': return T.COMBAT_WINDUP;
-        case 'combat-fire': return T.COMBAT_FIRE;
+        case 'combat-fire': return T.COMBAT_FIRE + fireStagger(event.attackers.length);
         case 'hit': return T.HIT_REACTION;
         case 'destroyed': return T.DESTROYED;
         default: return T.COMBAT_RESULT;
     }
 }
-/** Sequential barriers; disjoint units can explicitly share a parallel step. */
-export function sequenceEvents(events) { return events.map(event => ({ parallel: [event] })); }
+/** One short reaction per affected unit, then losses disappear together. Travel retains
+ * the accepted event order. Only adjacent loss facts in this accepted action are grouped. */
+export function sequenceEvents(events) {
+    const steps = [];
+    let hits = new Map(), losses = new Map();
+    const flush = () => { if (hits.size)
+        steps.push({ parallel: [...hits.values()] }); if (losses.size)
+        steps.push({ parallel: [...losses.values()] }); hits.clear(); losses.clear(); };
+    for (const event of events) {
+        if (event.kind === 'hit') {
+            hits.set(event.unitId, event);
+            continue;
+        }
+        if (event.kind === 'destroyed') {
+            losses.set(event.unitId, event);
+            continue;
+        }
+        flush();
+        steps.push({ parallel: [event] });
+    }
+    flush();
+    return steps;
+}
 export class AnimationCoordinator {
     clock;
     paint;
@@ -45,9 +66,9 @@ export class AnimationCoordinator {
             for (const event of step.parallel)
                 if (isTravelEvent(event))
                     this.paths.set(event, event.path.map(hex => hexToPixel(hex)));
-            const ids = step.parallel.filter(e => 'unitId' in e).map(e => e.unitId);
+            const ids = step.parallel.flatMap(e => 'unitId' in e ? [e.unitId] : e.kind === 'combat-started' || e.kind === 'combat-fire' ? e.attackers.map(a => a.unitId) : []);
             if (new Set(ids).size !== ids.length)
-                normalized.push(...sequenceEvents(step.parallel));
+                normalized.push(...step.parallel.map(event => ({ parallel: [event] })));
             else
                 normalized.push({ parallel: [...step.parallel] });
         }
@@ -117,27 +138,46 @@ export class AnimationCoordinator {
         // a render of already-committed Core state would flash the destination first.
         const waiting = this.queue.flatMap(step => step.parallel);
         for (const event of [...(this.active?.events ?? []), ...waiting]) {
-            if (!('unitId' in event) || this.states.has(event.unitId))
-                continue;
             const index = this.active?.events.indexOf(event) ?? -1;
             const duration = index >= 0 ? this.active.durations[index] : eventDuration(event);
             const progress = index >= 0 ? Math.min(1, this.active.elapsed / Math.max(1, duration)) : 0;
             if (isTravelEvent(event)) {
+                if (this.states.has(event.unitId))
+                    continue;
                 const points = this.paths.get(event), segments = points.length - 1;
                 const at = progress * segments, i = Math.min(Math.floor(at), segments - 1), fraction = progress === 1 ? 1 : at - i;
-                const eased = fraction * fraction * (3 - 2 * fraction);
+                const eased = travelEase(event.kind, fraction);
                 const anchor = mix(points[Math.max(0, i)], points[Math.max(0, i + 1)], eased);
                 const offset = i === 0 ? mix(event.sourceOffset, segments === 1 ? event.destinationOffset : { x: 0, y: 0 }, eased)
                     : i === segments - 1 ? mix({ x: 0, y: 0 }, event.destinationOffset, eased) : { x: 0, y: 0 };
                 const destination = points.at(-1);
+                const delta = { x: points[Math.max(0, i + 1)].x - points[Math.max(0, i)].x, y: points[Math.max(0, i + 1)].y - points[Math.max(0, i)].y };
+                const length = Math.hypot(delta.x, delta.y) || 1, direction = { x: delta.x / length, y: delta.y / length };
                 this.states.set(event.unitId, Object.freeze({ unitId: event.unitId, currentCanonicalPosition: anchor,
                     currentVisualPosition: { x: anchor.x + offset.x, y: anchor.y + offset.y }, targetVisualPosition: { x: destination.x + event.destinationOffset.x, y: destination.y + event.destinationOffset.y },
-                    phase: travelPhase[event.kind], progress, emphasis: Math.sin(progress * Math.PI) * 0.035, opacity: 1, visible: true }));
+                    phase: travelPhase[event.kind], progress, emphasis: Math.sin(progress * Math.PI) * 0.035, opacity: 1, visible: true,
+                    ...travelAccent(event.kind, progress, direction), direction, character: 'generic' }));
             }
-            // UA-001 queues combat cues but leaves Counter damage and removal entirely to
-            // the canonical render. UA-002 can consume the same events for effect overlays.
+            else if (event.kind === 'hit' || event.kind === 'destroyed') {
+                this.cue(event.participant, event.kind, progress, index >= 0);
+            }
+            else if (event.kind === 'combat-started' || event.kind === 'combat-fire') {
+                event.attackers.forEach((participant, at) => {
+                    const local = event.kind === 'combat-fire' ? Math.max(0, Math.min(1, ((index >= 0 ? this.active.elapsed : 0) - fireDelay(at, event.attackers.length)) / T.COMBAT_FIRE)) : progress;
+                    this.cue(participant, event.kind === 'combat-fire' ? 'firing' : 'windup', local, index >= 0);
+                });
+            }
         }
         this.paint(this.snapshot());
+    }
+    cue(participant, phase, progress, active) {
+        if (this.states.has(participant.unitId))
+            return;
+        const position = { x: participant.position.x + participant.offset.x, y: participant.position.y + participant.offset.y };
+        const accent = active ? cueAccent(phase, progress, participant.direction, participant.character) : { motionOffset: ZERO, scale: 1, effect: 0, opacity: 1 };
+        this.states.set(participant.unitId, Object.freeze({ unitId: participant.unitId, currentCanonicalPosition: participant.position,
+            currentVisualPosition: position, targetVisualPosition: position, phase: active ? phase : 'idle', progress,
+            emphasis: accent.effect, visible: true, ...accent, direction: participant.direction, character: participant.character }));
     }
     schedule() {
         if (!this.busy || this.frame !== null || this.disposed)

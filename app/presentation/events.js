@@ -10,6 +10,23 @@ function stackOffset(state, id) {
     const placement = deriveCounterPlacement(unit, Math.max(0, group.findIndex(u => u.id === id)), group.length);
     return { x: placement.visualCenter.x - placement.authoritativeAnchor.x, y: placement.visualCenter.y - placement.authoritativeAnchor.y };
 }
+function character(type) {
+    if (['PANZER', 'TANK', 'HEAVY_TANK'].includes(type))
+        return 'armor';
+    if (type === 'ARTILLERY')
+        return 'artillery';
+    if (['INFANTRY', 'ELITE_INFANTRY', 'JAGER'].includes(type))
+        return 'infantry';
+    return 'generic';
+}
+function participant(state, id, target) {
+    const unit = state.units[id];
+    if (!unit)
+        return;
+    const position = hexToPixel(unit.hex), dx = target ? target.x - position.x : 0, dy = target ? target.y - position.y : 0;
+    const length = Math.hypot(dx, dy);
+    return { unitId: id, position, offset: stackOffset(state, id), direction: length ? { x: dx / length, y: dy / length } : { x: 1, y: 0 }, character: character(unit.type) };
+}
 /** Read-only projection of accepted facts. No engine calls, legality checks or random draws. */
 export function derivePresentationEvents(before, result) {
     if (!result.accepted)
@@ -18,7 +35,12 @@ export function derivePresentationEvents(before, result) {
     const identity = () => ({ id: `${result.actionId}:presentation:${events.length}`, actionId: result.actionId });
     const combat = (kind, battleId) => {
         const tx = after.combatTransactions[battleId];
-        events.push({ ...identity(), kind, battleId, unitIds: [...(tx?.attackerUnitIds ?? []), ...(tx?.defenderUnitIds ?? [])] });
+        const defender = tx?.defenderUnitIds.map(id => before.units[id] ?? after.units[id]).find(Boolean);
+        const attackers = (tx?.attackerUnitIds ?? []).flatMap(id => {
+            const cue = participant(before, id, defender ? hexToPixel(defender.hex) : undefined);
+            return cue ? [cue] : [];
+        });
+        events.push({ ...identity(), kind, battleId, unitIds: [...(tx?.attackerUnitIds ?? []), ...(tx?.defenderUnitIds ?? [])], attackers });
     };
     const travel = (kind, unitId, acceptedPath) => {
         const source = before.units[unitId], destination = after.units[unitId];
@@ -60,9 +82,9 @@ export function derivePresentationEvents(before, result) {
                 break;
             case 'UnitStepLost':
             case 'UnitDestroyed': {
-                const unit = before.units[event.unitId] ?? after.units[event.unitId];
-                if (unit)
-                    events.push({ ...identity(), kind: event.type === 'UnitStepLost' ? 'hit' : 'destroyed', unitId: event.unitId, position: hexToPixel(unit.hex) });
+                const cue = participant(before, event.unitId) ?? participant(after, event.unitId);
+                if (cue)
+                    events.push({ ...identity(), kind: event.type === 'UnitStepLost' ? 'hit' : 'destroyed', unitId: event.unitId, position: cue.position, participant: cue });
                 break;
             }
         }
