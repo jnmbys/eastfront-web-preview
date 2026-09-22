@@ -17,3 +17,18 @@ Compression parameters, ACK timing, message format and contents remain unchanged
 Local compression/fallback tests retain real frame inspection, authorized snapshot equality, per-socket ordering, at-most-once actions and reconnect. Added assertions validate production diagnostic headers, safe output and lifetime without weakening the original tests.
 
 Public findings will be recorded after this diagnostic is deployed and tested on new connections. Physical Safari/iPad remains PENDING.
+
+First public evidence (runtime `438f173`): a fresh Cloud Chrome 151 native socket
+reports empty extensions through both property and prototype getter. The correlated
+server sees no deflate offer, sends no acceptance and negotiates no extension.
+This reproduces without the old MP004 subclass, so that subclass alone is not the
+cause. Browser handshake request headers are not exposed by this browser tool.
+
+The first public Node probe recorded an offer at the client, but no offer reached
+the application server. Its initial frame counter omitted continuation frames and
+two HELLO waits could select the correlated ROOM_STATE rather than WELCOME.
+`public-node-probe-attempt1.json` is retained as raw evidence, NOT valid total-byte
+or three-connection verification. The corrected probe counts all fragments and
+requires WELCOME plus matching server connectionId; regression tests cover the
+fragmentation bug. No production compression setting is changed to compensate for
+an absent request offer.

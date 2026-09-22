@@ -1,0 +1,57 @@
+{
+  "build": "438f173ce86e21fc822035ffa0d3fd8a8e957cc8",
+  "entry": "standalone-native",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+  "viewport": {
+    "width": 1363,
+    "height": 936,
+    "dpr": 1
+  },
+  "constructorNativeCodeMarker": true,
+  "connections": [
+    {
+      "url": "wss://eastfront-server.onrender.com/ws",
+      "state": "OPEN",
+      "started": 56181,
+      "messages": [],
+      "openAt": 57063.29999999702,
+      "extensions": "",
+      "prototypeGetterExtensions": "",
+      "getterMatches": true,
+      "helloSent": 57063.59999999404,
+      "connectionId": "a5523b59-a4d7-4241-a123-b94e752c0780",
+      "helloRttMs": 250.70000000298023,
+      "server": {
+        "sourceCommit": "438f173ce86e21fc822035ffa0d3fd8a8e957cc8",
+        "connectionId": "a5523b59-a4d7-4241-a123-b94e752c0780",
+        "requestExtensions": "",
+        "responseExtensions": "",
+        "negotiatedExtensions": "",
+        "config": {
+          "serverNoContextTakeover": true,
+          "clientNoContextTakeover": true,
+          "level": 3,
+          "memLevel": 7,
+          "concurrencyLimit": 2,
+          "threshold": 1024
+        },
+        "sends": [],
+        "boundaries": [
+          "bytes are serialized UTF-8, not compressed wire size",
+          "writeCallbackMs is local write completion, not peer receipt",
+          "compression CPU and end-to-end wire bytes are not measured",
+          "server sendAt uses server performance.now; do not subtract client timestamps"
+        ]
+      }
+    }
+  ],
+  "submissions": [],
+  "boundaries": [
+    "browser implementation captured before this diagnostic; native-code marker is not proof of network path",
+    "extensions read only after OPEN",
+    "message bytes are decompressed UTF-8, NOT wire bytes",
+    "control sample is a later timer observation, NOT exact apply time or paint",
+    "handshake evidence is what reached the server, not a browser network capture",
+    "no token, cookie, unit data or full state is exported"
+  ]
+}
