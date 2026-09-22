@@ -42,7 +42,7 @@ subtracted from the actor clock.
 
 Snapshots contain 225,594 bytes for the waiting side and median 251,727 bytes
 for the actor. This repeats static map data in the unchanged authorized DTO.
-The server currently sends it uncompressed. Local instrumented Node 24.19
+The baseline server sends it uncompressed. Local instrumented Node 24.19
 loopback WS independently measures validation, applyIntent, player projection,
 serialization, send invocation and callback; these are **not Render timings**.
 All processing and transport paths use their own monotonic clocks.
@@ -106,3 +106,74 @@ copied here; historical evidence was restored unchanged.
 Physical Safari/iPad: PENDING. Friendly-hex move click routing and dice display
 remain out of scope. Public after measurements and deployment verification are
 recorded in the release receipt when available, not inferred from this gate.
+
+## Deployed result — public latency improvement NOT demonstrated
+
+Runtime commit `31c517714320f65f5a141d3aafa78e3ad5afe949` was pushed on the
+independent branch, then fast-forwarded to source-main. The original Render
+service automatically deployed it. Its uncached `/health` returned that exact
+`sourceCommit`; no Render hosting configuration or credentials were changed.
+
+Pages `f04374abaf9fc8c446b7fb225ee68cad6a978a94`, workflow
+[35722775239](https://github.com/jnmbys/eastfront-web-preview/actions/runs/35722775239),
+succeeded. Production client code remains unchanged; isolated timing previews
+were added. Eleven live production module/config hashes match the final build,
+including Safari, MP-003, PERF-002/003/004 modules and the original WSS URL.
+
+Same Cloud Chrome, viewport, Models Auto, animation mode and deployment sequence;
+before/after each 10 actions at LOD 2/3 and 10 at all-LOD complete. All-LOD
+actor after (median / maximum, ms):
+
+| Stage | Before | After |
+|---|---:|---:|
+| Submit → ACK | 275.8 / 321.6 | 276.4 / 359.0 |
+| ACK → native snapshot callback | 262.5 / 943.8 | 296.75 / 960.4 |
+| Submit → snapshot callback | 537.5 / 1265.4 | 608.65 / 1271.4 |
+| JSON parse | 1.3 / 2.1 | 1.2 / 1.8 |
+| Parsed snapshot → handler finish | 25.05 / 39.6 | 24.35 / 40.2 |
+| Submit → controls restored | 569.25 / 1306.3 | 632.15 / 1299.4 |
+| Synchronous refresh | 24.95 / 39.5 | 24.25 / 39.8 |
+
+Waiting side parsed-snapshot application: 13.05 / 17.4 → 16.4 / 24.2 ms.
+No ≥50 ms task overlaps application or the actor request window in either
+all-LOD group. Each normal action yields one actor ACK and one snapshot per
+viewer. Zero extra QUERY_MATCH / RESYNC_MATCH, zero hidden enemy units, matched
+revisions and exact next sequence. ACK did not change canonical unit count.
+
+Background LOD actor submit→controls: 602.4 / 1113.5 → 616.8 / 1341.6 ms;
+ACK→snapshot: 305.4 / 789 → 303.15 / 1025.5 ms. Application overlapping longest
+task was 56 ms before and no ≥50 ms observed after. This does **not** establish
+an improvement in overall interaction delay. See comparison.json for every
+recipient/group and stage, including unchanged JSON byte sizes after decoding.
+
+The after browser reports `WebSocket.extensions === ''`. Thus this browser-
+visible connection does not report negotiated compression, and the public
+comparison exercises or is consistent with the uncompressed compatibility path.
+It does not verify compression between any intervening network endpoints.
+Independent Node WSS probe failed DNS with EAI_AGAIN; a standard curl Upgrade
+probe timed out after 10 seconds without response headers. These use a different
+network environment, are not latency samples, and were not retried through
+alternate routes. No inference about server geography, cold starts or Safari
+is made. Actual normal-device compression negotiation remains to be checked.
+
+The verified local compressed path saves ~90% of snapshot frame bytes while
+retaining identical authorized JSON. It adds compression/decompression work:
+local ACK→snapshot median 0.102 → 4.126 ms. Those local numbers are not public
+timings. The browser's remaining delay precedes the native snapshot callback;
+there is no evidence here of an internal client queue, JSON parse or PERF-004
+refresh causing it. Public service processing versus transport/native dispatch
+cannot be fully separated with the available telemetry. We **do not claim
+MP-004 has resolved the reported public interaction delay**.
+
+Real refresh/reconnect: first automatic attempt showed Disconnected; an explicit
+Connect retry within grace recovered the same match at revision 20. Ten more
+actions progressed to revision 30, with 30 own units and zero opponent units on
+the waiting view. No auto-action on disconnect; no stale draft/state adopted.
+This is a successful token reclaim/continue check, not a seamless automatic
+reconnect PASS. Automated reconnect, combat ownership, sequence-gap recovery,
+hidden movement/combat and invalid-action tests passed in the complete suite.
+
+Remaining: public compression negotiation and physical Safari/iPad acceptance,
+unattributed transport/native callback interval, first-attempt automatic
+reconnect reliability, friendly-hex move click conflict and dice display.
+No further unrelated performance changes were made to manufacture a gain.

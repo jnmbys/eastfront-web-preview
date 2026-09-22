@@ -14,6 +14,7 @@ document.addEventListener('click',e=>{if(e.target.closest?.('#confirm-deployment
 try{new PerformanceObserver(list=>{for(const e of list.getEntries())if(tasks.length<4000)tasks.push({start:e.startTime,ms:e.duration});save();}).observe({type:'longtask',buffered:true});}catch{}
 const Native=window.WebSocket;
 window.WebSocket=class extends Native{
+ constructor(...args){super(...args);const at=now();this.addEventListener('open',()=>{messages.push({type:'OPEN',at:now(),connectMs:now()-at,extensions:this.extensions});save();});}
  send(data){const at=now();try{const m=JSON.parse(String(data));if(m.messageType==='SUBMIT_ACTION')submissions.push({requestId:m.requestId,matchId:m.payload.matchId,expectedRevision:m.payload.expectedRevision,type:m.payload.action.type,click:lastClick,sentAt:at,bytes:new TextEncoder().encode(data).length});else messages.push({direction:'send',type:m.messageType,at});}catch{}const result=super.send(data);save();return result;}
  set onmessage(fn){super.onmessage=event=>{
   // Before application parsing, diagnostic parsing, byte counting, or DOM work.
