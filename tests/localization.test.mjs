@@ -1,5 +1,6 @@
 import {isNetwork} from '../dist/app/multiplayer/playerSession.js';
 import {DynamicMapRenderer} from '../dist/app/render/dynamicMap.js';
+import {DeploymentPanelRenderer} from '../dist/app/ui/deploymentPanelRenderer.js';
 import {modelControls,bindModelControls} from '../dist/app/ui/modelControls.js';
 import {FogRuntime} from '../dist/app/fog/runtime.js';
 import {sessionPlayerView} from '../dist/app/core-adapter/session.js';
@@ -31,7 +32,7 @@ const raw=JSON.parse(readFileSync('vendor/eastfront-digital-core/reference/strat
 const main=readFileSync('dist/app/main.js','utf8');
 const setup=(seed=17)=>({s:createLocalGameSession(raw,seed),p:createPresentationState(false,false),d:touch.createDeploymentTouch()});
 function panels(s,p,d){
- const ctx=vm.createContext({isNetwork,DynamicMapRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
+ const ctx=vm.createContext({isNetwork,DynamicMapRenderer,DeploymentPanelRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
  vm.runInContext(main.slice(main.indexOf('function sideLabel('),main.indexOf('function startNewGame(')),ctx);
  vm.runInContext(main.slice(main.indexOf('function sidePanelMarkup('),main.indexOf('function refreshDynamicView(')),ctx);
  return ctx;

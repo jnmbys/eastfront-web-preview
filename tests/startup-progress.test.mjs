@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import vm from 'node:vm';
+import {DeploymentPanelRenderer} from '../dist/app/ui/deploymentPanelRenderer.js';
 import { StartupProgress, STARTUP_MILESTONES } from '../dist/app/web/startupProgress.js';
 import { startupLoadingMarkup, updateStartupLoading } from '../dist/app/web/startupView.js';
 import { observeTerrainLoad, reportTerrainLoad } from '../dist/app/render/terrainLoadProgress.js';
@@ -21,7 +22,7 @@ function bootHarness(overrides = {}) {
   const progress = new StartupProgress(), calls = [], frames = [], snapshots = [];
   progress.subscribe(s => snapshots.push(s));
   const root = { innerHTML: '' };
-  const context = { isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
+  const context = { deploymentPanelRenderer:new DeploymentPanelRenderer(), isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
     productionMap: null, cachedTerrainSurface: null, cachedTerrainSurfaces: new Map(), TERRAIN_VISUAL_SEED: 17,
     loadProductionMapFromUrl: async () => { calls.push('map'); return { map: true }; },
     loadProductionRuntimeManifest: async () => { calls.push('manifest'); return {}; },

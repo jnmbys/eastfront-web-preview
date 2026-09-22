@@ -1,17 +1,21 @@
 import type {BrowserRenderModel} from './coreModel.js';
-import {coreSvgDynamicMarkup,coreSvgOverlayMarkup,renderCounter,type CoreSvgOptions} from './coreSvg.js';
+import {coreSvgDynamicMarkup,coreSvgOverlayMarkup,renderCounter,renderCounterHit,type CoreSvgOptions} from './coreSvg.js';
 import {getLocale} from '../localization/index.js';
-/** Invalidation boundary: camera never enters here; UI drafts patch overlays and
- * changed unit adornments. A new authorized view or locale requires canonical markup. */
+/** Camera never enters here. UI drafts patch overlays/adornments. Deployment
+ * snapshots reconcile authorized counters; other view changes remount canonically. */
 export class DynamicMapRenderer {
   private layer:SVGGElement|null=null;
   private previous:BrowserRenderModel|null=null;
   private locale='';private debug=false;
-  adopt(layer:SVGGElement|null,model:BrowserRenderModel,options:CoreSvgOptions):void{this.layer=layer;this.previous=model;this.locale=getLocale();this.debug=options.debug;}
+  private deploymentOverlays:string|null=null;
+  adopt(layer:SVGGElement|null,model:BrowserRenderModel,options:CoreSvgOptions):void{this.layer=layer;this.previous=model;this.locale=getLocale();this.debug=options.debug;this.deploymentOverlays=model.deployment?coreSvgOverlayMarkup(model,options):null;}
   update(layer:SVGGElement,model:BrowserRenderModel,options:CoreSvgOptions):{full:boolean;units:number} {
     const previous=this.previous,locale=getLocale();
+    const deployment=this.layer===layer&&previous?.deployment&&model.deployment&&previous.phase===model.phase&&previous.playerView.viewer===model.playerView.viewer&&previous.viewerControllerId===model.viewerControllerId&&this.locale===locale&&!this.debug&&!options.debug;
     const full=this.layer!==layer||!previous||previous.playerView!==model.playerView||this.locale!==locale||this.debug!==options.debug;
     this.layer=layer;this.previous=model;this.locale=locale;this.debug=options.debug;
+    if(deployment)return this.updateDeployment(layer,previous,model,options);
+    this.deploymentOverlays=null;
     if(full){layer.innerHTML=coreSvgDynamicMarkup(model,options);return {full:true,units:model.counters.length};}
     const overlays=layer.querySelector('#interaction-overlays');
     if(overlays)overlays.innerHTML=coreSvgOverlayMarkup(model,options);
@@ -36,6 +40,44 @@ export class DynamicMapRenderer {
         }
         units++;
       }
+    }
+    return {full:false,units};
+  }
+  /** During deployment a new authorized view usually adds a single counter.
+   * Compare canonical inputs, retain unchanged Counter identities, and
+   * still remove every identity absent from the new authorized model. */
+  private updateDeployment(layer:SVGGElement,previous:BrowserRenderModel,model:BrowserRenderModel,options:CoreSvgOptions):{full:boolean;units:number} {
+    const overlays=layer.querySelector('#interaction-overlays'),markup=coreSvgOverlayMarkup(model,options);
+    if(overlays&&this.deploymentOverlays!==markup)overlays.innerHTML=markup;
+    this.deploymentOverlays=markup;
+    const placements=(m:BrowserRenderModel)=>{
+      const groups=new Map<string,typeof m.counters>();
+      for(const c of m.counters){const key=`${c.hex.q},${c.hex.r}`,group=groups.get(key)??[];group.push(c);groups.set(key,group);}
+      return [...groups.values()].flatMap(group=>group.sort((a,b)=>a.id.localeCompare(b.id)).map((c,index)=>({c,index,count:group.length,key:JSON.stringify([c,index,group.length])})));
+    };
+    const before=new Map(placements(previous).map(p=>[p.c.id,p.key]));
+    const counters=layer.querySelector('#counter-layer')!,hits=layer.querySelector('#counter-hit-layer')!;
+    const current=new Map(Array.from(counters.querySelectorAll('[data-unit-id]')).map(n=>[n.getAttribute('data-unit-id'),n]));
+    const hitNodes=new Map(Array.from(hits.querySelectorAll('[data-hit-unit-id]')).map(n=>[n.getAttribute('data-hit-unit-id'),n]));
+    const authorized=new Set(model.counters.map(c=>c.id));
+    for(const [id,node] of current)if(!authorized.has(id!)){node.remove();hitNodes.get(id)?.remove();}
+    let units=0;
+    const ordered=placements(model);
+    for(const p of ordered){
+      if(before.get(p.c.id)===p.key&&current.has(p.c.id))continue;
+      const fragment=layer.ownerDocument.createElementNS('http://www.w3.org/2000/svg','g');
+      fragment.innerHTML=renderCounter(p.c,p.index,p.count);const node=fragment.firstElementChild!;
+      const old=current.get(p.c.id);if(old)old.replaceWith(node);else counters.appendChild(node);
+      current.set(p.c.id,node);
+      fragment.innerHTML=renderCounterHit(p.c);const hit=fragment.firstElementChild!;
+      const oldHit=hitNodes.get(p.c.id);if(oldHit)oldHit.replaceWith(hit);else hits.appendChild(hit);
+      hitNodes.set(p.c.id,hit);
+      units++;
+    }
+    // Preserve canonical stacking/z order without remounting unchanged nodes.
+    for(const [parent,nodes] of [[counters,current],[hits,hitNodes]] as const){
+      let next=parent.firstElementChild;
+      for(const p of ordered){const node=nodes.get(p.c.id)!;if(node!==next)parent.insertBefore(node,next);next=node.nextElementSibling;}
     }
     return {full:false,units};
   }

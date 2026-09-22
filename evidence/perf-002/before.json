@@ -1,0 +1,2930 @@
+{
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "dom": "Counted software SVG/HTML DOM executing production main handlers; no browser layout/paint/PNG encode",
+    "modelMode": "auto",
+    "lod": "medium",
+    "terrain": "already mounted static layer; terrain initialization excluded",
+    "warmupDeploymentsPerMode": 2,
+    "measuredDeploymentsPerMode": 10,
+    "transport": "real loopback WebSockets; no simulated link delay; same-process server",
+    "clock": "performance.now() per process; RTT client send to ACK receive; no cross-clock one-way calculation",
+    "longestBrowserTask": null,
+    "presentedFrameIntervals": null,
+    "confirmationToPixels": null,
+    "confirmationToDomAndControlsProxy": "elapsedMs (software only; network includes both viewers and polling)",
+    "camera": {
+      "zoom": 1.8,
+      "panX": 94,
+      "panY": -61
+    }
+  },
+  "summary": {
+    "local": {
+      "samples": 10,
+      "elapsedMs": {
+        "median": 227.74798450000026,
+        "max": 244.2319510000002
+      },
+      "synchronousRefreshMs": {
+        "median": 200.8155469999997,
+        "max": 219.86049999999977
+      },
+      "refreshCount": {
+        "median": 1,
+        "max": 1
+      },
+      "stages": {
+        "rulesApply": {
+          "ms": {
+            "median": 1.3683440000000928,
+            "max": 1.8113420000004226
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "derivePlayerView": {
+          "ms": {
+            "median": 7.54159900000036,
+            "max": 8.637709000000996
+          },
+          "calls": {
+            "median": 5,
+            "max": 5
+          }
+        },
+        "deriveBrowserRenderModel": {
+          "ms": {
+            "median": 0.6670259999996233,
+            "max": 0.7022289999999884
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "coreSvgOverlayMarkup": {
+          "ms": {
+            "median": 11.371908000000076,
+            "max": 12.505572999999913
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "coreSvgDynamicMarkup": {
+          "ms": {
+            "median": 11.634158500000012,
+            "max": 12.862811999999849
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "dynamicMapUpdate": {
+          "ms": {
+            "median": 14.81202549999989,
+            "max": 16.298064000000068
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deploymentLocations": {
+          "ms": {
+            "median": 11.805696999999782,
+            "max": 12.16764299999977
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deploymentPanel": {
+          "ms": {
+            "median": 12.013194999999996,
+            "max": 12.507835999999998
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "sidePanelMarkup": {
+          "ms": {
+            "median": 12.076821500000278,
+            "max": 12.591453000000001
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "panelDomReplace": {
+          "ms": {
+            "median": 4.113423999999895,
+            "max": 4.427869000000101
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "bindDynamic": {
+          "ms": {
+            "median": 98.3599790000003,
+            "max": 113.54834299999993
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deriveFogPlan": {
+          "ms": {
+            "median": 1.1649019999999837,
+            "max": 1.6464129999999386
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "rasterizeFog": {
+          "ms": {
+            "median": 32.43613699999992,
+            "max": 38.21709499999997
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "paintDeploymentFocus": {
+          "ms": {
+            "median": 42.25661899999977,
+            "max": 55.542517999999745
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "updateNetworkStatus": {
+          "ms": {
+            "median": 0.007060500000079628,
+            "max": 0.013339999999516294
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "refreshDynamicView": {
+          "ms": {
+            "median": 193.27504750000026,
+            "max": 210.5653900000002
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        }
+      },
+      "dom": {
+        "createdNodes": {
+          "median": 4697,
+          "max": 4868
+        },
+        "removedNodes": {
+          "median": 4661,
+          "max": 4832
+        },
+        "unitNodesCreated": {
+          "median": 7.5,
+          "max": 12
+        },
+        "unitNodesRemoved": {
+          "median": 6.5,
+          "max": 11
+        },
+        "unitNodesReused": {
+          "median": 0,
+          "max": 0
+        },
+        "presenceNodesRemoved": {
+          "median": 6.5,
+          "max": 11
+        },
+        "fogBuilds": {
+          "median": 1,
+          "max": 1
+        },
+        "terrainBuilds": {
+          "median": 0,
+          "max": 0
+        }
+      },
+      "networkRttMs": [],
+      "serverProcessingMs": [],
+      "earlySyncMs": {
+        "median": 187.62095099999988,
+        "max": 205.73654699999997
+      },
+      "lateSyncMs": {
+        "median": 193.8678090000003,
+        "max": 210.5653900000002
+      },
+      "longestSynchronousSoftwareCallbackMs": {
+        "median": 227.73117950000005,
+        "max": 244.2176800000002
+      }
+    },
+    "network-actor": {
+      "samples": 10,
+      "elapsedMs": {
+        "median": 364.8895970000003,
+        "max": 417.9489689999991
+      },
+      "synchronousRefreshMs": {
+        "median": 136.19769849999966,
+        "max": 245.37197500000002
+      },
+      "refreshCount": {
+        "median": 2,
+        "max": 2
+      },
+      "stages": {
+        "updateNetworkStatus": {
+          "ms": {
+            "median": 27.826485000000503,
+            "max": 32.39593999999852
+          },
+          "calls": {
+            "median": 3,
+            "max": 3
+          }
+        },
+        "coreSvgOverlayMarkup": {
+          "ms": {
+            "median": 13.821551,
+            "max": 16.951224000000366
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "dynamicMapUpdate": {
+          "ms": {
+            "median": 20.562965999998596,
+            "max": 23.221506999999292
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "deploymentLocations": {
+          "ms": {
+            "median": 13.85167299999921,
+            "max": 14.965071999999054
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "deploymentPanel": {
+          "ms": {
+            "median": 14.27349950000098,
+            "max": 15.662882000000536
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "sidePanelMarkup": {
+          "ms": {
+            "median": 14.353194499999518,
+            "max": 15.730585999999676
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "panelDomReplace": {
+          "ms": {
+            "median": 8.460980000001655,
+            "max": 9.852954000001773
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "bindDynamic": {
+          "ms": {
+            "median": 106.48948000000019,
+            "max": 133.70642700000099
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "paintDeploymentFocus": {
+          "ms": {
+            "median": 51.041017499998816,
+            "max": 58.99078499999996
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "refreshDynamicView": {
+          "ms": {
+            "median": 261.4053495000003,
+            "max": 306.17839800000183
+          },
+          "calls": {
+            "median": 2,
+            "max": 2
+          }
+        },
+        "coreSvgDynamicMarkup": {
+          "ms": {
+            "median": 6.536404500000117,
+            "max": 8.281565999999657
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deriveFogPlan": {
+          "ms": {
+            "median": 1.0176695000000109,
+            "max": 1.6661119999998846
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "rasterizeFog": {
+          "ms": {
+            "median": 33.64004299999988,
+            "max": 39.921385999999984
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        }
+      },
+      "dom": {
+        "createdNodes": {
+          "median": 9004,
+          "max": 9175
+        },
+        "removedNodes": {
+          "median": 8973,
+          "max": 9144
+        },
+        "unitNodesCreated": {
+          "median": 7.5,
+          "max": 12
+        },
+        "unitNodesRemoved": {
+          "median": 6.5,
+          "max": 11
+        },
+        "unitNodesReused": {
+          "median": 6.5,
+          "max": 11
+        },
+        "presenceNodesRemoved": {
+          "median": 6.5,
+          "max": 11
+        },
+        "fogBuilds": {
+          "median": 1,
+          "max": 1
+        },
+        "terrainBuilds": {
+          "median": 0,
+          "max": 0
+        }
+      },
+      "networkRttMs": [
+        116.03976200000034,
+        126.96644399999968,
+        119.82467799999995,
+        118.73292199999923,
+        120.11380099999951,
+        121.69153300000107,
+        137.96345999999903,
+        128.7490230000003,
+        131.1632269999991,
+        124.59054399999877
+      ],
+      "serverProcessingMs": [
+        28.01365100000021,
+        32.15173899999991,
+        27.858617000000777,
+        28.425592000001416,
+        28.172812999999223,
+        30.72861600000033,
+        29.563070999998672,
+        30.668155999999726,
+        33.03544499999953,
+        29.93644299999869
+      ],
+      "earlySyncMs": {
+        "median": 255.79233099999874,
+        "max": 265.1571190000004
+      },
+      "lateSyncMs": {
+        "median": 273.877430999999,
+        "max": 306.17839800000183
+      },
+      "longestSynchronousSoftwareCallbackMs": {
+        "median": 222.14719049999985,
+        "max": 259.3208140000006
+      }
+    },
+    "network-waiter": {
+      "samples": 10,
+      "elapsedMs": {
+        "median": 364.89427350000005,
+        "max": 417.95358599999963
+      },
+      "synchronousRefreshMs": {
+        "median": 9.466921999999613,
+        "max": 10.620100999998613
+      },
+      "refreshCount": {
+        "median": 1,
+        "max": 1
+      },
+      "stages": {
+        "coreSvgOverlayMarkup": {
+          "ms": {
+            "median": 0.24333149999893067,
+            "max": 0.3011339999993652
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "coreSvgDynamicMarkup": {
+          "ms": {
+            "median": 0.2529464999997799,
+            "max": 0.39708799999971234
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "dynamicMapUpdate": {
+          "ms": {
+            "median": 0.5629840000001423,
+            "max": 0.7517040000002453
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deploymentLocations": {
+          "ms": {
+            "median": 0.002298500000506465,
+            "max": 0.0030750000005355105
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deploymentPanel": {
+          "ms": {
+            "median": 0.17092750000074375,
+            "max": 0.25178000000050815
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "sidePanelMarkup": {
+          "ms": {
+            "median": 0.19612549999919793,
+            "max": 0.30843499999900814
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "panelDomReplace": {
+          "ms": {
+            "median": 0.3148895000003904,
+            "max": 0.5657530000007682
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "bindDynamic": {
+          "ms": {
+            "median": 0.4069989999993595,
+            "max": 0.6080660000006901
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "deriveFogPlan": {
+          "ms": {
+            "median": 1.1054815000006784,
+            "max": 1.5746840000010707
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "paintDeploymentFocus": {
+          "ms": {
+            "median": 3.025806999999986,
+            "max": 4.40083500000037
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "updateNetworkStatus": {
+          "ms": {
+            "median": 0.7144720000001143,
+            "max": 0.8842129999993631
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        },
+        "refreshDynamicView": {
+          "ms": {
+            "median": 8.645548999999846,
+            "max": 9.790500999999495
+          },
+          "calls": {
+            "median": 1,
+            "max": 1
+          }
+        }
+      },
+      "dom": {
+        "createdNodes": {
+          "median": 310,
+          "max": 310
+        },
+        "removedNodes": {
+          "median": 309,
+          "max": 309
+        },
+        "unitNodesCreated": {
+          "median": 0,
+          "max": 0
+        },
+        "unitNodesRemoved": {
+          "median": 0,
+          "max": 0
+        },
+        "unitNodesReused": {
+          "median": 0,
+          "max": 0
+        },
+        "presenceNodesRemoved": {
+          "median": 0,
+          "max": 0
+        },
+        "fogBuilds": {
+          "median": 0,
+          "max": 0
+        },
+        "terrainBuilds": {
+          "median": 0,
+          "max": 0
+        }
+      },
+      "networkRttMs": [],
+      "serverProcessingMs": [],
+      "earlySyncMs": {
+        "median": 7.715110000001005,
+        "max": 9.049011999999493
+      },
+      "lateSyncMs": {
+        "median": 9.15825699999914,
+        "max": 9.790500999999495
+      },
+      "longestSynchronousSoftwareCallbackMs": {
+        "median": 12.776315999999497,
+        "max": 13.916429999999309
+      }
+    }
+  },
+  "warmups": [
+    {
+      "mode": "local",
+      "index": 0,
+      "elapsedMs": 361.591009,
+      "submitTaskMs": 361.529486,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 4.884111999999959,
+        "derivePlayerView": 9.39933899999994,
+        "deriveBrowserRenderModel": 1.7873240000000123,
+        "coreSvgOverlayMarkup": 12.188643999999954,
+        "coreSvgDynamicMarkup": 12.967257000000018,
+        "dynamicMapUpdate": 16.201071999999954,
+        "deploymentLocations": 12.576599000000101,
+        "deploymentPanel": 12.887518,
+        "sidePanelMarkup": 12.976982000000021,
+        "panelDomReplace": 5.093998000000056,
+        "bindDynamic": 93.09362299999998,
+        "deriveFogPlan": 1.5322999999999638,
+        "rasterizeFog": 159.04533200000003,
+        "paintDeploymentFocus": 172.36044400000003,
+        "updateNetworkStatus": 0.005178000000000793,
+        "refreshDynamicView": 321.169486
+      },
+      "refreshes": [
+        {
+          "durationMs": 328.30877899999996,
+          "createdNodes": 4450,
+          "removedNodes": 4391,
+          "unitNodesCreated": 1,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 1,
+      "elapsedMs": 266.607743,
+      "submitTaskMs": 266.59544400000004,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.4872740000000704,
+        "derivePlayerView": 8.547675000000027,
+        "deriveBrowserRenderModel": 0.7260949999999866,
+        "coreSvgOverlayMarkup": 13.983521999999994,
+        "coreSvgDynamicMarkup": 14.336705000000165,
+        "dynamicMapUpdate": 17.999329999999873,
+        "deploymentLocations": 14.572391000000152,
+        "deploymentPanel": 14.87267299999985,
+        "sidePanelMarkup": 14.961406999999781,
+        "panelDomReplace": 8.245927999999822,
+        "bindDynamic": 112.29702600000019,
+        "deriveFogPlan": 1.2733009999999467,
+        "rasterizeFog": 36.85669400000006,
+        "paintDeploymentFocus": 49.30173500000001,
+        "updateNetworkStatus": 0.0023740000001453154,
+        "refreshDynamicView": 227.60467100000005
+      },
+      "refreshes": [
+        {
+          "durationMs": 237.424624,
+          "createdNodes": 4488,
+          "removedNodes": 4452,
+          "unitNodesCreated": 2,
+          "unitNodesRemoved": 1,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 1,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "network-actor",
+      "index": 0,
+      "elapsedMs": 377.4614449999999,
+      "submitTaskMs": 106.71195499999976,
+      "serverProcessingMs": 34.29761400000007,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 32.01851799999986,
+        "coreSvgOverlayMarkup": 12.325901000000158,
+        "dynamicMapUpdate": 18.593619000000217,
+        "deploymentLocations": 14.14490399999977,
+        "deploymentPanel": 14.721684000000096,
+        "sidePanelMarkup": 14.84538000000066,
+        "panelDomReplace": 9.20535799999925,
+        "bindDynamic": 104.84130000000096,
+        "paintDeploymentFocus": 50.8764570000003,
+        "refreshDynamicView": 269.0407189999996,
+        "coreSvgDynamicMarkup": 6.426508000000467,
+        "deriveFogPlan": 0.9957819999999629,
+        "rasterizeFog": 30.044181999999637
+      },
+      "refreshes": [
+        {
+          "durationMs": 82.75300599999991,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 200.98244499999964,
+          "createdNodes": 4422,
+          "removedNodes": 4391,
+          "unitNodesCreated": 1,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 1,
+          "applyMs": 0.12425699999948847,
+          "rttMs": 141.49888700000065
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 1,
+          "applyMs": 216.6267080000007,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 0,
+      "elapsedMs": 377.4691359999997,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.24932600000011007,
+        "coreSvgDynamicMarkup": 0.27139900000020134,
+        "dynamicMapUpdate": 0.6251419999998689,
+        "deploymentLocations": 0.008874000000105298,
+        "deploymentPanel": 0.3153050000000803,
+        "sidePanelMarkup": 0.343988999999965,
+        "panelDomReplace": 0.43266200000016397,
+        "bindDynamic": 0.4460530000005747,
+        "deriveFogPlan": 1.0674600000002101,
+        "paintDeploymentFocus": 2.914553999999953,
+        "updateNetworkStatus": 0.7283680000000459,
+        "refreshDynamicView": 7.990585999999894
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.02060900000015,
+          "createdNodes": 310,
+          "removedNodes": 362,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 1,
+          "applyMs": 12.162615999999616,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 1,
+      "elapsedMs": 360.0625050000008,
+      "submitTaskMs": 95.54114000000027,
+      "serverProcessingMs": 31.221150999999736,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 29.315091999999822,
+        "coreSvgOverlayMarkup": 14.087977000000137,
+        "dynamicMapUpdate": 20.014492000000246,
+        "deploymentLocations": 13.617337999999108,
+        "deploymentPanel": 14.073545999999624,
+        "sidePanelMarkup": 14.14533400000073,
+        "panelDomReplace": 8.107953000000634,
+        "bindDynamic": 106.31207799999993,
+        "paintDeploymentFocus": 46.139376000000084,
+        "refreshDynamicView": 255.7825759999996,
+        "coreSvgDynamicMarkup": 7.2166699999997945,
+        "deriveFogPlan": 1.0935989999998128,
+        "rasterizeFog": 29.38154300000042
+      },
+      "refreshes": [
+        {
+          "durationMs": 70.1030409999994,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 1,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 199.77022699999998,
+          "createdNodes": 4460,
+          "removedNodes": 4430,
+          "unitNodesCreated": 2,
+          "unitNodesRemoved": 1,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 1,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 2,
+          "applyMs": 0.0280720000000656,
+          "rttMs": 127.46705400000064
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 2,
+          "applyMs": 213.00738199999978,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 1,
+      "elapsedMs": 360.06640100000004,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.2518999999992957,
+        "coreSvgDynamicMarkup": 0.26284600000053615,
+        "dynamicMapUpdate": 0.5979919999999765,
+        "deploymentLocations": 0.005318000000443135,
+        "deploymentPanel": 0.1603720000002795,
+        "sidePanelMarkup": 0.1856500000003507,
+        "panelDomReplace": 0.30467899999985093,
+        "bindDynamic": 0.3952260000005481,
+        "deriveFogPlan": 0.974079000000529,
+        "paintDeploymentFocus": 2.8562160000001313,
+        "updateNetworkStatus": 1.5150739999999132,
+        "refreshDynamicView": 8.640065999999933
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.451438999999482,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 2,
+          "applyMs": 12.509267999999793,
+          "rttMs": null
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "mode": "local",
+      "index": 2,
+      "elapsedMs": 218.94669199999998,
+      "submitTaskMs": 218.93825900000002,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.5239090000000033,
+        "derivePlayerView": 7.65669899999989,
+        "deriveBrowserRenderModel": 0.7022289999999884,
+        "coreSvgOverlayMarkup": 11.441248000000087,
+        "coreSvgDynamicMarkup": 11.642331000000013,
+        "dynamicMapUpdate": 14.556376,
+        "deploymentLocations": 11.350401000000147,
+        "deploymentPanel": 11.595220000000154,
+        "sidePanelMarkup": 11.67639199999985,
+        "panelDomReplace": 4.159283999999843,
+        "bindDynamic": 92.97081400000002,
+        "deriveFogPlan": 1.3527000000001408,
+        "rasterizeFog": 32.084024,
+        "paintDeploymentFocus": 41.21111199999996,
+        "updateNetworkStatus": 0.0026739999998426356,
+        "refreshDynamicView": 187.62095099999988
+      },
+      "refreshes": [
+        {
+          "durationMs": 194.2906109999999,
+          "createdNodes": 4526,
+          "removedNodes": 4490,
+          "unitNodesCreated": 3,
+          "unitNodesRemoved": 2,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 2,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 3,
+      "elapsedMs": 217.1719639999999,
+      "submitTaskMs": 217.159946,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.3635769999998502,
+        "derivePlayerView": 8.084534000000076,
+        "deriveBrowserRenderModel": 0.6241509999999835,
+        "coreSvgOverlayMarkup": 11.487347,
+        "coreSvgDynamicMarkup": 11.749601999999868,
+        "dynamicMapUpdate": 14.796558000000005,
+        "deploymentLocations": 12.16673199999991,
+        "deploymentPanel": 12.507835999999998,
+        "sidePanelMarkup": 12.591453000000001,
+        "panelDomReplace": 4.427869000000101,
+        "bindDynamic": 93.61153100000001,
+        "deriveFogPlan": 1.185457999999926,
+        "rasterizeFog": 30.543681000000106,
+        "paintDeploymentFocus": 40.614762000000155,
+        "updateNetworkStatus": 0.0024439999997412087,
+        "refreshDynamicView": 187.03935300000012
+      },
+      "refreshes": [
+        {
+          "durationMs": 193.95873100000017,
+          "createdNodes": 4564,
+          "removedNodes": 4528,
+          "unitNodesCreated": 4,
+          "unitNodesRemoved": 3,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 3,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 4,
+      "elapsedMs": 236.03383600000006,
+      "submitTaskMs": 236.02041499999996,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.3737020000003213,
+        "derivePlayerView": 7.257875999999669,
+        "deriveBrowserRenderModel": 0.6919940000002498,
+        "coreSvgOverlayMarkup": 11.27605799999992,
+        "coreSvgDynamicMarkup": 11.501087999999982,
+        "dynamicMapUpdate": 14.443264999999883,
+        "deploymentLocations": 11.676091999999699,
+        "deploymentPanel": 11.888802999999825,
+        "sidePanelMarkup": 11.960231000000022,
+        "panelDomReplace": 4.107384999999795,
+        "bindDynamic": 113.54834299999993,
+        "deriveFogPlan": 0.9996080000000802,
+        "rasterizeFog": 30.77060399999982,
+        "paintDeploymentFocus": 40.61133599999994,
+        "updateNetworkStatus": 0.005689000000074884,
+        "refreshDynamicView": 205.73654699999997
+      },
+      "refreshes": [
+        {
+          "durationMs": 212.346176,
+          "createdNodes": 4602,
+          "removedNodes": 4566,
+          "unitNodesCreated": 5,
+          "unitNodesRemoved": 4,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 4,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 5,
+      "elapsedMs": 213.99103699999978,
+      "submitTaskMs": 213.97928899999988,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.3731110000003355,
+        "derivePlayerView": 7.440491999998812,
+        "deriveBrowserRenderModel": 0.6383829999999762,
+        "coreSvgOverlayMarkup": 11.111829999999827,
+        "coreSvgDynamicMarkup": 11.338812999999845,
+        "dynamicMapUpdate": 14.359500000000025,
+        "deploymentLocations": 11.310269999999946,
+        "deploymentPanel": 11.520608000000266,
+        "sidePanelMarkup": 11.572666000000027,
+        "panelDomReplace": 3.891860000000179,
+        "bindDynamic": 93.36708200000021,
+        "deriveFogPlan": 1.12012999999979,
+        "rasterizeFog": 32.49478399999998,
+        "paintDeploymentFocus": 41.982004999999845,
+        "updateNetworkStatus": 0.006410000000414584,
+        "refreshDynamicView": 183.00033099999973
+      },
+      "refreshes": [
+        {
+          "durationMs": 189.75873599999977,
+          "createdNodes": 4640,
+          "removedNodes": 4604,
+          "unitNodesCreated": 6,
+          "unitNodesRemoved": 5,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 5,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 6,
+      "elapsedMs": 229.39348999999993,
+      "submitTaskMs": 229.37756600000012,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.317196999999851,
+        "derivePlayerView": 8.637709000000996,
+        "deriveBrowserRenderModel": 0.6829699999998411,
+        "coreSvgOverlayMarkup": 12.505572999999913,
+        "coreSvgDynamicMarkup": 12.776002000000062,
+        "dynamicMapUpdate": 16.044491000000107,
+        "deploymentLocations": 12.16764299999977,
+        "deploymentPanel": 12.394045000000006,
+        "sidePanelMarkup": 12.4540649999999,
+        "panelDomReplace": 4.337753000000248,
+        "bindDynamic": 96.11309400000027,
+        "deriveFogPlan": 1.1443460000000414,
+        "rasterizeFog": 33.098745000000235,
+        "paintDeploymentFocus": 43.0971569999997,
+        "updateNetworkStatus": 0.006769999999960419,
+        "refreshDynamicView": 195.06569999999965
+      },
+      "refreshes": [
+        {
+          "durationMs": 202.7634210000001,
+          "createdNodes": 4678,
+          "removedNodes": 4642,
+          "unitNodesCreated": 7,
+          "unitNodesRemoved": 6,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 6,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 7,
+      "elapsedMs": 244.2319510000002,
+      "submitTaskMs": 244.2176800000002,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.3190500000000611,
+        "derivePlayerView": 7.632512000000588,
+        "deriveBrowserRenderModel": 0.6495600000002923,
+        "coreSvgOverlayMarkup": 12.468357000000196,
+        "coreSvgDynamicMarkup": 12.862811999999849,
+        "dynamicMapUpdate": 16.298064000000068,
+        "deploymentLocations": 11.470060999999987,
+        "deploymentPanel": 11.724165000000085,
+        "sidePanelMarkup": 11.776713999999629,
+        "panelDomReplace": 4.358104000000367,
+        "bindDynamic": 101.58013000000028,
+        "deriveFogPlan": 1.6464129999999386,
+        "rasterizeFog": 38.21709499999997,
+        "paintDeploymentFocus": 55.542517999999745,
+        "updateNetworkStatus": 0.007351000000198837,
+        "refreshDynamicView": 210.5653900000002
+      },
+      "refreshes": [
+        {
+          "durationMs": 219.86049999999977,
+          "createdNodes": 4716,
+          "removedNodes": 4680,
+          "unitNodesCreated": 8,
+          "unitNodesRemoved": 7,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 7,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 8,
+      "elapsedMs": 228.30971399999999,
+      "submitTaskMs": 228.2948120000001,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.8113420000004226,
+        "derivePlayerView": 8.405859000000873,
+        "deriveBrowserRenderModel": 0.6479870000002848,
+        "coreSvgOverlayMarkup": 11.117628999999852,
+        "coreSvgDynamicMarkup": 11.345272999999906,
+        "dynamicMapUpdate": 14.595526000000064,
+        "deploymentLocations": 11.658245000000079,
+        "deploymentPanel": 11.874822000000222,
+        "sidePanelMarkup": 11.938378000000284,
+        "panelDomReplace": 4.119462999999996,
+        "bindDynamic": 99.21635500000048,
+        "deriveFogPlan": 1.2584479999995892,
+        "rasterizeFog": 32.057184000000234,
+        "paintDeploymentFocus": 41.94715199999973,
+        "updateNetworkStatus": 0.009904999999889696,
+        "refreshDynamicView": 192.6822860000002
+      },
+      "refreshes": [
+        {
+          "durationMs": 200.30337999999938,
+          "createdNodes": 4754,
+          "removedNodes": 4718,
+          "unitNodesCreated": 9,
+          "unitNodesRemoved": 8,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 8,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 9,
+      "elapsedMs": 229.6425450000006,
+      "submitTaskMs": 229.61186799999996,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.3126499999998487,
+        "derivePlayerView": 7.38294599999881,
+        "deriveBrowserRenderModel": 0.6510819999994055,
+        "coreSvgOverlayMarkup": 11.89782600000035,
+        "coreSvgDynamicMarkup": 12.114082000000053,
+        "dynamicMapUpdate": 15.387469999999666,
+        "deploymentLocations": 11.982735000000503,
+        "deploymentPanel": 12.189526999999543,
+        "sidePanelMarkup": 12.244539000000259,
+        "panelDomReplace": 4.020763999999872,
+        "bindDynamic": 101.2009679999992,
+        "deriveFogPlan": 1.0260479999997187,
+        "rasterizeFog": 32.79971399999977,
+        "paintDeploymentFocus": 42.5312329999997,
+        "updateNetworkStatus": 0.013339999999516294,
+        "refreshDynamicView": 198.10827999999947
+      },
+      "refreshes": [
+        {
+          "durationMs": 205.27886500000022,
+          "createdNodes": 4792,
+          "removedNodes": 4756,
+          "unitNodesCreated": 10,
+          "unitNodesRemoved": 9,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 9,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 10,
+      "elapsedMs": 227.18625500000053,
+      "submitTaskMs": 227.167547,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.389154999999846,
+        "derivePlayerView": 7.4506860000001325,
+        "deriveBrowserRenderModel": 0.699123999999756,
+        "coreSvgOverlayMarkup": 11.302568000000065,
+        "coreSvgDynamicMarkup": 11.625986000000012,
+        "dynamicMapUpdate": 15.075389000000541,
+        "deploymentLocations": 11.935301999999865,
+        "deploymentPanel": 12.137587000000167,
+        "sidePanelMarkup": 12.193412000000535,
+        "panelDomReplace": 4.022216999999728,
+        "bindDynamic": 99.1885570000004,
+        "deriveFogPlan": 1.2321570000003703,
+        "rasterizeFog": 33.14101100000062,
+        "paintDeploymentFocus": 43.10237700000016,
+        "updateNetworkStatus": 0.010205000000496511,
+        "refreshDynamicView": 193.8678090000003
+      },
+      "refreshes": [
+        {
+          "durationMs": 201.32771400000001,
+          "createdNodes": 4830,
+          "removedNodes": 4794,
+          "unitNodesCreated": 11,
+          "unitNodesRemoved": 10,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 10,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "local",
+      "index": 11,
+      "elapsedMs": 223.6119690000005,
+      "submitTaskMs": 223.60312599999997,
+      "calls": {
+        "rulesApply": 1,
+        "derivePlayerView": 5,
+        "deriveBrowserRenderModel": 1,
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "rulesApply": 1.3144410000004427,
+        "derivePlayerView": 7.288196999998036,
+        "deriveBrowserRenderModel": 0.6846820000000662,
+        "coreSvgOverlayMarkup": 11.097160000000258,
+        "coreSvgDynamicMarkup": 11.429339999999684,
+        "dynamicMapUpdate": 14.827492999999777,
+        "deploymentLocations": 11.937736999999288,
+        "deploymentPanel": 12.142464999999902,
+        "sidePanelMarkup": 12.201454000000012,
+        "panelDomReplace": 3.9552330000005895,
+        "bindDynamic": 97.53140100000019,
+        "deriveFogPlan": 0.9698820000003252,
+        "rasterizeFog": 32.37748999999985,
+        "paintDeploymentFocus": 42.83341199999995,
+        "updateNetworkStatus": 0.010126000000127533,
+        "refreshDynamicView": 191.65487200000007
+      },
+      "refreshes": [
+        {
+          "durationMs": 198.82195800000045,
+          "createdNodes": 4868,
+          "removedNodes": 4832,
+          "unitNodesCreated": 12,
+          "unitNodesRemoved": 11,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 11,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": []
+    },
+    {
+      "mode": "network-actor",
+      "index": 2,
+      "elapsedMs": 344.4359829999994,
+      "submitTaskMs": 88.2491970000001,
+      "serverProcessingMs": 28.01365100000021,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 26.91414199999963,
+        "coreSvgOverlayMarkup": 12.283508000000438,
+        "dynamicMapUpdate": 18.443073999999797,
+        "deploymentLocations": 13.082101999999395,
+        "deploymentPanel": 13.503447000000051,
+        "sidePanelMarkup": 13.570998999999574,
+        "panelDomReplace": 7.956242999999631,
+        "bindDynamic": 101.42830400000003,
+        "paintDeploymentFocus": 46.68756200000007,
+        "refreshDynamicView": 248.16148899999916,
+        "coreSvgDynamicMarkup": 6.284743999999591,
+        "deriveFogPlan": 0.956742000000304,
+        "rasterizeFog": 31.003568000000087
+      },
+      "refreshes": [
+        {
+          "durationMs": 65.64501199999995,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 2,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 197.00955499999964,
+          "createdNodes": 4498,
+          "removedNodes": 4468,
+          "unitNodesCreated": 3,
+          "unitNodesRemoved": 2,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 2,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 3,
+          "applyMs": 0.03212900000016816,
+          "rttMs": 116.03976200000034
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 3,
+          "applyMs": 209.9982659999996,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 2,
+      "elapsedMs": 344.4404999999997,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.23608599999988655,
+        "coreSvgDynamicMarkup": 0.24377800000002026,
+        "dynamicMapUpdate": 0.542768000000251,
+        "deploymentLocations": 0.0021230000002105953,
+        "deploymentPanel": 0.18241500000021915,
+        "sidePanelMarkup": 0.20483899999999267,
+        "panelDomReplace": 0.3025159999997413,
+        "bindDynamic": 0.4109789999993154,
+        "deriveFogPlan": 0.9825909999999567,
+        "paintDeploymentFocus": 2.770285999999942,
+        "updateNetworkStatus": 0.712785000000622,
+        "refreshDynamicView": 7.352664000000004
+      },
+      "refreshes": [
+        {
+          "durationMs": 8.233933000000434,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 3,
+          "applyMs": 11.301296999999977,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 3,
+      "elapsedMs": 372.0347789999996,
+      "submitTaskMs": 94.73505399999976,
+      "serverProcessingMs": 32.15173899999991,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 27.938647000000856,
+        "coreSvgOverlayMarkup": 16.951224000000366,
+        "dynamicMapUpdate": 23.221506999999292,
+        "deploymentLocations": 13.60411799999929,
+        "deploymentPanel": 14.034074999999575,
+        "sidePanelMarkup": 14.09963499999958,
+        "panelDomReplace": 8.357890000000225,
+        "bindDynamic": 107.80796299999929,
+        "paintDeploymentFocus": 49.914278000000195,
+        "refreshDynamicView": 265.1571190000004,
+        "coreSvgDynamicMarkup": 7.975843000000168,
+        "deriveFogPlan": 1.6661119999998846,
+        "rasterizeFog": 33.17432099999951
+      },
+      "refreshes": [
+        {
+          "durationMs": 70.57348100000036,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 3,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 208.3799369999997,
+          "createdNodes": 4536,
+          "removedNodes": 4506,
+          "unitNodesCreated": 4,
+          "unitNodesRemoved": 3,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 3,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 4,
+          "applyMs": 0.02986499999951775,
+          "rttMs": 126.96644399999968
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 4,
+          "applyMs": 226.5220360000003,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 3,
+      "elapsedMs": 372.03984599999967,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.23681699999997363,
+        "coreSvgDynamicMarkup": 0.24599099999977625,
+        "dynamicMapUpdate": 0.5488070000001244,
+        "deploymentLocations": 0.0022030000000086147,
+        "deploymentPanel": 0.16974600000048667,
+        "sidePanelMarkup": 0.1934609999998429,
+        "panelDomReplace": 0.3084550000003219,
+        "bindDynamic": 0.40493100000003324,
+        "deriveFogPlan": 1.080619000000297,
+        "paintDeploymentFocus": 2.853371000000152,
+        "updateNetworkStatus": 0.6865349999998216,
+        "refreshDynamicView": 8.233473000000231
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.032787000000098,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 4,
+          "applyMs": 12.005930000000262,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 4,
+      "elapsedMs": 354.4177660000005,
+      "submitTaskMs": 91.617706,
+      "serverProcessingMs": 27.858617000000777,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 26.411966999998185,
+        "coreSvgOverlayMarkup": 13.86330799999996,
+        "dynamicMapUpdate": 20.901237000000037,
+        "deploymentLocations": 13.52913399999943,
+        "deploymentPanel": 14.023810000000594,
+        "sidePanelMarkup": 14.090931000000637,
+        "panelDomReplace": 7.873480999999629,
+        "bindDynamic": 103.05224799999905,
+        "paintDeploymentFocus": 49.709115999998176,
+        "refreshDynamicView": 255.31608899999992,
+        "coreSvgDynamicMarkup": 6.511727000000064,
+        "deriveFogPlan": 1.1205690000006143,
+        "rasterizeFog": 32.921049000000494
+      },
+      "refreshes": [
+        {
+          "durationMs": 67.77156699999978,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 4,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 201.56596900000113,
+          "createdNodes": 4574,
+          "removedNodes": 4544,
+          "unitNodesCreated": 5,
+          "unitNodesRemoved": 4,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 4,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 5,
+          "applyMs": 0.027331000000231143,
+          "rttMs": 119.82467799999995
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 5,
+          "applyMs": 215.31980399999975,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 4,
+      "elapsedMs": 354.4223430000002,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.2626860000000306,
+        "coreSvgDynamicMarkup": 0.27092799999991257,
+        "dynamicMapUpdate": 0.5789519999998447,
+        "deploymentLocations": 0.002313999999387306,
+        "deploymentPanel": 0.184558000000834,
+        "sidePanelMarkup": 0.2117290000005596,
+        "panelDomReplace": 0.31588600000031875,
+        "bindDynamic": 0.48155600000063714,
+        "deriveFogPlan": 1.1303440000010596,
+        "paintDeploymentFocus": 2.944109000000026,
+        "updateNetworkStatus": 0.6977719999995315,
+        "refreshDynamicView": 7.715110000001005
+      },
+      "refreshes": [
+        {
+          "durationMs": 8.545533000000432,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 5,
+          "applyMs": 12.59258299999965,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 5,
+      "elapsedMs": 354.21025799999916,
+      "submitTaskMs": 90.5554830000001,
+      "serverProcessingMs": 28.425592000001416,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 27.370653000001766,
+        "coreSvgOverlayMarkup": 13.06811000000016,
+        "dynamicMapUpdate": 19.66395299999931,
+        "deploymentLocations": 14.12019600000167,
+        "deploymentPanel": 14.643606000001455,
+        "sidePanelMarkup": 14.713870999998107,
+        "panelDomReplace": 9.852954000001773,
+        "bindDynamic": 101.72872799999823,
+        "paintDeploymentFocus": 51.284411999999065,
+        "refreshDynamicView": 255.79233099999874,
+        "coreSvgDynamicMarkup": 6.5805899999995745,
+        "deriveFogPlan": 0.9865470000004279,
+        "rasterizeFog": 34.10576500000025
+      },
+      "refreshes": [
+        {
+          "durationMs": 67.2679479999988,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 5,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 203.4053669999994,
+          "createdNodes": 4612,
+          "removedNodes": 4582,
+          "unitNodesCreated": 6,
+          "unitNodesRemoved": 5,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 5,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 6,
+          "applyMs": 0.023315000000366126,
+          "rttMs": 118.73292199999923
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 6,
+          "applyMs": 217.65964600000007,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 5,
+      "elapsedMs": 354.2158559999989,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.23755800000071758,
+        "coreSvgDynamicMarkup": 0.2445289999996021,
+        "dynamicMapUpdate": 0.5612259999998059,
+        "deploymentLocations": 0.0025439999990339857,
+        "deploymentPanel": 0.1672919999982696,
+        "sidePanelMarkup": 0.19116899999971793,
+        "panelDomReplace": 0.3111989999997604,
+        "bindDynamic": 0.38547099999959755,
+        "deriveFogPlan": 0.9182849999997416,
+        "paintDeploymentFocus": 2.813100999999733,
+        "updateNetworkStatus": 0.7174720000002708,
+        "refreshDynamicView": 7.559657000001607
+      },
+      "refreshes": [
+        {
+          "durationMs": 8.365922000000865,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 6,
+          "applyMs": 11.331632999999783,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 6,
+      "elapsedMs": 357.744415000001,
+      "submitTaskMs": 91.72852700000112,
+      "serverProcessingMs": 28.172812999999223,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 27.71432300000015,
+        "coreSvgOverlayMarkup": 13.865023000000292,
+        "dynamicMapUpdate": 20.408226999998078,
+        "deploymentLocations": 13.737781999998333,
+        "deploymentPanel": 14.158306000001176,
+        "sidePanelMarkup": 14.22856199999842,
+        "panelDomReplace": 9.129793999998583,
+        "bindDynamic": 105.17099700000108,
+        "paintDeploymentFocus": 50.797622999998566,
+        "refreshDynamicView": 257.65358000000015,
+        "coreSvgDynamicMarkup": 7.865508000000773,
+        "deriveFogPlan": 0.9761609999986831,
+        "rasterizeFog": 34.45800899999995
+      },
+      "refreshes": [
+        {
+          "durationMs": 67.52824499999952,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 6,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 204.14638300000115,
+          "createdNodes": 4650,
+          "removedNodes": 4620,
+          "unitNodesCreated": 7,
+          "unitNodesRemoved": 6,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 6,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 7,
+          "applyMs": 0.023474999999962165,
+          "rttMs": 120.11380099999951
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 7,
+          "applyMs": 217.7723449999994,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 6,
+      "elapsedMs": 357.74870100000044,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.2394509999994625,
+        "coreSvgDynamicMarkup": 0.24914600000010978,
+        "dynamicMapUpdate": 0.5553469999995286,
+        "deploymentLocations": 0.002363000001423643,
+        "deploymentPanel": 0.1868720000002213,
+        "sidePanelMarkup": 0.21378200000071956,
+        "panelDomReplace": 0.3153050000000803,
+        "bindDynamic": 0.3890769999998156,
+        "deriveFogPlan": 1.5746840000010707,
+        "paintDeploymentFocus": 3.388578999998572,
+        "updateNetworkStatus": 0.7161589999996067,
+        "refreshDynamicView": 9.049011999999493
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.905172999999195,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 7,
+          "applyMs": 12.960048999999344,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 7,
+      "elapsedMs": 357.26500600000145,
+      "submitTaskMs": 91.08039400000052,
+      "serverProcessingMs": 30.72861600000033,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 27.107418000001417,
+        "coreSvgOverlayMarkup": 12.137438000001566,
+        "dynamicMapUpdate": 18.732661000000007,
+        "deploymentLocations": 13.387424000000465,
+        "deploymentPanel": 13.80492200000117,
+        "sidePanelMarkup": 13.872564999997849,
+        "panelDomReplace": 8.44862600000124,
+        "bindDynamic": 103.94486799999868,
+        "paintDeploymentFocus": 49.21620900000016,
+        "refreshDynamicView": 256.6071619999984,
+        "coreSvgDynamicMarkup": 6.128369000000021,
+        "deriveFogPlan": 1.03425900000002,
+        "rasterizeFog": 31.640360999999757
+      },
+      "refreshes": [
+        {
+          "durationMs": 67.79708100000062,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 7,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 203.33966599999985,
+          "createdNodes": 4688,
+          "removedNodes": 4658,
+          "unitNodesCreated": 8,
+          "unitNodesRemoved": 7,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 7,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 8,
+          "applyMs": 0.033810999999332125,
+          "rttMs": 121.69153300000107
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 8,
+          "applyMs": 216.61050400000022,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 7,
+      "elapsedMs": 357.2696130000004,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.234494000000268,
+        "coreSvgDynamicMarkup": 0.24242599999888625,
+        "dynamicMapUpdate": 0.5430990000004385,
+        "deploymentLocations": 0.0022830000016256236,
+        "deploymentPanel": 0.16574999999829743,
+        "sidePanelMarkup": 0.18985699999939243,
+        "panelDomReplace": 0.30783399999927497,
+        "bindDynamic": 0.4090669999986858,
+        "deriveFogPlan": 1.1871289999999135,
+        "paintDeploymentFocus": 3.877835999999661,
+        "updateNetworkStatus": 0.6923940000015136,
+        "refreshDynamicView": 8.503128999998808
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.31109699999979,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 8,
+          "applyMs": 12.371691000000283,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 8,
+      "elapsedMs": 417.9489689999991,
+      "submitTaskMs": 104.44290399999954,
+      "serverProcessingMs": 29.563070999998672,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 30.025957000001654,
+        "coreSvgOverlayMarkup": 14.156311999999161,
+        "dynamicMapUpdate": 21.294542999999976,
+        "deploymentLocations": 14.965071999999054,
+        "deploymentPanel": 15.662882000000536,
+        "sidePanelMarkup": 15.730585999999676,
+        "panelDomReplace": 8.700827000002391,
+        "bindDynamic": 133.70642700000099,
+        "paintDeploymentFocus": 58.99078499999996,
+        "refreshDynamicView": 306.17839800000183,
+        "coreSvgDynamicMarkup": 6.5610820000001695,
+        "deriveFogPlan": 1.134581000000253,
+        "rasterizeFog": 39.921385999999984
+      },
+      "refreshes": [
+        {
+          "durationMs": 75.38584199999968,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 8,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 245.37197500000002,
+          "createdNodes": 4726,
+          "removedNodes": 4696,
+          "unitNodesCreated": 9,
+          "unitNodesRemoved": 8,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 8,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 9,
+          "applyMs": 0.029765000001134467,
+          "rttMs": 137.96345999999903
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 9,
+          "applyMs": 259.3208140000006,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 8,
+      "elapsedMs": 417.95358599999963,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.2749839999996766,
+        "coreSvgDynamicMarkup": 0.39708799999971234,
+        "dynamicMapUpdate": 0.7517040000002453,
+        "deploymentLocations": 0.0020939999994880054,
+        "deploymentPanel": 0.17210900000100082,
+        "sidePanelMarkup": 0.19878999999855296,
+        "panelDomReplace": 0.31447400000070047,
+        "bindDynamic": 0.418971999999485,
+        "deriveFogPlan": 1.189343000000008,
+        "paintDeploymentFocus": 4.40083500000037,
+        "updateNetworkStatus": 0.7542869999997492,
+        "refreshDynamicView": 9.47312200000124
+      },
+      "refreshes": [
+        {
+          "durationMs": 10.441291999999521,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 9,
+          "applyMs": 13.916429999999309,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 9,
+      "elapsedMs": 378.54411600000094,
+      "submitTaskMs": 97.41886999999952,
+      "serverProcessingMs": 30.668155999999726,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 28.90545900000143,
+        "coreSvgOverlayMarkup": 13.779794000000038,
+        "dynamicMapUpdate": 20.717704999999114,
+        "deploymentLocations": 14.081148000001122,
+        "deploymentPanel": 14.54977400000098,
+        "sidePanelMarkup": 14.616626000000906,
+        "panelDomReplace": 8.473334000002069,
+        "bindDynamic": 110.70683299999837,
+        "paintDeploymentFocus": 54.47516700000051,
+        "refreshDynamicView": 272.7143560000004,
+        "coreSvgDynamicMarkup": 6.2900229999995645,
+        "deriveFogPlan": 0.9544179999993503,
+        "rasterizeFog": 36.02075599999989
+      },
+      "refreshes": [
+        {
+          "durationMs": 72.34589000000051,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 9,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 214.98328100000072,
+          "createdNodes": 4764,
+          "removedNodes": 4734,
+          "unitNodesCreated": 10,
+          "unitNodesRemoved": 9,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 9,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 10,
+          "applyMs": 0.02990499999941676,
+          "rttMs": 128.7490230000003
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 10,
+          "applyMs": 229.4681189999992,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 9,
+      "elapsedMs": 378.5499550000004,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.3011339999993652,
+        "coreSvgDynamicMarkup": 0.30895499999860476,
+        "dynamicMapUpdate": 0.6163199999991775,
+        "deploymentLocations": 0.0020530000001599547,
+        "deploymentPanel": 0.16285600000082923,
+        "sidePanelMarkup": 0.18912499999896681,
+        "panelDomReplace": 0.325912000000244,
+        "bindDynamic": 0.3892370000012306,
+        "deriveFogPlan": 0.8839930000012828,
+        "paintDeploymentFocus": 4.152110000000903,
+        "updateNetworkStatus": 0.8842129999993631,
+        "refreshDynamicView": 9.15825699999914
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.948268000000098,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 10,
+          "applyMs": 13.287872000000789,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 10,
+      "elapsedMs": 382.2063620000008,
+      "submitTaskMs": 97.63669200000004,
+      "serverProcessingMs": 33.03544499999953,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 29.113626000000295,
+        "coreSvgOverlayMarkup": 14.16070899999795,
+        "dynamicMapUpdate": 21.294593000000532,
+        "deploymentLocations": 13.965564000000086,
+        "deploymentPanel": 14.388693000000785,
+        "sidePanelMarkup": 14.477827000000616,
+        "panelDomReplace": 8.621117000000595,
+        "bindDynamic": 111.54218200000105,
+        "paintDeploymentFocus": 51.743249999999534,
+        "refreshDynamicView": 273.877430999999,
+        "coreSvgDynamicMarkup": 8.281565999999657,
+        "deriveFogPlan": 1.0010800000000017,
+        "rasterizeFog": 33.13505499999883
+      },
+      "refreshes": [
+        {
+          "durationMs": 73.1058350000003,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 10,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 215.33046400000057,
+          "createdNodes": 4802,
+          "removedNodes": 4772,
+          "unitNodesCreated": 11,
+          "unitNodesRemoved": 10,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 10,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 11,
+          "applyMs": 0.05852899999990768,
+          "rttMs": 131.1632269999991
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 11,
+          "applyMs": 230.79573999999957,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 10,
+      "elapsedMs": 382.21287200000006,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.2781589999995049,
+        "coreSvgDynamicMarkup": 0.28623200000038196,
+        "dynamicMapUpdate": 0.5874749999984488,
+        "deploymentLocations": 0.0025040000000444707,
+        "deploymentPanel": 0.16513900000063586,
+        "sidePanelMarkup": 0.1902269999991404,
+        "panelDomReplace": 0.3258110000006127,
+        "bindDynamic": 0.3930920000002516,
+        "deriveFogPlan": 0.978464999998323,
+        "paintDeploymentFocus": 2.778127999999924,
+        "updateNetworkStatus": 0.7082879999998113,
+        "refreshDynamicView": 9.790500999999495
+      },
+      "refreshes": [
+        {
+          "durationMs": 10.620100999998613,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 11,
+          "applyMs": 13.549026999999114,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-actor",
+      "index": 11,
+      "elapsedMs": 383.1221540000006,
+      "submitTaskMs": 95.13241300000118,
+      "serverProcessingMs": 29.93644299999869,
+      "requests": [
+        "SUBMIT_ACTION"
+      ],
+      "calls": {
+        "updateNetworkStatus": 3,
+        "coreSvgOverlayMarkup": 2,
+        "dynamicMapUpdate": 2,
+        "deploymentLocations": 2,
+        "deploymentPanel": 2,
+        "sidePanelMarkup": 2,
+        "panelDomReplace": 2,
+        "bindDynamic": 2,
+        "paintDeploymentFocus": 2,
+        "refreshDynamicView": 2,
+        "coreSvgDynamicMarkup": 1,
+        "deriveFogPlan": 1,
+        "rasterizeFog": 1
+      },
+      "ms": {
+        "updateNetworkStatus": 32.39593999999852,
+        "coreSvgOverlayMarkup": 12.395778000000064,
+        "dynamicMapUpdate": 19.544254999998884,
+        "deploymentLocations": 14.247949999999037,
+        "deploymentPanel": 14.699280000000726,
+        "sidePanelMarkup": 14.767652000000453,
+        "panelDomReplace": 8.40004399999816,
+        "bindDynamic": 109.23789700000088,
+        "paintDeploymentFocus": 56.3380619999989,
+        "refreshDynamicView": 276.806321,
+        "coreSvgDynamicMarkup": 6.346599000000424,
+        "deriveFogPlan": 1.2152120000009745,
+        "rasterizeFog": 35.970124999999825
+      },
+      "refreshes": [
+        {
+          "durationMs": 69.33617200000117,
+          "createdNodes": 4335,
+          "removedNodes": 4334,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 11,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        },
+        {
+          "durationMs": 224.68996999999945,
+          "createdNodes": 4840,
+          "removedNodes": 4810,
+          "unitNodesCreated": 12,
+          "unitNodesRemoved": 11,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 11,
+          "fogBuilds": 1,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "ACTION_ACCEPTED",
+          "revision": 12,
+          "applyMs": 0.024597000001449487,
+          "rttMs": 124.59054399999877
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 12,
+          "applyMs": 238.33148699999947,
+          "rttMs": null
+        }
+      ]
+    },
+    {
+      "mode": "network-waiter",
+      "index": 11,
+      "elapsedMs": 383.1282140000003,
+      "calls": {
+        "coreSvgOverlayMarkup": 1,
+        "coreSvgDynamicMarkup": 1,
+        "dynamicMapUpdate": 1,
+        "deploymentLocations": 1,
+        "deploymentPanel": 1,
+        "sidePanelMarkup": 1,
+        "panelDomReplace": 1,
+        "bindDynamic": 1,
+        "deriveFogPlan": 1,
+        "paintDeploymentFocus": 1,
+        "updateNetworkStatus": 1,
+        "refreshDynamicView": 1
+      },
+      "ms": {
+        "coreSvgOverlayMarkup": 0.24721199999839882,
+        "coreSvgDynamicMarkup": 0.25674699999945005,
+        "dynamicMapUpdate": 0.5647420000004786,
+        "deploymentLocations": 0.0030750000005355105,
+        "deploymentPanel": 0.25178000000050815,
+        "sidePanelMarkup": 0.30843499999900814,
+        "panelDomReplace": 0.5657530000007682,
+        "bindDynamic": 0.6080660000006901,
+        "deriveFogPlan": 1.1602889999994659,
+        "paintDeploymentFocus": 3.1075049999999464,
+        "updateNetworkStatus": 0.7201649999988149,
+        "refreshDynamicView": 8.787969000000885
+      },
+      "refreshes": [
+        {
+          "durationMs": 9.622746999999436,
+          "createdNodes": 310,
+          "removedNodes": 309,
+          "unitNodesCreated": 0,
+          "unitNodesRemoved": 0,
+          "unitNodesReused": 0,
+          "presenceNodesRemoved": 0,
+          "fogBuilds": 0,
+          "terrainBuilds": 0
+        }
+      ],
+      "responses": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "revision": 12,
+          "applyMs": 13.28325600000062,
+          "rttMs": null
+        }
+      ]
+    }
+  ],
+  "privacy": "waiting viewer units/DOM remained empty; no state/token/payload logging",
+  "queries": 0,
+  "resyncs": 0,
+  "checks": {
+    "reconnectContinue": true,
+    "duplicateClickOneSubmission": true,
+    "noOptimisticUnit": true,
+    "revisionsPhasesAndPrivacy": true
+  },
+  "runtimeSha256": {
+    "main.js": "96111ee861c75f85e7beb56fb3c08bb8690a51a4f3a5a1d11fca41ae809e93f2",
+    "render/coreSvg.js": "41316eaf8911fceed120091fbacd3fc60d7b121e03834a2d82753ad1dc450987",
+    "render/dynamicMap.js": "c60aca9cf2c4a268769d1838996bb149480930b5b3bc40d41f96f63bdc50293e",
+    "ui/commandPresentation.js": "04811a50b938ed0a723efab61972cfc7bc4774ed68ac13e850245ff5ec399436",
+    "multiplayer/client.js": "b1f4406d1f36b2603b09095973876533d4a8ff076b722dd94810c595de8931b0",
+    "multiplayer/networkSession.js": "f25162a8a4238933c8608bd382471f5fc861437967d9d055471d66ca3d640b6a",
+    "render/terrainSurface.js": "040bf25f37699240df09764dd4613b39e5fbede45d05a51fa0bd3dcb92273920"
+  }
+}

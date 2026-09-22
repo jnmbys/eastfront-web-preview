@@ -10,10 +10,12 @@ export function commandHeader(model:BrowserRenderModel):string{
 export function deploymentLocations(model:BrowserRenderModel,selected:string|null,ui?:DeploymentTouch):string{
  const d=model.deployment;if(!d||!selected||model.activeSide!==model.viewerSide)return '';
  const row=d.roster.find(r=>r.id===selected);if(!row||row.placed)return '';
+ const hexes=new Map(model.hexes.map(h=>[`${h.coord.q},${h.coord.r}`,h]));
+ const occupancy=new Map<string,number>();for(const c of model.counters){const key=`${c.hex.q},${c.hex.r}`;occupancy.set(key,(occupancy.get(key)??0)+1);}
  const cards=d.zoneKeys.map(key=>{
-  const h=model.hexes.find(h=>`${h.coord.q},${h.coord.r}`===key);
+  const h=hexes.get(key);
   const terrain=unitLabel(h?.terrain??t('common.unknown'));
-  const occupied=model.counters.filter(c=>`${c.hex.q},${c.hex.r}`===key).length;
+  const occupied=occupancy.get(key)??0;
   const chosen=ui?.unitId===selected&&ui.key===key;
   return `<button type="button" class="location-button location-card ${chosen?'selected':''}" data-deploy-destination="${escapeUi(key)}" aria-pressed="${chosen}"><span class="card-unit-type">${t('deployment.unitTitle',{unit:unitLabel(row.type)})}</span><strong>${escapeUi(terrain)}</strong><span>${t('deployment.terrain',{terrain:escapeUi(terrain)})}</span><span>${t('deployment.occupancy',{occupancy:occupied?t('deployment.visibleUnits',{count:occupied}):t('deployment.noVisibleUnits')})}</span><small>${t('deployment.position',{position:escapeUi(key)})}</small></button>`;
  }).join('');
