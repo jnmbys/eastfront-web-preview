@@ -3,7 +3,7 @@ import { msg } from '../localization/index.js';
 const same = (a, b) => coreHexKey(a) === coreHexKey(b);
 const pending = (s) => s.playerView.pendingDecision;
 const send = (s, a) => s.submit(a);
-export function isCombatTargetSelection(s, p) { return s.interactive && !pending(s) && s.playerView.phase.endsWith('_COMBAT') && p.attackUnitIds.length > 0; }
+export function isCombatTargetSelection(s, p) { return s.canSelect && !pending(s) && s.playerView.phase.endsWith('_COMBAT') && p.attackUnitIds.length > 0; }
 export function combatTargetIssues(s, p, h) { return s.model.combat?.attackDraft.targetHexes.some(t => same(t, h)) ? [] : [{ code: 'NO_DEFENDER', message: '' }]; }
 export function routeCombatTarget(s, p, h) {
     if (!isCombatTargetSelection(s, p))

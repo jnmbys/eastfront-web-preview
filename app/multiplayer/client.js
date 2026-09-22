@@ -7,8 +7,14 @@ export class LobbyClient {
     state = { connection: 'DISCONNECTED', controllerId: null, snapshot: null, room: null, match: null, view: null, pending: false, synced: false, error: null };
     listeners = new Set();
     subscribe(listener) { this.listeners.add(listener); return () => this.listeners.delete(listener); }
-    notify(message = null) { this.changed(); for (const listener of this.listeners)
-        listener(message); }
+    notify(message = null) {
+        // A lobby callback can construct a session from this very snapshot. That new
+        // subscriber has already consumed it and must not receive it a second time.
+        const listeners = [...this.listeners];
+        this.changed();
+        for (const listener of listeners)
+            listener(message);
+    }
     socket = null;
     token = null;
     stopped = true;
@@ -111,13 +117,15 @@ export class LobbyClient {
         this.socket?.send(JSON.stringify(clientMessage(type, payload, requestId)));
         this.clearDeadline();
         this.deadline = setTimeout(() => { this.state.error = 'unavailable'; this.socket?.close(); }, CLIENT_NETWORK.requestTimeoutMs);
+        return requestId;
     }
     send(type, payload) {
         if (!this.canMutate)
-            return;
+            return null;
         this.state.error = null;
-        this.sendRaw(type, payload);
+        const id = this.sendRaw(type, payload);
         this.notify();
+        return id;
     }
     resyncMatch(matchId) {
         if (this.state.connection !== 'CONNECTED' || this.socket?.readyState !== WebSocket.OPEN)

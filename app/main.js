@@ -607,7 +607,7 @@ const boundUnitInputs = new WeakSet();
 function bindDynamic(model) {
     document.querySelectorAll('[data-view-side]').forEach(element => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
-    if (session && ((model ?? deriveBrowserRenderModel(session, presentation)).readOnly || isNetwork(session) && !session.interactive))
+    if (session && ((model ?? deriveBrowserRenderModel(session, presentation)).readOnly || isNetwork(session) && !session.canSelect))
         return;
     paintCombatTargets();
     document.querySelectorAll('[data-remove-attacker]').forEach(el => el.addEventListener('click', () => {
@@ -742,8 +742,21 @@ function updateNetworkStatus() {
         status.dataset.revision = String(session.matchRevision);
         status.dataset.interactive = String(session.interactive);
     }
-    if (!session.interactive)
-        document.querySelectorAll('#side-panel button').forEach(b => b.disabled = true);
+    // Local selection stays responsive during read-only queries. Action controls
+    // still wait for the latest authorized options and the single transport slot.
+    const selectionControls = '[data-deploy-unit-id],[data-deploy-destination],[data-remove-attacker],[data-attack-unit],#rail-mode,#rail-clear,#rail-no-engineer,[data-rail-engineer],#move-undo,#move-cancel,[data-reinforcement-id],#attack-toggle-selected,#attack-clear,#attack-art-none,[data-attack-artillery],#loss-clear,[data-retreater],#retreat-undo,[data-breakthrough-unit],#breakthrough-undo';
+    const network = session;
+    document.querySelectorAll('#side-panel button').forEach(button => {
+        const blocked = !network.canSelect || (!network.interactive && !button.matches(selectionControls));
+        if (blocked && !button.disabled) {
+            button.dataset.networkDisabled = 'true';
+            button.disabled = true;
+        }
+        else if (!blocked && button.dataset.networkDisabled) {
+            delete button.dataset.networkDisabled;
+            button.disabled = false;
+        }
+    });
 }
 async function enterNetworkMatch(client) {
     presentation = createPresentationState(false, window.matchMedia('(max-width: 1100px)').matches);
