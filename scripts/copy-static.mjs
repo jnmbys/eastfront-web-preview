@@ -18,3 +18,10 @@ await copyFile('src/assets/VS2_ASSET_MANIFEST.json','dist/app/assets/VS2_ASSET_M
 // Multiplayer config is explicit for static hosting; no production localhost fallback.
 await copyFile('multiplayer.css','dist/multiplayer.css');
 await writeFile('dist/multiplayer-config.json',JSON.stringify({serverUrl:process.env.MULTIPLAYER_SERVER_URL??''},null,2)+'\n');
+
+// Optional, safe transport diagnostics; default entry does not instrument sockets.
+await cp('public/diagnostics/transport','dist/diagnostics/transport',{recursive:true});
+const {execFileSync}=await import('node:child_process');
+let sourceCommit='unverified';
+try{sourceCommit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}catch{/* Source ZIPs can still build; never claim an unverified version. */}
+await writeFile('dist/diagnostics/transport/build.json',JSON.stringify({sourceCommit})+'\n');

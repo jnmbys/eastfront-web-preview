@@ -139,3 +139,21 @@ expose tokens, controllers, matches or arbitrary environment values. No hosting
 configuration change is required. Verify this value against the integrated
 source commit before claiming the backend deployment is live. See
 [evidence/mp-004](../evidence/mp-004/README.md) for timing boundaries and validation.
+
+### MP-004.1 transport verification
+
+`/diagnostics/transport/` on Pages tests a fresh browser socket. The official game
+can opt in with `?transportDiagnostics=1`; the ordinary URL does not load the
+observer. Copyable output contains no reconnect token or game payload.
+
+`GET /transport-diagnostics/<live connectionId>` requires an explicitly allowed
+Origin. It returns only that connection's server-observed deflate offer/acceptance,
+extensions and bounded send metadata. IDs are server-generated UUIDs, are not
+controller credentials, cannot be listed and expire on socket close. Reading this
+endpoint enables detailed timing for that socket; at most 64 records are retained.
+It does not change WebSocket messages, authorization or compression parameters.
+
+Serialized bytes are not compressed wire bytes; write completion is not peer
+receipt. The opt-in GitHub Actions public probe is a normal Node/ws client and
+counts plaintext WebSocket frames after TLS decryption, before decompression.
+Its network path differs from Cloud Chrome and physical devices.

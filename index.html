@@ -6,5 +6,5 @@
   <title>EASTFRONT 网页版预览</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
-<body><div id="app"><!--startup-feedback--></div><script type="module" src="./app/web/startupShell.js"></script><script type="module" src="./app/main.js"></script></body>
+<body><div id="app"><!--startup-feedback--></div><script>if(new URLSearchParams(location.search).get("transportDiagnostics")==="1"){const s=document.createElement("script");s.src="./diagnostics/transport/observe.js";s.async=false;document.head.append(s);}</script><script type="module" src="./app/web/startupShell.js"></script><script type="module" src="./app/main.js"></script></body>
 </html>

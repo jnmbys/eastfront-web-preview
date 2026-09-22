@@ -27,12 +27,21 @@ async function setup(t,compression){
  }
  const a=await peer(),b=await peer();const created=await a.request('CREATE_ROOM');await b.request('JOIN_ROOM',{roomCode:created.payload.room.roomCode});await a.request('SELECT_SEAT',{seat:'GERMANY'});await b.request('SELECT_SEAT',{seat:'SOVIET'});await a.request('SET_READY',{ready:true});await b.request('SET_READY',{ready:true});
  await Promise.all([a,b].map(p=>p.wait(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT')));
- return{server,port,a,b,peer,get match(){return match;}};
+ return{server,port,a,b,peer,config,get match(){return match;}};
 }
 
 for(const compression of [true,false])test(`MP004 transport ${compression?'compressed':'fallback'} preserves authorized JSON, ordering, idempotency and reconnect`,async t=>{
  const h=await setup(t,compression),{a,b}=h;
  if(compression){assert.match(b.upgrade,/permessage-deflate/);assert.match(b.upgrade,/server_no_context_takeover/);assert.match(b.upgrade,/client_no_context_takeover/);}else assert.equal(b.upgrade,undefined);
+ const url=`http://127.0.0.1:${h.port}/transport-diagnostics/${b.welcome.connectionId}`;
+ const diagnostic=async()=>await (await fetch(url,{headers:{Origin:h.config.allowedOrigins[0]}})).json();
+ const handshake=await diagnostic();
+ assert.equal(handshake.connectionId,b.welcome.connectionId);
+ assert.equal(handshake.negotiatedExtensions,compression?'permessage-deflate':'');
+ assert.equal(handshake.responseExtensions,b.upgrade??'');
+ assert.equal(handshake.requestExtensions.includes('permessage-deflate'),compression);
+ assert.equal((await fetch(url)).status,403);
+ assert.equal((await fetch(url,{headers:{Origin:'https://untrusted.example'}})).status,403);
  let current=b.messages.findLast(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT').payload;
  for(let i=0;i<10;i++){
   const id=current.model.deployment.roster.find(u=>!u.placed).id,[q,r]=current.model.deployment.zoneKeys[i].split(',').map(Number);
@@ -47,7 +56,12 @@ for(const compression of [true,false])test(`MP004 transport ${compression?'compr
   await b.request('SUBMIT_ACTION',payload,requestId);await b.wait(m=>m.messageType==='ACTION_ACCEPTED'&&m.requestId===requestId&&m.payload.serverSequence>current.serverSequence);
   assert.equal(h.match.matchRevision,i+1);assert.equal(b.messages.filter(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.matchRevision===i+1).length,1);
  }
- const token=b.welcome.reconnectToken;b.ws.terminate();await a.wait(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.status==='WAITING_FOR_RECONNECT');const restored=await h.peer(token);
+ const evidence=await diagnostic();assert(evidence.sends.length<=64);
+ const snapshot=evidence.sends.findLast(s=>s.type==='PLAYER_VIEW_SNAPSHOT'),ack=evidence.sends.findLast(s=>s.type==='ACTION_ACCEPTED');
+ assert.equal(snapshot.compressRequested,true);assert.equal(ack.compressRequested,false);
+ assert(snapshot.bytes>200000);assert(snapshot.writeCallbackMs>=0);
+ const safe=JSON.stringify(evidence);assert(!safe.includes(b.welcome.reconnectToken));assert(!safe.includes('controllerId'));assert(!safe.includes('units'));assert(!safe.includes('GameState'));
+ const token=b.welcome.reconnectToken;b.ws.terminate();await a.wait(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.status==='WAITING_FOR_RECONNECT');assert.equal((await fetch(url,{headers:{Origin:h.config.allowedOrigins[0]}})).status,404);const restored=await h.peer(token);
  const next=await restored.wait(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.resync);assert.equal(next.payload.matchRevision,10);checkSnapshot(h.match,restored,next.payload);
  const id=next.payload.model.deployment.roster.find(u=>!u.placed).id,[q,r]=next.payload.model.deployment.zoneKeys[10].split(',').map(Number);
  const accepted=await restored.request('SUBMIT_ACTION',{matchId:next.payload.matchId,expectedRevision:10,action:{type:'DEPLOY_INITIAL_UNIT',deploymentUnitId:id,hex:{q,r}}});assert.equal(accepted.payload.acceptedRevision,11);
