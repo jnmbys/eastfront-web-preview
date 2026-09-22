@@ -180,7 +180,7 @@ function withoutObservation(source) {
     .replace(/return reportLoadedTerrainImage\((await imageFromUrl\([^;]+?\))\);/g,'return $1;')
     .replace('return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});','return {source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()};');
 }
-test('baseline loader strategy, timeout, cache and VS2 semantics differ only by observation',()=>{
+test('recorded terrain loader checkpoint and VS2 semantics differ only by observation',()=>{
   for(const [path,expected] of Object.entries(baseline).filter(([path])=>path.startsWith('src/render/'))) {
     assert.equal(createHash('sha256').update(withoutObservation(read(path))).digest('hex'),expected,path);
   }

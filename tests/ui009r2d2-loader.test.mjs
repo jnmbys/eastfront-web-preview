@@ -26,7 +26,7 @@ test('UI009R2D2 loader removes force-cache and only fetches after direct-image f
   assert(source.includes('new AbortController()'));
   assert(source.includes('controller.abort()'));
   const direct=source.indexOf("imageFromUrl(url,entry,'direct-image-load'");
-  const secondary=source.indexOf('fetchTerrainBlobWithAbort(url,entry,capabilities)');
+  const secondary=source.indexOf('fetchTerrainBlobWithAbort(url,entry,capabilities,policy.resourceTimeoutMs)');
   assert(direct>=0&&secondary>direct,`direct=${direct} secondary=${secondary}`);
 });
 
