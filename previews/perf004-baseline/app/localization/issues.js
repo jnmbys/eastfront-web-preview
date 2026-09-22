@@ -1,0 +1,97 @@
+import { msg, formatMessage } from './index.js';
+// Only presentation mappings. Original codes, details and validation remain untouched.
+export const issueKeys = {
+    "ACTION_ID_DUPLICATE": "error.ACTION_ID_DUPLICATE",
+    "ARTILLERY_ALREADY_USED": "error.ARTILLERY_ALREADY_USED",
+    "BATTLE_ID_DUPLICATE": "error.BATTLE_ID_DUPLICATE",
+    "CANNOT_ENTRENCH": "error.CANNOT_ENTRENCH",
+    "COMBAT_STAGE_MISMATCH": "error.COMBAT_STAGE_MISMATCH",
+    "COMBAT_TRANSACTION_NOT_FOUND": "error.COMBAT_TRANSACTION_NOT_FOUND",
+    "COMMITMENT_NOT_FOUND": "error.COMMITMENT_NOT_FOUND",
+    "CONTROLLER_ALREADY_READY": "error.CONTROLLER_ALREADY_READY",
+    "CORE_CANNOT_ENTRENCH": "error.CORE_CANNOT_ENTRENCH",
+    "DEPLOYMENT_UNIT_UNAVAILABLE": "error.DEPLOYMENT_UNIT_UNAVAILABLE",
+    "DUPLICATE_ID": "error.DUPLICATE_ID",
+    "EMPTY_MOVE_PATH": "error.EMPTY_MOVE_PATH",
+    "ENEMY_OCCUPIED_HEX": "error.ENEMY_OCCUPIED_HEX",
+    "ENEMY_ZOC_STOP": "error.ENEMY_ZOC_STOP",
+    "ENEMY_ZOC_TO_ZOC": "error.ENEMY_ZOC_TO_ZOC",
+    "HEX_OUT_OF_BOUNDS": "error.HEX_OUT_OF_BOUNDS",
+    "HQ_ALREADY_USED": "error.HQ_ALREADY_USED",
+    "HQ_OUT_OF_RANGE": "error.HQ_OUT_OF_RANGE",
+    "IMPASSABLE_TERRAIN": "error.IMPASSABLE_TERRAIN",
+    "INITIAL_DEPLOYMENT_INCOMPLETE": "error.INITIAL_DEPLOYMENT_INCOMPLETE",
+    "INSUFFICIENT_CP": "error.INSUFFICIENT_CP",
+    "INSUFFICIENT_MP": "error.INSUFFICIENT_MP",
+    "INVALID_ADVANCE": "error.INVALID_ADVANCE",
+    "INVALID_BATTLE_REFERENCE": "error.INVALID_BATTLE_REFERENCE",
+    "INVALID_BREAKTHROUGH": "error.INVALID_BREAKTHROUGH",
+    "INVALID_CONTROLLER": "error.INVALID_CONTROLLER",
+    "INVALID_DEPLOYMENT_HEX": "error.INVALID_DEPLOYMENT_HEX",
+    "INVALID_LOSS_ALLOCATION": "error.INVALID_LOSS_ALLOCATION",
+    "INVALID_REACTION": "error.INVALID_REACTION",
+    "INVALID_RETREAT": "error.INVALID_RETREAT",
+    "INVALID_SUPPORT": "error.INVALID_SUPPORT",
+    "MOVED_THIS_TURN": "error.MOVED_THIS_TURN",
+    "NON_ADJACENT_HEX": "error.NON_ADJACENT_HEX",
+    "NOT_ADJACENT_TO_TARGET": "error.NOT_ADJACENT_TO_TARGET",
+    "NOT_UNIT_CONTROLLER": "error.NOT_UNIT_CONTROLLER",
+    "NO_DEFENDER": "error.NO_DEFENDER",
+    "PENDING_DECISION_BLOCKS_ACTION": "error.PENDING_DECISION_BLOCKS_ACTION",
+    "PENDING_DECISION_BLOCKS_PHASE_END": "error.PENDING_DECISION_BLOCKS_PHASE_END",
+    "PENDING_DECISION_CONTROLLER_MISMATCH": "error.PENDING_DECISION_CONTROLLER_MISMATCH",
+    "RULE_NOT_IMPLEMENTED": "error.RULE_NOT_IMPLEMENTED",
+    "SCHWERPUNKT_UNAVAILABLE": "error.SCHWERPUNKT_UNAVAILABLE",
+    "STACKING_LIMIT": "error.STACKING_LIMIT",
+    "UNAUTHORIZED_UNIT_COMMITMENT": "error.UNAUTHORIZED_UNIT_COMMITMENT",
+    "UNIT_ALREADY_ATTACKED": "error.UNIT_ALREADY_ATTACKED",
+    "UNIT_ALREADY_MOVED": "error.UNIT_ALREADY_MOVED",
+    "UNIT_DESTROYED": "error.UNIT_DESTROYED",
+    "UNIT_NOT_FOUND": "error.UNIT_NOT_FOUND",
+    "WRONG_PHASE": "error.WRONG_PHASE",
+    "WRONG_SIDE": "error.WRONG_SIDE"
+};
+export const reasonKeys = {
+    "DEDICATED_RAIL_REPAIR": "error.reason.DEDICATED_RAIL_REPAIR",
+    "DEPLOYABLE_REINFORCEMENT_REMAINS": "error.reason.DEPLOYABLE_REINFORCEMENT_REMAINS",
+    "GAME_OVER": "error.reason.GAME_OVER",
+    "INITIAL_DEPLOYMENT": "error.reason.INITIAL_DEPLOYMENT",
+    "REINFORCEMENT_ALREADY_DEPLOYED": "error.reason.REINFORCEMENT_ALREADY_DEPLOYED",
+    "REINFORCEMENT_ENTRY_INACTIVE": "error.reason.REINFORCEMENT_ENTRY_INACTIVE",
+    "REINFORCEMENT_ENTRY_IN_GERMAN_ZOC": "error.reason.REINFORCEMENT_ENTRY_IN_GERMAN_ZOC",
+    "REINFORCEMENT_ENTRY_NOT_EAST_EXIT": "error.reason.REINFORCEMENT_ENTRY_NOT_EAST_EXIT",
+    "REINFORCEMENT_NOT_YET_AVAILABLE": "error.reason.REINFORCEMENT_NOT_YET_AVAILABLE",
+    "REINFORCEMENT_SLOT_UNKNOWN": "error.reason.REINFORCEMENT_SLOT_UNKNOWN",
+    "REINFORCEMENT_TEMPLATE_UNRESOLVED": "error.reason.REINFORCEMENT_TEMPLATE_UNRESOLVED",
+    "REINFORCEMENT_TEMPLATE_AMBIGUOUS": "error.reason.REINFORCEMENT_TEMPLATE_AMBIGUOUS",
+    "RAIL_REPAIR_ALREADY_USED": "error.reason.RAIL_REPAIR_ALREADY_USED",
+    "EMPTY_RAIL_REPAIR_PLAN": "error.reason.EMPTY_RAIL_REPAIR_PLAN",
+    "INVALID_RAIL_ENGINEER": "error.reason.INVALID_RAIL_ENGINEER",
+    "RAIL_REPAIR_LIMIT_EXCEEDED": "error.reason.RAIL_REPAIR_LIMIT_EXCEEDED",
+    "UNKNOWN_RAIL_EDGE": "error.reason.UNKNOWN_RAIL_EDGE",
+    "EDGE_HAS_NO_RAILWAY": "error.reason.EDGE_HAS_NO_RAILWAY",
+    "EDGE_ALREADY_GERMAN_REPAIRED": "error.reason.EDGE_ALREADY_GERMAN_REPAIRED",
+    "RAIL_PLAN_DISCONNECTED": "error.reason.RAIL_PLAN_DISCONNECTED",
+    "UNIT_NOT_DAMAGED": "error.reason.UNIT_NOT_DAMAGED",
+    "NORMAL_SUPPLY_REQUIRED": "error.reason.NORMAL_SUPPLY_REQUIRED",
+    "ARTILLERY_USED_THIS_TURN": "error.reason.ARTILLERY_USED_THIS_TURN",
+    "ENEMY_ADJACENT": "error.reason.ENEMY_ADJACENT",
+    "RECOVERY_BASE_TOO_FAR": "error.reason.RECOVERY_BASE_TOO_FAR",
+    "UNIT_TEMPLATE_NOT_FOUND": "error.reason.UNIT_TEMPLATE_NOT_FOUND",
+    "INSUFFICIENT_RP": "error.reason.INSUFFICIENT_RP",
+    "UNIT_ALREADY_RECOVERED_THIS_TURN": "error.reason.UNIT_ALREADY_RECOVERED_THIS_TURN",
+    "RECOVERY_UNIT_LIMIT_REACHED": "error.reason.RECOVERY_UNIT_LIMIT_REACHED"
+};
+const specificKeys = {
+    "Attack requires at least one direct attacker.": "error.support.needAttacker",
+    "Support-only unit cannot be a direct attacker.": "error.support.supportOnly",
+    "Selected attacker artillery is not eligible/ranged/supplied for this target.": "error.support.attackerArtillery",
+    "Selected Schwerpunkt artillery is not alive/supplied/eligible/in range.": "error.support.schwerpunktArtillery"
+};
+export function issueMessage(issue) {
+    const reason = typeof issue.details?.reason === 'string' ? issue.details.reason : '';
+    const key = reasonKeys[reason] ?? specificKeys[issue.message ?? ''] ?? issueKeys[issue.code] ?? 'error.unknown';
+    return { key, params: { code: issue.code }, ...(issue.message ? { english: issue.message } : {}) };
+}
+export const issueText = (issue) => formatMessage(issueMessage(issue));
+export const joinIssues = (issues) => ({ parts: issues.map(issueMessage), separator: ' · ' });
