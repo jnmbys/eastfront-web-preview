@@ -3,6 +3,7 @@ import { mt } from './multiplayer/catalog.js';
 import { isNetwork, isSessionDeployment, sessionPlayerView, dispatchGameAction, deriveBrowserRenderModel } from './multiplayer/playerSession.js';
 import { addMultiplayerHomeButton, mountLobby } from './multiplayer/lobby.js';
 import { DynamicMapRenderer } from './render/dynamicMap.js';
+import { DeploymentPanelRenderer } from './ui/deploymentPanelRenderer.js';
 import { modelControls, bindModelControls } from './ui/modelControls.js';
 import { FogRuntime } from './fog/runtime.js';
 import { startupProgress } from './web/startupProgress.js';
@@ -127,8 +128,8 @@ function rosterEmblem(type) {
     const symbols = { INFANTRY: infantry, JAGER: infantry + '<text x="14" y="17" text-anchor="middle">J</text>', ELITE_INFANTRY: infantry + '<text x="14" y="17" text-anchor="middle">E</text>', PANZER: armor, TANK: armor, HEAVY_TANK: armor + '<path d="M5 23H23"/>', MOTORIZED: armor + infantry, ARTILLERY: '<circle cx="14" cy="14" r="4" fill="currentColor"/>', ENGINEER: '<text x="14" y="18" text-anchor="middle">E</text>', ANTI_TANK: '<text x="14" y="18" text-anchor="middle">AT</text>', RECON: '<path d="M5 23L23 5"/>', HQ: '<text x="14" y="18" text-anchor="middle">HQ</text>' };
     return `<span class="roster-emblem" aria-hidden="true"><svg viewBox="0 0 28 28">${symbols[type] ?? '<path d="M14 4L24 14L14 24L4 14Z"/>'}</svg></span>`;
 }
-function deploymentPanel(model) { const deployment = model.deployment; if (!deployment)
-    return ''; const active = model.activeSide === model.viewerSide; const selected = presentation.selectedDeploymentUnitId; const rows = deployment.roster.map((row) => `<button type="button" class="roster-row ${row.placed ? 'placed' : 'unplaced'} ${selected === row.id ? 'selected' : ''}" data-deploy-unit-id="${esc(row.id)}" ${active ? '' : 'disabled'} aria-pressed="${selected === row.id}">${rosterEmblem(row.type)}<span>${unitLabel(row.type)}</span><small>${esc(row.id)} · ${unitDescription(row.type)}<br>${t('unit.readings', { ...row.stats })}</small><b>${row.placed ? t('deployment.onMap') : t('deployment.reserve')}</b></button>`).join(''); return `<section class="panel-block deployment-panel"><span class="eyebrow">${t('deployment.title', { side: sideLabel(model.viewerSide).toUpperCase() })}</span><div class="deployment-progress"><strong>${deployment.deployed}/${deployment.total}</strong><span>${deployment.complete ? t('deployment.complete') : t('deployment.placeAll')}</span></div><ol class="deployment-steps"><li class="${selected ? 'done' : 'current'}">${t('deployment.selectUnit')}</li><li class="${selected ? 'current' : ''}">${t('deployment.choosePosition')}</li><li>${t('deployment.deploy')}</li></ol><p class="deployment-guidance" role="status">${selected ? t('deployment.selectedHelp', { id: esc(selected) }) : t('deployment.begin')}</p><div class="roster-list">${rows}</div>${deploymentFeedback(deploymentTouch)}${deploymentLocations(model, selected, deploymentTouch)}<button id="ready-button" class="primary-action" type="button" ${active ? '' : 'disabled'}><span class="advance-label">${t('deployment.confirmPhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>${!active ? `<p class="privacy-note">${t('deployment.hidden')}</p>` : ''}</section>`; }
+function deploymentPanel(model, locations) { const deployment = model.deployment; if (!deployment)
+    return ''; const active = model.activeSide === model.viewerSide; const selected = presentation.selectedDeploymentUnitId; const rows = deployment.roster.map((row) => `<button type="button" class="roster-row ${row.placed ? 'placed' : 'unplaced'} ${selected === row.id ? 'selected' : ''}" data-deploy-unit-id="${esc(row.id)}" ${active ? '' : 'disabled'} aria-pressed="${selected === row.id}">${rosterEmblem(row.type)}<span>${unitLabel(row.type)}</span><small>${esc(row.id)} · ${unitDescription(row.type)}<br>${t('unit.readings', { ...row.stats })}</small><b>${row.placed ? t('deployment.onMap') : t('deployment.reserve')}</b></button>`).join(''); return `<section class="panel-block deployment-panel"><span class="eyebrow">${t('deployment.title', { side: sideLabel(model.viewerSide).toUpperCase() })}</span><div class="deployment-progress"><strong>${deployment.deployed}/${deployment.total}</strong><span>${deployment.complete ? t('deployment.complete') : t('deployment.placeAll')}</span></div><ol class="deployment-steps"><li class="${selected ? 'done' : 'current'}">${t('deployment.selectUnit')}</li><li class="${selected ? 'current' : ''}">${t('deployment.choosePosition')}</li><li>${t('deployment.deploy')}</li></ol><p class="deployment-guidance" role="status">${selected ? t('deployment.selectedHelp', { id: esc(selected) }) : t('deployment.begin')}</p><div class="roster-list">${rows}</div>${deploymentFeedback(deploymentTouch)}${locations ?? deploymentLocations(model, selected, deploymentTouch)}<button id="ready-button" class="primary-action" type="button" ${active ? '' : 'disabled'}><span class="advance-label">${t('deployment.confirmPhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>${!active ? `<p class="privacy-note">${t('deployment.hidden')}</p>` : ''}</section>`; }
 function modifierHtml(mods) { return ''; }
 function combatContextHtml(context, label) {
     const m = context.modifiers;
@@ -374,10 +375,11 @@ function mountCachedTerrainSurface() {
     canvas.dataset.imageDraws = String(cachedTerrainSurface.stats.imageDraws);
     canvas.dataset.uniqueAssets = String(cachedTerrainSurface.stats.uniqueAssets);
 }
-function sidePanelMarkup(model) {
-    return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
+function sidePanelMarkup(model, locations) {
+    return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model, locations)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 const dynamicMap = new DynamicMapRenderer();
+const deploymentPanelRenderer = new DeploymentPanelRenderer();
 function refreshDynamicView() {
     if (isNetwork(session))
         session.requestProjection(presentation);
@@ -401,7 +403,7 @@ function refreshDynamicView() {
     const panelScroll = panel.querySelector('.command-panel-scroll')?.scrollTop ?? 0;
     const rosterScroll = panel.querySelector('.roster-list')?.scrollTop ?? 0;
     const locationScroll = panel.querySelector('.location-grid')?.scrollTop ?? 0;
-    panel.innerHTML = sidePanelMarkup(model);
+    deploymentPanelRenderer.update(panel, session, model, presentation.selectedDeploymentUnitId, deploymentTouch, locations => sidePanelMarkup(model, locations));
     panel.querySelectorAll('details').forEach((el, i) => { el.open = openDetails[i] ?? false; });
     const scroll = panel.querySelector('.command-panel-scroll');
     if (scroll)
@@ -439,6 +441,7 @@ function render() {
         return;
     }
     forceNetworkRender = false;
+    deploymentPanelRenderer.clear();
     const profile = responsiveProfile(window.innerWidth, window.innerHeight);
     if (appStatus === 'LOADING') {
         root.innerHTML = loadingMarkup(startupProgress.snapshot);
@@ -604,11 +607,50 @@ function paintCombatTargets() {
     });
 }
 const boundUnitInputs = new WeakSet();
+const boundDeploymentInputs = new WeakSet();
+function bindUnitInputs() {
+    document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id || boundUnitInputs.has(element))
+        return; boundUnitInputs.add(element); const action = () => { if (chooseCounterTarget(id))
+        return; if (!routeCombatDecisionCounter(session, presentation, id))
+        selectCounter(session, presentation, id); showCombatView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id || boundUnitInputs.has(element))
+        return; boundUnitInputs.add(element); element.addEventListener('click', (event) => { event.stopPropagation(); if (chooseCounterTarget(id))
+        return; if (!routeCombatDecisionCounter(session, presentation, id))
+        selectCounter(session, presentation, id); showCombatView(); }); });
+}
+function bindDeploymentControls() {
+    document.querySelector('#confirm-deployment')?.addEventListener('click', event => {
+        const button = event.currentTarget;
+        button.disabled = true;
+        button.textContent = t('deployment.submitting');
+        if (isNetwork(session)) {
+            if (deploymentTouch.key)
+                deploySelectedUnit(session, presentation, parseHex(deploymentTouch.key));
+            updateNetworkStatus();
+            return;
+        }
+        confirmDeploymentTarget(deploymentTouch, session, presentation);
+        refreshDynamicView();
+    });
+    document.querySelector('#ready-button')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); readyForPhase(session, presentation); render(); });
+    document.querySelectorAll('[data-deploy-destination]').forEach(element => { if (boundDeploymentInputs.has(element))
+        return; boundDeploymentInputs.add(element); element.addEventListener('click', () => { const key = element.dataset.deployDestination; if (!key)
+        return; chooseTouchTarget(key); }); });
+    document.querySelectorAll('[data-deploy-unit-id]').forEach((element) => { const id = element.dataset.deployUnitId; if (!id)
+        return; const action = () => { deploymentTouch = createDeploymentTouch(); selectDeploymentRosterUnit(presentation, id); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-role="deployment-hex"]').forEach((element) => { const key = element.dataset.hex; if (!key || boundDeploymentInputs.has(element))
+        return; boundDeploymentInputs.add(element); const action = () => { chooseTouchTarget(key); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    bindUnitInputs();
+}
 function bindDynamic(model) {
     document.querySelectorAll('[data-view-side]').forEach(element => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
     if (session && ((model ?? deriveBrowserRenderModel(session, presentation)).readOnly || isNetwork(session) && !session.canSelect))
         return;
+    if (session && isSessionDeployment(session)) {
+        bindDeploymentControls();
+        return;
+    }
     paintCombatTargets();
     document.querySelectorAll('[data-remove-attacker]').forEach(el => el.addEventListener('click', () => {
         const id = el.dataset.removeAttacker;
@@ -626,18 +668,6 @@ function bindDynamic(model) {
     }));
     if (!session)
         return;
-    document.querySelector('#confirm-deployment')?.addEventListener('click', event => {
-        const button = event.currentTarget;
-        button.disabled = true;
-        button.textContent = t('deployment.submitting');
-        if (isNetwork(session)) {
-            if (deploymentTouch.key)
-                deploySelectedUnit(session, presentation, parseHex(deploymentTouch.key));
-        }
-        else
-            confirmDeploymentTarget(deploymentTouch, session, presentation);
-        refreshDynamicView();
-    });
     document.querySelector('#ready-button')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); readyForPhase(session, presentation); render(); });
     document.querySelector('#rail-mode')?.addEventListener('click', () => { enterRailRepairMode(presentation); render(); });
     document.querySelector('#rail-clear')?.addEventListener('click', () => { cancelRailRepair(presentation); render(); });
@@ -649,20 +679,7 @@ function bindDynamic(model) {
     document.querySelector('#move-commit')?.addEventListener('click', () => { commitMoveDraft(session, presentation); refreshDynamicView(); });
     document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
     document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
-    document.querySelectorAll('[data-deploy-destination]').forEach(element => element.addEventListener('click', () => { const key = element.dataset.deployDestination; if (!key)
-        return; chooseTouchTarget(key); }));
-    document.querySelectorAll('[data-deploy-unit-id]').forEach((element) => { const id = element.dataset.deployUnitId; if (!id)
-        return; const action = () => { deploymentTouch = createDeploymentTouch(); selectDeploymentRosterUnit(presentation, id); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
-    document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id || boundUnitInputs.has(element))
-        return; boundUnitInputs.add(element); const action = () => { if (chooseCounterTarget(id))
-        return; if (!routeCombatDecisionCounter(session, presentation, id))
-        selectCounter(session, presentation, id); showCombatView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
-    document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id || boundUnitInputs.has(element))
-        return; boundUnitInputs.add(element); element.addEventListener('click', (event) => { event.stopPropagation(); if (chooseCounterTarget(id))
-        return; if (!routeCombatDecisionCounter(session, presentation, id))
-        selectCounter(session, presentation, id); showCombatView(); }); });
-    document.querySelectorAll('[data-role="deployment-hex"]').forEach((element) => { const key = element.dataset.hex; if (!key)
-        return; const action = () => { chooseTouchTarget(key); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    bindUnitInputs();
     document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { extendMoveDraft(session, presentation, parseHex(key)); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="rail-repair-edge"]').forEach((element) => { const key = element.dataset.edgeKey; if (!key)
@@ -767,6 +784,7 @@ async function enterNetworkMatch(client) {
         if (kind === 'resync') {
             unitAnimations.skip();
             deploymentTouch = createDeploymentTouch();
+            deploymentPanelRenderer.clear();
         }
         if (kind === 'status') {
             updateNetworkStatus();

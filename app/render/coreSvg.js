@@ -74,7 +74,8 @@ function renderInfrastructure(model) {
 function renderDeploymentZone(model) {
     if (!model.deployment)
         return '';
-    return `<g id="deployment-zone-layer">${model.deployment.zoneKeys.map((key) => { const hex = model.hexes.find((candidate) => coreHexKey(candidate.coord) === key); if (!hex)
+    const hexes = new Map(model.hexes.map(hex => [coreHexKey(hex.coord), hex]));
+    return `<g id="deployment-zone-layer">${model.deployment.zoneKeys.map((key) => { const hex = hexes.get(key); if (!hex)
         return ''; return `<polygon data-role="deployment-hex" data-hex="${key}" points="${polygonPointsString(hex.coord)}" class="deployment-zone" role="button" tabindex="0" aria-label="${t('map.deploymentHex', { hex: key })}"/>`; }).join('')}</g>`;
 }
 function renderMoveOptions(model) {
@@ -198,6 +199,10 @@ function renderCombatGeometry(model) {
     }
     return out + '</g>';
 }
+export function renderCounterHit(counter) {
+    const hit = deriveTouchHitArea(counter);
+    return `<rect data-hit-unit-id="${esc(counter.id)}" x="${hit.center.x - hit.side / 2}" y="${hit.center.y - hit.side / 2}" width="${hit.side}" height="${hit.side}" class="unit-hit-area"/>`;
+}
 function renderCounters(model) {
     const groups = new Map();
     for (const counter of model.counters) {
@@ -206,7 +211,7 @@ function renderCounters(model) {
         list.push(counter);
         groups.set(key, list);
     }
-    const hits = [...groups.values()].flatMap((group) => group.map((counter) => { const hit = deriveTouchHitArea(counter); return `<rect data-hit-unit-id="${esc(counter.id)}" x="${hit.center.x - hit.side / 2}" y="${hit.center.y - hit.side / 2}" width="${hit.side}" height="${hit.side}" class="unit-hit-area"/>`; })).join('');
+    const hits = [...groups.values()].flatMap((group) => group.map(renderCounterHit)).join('');
     const visuals = [...groups.values()].flatMap((group) => group.sort((a, b) => a.id.localeCompare(b.id)).map((counter, index) => renderCounter(counter, index, group.length))).join('');
     return `<g id="counter-hit-layer">${hits}</g><g id="counter-layer">${visuals}</g>`;
 }
