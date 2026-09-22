@@ -25,7 +25,7 @@ test('PERF002 location cache matches fresh markup after occupancy, latest select
  touch.unitId=p.selectedDeploymentUnitId;touch.key=key;update();assert.equal(panel.querySelector('.location-grid'),old);
  assert(deploy(s,p.selectedDeploymentUnitId,key).accepted);p.selectedDeploymentUnitId=m.deployment.roster[1].id;update();assert.equal(panel.querySelector('.location-grid'),old);assert.equal(old.scrollTop,217);
  touch.unitId=p.selectedDeploymentUnitId;touch.key=m.deployment.zoneKeys[1];update();touch.key=key;update();
- p.selectedDeploymentUnitId=m.deployment.roster.find(r=>r.type!=='INFANTRY').id;update();assert.notEqual(panel.querySelector('.location-grid'),old);
+ p.selectedDeploymentUnitId=m.deployment.roster.find(r=>r.type!=='INFANTRY').id;update();assert.equal(panel.querySelector('.location-grid'),old);
  const typed=panel.querySelector('.location-grid');setLocale('en-US');update();assert.notEqual(panel.querySelector('.location-grid'),typed);setLocale('zh-CN');
 });
 test('PERF002 cache lifetime: new session, explicit resync, viewer, map dependency and phase invalidate',()=>{

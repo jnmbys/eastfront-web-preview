@@ -6,7 +6,7 @@ import { createPresenceDefinitions, presenceNode as node } from './unitPresenceS
 interface PresenceBinding {
   root:Element; selection:Element;selected:boolean; pedestal:Element; body:Element; detail:Element; flash:Element; emphasis:Element;
   transform:string; half:number; stackSign:number; heavy:boolean; facing:number; family:PresenceFamily;
-  from:ReturnType<typeof presenceComposition>|null;
+  identityKey:string;from:ReturnType<typeof presenceComposition>|null;
 }
 
 /** Pure SVG companion layer. All anchor/motion values are supplied by Counter/UA-002.
@@ -35,6 +35,27 @@ export class UnitPresenceLayer {
     for(const ghost of this.ghosts.values())this.layer.appendChild(ghost.root);
     this.setLod(this.lod,true);
   }
+  /** Retained Counter layer: only create artwork for changed canonical nodes. */
+  reconcile(counterLayer:Element,identities:readonly UnitPresenceIdentity[],counters:ReadonlyMap<string,Element>,changed:ReadonlySet<string>):void {
+    if(!this.layer||this.layer.parentNode!==counterLayer.parentNode){this.bind(counterLayer,identities,counters);return;}
+    const allowed=new Set(identities.filter(i=>counters.has(i.id)).map(i=>i.id));
+    for(const [id,binding]of this.units)if(!allowed.has(id)){binding.root.remove();this.units.delete(id);}
+    const order:Element[]=[];
+    for(const identity of identities){
+      const counter=counters.get(identity.id);if(!counter||this.ghosts.has(identity.id))continue;
+      let binding=this.units.get(identity.id);
+      if(!binding||changed.has(identity.id)||binding.identityKey!==`${identity.side}:${identity.type}`){
+        const old=binding;binding=this.create(identity,counter);
+        if(old){binding.from=old.transform===binding.transform?old.from:this.composition(old);old.root.remove();}
+        this.units.set(identity.id,binding);this.applyLod(binding);
+      }
+      order.push(binding.root);
+    }
+    order.push(...[...this.ghosts.values()].map(b=>b.root));
+    let cursor=this.layer.firstElementChild;
+    for(const node of order){if(node!==cursor)this.layer.insertBefore(node,cursor);cursor=node.nextElementSibling;}
+    this.syncSelection(counters);
+  }
   syncSelection(counters:ReadonlyMap<string,Element>):void {
     for(const [id,binding]of this.units){
       const selected=/selected|combat-attacker-(primary|selected)/.test(counters.get(id)?.getAttribute('class')??'');
@@ -52,12 +73,13 @@ export class UnitPresenceLayer {
     this.layer?.setAttribute('visibility',lod==='far'?'hidden':'visible');
     this.layer?.setAttribute('opacity',lod==='far'?'0':'1');
     this.layer?.setAttribute('data-presence-lod',lod);
-    for(const binding of [...this.units.values(),...this.ghosts.values()]){
-      const {x,y,scale}=this.composition(binding);
-      binding.pedestal.setAttribute('transform',`translate(${x} ${y}) scale(${scale})`);
-      binding.detail.setAttribute('visibility',lod==='close'?'visible':'hidden');
-      binding.root.setAttribute('opacity',String(PRESENCE_LOD[lod].opacity));
-    }
+    for(const binding of [...this.units.values(),...this.ghosts.values()])this.applyLod(binding);
+  }
+  private applyLod(binding:PresenceBinding):void {
+    const {x,y,scale}=this.composition(binding);
+    binding.pedestal.setAttribute('transform',`translate(${x} ${y}) scale(${scale})`);
+    binding.detail.setAttribute('visibility',this.lod==='close'?'visible':'hidden');
+    binding.root.setAttribute('opacity',String(PRESENCE_LOD[this.lod].opacity));
   }
   paint(id:string,state:UnitPresentationState,transform:string,opacity:number):{x:number;y:number}|undefined {
     const binding=this.ghosts.get(id)??this.units.get(id);if(!binding)return;
@@ -132,6 +154,6 @@ export class UnitPresenceLayer {
     // Compact vector cue. Direction comes solely from the existing accepted participant.
     const burst=family==='armor'||family==='artillery'||family==='anti-tank';
     node(doc,'path',{d:burst?`M${profile.muzzle} 0l4-2-1-3 4 4 4 1-5 2 1 3-4-3Z`:`M${profile.muzzle-5}-5l5 1-2 2 5 2-7-1 m1 5l5 1`,fill:burst?'#fff0bc':'none',stroke:'#fff0bc','stroke-width':1.1},flash);
-    return {root,selection,selected,pedestal,body,detail,flash,emphasis,transform,half,stackSign,heavy,facing,family,from:null};
+    return {root,selection,selected,pedestal,body,detail,flash,emphasis,transform,half,stackSign,heavy,facing,family,identityKey:`${identity.side}:${identity.type}`,from:null};
   }
 }

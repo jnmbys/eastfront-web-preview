@@ -25,9 +25,25 @@ function hash(x:number,y:number):number {let n=Math.imul(x,374761393)^Math.imul(
 function noise(x:number,y:number,scale:number):number {const a=x/scale,b=y/scale,ix=Math.floor(a),iy=Math.floor(b),u=smooth(a-ix),v=smooth(b-iy);return (hash(ix,iy)*(1-u)+hash(ix+1,iy)*u)*(1-v)+(hash(ix,iy+1)*(1-u)+hash(ix+1,iy+1)*u)*v;}
 /** Local spatial bins bound raster work; no per-Hex DOM/filter instances. */
 function nearest(points:readonly Point[]):(x:number,y:number)=>number {
-  const size=128,bins=new Map<string,Point[]>();
-  for(const p of points){const key=`${Math.floor(p.x/size)},${Math.floor(p.y/size)}`;const list=bins.get(key)??[];list.push(p);bins.set(key,list);}
-  return (x,y)=>{let best=Infinity;const q=Math.floor(x/size),r=Math.floor(y/size);for(let a=q-1;a<=q+1;a++)for(let b=r-1;b<=r+1;b++)for(const p of bins.get(`${a},${b}`)??[])best=Math.min(best,(p.x-x)**2+(p.y-y)**2);return Math.sqrt(best);};
+  if(!points.length)return ()=>Infinity;
+  const size=128;
+  let minQ=Infinity,minR=Infinity,maxQ=-Infinity,maxR=-Infinity;
+  for(const p of points){const q=Math.floor(p.x/size),r=Math.floor(p.y/size);minQ=Math.min(minQ,q-1);maxQ=Math.max(maxQ,q+1);minR=Math.min(minR,r-1);maxR=Math.max(maxR,r+1);}
+  const columns=maxQ-minQ+1,rows=maxR-minR+1,index=(q:number,r:number)=>(r-minR)*columns+q-minQ;
+  const bins:Point[][]=Array.from({length:columns*rows},()=>[]);
+  for(const p of points)bins[index(Math.floor(p.x/size),Math.floor(p.y/size))]!.push(p);
+  // Prepare each cell's original 3 x 3 search once. Pixel queries neither create
+  // string keys nor repeat nine Map lookups. Candidate order and distances are
+  // identical to the original raster; no visibility/feather approximation.
+  const nearby:Point[][]=Array.from({length:columns*rows},()=>[]);
+  for(let q=minQ;q<=maxQ;q++)for(let r=minR;r<=maxR;r++){
+    const list=nearby[index(q,r)]!;
+    for(let a=q-1;a<=q+1;a++)for(let b=r-1;b<=r+1;b++)if(a>=minQ&&a<=maxQ&&b>=minR&&b<=maxR)list.push(...bins[index(a,b)]!);
+  }
+  return (x,y)=>{
+    const q=Math.floor(x/size),r=Math.floor(y/size);if(q<minQ||q>maxQ||r<minR||r>maxR)return Infinity;
+    let best=Infinity;for(const p of nearby[index(q,r)]!)best=Math.min(best,(p.x-x)**2+(p.y-y)**2);return Math.sqrt(best);
+  };
 }
 interface FogGround {key:string;coverage:Float64Array;broad:Float64Array;fine:Float64Array;}
 let fogGround:FogGround|null=null;

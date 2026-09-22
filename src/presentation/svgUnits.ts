@@ -75,6 +75,19 @@ export class SvgUnitPresentation {
         if(!this.fittedHexWidth){const svg=root.querySelector<SVGSVGElement>('#eastfront-map'),width=Number(svg?.getAttribute('viewBox')?.split(/\s+/)[2]);this.fittedHexWidth=width&&svg?.clientWidth?svg.clientWidth*Math.sqrt(3)*HEX_SIZE/width:0;}
         this.presence.syncSelection(new Map([...this.bindings].map(([id,b])=>[id,b.counter])));return;
       }
+      // PERF-002 retains this layer during deployment. Preserve bindings,
+      // definitions and observers when only a few canonical counters changed.
+      const layer=root.querySelector('#counter-layer');
+      if(layer&&layer===this.layer){
+        this.clear();
+        const current=new Map(counters.map(el=>[el.getAttribute('data-unit-id')!,el]));
+        const hits=new Map(Array.from(root.querySelectorAll('[data-hit-unit-id]')).map(el=>[el.getAttribute('data-hit-unit-id'),el]));
+        const changed=new Set<string>();
+        for(const [id,binding]of this.bindings)if(current.get(id)!==binding.counter){this.bindings.delete(id);changed.add(id);}
+        for(const [id,counter]of current)if(!this.ghosts.has(id)&&!this.bindings.has(id)){this.bindings.set(id,this.binding(counter,hits.get(id)));changed.add(id);}
+        this.presence.reconcile(layer,identities,new Map([...this.bindings].map(([id,b])=>[id,b.counter])),changed);
+        this.displayedMode='';return;
+      }
     }
     this.zoomObserver?.disconnect();this.resizeObserver?.disconnect();
     this.clear();this.bindings.clear();this.displayedMode='';this.root=root;this.layer=null;if(!root){this.presence.dispose();return;}

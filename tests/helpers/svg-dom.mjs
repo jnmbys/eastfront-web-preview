@@ -18,14 +18,14 @@ export class SvgNode {
  serialize(){return `<${this.tagName}${Object.entries(this.attrs).map(([k,v])=>` ${k}="${escape(v)}"`).join('')}>${this.text}${this.children.map(n=>n.serialize()).join('')}</${this.tagName}>`;}
 }
 export function svgDom(markup){
- const doc={created:0,createElementNS(_ns,tag){this.created++;return new SvgNode(tag,{},this);}};
+ const doc={created:0,createElement(tag){return this.createElementNS('http://www.w3.org/1999/xhtml',tag);},createElementNS(_ns,tag){this.created++;return new SvgNode(tag,{},this);}};
  const root=new SvgNode('div',{'data-zoom':'1'},doc),stack=[root];
  for(const token of markup.match(/<[^>]+>|[^<]+/g)??[]){
   if(token.startsWith('</')){stack.pop();continue;}
   if(token.startsWith('<')){
    const tag=token.match(/^<([\w-]+)/)?.[1];if(!tag)continue;
    const attrs=Object.fromEntries([...token.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([,key,value])=>[key,decode(value)]));
-   const node=new SvgNode(tag,attrs,doc);stack.at(-1).appendChild(node);if(!token.endsWith('/>'))stack.push(node);
+   const node=new SvgNode(tag,attrs,doc);stack.at(-1).appendChild(node);if(!token.endsWith('/>')&&!['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'].includes(tag))stack.push(node);
   }else stack.at(-1).text+=token;
  }
  return root;

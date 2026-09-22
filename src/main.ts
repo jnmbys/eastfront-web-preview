@@ -226,14 +226,20 @@ function refreshDynamicView():void{
   const lod=(svg.dataset.lod as TerrainLod|undefined)??mapRenderOptions(model).lod;
   dynamicMap.update(dynamic,model,mapRenderOptions(model,lod));
   const openDetails=Array.from(panel.querySelectorAll('details')).map(el=>el.open);
-  const panelScroll=panel.querySelector('.command-panel-scroll')?.scrollTop??0;
-  const rosterScroll=panel.querySelector('.roster-list')?.scrollTop??0;
-  const locationScroll=panel.querySelector('.location-grid')?.scrollTop??0;
-  deploymentPanelRenderer.update(panel,session,model,presentation.selectedDeploymentUnitId,deploymentTouch,locations=>sidePanelMarkup(model,locations));
+  let panelScroll=0,rosterScroll=0,locationScroll=0;
+  const retainedPanel=deploymentPanelRenderer.update(panel,session,model,presentation.selectedDeploymentUnitId,deploymentTouch,locations=>sidePanelMarkup(model,locations),()=>{
+    // Retained scrollers keep their own offsets. Only a real replacement needs
+    // layout-sensitive reads/restoration after the canonical map update.
+    panelScroll=panel.querySelector('.command-panel-scroll')?.scrollTop??0;
+    rosterScroll=panel.querySelector('.roster-list')?.scrollTop??0;
+    locationScroll=panel.querySelector('.location-grid')?.scrollTop??0;
+  });
   panel.querySelectorAll('details').forEach((el,i)=>{el.open=openDetails[i]??false;});
-  const scroll=panel.querySelector('.command-panel-scroll');if(scroll)scroll.scrollTop=panelScroll;
-  const roster=panel.querySelector('.roster-list'),locations=panel.querySelector('.location-grid');
-  if(roster)roster.scrollTop=rosterScroll;if(locations)locations.scrollTop=locationScroll;
+  if(!retainedPanel){
+    const scroll=panel.querySelector('.command-panel-scroll');if(scroll)scroll.scrollTop=panelScroll;
+    const roster=panel.querySelector('.roster-list'),locations=panel.querySelector('.location-grid');
+    if(roster)roster.scrollTop=rosterScroll;if(locations)locations.scrollTop=locationScroll;
+  }
   bindDynamic(model);
   paintDeploymentFocus(model);
   applyMapViewport();
@@ -330,14 +336,15 @@ function bindUnitInputs():void{
   document.querySelectorAll<SVGGElement>('[data-unit-id]').forEach((element)=>{const id=element.dataset.unitId;if(!id||boundUnitInputs.has(element))return;boundUnitInputs.add(element);const action=()=>{if(chooseCounterTarget(id))return;if(!routeCombatDecisionCounter(session!,presentation,id))selectCounter(session!,presentation,id);showCombatView();};element.addEventListener('click',(event)=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});document.querySelectorAll<SVGRectElement>('[data-hit-unit-id]').forEach((element)=>{const id=element.dataset.hitUnitId;if(!id||boundUnitInputs.has(element))return;boundUnitInputs.add(element);element.addEventListener('click',(event)=>{event.stopPropagation();if(chooseCounterTarget(id))return;if(!routeCombatDecisionCounter(session!,presentation,id))selectCounter(session!,presentation,id);showCombatView();});});
 }
 function bindDeploymentControls():void{
-  document.querySelector<HTMLButtonElement>('#confirm-deployment')?.addEventListener('click',event=>{
+  const confirm=document.querySelector<HTMLButtonElement>('#confirm-deployment');
+  if(confirm&&!boundDeploymentInputs.has(confirm)){boundDeploymentInputs.add(confirm);confirm.addEventListener('click',event=>{
    const button=event.currentTarget as HTMLButtonElement;button.disabled=true;button.textContent=t('deployment.submitting');
    if(isNetwork(session!)){if(deploymentTouch.key)deploySelectedUnit(session!,presentation,parseHex(deploymentTouch.key));updateNetworkStatus();return;}
    confirmDeploymentTarget(deploymentTouch,session!,presentation);refreshDynamicView();
-  });
-  document.querySelector('#ready-button')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});
+  });}
+  const ready=document.querySelector('#ready-button');if(ready&&!boundDeploymentInputs.has(ready)){boundDeploymentInputs.add(ready);ready.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});}
   document.querySelectorAll<HTMLButtonElement>('[data-deploy-destination]').forEach(element=>{if(boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);element.addEventListener('click',()=>{const key=element.dataset.deployDestination;if(!key)return;chooseTouchTarget(key);});});
-  document.querySelectorAll<HTMLElement>('[data-deploy-unit-id]').forEach((element)=>{const id=element.dataset.deployUnitId;if(!id)return;const action=()=>{deploymentTouch=createDeploymentTouch();selectDeploymentRosterUnit(presentation,id);refreshDynamicView();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
+  document.querySelectorAll<HTMLElement>('[data-deploy-unit-id]').forEach((element)=>{const id=element.dataset.deployUnitId;if(!id||boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);const action=()=>{deploymentTouch=createDeploymentTouch();selectDeploymentRosterUnit(presentation,id);refreshDynamicView();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
   document.querySelectorAll<SVGPolygonElement>('[data-role="deployment-hex"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);const action=()=>{chooseTouchTarget(key);};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
   bindUnitInputs();
 }
