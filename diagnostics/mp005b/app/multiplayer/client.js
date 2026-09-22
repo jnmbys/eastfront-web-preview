@@ -1,3 +1,4 @@
+import {mp5} from '../mp005bTrace.js';
 import { COMPACT_SNAPSHOT, FULL_SNAPSHOT, MAX_SERVER_MESSAGE_BYTES, decodeSnapshot, isSnapshotFormat } from './snapshotCodec.js';
 import { PROTOCOL_VERSION, clientMessage } from './protocol.js';
 import { CLIENT_NETWORK } from './config.js';
@@ -87,12 +88,12 @@ export class LobbyClient {
         socket.onmessage = event => {
             if (this.socket !== socket)
                 return;
-            let message;
+            const __arrival=performance.now();let message;
             try {
                 const raw = String(event.data);
                 if (raw.length > MAX_SERVER_MESSAGE_BYTES || new TextEncoder().encode(raw).byteLength > MAX_SERVER_MESSAGE_BYTES)
                     throw new Error();
-                message = JSON.parse(raw);
+                const __parse=performance.now();message = JSON.parse(raw);mp5.incoming(message,raw,__arrival,performance.now()-__parse);
                 if (!message || message.protocolVersion !== PROTOCOL_VERSION || typeof message.messageType !== 'string' || !message.payload || typeof message.payload !== 'object')
                     throw new Error();
             }

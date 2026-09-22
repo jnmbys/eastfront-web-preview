@@ -1,3 +1,4 @@
+import {mp5} from '../mp005bTrace.js';
 import { CLIENT_NETWORK } from './config.js';
 import { LobbyClient } from './client.js';
 import { queryDraft } from './gameplayProtocol.js';
@@ -155,7 +156,7 @@ export class NetworkPlayerSession {
         if (next.model.deployment)
             this.presentation.selectedDeploymentUnitId = next.model.deployment.roster.find(u => !u.placed)?.id ?? null;
     }
-    receive(m) {
+    receive(m) {const __end=mp5.begin("NetworkPlayerSession.receive",arguments[0]);try{
         if (!m) {
             if (this.client.state.connection !== 'CONNECTED') {
                 this.flight = null;
@@ -269,7 +270,7 @@ export class NetworkPlayerSession {
         }
         this.flush();
         this.scheduleForced();
-    }
+    }finally{__end();}}
     scheduleForced() {
         if (this.timer !== null)
             clearTimeout(this.timer);
