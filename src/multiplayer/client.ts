@@ -11,7 +11,11 @@ export class LobbyClient {
   readonly state:LobbyState={connection:'DISCONNECTED',controllerId:null,snapshot:null,room:null,match:null,view:null,pending:false,synced:false,error:null};
   private listeners=new Set<(message:ServerMessage|null)=>void>();
   subscribe(listener:(message:ServerMessage|null)=>void):()=>void {this.listeners.add(listener);return ()=>this.listeners.delete(listener);}
-  private notify(message:ServerMessage|null=null):void {this.changed();for(const listener of this.listeners)listener(message);}
+  private notify(message:ServerMessage|null=null):void {
+    // A lobby callback can construct a session from this very snapshot. That new
+    // subscriber has already consumed it and must not receive it a second time.
+    const listeners=[...this.listeners];this.changed();for(const listener of listeners)listener(message);
+  }
   private socket:WebSocket|null=null;private token:string|null=null;private stopped=true;
   private retry:ReturnType<typeof setTimeout>|null=null;private deadline:ReturnType<typeof setTimeout>|null=null;
   private attempts=0;private pendingId:string|null=null;private name='';
@@ -47,13 +51,14 @@ export class LobbyClient {
     };
   }
   private sendHandshake(){if(this.token)this.sendRaw('RECONNECT',{reconnectToken:this.token});else this.sendRaw('HELLO',{displayName:this.name});}
-  private sendRaw<K extends keyof ClientPayloads>(type:K,payload:ClientPayloads[K]):void {
+  private sendRaw<K extends keyof ClientPayloads>(type:K,payload:ClientPayloads[K]):string {
     const requestId=crypto.randomUUID();this.pendingId=requestId;this.state.pending=true;
     this.socket?.send(JSON.stringify(clientMessage(type,payload,requestId)));
     this.clearDeadline();this.deadline=setTimeout(()=>{this.state.error='unavailable';this.socket?.close();},CLIENT_NETWORK.requestTimeoutMs);
+    return requestId;
   }
-  send<K extends Exclude<keyof ClientPayloads,'HELLO'|'RECONNECT'>>(type:K,payload:ClientPayloads[K]):void {
-    if(!this.canMutate)return;this.state.error=null;this.sendRaw(type,payload);this.notify();
+  send<K extends Exclude<keyof ClientPayloads,'HELLO'|'RECONNECT'>>(type:K,payload:ClientPayloads[K]):string|null {
+    if(!this.canMutate)return null;this.state.error=null;const id=this.sendRaw(type,payload);this.notify();return id;
   }
   resyncMatch(matchId:string):void {
     if(this.state.connection!=='CONNECTED'||this.socket?.readyState!==WebSocket.OPEN)return;

@@ -11,7 +11,7 @@ import {DynamicMapRenderer} from '../dist/app/render/dynamicMap.js';
 import {svgDom} from './helpers/performance-dom.mjs';
 function client(snapshot){
  const listeners=new Set(),sent=[],state={snapshot,connection:'CONNECTED',synced:true,pending:false,match:{matchId:snapshot.matchId,viewer:snapshot.view.viewer}};
- return {state,sent,get canMutate(){return state.connection==='CONNECTED'&&state.synced&&!state.pending;},subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn);},send(type,payload){if(!this.canMutate)return;sent.push({type,payload});state.pending=true;for(const f of listeners)f(null);},resyncMatch(matchId){sent.push({type:'RESYNC_MATCH',payload:{matchId}});state.pending=true;},emit(m){state.pending=false;if(m.messageType==='PLAYER_VIEW_SNAPSHOT')state.snapshot=m.payload;for(const f of listeners)f(m);},offline(){state.connection='DISCONNECTED';state.pending=false;for(const f of listeners)f(null);},dispose(){}};
+ return {state,sent,get canMutate(){return state.connection==='CONNECTED'&&state.synced&&!state.pending;},subscribe(fn){listeners.add(fn);return ()=>listeners.delete(fn);},send(type,payload){if(!this.canMutate)return null;const requestId=`request-${sent.length}`;sent.push({type,payload,requestId});state.pending=true;for(const f of listeners)f(null);return requestId;},resyncMatch(matchId){sent.push({type:'RESYNC_MATCH',payload:{matchId}});state.pending=true;},emit(m){state.pending=false;if(m.messageType==='MATCH_QUERY'&&!m.requestId)m={...m,requestId:sent.findLast(s=>s.type==='QUERY_MATCH')?.requestId??null};if(m.messageType==='PLAYER_VIEW_SNAPSHOT')state.snapshot=m.payload;for(const f of listeners)f(m);},offline(){state.connection='DISCONNECTED';state.pending=false;for(const f of listeners)f(null);},dispose(){}};
 }
 function setup(){const h=gameHarness(()=>{const s=fixture(17,[unit('g','G-INF','GERMAN','INFANTRY',{q:0,r:0}),unit('d','S-INF','SOVIET','INFANTRY',{q:5,r:0})]).s;s.state.phase='GERMAN_MOVEMENT';return s;});const c=client(h.a.last('PLAYER_VIEW_SNAPSHOT').payload),p=createPresentationState(),changes=[],n=new NetworkPlayerSession(c,p,kind=>changes.push(kind));return {h,c,p,n,changes};}
 const order=n=>({matchId:n.client.state.snapshot.matchId,matchRevision:n.matchRevision,serverSequence:n.serverSequence+1});
@@ -39,11 +39,11 @@ test('MP002 network loss disables actions and drafts clear on active resync; cam
  const {n,c,p}=setup();p.pathDraft=[{q:1,r:0}];c.offline();n.submit({type:'READY_FOR_PHASE_END'});assert.equal(c.sent.length,0);assert(!n.interactive);assert(n.statusText.includes('对局连接中断'));
  c.state.connection='CONNECTED';c.emit(serverMessage('PLAYER_VIEW_SNAPSHOT',{...c.state.snapshot,resync:true,serverSequence:8,events:[]}));assert(n.interactive);assert.deepEqual(p.pathDraft,[]);assert(!('camera' in n));n.dispose();
 });
-test('MP002 query coalescing retains the authorized PlayerView object; unchanged observation reuses Fog and dynamic map',()=>{
+test('MP002 query coalescing retains the authorized PlayerView object; unchanged observation reuses Fog and dynamic map',async()=>{
  const {n,c,p}=setup(),view=n.playerView;const root=svgDom('<svg id="eastfront-map" data-lod="medium" viewBox="-300 -250 600 500"><g id="fog-surface-layer"></g><g id="map-dynamic-layer"></g></svg>'),svg=root.querySelector('#eastfront-map'),layer=root.querySelector('#map-dynamic-layer');
  const fog=new FogRuntime(()=> 'raster'),renderer=new DynamicMapRenderer(),options={debug:false,rendererMode:'production',staticTerrainSurface:true};
  renderer.update(layer,n.renderModel(),options);fog.sync(svg,n.playerView);const builds=fog.buildCount,nodes=root.querySelectorAll('[data-unit-id]');
- p.selectedUnitId='g';n.requestProjection(p);n.requestProjection(p);assert.equal(c.sent.length,1);
+ p.selectedUnitId='g';n.requestProjection(p);n.requestProjection(p);await new Promise(resolve=>setTimeout(resolve,5));assert.equal(c.sent.length,1);
  c.emit(serverMessage('MATCH_QUERY',{...order(n),model:structuredClone(n.model),forcedAction:null}));assert.equal(n.playerView,view);
  const change=renderer.update(layer,n.renderModel(),options);fog.sync(svg,n.playerView);assert.equal(change.full,false);assert.equal(fog.buildCount,builds);assert.deepEqual(root.querySelectorAll('[data-unit-id]'),nodes);
  const snap={...structuredClone(c.state.snapshot),resync:false,serverSequence:n.serverSequence+1};c.emit(serverMessage('PLAYER_VIEW_SNAPSHOT',snap));fog.sync(svg,n.playerView);assert.equal(fog.buildCount,builds);n.dispose();
