@@ -31,17 +31,42 @@ function hash(x, y) { let n = Math.imul(x, 374761393) ^ Math.imul(y, 668265263) 
 function noise(x, y, scale) { const a = x / scale, b = y / scale, ix = Math.floor(a), iy = Math.floor(b), u = smooth(a - ix), v = smooth(b - iy); return (hash(ix, iy) * (1 - u) + hash(ix + 1, iy) * u) * (1 - v) + (hash(ix, iy + 1) * (1 - u) + hash(ix + 1, iy + 1) * u) * v; }
 /** Local spatial bins bound raster work; no per-Hex DOM/filter instances. */
 function nearest(points) {
-    const size = 128, bins = new Map();
+    if (!points.length)
+        return () => Infinity;
+    const size = 128;
+    let minQ = Infinity, minR = Infinity, maxQ = -Infinity, maxR = -Infinity;
     for (const p of points) {
-        const key = `${Math.floor(p.x / size)},${Math.floor(p.y / size)}`;
-        const list = bins.get(key) ?? [];
-        list.push(p);
-        bins.set(key, list);
+        const q = Math.floor(p.x / size), r = Math.floor(p.y / size);
+        minQ = Math.min(minQ, q - 1);
+        maxQ = Math.max(maxQ, q + 1);
+        minR = Math.min(minR, r - 1);
+        maxR = Math.max(maxR, r + 1);
     }
-    return (x, y) => { let best = Infinity; const q = Math.floor(x / size), r = Math.floor(y / size); for (let a = q - 1; a <= q + 1; a++)
-        for (let b = r - 1; b <= r + 1; b++)
-            for (const p of bins.get(`${a},${b}`) ?? [])
-                best = Math.min(best, (p.x - x) ** 2 + (p.y - y) ** 2); return Math.sqrt(best); };
+    const columns = maxQ - minQ + 1, rows = maxR - minR + 1, index = (q, r) => (r - minR) * columns + q - minQ;
+    const bins = Array.from({ length: columns * rows }, () => []);
+    for (const p of points)
+        bins[index(Math.floor(p.x / size), Math.floor(p.y / size))].push(p);
+    // Prepare each cell's original 3 x 3 search once. Pixel queries neither create
+    // string keys nor repeat nine Map lookups. Candidate order and distances are
+    // identical to the original raster; no visibility/feather approximation.
+    const nearby = Array.from({ length: columns * rows }, () => []);
+    for (let q = minQ; q <= maxQ; q++)
+        for (let r = minR; r <= maxR; r++) {
+            const list = nearby[index(q, r)];
+            for (let a = q - 1; a <= q + 1; a++)
+                for (let b = r - 1; b <= r + 1; b++)
+                    if (a >= minQ && a <= maxQ && b >= minR && b <= maxR)
+                        list.push(...bins[index(a, b)]);
+        }
+    return (x, y) => {
+        const q = Math.floor(x / size), r = Math.floor(y / size);
+        if (q < minQ || q > maxQ || r < minR || r > maxR)
+            return Infinity;
+        let best = Infinity;
+        for (const p of nearby[index(q, r)])
+            best = Math.min(best, (p.x - x) ** 2 + (p.y - y) ** 2);
+        return Math.sqrt(best);
+    };
 }
 let fogGround = null;
 /** One world-sized cache, bounded independently of number of viewers/actions. */
