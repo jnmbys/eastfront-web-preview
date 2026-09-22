@@ -20,6 +20,6 @@ test('production startup and SVG rendering use fixed visual seed independently o
  assert(main.includes('createFreshProductionSession(productionMap)'));
  assert(main.includes('scenarioSeed: TERRAIN_VISUAL_SEED'));
  assert(main.includes('createFreshProductionSession(map, TERRAIN_VISUAL_SEED)'));
- assert(main.includes('buildCachedTerrainSurface(terrainModel, TERRAIN_VISUAL_SEED,'));
+ assert(main.includes('buildCachedTerrainSurface(staticModel, TERRAIN_VISUAL_SEED,'));
  assert(!main.includes('session.state.random.seed'));
 });

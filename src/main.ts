@@ -1,3 +1,4 @@
+import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import {NetworkPlayerSession} from './multiplayer/networkSession.js';
 import type {LobbyClient} from './multiplayer/client.js';
 import {mt} from './multiplayer/catalog.js';
@@ -38,6 +39,8 @@ import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGestur
 
 const rootElement=document.querySelector<HTMLElement>('#app');if(!rootElement)throw new Error('#app missing');const root=rootElement;
 const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:PlayerSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'MULTIPLAYER'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
+let terrainPipeline:ProgressiveTerrain<CachedTerrainSurface>|null=null;
+let terrainBoot:Promise<void>|null=null;
 function esc(value:string):string{return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));}
 let deploymentTouch=createDeploymentTouch();
 let forceNetworkRender=false;
@@ -48,6 +51,8 @@ unitAnimations.setReducedMotion(reducedMotion.matches);
 const updateReducedMotion=()=>{unitAnimations.setReducedMotion(reducedMotion.matches);if(reducedMotion.matches)fogSurface.settle();};
 reducedMotion.addEventListener('change',updateReducedMotion);
 window.addEventListener('pagehide',()=>{unitAnimations.skip();});
+window.addEventListener('pagehide',()=>{terrainPipeline?.pause();terrainZoomObserver?.disconnect();terrainZoomWrap=null;});
+window.addEventListener('pageshow',()=>{if(appStatus==='PLAYING'||appStatus==='LOADING')terrainPipeline?.resume();});
 window.addEventListener('pagehide',()=>releaseMapViewport());
 window.addEventListener('pagehide',()=>fogSurface.settle());
 function syncFogSurface():void{
@@ -140,8 +145,8 @@ function viewerSwitch(model:BrowserRenderModel):string{if(!presentation.debug)re
 function privacyGate():string{const gate=presentation.privacyGate;if(!gate)return '';if(gate==='COMBAT_DECISION'){const owner=(session?sessionPlayerView(session).pendingDecision:null)?.decisionOwnerControllerId??'';const side=owner&&session&&sessionPlayerView(session).pendingDecision?.side==='SOVIET'?'Soviet':'German';return privacyHandoffMarkup(gate,side);}return privacyHandoffMarkup(gate);}
 function gameOver(model:BrowserRenderModel):string{return gameOverMarkup(model.victory.winner,model.victory.reason,model.turn);}
 
-function startNewGame():void{deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
-function restartGame():void{if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
+function startNewGame():void{terrainPipeline?.resume();terrainPipeline?.continueAll();deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
+function restartGame():void{if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
   const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
@@ -200,8 +205,11 @@ function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):Core
   const lod=lodOverride??selectTerrainLod(screenHexWidth);
   const rendererMode=developerUi?presentation.rendererMode:'production';return {debug:developerUi&&presentation.debug,rendererMode,assetSet:'p5',lod,scenarioSeed:TERRAIN_VISUAL_SEED,staticTerrainSurface:rendererMode==='production'};
 }
+let terrainZoomObserver:MutationObserver|null=null;let terrainZoomWrap:HTMLElement|null=null;
 function mountCachedTerrainSurface():void{
-  if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;cachedTerrainSurface=cachedTerrainSurfaces.get(svg.dataset.lod as TerrainLod)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);
+  if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;const usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));const requested=selectTerrainLod(usableWidth*((Math.sqrt(3)*HEX_SIZE)/cachedTerrainSurface.viewBox.width)*mapViewport.zoom);terrainPipeline?.prioritize(requested);cachedTerrainSurface=terrainPipeline?.best(requested)??cachedTerrainSurfaces.get(requested)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.style.transform=svg.style.transform;canvas.style.transformOrigin='50% 50%';canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);
+  if(terrainZoomWrap!==wrap&&typeof MutationObserver!=='undefined'){terrainZoomObserver?.disconnect();terrainZoomWrap=wrap;terrainZoomObserver=new MutationObserver(()=>mountCachedTerrainSurface());terrainZoomObserver.observe(wrap,{attributes:true,attributeFilter:['data-zoom']});}
+  updateTerrainDetailStatus();
 }
 function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
   return `<div class="command-panel-scroll">${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
@@ -249,11 +257,6 @@ function render():void{
   if(appStatus==='HOME'){
     if(!cachedTerrainSurface){root.innerHTML=homeMarkup(profile);bind();return;}
     const markup=homeMarkup(profile);
-    if(startupProgress.snapshot.stage!=='ready'){
-      // All caches and home markup are ready. Paint the real 100% once before home.
-      startupProgress.finish();
-      requestAnimationFrame(()=>requestAnimationFrame(render));return;
-    }
     root.innerHTML=markup;bind();return;
   }
   if(!session){appStatus='FATAL';fatalMessage=msg('game.noSession');root.innerHTML=fatalMarkup(fatalMessage);bind();return;}
@@ -261,7 +264,7 @@ function render():void{
   if(isNetwork(session))session.requestProjection(presentation);
   const model=deriveBrowserRenderModel(session,presentation);if(model.phase==='GAME_OVER'||model.victory.winner){root.innerHTML=mobileAdvisoryMarkup(profile)+gameOver(model);bind();return;}
   const debugControls=developerUi?`<div class="developer-controls"><button id="renderer-toggle" class="debug-toggle production-toggle ${presentation.rendererMode==='production'?'on':''}">${presentation.rendererMode==='production'?'Production':'Prototype'}</button><button id="debug-toggle" class="debug-toggle ${presentation.debug?'on':''}" aria-pressed="${presentation.debug}">Debug Geometry <strong>${presentation.debug?'ON':'OFF'}</strong></button></div>`:'';
-  root.innerHTML=`${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.viewerSide]??'—'}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.viewerSide]??'—'}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${isNetwork(session)?mt('leave'):t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed?'panel-collapsed':'panel-open'} ${presentation.debug?'debug-active':''}" data-responsive-profile="${profile}"><section class="map-card ${isNetwork(session)?'network-map-card':''}"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer',{side:model.playerView.viewer==='OBSERVER'?t('fow.observer'):sideLabel(model.viewerSide),phase:phaseLabel(model.phase)})}</span></div><div class="map-controls">${modelControls(unitAnimations)}${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom*100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}</div></div>${isNetwork(session)?'<p id="network-match-status" class="network-match-status" role="status"></p>':''}<div id="map-wrap" class="map-wrap ${presentation.debug?'debug-on':''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model,mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;dynamicMap.adopt(document.querySelector<SVGGElement>('#map-dynamic-layer'),model,mapRenderOptions(model));mountCachedTerrainSurface();bind();paintDeploymentFocus(model);updateNetworkStatus();
+  root.innerHTML=`${mobileAdvisoryMarkup(profile)}<header class="topbar"><div class="brand"><span class="brand-mark">E</span><div><strong>EASTFRONT</strong><span>${t('game.preview')} · v${WEB_PREVIEW_VERSION}</span></div></div><div class="turn-strip command-hud">${commandHeader(model)}</div><div class="resource-strip">${languageControl()}<span>${t('resource.cp')} <strong>${model.cp[model.viewerSide]??'—'}</strong></span><span>${t('resource.rp')} <strong>${model.rp[model.viewerSide]??'—'}</strong></span><button id="restart-button" class="menu-button" type="button" title="${t('game.restartTitle')}">${isNetwork(session)?mt('leave'):t('game.newGame')}</button><button id="panel-toggle" class="menu-button" aria-expanded="${!presentation.panelCollapsed}">${t('game.panel')}</button></div></header><main class="workspace ${presentation.panelCollapsed?'panel-collapsed':'panel-open'} ${presentation.debug?'debug-active':''}" data-responsive-profile="${profile}"><section class="map-card ${isNetwork(session)?'network-map-card':''}"><div class="map-toolbar"><div><strong>${t('map.title')}</strong><span>${t('map.viewer',{side:model.playerView.viewer==='OBSERVER'?t('fow.observer'):sideLabel(model.viewerSide),phase:phaseLabel(model.phase)})}</span></div><div class="map-controls">${modelControls(unitAnimations)}${animationControls(unitAnimations)}<div class="zoom-controls" aria-label="${t('map.zoomControls')}"><button id="zoom-out" class="map-control-button" type="button" aria-label="${t('map.zoomOut')}">−</button><span id="zoom-readout">${Math.round(mapViewport.zoom*100)}%</span><button id="zoom-in" class="map-control-button" type="button" aria-label="${t('map.zoomIn')}">+</button><button id="zoom-reset" class="map-control-button fit-button" type="button" aria-label="${t('map.fitLabel')}">${t('map.fit')}</button></div>${debugControls}<span id="terrain-detail-status" role="status"></span><button id="terrain-detail-retry" class="mini-button" type="button" hidden>${t('startup.retryDetails')}</button></div></div>${isNetwork(session)?'<p id="network-match-status" class="network-match-status" role="status"></p>':''}<div id="map-wrap" class="map-wrap ${presentation.debug?'debug-on':''}" aria-label="${t('map.eastfront')}">${coreSvgMarkup(model,mapRenderOptions(model))}</div></section><aside id="side-panel" data-viewer-controller-id="${model.viewerControllerId}" class="side-panel" aria-hidden="${presentation.panelCollapsed}">${sidePanelMarkup(model)}</aside></main><footer><span>${t('campaign.name')}</span><span>${t('game.command')}</span></footer>`;dynamicMap.adopt(document.querySelector<SVGGElement>('#map-dynamic-layer'),model,mapRenderOptions(model));mountCachedTerrainSurface();bind();paintDeploymentFocus(model);updateNetworkStatus();
 }
 function bind():void{
   releaseMapViewport();
@@ -272,8 +275,9 @@ function bind():void{
   document.querySelector('#animation-skip')?.addEventListener('click',()=>fogSurface.settle());
   document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
   bindLanguageControl(root,()=>{forceNetworkRender=true;render();});
+  document.querySelector('#terrain-detail-retry')?.addEventListener('click',()=>{terrainPipeline?.retry();updateTerrainDetailStatus();});
   if(appStatus==='HOME')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
-  document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)requestAnimationFrame(()=>requestAnimationFrame(startNewGame));});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
+  document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(!session)return;
   document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
@@ -389,12 +393,27 @@ async function enterNetworkMatch(client:LobbyClient):Promise<void> {
     refreshDynamicView();
   });
   session=network;
+  terrainPipeline?.resume();
   if(!cachedTerrainSurface)await boot(network.renderModel());
   if(!cachedTerrainSurface){network.dispose();return;}
-  session=network;appStatus='PLAYING';presentation.privacyGate=null;render();
+  if(session!==network){network.dispose();return;}
+  session=network;appStatus='PLAYING';presentation.privacyGate=null;render();terrainPipeline?.continueAll();
 }
 
+function updateTerrainDetailStatus():void {
+  const label=document.querySelector<HTMLElement>('#terrain-detail-status'),retry=document.querySelector<HTMLButtonElement>('#terrain-detail-retry');
+  if(!label||!terrainPipeline)return;
+  const failed=terrainPipeline.failures.size>0,completed=terrainPipeline.ready.size;
+  label.textContent=failed?t('startup.detailsFailed'):completed<3?t('startup.detailsPending',{completed,total:3}):'';
+  label.dataset.completed=String(completed);label.dataset.failed=String(failed);
+  if(retry)retry.hidden=!failed;
+}
 async function boot(networkModel?:BrowserRenderModel):Promise<void>{
+  if(terrainBoot)return terrainBoot;
+  terrainBoot=prepareTerrain(networkModel);
+  try{await terrainBoot;}finally{terrainBoot=null;}
+}
+async function prepareTerrain(networkModel?:BrowserRenderModel):Promise<void>{
   appStatus='LOADING';render();
   const stopObserving=observeTerrainLoad(startupProgress.observe);
   let phase='manifest/map';
@@ -403,22 +422,32 @@ async function boot(networkModel?:BrowserRenderModel):Promise<void>{
     productionMap=map;startupProgress.complete('resources');
     phase='static-terrain-surface';
     const terrainModel=networkModel??deriveBrowserRenderModel(createFreshProductionSession(map,TERRAIN_VISUAL_SEED),createPresentationState(false,false));
+    // Retain static geometry only: never keep a PlayerView, controller, units or knowledge in the terrain task.
+    const staticModel={hexes:terrainModel.hexes.map(({coord,terrain})=>({coord:{...coord},terrain})),
+      edges:terrainModel.edges.map(({key,a,b,road,railway,river,bridge})=>({key,a:{...a},b:{...b},road,railway,river,bridge}))} as BrowserRenderModel;
     const vs2=await loadVS2TerrainSurfaceHooks();
     startupProgress.complete('model');startupProgress.building();
-    for(const lod of ['far','medium','close'] as const){
-      cachedTerrainSurface=await buildCachedTerrainSurface(terrainModel,TERRAIN_VISUAL_SEED,'p5',lod,vs2.worldBase);
-      cachedTerrainSurfaces.set(lod,cachedTerrainSurface);startupProgress.complete(lod);
-    }
-    cachedTerrainSurface=cachedTerrainSurfaces.get('medium')!;
-    console.info('EASTFRONT cached terrain surface ready',cachedTerrainSurface.stats);
-    appStatus='HOME';session=null;render();
+    const pipeline=new ProgressiveTerrain<CachedTerrainSurface>(
+      (lod,control)=>buildCachedTerrainSurface(staticModel,TERRAIN_VISUAL_SEED,'p5',lod,vs2.worldBaseFor(control)),
+      lod=>{
+        if(terrainPipeline!==pipeline)return;
+        const surface=pipeline.ready.get(lod);
+        if(surface){cachedTerrainSurfaces.set(lod,surface);startupProgress.complete(lod);}
+        if(pipeline.ready.size===3){startupProgress.finish();stopObserving();}
+        if(pipeline.failures.size)stopObserving();
+        if(appStatus==='PLAYING'){mountCachedTerrainSurface();applyMapViewport();updateTerrainDetailStatus();}
+      },surface=>{surface.canvas.width=0;surface.canvas.height=0;});
+    terrainPipeline=pipeline;
+    cachedTerrainSurface=await pipeline.request(mapRenderOptions(terrainModel).lod??'far');
+    console.info('EASTFRONT first terrain surface ready',cachedTerrainSurface.stats);
+    appStatus='HOME';render();
   }catch(error){
-    startupProgress.fail();
+    stopObserving();startupProgress.fail();terrainPipeline?.dispose();terrainPipeline=null;
     const detail=phase==='static-terrain-surface'?formatTerrainSurfaceFailure(error):(error instanceof Error?`${error.name}: ${error.message}`:String(error));
     const diagnostic={phase,detail,capabilities:terrainSurfaceCapabilities()};
     console.error('EASTFRONT startup failed',diagnostic,error);
     appStatus='FATAL';fatalMessage=msg('game.resourceFailure',{detail});render();
-  }finally{stopObserving();}
+  }
 }
 window.addEventListener('resize',()=>{if(appStatus==='HOME'||appStatus==='PLAYING')render();});
 // Lobby and HOME need no terrain/session. Local play retains the full Startup Loading UX1 path.
@@ -427,5 +456,5 @@ appStatus='HOME';render();
 // Lazy world-surface hook; the existing boot-time cache and image loader remain in use.
 export async function loadVS2TerrainSurfaceHooks() {
   const { createVS2TerrainSurfaceHooks } = await import('./render/vs2TerrainSurface.js');
-  return createVS2TerrainSurfaceHooks();
+  return {worldBaseFor:(control:import('./render/terrainWork.js').TerrainWorkControl)=>createVS2TerrainSurfaceHooks(undefined,control).worldBase};
 }

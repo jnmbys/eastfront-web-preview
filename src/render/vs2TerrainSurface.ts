@@ -1,12 +1,13 @@
+import { runTerrainWork, type TerrainWorkControl } from './terrainWork.js';
 import { reportTerrainLoad } from './terrainLoadProgress.js';
 import { paintVS2Infrastructure } from './vs2Infrastructure.js';
-import { paintVS2PlainTraces, paintVS2MarshReeds, paintVS2RiverbankDetails } from './vs2PlainTraces.js';
+import { planVS2DetailDraws } from './vs2PlainTraces.js';
 import { paintVS2Forest } from './vs2ForestSurface.js';
 import { VS2_PRESENTATION } from './vs2Presentation.js';
 import { loadTerrainImage, terrainSurfaceCapabilities, type TerrainWorldBaseLayer } from './terrainSurface.js';
 import { projectVS2Terrain } from './vs2Projection.js';
-import { planVS2CityClusters, planVS2CityBlocks, paintVS2CityMassing, planVS2CityCourts, paintVS2CityCourts } from './vs2CityClusters.js';
-import { rasterizeVS2WorldSurface, VS2_WORLD_MATERIAL_IDS, type VS2Texture } from './vs2WorldRaster.js';
+import { planVS2CityClustersAsync, planVS2CityBlocksAsync, paintVS2CityMassing, planVS2CityCourtsAsync, paintVS2CityCourts } from './vs2CityClusters.js';
+import { rasterizeVS2WorldSurfaceAsync, VS2_WORLD_MATERIAL_IDS, type VS2Texture } from './vs2WorldRaster.js';
 import { vs2AssetCatalog, type VS2AssetCatalog, type VS2AssetEntry } from './vs2Assets.js';
 
 export interface VS2TerrainAssetReference {
@@ -24,13 +25,13 @@ export interface VS2TerrainSurfaceHooks {
 }
 
 export function createVS2TerrainSurfaceHooks(
-  assets: VS2AssetCatalog = vs2AssetCatalog,
+  assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl,
 ): VS2TerrainSurfaceHooks {
   return {
     stage: 'production-world-surface',
     renderAvailable: true,
     assets,
-    worldBase: createVS2WorldBaseLayer(assets),
+    worldBase: createVS2WorldBaseLayer(assets, control),
     lookupAsset(id) {
       const entry = assets.byId(id);
       return entry ? { entry, url: assets.url(entry) } : undefined;
@@ -38,7 +39,7 @@ export function createVS2TerrainSurfaceHooks(
   };
 }
 
-export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalog): TerrainWorldBaseLayer {
+export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl): TerrainWorldBaseLayer {
   return {
     id: 'vs2-002-surface-integration',
     replacesCityMarkers: true,
@@ -65,25 +66,32 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
         } finally { image.release?.(); scratch.width = 0; scratch.height = 0; }
       }
       reportTerrainLoad({ kind: 'building' });
-      const projection = projectVS2Terrain(model, VS2_PRESENTATION[lod].pixelSize), bounds = projection.rasterBounds, pixelSize = projection.pixelSize;
-      const raster = rasterizeVS2WorldSurface(projection.field, textures, seed, bounds, pixelSize);
+      const projection = await runTerrainWork('projection', (function* () { return projectVS2Terrain(model, VS2_PRESENTATION[lod].pixelSize); })(), control), bounds = projection.rasterBounds, pixelSize = projection.pixelSize;
+      const raster = await rasterizeVS2WorldSurfaceAsync(projection.field, textures, seed, bounds, pixelSize, control);
       const surface = document.createElement('canvas');
       try {
         surface.width = raster.width; surface.height = raster.height;
         const pixels = surface.getContext('2d');
         if (!pixels) throw new Error('VS2 surface Canvas 2D unavailable');
-        const image = pixels.createImageData(raster.width, raster.height); image.data.set(raster.data); pixels.putImageData(image, 0, 0);
-        ctx.drawImage(surface, bounds.minX, bounds.minY, raster.width * pixelSize, raster.height * pixelSize);
+        await runTerrainWork('raster-canvas-write', (function* () {
+          for (let row = 0; row < raster.height; row += 32) {
+            const height = Math.min(32, raster.height - row), image = pixels.createImageData(raster.width, height);
+            image.data.set(raster.data.subarray(row * raster.width * 4, (row + height) * raster.width * 4));
+            pixels.putImageData(image, 0, row); yield;
+          }
+        })(), control);
+        const details=await planVS2DetailDraws(projection,seed,control);
+        await runTerrainWork('raster-canvas-compose', (function* () {
+          ctx.drawImage(surface, bounds.minX, bounds.minY, raster.width * pixelSize, raster.height * pixelSize);
+          details.paint(ctx);
+        })(), control);
       } finally { textures.clear(); surface.width = 0; surface.height = 0; }
-      paintVS2PlainTraces(ctx, projection, seed);
-      paintVS2MarshReeds(ctx, projection, seed);
-      paintVS2RiverbankDetails(ctx, projection, seed);
-      const forest = await paintVS2Forest(ctx, projection, seed, lod, assets);
+      const forest = await paintVS2Forest(ctx, projection, seed, lod, assets, control);
       // Stable city layout at every LOD. Far uses silhouettes of cached footprints,
       // without loading component images whose manifest disallows Far.
-      const placements = planVS2CityClusters(projection, seed, 'medium', assets);
-      const blocks = planVS2CityBlocks(projection, seed);
-      paintVS2CityCourts(ctx, planVS2CityCourts(projection, blocks));
+      const placements = await planVS2CityClustersAsync(projection, seed, 'medium', assets, control);
+      const blocks = await planVS2CityBlocksAsync(projection, seed, control);
+      paintVS2CityCourts(ctx, await planVS2CityCourtsAsync(projection, blocks, control));
       if (VS2_PRESENTATION[lod].citySummary) {
         paintVS2CityMassing(ctx, blocks);
         return { imageDraws: 1 + forest.imageDraws, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + forest.uniqueAssets };

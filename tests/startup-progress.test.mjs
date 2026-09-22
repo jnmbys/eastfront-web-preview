@@ -1,3 +1,4 @@
+import { ProgressiveTerrain } from '../dist/app/render/progressiveTerrain.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -22,14 +23,14 @@ function bootHarness(overrides = {}) {
   const progress = new StartupProgress(), calls = [], frames = [], snapshots = [];
   progress.subscribe(s => snapshots.push(s));
   const root = { innerHTML: '' };
-  const context = { deploymentPanelRenderer:new DeploymentPanelRenderer(), isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
+  const context = { ProgressiveTerrain,terrainBoot:null,terrainPipeline:null,mapRenderOptions:()=>({lod:"far"}),document:{querySelector:()=>null},deploymentPanelRenderer:new DeploymentPanelRenderer(), isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
     productionMap: null, cachedTerrainSurface: null, cachedTerrainSurfaces: new Map(), TERRAIN_VISUAL_SEED: 17,
     loadProductionMapFromUrl: async () => { calls.push('map'); return { map: true }; },
     loadProductionRuntimeManifest: async () => { calls.push('manifest'); return {}; },
     createFreshProductionSession: (_map, seed) => { calls.push(`seed:${seed}`); return {}; },
-    createPresentationState: () => ({}), deriveBrowserRenderModel: () => ({}),
-    loadVS2TerrainSurfaceHooks: async () => { calls.push('hooks'); return {worldBase:{}}; },
-    buildCachedTerrainSurface: async (_model,_seed,_set,lod) => { calls.push(lod); return {lod,stats:{}}; },
+    createPresentationState: () => ({}), deriveBrowserRenderModel: () => ({hexes:[],edges:[]}),
+    loadVS2TerrainSurfaceHooks: async () => { calls.push('hooks'); return {worldBaseFor:()=>({})}; },
+    buildCachedTerrainSurface: async (_model,_seed,_set,lod) => { calls.push(lod); return {lod,stats:{},canvas:{}}; },
     console: {info(){},error(){}}, fatalMessage: '', formatTerrainSurfaceFailure: e => e.message,
     terrainSurfaceCapabilities: () => ({}), msg: (_key,{detail}) => detail, fatalMarkup, loadingMarkup,
     responsiveProfile, window: {innerWidth:1280,innerHeight:800}, homeMarkup: () => {calls.push('interface');return '<home/>';},
@@ -66,16 +67,18 @@ test('startup progress is monotonic across asset batches and LOD milestones', ()
   assert.equal(p.snapshot.completedSteps,p.snapshot.totalSteps);
 });
 
-test('100 percent is gated by all required caches and successfully prepared home markup', async () => {
-  const gate = deferred(), h = bootHarness({buildCachedTerrainSurface: async (_m,_s,_a,lod) => lod==='close'?gate.promise:{lod,stats:{}}});
-  const running = h.run();await new Promise(setImmediate);
+test('first usable LOD releases the loading gate but 100 percent requires every completed surface', async () => {
+  const gate = deferred(), h = bootHarness({buildCachedTerrainSurface: async (_m,_s,_a,lod) => lod==='close'?gate.promise:{lod,stats:{},canvas:{}}});
+  await h.run();assert.equal(h.context.cachedTerrainSurface.lod,'far');
+  assert.equal(h.root.innerHTML,'<home/>');assert.equal(h.context.appStatus,'HOME');
   h.progress.finish();assert.notEqual(h.progress.snapshot.stage,'ready');
   assert(!startupLoadingMarkup(h.progress.snapshot).includes('100%'));
-  gate.resolve({lod:'close',stats:{}});await running;
+  h.context.terrainPipeline.continueAll();
+  const close=h.context.terrainPipeline.request('close');
+  gate.resolve({lod:'close',stats:{},canvas:{}});await close;
+  await h.context.terrainPipeline.request('medium');
   assert.equal(h.progress.snapshot.stage,'ready');assert(h.calls.includes('interface'));
   assert(startupLoadingMarkup(h.progress.snapshot).includes('100%'));
-  assert.match(h.root.innerHTML,/data-preview-state="loading"/);
-  h.frames.shift()();h.frames.shift()();assert.equal(h.root.innerHTML,'<home/>');
 });
 
 test('startup failure retains fatal diagnostics and never emits success', async () => {
@@ -91,10 +94,11 @@ test('startup failure retains fatal diagnostics and never emits success', async 
   }
 });
 
-test('startup retains resource concurrency, LOD order, fixed terrain seed and cleanup', async () => {
+test('startup retains resource concurrency, current LOD priority, fixed seed and observer cleanup', async () => {
   const h=bootHarness();await h.run();
-  assert.deepEqual(h.calls.filter(x=>x!=='bind'),['map','manifest','seed:17','hooks','far','medium','close','interface']);
-  assert.equal(h.context.cachedTerrainSurface.lod,'medium');assert.equal(h.context.session,null);
+  assert.deepEqual(h.calls.filter(x=>x!=='bind'),['map','manifest','seed:17','hooks','far','interface']);
+  assert.equal(h.context.cachedTerrainSurface.lod,'far');assert.equal(h.context.session,null);
+  h.context.terrainPipeline.continueAll();await h.context.terrainPipeline.request('close');await h.context.terrainPipeline.request('medium');
   const before=h.progress.snapshot;reportTerrainLoad({kind:'asset-complete'});assert.equal(h.progress.snapshot,before);
   const failed=bootHarness({buildCachedTerrainSurface:async()=>{throw new Error('bad');}});await failed.run();
   const failedBefore=failed.progress.snapshot;reportTerrainLoad({kind:'assets',total:1});assert.equal(failed.progress.snapshot,failedBefore);
@@ -181,7 +185,7 @@ function withoutObservation(source) {
     .replace(/return reportLoadedTerrainImage\((await imageFromUrl\([^;]+?\))\);/g,'return $1;')
     .replace('return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});','return {source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()};');
 }
-test('recorded terrain loader checkpoint and VS2 semantics differ only by observation',()=>{
+test('recorded reviewed terrain startup checkpoint matches frozen source after removing observation',()=>{
   for(const [path,expected] of Object.entries(baseline).filter(([path])=>path.startsWith('src/render/'))) {
     assert.equal(createHash('sha256').update(withoutObservation(read(path))).digest('hex'),expected,path);
   }

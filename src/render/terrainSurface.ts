@@ -258,5 +258,5 @@ export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:nu
     else imageDraws+=await drawInfrastructure(ctx,cache,model,seed,lod,cats);
     canvas.setAttribute('aria-hidden','true');const stats={width:canvas.width,height:canvas.height,imageDraws,uniqueAssets:cache.urls.size+worldAssets,categories:planned.publicPlan.categories};canvas.dataset.buildCount=String(++terrainSurfaceBuildCount);canvas.dataset.categories=JSON.stringify(stats.categories);
     return {canvas,viewBox,seed,assetSet,lod,stats};
-  }catch(error){if(error instanceof TerrainSurfaceResourceError)throw error;throw new TerrainSurfaceResourceError('Terrain surface canvas draw failed',{stage:'canvas-draw',cause:errorText(error),capabilities:terrainSurfaceCapabilities()});}finally{cache.releaseAll();}
+  }catch(error){canvas.width=0;canvas.height=0;if(error instanceof TerrainSurfaceResourceError)throw error;throw new TerrainSurfaceResourceError('Terrain surface canvas draw failed',{stage:'canvas-draw',cause:errorText(error),capabilities:terrainSurfaceCapabilities()});}finally{cache.releaseAll();}
 }

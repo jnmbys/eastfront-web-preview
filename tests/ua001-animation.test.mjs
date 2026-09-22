@@ -216,7 +216,7 @@ test('UA001 frame work never writes non-unit SVG/canvas or rebuilds VS2 through 
  assert(staticNodes.every((el,i)=>el.writes===initialWrites[i]));
  const sources=readdirSync('src/presentation').filter(n=>n.endsWith('.ts')).map(n=>readFileSync(`src/presentation/${n}`,'utf8')).join('\n');
  assert.doesNotMatch(sources,/buildCachedTerrainSurface|createVS2TerrainSurfaceHooks|coreSvgMarkup|coreSvgDynamicMarkup|setTimeout|setInterval/);
- const main=readFileSync('src/main.ts','utf8');assert.equal((main.match(/await buildCachedTerrainSurface\(/g)??[]).length,1,'only boot loop builds cached surfaces');
+ const main=readFileSync('src/main.ts','utf8');assert.equal((main.match(/buildCachedTerrainSurface\(/g)??[]).length,1,'only the startup pipeline builder creates cached surfaces');
 });
 
 test('UA001 player animation controls are bilingual and operate without changing state',()=>{

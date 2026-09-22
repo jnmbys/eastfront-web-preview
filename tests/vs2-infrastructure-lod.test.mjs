@@ -158,9 +158,9 @@ test('D rail dominance is reduced within manifest limits and bridge decks preced
 
 test('D production mounts cached Far/Medium/Close surfaces without rebuilding on interaction', async () => {
   const main = await readFile(new URL('../src/main.ts', import.meta.url), 'utf8');
-  assert(main.includes("for(const lod of ['far','medium','close'] as const)"));
-  assert(main.includes('cachedTerrainSurfaces.set(lod,cachedTerrainSurface)'));
-  assert(main.includes('cachedTerrainSurfaces.get(svg.dataset.lod as TerrainLod)'));
+  assert(main.includes("new ProgressiveTerrain<CachedTerrainSurface>"));
+  assert(main.includes('cachedTerrainSurfaces.set(lod,surface)'));
+  assert(main.includes('terrainPipeline?.best(requested)'));
   assert(main.includes('if(previous&&previous!==canvas)previous.remove()'));
   assert.equal((main.match(/buildCachedTerrainSurface\(/g) ?? []).length, 1);
   assert(!main.slice(main.indexOf('function applyMapViewport'), main.indexOf('async function boot')).includes('buildCachedTerrainSurface('));

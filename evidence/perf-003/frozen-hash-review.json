@@ -1,0 +1,486 @@
+{
+  "baseline": "eb3a5e1216b7aea549b99dd000d9503d7dbd2ff4",
+  "reviewed": [
+    "src/main.ts",
+    "src/render/terrainSurface.ts",
+    "src/render/vs2TerrainSurface.ts",
+    "src/render/vs2WorldRaster.ts",
+    "src/render/vs2ForestSurface.ts",
+    "src/render/vs2CityClusters.ts",
+    "src/render/vs2PlainTraces.ts",
+    "src/localization/en-US.ts",
+    "src/localization/zh-CN.ts",
+    "tests/gameplay-seed.test.mjs",
+    "tests/startup-progress.test.mjs",
+    "tests/ua001-animation.test.mjs",
+    "tests/vs2-infrastructure-lod.test.mjs",
+    "tests/fixtures/startup-baseline-sha256.json",
+    "tests/fixtures/ua002-frozen-sha256.json",
+    "tests/fixtures/ua003-frozen-sha256.json"
+  ],
+  "updates": [
+    {
+      "manifest": "tests/fixtures/fow001-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/fow001-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow001-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow001-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow001-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow001-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/localization/en-US.ts",
+      "before": "602885f862874d01419b2f65f02cb9590a69e4667df31ece6fb0f8f8b2ae4ed5",
+      "after": "59462afc90334cc842bb845354d5272ca533efa47e180101fb6f0f85291cbdf2",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/localization/zh-CN.ts",
+      "before": "dc081e9e4b20f1079ffd1826eca497c53bc353d1407ca1b550a29e41d4960807",
+      "after": "b982584185aa68aa86ef5656b40faa58bf43feaac97b77ca013505b238626c8a",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/fow002-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/localization/en-US.ts",
+      "before": "602885f862874d01419b2f65f02cb9590a69e4667df31ece6fb0f8f8b2ae4ed5",
+      "after": "59462afc90334cc842bb845354d5272ca533efa47e180101fb6f0f85291cbdf2",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/localization/zh-CN.ts",
+      "before": "dc081e9e4b20f1079ffd1826eca497c53bc353d1407ca1b550a29e41d4960807",
+      "after": "b982584185aa68aa86ef5656b40faa58bf43feaac97b77ca013505b238626c8a",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/performance-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/startup-baseline-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "690441f75649758535fd3cc658950e58eedd0f086fc8db0f7ecac4b5346c7905",
+      "after": "89f734384d9695ea5db5abfa1c46c077575f97bb7fd4b8ce8a812b17cc2de38d",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/startup-baseline-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4b5bc0a0e9d67da62421a86d0d9cc8bb567b4f871863af2558d28b511ce1c384",
+      "after": "c60ca50709693db0bb07498b290926390c642e6507b3f40de9dedaf3331c67c8",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/startup-baseline-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "b36e64ecf15f6ec706334f0ca8d5ca669f4189ac7f596e29042e7a7006ee73e1",
+      "after": "459e2d271ba60814de4f80502baca747a826cdbce16fc77a47cef9ff1aed2424",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/startup-baseline-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/localization/en-US.ts",
+      "before": "602885f862874d01419b2f65f02cb9590a69e4667df31ece6fb0f8f8b2ae4ed5",
+      "after": "59462afc90334cc842bb845354d5272ca533efa47e180101fb6f0f85291cbdf2",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/localization/zh-CN.ts",
+      "before": "dc081e9e4b20f1079ffd1826eca497c53bc353d1407ca1b550a29e41d4960807",
+      "after": "b982584185aa68aa86ef5656b40faa58bf43feaac97b77ca013505b238626c8a",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/main.ts",
+      "before": "c72347453b8feb48a82b0510c95b0a5673c1055ab328d023c75d0fb679621259",
+      "after": "34381249c5b3b53dda897a0ef90e16c1cd13a73a2a06dd9541397f2ca4d3ca19",
+      "reason": "Progressive static surface startup and lifecycle; camera operation blocks byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua002-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/localization/en-US.ts",
+      "before": "602885f862874d01419b2f65f02cb9590a69e4667df31ece6fb0f8f8b2ae4ed5",
+      "after": "59462afc90334cc842bb845354d5272ca533efa47e180101fb6f0f85291cbdf2",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/localization/zh-CN.ts",
+      "before": "dc081e9e4b20f1079ffd1826eca497c53bc353d1407ca1b550a29e41d4960807",
+      "after": "b982584185aa68aa86ef5656b40faa58bf43feaac97b77ca013505b238626c8a",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/main.ts",
+      "before": "c72347453b8feb48a82b0510c95b0a5673c1055ab328d023c75d0fb679621259",
+      "after": "34381249c5b3b53dda897a0ef90e16c1cd13a73a2a06dd9541397f2ca4d3ca19",
+      "reason": "Progressive static surface startup and lifecycle; camera operation blocks byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r3-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r3-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r3-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r3-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r3-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r3-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/localization/en-US.ts",
+      "before": "602885f862874d01419b2f65f02cb9590a69e4667df31ece6fb0f8f8b2ae4ed5",
+      "after": "59462afc90334cc842bb845354d5272ca533efa47e180101fb6f0f85291cbdf2",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/localization/zh-CN.ts",
+      "before": "dc081e9e4b20f1079ffd1826eca497c53bc353d1407ca1b550a29e41d4960807",
+      "after": "b982584185aa68aa86ef5656b40faa58bf43feaac97b77ca013505b238626c8a",
+      "reason": "Progressive terrain status/retry text only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/main.ts",
+      "before": "c72347453b8feb48a82b0510c95b0a5673c1055ab328d023c75d0fb679621259",
+      "after": "34381249c5b3b53dda897a0ef90e16c1cd13a73a2a06dd9541397f2ca4d3ca19",
+      "reason": "Progressive static surface startup and lifecycle; camera operation blocks byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/render/terrainSurface.ts",
+      "before": "a20fda82bc1b415acf697dd80802135f332facc693e90e87eaa40bd317882235",
+      "after": "1455102a83b9389453621547743250dbb01983e6edbfdabfe43733763409aee9",
+      "reason": "Release failed/cancelled final Canvas; image-loading prefix byte-identical"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/render/vs2CityClusters.ts",
+      "before": "1eaddb28da2c872316b3b5640900fbfc032bb8da469860c316a03324fa27ad32",
+      "after": "3a4d9a11d16aba2ccc8845b428deb55ef4fb77e3b4709c835dadfa1811fd71b1",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/render/vs2ForestSurface.ts",
+      "before": "66b1ff411ea3558813a81982434b8e8673edc4f35cc3170226245d8979c5f045",
+      "after": "6f74376da2268e84031bc7693b28c792c0e3da86683f94524d991e42e04e3518",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/render/vs2PlainTraces.ts",
+      "before": "9268f097b6591e3cd562eba3d7c74d8fc4ee5c619776a4200e4d0d12243797a6",
+      "after": "0cf6e3621e2fb08cca87c7723ffa6d6c00452bcfbd861f5ac01423509c9b03c4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/render/vs2TerrainSurface.ts",
+      "before": "4d26c703ad7007a7f2da102641b1c1c92eb12d285501e833c7b28a818f9515b2",
+      "after": "8b8a8904b2e11aad7112a738275d18eb816978215ebc59daa2be79be97a11829",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "src/render/vs2WorldRaster.ts",
+      "before": "5622814edf8c97922bf6e6e044b1f9526c809f572cb606b966f4ff9eb479873c",
+      "after": "803e709dccb202c97452b447cd6261b8a5f83cbf6aadccbb79cc9936b036f0f4",
+      "reason": "Cooperative deterministic raster/forest/city computation"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/fixtures/startup-baseline-sha256.json",
+      "before": "e0ca0420f6c399723faf08006fe5801d67a0f9bd2d541cc60b3fd9d73cf39df6",
+      "after": "4e7ea55dd279401894930705bc301a742425afe3eb17ed082c1bdae4492ad201",
+      "reason": "Reviewed manifest dependency only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/fixtures/ua002-frozen-sha256.json",
+      "before": "711ba8f1285368742d9b4c25af982dd0bf3406ea1a926499457e0ebc94b43735",
+      "after": "a35ea1af226cba177006af5b7262e24e78a423234f0391e5d5ffcd3807145ff6",
+      "reason": "Reviewed manifest dependency only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/fixtures/ua003-frozen-sha256.json",
+      "before": "f55f8ae794670fa91cf6d21c1344192113ec6447053ed1467bbe89af77f1668b",
+      "after": "013a0033a9def744c9d0ce23a4b05fbddf7538da9b3b6a440a9d6f146802f42b",
+      "reason": "Reviewed manifest dependency only"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/gameplay-seed.test.mjs",
+      "before": "9113cd1f5f9dc7424eada078fa8a6983a29c37a380968028c542f04e413cd4bf",
+      "after": "374c1a48f8abdef9209c64696b2059419a2829ea538e08862cca0225cbc58fc0",
+      "reason": "Progressive gate/model-name/single-builder test adaptation; assertions retained"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/startup-progress.test.mjs",
+      "before": "253a967b94cdb6ef78c0ecfe35caae41c56e4e4edd245b844a1de890e8b9aac1",
+      "after": "62089ce618f2c505f549e2a2ed63c86949dd2b23b9aaf3777f9ce318f16e3bb1",
+      "reason": "Progressive gate/model-name/single-builder test adaptation; assertions retained"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/ua001-animation.test.mjs",
+      "before": "ac07e5609c9d8a3fa77bfabfcdd8f1f88d70a82665fee534b91afb021b10211f",
+      "after": "5e1328615fa2fdf079412b22641736f80602309209d92bea319ce43a448ebc92",
+      "reason": "Progressive gate/model-name/single-builder test adaptation; assertions retained"
+    },
+    {
+      "manifest": "tests/fixtures/ua003r1-frozen-sha256.json",
+      "path": "tests/vs2-infrastructure-lod.test.mjs",
+      "before": "4c359dbb7d7710651be6b0f84ea0072e34000c2e70f516af5107bb95092a1f79",
+      "after": "13772ab3b104698f1ac726493dbc6ddfdbd33f23433dc0b143d0b2aefd302cdf",
+      "reason": "Progressive gate/model-name/single-builder test adaptation; assertions retained"
+    }
+  ],
+  "canvasReplay": "Decorative computation is chunked into a bounded command buffer; the original Canvas call sequence replays atomically to preserve exact pixels"
+}

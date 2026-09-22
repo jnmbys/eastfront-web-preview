@@ -1,15 +1,20 @@
+import { recordTerrainDraws } from './terrainDrawCommands.js';
+import { finishTerrainWork, runTerrainWork, type TerrainWorkControl } from './terrainWork.js';
 import { vs2MarshEnvironment } from './vs2TerrainDetail.js';
 import type { VS2TerrainProjection } from './vs2Projection.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
 import { VS2_WORLD_H, vs2VisualValue, vs2WorldNoise } from './vs2WorldField.js';
 
 /** Agricultural traces, not traversable roads or scenario features. Fixed world lattice. */
-export function paintVS2PlainTraces(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) {
+function* paintVS2PlainTracesWork(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) {
+  let batch = 0;
   const step = VS2_WORLD_H * 0.85, bounds = p.viewBox;
   ctx.save();
   try {
     for (let iy = Math.floor(bounds.minY / step); iy < (bounds.minY + bounds.height) / step; iy++) {
+      if (++batch % 64 === 0) yield;
       for (let ix = Math.floor(bounds.minX / step); ix < (bounds.minX + bounds.width) / step; ix++) {
+      if (++batch % 64 === 0) yield;
         const r = (tag: string) => vs2VisualValue(seed, `F-fields:${tag}`, ix, iy);
         const cultivated = vs2WorldNoise(seed, 'F1-cultivation-region', ix * step, iy * step, VS2_WORLD_H * 3);
         if (r('presence') < 0.24 + cultivated * 0.3) continue;
@@ -24,14 +29,16 @@ export function paintVS2PlainTraces(ctx: CanvasRenderingContext2D, p: VS2Terrain
         ctx.fillRect(-w / 2, -h / 2, w, h);
         ctx.globalAlpha = 0.20; ctx.strokeStyle = '#677442'; ctx.lineWidth = 0.6;
         ctx.beginPath();
-        for (let dy = -h / 2 + 2; dy < h / 2; dy += 3) { ctx.moveTo(-w / 2 + 1, dy); ctx.lineTo(w / 2 - 1, dy); }
+        for (let dy = -h / 2 + 2; dy < h / 2; dy += 3) {
+      if (++batch % 64 === 0) yield; ctx.moveTo(-w / 2 + 1, dy); ctx.lineTo(w / 2 - 1, dy); }
         ctx.stroke();
         // Broken field boundary, not a new traversable path.
         ctx.globalAlpha = 0.34; ctx.strokeStyle = '#847148'; ctx.lineWidth = 0.55;
         ctx.beginPath(); ctx.moveTo(-w / 2, -h / 2 + 2); ctx.lineTo(-w / 2, h / 2 - 2); ctx.stroke();
         if (r('fence') > 0.68) {
           ctx.beginPath();
-          for (let dy = -h / 2 + 3; dy < h / 2 - 1; dy += 6) { ctx.moveTo(-w / 2 - 0.6, dy); ctx.lineTo(-w / 2 + 0.6, dy - 1.7); }
+          for (let dy = -h / 2 + 3; dy < h / 2 - 1; dy += 6) {
+      if (++batch % 64 === 0) yield; ctx.moveTo(-w / 2 - 0.6, dy); ctx.lineTo(-w / 2 + 0.6, dy - 1.7); }
           ctx.stroke();
         }
         if (r('farm') > 0.955) {
@@ -46,13 +53,16 @@ export function paintVS2PlainTraces(ctx: CanvasRenderingContext2D, p: VS2Terrain
 }
 
 /** Sparse reed tufts give marsh a land/water identity distinct from the lake fill. */
-export function paintVS2MarshReeds(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) {
+function* paintVS2MarshReedsWork(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) {
+  let batch = 0;
   const step = 13, b = p.viewBox;
   ctx.save();
   try {
     ctx.strokeStyle = '#8f8745'; ctx.lineWidth = 0.85; ctx.globalAlpha = 0.65;
     for (let iy = Math.floor(b.minY / step); iy < (b.minY + b.height) / step; iy++) {
+      if (++batch % 64 === 0) yield;
       for (let ix = Math.floor(b.minX / step); ix < (b.minX + b.width) / step; ix++) {
+      if (++batch % 64 === 0) yield;
         const r = vs2VisualValue(seed, 'F-reeds', ix, iy);
         const x = (ix + r) * step, y = (iy + r * 0.7) * step;
         const marshWeight = p.field.sample(x, y).weights[4]!;
@@ -64,7 +74,8 @@ export function paintVS2MarshReeds(ctx: CanvasRenderingContext2D, p: VS2TerrainP
         ctx.beginPath(); ctx.ellipse(x, y, 3.8 + r * 2, 1.8, -0.3, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = environment.mud > 0.5 ? '#777349' : '#92914f';
         ctx.globalAlpha = 0.45 + marshWeight * 0.27; ctx.beginPath();
-        for (const dx of [-1.5, 0, 1.5]) { ctx.moveTo(x, y); ctx.lineTo(x + dx, y - 2.2 - r * 2); }
+        for (const dx of [-1.5, 0, 1.5]) {
+      if (++batch % 64 === 0) yield; ctx.moveTo(x, y); ctx.lineTo(x + dx, y - 2.2 - r * 2); }
         ctx.stroke();
       }
     }
@@ -73,13 +84,16 @@ export function paintVS2MarshReeds(ctx: CanvasRenderingContext2D, p: VS2TerrainP
 
 /** Small riparian vegetation groups follow actual river segments, avoiding all transport.
  * This pass is below infrastructure, so it cannot cover water, rails or bridge decks. */
-export function paintVS2RiverbankDetails(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) {
+function* paintVS2RiverbankDetailsWork(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) {
+  let batch = 0;
   const rivers = p.corridors.filter(e => e.kind === 'river'), transport = p.corridors.filter(e => e.kind !== 'river');
   ctx.save();
   try {
     for (const e of rivers) {
+      if (++batch % 64 === 0) yield;
       const dx = e.b.x - e.a.x, dy = e.b.y - e.a.y, length = Math.hypot(dx, dy);
       for (let i = 0; i < 2; i++) for (const side of [-1, 1]) {
+      if (++batch % 64 === 0) yield;
         const r = vs2VisualValue(seed, `F1-bank:${e.key}:${side}`, i, 0);
         const band = vs2WorldNoise(seed, 'F1-riparian-regions', e.a.x, e.a.y, VS2_WORLD_H * 2);
         if (r < 0.28 + band * 0.45) continue;
@@ -90,6 +104,7 @@ export function paintVS2RiverbankDetails(ctx: CanvasRenderingContext2D, p: VS2Te
         if (rivers.some(c => vs2SegmentDistance({ x, y }, c.a, c.b) < c.radius + 4)) continue;
         ctx.globalAlpha = 0.34; ctx.fillStyle = '#867653'; ctx.beginPath(); ctx.ellipse(x, y, 4, 2.3, Math.atan2(dy, dx), 0, Math.PI * 2); ctx.fill();
         for (let j = 0; j < (r > 0.75 ? 3 : 2); j++) {
+      if (++batch % 64 === 0) yield;
           const bx = x + (j - 1) * 1.9, by = y - (j % 2) * 1.1;
           ctx.globalAlpha = 0.7; ctx.fillStyle = j % 2 ? '#6f8747' : '#497351'; ctx.beginPath(); ctx.ellipse(bx, by, 1.9, 1.3, 0, 0, Math.PI * 2); ctx.fill();
           ctx.globalAlpha = 0.55; ctx.fillStyle = '#a5ae66'; ctx.beginPath(); ctx.ellipse(bx - 0.4, by - 0.4, 1.1, 0.5, 0, 0, Math.PI * 2); ctx.fill();
@@ -97,4 +112,19 @@ export function paintVS2RiverbankDetails(ctx: CanvasRenderingContext2D, p: VS2Te
       }
     }
   } finally { ctx.restore(); }
+}
+
+export function paintVS2PlainTraces(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) { return finishTerrainWork(paintVS2PlainTracesWork(ctx, p, seed)); }
+export function paintVS2MarshReeds(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) { return finishTerrainWork(paintVS2MarshReedsWork(ctx, p, seed)); }
+export function paintVS2RiverbankDetails(ctx: CanvasRenderingContext2D, p: VS2TerrainProjection, seed: number) { return finishTerrainWork(paintVS2RiverbankDetailsWork(ctx, p, seed)); }
+
+/** Compute the exact existing draw stream cooperatively, then replay it once. */
+export async function planVS2DetailDraws(projection: VS2TerrainProjection, seed: number, control?: TerrainWorkControl) {
+  const draws=recordTerrainDraws();
+  await runTerrainWork('terrain-details-plan',(function*(){
+    yield* paintVS2PlainTracesWork(draws.context,projection,seed);
+    yield* paintVS2MarshReedsWork(draws.context,projection,seed);
+    yield* paintVS2RiverbankDetailsWork(draws.context,projection,seed);
+  })(),control);
+  return draws;
 }

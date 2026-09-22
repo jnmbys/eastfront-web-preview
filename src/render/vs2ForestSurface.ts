@@ -1,3 +1,4 @@
+import { runTerrainWork, type TerrainWorkControl } from './terrainWork.js';
 import { reportTerrainLoad } from './terrainLoadProgress.js';
 import type { VS2TerrainProjection } from './vs2Projection.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
@@ -43,7 +44,7 @@ export function createVS2ForestCoverage(projection: VS2TerrainProjection) {
     return coverage;
   };
 }
-export async function paintVS2Forest(ctx: CanvasRenderingContext2D, projection: VS2TerrainProjection, seed: number, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog) {
+export async function paintVS2Forest(ctx: CanvasRenderingContext2D, projection: VS2TerrainProjection, seed: number, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl) {
   const plan = planVS2Forest(projection, seed, assets);
   if (!plan.length) return { imageDraws: 0, uniqueAssets: 0 };
   const bounds = projection.rasterBounds, pixel = projection.pixelSize, layer = document.createElement('canvas');
@@ -62,9 +63,14 @@ export async function paintVS2Forest(ctx: CanvasRenderingContext2D, projection: 
       } finally { image.release?.(); }
     }
     reportTerrainLoad({ kind: 'building' });
-    const image = target.getImageData(0, 0, layer.width, layer.height), coverage = createVS2ForestCoverage(projection);
-    for (let y = 0; y < layer.height; y++) for (let x = 0; x < layer.width; x++) {
-      const i = (y * layer.width + x) * 4 + 3;
+    const coverage = createVS2ForestCoverage(projection);
+    await runTerrainWork('forest-coverage-canvas', (function* () {
+      // Read/write complete stripes without scaling; the finished canopy is composed once.
+      for (let row = 0; row < layer.height; row += 32) {
+        const height = Math.min(32, layer.height - row), image = target!.getImageData(0, row, layer.width, height);
+    for (let y = row; y < row + height; y++) for (let x = 0; x < layer.width; x++) {
+      if (x % 64 === 0) yield;
+      const i = ((y - row) * layer.width + x) * 4 + 3;
       if (image.data[i]) {
         image.data[i] = image.data[i]! * coverage(bounds.minX + (x + 0.5) * pixel, bounds.minY + (y + 0.5) * pixel);
         // Broad woodland warmth varies through the continuous crown layer, not per Hex.
@@ -76,8 +82,12 @@ export async function paintVS2Forest(ctx: CanvasRenderingContext2D, projection: 
         image.data[i - 1] = image.data[i - 1]! * (0.78 + warmth * 0.08);
       }
     }
-    target.putImageData(image, 0, 0);
-    ctx.drawImage(layer, bounds.minX, bounds.minY, bounds.width, bounds.height);
+        target!.putImageData(image, 0, row); yield;
+      }
+    })(), control);
+    await runTerrainWork('forest-canvas-compose', (function* () {
+      ctx.drawImage(layer, bounds.minX, bounds.minY, bounds.width, bounds.height);
+    })(), control);
   } finally { layer.width = 0; layer.height = 0; }
   return { imageDraws: plan.length + 1, uniqueAssets: ids.length };
 }

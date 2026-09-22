@@ -21,6 +21,9 @@ export const enUS = {
   "fow.observer": "Observer View",
   "fow.inspection": "Read-only inspection view",
 
+  "startup.detailsPending": "Map ready · Terrain detail {completed}/{total}",
+  "startup.detailsFailed": "Some terrain detail could not finish",
+  "startup.retryDetails": "Retry terrain detail",
   "startup.progress": "Startup steps completed",
   "startup.steps": "Startup steps · {completed} / {total}",
   "startup.initializing": "Initializing game",
