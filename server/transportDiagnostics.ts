@@ -1,6 +1,6 @@
 import type {IncomingMessage,ServerResponse} from 'node:http';
 import type {WebSocket} from 'ws';
-import type {ServerMessage} from '../src/multiplayer/protocol.js';
+import type {WireServerMessage} from '../src/multiplayer/protocol.js';
 
 // Read-only transport evidence. No payloads, tokens, players, rooms or unit data.
 // Entries exist only for live sockets; detailed send timing is opt-in and bounded.
@@ -15,7 +15,7 @@ export class TransportDiagnostics {
   }
   remove(id:string):void {this.entries.delete(id);}
   active(id:string):boolean {return this.entries.get(id)?.observing===true;}
-  record(id:string,message:ServerMessage,bytes:number,serializeMs:number,compressRequested:boolean,bufferedBefore:number,sentAt:number):((error?:Error)=>void)|undefined {
+  record(id:string,message:WireServerMessage,bytes:number,serializeMs:number,compressRequested:boolean,bufferedBefore:number,sentAt:number):((error?:Error)=>void)|undefined {
     const entry=this.entries.get(id);if(!entry?.observing)return;
     const p=message.payload as unknown as Record<string,unknown>;
     const row:Record<string,unknown>={type:message.messageType,bytes,serializeMs,compressRequested,negotiated:entry.ws.extensions,bufferedBefore,sendAt:sentAt};

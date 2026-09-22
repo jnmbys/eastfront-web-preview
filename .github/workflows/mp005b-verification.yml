@@ -1,0 +1,26 @@
+name: MP005B backend compatibility gate
+on:
+  push:
+    branches: [source-main]
+    paths: ['src/multiplayer/snapshotCodec.ts', 'scripts/mp005b/public-check.mjs']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run server:build
+      - run: node scripts/mp005b/public-check.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mp005b-public-check
+          path: mp005b-public-check.json

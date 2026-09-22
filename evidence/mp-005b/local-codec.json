@@ -1,0 +1,2594 @@
+{
+  "environment": {
+    "node": "v24.19.0",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "transport": "none",
+    "rendering": "none",
+    "warmup": 2
+  },
+  "boundaries": [
+    "real production codec; new client forced-full vs compact",
+    "JSON bytes not WS frames",
+    "no network latency or browser application/paint measured"
+  ],
+  "summary": {
+    "SOVIET-deployment-waiting:snapshot-v2-inline-view": {
+      "bytes": {
+        "n": 32,
+        "min": 78416,
+        "median": 78419,
+        "max": 78419
+      },
+      "packStringifyMs": {
+        "n": 32,
+        "min": 0.2049,
+        "median": 0.2101,
+        "max": 0.3167
+      },
+      "parseMs": {
+        "n": 32,
+        "min": 0.4452,
+        "median": 0.4582,
+        "max": 0.5328
+      },
+      "validateRebuildMs": {
+        "n": 32,
+        "min": 2.0997,
+        "median": 2.1493,
+        "max": 2.9866
+      },
+      "totalClientMs": {
+        "n": 32,
+        "min": 2.5633,
+        "median": 2.6108,
+        "max": 3.5122
+      }
+    },
+    "SOVIET-deployment-waiting:snapshot-v1": {
+      "bytes": {
+        "n": 32,
+        "min": 225591,
+        "median": 225594,
+        "max": 225594
+      },
+      "packStringifyMs": {
+        "n": 32,
+        "min": 0.6211,
+        "median": 0.6443,
+        "max": 0.6889
+      },
+      "parseMs": {
+        "n": 32,
+        "min": 1.2532,
+        "median": 1.3013,
+        "max": 1.5601
+      },
+      "validateRebuildMs": {
+        "n": 32,
+        "min": 1.4571,
+        "median": 1.4999,
+        "max": 2.2374
+      },
+      "totalClientMs": {
+        "n": 32,
+        "min": 2.7183,
+        "median": 2.8043,
+        "max": 3.511
+      }
+    },
+    "SOVIET-deployment-actor:snapshot-v1": {
+      "bytes": {
+        "n": 32,
+        "min": 231622,
+        "median": 253095,
+        "max": 274339
+      },
+      "packStringifyMs": {
+        "n": 32,
+        "min": 0.6736,
+        "median": 0.7221,
+        "max": 0.8073
+      },
+      "parseMs": {
+        "n": 32,
+        "min": 1.3823,
+        "median": 1.4797,
+        "max": 2.2564
+      },
+      "validateRebuildMs": {
+        "n": 32,
+        "min": 1.5324,
+        "median": 1.7185,
+        "max": 2.6176
+      },
+      "totalClientMs": {
+        "n": 32,
+        "min": 2.9185,
+        "median": 3.2334,
+        "max": 4.0565
+      }
+    },
+    "SOVIET-deployment-actor:snapshot-v2-inline-view": {
+      "bytes": {
+        "n": 32,
+        "min": 83866,
+        "median": 96294.5,
+        "max": 108585
+      },
+      "packStringifyMs": {
+        "n": 32,
+        "min": 0.2233,
+        "median": 0.2549,
+        "max": 0.4773
+      },
+      "parseMs": {
+        "n": 32,
+        "min": 0.5248,
+        "median": 0.5839,
+        "max": 0.8355
+      },
+      "validateRebuildMs": {
+        "n": 32,
+        "min": 2.1753,
+        "median": 2.3702,
+        "max": 4.2645
+      },
+      "totalClientMs": {
+        "n": 32,
+        "min": 2.7348,
+        "median": 2.9575,
+        "max": 5.0805
+      }
+    },
+    "GERMAN-deployment-actor:snapshot-v2-inline-view": {
+      "bytes": {
+        "n": 26,
+        "min": 79219,
+        "median": 89190,
+        "max": 99173
+      },
+      "packStringifyMs": {
+        "n": 26,
+        "min": 0.2106,
+        "median": 0.2403,
+        "max": 0.3327
+      },
+      "parseMs": {
+        "n": 26,
+        "min": 0.4568,
+        "median": 0.5243,
+        "max": 0.6712
+      },
+      "validateRebuildMs": {
+        "n": 26,
+        "min": 2.1685,
+        "median": 2.2653,
+        "max": 3.0943
+      },
+      "totalClientMs": {
+        "n": 26,
+        "min": 2.6477,
+        "median": 2.7986,
+        "max": 3.645
+      }
+    },
+    "GERMAN-deployment-actor:snapshot-v1": {
+      "bytes": {
+        "n": 26,
+        "min": 226978,
+        "median": 244192,
+        "max": 261433
+      },
+      "packStringifyMs": {
+        "n": 26,
+        "min": 0.6288,
+        "median": 0.6973,
+        "max": 0.8346
+      },
+      "parseMs": {
+        "n": 26,
+        "min": 1.2835,
+        "median": 1.3713,
+        "max": 2.0616
+      },
+      "validateRebuildMs": {
+        "n": 26,
+        "min": 1.4855,
+        "median": 1.6293,
+        "max": 2.6999
+      },
+      "totalClientMs": {
+        "n": 26,
+        "min": 2.7972,
+        "median": 3.0227,
+        "max": 4.0468
+      }
+    },
+    "GERMAN-deployment-waiting:snapshot-v1": {
+      "bytes": {
+        "n": 26,
+        "min": 274339,
+        "median": 274339,
+        "max": 274339
+      },
+      "packStringifyMs": {
+        "n": 26,
+        "min": 0.7625,
+        "median": 0.7937,
+        "max": 0.8654
+      },
+      "parseMs": {
+        "n": 26,
+        "min": 1.5019,
+        "median": 1.5359,
+        "max": 1.6812
+      },
+      "validateRebuildMs": {
+        "n": 26,
+        "min": 1.7361,
+        "median": 1.7937,
+        "max": 2.6261
+      },
+      "totalClientMs": {
+        "n": 26,
+        "min": 3.2691,
+        "median": 3.3435,
+        "max": 4.2378
+      }
+    },
+    "GERMAN-deployment-waiting:snapshot-v2-inline-view": {
+      "bytes": {
+        "n": 26,
+        "min": 108585,
+        "median": 108585,
+        "max": 108585
+      },
+      "packStringifyMs": {
+        "n": 26,
+        "min": 0.2626,
+        "median": 0.2736,
+        "max": 0.3346
+      },
+      "parseMs": {
+        "n": 26,
+        "min": 0.6096,
+        "median": 0.634,
+        "max": 0.9163
+      },
+      "validateRebuildMs": {
+        "n": 26,
+        "min": 2.4042,
+        "median": 2.4452,
+        "max": 3.168
+      },
+      "totalClientMs": {
+        "n": 26,
+        "min": 3.028,
+        "median": 3.0922,
+        "max": 3.7992
+      }
+    }
+  },
+  "rows": [
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 1,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.20593099999859987,
+      "parseMs": 0.5201550000001589,
+      "validateRebuildMs": 2.1321889999999257,
+      "totalClientMs": 2.6523440000000846
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 1,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6375619999998889,
+      "parseMs": 1.3069840000007389,
+      "validateRebuildMs": 2.204046999999264,
+      "totalClientMs": 3.5110310000000027
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 1,
+      "format": "snapshot-v1",
+      "bytes": 231622,
+      "packStringifyMs": 0.677572999999029,
+      "parseMs": 1.4219260000008944,
+      "validateRebuildMs": 1.5556689999993978,
+      "totalClientMs": 2.977595000000292
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 1,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 83866,
+      "packStringifyMs": 0.2235369999998511,
+      "parseMs": 0.5247519999993528,
+      "validateRebuildMs": 2.24039300000004,
+      "totalClientMs": 2.765144999999393
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 2,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.2075539999987086,
+      "parseMs": 0.4495390000010957,
+      "validateRebuildMs": 2.11377100000027,
+      "totalClientMs": 2.5633100000013656
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 2,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6888899999994464,
+      "parseMs": 1.2922710000002553,
+      "validateRebuildMs": 1.4797639999997045,
+      "totalClientMs": 2.77203499999996
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 2,
+      "format": "snapshot-v1",
+      "bytes": 233029,
+      "packStringifyMs": 0.7229019999995216,
+      "parseMs": 1.3823069999998552,
+      "validateRebuildMs": 1.5361490000013873,
+      "totalClientMs": 2.9184560000012425
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 2,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 84679,
+      "packStringifyMs": 0.224328999998761,
+      "parseMs": 0.5294990000002144,
+      "validateRebuildMs": 2.205348999999842,
+      "totalClientMs": 2.7348480000000563
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 3,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.20522999999957392,
+      "parseMs": 0.4522130000004836,
+      "validateRebuildMs": 2.12911399999939,
+      "totalClientMs": 2.581326999999874
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 3,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6441220000015164,
+      "parseMs": 1.5601459999998042,
+      "validateRebuildMs": 1.5288579999996728,
+      "totalClientMs": 3.089003999999477
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 3,
+      "format": "snapshot-v1",
+      "bytes": 234404,
+      "packStringifyMs": 0.6817300000002433,
+      "parseMs": 1.4652919999989535,
+      "validateRebuildMs": 1.5892090000015742,
+      "totalClientMs": 3.0545010000005277
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 3,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 85476,
+      "packStringifyMs": 0.2232770000009623,
+      "parseMs": 0.5672759999997652,
+      "validateRebuildMs": 2.9846959999995306,
+      "totalClientMs": 3.551971999999296
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 4,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.2808740000000398,
+      "parseMs": 0.5009260000006179,
+      "validateRebuildMs": 2.109425000000556,
+      "totalClientMs": 2.610351000001174
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 4,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.673306999999113,
+      "parseMs": 1.3486960000009276,
+      "validateRebuildMs": 1.45708999999988,
+      "totalClientMs": 2.8057860000008077
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 4,
+      "format": "snapshot-v1",
+      "bytes": 235811,
+      "packStringifyMs": 0.8073289999992994,
+      "parseMs": 1.4147360000006302,
+      "validateRebuildMs": 1.562158000000636,
+      "totalClientMs": 2.9768940000012662
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 4,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 86289,
+      "packStringifyMs": 0.305501999999251,
+      "parseMs": 0.5453230000002804,
+      "validateRebuildMs": 2.2454500000003463,
+      "totalClientMs": 2.790773000000627
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 5,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.21353300000009767,
+      "parseMs": 0.4668050000000221,
+      "validateRebuildMs": 2.155865000000631,
+      "totalClientMs": 2.622670000000653
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 5,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6798570000009931,
+      "parseMs": 1.268184000000474,
+      "validateRebuildMs": 1.4742659999992611,
+      "totalClientMs": 2.742449999999735
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 5,
+      "format": "snapshot-v1",
+      "bytes": 237178,
+      "packStringifyMs": 0.7456349999993108,
+      "parseMs": 1.4101389999996172,
+      "validateRebuildMs": 1.532414000001154,
+      "totalClientMs": 2.942553000000771
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 5,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 87082,
+      "packStringifyMs": 0.2375979999997071,
+      "parseMs": 0.5826999999990221,
+      "validateRebuildMs": 2.175265000001673,
+      "totalClientMs": 2.757965000000695
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 6,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.20780300000114948,
+      "parseMs": 0.4647419999982958,
+      "validateRebuildMs": 2.122054000001299,
+      "totalClientMs": 2.5867959999995946
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 6,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6556999999993423,
+      "parseMs": 1.2669330000007903,
+      "validateRebuildMs": 1.486974999999802,
+      "totalClientMs": 2.7539080000005924
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 6,
+      "format": "snapshot-v1",
+      "bytes": 238576,
+      "packStringifyMs": 0.6780429999998887,
+      "parseMs": 2.2563570000002073,
+      "validateRebuildMs": 1.736802000001262,
+      "totalClientMs": 3.9931590000014694
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 6,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 87890,
+      "packStringifyMs": 0.23495499999989988,
+      "parseMs": 0.5647019999996701,
+      "validateRebuildMs": 2.226101000000199,
+      "totalClientMs": 2.790802999999869
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 7,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.20737300000109826,
+      "parseMs": 0.48605399999905785,
+      "validateRebuildMs": 2.0997299999999086,
+      "totalClientMs": 2.5857839999989665
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 7,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6872779999994236,
+      "parseMs": 1.29193000000123,
+      "validateRebuildMs": 1.466774999998961,
+      "totalClientMs": 2.758705000000191
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 7,
+      "format": "snapshot-v1",
+      "bytes": 239942,
+      "packStringifyMs": 0.6864060000007157,
+      "parseMs": 1.711353999999119,
+      "validateRebuildMs": 1.6890600000006089,
+      "totalClientMs": 3.400413999999728
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 7,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 88682,
+      "packStringifyMs": 0.23126899999988382,
+      "parseMs": 0.556509999998525,
+      "validateRebuildMs": 2.2764770000012504,
+      "totalClientMs": 2.8329869999997754
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 8,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78416,
+      "packStringifyMs": 0.2154949999985547,
+      "parseMs": 0.4511610000008659,
+      "validateRebuildMs": 2.1526300000004994,
+      "totalClientMs": 2.6037910000013653
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 8,
+      "format": "snapshot-v1",
+      "bytes": 225591,
+      "packStringifyMs": 0.6635019999994256,
+      "parseMs": 1.276307000000088,
+      "validateRebuildMs": 1.5452729999997246,
+      "totalClientMs": 2.8215799999998126
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 8,
+      "format": "snapshot-v1",
+      "bytes": 241371,
+      "packStringifyMs": 0.7212089999993623,
+      "parseMs": 1.3998130000018136,
+      "validateRebuildMs": 1.6100309999983438,
+      "totalClientMs": 3.0098440000001574
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 8,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 89508,
+      "packStringifyMs": 0.24180499999965832,
+      "parseMs": 0.5629000000008091,
+      "validateRebuildMs": 2.203005999999732,
+      "totalClientMs": 2.765906000000541
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 9,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78417,
+      "packStringifyMs": 0.207843000000139,
+      "parseMs": 0.4490989999994781,
+      "validateRebuildMs": 2.8829619999996794,
+      "totalClientMs": 3.3320609999991575
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 9,
+      "format": "snapshot-v1",
+      "bytes": 225592,
+      "packStringifyMs": 0.6424700000006851,
+      "parseMs": 1.3359770000006392,
+      "validateRebuildMs": 1.5069750000002387,
+      "totalClientMs": 2.842952000000878
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 9,
+      "format": "snapshot-v1",
+      "bytes": 242768,
+      "packStringifyMs": 0.679495999998835,
+      "parseMs": 1.4322920000013255,
+      "validateRebuildMs": 1.591562999999951,
+      "totalClientMs": 3.0238550000012765
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 9,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 90318,
+      "packStringifyMs": 0.23179999999956635,
+      "parseMs": 0.5446219999994355,
+      "validateRebuildMs": 2.2863520000009885,
+      "totalClientMs": 2.830974000000424
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 10,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2098359999999957,
+      "parseMs": 0.4456429999991087,
+      "validateRebuildMs": 2.2786210000012943,
+      "totalClientMs": 2.724264000000403
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 10,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6215480000009848,
+      "parseMs": 1.375646999998935,
+      "validateRebuildMs": 1.5115519999999378,
+      "totalClientMs": 2.8871989999988728
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 10,
+      "format": "snapshot-v1",
+      "bytes": 244171,
+      "packStringifyMs": 0.7212789999994129,
+      "parseMs": 1.3996829999996407,
+      "validateRebuildMs": 1.5838520000015706,
+      "totalClientMs": 2.9835350000012113
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 10,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 91130,
+      "packStringifyMs": 0.23367299999881652,
+      "parseMs": 0.5813880000005156,
+      "validateRebuildMs": 2.229105000000345,
+      "totalClientMs": 2.8104930000008608
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 11,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.20846500000152446,
+      "parseMs": 0.4654529999988881,
+      "validateRebuildMs": 2.1221540000005916,
+      "totalClientMs": 2.5876069999994797
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 11,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6248439999999391,
+      "parseMs": 1.2770479999999225,
+      "validateRebuildMs": 1.4889779999994062,
+      "totalClientMs": 2.7660259999993286
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 11,
+      "format": "snapshot-v1",
+      "bytes": 245539,
+      "packStringifyMs": 0.705614999998943,
+      "parseMs": 1.4038500000006024,
+      "validateRebuildMs": 2.4387619999997696,
+      "totalClientMs": 3.842612000000372
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 11,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 91923,
+      "packStringifyMs": 0.245401000000129,
+      "parseMs": 0.5780420000010054,
+      "validateRebuildMs": 2.2623359999997774,
+      "totalClientMs": 2.8403780000007828
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 12,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.21255100000053062,
+      "parseMs": 0.5274359999984881,
+      "validateRebuildMs": 2.1103560000010475,
+      "totalClientMs": 2.6377919999995356
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 12,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6436720000001515,
+      "parseMs": 1.384200000000419,
+      "validateRebuildMs": 1.4692479999994248,
+      "totalClientMs": 2.853447999999844
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 12,
+      "format": "snapshot-v1",
+      "bytes": 246939,
+      "packStringifyMs": 0.7342790000002424,
+      "parseMs": 1.4921720000002097,
+      "validateRebuildMs": 1.6583940000000439,
+      "totalClientMs": 3.1505660000002536
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 12,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 92732,
+      "packStringifyMs": 0.2752650000002177,
+      "parseMs": 0.5515830000003916,
+      "validateRebuildMs": 2.3963979999989533,
+      "totalClientMs": 2.947980999999345
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 13,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.21917100000064238,
+      "parseMs": 0.44995899999958056,
+      "validateRebuildMs": 2.1424349999997503,
+      "totalClientMs": 2.592393999999331
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 13,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6501120000011724,
+      "parseMs": 1.2651699999987613,
+      "validateRebuildMs": 1.5150069999999687,
+      "totalClientMs": 2.78017699999873
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 13,
+      "format": "snapshot-v1",
+      "bytes": 248292,
+      "packStringifyMs": 0.6736469999996189,
+      "parseMs": 1.433063000000402,
+      "validateRebuildMs": 1.6178129999989324,
+      "totalClientMs": 3.0508759999993345
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 13,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 93516,
+      "packStringifyMs": 0.243717999999717,
+      "parseMs": 0.5490390000013576,
+      "validateRebuildMs": 2.2572179999988293,
+      "totalClientMs": 2.806257000000187
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 14,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2175279999992199,
+      "parseMs": 0.4485870000007708,
+      "validateRebuildMs": 2.8797579999991285,
+      "totalClientMs": 3.3283449999998993
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 14,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6394449999988865,
+      "parseMs": 1.3438290000012785,
+      "validateRebuildMs": 1.4953379999988101,
+      "totalClientMs": 2.8391670000000886
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 14,
+      "format": "snapshot-v1",
+      "bytes": 249673,
+      "packStringifyMs": 0.6839830000008078,
+      "parseMs": 1.4729729999999108,
+      "validateRebuildMs": 1.964006000000154,
+      "totalClientMs": 3.436979000000065
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 14,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 94314,
+      "packStringifyMs": 0.38946799999939685,
+      "parseMs": 0.8355109999993147,
+      "validateRebuildMs": 4.211639000001014,
+      "totalClientMs": 5.047150000000329
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 15,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.31666799999948125,
+      "parseMs": 0.4542959999998857,
+      "validateRebuildMs": 2.1529200000004494,
+      "totalClientMs": 2.607216000000335
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 15,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6443930000004912,
+      "parseMs": 1.3117999999994936,
+      "validateRebuildMs": 1.5316430000002583,
+      "totalClientMs": 2.843442999999752
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 15,
+      "format": "snapshot-v1",
+      "bytes": 251026,
+      "packStringifyMs": 0.7002269999993587,
+      "parseMs": 1.476118000000497,
+      "validateRebuildMs": 1.6437719999994442,
+      "totalClientMs": 3.119889999999941
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 15,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 95098,
+      "packStringifyMs": 0.23984200000086275,
+      "parseMs": 0.5594750000000204,
+      "validateRebuildMs": 2.3436490000003687,
+      "totalClientMs": 2.903124000000389
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 16,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.21052699999927427,
+      "parseMs": 0.46162700000058976,
+      "validateRebuildMs": 2.14956600000005,
+      "totalClientMs": 2.6111930000006396
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 16,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6265459999995073,
+      "parseMs": 1.3075239999998303,
+      "validateRebuildMs": 1.4703200000003562,
+      "totalClientMs": 2.7778440000001865
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 16,
+      "format": "snapshot-v1",
+      "bytes": 252416,
+      "packStringifyMs": 0.7490710000001854,
+      "parseMs": 1.4388920000001235,
+      "validateRebuildMs": 2.617613000000347,
+      "totalClientMs": 4.05650500000047
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 16,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 95901,
+      "packStringifyMs": 0.24942600000031234,
+      "parseMs": 0.6352590000005875,
+      "validateRebuildMs": 2.2744739999998274,
+      "totalClientMs": 2.909733000000415
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 17,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.20535000000018044,
+      "parseMs": 0.5327639999995881,
+      "validateRebuildMs": 2.126030000001265,
+      "totalClientMs": 2.658794000000853
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 17,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6412579999996524,
+      "parseMs": 1.3094270000001416,
+      "validateRebuildMs": 1.5036500000005617,
+      "totalClientMs": 2.8130770000007033
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 17,
+      "format": "snapshot-v1",
+      "bytes": 253774,
+      "packStringifyMs": 0.6913640000002488,
+      "parseMs": 1.4801750000005995,
+      "validateRebuildMs": 2.3755759999985457,
+      "totalClientMs": 3.8557509999991453
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 17,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 96688,
+      "packStringifyMs": 0.44801600000027975,
+      "parseMs": 0.816052000000127,
+      "validateRebuildMs": 4.2644579999996495,
+      "totalClientMs": 5.0805099999997765
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 18,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.20827400000052876,
+      "parseMs": 0.45443599999998696,
+      "validateRebuildMs": 2.1666320000003907,
+      "totalClientMs": 2.6210680000003777
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 18,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6222600000000966,
+      "parseMs": 1.305620999999519,
+      "validateRebuildMs": 1.4969300000011572,
+      "totalClientMs": 2.802551000000676
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 18,
+      "format": "snapshot-v1",
+      "bytes": 255164,
+      "packStringifyMs": 0.716682000000219,
+      "parseMs": 1.4726229999996576,
+      "validateRebuildMs": 1.8833230000000185,
+      "totalClientMs": 3.355945999999676
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 18,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 97491,
+      "packStringifyMs": 0.259953000000678,
+      "parseMs": 0.6433209999995597,
+      "validateRebuildMs": 2.386463000000731,
+      "totalClientMs": 3.0297840000002907
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 19,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.22805499999958556,
+      "parseMs": 0.4538350000002538,
+      "validateRebuildMs": 2.8928969999997207,
+      "totalClientMs": 3.3467319999999745
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 19,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6406670000014856,
+      "parseMs": 1.266712999999072,
+      "validateRebuildMs": 1.5217570000004343,
+      "totalClientMs": 2.7884699999995064
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 19,
+      "format": "snapshot-v1",
+      "bytes": 256522,
+      "packStringifyMs": 0.7462059999998019,
+      "parseMs": 1.4536250000001019,
+      "validateRebuildMs": 1.6841720000011264,
+      "totalClientMs": 3.1377970000012283
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 19,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 98278,
+      "packStringifyMs": 0.2979800000011892,
+      "parseMs": 0.5747479999990901,
+      "validateRebuildMs": 2.358470999999554,
+      "totalClientMs": 2.933218999998644
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 20,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.21519500000067637,
+      "parseMs": 0.45371499999964726,
+      "validateRebuildMs": 2.1362349999999424,
+      "totalClientMs": 2.5899499999995896
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 20,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6372529999989638,
+      "parseMs": 1.3036080000001675,
+      "validateRebuildMs": 1.4991829999999027,
+      "totalClientMs": 2.80279100000007
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 20,
+      "format": "snapshot-v1",
+      "bytes": 257912,
+      "packStringifyMs": 0.715820999999778,
+      "parseMs": 1.4976710000009916,
+      "validateRebuildMs": 1.70036699999946,
+      "totalClientMs": 3.1980380000004516
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 20,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 99081,
+      "packStringifyMs": 0.24808399999892572,
+      "parseMs": 0.5851440000005823,
+      "validateRebuildMs": 2.3819060000005265,
+      "totalClientMs": 2.967050000001109
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 21,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2073629999995319,
+      "parseMs": 0.46463200000107463,
+      "validateRebuildMs": 2.1961259999989124,
+      "totalClientMs": 2.660757999999987
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 21,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6743880000012723,
+      "parseMs": 1.253151999999318,
+      "validateRebuildMs": 1.4651620000004186,
+      "totalClientMs": 2.7183139999997366
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 21,
+      "format": "snapshot-v1",
+      "bytes": 259270,
+      "packStringifyMs": 0.7787259999986418,
+      "parseMs": 1.4791730000015377,
+      "validateRebuildMs": 2.548927999998341,
+      "totalClientMs": 4.028100999999879
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 21,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 99868,
+      "packStringifyMs": 0.4773409999997966,
+      "parseMs": 0.5944770000005519,
+      "validateRebuildMs": 2.4534739999999147,
+      "totalClientMs": 3.0479510000004666
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 22,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2214350000012928,
+      "parseMs": 0.4511609999990469,
+      "validateRebuildMs": 2.165950000000521,
+      "totalClientMs": 2.617110999999568
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 22,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6210870000013529,
+      "parseMs": 1.3494179999997868,
+      "validateRebuildMs": 1.4598539999988134,
+      "totalClientMs": 2.8092719999986002
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 22,
+      "format": "snapshot-v1",
+      "bytes": 260660,
+      "packStringifyMs": 0.7129960000002029,
+      "parseMs": 1.487596000000849,
+      "validateRebuildMs": 1.6966709999996965,
+      "totalClientMs": 3.1842670000005455
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 22,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 100671,
+      "packStringifyMs": 0.2510390000006737,
+      "parseMs": 0.607958000000508,
+      "validateRebuildMs": 2.425541999999041,
+      "totalClientMs": 3.033499999999549
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 23,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2268019999992248,
+      "parseMs": 0.4474260000006325,
+      "validateRebuildMs": 2.157065999999759,
+      "totalClientMs": 2.6044920000003913
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 23,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6572919999998703,
+      "parseMs": 1.2544040000011591,
+      "validateRebuildMs": 1.5577119999998104,
+      "totalClientMs": 2.8121160000009695
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 23,
+      "format": "snapshot-v1",
+      "bytes": 262018,
+      "packStringifyMs": 0.7048639999993611,
+      "parseMs": 1.4929040000006353,
+      "validateRebuildMs": 1.7153490000000602,
+      "totalClientMs": 3.2082530000006955
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 23,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 101458,
+      "packStringifyMs": 0.25363300000026356,
+      "parseMs": 0.580205999998725,
+      "validateRebuildMs": 2.3400730000012118,
+      "totalClientMs": 2.920278999999937
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 24,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.21027800000047137,
+      "parseMs": 0.4633589999994001,
+      "validateRebuildMs": 2.69028199999957,
+      "totalClientMs": 3.15364099999897
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 24,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6324050000002899,
+      "parseMs": 1.3292959999998857,
+      "validateRebuildMs": 1.5147969999998168,
+      "totalClientMs": 2.8440929999997024
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 24,
+      "format": "snapshot-v1",
+      "bytes": 263408,
+      "packStringifyMs": 0.7426720000003115,
+      "parseMs": 1.5095280000005005,
+      "validateRebuildMs": 1.726526999998896,
+      "totalClientMs": 3.2360549999993964
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 24,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 102261,
+      "packStringifyMs": 0.2627360000005865,
+      "parseMs": 0.6047330000001239,
+      "validateRebuildMs": 2.4399539999994886,
+      "totalClientMs": 3.0446869999996125
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 25,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2048590000013064,
+      "parseMs": 0.514326999998957,
+      "validateRebuildMs": 2.3823670000001584,
+      "totalClientMs": 2.8966939999991155
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 25,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6673580000006041,
+      "parseMs": 1.2589609999995446,
+      "validateRebuildMs": 1.5006050000010873,
+      "totalClientMs": 2.759566000000632
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 25,
+      "format": "snapshot-v1",
+      "bytes": 264766,
+      "packStringifyMs": 0.7467569999989792,
+      "parseMs": 1.4935050000003685,
+      "validateRebuildMs": 1.737182999999277,
+      "totalClientMs": 3.2306879999996454
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 25,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 103048,
+      "packStringifyMs": 0.2560770000000048,
+      "parseMs": 0.6059050000003481,
+      "validateRebuildMs": 2.442156999999497,
+      "totalClientMs": 3.0480619999998453
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 26,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2069920000012644,
+      "parseMs": 0.4876669999994192,
+      "validateRebuildMs": 2.120811999999205,
+      "totalClientMs": 2.608478999998624
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 26,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6340880000007019,
+      "parseMs": 1.3093860000008135,
+      "validateRebuildMs": 1.4682269999993878,
+      "totalClientMs": 2.7776130000002013
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 26,
+      "format": "snapshot-v1",
+      "bytes": 266147,
+      "packStringifyMs": 0.7737579999993613,
+      "parseMs": 1.4846620000007533,
+      "validateRebuildMs": 2.519092999998975,
+      "totalClientMs": 4.003754999999728
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 26,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 103846,
+      "packStringifyMs": 0.26188600000023143,
+      "parseMs": 0.622228999998697,
+      "validateRebuildMs": 2.426973999999973,
+      "totalClientMs": 3.04920299999867
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 27,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.22592100000110804,
+      "parseMs": 0.44613399999980174,
+      "validateRebuildMs": 2.138638999998875,
+      "totalClientMs": 2.584772999998677
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 27,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.682120000001305,
+      "parseMs": 1.2642679999989923,
+      "validateRebuildMs": 1.5343869999996969,
+      "totalClientMs": 2.798654999998689
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 27,
+      "format": "snapshot-v1",
+      "bytes": 267500,
+      "packStringifyMs": 0.7795969999988301,
+      "parseMs": 1.4805650000016612,
+      "validateRebuildMs": 1.7564519999996264,
+      "totalClientMs": 3.2370170000012877
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 27,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 104630,
+      "packStringifyMs": 0.25943199999892386,
+      "parseMs": 0.649901000000682,
+      "validateRebuildMs": 2.3496670000004087,
+      "totalClientMs": 2.9995680000010907
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 28,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.20742299999983516,
+      "parseMs": 0.5124439999999595,
+      "validateRebuildMs": 2.1565150000005815,
+      "totalClientMs": 2.668959000000541
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 28,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6461359999993874,
+      "parseMs": 1.284389000000374,
+      "validateRebuildMs": 1.4814659999992728,
+      "totalClientMs": 2.7658549999996467
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 28,
+      "format": "snapshot-v1",
+      "bytes": 268896,
+      "packStringifyMs": 0.7761220000011235,
+      "parseMs": 1.5229789999993955,
+      "validateRebuildMs": 1.7215789999991102,
+      "totalClientMs": 3.2445579999985057
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 28,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 105437,
+      "packStringifyMs": 0.27638699999988603,
+      "parseMs": 0.5960700000014185,
+      "validateRebuildMs": 2.5883080000003247,
+      "totalClientMs": 3.184378000001743
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 29,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.20780399999966903,
+      "parseMs": 0.5255930000002991,
+      "validateRebuildMs": 2.986598999999842,
+      "totalClientMs": 3.512192000000141
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 29,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6304920000002312,
+      "parseMs": 1.2990010000012262,
+      "validateRebuildMs": 1.5117819999995845,
+      "totalClientMs": 2.8107830000008107
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 29,
+      "format": "snapshot-v1",
+      "bytes": 270264,
+      "packStringifyMs": 0.7981350000009115,
+      "parseMs": 1.485341999999946,
+      "validateRebuildMs": 1.7849249999999302,
+      "totalClientMs": 3.270266999999876
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 29,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 106230,
+      "packStringifyMs": 0.3156959999996616,
+      "parseMs": 0.6046329999990121,
+      "validateRebuildMs": 2.419193000001542,
+      "totalClientMs": 3.023826000000554
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 30,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2085449999995035,
+      "parseMs": 0.44518199999947683,
+      "validateRebuildMs": 2.1480929999997898,
+      "totalClientMs": 2.5932749999992666
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 30,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6473079999996116,
+      "parseMs": 1.3036279999996623,
+      "validateRebuildMs": 1.5090080000009038,
+      "totalClientMs": 2.812636000000566
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 30,
+      "format": "snapshot-v1",
+      "bytes": 271632,
+      "packStringifyMs": 0.7812200000007579,
+      "parseMs": 1.543770999998742,
+      "validateRebuildMs": 1.7895010000011098,
+      "totalClientMs": 3.3332719999998517
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 30,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 107020,
+      "packStringifyMs": 0.2696879999984958,
+      "parseMs": 0.6424189999997907,
+      "validateRebuildMs": 2.4274350000014238,
+      "totalClientMs": 3.0698540000012144
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 31,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.2319999999999709,
+      "parseMs": 0.45479599999998754,
+      "validateRebuildMs": 2.148975000000064,
+      "totalClientMs": 2.6037710000000516
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 31,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.6533060000001569,
+      "parseMs": 1.271549999999479,
+      "validateRebuildMs": 2.2374280000003637,
+      "totalClientMs": 3.5089779999998427
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 31,
+      "format": "snapshot-v1",
+      "bytes": 272972,
+      "packStringifyMs": 0.7710750000005646,
+      "parseMs": 1.526834999998755,
+      "validateRebuildMs": 1.8839440000010654,
+      "totalClientMs": 3.4107789999998204
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 31,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 107796,
+      "packStringifyMs": 0.2711190000009083,
+      "parseMs": 0.6316839999999502,
+      "validateRebuildMs": 2.439914000000499,
+      "totalClientMs": 3.0715980000004492
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 32,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 78419,
+      "packStringifyMs": 0.21068800000102783,
+      "parseMs": 0.4868050000004587,
+      "validateRebuildMs": 2.100080000000162,
+      "totalClientMs": 2.5868850000006205
+    },
+    {
+      "group": "SOVIET-deployment-waiting",
+      "revision": 32,
+      "format": "snapshot-v1",
+      "bytes": 225594,
+      "packStringifyMs": 0.680276999999478,
+      "parseMs": 1.2912300000007235,
+      "validateRebuildMs": 1.4599939999989147,
+      "totalClientMs": 2.751223999999638
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 32,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.786337999999887,
+      "parseMs": 1.597751999999673,
+      "validateRebuildMs": 1.756350999999995,
+      "totalClientMs": 3.354102999999668
+    },
+    {
+      "group": "SOVIET-deployment-actor",
+      "revision": 32,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2740539999995235,
+      "parseMs": 0.6368409999995492,
+      "validateRebuildMs": 2.556320000001506,
+      "totalClientMs": 3.193161000001055
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 34,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 79219,
+      "packStringifyMs": 0.21057800000016869,
+      "parseMs": 0.47742099999959464,
+      "validateRebuildMs": 2.1903870000005554,
+      "totalClientMs": 2.66780800000015
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 34,
+      "format": "snapshot-v1",
+      "bytes": 226978,
+      "packStringifyMs": 0.6508430000012595,
+      "parseMs": 1.2835379999996803,
+      "validateRebuildMs": 1.5829589999993914,
+      "totalClientMs": 2.8664969999990717
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 34,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7707740000005288,
+      "parseMs": 1.525642999999036,
+      "validateRebuildMs": 1.8066080000007787,
+      "totalClientMs": 3.3322509999998147
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 34,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2686759999996866,
+      "parseMs": 0.6311820000009902,
+      "validateRebuildMs": 3.1679929999991145,
+      "totalClientMs": 3.7991750000001048
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 35,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 80009,
+      "packStringifyMs": 0.21571600000061153,
+      "parseMs": 0.47921300000052724,
+      "validateRebuildMs": 2.1685039999993023,
+      "totalClientMs": 2.6477169999998296
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 35,
+      "format": "snapshot-v1",
+      "bytes": 228340,
+      "packStringifyMs": 0.628828999999314,
+      "parseMs": 1.311721000000034,
+      "validateRebuildMs": 1.4854730000006384,
+      "totalClientMs": 2.7971940000006725
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 35,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8211200000005192,
+      "parseMs": 1.5387430000009772,
+      "validateRebuildMs": 1.7360509999998612,
+      "totalClientMs": 3.2747940000008384
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 35,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.3263829999996233,
+      "parseMs": 0.6143969999993715,
+      "validateRebuildMs": 2.4389830000000075,
+      "totalClientMs": 3.053379999999379
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 36,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 80801,
+      "packStringifyMs": 0.21462400000018533,
+      "parseMs": 0.45675999999912165,
+      "validateRebuildMs": 2.1961759999994683,
+      "totalClientMs": 2.65293599999859
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 36,
+      "format": "snapshot-v1",
+      "bytes": 229710,
+      "packStringifyMs": 0.6323750000010477,
+      "parseMs": 1.285851000000548,
+      "validateRebuildMs": 1.5326639999984764,
+      "totalClientMs": 2.8185149999990244
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 36,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7770839999993768,
+      "parseMs": 1.5018870000003517,
+      "validateRebuildMs": 1.7908840000000055,
+      "totalClientMs": 3.292771000000357
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 36,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.26259699999900477,
+      "parseMs": 0.6192750000009255,
+      "validateRebuildMs": 2.417398999999932,
+      "totalClientMs": 3.0366740000008576
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 37,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 81610,
+      "packStringifyMs": 0.23275099999955273,
+      "parseMs": 0.6712339999994583,
+      "validateRebuildMs": 2.2951350000003004,
+      "totalClientMs": 2.9663689999997587
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 37,
+      "format": "snapshot-v1",
+      "bytes": 231108,
+      "packStringifyMs": 0.6434020000015153,
+      "parseMs": 1.3096169999989797,
+      "validateRebuildMs": 2.379753000001074,
+      "totalClientMs": 3.6893700000000536
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 37,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.857785000000149,
+      "parseMs": 1.5197639999987587,
+      "validateRebuildMs": 1.8211499999997613,
+      "totalClientMs": 3.34091399999852
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 37,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.3256710000005114,
+      "parseMs": 0.6145880000003672,
+      "validateRebuildMs": 2.451621999998679,
+      "totalClientMs": 3.066209999999046
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 38,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 82407,
+      "packStringifyMs": 0.2192510000004404,
+      "parseMs": 0.47121100000003935,
+      "validateRebuildMs": 2.220752999999604,
+      "totalClientMs": 2.6919639999996434
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 38,
+      "format": "snapshot-v1",
+      "bytes": 232482,
+      "packStringifyMs": 0.6379040000010718,
+      "parseMs": 1.3902589999997872,
+      "validateRebuildMs": 1.5211559999988822,
+      "totalClientMs": 2.9114149999986694
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 38,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7855360000012297,
+      "parseMs": 1.5506919999988895,
+      "validateRebuildMs": 1.754809000000023,
+      "totalClientMs": 3.3055009999989124
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 38,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2851100000007136,
+      "parseMs": 0.6120850000006612,
+      "validateRebuildMs": 2.4348659999996016,
+      "totalClientMs": 3.046951000000263
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 39,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 83212,
+      "packStringifyMs": 0.2211939999997412,
+      "parseMs": 0.46949900000072375,
+      "validateRebuildMs": 2.215425000000323,
+      "totalClientMs": 2.684924000001047
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 39,
+      "format": "snapshot-v1",
+      "bytes": 233873,
+      "packStringifyMs": 0.6577029999989463,
+      "parseMs": 1.3155970000007073,
+      "validateRebuildMs": 1.6144769999991695,
+      "totalClientMs": 2.930073999999877
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 39,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8427520000004733,
+      "parseMs": 1.5313919999989594,
+      "validateRebuildMs": 2.5839910000013333,
+      "totalClientMs": 4.115383000000293
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 39,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.334644999999,
+      "parseMs": 0.622350000001461,
+      "validateRebuildMs": 2.7773529999994935,
+      "totalClientMs": 3.3997030000009545
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 40,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 84005,
+      "packStringifyMs": 0.22301599999991595,
+      "parseMs": 0.5689889999994193,
+      "validateRebuildMs": 2.2313090000006923,
+      "totalClientMs": 2.8002980000001116
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 40,
+      "format": "snapshot-v1",
+      "bytes": 235240,
+      "packStringifyMs": 0.7029509999993024,
+      "parseMs": 1.3047200000000885,
+      "validateRebuildMs": 1.5955689999991591,
+      "totalClientMs": 2.9002889999992476
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 40,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7721660000006523,
+      "parseMs": 1.5637809999989258,
+      "validateRebuildMs": 1.8325569999997242,
+      "totalClientMs": 3.39633799999865
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 40,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.26990699999987555,
+      "parseMs": 0.6606579999988753,
+      "validateRebuildMs": 2.4042000000008557,
+      "totalClientMs": 3.064857999999731
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 41,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 84809,
+      "packStringifyMs": 0.22017300000152318,
+      "parseMs": 0.5343659999998636,
+      "validateRebuildMs": 2.207232999999178,
+      "totalClientMs": 2.7415989999990416
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 41,
+      "format": "snapshot-v1",
+      "bytes": 236630,
+      "packStringifyMs": 0.6691499999997177,
+      "parseMs": 1.3572690000000875,
+      "validateRebuildMs": 1.5793549999998504,
+      "totalClientMs": 2.936623999999938
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 41,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7955009999986942,
+      "parseMs": 1.5438910000011674,
+      "validateRebuildMs": 1.7950499999988097,
+      "totalClientMs": 3.338940999999977
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 41,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.26995700000043144,
+      "parseMs": 0.609560999999303,
+      "validateRebuildMs": 2.41845099999955,
+      "totalClientMs": 3.028011999998853
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 42,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 85599,
+      "packStringifyMs": 0.2393609999999171,
+      "parseMs": 0.4771810000002006,
+      "validateRebuildMs": 2.2048680000007153,
+      "totalClientMs": 2.682049000000916
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 42,
+      "format": "snapshot-v1",
+      "bytes": 237992,
+      "packStringifyMs": 0.6837219999997615,
+      "parseMs": 2.0616320000008272,
+      "validateRebuildMs": 1.6848939999999857,
+      "totalClientMs": 3.746526000000813
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 42,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7848750000011933,
+      "parseMs": 1.506253999999899,
+      "validateRebuildMs": 1.8066579999995156,
+      "totalClientMs": 3.3129119999994145
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 42,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2650500000017928,
+      "parseMs": 0.6301509999993868,
+      "validateRebuildMs": 2.4413860000004206,
+      "totalClientMs": 3.0715369999998074
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 43,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 86404,
+      "packStringifyMs": 0.2254400000001624,
+      "parseMs": 0.539995999999519,
+      "validateRebuildMs": 2.181313000000955,
+      "totalClientMs": 2.721309000000474
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 43,
+      "format": "snapshot-v1",
+      "bytes": 239383,
+      "packStringifyMs": 0.7195560000000114,
+      "parseMs": 1.3372490000001562,
+      "validateRebuildMs": 1.5745179999994434,
+      "totalClientMs": 2.9117669999995996
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 43,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8053859999999986,
+      "parseMs": 1.510179999999309,
+      "validateRebuildMs": 1.7608479999998963,
+      "totalClientMs": 3.2710279999992053
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 43,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.26948600000105216,
+      "parseMs": 0.650803000000451,
+      "validateRebuildMs": 2.7098409999998694,
+      "totalClientMs": 3.3606440000003204
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 44,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 87194,
+      "packStringifyMs": 0.23303200000009383,
+      "parseMs": 0.4872749999994994,
+      "validateRebuildMs": 2.254203000000416,
+      "totalClientMs": 2.7414779999999155
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 44,
+      "format": "snapshot-v1",
+      "bytes": 240745,
+      "packStringifyMs": 0.6743979999992007,
+      "parseMs": 1.368916999999783,
+      "validateRebuildMs": 1.563600999999835,
+      "totalClientMs": 2.932517999999618
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 44,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.796172000000297,
+      "parseMs": 1.611693999999261,
+      "validateRebuildMs": 2.626084000001356,
+      "totalClientMs": 4.237778000000617
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 44,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.28949699999975564,
+      "parseMs": 0.6134460000012041,
+      "validateRebuildMs": 2.4865539999991597,
+      "totalClientMs": 3.100000000000364
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 45,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 87998,
+      "packStringifyMs": 0.2311890000000858,
+      "parseMs": 0.49066100000163715,
+      "validateRebuildMs": 2.3008539999991626,
+      "totalClientMs": 2.7915150000007998
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 45,
+      "format": "snapshot-v1",
+      "bytes": 242135,
+      "packStringifyMs": 0.6782139999995707,
+      "parseMs": 1.3529519999992772,
+      "validateRebuildMs": 1.6148990000001504,
+      "totalClientMs": 2.9678509999994276
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 45,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8098529999988386,
+      "parseMs": 1.5330549999998766,
+      "validateRebuildMs": 1.8173230000011245,
+      "totalClientMs": 3.350378000001001
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 45,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2687560000013036,
+      "parseMs": 0.6369009999998525,
+      "validateRebuildMs": 2.4426879999991797,
+      "totalClientMs": 3.0795889999990322
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 46,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 88788,
+      "packStringifyMs": 0.24051300000064657,
+      "parseMs": 0.5323239999997895,
+      "validateRebuildMs": 2.2113090000002558,
+      "totalClientMs": 2.7436330000000453
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 46,
+      "format": "snapshot-v1",
+      "bytes": 243497,
+      "packStringifyMs": 0.7075580000000627,
+      "parseMs": 1.340212999999494,
+      "validateRebuildMs": 1.59221400000024,
+      "totalClientMs": 2.932426999999734
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 46,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7865170000004582,
+      "parseMs": 1.5218879999993078,
+      "validateRebuildMs": 1.7471669999995356,
+      "totalClientMs": 3.2690549999988434
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 46,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2661310000003141,
+      "parseMs": 0.6484090000012657,
+      "validateRebuildMs": 3.1203809999988152,
+      "totalClientMs": 3.768790000000081
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 47,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 89592,
+      "packStringifyMs": 0.24281599999994796,
+      "parseMs": 0.5809370000006311,
+      "validateRebuildMs": 2.2705189999996946,
+      "totalClientMs": 2.8514560000003257
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 47,
+      "format": "snapshot-v1",
+      "bytes": 244887,
+      "packStringifyMs": 0.8346099999998842,
+      "parseMs": 1.397320000000036,
+      "validateRebuildMs": 1.6738970000005793,
+      "totalClientMs": 3.0712170000006154
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 47,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7908539999989443,
+      "parseMs": 1.5743970000003173,
+      "validateRebuildMs": 1.783622999999352,
+      "totalClientMs": 3.3580199999996694
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 47,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2748649999994086,
+      "parseMs": 0.6431609999999637,
+      "validateRebuildMs": 2.4976910000004864,
+      "totalClientMs": 3.14085200000045
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 48,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 90382,
+      "packStringifyMs": 0.33272199999919394,
+      "parseMs": 0.497932000000219,
+      "validateRebuildMs": 2.369047000000137,
+      "totalClientMs": 2.866979000000356
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 48,
+      "format": "snapshot-v1",
+      "bytes": 246249,
+      "packStringifyMs": 0.7705829999995331,
+      "parseMs": 1.354033999999956,
+      "validateRebuildMs": 1.7030310000009194,
+      "totalClientMs": 3.0570650000008754
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 48,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8653570000005857,
+      "parseMs": 1.5186830000002374,
+      "validateRebuildMs": 1.7714039999991655,
+      "totalClientMs": 3.290086999999403
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 48,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.27202000000033877,
+      "parseMs": 0.6403669999999693,
+      "validateRebuildMs": 2.4585919999990438,
+      "totalClientMs": 3.098958999999013
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 49,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 91186,
+      "packStringifyMs": 0.3017950000012206,
+      "parseMs": 0.5018980000004376,
+      "validateRebuildMs": 2.246010999999271,
+      "totalClientMs": 2.7479089999997086
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 49,
+      "format": "snapshot-v1",
+      "bytes": 247639,
+      "packStringifyMs": 0.7411389999997482,
+      "parseMs": 1.3469230000009702,
+      "validateRebuildMs": 2.699925999999323,
+      "totalClientMs": 4.046849000000293
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 49,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8272090000009484,
+      "parseMs": 1.6811579999994137,
+      "validateRebuildMs": 1.7807790000006207,
+      "totalClientMs": 3.4619370000000345
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 49,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.31224099999963073,
+      "parseMs": 0.6392950000008568,
+      "validateRebuildMs": 2.455457000000024,
+      "totalClientMs": 3.094752000000881
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 50,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 91976,
+      "packStringifyMs": 0.2418550000002142,
+      "parseMs": 0.5369009999994887,
+      "validateRebuildMs": 2.2600820000006934,
+      "totalClientMs": 2.796983000000182
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 50,
+      "format": "snapshot-v1",
+      "bytes": 249001,
+      "packStringifyMs": 0.7309740000000602,
+      "parseMs": 1.3863930000006803,
+      "validateRebuildMs": 1.626033999998981,
+      "totalClientMs": 3.0124269999996613
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 50,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7892609999998967,
+      "parseMs": 1.5403260000002774,
+      "validateRebuildMs": 2.0109859999993205,
+      "totalClientMs": 3.551311999999598
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 50,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.27722800000083225,
+      "parseMs": 0.6605079999990267,
+      "validateRebuildMs": 2.5063940000000002,
+      "totalClientMs": 3.166901999999027
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 51,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 92773,
+      "packStringifyMs": 0.24284700000134762,
+      "parseMs": 0.5060339999999997,
+      "validateRebuildMs": 2.3171979999988253,
+      "totalClientMs": 2.823231999998825
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 51,
+      "format": "snapshot-v1",
+      "bytes": 250380,
+      "packStringifyMs": 0.6935869999997522,
+      "parseMs": 1.3882059999996272,
+      "validateRebuildMs": 1.6205970000009984,
+      "totalClientMs": 3.0088030000006256
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 51,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7973940000010771,
+      "parseMs": 1.5802260000000388,
+      "validateRebuildMs": 2.561297000000195,
+      "totalClientMs": 4.141523000000234
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 51,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.3030170000001817,
+      "parseMs": 0.619314999999915,
+      "validateRebuildMs": 2.492953999999372,
+      "totalClientMs": 3.112268999999287
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 52,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 93572,
+      "packStringifyMs": 0.25032699999974284,
+      "parseMs": 0.5290989999994054,
+      "validateRebuildMs": 2.342486999999892,
+      "totalClientMs": 2.871585999999297
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 52,
+      "format": "snapshot-v1",
+      "bytes": 251757,
+      "packStringifyMs": 0.7118950000003679,
+      "parseMs": 1.373623999999836,
+      "validateRebuildMs": 1.6996959999996761,
+      "totalClientMs": 3.073319999999512
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 52,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.791865000001053,
+      "parseMs": 1.5266449999999168,
+      "validateRebuildMs": 1.8453460000000632,
+      "totalClientMs": 3.37199099999998
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 52,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2666930000013963,
+      "parseMs": 0.6424599999991187,
+      "validateRebuildMs": 2.4477349999997386,
+      "totalClientMs": 3.0901949999988574
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 53,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 94385,
+      "packStringifyMs": 0.293402999999671,
+      "parseMs": 0.5111410000008618,
+      "validateRebuildMs": 2.36554199999955,
+      "totalClientMs": 2.876683000000412
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 53,
+      "format": "snapshot-v1",
+      "bytes": 253162,
+      "packStringifyMs": 0.6917239999984304,
+      "parseMs": 1.4004150000000664,
+      "validateRebuildMs": 1.6326550000012503,
+      "totalClientMs": 3.0330700000013167
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 53,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.813176999999996,
+      "parseMs": 1.5292190000000119,
+      "validateRebuildMs": 1.7553599999992002,
+      "totalClientMs": 3.284578999999212
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 53,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.30537100000037753,
+      "parseMs": 0.6136860000005981,
+      "validateRebuildMs": 2.425191000000268,
+      "totalClientMs": 3.0388770000008662
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 54,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 95184,
+      "packStringifyMs": 0.2450200000002951,
+      "parseMs": 0.5507120000002033,
+      "validateRebuildMs": 3.094332000000577,
+      "totalClientMs": 3.64504400000078
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 54,
+      "format": "snapshot-v1",
+      "bytes": 254539,
+      "packStringifyMs": 0.6995269999988523,
+      "parseMs": 1.488697000000684,
+      "validateRebuildMs": 1.6517039999998815,
+      "totalClientMs": 3.1404010000005655
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 54,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7642039999991539,
+      "parseMs": 1.6236810000009427,
+      "validateRebuildMs": 1.7409279999992577,
+      "totalClientMs": 3.3646090000002005
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 54,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.26399899999887566,
+      "parseMs": 0.6750590000010561,
+      "validateRebuildMs": 2.4192430000002787,
+      "totalClientMs": 3.094302000001335
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 55,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 95988,
+      "packStringifyMs": 0.24006200000076205,
+      "parseMs": 0.5386429999998654,
+      "validateRebuildMs": 2.3715809999994235,
+      "totalClientMs": 2.910223999999289
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 55,
+      "format": "snapshot-v1",
+      "bytes": 255930,
+      "packStringifyMs": 0.7099509999989095,
+      "parseMs": 1.3838599999999133,
+      "validateRebuildMs": 1.6935360000006767,
+      "totalClientMs": 3.07739600000059
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 55,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7888110000003508,
+      "parseMs": 1.5096790000006877,
+      "validateRebuildMs": 1.7613689999998314,
+      "totalClientMs": 3.271048000000519
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 55,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2880139999997482,
+      "parseMs": 0.6168319999997038,
+      "validateRebuildMs": 2.4390020000009827,
+      "totalClientMs": 3.0558340000006865
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 56,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 96778,
+      "packStringifyMs": 0.2436679999991611,
+      "parseMs": 0.5195149999999558,
+      "validateRebuildMs": 2.3244489999997313,
+      "totalClientMs": 2.843963999999687
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 56,
+      "format": "snapshot-v1",
+      "bytes": 257293,
+      "packStringifyMs": 0.6951690000005328,
+      "parseMs": 1.4049309999991237,
+      "validateRebuildMs": 2.407214999999269,
+      "totalClientMs": 3.8121459999983927
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 56,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8484210000005987,
+      "parseMs": 1.5239509999992151,
+      "validateRebuildMs": 1.7923260000006849,
+      "totalClientMs": 3.3162769999999
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 56,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.30099499999960244,
+      "parseMs": 0.916282999998657,
+      "validateRebuildMs": 2.4541860000008455,
+      "totalClientMs": 3.3704689999995026
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 57,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 97582,
+      "packStringifyMs": 0.25202100000024075,
+      "parseMs": 0.5582630000008066,
+      "validateRebuildMs": 2.307863999998517,
+      "totalClientMs": 2.8661269999993237
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 57,
+      "format": "snapshot-v1",
+      "bytes": 258684,
+      "packStringifyMs": 0.7759809999988647,
+      "parseMs": 1.421626000001197,
+      "validateRebuildMs": 1.8846959999991668,
+      "totalClientMs": 3.306322000000364
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 57,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.8322269999989658,
+      "parseMs": 1.6415180000003602,
+      "validateRebuildMs": 1.8337890000002517,
+      "totalClientMs": 3.475307000000612
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 57,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2713290000010602,
+      "parseMs": 0.641658999998981,
+      "validateRebuildMs": 2.4063029999997525,
+      "totalClientMs": 3.0479619999987335
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 58,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 98371,
+      "packStringifyMs": 0.2449799999994866,
+      "parseMs": 0.6008970000002591,
+      "validateRebuildMs": 2.351670000000013,
+      "totalClientMs": 2.952567000000272
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 58,
+      "format": "snapshot-v1",
+      "bytes": 260045,
+      "packStringifyMs": 0.7138180000001739,
+      "parseMs": 1.4656530000011116,
+      "validateRebuildMs": 1.6954299999997602,
+      "totalClientMs": 3.161083000000872
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 58,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7907139999988431,
+      "parseMs": 1.5827300000000832,
+      "validateRebuildMs": 2.495167000000947,
+      "totalClientMs": 4.07789700000103
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 58,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.27227099999981874,
+      "parseMs": 0.7262960000007297,
+      "validateRebuildMs": 2.4341850000000704,
+      "totalClientMs": 3.1604810000008
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 59,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 99173,
+      "packStringifyMs": 0.25276099999973667,
+      "parseMs": 0.5305009999992762,
+      "validateRebuildMs": 2.4088170000013633,
+      "totalClientMs": 2.9393180000006396
+    },
+    {
+      "group": "GERMAN-deployment-actor",
+      "revision": 59,
+      "format": "snapshot-v1",
+      "bytes": 261433,
+      "packStringifyMs": 0.7126759999991918,
+      "parseMs": 1.440494000000399,
+      "validateRebuildMs": 1.7057960000001913,
+      "totalClientMs": 3.1462900000005902
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 59,
+      "format": "snapshot-v1",
+      "bytes": 274339,
+      "packStringifyMs": 0.7625210000005609,
+      "parseMs": 1.5696399999997084,
+      "validateRebuildMs": 1.776401999999507,
+      "totalClientMs": 3.3460419999992155
+    },
+    {
+      "group": "GERMAN-deployment-waiting",
+      "revision": 59,
+      "format": "snapshot-v2-inline-view",
+      "bytes": 108585,
+      "packStringifyMs": 0.2783610000005865,
+      "parseMs": 0.6303609999995388,
+      "validateRebuildMs": 2.414425000000847,
+      "totalClientMs": 3.0447860000003857
+    }
+  ]
+}

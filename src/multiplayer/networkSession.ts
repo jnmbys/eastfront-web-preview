@@ -94,7 +94,7 @@ export class NetworkPlayerSession {
     if(next.model.deployment)this.presentation.selectedDeploymentUnitId=next.model.deployment.roster.find(u=>!u.placed)?.id??null;
   }
   private receive(m:ServerMessage|null):void {
-    if(!m){if(this.client.state.connection!=='CONNECTED'){this.flight=null;this.queued=null;this.submitting=false;this.syncing=true;this.forced=null;}this.onChange('status');return;}
+    if(!m){if(this.client.state.connection!=='CONNECTED'){this.flight=null;this.queued=null;this.submitting=false;this.syncing=true;this.forced=null;}this.onChange('status');this.flush();this.scheduleForced();return;}
     if(m.messageType==='ROOM_ERROR'){
       if(this.flight?.requestId===m.requestId){this.failedKey=this.flight.key;this.flight=null;}
       this.submitting=false;this.notice=this.client.state.error;this.onChange('query');this.flush();return;
@@ -139,7 +139,9 @@ export class NetworkPlayerSession {
       this.submitting=false;this.notice=m.payload.code==='STALE_REVISION'?'outdated':'actionRejected';
       if(m.payload.code==='STALE_REVISION'){this.resync();return;}this.onChange('query');
     }
-    this.flush();
+    this.flush();this.scheduleForced();
+  }
+  private scheduleForced():void {
     if(this.timer!==null)clearTimeout(this.timer);
     this.timer=setTimeout(()=>{this.timer=null;if(this.interactive&&this.forced&&!this.queued){const action=this.forced;this.forced=null;this.submit(action);}},0);
   }
