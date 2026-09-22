@@ -25,5 +25,7 @@ for version in ['before','final']:
  for mode in ['local','mp-actor','mp-waiter']:
   file=f'browser-{version}-{mode}'+('-v3' if version=='before' else '')+'.json'
   for group,part in [('initial',0),('complete',10)]:out[f'{version}:{mode}:{group}']=summarize(file,part)
+out['before:mp-actor:background']=summarize('browser-before-mp-background.json',0)
+out['before:mp-waiter:background']=summarize('browser-before-waiter-background.json',0)
 (root/'comparison.json').write_text(json.dumps(out,indent=2)+'\n')
 for k,v in out.items():print(k,'LOD',v['lodsBefore'],'refresh',v['main.js:refreshDynamicView']['time'],'task',v['confirmationTaskOrResponseTask'],'RTT',v['actionRTT'],'ACK-SNAPSHOT',v['ackToSnapshot'])

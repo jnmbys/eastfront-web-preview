@@ -33,3 +33,28 @@ Physical Safari/iPad: **PENDING**. This is real Chrome evidence, not an iPad per
 ## Remaining boundaries
 
 ACK→full-snapshot waiting remains outside this change. Friendly-occupied-hex move routing and combat dice display remain separate tasks. Nonzero style/layout/Fog/roster work remains; do not interpret publication as elimination of every possible long task. Terrain and model quality are unchanged.
+
+## Final real-browser results
+
+Each row contains 10 consecutive deployments per build. Times are milliseconds, median / maximum. All-LOD batches use units 11–20; background batches use units 1–10. Local background samples all began at 2/3 LOD; MP final first sample began at 1/3 and the remaining nine at 2/3, while the baseline background ten began at 2/3. Background jobs continued and reached 3/3; no scheduler or terrain code changed. Cloud host load and HTTP caching were not strictly controlled; no percentage or physical-device improvement claim is made.
+
+| Group | Refresh before | Refresh final | Apply-task maximum before → final |
+|---|---:|---:|---:|
+| Local / all LOD | 245.65 / 284.3 | 22.1 / 26 | 306 → 50 |
+| MP actor / all LOD | 317.9 / 344.3 | 25.85 / 71.3 | 348 → 85 |
+| MP waiter / all LOD | 13.85 / 58.1 | 13.65 / 16 | 61 → 0 |
+| Local / background LOD | 275.85 / 319.5 | 19.35 / 43.2 | 346 → 74 |
+| MP actor / background LOD | 305.35 / 468.7 | 29.9 / 35.4 | 476 → 0 |
+| MP waiter / background LOD | 14.8 / 38.8 | 11.1 / 15.6 | 0 → 0 |
+
+0 in the last column means no observed task ≥50 ms overlapping application, not zero execution time.
+
+The all-LOD local confirmation-to-application median/max changed from 267.4/305.3 to 41.1/49.8 ms. MP snapshot application changed from 320.15/345.8 to 27.1/75.9 ms; overall confirmation-to-application was 1601.15/1648.2 before and 1290.75/1385.7 after. MP action RTT stayed comparable (293.3/355.5 vs 276.95/320.3); ACK→snapshot remained 987.95/1035.2 vs 988.3/1027.9 ms. This wait is not fixed.
+
+Two-rAF proxies did not improve: local median 1383.4→1672.55 ms, MP actor 2419→2697.8 ms. These cloud scheduling proxies are explicitly not display latency. Broader request windows still contained other Long Tasks up to 417 ms (during waiting, outside the snapshot application interval); no layout/paint trace exists to attribute these. A final snapshot-application outlier still reached 85 ms. This is not a claim that all visible stutter is eliminated.
+
+`comparison.json` includes every measured nested stage, counts, early/late samples, frame-gap proxies, network intervals and both long-task scopes. The compressed `browser/*.json.gz` files contain the original per-deployment timings. Total synchronous refresh work is reduced; it is not moved into a deferred task. No async Fog or new render scheduling is introduced.
+
+Final observed ordinary deployment creates one Counter and one Presence model while reusing the prior models; Fog builds once when the observation changes, and the waiter has no hidden unit/Fog update. Deployment QUERY_MATCH and RESYNC_MATCH counts are zero in the recorded normal-action windows.
+
+Final candidate 3 browser acceptance: local 32/32 deployed, privacy handoff cleared all previous units/models; zoom remained 100% during samples and Auto/Off was verified at 250% afterward. MP actor/waiter revisions 1–20 matched, each submit added exactly one authorized unit, and the waiter retained zero enemy units. Refresh reconnected to revision 20 (including the explicit current-state resync), continued revisions 21–32, then both clients entered German deployment with Germany still seeing zero Soviet units. Initial automatic reconnect displayed disconnected; one explicit Connect restored the controller within grace. No infrastructure cause is inferred.

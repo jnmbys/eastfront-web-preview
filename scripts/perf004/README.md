@@ -1,0 +1,11 @@
+# PERF-004 isolated browser measurements
+
+Build the official client first with `MULTIPLAYER_SERVER_URL=wss://eastfront-server.onrender.com/ws npm run build`. Run `node scripts/perf004/build-browser.mjs <label> <output-directory>` to instrument only the copied application. `PERF004_BASE_DIST` selects an untouched baseline distribution when needed. Publish that copy under `previews/perf004-<label>/`, with the normal distribution's `vendor` directory at the same level as its `app`; assets/styles/config resolve to the site's root via base href. Never replace the production application with instrumentation.
+
+Use the same Chrome viewport, initial fit/zoom, Models Auto and Normal animation for both builds. The diagnostic button clicks the first unplaced authorized roster item, chooses the next public plain terrain card and confirms through the existing UI. Task boundaries separate each click; no canonical state is injected. It performs exactly 10 deployments (or the remaining roster for Finish deployment). Start one batch while background LOD construction is active, then wait for `#terrain-detail-status[data-completed="3"]` and run the next batch. Record actual LOD values per sample; do not classify a completed build as background work.
+
+Export `#perf004-evidence` text after the batch completes. It contains timings, message types/revisions and aggregate authorized DOM counts only. It excludes tokens and state payloads. Large exports may need to be read in chunks; validate JSON completeness. For MP capture both actor and waiter. Use two independent controller sessions and the same public WSS endpoint.
+
+`python scripts/perf004/summarize.py <evidence-directory>` produces comparison.json from the named baseline/final exports. Each nested stage is reported separately. `applyLongTask` covers the snapshot-handler interval for MP and the confirmation handler for local; the broader confirmation window also contains network waiting and unrelated tasks. No frame-to-pixel or one-way network-time claim is valid from these measurements.
+
+`fog-cases.mjs` produces public full-map fixture inputs. The test hashes in `tests/fixtures/perf004-fog-baseline.json` were generated with the unchanged baseline raster at 307cd9b, not with the optimized code.
