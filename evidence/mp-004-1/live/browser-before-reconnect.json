@@ -1,0 +1,117 @@
+{
+  "build": "438f173ce86e21fc822035ffa0d3fd8a8e957cc8",
+  "entry": "official-game-opt-in",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+  "viewport": {
+    "width": 1363,
+    "height": 936,
+    "dpr": 1
+  },
+  "constructorNativeCodeMarker": true,
+  "connections": [
+    {
+      "url": "wss://eastfront-server.onrender.com/ws",
+      "state": "CLOSED",
+      "started": 91928.70000000298,
+      "messages": [],
+      "openAt": 92783.30000000447,
+      "extensions": "",
+      "prototypeGetterExtensions": "",
+      "getterMatches": true,
+      "closedAt": 93040.10000000149
+    },
+    {
+      "url": "wss://eastfront-server.onrender.com/ws",
+      "state": "OPEN",
+      "started": 142762.5,
+      "messages": [
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "arrival": 198844.5,
+          "diagnosticParseMs": 2.100000001490116,
+          "bytes": 230247,
+          "revision": 0,
+          "sequence": 1,
+          "resync": true,
+          "hiddenEnemyUnits": 0
+        },
+        {
+          "type": "ACTION_ACCEPTED",
+          "arrival": 278659.90000000596,
+          "diagnosticParseMs": 0,
+          "bytes": 242,
+          "revision": 1,
+          "sequence": 2,
+          "requestId": "4e16b5cc-0466-4d37-82f9-6475adf89f61",
+          "acceptedRevision": 1
+        },
+        {
+          "type": "PLAYER_VIEW_SNAPSHOT",
+          "arrival": 279646.5,
+          "diagnosticParseMs": 1.2000000029802322,
+          "bytes": 231631,
+          "revision": 1,
+          "sequence": 3,
+          "resync": false,
+          "hiddenEnemyUnits": 0,
+          "requestId": "4e16b5cc-0466-4d37-82f9-6475adf89f61"
+        }
+      ],
+      "openAt": 143623.30000000447,
+      "extensions": "",
+      "prototypeGetterExtensions": "",
+      "getterMatches": true,
+      "helloSent": 143623.40000000596,
+      "connectionId": "1bea8443-6447-4071-b7e5-305723615335",
+      "helloRttMs": 254.69999999552965,
+      "server": {
+        "sourceCommit": "ba4c87f03407a0e61f657c3186f0938b979e6838",
+        "connectionId": "1bea8443-6447-4071-b7e5-305723615335",
+        "requestExtensions": "",
+        "responseExtensions": "",
+        "negotiatedExtensions": "",
+        "config": {
+          "serverNoContextTakeover": true,
+          "clientNoContextTakeover": true,
+          "level": 3,
+          "memLevel": 7,
+          "concurrencyLimit": 2,
+          "threshold": 1024
+        },
+        "sends": [],
+        "boundaries": [
+          "bytes are serialized UTF-8, not compressed wire size",
+          "writeCallbackMs is local write completion, not peer receipt",
+          "compression CPU and end-to-end wire bytes are not measured",
+          "server sendAt uses server performance.now; do not subtract client timestamps"
+        ]
+      }
+    }
+  ],
+  "submissions": [
+    {
+      "requestId": "4e16b5cc-0466-4d37-82f9-6475adf89f61",
+      "expectedRevision": 0,
+      "sentAt": 278381.80000000447,
+      "ackAt": 278659.90000000596,
+      "acceptedRevision": 1,
+      "ackSequence": 2,
+      "unitsAtAck": 0,
+      "snapshotArrival": 279646.5,
+      "snapshotSequence": 3,
+      "snapshotBytes": 231631,
+      "controlsSampleAt": 279696.200000003,
+      "appliedRevision": 1,
+      "controlsReady": true,
+      "visibleUnits": 1
+    }
+  ],
+  "boundaries": [
+    "browser implementation captured before this diagnostic; native-code marker is not proof of network path",
+    "extensions read only after OPEN",
+    "message bytes are decompressed UTF-8, NOT wire bytes",
+    "control sample is a later timer observation, NOT exact apply time or paint",
+    "handshake evidence is what reached the server, not a browser network capture",
+    "no token, cookie, unit data or full state is exported"
+  ]
+}
