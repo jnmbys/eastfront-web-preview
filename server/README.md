@@ -121,3 +121,21 @@ The three historical UA frozen manifests have narrow, recorded updates for `src/
 In-memory, single-process rooms/identities/matches do not survive server restart. There are no accounts, spectators, matchmaking, AI, online action sync, or playable active-battle recovery. Real hardware Huawei testing and a separately hosted WSS deployment remain later review/deployment work.
 
 Transport implementation follows the maintained [ws documentation](https://github.com/websockets/ws) for the Node server and browser-native WebSocket clients.
+
+
+## MP-004 transport
+
+Protocol v2 JSON and recipient sequence/revision semantics are unchanged. The
+server negotiates `permessage-deflate` and compresses only authorized snapshot
+and query messages. ACKs, rejections and identity messages use the existing
+uncompressed send path. Browsers without the extension receive identical JSON.
+Both directions disable context takeover; compression concurrency is bounded at
+two, with level 3 / memLevel 7 and a 1 KiB threshold. Existing decompressed input
+limits and outbound backpressure checks remain in force.
+
+`/health` also reports `sourceCommit` when Render's provider-issued
+`RENDER_GIT_COMMIT` is a valid 40-character SHA, otherwise null. This does not
+expose tokens, controllers, matches or arbitrary environment values. No hosting
+configuration change is required. Verify this value against the integrated
+source commit before claiming the backend deployment is live. See
+[evidence/mp-004](../evidence/mp-004/README.md) for timing boundaries and validation.

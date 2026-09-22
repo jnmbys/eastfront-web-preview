@@ -5,12 +5,21 @@ import {RoomAuthority} from './authority.js';
 import {configFromEnv,type ServerConfig} from './config.js';
 
 export function createMultiplayerServer(config:ServerConfig=configFromEnv(),authority=new RoomAuthority(config)) {
+  // Render supplies this for the running deployment; health alone is not proof
+  // of a version. Never expose arbitrary environment values or match data.
+  const sourceCommit=/^[0-9a-f]{40}$/i.test(process.env.RENDER_GIT_COMMIT??'')?process.env.RENDER_GIT_COMMIT:null;
   const http=createServer((request,response)=>{
     response.setHeader('Content-Type','application/json');response.setHeader('Cache-Control','no-store');
     response.statusCode=request.url==='/health'?200:404;
-    response.end(JSON.stringify(request.url==='/health'?{status:'ok',protocolVersion:PROTOCOL_VERSION}:{error:'not_found'}));
+    response.end(JSON.stringify(request.url==='/health'?{status:'ok',protocolVersion:PROTOCOL_VERSION,sourceCommit}:{error:'not_found'}));
   });
-  const sockets=new WebSocketServer({noServer:true,maxPayload:config.maxMessageBytes,perMessageDeflate:false});
+  const sockets=new WebSocketServer({noServer:true,maxPayload:config.maxMessageBytes,perMessageDeflate:{
+    // Full authorized snapshots repeat static map data (~225–258 KB in setup).
+    // Bound compression work and discard dictionaries between messages/viewers.
+    // Clients without the extension retain the identical uncompressed JSON path.
+    serverNoContextTakeover:true,clientNoContextTakeover:true,concurrencyLimit:2,
+    zlibDeflateOptions:{level:3,memLevel:7},threshold:1024,
+  }});
   const peers=new Map<WebSocket,{id:string;alive:boolean;openedAt:number}>();
   http.on('upgrade',(request,socket,head)=>{
     // Missing Origin also fails closed; non-browser automation sends an allowed Origin.
@@ -21,7 +30,9 @@ export function createMultiplayerServer(config:ServerConfig=configFromEnv(),auth
     const id=authority.connect(message=>{
       if(ws.readyState!==WebSocket.OPEN)return;
       if(ws.bufferedAmount>config.maxBufferedBytes){ws.terminate();return;}
-      ws.send(JSON.stringify(message),error=>{if(error)ws.terminate();});
+      // ACK/rejection/identity messages bypass compression. ws preserves each
+      // socket's send order while large-message compression runs off-thread.
+      ws.send(JSON.stringify(message),{compress:message.messageType==='PLAYER_VIEW_SNAPSHOT'||message.messageType==='MATCH_QUERY'},error=>{if(error)ws.terminate();});
     });
     peers.set(ws,{id,alive:true,openedAt:Date.now()});
     ws.on('pong',()=>{const peer=peers.get(ws);if(peer)peer.alive=true;});
