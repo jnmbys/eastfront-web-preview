@@ -1,0 +1,32 @@
+Client build (measurement preparation)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 build
+> node scripts/clean-dist.mjs && tsc && node scripts/copy-static.mjs
+
+
+
+Server build (measurement preparation)
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 server:build
+> tsc -p server/tsconfig.json && node server/copy-runtime.mjs
+
+
+
+Offline audit script regressions
+✔ MP005A accounting is UTF-8, additive and never double-counts overlapping fields (1.909188ms)
+✔ MP005A proposal rejects a false alias assumption in the offline oracle (2.327759ms)
+✔ MP005A standalone reconstruction preserves state and independent mutable objects (0.614136ms)
+✔ MP005A no previous-view dependency survives observation loss, resync or viewer change (0.392001ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 270.084808
+
+Audit: 142/142 reconstructed snapshots deep-equal and privacy checks PASS.
+Production logic unchanged; full historical suite and public/browser testing not rerun.
