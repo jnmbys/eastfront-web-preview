@@ -24,7 +24,7 @@ export class UnitAnimationRuntime {
     setReducedMotion(reduced) { this.reducedMotion = reduced; this.setSpeed(this.requestedSpeed); }
     skip() { this.coordinator.skip(); }
     sync(session, root) {
-        const view = session ? sessionPlayerView(session) : null;
+        const view = session ? ('playerView' in session ? session.playerView : sessionPlayerView(session)) : null;
         const viewerKey = `${view?.viewer}:${session?.visibilityRevision ?? 0}`;
         if (this.viewerKey !== viewerKey) {
             this.coordinator.reset();

@@ -28,3 +28,14 @@ export function publishPresentationTransition(session, before, result, project =
         console.error('Presentation projection failed', error);
     }
 }
+/** Network boundary: events have already been derived and privacy-filtered by the host. */
+export function publishAuthorizedEvents(session, events) {
+    for (const observer of observers.get(session) ?? []) {
+        try {
+            observer(events);
+        }
+        catch (error) {
+            console.error('Presentation observer failed', error);
+        }
+    }
+}
