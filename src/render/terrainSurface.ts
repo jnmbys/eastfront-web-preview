@@ -42,6 +42,29 @@ let terrainSurfaceBuildCount=0;
 const RESOURCE_TIMEOUT_MS=15000;
 const MAX_RETAINED_TERRAIN_IMAGES=16;
 
+export interface TerrainImageLoadPolicy {
+  readonly resourceTimeoutMs:number;
+  readonly bitmapTimeoutMs:number;
+  readonly webkitFallback:boolean;
+}
+const STANDARD_IMAGE_POLICY:TerrainImageLoadPolicy=Object.freeze({resourceTimeoutMs:RESOURCE_TIMEOUT_MS,bitmapTimeoutMs:RESOURCE_TIMEOUT_MS,webkitFallback:false});
+const WEBKIT_IMAGE_POLICY:TerrainImageLoadPolicy=Object.freeze({resourceTimeoutMs:60000,bitmapTimeoutMs:1500,webkitFallback:true});
+/** Includes iPad desktop-mode Safari and iOS browsers that use WebKit. */
+export function terrainImageLoadPolicy(userAgent=globalThis.navigator?.userAgent??''):TerrainImageLoadPolicy {
+  return /AppleWebKit\//.test(userAgent)&&!/(?:Chrome|Chromium|Edg|OPR|SamsungBrowser)\//.test(userAgent)
+    ? WEBKIT_IMAGE_POLICY : STANDARD_IMAGE_POLICY;
+}
+let webkitImageQueue:Promise<void>=Promise.resolve();
+function scheduleTerrainImage<T>(load:()=>Promise<T>,policy:TerrainImageLoadPolicy):Promise<T> {
+  if(!policy.webkitFallback)return load();
+  // One active load job, even if several preload callers arrive together.
+  // Yield between images so the previous caller can release pixels and Loading
+  // UX can paint. A queued image's deadline starts only when its job starts.
+  const pending=webkitImageQueue.then(()=>new Promise<void>(resolve=>setTimeout(resolve,0))).then(load);
+  webkitImageQueue=pending.then(()=>{},()=>{});
+  return pending;
+}
+
 export function terrainSurfaceCapabilities():TerrainSurfaceCapabilities{
   let canvas2d=false;try{const c=document.createElement('canvas');canvas2d=Boolean(c.getContext('2d'));}catch{}
   return {createImageBitmap:typeof globalThis.createImageBitmap==='function',offscreenCanvas:typeof globalThis.OffscreenCanvas==='function',htmlImageDecode:typeof HTMLImageElement!=='undefined'&&typeof HTMLImageElement.prototype.decode==='function',canvas2d};
@@ -52,18 +75,58 @@ export function formatTerrainSurfaceFailure(error:unknown):string{
 }
 function absAssetUrl(entry:TerrainAssetEntry,set:TerrainAssetSet):string{return new URL(assetUrl(entry,set),document.baseURI).href;}
 function errorText(error:unknown):string{return error instanceof Error?`${error.name}: ${error.message}`:String(error);}
-function timeoutAfter(ms:number,label:string):Promise<never>{return new Promise((_,reject)=>setTimeout(()=>reject(new Error(`${label} timed out after ${ms}ms`)),ms));}
-export async function imageFromUrl(url:string,entry:TerrainAssetEntry,stage:'html-image-load'|'direct-image-load',capabilities:TerrainSurfaceCapabilities,timeoutMs=RESOURCE_TIMEOUT_MS):Promise<LoadedTerrainImage>{
+export async function imageFromUrl(url:string,entry:TerrainAssetEntry,stage:'html-image-load'|'direct-image-load',capabilities:TerrainSurfaceCapabilities,timeoutMs=terrainImageLoadPolicy().resourceTimeoutMs,webkitFallback=terrainImageLoadPolicy().webkitFallback):Promise<LoadedTerrainImage>{
   return await new Promise<LoadedTerrainImage>((resolve,reject)=>{
-    const img=new Image();if('decoding' in img)img.decoding='async';let settled=false;
-    const timer=setTimeout(()=>{if(settled)return;settled=true;img.onload=null;img.onerror=null;try{img.src='';}catch{}reject(new TerrainSurfaceResourceError(`Terrain image timeout: ${url}`,{stage:'timeout',url,assetId:entry.id,family:entry.family,preferredApi:'HTMLImageElement.onload',cause:`Image ${entry.id} timed out after ${timeoutMs}ms`,capabilities}));},timeoutMs);
+    const img=new Image();if('decoding' in img)img.decoding='async';let settled=false,decodeFailure:unknown,canvasFailure:unknown;
+    const dispose=()=>{try{img.src='';}catch{}};
+    const dimensions=()=>({width:img.naturalWidth||img.width,height:img.naturalHeight||img.height});
+    const ready=()=>img.naturalWidth>0&&img.naturalHeight>0;
+    const succeed=(image:LoadedTerrainImage)=>{if(settled)return;settled=true;finish();resolve(image);};
+    const fail=(failureStage:TerrainSurfaceFailureStage,cause:string)=>{
+      if(settled)return;settled=true;finish();dispose();
+      reject(new TerrainSurfaceResourceError(`Terrain image ${failureStage==='timeout'?'timeout':'failed'}: ${url}`,{stage:failureStage,url,assetId:entry.id,family:entry.family,preferredApi:webkitFallback?'HTMLImageElement.decode/onload→Canvas2D':'HTMLImageElement.onload',cause,capabilities}));
+    };
+    const canvasFallback=()=>{
+      if(settled||!ready())return false;
+      let canvas:HTMLCanvasElement|undefined;
+      try {
+        canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+        const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Terrain image Canvas 2D unavailable');
+        ctx.drawImage(img,0,0);
+        const source=canvas;
+        succeed({source,width:canvas.width,height:canvas.height,release:()=>{source.width=0;source.height=0;}});
+        dispose();return true;
+      }catch(error){canvasFailure=error;if(canvas){canvas.width=0;canvas.height=0;}return false;}
+    };
+    const timer=setTimeout(()=>{
+      // WebKit may have complete pixels without delivering load/decode promptly.
+      // complete alone is insufficient: broken images also report complete.
+      if(webkitFallback&&img.complete&&canvasFallback())return;
+      fail('timeout',`Image ${entry.id} timed out after ${timeoutMs}ms${decodeFailure?`; decode=${errorText(decodeFailure)}`:''}${canvasFailure?`; canvas=${errorText(canvasFailure)}`:''}`);
+    },timeoutMs);
     const finish=()=>{clearTimeout(timer);img.onload=null;img.onerror=null;};
-    img.onload=()=>{if(settled)return;settled=true;finish();resolve({source:img,width:img.naturalWidth||img.width,height:img.naturalHeight||img.height});};
-    img.onerror=()=>{if(settled)return;settled=true;finish();reject(new TerrainSurfaceResourceError(`Terrain image failed: ${url}`,{stage,url,assetId:entry.id,family:entry.family,preferredApi:'HTMLImageElement.onload',cause:'image error event',capabilities}));};
-    img.src=url;
+    img.onload=()=>{
+      if(settled)return;
+      if(!webkitFallback){succeed({source:img,...dimensions()});return;}
+      // onload/Canvas remains usable if decode() rejects, hangs or is absent.
+      if(!canvasFallback()&&decodeFailure)fail(stage,`decode=${errorText(decodeFailure)}; canvas=${errorText(canvasFailure)}`);
+    };
+    img.onerror=()=>fail(stage,'image error event');
+    try {
+      img.src=url;
+      if(webkitFallback&&!settled){
+        if(capabilities.htmlImageDecode&&typeof img.decode==='function'){
+          // Optional: never require decode() to settle before the onload path.
+          void Promise.resolve().then(()=>settled?undefined:img.decode()).then(()=>{
+            if(!settled&&ready())succeed({source:img,...dimensions(),release:dispose});
+          },error=>{decodeFailure=error;if(!settled&&img.complete)canvasFallback();});
+        }
+        if(img.complete)canvasFallback();
+      }
+    }catch(error){fail(stage,errorText(error));}
   });
 }
-export async function fetchTerrainBlobWithAbort(url:string,entry:TerrainAssetEntry,capabilities:TerrainSurfaceCapabilities,timeoutMs=RESOURCE_TIMEOUT_MS):Promise<{response:Response;blob:Blob}>{
+export async function fetchTerrainBlobWithAbort(url:string,entry:TerrainAssetEntry,capabilities:TerrainSurfaceCapabilities,timeoutMs=terrainImageLoadPolicy().resourceTimeoutMs):Promise<{response:Response;blob:Blob}>{
   const controller=new AbortController();let timer:ReturnType<typeof setTimeout>|undefined;let timedOut=false;
   try{
     timer=setTimeout(()=>{timedOut=true;controller.abort();},timeoutMs);
@@ -76,12 +139,25 @@ export async function fetchTerrainBlobWithAbort(url:string,entry:TerrainAssetEnt
     throw new TerrainSurfaceResourceError(`Terrain fetch failed: ${url}`,{stage:'fetch',url,assetId:entry.id,family:entry.family,preferredApi:'fetch+AbortController',cause:errorText(error),capabilities});
   }finally{if(timer!==undefined)clearTimeout(timer);}
 }
-export async function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride?:string):Promise<LoadedTerrainImage>{
+async function bitmapFromBlob(blob:Blob,entry:TerrainAssetEntry,timeoutMs:number):Promise<ImageBitmap> {
+  return new Promise<ImageBitmap>((resolve,reject)=>{
+    let settled=false;
+    const timer=setTimeout(()=>{settled=true;reject(new Error(`createImageBitmap ${entry.id} timed out after ${timeoutMs}ms`));},timeoutMs);
+    void Promise.resolve().then(()=>globalThis.createImageBitmap(blob)).then(bitmap=>{
+      if(settled){try{bitmap.close();}catch{}return;}
+      settled=true;clearTimeout(timer);resolve(bitmap);
+    },error=>{if(settled)return;settled=true;clearTimeout(timer);reject(error);});
+  });
+}
+export function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride?:string,policy=terrainImageLoadPolicy()):Promise<LoadedTerrainImage>{
+  return scheduleTerrainImage(()=>loadTerrainImageNow(entry,set,capabilities,urlOverride,policy),policy);
+}
+async function loadTerrainImageNow(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride:string|undefined,policy:TerrainImageLoadPolicy):Promise<LoadedTerrainImage>{
   const url=urlOverride??absAssetUrl(entry,set);let directFailure:unknown,fetchFailure:unknown,bitmapFailure:unknown,blobImageFailure:unknown;let response:Response|undefined,blob:Blob|undefined;
-  try{return reportLoadedTerrainImage(await imageFromUrl(url,entry,'direct-image-load',capabilities));}catch(error){directFailure=error;console.warn('EASTFRONT terrain direct image fallback',entry.id,url,error);}
-  try{const result=await fetchTerrainBlobWithAbort(url,entry,capabilities);response=result.response;blob=result.blob;}catch(error){fetchFailure=error;}
-  if(blob&&capabilities.createImageBitmap){try{const bitmap=await Promise.race([globalThis.createImageBitmap(blob),timeoutAfter(RESOURCE_TIMEOUT_MS,`createImageBitmap ${entry.id}`)]);return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});}catch(error){bitmapFailure=error;console.warn('EASTFRONT terrain createImageBitmap fallback',entry.id,url,error);}}
-  if(blob){let objectUrl:string|undefined;try{objectUrl=URL.createObjectURL(blob);return reportLoadedTerrainImage(await imageFromUrl(objectUrl,entry,'html-image-load',capabilities));}catch(error){blobImageFailure=error;console.warn('EASTFRONT terrain blob HTMLImage fallback failed',entry.id,url,error);}finally{if(objectUrl)URL.revokeObjectURL(objectUrl);}}
+  try{return reportLoadedTerrainImage(await imageFromUrl(url,entry,'direct-image-load',capabilities,policy.resourceTimeoutMs,policy.webkitFallback));}catch(error){directFailure=error;console.warn('EASTFRONT terrain direct image fallback',entry.id,url,error);}
+  try{const result=await fetchTerrainBlobWithAbort(url,entry,capabilities,policy.resourceTimeoutMs);response=result.response;blob=result.blob;}catch(error){fetchFailure=error;}
+  if(blob&&capabilities.createImageBitmap){try{const bitmap=await bitmapFromBlob(blob,entry,policy.bitmapTimeoutMs);return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});}catch(error){bitmapFailure=error;console.warn('EASTFRONT terrain createImageBitmap fallback',entry.id,url,error);}}
+  if(blob){let objectUrl:string|undefined;try{objectUrl=URL.createObjectURL(blob);return reportLoadedTerrainImage(await imageFromUrl(objectUrl,entry,'html-image-load',capabilities,policy.resourceTimeoutMs,policy.webkitFallback));}catch(error){blobImageFailure=error;console.warn('EASTFRONT terrain blob HTMLImage fallback failed',entry.id,url,error);}finally{if(objectUrl)URL.revokeObjectURL(objectUrl);}}
   const causes=[`directImage=${errorText(directFailure)}`,fetchFailure?`fetch=${errorText(fetchFailure)}`:'',bitmapFailure?`createImageBitmap=${errorText(bitmapFailure)}`:'',blobImageFailure?`blobImage=${errorText(blobImageFailure)}`:''].filter(Boolean).join('; ');
   const fetchDetails=fetchFailure instanceof TerrainSurfaceResourceError?fetchFailure.details:undefined;
   const details:TerrainSurfaceFailureDetails={stage:fetchDetails?.stage??'direct-image-load',url,assetId:entry.id,family:entry.family,preferredApi:capabilities.createImageBitmap?'HTMLImageElement(url)→fetch+AbortController→createImageBitmap→HTMLImageElement(blob)':'HTMLImageElement(url)→fetch+AbortController→HTMLImageElement(blob)',cause:causes,capabilities};

@@ -1,0 +1,1302 @@
+{
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "transport": "real loopback WebSockets",
+    "simulatedDelayPerDirectionMs": 150,
+    "browser": "none; production client/session with software DOM (no browser layout/paint)",
+    "server": "in-process production RoomAuthority, no hosting changes",
+    "clockMethod": "RTT and application intervals use client-local monotonic time; server processing uses server-local monotonic time. No cross-clock subtraction."
+  },
+  "summary": {
+    "select-unit": {
+      "samples": 5,
+      "localFeedbackMedianMs": 12.1634039999999,
+      "controlsReadyMedianMs": 321.08785799999987,
+      "requestCount": 5,
+      "queries": 5,
+      "resyncs": 0,
+      "queueMedianMs": 0.07649500000025,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMedianMs": 306.22267999999985,
+          "serverProcessingMedianMs": 5.591648999999961
+        },
+        "SUBMIT_ACTION": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        }
+      },
+      "snapshotsAppliedMedianMs": null,
+      "responseApplyAndSoftwareDomMedianMs": 13.130637000000206,
+      "queryApplyAndSoftwareDomMedianMs": 13.130637000000206,
+      "snapshotApplyAndSoftwareDomMedianMs": null
+    },
+    "select-position": {
+      "samples": 5,
+      "localFeedbackMedianMs": 9.937059000000772,
+      "controlsReadyMedianMs": 9.94945700000062,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "queueMedianMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        },
+        "SUBMIT_ACTION": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        }
+      },
+      "snapshotsAppliedMedianMs": null,
+      "responseApplyAndSoftwareDomMedianMs": null,
+      "queryApplyAndSoftwareDomMedianMs": null,
+      "snapshotApplyAndSoftwareDomMedianMs": null
+    },
+    "confirm-deployment": {
+      "samples": 5,
+      "localFeedbackMedianMs": 10.415936000000329,
+      "controlsReadyMedianMs": 657.0720850000007,
+      "requestCount": 15,
+      "queries": 10,
+      "resyncs": 0,
+      "queueMedianMs": 0.07952999999997701,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMedianMs": 305.9293870000006,
+          "serverProcessingMedianMs": 4.861638000000312
+        },
+        "SUBMIT_ACTION": {
+          "rttMedianMs": 330.6968219999999,
+          "serverProcessingMedianMs": 29.252644000000146
+        }
+      },
+      "snapshotsAppliedMedianMs": 347.87991800000054,
+      "responseApplyAndSoftwareDomMedianMs": 3.6061259999996764,
+      "queryApplyAndSoftwareDomMedianMs": 12.461424000000989,
+      "snapshotApplyAndSoftwareDomMedianMs": 12.580643000000236
+    }
+  },
+  "rows": [
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 15.342909999999847,
+      "controlsReadyMs": 321.12240699999984,
+      "requestCount": 1,
+      "queries": 1,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.1891459999997096,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            306.6772900000001
+          ],
+          "serverProcessingMs": [
+            6.159285000000182
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [
+        14.080216000000291
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        14.080216000000291
+      ],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 10.049810999999863,
+      "controlsReadyMs": 10.093126000000211,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.129050000000007,
+      "controlsReadyMs": 673.4172949999997,
+      "requestCount": 3,
+      "queries": 2,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.14506899999969392,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            305.6010030000002,
+            305.9293870000006
+          ],
+          "serverProcessingMs": [
+            4.984583999999813,
+            4.16829400000006
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            344.4462920000001
+          ],
+          "serverProcessingMs": [
+            42.774769000000106
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        360.6541559999996,
+        364.36469899999975
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.13344099999994796,
+        14.853792999999769,
+        3.7008679999999003,
+        13.469774999999572,
+        2.788673999999446
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        13.469774999999572,
+        2.788673999999446
+      ],
+      "snapshotApplyAndSoftwareDomMs": [
+        14.853792999999769,
+        3.7008679999999003
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 11.2465600000005,
+      "controlsReadyMs": 321.08785799999987,
+      "requestCount": 1,
+      "queries": 1,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.08241400000042631,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            306.16404799999964
+          ],
+          "serverProcessingMs": [
+            5.316442999999708
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [
+        13.713015000000269
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        13.713015000000269
+      ],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 9.937059000000772,
+      "controlsReadyMs": 9.94945700000062,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.680438999999751,
+      "controlsReadyMs": 668.702851,
+      "requestCount": 3,
+      "queries": 2,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.0713580000001457,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            305.6401169999999,
+            305.6128319999998
+          ],
+          "serverProcessingMs": [
+            5.796658000000207,
+            4.46307699999943
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            333.5531569999994
+          ],
+          "serverProcessingMs": [
+            33.43154299999969
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        355.04918,
+        359.5269389999994
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.14407699999992474,
+        21.309040000000095,
+        4.077366000000438,
+        16.377512000000024,
+        3.1259710000003906
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        16.377512000000024,
+        3.1259710000003906
+      ],
+      "snapshotApplyAndSoftwareDomMs": [
+        21.309040000000095,
+        4.077366000000438
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 14.931297000000086,
+      "controlsReadyMs": 319.50307799999973,
+      "requestCount": 1,
+      "queries": 1,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.07378100000005361,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            305.1760779999995
+          ],
+          "serverProcessingMs": [
+            5.105445999999574
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [
+        13.130637000000206
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        13.130637000000206
+      ],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 12.915858000000298,
+      "controlsReadyMs": 12.937882000000172,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.415936000000329,
+      "controlsReadyMs": 657.0720850000007,
+      "requestCount": 3,
+      "queries": 2,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.0981580000006943,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            304.9651550000008,
+            307.19516700000077
+          ],
+          "serverProcessingMs": [
+            4.861638000000312,
+            4.478750000000218
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            330.32261299999936
+          ],
+          "serverProcessingMs": [
+            29.04316800000015
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        344.4605240000001,
+        347.87991800000054
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.1061600000002727,
+        13.96303700000044,
+        3.4062439999997878,
+        14.790193999999246,
+        2.5241139999998268
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        14.790193999999246,
+        2.5241139999998268
+      ],
+      "snapshotApplyAndSoftwareDomMs": [
+        13.96303700000044,
+        3.4062439999997878
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 9.283292999999503,
+      "controlsReadyMs": 322.38495200000034,
+      "requestCount": 1,
+      "queries": 1,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.07649500000025,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            308.76936899999964
+          ],
+          "serverProcessingMs": [
+            7.207503999999972
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [
+        12.403467000000092
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        12.403467000000092
+      ],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 9.701793999999609,
+      "controlsReadyMs": 9.71626600000036,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 9.23968799999966,
+      "controlsReadyMs": 656.2429000000002,
+      "requestCount": 3,
+      "queries": 2,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.07334100000025501,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            305.92850700000054,
+            307.266114
+          ],
+          "serverProcessingMs": [
+            5.363745000000563,
+            4.364198000000215
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            330.6968219999999
+          ],
+          "serverProcessingMs": [
+            29.252644000000146
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        343.4197300000005,
+        347.03495999999996
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.09510299999965355,
+        12.580643000000236,
+        3.6061259999996764,
+        12.76621299999988,
+        2.4833730000000287
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        12.76621299999988,
+        2.4833730000000287
+      ],
+      "snapshotApplyAndSoftwareDomMs": [
+        12.580643000000236,
+        3.6061259999996764
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 12.1634039999999,
+      "controlsReadyMs": 319.4096669999999,
+      "requestCount": 1,
+      "queries": 1,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.05810699999983626,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            306.22267999999985
+          ],
+          "serverProcessingMs": [
+            5.591648999999961
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [
+        13.102460000000065
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        13.102460000000065
+      ],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 9.164253999999346,
+      "controlsReadyMs": 9.17760399999952,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.684544999999162,
+      "controlsReadyMs": 656.1233639999991,
+      "requestCount": 3,
+      "queries": 2,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.07952999999997701,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [
+            306.35536499999944,
+            306.1906169999993
+          ],
+          "serverProcessingMs": [
+            5.305697999999211,
+            4.815138000000843
+          ]
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            329.0912409999992
+          ],
+          "serverProcessingMs": [
+            29.095125999999254
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        343.5954039999997,
+        347.0645139999997
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.1164760000001479,
+        13.275681000000077,
+        3.4331560000000536,
+        12.461424000000989,
+        2.340487999999823
+      ],
+      "queryApplyAndSoftwareDomMs": [
+        12.461424000000989,
+        2.340487999999823
+      ],
+      "snapshotApplyAndSoftwareDomMs": [
+        13.275681000000077,
+        3.4331560000000536
+      ]
+    }
+  ],
+  "messageTotals": {
+    "HELLO": 2,
+    "CREATE_ROOM": 1,
+    "JOIN_ROOM": 1,
+    "SELECT_SEAT": 2,
+    "SET_READY": 2,
+    "QUERY_MATCH": 19,
+    "SUBMIT_ACTION": 5
+  },
+  "responseBytes": {
+    "MATCH_QUERY": 156434,
+    "PLAYER_VIEW_SNAPSHOT": 230247
+  },
+  "trace": {
+    "clientSends": [
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "598970b6-182a-4d3c-8ffa-025f79e7027c",
+        "expectedRevision": 0,
+        "sentAt": 2306.542565
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "fd8b3cb9-01cb-4bd6-8e2b-58cc8e71995b",
+        "expectedRevision": 0,
+        "sentAt": 2313.746266
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "1126ff0b-f6d7-41e0-b83c-a47b7aa0dff1",
+        "expectedRevision": 0,
+        "sentAt": 2617.453089
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "d5bf680e-ba5f-4d2d-a485-0fb97b027fbd",
+        "expectedRevision": 0,
+        "sentAt": 2624.659453
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "b31d2814-d4e9-4c00-b52e-e9f9bcaa91ab",
+        "expectedRevision": 0,
+        "sentAt": 3296.541508
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "15079005-8e9b-46ad-bbc7-007a6ccf0f23",
+        "expectedRevision": 0,
+        "sentAt": 3627.892524
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "d536cb46-d118-4468-ba65-5afd1aa1d07f",
+        "expectedRevision": 1,
+        "sentAt": 3977.065621
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "30a215d2-e96f-48ef-a10e-7e1b772f7598",
+        "expectedRevision": 1,
+        "sentAt": 3991.335213
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "6d963c7a-b526-4705-aa67-60ef73cdbc5b",
+        "expectedRevision": 1,
+        "sentAt": 4301.399714
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "0a696779-53b0-498e-b3fe-70a84d03b61b",
+        "expectedRevision": 1,
+        "sentAt": 4632.534577
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "15df412f-bb52-49c4-b777-42b95a08decb",
+        "expectedRevision": 2,
+        "sentAt": 4970.404361
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "60ba3069-c67f-46f4-9013-b6599f3ecd5f",
+        "expectedRevision": 2,
+        "sentAt": 4991.222721
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "3d27ef96-91f0-4498-ac4c-9a9f78c40bb7",
+        "expectedRevision": 2,
+        "sentAt": 5301.334544
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "d3c9d363-2647-4cd7-acae-49fe483fee24",
+        "expectedRevision": 2,
+        "sentAt": 5633.909867
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "3e077ab1-79a0-4617-86c9-fcdcd3900f26",
+        "expectedRevision": 3,
+        "sentAt": 5967.455738
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "292f0ec1-4524-4a53-8ded-937ada0cdd9d",
+        "expectedRevision": 3,
+        "sentAt": 5981.141798
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "6dc32d1c-159b-4177-a4d7-f6b9f21183cd",
+        "expectedRevision": 3,
+        "sentAt": 6291.029443
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "001da25a-4751-4f32-9cd4-41e98b8e0801",
+        "expectedRevision": 3,
+        "sentAt": 6623.224403
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "10ac42ad-bd25-4053-901d-89fccd71443b",
+        "expectedRevision": 4,
+        "sentAt": 6957.066306
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "4326a536-a0bd-4737-9265-938e801e1922",
+        "expectedRevision": 4,
+        "sentAt": 6969.624475
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "c22d16b3-ba3a-41b0-b24c-78ef7e0e5869",
+        "expectedRevision": 4,
+        "sentAt": 7279.57157
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "b287f157-eb6c-40a5-b6e5-160c27178b66",
+        "expectedRevision": 4,
+        "sentAt": 7608.316179
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "05015eb6-55c3-49c1-8b9f-9d6f2b41dd4d",
+        "expectedRevision": 5,
+        "sentAt": 7942.067745
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "ba649e1c-de55-4408-940b-da1a399d30ed",
+        "expectedRevision": 5,
+        "sentAt": 7954.73549
+      }
+    ],
+    "serverProcessing": [
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "598970b6-182a-4d3c-8ffa-025f79e7027c",
+        "receivedAt": 2456.236169,
+        "processingMs": 9.271535000000313
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "fd8b3cb9-01cb-4bd6-8e2b-58cc8e71995b",
+        "receivedAt": 2465.862539,
+        "processingMs": 5.645082999999886
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "1126ff0b-f6d7-41e0-b83c-a47b7aa0dff1",
+        "receivedAt": 2768.288786,
+        "processingMs": 5.330105000000003
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "d5bf680e-ba5f-4d2d-a485-0fb97b027fbd",
+        "receivedAt": 2775.0445,
+        "processingMs": 5.301621999999952
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "b31d2814-d4e9-4c00-b52e-e9f9bcaa91ab",
+        "receivedAt": 3447.203748,
+        "processingMs": 6.159285000000182
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "15079005-8e9b-46ad-bbc7-007a6ccf0f23",
+        "receivedAt": 3778.893189,
+        "processingMs": 42.774769000000106
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "d536cb46-d118-4468-ba65-5afd1aa1d07f",
+        "receivedAt": 4127.390413,
+        "processingMs": 4.984583999999813
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "30a215d2-e96f-48ef-a10e-7e1b772f7598",
+        "receivedAt": 4141.134232,
+        "processingMs": 4.16829400000006
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "6d963c7a-b526-4705-aa67-60ef73cdbc5b",
+        "receivedAt": 4451.452167,
+        "processingMs": 5.316442999999708
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "0a696779-53b0-498e-b3fe-70a84d03b61b",
+        "receivedAt": 4782.959901,
+        "processingMs": 33.43154299999969
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "15df412f-bb52-49c4-b777-42b95a08decb",
+        "receivedAt": 5120.717836,
+        "processingMs": 5.796658000000207
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "60ba3069-c67f-46f4-9013-b6599f3ecd5f",
+        "receivedAt": 5141.680384,
+        "processingMs": 4.46307699999943
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "3d27ef96-91f0-4498-ac4c-9a9f78c40bb7",
+        "receivedAt": 5451.423286,
+        "processingMs": 5.105445999999574
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "d3c9d363-2647-4cd7-acae-49fe483fee24",
+        "receivedAt": 5784.874509,
+        "processingMs": 29.04316800000015
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "3e077ab1-79a0-4617-86c9-fcdcd3900f26",
+        "receivedAt": 6117.143421,
+        "processingMs": 4.861638000000312
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "292f0ec1-4524-4a53-8ded-937ada0cdd9d",
+        "receivedAt": 6131.967376,
+        "processingMs": 4.478750000000218
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "6dc32d1c-159b-4177-a4d7-f6b9f21183cd",
+        "receivedAt": 6441.838876,
+        "processingMs": 7.207503999999972
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "001da25a-4751-4f32-9cd4-41e98b8e0801",
+        "receivedAt": 6774.221584,
+        "processingMs": 29.252644000000146
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "10ac42ad-bd25-4053-901d-89fccd71443b",
+        "receivedAt": 7108.161985,
+        "processingMs": 5.363745000000563
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "4326a536-a0bd-4737-9265-938e801e1922",
+        "receivedAt": 7119.146833,
+        "processingMs": 4.364198000000215
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "c22d16b3-ba3a-41b0-b24c-78ef7e0e5869",
+        "receivedAt": 7429.345562,
+        "processingMs": 5.591648999999961
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "b287f157-eb6c-40a5-b6e5-160c27178b66",
+        "receivedAt": 7758.399723,
+        "processingMs": 29.095125999999254
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "05015eb6-55c3-49c1-8b9f-9d6f2b41dd4d",
+        "receivedAt": 8092.814438,
+        "processingMs": 5.305697999999211
+      },
+      {
+        "messageType": "QUERY_MATCH",
+        "requestId": "ba649e1c-de55-4408-940b-da1a399d30ed",
+        "receivedAt": 8104.806094,
+        "processingMs": 4.815138000000843
+      }
+    ],
+    "clientReceives": [
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 0,
+        "serverSequence": 1,
+        "receivedAt": 2303.218938,
+        "appliedAt": 2310.745756,
+        "bytes": 225590,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 7.558175000000119
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 0,
+        "serverSequence": 1,
+        "receivedAt": 2310.782582,
+        "appliedAt": 2336.927974,
+        "bytes": 230247,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 26.179233000000295
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "598970b6-182a-4d3c-8ffa-025f79e7027c",
+        "matchRevision": 0,
+        "serverSequence": 2,
+        "receivedAt": 2615.319923,
+        "appliedAt": 2618.282629,
+        "bytes": 151777,
+        "rttMs": 308.7773579999998,
+        "applyAndSoftwareDomMs": 2.9874540000000707
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "fd8b3cb9-01cb-4bd6-8e2b-58cc8e71995b",
+        "matchRevision": 0,
+        "serverSequence": 2,
+        "receivedAt": 2622.639157,
+        "appliedAt": 2635.389678,
+        "bytes": 156434,
+        "rttMs": 308.89289099999996,
+        "applyAndSoftwareDomMs": 12.776010000000042
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "1126ff0b-f6d7-41e0-b83c-a47b7aa0dff1",
+        "matchRevision": 0,
+        "serverSequence": 3,
+        "receivedAt": 2923.789855,
+        "appliedAt": 2927.181318,
+        "bytes": 151777,
+        "rttMs": 306.3367659999999,
+        "applyAndSoftwareDomMs": 3.415820000000167
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "d5bf680e-ba5f-4d2d-a485-0fb97b027fbd",
+        "matchRevision": 0,
+        "serverSequence": 3,
+        "receivedAt": 2930.42635,
+        "appliedAt": 2946.337146,
+        "bytes": 156434,
+        "rttMs": 305.766897,
+        "applyAndSoftwareDomMs": 15.936635000000024
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "b31d2814-d4e9-4c00-b52e-e9f9bcaa91ab",
+        "matchRevision": 0,
+        "serverSequence": 4,
+        "receivedAt": 3603.218798,
+        "appliedAt": 3617.274457,
+        "bytes": 156434,
+        "rttMs": 306.6772900000001,
+        "applyAndSoftwareDomMs": 14.080216000000291
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "15079005-8e9b-46ad-bbc7-007a6ccf0f23",
+        "matchRevision": 1,
+        "serverSequence": 5,
+        "receivedAt": 3972.338816,
+        "appliedAt": 3972.467049,
+        "bytes": 242,
+        "rttMs": 344.4462920000001,
+        "applyAndSoftwareDomMs": 0.13344099999994796
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 1,
+        "serverSequence": 6,
+        "receivedAt": 3973.5823,
+        "appliedAt": 3988.401611,
+        "bytes": 231631,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 14.853792999999769
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 1,
+        "serverSequence": 4,
+        "receivedAt": 3988.442673,
+        "appliedAt": 3992.112154,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.7008679999999003
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "d536cb46-d118-4468-ba65-5afd1aa1d07f",
+        "matchRevision": 1,
+        "serverSequence": 7,
+        "receivedAt": 4282.666624,
+        "appliedAt": 4296.110811,
+        "bytes": 157233,
+        "rttMs": 305.6010030000002,
+        "applyAndSoftwareDomMs": 13.469774999999572
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "30a215d2-e96f-48ef-a10e-7e1b772f7598",
+        "matchRevision": 1,
+        "serverSequence": 5,
+        "receivedAt": 4297.2646,
+        "appliedAt": 4300.030089,
+        "bytes": 151777,
+        "rttMs": 305.9293870000006,
+        "applyAndSoftwareDomMs": 2.788673999999446
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "6d963c7a-b526-4705-aa67-60ef73cdbc5b",
+        "matchRevision": 1,
+        "serverSequence": 8,
+        "receivedAt": 4607.563762,
+        "appliedAt": 4621.250267,
+        "bytes": 157233,
+        "rttMs": 306.16404799999964,
+        "applyAndSoftwareDomMs": 13.713015000000269
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "0a696779-53b0-498e-b3fe-70a84d03b61b",
+        "matchRevision": 2,
+        "serverSequence": 9,
+        "receivedAt": 4966.087734,
+        "appliedAt": 4966.185811,
+        "bytes": 242,
+        "rttMs": 333.5531569999994,
+        "applyAndSoftwareDomMs": 0.14407699999992474
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 2,
+        "serverSequence": 10,
+        "receivedAt": 4966.239042,
+        "appliedAt": 4987.512399,
+        "bytes": 233022,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 21.309040000000095
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 2,
+        "serverSequence": 6,
+        "receivedAt": 4987.943859,
+        "appliedAt": 4991.990158,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 4.077366000000438
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "15df412f-bb52-49c4-b777-42b95a08decb",
+        "matchRevision": 2,
+        "serverSequence": 11,
+        "receivedAt": 5276.044478,
+        "appliedAt": 5292.3956,
+        "bytes": 158037,
+        "rttMs": 305.6401169999999,
+        "applyAndSoftwareDomMs": 16.377512000000024
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "60ba3069-c67f-46f4-9013-b6599f3ecd5f",
+        "matchRevision": 2,
+        "serverSequence": 7,
+        "receivedAt": 5296.835553,
+        "appliedAt": 5299.936046,
+        "bytes": 151777,
+        "rttMs": 305.6128319999998,
+        "applyAndSoftwareDomMs": 3.1259710000003906
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "3d27ef96-91f0-4498-ac4c-9a9f78c40bb7",
+        "matchRevision": 2,
+        "serverSequence": 12,
+        "receivedAt": 5606.510622,
+        "appliedAt": 5619.612376,
+        "bytes": 158037,
+        "rttMs": 305.1760779999995,
+        "applyAndSoftwareDomMs": 13.130637000000206
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "d3c9d363-2647-4cd7-acae-49fe483fee24",
+        "matchRevision": 3,
+        "serverSequence": 13,
+        "receivedAt": 5964.23248,
+        "appliedAt": 5964.333492,
+        "bytes": 243,
+        "rttMs": 330.32261299999936,
+        "applyAndSoftwareDomMs": 0.1061600000002727
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 3,
+        "serverSequence": 14,
+        "receivedAt": 5964.344939,
+        "appliedAt": 5978.272233,
+        "bytes": 234412,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 13.96303700000044
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 3,
+        "serverSequence": 8,
+        "receivedAt": 5978.316199,
+        "appliedAt": 5981.691627,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.4062439999997878
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "3e077ab1-79a0-4617-86c9-fcdcd3900f26",
+        "matchRevision": 3,
+        "serverSequence": 15,
+        "receivedAt": 6272.420893,
+        "appliedAt": 6287.184517,
+        "bytes": 158840,
+        "rttMs": 304.9651550000008,
+        "applyAndSoftwareDomMs": 14.790193999999246
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "292f0ec1-4524-4a53-8ded-937ada0cdd9d",
+        "matchRevision": 3,
+        "serverSequence": 9,
+        "receivedAt": 6288.336965,
+        "appliedAt": 6290.838575,
+        "bytes": 151777,
+        "rttMs": 307.19516700000077,
+        "applyAndSoftwareDomMs": 2.5241139999998268
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "6dc32d1c-159b-4177-a4d7-f6b9f21183cd",
+        "matchRevision": 3,
+        "serverSequence": 16,
+        "receivedAt": 6599.798812,
+        "appliedAt": 6612.17619,
+        "bytes": 158840,
+        "rttMs": 308.76936899999964,
+        "applyAndSoftwareDomMs": 12.403467000000092
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "001da25a-4751-4f32-9cd4-41e98b8e0801",
+        "matchRevision": 4,
+        "serverSequence": 17,
+        "receivedAt": 6953.921225,
+        "appliedAt": 6954.01115,
+        "bytes": 243,
+        "rttMs": 330.6968219999999,
+        "applyAndSoftwareDomMs": 0.09510299999965355
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 4,
+        "serverSequence": 18,
+        "receivedAt": 6954.022948,
+        "appliedAt": 6966.570792,
+        "bytes": 235802,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 12.580643000000236
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 4,
+        "serverSequence": 10,
+        "receivedAt": 6966.609771,
+        "appliedAt": 6970.186022,
+        "bytes": 225592,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.6061259999996764
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "10ac42ad-bd25-4053-901d-89fccd71443b",
+        "matchRevision": 4,
+        "serverSequence": 19,
+        "receivedAt": 7262.994813,
+        "appliedAt": 7275.734085,
+        "bytes": 159643,
+        "rttMs": 305.92850700000054,
+        "applyAndSoftwareDomMs": 12.76621299999988
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "4326a536-a0bd-4737-9265-938e801e1922",
+        "matchRevision": 4,
+        "serverSequence": 11,
+        "receivedAt": 7276.890589,
+        "appliedAt": 7279.350377,
+        "bytes": 151778,
+        "rttMs": 307.266114,
+        "applyAndSoftwareDomMs": 2.4833730000000287
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "c22d16b3-ba3a-41b0-b24c-78ef7e0e5869",
+        "matchRevision": 4,
+        "serverSequence": 20,
+        "receivedAt": 7585.79425,
+        "appliedAt": 7598.869469,
+        "bytes": 159643,
+        "rttMs": 306.22267999999985,
+        "applyAndSoftwareDomMs": 13.102460000000065
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "b287f157-eb6c-40a5-b6e5-160c27178b66",
+        "matchRevision": 5,
+        "serverSequence": 21,
+        "receivedAt": 7937.40742,
+        "appliedAt": 7937.518127,
+        "bytes": 243,
+        "rttMs": 329.0912409999992,
+        "applyAndSoftwareDomMs": 0.1164760000001479
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 5,
+        "serverSequence": 22,
+        "receivedAt": 7938.616062,
+        "appliedAt": 7951.832053,
+        "bytes": 237192,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 13.275681000000077
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 5,
+        "serverSequence": 12,
+        "receivedAt": 7951.899264,
+        "appliedAt": 7955.301163,
+        "bytes": 225592,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.4331560000000536
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "05015eb6-55c3-49c1-8b9f-9d6f2b41dd4d",
+        "matchRevision": 5,
+        "serverSequence": 23,
+        "receivedAt": 8248.42311,
+        "appliedAt": 8260.858044,
+        "bytes": 160446,
+        "rttMs": 306.35536499999944,
+        "applyAndSoftwareDomMs": 12.461424000000989
+      },
+      {
+        "messageType": "MATCH_QUERY",
+        "requestId": "ba649e1c-de55-4408-940b-da1a399d30ed",
+        "matchRevision": 5,
+        "serverSequence": 13,
+        "receivedAt": 8260.926107,
+        "appliedAt": 8263.245824,
+        "bytes": 151778,
+        "rttMs": 306.1906169999993,
+        "applyAndSoftwareDomMs": 2.340487999999823
+      }
+    ]
+  },
+  "privacy": "hidden Soviet deployment absent from German authorized view"
+}

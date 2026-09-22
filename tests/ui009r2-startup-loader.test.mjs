@@ -9,11 +9,11 @@ const main=await readFile(new URL('../src/main.ts',import.meta.url),'utf8');
 test('UI009R2D2 startup loader uses direct URL image first with optional fetch/bitmap fallback',()=>{
   assert(source.includes("capabilities.createImageBitmap"));
   assert(source.includes("imageFromUrl(url,entry,'direct-image-load'"));
-  assert(source.includes("fetchTerrainBlobWithAbort(url,entry,capabilities)"));
+  assert(source.includes("fetchTerrainBlobWithAbort(url,entry,capabilities,policy.resourceTimeoutMs)"));
   assert(source.includes("imageFromUrl(objectUrl,entry,'html-image-load'"));
   assert.equal(source.includes("cache:'force-cache'"),false);
-  assert(source.indexOf("imageFromUrl(url,entry,'direct-image-load'") < source.indexOf("fetchTerrainBlobWithAbort(url,entry,capabilities)"));
-  assert.equal(source.includes('.decode()'),false,'HTMLImageElement.decode must not be mandatory');
+  assert(source.indexOf("imageFromUrl(url,entry,'direct-image-load'") < source.indexOf("fetchTerrainBlobWithAbort(url,entry,capabilities,policy.resourceTimeoutMs)"));
+  assert(source.includes("capabilities.htmlImageDecode&&typeof img.decode==='function'"),'decode remains optional with onload/Canvas fallback');
 });
 
 test('UI009R2 startup resource failures preserve exact URL asset family HTTP stage and capabilities',()=>{

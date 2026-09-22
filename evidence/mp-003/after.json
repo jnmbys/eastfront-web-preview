@@ -1,0 +1,769 @@
+{
+  "environment": {
+    "runtime": "v24.19.0",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "transport": "real loopback WebSockets",
+    "simulatedDelayPerDirectionMs": 150,
+    "browser": "none; production client/session with software DOM (no browser layout/paint)",
+    "server": "in-process production RoomAuthority, no hosting changes",
+    "clockMethod": "RTT and application intervals use client-local monotonic time; server processing uses server-local monotonic time. No cross-clock subtraction."
+  },
+  "summary": {
+    "select-unit": {
+      "samples": 5,
+      "localFeedbackMedianMs": 10.547169000000395,
+      "controlsReadyMedianMs": 10.563853999999992,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "queueMedianMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        },
+        "SUBMIT_ACTION": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        }
+      },
+      "snapshotsAppliedMedianMs": null,
+      "responseApplyAndSoftwareDomMedianMs": null,
+      "queryApplyAndSoftwareDomMedianMs": null,
+      "snapshotApplyAndSoftwareDomMedianMs": null
+    },
+    "select-position": {
+      "samples": 5,
+      "localFeedbackMedianMs": 11.019941000000017,
+      "controlsReadyMedianMs": 11.069805999999971,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "queueMedianMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        },
+        "SUBMIT_ACTION": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        }
+      },
+      "snapshotsAppliedMedianMs": null,
+      "responseApplyAndSoftwareDomMedianMs": null,
+      "queryApplyAndSoftwareDomMedianMs": null,
+      "snapshotApplyAndSoftwareDomMedianMs": null
+    },
+    "confirm-deployment": {
+      "samples": 5,
+      "localFeedbackMedianMs": 10.444072000000233,
+      "controlsReadyMedianMs": 352.92775100000017,
+      "requestCount": 5,
+      "queries": 0,
+      "resyncs": 0,
+      "queueMedianMs": 0.09208900000021458,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMedianMs": null,
+          "serverProcessingMedianMs": null
+        },
+        "SUBMIT_ACTION": {
+          "rttMedianMs": 331.0122409999999,
+          "serverProcessingMedianMs": 29.95833700000003
+        }
+      },
+      "snapshotsAppliedMedianMs": 349.5408179999995,
+      "responseApplyAndSoftwareDomMedianMs": 3.5969390000000203,
+      "queryApplyAndSoftwareDomMedianMs": null,
+      "snapshotApplyAndSoftwareDomMedianMs": 12.48854300000039
+    }
+  },
+  "rows": [
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 11.349608999999873,
+      "controlsReadyMs": 11.561307999999826,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 11.019941000000017,
+      "controlsReadyMs": 11.069805999999971,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.934762999999748,
+      "controlsReadyMs": 365.7137499999999,
+      "requestCount": 1,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.1689449999998942,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            342.218605
+          ],
+          "serverProcessingMs": [
+            41.16174499999988
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        360.5600519999998,
+        364.78499999999985
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.34103400000003603,
+        17.86198400000012,
+        4.210516000000098
+      ],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": [
+        17.86198400000012,
+        4.210516000000098
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 10.320075999999972,
+      "controlsReadyMs": 10.335449000000153,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 11.597291000000041,
+      "controlsReadyMs": 11.609429999999975,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.444072000000233,
+      "controlsReadyMs": 352.92775100000017,
+      "requestCount": 1,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.1043670000003658,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            334.83710199999996
+          ],
+          "serverProcessingMs": [
+            34.73343599999998
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        349.5285670000003,
+        352.8681110000002
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.08651099999997314,
+        14.52945099999988,
+        3.328487000000223
+      ],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": [
+        14.52945099999988,
+        3.328487000000223
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 11.009375000000091,
+      "controlsReadyMs": 11.024588000000222,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 10.891967999999906,
+      "controlsReadyMs": 10.907431999999972,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 10.40807900000027,
+      "controlsReadyMs": 350.2529400000003,
+      "requestCount": 1,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.09208900000021458,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            329.4010089999997
+          ],
+          "serverProcessingMs": [
+            29.306454999999914
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        344.38480500000014,
+        349.112611
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.10070100000029925,
+        14.848891999999978,
+        3.5460950000001503
+      ],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": [
+        14.848891999999978,
+        3.5460950000001503
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 10.547169000000395,
+      "controlsReadyMs": 10.563853999999992,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 10.593518000000131,
+      "controlsReadyMs": 10.605756999999812,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 9.329181999999946,
+      "controlsReadyMs": 354.40912000000026,
+      "requestCount": 1,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.09096699999963676,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            331.0122409999999
+          ],
+          "serverProcessingMs": [
+            29.811215999999604
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        349.5408179999995,
+        353.29233999999997
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.09696600000006583,
+        18.373123000000305,
+        3.7381219999997484
+      ],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": [
+        18.373123000000305,
+        3.7381219999997484
+      ]
+    },
+    {
+      "operation": "select-unit",
+      "localFeedbackMs": 9.327868999999737,
+      "controlsReadyMs": 9.341599999999744,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "select-position",
+      "localFeedbackMs": 13.20952699999998,
+      "controlsReadyMs": 13.223998999999822,
+      "requestCount": 0,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": null,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        }
+      },
+      "snapshotsAppliedMs": [],
+      "responseApplyAndSoftwareDomMs": [],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": []
+    },
+    {
+      "operation": "confirm-deployment",
+      "localFeedbackMs": 11.26213799999914,
+      "controlsReadyMs": 348.122112,
+      "requestCount": 1,
+      "queries": 0,
+      "resyncs": 0,
+      "firstSendQueueMs": 0.08782199999950535,
+      "byType": {
+        "QUERY_MATCH": {
+          "rttMs": [],
+          "serverProcessingMs": []
+        },
+        "SUBMIT_ACTION": {
+          "rttMs": [
+            330.7058420000003
+          ],
+          "serverProcessingMs": [
+            29.95833700000003
+          ]
+        }
+      },
+      "snapshotsAppliedMs": [
+        343.3286969999999,
+        348.06228199999987
+      ],
+      "responseApplyAndSoftwareDomMs": [
+        0.07667599999967933,
+        12.48854300000039,
+        3.5969390000000203
+      ],
+      "queryApplyAndSoftwareDomMs": [],
+      "snapshotApplyAndSoftwareDomMs": [
+        12.48854300000039,
+        3.5969390000000203
+      ]
+    }
+  ],
+  "messageTotals": {
+    "HELLO": 2,
+    "CREATE_ROOM": 1,
+    "JOIN_ROOM": 1,
+    "SELECT_SEAT": 2,
+    "SET_READY": 2,
+    "SUBMIT_ACTION": 5
+  },
+  "responseBytes": {
+    "MATCH_QUERY": null,
+    "PLAYER_VIEW_SNAPSHOT": 230247
+  },
+  "trace": {
+    "clientSends": [
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "cf366103-f942-45fd-85a0-1e3d82b75ee6",
+        "expectedRevision": 0,
+        "sentAt": 2669.778022
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "d29b29c6-47a0-4456-8d46-cf79afcccee5",
+        "expectedRevision": 1,
+        "sentAt": 3057.618675
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "b73ac5a6-ec82-4175-87c6-fec0b80e1a18",
+        "expectedRevision": 2,
+        "sentAt": 3432.564295
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "39cc6ab4-663f-433c-a3d2-20eaa766ec30",
+        "expectedRevision": 3,
+        "sentAt": 3804.10969
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "678050ce-05e7-4774-95ca-b189ad94e730",
+        "expectedRevision": 4,
+        "sentAt": 4181.163928
+      }
+    ],
+    "serverProcessing": [
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "cf366103-f942-45fd-85a0-1e3d82b75ee6",
+        "receivedAt": 2819.636527,
+        "processingMs": 41.16174499999988
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "d29b29c6-47a0-4456-8d46-cf79afcccee5",
+        "receivedAt": 3207.679379,
+        "processingMs": 34.73343599999998
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "b73ac5a6-ec82-4175-87c6-fec0b80e1a18",
+        "receivedAt": 3582.454092,
+        "processingMs": 29.306454999999914
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "39cc6ab4-663f-433c-a3d2-20eaa766ec30",
+        "receivedAt": 3954.533702,
+        "processingMs": 29.811215999999604
+      },
+      {
+        "messageType": "SUBMIT_ACTION",
+        "requestId": "678050ce-05e7-4774-95ca-b189ad94e730",
+        "receivedAt": 4331.787631,
+        "processingMs": 29.95833700000003
+      }
+    ],
+    "clientReceives": [
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 0,
+        "serverSequence": 1,
+        "receivedAt": 2274.370163,
+        "appliedAt": 2279.734779,
+        "bytes": 225590,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 5.39787699999988
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 0,
+        "serverSequence": 1,
+        "receivedAt": 2279.782932,
+        "appliedAt": 2296.089252,
+        "bytes": 230247,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 16.34047099999998
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "cf366103-f942-45fd-85a0-1e3d82b75ee6",
+        "matchRevision": 1,
+        "serverSequence": 2,
+        "receivedAt": 3011.996627,
+        "appliedAt": 3012.332503,
+        "bytes": 242,
+        "rttMs": 342.218605,
+        "applyAndSoftwareDomMs": 0.34103400000003603
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 1,
+        "serverSequence": 3,
+        "receivedAt": 3012.342979,
+        "appliedAt": 3030.169129,
+        "bytes": 231631,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 17.86198400000012
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 1,
+        "serverSequence": 2,
+        "receivedAt": 3030.214227,
+        "appliedAt": 3034.394077,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 4.210516000000098
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "d29b29c6-47a0-4456-8d46-cf79afcccee5",
+        "matchRevision": 2,
+        "serverSequence": 4,
+        "receivedAt": 3392.455777,
+        "appliedAt": 3392.5372,
+        "bytes": 242,
+        "rttMs": 334.83710199999996,
+        "applyAndSoftwareDomMs": 0.08651099999997314
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 2,
+        "serverSequence": 5,
+        "receivedAt": 3392.547426,
+        "appliedAt": 3407.042875,
+        "bytes": 233021,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 14.52945099999988
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 2,
+        "serverSequence": 3,
+        "receivedAt": 3407.084578,
+        "appliedAt": 3410.382419,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.328487000000223
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "b73ac5a6-ec82-4175-87c6-fec0b80e1a18",
+        "matchRevision": 3,
+        "serverSequence": 6,
+        "receivedAt": 3761.965304,
+        "appliedAt": 3762.060938,
+        "bytes": 242,
+        "rttMs": 329.4010089999997,
+        "applyAndSoftwareDomMs": 0.10070100000029925
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 3,
+        "serverSequence": 7,
+        "receivedAt": 3762.071454,
+        "appliedAt": 3776.857011,
+        "bytes": 234411,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 14.848891999999978
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 3,
+        "serverSequence": 4,
+        "receivedAt": 3778.069078,
+        "appliedAt": 3781.584817,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.5460950000001503
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "39cc6ab4-663f-433c-a3d2-20eaa766ec30",
+        "matchRevision": 4,
+        "serverSequence": 8,
+        "receivedAt": 4135.121931,
+        "appliedAt": 4135.213839,
+        "bytes": 242,
+        "rttMs": 331.0122409999999,
+        "applyAndSoftwareDomMs": 0.09696600000006583
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 4,
+        "serverSequence": 9,
+        "receivedAt": 4135.222392,
+        "appliedAt": 4153.559541,
+        "bytes": 235801,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 18.373123000000305
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 4,
+        "serverSequence": 5,
+        "receivedAt": 4153.604469,
+        "appliedAt": 4157.311063,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.7381219999997484
+      },
+      {
+        "messageType": "ACTION_ACCEPTED",
+        "requestId": "678050ce-05e7-4774-95ca-b189ad94e730",
+        "matchRevision": 5,
+        "serverSequence": 10,
+        "receivedAt": 4511.86977,
+        "appliedAt": 4511.941208,
+        "bytes": 243,
+        "rttMs": 330.7058420000003,
+        "applyAndSoftwareDomMs": 0.07667599999967933
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 5,
+        "serverSequence": 11,
+        "receivedAt": 4511.951703,
+        "appliedAt": 4524.404803,
+        "bytes": 237192,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 12.48854300000039
+      },
+      {
+        "messageType": "PLAYER_VIEW_SNAPSHOT",
+        "requestId": null,
+        "matchRevision": 5,
+        "serverSequence": 6,
+        "receivedAt": 4525.571203,
+        "appliedAt": 4529.138388,
+        "bytes": 225591,
+        "rttMs": null,
+        "applyAndSoftwareDomMs": 3.5969390000000203
+      }
+    ]
+  },
+  "privacy": "hidden Soviet deployment absent from German authorized view"
+}

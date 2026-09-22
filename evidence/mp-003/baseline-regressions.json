@@ -1,0 +1,22 @@
+{
+  "baselineCommit": "32fc7dbe6dfa8bad0a3beac8e554f6bce34f9cb6",
+  "baselineClientSha256": "da968652654c9e4f5890277528aa3371bcbd14633d13d464db1ea1eddd635e15",
+  "method": "Same three new controlled scheduling tests imported against the unmodified baseline compiled NetworkPlayerSession. Expected failures, not a public capture.",
+  "tests": [
+    {
+      "case": "obsolete query response does not overwrite latest selection",
+      "baseline": "FAIL",
+      "patched": "PASS"
+    },
+    {
+      "case": "A-B-A cancels intermediate unsent B",
+      "baseline": "FAIL (two queries instead of one)",
+      "patched": "PASS"
+    },
+    {
+      "case": "new snapshot plus older in-flight query does not enter recovery",
+      "baseline": "FAIL (syncing became true)",
+      "patched": "PASS"
+    }
+  ]
+}

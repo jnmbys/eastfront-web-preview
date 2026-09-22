@@ -7,7 +7,7 @@ import type {NetworkAction} from './gameplayProtocol.js';
 const same=(a:HexCoord,b:HexCoord)=>coreHexKey(a)===coreHexKey(b);
 const pending=(s:Session)=>s.playerView.pendingDecision;
 const send=(s:Session,a:NetworkAction)=>s.submit(a);
-export function isCombatTargetSelection(s:Session,p:P){return s.interactive&&!pending(s)&&s.playerView.phase.endsWith('_COMBAT')&&p.attackUnitIds.length>0;}
+export function isCombatTargetSelection(s:Session,p:P){return s.canSelect&&!pending(s)&&s.playerView.phase.endsWith('_COMBAT')&&p.attackUnitIds.length>0;}
 export function combatTargetIssues(s:Session,p:P,h:HexCoord){return s.model.combat?.attackDraft.targetHexes.some(t=>same(t,h))?[]:[{code:'NO_DEFENDER' as const,message:''}];}
 export function routeCombatTarget(s:Session,p:P,h:HexCoord):boolean {
   if(!isCombatTargetSelection(s,p))return false;
