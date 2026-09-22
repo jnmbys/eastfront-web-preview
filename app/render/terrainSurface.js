@@ -642,6 +642,8 @@ export async function buildCachedTerrainSurface(model, seed, assetSet = 'p5', lo
         return { canvas, viewBox, seed, assetSet, lod, stats };
     }
     catch (error) {
+        canvas.width = 0;
+        canvas.height = 0;
         if (error instanceof TerrainSurfaceResourceError)
             throw error;
         throw new TerrainSurfaceResourceError('Terrain surface canvas draw failed', { stage: 'canvas-draw', cause: errorText(error), capabilities: terrainSurfaceCapabilities() });

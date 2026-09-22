@@ -1,30 +1,48 @@
+import { finishTerrainWork, runTerrainWork } from './terrainWork.js';
 import { VS2_WORLD_H, vs2VisualValue } from './vs2WorldField.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
 import { vs2AssetCatalog } from './vs2Assets.js';
 /** World-lattice candidates span the city union. Reject whole footprints: no roof clipping. */
-export function planVS2CityClusters(projection, seed, lod = 'medium', assets = vs2AssetCatalog) {
+function* planVS2CityClustersWork(projection, seed, lod = 'medium', assets = vs2AssetCatalog) {
+    let batch = 0;
     const entries = assets.byFamily('city').filter(e => (e.semanticRole === 'buildingStamp' || e.semanticRole === 'localDecoration') && e.LOD.includes(lod) && e.rotationAllowed.degrees?.includes(0));
     if (!entries.length)
         return [];
     const step = VS2_WORLD_H * 0.10, candidates = new Set();
     for (const city of projection.cityCells) {
+        if (++batch % 64 === 0)
+            yield;
         const xs = city.polygon.map(p => p.x), ys = city.polygon.map(p => p.y);
         for (let iy = Math.floor(Math.min(...ys) / step); iy <= Math.ceil(Math.max(...ys) / step); iy++) {
+            if (++batch % 64 === 0)
+                yield;
             for (let ix = Math.floor(Math.min(...xs) / step); ix <= Math.ceil(Math.max(...xs) / step); ix++)
                 candidates.add(`${ix},${iy}`);
         }
     }
     const centers = projection.cityCells.map(c => ({ x: c.polygon.reduce((s, p) => s + p.x, 0) / 6, y: c.polygon.reduce((s, p) => s + p.y, 0) / 6 }));
     const centrality = (p) => Math.min(...centers.map(c => Math.hypot((p[0] + 0.5) * step - c.x, (p[1] + 0.5) * step - c.y)));
-    const positions = [...candidates].map(k => k.split(',').map(Number)).sort((a, b) => centrality(a) - centrality(b) || a[1] - b[1] || a[0] - b[0]);
+    // Centrality is static. Compute once, preserving the exact comparator/tie order.
+    const ranked = [];
+    for (const key of candidates) {
+        if (++batch % 64 === 0)
+            yield;
+        const point = key.split(',').map(Number);
+        ranked.push({ point, distance: centrality(point) });
+    }
+    const positions = ranked.sort((a, b) => a.distance - b.distance || a.point[1] - b.point[1] || a.point[0] - b.point[0]).map(row => row.point);
     const placed = [];
     for (const [ix, iy] of positions) {
+        if (++batch % 64 === 0)
+            yield;
         const random = (purpose) => vs2VisualValue(seed, `city:${purpose}`, ix, iy);
         const buildings = entries.filter(e => e.semanticRole === 'buildingStamp');
         const preferred = Math.floor(random('asset') * buildings.length);
         const ordered = [...(buildings.length ? [buildings[preferred], ...buildings] : []), ...entries.filter(e => e.semanticRole === 'localDecoration').sort((a, b) => vs2VisualValue(seed, a.id, ix, iy) - vs2VisualValue(seed, b.id, ix, iy))];
         const x = (ix + 0.5 + (random('x') - 0.5) * 0.45) * step, y = (iy + 0.5 + (random('y') - 0.5) * 0.45) * step;
         for (const entry of ordered) {
+            if (++batch % 64 === 0)
+                yield;
             const range = entry.recommendedWorldScale.width;
             const width = (range[0] + (range[1] - range[0]) * (entry.semanticRole === 'localDecoration' ? 0.22 + random('scale') * 0.22 : random('scale') * 0.15)) * VS2_WORLD_H;
             const height = width * entry.sourceSize[1] / entry.sourceSize[0];
@@ -62,13 +80,20 @@ function cityDistricts(p) {
 }
 /** Same city footprint and canonical corridor rejection as F. Density and roof orientation
  * follow district centers and existing transport, using only stateless presentation hashes. */
-export function planVS2CityBlocks(projection, seed) {
+function* planVS2CityBlocksWork(projection, seed) {
+    let batch = 0;
     const step = 7, seen = new Set(), blocks = [], districts = cityDistricts(projection);
     const transport = projection.corridors.filter(c => c.kind === 'road' || c.kind === 'rail');
     for (const c of projection.cityCells) {
+        if (++batch % 64 === 0)
+            yield;
         const xs = c.polygon.map(p => p.x), ys = c.polygon.map(p => p.y);
         for (let iy = Math.floor(Math.min(...ys) / step); iy <= Math.ceil(Math.max(...ys) / step); iy++) {
+            if (++batch % 64 === 0)
+                yield;
             for (let ix = Math.floor(Math.min(...xs) / step); ix <= Math.ceil(Math.max(...xs) / step); ix++) {
+                if (++batch % 64 === 0)
+                    yield;
                 const key = `${ix},${iy}`;
                 if (seen.has(key))
                     continue;
@@ -100,6 +125,8 @@ export function planVS2CityBlocks(projection, seed) {
     // Give the larger inner blocks priority over small perimeter candidates.
     const packed = [];
     for (const b of blocks.sort((a, b) => b.density - a.density || a.y - b.y || a.x - b.x)) {
+        if (++batch % 64 === 0)
+            yield;
         if (!packed.some(p => Math.abs(p.x - b.x) < (p.width + b.width) / 2 + 1 && Math.abs(p.y - b.y) < (p.height + b.height) / 2 + 1))
             packed.push(b);
     }
@@ -109,11 +136,17 @@ export function planVS2CityBlocks(projection, seed) {
     // same city union and original transport clearances. Every city retains coverage.
     const cellCenters = projection.cityCells.map(c => ({ x: c.polygon.reduce((s, v) => s + v.x, 0) / 6, y: c.polygon.reduce((s, v) => s + v.y, 0) / 6 }));
     for (const d of districts) {
+        if (++batch % 64 === 0)
+            yield;
         const local = blocks.filter(b => Math.hypot(b.x - d.x, b.y - d.y) < d.radius)
             .sort((a, b) => b.density - a.density || a.y - b.y || a.x - b.x);
         let consolidated = false;
         coreSearch: for (const [scaleWidth, scaleHeight] of [[2.1, 2.35], [1.65, 1.85]]) {
+            if (++batch % 64 === 0)
+                yield;
             for (const focus of local) {
+                if (++batch % 64 === 0)
+                    yield;
                 if (focus.density < 0.38)
                     continue;
                 const roofWidth = focus.roofWidth * scaleWidth, roofHeight = focus.roofHeight * scaleHeight;
@@ -140,13 +173,18 @@ export function planVS2CityBlocks(projection, seed) {
 }
 /** Local paved courts tie existing dense blocks into a legible core. These are
  * decorative yards, never canonical road edges. Reject their complete stroke bounds. */
-export function planVS2CityCourts(p, blocks) {
+function* planVS2CityCourtsWork(p, blocks) {
+    let batch = 0;
     const courts = [];
     for (let i = 0; i < blocks.length; i++) {
+        if (++batch % 64 === 0)
+            yield;
         const a = blocks[i];
         if (a.density < 0.3)
             continue;
         for (const b of blocks.slice(i + 1)) {
+            if (++batch % 64 === 0)
+                yield;
             if (b.density < 0.3 || Math.hypot(a.x - b.x, a.y - b.y) > 18)
                 continue;
             const width = 5 + Math.min(a.density, b.density) * 4;
@@ -241,3 +279,9 @@ export function paintVS2CityMassing(ctx, blocks) {
         ctx.restore();
     }
 }
+export function planVS2CityClusters(projection, seed, lod = 'medium', assets = vs2AssetCatalog) { return finishTerrainWork(planVS2CityClustersWork(projection, seed, lod, assets)); }
+export function planVS2CityClustersAsync(projection, seed, lod = 'medium', assets = vs2AssetCatalog, control) { return runTerrainWork('planVS2CityClusters', planVS2CityClustersWork(projection, seed, lod, assets), control); }
+export function planVS2CityBlocks(projection, seed) { return finishTerrainWork(planVS2CityBlocksWork(projection, seed)); }
+export function planVS2CityBlocksAsync(projection, seed, control) { return runTerrainWork('planVS2CityBlocks', planVS2CityBlocksWork(projection, seed), control); }
+export function planVS2CityCourts(p, blocks) { return finishTerrainWork(planVS2CityCourtsWork(p, blocks)); }
+export function planVS2CityCourtsAsync(p, blocks, control) { return runTerrainWork('planVS2CityCourts', planVS2CityCourtsWork(p, blocks), control); }

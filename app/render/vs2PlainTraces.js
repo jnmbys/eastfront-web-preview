@@ -1,13 +1,20 @@
+import { recordTerrainDraws } from './terrainDrawCommands.js';
+import { finishTerrainWork, runTerrainWork } from './terrainWork.js';
 import { vs2MarshEnvironment } from './vs2TerrainDetail.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
 import { VS2_WORLD_H, vs2VisualValue, vs2WorldNoise } from './vs2WorldField.js';
 /** Agricultural traces, not traversable roads or scenario features. Fixed world lattice. */
-export function paintVS2PlainTraces(ctx, p, seed) {
+function* paintVS2PlainTracesWork(ctx, p, seed) {
+    let batch = 0;
     const step = VS2_WORLD_H * 0.85, bounds = p.viewBox;
     ctx.save();
     try {
         for (let iy = Math.floor(bounds.minY / step); iy < (bounds.minY + bounds.height) / step; iy++) {
+            if (++batch % 64 === 0)
+                yield;
             for (let ix = Math.floor(bounds.minX / step); ix < (bounds.minX + bounds.width) / step; ix++) {
+                if (++batch % 64 === 0)
+                    yield;
                 const r = (tag) => vs2VisualValue(seed, `F-fields:${tag}`, ix, iy);
                 const cultivated = vs2WorldNoise(seed, 'F1-cultivation-region', ix * step, iy * step, VS2_WORLD_H * 3);
                 if (r('presence') < 0.24 + cultivated * 0.3)
@@ -29,6 +36,8 @@ export function paintVS2PlainTraces(ctx, p, seed) {
                 ctx.lineWidth = 0.6;
                 ctx.beginPath();
                 for (let dy = -h / 2 + 2; dy < h / 2; dy += 3) {
+                    if (++batch % 64 === 0)
+                        yield;
                     ctx.moveTo(-w / 2 + 1, dy);
                     ctx.lineTo(w / 2 - 1, dy);
                 }
@@ -44,6 +53,8 @@ export function paintVS2PlainTraces(ctx, p, seed) {
                 if (r('fence') > 0.68) {
                     ctx.beginPath();
                     for (let dy = -h / 2 + 3; dy < h / 2 - 1; dy += 6) {
+                        if (++batch % 64 === 0)
+                            yield;
                         ctx.moveTo(-w / 2 - 0.6, dy);
                         ctx.lineTo(-w / 2 + 0.6, dy - 1.7);
                     }
@@ -66,7 +77,8 @@ export function paintVS2PlainTraces(ctx, p, seed) {
     }
 }
 /** Sparse reed tufts give marsh a land/water identity distinct from the lake fill. */
-export function paintVS2MarshReeds(ctx, p, seed) {
+function* paintVS2MarshReedsWork(ctx, p, seed) {
+    let batch = 0;
     const step = 13, b = p.viewBox;
     ctx.save();
     try {
@@ -74,7 +86,11 @@ export function paintVS2MarshReeds(ctx, p, seed) {
         ctx.lineWidth = 0.85;
         ctx.globalAlpha = 0.65;
         for (let iy = Math.floor(b.minY / step); iy < (b.minY + b.height) / step; iy++) {
+            if (++batch % 64 === 0)
+                yield;
             for (let ix = Math.floor(b.minX / step); ix < (b.minX + b.width) / step; ix++) {
+                if (++batch % 64 === 0)
+                    yield;
                 const r = vs2VisualValue(seed, 'F-reeds', ix, iy);
                 const x = (ix + r) * step, y = (iy + r * 0.7) * step;
                 const marshWeight = p.field.sample(x, y).weights[4];
@@ -94,6 +110,8 @@ export function paintVS2MarshReeds(ctx, p, seed) {
                 ctx.globalAlpha = 0.45 + marshWeight * 0.27;
                 ctx.beginPath();
                 for (const dx of [-1.5, 0, 1.5]) {
+                    if (++batch % 64 === 0)
+                        yield;
                     ctx.moveTo(x, y);
                     ctx.lineTo(x + dx, y - 2.2 - r * 2);
                 }
@@ -107,14 +125,19 @@ export function paintVS2MarshReeds(ctx, p, seed) {
 }
 /** Small riparian vegetation groups follow actual river segments, avoiding all transport.
  * This pass is below infrastructure, so it cannot cover water, rails or bridge decks. */
-export function paintVS2RiverbankDetails(ctx, p, seed) {
+function* paintVS2RiverbankDetailsWork(ctx, p, seed) {
+    let batch = 0;
     const rivers = p.corridors.filter(e => e.kind === 'river'), transport = p.corridors.filter(e => e.kind !== 'river');
     ctx.save();
     try {
         for (const e of rivers) {
+            if (++batch % 64 === 0)
+                yield;
             const dx = e.b.x - e.a.x, dy = e.b.y - e.a.y, length = Math.hypot(dx, dy);
             for (let i = 0; i < 2; i++)
                 for (const side of [-1, 1]) {
+                    if (++batch % 64 === 0)
+                        yield;
                     const r = vs2VisualValue(seed, `F1-bank:${e.key}:${side}`, i, 0);
                     const band = vs2WorldNoise(seed, 'F1-riparian-regions', e.a.x, e.a.y, VS2_WORLD_H * 2);
                     if (r < 0.28 + band * 0.45)
@@ -133,6 +156,8 @@ export function paintVS2RiverbankDetails(ctx, p, seed) {
                     ctx.ellipse(x, y, 4, 2.3, Math.atan2(dy, dx), 0, Math.PI * 2);
                     ctx.fill();
                     for (let j = 0; j < (r > 0.75 ? 3 : 2); j++) {
+                        if (++batch % 64 === 0)
+                            yield;
                         const bx = x + (j - 1) * 1.9, by = y - (j % 2) * 1.1;
                         ctx.globalAlpha = 0.7;
                         ctx.fillStyle = j % 2 ? '#6f8747' : '#497351';
@@ -151,4 +176,17 @@ export function paintVS2RiverbankDetails(ctx, p, seed) {
     finally {
         ctx.restore();
     }
+}
+export function paintVS2PlainTraces(ctx, p, seed) { return finishTerrainWork(paintVS2PlainTracesWork(ctx, p, seed)); }
+export function paintVS2MarshReeds(ctx, p, seed) { return finishTerrainWork(paintVS2MarshReedsWork(ctx, p, seed)); }
+export function paintVS2RiverbankDetails(ctx, p, seed) { return finishTerrainWork(paintVS2RiverbankDetailsWork(ctx, p, seed)); }
+/** Compute the exact existing draw stream cooperatively, then replay it once. */
+export async function planVS2DetailDraws(projection, seed, control) {
+    const draws = recordTerrainDraws();
+    await runTerrainWork('terrain-details-plan', (function* () {
+        yield* paintVS2PlainTracesWork(draws.context, projection, seed);
+        yield* paintVS2MarshReedsWork(draws.context, projection, seed);
+        yield* paintVS2RiverbankDetailsWork(draws.context, projection, seed);
+    })(), control);
+    return draws;
 }

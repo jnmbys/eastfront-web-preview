@@ -1,3 +1,4 @@
+import { finishTerrainWork, runTerrainWork } from './terrainWork.js';
 import { vs2AssetCatalog } from './vs2Assets.js';
 import { VS2_WORLD_H, vs2VisualValue, vs2WorldNoise } from './vs2WorldField.js';
 import { vs2ReliefLight, vs2MarshEnvironment } from './vs2TerrainDetail.js';
@@ -32,7 +33,8 @@ function luminance(s, x, y) {
     return (0.2126 * channel(s, x, y, 0) + 0.7152 * channel(s, x, y, 1) + 0.0722 * channel(s, x, y, 2)) / 255;
 }
 /** Pure CPU prototype. Fixed world resolution is independent of zoom and camera. */
-export function rasterizeVS2WorldSurface(field, textures, seed, bounds, pixelSize = 2) {
+function* rasterizeVS2WorldSurfaceWork(field, textures, seed, bounds, pixelSize = 2) {
+    let batch = 0;
     if (!Number.isFinite(pixelSize) || pixelSize <= 0 || !Number.isFinite(bounds.width) || !Number.isFinite(bounds.height) || bounds.width <= 0 || bounds.height <= 0)
         throw new Error('Invalid VS2 raster bounds/resolution');
     const samples = VS2_WORLD_MATERIAL_IDS.map(id => {
@@ -45,8 +47,12 @@ export function rasterizeVS2WorldSurface(field, textures, seed, bounds, pixelSiz
     const regionMaterials = [0, 2, 3, 4, 5, 6];
     const lake = [67, 123, 140], background = [187, 179, 147];
     for (let row = 0; row < height; row++) {
+        if (++batch % 64 === 0)
+            yield;
         const y = bounds.minY + (row + 0.5) * pixelSize;
         for (let col = 0; col < width; col++) {
+            if (++batch % 64 === 0)
+                yield;
             const x = bounds.minX + (col + 0.5) * pixelSize, index = (row * width + col) * 4;
             const { weights, coverage } = field.sample(x, y);
             const dry = vs2WorldNoise(seed, 'dryness', x, y, VS2_WORLD_H * 4) * 0.48;
@@ -68,8 +74,12 @@ export function rasterizeVS2WorldSurface(field, textures, seed, bounds, pixelSiz
                 [132 - pool * 54 - mud * 12, 153 - pool * 11 - mud * 18, 91 + pool * 44 - mud * 7], [177, 161, 130],
             ];
             for (let c = 0; c < 3; c++) {
+                if (++batch % 64 === 0)
+                    yield;
                 let value = weights[6] * lake[c];
                 for (let region = 0; region < regionMaterials.length; region++) {
+                    if (++batch % 64 === 0)
+                        yield;
                     const weight = weights[region];
                     if (!weight)
                         continue;
@@ -101,3 +111,5 @@ export function rasterizeVS2WorldSurface(field, textures, seed, bounds, pixelSiz
     }
     return { width, height, data };
 }
+export function rasterizeVS2WorldSurface(field, textures, seed, bounds, pixelSize = 2) { return finishTerrainWork(rasterizeVS2WorldSurfaceWork(field, textures, seed, bounds, pixelSize)); }
+export function rasterizeVS2WorldSurfaceAsync(field, textures, seed, bounds, pixelSize = 2, control) { return runTerrainWork('rasterizeVS2WorldSurface', rasterizeVS2WorldSurfaceWork(field, textures, seed, bounds, pixelSize), control); }

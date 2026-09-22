@@ -1,3 +1,4 @@
+import { runTerrainWork } from './terrainWork.js';
 import { reportTerrainLoad } from './terrainLoadProgress.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
 import { VS2_WORLD_H, vs2VisualValue } from './vs2WorldField.js';
@@ -44,7 +45,7 @@ export function createVS2ForestCoverage(projection) {
         return coverage;
     };
 }
-export async function paintVS2Forest(ctx, projection, seed, lod, assets = vs2AssetCatalog) {
+export async function paintVS2Forest(ctx, projection, seed, lod, assets = vs2AssetCatalog, control) {
     const plan = planVS2Forest(projection, seed, assets);
     if (!plan.length)
         return { imageDraws: 0, uniqueAssets: 0 };
@@ -71,23 +72,34 @@ export async function paintVS2Forest(ctx, projection, seed, lod, assets = vs2Ass
             }
         }
         reportTerrainLoad({ kind: 'building' });
-        const image = target.getImageData(0, 0, layer.width, layer.height), coverage = createVS2ForestCoverage(projection);
-        for (let y = 0; y < layer.height; y++)
-            for (let x = 0; x < layer.width; x++) {
-                const i = (y * layer.width + x) * 4 + 3;
-                if (image.data[i]) {
-                    image.data[i] = image.data[i] * coverage(bounds.minX + (x + 0.5) * pixel, bounds.minY + (y + 0.5) * pixel);
-                    // Broad woodland warmth varies through the continuous crown layer, not per Hex.
-                    const wx = bounds.minX + (x + 0.5) * pixel, wy = bounds.minY + (y + 0.5) * pixel;
-                    const warmth = 0.5 + Math.sin(wx / 125 + Math.sin(wy / 165)) * 0.5;
-                    image.data[i - 3] = (image.data[i - 3] - 105) * 1.08 + 105;
-                    image.data[i - 3] = image.data[i - 3] * (0.80 + warmth * 0.18);
-                    image.data[i - 2] = (image.data[i - 2] - 95) * 1.08 + 108;
-                    image.data[i - 1] = image.data[i - 1] * (0.78 + warmth * 0.08);
-                }
+        const coverage = createVS2ForestCoverage(projection);
+        await runTerrainWork('forest-coverage-canvas', (function* () {
+            // Read/write complete stripes without scaling; the finished canopy is composed once.
+            for (let row = 0; row < layer.height; row += 32) {
+                const height = Math.min(32, layer.height - row), image = target.getImageData(0, row, layer.width, height);
+                for (let y = row; y < row + height; y++)
+                    for (let x = 0; x < layer.width; x++) {
+                        if (x % 64 === 0)
+                            yield;
+                        const i = ((y - row) * layer.width + x) * 4 + 3;
+                        if (image.data[i]) {
+                            image.data[i] = image.data[i] * coverage(bounds.minX + (x + 0.5) * pixel, bounds.minY + (y + 0.5) * pixel);
+                            // Broad woodland warmth varies through the continuous crown layer, not per Hex.
+                            const wx = bounds.minX + (x + 0.5) * pixel, wy = bounds.minY + (y + 0.5) * pixel;
+                            const warmth = 0.5 + Math.sin(wx / 125 + Math.sin(wy / 165)) * 0.5;
+                            image.data[i - 3] = (image.data[i - 3] - 105) * 1.08 + 105;
+                            image.data[i - 3] = image.data[i - 3] * (0.80 + warmth * 0.18);
+                            image.data[i - 2] = (image.data[i - 2] - 95) * 1.08 + 108;
+                            image.data[i - 1] = image.data[i - 1] * (0.78 + warmth * 0.08);
+                        }
+                    }
+                target.putImageData(image, 0, row);
+                yield;
             }
-        target.putImageData(image, 0, 0);
-        ctx.drawImage(layer, bounds.minX, bounds.minY, bounds.width, bounds.height);
+        })(), control);
+        await runTerrainWork('forest-canvas-compose', (function* () {
+            ctx.drawImage(layer, bounds.minX, bounds.minY, bounds.width, bounds.height);
+        })(), control);
     }
     finally {
         layer.width = 0;
