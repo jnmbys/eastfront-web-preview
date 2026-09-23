@@ -1,6 +1,7 @@
 import { COMPACT_SNAPSHOT, FULL_SNAPSHOT, MAX_SERVER_MESSAGE_BYTES, decodeSnapshot, isSnapshotFormat } from './snapshotCodec.js';
 import { PROTOCOL_VERSION, clientMessage } from './protocol.js';
 import { CLIENT_NETWORK } from './config.js';
+import { transportTimingEnabled, publishReceiveTiming } from './diagnosticTiming.js';
 /** Owns only authorized network DTOs. It never constructs a LocalGameSession. */
 export class LobbyClient {
     url;
@@ -87,6 +88,8 @@ export class LobbyClient {
         socket.onmessage = event => {
             if (this.socket !== socket)
                 return;
+            const callbackAt = transportTimingEnabled ? performance.now() : 0;
+            let parsedAt = callbackAt, decodedAt = callbackAt;
             let message;
             try {
                 const raw = String(event.data);
@@ -95,6 +98,8 @@ export class LobbyClient {
                 message = JSON.parse(raw);
                 if (!message || message.protocolVersion !== PROTOCOL_VERSION || typeof message.messageType !== 'string' || !message.payload || typeof message.payload !== 'object')
                     throw new Error();
+                if (transportTimingEnabled)
+                    parsedAt = performance.now();
             }
             catch {
                 this.invalidServer();
@@ -105,11 +110,19 @@ export class LobbyClient {
                     message = { ...message, payload: decodeSnapshot(message.payload, this.snapshotFormat === COMPACT_SNAPSHOT) };
                 }
                 catch {
+                    if (transportTimingEnabled)
+                        publishReceiveTiming({ type: 'PLAYER_VIEW_SNAPSHOT', requestId: '', callbackAt, parsedAt, decodedAt: performance.now(), appliedAt: performance.now(), outcome: 'invalid-snapshot' });
                     this.recoverSnapshot();
                     return;
                 }
             }
+            if (transportTimingEnabled)
+                decodedAt = performance.now();
             this.receive(message);
+            if (transportTimingEnabled && ['PLAYER_VIEW_SNAPSHOT', 'ACTION_ACCEPTED', 'ACTION_REJECTED'].includes(message.messageType)) {
+                const p = message.payload;
+                publishReceiveTiming({ type: message.messageType, requestId: message.requestId, revision: p.matchRevision, sequence: p.serverSequence, callbackAt, parsedAt, decodedAt, appliedAt: performance.now(), outcome: 'processed' });
+            }
         };
         socket.onerror = () => { this.state.error = 'unavailable'; socket.close(); };
         socket.onclose = () => {
