@@ -1,0 +1,225 @@
+{
+  "environment": {
+    "kind": "Cloud Chrome real browser, public Render WSS",
+    "viewport": "1363x936, DPR 1",
+    "models": "Auto",
+    "animation": "Normal",
+    "zoom": "100%",
+    "network": "same cloud browser/path, no simulated delay; external variation uncontrolled",
+    "order": "full then compact, separate matches, same first 10 Soviet unit/plain-card sequence",
+    "lods": "all three complete on both clients before each batch",
+    "cache": "HTTP cache not controlled; initialization excluded; fresh per-page surface caches fully built"
+  },
+  "groups": {
+    "full-actor": {
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "format": [
+        "snapshot-v1"
+      ],
+      "bytes": {
+        "n": 10,
+        "median": 237878,
+        "max": 244118
+      },
+      "parseMs": {
+        "n": 10,
+        "median": 1.25,
+        "max": 1.8999999999068677
+      },
+      "validateRebuildMs": {
+        "n": 10,
+        "median": 3.2000000001862645,
+        "max": 8.399999999906868
+      },
+      "applyMs": {
+        "n": 10,
+        "median": 33.049999999813735,
+        "max": 50.299999999813735
+      },
+      "queryCount": 0,
+      "resyncCount": 0,
+      "revisionAndHiddenDeploymentCheck": "PASS",
+      "submitAckMs": {
+        "n": 10,
+        "median": 288.4499999997206,
+        "max": 407.5
+      },
+      "ackSnapshotMs": {
+        "n": 10,
+        "median": 239.60000000009313,
+        "max": 921.1000000000931
+      },
+      "submitSnapshotMs": {
+        "n": 10,
+        "median": 556.9499999999534,
+        "max": 1213.2999999998137
+      },
+      "submitControlsMs": {
+        "n": 10,
+        "median": 602.5500000000466,
+        "max": 1251.6999999997206
+      },
+      "earlyControlsMs": {
+        "n": 5,
+        "median": 682,
+        "max": 1251.6999999997206
+      },
+      "lateControlsMs": {
+        "n": 5,
+        "median": 553.0999999996275,
+        "max": 617.2999999998137
+      },
+      "longTasks": {
+        "n": 7,
+        "median": 131,
+        "max": 342
+      },
+      "observationWindowMs": 10720.799999999814
+    },
+    "full-waiting": {
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "format": [
+        "snapshot-v1"
+      ],
+      "bytes": {
+        "n": 10,
+        "median": 225591,
+        "max": 225594
+      },
+      "parseMs": {
+        "n": 10,
+        "median": 1.1000000000931323,
+        "max": 5.2999999998137355
+      },
+      "validateRebuildMs": {
+        "n": 10,
+        "median": 5,
+        "max": 13.199999999720603
+      },
+      "applyMs": {
+        "n": 10,
+        "median": 15.150000000139698,
+        "max": 33.5
+      },
+      "queryCount": 0,
+      "resyncCount": 0,
+      "revisionAndHiddenDeploymentCheck": "PASS",
+      "latency": "No submit/ACK in waiting recipient; no cross-client-clock estimate",
+      "longTasks": {
+        "n": 0,
+        "median": null,
+        "max": null
+      },
+      "observationWindowMs": 9449.69999999972
+    },
+    "compact-actor": {
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "format": [
+        "snapshot-v2-inline-view"
+      ],
+      "bytes": {
+        "n": 10,
+        "median": 87480.5,
+        "max": 91087
+      },
+      "parseMs": {
+        "n": 10,
+        "median": 0.6499999999068677,
+        "max": 0.8999999999068677
+      },
+      "validateRebuildMs": {
+        "n": 10,
+        "median": 4.100000000093132,
+        "max": 8.800000000279397
+      },
+      "applyMs": {
+        "n": 10,
+        "median": 26.75,
+        "max": 40.89999999990687
+      },
+      "queryCount": 0,
+      "resyncCount": 0,
+      "revisionAndHiddenDeploymentCheck": "PASS",
+      "submitAckMs": {
+        "n": 10,
+        "median": 308.25,
+        "max": 380.5
+      },
+      "ackSnapshotMs": {
+        "n": 10,
+        "median": 228.45000000018626,
+        "max": 437.79999999981374
+      },
+      "submitSnapshotMs": {
+        "n": 10,
+        "median": 535.25,
+        "max": 761.5
+      },
+      "submitControlsMs": {
+        "n": 10,
+        "median": 571.1999999999534,
+        "max": 799
+      },
+      "earlyControlsMs": {
+        "n": 5,
+        "median": 581.5,
+        "max": 799
+      },
+      "lateControlsMs": {
+        "n": 5,
+        "median": 552.6000000000931,
+        "max": 575.2000000001863
+      },
+      "longTasks": {
+        "n": 2,
+        "median": 275,
+        "max": 282
+      },
+      "observationWindowMs": 9304.30000000028
+    },
+    "compact-waiting": {
+      "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "format": [
+        "snapshot-v2-inline-view"
+      ],
+      "bytes": {
+        "n": 10,
+        "median": 78416,
+        "max": 78419
+      },
+      "parseMs": {
+        "n": 10,
+        "median": 0.44999999995343387,
+        "max": 0.6000000000931323
+      },
+      "validateRebuildMs": {
+        "n": 10,
+        "median": 5.300000000046566,
+        "max": 15.600000000093132
+      },
+      "applyMs": {
+        "n": 10,
+        "median": 15.199999999953434,
+        "max": 28.300000000279397
+      },
+      "queryCount": 0,
+      "resyncCount": 0,
+      "revisionAndHiddenDeploymentCheck": "PASS",
+      "latency": "No submit/ACK in waiting recipient; no cross-client-clock estimate",
+      "longTasks": {
+        "n": 0,
+        "median": null,
+        "max": null
+      },
+      "observationWindowMs": 8585.299999999814
+    }
+  },
+  "boundaries": [
+    "UTF-8 JSON sizes, not WebSocket/TLS frame sizes",
+    "Native callbacks include browser message scheduling",
+    "Controls-ready is a microtask DOM observation, not pixels",
+    "Nested decode/apply/render timings are not added",
+    "No cross-clock subtraction between clients/server",
+    "Only one 10+10 comparison; not physical-device or regional-network proof"
+  ]
+}
