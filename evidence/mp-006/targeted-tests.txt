@@ -1,0 +1,24 @@
+✔ MP005B actual codec roundtrips all 142 MP005A authorized samples including hidden deployment, artillery, knowledge loss and combat (12403.85083ms)
+✔ MP005B malformed full/compact structures, unknown fields, Observer, inconsistent revision and unnegotiated compact fail atomically (48.776971ms)
+✔ MP005B real mixed room: baseline client gets full, new client compact; ACK alone never places; duplicate Action executes once (373.222302ms)
+✔ MP005B new clients on exact baseline server automatically fallback once on correlated UNSUPPORTED_MESSAGE without reconnect (200.295356ms)
+✔ MP005B malformed compact causes one full resync, no partial fake unit, then stays full and continues (139.32799ms)
+✔ MP005B persistent malformed recovery terminates with an error instead of a resync/reconnect loop (962.447785ms)
+✔ MP005B real sequence gap uses full recovery; reconnect renegotiates independently and continues (998.044291ms)
+✔ MP005B negotiation completion resumes only the already server-authorized forced decision (25.314388ms)
+✔ MP006 mixed v2/v3 recipients, duplicate ACK semantics, gap recovery and reconnect (1136.449919ms)
+✔ MP006 v3 preference falls back to exact v2 server without reconnect (183.405851ms)
+✔ MP006 v3 preference falls back to exact v1 server without reconnect (175.133502ms)
+✔ MP006 corrupt table never applies; one full recovery, persistent corruption terminates (165.997324ms)
+✔ MP006 v3 sequence gap triggers one full recovery with no stale partial apply (126.422486ms)
+✔ MP006 production v3 roundtrips all 142 authorized both-side cross-phase privacy samples (11498.727535ms)
+✔ MP006 presence masks preserve missing/null, nested values, finite precision and array order (0.909283ms)
+✔ MP006 malformed map data, privacy fields and v3 recovery fail before application (10662.006376ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22314.248899

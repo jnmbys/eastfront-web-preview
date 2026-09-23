@@ -1,0 +1,778 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 test
+> npm run build && npm run server:build && node --test tests/*.test.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 build
+> node scripts/clean-dist.mjs && tsc && node scripts/copy-static.mjs
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 server:build
+> tsc -p server/tsconfig.json && node server/copy-runtime.mjs
+
+✔ remount and dynamic refresh preserve x/y/zoom and align surface with SVG (5.005858ms)
+✔ mouse and single touch pan preserve tap arbitration; next tap is not swallowed (2.885116ms)
+✔ pinch keeps its world focus beneath moving midpoint, suppresses counter click, and resumes pan (1.586274ms)
+✔ wheel zoom anchors at cursor without remount; zoom limits never reset translation (1.46389ms)
+✔ pinch cancellation and third finger removal leave no stale pointer or tap suppression (1.109855ms)
+✔ off-centre pinch math preserves anchor at clamped zoom and handles coincident fingers (0.228215ms)
+✔ normal inspect remains available outside target mode (12.446912ms)
+✔ enemy counter routes to target without overwriting inspector or mutating GameState (7.88201ms)
+✔ enemy hex follows same route; illegal enemy and empty target rejected (1.776242ms)
+✔ pending decision and privacy handoff do not enter attack target routing (0.47042ms)
+✔ declare requires target; valid target uses existing Core ATTACK dispatch (8.421114ms)
+✔ target panel disables declaration until valid and displays selected coordinates (3.539824ms)
+✔ feedback marks legal enemies and selected target, excludes illegal enemies (1.748239ms)
+✔ single attacker auto-selection is legal, non-mutating, and matches manual ATTACK outcome (8.269455ms)
+✔ map multi attacker selection preserves existing attackers and dispatches combined attack (4.25259ms)
+✔ unavailable attacker is not automatically selected and basic preview keeps advanced controls collapsed (1.522268ms)
+✔ UX2 actual counter → enemy → ATTACK bindings finish a simple battle in exactly three clicks (56.901546ms)
+✔ UX2 simple flow matches the baseline manual Core sequence, including RNG, for six seeds (91.628014ms)
+✔ UX2 no-choice reaction and unique losses progress without declare/resolve confirmations (9.062171ms)
+✔ UX2 artillery is a genuine choice; selecting it automatically resolves when no other reaction remains (22.439818ms)
+✔ UX2 HQ reaction is not silently passed after an artillery choice (23.558247ms)
+✔ UX2 real loss choice stops; choosing the final loss submits without a second confirmation (9.977053ms)
+✔ UX2 retreat is highlighted immediately; destination click applies retreat with no unit/list/confirm step (23.722945ms)
+✔ UX2 friendly counter covering a retreat highlight routes to the same destination action (16.978833ms)
+✔ UX2 illegal retreat clicks and wrong-controller clicks never change authoritative state (10.301964ms)
+✔ UX2 blocked retreats auto-submit Core empty routes; impossible-retreat loss remains Core-owned (10.35932ms)
+✔ UX2 multi-unit retreat uses ordered Core legality and preserves choice of first unit (22.39461ms)
+✔ UX2 two-step retreat submits only after the final destination and retains breakthrough/Schwerpunkt decisions (50.510087ms)
+✔ UX2 advance remains optional and requires a unit choice when several can advance (22.137863ms)
+✔ UX2 no legal advance is skipped using Core validation, not UI terrain/stacking rules (19.825832ms)
+✔ UX2 language handler preserves an attack draft and a partial retreat, including RNG and camera (30.759168ms)
+✔ UX2 new labels are bilingual, CRT data comes directly from Core, and queries never consume RNG (2.65624ms)
+✔ UX2 retains fresh NEW GAME combat seeds while the visual seed stays fixed (8.979867ms)
+✔ UX2 production 640-hex scenario closes an ordinary combat in three actual UI clicks with clean integrity (1093.691527ms)
+✔ UX2 an initially blocked retreater can wait while another unit frees its route (14.637168ms)
+✔ UX2.1 one-on-one still closes through exactly three actual UI clicks (44.203125ms)
+✔ UX2.1 target → friendly counter adds, second tap removes; primary survives sorted IDs (19.89081ms)
+✔ UX2.1 existing expanded touch hit target follows the same toggle route (17.827875ms)
+✔ UX2.1 illegal friendly additions are rejected by Core without replacing the draft (51.009381ms)
+✔ UX2.1 eligibility reflects Core supply policy and the complete selected artillery payload (9.156003ms)
+✔ UX2.1 every add/remove repaints strength, odds, shift and modifiers from Core immediately (13.394543ms)
+✔ UX2.1 compact chips remove additional units but never expose a primary delete (10.692332ms)
+✔ UX2.1 the existing advanced primary replacement keeps one primary selected (10.541234ms)
+✔ UX2.1 group feedback distinguishes primary, selected, eligible and unrelated counters without covering symbols (10.020569ms)
+✔ UX2.1 toggle routing activates only for an editable draft with a target; other inspect behavior remains (42.562378ms)
+✔ UX2.1 map edits and chip removal preserve camera, target, terrain and GameState (9.9355ms)
+✔ UX2.1 language switch preserves selected group, primary, target, Core state, RNG and camera (31.223144ms)
+✔ UX2.1 artillery stays in advanced options and retains its existing Core support payload (36.498764ms)
+✔ UX2.1 three-unit map attack submits canonical ATTACK and exactly matches frozen UX2 GameState/RNG (126.399254ms)
+✔ UX2.1 production 640-hex map accepts three-unit attack through five UI taps with clean integrity (1080.81337ms)
+✔ frozen UI geometry source SHA remains byte-for-byte unchanged (4.892246ms)
+✔ real Strategic Reset F imports 640 unique Core hexes into deterministic UI pixels (25.710276ms)
+✔ Core axial coordinates are semantically compatible with locked pointy-top UI geometry (17.331476ms)
+✔ every real Core infrastructure edge resolves through canonical UI center/shared-edge geometry (7.23312ms)
+✔ setup-zone overlays and Core counter anchors use exact locked polygons/centers (47.121882ms)
+✔ actual browser render model enforces hidden deployment in both viewer directions (868.854648ms)
+✔ presentation changes and rejected Actions do not mutate authoritative browser GameState (20.432707ms)
+✔ deterministic real flow reaches Turn 1 movement and executes one accepted MOVE (1011.461482ms)
+✔ counter repaint preserves authoritative anchor, click identity, data and stats for each faction/damage state (2.300704ms)
+✔ stack count only appears on top counter and status markers reflect projected state (0.481236ms)
+✔ FOW001 GERMAN excludes hidden opposing UnitState and secret IDs (10.023353ms)
+✔ FOW001 SOVIET excludes hidden opposing UnitState and secret IDs (0.901942ms)
+✔ FOW001 observer snapshot is complete, detached, privileged and serializable (2.860028ms)
+✔ FOW001 friendly units always identified with their full controller information (0.830353ms)
+✔ FOW001 SOVIET_DEPLOYMENT never reveals even adjacent opposing setup (1.216958ms)
+✔ FOW001 GERMAN_DEPLOYMENT never reveals even adjacent opposing setup (1.509459ms)
+✔ FOW001 hidden formation is absent from Counter, Presence input and accessibility markup (4.648197ms)
+✔ FOW001 recon outer ring only exposes generic CONTACT with no identity/stats/stack count (2.312962ms)
+✔ FOW001 IDENTIFIED enemy exposes exactly allow-listed public fields (2.11276ms)
+✔ FOW001 recon ranges are centralized and independent of combat/movement statistics (0.962092ms)
+✔ FOW001 last-known memory records observation, not hidden current position or destruction (1.248365ms)
+✔ FOW001 returning to an observed empty hex clears stale memory; cross-side memory rejected (1.01318ms)
+✔ FOW001 CONTACT and LAST_KNOWN markers are distinguishable and have no gameplay target (1.842702ms)
+✔ FOW001 viewer switching preserves canonical state, RNG and legal gameplay drafts (2.226001ms)
+✔ FOW001 viewer switching keeps real UI camera transform unchanged (12.473582ms)
+✔ FOW001 deterministic pure projection tolerates deeply frozen authoritative inputs (1.140552ms)
+✔ FOW001 every view round-trips JSON with no hidden authoritative references (2.350528ms)
+✔ FOW001 public terrain remains complete while hidden live ownership is withheld (0.545684ms)
+✔ FOW001 accepted hidden enemy movement publishes no visible UA facts (5.321574ms)
+✔ FOW001 hidden fire/hit/destroyed payloads and unknown supporters are removed (2.817724ms)
+✔ FOW001 enemy paths crossing unseen intermediate hexes never animate (0.487436ms)
+✔ FOW001 viewer switch purges queued ghosts, active effects and RAF (7.549428ms)
+✔ FOW001 visible combat retains three-click flow, own Counter routing and canonical result (18.318606ms)
+✔ FOW001 hidden Counter cannot be inspected by a stale UI identifier (0.509188ms)
+✔ FOW001 foreign decision options never enter the player DTO or command panel (3.508868ms)
+✔ FOW001 language changes neither intelligence memory nor canonical state (1.325211ms)
+✔ FOW001 projection does not consume the fresh NEW GAME seed or gameplay RNG (22.213737ms)
+✔ FOW001 repeated projection and animation keep static terrain bytes unchanged (14.355773ms)
+✔ FOW001 Core, map, stats, camera, geometry, startup, VS2 and animation mechanics are byte frozen (29.078866ms)
+✔ FOW002 fog input uses authorized PlayerView only, independent of hidden roster and RNG (13.332949ms)
+✔ FOW002 hidden enemy has no Counter or Presence beneath the fog layer (7.632824ms)
+✔ FOW002 deterministic world-space raster ignores input ordering and language (42.046895ms)
+✔ FOW002 observed centres remain clear; fog keeps terrain partially visible with a soft edge (8.508566ms)
+✔ FOW002 surface is a bounded raster, never per-Hex polygons or SVG filters (3.527045ms)
+✔ FOW002 cache survives repeated remount, camera transforms and unchanged visibility (16.315181ms)
+✔ FOW002 visibility change crossfades only fog for 220ms while unit truth changes immediately (3.394906ms)
+✔ FOW002 rapid updates stay bounded and skip/instant clean every previous image (9.961028ms)
+✔ FOW002 viewer switch immediately clears former footprint without crossfade (4.462287ms)
+✔ FOW002 Observer has no fog and no residual player imagery (4.090966ms)
+✔ FOW002 selected Recon shows a soft preview only within authorized observed area (14.130803ms)
+✔ FOW002 CONTACT marker contains no identity, type, stats, damage or supply fields (0.860238ms)
+✔ FOW002 last-known has a distinct clock/dashed marker and never follows hidden movement (1.212981ms)
+✔ FOW002 fog transitions cannot authorize hidden move, fire, hit or destroyed cues (0.666276ms)
+✔ FOW002 camera and gameplay RNG unchanged through projection, selection and viewer changes (15.080628ms)
+✔ FOW002 no idle RAF, terrain reconstruction or canvas scene introduced in fog runtime (16.634534ms)
+✔ FOW002 authoritative accepted movement produces identical state with/without fog rendering (10.31346ms)
+✔ FOW002 UA003R1, FOW001 projection/privacy, Core, startup, Camera and VS2 bytes unchanged (2.590301ms)
+✔ new sessions consume fresh entropy, reject zero, and retain explicit-seed replay (36.285321ms)
+✔ production startup and SVG rendering use fixed visual seed independently of gameplay (0.803023ms)
+✔ hexToPixel is deterministic (2.801019ms)
+✔ six neighbors have expected center distance (0.292051ms)
+✔ hexPolygon always has 6 vertices (0.170177ms)
+✔ sharedHexEdge exists only for adjacent hexes (0.232982ms)
+✔ shared edge endpoints are vertices in both polygons (0.809853ms)
+✔ road path consecutive hexes are adjacent (0.129856ms)
+✔ hexLine creates only adjacent path segments (0.311861ms)
+✔ Counter authoritative anchor equals hexToPixel(unit.hex) (0.624242ms)
+✔ two-unit stack keeps one shared authoritative hex anchor (0.259772ms)
+✔ Reachable overlay points exactly equal base polygon points (0.490851ms)
+✔ ZOC overlay points exactly equal base polygon points (0.19203ms)
+✔ River geometry is exactly sharedHexEdge (1.285451ms)
+✔ Bridge crossing is midpoint of its river shared edge (0.274014ms)
+✔ Railway path consecutive hexes are adjacent (0.106861ms)
+✔ Attack Target overlay points exactly equal base polygon points (0.094382ms)
+✔ River segment sequence is continuous vertex-to-vertex (1.307634ms)
+✔ Each bridge edge is both a river edge and a road/rail center crossing (0.189887ms)
+✔ Single and stacked counter rectangles stay inside their owning hex (0.454145ms)
+✔ Selected state keeps the same authoritative anchor (11.404779ms)
+✔ OOS state does not change authoritative anchor (0.205851ms)
+✔ Damage state does not change authoritative anchor (0.108304ms)
+✔ Touch hit area is >=44 units and centered on canonical anchor (0.098629ms)
+✔ Attack Target derived bracket points remain inside/on owning target hex (0.263047ms)
+✔ Overlay renderer preserves exact canonical polygon points (1.476699ms)
+✔ Responsive renderer uses one canonical viewBox and preserveAspectRatio (3.624211ms)
+✔ No unit model contains authoritative x/y placement (0.105198ms)
+✔ No tactical overlay model contains hand-authored pixel vertices (0.112149ms)
+✔ Counter layer renders above overlay layer and handlers stop propagation (15.886514ms)
+✔ Forest vector variant selection is deterministic across renders (1.386313ms)
+✔ Debug mode includes counter bounds, touch bounds and canonical anchors (2.034972ms)
+✔ zh-CN is the default player language (1.786156ms)
+✔ zh-CN and en-US cover every stable key with identical interpolation parameters (7.774447ms)
+✔ English fallback, missing key and missing parameter detection are explicit (0.289898ms)
+✔ all canonical player-facing enums and validation codes have mappings (2.234884ms)
+✔ stored feedback and Core rejections translate at render time, retaining identifiers (37.611884ms)
+✔ language preference persists when available and works when storage is denied (2.499464ms)
+✔ real language change handler preserves GameState, RNG, camera, drafts and scroll positions (56.488773ms)
+✔ Chinese production flow: new game, deployment confirmation, movement plan, attack preview, resolve, end phase; same state as English (2558.980447ms)
+✔ every pending Combat UX panel and all actual phases render Chinese with CRT codes retained (1032.518211ms)
+✔ language changes leave the next dice sequence identical; New Game still requests fresh seeds independently of terrain (12.606684ms)
+✔ counter mechanics and symbols are identical across locales; only accessible text changes (1.234494ms)
+✔ main render and binding preserve the existing camera transform during language switching (41.111609ms)
+✔ fatal-screen messages also retranslate without changing diagnostics (0.254805ms)
+✔ MP001 active room codes unique; secure generation retries collisions (6.568336ms)
+✔ MP001 valid room joins case-insensitively; invalid room rejected (1.384681ms)
+✔ MP001 GERMANY claim bound to server controller (0.761509ms)
+✔ MP001 SOVIET claim bound to server controller (0.551392ms)
+✔ MP001 same-seat ordered claims have exactly one winner (0.794049ms)
+✔ MP001 switching seat emits one atomic revision and clears readiness (0.939688ms)
+✔ MP001 occupied target rejects switch without losing original seat or Ready (0.829923ms)
+✔ MP001 ready requires occupied controller; both connected seats required (47.42522ms)
+✔ MP001 not-ready clears server flag; assignment change invalidates prior confirmation (1.221685ms)
+✔ MP001 actual fresh production scenario and same RulesEngine live only on server (29.584975ms)
+✔ MP001 GERMANY receives only GERMAN PlayerView (31.147565ms)
+✔ MP001 SOVIET receives only SOVIET PlayerView (32.226364ms)
+✔ MP001 unsupported client authority FORCE_START_MATCH rejected (0.465923ms)
+✔ MP001 unsupported client authority SET_GAME_STATE rejected (0.293673ms)
+✔ MP001 unsupported client authority SET_ENEMY_VIEW rejected (0.257098ms)
+✔ MP001 unsupported client authority OBSERVER rejected (0.199992ms)
+✔ MP001 unsupported client authority ACTION rejected (0.389107ms)
+✔ MP001 Observer, seat authority, seed and GameState payload smuggling rejected (0.724274ms)
+✔ MP001 no room membership or foreign identity can mutate another room (0.289587ms)
+✔ MP001 malformed JSON/version/types and duplicate requests rejected safely (0.388216ms)
+✔ MP001 versioned protocol cleanly serializes and rejects extra envelope keys (1.041612ms)
+✔ MP001 disconnect retains seat, broadcasts disconnected state and clears Ready (0.604052ms)
+✔ MP001 token reclaims same controller with new connection; nickname cannot (0.460124ms)
+✔ MP001 invalid/expired/live reconnect tokens rejected and identity stays unclaimed (0.473925ms)
+✔ MP001 room/token secrets never appear in lobby DTOs (0.346252ms)
+✔ MP001 grace expiry releases lobby seat; empty rooms/code eventually cleaned (0.550952ms)
+✔ MP001 IN_GAME third player/seat changes rejected; leaving closes session (54.558199ms)
+✔ MP001 match creation failure rolls lobby back without success snapshots (0.851415ms)
+✔ MP001 room codes never consume gameplay RNG; fresh matches retain new seed behavior (48.513562ms)
+✔ MP001 unauthenticated and message-rate gates fail safely (0.272691ms)
+✔ MP001 snapshot cannot be requested for an unassigned controller (36.842122ms)
+✔ MP001 single-player uses unchanged factory and runs independently of server (8.74335ms)
+✔ MP001 FOW semantics and Performance Pass 1 frozen files unchanged (3.013299ms)
+✔ MP001 both catalogs complete; default/English texts available (0.206262ms)
+✔ MP001 idle room closes even when members remain connected (4.311088ms)
+✔ MP001 active-session reconnect reclaims identity and receives current snapshot without old animations (78.303157ms)
+✔ MP001 abandoned active-session grace closes match without gameplay mutation (59.356462ms)
+✔ MP001 IN_GAME leave sends correlated acknowledgement to release client pending state (43.127661ms)
+✔ MP001 wire: two clients create/join/seat/ready -> server match and private snapshots (112.637353ms)
+✔ MP001 wire: nonempty hidden deployment DTO contains own units and no enemy IDs (1037.7197ms)
+✔ MP001 wire: simultaneous Germany claim resolves to one owner (7.059738ms)
+✔ MP001 wire: disconnect broadcasts reserved seat and token reconnect restores identity (6.467454ms)
+✔ MP001 wire: malformed JSON, wrong protocol, Observer and force-start rejected safely (4.156926ms)
+✔ MP001 wire: origin enforcement and oversized frames cannot crash runtime (9.211296ms)
+✔ MP002 client has no canonical state/engine/RNG; submit is intent only and double click is suppressed (28.665983ms)
+✔ MP002 accepted snapshot alone adopts position and publishes authorized events, ACK contains no raw result (20.773202ms)
+✔ MP002 gap triggers RESYNC; trusted fresh snapshot restores current state without replay (11.906185ms)
+✔ MP002 out-of-order triggers RESYNC; trusted fresh snapshot restores current state without replay (8.650049ms)
+✔ MP002 revision mismatch triggers RESYNC; trusted fresh snapshot restores current state without replay (14.353731ms)
+✔ MP002 stale action rejection resyncs and invalid action clears busy without optimistic state changes (7.443878ms)
+✔ MP002 network loss disables actions and drafts clear on active resync; camera is not a session field (5.164156ms)
+✔ MP002 query coalescing retains the authorized PlayerView object; unchanged observation reuses Fog and dynamic map (36.536801ms)
+✔ MP002 real two WebSockets: entire production Scenario from hidden deployments through move/combat/reconnect to official victory (17536.955938ms)
+✔ MP002 real two WebSockets: combat fixture loss/retreat/advance/breakthrough/Schwerpunkt and decision reconnect (152.873963ms)
+✔ MP002 Soviet deployment authoritative; wrong Germany controller cannot deploy Soviet; hidden DTOs (105.140704ms)
+✔ MP002 same requestId executes once, changed payload rejected; stale revision has no state/RNG effect (59.960624ms)
+✔ MP002 all authority/state/random/Observer smuggling, unknown actions and malformed drafts rejected before engine (64.645767ms)
+✔ MP002 move accepts own intent; wrong controller and illegal phase safely reject (20.653131ms)
+✔ MP002 combat declaration/multi-attacker locks reaction to defender and hides private choices (22.738229ms)
+✔ MP002 loss allocation belongs to defender; query options do not accept hidden IDs or mutate RNG (32.714881ms)
+✔ MP002 hidden MOVE emits no route/cue or enemy identifier (14.692672ms)
+✔ MP002 CONTACT becomes Last Known through server-owned knowledge, no client upload (14.196333ms)
+✔ MP002 active reconnect normal turn restores view/revision; disconnect cannot decide; grace ABORTED has no victory (11.977343ms)
+✔ MP002 active reconnect during reaction restores view/revision; disconnect cannot decide; grace ABORTED has no victory (21.291654ms)
+✔ MP002 receipts survive token reconnect and resync is private; stream sequences strictly increase per recipient (97.661943ms)
+✔ MP002 room/token entropy and authorized queries never alter gameplay RNG (36.416499ms)
+✔ MP002 trusted debug inspection cannot alter a remote viewer assignment or query projection (87.336349ms)
+✔ MP002 semantically identical payload key ordering replays accepted request reference (61.627701ms)
+✔ MP003 real clients: lobby handoff consumes initial snapshot once, deployments send no queries, both revisions agree (479.89996ms)
+✔ MP003 real clients: dropped observer snapshot triggers one resync, privacy holds and play continues (228.750652ms)
+✔ MP003 real clients: token reconnect restores current private view and continues once without automatic decision (950.850568ms)
+✔ MP003 real clients: replayed deployment request is idempotent and legal ACK/snapshot interleaving does not resync (175.174291ms)
+✔ MP003 deployment unit/destination selection is local, sends no query and changes no canonical placement (87.036813ms)
+✔ MP003 same-turn selections send only the latest query; selected counter feedback is immediate (15.07544ms)
+✔ MP003 one in-flight plus latest unsent query; obsolete result consumes sequence without overwriting selection (31.752518ms)
+✔ MP003 A-B-A clears the unsent B instead of applying it after A (16.362723ms)
+✔ MP003 snapshot while query is in flight does not free its transport slot or send duplicate queries (23.266146ms)
+✔ MP003 genuine sequence gap still requests exactly one resync and applies a current private snapshot (28.869666ms)
+✔ MP003 future query revision still forces recovery; version validation is retained (19.537532ms)
+✔ MP003 unrelated correlated response consumes order but cannot complete the current query (22.839517ms)
+✔ MP003 Action ACK does not adopt state; one deployment click/reclick executes once and creates no follow-up query (89.927266ms)
+✔ MP003 query rejection does not retry itself or expose the previous selection options (26.054786ms)
+✔ MP003 ordered pending-resync frames cannot produce repeated recovery requests or roll back state (33.554318ms)
+✔ MP003 disconnect clears queued input and reconnect restores current state before accepting another action (26.544065ms)
+✔ MP003 network UI keeps selection buttons live while guarding Actions and Core-disabled controls (2.681117ms)
+✔ MP004 transport compressed preserves authorized JSON, ordering, idempotency and reconnect (925.135583ms)
+✔ MP004 transport fallback preserves authorized JSON, ordering, idempotency and reconnect (564.814612ms)
+✔ MP004 compressed inbound frame still enforces decompressed payload limit (52.4387ms)
+✔ MP004 health reports only a valid provider deployment commit, no arbitrary env data (4.420875ms)
+✔ MP0041 wire evidence counts continuations and ignores interleaved control frames (1.416809ms)
+✔ MP0041 ordinary game diagnostic is inert without explicit opt-in (2.220973ms)
+✔ MP005A accounting is UTF-8, additive and never double-counts overlapping fields (1.705915ms)
+✔ MP005A proposal rejects a false alias assumption in the offline oracle (1.949724ms)
+✔ MP005A standalone reconstruction preserves state and independent mutable objects (0.503159ms)
+✔ MP005A no previous-view dependency survives observation loss, resync or viewer change (0.399773ms)
+✔ MP005B actual codec roundtrips all 142 MP005A authorized samples including hidden deployment, artillery, knowledge loss and combat (13633.989743ms)
+✔ MP005B malformed full/compact structures, unknown fields, Observer, inconsistent revision and unnegotiated compact fail atomically (48.262695ms)
+✔ MP005B real mixed room: baseline client gets full, new client compact; ACK alone never places; duplicate Action executes once (492.834979ms)
+✔ MP005B new clients on exact baseline server automatically fallback once on correlated UNSUPPORTED_MESSAGE without reconnect (296.702131ms)
+✔ MP005B malformed compact causes one full resync, no partial fake unit, then stays full and continues (218.684386ms)
+✔ MP005B persistent malformed recovery terminates with an error instead of a resync/reconnect loop (997.144597ms)
+✔ MP005B real sequence gap uses full recovery; reconnect renegotiates independently and continues (1068.503336ms)
+✔ MP005B negotiation completion resumes only the already server-authorized forced decision (33.450222ms)
+✔ MP006 mixed v2/v3 recipients, duplicate ACK semantics, gap recovery and reconnect (1168.147682ms)
+✔ MP006 v3 preference falls back to exact v2 server without reconnect (321.648904ms)
+✔ MP006 v3 preference falls back to exact v1 server without reconnect (266.897472ms)
+✔ MP006 corrupt table never applies; one full recovery, persistent corruption terminates (211.395677ms)
+✔ MP006 v3 sequence gap triggers one full recovery with no stale partial apply (176.620615ms)
+✔ MP005C opt-in production timings correlate compact processing without payloads; invalid snapshots are not applied (12654.278657ms)
+✔ MP006 production v3 roundtrips all 142 authorized both-side cross-phase privacy samples (13657.723211ms)
+✔ MP006 presence masks preserve missing/null, nested values, finite precision and array order (0.620537ms)
+✔ MP006 malformed map data, privacy fields and v3 recovery fail before application (12954.542235ms)
+✔ PERF002 location cache matches fresh markup after occupancy, latest selection, type and locale changes (315.228969ms)
+✔ PERF002 cache lifetime: new session, explicit resync, viewer, map dependency and phase invalidate (89.295574ms)
+✔ PERF002 deployment map reconciles stack z-order and geometry exactly, retaining unrelated counters and zone nodes (157.259759ms)
+✔ PERF002 real main handlers: continuous deployment, stable card listeners/scroll, rejection, last unit and phase handoff (4680.757288ms)
+✔ PERF002 main preserves invalid-deployment rejection without a phantom and selects latest rapid intent (705.104401ms)
+✔ PERF003 duplicate requests and reprioritization keep one builder and one complete surface per LOD (6.893177ms)
+✔ PERF003 paused background work resumes without duplicate work; disposal prevents stale completion (33.61464ms)
+✔ PERF003 failure remains explicit and bounded until deliberate retry; completed fallback retained (14.808426ms)
+✔ PERF003 CPU work gives real timer/input opportunities and preserves iterator order/finally (28.917188ms)
+✔ PERF003 chunked raster bytes match original baseline at every LOD and visual seed; no input mutation (371.748249ms)
+✔ PERF003 city order, visual seed, footprints and courts match the baseline after chunking and cached centrality (32.698237ms)
+✔ PERF003 decorative planning yields without touching the final Canvas; atomic replay exactly matches original draw stream and releases buffer (9.575737ms)
+✔ PERF004 all 32 deployment masks and recon overlays match original RGBA exactly; viewer switch remains private (931.259471ms)
+✔ PERF004 panel ancestors never detach, roster listeners remain single, and latest confirmed selection is retained (1469.755719ms)
+✔ PERF004 Presence retains unrelated models and definitions, updates stacked anchors/order identically to fresh render, and clears viewer state (1390.228532ms)
+✔ PERF unchanged view is cached and immutable without authoritative references (5.659796ms)
+✔ PERF state identity and explicit revision independently invalidate projection (6.811784ms)
+✔ PERF accepted action invalidates without stale position (19.06936ms)
+✔ PERF viewer and knowledge revisions invalidate with no state/RNG mutation (6.728854ms)
+✔ PERF selection patches only old/new units; Counter, proxy and Presence identities survive (8.542477ms)
+✔ PERF combat group patches only changed attackers with live routing identity (6.386693ms)
+✔ PERF repeated runtime sync allocates no Presence and leaves no idle RAF (2.853629ms)
+✔ PERF hidden enemies have no Counter/model/proxy after privacy remount (3.072519ms)
+✔ PERF language preserves fog/terrain surfaces, model toggle preserves unit nodes and state (4.45786ms)
+✔ PERF visibility change builds fog once; equivalent view avoids a raster rebuild (26.118833ms)
+✔ PERF animation frames do not reproject/remount; skip and instant settle canonically (12.723459ms)
+✔ PERF pan hot path has zero PlayerView work and bounded layout reads (3.085619ms)
+✔ PERF pan hot path has zero Fog work and bounded layout reads (1.261354ms)
+✔ PERF pan hot path has zero VS2 work and bounded layout reads (1.022704ms)
+✔ PERF pinch pointermove reads no layout; thresholds keep existing camera math (1.367585ms)
+✔ PERF frozen Core, geometry, spotting/privacy semantics, startup, VS2, UA timing/art and compact plate (3.374775ms)
+✔ PERF retained input nodes bind once; repeated refresh binding cannot duplicate an attacker toggle (13.158947ms)
+✔ PERF localized canonical Counter selection attributes match a fresh render (2.606144ms)
+✔ PERF fog raster remains byte identical to baseline for visible/recon/observer footprints (18.197053ms)
+✔ Safari/iPad/WebKit policy is bounded; desktop Chrome/Android keep their existing budget (1.398351ms)
+✔ Chrome success stays direct-image first: no decode/fetch/bitmap/Canvas fallback (1.250548ms)
+✔ Safari decode can complete when no load event is delivered (4.958816ms)
+✔ Safari reject decode still loads via onload/Canvas (6.243035ms)
+✔ Safari hang decode still loads via onload/Canvas (7.026488ms)
+✔ Safari absent decode still loads via onload/Canvas (7.00773ms)
+✔ Safari cached complete image does not depend on another load event (0.413555ms)
+✔ Safari slow first decode can pass 15 seconds without being misclassified as timeout (0.93416ms)
+✔ Safari deadline recovers complete pixels when both load and decode signals stall (0.486945ms)
+✔ broken complete image is rejected, cancelled and cannot report a late success (1.270308ms)
+✔ Safari Canvas failure can still resolve through decode without blank texture success (10.35215ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at file:///workspace/scratch/613a7b23339d/eastfront/tests/safari-terrain-loading.test.mjs:120:112
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///workspace/scratch/613a7b23339d/eastfront/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:165:54
+✔ bitmap rejection falls back to blob image decode and revokes URL after use (4.882481ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at file:///workspace/scratch/613a7b23339d/eastfront/tests/safari-terrain-loading.test.mjs:129:121
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png Error: createImageBitmap VS2_MARSH_WET_GROUND timed out after 5ms
+    at Timeout._onTimeout (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:164:65)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at file:///workspace/scratch/613a7b23339d/eastfront/tests/safari-terrain-loading.test.mjs:138:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ slow bitmap times out to blob/Canvas; a late bitmap is closed and never counted twice (8.236435ms)
+✔ successful Chrome bitmap fallback preserves ownership and does not leave its deadline timer (1.109505ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/bad.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/bad.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at Timeout._onTimeout (file:///workspace/scratch/613a7b23339d/eastfront/tests/safari-terrain-loading.test.mjs:149:74)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/bad.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ Safari simultaneous preload requests run one at a time and failure does not poison queue (19.343724ms)
+✔ Safari queued request budget begins after prior load, not at enqueue time (0.818256ms)
+✔ startup feedback exists in HTML before modules and before pending map/assets (11.3797ms)
+✔ startup progress is monotonic across asset batches and LOD milestones (0.518603ms)
+✔ first usable LOD releases the loading gate but 100 percent requires every completed surface (6.183806ms)
+✔ startup failure retains fatal diagnostics and never emits success (5.927629ms)
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at file:///workspace/scratch/613a7b23339d/eastfront/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at file:///workspace/scratch/613a7b23339d/eastfront/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:70:20)
+    at img.onerror (file:///workspace/scratch/613a7b23339d/eastfront/dist/app/render/terrainSurface.js:117:29)
+    at file:///workspace/scratch/613a7b23339d/eastfront/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ startup retains resource concurrency, current LOD priority, fixed seed and observer cleanup (7.82214ms)
+✔ Huawei direct-image path is still first and observer exceptions cannot trigger fallback (1.369728ms)
+✔ fetch/blob fallback success counts exactly once after the original path succeeds (1.891375ms)
+✔ failed image does not increment completion or change resource error semantics (1.299852ms)
+✔ bitmap fallback completion preserves release and skips the blob-image branch (1.106671ms)
+✔ actual VS2 asset batch totals come from the selected material list and actual completions (34.023482ms)
+✔ VS2 observer on/off produces identical draw trace, pixels, resource order and stats (89.682733ms)
+✔ recorded reviewed terrain startup checkpoint matches frozen source after removing observation (1.316578ms)
+✔ UA-001 transition boundary and session adapter match recorded FOW integration (0.21827ms)
+✔ loading stages and counters are complete in zh-CN/en-US and language changes retain progress (0.4504ms)
+✔ unknown totals never imply an asset percentage, and updates touch only loading DOM nodes (0.358651ms)
+✔ loading interpolation never runs a timer and respects reduced motion (0.293353ms)
+✔ UA001 projection reads frozen actual Core results without mutating either GameState (17.773694ms)
+✔ UA001 accepted MOVE retains real source and every canonical path waypoint (4.195984ms)
+✔ UA001 rejected moves never publish, replace state or schedule animation (6.674166ms)
+✔ UA001 move starts at source before first frame while Core has already reached destination (5.301565ms)
+✔ UA001 multi-step movement passes exact canonical centers and settles to canonical Counter V2 destination (4.619724ms)
+✔ UA001 skip and natural finish have identical counter, hit target and GameState (7.37888ms)
+✔ UA001 normal, fast and instant produce byte-identical complete GameStates (10.378038ms)
+✔ UA001 projection, queue and rendering never call gameplay RNG or global entropy (4.800798ms)
+✔ UA001 stack departure and arrival use frozen Counter V2 offsets; all counters settle to current layout (5.578923ms)
+✔ UA001 moving expanded touch target follows canonical visual anchor and keeps existing identity (3.341514ms)
+✔ UA001 camera transform remains untouched across movement frames and repeated dynamic remounts (11.494464ms)
+✔ UA001 language changes during and after movement preserve progress, positions and full state (5.144607ms)
+✔ UA001 sequential barriers hold waiting movers at actual sources without destination flash (0.466845ms)
+✔ UA001 optional parallel barriers advance disjoint units together (0.147894ms)
+✔ UA001 conflicting parallel clips serialize; long frames complete multiple barriers with cleanup (0.195996ms)
+✔ UA001 interruption can finish the old queue and replace it without late callbacks (0.212891ms)
+✔ UA001 speed changes retain current interpolation and fast mode finishes sooner (2.749541ms)
+✔ UA001 reduced motion settles immediately and can change during animation without altering rules (6.551121ms)
+✔ UA001 session replacement, hidden map and disposal cancel frames and remove stale observers (5.540345ms)
+✔ UA001 NEW GAME retains fresh combat seed behavior with animation runtime attached (18.185796ms)
+✔ UA001 ATTACK publishes setup after acceptance, fire only after resolved Core result, without delaying UX2.1 (24.930849ms)
+✔ UA001 pending defender choice cannot enqueue fire or result before Core resolves combat (2.994331ms)
+✔ UA001 actual retreat, advance and breakthrough results produce ordered movement hooks (24.2756ms)
+✔ UA001 actual destruction yields a presentation hook without retaining combat truth (8.006198ms)
+✔ UA001 combat GameState and RNG match animation-disabled flow across speeds and six seeds (179.120504ms)
+✔ UA001 multi-attacker map selection remains intact while animation is registered (37.392058ms)
+✔ UA001 animation observer exceptions cannot undo or reject accepted Core actions (2.317689ms)
+✔ UA001 frame work never writes non-unit SVG/canvas or rebuilds VS2 through repeated render (7.969181ms)
+✔ UA001 player animation controls are bilingual and operate without changing state (3.55058ms)
+✔ UA001 actual VS2 world cache is built once and never repainted by 60 animation frames/remounts (2656.22659ms)
+✔ UA001 combat lifecycle hooks preserve setup → fire → result → reaction order and skip notifications (0.465913ms)
+✔ UA002 MOVE has lift, eased travel and arrival settle at the identical canonical destination (39.54585ms)
+✔ UA002 RETREAT follows the accepted Core path and exact destination (50.795288ms)
+✔ UA002 ADVANCE follows the accepted Core path and exact destination (39.114002ms)
+✔ UA002 BREAKTHROUGH follows the accepted Core path and exact destination (25.281809ms)
+✔ UA002 travel profiles are observably distinct and never overshoot canonical segments (26.393567ms)
+✔ UA002 fire occurs only after accepted CRT resolution; rejected actions and unresolved choices have no fire (10.785754ms)
+✔ UA002 all three actual attackers fire with bounded stagger and real unit-type character (15.64457ms)
+✔ UA002 hit changes only transient rendering, then restores canonical Counter damage artwork (24.952521ms)
+✔ UA002 destroyed ghost and descendants have no gameplay identity, focus or pointer target (6.67025ms)
+✔ UA002 Skip during firing settles to canonical presence/absence without residual DOM (6.839295ms)
+✔ UA002 Skip during hit settles to canonical presence/absence without residual DOM (5.635558ms)
+✔ UA002 Skip during destroyed settles to canonical presence/absence without residual DOM (11.827497ms)
+✔ UA002 normal, fast, instant and reduced motion preserve byte-identical tactical GameState and RNG (89.21344ms)
+✔ UA002 battle playback consumes no gameplay RNG, entropy, Core query or GameState read (9.221242ms)
+✔ UA002 live camera zoom selects effect LOD without camera transforms or layout reads per frame (7.886957ms)
+✔ UA002 Combat UX2.1 actual DOM bindings retain duplicate-submit protection and map multi-selection (29.004078ms)
+✔ UA002 frozen baseline with explicitly recorded FOW projection integration (4.526664ms)
+✔ UA002 battle frames only update active units and reusable effect paths; no SVG rebuild or terrain writes (27.025887ms)
+✔ UA002 ghost/effect cleanup survives repeated remount, new game, hidden map, disposal and pagehide Skip hook (32.295989ms)
+✔ UA002 language switching during fire, hit and destroyed retains exact playback and complete state (20.048187ms)
+✔ UA002 ordinary single and three-attacker sequences remain short at normal/fast speeds (34.183138ms)
+✔ UA002 instant destruction never leaves an interactive corpse or a pending frame (4.940038ms)
+✔ UA002 explicit parallel fire/move conflict serializes the shared attacker (6.882692ms)
+✔ UA003 far LOD preserves Counter and selects the expected presence detail (15.930081ms)
+✔ UA003 medium LOD preserves Counter and selects the expected presence detail (2.704143ms)
+✔ UA003 close LOD preserves Counter and selects the expected presence detail (4.965958ms)
+✔ UA003 idle zoom changes LOD through the existing camera scalar and disconnects observers (8.296846ms)
+✔ UA003 every actual template maps to an existing original visual family; no invented types (31.462371ms)
+✔ UA003 faction colors are deterministic and independent of locale and RNG (10.000098ms)
+✔ UA003 presence cannot intercept pointer/touch, focus, accessibility, or gameplay routing (2.2655ms)
+✔ UA003 presence paints behind every Counter; identity, NATO symbol, stats, damage and selection remain identical (1.857364ms)
+✔ UA003 two-unit stack uses each exact Counter anchor with separate pedestal positions (2.129145ms)
+✔ UA003 MOVE follows the existing anchor on every frame and settles to exact Counter destination (13.340792ms)
+✔ UA003 retreat stays synchronized on the accepted tactical path (42.750837ms)
+✔ UA003 advance stays synchronized on the accepted tactical path (26.384434ms)
+✔ UA003 breakthrough stays synchronized on the accepted tactical path (28.247578ms)
+✔ UA003 no fire from selection, rejected action or unresolved combat declaration (5.320242ms)
+✔ UA003 three accepted attackers all fire, using their target directions and existing stagger (13.434203ms)
+✔ UA003 attacker support fires only when resolved context proves it participated (9.869491ms)
+✔ UA003 defensive support targets the actual attacker without changing attack group (14.875218ms)
+✔ UA003 hit feedback leaves step, GameState and Counter damage artwork unchanged (47.064867ms)
+✔ UA003 destroyed presence is inert immediately after accepted death and fully removed at completion (12.337467ms)
+✔ UA003 Skip during fire removes transient presence and retains canonical survivors (12.011444ms)
+✔ UA003 Skip during hit removes transient presence and retains canonical survivors (10.794697ms)
+✔ UA003 Skip during destroyed removes transient presence and retains canonical survivors (11.332219ms)
+✔ UA003 Normal/Fast/Instant/reduced-motion yield identical final presence DOM and GameState (153.21677ms)
+✔ UA003 frame playback reads no GameState, gameplay RNG, entropy or layout (15.248822ms)
+✔ UA003 camera attributes and inactive units do not change during combat (9.062922ms)
+✔ UA003 Combat UX2.1 actual UI bindings preserve three clicks and duplicate protection (17.774535ms)
+✔ UA003 repeated remount/hidden/new game/disposal removes old companion nodes and pending runtime state (62.624949ms)
+✔ UA003 language remount preserves full presence state and GameState during fire (16.89037ms)
+✔ UA003 animation does not build terrain, clone SVG, or allocate companion elements per frame (12.779754ms)
+✔ UA003 frozen baseline with explicitly recorded FOW projection integration (37.52924ms)
+✔ UA003 slow pinch near LOD thresholds does not flicker or create nodes (0.224249ms)
+✔ UA003 heavy tank respects the existing smaller stacked Counter footprint (2.953429ms)
+✔ UA003R1 enlarged models, ground shadows and ghosts stay inert across every LOD (43.160533ms)
+✔ UA003R1 composition leaves all canonical Counter, NATO, damage, selection and touch markup byte-identical (18.900024ms)
+✔ UA003R3 stack retains canonical Counter anchors and centers model ground on its owning hex (4.833697ms)
+✔ UA003R1 major family profiles occupy readable Medium/Close widths without spanning a full adjacent hex (33.094895ms)
+✔ UA003R1 Move and tactical playback settle to exactly the same canonical Counter and grounded composition after skip/Instant (135.628886ms)
+✔ UA003R1 grounded playback consumes no gameplay RNG and makes no frame-time Core reads (13.947698ms)
+✔ UA003R1 arriving into a stack interpolates display composition without a first-frame jump or remount reset (9.257752ms)
+✔ UA003R1 a real VS2 cache is unchanged by enlarged models, zoom LOD, fire and repeated remount (8260.888563ms)
+✔ UA003R1 frozen baseline with explicitly recorded FOW integration and player/observer fixture updates (30.819721ms)
+✔ UA003R3 AUTO far selects one information surface (10.836611ms)
+✔ UA003R3 AUTO medium selects one information surface (3.452793ms)
+✔ UA003R3 AUTO close selects one information surface (2.080771ms)
+✔ UA003R3 OFF restores complete Counter at every zoom (3.66269ms)
+✔ UA003R3 preference changes preserve GameState, selection, draft, session, Camera and RNG (2.591362ms)
+✔ UA003R3 model proxy bubbles to the existing unit button identity (6.722268ms)
+✔ UA003R3 stack proxies cover both distinct model centers with independently routed identities (7.605432ms)
+✔ UA003R3 HIDDEN enemy has no Counter, model, plate or proxy (3.587897ms)
+✔ UA003R3 CONTACT and Last Known are unchanged by model preference (2.580305ms)
+✔ UA003R3 normal keeps model/plate synchronized and settles canonically (11.019487ms)
+✔ UA003R3 skip keeps model/plate synchronized and settles canonically (9.844593ms)
+✔ UA003R3 instant keeps model/plate synchronized and settles canonically (6.059418ms)
+✔ UA003R3 OFF skips active miniature paint work (5.175154ms)
+✔ UA003R3 destroyed model/plate proxy becomes inert and is completely cleaned (15.507423ms)
+✔ UA003R3 animation and toggle do not rebuild the authorized fog mask (42.743341ms)
+✔ UA003R3 bilingual controls persist a presentation preference without remounting (2.699695ms)
+✔ UA003R3 preference safely defaults to AUTO without storage (0.221885ms)
+✔ UA003R3 no R2 flattening; no new frame scheduler or terrain/fog imports (0.426313ms)
+✔ UA003R3 freezes Core, Camera, FOW projection/material, VS2, startup and UA timing (3.683081ms)
+✔ UA003R3 both model proxy identities execute the actual application selection binding (10.383967ms)
+✔ UA003R3 stack entry shares model interpolation with plate and its hit proxy (6.830082ms)
+✔ large deployment controls use only projected positions and preserve Core dispatch (53.316284ms)
+✔ command HUD displays authoritative phase side and turn without inventing date (9.941109ms)
+✔ target selection is presentation-only; confirmation uses existing Core action and selects next reserve (63.223883ms)
+✔ same-hex repeated deployment preserves Core stacking rejection and clear invalid feedback (42.159401ms)
+✔ stale unit selection cannot submit the previous destination; inactive view exposes no cards (11.224026ms)
+✔ card selection creates exact canonical noninteractive focus; stale or private selection creates none (34.327025ms)
+✔ UI rejection translation preserves source issues and handles unknown codes safely (0.400354ms)
+✔ tablet CSS reserves panel space through 1366px and keeps confirm outside the scroll container (0.771736ms)
+✔ multi-step movement draft is presentation-only until accepted commit, then rerenders final Core Hex (1524.916747ms)
+✔ rejected MOVE preserves authoritative state and leaves Counter at real Hex (1001.981818ms)
+✔ rail-repair draft does not mutate state and accepted repair comes only from result.state (1025.120087ms)
+✔ Soviet reinforcement phase derives list from Core, Ready blocker is real, and legal deployment succeeds (1096.560614ms)
+✔ Recovery preview is Core-derived and accepted REPAIR_UNIT mutates only through Action result (1176.31403ms)
+✔ Entrench preview and accepted ENTRENCH use frozen Core authority (1200.652045ms)
+✔ hot-seat side handoff changes viewer only after confirmation and never mutates GameState (986.262162ms)
+✔ browser/session passive production loop reaches Turn 16 GAME_OVER with frozen reinforcement behavior (3271.305998ms)
+✔ UI-004 generic phase additions preserve UI-003 hidden deployment zero-leak (569.394195ms)
+✔ UI-004 keeps frozen geometry SHA exactly locked (11.288904ms)
+✔ UI attack draft is presentation-only; accepted ATTACK creates Core transaction and hot-seat reaction handoff (25.790007ms)
+✔ Defender Reaction PASS and defensive artillery both use real Core reaction transaction (15.613112ms)
+✔ Loss Allocation player choice draft is non-mutating; accepted allocation comes only from Core result (10.735488ms)
+✔ Unique loss auto-resolves without fabricating a loss dialog (4.798064ms)
+✔ Retreat path draft and Advance After Combat accept use ordered real Core actions (36.722783ms)
+✔ Pass Advance and retreat-impossible extra-loss branches are driven by Core (17.740855ms)
+✔ Breakthrough movement and Pass Breakthrough both follow real transaction state (23.670436ms)
+✔ Natural Schwerpunkt creates child combat; Pass Schwerpunkt closes source without child (31.347828ms)
+✔ real production map declares and resolves one complete combat transaction to CLOSED (1474.528859ms)
+✔ UI-005 keeps frozen geometry SHA exactly locked (13.497528ms)
+✔ retreat default selection accepts a step without first clicking the unit button (10.674545ms)
+✔ friendly counter on legal retreat destination routes to path instead of inspect (9.380623ms)
+✔ P4R3 manifest loads all 117 entries and required families (2.478612ms)
+✔ deterministic variant selection repeats for same seed/hex (0.209387ms)
+✔ different visual seed deterministically changes at least one map variant (111.202508ms)
+✔ rendering production terrain does not mutate GameState or RNG draws (39.74144ms)
+✔ same Hex selects identical production markup after rerender (60.807325ms)
+✔ real 640 map renders all canonical production grid hexes (19.266728ms)
+✔ every production terrain type has a visual path or documented lake fallback (3.529119ms)
+✔ production infrastructure remains based on real Core edge count/types (35.134425ms)
+✔ production renderer preserves hidden German deployment zero-leak (580.701718ms)
+✔ production renderer preserves deployment/action hit testing markup (31.251912ms)
+✔ LOD thresholds follow Far/Medium/Close screen hex width contract (0.395136ms)
+✔ LOD changes presentation only and strips microdetail at Far (52.383967ms)
+✔ Prototype/Production switch is presentation-only and geometry hash remains locked (49.475877ms)
+✔ UI006R1 Forest primary mass is rendered exactly once per Forest Hex (35.852899ms)
+✔ UI006R1 Marsh wet primary is rendered exactly once per Marsh Hex (34.201586ms)
+✔ UI006R1 normal City uses exactly one medium primary family (47.68938ms)
+✔ UI006R1 Main City uses major primary without hidden medium duplicate (28.20014ms)
+✔ UI006R1 Outer City uses small primary without hidden medium duplicate (33.377972ms)
+✔ UI006R1 Hill height raster is mask input, not ordinary visible high-opacity artwork (37.612686ms)
+✔ UI006R1 Hill remains visually represented at Far LOD (31.179523ms)
+✔ UI006R1 Rough remains visually represented at Far LOD without close microdetail (25.949637ms)
+✔ UI006R1 River Medium includes shadow bank water and highlight (130.481255ms)
+✔ UI006R1 River Close adds edge vegetation (37.563592ms)
+✔ UI006R1 Railway Medium and Close include contact shadow (143.395493ms)
+✔ UI006R1 active visual seed controls eligible asset transform variation (0.490681ms)
+✔ UI007R1 runtime preserves UI007 P5 provenance except the authorized P5R1 S02 micro-fix (74.264266ms)
+✔ UI007 active runtime contains only manifest production rasters plus manifest (5.731673ms)
+✔ UI007 P4R3/P5 A-B asset switch is presentation-only and preserves canonical markup structure (129.685694ms)
+✔ UI007 locked geometry hash remains unchanged (3.357389ms)
+✔ UI007R1 Marsh-Marsh continuity decision is deterministic and unordered-edge stable (64.898547ms)
+✔ UI007R1 same visual seed produces identical Marsh continuity markup (101.238425ms)
+✔ UI007R1 alternate visual seed can legally vary Marsh continuity without touching terrain semantics (61.473941ms)
+✔ UI007R1 Marsh-Plain boundaries never receive continuity geometry (26.715194ms)
+✔ UI007R1 Marsh-Forest boundaries never receive continuity geometry (28.187537ms)
+✔ UI007R1 Marsh continuity rendering is presentation-only and never mutates GameState (28.069709ms)
+✔ UI007R1 LOD changes Marsh detail only, not continuity decisions or GameState (63.650948ms)
+✔ UI007R1 Marsh continuity stays below grid, tactical overlays and counters (26.61375ms)
+✔ UI007R1 locked Geometry SHA remains unchanged (6.570831ms)
+✔ UI007R1 runtime S02 hash equals P5R1 micro-fix and manifest contract remains byte-identical (7.702889ms)
+✔ UI007R1 other 122 production rasters remain byte-identical to P5 baseline (33.818188ms)
+✔ UI007R1 OUTER_CITY 29,-5 has no canonical Road, keeps Railway, and renders S02 through normal city selection (61.243673ms)
+✔ UI008 Home renders formal branding and New Game (1.075554ms)
+✔ UI008 New Game helper creates real production Soviet deployment (11.923161ms)
+✔ UI008 Restart helper path creates a fresh legal independent state (563.408619ms)
+✔ UI008 public hosts hide developer controls even with dev query (0.20476ms)
+✔ UI008 production dist excludes P4R3 A-B dev assets (5.260562ms)
+✔ UI008 P5R1 runtime assets are present and S02 is the approved micro-fix (8.872887ms)
+✔ UI008 Home-to-deployment hidden-view contract remains zero-leak (533.973182ms)
+✔ UI008 fatal state is safe user-facing fallback (0.381596ms)
+✔ UI008 loading state is explicit (0.394876ms)
+✔ UI008 desktop responsive profile (0.245651ms)
+✔ UI008 iPad landscape responsive profile covers target sizes (0.188324ms)
+✔ UI008 mobile narrow stays renderable with advisory (0.188575ms)
+✔ UI008 production asset URLs are relative for subpath hosting (0.120522ms)
+✔ UI008 locked Geometry SHA unchanged (17.291967ms)
+✔ UI008 production New Game helper matches direct frozen session semantics (8.578842ms)
+✔ UI008 zoom viewport gives touch-accessible deterministic alternative to wheel zoom (1.111799ms)
+✔ UI008 CSS constrains gestures only to map and preserves large touch controls (1.286632ms)
+✔ UI008 final dist has no review/test/source-map directories (4.781179ms)
+✔ UI008 combat closure returns privacy handoff to the active side when defender owned the last decision (1309.35108ms)
+✔ UI008 production manifest startup contract resolves exactly 123 P5R1 raster paths (4.968491ms)
+✔ UI009R1 pointerdown alone remains TAP candidate and does not start drag (0.944416ms)
+✔ UI009R1 movement at or below 6 CSS px remains TAP (0.218109ms)
+✔ UI009R1 movement above threshold becomes DRAG and suppresses tap (0.114794ms)
+✔ UI009R1 pointercancel semantics never convert a drag into a click suppression leak (0.102695ms)
+✔ UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport (0.774209ms)
+✔ UI009R1 map smaller than viewport stays centered on that axis (0.155224ms)
+✔ UI009R1 zoom recomputes pan range from rendered content bounds (0.129306ms)
+✔ UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds (0.216607ms)
+✔ UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState (13.913786ms)
+✔ UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical (86.773317ms)
+✔ UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical (82.452574ms)
+✔ UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action (17.226077ms)
+✔ UI009R1 hidden Soviet deployment remains zero-leak after handoff (635.345762ms)
+✔ UI009R1 drag suppression is map-local and map touch-action does not disable the whole page (0.319542ms)
+✔ UI009R1 frozen Core, Geometry and P5R1 remain exact (15.764771ms)
+✔ Safari compatibility: SVG root declares xlink namespace (78.882144ms)
+✔ Safari compatibility: every production raster image has href and xlink:href to the same relative asset (57.374206ms)
+✔ Safari compatibility: per-Hex production clip ids are defined exactly once (44.578293ms)
+✔ Strategic Reset F production renderer contains all release-critical terrain and infrastructure families (57.363165ms)
+✔ UI009R2D2 startup loader uses direct URL image first with optional fetch/bitmap fallback (1.063365ms)
+✔ UI009R2 startup resource failures preserve exact URL asset family HTTP stage and capabilities (0.348366ms)
+✔ UI009R2 production fatal screen exposes startup detail instead of generic-only resource failure (0.248014ms)
+✔ UI009R2 Strategic Reset F cached terrain plan covers every release-critical static category (57.93338ms)
+✔ UI009R2 static terrain plan is deterministic for the same canonical map and visual seed (38.452063ms)
+✔ UI009R2 production live SVG removes raster terrain while retaining grid and interactive deployment layer (19.900365ms)
+✔ UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths (0.432523ms)
+✔ UI009R2 pan and zoom transform the same cached canvas without mutating/repainting it (0.264409ms)
+✔ UI009R2 terrain cache avoids all-at-once preload and bounds decoded-image residency (0.136736ms)
+✔ UI009R2D2 direct image URL is primary and succeeds without fetch (2.044277ms)
+✔ UI009R2D2 timed out fetch aborts underlying request before returning (5.573705ms)
+✔ UI009R2D2 loader removes force-cache and only fetches after direct-image failure (0.842011ms)
+✔ UI009R2D2 cached terrain surface lifecycle remains boot-time cached architecture (1.999438ms)
+✔ D canonical chains cover every real-map infrastructure edge once with uninterrupted arc length (49.209229ms)
+✔ D chain extraction handles closed loops and branches deterministically (0.454096ms)
+✔ D forest union remains continuous across same-terrain shared edges and clears all infrastructure (84.179702ms)
+✔ F1 marsh remains distinct from dry plain and forest while allowing earthy reed/mud colours (33.17703ms)
+✔ D all LODs render the complete 20×32 map with cities, canopy, canonical paths and an unchanged live SVG (35763.126198ms)
+✔ D rail dominance is reduced within manifest limits and bridge decks precede restored road/rail surfaces (17.083292ms)
+✔ D production mounts cached Far/Medium/Close surfaces without rebuilding on interaction (1.196096ms)
+✔ F urban mass stays inside all nine real city cells and clear of every transport/river corridor at all LODs (866.628398ms)
+✔ F1 settlements have deterministic focus, size gradients and non-overlapping road-oriented roofs (130.083095ms)
+✔ F2 core courts preserve canonical city unions and infrastructure clearances (208.961798ms)
+✔ F3 civic silhouettes gain mass without expanding city or corridor footprints (134.5179ms)
+✔ C projects all 640 real-map centers and vertices onto a fixed world raster without shifting hex geometry (39.377471ms)
+✔ C infrastructure envelopes exactly follow canonical Road/Rail centers and River shared edges (28.553969ms)
+✔ C rectangle clearance catches crossing segments, endpoints, and degenerate bridge envelopes (0.500506ms)
+✔ C city groups cover every real city and reject entire footprints over infrastructure or non-city terrain (390.480893ms)
+✔ C city plans are order-independent, seed-dependent, and leave scenario/RNG/live SVG untouched (1196.062496ms)
+✔ C real-map cache draws projected raster, VS2 city components, then VS2 infrastructure without legacy duplication (7825.945863ms)
+✔ VS2 masks union same-terrain cells without a seam on their shared edge (2.521516ms)
+✔ VS2 region transitions are continuous, normalized, and retain semantic centers (1.434015ms)
+✔ VS2 exterior feathering preserves holes and is independent of input order (10.489968ms)
+✔ VS2 raster has deterministic seed-separated pixels and uninterrupted world UV across crops (11.028ms)
+✔ VS2 scalar masks use luminance rather than opaque alpha and bound value modulation (0.817744ms)
+✔ VS2 canonical map semantics, RNG, geometry and live grid remain unchanged (64.526258ms)
+✔ VS2 production cache invokes one world pass and preserves existing infrastructure/city loading (38.579036ms)
+✔ VS2 world pass loads exactly the selected namespace materials sequentially and releases scratch canvases (43.301936ms)
+✔ F2 hill, rough and marsh materials remain crop-invariant and seed-separated (121.373154ms)
+ℹ tests 595
+ℹ suites 0
+ℹ pass 595
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 53090.181891

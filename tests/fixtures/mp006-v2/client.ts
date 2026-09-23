@@ -1,4 +1,4 @@
-import {MAP_SNAPSHOT,COMPACT_SNAPSHOT,FULL_SNAPSHOT,MAX_SERVER_MESSAGE_BYTES,decodeSnapshot,isSnapshotFormat,type SnapshotFormat} from './snapshotCodec.js';
+import {COMPACT_SNAPSHOT,FULL_SNAPSHOT,MAX_SERVER_MESSAGE_BYTES,decodeSnapshot,isSnapshotFormat,type SnapshotFormat} from './snapshotCodec.js';
 import type {MatchSnapshot} from './gameplayProtocol.js';
 import {PROTOCOL_VERSION,clientMessage,type ClientPayloads,type ServerMessage,type RoomState,type MatchInfo,type AuthorizedPlayerView} from './protocol.js';
 import {CLIENT_NETWORK} from './config.js';
@@ -21,11 +21,11 @@ export class LobbyClient {
   private socket:WebSocket|null=null;private token:string|null=null;private stopped=true;
   private retry:ReturnType<typeof setTimeout>|null=null;private deadline:ReturnType<typeof setTimeout>|null=null;
   snapshotFormat:SnapshotFormat=FULL_SNAPSHOT;
-  private negotiationFormat:SnapshotFormat=FULL_SNAPSHOT;private negotiationId:string|null=null;private recoveryId:string|null=null;private recoveryUsed=false;private compactDisabled=false;
+  private negotiationId:string|null=null;private recoveryId:string|null=null;private recoveryUsed=false;private compactDisabled=false;
   private attempts=0;private pendingId:string|null=null;private name='';
   private offline=()=>{this.state.connection='DISCONNECTED';this.state.synced=false;this.state.pending=false;this.notify();this.socket?.close();};
   private online=()=>{if(!this.stopped&&!this.socket)this.open();};
-  constructor(private url:string,private changed:()=>void,private preferredFormat:SnapshotFormat=(typeof location!=='undefined'&&isSnapshotFormat(new URLSearchParams(location.search).get('snapshotFormat'))?new URLSearchParams(location.search).get('snapshotFormat') as SnapshotFormat:COMPACT_SNAPSHOT)){try{this.token=sessionStorage.getItem(this.storageKey);}catch{/* memory-only identity */}window.addEventListener('offline',this.offline);window.addEventListener('online',this.online);}
+  constructor(private url:string,private changed:()=>void,private preferredFormat:SnapshotFormat=(typeof location!=='undefined'&&new URLSearchParams(location.search).get('snapshotFormat')===FULL_SNAPSHOT)?FULL_SNAPSHOT:COMPACT_SNAPSHOT){try{this.token=sessionStorage.getItem(this.storageKey);}catch{/* memory-only identity */}window.addEventListener('offline',this.offline);window.addEventListener('online',this.online);}
   private get storageKey(){return `eastfront.mp.identity:${this.url}`;}
   get canMutate(){return this.state.connection==='CONNECTED'&&this.state.synced&&!this.state.pending&&!this.negotiationId&&!this.recoveryId;}
   connect(displayName:string):void {
@@ -43,7 +43,7 @@ export class LobbyClient {
     socket.onopen=()=>{if(this.socket!==socket)return;this.sendHandshake();};
     socket.onmessage=event=>{
       if(this.socket!==socket)return;
-      const callbackAt=transportTimingEnabled?performance.now():0;let parsedAt=callbackAt,decodedAt=callbackAt;const decodeTiming=transportTimingEnabled?{validationMs:0,rebuildMs:0}:undefined;
+      const callbackAt=transportTimingEnabled?performance.now():0;let parsedAt=callbackAt,decodedAt=callbackAt;
       let message:ServerMessage;try{
         const raw=String(event.data);if(raw.length>MAX_SERVER_MESSAGE_BYTES||new TextEncoder().encode(raw).byteLength>MAX_SERVER_MESSAGE_BYTES)throw new Error();
         message=JSON.parse(raw) as ServerMessage;
@@ -51,7 +51,7 @@ export class LobbyClient {
         if(transportTimingEnabled)parsedAt=performance.now();
       }catch{this.invalidServer();return;}
       if(message.messageType==='PLAYER_VIEW_SNAPSHOT'){
-        try{message={...message,payload:decodeSnapshot(message.payload,this.snapshotFormat!==FULL_SNAPSHOT,this.snapshotFormat===MAP_SNAPSHOT,decodeTiming)};}
+        try{message={...message,payload:decodeSnapshot(message.payload,this.snapshotFormat===COMPACT_SNAPSHOT)};}
         catch{if(transportTimingEnabled)publishReceiveTiming({type:'PLAYER_VIEW_SNAPSHOT',requestId:'',callbackAt,parsedAt,decodedAt:performance.now(),appliedAt:performance.now(),outcome:'invalid-snapshot'});this.recoverSnapshot();return;}
       }
       if(transportTimingEnabled)decodedAt=performance.now();
@@ -59,7 +59,6 @@ export class LobbyClient {
       if(transportTimingEnabled&&['PLAYER_VIEW_SNAPSHOT','ACTION_ACCEPTED','ACTION_REJECTED'].includes(message.messageType)){
         const p=message.payload as {matchRevision?:number;serverSequence?:number};
         publishReceiveTiming({type:message.messageType,requestId:message.requestId,revision:p.matchRevision,sequence:p.serverSequence,callbackAt,parsedAt,decodedAt,appliedAt:performance.now(),outcome:'processed'});
-        if(message.messageType==='PLAYER_VIEW_SNAPSHOT'&&decodeTiming)window.dispatchEvent(new CustomEvent('eastfront-map-codec-timing',{detail:{revision:p.matchRevision,sequence:p.serverSequence,...decodeTiming}}));
       }
     };
     socket.onerror=()=>{this.state.error='unavailable';socket.close();};
@@ -91,10 +90,7 @@ export class LobbyClient {
   }
   private receive(message:ServerMessage):void {
     if(message.requestId===this.negotiationId&&this.negotiationId){
-      if(message.messageType==='ROOM_ERROR'&&['BAD_MESSAGE','UNSUPPORTED_MESSAGE'].includes(message.payload.code)&&this.negotiationFormat===MAP_SNAPSHOT){
-        this.negotiationFormat=COMPACT_SNAPSHOT;this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:COMPACT_SNAPSHOT});return;
-      }
-      if(message.messageType==='SNAPSHOT_FORMAT_SELECTED'&&message.payload.format===this.negotiationFormat&&Object.keys(message.payload).length===1){this.snapshotFormat=message.payload.format;}
+      if(message.messageType==='SNAPSHOT_FORMAT_SELECTED'&&isSnapshotFormat(message.payload.format)&&Object.keys(message.payload).length===1){this.snapshotFormat=message.payload.format;}
       else if(message.messageType==='ROOM_ERROR'&&message.payload.code==='UNSUPPORTED_MESSAGE'){this.snapshotFormat=FULL_SNAPSHOT;}
       else {this.invalidServer();return;}
       this.negotiationId=null;if(message.requestId===this.pendingId){this.pendingId=null;this.state.pending=false;this.clearDeadline();}this.notify();return;
@@ -107,7 +103,7 @@ export class LobbyClient {
         this.state.controllerId=message.payload.controllerId;this.token=message.payload.reconnectToken;
         try{sessionStorage.setItem(this.storageKey,this.token);}catch{/* retain in memory */}
         this.state.connection='CONNECTED';this.state.error=null;this.attempts=0;
-        if(this.preferredFormat!==FULL_SNAPSHOT&&!this.compactDisabled){this.negotiationFormat=this.preferredFormat;this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:this.preferredFormat});}
+        if(this.preferredFormat===COMPACT_SNAPSHOT&&!this.compactDisabled)this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:COMPACT_SNAPSHOT});
         break;
       case 'ROOM_CREATED':case 'ROOM_STATE':{
         const room=message.payload.room;

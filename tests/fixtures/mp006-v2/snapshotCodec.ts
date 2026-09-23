@@ -1,21 +1,17 @@
-import {encodeMapTable,decodeMapTable,type MapTable} from './mapEncoding.js';
 import type {MatchSnapshot} from './gameplayProtocol.js';
 import {record,shape,id,revision,hex,isNetworkAction} from './gameplayProtocol.js';
 export const FULL_SNAPSHOT='snapshot-v1' as const;
 export const COMPACT_SNAPSHOT='snapshot-v2-inline-view' as const;
-export const MAP_SNAPSHOT='snapshot-v3-map-table' as const;
-export type SnapshotFormat=typeof FULL_SNAPSHOT|typeof COMPACT_SNAPSHOT|typeof MAP_SNAPSHOT;
+export type SnapshotFormat=typeof FULL_SNAPSHOT|typeof COMPACT_SNAPSHOT;
 export type CompactSnapshot=Omit<MatchSnapshot,'format'|'model'> & {format:typeof COMPACT_SNAPSHOT;model:Omit<MatchSnapshot['model'],'playerView'|'hexes'|'edges'>};
-export type MapSnapshot=Omit<CompactSnapshot,'format'|'view'> & {format:typeof MAP_SNAPSHOT;view:Omit<MatchSnapshot['view'],'hexes'|'edges'> & {hexes:MapTable;edges:MapTable}};
-export type WireSnapshot=MatchSnapshot|CompactSnapshot|MapSnapshot;
+export type WireSnapshot=MatchSnapshot|CompactSnapshot;
 export const MAX_SERVER_MESSAGE_BYTES=2*1024*1024;
-export const isSnapshotFormat=(v:unknown):v is SnapshotFormat=>v===FULL_SNAPSHOT||v===COMPACT_SNAPSHOT||v===MAP_SNAPSHOT;
+export const isSnapshotFormat=(v:unknown):v is SnapshotFormat=>v===FULL_SNAPSHOT||v===COMPACT_SNAPSHOT;
 /** Three aliases only. Fallback rather than discard a divergent future model. */
 export function encodeSnapshot(snapshot:MatchSnapshot,format:SnapshotFormat):WireSnapshot {
   const {view,model}=snapshot;
-  if(format===FULL_SNAPSHOT||snapshot.resync||model.playerView!==view||model.hexes!==view.hexes||model.edges!==view.edges)return snapshot;
+  if(format!==COMPACT_SNAPSHOT||snapshot.resync||model.playerView!==view||model.hexes!==view.hexes||model.edges!==view.edges)return snapshot;
   const {playerView,hexes,edges,...rest}=model;
-  if(format===MAP_SNAPSHOT)return {...snapshot,format,model:rest,view:{...view,hexes:encodeMapTable(view.hexes),edges:encodeMapTable(view.edges)}};
   return {...snapshot,format:COMPACT_SNAPSHOT,model:rest};
 }
 type Check=(v:unknown)=>boolean;
@@ -89,29 +85,16 @@ function safeTree(v:unknown,depth=0,budget={remaining:160000}):boolean {
   return record(v)&&Object.entries(v).every(([k,x])=>!['__proto__','constructor','prototype','authoritativeState','combatTransactions','actionLog','reconnectToken'].includes(k)&&safeTree(x,depth+1,budget));
 }
 /** Validates either full representation atomically, then restores independent copies. No previous state is accepted. */
-export interface DecodeTiming {validationMs:number;rebuildMs:number;}
-export function decodeSnapshot(value:unknown,compactAllowed:boolean,mapAllowed=false,timing?:DecodeTiming):MatchSnapshot {
-  const started=timing?performance.now():0;let rebuildMs=0;
+export function decodeSnapshot(value:unknown,compactAllowed:boolean):MatchSnapshot {
   const fail=():never=>{throw new Error('Invalid authorized snapshot');};
   if(!safeTree(value)||!record(value)||!isSnapshotFormat(value.format)||(!compactAllowed&&value.format===COMPACT_SNAPSHOT))return fail();
-  if(value.format===MAP_SNAPSHOT){
-    if(!mapAllowed||value.resync||!record(value.view))return fail();
-    const rebuildStart=timing?performance.now():0;
-    value={...value,format:COMPACT_SNAPSHOT,view:{...value.view,hexes:decodeMapTable(value.view.hexes,4096),edges:decodeMapTable(value.view.edges,16384)}};
-    if(timing)rebuildMs+=performance.now()-rebuildStart;
-  }
-  if(!record(value))return fail();
   const compact=value.format===COMPACT_SNAPSHOT;
   if(compact&&value.resync)return fail();
   if(!shape(value,{matchId:id,matchRevision:revision,serverSequence:revision,revision,format:isSnapshotFormat,resync:bool,status:one('ACTIVE','WAITING_FOR_RECONNECT','FINISHED','ABORTED'),canAct:bool,view:playerView,
     model:m=>shape(m,compact?modelFields:{...modelFields,playerView,hexes:list(mapHex),edges:list(edge,16384)}),forcedAction:nullable(isNetworkAction),events:list(event,2048)}))return fail();
-  const snapshot=value as unknown as MatchSnapshot|CompactSnapshot;
+  const snapshot=value as unknown as WireSnapshot;
   if(snapshot.revision!==snapshot.matchRevision||snapshot.model.viewerSide!==snapshot.view.viewer||snapshot.model.phase!==snapshot.view.phase||snapshot.model.turn!==snapshot.view.turn)return fail();
-  const finish=(result:MatchSnapshot):MatchSnapshot=>{if(timing){timing.rebuildMs=rebuildMs;timing.validationMs=performance.now()-started-rebuildMs;}return result;};
-  if(!compact)return finish(snapshot as MatchSnapshot);
+  if(!compact)return snapshot as MatchSnapshot;
   const {view,model}=snapshot;
-  const rebuildStart=timing?performance.now():0;
-  const result:MatchSnapshot={...snapshot,format:FULL_SNAPSHOT,model:{...model,playerView:structuredClone(view),hexes:structuredClone(view.hexes),edges:structuredClone(view.edges)}};
-  if(timing)rebuildMs+=performance.now()-rebuildStart;
-  return finish(result);
+  return {...snapshot,format:FULL_SNAPSHOT,model:{...model,playerView:structuredClone(view),hexes:structuredClone(view.hexes),edges:structuredClone(view.edges)}};
 }

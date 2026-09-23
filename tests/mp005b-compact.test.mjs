@@ -7,7 +7,7 @@ import {pathToFileURL} from 'node:url';
 import ts from 'typescript';
 import {WebSocket as Wire} from 'ws';
 import {collectSamples} from '../scripts/mp005a/samples.mjs';
-import {encodeSnapshot,decodeSnapshot,COMPACT_SNAPSHOT as compact,FULL_SNAPSHOT as full} from '../dist/app/multiplayer/snapshotCodec.js';
+import {encodeSnapshot,decodeSnapshot,MAP_SNAPSHOT as mapFormat,COMPACT_SNAPSHOT as compact,FULL_SNAPSHOT as full} from '../dist/app/multiplayer/snapshotCodec.js';
 import {LobbyClient} from '../dist/app/multiplayer/client.js';
 import {NetworkPlayerSession} from '../dist/app/multiplayer/networkSession.js';
 import {createPresentationState} from '../dist/app/state/presentation.js';
@@ -19,21 +19,23 @@ import {fixture} from './helpers/combat-fixture.mjs';
 import {gameHarness,production,checkSnapshot} from './helpers/mp002.mjs';
 let cachedSamples;const auditSamples=()=>cachedSamples??=collectSamples().samples;
 const wait=async(fn)=>{const start=performance.now();while(!fn()){if(performance.now()-start>6000)throw Error('MP005B bounded wait');await new Promise(r=>setTimeout(r,3));}};
-async function legacy(t){
+async function legacy(t,v2=false){
  const dir=mkdtempSync(resolve(tmpdir(),'mp005b-legacy-'));cpSync('.server-dist',dir,{recursive:true});
  cpSync('dist/app/multiplayer/config.js',dir+'/src/multiplayer/config.js');
+ cpSync('dist/app/multiplayer/diagnosticTiming.js',dir+'/src/multiplayer/diagnosticTiming.js');
  writeFileSync(dir+'/package.json','{"type":"module"}');symlinkSync(resolve('node_modules'),dir+'/node_modules');
  for(const [name,path] of [['client','src/multiplayer/client'],['protocol','src/multiplayer/protocol'],['authority','server/authority'],['runtime','server/runtime']]){
-  const source=readFileSync(`tests/fixtures/mp005b-legacy/${name}.ts`,'utf8');
+  const source=readFileSync(v2?(['client','protocol'].includes(name)?`tests/fixtures/mp006-v2/${name}.ts`:`${path}.ts`):`tests/fixtures/mp005b-legacy/${name}.ts`,'utf8');
   writeFileSync(`${dir}/${path}.js`,ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText);
  }
+ if(v2)writeFileSync(dir+'/src/multiplayer/snapshotCodec.js',ts.transpileModule(readFileSync('tests/fixtures/mp006-v2/snapshotCodec.ts','utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText);
  t.after(()=>rmSync(dir,{recursive:true,force:true}));
  return {client:(await import(pathToFileURL(dir+'/src/multiplayer/client.js'))).LobbyClient,
    authority:(await import(pathToFileURL(dir+'/server/authority.js'))).RoomAuthority,
    runtime:(await import(pathToFileURL(dir+'/server/runtime.js'))).createMultiplayerServer};
 }
-async function pair(t,{oldServer=false,oldClient=false}={}){
- const old=(oldServer||oldClient)?await legacy(t):null;
+async function pair(t,{oldServer=false,oldClient=false,v2=false,format=compact}={}){
+ const old=(oldServer||oldClient)?await legacy(t,v2):null;
  const config={...DEFAULTS,port:0,allowedOrigins:['http://127.0.0.1:4173'],messagesPerWindow:10000};let match;
  const Authority=oldServer?old.authority:RoomAuthority;
  const authority=new Authority(config,Date.now,(...args)=>{match=createMatchSession(...args);match.authoritative=production(17);return match;});
@@ -48,7 +50,7 @@ async function pair(t,{oldServer=false,oldClient=false}={}){
     if(this.delay?.(m))return setTimeout(()=>fn(event),25);fn(event);};}
  }
  globalThis.WebSocket=BrowserSocket;
- const peer=(Client=LobbyClient)=>{let session;const p=createPresentationState(),client=new Client(`ws://127.0.0.1:${port}/ws`,()=>{if(!session&&client.state.snapshot)session=new NetworkPlayerSession(client,p,()=>{});});client.connect('compatibility test');
+ const peer=(Client=LobbyClient)=>{let session;const p=createPresentationState(),client=new Client(`ws://127.0.0.1:${port}/ws`,()=>{if(!session&&client.state.snapshot)session=new NetworkPlayerSession(client,p,()=>{});},Client===LobbyClient?format:compact);client.connect('compatibility test');
   return {client,p,get session(){return session;},socket:sockets.at(-1)};};
  const a=peer(oldClient?old.client:LobbyClient),b=peer();
  t.after(async()=>{a.session?.dispose();b.session?.dispose();a.client.dispose();b.client.dispose();for(const s of sockets)s.terminate();await server.close();Object.assign(globalThis,previous);});
@@ -122,4 +124,48 @@ test('MP005B negotiation completion resumes only the already server-authorized f
  let available=false,listener;const sent=[],client={state:{snapshot,connection:'CONNECTED',synced:true,pending:false},get canMutate(){return available;},subscribe(fn){listener=fn;return ()=>{};},send(type,payload){sent.push({type,payload});return 'forced';},dispose(){}};
  const n=new NetworkPlayerSession(client,createPresentationState(),()=>{});listener(null);await new Promise(r=>setTimeout(r,5));assert.equal(sent.length,0);
  available=true;listener(null);await new Promise(r=>setTimeout(r,5));assert.equal(sent.length,1);assert.deepEqual(sent[0].payload.action,snapshot.forcedAction);listener(null);await new Promise(r=>setTimeout(r,5));assert.equal(sent.length,1);n.dispose();
+});
+
+// MP006 explicitly exercises v3; the historical v2 assertions above remain frozen.
+test('MP006 mixed v2/v3 recipients, duplicate ACK semantics, gap recovery and reconnect',async t=>{
+ const h=await pair(t,{oldClient:true,v2:true,format:mapFormat});
+ await h.deploy(0);await wait(()=>h.a.session.matchRevision===1);
+ const last=p=>h.delivered.findLast(d=>d.socket===p.socket&&d.message.messageType==='PLAYER_VIEW_SNAPSHOT').message.payload;
+ assert.equal(last(h.a).format,compact);assert.equal(last(h.b).format,mapFormat);
+ assert.equal(h.a.session.playerView.units.length,0);assert.equal(h.b.session.playerView.units.length,1);
+ for(const p of [h.a,h.b])checkSnapshot(h.match,{welcome:{controllerId:p.client.state.controllerId}},p.client.state.snapshot);
+ let dropped=false;h.b.socket.drop=m=>{if(!dropped&&m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.matchRevision===2){dropped=true;return true;}return false;};
+ const row=h.b.session.model.deployment.roster[1],[q,r]=h.b.session.model.deployment.zoneKeys[1].split(',').map(Number);
+ h.b.session.submit({type:'DEPLOY_INITIAL_UNIT',deploymentUnitId:row.id,hex:{q,r}});
+ await wait(()=>dropped);h.b.client.resyncMatch(h.b.session.matchId??h.b.client.state.match.matchId);
+ await wait(()=>h.b.session.matchRevision===2&&h.b.session.interactive);assert.equal(h.b.client.snapshotFormat,full);
+ h.b.socket.terminate();await wait(()=>h.sockets.length===3&&h.b.session.interactive);assert.equal(h.b.client.snapshotFormat,mapFormat);
+ await h.deploy(2);assert.equal(h.b.session.matchRevision,3);
+});
+test('MP006 v3 preference falls back to exact v2 server without reconnect',async t=>{
+ const h=await pair(t,{oldServer:true,v2:true,format:mapFormat});await h.deploy(0);
+ assert.equal(h.b.client.snapshotFormat,compact);assert.equal(h.sockets.length,2);
+ assert.equal(h.sent.filter(m=>m.messageType==='SET_SNAPSHOT_FORMAT').length,4);
+});
+test('MP006 v3 preference falls back to exact v1 server without reconnect',async t=>{
+ const h=await pair(t,{oldServer:true,format:mapFormat});await h.deploy(0);
+ assert.equal(h.b.client.snapshotFormat,full);assert.equal(h.sockets.length,2);
+ assert.equal(h.sent.filter(m=>m.messageType==='SET_SNAPSHOT_FORMAT').length,4);
+});
+test('MP006 corrupt table never applies; one full recovery, persistent corruption terminates',async t=>{
+ const h=await pair(t,{format:mapFormat});let corrupted=false;
+ h.b.socket.mutate=m=>{if(!corrupted&&m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.matchRevision===1){corrupted=true;const bad=structuredClone(m);bad.payload.view.hexes.rows[0][0]=-1;return bad;}};
+ await h.deploy(0);assert(corrupted);assert.equal(h.b.client.snapshotFormat,full);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);
+ h.b.socket.mutate=m=>{if(m.messageType==='PLAYER_VIEW_SNAPSHOT'){const bad=structuredClone(m);delete bad.payload.view;return bad;}};
+ const row=h.b.session.model.deployment.roster[1],[q,r]=h.b.session.model.deployment.zoneKeys[1].split(',').map(Number);
+ h.b.session.submit({type:'DEPLOY_INITIAL_UNIT',deploymentUnitId:row.id,hex:{q,r}});
+ await wait(()=>h.b.client.state.connection==='DISCONNECTED');assert.equal(h.b.client.state.error,'invalidServer');assert.equal(h.b.session.matchRevision,1);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);
+});
+
+test('MP006 v3 sequence gap triggers one full recovery with no stale partial apply',async t=>{
+ const h=await pair(t,{format:mapFormat});let dropped=false;
+ h.a.socket.drop=m=>{if(!dropped&&m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.matchRevision===1){dropped=true;return true;}return false;};
+ await h.deploy(0);assert.equal(h.a.session.matchRevision,0);await h.deploy(1);
+ await wait(()=>h.a.session.matchRevision===2&&!h.a.session.syncing);
+ assert.equal(h.a.client.snapshotFormat,full);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);assert.equal(h.a.session.playerView.units.length,0);
 });
