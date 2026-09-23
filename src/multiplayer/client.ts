@@ -3,6 +3,7 @@ import type {MatchSnapshot} from './gameplayProtocol.js';
 import {PROTOCOL_VERSION,clientMessage,type ClientPayloads,type ServerMessage,type RoomState,type MatchInfo,type AuthorizedPlayerView} from './protocol.js';
 import {CLIENT_NETWORK} from './config.js';
 import type {MPText} from './catalog.js';
+import {transportTimingEnabled,publishReceiveTiming} from './diagnosticTiming.js';
 export interface LobbyState {
   connection:'DISCONNECTED'|'CONNECTING'|'RECONNECTING'|'CONNECTED';controllerId:string|null;
   snapshot:MatchSnapshot|null;room:RoomState|null;match:MatchInfo|null;view:AuthorizedPlayerView|null;pending:boolean;synced:boolean;error:MPText|null;
@@ -42,16 +43,23 @@ export class LobbyClient {
     socket.onopen=()=>{if(this.socket!==socket)return;this.sendHandshake();};
     socket.onmessage=event=>{
       if(this.socket!==socket)return;
+      const callbackAt=transportTimingEnabled?performance.now():0;let parsedAt=callbackAt,decodedAt=callbackAt;
       let message:ServerMessage;try{
         const raw=String(event.data);if(raw.length>MAX_SERVER_MESSAGE_BYTES||new TextEncoder().encode(raw).byteLength>MAX_SERVER_MESSAGE_BYTES)throw new Error();
         message=JSON.parse(raw) as ServerMessage;
         if(!message||message.protocolVersion!==PROTOCOL_VERSION||typeof message.messageType!=='string'||!message.payload||typeof message.payload!=='object')throw new Error();
+        if(transportTimingEnabled)parsedAt=performance.now();
       }catch{this.invalidServer();return;}
       if(message.messageType==='PLAYER_VIEW_SNAPSHOT'){
         try{message={...message,payload:decodeSnapshot(message.payload,this.snapshotFormat===COMPACT_SNAPSHOT)};}
-        catch{this.recoverSnapshot();return;}
+        catch{if(transportTimingEnabled)publishReceiveTiming({type:'PLAYER_VIEW_SNAPSHOT',requestId:'',callbackAt,parsedAt,decodedAt:performance.now(),appliedAt:performance.now(),outcome:'invalid-snapshot'});this.recoverSnapshot();return;}
       }
+      if(transportTimingEnabled)decodedAt=performance.now();
       this.receive(message);
+      if(transportTimingEnabled&&['PLAYER_VIEW_SNAPSHOT','ACTION_ACCEPTED','ACTION_REJECTED'].includes(message.messageType)){
+        const p=message.payload as {matchRevision?:number;serverSequence?:number};
+        publishReceiveTiming({type:message.messageType,requestId:message.requestId,revision:p.matchRevision,sequence:p.serverSequence,callbackAt,parsedAt,decodedAt,appliedAt:performance.now(),outcome:'processed'});
+      }
     };
     socket.onerror=()=>{this.state.error='unavailable';socket.close();};
     socket.onclose=()=>{
