@@ -68,3 +68,11 @@ test('MOVE001 multiplayer full stack remains illegal through every target surfac
  }
  assert.equal(sent.filter(m=>m.messageType==='SUBMIT_ACTION').length,0);assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:0,r:0});
 });
+
+test('MOVE001R1 first-step exit remains available while the authorized projection is pending',async t=>{
+ const {a,sent}=await pair(t),s=a.session,p=a.presentation,h=combatDom(s,p);
+ h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
+ h.click('#move-start');assert.equal(p.interactionMode,'MOVE_PATH');assert.equal(s.renderModel().movement,null);
+ h.click('#move-cancel');assert.equal(p.interactionMode,'SELECT');h.click('[data-unit-id="friend"]');assert.equal(p.selectedUnitId,'friend');
+ await wait(()=>s.interactive&&s.renderModel().movement);assert.equal(sent.filter(m=>m.messageType==='SUBMIT_ACTION').length,0);
+});
