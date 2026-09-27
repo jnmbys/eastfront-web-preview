@@ -632,15 +632,47 @@ function paintCombatTargets() {
 }
 const boundUnitInputs = new WeakSet();
 const boundDeploymentInputs = new WeakSet();
+const boundMoveInputs = new WeakSet();
+function chooseMoveTarget(hex) {
+    if (!session || presentation.privacyGate || isNetwork(session) && !session.interactive)
+        return;
+    const model = deriveBrowserRenderModel(session, presentation);
+    if (model.readOnly || !model.movement)
+        return;
+    // Use the same local preview / authorized multiplayer options as a blank hex.
+    extendMoveDraft(session, presentation, hex);
+    refreshDynamicView();
+}
+function chooseUnitTarget(id) {
+    if (!session || presentation.privacyGate || isNetwork(session) && !session.canSelect)
+        return;
+    const model = deriveBrowserRenderModel(session, presentation);
+    if (model.readOnly)
+        return;
+    if (chooseCounterTarget(id))
+        return;
+    if (presentation.interactionMode === 'MOVE_PATH' && presentation.selectedUnitId && model.phase.endsWith('_MOVEMENT')) {
+        const view = sessionPlayerView(session), mover = view.units.find(unit => unit.id === presentation.selectedUnitId), target = view.units.find(unit => unit.id === id);
+        if (mover && target && mover.side === model.viewerSide && target.side === mover.side) {
+            chooseMoveTarget(target.hex);
+            return;
+        }
+    }
+    if (!routeCombatDecisionCounter(session, presentation, id))
+        selectCounter(session, presentation, id);
+    showCombatView();
+}
 function bindUnitInputs() {
-    document.querySelectorAll('[data-unit-id]').forEach((element) => { const id = element.dataset.unitId; if (!id || boundUnitInputs.has(element))
-        return; boundUnitInputs.add(element); const action = () => { if (chooseCounterTarget(id))
-        return; if (!routeCombatDecisionCounter(session, presentation, id))
-        selectCounter(session, presentation, id); showCombatView(); }; element.addEventListener('click', (event) => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
-    document.querySelectorAll('[data-hit-unit-id]').forEach((element) => { const id = element.dataset.hitUnitId; if (!id || boundUnitInputs.has(element))
-        return; boundUnitInputs.add(element); element.addEventListener('click', (event) => { event.stopPropagation(); if (chooseCounterTarget(id))
-        return; if (!routeCombatDecisionCounter(session, presentation, id))
-        selectCounter(session, presentation, id); showCombatView(); }); });
+    document.querySelectorAll('[data-unit-id], [data-hit-unit-id]').forEach(element => {
+        const id = element.dataset.unitId ?? element.dataset.hitUnitId;
+        if (!id || boundUnitInputs.has(element))
+            return;
+        boundUnitInputs.add(element);
+        const action = () => chooseUnitTarget(id);
+        element.addEventListener('click', event => { event.stopPropagation(); action(); });
+        if (element.dataset.unitId)
+            bindKeyboardActivation(element, action);
+    });
 }
 function bindDeploymentControls() {
     const confirm = document.querySelector('#confirm-deployment');
@@ -707,13 +739,13 @@ function bindDynamic(model) {
     document.querySelector('#rail-no-engineer')?.addEventListener('click', () => { selectRailEngineer(presentation, null); render(); });
     document.querySelectorAll('[data-rail-engineer]').forEach((el) => el.addEventListener('click', () => { selectRailEngineer(presentation, el.dataset.railEngineer ?? null); render(); }));
     document.querySelector('#move-undo')?.addEventListener('click', () => { undoMoveDraft(presentation); refreshDynamicView(); });
-    document.querySelector('#move-cancel')?.addEventListener('click', () => { cancelMoveDraft(presentation); refreshDynamicView(); });
+    document.querySelector('#move-cancel')?.addEventListener('click', () => { cancelMoveDraft(presentation); presentation.interactionMode = 'SELECT'; refreshDynamicView(); });
     document.querySelector('#move-commit')?.addEventListener('click', () => { commitMoveDraft(session, presentation); refreshDynamicView(); });
     document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
     document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
     bindUnitInputs();
-    document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key)
-        return; const action = () => { extendMoveDraft(session, presentation, parseHex(key)); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key || boundMoveInputs.has(element))
+        return; boundMoveInputs.add(element); const action = () => chooseMoveTarget(parseHex(key)); element.addEventListener('click', event => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
     document.querySelectorAll('[data-role="rail-repair-edge"]').forEach((element) => { const key = element.dataset.edgeKey; if (!key)
         return; const action = () => { if (presentation.interactionMode !== 'RAIL_REPAIR')
         enterRailRepairMode(presentation); toggleRailRepairEdge(session, presentation, key); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
