@@ -167,3 +167,38 @@ test('Safari queued request budget begins after prior load, not at enqueue time'
   t.mock.timers.tick(40);loaded(env.images[1]);(await second).release();
   assert.equal(env.events.filter(e=>e.kind==='asset-complete').length,2);
 });
+
+test('timed-out direct transfer gets one fresh same-origin fetch and a slow-network recovery budget',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  let completeFetch,request,options,closed=0;
+  const original=url+'?existing=keep';
+  const env=environment(t,{fetch:(value,init)=>{request=value;options=init;return new Promise(resolve=>{completeFetch=resolve;});},bitmap:async()=>({width:16,height:8,close(){closed++;}})});
+  const pending=loadTerrainImage(entry,'p5',caps,original,chrome);
+  await flush();t.mock.timers.tick(15000);await flush();
+  assert.equal(env.images[0].src,'');
+  assert.equal(new URL(request).origin,new URL(original).origin);
+  assert.equal(new URL(request).pathname,new URL(original).pathname);
+  assert.equal(new URL(request).searchParams.get('existing'),'keep');
+  assert(new URL(request).searchParams.has('terrain-recovery'));
+  assert.equal(options.cache,'reload');
+  t.mock.timers.tick(20000);await flush();assert.equal(options.signal.aborted,false);
+  completeFetch({ok:true,status:200,blob:async()=>new Blob(['pixels'])});
+  const image=await pending;assert.equal(image.width,16);
+  assert.deepEqual(env.trace,['direct-image','fetch','bitmap']);
+  assert.equal(env.events.filter(e=>e.kind==='asset-complete').length,1);
+  image.release();assert.equal(closed,1);
+});
+
+test('both network paths timing out aborts once, preserves diagnostics and allows a subsequent attempt',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  let aborts=0,works=false;const requests=[];
+  const env=environment(t,{fetch:(value,{signal})=>{requests.push(value);if(works)return Promise.resolve({ok:true,status:200,blob:async()=>new Blob(['pixels'])});return new Promise((resolve,reject)=>signal.addEventListener('abort',()=>{aborts++;reject(new Error('aborted'));},{once:true}));},bitmap:async()=>({width:16,height:8,close(){}})});
+  const pending=loadTerrainImage(entry,'p5',caps,url,chrome);
+  const rejected=assert.rejects(pending,error=>error.details.stage==='timeout'&&error.details.url===url&&error.details.assetId===entry.id&&error.details.cause.includes('directImage=')&&error.details.cause.includes('fetch='));
+  await flush();t.mock.timers.tick(15000);await flush();t.mock.timers.tick(60000);await rejected;
+  assert.equal(aborts,1);assert.equal(requests.length,1);assert.equal(env.events.length,0);
+  works=true;const retry=loadTerrainImage(entry,'p5',caps,url,chrome);
+  await flush();t.mock.timers.tick(15000);await flush();(await retry).release();
+  assert.equal(requests.length,2);assert.notEqual(requests[0],requests[1]);
+  assert.equal(env.events.filter(e=>e.kind==='asset-complete').length,1);
+});

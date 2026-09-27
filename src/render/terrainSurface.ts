@@ -40,6 +40,8 @@ interface LoadedTerrainImage {source:CanvasImageSource;width:number;height:numbe
 interface ImageCache {get(entry:TerrainAssetEntry):Promise<LoadedTerrainImage>; urls:Set<string>; releaseAll():void;}
 let terrainSurfaceBuildCount=0;
 const RESOURCE_TIMEOUT_MS=15000;
+const RECOVERY_TIMEOUT_MS=60000;
+let terrainRecoveryRequest=0;
 const MAX_RETAINED_TERRAIN_IMAGES=16;
 
 export interface TerrainImageLoadPolicy {
@@ -130,7 +132,15 @@ export async function fetchTerrainBlobWithAbort(url:string,entry:TerrainAssetEnt
   const controller=new AbortController();let timer:ReturnType<typeof setTimeout>|undefined;let timedOut=false;
   try{
     timer=setTimeout(()=>{timedOut=true;controller.abort();},timeoutMs);
-    const response=await fetch(url,{signal:controller.signal});
+    // This is the single recovery request after the direct image path failed.
+    // A new HTTP cache key prevents it from rejoining the stalled image request;
+    // reload avoids reusing a failed/stale browser cache entry. Keep origin/path
+    // and all existing query parameters, and do not introduce a mirror or retry loop.
+    const recoveryUrl=new URL(url,globalThis.document?.baseURI);
+    if(recoveryUrl.protocol==='https:'||recoveryUrl.protocol==='http:'){
+      recoveryUrl.searchParams.set('terrain-recovery',`${Date.now()}-${++terrainRecoveryRequest}`);
+    }
+    const response=await fetch(recoveryUrl.href,{signal:controller.signal,cache:'reload'});
     if(!response.ok)throw new TerrainSurfaceResourceError(`Terrain asset HTTP ${response.status}: ${url}`,{stage:'http',url,assetId:entry.id,family:entry.family,httpStatus:response.status,preferredApi:'fetch+AbortController',capabilities});
     return {response,blob:await response.blob()};
   }catch(error){
@@ -155,6 +165,11 @@ export function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,cap
 async function loadTerrainImageNow(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride:string|undefined,policy:TerrainImageLoadPolicy):Promise<LoadedTerrainImage>{
   const url=urlOverride??absAssetUrl(entry,set);let directFailure:unknown,fetchFailure:unknown,bitmapFailure:unknown,blobImageFailure:unknown;let response:Response|undefined,blob:Blob|undefined;
   try{return reportLoadedTerrainImage(await imageFromUrl(url,entry,'direct-image-load',capabilities,policy.resourceTimeoutMs,policy.webkitFallback));}catch(error){directFailure=error;console.warn('EASTFRONT terrain direct image fallback',entry.id,url,error);}
+  // A timed-out transfer needs a slow-network budget, not another identical
+  // 15-second deadline. Successful loads and decode budgets stay unchanged.
+  if(directFailure instanceof TerrainSurfaceResourceError&&directFailure.details.stage==='timeout'){
+    policy={...policy,resourceTimeoutMs:Math.max(policy.resourceTimeoutMs,RECOVERY_TIMEOUT_MS)};
+  }
   try{const result=await fetchTerrainBlobWithAbort(url,entry,capabilities,policy.resourceTimeoutMs);response=result.response;blob=result.blob;}catch(error){fetchFailure=error;}
   if(blob&&capabilities.createImageBitmap){try{const bitmap=await bitmapFromBlob(blob,entry,policy.bitmapTimeoutMs);return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});}catch(error){bitmapFailure=error;console.warn('EASTFRONT terrain createImageBitmap fallback',entry.id,url,error);}}
   if(blob){let objectUrl:string|undefined;try{objectUrl=URL.createObjectURL(blob);return reportLoadedTerrainImage(await imageFromUrl(objectUrl,entry,'html-image-load',capabilities,policy.resourceTimeoutMs,policy.webkitFallback));}catch(error){blobImageFailure=error;console.warn('EASTFRONT terrain blob HTMLImage fallback failed',entry.id,url,error);}finally{if(objectUrl)URL.revokeObjectURL(objectUrl);}}
