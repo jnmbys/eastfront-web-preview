@@ -1,3 +1,4 @@
+import { startupDiagnosticMarkup } from './startupDiagnostics.js';
 import { startupLoadingMarkup } from './startupView.js';
 import type { StartupSnapshot } from './startupProgress.js';
 import { languageControl } from '../localization/languageControl.js';
@@ -59,7 +60,7 @@ export function homeMarkup(profile:ResponsiveProfile):string {
 }
 
 export function fatalMarkup(message:Message):string {
-  return `<main class="preview-state preview-fatal" data-preview-state="fatal"><div class="preview-state-card">${languageControl()}<span class="preview-kicker">EASTFRONT</span><h1>${t('game.unableToStart')}</h1><p>${esc(formatMessage(message))}</p><button id="reload-button" class="preview-new-game" type="button">${t('game.reload')}</button></div></main>`;
+  return `<main class="preview-state preview-fatal" data-preview-state="fatal"><div class="preview-state-card">${languageControl()}<span class="preview-kicker">EASTFRONT</span><h1>${t('game.unableToStart')}</h1><p>${esc(formatMessage(message))}</p><button id="reload-button" class="preview-new-game" type="button">${t('game.reload')}</button>${startupDiagnosticMarkup()}</div></main>`;
 }
 
 export function mobileAdvisoryMarkup(profile:ResponsiveProfile):string {

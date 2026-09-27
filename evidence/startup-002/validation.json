@@ -1,0 +1,13 @@
+{
+  "typecheck": "PASS client and server",
+  "build": "PASS client and server",
+  "targetedLoaderDiagnostics": {"tests": 30, "passed": 30},
+  "fullRegression": {"tests": 602, "passed": 599, "failed": 3},
+  "fullRunFailures": ["localization VM lacked new diagnostic binding", "draw trace read image URL after explicit release", "draw trace read image URL after explicit release"],
+  "testHarnessCorrection": "Inject actual binding; snapshot draw-time image metadata. Original camera, draw order, rail and visual assertions retained.",
+  "affectedRerun": {"tests": 35, "passed": 35, "failed": 0},
+  "coverage": "Full run plus targeted rerun, not a second full-suite run. All three failures resolved.",
+  "huaweiAcceptance": "PENDING",
+  "deviceNetworkVpnBrowserVersion": "UNCONFIRMED",
+  "mp006AB": "PAUSED"
+}

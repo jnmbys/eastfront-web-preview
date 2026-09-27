@@ -25,3 +25,6 @@ const {execFileSync}=await import('node:child_process');
 let sourceCommit='unverified';
 try{sourceCommit=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();}catch{/* Source ZIPs can still build; never claim an unverified version. */}
 await writeFile('dist/diagnostics/transport/build.json',JSON.stringify({sourceCommit})+'\n');
+
+const startupDiagnosticPath='dist/app/web/startupDiagnostics.js';
+await writeFile(startupDiagnosticPath,(await readFile(startupDiagnosticPath,'utf8')).replace('__EASTFRONT_SOURCE_COMMIT__',sourceCommit));

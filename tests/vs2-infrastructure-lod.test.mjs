@@ -89,7 +89,8 @@ function fakeCanvasEnvironment() {
   globalThis.document = { baseURI: 'https://test.invalid/map/', createElement() {
     const canvas = { width: 0, height: 0, dataset: {}, setAttribute() {} };
     const context = new Proxy({
-      drawImage(source, ...args) { calls.push({ canvas, source, args, alpha: this.globalAlpha }); },
+      // Snapshot image metadata at draw time: the loader now releases src after drawing.
+      drawImage(source, ...args) { calls.push({ canvas, source: source.url ? {...source} : source, args, alpha: this.globalAlpha }); },
       fillRect(...args) { calls.push({ canvas, fill: true, args }); },
       getImageData(_x, _y, w, h) {
         const data = new Uint8ClampedArray(w * h * 4);

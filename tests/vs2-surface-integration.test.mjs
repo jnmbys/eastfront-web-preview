@@ -107,7 +107,8 @@ test('C real-map cache draws projected raster, VS2 city components, then VS2 inf
     set src(v) { this.url = v; if (v) { urls.push(v); queueMicrotask(() => this.onload?.()); } }
   }
   const ctx = new Proxy({
-    drawImage(source, ...args) { calls.push({ source, args }); },
+    // Snapshot draw-time image metadata before the loader releases src.
+    drawImage(source, ...args) { calls.push({ source: source.url ? {...source} : source, args }); },
     getImageData: () => ({ data: sourcePixels }),
     createImageData: (w, h) => ({ data: new Uint8ClampedArray(w * h * 4) }),
   }, { get: (o, k) => o[k] ?? (() => {}) });

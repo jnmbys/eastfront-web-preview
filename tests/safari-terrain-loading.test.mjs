@@ -202,3 +202,39 @@ test('both network paths timing out aborts once, preserves diagnostics and allow
   assert.equal(requests.length,2);assert.notEqual(requests[0],requests[1]);
   assert.equal(env.events.filter(e=>e.kind==='asset-complete').length,1);
 });
+
+test('STARTUP002 ignored abort cannot hang startup, late headers are discarded, next image job succeeds',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  let lateResponse,cancelled=0,signal;
+  const env=environment(t,{src:image=>queueMicrotask(()=>image.onerror?.()),fetch:(_url,opts)=>{signal=opts.signal;return new Promise(resolve=>{lateResponse=resolve;});}});
+  const pending=loadTerrainImage(entry,'p5',caps,url,{...chrome,resourceTimeoutMs:5});
+  const rejected=assert.rejects(pending,error=>error.details.stage==='timeout');
+  await flush();t.mock.timers.tick(5);await rejected;assert.equal(signal.aborted,true);
+  lateResponse({ok:true,status:200,body:{async cancel(){cancelled++;}},blob:async()=>{throw Error('late body must not be consumed');}});
+  await flush();assert.equal(cancelled,1);assert(!env.trace.includes('bitmap'));assert.equal(env.events.length,0);
+  const next=imageFromUrl(url,entry,'direct-image-load',caps,50,false);loaded(env.images.at(-1));(await next).release();
+  assert.equal(env.images.at(-1).src,'');
+});
+
+test('STARTUP002 stalled body ends at deadline even if fetch ignores abort and diagnostics retain HTTP headers',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  const env=environment(t,{src:image=>queueMicrotask(()=>image.onerror?.()),fetch:async()=>({ok:true,status:200,headers:new Headers({'content-type':'image/webp'}),blob:()=>new Promise(()=>{})})});
+  const pending=loadTerrainImage(entry,'p5',caps,url,{...chrome,resourceTimeoutMs:5});
+  const rejected=assert.rejects(pending,error=>error.details.stage==='timeout'&&error.details.httpStatus===200);
+  await flush();t.mock.timers.tick(5);await rejected;assert.equal(env.events.length,0);
+  const {startupDiagnosticReport}=await import('../dist/app/web/startupDiagnostics.js');
+  const report=startupDiagnosticReport(),record=report.recent.at(-1);
+  assert.equal(report.imageJobs.active,0);assert.equal(record.attempts[1].httpStatus,200);
+  assert.equal(record.attempts[1].contentType,'image/webp');assert.equal(record.attempts[1].abortRequested,true);
+});
+
+test('STARTUP002 transfer success and decode failure are distinct and bounded diagnostic records exclude query secrets',async t=>{
+  const {startupDiagnosticReport}=await import('../dist/app/web/startupDiagnostics.js');
+  const env=environment(t,{src:image=>queueMicrotask(()=>image.onerror?.()),fetch:async()=>({ok:true,status:200,headers:new Headers({'content-type':'image/webp'}),blob:async()=>new Blob(['not an image'],{type:'image/webp'})})});
+  for(let i=0;i<14;i++)await assert.rejects(loadTerrainImage({...entry,file:'public.webp?secret=DO_NOT_EXPORT'},'p5',caps,url+'?secret=DO_NOT_EXPORT',chrome),error=>error.details.stage==='html-image-load');
+  const report=startupDiagnosticReport(),last=report.recent.at(-1);
+  assert.equal(report.recent.length,12);assert.equal(report.imageJobs.active,0);
+  assert.equal(last.attempts[1].outcome,'ok');assert.equal(last.attempts[1].httpStatus,200);
+  assert.equal(last.attempts[1].bytes,12);assert.equal(last.attempts.at(-1).stage,'html-image-load');
+  assert(!JSON.stringify(report).includes('DO_NOT_EXPORT'));assert.equal(env.events.length,0);
+});
