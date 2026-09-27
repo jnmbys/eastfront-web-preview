@@ -334,8 +334,35 @@ function paintCombatTargets():void{
 }
 const boundUnitInputs=new WeakSet<Element>();
 const boundDeploymentInputs=new WeakSet<Element>();
+const boundMoveInputs=new WeakSet<Element>();
+function chooseMoveTarget(hex:ReturnType<typeof parseHex>):void{
+  if(!session||presentation.privacyGate||isNetwork(session)&&!session.interactive)return;
+  const model=deriveBrowserRenderModel(session,presentation);
+  if(model.readOnly||!model.movement)return;
+  // Use the same local preview / authorized multiplayer options as a blank hex.
+  extendMoveDraft(session,presentation,hex);refreshDynamicView();
+}
+function chooseUnitTarget(id:string):void{
+  if(!session||presentation.privacyGate||isNetwork(session)&&!session.canSelect)return;
+  const model=deriveBrowserRenderModel(session,presentation);
+  if(model.readOnly)return;
+  if(chooseCounterTarget(id))return;
+  if(presentation.interactionMode==='MOVE_PATH'&&presentation.selectedUnitId&&model.phase.endsWith('_MOVEMENT')){
+    const view=sessionPlayerView(session),mover=view.units.find(unit=>unit.id===presentation.selectedUnitId),target=view.units.find(unit=>unit.id===id);
+    if(mover&&target&&mover.side===model.viewerSide&&target.side===mover.side){chooseMoveTarget(target.hex);return;}
+  }
+  if(!routeCombatDecisionCounter(session,presentation,id))selectCounter(session,presentation,id);
+  showCombatView();
+}
 function bindUnitInputs():void{
-  document.querySelectorAll<SVGGElement>('[data-unit-id]').forEach((element)=>{const id=element.dataset.unitId;if(!id||boundUnitInputs.has(element))return;boundUnitInputs.add(element);const action=()=>{if(chooseCounterTarget(id))return;if(!routeCombatDecisionCounter(session!,presentation,id))selectCounter(session!,presentation,id);showCombatView();};element.addEventListener('click',(event)=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});document.querySelectorAll<SVGRectElement>('[data-hit-unit-id]').forEach((element)=>{const id=element.dataset.hitUnitId;if(!id||boundUnitInputs.has(element))return;boundUnitInputs.add(element);element.addEventListener('click',(event)=>{event.stopPropagation();if(chooseCounterTarget(id))return;if(!routeCombatDecisionCounter(session!,presentation,id))selectCounter(session!,presentation,id);showCombatView();});});
+  document.querySelectorAll<SVGElement>('[data-unit-id], [data-hit-unit-id]').forEach(element=>{
+    const id=element.dataset.unitId??element.dataset.hitUnitId;
+    if(!id||boundUnitInputs.has(element))return;
+    boundUnitInputs.add(element);
+    const action=()=>chooseUnitTarget(id);
+    element.addEventListener('click',event=>{event.stopPropagation();action();});
+    if(element.dataset.unitId)bindKeyboardActivation(element,action);
+  });
 }
 function bindDeploymentControls():void{
   const confirm=document.querySelector<HTMLButtonElement>('#confirm-deployment');
@@ -365,9 +392,9 @@ function bindDynamic(model?:BrowserRenderModel):void{
   if(!session)return;
   document.querySelector('#ready-button')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});
   document.querySelector('#rail-mode')?.addEventListener('click',()=>{enterRailRepairMode(presentation);render();});document.querySelector('#rail-clear')?.addEventListener('click',()=>{cancelRailRepair(presentation);render();});document.querySelector('#rail-commit')?.addEventListener('click',()=>{commitRailRepair(session!,presentation);render();});document.querySelector('#rail-no-engineer')?.addEventListener('click',()=>{selectRailEngineer(presentation,null);render();});document.querySelectorAll<HTMLElement>('[data-rail-engineer]').forEach((el)=>el.addEventListener('click',()=>{selectRailEngineer(presentation,el.dataset.railEngineer??null);render();}));
-  document.querySelector('#move-undo')?.addEventListener('click',()=>{undoMoveDraft(presentation);refreshDynamicView();});document.querySelector('#move-cancel')?.addEventListener('click',()=>{cancelMoveDraft(presentation);refreshDynamicView();});document.querySelector('#move-commit')?.addEventListener('click',()=>{commitMoveDraft(session!,presentation);refreshDynamicView();});document.querySelector('#recover-unit')?.addEventListener('click',()=>{recoverSelectedUnit(session!,presentation);render();});document.querySelector('#entrench-unit')?.addEventListener('click',()=>{entrenchSelectedUnit(session!,presentation);render();});
+  document.querySelector('#move-undo')?.addEventListener('click',()=>{undoMoveDraft(presentation);refreshDynamicView();});document.querySelector('#move-cancel')?.addEventListener('click',()=>{cancelMoveDraft(presentation);presentation.interactionMode='SELECT';refreshDynamicView();});document.querySelector('#move-commit')?.addEventListener('click',()=>{commitMoveDraft(session!,presentation);refreshDynamicView();});document.querySelector('#recover-unit')?.addEventListener('click',()=>{recoverSelectedUnit(session!,presentation);render();});document.querySelector('#entrench-unit')?.addEventListener('click',()=>{entrenchSelectedUnit(session!,presentation);render();});
   bindUnitInputs();
-  document.querySelectorAll<SVGPolygonElement>('[data-role="move-option"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{extendMoveDraft(session!,presentation,parseHex(key));refreshDynamicView();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
+  document.querySelectorAll<SVGPolygonElement>('[data-role="move-option"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundMoveInputs.has(element))return;boundMoveInputs.add(element);const action=()=>chooseMoveTarget(parseHex(key));element.addEventListener('click',event=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});
   document.querySelectorAll<SVGLineElement>('[data-role="rail-repair-edge"]').forEach((element)=>{const key=element.dataset.edgeKey;if(!key)return;const action=()=>{if(presentation.interactionMode!=='RAIL_REPAIR')enterRailRepairMode(presentation);toggleRailRepairEdge(session!,presentation,key);render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});document.querySelectorAll<HTMLElement>('[data-reinforcement-id]').forEach((element)=>{const id=element.dataset.reinforcementId;if(!id)return;element.addEventListener('click',()=>{selectReinforcement(presentation,id);render();});});document.querySelectorAll<SVGPolygonElement>('[data-role="reinforcement-entry"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{deploySelectedReinforcement(session!,presentation,parseHex(key));render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
   document.querySelector('#attack-toggle-selected')?.addEventListener('click',()=>{if(presentation.selectedUnitId)toggleAttackUnit(session!,presentation,presentation.selectedUnitId);refreshDynamicView();});document.querySelector('#attack-clear')?.addEventListener('click',()=>{clearAttackDraft(presentation);refreshDynamicView();});document.querySelector('#attack-declare')?.addEventListener('click',()=>{void submitCombatAttack();});document.querySelector('#attack-art-none')?.addEventListener('click',()=>{selectAttackerArtillery(presentation,null);refreshDynamicView();});document.querySelectorAll<HTMLElement>('[data-attack-artillery]').forEach((el)=>el.addEventListener('click',()=>{selectAttackerArtillery(presentation,el.dataset.attackArtillery??null);refreshDynamicView();}));
   document.querySelectorAll<SVGPolygonElement>('[data-role="attack-target"]').forEach((el)=>{const action=()=>{const key=el.dataset.hex;if(key){routeCombatTarget(session!,presentation,parseHex(key));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});document.querySelector('#pass-reaction')?.addEventListener('click',()=>{runCombatAction(()=>passCombatReaction(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-defender-artillery]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.defenderArtillery;if(id){runCombatAction(()=>useDefenderArtillery(session!,presentation,id));}}));

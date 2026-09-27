@@ -12,13 +12,13 @@ import {issueText} from '../../dist/app/localization/issues.js';
 import * as ui from '../../dist/app/ui/commandPresentation.js';
 import {createDeploymentTouch} from '../../dist/app/ui/deploymentTouch.js';
 import {combatAttackPanel} from '../../dist/app/ui/combatAttackPanel.js';
-import {deriveBrowserRenderModel} from '../../dist/app/render/coreModel.js';
+import {deriveBrowserRenderModel} from '../../dist/app/multiplayer/playerSession.js';
 import {coreSvgDynamicMarkup} from '../../dist/app/render/coreSvg.js';
 import {DeploymentPanelRenderer} from '../../dist/app/ui/deploymentPanelRenderer.js';
 const source=readFileSync(new URL('../../dist/app/main.js',import.meta.url),'utf8');
 function node(attrs={},text=''){
  const handlers={};return {attrs,style:{},dataset:Object.fromEntries(Object.entries(attrs).filter(([k])=>k.startsWith('data-')).map(([k,v])=>[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),v])),disabled:'disabled'in attrs,textContent:text,
- classList:{toggle(){}},setAttribute(k,v){attrs[k]=v;},addEventListener(type,fn){(handlers[type]??=[]).push(fn);},fire(type){for(const fn of handlers[type]??[])fn({currentTarget:this,stopPropagation(){},preventDefault(){}});}};
+ classList:{toggle(){}},setAttribute(k,v){attrs[k]=v;},addEventListener(type,fn){(handlers[type]??=[]).push(fn);},fire(type){const event=this.lastEvent={currentTarget:this,stopPropagation(){this.stopped=true;},preventDefault(){}};for(const fn of handlers[type]??[])fn(event);}};
 }
 function parse(html){return [...html.matchAll(/<(button|polygon|g|rect)\b([^>]*)>/g)].map(([,tag,raw])=>{
  const attrs=Object.fromEntries([...raw.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,k,v])=>[k,v]));if(/\sdisabled(?:\s|$)/.test(raw))attrs.disabled='';return node(attrs);
