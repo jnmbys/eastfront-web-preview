@@ -9,6 +9,8 @@ export class TerrainSurfaceResourceError extends Error {
 }
 let terrainSurfaceBuildCount = 0;
 const RESOURCE_TIMEOUT_MS = 15000;
+const RECOVERY_TIMEOUT_MS = 60000;
+let terrainRecoveryRequest = 0;
 const MAX_RETAINED_TERRAIN_IMAGES = 16;
 const STANDARD_IMAGE_POLICY = Object.freeze({ resourceTimeoutMs: RESOURCE_TIMEOUT_MS, bitmapTimeoutMs: RESOURCE_TIMEOUT_MS, webkitFallback: false });
 const WEBKIT_IMAGE_POLICY = Object.freeze({ resourceTimeoutMs: 60000, bitmapTimeoutMs: 1500, webkitFallback: true });
@@ -141,7 +143,15 @@ export async function fetchTerrainBlobWithAbort(url, entry, capabilities, timeou
     let timedOut = false;
     try {
         timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
-        const response = await fetch(url, { signal: controller.signal });
+        // This is the single recovery request after the direct image path failed.
+        // A new HTTP cache key prevents it from rejoining the stalled image request;
+        // reload avoids reusing a failed/stale browser cache entry. Keep origin/path
+        // and all existing query parameters, and do not introduce a mirror or retry loop.
+        const recoveryUrl = new URL(url, globalThis.document?.baseURI);
+        if (recoveryUrl.protocol === 'https:' || recoveryUrl.protocol === 'http:') {
+            recoveryUrl.searchParams.set('terrain-recovery', `${Date.now()}-${++terrainRecoveryRequest}`);
+        }
+        const response = await fetch(recoveryUrl.href, { signal: controller.signal, cache: 'reload' });
         if (!response.ok)
             throw new TerrainSurfaceResourceError(`Terrain asset HTTP ${response.status}: ${url}`, { stage: 'http', url, assetId: entry.id, family: entry.family, httpStatus: response.status, preferredApi: 'fetch+AbortController', capabilities });
         return { response, blob: await response.blob() };
@@ -190,6 +200,11 @@ async function loadTerrainImageNow(entry, set, capabilities, urlOverride, policy
     catch (error) {
         directFailure = error;
         console.warn('EASTFRONT terrain direct image fallback', entry.id, url, error);
+    }
+    // A timed-out transfer needs a slow-network budget, not another identical
+    // 15-second deadline. Successful loads and decode budgets stay unchanged.
+    if (directFailure instanceof TerrainSurfaceResourceError && directFailure.details.stage === 'timeout') {
+        policy = { ...policy, resourceTimeoutMs: Math.max(policy.resourceTimeoutMs, RECOVERY_TIMEOUT_MS) };
     }
     try {
         const result = await fetchTerrainBlobWithAbort(url, entry, capabilities, policy.resourceTimeoutMs);
