@@ -261,6 +261,11 @@ export class NetworkPlayerSession {
             this.snapshotDeadline = null;
             this.submitting = false;
             this.notice = m.payload.code === 'STALE_REVISION' ? 'outdated' : 'actionRejected';
+            // A rejected move ends target capture; a fresh explicit entry can retry.
+            if (this.presentation.interactionMode === 'MOVE_PATH') {
+                this.presentation.pathDraft = [];
+                this.presentation.interactionMode = 'SELECT';
+            }
             if (m.payload.code === 'STALE_REVISION') {
                 this.resync();
                 return;

@@ -50,7 +50,7 @@ export function selectCounter(session, presentation, unitId) {
         presentation.selectedDeploymentUnitId = unitId;
     presentation.pathDraft = [];
     if (session.state.phase === 'GERMAN_MOVEMENT' || session.state.phase === 'SOVIET_MOVEMENT')
-        presentation.interactionMode = 'MOVE_PATH';
+        presentation.interactionMode = 'SELECT';
     else if (session.state.phase === 'GERMAN_RECOVERY' || session.state.phase === 'SOVIET_RECOVERY')
         presentation.interactionMode = 'RECOVERY';
     else if (session.state.phase === 'GERMAN_ENTRENCHMENT' || session.state.phase === 'SOVIET_ENTRENCHMENT')
@@ -155,7 +155,9 @@ export function extendMoveDraft(session, presentation, destination) {
         const previous = presentation.pathDraft.length > 1 ? presentation.pathDraft.at(-2) : unit.hex;
         if (sameHex(destination, previous)) {
             presentation.pathDraft.pop();
-            presentation.message = msg('feedback.undoPath');
+            if (!presentation.pathDraft.length)
+                presentation.interactionMode = 'SELECT';
+            presentation.message = msg(presentation.pathDraft.length ? 'feedback.undoPath' : 'feedback.moveSelectionEnded');
             return;
         }
     }
@@ -170,9 +172,11 @@ export function extendMoveDraft(session, presentation, destination) {
 export function undoMoveDraft(presentation) {
     if (presentation.pathDraft.length > 0)
         presentation.pathDraft.pop();
-    presentation.message = presentation.pathDraft.length ? msg('feedback.undoPath') : msg('feedback.pathCleared');
+    if (!presentation.pathDraft.length)
+        presentation.interactionMode = 'SELECT';
+    presentation.message = presentation.pathDraft.length ? msg('feedback.undoPath') : msg('feedback.moveSelectionEnded');
 }
-export function cancelMoveDraft(presentation) { presentation.pathDraft = []; presentation.message = msg('feedback.moveCancelled'); }
+export function cancelMoveDraft(presentation) { presentation.pathDraft = []; presentation.interactionMode = 'SELECT'; presentation.message = msg('feedback.moveCancelled'); }
 export function commitMoveDraft(session, presentation) {
     const id = presentation.selectedUnitId;
     if (!id || presentation.pathDraft.length === 0) {
@@ -181,12 +185,13 @@ export function commitMoveDraft(session, presentation) {
     }
     const action = { type: 'MOVE', controllerId: session.activeViewerControllerId, unitId: id, path: presentation.pathDraft.map((hex) => ({ ...hex })) };
     const outcome = dispatchGameAction(session, action);
+    presentation.interactionMode = 'SELECT';
+    presentation.pathDraft = [];
     if (!outcome.result.accepted) {
         presentation.message = issuesMessage(outcome.result.issues);
         return;
     }
     const finalHex = action.path.at(-1);
-    presentation.pathDraft = [];
     presentation.message = msg('feedback.moved', { id, hex: coreHexKey(finalHex), count: action.path.length });
 }
 /** UI-003 compatibility: single tap now drafts one step rather than mutating state immediately. */

@@ -185,9 +185,13 @@ function phasePanel(model) {
         const r = model.railRepair;
         return `<section class="panel-block phase-actions"><span class="eyebrow">${t('rail.title')}</span><p>${t('rail.help')}</p><div class="phase-metric"><span>${t('rail.plan')}</span><strong>${t('rail.edges', { count: r.selectedEdgeKeys.length })}</strong></div><div class="phase-metric"><span>${t('rail.used')}</span><strong>${r.alreadyUsed ? t('common.yes') : t('common.no')}</strong></div><button id="rail-mode" class="secondary-action ${presentation.interactionMode === 'RAIL_REPAIR' ? 'active' : ''}">${t('rail.mode')}</button><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId ? 'active' : ''}">${t('rail.noEngineer')}</button>${r.engineers.map((eng) => `<button class="mini-button ${eng.selected ? 'active' : ''}" data-rail-engineer="${esc(eng.id)}">${esc(eng.id)}</button>`).join('')}</div>${issueHtml(r.issues)}<div class="button-row"><button id="rail-clear" class="secondary-action">${t('rail.clear')}</button><button id="rail-commit" class="secondary-action">${t('rail.commit')}</button></div>${ready}</section>`;
     }
-    if ((model.phase === 'GERMAN_MOVEMENT' || model.phase === 'SOVIET_MOVEMENT')) {
-        const m = model.movement;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('movement.title')}</span><p>${t('movement.help')}</p>${m ? `<div class="phase-metric"><span>${t('movement.path')}</span><strong>${t('movement.steps', { count: m.path.length })}</strong></div><div class="phase-metric"><span>${t('movement.mp')}</span><strong>${m.spentMP}/${m.maxMP}</strong></div>${issueHtml(m.issues)}<div class="button-row"><button id="move-undo" class="secondary-action">${t('common.undoStep')}</button><button id="move-cancel" class="secondary-action">${t('movement.cancel')}</button></div><button id="move-commit" class="secondary-action">${t('movement.commit')}</button>` : `<p>${t('common.selectUnit')}</p>`}${ready}</section>`;
+    if (model.phase === 'GERMAN_MOVEMENT' || model.phase === 'SOVIET_MOVEMENT') {
+        const m = model.movement, choosing = presentation.interactionMode === 'MOVE_PATH';
+        // Exit remains available during a read-only projection request or rejection.
+        // Submission still disables it through the existing canSelect gate.
+        const metrics = m ? `<div class="phase-metric"><span>${t('movement.path')}</span><strong>${t('movement.steps', { count: m.path.length })}</strong></div><div class="phase-metric"><span>${t('movement.mp')}</span><strong>${m.spentMP}/${m.maxMP}</strong></div>${issueHtml(m.issues)}` : '';
+        const controls = choosing ? `<p role="status">${t('movement.active')}</p><div class="button-row"><button id="move-undo" class="secondary-action">${t('common.undoStep')}</button><button id="move-cancel" class="secondary-action">${t('movement.cancel')}</button></div><button id="move-commit" class="secondary-action" ${m ? '' : 'disabled'}>${t('movement.commit')}</button>` : m ? `<p role="status">${t('movement.selecting')}</p><button id="move-start" class="secondary-action">${t('movement.start')}</button>` : `<p>${t('common.selectUnit')}</p>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('movement.title')}</span><p>${t('movement.help')}</p>${metrics}${controls}${ready}</section>`;
     }
     if (model.phase === 'GERMAN_COMBAT' || model.phase === 'SOVIET_COMBAT')
         return combatPanel(model);
@@ -633,8 +637,25 @@ function paintCombatTargets() {
 const boundUnitInputs = new WeakSet();
 const boundDeploymentInputs = new WeakSet();
 const boundMoveInputs = new WeakSet();
-function chooseMoveTarget(hex) {
+function startMoveSelection() {
     if (!session || presentation.privacyGate || isNetwork(session) && !session.interactive)
+        return;
+    const model = deriveBrowserRenderModel(session, presentation);
+    if (model.readOnly || !model.movement)
+        return;
+    presentation.pathDraft.length = 0;
+    presentation.interactionMode = 'MOVE_PATH';
+    presentation.message = null;
+    refreshDynamicView();
+}
+function editMoveSelection(action) {
+    if (!session || presentation.privacyGate || presentation.interactionMode !== 'MOVE_PATH' || isNetwork(session) && !session.canSelect)
+        return;
+    action();
+    refreshDynamicView();
+}
+function chooseMoveTarget(hex) {
+    if (!session || presentation.privacyGate || presentation.interactionMode !== 'MOVE_PATH' || isNetwork(session) && !session.interactive)
         return;
     const model = deriveBrowserRenderModel(session, presentation);
     if (model.readOnly || !model.movement)
@@ -738,9 +759,10 @@ function bindDynamic(model) {
     document.querySelector('#rail-commit')?.addEventListener('click', () => { commitRailRepair(session, presentation); render(); });
     document.querySelector('#rail-no-engineer')?.addEventListener('click', () => { selectRailEngineer(presentation, null); render(); });
     document.querySelectorAll('[data-rail-engineer]').forEach((el) => el.addEventListener('click', () => { selectRailEngineer(presentation, el.dataset.railEngineer ?? null); render(); }));
-    document.querySelector('#move-undo')?.addEventListener('click', () => { undoMoveDraft(presentation); refreshDynamicView(); });
-    document.querySelector('#move-cancel')?.addEventListener('click', () => { cancelMoveDraft(presentation); presentation.interactionMode = 'SELECT'; refreshDynamicView(); });
-    document.querySelector('#move-commit')?.addEventListener('click', () => { commitMoveDraft(session, presentation); refreshDynamicView(); });
+    document.querySelector('#move-start')?.addEventListener('click', startMoveSelection);
+    document.querySelector('#move-undo')?.addEventListener('click', () => editMoveSelection(() => undoMoveDraft(presentation)));
+    document.querySelector('#move-cancel')?.addEventListener('click', () => editMoveSelection(() => cancelMoveDraft(presentation)));
+    document.querySelector('#move-commit')?.addEventListener('click', () => editMoveSelection(() => commitMoveDraft(session, presentation)));
     document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
     document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
     bindUnitInputs();

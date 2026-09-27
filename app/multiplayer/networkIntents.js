@@ -30,7 +30,7 @@ export function selectCounter(s, p, id) {
     if (u.side !== s.playerView.viewer)
         return;
     if (s.playerView.phase.endsWith('_MOVEMENT'))
-        p.interactionMode = 'MOVE_PATH';
+        p.interactionMode = 'SELECT';
     if (s.playerView.phase.endsWith('_COMBAT') && !pending(s)) {
         p.interactionMode = 'ATTACK';
         p.attackUnitIds = [id];
@@ -51,6 +51,10 @@ export function extendMoveDraft(s, p, h) {
     const previous = p.pathDraft.length > 1 ? p.pathDraft.at(-2) : unit.hex;
     if (p.pathDraft.length && same(previous, h)) {
         p.pathDraft.pop();
+        if (!p.pathDraft.length) {
+            p.interactionMode = 'SELECT';
+            p.message = msg('feedback.moveSelectionEnded');
+        }
         return;
     }
     if (s.model.moveOptions.some(o => o.legal && same(o.hex, h))) {
