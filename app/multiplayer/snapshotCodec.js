@@ -1,14 +1,18 @@
+import { encodeMapTable, decodeMapTable } from './mapEncoding.js';
 import { record, shape, id, revision, hex, isNetworkAction } from './gameplayProtocol.js';
 export const FULL_SNAPSHOT = 'snapshot-v1';
 export const COMPACT_SNAPSHOT = 'snapshot-v2-inline-view';
+export const MAP_SNAPSHOT = 'snapshot-v3-map-table';
 export const MAX_SERVER_MESSAGE_BYTES = 2 * 1024 * 1024;
-export const isSnapshotFormat = (v) => v === FULL_SNAPSHOT || v === COMPACT_SNAPSHOT;
+export const isSnapshotFormat = (v) => v === FULL_SNAPSHOT || v === COMPACT_SNAPSHOT || v === MAP_SNAPSHOT;
 /** Three aliases only. Fallback rather than discard a divergent future model. */
 export function encodeSnapshot(snapshot, format) {
     const { view, model } = snapshot;
-    if (format !== COMPACT_SNAPSHOT || snapshot.resync || model.playerView !== view || model.hexes !== view.hexes || model.edges !== view.edges)
+    if (format === FULL_SNAPSHOT || snapshot.resync || model.playerView !== view || model.hexes !== view.hexes || model.edges !== view.edges)
         return snapshot;
     const { playerView, hexes, edges, ...rest } = model;
+    if (format === MAP_SNAPSHOT)
+        return { ...snapshot, format, model: rest, view: { ...view, hexes: encodeMapTable(view.hexes), edges: encodeMapTable(view.edges) } };
     return { ...snapshot, format: COMPACT_SNAPSHOT, model: rest };
 }
 const bool = v => typeof v === 'boolean', num = v => typeof v === 'number' && Number.isFinite(v);
@@ -93,10 +97,21 @@ function safeTree(v, depth = 0, budget = { remaining: 160000 }) {
         return v.length <= 16384 && v.every(x => safeTree(x, depth + 1, budget));
     return record(v) && Object.entries(v).every(([k, x]) => !['__proto__', 'constructor', 'prototype', 'authoritativeState', 'combatTransactions', 'actionLog', 'reconnectToken'].includes(k) && safeTree(x, depth + 1, budget));
 }
-/** Validates either full representation atomically, then restores independent copies. No previous state is accepted. */
-export function decodeSnapshot(value, compactAllowed) {
+export function decodeSnapshot(value, compactAllowed, mapAllowed = false, timing) {
+    const started = timing ? performance.now() : 0;
+    let rebuildMs = 0;
     const fail = () => { throw new Error('Invalid authorized snapshot'); };
     if (!safeTree(value) || !record(value) || !isSnapshotFormat(value.format) || (!compactAllowed && value.format === COMPACT_SNAPSHOT))
+        return fail();
+    if (value.format === MAP_SNAPSHOT) {
+        if (!mapAllowed || value.resync || !record(value.view))
+            return fail();
+        const rebuildStart = timing ? performance.now() : 0;
+        value = { ...value, format: COMPACT_SNAPSHOT, view: { ...value.view, hexes: decodeMapTable(value.view.hexes, 4096), edges: decodeMapTable(value.view.edges, 16384) } };
+        if (timing)
+            rebuildMs += performance.now() - rebuildStart;
+    }
+    if (!record(value))
         return fail();
     const compact = value.format === COMPACT_SNAPSHOT;
     if (compact && value.resync)
@@ -107,8 +122,16 @@ export function decodeSnapshot(value, compactAllowed) {
     const snapshot = value;
     if (snapshot.revision !== snapshot.matchRevision || snapshot.model.viewerSide !== snapshot.view.viewer || snapshot.model.phase !== snapshot.view.phase || snapshot.model.turn !== snapshot.view.turn)
         return fail();
+    const finish = (result) => { if (timing) {
+        timing.rebuildMs = rebuildMs;
+        timing.validationMs = performance.now() - started - rebuildMs;
+    } return result; };
     if (!compact)
-        return snapshot;
+        return finish(snapshot);
     const { view, model } = snapshot;
-    return { ...snapshot, format: FULL_SNAPSHOT, model: { ...model, playerView: structuredClone(view), hexes: structuredClone(view.hexes), edges: structuredClone(view.edges) } };
+    const rebuildStart = timing ? performance.now() : 0;
+    const result = { ...snapshot, format: FULL_SNAPSHOT, model: { ...model, playerView: structuredClone(view), hexes: structuredClone(view.hexes), edges: structuredClone(view.edges) } };
+    if (timing)
+        rebuildMs += performance.now() - rebuildStart;
+    return finish(result);
 }

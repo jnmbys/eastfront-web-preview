@@ -1,4 +1,4 @@
-import { COMPACT_SNAPSHOT, FULL_SNAPSHOT, MAX_SERVER_MESSAGE_BYTES, decodeSnapshot, isSnapshotFormat } from './snapshotCodec.js';
+import { MAP_SNAPSHOT, COMPACT_SNAPSHOT, FULL_SNAPSHOT, MAX_SERVER_MESSAGE_BYTES, decodeSnapshot, isSnapshotFormat } from './snapshotCodec.js';
 import { PROTOCOL_VERSION, clientMessage } from './protocol.js';
 import { CLIENT_NETWORK } from './config.js';
 import { transportTimingEnabled, publishReceiveTiming } from './diagnosticTiming.js';
@@ -24,6 +24,7 @@ export class LobbyClient {
     retry = null;
     deadline = null;
     snapshotFormat = FULL_SNAPSHOT;
+    negotiationFormat = FULL_SNAPSHOT;
     negotiationId = null;
     recoveryId = null;
     recoveryUsed = false;
@@ -34,7 +35,7 @@ export class LobbyClient {
     offline = () => { this.state.connection = 'DISCONNECTED'; this.state.synced = false; this.state.pending = false; this.notify(); this.socket?.close(); };
     online = () => { if (!this.stopped && !this.socket)
         this.open(); };
-    constructor(url, changed, preferredFormat = (typeof location !== 'undefined' && new URLSearchParams(location.search).get('snapshotFormat') === FULL_SNAPSHOT) ? FULL_SNAPSHOT : COMPACT_SNAPSHOT) {
+    constructor(url, changed, preferredFormat = (typeof location !== 'undefined' && isSnapshotFormat(new URLSearchParams(location.search).get('snapshotFormat')) ? new URLSearchParams(location.search).get('snapshotFormat') : COMPACT_SNAPSHOT)) {
         this.url = url;
         this.changed = changed;
         this.preferredFormat = preferredFormat;
@@ -90,6 +91,7 @@ export class LobbyClient {
                 return;
             const callbackAt = transportTimingEnabled ? performance.now() : 0;
             let parsedAt = callbackAt, decodedAt = callbackAt;
+            const decodeTiming = transportTimingEnabled ? { validationMs: 0, rebuildMs: 0 } : undefined;
             let message;
             try {
                 const raw = String(event.data);
@@ -107,7 +109,7 @@ export class LobbyClient {
             }
             if (message.messageType === 'PLAYER_VIEW_SNAPSHOT') {
                 try {
-                    message = { ...message, payload: decodeSnapshot(message.payload, this.snapshotFormat === COMPACT_SNAPSHOT) };
+                    message = { ...message, payload: decodeSnapshot(message.payload, this.snapshotFormat !== FULL_SNAPSHOT, this.snapshotFormat === MAP_SNAPSHOT, decodeTiming) };
                 }
                 catch {
                     if (transportTimingEnabled)
@@ -122,6 +124,8 @@ export class LobbyClient {
             if (transportTimingEnabled && ['PLAYER_VIEW_SNAPSHOT', 'ACTION_ACCEPTED', 'ACTION_REJECTED'].includes(message.messageType)) {
                 const p = message.payload;
                 publishReceiveTiming({ type: message.messageType, requestId: message.requestId, revision: p.matchRevision, sequence: p.serverSequence, callbackAt, parsedAt, decodedAt, appliedAt: performance.now(), outcome: 'processed' });
+                if (message.messageType === 'PLAYER_VIEW_SNAPSHOT' && decodeTiming)
+                    window.dispatchEvent(new CustomEvent('eastfront-map-codec-timing', { detail: { revision: p.matchRevision, sequence: p.serverSequence, ...decodeTiming } }));
             }
         };
         socket.onerror = () => { this.state.error = 'unavailable'; socket.close(); };
@@ -183,7 +187,12 @@ export class LobbyClient {
     }
     receive(message) {
         if (message.requestId === this.negotiationId && this.negotiationId) {
-            if (message.messageType === 'SNAPSHOT_FORMAT_SELECTED' && isSnapshotFormat(message.payload.format) && Object.keys(message.payload).length === 1) {
+            if (message.messageType === 'ROOM_ERROR' && ['BAD_MESSAGE', 'UNSUPPORTED_MESSAGE'].includes(message.payload.code) && this.negotiationFormat === MAP_SNAPSHOT) {
+                this.negotiationFormat = COMPACT_SNAPSHOT;
+                this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: COMPACT_SNAPSHOT });
+                return;
+            }
+            if (message.messageType === 'SNAPSHOT_FORMAT_SELECTED' && message.payload.format === this.negotiationFormat && Object.keys(message.payload).length === 1) {
                 this.snapshotFormat = message.payload.format;
             }
             else if (message.messageType === 'ROOM_ERROR' && message.payload.code === 'UNSUPPORTED_MESSAGE') {
@@ -220,8 +229,10 @@ export class LobbyClient {
                 this.state.connection = 'CONNECTED';
                 this.state.error = null;
                 this.attempts = 0;
-                if (this.preferredFormat === COMPACT_SNAPSHOT && !this.compactDisabled)
-                    this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: COMPACT_SNAPSHOT });
+                if (this.preferredFormat !== FULL_SNAPSHOT && !this.compactDisabled) {
+                    this.negotiationFormat = this.preferredFormat;
+                    this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: this.preferredFormat });
+                }
                 break;
             case 'ROOM_CREATED':
             case 'ROOM_STATE': {
