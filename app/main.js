@@ -1,3 +1,4 @@
+import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import { NetworkPlayerSession } from './multiplayer/networkSession.js';
 import { mt } from './multiplayer/catalog.js';
@@ -522,6 +523,7 @@ function render() {
     updateNetworkStatus();
 }
 function bind() {
+    bindStartupDiagnostics(root);
     releaseMapViewport();
     unitAnimations.sync(session, document.querySelector('#map-wrap'));
     syncFogSurface();

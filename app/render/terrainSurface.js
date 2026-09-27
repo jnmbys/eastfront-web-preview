@@ -1,3 +1,4 @@
+import { beginTerrainDiagnostic, finishTerrainDiagnostic } from '../web/startupDiagnostics.js';
 import { reportLoadedTerrainImage } from './terrainLoadProgress.js';
 import { HEX_SIZE, hexPolygon, hexToPixel, sharedHexEdge } from '../geometry/hex.js';
 import { viewBoxForHexes } from './coreSvg.js';
@@ -69,7 +70,7 @@ export async function imageFromUrl(url, entry, stage, capabilities, timeoutMs = 
             settled = true;
             finish();
             dispose();
-            reject(new TerrainSurfaceResourceError(`Terrain image ${failureStage === 'timeout' ? 'timeout' : 'failed'}: ${url}`, { stage: failureStage, url, assetId: entry.id, family: entry.family, preferredApi: webkitFallback ? 'HTMLImageElement.decode/onload→Canvas2D' : 'HTMLImageElement.onload', cause, capabilities }));
+            reject(new TerrainSurfaceResourceError(`Terrain image ${failureStage === 'timeout' ? 'timeout' : 'failed'}: ${url}`, { stage: failureStage, url, assetId: entry.id, family: entry.family, preferredApi: webkitFallback ? 'HTMLImageElement.decode/onload→Canvas2D' : 'HTMLImageElement.onload', cause, imageComplete: img.complete, width: img.naturalWidth, height: img.naturalHeight, capabilities }));
         };
         const canvasFallback = () => {
             if (settled || !ready())
@@ -109,7 +110,11 @@ export async function imageFromUrl(url, entry, stage, capabilities, timeoutMs = 
             if (settled)
                 return;
             if (!webkitFallback) {
-                succeed({ source: img, ...dimensions() });
+                if (!ready()) {
+                    fail(stage, 'Image load event without decoded pixels');
+                    return;
+                }
+                succeed({ source: img, ...dimensions(), release: dispose });
                 return;
             }
             // onload/Canvas remains usable if decode() rejects, hangs or is absent.
@@ -140,28 +145,45 @@ export async function imageFromUrl(url, entry, stage, capabilities, timeoutMs = 
 export async function fetchTerrainBlobWithAbort(url, entry, capabilities, timeoutMs = terrainImageLoadPolicy().resourceTimeoutMs) {
     const controller = new AbortController();
     let timer;
-    let timedOut = false;
-    try {
-        timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
-        // This is the single recovery request after the direct image path failed.
-        // A new HTTP cache key prevents it from rejoining the stalled image request;
-        // reload avoids reusing a failed/stale browser cache entry. Keep origin/path
-        // and all existing query parameters, and do not introduce a mirror or retry loop.
+    let stage = 'fetch', response, expired = false;
+    const deadline = new Promise((_resolve, reject) => {
+        timer = setTimeout(() => {
+            expired = true;
+            controller.abort();
+            reject(new TerrainSurfaceResourceError(`Terrain fetch timeout: ${url}`, { stage: 'timeout', url, assetId: entry.id, family: entry.family,
+                preferredApi: 'fetch+AbortController', transferStage: stage, abortRequested: true, cause: `Fetch ${entry.id} timed out after ${timeoutMs}ms and was aborted (${stage}); network cancellation not confirmed`,
+                ...(response ? { httpStatus: response.status, contentType: response.headers?.get('content-type') ?? '' } : {}), capabilities }));
+        }, timeoutMs);
+    });
+    const transfer = (async () => {
+        // One independent recovery request; no mirror, extra retry or new deadline.
         const recoveryUrl = new URL(url, globalThis.document?.baseURI);
         if (recoveryUrl.protocol === 'https:' || recoveryUrl.protocol === 'http:') {
             recoveryUrl.searchParams.set('terrain-recovery', `${Date.now()}-${++terrainRecoveryRequest}`);
         }
-        const response = await fetch(recoveryUrl.href, { signal: controller.signal, cache: 'reload' });
+        response = await fetch(recoveryUrl.href, { signal: controller.signal, cache: 'reload' });
+        // Some engines deliver a late response despite abort. Do not decode/use it.
+        if (expired) {
+            try {
+                await response.body?.cancel();
+            }
+            catch { }
+            throw new Error('Late terrain response discarded');
+        }
         if (!response.ok)
             throw new TerrainSurfaceResourceError(`Terrain asset HTTP ${response.status}: ${url}`, { stage: 'http', url, assetId: entry.id, family: entry.family, httpStatus: response.status, preferredApi: 'fetch+AbortController', capabilities });
-        return { response, blob: await response.blob() };
+        stage = 'fetch-body';
+        const blob = await response.blob();
+        return { response, blob };
+    })();
+    try {
+        return await Promise.race([transfer, deadline]);
     }
     catch (error) {
         if (error instanceof TerrainSurfaceResourceError)
             throw error;
-        if (timedOut || controller.signal.aborted)
-            throw new TerrainSurfaceResourceError(`Terrain fetch timeout: ${url}`, { stage: 'timeout', url, assetId: entry.id, family: entry.family, preferredApi: 'fetch+AbortController', cause: `Fetch ${entry.id} timed out after ${timeoutMs}ms and was aborted`, capabilities });
-        throw new TerrainSurfaceResourceError(`Terrain fetch failed: ${url}`, { stage: 'fetch', url, assetId: entry.id, family: entry.family, preferredApi: 'fetch+AbortController', cause: errorText(error), capabilities });
+        throw new TerrainSurfaceResourceError(`Terrain fetch failed: ${url}`, { stage, url, assetId: entry.id, family: entry.family, preferredApi: 'fetch+AbortController', transferStage: stage, errorName: error instanceof Error ? error.name : 'unknown', cause: errorText(error),
+            ...(response ? { httpStatus: response.status, contentType: response.headers?.get('content-type') ?? '' } : {}), capabilities });
     }
     finally {
         if (timer !== undefined)
@@ -188,14 +210,42 @@ async function bitmapFromBlob(blob, entry, timeoutMs) {
     });
 }
 export function loadTerrainImage(entry, set, capabilities, urlOverride, policy = terrainImageLoadPolicy()) {
-    return scheduleTerrainImage(() => loadTerrainImageNow(entry, set, capabilities, urlOverride, policy), policy);
+    return scheduleTerrainImage(async () => {
+        const started = performance.now(), attempts = [];
+        beginTerrainDiagnostic();
+        let outcome = 'failed';
+        try {
+            const result = await loadTerrainImageNow(entry, set, capabilities, urlOverride, policy, attempts);
+            outcome = 'ok';
+            return result;
+        }
+        finally {
+            finishTerrainDiagnostic({ asset: entry.id, file: entry.file, webkitFallback: policy.webkitFallback, timeoutMs: policy.resourceTimeoutMs,
+                elapsedMs: Math.round(performance.now() - started), outcome, attempts });
+        }
+    }, policy);
 }
-async function loadTerrainImageNow(entry, set, capabilities, urlOverride, policy) {
+async function loadTerrainImageNow(entry, set, capabilities, urlOverride, policy, attempts) {
     const url = urlOverride ?? absAssetUrl(entry, set);
     let directFailure, fetchFailure, bitmapFailure, blobImageFailure;
     let response, blob;
+    async function attempt(path, run) {
+        const started = performance.now();
+        try {
+            const value = await run();
+            attempts.push({ path, elapsedMs: Math.round(performance.now() - started), outcome: 'ok' });
+            return value;
+        }
+        catch (error) {
+            const d = error instanceof TerrainSurfaceResourceError ? error.details : undefined;
+            attempts.push({ path, elapsedMs: Math.round(performance.now() - started), outcome: 'failed', errorName: d?.errorName ?? (error instanceof Error ? error.name : 'unknown'),
+                ...(d ? { stage: d.stage, ...(d.transferStage ? { transferStage: d.transferStage } : {}), ...(d.httpStatus !== undefined ? { httpStatus: d.httpStatus } : {}), ...(d.contentType ? { contentType: d.contentType } : {}),
+                    ...(d.abortRequested !== undefined ? { abortRequested: d.abortRequested } : {}), ...(d.imageComplete !== undefined ? { imageComplete: d.imageComplete, width: d.width ?? 0, height: d.height ?? 0 } : {}) } : {}) });
+            throw error;
+        }
+    }
     try {
-        return reportLoadedTerrainImage(await imageFromUrl(url, entry, 'direct-image-load', capabilities, policy.resourceTimeoutMs, policy.webkitFallback));
+        return reportLoadedTerrainImage(await attempt('image', () => imageFromUrl(url, entry, 'direct-image-load', capabilities, policy.resourceTimeoutMs, policy.webkitFallback)));
     }
     catch (error) {
         directFailure = error;
@@ -207,16 +257,17 @@ async function loadTerrainImageNow(entry, set, capabilities, urlOverride, policy
         policy = { ...policy, resourceTimeoutMs: Math.max(policy.resourceTimeoutMs, RECOVERY_TIMEOUT_MS) };
     }
     try {
-        const result = await fetchTerrainBlobWithAbort(url, entry, capabilities, policy.resourceTimeoutMs);
+        const result = await attempt('fetch', () => fetchTerrainBlobWithAbort(url, entry, capabilities, policy.resourceTimeoutMs));
         response = result.response;
         blob = result.blob;
+        Object.assign(attempts.at(-1), { httpStatus: response.status, contentType: response.headers?.get('content-type') ?? blob.type, bytes: blob.size });
     }
     catch (error) {
         fetchFailure = error;
     }
     if (blob && capabilities.createImageBitmap) {
         try {
-            const bitmap = await bitmapFromBlob(blob, entry, policy.bitmapTimeoutMs);
+            const bitmap = await attempt('bitmap', () => bitmapFromBlob(blob, entry, policy.bitmapTimeoutMs));
             return reportLoadedTerrainImage({ source: bitmap, width: bitmap.width, height: bitmap.height, release: () => bitmap.close() });
         }
         catch (error) {
@@ -225,10 +276,10 @@ async function loadTerrainImageNow(entry, set, capabilities, urlOverride, policy
         }
     }
     if (blob) {
-        let objectUrl;
+        let objectUrl = '';
         try {
             objectUrl = URL.createObjectURL(blob);
-            return reportLoadedTerrainImage(await imageFromUrl(objectUrl, entry, 'html-image-load', capabilities, policy.resourceTimeoutMs, policy.webkitFallback));
+            return reportLoadedTerrainImage(await attempt('blob-image', () => imageFromUrl(objectUrl, entry, 'html-image-load', capabilities, policy.resourceTimeoutMs, policy.webkitFallback)));
         }
         catch (error) {
             blobImageFailure = error;
@@ -241,7 +292,7 @@ async function loadTerrainImageNow(entry, set, capabilities, urlOverride, policy
     }
     const causes = [`directImage=${errorText(directFailure)}`, fetchFailure ? `fetch=${errorText(fetchFailure)}` : '', bitmapFailure ? `createImageBitmap=${errorText(bitmapFailure)}` : '', blobImageFailure ? `blobImage=${errorText(blobImageFailure)}` : ''].filter(Boolean).join('; ');
     const fetchDetails = fetchFailure instanceof TerrainSurfaceResourceError ? fetchFailure.details : undefined;
-    const details = { stage: fetchDetails?.stage ?? 'direct-image-load', url, assetId: entry.id, family: entry.family, preferredApi: capabilities.createImageBitmap ? 'HTMLImageElement(url)→fetch+AbortController→createImageBitmap→HTMLImageElement(blob)' : 'HTMLImageElement(url)→fetch+AbortController→HTMLImageElement(blob)', cause: causes, capabilities };
+    const details = { stage: fetchDetails?.stage ?? (blobImageFailure instanceof TerrainSurfaceResourceError ? blobImageFailure.details.stage : bitmapFailure ? 'bitmap-decode' : 'direct-image-load'), url, assetId: entry.id, family: entry.family, preferredApi: capabilities.createImageBitmap ? 'HTMLImageElement(url)→fetch+AbortController→createImageBitmap→HTMLImageElement(blob)' : 'HTMLImageElement(url)→fetch+AbortController→HTMLImageElement(blob)', cause: causes, capabilities };
     if (fetchDetails?.httpStatus !== undefined)
         details.httpStatus = fetchDetails.httpStatus;
     else if (response)
