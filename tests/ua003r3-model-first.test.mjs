@@ -38,7 +38,7 @@ test('UA003R3 freezes Core, Camera, FOW projection/material, VS2, startup and UA
 
 test('UA003R3 both model proxy identities execute the actual application selection binding',()=>{
  const f=movementFixture([unit('a','G-INF','GERMAN','INFANTRY',{q:0,r:0}),unit('b','G-PANZER','GERMAN','PANZER',{q:0,r:0})]),root=mapDom(f.s,f.p),ui=combatDom(f.s,f.p),state=json(f.s.state);
- for(const id of ['a','b']){const proxy=root.counter(id).querySelector('.model-hit-proxy'),owner=proxy.parentNode.parentNode.getAttribute('data-unit-id');if(f.p.interactionMode==='MOVE_PATH')ui.click('#move-cancel');ui.click(`[data-unit-id="${owner}"]`);assert.equal(f.p.selectedUnitId,id);}assert.equal(json(f.s.state),state);
+ for(const id of ['a','b']){const proxy=root.counter(id).querySelector('.model-hit-proxy'),owner=proxy.parentNode.parentNode.getAttribute('data-unit-id');ui.click(`[data-unit-id="${owner}"]`);assert.equal(f.p.selectedUnitId,id);}assert.equal(json(f.s.state),state);
 });
 
 test('UA003R3 stack entry shares model interpolation with plate and its hit proxy',()=>{

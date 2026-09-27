@@ -137,6 +137,8 @@ export class NetworkPlayerSession {
     }else if(m.messageType==='ACTION_REJECTED'){
       if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);this.snapshotDeadline=null;
       this.submitting=false;this.notice=m.payload.code==='STALE_REVISION'?'outdated':'actionRejected';
+      // A rejected move ends target capture; a fresh explicit entry can retry.
+      if(this.presentation.interactionMode==='MOVE_PATH'){this.presentation.pathDraft=[];this.presentation.interactionMode='SELECT';}
       if(m.payload.code==='STALE_REVISION'){this.resync();return;}this.onChange('query');
     }
     this.flush();this.scheduleForced();

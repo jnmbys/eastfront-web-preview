@@ -62,7 +62,7 @@ export function selectCounter(session:LocalGameSession,presentation:Presentation
   presentation.selectedUnitId=unitId;
   if(session.state.phase==='SOVIET_DEPLOYMENT'||session.state.phase==='GERMAN_DEPLOYMENT') presentation.selectedDeploymentUnitId=unitId;
   presentation.pathDraft=[];
-  if(session.state.phase==='GERMAN_MOVEMENT'||session.state.phase==='SOVIET_MOVEMENT') presentation.interactionMode='MOVE_PATH';
+  if(session.state.phase==='GERMAN_MOVEMENT'||session.state.phase==='SOVIET_MOVEMENT') presentation.interactionMode='SELECT';
   else if(session.state.phase==='GERMAN_RECOVERY'||session.state.phase==='SOVIET_RECOVERY') presentation.interactionMode='RECOVERY';
   else if(session.state.phase==='GERMAN_ENTRENCHMENT'||session.state.phase==='SOVIET_ENTRENCHMENT') presentation.interactionMode='ENTRENCH';
   else if((session.state.phase==='GERMAN_COMBAT'||session.state.phase==='SOVIET_COMBAT')&&!session.state.pendingDecision) presentation.interactionMode='ATTACK';
@@ -136,7 +136,7 @@ export function extendMoveDraft(session:LocalGameSession,presentation:Presentati
   const tail=presentation.pathDraft.at(-1)??unit.hex;
   if(presentation.pathDraft.length>0){
     const previous=presentation.pathDraft.length>1?presentation.pathDraft.at(-2)!:unit.hex;
-    if(sameHex(destination,previous)){presentation.pathDraft.pop();presentation.message=msg('feedback.undoPath');return;}
+    if(sameHex(destination,previous)){presentation.pathDraft.pop();if(!presentation.pathDraft.length)presentation.interactionMode='SELECT';presentation.message=msg(presentation.pathDraft.length?'feedback.undoPath':'feedback.moveSelectionEnded');return;}
   }
   if(!adjacent(tail,destination)){presentation.message=msg('feedback.adjacentOnly');return;}
   presentation.pathDraft.push({...destination});
@@ -146,18 +146,19 @@ export function extendMoveDraft(session:LocalGameSession,presentation:Presentati
 
 export function undoMoveDraft(presentation:PresentationState):void {
   if(presentation.pathDraft.length>0)presentation.pathDraft.pop();
-  presentation.message=presentation.pathDraft.length?msg('feedback.undoPath'):msg('feedback.pathCleared');
+  if(!presentation.pathDraft.length)presentation.interactionMode='SELECT';
+  presentation.message=presentation.pathDraft.length?msg('feedback.undoPath'):msg('feedback.moveSelectionEnded');
 }
-export function cancelMoveDraft(presentation:PresentationState):void {presentation.pathDraft=[];presentation.message=msg('feedback.moveCancelled');}
+export function cancelMoveDraft(presentation:PresentationState):void {presentation.pathDraft=[];presentation.interactionMode='SELECT';presentation.message=msg('feedback.moveCancelled');}
 
 export function commitMoveDraft(session:LocalGameSession,presentation:PresentationState):void {
   const id=presentation.selectedUnitId;
   if(!id||presentation.pathDraft.length===0){presentation.message=msg('feedback.needPath');return;}
   const action:MoveAction={type:'MOVE',controllerId:session.activeViewerControllerId,unitId:id,path:presentation.pathDraft.map((hex)=>({...hex}))};
   const outcome=dispatchGameAction(session,action);
+  presentation.interactionMode='SELECT';presentation.pathDraft=[];
   if(!outcome.result.accepted){presentation.message=issuesMessage(outcome.result.issues);return;}
   const finalHex=action.path.at(-1)!;
-  presentation.pathDraft=[];
   presentation.message=msg('feedback.moved',{id,hex:coreHexKey(finalHex),count:action.path.length});
 }
 

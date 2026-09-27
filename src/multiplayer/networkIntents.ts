@@ -19,7 +19,7 @@ export function selectCounter(s:Session,p:P,id:string):void {
   if(u.side===s.playerView.viewer&&isCombatTargetSelection(s,p)&&p.attackTarget){toggleSupportingAttacker(s,p,id);return;}
   p.selectedUnitId=id;p.pathDraft=[];p.message=null;
   if(u.side!==s.playerView.viewer)return;
-  if(s.playerView.phase.endsWith('_MOVEMENT'))p.interactionMode='MOVE_PATH';
+  if(s.playerView.phase.endsWith('_MOVEMENT'))p.interactionMode='SELECT';
   if(s.playerView.phase.endsWith('_COMBAT')&&!pending(s)){p.interactionMode='ATTACK';p.attackUnitIds=[id];p.primaryAttackerId=id;p.attackTarget=null;p.attackerArtilleryUnitId=null;}
 }
 export function deploySelectedUnit(s:Session,p:P,hex:HexCoord):void {if(p.selectedDeploymentUnitId)send(s,{type:'DEPLOY_INITIAL_UNIT',deploymentUnitId:p.selectedDeploymentUnitId,hex});}
@@ -29,7 +29,7 @@ export function switchViewerForDevelopment(_s:Session,_p:P,_side:unknown):void {
 export function extendMoveDraft(s:Session,p:P,h:HexCoord):void {
   const unit=s.playerView.units.find(u=>u.id===p.selectedUnitId);if(!unit)return;
   const previous=p.pathDraft.length>1?p.pathDraft.at(-2)!:unit.hex;
-  if(p.pathDraft.length&&same(previous,h)){p.pathDraft.pop();return;}
+  if(p.pathDraft.length&&same(previous,h)){p.pathDraft.pop();if(!p.pathDraft.length){p.interactionMode='SELECT';p.message=msg('feedback.moveSelectionEnded');}return;}
   if(s.model.moveOptions.some(o=>o.legal&&same(o.hex,h))){p.pathDraft.push({...h});p.interactionMode='MOVE_PATH';}
 }
 export function commitMoveDraft(s:Session,p:P):void {if(p.selectedUnitId&&p.pathDraft.length)send(s,{type:'MOVE',unitId:p.selectedUnitId,path:structuredClone(p.pathDraft)});}

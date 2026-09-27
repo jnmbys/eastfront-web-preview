@@ -5,7 +5,7 @@ import {createPresentationState} from '../dist/app/state/presentation.js';
 import {selectCounter} from '../dist/app/multiplayer/playerSession.js';
 import {combatDom} from './helpers/combat-dom.mjs';
 
-function setup(full=false){const s=movementFixture(full),p=createPresentationState();selectCounter(s,p,'mover');return {s,p,h:combatDom(s,p)};}
+function setup(full=false){const s=movementFixture(full),p=createPresentationState();selectCounter(s,p,'mover');const h=combatDom(s,p);h.click('#move-start');return {s,p,h};}
 test('MOVE001 counter retains mover and uses same draft/commit as blank target',()=>{
  for(const selector of ['[data-unit-id="friend"]','[data-hit-unit-id="friend"]','[data-hex="1,0"]']){
   const {s,p,h}=setup(),before=JSON.stringify(s.state);
@@ -15,7 +15,7 @@ test('MOVE001 counter retains mover and uses same draft/commit as blank target',
 });
 test('MOVE001 inspect, cancel, switch, origin undo and illegal targets preserve conventions',()=>{
  const {s,p,h}=setup();h.click('[data-unit-id="friend"]');h.click('[data-unit-id="mover"]');assert.deepEqual(p.pathDraft,[]);assert.equal(p.selectedUnitId,'mover');
- h.click('[data-unit-id="far"]');assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[]);assert.equal(p.message.key,'feedback.adjacentOnly');
+ h.click('#move-start');h.click('[data-unit-id="far"]');assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[]);assert.equal(p.message.key,'feedback.adjacentOnly');
  h.click('#move-cancel');assert.equal(p.interactionMode,'SELECT');h.click('[data-unit-id="friend"]');assert.equal(p.selectedUnitId,'friend');assert.deepEqual(p.pathDraft,[]);
  s.state.phase='GERMAN_COMBAT';p.interactionMode='SELECT';h.repaint();h.click('[data-unit-id="mover"]');assert.equal(p.selectedUnitId,'mover');
 });

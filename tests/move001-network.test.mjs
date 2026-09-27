@@ -29,36 +29,39 @@ async function pair(t,full=false){
 
 test('MOVE001 real WebSocket clients: all target surfaces use authorized draft, pending sends once, snapshot moves',async t=>{
  const {a,b,sent}=await pair(t),s=a.session,p=a.presentation,h=combatDom(s,p);
- h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
+ h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
  for(const selector of ['[data-unit-id="friend"]','[data-hit-unit-id="friend"]','[data-hex="1,0"]']){
   h.click(selector);assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[{q:1,r:0}]);assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:0,r:0});
   await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('[data-unit-id="mover"]');assert.deepEqual(p.pathDraft,[]);
-  await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
+  await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
  }
  h.click('[data-unit-id="friend"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
- const commit=h.document.querySelector('#move-commit'),target=h.document.querySelector('[data-unit-id="friend"]');
- commit.fire('click');assert.equal(s.canSelect,false);commit.fire('click');target.fire('click');
+ const commit=h.document.querySelector('#move-commit'),target=h.document.querySelector('[data-unit-id="friend"]'),cancel=h.document.querySelector('#move-cancel');
+ commit.fire('click');assert.equal(s.canSelect,false);commit.fire('click');target.fire('click');cancel.fire('click');
  assert.equal(sent.filter(m=>m.messageType==='SUBMIT_ACTION').length,1);assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[{q:1,r:0}]);assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:0,r:0});
  await wait(()=>s.matchRevision===1&&b.session.matchRevision===1&&s.interactive);
  assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:1,r:0});assert.deepEqual(p.pathDraft,[]);
+ assert.equal(p.interactionMode,'SELECT');h.repaint();h.click('[data-unit-id="far"]');assert.equal(p.selectedUnitId,'far');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('[data-hex="2,0"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-commit');
+ await wait(()=>s.matchRevision===2&&b.session.matchRevision===2&&s.interactive);assert.deepEqual(s.playerView.units.find(u=>u.id==='far').hex,{q:2,r:0});assert.equal(p.interactionMode,'SELECT');assert.equal(sent.filter(m=>m.messageType==='SUBMIT_ACTION').length,2);
+
 });
 
 test('MOVE001 server rejection retains authority and recovers selection / next move',async t=>{
  const {a,sent,delivered}=await pair(t),s=a.session,p=a.presentation,h=combatDom(s,p);
- h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
+ h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
  h.click('[data-unit-id="far"]');assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[]);
  // A stale/invalid client request is refused by the unchanged server/Core path.
  s.submit({type:'MOVE',unitId:'mover',path:[{q:3,r:0}]});
  await wait(()=>delivered.some(d=>d.message.messageType==='ACTION_REJECTED')&&s.interactive);
  assert.equal(s.matchRevision,0);assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:0,r:0});h.repaint();
- h.click('#move-cancel');h.click('[data-unit-id="friend"]');assert.equal(p.selectedUnitId,'friend');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
- h.click('[data-hit-unit-id="mover"]');assert.deepEqual(p.pathDraft,[{q:0,r:0}]);await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-commit');
+ assert.equal(p.interactionMode,'SELECT');h.click('[data-unit-id="friend"]');assert.equal(p.selectedUnitId,'friend');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
+ h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('[data-hit-unit-id="mover"]');assert.deepEqual(p.pathDraft,[{q:0,r:0}]);await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-commit');
  await wait(()=>s.matchRevision===1&&s.interactive);assert.deepEqual(s.playerView.units.find(u=>u.id==='friend').hex,{q:0,r:0});assert.equal(sent.filter(m=>m.messageType==='SUBMIT_ACTION').length,2);
 });
 
 test('MOVE001 multiplayer full stack remains illegal through every target surface',async t=>{
  const {a,sent}=await pair(t,true),s=a.session,p=a.presentation,h=combatDom(s,p);
- h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
+ h.click('[data-unit-id="mover"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();
  assert.equal(s.model.moveOptions.find(o=>o.hex.q===1&&o.hex.r===0).legal,false);
  for(const selector of ['[data-unit-id="friend"]','[data-hit-unit-id="friend"]','[data-hex="1,0"]']){
   h.click(selector);assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[]);h.click('#move-commit');
