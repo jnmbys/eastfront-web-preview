@@ -1,4 +1,3 @@
-import {battleSummaries} from './battleSummary.js';
 import {encodeSnapshot,FULL_SNAPSHOT,type SnapshotFormat} from '../src/multiplayer/snapshotCodec.js';
 import {actionOwner,queryModel,forcedAction,validateIntent,applyIntent} from './gameplay.js';
 import type {PresentationEvent} from '../src/presentation/events.js';
@@ -17,7 +16,7 @@ function canonical(v:unknown):string {
 const tokenKey=(token:string)=>createHash('sha256').update(token).digest('hex');
 const emptySeat=()=>({controllerType:'EMPTY' as const,controllerId:null,ready:false});
 interface Identity {controllerId:string;displayName:string;tokenHash:string;connectionId:string|null;roomId:string|null;disconnectedAt:number|null;}
-interface Connection {send:(message:WireServerMessage)=>void;snapshotFormat:SnapshotFormat;battleSummary:boolean;controllerId:string|null;createdAt:number;windowAt:number;messages:number;requests:Set<string>;}
+interface Connection {send:(message:WireServerMessage)=>void;snapshotFormat:SnapshotFormat;controllerId:string|null;createdAt:number;windowAt:number;messages:number;requests:Set<string>;}
 interface Room {state:RoomState;lastActivity:number;emptySince:number|null;}
 class Rejection extends Error {constructor(readonly code:ErrorCode){super(code);}}
 function reject(code:ErrorCode):never {throw new Rejection(code);}
@@ -29,7 +28,7 @@ export class RoomAuthority {
     private matchFactory:(room:RoomState,now:number)=>MatchSession=createMatchSession,private codeFactory:()=>string=generateRoomCode){}
   connect(send:Connection['send']):string {
     if(this.#connections.size>=this.config.maxConnections)reject('CAPACITY');
-    const id=randomUUID(),now=this.now();this.#connections.set(id,{send,snapshotFormat:FULL_SNAPSHOT,battleSummary:false,controllerId:null,createdAt:now,windowAt:now,messages:0,requests:new Set()});
+    const id=randomUUID(),now=this.now();this.#connections.set(id,{send,snapshotFormat:FULL_SNAPSHOT,controllerId:null,createdAt:now,windowAt:now,messages:0,requests:new Set()});
     this.emit(id,'CONNECTION_STATE',{state:'CONNECTED'});return id;
   }
   private emit<K extends keyof ServerPayloads>(connectionId:string,type:K,payload:ServerPayloads[K],requestId:string|null=null):void {
@@ -62,7 +61,7 @@ export class RoomAuthority {
         identity=existing;identity.connectionId=connectionId;identity.disconnectedAt=null;
       }
       c.controllerId=identity.controllerId;
-      this.emit(connectionId,'WELCOME',{connectionId,controllerId:identity.controllerId,reconnectToken:token,reconnected:m.messageType==='RECONNECT',battleSummary:1},m.requestId);
+      this.emit(connectionId,'WELCOME',{connectionId,controllerId:identity.controllerId,reconnectToken:token,reconnected:m.messageType==='RECONNECT'},m.requestId);
       const room=identity.roomId?this.#rooms.get(identity.roomId):undefined;
       if(room){this.refreshClients(room);this.changed(room,m.requestId);if(room.state.matchId){const match=this.#matches.get(room.state.matchId)!;this.sendMatchInfo(connectionId,identity.controllerId,match);this.connectionStatus(room,match);this.snapshot(connectionId,identity.controllerId,match,true);}}
       else this.emit(connectionId,'ROOM_STATE',{room:null},m.requestId);
@@ -70,10 +69,7 @@ export class RoomAuthority {
     }
     const identity=c.controllerId?this.#identities.get(c.controllerId):undefined;
     if(!identity||identity.connectionId!==connectionId)reject('NOT_IDENTIFIED');
-    if(m.messageType==='SET_SNAPSHOT_FORMAT'){c.snapshotFormat=m.payload.format;c.battleSummary=m.payload.battleSummary===1;this.emit(connectionId,'SNAPSHOT_FORMAT_SELECTED',{format:c.snapshotFormat},m.requestId);
-      const active=identity.roomId?this.#rooms.get(identity.roomId)?.state.matchId:null;
-      if(c.battleSummary&&active)this.snapshot(connectionId,identity.controllerId,this.#matches.get(active)!,true);
-      return;}
+    if(m.messageType==='SET_SNAPSHOT_FORMAT'){c.snapshotFormat=m.payload.format;this.emit(connectionId,'SNAPSHOT_FORMAT_SELECTED',{format:c.snapshotFormat},m.requestId);return;}
     if(m.messageType==='CREATE_ROOM'){
       if(identity.roomId)reject('ALREADY_IN_ROOM');if(this.#rooms.size>=this.config.maxRooms)reject('CAPACITY');
       let code='';for(let i=0;i<128;i++){const candidate=this.codeFactory();if(!this.#codes.has(candidate)){code=candidate;break;}}
@@ -100,7 +96,6 @@ export class RoomAuthority {
       if(m.messageType==='QUERY_MATCH'){
         if(m.payload.expectedRevision!==match.matchRevision){this.snapshot(connectionId,identity.controllerId,match,true,[],m.requestId);return;}
         const model=queryModel(match,identity.controllerId,m.payload.draft),forced=forcedAction(match,identity.controllerId,m.payload.draft);
-        if(c.battleSummary)model.battleSummaries=battleSummaries(match,identity.controllerId);
         this.emit(connectionId,'MATCH_QUERY',{...this.order(match,identity.controllerId),model,forcedAction:forced},m.requestId);return;
       }
       const cache=match.receipts[identity.controllerId]!,fingerprint=canonical(m.payload),existing=cache.get(m.requestId);
@@ -176,7 +171,6 @@ export class RoomAuthority {
   private order(match:MatchSession,controllerId:string){return {matchId:match.matchId,matchRevision:match.matchRevision,serverSequence:++match.serverSequences[controllerId]!};}
   private snapshot(connectionId:string,controllerId:string,match:MatchSession,resync=false,events:readonly PresentationEvent[]=[],requestId:string|null=null):void {
     const model=queryModel(match,controllerId);
-    if(this.#connections.get(connectionId)?.battleSummary)model.battleSummaries=battleSummaries(match,controllerId);
     this.emit(connectionId,'PLAYER_VIEW_SNAPSHOT',{...this.order(match,controllerId),revision:match.matchRevision,format:'snapshot-v1',resync,status:match.status,
       canAct:match.status==='ACTIVE'&&actionOwner(match)===model.viewerControllerId,view:model.playerView as import('../src/multiplayer/protocol.js').AuthorizedPlayerView,model,events:resync?[]:events,forcedAction:forcedAction(match,controllerId)},requestId);
   }

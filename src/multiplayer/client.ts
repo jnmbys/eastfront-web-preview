@@ -1,3 +1,4 @@
+import {validBattleSummaries} from './battleSummary.js';
 import {MAP_SNAPSHOT,COMPACT_SNAPSHOT,FULL_SNAPSHOT,MAX_SERVER_MESSAGE_BYTES,decodeSnapshot,isSnapshotFormat,type SnapshotFormat} from './snapshotCodec.js';
 import type {MatchSnapshot} from './gameplayProtocol.js';
 import {PROTOCOL_VERSION,clientMessage,type ClientPayloads,type ServerMessage,type RoomState,type MatchInfo,type AuthorizedPlayerView} from './protocol.js';
@@ -22,6 +23,7 @@ export class LobbyClient {
   private retry:ReturnType<typeof setTimeout>|null=null;private deadline:ReturnType<typeof setTimeout>|null=null;
   snapshotFormat:SnapshotFormat=FULL_SNAPSHOT;
   private negotiationFormat:SnapshotFormat=FULL_SNAPSHOT;private negotiationId:string|null=null;private recoveryId:string|null=null;private recoveryUsed=false;private compactDisabled=false;
+  private battleSummary=false;
   private attempts=0;private pendingId:string|null=null;private name='';
   private offline=()=>{this.state.connection='DISCONNECTED';this.state.synced=false;this.state.pending=false;this.notify();this.socket?.close();};
   private online=()=>{if(!this.stopped&&!this.socket)this.open();};
@@ -35,7 +37,7 @@ export class LobbyClient {
   private clearDeadline(){if(this.deadline!==null)clearTimeout(this.deadline);this.deadline=null;}
   private open():void {
     if(this.stopped)return;if(this.retry!==null)clearTimeout(this.retry);this.retry=null;
-    this.snapshotFormat=FULL_SNAPSHOT;this.negotiationId=null;this.recoveryId=null;
+    this.snapshotFormat=FULL_SNAPSHOT;this.negotiationId=null;this.recoveryId=null;this.battleSummary=false;
     this.state.connection=this.token?'RECONNECTING':'CONNECTING';this.state.synced=false;this.state.pending=false;this.pendingId=null;
     this.notify();let socket:WebSocket;
     try{socket=new WebSocket(this.url);}catch{this.state.connection='DISCONNECTED';this.state.error='unavailable';this.notify();return;}
@@ -55,6 +57,7 @@ export class LobbyClient {
         catch{if(transportTimingEnabled)publishReceiveTiming({type:'PLAYER_VIEW_SNAPSHOT',requestId:'',callbackAt,parsedAt,decodedAt:performance.now(),appliedAt:performance.now(),outcome:'invalid-snapshot'});this.recoverSnapshot();return;}
       }
       if(transportTimingEnabled)decodedAt=performance.now();
+      if(message.messageType==='MATCH_QUERY'&&message.payload.model?.battleSummaries!==undefined&&(!validBattleSummaries(message.payload.model.battleSummaries)||message.payload.model.battleSummaries.matchId!==message.payload.matchId||message.payload.model.battleSummaries.viewerControllerId!==message.payload.model.viewerControllerId||message.payload.model.battleSummaries.entries.some(e=>e.revision>message.payload.matchRevision))){this.recoverSnapshot();return;}
       this.receive(message);
       if(transportTimingEnabled&&['PLAYER_VIEW_SNAPSHOT','ACTION_ACCEPTED','ACTION_REJECTED'].includes(message.messageType)){
         const p=message.payload as {matchRevision?:number;serverSequence?:number};
@@ -92,7 +95,7 @@ export class LobbyClient {
   private receive(message:ServerMessage):void {
     if(message.requestId===this.negotiationId&&this.negotiationId){
       if(message.messageType==='ROOM_ERROR'&&['BAD_MESSAGE','UNSUPPORTED_MESSAGE'].includes(message.payload.code)&&this.negotiationFormat===MAP_SNAPSHOT){
-        this.negotiationFormat=COMPACT_SNAPSHOT;this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:COMPACT_SNAPSHOT});return;
+        this.negotiationFormat=COMPACT_SNAPSHOT;this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:COMPACT_SNAPSHOT,...(this.battleSummary?{battleSummary:1 as const}:{})});return;
       }
       if(message.messageType==='SNAPSHOT_FORMAT_SELECTED'&&message.payload.format===this.negotiationFormat&&Object.keys(message.payload).length===1){this.snapshotFormat=message.payload.format;}
       else if(message.messageType==='ROOM_ERROR'&&message.payload.code==='UNSUPPORTED_MESSAGE'){this.snapshotFormat=FULL_SNAPSHOT;}
@@ -107,7 +110,8 @@ export class LobbyClient {
         this.state.controllerId=message.payload.controllerId;this.token=message.payload.reconnectToken;
         try{sessionStorage.setItem(this.storageKey,this.token);}catch{/* retain in memory */}
         this.state.connection='CONNECTED';this.state.error=null;this.attempts=0;
-        if(this.preferredFormat!==FULL_SNAPSHOT&&!this.compactDisabled){this.negotiationFormat=this.preferredFormat;this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:this.preferredFormat});}
+        this.battleSummary=message.payload.battleSummary===1;
+        if(this.battleSummary||(this.preferredFormat!==FULL_SNAPSHOT&&!this.compactDisabled)){this.negotiationFormat=this.compactDisabled?FULL_SNAPSHOT:this.preferredFormat;this.negotiationId=this.sendRaw('SET_SNAPSHOT_FORMAT',{format:this.negotiationFormat,...(this.battleSummary?{battleSummary:1 as const}:{})});}
         break;
       case 'ROOM_CREATED':case 'ROOM_STATE':{
         const room=message.payload.room;

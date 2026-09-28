@@ -83,6 +83,7 @@ export interface CombatUiModel {
 }
 
 export interface BrowserRenderModel {
+  battleSummaries?:import('../multiplayer/battleSummary.js').BattleSummaries;
   playerView:PlayerViewState; readOnly:boolean;
   phase:GameState['phase']; turn:number; activeSide:Side; rp:Partial<Record<Side,number>>; cp:Partial<Record<Side,number>>;
   viewerControllerId:EntityId; viewerSide:Side; hexes:HexState[]; edges:HexEdge[]; counters:CounterModel[];

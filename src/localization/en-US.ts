@@ -1,5 +1,16 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+  "result.pendingOther": "Pending: {kind}. Waiting for the authorized player; no action is required here.",
+  "result.aggregateOnly": "Aggregate CRT column shift; private support sources are omitted.",
+
+  "result.confirmed": "Confirmed own-unit consequences",
+  "result.actualLoss": "{unit}: lost {steps} step(s).",
+  "result.actualTravel": "{unit}: {kind}, {from} → {to} (executed).",
+  "result.noOwnFacts": "No authorized own-unit consequences recorded yet.",
+  "result.ownFactsOnly": "Own units only. Enemy details, support sources and full routes are omitted. CRT requirements above are separate from executed consequences.",
+  "result.truncated": "Record limit reached; this list is incomplete.",
+  "result.olderOmitted": "Only the latest 32 authorized battles are retained; older records are unavailable.",
+
   "result.title": "Battle result",
   "result.close": "Close result",
   "result.waiting": "Awaiting resolution: no authoritative result yet.",

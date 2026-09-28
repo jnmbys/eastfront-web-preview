@@ -1,3 +1,4 @@
+import {validBattleSummaries} from './battleSummary.js';
 import {encodeMapTable,decodeMapTable,type MapTable} from './mapEncoding.js';
 import type {MatchSnapshot} from './gameplayProtocol.js';
 import {record,shape,id,revision,hex,isNetworkAction} from './gameplayProtocol.js';
@@ -104,9 +105,11 @@ export function decodeSnapshot(value:unknown,compactAllowed:boolean,mapAllowed=f
   const compact=value.format===COMPACT_SNAPSHOT;
   if(compact&&value.resync)return fail();
   if(!shape(value,{matchId:id,matchRevision:revision,serverSequence:revision,revision,format:isSnapshotFormat,resync:bool,status:one('ACTIVE','WAITING_FOR_RECONNECT','FINISHED','ABORTED'),canAct:bool,view:playerView,
-    model:m=>shape(m,compact?modelFields:{...modelFields,playerView,hexes:list(mapHex),edges:list(edge,16384)}),forcedAction:nullable(isNetworkAction),events:list(event,2048)}))return fail();
+    model:m=>shape(m,compact?modelFields:{...modelFields,playerView,hexes:list(mapHex),edges:list(edge,16384)},{battleSummaries:validBattleSummaries}),forcedAction:nullable(isNetworkAction),events:list(event,2048)}))return fail();
   const snapshot=value as unknown as MatchSnapshot|CompactSnapshot;
   if(snapshot.revision!==snapshot.matchRevision||snapshot.model.viewerSide!==snapshot.view.viewer||snapshot.model.phase!==snapshot.view.phase||snapshot.model.turn!==snapshot.view.turn)return fail();
+  const summaries=snapshot.model.battleSummaries;
+  if(summaries&&(summaries.matchId!==snapshot.matchId||summaries.viewerControllerId!==snapshot.model.viewerControllerId||summaries.entries.some(e=>e.revision>snapshot.matchRevision)))return fail();
   const finish=(result:MatchSnapshot):MatchSnapshot=>{if(timing){timing.rebuildMs=rebuildMs;timing.validationMs=performance.now()-started-rebuildMs;}return result;};
   if(!compact)return finish(snapshot as MatchSnapshot);
   const {view,model}=snapshot;

@@ -25,7 +25,7 @@ async function legacy(t,v2=false){
  cpSync('dist/app/multiplayer/diagnosticTiming.js',dir+'/src/multiplayer/diagnosticTiming.js');
  writeFileSync(dir+'/package.json','{"type":"module"}');symlinkSync(resolve('node_modules'),dir+'/node_modules');
  for(const [name,path] of [['client','src/multiplayer/client'],['protocol','src/multiplayer/protocol'],['authority','server/authority'],['runtime','server/runtime']]){
-  const source=readFileSync(v2?(['client','protocol'].includes(name)?`tests/fixtures/mp006-v2/${name}.ts`:`${path}.ts`):`tests/fixtures/mp005b-legacy/${name}.ts`,'utf8');
+  const source=readFileSync(v2?(['client','protocol','authority'].includes(name)?`tests/fixtures/mp006-v2/${name}.ts`:`${path}.ts`):`tests/fixtures/mp005b-legacy/${name}.ts`,'utf8');
   writeFileSync(`${dir}/${path}.js`,ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText);
  }
  if(v2)writeFileSync(dir+'/src/multiplayer/snapshotCodec.js',ts.transpileModule(readFileSync('tests/fixtures/mp006-v2/snapshotCodec.ts','utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText);
@@ -168,4 +168,14 @@ test('MP006 v3 sequence gap triggers one full recovery with no stale partial app
  await h.deploy(0);assert.equal(h.a.session.matchRevision,0);await h.deploy(1);
  await wait(()=>h.a.session.matchRevision===2&&!h.a.session.syncing);
  assert.equal(h.a.client.snapshotFormat,full);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);assert.equal(h.a.session.playerView.units.length,0);
+});
+
+for(const persistent of [false,true])test(`UX31 malformed optional summary ${persistent?'terminates after one recovery':'recovers atomically'} on real client WebSocket`,async t=>{
+ const h=await pair(t);let corrupted=false;
+ h.b.socket.mutate=m=>{if(m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.matchRevision===1&&(!corrupted||persistent)){corrupted=true;const bad=structuredClone(m);bad.payload.model.battleSummaries.matchId='wrong-match';return bad;}};
+ const row=h.b.session.model.deployment.roster[0],[q,r]=h.b.session.model.deployment.zoneKeys[0].split(',').map(Number);
+ h.b.session.submit({type:'DEPLOY_INITIAL_UNIT',deploymentUnitId:row.id,hex:{q,r}});
+ if(persistent){await wait(()=>h.b.client.state.error==='invalidServer');assert.equal(h.b.session.matchRevision,0);assert.equal(h.b.session.playerView.units.length,0);}
+ else {await wait(()=>h.b.session.matchRevision===1&&h.b.session.interactive);assert.equal(h.b.session.model.battleSummaries.matchId,h.match.matchId);}
+ assert(corrupted);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);
 });

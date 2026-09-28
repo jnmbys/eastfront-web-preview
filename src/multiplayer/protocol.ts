@@ -21,7 +21,7 @@ export type ErrorCode = 'BAD_MESSAGE'|'VERSION_MISMATCH'|'UNSUPPORTED_MESSAGE'|'
   'ALREADY_IDENTIFIED'|'INVALID_TOKEN'|'SESSION_CONNECTED'|'ALREADY_IN_ROOM'|'ROOM_NOT_FOUND'|
   'ROOM_FULL'|'NOT_IN_ROOM'|'ROOM_PHASE'|'SEAT_TAKEN'|'NO_SEAT'|'CAPACITY'|'RATE_LIMIT'|'MATCH_FAILED';
 export interface ClientPayloads {
-  SET_SNAPSHOT_FORMAT:{format:SnapshotFormat};
+  SET_SNAPSHOT_FORMAT:{format:SnapshotFormat;battleSummary?:1};
   SUBMIT_ACTION:{matchId:string;expectedRevision:number;action:NetworkAction};
   QUERY_MATCH:{matchId:string;expectedRevision:number;draft:QueryDraft};RESYNC_MATCH:{matchId:string};
   HELLO:{displayName:string};RECONNECT:{reconnectToken:string};CREATE_ROOM:Record<string,never>;
@@ -32,7 +32,7 @@ export interface MatchInfo {matchId:string;scenarioId:string;createdAt:number;se
 export type AuthorizedPlayerView = Omit<PlayerViewState,'viewer'|'authoritativeState'> & {viewer:PlayerSide};
 export interface ServerPayloads {
   SNAPSHOT_FORMAT_SELECTED:{format:SnapshotFormat};
-  WELCOME:{connectionId:string;controllerId:string;reconnectToken:string;reconnected:boolean};
+  WELCOME:{connectionId:string;controllerId:string;reconnectToken:string;reconnected:boolean;battleSummary?:1};
   ROOM_CREATED:{room:RoomState};ROOM_STATE:{room:RoomState|null};ROOM_ERROR:{code:ErrorCode};
   MATCH_STARTING:{roomId:string};MATCH_CREATED:MatchInfo;
   PLAYER_VIEW_SNAPSHOT:MatchSnapshot;
@@ -63,7 +63,7 @@ export function parseClientMessage(text:string):ParseResult {
   if(!object(v.payload))return fail('BAD_MESSAGE');
   const p=v.payload;let valid=false;
   switch(v.messageType){
-    case 'SET_SNAPSHOT_FORMAT':valid=shape(p,{format:isSnapshotFormat});break;
+    case 'SET_SNAPSHOT_FORMAT':valid=shape(p,{format:isSnapshotFormat},{battleSummary:v=>v===1});break;
     case 'SUBMIT_ACTION':valid=shape(p,{matchId:id,expectedRevision:revision,action:isNetworkAction});break;
     case 'QUERY_MATCH':valid=shape(p,{matchId:id,expectedRevision:revision,draft:isQueryDraft});break;
     case 'RESYNC_MATCH':valid=shape(p,{matchId:id});break;

@@ -12,6 +12,7 @@ export interface ControllerAssignment {controllerId:string;coreControllerId:stri
 export interface MatchSession {
   matchId:string;scenarioId:string;createdAt:number;authoritative:LocalGameSession;
   matchRevision:number;actionSequence:number;status:MatchStatus;
+  battleSummaries:Record<string,{entries:Map<string,import('../src/multiplayer/battleSummary.js').BattleSummary>;olderOmitted:boolean}>;
   serverSequences:Record<string,number>;disclosedBattles:Record<string,Set<string>>;
   receipts:Record<string,Map<string,{fingerprint:string;acceptedRevision:number|null;actionSequence:number;code?:ActionError}>>;
   controllerAssignments:ControllerAssignment[];viewerAssignments:Record<string,PlayerSide>;
@@ -25,6 +26,7 @@ export function createMatchSession(room:RoomState,now:number):MatchSession {
     return {seat,controllerId:owner.controllerId,coreControllerId:controllerIdForSide(authoritative,viewer),viewer};
   });
   return {matchRevision:0,actionSequence:0,status:'ACTIVE',serverSequences:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,0])),
+    battleSummaries:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,{entries:new Map(),olderOmitted:false}])),
     disclosedBattles:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,new Set<string>()])),
     receipts:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,new Map()])),matchId:randomUUID(),scenarioId:authoritative.scenario.id,createdAt:now,authoritative,controllerAssignments,
     viewerAssignments:Object.fromEntries(controllerAssignments.map(a=>[a.controllerId,a.viewer]))};

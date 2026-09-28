@@ -1,3 +1,4 @@
+import {recordBattleSummaries} from './battleSummary.js';
 import {deriveBrowserRenderModel,type BrowserRenderModel} from '../src/core-adapter/browserProjection.js';
 import {dispatchGameAction} from '../src/core-adapter/session.js';
 import {derivePresentationEvents,type PresentationEvent} from '../src/presentation/events.js';
@@ -108,5 +109,6 @@ export function applyIntent(match:MatchSession,controllerId:string,action:Networ
     if(after.pendingDecision)match.disclosedBattles[a.controllerId]!.add(after.pendingDecision.battleId);
     out.set(a.controllerId,safe);
   }
+  recordBattleSummaries(match,result);
   return out;
 }
