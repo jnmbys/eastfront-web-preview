@@ -43,4 +43,4 @@ Original seed17:31 distinct combat phases, only5 with identified enemies and adj
 
 npm ci; node ai/build.mjs; run the targeted test command above. node ai/tests/rejection-diagnostic.mjs after 17 (and18,19). For before evidence, run the same test-only diagnostic script with the original ea71d31 source in a separate checkout. node ai/local/build.mjs; node ai/local/audit.mjs. No publication occurs in these scripts.
 
-Next: publish the isolated preview after gates, verify real campaign autonomous movement/attack/followup in browser plus explicit takeover and exit/new game. Keep browser acceptance separate from offline campaign evidence. Current source checkpoint alone is not browser or device acceptance.
+Completed next gate: isolated preview3531d33 published; real full-campaign browser segment throughT2 includes4 autonomous attacks, observed movement2,6→3,6, human retreats and AI followups; stop/takeover and exit/new game passed. Details and limitations in PREVIEW.md. Next: Huawei acceptance and separate design of routing/strategy improvements; no advanced strategy expansion in this task.
