@@ -1,0 +1,115 @@
+{
+  "baseline": "db183c7733ae59d2f5a3bcb8f3f384357b7d59e6",
+  "branch": "ai-002-forced-flow",
+  "ai": {
+    "passed": 29,
+    "failed": 0
+  },
+  "core": {
+    "passed": 97,
+    "failed": 0
+  },
+  "relatedWeb": {
+    "passed": 72,
+    "failed": 0
+  },
+  "typecheckBuild": [
+    "ai",
+    "core",
+    "web",
+    "server"
+  ],
+  "rebuiltArtifactsEqual": "76/76",
+  "fullWebRerun": false,
+  "coreSmokesRerun": false,
+  "merged": false,
+  "deployed": false,
+  "scenarios": {
+    "production-seed17": {
+      "initialSeed": 17,
+      "agentSeeds": {
+        "GERMAN": 101,
+        "SOVIET": 202
+      },
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "accepted": 221,
+      "rejected": 0,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "finalHash": "29323508055bb5b9aac0ff517d7b767c71e9ccc9e39c2918feba47101da7f660",
+      "traceHash": "13ef623c7a151e987b86c8025b0aa6e237f200ed2ab9e2ad700b29d93bb08b05"
+    },
+    "combat-chain-seed8246": {
+      "initialSeed": 8246,
+      "agentSeeds": {
+        "GERMAN": 101,
+        "SOVIET": 202
+      },
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "accepted": 159,
+      "rejected": 12,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "finalHash": "449f933d9c0915a24d90976ec2b17964b01210bfedf621e598919a94888286f9",
+      "traceHash": "60021db994825bef30ef499825783c9dc8115c6be5643d89b44b0237017f6d65"
+    },
+    "combat-multi-loss": {
+      "initialSeed": 8246,
+      "agentSeeds": {
+        "GERMAN": 101,
+        "SOVIET": 202
+      },
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "accepted": 159,
+      "rejected": 12,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "finalHash": "b90f7c5afd35c903906ad9cb1ded0a1a2deefb6f450c7c4f6dbef0f0ad17e49c",
+      "traceHash": "28d531458080cf966f9f05af5c10864bebaf10aca3883dcb9d637078d37fa8e0"
+    },
+    "combat-no-route": {
+      "initialSeed": 8246,
+      "agentSeeds": {
+        "GERMAN": 101,
+        "SOVIET": 202
+      },
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "accepted": 158,
+      "rejected": 12,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "finalHash": "808a4d7bdb173769a7ddd7a450867a5c174c229bc5159ced11bf1a57d3934ce0",
+      "traceHash": "f873de8e5ae851f5850ef7b201017839f8bcf4e57a71d5bbe2f931100fc7ec69"
+    },
+    "combat-second-attack": {
+      "initialSeed": 8253,
+      "agentSeeds": {
+        "GERMAN": 101,
+        "SOVIET": 202
+      },
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "accepted": 162,
+      "rejected": 12,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "finalHash": "bc6628a801db268c888ee3cc985d2ad50f7f9aa929586fabf720464118ec6c2e",
+      "traceHash": "b33547a90396b172030bcc53d702885652eda02af5faf89908b37c3a2f095a89"
+    }
+  },
+  "remainingLimit": "bounded candidate search can stop; one controller per side; no Human-vs-AI UI"
+}

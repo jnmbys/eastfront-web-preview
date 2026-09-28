@@ -1,3 +1,4 @@
+import {deriveSovietReinforcementSlots} from '../../vendor/eastfront-digital-core/dist/rules/reinforcement.js';
 import {createHash} from 'node:crypto';
 import {RulesEngine,deploymentHexKeysForSide,isDeploymentPhase,validateGameStateIntegrity,type GameState,type Side} from '../../src/core-adapter/core.js';
 import type {GameRules,ScenarioConfig} from '../../vendor/eastfront-digital-core/dist/core/config.js';
@@ -47,8 +48,15 @@ export class FairHost {
       // Core helper audited: reads only public map geometry/terrain and zone configuration.
       zone:deploymentHexKeysForSide(this.#state,this.#scenario,seat.side).filter(k=>!!this.#state.hexes[k]).map(k=>({q:this.#state.hexes[k]!.coord.q,r:this.#state.hexes[k]!.coord.r})),
     }:null;
-    const observationKey=createHash('sha256').update(stable({view,rules,deployment})).digest('hex');
-    return freeze(structuredClone({schema:'fair-player-view-v1' as const,observationKey,scope:{matchId:this.#matchId,controllerId,side:seat.side},view,rules,deployment,
+    // Public schedule plus this seat's accepted deployment receipts only. Never query entry legality.
+    // Persistent own receipts survive bounded feedback eviction and unit destruction.
+    const consumed=new Set(this.#state.actionLog.filter(e=>e.accepted&&e.action.controllerId===controllerId&&e.action.type==='DEPLOY_REINFORCEMENT').map(e=>e.action.type==='DEPLOY_REINFORCEMENT'?e.action.reinforcementId:''));
+    const reinforcements=seat.side==='SOVIET'?{
+      availableIds:deriveSovietReinforcementSlots(this.#scenario).filter(s=>s.scheduledTurn<=view.turn&&!consumed.has(s.id)).map(s=>s.id),
+      entries:this.#scenario.sovietEastRailExits.map(h=>({q:h.q,r:h.r})),
+    }:null;
+    const observationKey=createHash('sha256').update(stable({view,rules,deployment,reinforcements})).digest('hex');
+    return freeze(structuredClone({schema:'fair-player-view-v1' as const,observationKey,scope:{matchId:this.#matchId,controllerId,side:seat.side},view,rules,deployment,reinforcements,
       history:memory.history,agentRandom:{seed:memory.seed,decisionIndex:memory.decisions}}));
   }
   step(agents:Record<Side,FairAgent>):HostStep {

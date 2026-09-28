@@ -7,11 +7,10 @@ export function agentOrder(seed:number,index:number):number {
 }
 const key=(intent:DeepReadonly<FairIntent>|null)=>JSON.stringify(intent);
 /** Deliberately passive verification policy. Deploy, pass phases/reactions/options, allocate own loss.
- * No strategic movement, attack, rail/recovery/reinforcement plan; retreat stops explicitly. */
+ * Handles reinforcement and retreat proposals; no strategic movement or attack planning. */
 export const minimalAgent:FairAgent=input=>{
-  if(input.view.pendingDecision?.kind==='RETREAT')return {kind:'STOP',reason:'UNSUPPORTED_RETREAT'};
   let candidates=observationCandidates(input);
-  if(!input.deployment&&!input.view.pendingDecision)candidates=candidates.filter(a=>a.type==='READY_FOR_PHASE_END');
+  if(!input.deployment&&!input.view.pendingDecision&&input.view.phase!=='SOVIET_REINFORCEMENT_SUPPLY')candidates=candidates.filter(a=>a.type==='READY_FOR_PHASE_END');
   const rejected=new Set(input.history.filter(a=>a.outcome==='REJECTED'&&a.observationKey===input.observationKey).map(a=>key(a.intent)));
   const remaining=candidates.filter(a=>!rejected.has(key(a)));
   if(!remaining.length)return {kind:'STOP',reason:'NO_CANDIDATE'};

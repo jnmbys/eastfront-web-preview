@@ -39,5 +39,5 @@ export function fairView(view:PlayerViewState,side:Side):FairView {
 }
 export function publicRules(rules:GameRules,scenario:ScenarioConfig):PublicRules {
   return {rulesId:rules.id,scenarioId:scenario.id,turnLimit:scenario.turnLimit,stackingLimit:rules.stackingLimit,
-    templates:Object.fromEntries(Object.entries(rules.unitTemplates).sort(([a],[b])=>a.localeCompare(b)).map(([key,t])=>[key,{id:t.id,side:t.side,maxDamageSteps:t.maxDamageSteps}]))};
+    templates:Object.fromEntries(Object.entries(rules.unitTemplates).sort(([a],[b])=>a.localeCompare(b)).map(([key,t])=>[key,{id:t.id,side:t.side,maxDamageSteps:t.maxDamageSteps,type:t.type,exertsZoc:t.exertsZoc}]))};
 }
