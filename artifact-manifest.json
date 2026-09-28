@@ -2,9 +2,8 @@
   "task": "ART-PREVIEW-002",
   "candidate": "ART-PREVIEW-002 incremental from 1f124566",
   "releaseParent": "bfacbb942274de37e9e6ea282931e7420499db2b",
-  "scope": "all deployed runtime files, excluding task-source/evidence and manifest itself",
+  "scope": "all served runtime files; _headers is platform config verified in Git, not an HTTP resource; task-source/evidence excluded",
   "files": {
-    "_headers": "518240771936aaaa39b1e5c6b0a4e010808b4b06c21cbda9e425f377f26f2ef9",
     "baseline/app/assets/VS2_ASSET_MANIFEST.json": "e71563c055de997d05a191c027e745533d4e9b360eedc1654ce57545e0765d97",
     "baseline/app/assets/p4r3-manifest.json": "cdc95ab0f05e45f7120ade80aa197de8acd9e24146403abb41ffbbcde040f06b",
     "baseline/app/core-adapter/browserProjection.js": "39bd65ed18673b5c00a3bf9d5cc5b967e36b10dfd5d2b802e6a84d7198a5d292",
@@ -684,7 +683,7 @@
     "candidate/preview/guard.js": "e47c181f362e27aa1e31601fa90cec3b6c0b61a39e9d2229114a013f42fb66d6",
     "candidate/preview/measure.js": "217363b72411822f7e04c8302bd418b4f9f0d1897b88a38e6632122b89725e39",
     "candidate/preview/scene.mjs": "260e8a6717fea525aea4a8e60d84539588496eb0051c2646506c4197e91a745e",
-    "candidate/styles.css": "876fdab76be93c2c8e089f472023ae58a41753a89ab419bfb8651bd702c05a9c",
+    "candidate/styles.css": "e8b1361071089f7de330fade02c31fb09e1be97997fa3c1cdc5d29a8c10b1257",
     "candidate/vendor/eastfront-digital-core/BASELINE_SHA256.txt": "7903b754d100d92b4813bdef7dd066603f1ca3e059ae56208fe9251d40ad99f6",
     "candidate/vendor/eastfront-digital-core/dist/core/collections.d.ts": "ae38ae342e76f2d50d33d4836068e1d00da8dc731720c262957a250220ce9fc2",
     "candidate/vendor/eastfront-digital-core/dist/core/collections.js": "55aed228e2daec8efbc326614f2e97dfdffcff02329babc296bfa2b15d675f56",
@@ -766,5 +765,8 @@
     "index.html": "13918d699741cb26ba61ecaf4b02911626363861f6b9885e9a18cb9ee7c0262a",
     "integrity.html": "026eeb8306c98ec153702d045ee7c16b0b4a97837771c0bf6b2bc259699ddfad",
     "viewport.html": "996f865df1ba6a1ea902af658c16855230bd400126fe873e3c130e3a8b5c7b97"
+  },
+  "platformConfig": {
+    "_headers": "518240771936aaaa39b1e5c6b0a4e010808b4b06c21cbda9e425f377f26f2ef9"
   }
 }
