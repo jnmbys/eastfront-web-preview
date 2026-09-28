@@ -18,3 +18,5 @@ Production audit CLEAN, static HTTP PASS, combat smoke PASS with zero integrity 
 Rollback with a new main child restoring publication tree ad440401d0b0f46dbb89ece9bcf33cdf0fd4f604, or revert this task's publication on current main after reviewing later updates. No force push.
 
 Final affected frozen tests 103/103 PASS; final combat tests 42/42 PASS. Typecheck/build and static/audit gates rechecked after final presentation changes.
+
+Online multi-attacker battle resolved 2+2=4 / AR, followed by both attacker retreats and static history reopening. Follow-up direction copy corrected (85 related tests PASS). A new regression reproduced a delayed reveal when local hotseat changes decision owner: playback eligibility is now session-wide by battle ID; actual result cache remains strictly per-viewer. Final combat/localization/MOVE001R1 regression 61/61 PASS, including nine UX3 tests.

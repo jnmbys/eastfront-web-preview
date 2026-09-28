@@ -45,3 +45,8 @@ test('UX3 implementation stays within authorized DTOs, light CSS and local histo
  const css=readFileSync('styles.css','utf8');assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);assert.match(css,/result-reveal \.48s/);
  const main=readFileSync('src/main.ts','utf8');assert.match(main,/button.matches\('#result-close, \[data-result-history\]'\)/);
 });
+
+test('UX3 hotseat decision-owner handoff reveals once on the first authorized result, not later on returning to attacker',()=>{
+ const {m}=resolved(),key={},r=new CombatResults(key);r.html({...m,combat:null});publishAuthorizedEvents(key,[resultEvent(m.combat.battle.battleId)]);
+ const defender={...m,viewerControllerId:S};assert.match(r.html(defender),/dice-reveal/);assert.doesNotMatch(r.html(m),/dice-reveal/);
+});
