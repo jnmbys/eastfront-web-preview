@@ -737,6 +737,19 @@ function bindDeploymentControls() {
 function bindDynamic(model) {
     document.querySelectorAll('[data-view-side]').forEach(element => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
+    // Result inspection is local UI and remains available to non-decision viewers.
+    document.querySelector('#result-close')?.addEventListener('click', () => { if (session) {
+        combatResults(session).close();
+        refreshDynamicView();
+    } });
+    document.querySelectorAll('[data-result-history]').forEach(el => el.addEventListener('click', () => {
+        if (!session || !el.dataset.resultHistory)
+            return;
+        const id = el.dataset.resultHistory, cached = combatResults(session).open(id);
+        if (!cached && !sessionPlayerView(session).pendingDecision && (!isNetwork(session) || session.interactive))
+            presentation.selectedBattleId = id;
+        refreshDynamicView();
+    }));
     if (session && ((model ?? deriveBrowserRenderModel(session, presentation)).readOnly || isNetwork(session) && !session.canSelect))
         return;
     if (session && isSessionDeployment(session)) {
@@ -782,18 +795,6 @@ function bindDynamic(model) {
         return; element.addEventListener('click', () => { selectReinforcement(presentation, id); render(); }); });
     document.querySelectorAll('[data-role="reinforcement-entry"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { deploySelectedReinforcement(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
-    document.querySelector('#result-close')?.addEventListener('click', () => { if (session) {
-        combatResults(session).close();
-        refreshDynamicView();
-    } });
-    document.querySelectorAll('[data-result-history]').forEach(el => el.addEventListener('click', () => {
-        if (!session || !el.dataset.resultHistory)
-            return;
-        const id = el.dataset.resultHistory, cached = combatResults(session).open(id);
-        if (!cached && !sessionPlayerView(session).pendingDecision && (!isNetwork(session) || session.interactive))
-            presentation.selectedBattleId = id;
-        refreshDynamicView();
-    }));
     document.querySelector('#attack-toggle-selected')?.addEventListener('click', () => { if (presentation.selectedUnitId)
         toggleAttackUnit(session, presentation, presentation.selectedUnitId); refreshDynamicView(); });
     document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); refreshDynamicView(); });
