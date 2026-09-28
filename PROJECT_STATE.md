@@ -1,6 +1,6 @@
 # EASTFRONT PROJECT STATE
 
-- Last Update: 2026-09-28 22:34 (Asia/Shanghai)
+- Last Update: 2026-09-28 22:35 (Asia/Shanghai)
 - Current Branch: `collaboration-setup-001` (documentation only; designated shared management branch)
 - Current Commit: source baseline `5fe12513bca95c5b43c2ddc125021a117c5bcce4`; documentation checkpoint is the commit containing this file (`git log -1 --format=%H -- PROJECT_STATE.md`). A commit cannot embed its own final SHA.
 - Current Build: baseline package `0.0.10`; no build performed for this documentation-only task. Production frontend and experimental candidates are separate versions below.
@@ -18,7 +18,7 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 | Core tested candidate | `core-baseline-002`: `db183c7733ae59d2f5a3bcb8f3f384357b7d59e6` | Isolated, not production |
 | AI candidate | `ai-003-local-human`: `99ee7fd8cff6aeda68ec058f179c7f34aaedf83b` | Worker-reported cloud browser acceptance passed; Huawei pending |
 | Art preview publication branch | `art-preview-001`: `040b4988b9d47efa761f3bb93039ea8940723871` (handoff), `8778cb4f307c3d01f471ac2b326f8beef4c5f500` (deployment) | Git evidence read; two iframe sizes passed per Worker; source rebuild/device/performance pending |
-| Supply experiment | SUPPLY-EXP-005 checkpoint v1 | Report reviewed; Git SHA not supplied, not yet Git-only handoff |
+| Supply experiment | SUPPLY-EXP-006 `7b9576f9bf847881dd55393ce194192700aedbc9` | Git handoff read; experimental subtree archive succeeded here |
 
 ## Completed
 
@@ -41,8 +41,8 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 | AI-PREVIEW-001 | Isolated AI preview and real browser Worker/flow acceptance | 编程worker | Cloud acceptance reported; release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70, deployment a736b1db; Huawei/performance pending |
 | AI-004 | Basic autonomous movement and attack using fair views | 编程worker | Git handoff ea71d31dd7277565b1684453bc1a4baf126912d6 reviewed; isolated complete, not deployed |
 | ART-BUILD-003 | Reproducible source build and generated preview | 美术优化worker | Complete; c3d6e890892fc58960251c9215e066e46eef7436. Candidate frozen pending supported controlled performance/device checks |
-| SUPPLY-EXP-005 | Make new supply affect legal movement/combat in isolated short scenarios | 规则优化worker | Report reviewed: minimal runtime loop complete, isolated/local only; no Git SHA delivered |
-| SUPPLY-EXP-006 | Git handoff plus player-controlled combat follow-up in supply sandbox | 规则优化worker | Next task proposed; no execution claimed |
+| SUPPLY-EXP-005 | Make new supply affect legal movement/combat in isolated short scenarios | 规则优化worker | Complete, remote checkpoint 0e3ea184a7394d8a9984e6e7e73fc74ccfb0456a |
+| SUPPLY-EXP-006 | Git handoff plus player-controlled combat follow-up in supply sandbox | 规则优化worker | Complete at 7b9576f9bf847881dd55393ce194192700aedbc9; awaiting limited human playtest |
 | COLLAB-SETUP-001 | Establish these three management documents | Leader | Documentation checkpoint; authorized remote publication with Pages skip flag |
 
 ## Supply EXP005 Evidence Intake
@@ -98,3 +98,9 @@ Leader read the supplied AI-PREVIEW-001-REVIEW.md (2026-09-28); no independent b
 2. Workers read PROJECT_STATE.md and WORKER_PROTOCOL.md from collaboration-setup-001, then continue on their own runtime branches; do not merge management-branch runtime code.
 3. Workers continue their already assigned tasks above; report branch, immutable commit, evidence paths and concise delta. Leader consolidates state without merging runtime code.
 4. Migrate the supply checkpoint into an isolated Git branch when authorized; until its source/evidence are fetchable, explicitly keep the legacy handoff gap.
+
+## SUPPLY-EXP-006 Git Intake — current override of historical EXP005 limits
+
+Leader fetched both branches and read HANDOFF006.md, REPORT006.md, CONTRACT006.md and README.md. EXP005 checkpoint0e3ea184a7394d8a9984e6e7e73fc74ccfb0456a; EXP0067b9576f9bf847881dd55393ce194192700aedbc9. Scope experiments/supply-exp-005. Leader independently archived the entire experimental subtree successfully; Worker full checkout limitation does not establish missing experimental files, and no full frontend rebuild was rerun here. Worker reports 6+2 tests, subtree rebuild and local Chromium form operations passed. Player now controls loss allocation, ordered retreat, advance, breakthrough, Schwerpunkt and optional defense reaction; mandatory/unique steps remain enforced. Attack fee/coefficient locks at declaration; illegal later choice rolls back only its own transaction. Retreat/advance/breakthrough cost0 SP, Schwerpunkt charges a fresh attack (experimental defaults); full-round-end supply unchanged. Core source and solver unchanged from EXP005. Local hotseat view switching is not online seat authentication. Formal victory, full campaign, human experience and balance remain unverified.
+
+Git-only supply handoff gap CLOSED. Freeze EXP006 for small human short-scenario evaluation; no more mechanism or numeric changes until feedback. Local Python+Node service required, no publicly hosted supply URL. Next human questions: conserve reserves vs advance; retreat/advance choice clarity; reason and timing of recovery. Higher-capacity recovery fixture remains explicitly experimental.

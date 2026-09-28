@@ -83,3 +83,11 @@ Change: Close source build blocker; freeze art candidate pending independent per
 Reason: Fresh source build and scoped acceptance now documented; available browser cannot control cold cache.
 Commit: Handoff c3d6e890892fc58960251c9215e066e46eef7436; deployed6fac36a0c5e0e77ee15c3a02ecb2bebd4dcabb04.
 Validation: Leader fetched Git and read BUILD/ACCEPTANCE; 380-file repeat build, 11 tests and 761 online hashes are Worker evidence, not rerun by Leader.
+
+## 2026-09-28 — SUPPLY-EXP-006 Git intake
+Date: 2026-09-28 22:35 (Asia/Shanghai)
+Task ID: COLLAB-STATE-007
+Change: Close supply Git handoff gap and automatic-choice limitation; freeze candidate for small human evaluation.
+Reason: Player combat choices and reproducible experimental subtree now delivered.
+Commit: 7b9576f9bf847881dd55393ce194192700aedbc9; EXP0050e3ea184a7394d8a9984e6e7e73fc74ccfb0456a.
+Validation: Leader read four Git documents and successfully archived experimental subtree; 6+2 tests/Chromium/rebuild are Worker-reported. No production change.
