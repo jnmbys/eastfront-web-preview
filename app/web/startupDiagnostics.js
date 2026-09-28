@@ -1,6 +1,6 @@
 import { t } from '../localization/index.js';
 // Replaced at build time. No extra network request is needed on a failing device.
-export const STARTUP_BUILD = '99ee7fd8cff6aeda68ec058f179c7f34aaedf83b';
+export const STARTUP_BUILD = 'de683bb21b58d2788031ba2c095c514c803df149';
 let active = 0, peak = 0, completed = 0, failed = 0;
 const recent = [];
 export function beginTerrainDiagnostic() { active++; peak = Math.max(peak, active); }
