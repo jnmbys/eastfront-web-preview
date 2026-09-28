@@ -8,7 +8,7 @@ export const enUS = {
   "result.requirements": "CRT requirement: attacker loses {a} steps / retreats {ar} hexes; defender loses {d} steps / retreats {dr} hexes.",
   "result.converted": "Resolution records retreat converted to losses.",
   "result.closed": "Follow-up decisions for this battle are complete.",
-  "result.pending": "Pending: {kind}. Use the controls above or the map.",
+  "result.pending": "Pending: {kind}. Use the follow-up controls or the map.",
   "result.lastStage": "Last authorized stage: {stage}.",
   "result.consequenceGap": "These are CRT requirements. Authorized data does not include actual per-unit loss / retreat records; completion is not implied.",
   "result.unavailable": "Details are not currently authorized or have not arrived. No dice are rolled again.",
