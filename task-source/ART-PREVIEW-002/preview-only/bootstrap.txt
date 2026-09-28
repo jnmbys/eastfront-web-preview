@@ -1,0 +1,14 @@
+
+// ART-PREVIEW-001: appended ONLY to isolated preview output, never src/main.ts.
+import {createScene as createArtPreviewScene} from '../preview/scene.mjs';
+async function enterArtPreview(){
+ const choice=new URLSearchParams(location.search);const kind=choice.get('scene')==='combat'?'combat':'movement';
+ await boot();if(!productionMap||!cachedTerrainSurface)throw Error('Original startup did not complete');
+ const fixture=createArtPreviewScene(productionMap,kind);session=fixture.session;
+ presentation=createPresentationState(false,false);presentation.rendererMode='production';presentation.productionAssetSet='p5';
+ if(fixture.battleId)presentation.selectedBattleId=fixture.battleId;
+ mapViewport={zoom:1.8,panX:94,panY:-61};unitAnimations.setModelDisplay(choice.get('models')==='off'?'off':'auto');
+ terrainPipeline?.resume();/* Vector candidate does not request unused detail surfaces. */appStatus='PLAYING';fatalMessage='';render();
+ document.documentElement.dataset.previewScene=kind;document.documentElement.dataset.previewReady='true';
+}
+enterArtPreview().catch(error=>{document.documentElement.dataset.previewReady='failed';const status=document.createElement('pre');status.textContent='PREVIEW FAILED: '+String(error);document.body.append(status);console.error(error);});

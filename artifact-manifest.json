@@ -1,7 +1,8 @@
 {
-  "task": "ART-PREVIEW-001",
-  "candidate": "1f124566ef669fc50af93be7aaa34c7135b346d9",
-  "baseCandidate": "fa70603f053409ac6074258c4aa7a649b1aa7b30",
+  "task": "ART-PREVIEW-002",
+  "candidate": "ART-PREVIEW-002 incremental from 1f124566",
+  "releaseParent": "bfacbb942274de37e9e6ea282931e7420499db2b",
+  "scope": "all deployed runtime files, excluding task-source/evidence and manifest itself",
   "files": {
     "_headers": "518240771936aaaa39b1e5c6b0a4e010808b4b06c21cbda9e425f377f26f2ef9",
     "baseline/app/assets/VS2_ASSET_MANIFEST.json": "e71563c055de997d05a191c027e745533d4e9b360eedc1654ce57545e0765d97",
@@ -301,7 +302,7 @@
     "baseline/multiplayer-config.json": "84a9eb4506d55b24151e0c935715445e06d42b839821df7312e81d36871afc40",
     "baseline/multiplayer.css": "a4ebcaf7b49848f6099ea04554c0874362e0043055a2b669afcfd3f2d0cd9ef1",
     "baseline/preview/guard.js": "e47c181f362e27aa1e31601fa90cec3b6c0b61a39e9d2229114a013f42fb66d6",
-    "baseline/preview/measure.js": "53727f0ca90c440b1008d5da5f4ebcef024ed4643036ef8cb609f00f2b26465e",
+    "baseline/preview/measure.js": "217363b72411822f7e04c8302bd418b4f9f0d1897b88a38e6632122b89725e39",
     "baseline/preview/scene.mjs": "260e8a6717fea525aea4a8e60d84539588496eb0051c2646506c4197e91a745e",
     "baseline/styles.css": "14cf1f48999b164e5a4e8c283e7738fe0e1cdceec58107601b0fe04c67453cbe",
     "baseline/vendor/eastfront-digital-core/BASELINE_SHA256.txt": "7903b754d100d92b4813bdef7dd066603f1ca3e059ae56208fe9251d40ad99f6",
@@ -399,7 +400,7 @@
     "candidate/app/localization/issues.js": "ca89208249e1b0671d5dc413efa8d3b8b79993a7f28429386b58d47d457a62e9",
     "candidate/app/localization/languageControl.js": "7eba1f9f9e680a060a3d4b3667a82c0efdf2fb65c0dbc1c4ad285a9ba2879e2c",
     "candidate/app/localization/zh-CN.js": "a4a92b77a5db56c79146590664858a38c39e919fe1663c613e94ce0ffc2ba69f",
-    "candidate/app/main.js": "3c5722275c1bc236291335d3aafe8486fb5429794edabee4ed7b26054741478f",
+    "candidate/app/main.js": "03e361654712243222491c91ccf416aad62a6f5c79370a4e62d46de2d2cf7fe0",
     "candidate/app/model/prototypeData.js": "ace9bb9280a8042a2fd8428dd34ec1aebcac0caa4f5178d3dc637f9e5d422de7",
     "candidate/app/multiplayer/battleSummary.js": "f6a5fe16abde6f2307d326dae2a9ce29d3c9ee9a0af2fd5b1fa27bb97dad3a59",
     "candidate/app/multiplayer/catalog.js": "9afac7073dd6858d7dceadd3911e180d758aebac603c4d327b3dd0b0991f0517",
@@ -681,9 +682,9 @@
     "candidate/multiplayer-config.json": "84a9eb4506d55b24151e0c935715445e06d42b839821df7312e81d36871afc40",
     "candidate/multiplayer.css": "a4ebcaf7b49848f6099ea04554c0874362e0043055a2b669afcfd3f2d0cd9ef1",
     "candidate/preview/guard.js": "e47c181f362e27aa1e31601fa90cec3b6c0b61a39e9d2229114a013f42fb66d6",
-    "candidate/preview/measure.js": "53727f0ca90c440b1008d5da5f4ebcef024ed4643036ef8cb609f00f2b26465e",
+    "candidate/preview/measure.js": "217363b72411822f7e04c8302bd418b4f9f0d1897b88a38e6632122b89725e39",
     "candidate/preview/scene.mjs": "260e8a6717fea525aea4a8e60d84539588496eb0051c2646506c4197e91a745e",
-    "candidate/styles.css": "e67d8cac60922563ad4b6227145a0e6934e94d5575c37589d9bb0e950a567d5e",
+    "candidate/styles.css": "876fdab76be93c2c8e089f472023ae58a41753a89ab419bfb8651bd702c05a9c",
     "candidate/vendor/eastfront-digital-core/BASELINE_SHA256.txt": "7903b754d100d92b4813bdef7dd066603f1ca3e059ae56208fe9251d40ad99f6",
     "candidate/vendor/eastfront-digital-core/dist/core/collections.d.ts": "ae38ae342e76f2d50d33d4836068e1d00da8dc731720c262957a250220ce9fc2",
     "candidate/vendor/eastfront-digital-core/dist/core/collections.js": "55aed228e2daec8efbc326614f2e97dfdffcff02329babc296bfa2b15d675f56",
@@ -762,6 +763,8 @@
     "candidate/vendor/eastfront-digital-core/dist/scenario/importLegacyFMap.d.ts": "dc5b1cc3f08b751a6eb82ae1089e5bd4891ce14b2540fa2c6d726647fd364602",
     "candidate/vendor/eastfront-digital-core/dist/scenario/importLegacyFMap.js": "81a5e248f4f9231e6a5b8cbd11731bd86f9f81a54c6106519a7b354ba9bb7068",
     "candidate/vendor/eastfront-digital-core/reference/strategic-reset-f-map.json": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
-    "index.html": "7bd596873d17c31553b403956edc499bbb94e84e826746b0141a34aa8683da45"
+    "index.html": "13918d699741cb26ba61ecaf4b02911626363861f6b9885e9a18cb9ee7c0262a",
+    "integrity.html": "026eeb8306c98ec153702d045ee7c16b0b4a97837771c0bf6b2bc259699ddfad",
+    "viewport.html": "996f865df1ba6a1ea902af658c16855230bd400126fe873e3c130e3a8b5c7b97"
   }
 }

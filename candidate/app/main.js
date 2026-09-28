@@ -220,7 +220,7 @@ function privacyGate() { const gate = presentation.privacyGate; if (!gate)
     return privacyHandoffMarkup(gate, side);
 } return privacyHandoffMarkup(gate); }
 function gameOver(model) { return gameOverMarkup(model.victory.winner, model.victory.reason, model.turn); }
-function startNewGame() { terrainPipeline?.resume(); terrainPipeline?.continueAll(); deploymentTouch = createDeploymentTouch(); if (!productionMap || !cachedTerrainSurface) {
+function startNewGame() { terrainPipeline?.resume(); /* ART-PREVIEW-002: no unmounted detail prebuild for vector-only candidate. */ deploymentTouch = createDeploymentTouch(); if (!productionMap || !cachedTerrainSurface) {
     appStatus = 'FATAL';
     fatalMessage = msg('game.noMap');
     render();
@@ -920,7 +920,7 @@ async function enterNetworkMatch(client) {
     appStatus = 'PLAYING';
     presentation.privacyGate = null;
     render();
-    terrainPipeline?.continueAll();
+    /* ART-PREVIEW-002: no unmounted detail prebuild for vector-only candidate. */
 }
 function updateTerrainDetailStatus() {
     const label = document.querySelector('#terrain-detail-status'), retry = document.querySelector('#terrain-detail-retry');
@@ -983,7 +983,8 @@ async function prepareTerrain(networkModel) {
         }, surface => { surface.canvas.width = 0; surface.canvas.height = 0; });
         terrainPipeline = pipeline;
         cachedTerrainSurface = await pipeline.request(mapRenderOptions(terrainModel).lod ?? 'far');
-        console.info('EASTFRONT first terrain surface ready', cachedTerrainSurface.stats);
+        stopObserving(); // Vector candidate retains first surface only.
+    console.info('EASTFRONT first terrain surface ready', cachedTerrainSurface.stats);
         appStatus = 'HOME';
         render();
     }
@@ -1021,7 +1022,7 @@ async function enterArtPreview(){
  presentation=createPresentationState(false,false);presentation.rendererMode='production';presentation.productionAssetSet='p5';
  if(fixture.battleId)presentation.selectedBattleId=fixture.battleId;
  mapViewport={zoom:1.8,panX:94,panY:-61};unitAnimations.setModelDisplay(choice.get('models')==='off'?'off':'auto');
- terrainPipeline?.resume();terrainPipeline?.continueAll();appStatus='PLAYING';fatalMessage='';render();
+ terrainPipeline?.resume();/* ART-PREVIEW-002: no unmounted detail prebuild for vector-only candidate. */appStatus='PLAYING';fatalMessage='';render();
  document.documentElement.dataset.previewScene=kind;document.documentElement.dataset.previewReady='true';
 }
 enterArtPreview().catch(error=>{document.documentElement.dataset.previewReady='failed';const status=document.createElement('pre');status.textContent='PREVIEW FAILED: '+String(error);document.body.append(status);console.error(error);});
