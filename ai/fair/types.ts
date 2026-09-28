@@ -10,6 +10,10 @@ export interface PublicRules {
   /** Public scenario goals and risk factors only; no deployment or runtime state. */
   objectives:HexCoord[];
   terrainAttackShift:Record<string,number>;
+  terrainMovementCost:Record<string,number|'IMPASSABLE'>;
+  riverMovementSurcharge:Record<string,number>;
+  oosMovementPenalty:number;
+  road:{movementCost:number;wholeMoveBonusEnabled:boolean;wholeMoveBonusMP:number;bridgeCancelsRiverMovementSurcharge:boolean};
   oosAttackMultiplier:number;
   riverAttackShift:Record<string,number>;
   entrenchmentShift:number;

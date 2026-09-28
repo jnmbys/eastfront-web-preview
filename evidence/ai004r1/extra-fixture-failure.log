@@ -1,0 +1,35 @@
+✔ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (695.788493ms)
+✔ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (4.15062ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (10.764727ms)
+✖ R1 CONTACT with hidden ZOC capability remains identical before engine adjudication (13.732152ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 857.944195
+
+✖ failing tests:
+
+test at ai/tests/movement-cost.test.mjs:38:1
+✖ R1 CONTACT with hidden ZOC capability remains identical before engine adjudication (13.732152ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(aInput.view.contacts.length)
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/0779cb2b3f0e/ai-004r1/ai/tests/movement-cost.test.mjs:45:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

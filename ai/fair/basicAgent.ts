@@ -34,6 +34,24 @@ export function scoreIntent(input:Input,a:FairIntent):number {
     if(!u||!to||u.stats.movement<=0)return -Infinity;
     const k=hexKey(to),cell=view.hexes.find(h=>hexKey(h.coord)===k);
     if(!cell||cell.terrain==='LAKE'||enemies.some(e=>hexKey(e.hex)===k)||view.contacts.some(e=>hexKey(e.hex)===k))return -Infinity;
+    // Public one-step cost only. This is NOT an engine legality query. Unknown ZOC
+    // must not remove a possible road bonus: keep uncertain proposals for adjudication.
+    if(a.path.length===1){
+      const terrain=rules.terrainMovementCost[cell.terrain];
+      if(terrain==='IMPASSABLE')return -Infinity;
+      const edge=view.edges.find(e=>(hexKey(e.a)===hexKey(u.hex)&&hexKey(e.b)===k)||(hexKey(e.b)===hexKey(u.hex)&&hexKey(e.a)===k));
+      const road=edge?.road===true;
+      const bridge=road&&edge?.bridge&&!edge.bridge.destroyed&&['ROAD','BOTH'].includes(edge.bridge.kind);
+      const terrainCost=road?rules.road.movementCost:u.type==='JAGER'&&['FOREST','HILL'].includes(cell.terrain)?Math.max(1,(terrain??0)-1):(terrain??0);
+      const cost=terrainCost+(edge?.river&&!(bridge&&rules.road.bridgeCancelsRiverMovementSurcharge)?rules.riverMovementSurcharge[edge.river]??0:0);
+      const knownZoc=[u.hex,to].some(h=>enemies.some(e=>{
+        const templates=Object.values(rules.templates).filter(t=>t.side===e.side&&t.type===e.type);
+        return hexDistance(h,e.hex)===1&&templates.length>0&&templates.every(t=>t.exertsZoc);
+      }));
+      const possibleBonus=road&&rules.road.wholeMoveBonusEnabled&&!knownZoc?rules.road.wholeMoveBonusMP:0;
+      const possibleMP=Math.max(0,u.stats.movement-(u.supplyState==='OUT_OF_SUPPLY'?rules.oosMovementPenalty:0)+possibleBonus);
+      if(cost>possibleMP)return -Infinity;
+    }
     if(own.filter(e=>e.id!==u.id&&hexKey(e.hex)===k).length>=rules.stackingLimit)return -Infinity;
     // One-step proposals + hasMoved prevent repeated movement in a phase. Strictly decreasing
     // distance to current authorized goals avoids greedy backtracking without hidden-state probes.

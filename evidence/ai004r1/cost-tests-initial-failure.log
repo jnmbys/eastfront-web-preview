@@ -1,0 +1,47 @@
+✖ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (577.123735ms)
+✖ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (3.144573ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (9.791499ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 712.764419
+
+✖ failing tests:
+
+test at ai/tests/movement-cost.test.mjs:14:1
+✖ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (577.123735ms)
+  TypeError: Cannot read properties of undefined (reading 'movementCost')
+      at validateMoveAction (file:///workspace/scratch/0779cb2b3f0e/ai-004r1/.ai-dist/vendor/eastfront-digital-core/dist/rules/movement.js:73:40)
+      at RulesEngine.apply (file:///workspace/scratch/0779cb2b3f0e/ai-004r1/.ai-dist/vendor/eastfront-digital-core/dist/engine/RulesEngine.js:127:36)
+      at TestContext.<anonymous> (file:///workspace/scratch/0779cb2b3f0e/ai-004r1/ai/tests/movement-cost.test.mjs:18:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at ai/tests/movement-cost.test.mjs:23:1
+✖ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (3.144573ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'READY_FOR_PHASE_END'
+  - 'MOVE'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/0779cb2b3f0e/ai-004r1/ai/tests/movement-cost.test.mjs:26:40)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'READY_FOR_PHASE_END',
+    expected: 'MOVE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
