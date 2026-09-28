@@ -4,14 +4,16 @@ import { escapeUi as esc } from './commandPresentation.js';
 /** Detached authorized projections only. Never reads a session's GameState or RNG.
  * Per-session and per-viewer memory is discarded with the session, not persisted. */
 export class CombatResults {
+    live = new Set();
+    played = new Set();
     views = new Map();
     viewer = '';
     unsubscribe;
-    constructor(session) { this.unsubscribe = observePresentationTransitions(session, events => { const v = this.view(this.viewer); for (const e of events)
-        if (e.kind === 'combat-result' && !v.played.has(e.battleId))
-            v.live.add(e.battleId); }); }
+    constructor(session) { this.unsubscribe = observePresentationTransitions(session, events => { for (const e of events)
+        if (e.kind === 'combat-result' && !this.played.has(e.battleId))
+            this.live.add(e.battleId); }); }
     view(id) { let v = this.views.get(id); if (!v) {
-        v = { entries: new Map(), selected: null, closed: false, live: new Set(), played: new Set(), waiting: false, before: null, observed: null };
+        v = { entries: new Map(), selected: null, closed: false, waiting: false, before: null, observed: null };
         this.views.set(id, v);
     } return v; }
     sync(model) {
@@ -42,13 +44,11 @@ export class CombatResults {
     }
     begin() { const v = this.view(this.viewer); v.waiting = true; v.before = v.observed; v.closed = false; }
     stopWaiting() { this.view(this.viewer).waiting = false; }
-    recover() { for (const v of this.views.values()) {
-        v.live.clear();
-        v.waiting = false;
-    } }
+    recover() { this.live.clear(); for (const v of this.views.values())
+        v.waiting = false; }
     close() { const v = this.view(this.viewer); v.closed = true; v.waiting = false; }
-    open(id) { const v = this.view(this.viewer); v.selected = id; v.closed = false; v.live.delete(id); v.played.add(id); return v.entries.has(id); }
-    dispose() { this.unsubscribe(); this.views.clear(); }
+    open(id) { const v = this.view(this.viewer); v.selected = id; v.closed = false; this.live.delete(id); this.played.add(id); return v.entries.has(id); }
+    dispose() { this.unsubscribe(); this.views.clear(); this.live.clear(); this.played.clear(); }
     html(model, reduced = false) {
         this.sync(model);
         const v = this.view(this.viewer), c = model.combat;
@@ -59,9 +59,9 @@ export class CombatResults {
             body = `<p role="status">${t('result.waiting')}</p>`;
         else if (!v.closed && entry) {
             const b = entry.battle, r = b.resolution, ctx = b.context, d = r.dice;
-            const play = v.live.has(b.battleId) && !v.played.has(b.battleId) && !reduced;
-            v.live.delete(b.battleId);
-            v.played.add(b.battleId);
+            const play = this.live.has(b.battleId) && !this.played.has(b.battleId) && !reduced;
+            this.live.delete(b.battleId);
+            this.played.add(b.battleId);
             const pending = c?.pending?.battleId === b.battleId ? c.pending.kind : entry.pending;
             const status = b.stage === 'CLOSED' ? t('result.closed') : pending ? t('result.pending', { kind: enumLabel(pending) }) : t('result.lastStage', { stage: enumLabel(b.stage) });
             const modifiers = ctx ? Object.entries(ctx.modifiers).filter(([k, n]) => k.endsWith('Shift') && !['rawShift', 'cappedShift'].includes(k) && typeof n === 'number' && n !== 0).map(([k, n]) => `${t(modifierKeys[k] ?? 'combat.modifiers')} ${Number(n) > 0 ? '+' : ''}${n}`).join(' · ') : '';
