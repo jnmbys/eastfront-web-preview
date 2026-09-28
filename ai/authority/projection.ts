@@ -39,5 +39,10 @@ export function fairView(view:PlayerViewState,side:Side):FairView {
 }
 export function publicRules(rules:GameRules,scenario:ScenarioConfig):PublicRules {
   return {rulesId:rules.id,scenarioId:scenario.id,turnLimit:scenario.turnLimit,stackingLimit:rules.stackingLimit,
+    objectives:scenario.capitalCoreHexes.map(hex),
+    terrainAttackShift:Object.fromEntries(Object.entries(rules.terrain).map(([k,v])=>[k,v.attackShift])),
+    oosAttackMultiplier:rules.supply.oosAttackMultiplier,
+    riverAttackShift:{MINOR:rules.river.MINOR.attackShift,MAJOR:rules.river.MAJOR.attackShift},
+    entrenchmentShift:rules.combat.entrenchmentShift,
     templates:Object.fromEntries(Object.entries(rules.unitTemplates).sort(([a],[b])=>a.localeCompare(b)).map(([key,t])=>[key,{id:t.id,side:t.side,maxDamageSteps:t.maxDamageSteps,type:t.type,exertsZoc:t.exertsZoc}]))};
 }

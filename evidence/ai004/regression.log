@@ -1,0 +1,79 @@
+✔ AI001 hidden deployment paired states have identical input, candidates and pre-execution choice (249.132255ms)
+✔ AI001 hidden force composition, support, resources and future RNG do not affect fair policy (9.946181ms)
+✔ AI001 CONTACT stack/type anonymity and actual host Last Known retention match existing permission (17.827748ms)
+✔ AI001 identified enemy fields and clearing stale observations are unchanged (2.162802ms)
+✔ AI001 full-state legality is a real hidden-ZOC oracle, absent from fair candidate generation (5.048584ms)
+✔ AI001 rejection details are constant, state/RNG unchanged, bounded recovery can continue (16.128245ms)
+✔ AI001 even an admitted candidate uses real engine validation and returns no raw error (11.012654ms)
+✔ AI001 no forged controller, hidden target, support source, preallocated IDs or mutable authority capabilities (23.283051ms)
+✔ AI001 retries stop after fixed limit; terminal/exception paths never keep calling the policy (22.05873ms)
+✔ AI001 decision memory/seed partitions never cross seats or matches, including same controller IDs (20.856215ms)
+✔ AI001 agent tie breaking is repeatable, separate from combat RNG, and input-only (111.016357ms)
+✔ AI001 explicit output allowlist strips unexpected view/rules fields rather than copying them (1.315784ms)
+✔ AI001 production deployment, reinforcement and alternating phases reach the unchanged terminal checkpoint (5281.389281ms)
+✔ AI001 terminal production checkpoint remains final German turn; terminal state never asks policy again (4.679028ms)
+✔ AI001 actual battle submits via RulesEngine and routes reaction/loss to the correct side (19.073674ms)
+✔ AI001 optional combat passes use only authorized pending decision, not hidden previews (6.39043ms)
+✖ AI001 old headless entry remains explicitly omniscient and separate from the fair runtime graph (2.147881ms)
+✔ CORE-FIX-001 real breakthrough continues through fair host; corrupt positions still stop (18.896245ms)
+✔ AI001 accepted hidden artillery selection never enters the opposing policy packet (5.588781ms)
+✔ AI001 identical submitted combat intents preserve exact Core dice/state across different agent seeds (17.476624ms)
+✔ AI001 policy receives exactly one data argument and no implicit host or other-seat receiver (3.154489ms)
+✔ AI002 fixed-seed production full game: real turn-4 deployments, replay and deterministic trace (10144.222119ms)
+✔ AI002 real attack, retreat, advance, breakthrough, Schwerpunkt decline then natural terminal (882.782243ms)
+✔ AI002 multi-unit losses and no-route retreat use actual Actions, never fabricated pending state (985.857279ms)
+✔ AI002 actual Schwerpunkt second battle and required child decisions complete (426.227974ms)
+✔ AI002 reinforcement proposals are identical despite hidden entry blockers; own receipts are isolated (10.613449ms)
+✔ AI002 unsupported retreat distance stops explicitly; no oracle or forced-step bypass (1.95588ms)
+✔ AI002 hidden retreat blockers preserve identical input/intent and recover only through actual adjudication (27.867194ms)
+✔ AI002 empty retreat is still rejected when an actual route exists; normal retry restores flow (12.805826ms)
+✔ AI003 browser-portable observation hashes remain exactly SHA256 (19.030543ms)
+✔ AI003 both human sides attack, AI owns reaction/retreat despite human active turn (484.902308ms)
+✔ AI003 scripted AI attack yields to human reaction and loss, then resumes required owner only (511.975188ms)
+✔ AI003 advance and breakthrough continue through the normal human Action path (204.308891ms)
+✔ AI003 real turn-four reinforcement scenario and terminal scenario use replayed campaign Actions (7113.105796ms)
+✔ AI003 policy stop and rejection limit preserve state; takeover changes recipient explicitly (227.14841ms)
+✔ AI003 duplicate, old revision, wrong owner and forged invisible target cannot mutate or reroll (68.943449ms)
+✔ AI003 Worker channel carries authorized DTOs only; stale epochs ignored and cancellation terminates old work (212.769156ms)
+✔ AI003 actual client/session bridge enforces single-flight submission and clears seat caches on takeover (82.71145ms)
+✔ AI003 late worker replies after exit or worker failure never replace the visible snapshot (35.805215ms)
+✔ AI003 cold entry awaits existing terrain boot and cancelled starts cannot create a Worker (365.135561ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 39
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12621.711343
+
+✖ failing tests:
+
+test at ai/tests/boundary.test.mjs:114:1
+✖ AI001 old headless entry remains explicitly omniscient and separate from the fair runtime graph (2.147881ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+      'CANDIDATE_LIMIT',
+      'agentOrder',
+  +   'basicAgent',
+      'minimalAgent',
+      'observationCandidates',
+  +   'scoreIntent'
+    ]
+
+      at TestContext.<anonymous> (file:///workspace/scratch/613a7b23339d/ai-004-work/ai/tests/boundary.test.mjs:116:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'CANDIDATE_LIMIT', 'agentOrder', 'basicAgent', 'minimalAgent', 'observationCandidates', 'scoreIntent' ],
+    expected: [ 'CANDIDATE_LIMIT', 'agentOrder', 'minimalAgent', 'observationCandidates' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

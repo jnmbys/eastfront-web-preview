@@ -1,0 +1,145 @@
+[
+  {
+    "phase": "GERMAN_MOVEMENT",
+    "pending": null,
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "MOVE",
+        "unitId": "g",
+        "path": [
+          {
+            "q": 1,
+            "r": 0
+          }
+        ]
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_MOVEMENT",
+    "pending": null,
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "READY_FOR_PHASE_END"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_COMBAT",
+    "pending": null,
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "ATTACK",
+        "attackerUnitIds": [
+          "g"
+        ],
+        "target": {
+          "q": 2,
+          "r": 0
+        }
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_COMBAT",
+    "pending": "DEFENDER_REACTION",
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "PASS_REACTION",
+        "battleId": "B-000001"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "SOVIET"
+    }
+  },
+  {
+    "phase": "GERMAN_COMBAT",
+    "pending": "ADVANCE_AFTER_COMBAT",
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "PASS_ADVANCE",
+        "battleId": "B-000001"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_COMBAT",
+    "pending": "BREAKTHROUGH_OPTION",
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "PASS_BREAKTHROUGH",
+        "battleId": "B-000001"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_COMBAT",
+    "pending": null,
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "READY_FOR_PHASE_END"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_RECOVERY",
+    "pending": null,
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "READY_FOR_PHASE_END"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  },
+  {
+    "phase": "GERMAN_ENTRENCHMENT",
+    "pending": null,
+    "decision": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "READY_FOR_PHASE_END"
+      }
+    },
+    "result": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    }
+  }
+]

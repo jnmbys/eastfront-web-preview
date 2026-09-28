@@ -2,3 +2,5 @@
 export type {FairAgent,FairInput,FairDecision,FairIntent,FairView,PublicRules,DeepReadonly} from './types.js';
 export {observationCandidates,CANDIDATE_LIMIT} from './candidates.js';
 export {minimalAgent,agentOrder} from './minimalAgent.js';
+
+export {basicAgent,scoreIntent} from './basicAgent.js';

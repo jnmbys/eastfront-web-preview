@@ -7,6 +7,12 @@ export type FairView=Omit<PlayerViewState,'viewer'|'authoritativeState'> & {view
 /** Small explicit public rule subset. No scenario initialUnits, controllers or RNG. */
 export interface PublicRules {
   rulesId:string;scenarioId:string;turnLimit:number;stackingLimit:number;
+  /** Public scenario goals and risk factors only; no deployment or runtime state. */
+  objectives:HexCoord[];
+  terrainAttackShift:Record<string,number>;
+  oosAttackMultiplier:number;
+  riverAttackShift:Record<string,number>;
+  entrenchmentShift:number;
   templates:Record<string,Pick<UnitTemplate,'id'|'side'|'maxDamageSteps'|'type'|'exertsZoc'>>;
 }
 export type FairIntent=Extract<NetworkAction,{type:'DEPLOY_REINFORCEMENT'|'RETREAT'|'ADVANCE_AFTER_COMBAT'|'BREAKTHROUGH'|'SCHWERPUNKT_ATTACK'|'DEPLOY_INITIAL_UNIT'|'READY_FOR_PHASE_END'|'MOVE'|'ATTACK'|'PASS_REACTION'|'ALLOCATE_LOSSES'|'PASS_ADVANCE'|'PASS_BREAKTHROUGH'|'PASS_SCHWERPUNKT'}>;

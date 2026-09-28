@@ -3,13 +3,14 @@ import {createLocalGameSession,type LocalGameSession} from '../../src/core-adapt
 import {defaultRules,defaultScenario,RulesEngine,getNeighbors,type Side,type UnitState} from '../../src/core-adapter/core.js';
 import type {LocalStart} from '../../src/local-ai/types.js';
 import {FairHost} from '../authority/FairHost.js';
+import {basicAgent} from '../fair/basicAgent.js';
 import {minimalAgent} from '../fair/minimalAgent.js';
 import {observationCandidates} from '../fair/candidates.js';
 import type {FairAgent} from '../fair/types.js';
 /** Fixed scenario fixtures, not a strategic agent. No pending decision is manufactured. */
 export function prepareLocalScenario(options:LocalStart):{session:LocalGameSession;policy:FairAgent}{
  const session=createLocalGameSession(options.map,options.seed);
- if(options.scenario==='campaign')return {session,policy:minimalAgent};
+ if(options.scenario==='campaign')return {session,policy:basicAgent};
  if(options.scenario==='reinforcement'||options.scenario==='terminal'){
   const host=new FairHost({matchId:'AI003-scenario-preparation',initialState:session.state,rules:session.rules,scenario:session.scenario,agentSeeds:{GERMAN:101,SOVIET:202}});
   let ready=false;
