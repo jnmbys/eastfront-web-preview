@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {gameHarness,wireGame} from './helpers/mp002.mjs';
@@ -86,4 +87,12 @@ test('UX31 two real WebSockets deliver each stage, executed retreat/advance/brea
  for(const kind of ['retreat','advance','breakthrough'])assert(kinds.has(kind),kind);
  for(const p of [g.a,g.b])for(const msg of p.messages.filter(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.model.battleSummaries)){decodeSnapshot(msg.payload,true,true);const dto=msg.payload.model.battleSummaries;for(const e of dto.entries){for(const c of e.consequences)assert.equal(g.match.authoritative.state.units[c.unitId].side,msg.payload.view.viewer);}assert(Buffer.byteLength(JSON.stringify(msg))<MAX_SERVER_MESSAGE_BYTES);}
  const old=g.b,saved=summary(old);old.ws.terminate();await g.a.wait(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.status==='WAITING_FOR_RECONNECT');const restored=await g.peer(null,old.welcome.reconnectToken);await restored.request('SET_SNAPSHOT_FORMAT',{format:FULL_SNAPSHOT,battleSummary:1});await restored.wait(m=>m.messageType==='PLAYER_VIEW_SNAPSHOT'&&!!m.payload.model.battleSummaries);assert.deepEqual(summary(restored),saved);assert.deepEqual(last(restored).events,[]);assert.doesNotMatch(new CombatResults({}).html(last(restored).model),/dice-reveal/);g.replace(old,restored);
+});
+
+ test('UX31 result close/history are bound before the read-only and selection guards',()=>{
+ const source=readFileSync(new URL('../src/main.ts',import.meta.url),'utf8');
+ const bind=source.slice(source.indexOf('function bindDynamic('),source.indexOf('function updateNetworkStatus('));
+ const guard=bind.indexOf('if(session&&((model??deriveBrowserRenderModel');
+ assert(guard>0);for(const selector of ["document.querySelector('#result-close')","document.querySelectorAll<HTMLElement>('[data-result-history]')"]){const at=bind.indexOf(selector);assert(at>=0&&at<guard,selector+' must work for read-only recipients');}
+ assert(bind.indexOf("document.querySelector('#attack-declare')")>guard,'game actions remain guarded');
 });
