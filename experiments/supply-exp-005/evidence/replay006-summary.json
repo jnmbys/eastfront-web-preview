@@ -1,0 +1,743 @@
+[
+  {
+    "name": "replay006-ADVANCE_AFTER_COMBAT.json",
+    "initial_hash": "471512795f200d52882b8ac6f9caf3373609664420f728819d49a4f65f1c1ff8",
+    "commands": [
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-MOT-03"
+            ],
+            "target": {
+              "q": 3,
+              "r": 5
+            }
+          }
+        },
+        "hash": "b9ad9d4f1fc521fea8d50cfef65c02522d05450c8c70a94ef2a7ac2902d218f6"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000011",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "e73e8a20739826d6b28360ba89a883de801c9d914d773ce1662d6a202dee025f"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000011",
+            "type": "RETREAT",
+            "retreats": [
+              {
+                "unitId": "S-MOT-01",
+                "path": []
+              }
+            ]
+          }
+        },
+        "hash": "b6f0988161818779b78a70894822c455b8edfc0595c58aa52a06cd3d5cb4227b"
+      },
+      {
+        "command": {
+          "id": "auto-4",
+          "revision": 4,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000011",
+            "type": "ADVANCE_AFTER_COMBAT",
+            "unitId": "G-MOT-03"
+          }
+        },
+        "hash": "a484aaa689f6fd85222e2c8e4a62e35a480ad6ef1c2942d44224b157f8359054"
+      }
+    ],
+    "file_sha256": "a89c88ed58237ebe662b324f4459ae75dee85a5b9221d55ba88c3a670f5d4f61"
+  },
+  {
+    "name": "replay006-BREAKTHROUGH_OPTION.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-I-11",
+              "G-PZ-01"
+            ],
+            "target": {
+              "q": 3,
+              "r": 6
+            }
+          }
+        },
+        "hash": "9ea832810646385d89c825fbdb294219b416cfb623f5b571351f7e554bb3f272"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000003",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "eba235abdf2e00ae0dabab56a0b274ac3bdf0e07e9968492fadc4da4785d6802"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000003",
+            "type": "RETREAT",
+            "retreats": [
+              {
+                "unitId": "S-I-01",
+                "path": [
+                  {
+                    "q": 4,
+                    "r": 5
+                  },
+                  {
+                    "q": 5,
+                    "r": 5
+                  }
+                ]
+              },
+              {
+                "unitId": "S-I-10",
+                "path": [
+                  {
+                    "q": 4,
+                    "r": 5
+                  },
+                  {
+                    "q": 5,
+                    "r": 5
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "hash": "cdcd7bf208766aec714d9f1f9755710ce016dc4ef93a49b48063b00fed1828df"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "ADVANCE_AFTER_COMBAT",
+            "unitId": "G-I-11"
+          }
+        },
+        "hash": "73ecec88e21affe38938ea6f7110ea7f59d34278fba91392d556363721191a45"
+      },
+      {
+        "command": {
+          "id": "auto-4",
+          "revision": 4,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "PASS_BREAKTHROUGH"
+          }
+        },
+        "hash": "99d3eda59455dd9fbef4427a45c8bfd92de5bc31f6765b73817aee59b885c3a3"
+      }
+    ],
+    "file_sha256": "c2ef41ded41fcc84ce59942e2b49405a7b07cb6a833f84c78adac13277562435"
+  },
+  {
+    "name": "replay006-DEFENDER_REACTION.json",
+    "initial_hash": "471512795f200d52882b8ac6f9caf3373609664420f728819d49a4f65f1c1ff8",
+    "commands": [
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-MOT-03"
+            ],
+            "target": {
+              "q": 3,
+              "r": 5
+            }
+          }
+        },
+        "hash": "b9ad9d4f1fc521fea8d50cfef65c02522d05450c8c70a94ef2a7ac2902d218f6"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000011",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "e73e8a20739826d6b28360ba89a883de801c9d914d773ce1662d6a202dee025f"
+      }
+    ],
+    "file_sha256": "2bcbeb13e8e161282a9e6bf4175c34132b2fc5fad83f5e40b09f70f7a0db580f"
+  },
+  {
+    "name": "replay006-LOSS_ALLOCATION.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-I-11"
+            ],
+            "target": {
+              "q": 3,
+              "r": 6
+            }
+          }
+        },
+        "hash": "a7b4c3e5f13dd2002e9a227964a1234d688b492aaafad2074f495a013066e19f"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000003",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "379cf6f9471f720d43b794be81badea305547124873d7646b4a86778dfdcc0f3"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000003",
+            "type": "ALLOCATE_LOSSES",
+            "unitIdsByStep": [
+              "S-I-01"
+            ]
+          }
+        },
+        "hash": "6582d61b95c6f164d91b254ee5eb02092b5f1b78aab8e633c37db344fc2edb32"
+      }
+    ],
+    "file_sha256": "8e371e4e4a7ec8b7beb16be7b850dd180c236047b76cc987041d4d3d91f96974"
+  },
+  {
+    "name": "replay006-MOVING_BREAKTHROUGH.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-PZ-03"
+            ],
+            "target": {
+              "q": 3,
+              "r": 4
+            }
+          }
+        },
+        "hash": "27a785e3f52aa68f420caf8b438f503f12ad14aad80d37379529a0d6608d5029"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000003",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "6b99ef4cbac0c54b2d0f4cb8f1c71b88969265e1df6423a3d6f46e31aeedbfbb"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "ADVANCE_AFTER_COMBAT",
+            "unitId": "G-PZ-03"
+          }
+        },
+        "hash": "35bd4c8f98bc6eac241fd222a7e2c48705a2dc1d401ebdfd036322ccda8cc70a"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "BREAKTHROUGH",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 4,
+                "r": 3
+              }
+            ]
+          }
+        },
+        "hash": "dfc9e3f20dadfb6c23fa72f09b52eaf8fe170541f98ceac411b629841556584e"
+      }
+    ],
+    "file_sha256": "b66f88b0374aecb47f5d1421ef41cac6a3067bccf7b7a9fc8ba880b93e9c76a1"
+  },
+  {
+    "name": "replay006-MOVING_RETREAT.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "S-AI-1",
+            "attackerUnitIds": [
+              "S-I-10",
+              "S-ENG-01"
+            ],
+            "target": {
+              "q": 2,
+              "r": 8
+            }
+          }
+        },
+        "hash": "ffab5f28d654aa08c162a405b34080ecf0808067dc872b96073b0395324ed8f0"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000001",
+            "type": "RETREAT",
+            "retreats": [
+              {
+                "unitId": "S-I-10",
+                "path": [
+                  {
+                    "q": 3,
+                    "r": 6
+                  }
+                ]
+              },
+              {
+                "unitId": "S-ENG-01",
+                "path": [
+                  {
+                    "q": 4,
+                    "r": 8
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "hash": "68afa29e77cb6034ae932685ad02bd839d5ac1511c707da166bca9654c0a2c69"
+      }
+    ],
+    "file_sha256": "1e8e5a7773a90bd04090090e78aa13dd925fc226183c9d18ec03f308ea702a7f"
+  },
+  {
+    "name": "replay006-RETREAT.json",
+    "initial_hash": "471512795f200d52882b8ac6f9caf3373609664420f728819d49a4f65f1c1ff8",
+    "commands": [
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-MOT-03"
+            ],
+            "target": {
+              "q": 3,
+              "r": 5
+            }
+          }
+        },
+        "hash": "b9ad9d4f1fc521fea8d50cfef65c02522d05450c8c70a94ef2a7ac2902d218f6"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000011",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "e73e8a20739826d6b28360ba89a883de801c9d914d773ce1662d6a202dee025f"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000011",
+            "type": "RETREAT",
+            "retreats": [
+              {
+                "unitId": "S-MOT-01",
+                "path": []
+              }
+            ]
+          }
+        },
+        "hash": "b6f0988161818779b78a70894822c455b8edfc0595c58aa52a06cd3d5cb4227b"
+      }
+    ],
+    "file_sha256": "e3bb19d9ca6d69071b600f08b70f0dd54ac61d3d630a9aaad013774056b589d4"
+  },
+  {
+    "name": "replay006-SCHWERPUNKT_OPTION.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-PZ-03"
+            ],
+            "target": {
+              "q": 3,
+              "r": 4
+            }
+          }
+        },
+        "hash": "27a785e3f52aa68f420caf8b438f503f12ad14aad80d37379529a0d6608d5029"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000003",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "6b99ef4cbac0c54b2d0f4cb8f1c71b88969265e1df6423a3d6f46e31aeedbfbb"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "ADVANCE_AFTER_COMBAT",
+            "unitId": "G-PZ-03"
+          }
+        },
+        "hash": "35bd4c8f98bc6eac241fd222a7e2c48705a2dc1d401ebdfd036322ccda8cc70a"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "BREAKTHROUGH",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 4,
+                "r": 3
+              }
+            ]
+          }
+        },
+        "hash": "dfc9e3f20dadfb6c23fa72f09b52eaf8fe170541f98ceac411b629841556584e"
+      },
+      {
+        "command": {
+          "id": "auto-4",
+          "revision": 4,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000003",
+            "type": "PASS_SCHWERPUNKT"
+          }
+        },
+        "hash": "51b4bd9fc62e21b2747617f635374672f692c6807d31716eb2d7f76111f2559d"
+      }
+    ],
+    "file_sha256": "5c67b503bef1f6bc625a48a8ae9580064287bf1365368ffd474a865d970d77be"
+  },
+  {
+    "name": "replay006-SECOND_ATTACK.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-PZ-01"
+            ],
+            "target": {
+              "q": 6,
+              "r": 3
+            }
+          }
+        },
+        "hash": "13c8fe457457ffd144b0c125dc845295e9c5fedf054905fa9390a864a3e11169"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000018",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "deb7a18e616d973c6443224c5bcc630f351c791b7bcff437032ff1fa4c9d881d"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000018",
+            "type": "ADVANCE_AFTER_COMBAT",
+            "unitId": "G-PZ-01"
+          }
+        },
+        "hash": "2146fa648e73c9d6177f490670c03ff7e76b10536c5785b8ab98643365abd9dd"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000018",
+            "type": "BREAKTHROUGH",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 7,
+                "r": 3
+              }
+            ]
+          }
+        },
+        "hash": "a42781537301617f55ddf4641bd465546d4896880738051f40ac0a77f3fc3c29"
+      },
+      {
+        "command": {
+          "id": "auto-4",
+          "revision": 4,
+          "action": {
+            "type": "SCHWERPUNKT_ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "sourceBattleId": "B-000018",
+            "unitId": "G-PZ-01",
+            "target": {
+              "q": 8,
+              "r": 3
+            }
+          }
+        },
+        "hash": "266fec650cf30329073e67f24e6b18697ccc798d17112591e0d8432f1d24b8c5"
+      }
+    ],
+    "file_sha256": "bbe63665f272e164b866c455a6e63b3348012d1277e1318622bbe5c90e0b997d"
+  },
+  {
+    "name": "replay006-complete.json",
+    "initial_hash": null,
+    "commands": [
+      {
+        "command": {
+          "id": "auto-0",
+          "revision": 0,
+          "action": {
+            "type": "ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "attackerUnitIds": [
+              "G-PZ-01"
+            ],
+            "target": {
+              "q": 6,
+              "r": 3
+            }
+          }
+        },
+        "hash": "13c8fe457457ffd144b0c125dc845295e9c5fedf054905fa9390a864a3e11169"
+      },
+      {
+        "command": {
+          "id": "auto-1",
+          "revision": 1,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000018",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "deb7a18e616d973c6443224c5bcc630f351c791b7bcff437032ff1fa4c9d881d"
+      },
+      {
+        "command": {
+          "id": "auto-2",
+          "revision": 2,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000018",
+            "type": "ADVANCE_AFTER_COMBAT",
+            "unitId": "G-PZ-01"
+          }
+        },
+        "hash": "2146fa648e73c9d6177f490670c03ff7e76b10536c5785b8ab98643365abd9dd"
+      },
+      {
+        "command": {
+          "id": "auto-3",
+          "revision": 3,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000018",
+            "type": "BREAKTHROUGH",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 7,
+                "r": 3
+              }
+            ]
+          }
+        },
+        "hash": "a42781537301617f55ddf4641bd465546d4896880738051f40ac0a77f3fc3c29"
+      },
+      {
+        "command": {
+          "id": "auto-4",
+          "revision": 4,
+          "action": {
+            "type": "SCHWERPUNKT_ATTACK",
+            "controllerId": "G-HUMAN-1",
+            "sourceBattleId": "B-000018",
+            "unitId": "G-PZ-01",
+            "target": {
+              "q": 8,
+              "r": 3
+            }
+          }
+        },
+        "hash": "266fec650cf30329073e67f24e6b18697ccc798d17112591e0d8432f1d24b8c5"
+      },
+      {
+        "command": {
+          "id": "auto-5",
+          "revision": 5,
+          "action": {
+            "controllerId": "S-AI-1",
+            "battleId": "B-000019",
+            "type": "PASS_REACTION"
+          }
+        },
+        "hash": "17acc8ba6ebf2f72aa847474721f6ad4eb8c199d9ebe099c21b3ec125b69e147"
+      },
+      {
+        "command": {
+          "id": "auto-6",
+          "revision": 6,
+          "action": {
+            "controllerId": "G-HUMAN-1",
+            "battleId": "B-000019",
+            "type": "PASS_ADVANCE"
+          }
+        },
+        "hash": "485b7a8563b68d5b4ebea7b65def4409ae2ef54b36d44f2ca4cdb0ee56ee1b5f"
+      },
+      {
+        "command": {
+          "id": "auto-7",
+          "revision": 7,
+          "action": {
+            "type": "END_SIDE",
+            "controllerId": "G-HUMAN-1"
+          }
+        },
+        "hash": "4d6a9ad02dc995f5d224d6148f830ee50ce4dd8595c0d14f84f6bbb2253173ce"
+      },
+      {
+        "command": {
+          "id": "auto-8",
+          "revision": 8,
+          "action": {
+            "type": "END_SIDE",
+            "controllerId": "S-AI-1"
+          }
+        },
+        "hash": "caaa6c2bd213c8cb2c3184e58a68d6ef6915ce251b38ede2a0995cdae97cc63b"
+      }
+    ],
+    "file_sha256": "b32dbfdc4c024b981f42ef6a3838a93a48bcdf0c023969f96d9d336ede1af540"
+  }
+]

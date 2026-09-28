@@ -17,16 +17,22 @@ def public(viewer):
  for u in s['units']:
   core=state['core']['units'][u['id']];u.update(hasMoved=core['hasMoved'],hasAttacked=core['hasAttacked'],supplyState=core['supplyState'],effect=effects(state['logistics'])[u['id']])
  s.update(active=ACTIVE[state['core']['activeSide']],revision=state['revision'],mode=state['mode'],clip=state['clip'])
+ p=state['core']['pendingDecision']
+ s['decision_side']=ACTIVE[p['side']] if p else s['active']
+ s['pending']=None
+ if p and s['decision_side']==viewer:
+  s['pending']=deepcopy(p)
+  tx=state['core']['combatTransactions'][p['battleId']]
+  s['pending']['target']=next(n for n,c in COORD.items() if c==tx['targetHex'])
+  s['pending']['remaining_capacity']={u['id']:u['strength'] for u in s['units']}
+ s['next_settlement']='苏军回合末（战斗强制步骤须先完成）；配送结果未知' if s['mode']=='new' else '旧 Core 补给阶段；不扣新库存'
  s['hash']=digest(s)
- # Only an initiating side sees its own completed combat receipt; no raw context/hidden defenders.
+ # Resolution receipt is restricted to involved sides and contains no context or enemies.
  s['combat_receipt']=[]
- for j in state['journal'][-1:]:
-  a=j['command']['action']
-  controller=state['core']['controllers'].get(a['controllerId'])
-  if a['type']=='ATTACK' and controller and ACTIVE[controller['side']]==viewer:
-   for e in j['events']:
-    if e['type'] in ['CRTResolved','DiceRolled']:s['combat_receipt'].append({k:v for k,v in e.items() if k in ['type','dice','die1','die2','roll','total','result','crtResult','finalCRTColumnLabel']})
- return dict(state=s,error=error,notice='独立规则实验：真实 Core 行动；战斗后续按固定合法策略处理。未平衡、未有人试玩。')
+ for tx in reversed(list(state['core']['combatTransactions'].values())):
+  if tx.get('resolution') and viewer in [ACTIVE[tx['attackerSide']],ACTIVE[tx['defenderSide']]]:
+   s['combat_receipt']=[{k:deepcopy(tx['resolution'][k]) for k in ['dice','crtResult']}];break
+ return dict(state=s,error=error,notice='独立规则实验：真实 Core 行动；战后选择交给当前决策方。未平衡、未有人试玩。')
 class Handler(BaseHTTPRequestHandler):
  def log_message(self,*args):pass
  def reply(self,obj,status=200):
@@ -63,6 +69,8 @@ class Handler(BaseHTTPRequestHandler):
     if 'paperPath' in action:action['path']=[COORD[k.upper()] for k in action.pop('paperPath').split()]
     if 'repairPair' in action:
      pair=set(action.pop('repairPair').upper().split());action['edgeKeys']=[next(e['core']['key'] for e in MAP['edges'] if {e['a'],e['b']}==pair and e['core'])]
+    if 'paperRetreats' in action:
+     action['retreats']=[dict(unitId=line.split(':')[0].strip(),path=[COORD[k.upper()] for k in line.split(':')[1].split()]) for line in action.pop('paperRetreats').splitlines() if line.strip()]
     if 'paperTarget' in action:action['target']=COORD[action.pop('paperTarget').upper()]
     r=execute(state,{'id':cmd['id'],'revision':cmd['revision'],'action':action},seconds=min(3,max(.001,float(cmd.get('budget',3)))))
     if r['ok']:state=r['state'];error=None

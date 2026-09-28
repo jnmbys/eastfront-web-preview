@@ -1,0 +1,23 @@
+.EE...
+======================================================================
+ERROR: test_forced_owner_invalid_duplicate_timeout_rollback (test006.ChoiceTests.test_forced_owner_invalid_duplicate_timeout_rollback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/player-choice/test006.py", line 36, in test_forced_owner_invalid_duplicate_timeout_rollback
+    b=pending(CASES['MOVING_RETREAT']);cmd=auto_command(b);cmd['action']=CASES['MOVING_RETREAT']['choice'];r=execute(b,cmd);self.assertTrue(r['ok']);self.assertEqual(execute(r['state'],cmd)['state'],r['state']);bad=deepcopy(cmd);bad['action']['retreats']=[];self.assertFalse(execute(r['state'],bad)['ok'])
+              ~~~~~^^^^^^^^^^^^^^^^^^
+KeyError: 'MOVING_RETREAT'
+
+======================================================================
+ERROR: test_legal_passes (test006.ChoiceTests.test_legal_passes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/player-choice/test006.py", line 48, in test_legal_passes
+    b=pending(CASES[kind]);x=run(b,dict(type=t,battleId=b['core']['pendingDecision']['battleId']));self.assertEqual(x['logistics']['action_spent'],b['logistics']['action_spent'])
+              ~~~~~^^^^^^
+KeyError: 'BREAKTHROUGH_OPTION'
+
+----------------------------------------------------------------------
+Ran 6 tests in 19.131s
+
+FAILED (errors=2)

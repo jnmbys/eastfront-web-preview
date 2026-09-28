@@ -12,7 +12,7 @@ ROOT=Path(__file__).parent
 CLIPS={'prepare':('t4_GERMAN_before_move',4),'isolation':('t8_GERMAN_before_move',2),'restore':('t8_GERMAN_before_move',2)}
 ARMOR={'PANZER','TANK','HEAVY_TANK','MOTORIZED'}
 def effects(s,action=None):
- out={};ids=set(action.get('attackerUnitIds',[])) if action and action['type']=='ATTACK' else set()
+ out={};ids=set(action.get('attackerUnitIds',[])) if action and action['type']=='ATTACK' else {action['unitId']} if action and action['type']=='SCHWERPUNKT_ATTACK' else set()
  for u in s['units']:
   d=Fraction(u['debt']);factor=.5 if d>=2 else .75 if d>=1 else 1
   if u['id'] in ids:factor=min(factor,.5+.5*min(4,u['stock'])/4)
@@ -74,13 +74,15 @@ def execute(original,command,seconds=3):
   if command['revision']!=original['revision']:raise ValueError('stale revision')
   b=deepcopy(original);s=b['logistics'];core=b['core'];a=deepcopy(command['action'])
   if core['turn']>15:raise ValueError('short experiment ends after T15')
-  controller=next(x['id'] for x in core['controllers'].values() if x['side']==core['activeSide'])
+  controller=core['pendingDecision']['decisionOwnerControllerId'] if core['pendingDecision'] else next(x['id'] for x in core['controllers'].values() if x['side']==core['activeSide'])
   if a.get('controllerId')!=controller:raise ValueError('not active controller')
   fields={'MOVE':{'type','controllerId','unitId','path'},'ATTACK':{'type','controllerId','attackerUnitIds','target'},'END_PHASE':{'type','controllerId'},'END_SIDE':{'type','controllerId'},'RAIL_REPAIR':{'type','controllerId','edgeKeys'}}
+  for kind,extra in {'ALLOCATE_LOSSES':{'unitIdsByStep'},'RETREAT':{'retreats'},'ADVANCE_AFTER_COMBAT':{'unitId'},'BREAKTHROUGH':{'unitId','path'},'PASS_ADVANCE':set(),'PASS_BREAKTHROUGH':set(),'PASS_SCHWERPUNKT':set(),'PASS_REACTION':set(),'COMBAT_REACTION':{'reaction'}}.items():fields[kind]={'type','controllerId','battleId'}|extra
+  fields['SCHWERPUNKT_ATTACK']={'type','controllerId','sourceBattleId','unitId','target'}
   if a['type'] not in fields or set(a)-fields[a['type']]:raise ValueError('unsupported surface')
   r=node(core,b['mode'],s,'act',deadline,action=a);newcore=r['frame']['state'];charges=[]
   if b['mode']=='new':
-   ids=a['attackerUnitIds'] if a['type']=='ATTACK' else [a['unitId']] if a['type']=='MOVE' and core['units'][a['unitId']]['type'] in ARMOR else []
+   ids=a['attackerUnitIds'] if a['type']=='ATTACK' else [a['unitId']] if a['type']=='SCHWERPUNKT_ATTACK' else [a['unitId']] if a['type']=='MOVE' and core['units'][a['unitId']]['type'] in ARMOR else []
    for uid in ids:
     u=next(u for u in s['units'] if u['id']==uid);paid=min(4,u['stock']);u['stock']-=paid;s['action_spent']+=paid;charges.append(dict(unit=uid,side=u['side'],cost=paid,type=a['type']))
    s['action_ledger'].extend(charges)
@@ -98,5 +100,5 @@ def execute(original,command,seconds=3):
   return dict(ok=True,state=b,seconds=time.perf_counter()-began)
  except Exception as e:return dict(ok=False,state=original,error=str(e),seconds=time.perf_counter()-began)
 def auto_command(b,kind='END_SIDE'):
- controller=next(x['id'] for x in b['core']['controllers'].values() if x['side']==b['core']['activeSide'])
+ controller=b['core']['pendingDecision']['decisionOwnerControllerId'] if b['core']['pendingDecision'] else next(x['id'] for x in b['core']['controllers'].values() if x['side']==b['core']['activeSide'])
  return dict(id='auto-'+str(b['revision']),revision=b['revision'],action=dict(type=kind,controllerId=controller))

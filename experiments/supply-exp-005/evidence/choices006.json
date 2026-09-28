@@ -1,0 +1,371 @@
+{
+  "DEFENDER_REACTION": {
+    "clip": "prepare",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-MOT-03"
+        ],
+        "target": {
+          "q": 3,
+          "r": 5
+        }
+      }
+    ],
+    "choice": {
+      "controllerId": "S-AI-1",
+      "battleId": "B-000011",
+      "type": "PASS_REACTION"
+    },
+    "alternatives": 1
+  },
+  "RETREAT": {
+    "clip": "prepare",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-MOT-03"
+        ],
+        "target": {
+          "q": 3,
+          "r": 5
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000011",
+        "type": "PASS_REACTION"
+      }
+    ],
+    "choice": {
+      "controllerId": "S-AI-1",
+      "battleId": "B-000011",
+      "type": "RETREAT",
+      "retreats": [
+        {
+          "unitId": "S-MOT-01",
+          "path": []
+        }
+      ]
+    },
+    "alternatives": 1
+  },
+  "ADVANCE_AFTER_COMBAT": {
+    "clip": "prepare",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-MOT-03"
+        ],
+        "target": {
+          "q": 3,
+          "r": 5
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000011",
+        "type": "PASS_REACTION"
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000011",
+        "type": "RETREAT",
+        "retreats": [
+          {
+            "unitId": "S-MOT-01",
+            "path": []
+          }
+        ]
+      }
+    ],
+    "choice": {
+      "controllerId": "G-HUMAN-1",
+      "battleId": "B-000011",
+      "type": "ADVANCE_AFTER_COMBAT",
+      "unitId": "G-MOT-03"
+    },
+    "alternatives": 2
+  },
+  "MOVING_RETREAT": {
+    "frame": "battle_105_before",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "S-AI-1",
+        "attackerUnitIds": [
+          "S-I-10",
+          "S-ENG-01"
+        ],
+        "target": {
+          "q": 2,
+          "r": 8
+        }
+      }
+    ],
+    "choice": {
+      "controllerId": "S-AI-1",
+      "battleId": "B-000001",
+      "type": "RETREAT",
+      "retreats": [
+        {
+          "unitId": "S-I-10",
+          "path": [
+            {
+              "q": 3,
+              "r": 6
+            }
+          ]
+        },
+        {
+          "unitId": "S-ENG-01",
+          "path": [
+            {
+              "q": 4,
+              "r": 8
+            }
+          ]
+        }
+      ]
+    },
+    "alternatives": 1
+  },
+  "LOSS_ALLOCATION": {
+    "frame": "battle_143_before",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-I-11"
+        ],
+        "target": {
+          "q": 3,
+          "r": 6
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000003",
+        "type": "PASS_REACTION"
+      }
+    ],
+    "choice": {
+      "controllerId": "S-AI-1",
+      "battleId": "B-000003",
+      "type": "ALLOCATE_LOSSES",
+      "unitIdsByStep": [
+        "S-I-01"
+      ]
+    },
+    "alternatives": 2
+  },
+  "BREAKTHROUGH_OPTION": {
+    "frame": "battle_143_before",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-I-11",
+          "G-PZ-01"
+        ],
+        "target": {
+          "q": 3,
+          "r": 6
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000003",
+        "type": "PASS_REACTION"
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000003",
+        "type": "RETREAT",
+        "retreats": [
+          {
+            "unitId": "S-I-01",
+            "path": [
+              {
+                "q": 4,
+                "r": 5
+              },
+              {
+                "q": 5,
+                "r": 5
+              }
+            ]
+          },
+          {
+            "unitId": "S-I-10",
+            "path": [
+              {
+                "q": 4,
+                "r": 5
+              },
+              {
+                "q": 5,
+                "r": 5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000003",
+        "type": "ADVANCE_AFTER_COMBAT",
+        "unitId": "G-I-11"
+      }
+    ],
+    "choice": {
+      "controllerId": "G-HUMAN-1",
+      "battleId": "B-000003",
+      "type": "PASS_BREAKTHROUGH"
+    },
+    "alternatives": 1
+  },
+  "MOVING_BREAKTHROUGH": {
+    "frame": "battle_143_before",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-PZ-03"
+        ],
+        "target": {
+          "q": 3,
+          "r": 4
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000003",
+        "type": "PASS_REACTION"
+      },
+      {
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000003",
+        "type": "ADVANCE_AFTER_COMBAT",
+        "unitId": "G-PZ-03"
+      }
+    ],
+    "choice": {
+      "controllerId": "G-HUMAN-1",
+      "battleId": "B-000003",
+      "type": "BREAKTHROUGH",
+      "unitId": "G-PZ-03",
+      "path": [
+        {
+          "q": 4,
+          "r": 3
+        }
+      ]
+    },
+    "alternatives": 4
+  },
+  "SCHWERPUNKT_OPTION": {
+    "frame": "battle_143_before",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-PZ-03"
+        ],
+        "target": {
+          "q": 3,
+          "r": 4
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000003",
+        "type": "PASS_REACTION"
+      },
+      {
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000003",
+        "type": "ADVANCE_AFTER_COMBAT",
+        "unitId": "G-PZ-03"
+      },
+      {
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000003",
+        "type": "BREAKTHROUGH",
+        "unitId": "G-PZ-03",
+        "path": [
+          {
+            "q": 4,
+            "r": 3
+          }
+        ]
+      }
+    ],
+    "choice": {
+      "controllerId": "G-HUMAN-1",
+      "battleId": "B-000003",
+      "type": "PASS_SCHWERPUNKT"
+    },
+    "alternatives": 1
+  },
+  "SECOND_ATTACK": {
+    "frame": "battle_465_before",
+    "actions": [
+      {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-PZ-01"
+        ],
+        "target": {
+          "q": 6,
+          "r": 3
+        }
+      },
+      {
+        "controllerId": "S-AI-1",
+        "battleId": "B-000018",
+        "type": "PASS_REACTION"
+      },
+      {
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000018",
+        "type": "ADVANCE_AFTER_COMBAT",
+        "unitId": "G-PZ-01"
+      },
+      {
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000018",
+        "type": "BREAKTHROUGH",
+        "unitId": "G-PZ-01",
+        "path": [
+          {
+            "q": 7,
+            "r": 3
+          }
+        ]
+      }
+    ],
+    "choice": {
+      "type": "SCHWERPUNKT_ATTACK",
+      "controllerId": "G-HUMAN-1",
+      "sourceBattleId": "B-000018",
+      "unitId": "G-PZ-01",
+      "target": {
+        "q": 8,
+        "r": 3
+      }
+    },
+    "alternatives": 2
+  }
+}
