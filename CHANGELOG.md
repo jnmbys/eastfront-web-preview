@@ -49,3 +49,12 @@ Change: Record reported AI cloud-browser acceptance and art partial acceptance; 
 Reason: Keep completed engineering, remaining device checks and autonomous strategy distinct.
 Commit: AI release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70; art release bfacbb942274de37e9e6ea282931e7420499db2b.
 Validation: Leader read attached AI review and user-provided art summary; AI release remote ref fetched. Browser/test claims are Worker-reported, not rerun. Management update changes two Markdown files only.
+
+## 2026-09-28 — SUPPLY-EXP-005 status intake
+
+Date: 2026-09-28 22:09 (Asia/Shanghai)
+Task ID: COLLAB-STATE-003
+Change: Record isolated supply runtime effects and remaining automatic combat choices; propose Git migration and player-choice completion.
+Reason: Separate operational supply effects from balance and full tactical acceptance.
+Commit: EXP005 Git SHA not supplied; base Core db183c7733ae59d2f5a3bcb8f3f384357b7d59e6.
+Validation: Leader read supplied report; 12 seam tests, replay and Chromium claims are Worker-reported. No game code changed by this state update.
