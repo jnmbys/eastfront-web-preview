@@ -3,13 +3,14 @@ import {
   RulesEngine,continueCombatAfterLosses,createGameState,defaultRules,defaultScenario,validateGameStateIntegrity,
   type CombatTransaction,type GameState,type UnitState
 } from '../src/index.js';
-import {G,S,gridHexes,unit} from './helpers.js';
+import {declaredSupplySnapshot,G,S,gridHexes,unit} from './helpers.js';
 
 const G2='G-AI-2';
 const engine=new RulesEngine(defaultRules,defaultScenario);
 function state(units:UnitState[]):GameState{
   const st=createGameState({scenario:defaultScenario,rules:defaultRules,hexes:gridHexes(-5,5,-5,5),edges:[],units,seed:123});
-  st.phase='GERMAN_COMBAT';st.activeSide='GERMAN';return st;
+  declaredSupplySnapshot(st,units);
+ st.phase='GERMAN_COMBAT';st.activeSide='GERMAN';return st;
 }
 function resolution(crtResult:'DR'|'D1R'|'D2R'|'D3R'='DR'){
   return {dice:{die1:4,die2:4,total:8},crtResult,attackerLossSteps:0,defenderLossSteps:0,attackerRetreatSteps:0,defenderRetreatSteps:crtResult==='DR'?1:0,retreatConvertedToLoss:false};

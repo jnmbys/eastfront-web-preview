@@ -28,3 +28,16 @@ export function edge(a:HexCoord,b:HexCoord,opts:Partial<HexEdge>):HexEdge{
 export function setTerrain(state:GameState,h:HexCoord,terrain:HexState['terrain']){
   state.hexes[`${h.q},${h.r}`]={coord:{...h},terrain,control:null};
 }
+
+/** Combat unit tests declare a turn supply snapshot, not a railway topology.
+ * Setup refresh (002B-3 / 002B-5D) deliberately overwrites supplied inputs.
+ * Opt in after setup; never change makeState or production supply lifecycle.
+ * Mirrors the archived combat-declare-smoke fixture precondition. */
+export function declaredSupplySnapshot(state:GameState,units:readonly UnitState[]):void {
+  for(const expected of units) {
+    const actual=state.units[expected.id];
+    if(!actual)throw new Error(`Missing fixture unit ${expected.id}`);
+    actual.supplyState=expected.supplyState;
+    actual.temporarySupply=expected.temporarySupply;
+  }
+}

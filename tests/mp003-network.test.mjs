@@ -44,7 +44,12 @@ test('MP003 real clients: lobby handoff consumes initial snapshot once, deployme
 test('MP003 real clients: dropped observer snapshot triggers one resync, privacy holds and play continues',async t=>{
  const h=await pair(t);let dropped=false;
  h.a.initialSocket.drop=m=>{if(!dropped&&m.messageType==='PLAYER_VIEW_SNAPSHOT'&&m.payload.matchRevision===1){dropped=true;return true;}return false;};
- await h.deploy(0);assert(dropped);assert.equal(h.a.session.matchRevision,0);await h.deploy(1);
+ // Deliberately let the acting client finish first. Completion on B does not
+ // establish delivery on A's independent connection. Resume and await the exact
+ // injected drop event using the existing bounded wait, without changing sleep.
+ h.a.initialSocket.pause();
+ try{await h.deploy(0);assert.equal(dropped,false);}finally{h.a.initialSocket.resume();}
+ await wait(()=>dropped);assert(dropped);assert.equal(h.a.session.matchRevision,0);await h.deploy(1);
  await wait(()=>h.a.session.matchRevision===2&&!h.a.session.syncing);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);assert.equal(h.a.session.playerView.units.length,0);
  await h.deploy(2);await wait(()=>h.a.session.matchRevision===3);assert.equal(h.sent.filter(m=>m.messageType==='RESYNC_MATCH').length,1);
 });

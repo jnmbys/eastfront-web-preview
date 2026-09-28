@@ -3,13 +3,14 @@ import {
   buildCombatContext,defaultRules,getLegalRetreatStepOptions,hasLegalRetreatExit,
   validateRetreatStep,type GameState,type HexCoord,type UnitState
 } from '../src/index.js';
-import {G,S,gridHexes,makeState,setTerrain,unit} from './helpers.js';
+import {declaredSupplySnapshot,G,S,gridHexes,makeState,setTerrain,unit} from './helpers.js';
 
 const center={q:0,r:0};
 const attackerHex={q:-1,r:0};
 function base(defender:UnitState,extras:UnitState[]=[]):GameState{
   const g=unit('g','G-INF','GERMAN','INFANTRY',attackerHex,G);
   const st=makeState([g,defender,...extras],gridHexes(-3,3,-3,3));
+  declaredSupplySnapshot(st,[g,defender,...extras]);
   st.phase='GERMAN_COMBAT';st.activeSide='GERMAN';
   return st;
 }

@@ -1,11 +1,12 @@
 import {describe,expect,it} from 'vitest';
 import {RulesEngine,createGameState,defaultRules,defaultScenario,validateGameStateIntegrity,type GameState,type UnitState} from '../src/index.js';
-import {G,S,gridHexes,unit} from './helpers.js';
+import {declaredSupplySnapshot,G,S,gridHexes,unit} from './helpers.js';
 
 const engine=new RulesEngine(defaultRules,defaultScenario);
 function state(seed:number,extra:UnitState[]=[]):GameState{
  const units=[unit('g','G-INF','GERMAN','INFANTRY',{q:-1,r:0},G),unit('s','S-ELITE','SOVIET','ELITE_INFANTRY',{q:0,r:0},S),...extra];
  const st=createGameState({scenario:defaultScenario,rules:defaultRules,hexes:gridHexes(-4,4,-4,4),edges:[],units,seed});
+ declaredSupplySnapshot(st,units);
  st.phase='GERMAN_COMBAT';st.activeSide='GERMAN';return st;
 }
 const attack=(st:GameState,battleId:string)=>engine.apply(st,{type:'ATTACK',controllerId:G,battleId,attackerUnitIds:['g'],target:{q:0,r:0}});

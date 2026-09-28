@@ -1,9 +1,10 @@
 import { describe,expect,it } from 'vitest';
 import { buildCombatContext, defaultRules, selectCRTColumn } from '../src/index.js';
-import { G,gridHexes,makeState,setTerrain,unit } from './helpers.js';
+import { declaredSupplySnapshot,G,gridHexes,makeState,setTerrain,unit } from './helpers.js';
 
 function combatState(units:ReturnType<typeof unit>[]){
   const st=makeState(units,gridHexes(-3,3,-3,3));
+  declaredSupplySnapshot(st,units);
   st.phase='GERMAN_COMBAT';st.activeSide='GERMAN';
   return st;
 }

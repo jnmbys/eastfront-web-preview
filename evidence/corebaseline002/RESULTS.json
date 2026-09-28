@@ -1,0 +1,52 @@
+{
+  "task": "CORE-BASELINE-002",
+  "baseCommit": "f8e732138a8e3c01d2885ddac09a33e2fedfec18",
+  "branch": "core-baseline-002",
+  "classification": {
+    "obsoleteSupplyFixture": 9,
+    "missingTransactionFixture": 1,
+    "obsoletePlaceholderExpectation": 1,
+    "runtimeDefectsInThese11": 0,
+    "unresolvedRuleIntentInThese11": 0
+  },
+  "core": {
+    "pass": 97,
+    "fail": 0,
+    "fullGateRuns": 1
+  },
+  "web": {
+    "pass": 637,
+    "fail": 0,
+    "fullGateRuns": 1
+  },
+  "coreSmokes": {
+    "pass": 28,
+    "fail": 0
+  },
+  "ai": {
+    "pass": 21,
+    "fail": 0,
+    "runs": 1
+  },
+  "focusedCore": {
+    "pass": 30,
+    "fail": 0
+  },
+  "mp003Focused": {
+    "pass": 4,
+    "fail": 0
+  },
+  "mp003NegativeControl": {
+    "expectedFailure": true,
+    "assertion": "assert(dropped)",
+    "removedOnly": "await wait(()=>dropped);"
+  },
+  "typecheckAndBuild": "Core/frontend/server PASS; AI build PASS",
+  "coreArtifactsUnchanged": 76,
+  "runtimeSourceChanged": false,
+  "frozenHashesChanged": false,
+  "productionDeployment": false,
+  "merge": false,
+  "browserAndHuaweiAcceptance": "not performed; previous multiplayer acceptance remains pending",
+  "nextStep": "May continue isolated fair AI reinforcement/retreat development; no approval to merge/deploy or declare Human vs AI playable."
+}

@@ -66,11 +66,15 @@ describe('Task 001.2 transaction integrity',()=>{
       attackerUnitIds:['g1','g2'],commitmentIds:[commitmentId],target:{q:0,r:0}
     });
     const codes=retry.issues.map((x)=>x.code);
-    expect(retry.accepted).toBe(true); // full combat transition is intentionally still deferred
+    expect(retry.accepted).toBe(true); // 002A-1 establishes a canonical transaction.
     expect(codes).not.toContain('BATTLE_ID_DUPLICATE');
     expect(codes).not.toContain('UNAUTHORIZED_UNIT_COMMITMENT');
-    expect(codes).toContain('RULE_NOT_IMPLEMENTED');
-    expect(retry.combat).toBeDefined();
+    expect(codes).toEqual([]);
+    expect(retry.state.combatTransactions['B-JOINT']?.stage).toBe('DEFENDER_REACTION');
+    expect(retry.state.combatTransactions['B-JOINT']?.commitmentIds).toEqual([commitmentId]);
+    expect(retry.state.pendingDecision?.battleId).toBe('B-JOINT');
+    expect(retry.state.pendingDecision?.decisionOwnerControllerId).toBe(S);
+    expect(retry.events.some(e=>e.type==='CombatDeclared')).toBe(true);
   });
 
   it('PendingDecision globally blocks unrelated state-changing actions but lets matching decision action reach its validator',()=>{
@@ -81,11 +85,15 @@ describe('Task 001.2 transaction integrity',()=>{
       battleId:'B-PENDING',authorizedControllerId:G,unitIds:['g2']
     });
     expect(grant.accepted).toBe(true);
-    const locked=structuredClone(grant.state);
-    locked.pendingDecision={
-      kind:'DEFENDER_REACTION',side:'SOVIET',battleId:'B-PENDING',
-      decisionOwnerControllerId:S,eligibleControllerIds:[S],eligibleHQUnitIds:[],eligibleArtilleryUnitIds:[]
-    };
+    const commitmentId=Object.keys(grant.state.unitCommitments)[0]!;
+    const declared=engine.apply(grant.state,{
+      type:'ATTACK',actionId:'A-DECLARE',battleId:'B-PENDING',controllerId:G,
+      attackerUnitIds:['g1','g2'],commitmentIds:[commitmentId],target:{q:0,r:0}
+    });
+    expect(declared.accepted).toBe(true);
+    expect(declared.state.pendingDecision?.kind).toBe('DEFENDER_REACTION');
+    expect(validateGameStateIntegrity(declared.state,defaultRules)).toEqual([]);
+    const locked=declared.state;
 
     const blockedActions:Action[]=[
       {type:'MOVE',controllerId:G,unitId:'g1',path:[{q:-2,r:0}]},
