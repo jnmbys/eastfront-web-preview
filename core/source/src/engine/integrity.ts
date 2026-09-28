@@ -1,7 +1,7 @@
 import { canonicalEdgeKey } from '../core/edge.js';
 import { hexDistance, hexKey } from '../core/hex.js';
 import type { GameRules, ScenarioConfig } from '../core/config.js';
-import type { GameState, IntegrityIssue } from '../core/types.js';
+import type { CombatTransaction, GameState, HexCoord, IntegrityIssue } from '../core/types.js';
 import { findDuplicates } from '../core/collections.js';
 import { phaseSide } from '../rules/turn.js';
 import { deriveSovietReinforcementSlots } from '../rules/reinforcement.js';
@@ -9,6 +9,90 @@ import { deploymentHexKeysForSide, isDeploymentPhase } from '../rules/deployment
 
 function issue(code:string,message:string,details?:Record<string,unknown>):IntegrityIssue {
   return details?{code,message,details}:{code,message};
+}
+
+/** Historical transactions do not pin units forever. Only accepted, later movement
+ * records may supersede their endpoint; rejected actions never authorize displacement.
+ * This audits the authoritative journal, not a re-run of historical ZOC/supply rules. */
+function recordedPositionAfter(state:GameState,tx:CombatTransaction,unitId:string,position:HexCoord,after:number):HexCoord {
+  if(tx.stage!=='CLOSED')return position;
+  const closedAt=state.actionLog.findIndex(e=>e.accepted&&e.actionId===tx.completedByActionId);
+  if(after<0||closedAt<0||closedAt<after)return position;
+  let expected=position;
+  for(const entry of state.actionLog.slice(closedAt+1)) {
+    if(!entry.accepted)continue;
+    const action=entry.action;
+    if(action.type==='MOVE'&&action.unitId===unitId&&action.path.length)expected=action.path[action.path.length-1]!;
+    if(action.type==='RETREAT') {
+      const later=state.combatTransactions[action.battleId];
+      const path=action.retreats.find(r=>r.unitId===unitId)?.path;
+      if(later?.retreat?.resolved&&later.retreat.unitIds.includes(unitId)&&path?.length)expected=path[path.length-1]!;
+    }
+    if(action.type==='ADVANCE_AFTER_COMBAT'&&action.unitId===unitId) {
+      const later=state.combatTransactions[action.battleId];
+      if(later?.advance?.advancedUnitIds.includes(unitId))expected=later.targetHex;
+    }
+    if(action.type==='BREAKTHROUGH'&&action.unitId===unitId&&action.path.length) {
+      const later=state.combatTransactions[action.battleId];
+      if(later?.breakthrough?.completedUnitIds.includes(unitId))expected=action.path[action.path.length-1]!;
+    }
+  }
+  return expected;
+}
+
+/** Completed markers alone cannot justify a new position. Retain the accepted
+ * path, transaction/actor identity, phase, ordering, geometry and endpoint checks. */
+function breakthroughIntegrity(state:GameState,rules:GameRules,tx:CombatTransaction):IntegrityIssue[] {
+  const bt=tx.breakthrough;
+  if(!bt)return [];
+  const out:IntegrityIssue[]=[];
+  const invalid=(unitId:string,reason:string)=>out.push(issue('COMBAT_BREAKTHROUGH_RECORD_INVALID','Completed breakthrough must match its authoritative action record.',{battleId:tx.battleId,unitId,reason}));
+  for(const e of state.actionLog)if(e.accepted&&e.action.type==='BREAKTHROUGH'&&e.action.battleId===tx.battleId&&!bt.completedUnitIds.includes(e.action.unitId))invalid(e.action.unitId,'ACTION_WITHOUT_COMPLETION');
+  const declaration=state.actionLog.find(e=>e.accepted&&e.actionId===tx.declaredByActionId);
+  for(const unitId of bt.completedUnitIds) {
+    const unit=state.units[unitId];
+    const records=state.actionLog.filter(e=>e.accepted&&e.action.type==='BREAKTHROUGH'&&e.action.battleId===tx.battleId&&e.action.unitId===unitId);
+    if(records.length!==1){invalid(unitId,'MISSING_OR_DUPLICATE_ACTION');continue;}
+    const record=records[0]!;
+    if(record.action.type!=='BREAKTHROUGH')continue;
+    const path=record.action.path;
+    const at=state.actionLog.indexOf(record);
+    const advanced=tx.advance?.advancedUnitIds.includes(unitId);
+    const advanceAt=state.actionLog.findIndex(e=>e.accepted&&e.action.type==='ADVANCE_AFTER_COMBAT'&&e.action.battleId===tx.battleId&&e.action.unitId===unitId);
+    const closeAt=state.actionLog.findIndex(e=>e.accepted&&e.actionId===tx.completedByActionId);
+    const close=state.actionLog[closeAt];
+    const closeAction=close?.action;
+    const validClose=close&&close.turn===record.turn&&close.phase===record.phase&&closeAction?.controllerId===tx.declaringControllerId&&(
+      (closeAction.type==='SCHWERPUNKT_ATTACK'&&closeAction.sourceBattleId===tx.battleId)||
+      (['BREAKTHROUGH','PASS_BREAKTHROUGH','PASS_SCHWERPUNKT'].includes(closeAction.type)&&'battleId' in closeAction&&closeAction.battleId===tx.battleId));
+    if(!unit||unit.side!==tx.attackerSide||!rules.unitTemplates[unit.templateId]?.isArmor||
+      !tx.attackerUnitIds.includes(unitId)||!bt.eligibleUnitIds.includes(unitId)||!tx.advance?.resolved||
+      tx.isSchwerpunktSecondAttack||!['D1R','D2R','D3R'].includes(tx.resolution?.crtResult??''))invalid(unitId,'PARTICIPANT_OR_TRANSACTION');
+    if(record.battleId!==tx.battleId||record.actionId!==record.action.actionId||record.action.controllerId!==tx.declaringControllerId||
+      record.phase!==(tx.attackerSide==='GERMAN'?'GERMAN_COMBAT':'SOVIET_COMBAT')||
+      (declaration&&(declaration.battleId!==tx.battleId||declaration.turn!==record.turn||declaration.phase!==record.phase||state.actionLog.indexOf(declaration)>=at))||
+      (advanced&&(advanceAt<0||advanceAt>=at)))invalid(unitId,'IDENTITY_OR_ORDER');
+    if(!['BREAKTHROUGH_OPTION','SCHWERPUNKT_OPTION','CLOSED'].includes(tx.stage)||
+      (tx.stage==='CLOSED'?(closeAt<at||!bt.resolved||!validClose):
+        (state.turn!==record.turn||state.phase!==record.phase||state.pendingDecision?.battleId!==tx.battleId||state.pendingDecision.kind!==tx.stage))||
+      (tx.stage==='SCHWERPUNKT_OPTION'&&!bt.resolved))invalid(unitId,'STAGE_OR_STALE_TRANSACTION');
+    const max=bt.maxHexesByUnitId[unitId];
+    let cursor=tx.targetHex;
+    let pathValid=(max===1||max===2)&&path.length<=max&&state.hexes[hexKey(tx.targetHex)]?.terrain!=='MARSH';
+    for(const step of path) {
+      const terrain=state.hexes[hexKey(step)]?.terrain;
+      if(hexDistance(cursor,step)!==1||!terrain||terrain==='LAKE'||terrain==='MARSH')pathValid=false;
+      cursor=step;
+    }
+    if(!pathValid)invalid(unitId,'PATH');
+    // An empty path declines movement. For a normally advanced unit its endpoint
+    // is still the target. Non-advanced decliners have no recorded origin here.
+    if(unit&&(path.length||advanced)) {
+      const expected=recordedPositionAfter(state,tx,unitId,cursor,at);
+      if(hexKey(unit.hex)!==hexKey(expected))out.push(issue('COMBAT_BREAKTHROUGH_POSITION_INVALID','Unit position differs from the recorded breakthrough endpoint or subsequent accepted movement.',{battleId:tx.battleId,unitId,expected,actual:unit.hex}));
+    }
+  }
+  return out;
 }
 
 /** Debug/test invariant audit. It never mutates state. */
@@ -170,12 +254,18 @@ export function validateGameStateIntegrity(state:GameState,rules:GameRules,scena
         const unit=state.units[unitId];
         if (!tx.attackerUnitIds.includes(unitId)) issues.push(issue('COMBAT_ADVANCE_NONATTACKER','Advanced unit must be an original direct attacker.',{battleId:tx.battleId,unitId}));
         if (!tx.advance.eligibleUnitIds.includes(unitId)) issues.push(issue('COMBAT_ADVANCE_NOT_ELIGIBLE','Advanced unit must come from CombatAdvanceState.eligibleUnitIds.',{battleId:tx.battleId,unitId}));
-        if (unit&&hexKey(unit.hex)!==hexKey(tx.targetHex)) issues.push(issue('COMBAT_ADVANCE_POSITION_INVALID','Advanced unit must occupy the original target hex after normal advance.',{battleId:tx.battleId,unitId,unitHex:unit.hex,targetHex:tx.targetHex}));
+        // Breakthrough is checked against its accepted path below, never merely exempted.
+        if (!tx.breakthrough?.completedUnitIds.includes(unitId)) {
+          const advanceAt=state.actionLog.findIndex(e=>e.accepted&&e.action.type==='ADVANCE_AFTER_COMBAT'&&e.action.battleId===tx.battleId&&e.action.unitId===unitId);
+          const expected=recordedPositionAfter(state,tx,unitId,tx.targetHex,advanceAt);
+          if (unit&&hexKey(unit.hex)!==hexKey(expected)) issues.push(issue('COMBAT_ADVANCE_POSITION_INVALID','Advanced unit must occupy the target or a subsequent recorded movement endpoint.',{battleId:tx.battleId,unitId,unitHex:unit.hex,expected}));
+        }
       }
       const ownsAdvancePending=state.pendingDecision?.battleId===tx.battleId&&state.pendingDecision.kind==='ADVANCE_AFTER_COMBAT';
       if (tx.stage==='ADVANCE_AFTER_COMBAT'&&(tx.advance.resolved||!ownsAdvancePending)) issues.push(issue('COMBAT_ADVANCE_PENDING_MISMATCH','ADVANCE_AFTER_COMBAT stage requires unresolved advance state and matching PendingDecision.',{battleId:tx.battleId,resolved:tx.advance.resolved,hasMatchingPending:ownsAdvancePending}));
       if (tx.advance.resolved&&ownsAdvancePending) issues.push(issue('RESOLVED_ADVANCE_HAS_PENDING','Resolved Advance After Combat may not retain an ADVANCE_AFTER_COMBAT PendingDecision.',{battleId:tx.battleId}));
     }
+    issues.push(...breakthroughIntegrity(state,rules,tx));
     if (tx.stage==='BREAKTHROUGH_OPTION'&&!tx.breakthrough) issues.push(issue('COMBAT_BREAKTHROUGH_STATE_MISSING','BREAKTHROUGH_OPTION stage requires CombatBreakthroughState.',{battleId:tx.battleId}));
     if (tx.breakthrough) {
       for (const duplicate of findDuplicates(tx.breakthrough.eligibleUnitIds)) issues.push(issue('COMBAT_BREAKTHROUGH_DUPLICATE_ELIGIBLE','Breakthrough eligibleUnitIds must be unique.',{battleId:tx.battleId,unitId:duplicate}));

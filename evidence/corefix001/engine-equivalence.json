@@ -1,0 +1,55 @@
+{
+  "authorityResultsAndEventsIdentical": true,
+  "rngAndStateIdentical": true,
+  "originalHeadless": {
+    "termination": "INTEGRITY_FAILURE",
+    "processed": 5
+  },
+  "fixedHeadless": {
+    "termination": "NO_ACTION",
+    "processed": 6
+  },
+  "replayIdentical": true,
+  "actions": [
+    {
+      "action": "ATTACK",
+      "pending": "DEFENDER_REACTION",
+      "originalIntegrity": [],
+      "fixedIntegrity": []
+    },
+    {
+      "action": "PASS_REACTION",
+      "pending": "RETREAT",
+      "originalIntegrity": [],
+      "fixedIntegrity": []
+    },
+    {
+      "action": "RETREAT",
+      "pending": "ADVANCE_AFTER_COMBAT",
+      "originalIntegrity": [],
+      "fixedIntegrity": []
+    },
+    {
+      "action": "ADVANCE_AFTER_COMBAT",
+      "pending": "BREAKTHROUGH_OPTION",
+      "originalIntegrity": [],
+      "fixedIntegrity": []
+    },
+    {
+      "action": "BREAKTHROUGH",
+      "pending": "SCHWERPUNKT_OPTION",
+      "originalIntegrity": [
+        "COMBAT_ADVANCE_POSITION_INVALID"
+      ],
+      "fixedIntegrity": []
+    },
+    {
+      "action": "PASS_SCHWERPUNKT",
+      "pending": null,
+      "originalIntegrity": [
+        "COMBAT_ADVANCE_POSITION_INVALID"
+      ],
+      "fixedIntegrity": []
+    }
+  ]
+}

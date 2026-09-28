@@ -117,7 +117,7 @@ test('AI001 old headless entry remains explicitly omniscient and separate from t
  for(const file of readdirSync(new URL('../../.ai-dist/ai/fair/',import.meta.url)).filter(f=>f.endsWith('.js'))){const code=readFileSync(new URL('../../.ai-dist/ai/fair/'+file,import.meta.url),'utf8');for(const match of code.matchAll(/from ['"]([^'"]+)['"]/g))assert(['./candidates.js','./minimalAgent.js','../../vendor/eastfront-digital-core/dist/core/hex.js'].includes(match[1]),match[1]);}
 });
 
- test('AI001 actual advance/breakthrough passes work; existing post-breakthrough Core integrity blocker stays enforced',()=>{
+ test('CORE-FIX-001 real breakthrough continues through fair host; corrupt positions still stop',()=>{
  let state=fixture(8246,[unit('g','G-PANZER','GERMAN','PANZER',{q:-1,r:0}),unit('d','S-TANK','SOVIET','TANK',{q:0,r:0}),unit('d2','S-INF','SOVIET','INFANTRY',{q:2,r:0})],'GERMAN_COMBAT');
  const engine=new RulesEngine(defaultRules,microScenario);
  const apply=action=>{const r=engine.apply(state,action);assert(r.accepted,json(r.issues));state=r.state;};
@@ -134,13 +134,15 @@ test('AI001 old headless entry remains explicitly omniscient and separate from t
   if(next)apply({...next,controllerId:G,battleId:state.pendingDecision.battleId});
  }
  assert.equal(state.pendingDecision.kind,'SCHWERPUNKT_OPTION');
- // Existing Core accepts the breakthrough but its integrity checker still requires the old
- // advance hex. Keep this blocker visible: do not filter it out or patch vendor/dist here.
- assert.deepEqual(validateGameStateIntegrity(state,defaultRules,microScenario).map(i=>i.code),['COMBAT_ADVANCE_POSITION_INVALID']);
- const blocked=host(state);let called=false;const policy=input=>{called=true;return minimalAgent(input);};
+ assert.deepEqual(validateGameStateIntegrity(state,defaultRules,microScenario),[]);
+ const live=host(state);const pass=minimalAgent(live.observe(G));assert.equal(pass.intent.type,'PASS_SCHWERPUNKT');
+ const oracle=engine.apply(state,{...pass.intent,controllerId:G});assert(oracle.accepted);
+ assert.equal(live.step(both).status,'ACCEPTED');assert.deepEqual(live.auditOmniscient(),oracle.state);
+ assert.equal(live.auditOmniscient().pendingDecision,null);
+ const invalid=structuredClone(state);invalid.units.g.hex={q:4,r:0};
+ assert(validateGameStateIntegrity(invalid,defaultRules,microScenario).some(i=>i.code==='COMBAT_BREAKTHROUGH_POSITION_INVALID'));
+ const blocked=host(invalid);let called=false;const policy=input=>{called=true;return minimalAgent(input);};
  assert.equal(blocked.step({GERMAN:policy,SOVIET:policy}).status,'INTEGRITY_FAILURE');assert.equal(called,false);
- const pass=minimalAgent(blocked.observe(G));assert.equal(pass.intent.type,'PASS_SCHWERPUNKT');
- assert(engine.apply(state,{...pass.intent,controllerId:G}).accepted,'original engine supports pass but integrity gate blocks the fair run');
 });
 test('AI001 accepted hidden artillery selection never enters the opposing policy packet',()=>{
  const make=id=>{

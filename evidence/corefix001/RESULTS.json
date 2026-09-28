@@ -1,0 +1,80 @@
+{
+  "task": "CORE-FIX-001",
+  "status": "isolated candidate; not merged or deployed; full gates not all green",
+  "baselineSourceImport": "1098967b239e65be1e7861d5930adc9a7e804aed",
+  "historicalCoreGitCommit": null,
+  "archiveSha256": "b157991005b04e339ed0911a8e9dfdd9a7ab5f901cba1fc03f72f293b2dd5609",
+  "environment": {
+    "node": "24.19.0",
+    "typescript": "5.9.3",
+    "vitest": "2.1.9",
+    "nodeTypes": "22.20.4"
+  },
+  "baselineVitest": {
+    "pass": 60,
+    "fail": 11,
+    "total": 71
+  },
+  "fixedOriginalVitest": {
+    "pass": 60,
+    "fail": 11,
+    "total": 71,
+    "sameFailureNames": true,
+    "originalTestsModified": false
+  },
+  "newCoreTests": {
+    "pass": 24,
+    "fail": 0
+  },
+  "coreSmoke": {
+    "baselinePass": 28,
+    "fixedPass": 28,
+    "fail": 0
+  },
+  "aiIntegration": {
+    "pass": 21,
+    "fail": 0
+  },
+  "webFullFinal": {
+    "pass": 636,
+    "fail": 1,
+    "total": 637,
+    "failure": "MP003 dropped observer snapshot: assert(dropped) at tests/mp003-network.test.mjs:47"
+  },
+  "mp003FileIsolatedRecheck": {
+    "pass": 4,
+    "fail": 0,
+    "doesNotReplaceFullRun": true
+  },
+  "typecheck": {
+    "core": "PASS",
+    "frontend": "PASS",
+    "server": "PASS"
+  },
+  "build": {
+    "core": "PASS",
+    "frontend": "PASS",
+    "server": "PASS",
+    "ai": "PASS"
+  },
+  "baselineRebuild": {
+    "equal": 76,
+    "total": 76
+  },
+  "fixedBuild": {
+    "changedFiles": [
+      "engine/integrity.js"
+    ],
+    "unchangedFiles": 75,
+    "sha256": "2ec7a260a9701364ffe3c806233115804da068fdf63a460c7868b25ac94e71c6"
+  },
+  "frozenFixtureChanges": {
+    "files": 6,
+    "generatedArtifactEntries": 6,
+    "nestedContainerEntries": 1
+  },
+  "originalAndFixedActionResults": "exact deep equality including state/events/RNG",
+  "actualBrowserVerification": false,
+  "huaweiVerification": "not performed; prior multiplayer acceptance remains pending",
+  "productionChanged": false
+}

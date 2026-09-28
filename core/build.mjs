@@ -1,0 +1,17 @@
+import {execFileSync} from 'node:child_process';
+import {readFileSync,writeFileSync,readdirSync,cpSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('../',import.meta.url));
+execFileSync(process.execPath,[root+'core/source/node_modules/typescript/bin/tsc','-p',root+'core/source/tsconfig.json'],{stdio:'inherit'});
+const hash=p=>createHash('sha256').update(readFileSync(p)).digest('hex');
+const files=(dir,prefix='')=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(dir+'/'+e.name,prefix+e.name+'/'):[prefix+e.name]);
+const baseline=JSON.parse(readFileSync(root+'evidence/corefix001/baseline-artifacts.json','utf8'));
+const rebuilt=files(root+'core/source/dist').sort();
+if(rebuilt.length!==76||baseline.files.some(f=>!rebuilt.includes(f.file)))throw Error('Unexpected artifact set');
+const manifest=rebuilt.map(file=>({file,baseline:baseline.files.find(f=>f.file===file).vendor,rebuilt:hash(root+'core/source/dist/'+file)}));
+const changed=manifest.filter(f=>f.baseline!==f.rebuilt);
+if(changed.length!==1||changed[0].file!=='engine/integrity.js')throw Error('Unexpected generated differences: '+JSON.stringify(changed));
+if(process.argv.includes('--sync-vendor'))cpSync(root+'core/source/dist',root+'vendor/eastfront-digital-core/dist',{recursive:true});
+writeFileSync(root+'evidence/corefix001/fixed-artifacts.json',JSON.stringify({generatedOnly:true,count:rebuilt.length,changed,files:manifest},null,2)+'\n');
+console.log('76 generated files; only engine/integrity.js changed. '+(process.argv.includes('--sync-vendor')?'Copied generated output to isolated branch vendor.':'Vendor not modified.'));
