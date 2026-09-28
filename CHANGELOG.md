@@ -67,3 +67,11 @@ Change: Record two-size iframe acceptance and identify fresh source build as nex
 Reason: Runtime tests on patched JS do not establish reproducible TypeScript output.
 Commit: Handoff 040b4988b9d47efa761f3bb93039ea8940723871; deployment 8778cb4f307c3d01f471ac2b326f8beef4c5f500.
 Validation: Leader fetched Git and read ACCEPTANCE.md/PREPARED.md; Worker test/browser/hash evidence not independently rerun. Management files only.
+
+## 2026-09-28 — AI004 Git intake
+Date: 2026-09-28 22:21 (Asia/Shanghai)
+Task ID: COLLAB-STATE-005
+Change: Record autonomous baseline, 144 aggregate rejections and closure of AI-PREVIEW-001 Git evidence gap.
+Reason: Distinguish natural game termination from strategic quality.
+Commit: ea71d31dd7277565b1684453bc1a4baf126912d6.
+Validation: Leader fetched immutable source and read Git REVIEW.md; tests and autonomous run counts are Worker-reported, not rerun.
