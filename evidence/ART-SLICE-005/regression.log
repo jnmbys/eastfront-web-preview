@@ -1,0 +1,24 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 test
+> node --test tests/move001r1-state.test.mjs tests/art-prototype.test.mjs
+
+✔ ART terrain covers each authorized cell exactly once without inventing classes (52.013858ms)
+✔ ART river segments have actual shared endpoints and casing is globally below water (3.129221ms)
+✔ ART bridge destroyed/intact are taken from supplied authorized field only (6.13726ms)
+✔ ART rendering is nonmutating and introduces no unit or hidden identity (4.25507ms)
+✔ ART empty authorized network produces no guessed bridge/route (0.174103ms)
+✔ ART same-hex list reuses canonical selector and leaves MOVE001R1 target intent intact (11.472811ms)
+✔ MOVE001R1 selecting a unit does not implicitly capture other friendly clicks (25.377123ms)
+✔ MOVE001R1 existing completed move must release target selection (16.278571ms)
+✔ MOVE001R1 full A -> friendly B -> confirm -> C -> confirm chain on all target surfaces (44.715957ms)
+✔ MOVE001R1 exit before first step, cancel and final undo permit switching and same-hex selection (44.060589ms)
+✔ MOVE001R1 full movement budget and rejected local move both release selection (24.482599ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1102.486329

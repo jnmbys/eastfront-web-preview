@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import {createSlice,semanticAudit,corridors,inside,segmentDistance} from './dist/app/experiments/sliceData.js';
+import {vs2RectangleSegmentDistance} from './dist/app/render/vs2Projection.js';
+import {placements} from './dist/app/experiments/sliceTerrain.js';
+import {hexKey,hexPolygon,sharedHexEdge} from './dist/app/geometry/hex.js';
+import {importLegacyMap,axialToPaper,paperToAxial} from './dist/vendor/eastfront-digital-core/dist/index.js';
+const rawBytes=await readFile(new URL('./dist/map.json',import.meta.url)),raw=JSON.parse(rawBytes),full=importLegacyMap(raw),data=createSlice(raw),keys=new Set(data.hexes.map(h=>hexKey(h.coord))),tests=[];
+function test(name,fn){fn();tests.push({name,status:'PASS'});}
+test('35 original cells, exact terrain and coordinate mapping',()=>{assert.equal(data.hexes.length,35);for(const h of data.hexes){const {row}=axialToPaper(h.coord);assert.equal(raw.terrain[`${h.coord.q+1},${row}`].toUpperCase(),h.terrain);assert.deepEqual(h,full.hexes.find(x=>hexKey(x.coord)===hexKey(h.coord)));}});
+test('Every touching edge retained with no inserted or changed flags',()=>assert.deepEqual(data.edges,full.edges.filter(e=>keys.has(hexKey(e.a))||keys.has(hexKey(e.b)))));
+test('Every river uses a true shared canonical hex edge',()=>{for(const e of data.edges.filter(e=>e.river))assert.equal(sharedHexEdge(e.a,e.b).length,2);});
+test('Bridge registry unchanged; bridges require true river/transport intersection',()=>{for(const e of data.edges.filter(e=>e.bridge)){assert(e.river&&(e.road||e.railway?.present));assert.deepEqual(e.bridge,full.edges.find(x=>x.key===e.key).bridge);}assert(data.edges.some(e=>e.bridge));});
+const placed=placements(data);const lanes=corridors(data);
+test('Forest/city sprite rectangles stay within their semantic cell and outside corridors',()=>{for(const p of placed.filter(p=>!['HILL','ROUGH'].includes(p.kind))){const h=data.hexes.find(h=>axialToPaper(h.coord).label===p.cell);assert(h.terrain===(p.kind==='city'?'CITY':'FOREST'));for(const dx of [-p.width/2,p.width/2])for(const dy of [-p.height/2,p.height/2])assert(inside({x:p.x+dx,y:p.y+dy},hexPolygon(h.coord)));for(const l of lanes)assert(vs2RectangleSegmentDistance(p,p.width/2,p.height/2,l.a,l.b)>=l.width);}});
+test('All forest, hill, rough and city cells have their own material assets',()=>{for(const h of data.hexes.filter(h=>['FOREST','HILL','ROUGH','CITY'].includes(h.terrain)))assert(placed.some(p=>p.cell===axialToPaper(h.coord).label),axialToPaper(h.coord).label);});
+test('Deterministic visual placements, no gameplay RNG',()=>assert.deepEqual(placed,placements(createSlice(raw))));
+test('Display fixtures include a stack and damage state on real cells',()=>{assert.equal(data.counters.filter(c=>hexKey(c.hex)===hexKey(paperToAxial('X',13))).length,2);assert(data.counters.some(c=>c.step===1));for(const c of data.counters)assert(keys.has(hexKey(c.hex)));});
+const evidence=resolve(import.meta.dirname,'../../evidence/ART-SLICE-005');await mkdir(evidence,{recursive:true});
+const audit={...semanticAudit(data),sourceSHA256:createHash('sha256').update(rawBytes).digest('hex'),placements:placed,summary:{cells:data.hexes.length,edges:data.edges.length,rivers:data.edges.filter(e=>e.river).length,roads:data.edges.filter(e=>e.road).length,rails:data.edges.filter(e=>e.railway?.present).length,bridges:data.edges.filter(e=>e.bridge).length,stamps:placed.length}};
+await writeFile(resolve(evidence,'semantic-audit.json'),JSON.stringify(audit,null,2)+'\n');await writeFile(resolve(evidence,'tests.json'),JSON.stringify(tests,null,2)+'\n');console.log(JSON.stringify({tests:tests.length,summary:audit.summary}));
