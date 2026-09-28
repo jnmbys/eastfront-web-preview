@@ -1,3 +1,5 @@
+import {LocalAiClient,createLocalAiWorker} from './local-ai/client.js';
+import type {LocalScenario} from './local-ai/types.js';
 import {combatResults} from './ui/combatResult.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
@@ -40,6 +42,8 @@ import { TERRAIN_VISUAL_SEED, createFreshProductionSession, defaultMapViewport, 
 import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport, type MapGestureState, type MapPoint } from './web/mapInteraction.js';
 
 const rootElement=document.querySelector<HTMLElement>('#app');if(!rootElement)throw new Error('#app missing');const root=rootElement;
+const LOCAL_AI_ENABLED=false; // Enabled only by the isolated AI003 build.
+let localAi:LocalAiClient|null=null,localGeneration=0;
 const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:PlayerSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'MULTIPLAYER'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
 let terrainPipeline:ProgressiveTerrain<CachedTerrainSurface>|null=null;
 let terrainBoot:Promise<void>|null=null;
@@ -153,8 +157,8 @@ function viewerSwitch(model:BrowserRenderModel):string{if(!presentation.debug)re
 function privacyGate():string{const gate=presentation.privacyGate;if(!gate)return '';if(gate==='COMBAT_DECISION'){const owner=(session?sessionPlayerView(session).pendingDecision:null)?.decisionOwnerControllerId??'';const side=owner&&session&&sessionPlayerView(session).pendingDecision?.side==='SOVIET'?'Soviet':'German';return privacyHandoffMarkup(gate,side);}return privacyHandoffMarkup(gate);}
 function gameOver(model:BrowserRenderModel):string{return gameOverMarkup(model.victory.winner,model.victory.reason,model.turn);}
 
-function startNewGame():void{terrainPipeline?.resume();terrainPipeline?.continueAll();deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
-function restartGame():void{if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
+function startNewGame():void{if(LOCAL_AI_ENABLED){leaveLocalAi();return;}terrainPipeline?.resume();terrainPipeline?.continueAll();deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
+function restartGame():void{if(localAi){leaveLocalAi();return;}if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
   const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
@@ -269,6 +273,7 @@ function render():void{
   if(appStatus==='LOADING'){root.innerHTML=loadingMarkup(startupProgress.snapshot);bind();return;}
   if(appStatus==='FATAL'){root.innerHTML=fatalMarkup(fatalMessage||t('game.noResources'));bind();return;}
   if(appStatus==='MULTIPLAYER')return;
+  if(appStatus==='HOME'&&LOCAL_AI_ENABLED){root.innerHTML=localAiHome();bindLocalAiHome();return;}
   if(appStatus==='HOME'){
     if(!cachedTerrainSurface){root.innerHTML=homeMarkup(profile);bind();return;}
     const markup=homeMarkup(profile);
@@ -292,8 +297,9 @@ function bind():void{
   document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
   bindLanguageControl(root,()=>{forceNetworkRender=true;render();});
   document.querySelector('#terrain-detail-retry')?.addEventListener('click',()=>{terrainPipeline?.retry();updateTerrainDetailStatus();});
-  if(appStatus==='HOME')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
+  if(appStatus==='HOME'&&!LOCAL_AI_ENABLED)addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
   document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
+  if(isNetwork(session) && session.client && 'meta' in session.client)updateLocalAiStatus();
   if(!session)return;
   document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
@@ -436,6 +442,7 @@ function bindDynamic(model?:BrowserRenderModel):void{
 function updateNetworkStatus():void {
   if(!isNetwork(session))return;
   const status=document.querySelector<HTMLElement>('#network-match-status');if(status){status.textContent=session.statusText;status.dataset.status=session.status;status.dataset.revision=String(session.matchRevision);status.dataset.interactive=String(session.interactive);}
+  if(session.client && 'meta' in session.client)updateLocalAiStatus();
   // Local selection stays responsive during read-only queries. Action controls
   // still wait for the latest authorized options and the single transport slot.
   const selectionControls='[data-deploy-unit-id],[data-deploy-destination],[data-remove-attacker],[data-attack-unit],#rail-mode,#rail-clear,#rail-no-engineer,[data-rail-engineer],#move-undo,#move-cancel,[data-reinforcement-id],#attack-toggle-selected,#attack-clear,#attack-art-none,[data-attack-artillery],#loss-clear,[data-retreater],#retreat-undo,[data-breakthrough-unit],#breakthrough-undo';
@@ -447,7 +454,7 @@ function updateNetworkStatus():void {
     else if(!blocked&&button.dataset.networkDisabled){delete button.dataset.networkDisabled;button.disabled=false;}
   });
 }
-async function enterNetworkMatch(client:LobbyClient):Promise<void> {
+async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void> {
   presentation=createPresentationState(false,window.matchMedia('(max-width: 1100px)').matches);deploymentTouch=createDeploymentTouch();
   const network=new NetworkPlayerSession(client,presentation,kind=>{
     if(session!==network||appStatus!=='PLAYING')return;
@@ -463,6 +470,43 @@ async function enterNetworkMatch(client:LobbyClient):Promise<void> {
   if(!cachedTerrainSurface){network.dispose();return;}
   if(session!==network){network.dispose();return;}
   session=network;appStatus='PLAYING';presentation.privacyGate=null;render();terrainPipeline?.continueAll();
+}
+
+function localAiHome():string {
+ return `<main class="home-screen"><h1>EASTFRONT · 本地人机</h1><p>实验 AI：流程验证，策略尚弱</p><p>本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label><p>战斗脚本仅验证交互，不代表 AI 已会主动进攻。</p><button id="ai-start" class="primary-action">开始本地人机</button></main>`;
+}
+function bindLocalAiHome():void {document.querySelector('#ai-start')?.addEventListener('click',()=>{
+ const side=(document.querySelector<HTMLSelectElement>('#ai-side')?.value??'GERMAN') as 'GERMAN'|'SOVIET';
+ const scenario=(document.querySelector<HTMLSelectElement>('#ai-scenario')?.value??'campaign') as LocalScenario;
+ void startLocalAi(side,scenario);
+});}
+function leaveLocalAi():void {
+ localGeneration++;if(isNetwork(session))session.dispose();else localAi?.dispose();localAi=null;session=null;appStatus='HOME';terrainPipeline?.pause();render();
+}
+async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):Promise<void>{
+ const generation=++localGeneration;
+ if(isNetwork(session))session.dispose();else localAi?.dispose();session=null;localAi=null;
+ if(!productionMap||!cachedTerrainSurface){await boot();if(generation!==localGeneration||!productionMap||!cachedTerrainSurface)return;}
+ const options={humanSide,scenario,seed:crypto.getRandomValues(new Uint32Array(1))[0]!,map:productionMap};
+ const port=createLocalAiWorker();
+ const client=new LocalAiClient(port,options,()=>{if(localAi===client)updateLocalAiStatus();});localAi=client;appStatus='LOADING';render();
+ try{await client.start(options);if(generation!==localGeneration){client.dispose();return;}await enterNetworkMatch(client);}
+ catch(error){if(generation!==localGeneration)return;client.dispose();localAi=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent='本地 AI 启动失败：'+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
+}
+function updateLocalAiStatus():void {
+ if(!localAi||appStatus==='HOME')return;
+ let bar=document.querySelector<HTMLElement>('#local-ai-status');if(!bar){bar=document.createElement('section');bar.id='local-ai-status';bar.className='local-ai-status';root.prepend(bar);}
+ const client=localAi,m=client.meta,side=(s:string)=>s==='GERMAN'?'德军':'苏军';
+ const status=appStatus==='LOADING'?'正在准备本地对局 / 切换授权视角':m.paused?'已暂停：'+m.reason:m.manual?'人工接管模式':m.ownerSide===m.humanSide?'等待你的操作':'AI 正在处理';
+ bar.innerHTML=`<strong>实验 AI：流程验证，策略尚弱</strong><span role="status">${esc(status)} · 你的视角：${side(m.humanSide)}</span><span>接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载</span>${m.manual||/^(AGENT_STOP|AGENT_ERROR|REJECTION_LIMIT)/.test(m.reason??'')?`<button id="ai-takeover" class="mini-button">明确接管 ${side(m.ownerSide)}（切换授权视角）</button>`:''}<button id="ai-diagnostic" class="mini-button">复制诊断</button><button id="ai-exit" class="mini-button">退出 / 新局</button>`;
+ const statusEl=document.querySelector('#network-match-status');if(statusEl)statusEl.textContent=status;
+ document.querySelector('#ai-exit')?.addEventListener('click',leaveLocalAi);
+ document.querySelector('#ai-diagnostic')?.addEventListener('click',()=>{const field=document.createElement('textarea');field.readOnly=true;field.value=JSON.stringify({version:'AI-003',...m,revision:client.state.snapshot?.matchRevision},null,2);field.setAttribute('aria-label','安全 AI 诊断');bar!.append(field);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
+ document.querySelector('#ai-takeover')?.addEventListener('click',async()=>{
+  if(!window.confirm(`切换到${side(m.ownerSide)}的授权视角？接管后 AI 停止，后续切换座位仍需明确确认。`))return;
+  const generation=++localGeneration;if(isNetwork(session))session.dispose(false);session=null;appStatus='LOADING';render();
+  try{await client.takeover();if(generation!==localGeneration||localAi!==client)return;await enterNetworkMatch(client);}catch{if(generation===localGeneration)updateLocalAiStatus();}
+ });
 }
 
 function updateTerrainDetailStatus():void {
@@ -515,6 +559,8 @@ async function prepareTerrain(networkModel?:BrowserRenderModel):Promise<void>{
   }
 }
 window.addEventListener('resize',()=>{if(appStatus==='HOME'||appStatus==='PLAYING')render();});
+window.addEventListener('pagehide',()=>{localGeneration++;localAi?.dispose();});
+
 // Lobby and HOME need no terrain/session. Local play retains the full Startup Loading UX1 path.
 appStatus='HOME';render();
 

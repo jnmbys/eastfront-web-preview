@@ -1,9 +1,9 @@
 import {deriveSovietReinforcementSlots} from '../../vendor/eastfront-digital-core/dist/rules/reinforcement.js';
-import {createHash} from 'node:crypto';
+import {sha256} from './sha256.js';
 import {RulesEngine,deploymentHexKeysForSide,isDeploymentPhase,validateGameStateIntegrity,type GameState,type Side} from '../../src/core-adapter/core.js';
 import type {GameRules,ScenarioConfig} from '../../vendor/eastfront-digital-core/dist/core/config.js';
 import {derivePlayerView,rememberPlayerView,type Knowledge} from '../../src/player-view/playerView.js';
-import {isNetworkAction,toCoreAction} from '../../src/multiplayer/gameplayProtocol.js';
+import {isNetworkAction,toCoreAction,type NetworkAction} from '../../src/multiplayer/gameplayProtocol.js';
 import {observationCandidates} from '../fair/candidates.js';
 import type {FairInput,FairAgent,FairIntent,OwnAttempt,DeepReadonly} from '../fair/types.js';
 import {fairView,publicRules} from './projection.js';
@@ -22,6 +22,7 @@ function stable(value:unknown):string {
 /** TRUSTED AUTHORITY ONLY. Never hand this object, its methods, state or audit to a policy.
  * One instance per match; one private memory partition per assigned controller. */
 export class FairHost {
+  #lastResult:import('../../src/core-adapter/core.js').ActionResult|null=null;
   #state:GameState;#rules:GameRules;#scenario:ScenarioConfig;#engine:RulesEngine;#matchId:string;
   #knowledge:Partial<Record<Side,Knowledge>>={};#memory=new Map<string,SeatMemory>();#terminal:HostStep|null=null;
   constructor(options:{matchId:string;initialState:GameState;rules:GameRules;scenario:ScenarioConfig;agentSeeds:Record<Side,number>}){
@@ -55,13 +56,14 @@ export class FairHost {
       availableIds:deriveSovietReinforcementSlots(this.#scenario).filter(s=>s.scheduledTurn<=view.turn&&!consumed.has(s.id)).map(s=>s.id),
       entries:this.#scenario.sovietEastRailExits.map(h=>({q:h.q,r:h.r})),
     }:null;
-    const observationKey=createHash('sha256').update(stable({view,rules,deployment,reinforcements})).digest('hex');
+    const observationKey=sha256(stable({view,rules,deployment,reinforcements}));
     return freeze(structuredClone({schema:'fair-player-view-v1' as const,observationKey,scope:{matchId:this.#matchId,controllerId,side:seat.side},view,rules,deployment,reinforcements,
       history:memory.history,agentRandom:{seed:memory.seed,decisionIndex:memory.decisions}}));
   }
   step(agents:Record<Side,FairAgent>):HostStep {
+    this.#lastResult=null;
     if(this.#terminal)return {...this.#terminal};
-    if(this.#state.phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',null);
+    if((this.#state as GameState).phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',null);
     const controllerId=this.#state.pendingDecision?.decisionOwnerControllerId??Object.values(this.#state.controllers).find(c=>c.side===this.#state.activeSide)!.id;
     const seat=this.#state.controllers[controllerId]!,memory=this.#memory.get(controllerId)!,input=this.observe(controllerId);
     let decision:ReturnType<FairAgent>;
@@ -77,21 +79,43 @@ export class FairHost {
     if(admitted){
       const result=this.#engine.apply(this.#state,toCoreAction(admitted,controllerId));
       if(result.accepted){
-        const before=this.#state;this.#state=result.state;accepted=true;
-        for(const side of ['GERMAN','SOVIET'] as const){
-          const prior=rememberPlayerView(derivePlayerView(before,side,this.#rules,this.#knowledge[side]))!;
-          this.#knowledge[side]=rememberPlayerView(derivePlayerView(this.#state,side,this.#rules,prior))!;
-        }
+        this.#accept(result);accepted=true;
       }
       // result.state/events/issues/actionId/random are NEVER returned to the policy.
     }
     memory.history.push({observationKey:input.observationKey,intent:admitted?structuredClone(admitted):null,outcome:accepted?'ACCEPTED':'REJECTED'});
     memory.history=memory.history.slice(-HISTORY_LIMIT);memory.rejections=accepted?0:memory.rejections+1;
     if(accepted&&validateGameStateIntegrity(this.#state,this.#rules,this.#scenario).length)return this.#finish('INTEGRITY_FAILURE',seat.side);
-    if(this.#state.phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',seat.side);
+    if((this.#state as GameState).phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',seat.side);
     if(memory.rejections>=REJECTION_LIMIT)return this.#finish('REJECTION_LIMIT',seat.side);
     return {status:accepted?'ACCEPTED':'REJECTED',side:seat.side};
   }
+  #accept(result:import('../../src/core-adapter/core.js').ActionResult):void {
+    const before=this.#state;this.#state=result.state;this.#lastResult=result;
+    for(const side of ['GERMAN','SOVIET'] as const){
+      const prior=rememberPlayerView(derivePlayerView(before,side,this.#rules,this.#knowledge[side]))!;
+      this.#knowledge[side]=rememberPlayerView(derivePlayerView(this.#state,side,this.#rules,prior))!;
+    }
+  }
+  /** TRUSTED human transport only; caller additionally enforces recipient-visible target rules.
+   * Never supplied to a fair policy as a callback or oracle. */
+  submitHuman(controllerId:string,action:NetworkAction):boolean {
+    this.#lastResult=null;
+    if(this.#terminal||this.#state.victory.winner||!isNetworkAction(action))return false;
+    const owner=this.#state.pendingDecision?.decisionOwnerControllerId??Object.values(this.#state.controllers).find(c=>c.side===this.#state.activeSide)?.id;
+    if(owner!==controllerId)return false;
+    const result=this.#engine.apply(this.#state,toCoreAction(action,controllerId));
+    if(!result.accepted)return false;
+    this.#accept(result);
+    if(validateGameStateIntegrity(this.#state,this.#rules,this.#scenario).length)this.#finish('INTEGRITY_FAILURE',this.#state.controllers[controllerId]!.side);
+    return true;
+  }
+  /** Explicit manual takeover may release policy stops, never integrity or terminal failures. */
+  takeOver():boolean {
+    if(this.#terminal&& !['AGENT_STOP','AGENT_ERROR','REJECTION_LIMIT'].includes(this.#terminal.status))return false;
+    this.#terminal=null;return true;
+  }
+  auditTransition(){return structuredClone({result:this.#lastResult,knowledge:this.#knowledge,terminal:this.#terminal});}
   #finish(status:StepStatus,side:Side|null,reason?:string):HostStep {this.#terminal={status,side,...(reason?{reason}:{})};return {...this.#terminal};}
   /** PRIVILEGED EVALUATION ONLY. Not exported by ai/fair/index and never a policy input. */
   auditOmniscient():GameState{return structuredClone(this.#state);}

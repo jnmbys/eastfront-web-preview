@@ -7,7 +7,8 @@ import {createPresentationState} from '../src/state/presentation.js';
 import {advanceChoices,reactionChoices,retreatPlan,schwerpunktChoices} from '../src/interaction/combatFlow.js';
 import {getNeighbors,type Action} from '../src/core-adapter/core.js';
 import {toCoreAction,type NetworkAction,type QueryDraft,type ActionError} from '../src/multiplayer/gameplayProtocol.js';
-import {playerSnapshot,type MatchSession} from './match.js';
+import type {MatchSession} from './match.js';
+import {playerSnapshot} from './playerSnapshot.js';
 
 export function actionOwner(match:MatchSession):string {
   const s=match.authoritative.state;
@@ -98,6 +99,11 @@ export function applyIntent(match:MatchSession,controllerId:string,action:Networ
   const before=match.authoritative.state,views=new Map(match.controllerAssignments.map(a=>[a.controllerId,playerSnapshot(match,a.controllerId)]));
   const result=dispatchGameAction(match.authoritative,toCoreAction(action,assignment.coreControllerId)).result;
   if(!result.accepted)return null;
+  return recordAcceptedIntent(match,before,result,views);
+}
+/** Shared accepted-result projection; callers must already have adjudicated exactly once. */
+export function recordAcceptedIntent(match:MatchSession,before:import('../src/core-adapter/core.js').GameState,result:import('../src/core-adapter/core.js').ActionResult,views:Map<string,import('../src/multiplayer/protocol.js').AuthorizedPlayerView>):Map<string,readonly PresentationEvent[]>{
+  if(!result.accepted)throw new Error('Accepted result required');
   match.matchRevision++;match.actionSequence++;
   if(result.state.phase==='GAME_OVER'||result.state.victory.winner)match.status='FINISHED';
   const events=derivePresentationEvents(before,result),out=new Map<string,readonly PresentationEvent[]>();

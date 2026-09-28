@@ -1,5 +1,7 @@
 import {CLIENT_NETWORK} from './config.js';
-import {LobbyClient} from './client.js';
+import type {LobbyClient} from './client.js';
+/** Authorized DTO transport; remote socket and isolated local Worker implement the same surface. */
+export type PlayerClientTransport=Pick<LobbyClient,'state'|'canMutate'|'subscribe'|'send'|'resyncMatch'|'dispose'>;
 import type {AuthorizedPlayerView,ServerMessage} from './protocol.js';
 import {queryDraft,type QueryDraft,type MatchSnapshot,type NetworkAction,type MatchStatus} from './gameplayProtocol.js';
 import type {BrowserRenderModel} from '../core-adapter/browserProjection.js';
@@ -16,7 +18,7 @@ export class NetworkPlayerSession {
   private snapshotDeadline:ReturnType<typeof setTimeout>|null=null;
   private submitting=false;private timer:ReturnType<typeof setTimeout>|null=null;private queryTimer:ReturnType<typeof setTimeout>|null=null;
   private onChange:(kind:'view'|'query'|'status'|'resync')=>void;
-  constructor(readonly client:LobbyClient,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange']){
+  constructor(readonly client:PlayerClientTransport,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange']){
     const snapshot=client.state.snapshot;if(!snapshot)throw new Error('Missing authorized snapshot');
     this.playerView=snapshot.view;this.model=snapshot.model;this.matchRevision=snapshot.matchRevision;this.serverSequence=snapshot.serverSequence;this.status=snapshot.status;this.canAct=snapshot.canAct;this.forced=snapshot.forcedAction;this.onChange=onChange;
     this.restoreDrafts(snapshot);
@@ -147,5 +149,5 @@ export class NetworkPlayerSession {
     if(this.timer!==null)clearTimeout(this.timer);
     this.timer=setTimeout(()=>{this.timer=null;if(this.interactive&&this.forced&&!this.queued){const action=this.forced;this.forced=null;this.submit(action);}},0);
   }
-  dispose():void {this.unsubscribe();if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);if(this.timer!==null)clearTimeout(this.timer);if(this.queryTimer!==null)clearTimeout(this.queryTimer);this.client.dispose();}
+  dispose(closeClient=true):void {this.unsubscribe();if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);if(this.timer!==null)clearTimeout(this.timer);if(this.queryTimer!==null)clearTimeout(this.queryTimer);if(closeClient)this.client.dispose();}
 }

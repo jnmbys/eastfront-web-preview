@@ -1,5 +1,15 @@
 {
   "extends": "../tsconfig.json",
-  "compilerOptions": {"rootDir": "..", "outDir": "../.ai-dist", "types": ["node"]},
-  "include": ["./**/*.ts"]
+  "compilerOptions": {
+    "rootDir": "..",
+    "outDir": "../.ai-dist",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "./**/*.ts",
+    "../src/local-ai/**/*.ts",
+    "../src/ui/combatResult.ts"
+  ]
 }
