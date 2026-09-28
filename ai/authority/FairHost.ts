@@ -1,0 +1,96 @@
+import {createHash} from 'node:crypto';
+import {RulesEngine,deploymentHexKeysForSide,isDeploymentPhase,validateGameStateIntegrity,type GameState,type Side} from '../../src/core-adapter/core.js';
+import type {GameRules,ScenarioConfig} from '../../vendor/eastfront-digital-core/dist/core/config.js';
+import {derivePlayerView,rememberPlayerView,type Knowledge} from '../../src/player-view/playerView.js';
+import {isNetworkAction,toCoreAction} from '../../src/multiplayer/gameplayProtocol.js';
+import {observationCandidates} from '../fair/candidates.js';
+import type {FairInput,FairAgent,FairIntent,OwnAttempt,DeepReadonly} from '../fair/types.js';
+import {fairView,publicRules} from './projection.js';
+export const HISTORY_LIMIT=16,REJECTION_LIMIT=8;
+export type StepStatus='ACCEPTED'|'REJECTED'|'GAME_OVER'|'AGENT_STOP'|'AGENT_ERROR'|'REJECTION_LIMIT'|'INTEGRITY_FAILURE';
+export interface HostStep {status:StepStatus;side:Side|null;reason?:string;}
+interface SeatMemory {seed:number;decisions:number;history:OwnAttempt[];rejections:number;}
+function freeze<T>(value:T):DeepReadonly<T>{
+  if(value&&typeof value==='object'){for(const child of Object.values(value))freeze(child);Object.freeze(value);}return value as DeepReadonly<T>;
+}
+function stable(value:unknown):string {
+  if(Array.isArray(value))return '['+value.map(stable).join(',')+']';
+  if(value&&typeof value==='object')return '{'+Object.entries(value).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>JSON.stringify(k)+':'+stable(v)).join(',')+'}';
+  return JSON.stringify(value);
+}
+/** TRUSTED AUTHORITY ONLY. Never hand this object, its methods, state or audit to a policy.
+ * One instance per match; one private memory partition per assigned controller. */
+export class FairHost {
+  #state:GameState;#rules:GameRules;#scenario:ScenarioConfig;#engine:RulesEngine;#matchId:string;
+  #knowledge:Partial<Record<Side,Knowledge>>={};#memory=new Map<string,SeatMemory>();#terminal:HostStep|null=null;
+  constructor(options:{matchId:string;initialState:GameState;rules:GameRules;scenario:ScenarioConfig;agentSeeds:Record<Side,number>}){
+    if(!options.matchId)throw new Error('A fresh match scope is required.');
+    this.#state=structuredClone(options.initialState);this.#rules=structuredClone(options.rules);this.#scenario=structuredClone(options.scenario);this.#matchId=options.matchId;
+    this.#engine=new RulesEngine(this.#rules,this.#scenario);
+    for(const side of ['GERMAN','SOVIET'] as const){
+      const seats=Object.values(this.#state.controllers).filter(c=>c.side===side);
+      if(seats.length!==1)throw new Error('AI-001 supports exactly one controller per side.');
+      const seed=options.agentSeeds[side];if(!Number.isSafeInteger(seed))throw new Error('Agent seeds must be explicit integers independent of combat RNG.');
+      this.#memory.set(seats[0]!.id,{seed,decisions:0,history:[],rejections:0});
+      this.#knowledge[side]=rememberPlayerView(derivePlayerView(this.#state,side,this.#rules))!;
+    }
+    if(validateGameStateIntegrity(this.#state,this.#rules,this.#scenario).length)this.#terminal={status:'INTEGRITY_FAILURE',side:null};
+  }
+  /** Host-owned observation transport. It is NOT passed as a callable policy capability. */
+  observe(controllerId:string):DeepReadonly<FairInput>{
+    const seat=this.#state.controllers[controllerId],memory=this.#memory.get(controllerId);
+    if(!seat||!memory)throw new Error('Unassigned fair-agent seat.');
+    const view=fairView(derivePlayerView(this.#state,seat.side,this.#rules,this.#knowledge[seat.side]),seat.side);
+    const rules=publicRules(this.#rules,this.#scenario);
+    const deployment=isDeploymentPhase(this.#state)?{
+      roster:(this.#scenario.deployment?.units??[]).filter(u=>u.side===seat.side).map(u=>({id:u.id,templateId:u.templateId})).sort((a,b)=>a.id.localeCompare(b.id)),
+      // Core helper audited: reads only public map geometry/terrain and zone configuration.
+      zone:deploymentHexKeysForSide(this.#state,this.#scenario,seat.side).filter(k=>!!this.#state.hexes[k]).map(k=>({q:this.#state.hexes[k]!.coord.q,r:this.#state.hexes[k]!.coord.r})),
+    }:null;
+    const observationKey=createHash('sha256').update(stable({view,rules,deployment})).digest('hex');
+    return freeze(structuredClone({schema:'fair-player-view-v1' as const,observationKey,scope:{matchId:this.#matchId,controllerId,side:seat.side},view,rules,deployment,
+      history:memory.history,agentRandom:{seed:memory.seed,decisionIndex:memory.decisions}}));
+  }
+  step(agents:Record<Side,FairAgent>):HostStep {
+    if(this.#terminal)return {...this.#terminal};
+    if(this.#state.phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',null);
+    const controllerId=this.#state.pendingDecision?.decisionOwnerControllerId??Object.values(this.#state.controllers).find(c=>c.side===this.#state.activeSide)!.id;
+    const seat=this.#state.controllers[controllerId]!,memory=this.#memory.get(controllerId)!,input=this.observe(controllerId);
+    let decision:ReturnType<FairAgent>;
+    try{const policy=agents[seat.side];decision=policy(input);}catch{return this.#finish('AGENT_ERROR',seat.side);}
+    memory.decisions++;
+    if(decision?.kind==='STOP')return this.#finish('AGENT_STOP',seat.side,decision.reason==='UNSUPPORTED_RETREAT'?'UNSUPPORTED_RETREAT':'NO_CANDIDATE');
+    // Exact existing intent schema plus observation-only admission. No forged controller/action IDs,
+    // invisible targets, hidden IDs, support probes, preview calls or unrelated action capabilities.
+    const proposed=decision?.kind==='INTENT'?decision.intent:null;
+    const candidates=observationCandidates(input);
+    const admitted=isNetworkAction(proposed)?candidates.find(c=>stable(c)===stable(proposed)):undefined;
+    let accepted=false;
+    if(admitted){
+      const result=this.#engine.apply(this.#state,toCoreAction(admitted,controllerId));
+      if(result.accepted){
+        const before=this.#state;this.#state=result.state;accepted=true;
+        for(const side of ['GERMAN','SOVIET'] as const){
+          const prior=rememberPlayerView(derivePlayerView(before,side,this.#rules,this.#knowledge[side]))!;
+          this.#knowledge[side]=rememberPlayerView(derivePlayerView(this.#state,side,this.#rules,prior))!;
+        }
+      }
+      // result.state/events/issues/actionId/random are NEVER returned to the policy.
+    }
+    memory.history.push({observationKey:input.observationKey,intent:admitted?structuredClone(admitted):null,outcome:accepted?'ACCEPTED':'REJECTED'});
+    memory.history=memory.history.slice(-HISTORY_LIMIT);memory.rejections=accepted?0:memory.rejections+1;
+    if(accepted&&validateGameStateIntegrity(this.#state,this.#rules,this.#scenario).length)return this.#finish('INTEGRITY_FAILURE',seat.side);
+    if(this.#state.phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',seat.side);
+    if(memory.rejections>=REJECTION_LIMIT)return this.#finish('REJECTION_LIMIT',seat.side);
+    return {status:accepted?'ACCEPTED':'REJECTED',side:seat.side};
+  }
+  #finish(status:StepStatus,side:Side|null,reason?:string):HostStep {this.#terminal={status,side,...(reason?{reason}:{})};return {...this.#terminal};}
+  /** PRIVILEGED EVALUATION ONLY. Not exported by ai/fair/index and never a policy input. */
+  auditOmniscient():GameState{return structuredClone(this.#state);}
+}
+export function runFairGame(host:FairHost,agents:Record<Side,FairAgent>,maxDecisions=1000):{termination:HostStep|{status:'ACTION_LIMIT'};steps:HostStep[]}{
+  if(!Number.isSafeInteger(maxDecisions)||maxDecisions<=0||maxDecisions>10000)throw new Error('Bounded maxDecisions must be 1..10000.');
+  const steps:HostStep[]=[];
+  for(let i=0;i<maxDecisions;i++){const result=host.step(agents);steps.push(result);if(result.status!=='ACCEPTED'&&result.status!=='REJECTED')return {termination:result,steps};}
+  return {termination:{status:'ACTION_LIMIT'},steps};
+}

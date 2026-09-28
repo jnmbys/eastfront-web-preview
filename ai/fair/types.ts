@@ -1,0 +1,23 @@
+import type {PlayerViewState} from '../../src/player-view/playerView.js';
+import type {Side,HexCoord,UnitTemplate} from '../../src/core-adapter/core.js';
+import type {NetworkAction} from '../../src/multiplayer/gameplayProtocol.js';
+export type DeepReadonly<T> = T extends object ? {readonly [K in keyof T]:DeepReadonly<T[K]>}:T;
+/** Player DTO only; OBSERVER and its authoritativeState are not part of the contract. */
+export type FairView=Omit<PlayerViewState,'viewer'|'authoritativeState'> & {viewer:Side};
+/** Small explicit public rule subset. No scenario initialUnits, controllers or RNG. */
+export interface PublicRules {
+  rulesId:string;scenarioId:string;turnLimit:number;stackingLimit:number;
+  templates:Record<string,Pick<UnitTemplate,'id'|'side'|'maxDamageSteps'>>;
+}
+export type FairIntent=Extract<NetworkAction,{type:'DEPLOY_INITIAL_UNIT'|'READY_FOR_PHASE_END'|'MOVE'|'ATTACK'|'PASS_REACTION'|'ALLOCATE_LOSSES'|'PASS_ADVANCE'|'PASS_BREAKTHROUGH'|'PASS_SCHWERPUNKT'}>;
+export interface OwnAttempt {observationKey:string;intent:FairIntent|null;outcome:'ACCEPTED'|'REJECTED';}
+export interface FairInput {
+  schema:'fair-player-view-v1';observationKey:string;scope:{matchId:string;controllerId:string;side:Side};
+  view:FairView;rules:PublicRules;
+  deployment:{roster:{id:string;templateId:string}[];zone:HexCoord[]}|null;
+  /** Own bounded feedback only. Enemy observation memory is solely view.lastKnown. */
+  history:OwnAttempt[];
+  agentRandom:{seed:number;decisionIndex:number};
+}
+export type FairDecision={kind:'INTENT';intent:FairIntent}|{kind:'STOP';reason:'UNSUPPORTED_RETREAT'|'NO_CANDIDATE'};
+export type FairAgent=(input:DeepReadonly<FairInput>)=>FairDecision;
