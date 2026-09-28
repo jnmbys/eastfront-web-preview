@@ -75,3 +75,11 @@ Change: Record autonomous baseline, 144 aggregate rejections and closure of AI-P
 Reason: Distinguish natural game termination from strategic quality.
 Commit: ea71d31dd7277565b1684453bc1a4baf126912d6.
 Validation: Leader fetched immutable source and read Git REVIEW.md; tests and autonomous run counts are Worker-reported, not rerun.
+
+## 2026-09-28 — ART-BUILD-003 closure
+Date: 2026-09-28 22:34 (Asia/Shanghai)
+Task ID: COLLAB-STATE-006
+Change: Close source build blocker; freeze art candidate pending independent performance/device gates.
+Reason: Fresh source build and scoped acceptance now documented; available browser cannot control cold cache.
+Commit: Handoff c3d6e890892fc58960251c9215e066e46eef7436; deployed6fac36a0c5e0e77ee15c3a02ecb2bebd4dcabb04.
+Validation: Leader fetched Git and read BUILD/ACCEPTANCE; 380-file repeat build, 11 tests and 761 online hashes are Worker evidence, not rerun by Leader.

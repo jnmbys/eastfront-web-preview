@@ -1,6 +1,6 @@
 # EASTFRONT PROJECT STATE
 
-- Last Update: 2026-09-28 22:21 (Asia/Shanghai)
+- Last Update: 2026-09-28 22:34 (Asia/Shanghai)
 - Current Branch: `collaboration-setup-001` (documentation only; designated shared management branch)
 - Current Commit: source baseline `5fe12513bca95c5b43c2ddc125021a117c5bcce4`; documentation checkpoint is the commit containing this file (`git log -1 --format=%H -- PROJECT_STATE.md`). A commit cannot embed its own final SHA.
 - Current Build: baseline package `0.0.10`; no build performed for this documentation-only task. Production frontend and experimental candidates are separate versions below.
@@ -40,7 +40,7 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 | --- | --- | --- | --- |
 | AI-PREVIEW-001 | Isolated AI preview and real browser Worker/flow acceptance | 编程worker | Cloud acceptance reported; release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70, deployment a736b1db; Huawei/performance pending |
 | AI-004 | Basic autonomous movement and attack using fair views | 编程worker | Git handoff ea71d31dd7277565b1684453bc1a4baf126912d6 reviewed; isolated complete, not deployed |
-| ART-PREVIEW-002 | Fix overlays, touch targets, contrast; validate small-screen layout/performance | 美术优化worker | Scoped increment complete per Git evidence; 1024×768 and 1363×936 actual iframe views passed, not outer-browser resize or device acceptance |
+| ART-BUILD-003 | Reproducible source build and generated preview | 美术优化worker | Complete; c3d6e890892fc58960251c9215e066e46eef7436. Candidate frozen pending supported controlled performance/device checks |
 | SUPPLY-EXP-005 | Make new supply affect legal movement/combat in isolated short scenarios | 规则优化worker | Report reviewed: minimal runtime loop complete, isolated/local only; no Git SHA delivered |
 | SUPPLY-EXP-006 | Git handoff plus player-controlled combat follow-up in supply sandbox | 规则优化worker | Next task proposed; no execution claimed |
 | COLLAB-SETUP-001 | Establish these three management documents | Leader | Documentation checkpoint; authorized remote publication with Pages skip flag |
@@ -49,9 +49,13 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 
 Leader read SUPPLY_EXP_005_REPORT_2026-09-28.md; results below are Worker-reported, not independently rerun. Local-only checkpoint v1, no commit delivered. Base Core db183c7733ae59d2f5a3bcb8f3f384357b7d59e6, six isolated TS changes; solver unchanged. 12 seam tests and actual Chromium operations passed; 12-commit replay hashes match. Same 5+1 dice gave new AR vs old NE with identical RNG states. Recovery example uses explicit higher experimental capacity and delayed full-round-end distribution; it is not a balanced production configuration. Automatic combat choices limit tactical evaluation. Atomic rollback and material conservation reported. Git migration remains required before normal Git-only handoff.
 
+## ART-BUILD-003 Closure
+
+Leader fetched c3d6e890892fc58960251c9215e066e46eef7436 on art-build-003 and read evidence/ART-BUILD-003/{ACCEPTANCE,BUILD}.md. Source/build 75e39c7e164f7c23e46be597d10f83b8e8098299; deployed 6fac36a0c5e0e77ee15c3a02ecb2bebd4dcabb04 at https://2ccb0505.eastfront-web-preview.pages.dev/ . Worker reports clean clone, locked dependency install, isolated frontend typecheck/build and 11 tests passed. Repeated 380-file builds identical; versus accepted8778, 379 identical and main.js differs only comments/format with comment-free syntax equality. 761 served resources matched; necessary two-size iframe operations passed. Leader closes source reproducibility blocker on reviewed evidence, not an independent rerun. Backend build outside this art task. Legacy startup build.json remains historical1f124566; use task source/deployment commits for current provenance. Current browser API lacks controlled cache reset/network throttling; cold/warm comparison and GPU evidence remain open, Huawei untested. Freeze this candidate; no additional art/build rewrite or production replacement authorized.
+
 ## Art EXP002 Evidence Intake
 
-Leader fetched immutable handoff 040b4988b9d47efa761f3bb93039ea8940723871 and read evidence/ART-PREVIEW-002/ACCEPTANCE.md and PREPARED.md directly from Git. Deployment 8778cb4f307c3d01f471ac2b326f8beef4c5f500 at https://75a6305b.eastfront-web-preview.pages.dev/ is separate from the evidence-only child. Worker reports dock, HTML touch-target/contrast fixes, removal of unused Medium/Close prebuild and 11/11 scoped tests. Tests used edited compiled JS, not a fresh TypeScript build; offline npm install failed on missing ws. Highest next gate is reproducible source install/typecheck/build and comparison to accepted runtime. 761/761 served files matched; _headers verified in Git separately. Iframe acceptance is not Huawei acceptance; roughly 11k SVG nodes and partial RAF samples do not prove regression or improvement. Controlled cold-cache/GPU evidence absent; baseline RAF raw log incomplete. No production replacement approved.
+Leader fetched immutable handoff 040b4988b9d47efa761f3bb93039ea8940723871 and read evidence/ART-PREVIEW-002/ACCEPTANCE.md and PREPARED.md directly from Git. Deployment 8778cb4f307c3d01f471ac2b326f8beef4c5f500 at https://75a6305b.eastfront-web-preview.pages.dev/ is separate from the evidence-only child. Worker reports dock, HTML touch-target/contrast fixes, removal of unused Medium/Close prebuild and 11/11 scoped tests. Tests used edited compiled JS, not a fresh TypeScript build; offline npm install failed on missing ws. Historical build gap CLOSED by ART-BUILD-003 below. 761/761 served files matched; _headers verified in Git separately. Iframe acceptance is not Huawei acceptance; roughly 11k SVG nodes and partial RAF samples do not prove regression or improvement. Controlled cold-cache/GPU evidence absent; baseline RAF raw log incomplete. No production replacement approved.
 
 ## AI004 Git Intake
 
@@ -83,7 +87,7 @@ Leader read the supplied AI-PREVIEW-001-REVIEW.md (2026-09-28); no independent b
 ## Blockers
 
 - Cross-chat notifications remain manual. Fetch and verify the designated remote ref before claiming a handoff; Git does not wake or message other chats.
-- Terminal Git authentication previously failed for art; remote art ref now exists, so do not reuse the earlier “branch absent” conclusion. Worker now reports art deployment https://1b617ef1.eastfront-web-preview.pages.dev/ and partial acceptance; ART002 supersedes this: actual iframe sizes passed and 761/761 served runtime hashes matched per evidence; full TypeScript build, controlled performance and Huawei remain open.
+- Terminal Git authentication previously failed for art; remote art ref now exists, so do not reuse the earlier “branch absent” conclusion. Worker now reports art deployment https://1b617ef1.eastfront-web-preview.pages.dev/ and partial acceptance; ART002 supersedes this: actual iframe sizes passed and 761/761 served runtime hashes matched per evidence; ART-BUILD-003 closes the isolated frontend TypeScript/build gap; controlled performance and Huawei remain open.
 - AI cloud Chrome 1363×936 operations and real Worker passed per reviewed AI-PREVIEW-001 report; local tests 11/11. Huawei touch, exact tablet sizes and performance pending; AI004 basic autonomous strategy now exists on its isolated source branch, not the published preview; save/load absent. Extra HTTP checks returned 403 and remain unverified.
 - Supply EXP005 actual gameplay effects demonstrated in isolated scenarios, not balance or human experience. Combat loss/retreat are automatic and optional advance/breakthrough/Schwerpunkt are declined. HQ/artillery/recovery interactions incomplete; experimental run stops after T15 without formal victory. Timing, reinforcement reserves and captured-hub treatment remain experimental.
 - Historical paper AI/rules must be adapted to current fair views and current contracts before reuse.
