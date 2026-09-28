@@ -1,6 +1,6 @@
 # EASTFRONT PROJECT STATE
 
-- Last Update: 2026-09-28 (Asia/Shanghai)
+- Last Update: 2026-09-28 22:02 (Asia/Shanghai)
 - Current Branch: `collaboration-setup-001` (documentation only; designated shared management branch)
 - Current Commit: source baseline `5fe12513bca95c5b43c2ddc125021a117c5bcce4`; documentation checkpoint is the commit containing this file (`git log -1 --format=%H -- PROJECT_STATE.md`). A commit cannot embed its own final SHA.
 - Current Build: baseline package `0.0.10`; no build performed for this documentation-only task. Production frontend and experimental candidates are separate versions below.
@@ -16,8 +16,8 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 | Frontend production branch | `main`: `349369ad358b9b24fa0410735649de497a94b9ea` | Remote ref verified; live files not rechecked |
 | Backend source branch | `source-main`: `5fe12513bca95c5b43c2ddc125021a117c5bcce4` | Remote ref verified; runtime not rechecked |
 | Core tested candidate | `core-baseline-002`: `db183c7733ae59d2f5a3bcb8f3f384357b7d59e6` | Isolated, not production |
-| AI candidate | `ai-003-local-human`: `99ee7fd8cff6aeda68ec058f179c7f34aaedf83b` | Remote ref verified; browser acceptance pending |
-| Art preview publication branch | `art-preview-001`: `bfacbb942274de37e9e6ea282931e7420499db2b` | Remote ref verified; deployment/browser acceptance not verified here |
+| AI candidate | `ai-003-local-human`: `99ee7fd8cff6aeda68ec058f179c7f34aaedf83b` | Worker-reported cloud browser acceptance passed; Huawei pending |
+| Art preview publication branch | `art-preview-001`: `bfacbb942274de37e9e6ea282931e7420499db2b` | Worker reports deployment 1b617ef1 and partial 1363×936 acceptance; full acceptance pending |
 | Supply experiment | SUPPLY-EXP-004 checkpoint v1 | Report reviewed; Git SHA not supplied, not yet Git-only handoff |
 
 ## Completed
@@ -38,10 +38,15 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 
 | Task ID | Objective | Owner | Status |
 | --- | --- | --- | --- |
-| AI-PREVIEW-001 | Isolated AI preview and real browser Worker/flow acceptance | 编程worker | Assigned; no completed delivery received |
-| ART-PREVIEW-001 | Publish fixed artifacts and compare browser operation/layout | 美术优化worker | Remote branch now exists; await deployment URL and acceptance evidence |
+| AI-PREVIEW-001 | Isolated AI preview and real browser Worker/flow acceptance | 编程worker | Cloud acceptance reported; release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70, deployment a736b1db; Huawei/performance pending |
+| AI-004 | Basic autonomous movement and attack using fair views | 编程worker | Next task proposed; awaiting user forwarding, no execution claimed |
+| ART-PREVIEW-002 | Fix overlays, touch targets, contrast; validate small-screen layout/performance | 美术优化worker | Task issued after partial ART-PREVIEW-001 acceptance; no new completion received |
 | SUPPLY-EXP-005 | Make new supply affect legal movement/combat in isolated short scenarios | 规则优化worker | Assigned; no completed delivery received |
 | COLLAB-SETUP-001 | Establish these three management documents | Leader | Documentation checkpoint; authorized remote publication with Pages skip flag |
+
+## Latest Acceptance Evidence
+
+Leader read the supplied AI-PREVIEW-001-REVIEW.md (2026-09-28); no independent browser replay was performed. Source 99ee7fd8cff6aeda68ec058f179c7f34aaedf83b; release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70; fixed preview https://a736b1db.eastfront-web-preview.pages.dev/ . Report covers both seats, actual Worker, movement/switching, combat/advance/breakthrough, reinforcements, explicit takeover, exit/new game, terminal flow; scripted attacks do not establish autonomous strategy. 480 remote artifact paths and live manifest were reported matching; 10 extra HTTP resource checks returned 403. Detailed acceptance report/evidence still needs a fetchable source/evidence commit; the static deployment commit is not a substitute.
 
 ## Architecture
 
@@ -65,8 +70,8 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 ## Blockers
 
 - Cross-chat notifications remain manual. Fetch and verify the designated remote ref before claiming a handoff; Git does not wake or message other chats.
-- Terminal Git authentication previously failed for art; remote art ref now exists, so do not reuse the earlier “branch absent” conclusion. Publishing and acceptance evidence still needed.
-- AI real-browser and Huawei testing pending; proactive strategy and save/load absent.
+- Terminal Git authentication previously failed for art; remote art ref now exists, so do not reuse the earlier “branch absent” conclusion. Worker now reports art deployment https://1b617ef1.eastfront-web-preview.pages.dev/ and partial acceptance; 1024×768, performance and CDN full hashes remain open.
+- AI cloud Chrome 1363×936 operations and real Worker passed per reviewed AI-PREVIEW-001 report; local tests 11/11. Huawei touch, exact tablet sizes and performance pending; proactive strategy and save/load absent. Extra HTTP checks returned 403 and remain unverified.
 - Supply effects on Core gameplay and balance unverified; timing, reinforcement reserves and captured-hub treatment are experimental decisions, not final rules.
 - Historical paper AI/rules must be adapted to current fair views and current contracts before reuse.
 

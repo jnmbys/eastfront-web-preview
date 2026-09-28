@@ -40,3 +40,12 @@ Reason: User authorized the next step so Workers can read shared Git state witho
 Commit: Resolve the containing remote checkpoint via `git log -1 --format=%H -- CHANGELOG.md`. The unpublished initial local setup was b761b459fc3b7c16a4bdcec4726bb63e20a411a6; this publication supersedes it and retains source parent 5fe12513bca95c5b43c2ddc125021a117c5bcce4.
 
 Validation: Remote-ref and full-tree comparison are the publication gates; only three document additions are allowed relative to the source parent. Production refs must stay unchanged. No runtime rebuild required. Pages skip prefix is based on official documentation; absence of a deployed build must not be inferred solely from an absent status check.
+
+## 2026-09-28 — AI-PREVIEW-001 / ART-PREVIEW-001 status intake
+
+Date: 2026-09-28 22:02 (Asia/Shanghai)
+Task ID: COLLAB-STATE-002
+Change: Record reported AI cloud-browser acceptance and art partial acceptance; track ART-PREVIEW-002 and propose AI-004.
+Reason: Keep completed engineering, remaining device checks and autonomous strategy distinct.
+Commit: AI release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70; art release bfacbb942274de37e9e6ea282931e7420499db2b.
+Validation: Leader read attached AI review and user-provided art summary; AI release remote ref fetched. Browser/test claims are Worker-reported, not rerun. Management update changes two Markdown files only.
