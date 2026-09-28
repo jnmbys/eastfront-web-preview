@@ -1,0 +1,46 @@
+name: Supply CI 009 resource validation
+on:
+  push:
+    branches: [supply-ci-009]
+    paths:
+      - '.github/workflows/supply-ci-009.yml'
+      - 'experiments/supply-ci-009/**'
+permissions:
+  contents: read
+concurrency:
+  group: supply-ci-009
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout validation scripts
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          path: validation
+      - name: Checkout immutable runtime candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: 9cf0e5fb7fac27e16b2700559716b590e81957b7
+          persist-credentials: false
+          path: candidate
+      - name: Build unchanged Dockerfile and run bounded matrix
+        timeout-minutes: 26
+        run: |
+          mkdir -p results
+          python3 validation/experiments/supply-ci-009/run.py --candidate candidate --out results
+      - name: Publish concise job summary
+        if: always()
+        run: |
+          if [ -f results/SUMMARY.md ]; then cat results/SUMMARY.md >> "$GITHUB_STEP_SUMMARY"; else echo 'No completed summary. Inspect build/test failure logs.' >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Upload reports and logs only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: supply-ci-009-${{ github.run_id }}
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
+          compression-level: 9

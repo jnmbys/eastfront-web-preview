@@ -1,0 +1,11 @@
+# SUPPLY-CI-009
+
+Runtime pinned to 9cf0e5fb7fac27e16b2700559716b590e81957b7; management read unchanged c7531c70fab4b7c7402cd2f7d927c2134adee228. No runtime changes. Workflow is push-only for supply-ci-009 plus its own workflow/scripts paths; no default-branch dispatch requirement. Standard ubuntu-24.04, contents:read, no production secrets, no image publication/deployment. One concurrency group, 30-minute job, 26-minute execution step, seven-day artifacts.
+
+Matrix serially tests 0.5 CPU/512MB, 1 CPU/2GB, 0.1 CPU/512MB with equal memory/swap limits and 128 PIDs. Three cold containers per profile. First cold start exercises four independent real HTTP sessions and each of three clips three times, two full-round settlements/sequence. Forced tiny-budget timeout and concurrent real busy503 are tested; normal actions keep 3 seconds. Original test007 runs inside container, supplemented by complete new-mode bundle rollback test in a test-only process. cgroup-v2 memory.peak covers Python, solver and Node; served workload versus additional contract-test high-water marks are distinguished. Sampling commands themselves add small memory use.
+
+Build failure and resource failures remain failures; all resource profiles continue where possible. report.json, SUMMARY.md, short service/contract/build logs are uploaded; no snapshots, credentials, source fixtures, container images or replay artifacts. Job summary remains readable after artifact expiration. GitHub constrained-container results are not Render performance or human-device acceptance.
+
+Local validation before publication: Python compile only (Docker unavailable). Measurement scripts have not been labelled container-tested until Actions produces real results. Workflow permission rejection, if encountered, must be recorded once; do not bypass with alternate credentials. Subsequent remote run/results are separate from this source checkpoint.
+
+Execution: runner calls `python3 experiments/supply-ci-009/run.py --candidate <fixed-checkout> --out <results>`. `test_in_container.py` is copied to /tmp of the test container only; frozen runtime files remain unmodified. Docker candidate build context is experiments/supply-exp-005 and uses its original Dockerfile. HTTPS/Secure-cookie and Render account quotas remain separate future checks.
