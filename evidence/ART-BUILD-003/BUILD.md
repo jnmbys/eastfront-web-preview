@@ -1,6 +1,6 @@
 # ART-BUILD-003
 
-Source base: 040b4988b9d47efa761f3bb93039ea8940723871. Management read: 4f891f50.
+Source base: 040b4988b9d47efa761f3bb93039ea8940723871. Management read: 4f891f50eb7ae008890418b87d6fcef92b03526c.
 Accepted runtime: 8778cb4f307c3d01f471ac2b326f8beef4c5f500.
 
 ## Rebuild from a clean checkout
