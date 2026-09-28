@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/2b7af77b24f4/supply-exp-005/exercise.py", line 26, in <module>
+    b=run(b,{'type':'END_SIDE'});b=run(b,{'type':'END_PHASE'})
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2b7af77b24f4/supply-exp-005/exercise.py", line 6, in run
+    cmd=auto_command(b);cmd['action']=dict(a,controllerId=cmd['action']['controllerId']);r=execute(b,cmd,seconds);assert r['ok'],r.get('error');return r['state']
+                                                                                                                         ~^^^^^^
+AssertionError: Error: [{"code":"INVALID_SUPPORT","message":"Available Soviet reinforcement still has at least one legal East Exit and must be resolved before Ready.","details":{"reason":"DEPLOYABLE_REINFORCEMENT_REMAINS"}}]

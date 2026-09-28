@@ -1,0 +1,107 @@
+--- baseline/core/types.ts
++++ experiment/core/types.ts
+@@ -15,7 +15,7 @@
+ export type UnitStep=0|1|2; export type SupplyState='SUPPLIED'|'OUT_OF_SUPPLY'|'TEMPORARY_SUPPLY';
+ export interface UnitStats{attack:number;defense:number;movement:number;}
+ export interface UnitTemplate{id:string;side:Side;type:UnitType;steps:readonly [UnitStats,UnitStats,UnitStats];maxDamageSteps:1|3;exertsZoc:boolean;canEntrench:boolean;isArmor:boolean;infantryCoordination:boolean;isSupport:boolean;recoveryCostPerStep:number;}
+-export interface UnitState{id:EntityId;templateId:string;side:Side;type:UnitType;step:UnitStep;alive:boolean;hex:HexCoord;supplyState:SupplyState;entrenched:boolean;hasMoved:boolean;hasAttacked:boolean;controllerId:EntityId;temporarySupply:boolean;dedicatedRailRepair:boolean;reconZocIgnoreUsed:boolean;artillerySupportUsed:boolean;lastHQCommandTurn:number|null;}
++export interface UnitState{expSupply?:{attackFactor:number;movementCap:number|null};id:EntityId;templateId:string;side:Side;type:UnitType;step:UnitStep;alive:boolean;hex:HexCoord;supplyState:SupplyState;entrenched:boolean;hasMoved:boolean;hasAttacked:boolean;controllerId:EntityId;temporarySupply:boolean;dedicatedRailRepair:boolean;reconZocIgnoreUsed:boolean;artillerySupportUsed:boolean;lastHQCommandTurn:number|null;}
+ export interface Unit extends UnitState,UnitStats{}
+ export type HQCommand='FORCE_ATTACK'|'LAST_STAND'|'STAFF_OFFICE_PLAN'|'MAKESHIFT_BRIDGES'|'EXTRA_SUPPLIES'|'SIEGE_ARTILLERY';
+ export type GamePhase='SOVIET_DEPLOYMENT'|'GERMAN_DEPLOYMENT'|'GERMAN_SUPPLY_RAIL'|'GERMAN_MOVEMENT'|'GERMAN_COMBAT'|'GERMAN_RECOVERY'|'GERMAN_ENTRENCHMENT'|'SOVIET_REINFORCEMENT_SUPPLY'|'SOVIET_MOVEMENT'|'SOVIET_COMBAT'|'SOVIET_RECOVERY'|'SOVIET_ENTRENCHMENT'|'GAME_OVER';
+@@ -52,7 +52,7 @@
+  | (PendingDecisionBase&{kind:'BREAKTHROUGH_OPTION';eligibleUnitIds:EntityId[]})
+  | (PendingDecisionBase&{kind:'SCHWERPUNKT_OPTION';eligibleUnitIds:EntityId[]});
+ export interface DeterministicIdCounters{nextAction:number;nextBattle:number;}
+-export interface GameState{scenarioId:string;rulesVersion:string;turn:number;phase:GamePhase;activeSide:Side;hexes:Record<string,HexState>;edges:Record<string,HexEdge>;units:Record<EntityId,UnitState>;controllers:Record<EntityId,PlayerController>;rp:Record<Side,number>;cp:Record<Side,number>;random:RandomState;victory:VictoryState;pendingDecision:PendingDecision|null;phaseReadyControllerIds:EntityId[];unitCommitments:Record<EntityId,UnitCommitmentAuthorization>;combatTransactions:Record<BattleId,CombatTransaction>;schwerpunktUsedOnTurn:number|null;idCounters:DeterministicIdCounters;actionLog:LoggedAction[];}
++export interface GameState{expSupplyMode?:boolean;scenarioId:string;rulesVersion:string;turn:number;phase:GamePhase;activeSide:Side;hexes:Record<string,HexState>;edges:Record<string,HexEdge>;units:Record<EntityId,UnitState>;controllers:Record<EntityId,PlayerController>;rp:Record<Side,number>;cp:Record<Side,number>;random:RandomState;victory:VictoryState;pendingDecision:PendingDecision|null;phaseReadyControllerIds:EntityId[];unitCommitments:Record<EntityId,UnitCommitmentAuthorization>;combatTransactions:Record<BattleId,CombatTransaction>;schwerpunktUsedOnTurn:number|null;idCounters:DeterministicIdCounters;actionLog:LoggedAction[];}
+ 
+ export interface ActionIdentity{actionId?:ActionId;}
+ export interface MoveAction extends ActionIdentity{type:'MOVE';controllerId:EntityId;unitId:EntityId;path:HexCoord[];}
+--- baseline/engine/RulesEngine.ts
++++ experiment/engine/RulesEngine.ts
+@@ -219,7 +219,7 @@
+           // completes, while the final phase/turn facts still represent the checkpoint. A winner
+           // short-circuits normal endPhase() so no next Player Turn/Game Turn or supply hook starts.
+           const checkpoint=victoryCheckpointForPhase(next.phase);
+-          if (checkpoint) {
++          if (checkpoint && !next.expSupplyMode) {
+             const victory=evaluateVictoryAtCheckpoint(next,this.rules,this.scenario,checkpoint);
+             if (victory.winner!==null) {
+               const previousPhase=next.phase;
+--- baseline/rules/combat.ts
++++ experiment/rules/combat.ts
+@@ -7,7 +7,7 @@
+ import {enemyOf} from './zoc.js';
+ import {hasLegalRetreatExit} from './retreat.js';
+ function duplicateValues(values:readonly string[]){const seen=new Set<string>(),dupes=new Set<string>();for(const v of values){if(seen.has(v))dupes.add(v);seen.add(v);}return[...dupes];}
+-function effectiveAttack(unit:UnitState,rules:GameRules){const a=getUnitStats(unit,rules).attack;return unit.supplyState==='OUT_OF_SUPPLY'?Math.ceil(a*rules.supply.oosAttackMultiplier):a;}
++function effectiveAttack(unit:UnitState,rules:GameRules){const a=getUnitStats(unit,rules).attack;return !unit.expSupply&&unit.supplyState==='OUT_OF_SUPPLY'?Math.ceil(a*rules.supply.oosAttackMultiplier):a;}
+ export function validArtillerySupport(state:GameState,unitId:string|undefined,side:Side,target:{q:number;r:number},requireUnused=true):UnitState|null{
+   if(!unitId)return null;const u=state.units[unitId];if(!u||!u.alive||u.side!==side||u.type!=='ARTILLERY'||u.supplyState==='OUT_OF_SUPPLY'||u.step>=2)return null;if(requireUnused&&u.artillerySupportUsed)return null;const range=u.step===0?2:1;return hexDistance(u.hex,target)<=range?u:null;
+ }
+@@ -35,7 +35,7 @@
+ export function buildCombatContext(state:GameState,rules:GameRules,action:AttackAction,defenderReaction:DefenderCombatReactionSelection={}):CombatContext{
+   const controller=state.controllers[action.controllerId];if(!controller)throw new Error('Combat context requires a valid controller.');const side=controller.side,enemy=enemyOf(side);const attackers=[...new Set(action.attackerUnitIds)].map(id=>state.units[id]).filter((u):u is UnitState=>Boolean(u));const defenders=Object.values(state.units).filter(u=>u.alive&&u.side===enemy&&hexKey(u.hex)===hexKey(action.target));const attackStrength=attackers.reduce((s,u)=>s+effectiveAttack(u,rules),0);
+   const rawDefenseStrength=defenders.reduce((s,u)=>s+getUnitStats(u,rules).defense,0);
+-  const allDefendersOOS=defenders.length>0&&defenders.every(u=>u.supplyState==='OUT_OF_SUPPLY');
++  const allDefendersOOS=defenders.length>0&&defenders.every(u=>!u.expSupply&&u.supplyState==='OUT_OF_SUPPLY');
+   const hasRetreatExit=defenders.some(u=>hasLegalRetreatExit(state,rules,u,action.target));
+   const oosSurroundedDefenseHalved=allDefendersOOS&&!hasRetreatExit;
+   const finalDefenseStrength=oosSurroundedDefenseHalved?Math.ceil(rawDefenseStrength/2):rawDefenseStrength;
+--- baseline/rules/movement.ts
++++ experiment/rules/movement.ts
+@@ -76,7 +76,7 @@
+   if (action.path.length === 0) {
+     issues.push({code:'EMPTY_MOVE_PATH',message:'MoveAction.path must contain at least one destination hex.',unitId:unit.id});
+     const baseMovement=getUnitStats(unit,rules).movement;
+-    const supplyPenalty=unit.supplyState==='OUT_OF_SUPPLY'?rules.supply.oosMovementPenalty:0;
++    const supplyPenalty=!unit.expSupply&&unit.supplyState==='OUT_OF_SUPPLY'?rules.supply.oosMovementPenalty:0;
+     return {issues,spentMP:0,maxMP:Math.max(0,baseMovement-supplyPenalty),allRoad:false,zocClean:true,reconIgnoreConsumed:false,enteredEnemyZoc:false,enteredEnemyZocHex:null};
+   }
+ 
+@@ -146,9 +146,9 @@
+   }
+ 
+   const baseMovement = getUnitStats(unit,rules).movement;
+-  const supplyPenalty = unit.supplyState === 'OUT_OF_SUPPLY' ? rules.supply.oosMovementPenalty : 0;
++  const supplyPenalty = !unit.expSupply && unit.supplyState === 'OUT_OF_SUPPLY' ? rules.supply.oosMovementPenalty : 0;
+   const roadBonus = rules.road.wholeMoveBonusEnabled && allRoad && zocClean ? rules.road.wholeMoveBonusMP : 0;
+-  const maxMP = Math.max(0,baseMovement - supplyPenalty + roadBonus);
++  const maxMP = Math.min(unit.expSupply?.movementCap??Infinity,Math.max(0,baseMovement - supplyPenalty + roadBonus));
+   if (spent > maxMP) issues.push({code:'INSUFFICIENT_MP',message:`Movement costs ${spent} MP but unit has ${maxMP} MP.`,unitId:unit.id,details:{spentMP:spent,maxMP}});
+ 
+   const destination = action.path[action.path.length-1]!;
+--- baseline/rules/supply.ts
++++ experiment/rules/supply.ts
+@@ -149,7 +149,7 @@
+   for (const [unitId,supplyState] of Object.entries(computation.unitSupply)) {
+     const unit=state.units[unitId];
+     if (!unit||!unit.alive||unit.side!=='GERMAN') continue;
+-    unit.supplyState=supplyState;
++    if (!state.expSupplyMode) unit.supplyState=supplyState;
+   }
+   return computation;
+ }
+@@ -170,7 +170,7 @@
+   for (const [unitId,supplyState] of Object.entries(computation.unitSupply)) {
+     const unit=state.units[unitId];
+     if (!unit||!unit.alive||unit.side!=='SOVIET') continue;
+-    unit.supplyState=supplyState;
++    if (!state.expSupplyMode) unit.supplyState=supplyState;
+   }
+   return computation;
+ }
+--- baseline/rules/unit.ts
++++ experiment/rules/unit.ts
+@@ -4,7 +4,9 @@
+ export function getUnitStats(unit: UnitState, rules: GameRules): UnitStats {
+   const template = rules.unitTemplates[unit.templateId];
+   if (!template) throw new Error(`Unknown unit template: ${unit.templateId}`);
+-  return template.steps[unit.step];
++  const stats=template.steps[unit.step];
++  if (!unit.expSupply) return stats;
++  return {...stats,attack:Math.ceil(stats.attack*unit.expSupply.attackFactor),movement:unit.expSupply.movementCap===null?stats.movement:Math.min(stats.movement,unit.expSupply.movementCap)};
+ }
+ 
+ export function materializeUnit(unit: UnitState, rules: GameRules): Unit {

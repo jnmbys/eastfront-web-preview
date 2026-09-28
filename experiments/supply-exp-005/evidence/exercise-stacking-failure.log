@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/2b7af77b24f4/supply-exp-005/exercise.py", line 24, in <module>
+    for uid in ['S-I-01','S-ART-01']:b=run(b,{'type':'MOVE','unitId':uid,'path':[cell(target)]})
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/2b7af77b24f4/supply-exp-005/exercise.py", line 6, in run
+    cmd=auto_command(b);cmd['action']=dict(a,controllerId=cmd['action']['controllerId']);r=execute(b,cmd,seconds);assert r['ok'],r.get('error');return r['state']
+                                                                                                                         ~^^^^^^
+AssertionError: Error: [{"code":"STACKING_LIMIT","message":"Destination 0,6 already contains 2 friendly units; limit is 2.","unitId":"S-ART-01","hex":{"q":0,"r":6},"details":{"stackingLimit":2,"currentFriendlyUnits":["S-I-01","S-MOT-01"]}}]

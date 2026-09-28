@@ -1,0 +1,14 @@
+.F.......
+======================================================================
+FAIL: test_core_attribution_and_recovery (test005.SeamTests.test_core_attribution_and_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/2b7af77b24f4/supply-exp-005/test005.py", line 32, in test_core_attribution_and_recovery
+    rows=x['restore'];self.assertTrue(any(Fraction(u['debt'])<2 for u in rows[-1]['units'] if u['id']=='G-MOT-02'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 9 tests in 5.986s
+
+FAILED (failures=1)
