@@ -1,3 +1,3 @@
 @echo off
-cd /d "%~dp0"
-python server.py
+call "%~dp0start-windows.cmd"
+exit /b %errorlevel%

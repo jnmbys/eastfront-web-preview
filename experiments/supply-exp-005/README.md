@@ -1,3 +1,19 @@
+# SUPPLY-UX-007 试玩入口
+
+当前为候选，尚未部署。用户只有华为平板：**现在无需安装或下载**；独立在线方案见 DEPLOY007.md，批准并验证后将提供直接打开的HTTPS链接。
+
+Windows有电脑时：首次双击 `install-windows.cmd`（需要用户级Python3.12和Node22+），之后双击 `start-windows.cmd`，看到ready后打开 http://127.0.0.1:8765。虚拟环境在 `%LOCALAPPDATA%\EF007\venv`，不改全局配置，不需管理员；Windows未实测。
+
+维护者Linux本地：`python3 restore-fixtures.py` → `npx --yes --package typescript@5.7.3 tsc -p core/tsconfig.json` → `python3 -m pip install -r requirements.txt` → `python3 server.py`。
+
+未来在线候选使用 `online.py`，不能把共享全局状态的 `server.py` 直接对公网开放。Docker/限额/费用/隔离边界见 DEPLOY007.md。它运行真实Python求解器与Node Core，未替换为模拟。
+
+试玩三步：选择G-PZ-01 → 查看可点选路线并移动 → 阅读真实变化回执。每个片段的“这局怎么玩”可随时收起/重看；片段选择后点“重置此局面”才切换起点。地图横向滑动；撤退路线按所选单位逐格点选，包括起点；多单位先选执行单位再点路线。高级手填入口保留。反馈是当前视图结果，不是全知回放。
+
+验证、SHA与证据见 HANDOFF007.md。以下保留EXP006历史说明，冲突以本节/EXP007文档为准。
+
+---
+
 # SUPPLY-EXP-006 玩家战后选择沙盘
 
 需要 Node（本轮 v24.19.0）和 Python 3.12。从任务分支进入 `experiments/supply-exp-005` 后：

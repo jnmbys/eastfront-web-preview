@@ -6,7 +6,7 @@ from bounded import warm_start
 from realmap import MAP
 COORD={n['id']:n['coord'] for n in MAP['nodes']}
 ACTIVE={'GERMAN':'G','SOVIET':'S'}
-state=None;initial=None;error=None;receipt=None
+state=None;initial=None;error=None
 
 def load(clip,mode):
  d=json.loads((ROOT/'data/playable'/f'{clip}-{mode}.json').read_text());return d['state'],d['initial']
@@ -26,7 +26,6 @@ def public(viewer):
   s['pending']['target']=next(n for n,c in COORD.items() if c==tx['targetHex'])
   s['pending']['remaining_capacity']={u['id']:u['strength'] for u in s['units']}
  s['next_settlement']='苏军回合末（战斗强制步骤须先完成）；配送结果未知' if s['mode']=='new' else '旧 Core 补给阶段；不扣新库存'
- s['feedback']=deepcopy(receipt.get(viewer)) if receipt else None
  s['hash']=digest(s)
  # Resolution receipt is restricted to involved sides and contains no context or enemies.
  s['combat_receipt']=[]
@@ -43,8 +42,6 @@ class Handler(BaseHTTPRequestHandler):
   if viewer not in ['G','S']:return self.reply({'error':'bad viewer'},400)
   if u.path=='/':
    data=(ROOT/'sandbox.html').read_bytes();self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8');self.end_headers();self.wfile.write(data)
-  elif u.path=='/ux007.js':
-   data=(ROOT/'ux007.js').read_bytes();self.send_response(200);self.send_header('Content-Type','text/javascript; charset=utf-8');self.end_headers();self.wfile.write(data)
   elif u.path.startswith('/fonts/'):
    target=(ROOT/u.path.lstrip('/')).resolve()
    try:target.relative_to((ROOT/'fonts').resolve())
@@ -58,7 +55,7 @@ class Handler(BaseHTTPRequestHandler):
   elif u.path=='/replay' and q.get('debug',['0'])[0]=='1':self.reply({'initial':initial,'state':state,'warning':'全知研究回放，勿用于玩家接口'})
   else:self.send_error(404)
  def do_POST(self):
-  global state,initial,error,receipt
+  global state,initial,error
   try:
    n=int(self.headers.get('Content-Length','0'))
    if n>20000:raise ValueError('large')
@@ -66,7 +63,7 @@ class Handler(BaseHTTPRequestHandler):
    if viewer not in ['G','S']:raise ValueError('viewer')
    if cmd['op']=='reset':
     if cmd['clip'] not in CLIPS or cmd['mode'] not in ['new','old']:raise ValueError('config')
-    state,initial=load(cmd['clip'],cmd['mode']);error=None;receipt=None
+    state,initial=load(cmd['clip'],cmd['mode']);error=None
    elif cmd['op']=='action':
     action=cmd['action'];action['controllerId']=next(x['id'] for x in state['core']['controllers'].values() if ACTIVE[x['side']]==viewer)
     if 'paperPath' in action:action['path']=[COORD[k.upper()] for k in action.pop('paperPath').split()]
@@ -75,15 +72,8 @@ class Handler(BaseHTTPRequestHandler):
     if 'paperRetreats' in action:
      action['retreats']=[dict(unitId=line.split(':')[0].strip(),path=[COORD[k.upper()] for k in line.split(':')[1].split()]) for line in action.pop('paperRetreats').splitlines() if line.strip()]
     if 'paperTarget' in action:action['target']=COORD[action.pop('paperTarget').upper()]
-    before={v:public(v)['state'] for v in ['G','S']}
     r=execute(state,{'id':cmd['id'],'revision':cmd['revision'],'action':action},seconds=min(3,max(.001,float(cmd.get('budget',3)))))
-    if r['ok']:
-     state=r['state'];error=None
-     if not r.get('duplicate'):
-      receipt={}
-      for v in ['G','S']:
-       after=public(v)['state'];old={u['id']:u for u in before[v]['units']};j=state['journal'][-1]
-       receipt[v]=dict(revision=state['revision'],settled=j['settled'],settlement=[deepcopy(u) for row in after['ledger'] for u in row['units']] if j['settled'] else [],charges=[c for c in j['charges'] if c['side']==v],changes=[dict(unit=u['id'],stock_before=old[u['id']]['stock']/4,stock_after=u['stock']/4,debt_before=old[u['id']]['debt'],debt_after=u['debt'],position_before=old[u['id']]['node'],position_after=u['node'],strength_before=old[u['id']]['strength'],strength_after=u['strength']) for u in after['units'] if u['id'] in old and any(u[k]!=old[u['id']][k] for k in ['stock','debt','node','strength'])],removed=[dict(unit=u['id'],stock_before=u['stock']/4) for u in before[v]['units'] if u['id'] not in {x['id'] for x in after['units']}])
+    if r['ok']:state=r['state'];error=None
     else:error='未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。'
    else:raise ValueError('operation')
    self.reply(public(viewer))
