@@ -1,6 +1,6 @@
 # EASTFRONT PROJECT STATE
 
-- Last Update: 2026-09-28 22:09 (Asia/Shanghai)
+- Last Update: 2026-09-28 22:16 (Asia/Shanghai)
 - Current Branch: `collaboration-setup-001` (documentation only; designated shared management branch)
 - Current Commit: source baseline `5fe12513bca95c5b43c2ddc125021a117c5bcce4`; documentation checkpoint is the commit containing this file (`git log -1 --format=%H -- PROJECT_STATE.md`). A commit cannot embed its own final SHA.
 - Current Build: baseline package `0.0.10`; no build performed for this documentation-only task. Production frontend and experimental candidates are separate versions below.
@@ -17,7 +17,7 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 | Backend source branch | `source-main`: `5fe12513bca95c5b43c2ddc125021a117c5bcce4` | Remote ref verified; runtime not rechecked |
 | Core tested candidate | `core-baseline-002`: `db183c7733ae59d2f5a3bcb8f3f384357b7d59e6` | Isolated, not production |
 | AI candidate | `ai-003-local-human`: `99ee7fd8cff6aeda68ec058f179c7f34aaedf83b` | Worker-reported cloud browser acceptance passed; Huawei pending |
-| Art preview publication branch | `art-preview-001`: `bfacbb942274de37e9e6ea282931e7420499db2b` | Worker reports deployment 1b617ef1 and partial 1363×936 acceptance; full acceptance pending |
+| Art preview publication branch | `art-preview-001`: `040b4988b9d47efa761f3bb93039ea8940723871` (handoff), `8778cb4f307c3d01f471ac2b326f8beef4c5f500` (deployment) | Git evidence read; two iframe sizes passed per Worker; source rebuild/device/performance pending |
 | Supply experiment | SUPPLY-EXP-005 checkpoint v1 | Report reviewed; Git SHA not supplied, not yet Git-only handoff |
 
 ## Completed
@@ -40,7 +40,7 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 | --- | --- | --- | --- |
 | AI-PREVIEW-001 | Isolated AI preview and real browser Worker/flow acceptance | 编程worker | Cloud acceptance reported; release f8b1a1ff31a0d50d4e6dcd8d0837edb3b6506f70, deployment a736b1db; Huawei/performance pending |
 | AI-004 | Basic autonomous movement and attack using fair views | 编程worker | Next task proposed; awaiting user forwarding, no execution claimed |
-| ART-PREVIEW-002 | Fix overlays, touch targets, contrast; validate small-screen layout/performance | 美术优化worker | Task issued after partial ART-PREVIEW-001 acceptance; no new completion received |
+| ART-PREVIEW-002 | Fix overlays, touch targets, contrast; validate small-screen layout/performance | 美术优化worker | Scoped increment complete per Git evidence; 1024×768 and 1363×936 actual iframe views passed, not outer-browser resize or device acceptance |
 | SUPPLY-EXP-005 | Make new supply affect legal movement/combat in isolated short scenarios | 规则优化worker | Report reviewed: minimal runtime loop complete, isolated/local only; no Git SHA delivered |
 | SUPPLY-EXP-006 | Git handoff plus player-controlled combat follow-up in supply sandbox | 规则优化worker | Next task proposed; no execution claimed |
 | COLLAB-SETUP-001 | Establish these three management documents | Leader | Documentation checkpoint; authorized remote publication with Pages skip flag |
@@ -48,6 +48,10 @@ Remote refs were fetched for this setup. Historical validation below is Worker/u
 ## Supply EXP005 Evidence Intake
 
 Leader read SUPPLY_EXP_005_REPORT_2026-09-28.md; results below are Worker-reported, not independently rerun. Local-only checkpoint v1, no commit delivered. Base Core db183c7733ae59d2f5a3bcb8f3f384357b7d59e6, six isolated TS changes; solver unchanged. 12 seam tests and actual Chromium operations passed; 12-commit replay hashes match. Same 5+1 dice gave new AR vs old NE with identical RNG states. Recovery example uses explicit higher experimental capacity and delayed full-round-end distribution; it is not a balanced production configuration. Automatic combat choices limit tactical evaluation. Atomic rollback and material conservation reported. Git migration remains required before normal Git-only handoff.
+
+## Art EXP002 Evidence Intake
+
+Leader fetched immutable handoff 040b4988b9d47efa761f3bb93039ea8940723871 and read evidence/ART-PREVIEW-002/ACCEPTANCE.md and PREPARED.md directly from Git. Deployment 8778cb4f307c3d01f471ac2b326f8beef4c5f500 at https://75a6305b.eastfront-web-preview.pages.dev/ is separate from the evidence-only child. Worker reports dock, HTML touch-target/contrast fixes, removal of unused Medium/Close prebuild and 11/11 scoped tests. Tests used edited compiled JS, not a fresh TypeScript build; offline npm install failed on missing ws. Highest next gate is reproducible source install/typecheck/build and comparison to accepted runtime. 761/761 served files matched; _headers verified in Git separately. Iframe acceptance is not Huawei acceptance; roughly 11k SVG nodes and partial RAF samples do not prove regression or improvement. Controlled cold-cache/GPU evidence absent; baseline RAF raw log incomplete. No production replacement approved.
 
 ## Latest Acceptance Evidence
 
@@ -75,7 +79,7 @@ Leader read the supplied AI-PREVIEW-001-REVIEW.md (2026-09-28); no independent b
 ## Blockers
 
 - Cross-chat notifications remain manual. Fetch and verify the designated remote ref before claiming a handoff; Git does not wake or message other chats.
-- Terminal Git authentication previously failed for art; remote art ref now exists, so do not reuse the earlier “branch absent” conclusion. Worker now reports art deployment https://1b617ef1.eastfront-web-preview.pages.dev/ and partial acceptance; 1024×768, performance and CDN full hashes remain open.
+- Terminal Git authentication previously failed for art; remote art ref now exists, so do not reuse the earlier “branch absent” conclusion. Worker now reports art deployment https://1b617ef1.eastfront-web-preview.pages.dev/ and partial acceptance; ART002 supersedes this: actual iframe sizes passed and 761/761 served runtime hashes matched per evidence; full TypeScript build, controlled performance and Huawei remain open.
 - AI cloud Chrome 1363×936 operations and real Worker passed per reviewed AI-PREVIEW-001 report; local tests 11/11. Huawei touch, exact tablet sizes and performance pending; proactive strategy and save/load absent. Extra HTTP checks returned 403 and remain unverified.
 - Supply EXP005 actual gameplay effects demonstrated in isolated scenarios, not balance or human experience. Combat loss/retreat are automatic and optional advance/breakthrough/Schwerpunkt are declined. HQ/artillery/recovery interactions incomplete; experimental run stops after T15 without formal victory. Timing, reinforcement reserves and captured-hub treatment remain experimental.
 - Historical paper AI/rules must be adapted to current fair views and current contracts before reuse.

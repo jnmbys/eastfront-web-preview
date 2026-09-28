@@ -58,3 +58,12 @@ Change: Record isolated supply runtime effects and remaining automatic combat ch
 Reason: Separate operational supply effects from balance and full tactical acceptance.
 Commit: EXP005 Git SHA not supplied; base Core db183c7733ae59d2f5a3bcb8f3f384357b7d59e6.
 Validation: Leader read supplied report; 12 seam tests, replay and Chromium claims are Worker-reported. No game code changed by this state update.
+
+## 2026-09-28 — ART-PREVIEW-002 Git intake
+
+Date: 2026-09-28 22:16 (Asia/Shanghai)
+Task ID: COLLAB-STATE-004
+Change: Record two-size iframe acceptance and identify fresh source build as next priority.
+Reason: Runtime tests on patched JS do not establish reproducible TypeScript output.
+Commit: Handoff 040b4988b9d47efa761f3bb93039ea8940723871; deployment 8778cb4f307c3d01f471ac2b326f8beef4c5f500.
+Validation: Leader fetched Git and read ACCEPTANCE.md/PREPARED.md; Worker test/browser/hash evidence not independently rerun. Management files only.
