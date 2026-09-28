@@ -37,7 +37,7 @@ const rootElement = document.querySelector('#app');
 if (!rootElement)
     throw new Error('#app missing');
 const root = rootElement;
-const LOCAL_AI_ENABLED = false; // Enabled only by the isolated AI003 build.
+const LOCAL_AI_ENABLED = true; // Enabled only by the isolated AI003 build.
 let localAi = null, localGeneration = 0;
 const query = new URLSearchParams(location.search);
 const developerUi = productionDeveloperUiAllowed(location.hostname, location.search);
