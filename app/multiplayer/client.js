@@ -1,3 +1,4 @@
+import { validBattleSummaries } from './battleSummary.js';
 import { MAP_SNAPSHOT, COMPACT_SNAPSHOT, FULL_SNAPSHOT, MAX_SERVER_MESSAGE_BYTES, decodeSnapshot, isSnapshotFormat } from './snapshotCodec.js';
 import { PROTOCOL_VERSION, clientMessage } from './protocol.js';
 import { CLIENT_NETWORK } from './config.js';
@@ -29,6 +30,7 @@ export class LobbyClient {
     recoveryId = null;
     recoveryUsed = false;
     compactDisabled = false;
+    battleSummary = false;
     attempts = 0;
     pendingId = null;
     name = '';
@@ -66,6 +68,7 @@ export class LobbyClient {
         this.snapshotFormat = FULL_SNAPSHOT;
         this.negotiationId = null;
         this.recoveryId = null;
+        this.battleSummary = false;
         this.state.connection = this.token ? 'RECONNECTING' : 'CONNECTING';
         this.state.synced = false;
         this.state.pending = false;
@@ -120,6 +123,10 @@ export class LobbyClient {
             }
             if (transportTimingEnabled)
                 decodedAt = performance.now();
+            if (message.messageType === 'MATCH_QUERY' && message.payload.model?.battleSummaries !== undefined && (!validBattleSummaries(message.payload.model.battleSummaries) || message.payload.model.battleSummaries.matchId !== message.payload.matchId || message.payload.model.battleSummaries.viewerControllerId !== message.payload.model.viewerControllerId || message.payload.model.battleSummaries.entries.some(e => e.revision > message.payload.matchRevision))) {
+                this.recoverSnapshot();
+                return;
+            }
             this.receive(message);
             if (transportTimingEnabled && ['PLAYER_VIEW_SNAPSHOT', 'ACTION_ACCEPTED', 'ACTION_REJECTED'].includes(message.messageType)) {
                 const p = message.payload;
@@ -189,7 +196,7 @@ export class LobbyClient {
         if (message.requestId === this.negotiationId && this.negotiationId) {
             if (message.messageType === 'ROOM_ERROR' && ['BAD_MESSAGE', 'UNSUPPORTED_MESSAGE'].includes(message.payload.code) && this.negotiationFormat === MAP_SNAPSHOT) {
                 this.negotiationFormat = COMPACT_SNAPSHOT;
-                this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: COMPACT_SNAPSHOT });
+                this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: COMPACT_SNAPSHOT, ...(this.battleSummary ? { battleSummary: 1 } : {}) });
                 return;
             }
             if (message.messageType === 'SNAPSHOT_FORMAT_SELECTED' && message.payload.format === this.negotiationFormat && Object.keys(message.payload).length === 1) {
@@ -229,9 +236,10 @@ export class LobbyClient {
                 this.state.connection = 'CONNECTED';
                 this.state.error = null;
                 this.attempts = 0;
-                if (this.preferredFormat !== FULL_SNAPSHOT && !this.compactDisabled) {
-                    this.negotiationFormat = this.preferredFormat;
-                    this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: this.preferredFormat });
+                this.battleSummary = message.payload.battleSummary === 1;
+                if (this.battleSummary || (this.preferredFormat !== FULL_SNAPSHOT && !this.compactDisabled)) {
+                    this.negotiationFormat = this.compactDisabled ? FULL_SNAPSHOT : this.preferredFormat;
+                    this.negotiationId = this.sendRaw('SET_SNAPSHOT_FORMAT', { format: this.negotiationFormat, ...(this.battleSummary ? { battleSummary: 1 } : {}) });
                 }
                 break;
             case 'ROOM_CREATED':

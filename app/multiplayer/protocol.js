@@ -32,7 +32,7 @@ export function parseClientMessage(text) {
     let valid = false;
     switch (v.messageType) {
         case 'SET_SNAPSHOT_FORMAT':
-            valid = shape(p, { format: isSnapshotFormat });
+            valid = shape(p, { format: isSnapshotFormat }, { battleSummary: v => v === 1 });
             break;
         case 'SUBMIT_ACTION':
             valid = shape(p, { matchId: id, expectedRevision: revision, action: isNetworkAction });

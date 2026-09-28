@@ -1,4 +1,13 @@
 export const zhCN = {
+    "result.pendingOther": "待处理：{kind}。等待有权操作的玩家完成，你无需在此提交。",
+    "result.aggregateOnly": "仅显示 CRT 总列修正；私密支援来源已省略。",
+    "result.confirmed": "己方已执行后果",
+    "result.actualLoss": "{unit}：已损失 {steps} 步。",
+    "result.actualTravel": "{unit}：{kind}，{from} → {to}（已执行）。",
+    "result.noOwnFacts": "尚无获准记录的己方已执行后果。",
+    "result.ownFactsOnly": "仅记录己方单位；敌方明细、支援来源和完整路线已省略。上方 CRT 要求与实际执行后果分开记录。",
+    "result.truncated": "记录已达上限；此列表不完整。",
+    "result.olderOmitted": "仅保留最近 32 场授权战斗；更早记录已不可用。",
     "result.title": "战斗结果",
     "result.close": "关闭结果",
     "result.waiting": "等待结算：尚未收到权威结果。",
