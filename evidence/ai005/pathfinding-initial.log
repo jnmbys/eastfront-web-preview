@@ -1,0 +1,92 @@
+✔ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (754.393128ms)
+✔ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (3.554033ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (9.289677ms)
+✔ AI005 plans a non-greedy detour, one Action per view; fixed map has no revisits (33.790126ms)
+✔ AI005 avoids a nearer dead end and ends if the public goal is unreachable (10.942902ms)
+✖ AI005 target/terrain/authorized occupancy changes immediately invalidate the old route (6.151211ms)
+✖ AI005 visible enemy goal replaces objective and disappearance restores public objective (8.858406ms)
+✔ AI005 rejected edge stays suppressed after unrelated view change, resets on phase end (3.86404ms)
+✖ AI005 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (16.238482ms)
+✔ AI005 bounded settled-node search ends safely; repeated input is identical and immutable (16.35641ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 7
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 906.016559
+
+✖ failing tests:
+
+test at ai/tests/pathfinding.test.mjs:30:1
+✖ AI005 target/terrain/authorized occupancy changes immediately invalidate the old route (6.151211ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'MOVE'
+  - 'READY_FOR_PHASE_END'
+
+      at TestContext.<anonymous> (file:///workspace/scratch/2d63d88d2207/eastfront/ai/tests/pathfinding.test.mjs:35:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'MOVE',
+    expected: 'READY_FOR_PHASE_END',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ai/tests/pathfinding.test.mjs:39:1
+✖ AI005 visible enemy goal replaces objective and disappearance restores public objective (8.858406ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert(x.view.units.some(u=>u.id==='e'))
+
+      at TestContext.<anonymous> (file:///workspace/scratch/2d63d88d2207/eastfront/ai/tests/pathfinding.test.mjs:41:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ai/tests/pathfinding.test.mjs:52:1
+✖ AI005 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (16.238482ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+  + undefined
+  - [
+  -   {
+  -     q: 1,
+  -     r: 0
+  -   }
+  - ]
+
+      at TestContext.<anonymous> (file:///workspace/scratch/2d63d88d2207/eastfront/ai/tests/pathfinding.test.mjs:59:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: [ { q: 1, r: 0 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

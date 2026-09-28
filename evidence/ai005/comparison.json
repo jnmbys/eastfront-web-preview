@@ -1,0 +1,456 @@
+{
+  "seed17FullTraceReplayEqual": true,
+  "definitions": {
+    "contact": "First policy decision after deployment with identified enemy or CONTACT in its authorized view; counted by turn/phase, not wall clock.",
+    "adjacent": "First decision with own unit adjacent to an identified enemy.",
+    "reverse": "Next accepted MOVE of same unit returns from previous endpoint to previous origin. Retreat/advance alone is not counted.",
+    "revisit": "Accepted MOVE destination has appeared earlier in that unit MOVE history (initial origin included)."
+  },
+  "rows": [
+    {
+      "seed": 17,
+      "r1": {
+        "seed": 17,
+        "termination": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        },
+        "turn": 16,
+        "winner": "SOVIET",
+        "accepted": 1044,
+        "rejected": 0,
+        "repeatedRejections": 0,
+        "count": {
+          "DEPLOY_INITIAL_UNIT": 58,
+          "READY_FOR_PHASE_END": 157,
+          "MOVE": 806,
+          "DEPLOY_REINFORCEMENT": 13,
+          "ATTACK": 4,
+          "PASS_REACTION": 4,
+          "RETREAT": 1,
+          "PASS_ADVANCE": 2
+        },
+        "first": {
+          "GERMAN": {
+            "contact": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "identified": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "adjacent": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "attack": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 800
+            }
+          },
+          "SOVIET": {
+            "contact": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "identified": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "adjacent": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "attack": null
+          }
+        },
+        "reversals": 25,
+        "revisits": 25,
+        "finalRandom": {
+          "seed": 17,
+          "state": 3727251969,
+          "draws": 8
+        },
+        "traceHash": "73c29fe5a18bf044afb1d8e192617fa72cdc4037ddde497ee0b0689bc4a536f7",
+        "stateHash": "f9851cc493b6affc91398835c64d83022b594642ac85366698efd1148ea6c4b8"
+      },
+      "ai005": {
+        "seed": 17,
+        "termination": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        },
+        "turn": 16,
+        "winner": "SOVIET",
+        "accepted": 1012,
+        "rejected": 0,
+        "repeatedRejections": 0,
+        "count": {
+          "DEPLOY_INITIAL_UNIT": 58,
+          "READY_FOR_PHASE_END": 157,
+          "MOVE": 778,
+          "DEPLOY_REINFORCEMENT": 13,
+          "ATTACK": 3,
+          "PASS_REACTION": 3,
+          "PASS_ADVANCE": 1
+        },
+        "first": {
+          "GERMAN": {
+            "contact": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "identified": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "adjacent": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "attack": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 639
+            }
+          },
+          "SOVIET": {
+            "contact": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "identified": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "adjacent": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "attack": null
+          }
+        },
+        "reversals": 0,
+        "revisits": 0,
+        "finalRandom": {
+          "seed": 17,
+          "state": 1170952916,
+          "draws": 6
+        },
+        "traceHash": "297f9d036cb6f080f984bd3bba946711476f02e692c5a7d70eebf27211cf55a5",
+        "stateHash": "9c9a3a068d90d7c791fa3029727ef745b2b45935c87e3a45cf352c27ebda11cd"
+      }
+    },
+    {
+      "seed": 18,
+      "r1": {
+        "seed": 18,
+        "termination": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        },
+        "turn": 16,
+        "winner": "SOVIET",
+        "accepted": 1012,
+        "rejected": 0,
+        "repeatedRejections": 0,
+        "count": {
+          "DEPLOY_INITIAL_UNIT": 58,
+          "READY_FOR_PHASE_END": 157,
+          "MOVE": 777,
+          "DEPLOY_REINFORCEMENT": 13,
+          "ATTACK": 2,
+          "PASS_REACTION": 2,
+          "RETREAT": 2,
+          "PASS_ADVANCE": 2
+        },
+        "first": {
+          "GERMAN": {
+            "contact": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "identified": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "adjacent": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "attack": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 800
+            }
+          },
+          "SOVIET": {
+            "contact": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "identified": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "adjacent": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "attack": null
+          }
+        },
+        "reversals": 16,
+        "revisits": 16,
+        "finalRandom": {
+          "seed": 18,
+          "state": 1889345756,
+          "draws": 4
+        },
+        "traceHash": "15c35a1c8cd8eb4a728e9145ae85ec5df1e39e7d8124cc55131f34c22fee3941",
+        "stateHash": "d0fef9e5d4effe4342102cfbc12032326efba9de3186ad5d8cf6304e8a90cff1"
+      },
+      "ai005": {
+        "seed": 18,
+        "termination": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        },
+        "turn": 16,
+        "winner": "SOVIET",
+        "accepted": 1010,
+        "rejected": 0,
+        "repeatedRejections": 0,
+        "count": {
+          "DEPLOY_INITIAL_UNIT": 58,
+          "READY_FOR_PHASE_END": 157,
+          "MOVE": 778,
+          "DEPLOY_REINFORCEMENT": 13,
+          "ATTACK": 2,
+          "PASS_REACTION": 2,
+          "PASS_ADVANCE": 1
+        },
+        "first": {
+          "GERMAN": {
+            "contact": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "identified": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "adjacent": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "attack": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 639
+            }
+          },
+          "SOVIET": {
+            "contact": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "identified": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "adjacent": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "attack": null
+          }
+        },
+        "reversals": 0,
+        "revisits": 0,
+        "finalRandom": {
+          "seed": 18,
+          "state": 1889345756,
+          "draws": 4
+        },
+        "traceHash": "537397950bfefd3a71bf73212660635edae06d4614c2339170be80254ca0ea13",
+        "stateHash": "a78602cb9f769836adf71bdb30245fce5ac9c9c2abaa846c5bc7d7620758ede5"
+      }
+    },
+    {
+      "seed": 19,
+      "r1": {
+        "seed": 19,
+        "termination": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        },
+        "turn": 16,
+        "winner": "SOVIET",
+        "accepted": 1014,
+        "rejected": 0,
+        "repeatedRejections": 0,
+        "count": {
+          "DEPLOY_INITIAL_UNIT": 58,
+          "READY_FOR_PHASE_END": 157,
+          "MOVE": 777,
+          "DEPLOY_REINFORCEMENT": 13,
+          "ATTACK": 3,
+          "PASS_REACTION": 3,
+          "RETREAT": 2,
+          "PASS_ADVANCE": 2
+        },
+        "first": {
+          "GERMAN": {
+            "contact": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "identified": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "adjacent": {
+              "turn": 12,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 777
+            },
+            "attack": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 800
+            }
+          },
+          "SOVIET": {
+            "contact": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "identified": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "adjacent": {
+              "turn": 12,
+              "phase": "GERMAN_COMBAT",
+              "decision": 801
+            },
+            "attack": null
+          }
+        },
+        "reversals": 16,
+        "revisits": 16,
+        "finalRandom": {
+          "seed": 19,
+          "state": 1964712439,
+          "draws": 6
+        },
+        "traceHash": "e3fa8e5a30457b7d970838f34baf6887716cb1f1c6e98411e7ddb689e2ead96e",
+        "stateHash": "1eeac283c750c0052ffb6b26eb3241a041dd289329a2de7336c3b08b88485bac"
+      },
+      "ai005": {
+        "seed": 19,
+        "termination": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        },
+        "turn": 16,
+        "winner": "SOVIET",
+        "accepted": 1037,
+        "rejected": 0,
+        "repeatedRejections": 0,
+        "count": {
+          "DEPLOY_INITIAL_UNIT": 58,
+          "READY_FOR_PHASE_END": 157,
+          "MOVE": 793,
+          "DEPLOY_REINFORCEMENT": 13,
+          "ATTACK": 6,
+          "PASS_REACTION": 6,
+          "RETREAT": 2,
+          "PASS_ADVANCE": 3
+        },
+        "first": {
+          "GERMAN": {
+            "contact": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "identified": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "adjacent": {
+              "turn": 9,
+              "phase": "GERMAN_MOVEMENT",
+              "decision": 615
+            },
+            "attack": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 639
+            }
+          },
+          "SOVIET": {
+            "contact": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "identified": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "adjacent": {
+              "turn": 9,
+              "phase": "GERMAN_COMBAT",
+              "decision": 640
+            },
+            "attack": null
+          }
+        },
+        "reversals": 1,
+        "revisits": 1,
+        "finalRandom": {
+          "seed": 19,
+          "state": 2358098299,
+          "draws": 12
+        },
+        "traceHash": "660255855ce7fdf48908de4660e7ae92516e266ff9c3fc53d6c9f334d3c1c01f",
+        "stateHash": "a560d828d92f305d8e465b84ae337e01abbf8afc9c0bd218677bbb548c01c0cc"
+      }
+    }
+  ]
+}

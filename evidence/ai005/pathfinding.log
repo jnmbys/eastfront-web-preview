@@ -1,0 +1,18 @@
+✔ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (761.21098ms)
+✔ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (3.069642ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (7.947381ms)
+✔ AI005 plans a non-greedy detour, one Action per view; fixed map has no revisits (30.428811ms)
+✔ AI005 avoids a nearer dead end and ends if the public goal is unreachable (8.88138ms)
+✔ AI005 target/terrain/authorized occupancy changes immediately invalidate the old route (4.090781ms)
+✔ AI005 visible enemy goal replaces objective and disappearance restores public objective (4.203422ms)
+✔ AI005 rejected edge stays suppressed after unrelated view change, resets on phase end (2.865804ms)
+✔ AI005 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (38.273455ms)
+✔ AI005 bounded settled-node search ends safely; repeated input is identical and immutable (10.475385ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 880.058177
