@@ -1,0 +1,73 @@
+Eastfront Digital Core v0.1.1 — Task 001.1 verification
+Date: 2026-09-17
+
+$ npm run typecheck
+PASS
+
+$ npm run smoke
+Digital Branch smoke checks passed.
+PASS
+
+$ npm run smoke:hardening
+Digital Branch Core Hardening 001.1 regression checks passed.
+PASS
+
+$ tsc --noEmit ... tests/*.ts with a local declaration-only Vitest shim
+PASS (static TypeScript check of tests)
+
+$ npm install --ignore-scripts --no-audit --no-fund
+TIMEOUT in sandbox.
+Vitest binary was not installed, therefore `npm test` runtime was NOT executed here.
+
+Required hardening regression cases are also covered by dependency-free scripts/hardening-smoke.mjs.
+
+Task 001.2 verification:
+- npm run typecheck: PASS
+- npm run smoke: PASS
+- npm run smoke:hardening: PASS
+- npm run smoke:transaction: PASS
+- npm test: unavailable in sandbox (vitest: not found)
+- test source static compile with local vitest shim: PASS
+
+Task 001.3 required: npm run typecheck; npm run smoke; npm run smoke:hardening; npm run smoke:transaction; npm run smoke:foundation
+
+Task 002A-1 verification (v0.2.1):
+- npm run typecheck: PASS
+- npm run smoke: PASS
+- npm run smoke:hardening: PASS
+- npm run smoke:transaction: PASS
+- npm run smoke:foundation: PASS
+- npm run smoke:combat-declare: PASS
+  Output: Digital Branch Task 002A-1 combat declaration/reaction/CRT smoke checks passed.
+- tests/*.ts static TypeScript compile with local declaration-only Vitest shim: PASS
+- npm test: NOT RUN successfully in sandbox because `vitest` executable is not installed (`vitest: not found`).
+
+002A-1 stops before loss application, retreat execution, advance, breakthrough, Schwerpunkt, or 002A-2.
+
+Task 002A-2A verification (v0.2.2):
+- npm run typecheck: PASS
+- npm run smoke: PASS
+- npm run smoke:hardening: PASS
+- npm run smoke:transaction: PASS
+- npm run smoke:foundation: PASS
+- npm run smoke:combat-declare: PASS
+- npm run smoke:combat-loss: PASS
+  Output: Digital Branch Task 002A-2A combat loss/preflight smoke checks passed.
+- tests/*.ts static TypeScript compile with local declaration-only Vitest shim: PASS
+- npm test: FAILS TO START in sandbox because `vitest` executable is not installed (`vitest: not found`).
+
+Foundation Amendment FA-001: canonical replay identities advance idCounters so replay state matches live state.
+002A-2A stops before actual RETREAT / ADVANCE / BREAKTHROUGH / SCHWERPUNKT.
+
+
+Task 002A-2B-1 verification
+- npm run typecheck: PASS
+- npm run smoke: PASS
+- npm run smoke:hardening: PASS
+- npm run smoke:transaction: PASS
+- npm run smoke:foundation: PASS
+- npm run smoke:combat-declare: PASS
+- npm run smoke:combat-loss: PASS
+- npm run smoke:retreat-legality: PASS
+
+Scope: shared one-step retreat legality + OOS/no-exit defense halving only. No actual retreat transition, advance, breakthrough, or Schwerpunkt.
