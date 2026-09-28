@@ -7,7 +7,7 @@ export const zhCN = {
     "result.requirements": "CRT 要求：进攻方损失 {a} 级、撤退 {ar} 格；防守方损失 {d} 级、撤退 {dr} 格。",
     "result.converted": "结算记录标记了撤退转损失。",
     "result.closed": "该战斗后续流程已结束。",
-    "result.pending": "待处理：{kind}。请使用上方操作或地图完成。",
+    "result.pending": "待处理：{kind}。请使用后续操作区或地图完成。",
     "result.lastStage": "最近授权阶段：{stage}。",
     "result.consequenceGap": "上述为 CRT 要求；当前授权数据未提供逐单位实际损失／撤退明细，不能据此认定全部执行完成。",
     "result.unavailable": "此记录的详细结果当前未获授权或尚未返回；不会重新掷骰。",
