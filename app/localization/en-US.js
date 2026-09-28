@@ -1,5 +1,17 @@
 // English is the complete fallback catalog. Keys are independent of Core identifiers.
 export const enUS = {
+    "result.title": "Battle result",
+    "result.close": "Close result",
+    "result.waiting": "Awaiting resolution: no authoritative result yet.",
+    "result.columnShift": "CRT column shift",
+    "result.noDiceModifier": "These modifiers shift the CRT column; they do not change the dice.",
+    "result.requirements": "CRT requirement: attacker loses {a} steps / retreats {ar} hexes; defender loses {d} steps / retreats {dr} hexes.",
+    "result.converted": "Resolution records retreat converted to losses.",
+    "result.closed": "Follow-up decisions for this battle are complete.",
+    "result.pending": "Pending: {kind}. Use the controls above or the map.",
+    "result.lastStage": "Last authorized stage: {stage}.",
+    "result.consequenceGap": "These are CRT requirements. Authorized data does not include actual per-unit loss / retreat records; completion is not implied.",
+    "result.unavailable": "Details are not currently authorized or have not arrived. No dice are rolled again.",
     "models.infantry": "INF",
     "models.armor": "ARM",
     "models.motorized": "MOT",

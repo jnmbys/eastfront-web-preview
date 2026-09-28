@@ -19,7 +19,6 @@ export function combatAttackPanel(model, details) {
     const terrain = a.target ? model.hexes.find(h => key(h.coord) === key(a.target))?.terrain : null;
     const enabled = !!a.target && a.attackerUnitIds.length > 0 && a.issues.length === 0 && !!preview;
     const allies = model.counters.filter(u => u.side === model.viewerSide);
-    const result = c.battle?.resolution;
     const modifierKeys = { terrainShift: 'common.terrain', riverShift: 'combat.river', engineerShift: 'combat.engineer', combinedArmsShift: 'combat.combinedArms', unsupportedArmorShift: 'combat.armorPenalty', antiTankShift: 'combat.antiTank', attackerArtilleryShift: 'combat.attackerArtillery', defenderArtilleryShift: 'combat.defenderArtillery', flankShift: 'combat.flank', entrenchmentShift: 'combat.entrenchment', hqShift: 'combat.hq', secondAttackShift: 'combat.secondAttack' };
     const modifiers = preview ? Object.entries(modifierKeys).filter(([key]) => preview.modifiers[key] !== 0).map(([key, label]) => `${t(label)} ${preview.modifiers[key] > 0 ? '+' : ''}${preview.modifiers[key]}`) : [];
     const crt = `<div class="combat-crt-scroll"><table class="combat-crt"><caption>${t('combat.flow.crtTable')}</caption><thead><tr><th>${t('combat.flow.diceTotal')}</th>${c.crt.columns.map(label => `<th>${esc(label)}</th>`).join('')}</tr></thead><tbody>${Object.entries(c.crt.table).map(([roll, results]) => `<tr><th>${roll}</th>${results.map(result => `<td>${esc(result)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
@@ -38,6 +37,5 @@ export function combatAttackPanel(model, details) {
  ${a.target ? `<p>${t('unit.artilleryDescription')}</p><div class="button-row"><button id="attack-art-none" class="mini-button ${!a.selectedArtilleryId ? 'active' : ''}">${t('combat.noArtillery')}</button>${a.artilleryUnitIds.map(id => `<button class="mini-button ${a.selectedArtilleryId === id ? 'active' : ''}" data-attack-artillery="${esc(id)}">${esc(label(id))}</button>`).join('')}</div>` : ''}
  <button id="attack-clear" class="secondary-action">${t('combat.clear')}</button>
  ${details}${crt}</details>
- ${result ? `<div class="combat-card" role="status"><h3>${t('combat.lastResult', { result: esc(result.crtResult) })}</h3><p>${t('combat.dice', { ...result.dice })}</p></div>` : ''}
  <button id="ready-button" class="secondary-action">${t('combat.endPhase')}</button></section>`;
 }

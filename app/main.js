@@ -1,3 +1,4 @@
+import { combatResults } from './ui/combatResult.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import { NetworkPlayerSession } from './multiplayer/networkSession.js';
@@ -143,14 +144,13 @@ function combatContextHtml(context, label) {
     const rows = [[t('common.terrain'), m.terrainShift], [t('combat.river'), m.riverShift], [t('combat.engineer'), m.engineerShift], [t('combat.combinedArms'), m.combinedArmsShift], [t('combat.armorPenalty'), m.unsupportedArmorShift], [t('combat.antiTank'), m.antiTankShift], [t('combat.attackerArtillery'), m.attackerArtilleryShift], [t('combat.defenderArtillery'), m.defenderArtilleryShift], [t('combat.flank'), m.flankShift], [t('combat.entrenchment'), m.entrenchmentShift], [t('combat.hq'), m.hqShift], [t('combat.secondAttack'), m.secondAttackShift]].filter(([, v]) => v !== 0);
     return `<div class="combat-card"><h3>${label}</h3><div class="combat-grid"><span>${t('common.attack')}</span><strong>${context.attackStrength}</strong><span>${t('common.defense')}</span><strong>${context.defenseStrength}</strong><span>${t('combat.baseOdds')}</span><strong>${esc(context.baseOdds)}</strong><span>${t('combat.baseColumn')}</span><strong>${context.baseCRTColumn}</strong><span>${t('combat.finalShift')}</span><strong>${context.finalShift}</strong><span>${t('combat.finalCRT')}</span><strong>${esc(context.finalCRTColumnLabel)}</strong></div>${rows.length ? `<div class="modifier-list">${rows.map(([k, v]) => `<span>${k}</span><strong>${Number(v) > 0 ? '+' : ''}${v}</strong>`).join('')}<span>${t('combat.rawCapped')}</span><strong>${m.rawShift} / ${m.cappedShift}</strong></div>` : ''}</div>`;
 }
-function battleHistoryHtml(model) { const h = model.combat?.history ?? []; return h.length ? `<section class="panel-block battle-history"><span class="eyebrow">${t('combat.history')}</span>${h.map((b) => `<div class="battle-history-row"><span>${esc(b.battleId)}${b.sourceBattleId ? ` ← ${esc(b.sourceBattleId)}` : ''}<br>${enumLabel(b.attackerSide)}→${enumLabel(b.defenderSide)} @ ${coreHexKey(b.target)}</span><strong>${b.crtResult ?? enumLabel(b.stage)}</strong></div>`).join('')}</section>` : ''; }
 function combatPanel(model) {
     const c = model.combat;
     if (!c)
         return '';
     const pending = c.pending, tx = c.battle;
     if (!pending)
-        return combatAttackPanel(model, c.attackDraft.preview ? combatContextHtml(c.attackDraft.preview, t('combat.details')) : '') + battleHistoryHtml(model);
+        return combatAttackPanel(model, c.attackDraft.preview ? combatContextHtml(c.attackDraft.preview, t('combat.details')) : '');
     const header = `<section class="panel-block phase-actions pending-lock"><span class="eyebrow">${t('combat.transaction', { kind: enumLabel(pending.kind) })}</span><div class="phase-metric"><span>${t('combat.battle')}</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>${t('combat.decisionOwner')}</span><strong>${enumLabel(pending.side)}</strong></div>`;
     let body = '';
     if (pending.kind === 'DEFENDER_REACTION') {
@@ -402,7 +402,8 @@ function mountCachedTerrainSurface() {
     updateTerrainDetailStatus();
 }
 function sidePanelMarkup(model, locations) {
-    return `<div class="command-panel-scroll">${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model, locations)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
+    const results = session ? combatResults(session).html(model, typeof reducedMotion !== 'undefined' && reducedMotion.matches) : '';
+    return `<div class="command-panel-scroll">${results}${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model, locations)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 const dynamicMap = new DynamicMapRenderer();
 const deploymentPanelRenderer = new DeploymentPanelRenderer();
@@ -589,10 +590,14 @@ async function submitCombatAttack() {
     const button = document.querySelector('#attack-declare');
     if (!button || button.disabled)
         return;
+    combatResults(session).begin();
     combatSubmitting = true;
     button.disabled = true;
-    button.textContent = t('combat.submitting');
+    button.textContent = t('result.waiting');
     button.setAttribute('aria-busy', 'true');
+    const card = document.querySelector('.combat-result-panel');
+    if (card)
+        card.innerHTML = `<p role="status">${t('result.waiting')}</p>`;
     const current = session, currentPresentation = presentation;
     try {
         // Let the busy feedback paint before Core applies the complete transaction chain.
@@ -600,6 +605,8 @@ async function submitCombatAttack() {
         if (session !== current || presentation !== currentPresentation)
             return;
         attackAndContinue(current, presentation);
+        if (!isNetwork(current))
+            combatResults(current).stopWaiting();
         showCombatView();
     }
     finally {
@@ -775,6 +782,18 @@ function bindDynamic(model) {
         return; element.addEventListener('click', () => { selectReinforcement(presentation, id); render(); }); });
     document.querySelectorAll('[data-role="reinforcement-entry"]').forEach((element) => { const key = element.dataset.hex; if (!key)
         return; const action = () => { deploySelectedReinforcement(session, presentation, parseHex(key)); render(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });
+    document.querySelector('#result-close')?.addEventListener('click', () => { if (session) {
+        combatResults(session).close();
+        refreshDynamicView();
+    } });
+    document.querySelectorAll('[data-result-history]').forEach(el => el.addEventListener('click', () => {
+        if (!session || !el.dataset.resultHistory)
+            return;
+        const id = el.dataset.resultHistory, cached = combatResults(session).open(id);
+        if (!cached && !sessionPlayerView(session).pendingDecision && (!isNetwork(session) || session.interactive))
+            presentation.selectedBattleId = id;
+        refreshDynamicView();
+    }));
     document.querySelector('#attack-toggle-selected')?.addEventListener('click', () => { if (presentation.selectedUnitId)
         toggleAttackUnit(session, presentation, presentation.selectedUnitId); refreshDynamicView(); });
     document.querySelector('#attack-clear')?.addEventListener('click', () => { clearAttackDraft(presentation); refreshDynamicView(); });
@@ -850,6 +869,8 @@ function updateNetworkStatus() {
     const selectionControls = '[data-deploy-unit-id],[data-deploy-destination],[data-remove-attacker],[data-attack-unit],#rail-mode,#rail-clear,#rail-no-engineer,[data-rail-engineer],#move-undo,#move-cancel,[data-reinforcement-id],#attack-toggle-selected,#attack-clear,#attack-art-none,[data-attack-artillery],#loss-clear,[data-retreater],#retreat-undo,[data-breakthrough-unit],#breakthrough-undo';
     const network = session;
     document.querySelectorAll('#side-panel button').forEach(button => {
+        if (button.matches('#result-close, [data-result-history]'))
+            return;
         const blocked = !network.canSelect || (!network.interactive && !button.matches(selectionControls));
         if (blocked && !button.disabled) {
             button.dataset.networkDisabled = 'true';
@@ -868,10 +889,13 @@ async function enterNetworkMatch(client) {
         if (session !== network || appStatus !== 'PLAYING')
             return;
         if (kind === 'resync') {
+            combatResults(network).recover();
             unitAnimations.skip();
             deploymentTouch = createDeploymentTouch();
             deploymentPanelRenderer.clear();
         }
+        if (network.notice && !network.client.state.pending)
+            combatResults(network).stopWaiting();
         if (kind === 'status') {
             updateNetworkStatus();
             return;
