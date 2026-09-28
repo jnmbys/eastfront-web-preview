@@ -1,0 +1,38 @@
+{
+  "result": "PASS",
+  "scenario": "Strategic Reset F",
+  "seed": 8246,
+  "battleId": "B-000001",
+  "trace": [
+    {
+      "stage": "ATTACK",
+      "battleId": "B-000001",
+      "pending": "DEFENDER_REACTION"
+    },
+    {
+      "stage": "REACTION_CRT_AUTO_LOSS",
+      "dice": {
+        "die1": 4,
+        "die2": 6,
+        "total": 10
+      },
+      "crt": "D2R",
+      "defenderStepBefore": 0,
+      "defenderStepAfter": 2,
+      "pending": "RETREAT"
+    },
+    {
+      "stage": "RETREAT",
+      "pending": "ADVANCE_AFTER_COMBAT"
+    },
+    {
+      "stage": "ADVANCE_AFTER_COMBAT",
+      "unitId": "G-PZ-01",
+      "pending": null
+    },
+    {
+      "stage": "CLOSED"
+    }
+  ],
+  "finalIntegrityIssues": 0
+}

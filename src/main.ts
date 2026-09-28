@@ -1,3 +1,4 @@
+import {combatResults} from './ui/combatResult.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import {NetworkPlayerSession} from './multiplayer/networkSession.js';
@@ -111,11 +112,10 @@ function combatContextHtml(context:NonNullable<NonNullable<BrowserRenderModel['c
   const m=context.modifiers;const rows=[[t('common.terrain'),m.terrainShift],[t('combat.river'),m.riverShift],[t('combat.engineer'),m.engineerShift],[t('combat.combinedArms'),m.combinedArmsShift],[t('combat.armorPenalty'),m.unsupportedArmorShift],[t('combat.antiTank'),m.antiTankShift],[t('combat.attackerArtillery'),m.attackerArtilleryShift],[t('combat.defenderArtillery'),m.defenderArtilleryShift],[t('combat.flank'),m.flankShift],[t('combat.entrenchment'),m.entrenchmentShift],[t('combat.hq'),m.hqShift],[t('combat.secondAttack'),m.secondAttackShift]].filter(([,v])=>v!==0);
   return `<div class="combat-card"><h3>${label}</h3><div class="combat-grid"><span>${t('common.attack')}</span><strong>${context.attackStrength}</strong><span>${t('common.defense')}</span><strong>${context.defenseStrength}</strong><span>${t('combat.baseOdds')}</span><strong>${esc(context.baseOdds)}</strong><span>${t('combat.baseColumn')}</span><strong>${context.baseCRTColumn}</strong><span>${t('combat.finalShift')}</span><strong>${context.finalShift}</strong><span>${t('combat.finalCRT')}</span><strong>${esc(context.finalCRTColumnLabel)}</strong></div>${rows.length?`<div class="modifier-list">${rows.map(([k,v])=>`<span>${k}</span><strong>${Number(v)>0?'+':''}${v}</strong>`).join('')}<span>${t('combat.rawCapped')}</span><strong>${m.rawShift} / ${m.cappedShift}</strong></div>`:''}</div>`;
 }
-function battleHistoryHtml(model:BrowserRenderModel):string{const h=model.combat?.history??[];return h.length?`<section class="panel-block battle-history"><span class="eyebrow">${t('combat.history')}</span>${h.map((b)=>`<div class="battle-history-row"><span>${esc(b.battleId)}${b.sourceBattleId?` ← ${esc(b.sourceBattleId)}`:''}<br>${enumLabel(b.attackerSide)}→${enumLabel(b.defenderSide)} @ ${coreHexKey(b.target)}</span><strong>${b.crtResult??enumLabel(b.stage)}</strong></div>`).join('')}</section>`:'';}
 function combatPanel(model:BrowserRenderModel):string{
   const c=model.combat;if(!c)return '';
   const pending=c.pending,tx=c.battle;
-  if(!pending)return combatAttackPanel(model,c.attackDraft.preview?combatContextHtml(c.attackDraft.preview,t('combat.details')):'')+battleHistoryHtml(model);
+  if(!pending)return combatAttackPanel(model,c.attackDraft.preview?combatContextHtml(c.attackDraft.preview,t('combat.details')):'');
   const header=`<section class="panel-block phase-actions pending-lock"><span class="eyebrow">${t('combat.transaction',{kind:enumLabel(pending.kind)})}</span><div class="phase-metric"><span>${t('combat.battle')}</span><strong>${esc(pending.battleId)}</strong></div><div class="phase-metric"><span>${t('combat.decisionOwner')}</span><strong>${enumLabel(pending.side)}</strong></div>`;
   let body='';
   if(pending.kind==='DEFENDER_REACTION'){body=`<p>${t('combat.flow.defender')}</p><div class="combat-unit-list">${c.reaction.artillery.map(id=>`<button class="mini-button" data-defender-artillery="${esc(id)}">${t('combat.artilleryUnit',{id:esc(id)})}</button>`).join('')}${c.reaction.hq.map(id=>`<button class="mini-button" data-defender-hq="${esc(id)}">${t('combat.flow.lastStand',{id:esc(id)})}</button>`).join('')}</div><button id="pass-reaction" class="secondary-action">${t('combat.flow.declineSupport')}</button>`;}
@@ -220,7 +220,8 @@ function mountCachedTerrainSurface():void{
   updateTerrainDetailStatus();
 }
 function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
-  return `<div class="command-panel-scroll">${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
+  const results=session?combatResults(session).html(model,typeof reducedMotion!=='undefined'&&reducedMotion.matches):'';
+  return `<div class="command-panel-scroll">${results}${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
 }
 const dynamicMap=new DynamicMapRenderer();
 const deploymentPanelRenderer=new DeploymentPanelRenderer();
@@ -310,13 +311,14 @@ let combatSubmitting=false;
 async function submitCombatAttack():Promise<void>{
   if(combatSubmitting||!session)return;
   const button=document.querySelector<HTMLButtonElement>('#attack-declare');if(!button||button.disabled)return;
-  combatSubmitting=true;button.disabled=true;button.textContent=t('combat.submitting');button.setAttribute('aria-busy','true');
+  combatResults(session).begin();combatSubmitting=true;button.disabled=true;button.textContent=t('result.waiting');button.setAttribute('aria-busy','true');
+  const card=document.querySelector<HTMLElement>('.combat-result-panel');if(card)card.innerHTML=`<p role="status">${t('result.waiting')}</p>`;
   const current=session,currentPresentation=presentation;
   try{
     // Let the busy feedback paint before Core applies the complete transaction chain.
     await new Promise<void>(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
     if(session!==current||presentation!==currentPresentation)return;
-    attackAndContinue(current,presentation);showCombatView();
+    attackAndContinue(current,presentation);if(!isNetwork(current))combatResults(current).stopWaiting();showCombatView();
   }finally{combatSubmitting=false;}
 }
 function paintCombatTargets():void{
@@ -413,6 +415,13 @@ function bindDynamic(model?:BrowserRenderModel):void{
   bindUnitInputs();
   document.querySelectorAll<SVGPolygonElement>('[data-role="move-option"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundMoveInputs.has(element))return;boundMoveInputs.add(element);const action=()=>chooseMoveTarget(parseHex(key));element.addEventListener('click',event=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});
   document.querySelectorAll<SVGLineElement>('[data-role="rail-repair-edge"]').forEach((element)=>{const key=element.dataset.edgeKey;if(!key)return;const action=()=>{if(presentation.interactionMode!=='RAIL_REPAIR')enterRailRepairMode(presentation);toggleRailRepairEdge(session!,presentation,key);render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});document.querySelectorAll<HTMLElement>('[data-reinforcement-id]').forEach((element)=>{const id=element.dataset.reinforcementId;if(!id)return;element.addEventListener('click',()=>{selectReinforcement(presentation,id);render();});});document.querySelectorAll<SVGPolygonElement>('[data-role="reinforcement-entry"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{deploySelectedReinforcement(session!,presentation,parseHex(key));render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
+  document.querySelector('#result-close')?.addEventListener('click',()=>{if(session){combatResults(session).close();refreshDynamicView();}});
+  document.querySelectorAll<HTMLElement>('[data-result-history]').forEach(el=>el.addEventListener('click',()=>{
+    if(!session||!el.dataset.resultHistory)return;
+    const id=el.dataset.resultHistory,cached=combatResults(session).open(id);
+    if(!cached&&!sessionPlayerView(session).pendingDecision&&(!isNetwork(session)||session.interactive))presentation.selectedBattleId=id;
+    refreshDynamicView();
+  }));
   document.querySelector('#attack-toggle-selected')?.addEventListener('click',()=>{if(presentation.selectedUnitId)toggleAttackUnit(session!,presentation,presentation.selectedUnitId);refreshDynamicView();});document.querySelector('#attack-clear')?.addEventListener('click',()=>{clearAttackDraft(presentation);refreshDynamicView();});document.querySelector('#attack-declare')?.addEventListener('click',()=>{void submitCombatAttack();});document.querySelector('#attack-art-none')?.addEventListener('click',()=>{selectAttackerArtillery(presentation,null);refreshDynamicView();});document.querySelectorAll<HTMLElement>('[data-attack-artillery]').forEach((el)=>el.addEventListener('click',()=>{selectAttackerArtillery(presentation,el.dataset.attackArtillery??null);refreshDynamicView();}));
   document.querySelectorAll<SVGPolygonElement>('[data-role="attack-target"]').forEach((el)=>{const action=()=>{const key=el.dataset.hex;if(key){routeCombatTarget(session!,presentation,parseHex(key));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});document.querySelector('#pass-reaction')?.addEventListener('click',()=>{runCombatAction(()=>passCombatReaction(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-defender-artillery]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.defenderArtillery;if(id){runCombatAction(()=>useDefenderArtillery(session!,presentation,id));}}));
   document.querySelectorAll<HTMLElement>('[data-defender-hq]').forEach(el=>el.addEventListener('click',()=>{const pending=sessionPlayerView(session!).pendingDecision,hqUnitId=el.dataset.defenderHq;if(pending?.kind==='DEFENDER_REACTION'&&hqUnitId)runCombatAction(()=>{dispatchGameAction(session!,{type:'COMBAT_REACTION',controllerId:session!.activeViewerControllerId,battleId:pending.battleId,reaction:{kind:'DEFENDER_HQ_COMMAND',hqUnitId,command:'LAST_STAND'}});});}));
@@ -431,6 +440,7 @@ function updateNetworkStatus():void {
   const selectionControls='[data-deploy-unit-id],[data-deploy-destination],[data-remove-attacker],[data-attack-unit],#rail-mode,#rail-clear,#rail-no-engineer,[data-rail-engineer],#move-undo,#move-cancel,[data-reinforcement-id],#attack-toggle-selected,#attack-clear,#attack-art-none,[data-attack-artillery],#loss-clear,[data-retreater],#retreat-undo,[data-breakthrough-unit],#breakthrough-undo';
   const network=session;
   document.querySelectorAll<HTMLButtonElement>('#side-panel button').forEach(button=>{
+    if(button.matches('#result-close, [data-result-history]'))return;
     const blocked=!network.canSelect||(!network.interactive&&!button.matches(selectionControls));
     if(blocked&&!button.disabled){button.dataset.networkDisabled='true';button.disabled=true;}
     else if(!blocked&&button.dataset.networkDisabled){delete button.dataset.networkDisabled;button.disabled=false;}
@@ -440,7 +450,8 @@ async function enterNetworkMatch(client:LobbyClient):Promise<void> {
   presentation=createPresentationState(false,window.matchMedia('(max-width: 1100px)').matches);deploymentTouch=createDeploymentTouch();
   const network=new NetworkPlayerSession(client,presentation,kind=>{
     if(session!==network||appStatus!=='PLAYING')return;
-    if(kind==='resync'){unitAnimations.skip();deploymentTouch=createDeploymentTouch();deploymentPanelRenderer.clear();}
+    if(kind==='resync'){combatResults(network).recover();unitAnimations.skip();deploymentTouch=createDeploymentTouch();deploymentPanelRenderer.clear();}
+    if(network.notice&&!network.client.state.pending)combatResults(network).stopWaiting();
     if(kind==='status'){updateNetworkStatus();return;}
     if(kind==='view')deploymentTouch=createDeploymentTouch();
     refreshDynamicView();

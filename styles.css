@@ -274,3 +274,6 @@ html[lang="zh-CN"] .resource-strip>span{padding-inline:5px;letter-spacing:0}
 .compact-stack{font:800 7px sans-serif;fill:#f4e7ce;paint-order:stroke;stroke:#172734;stroke-width:2;stroke-linejoin:round}
 .map-controls{flex-wrap:wrap}.model-controls select{min-height:36px}
 @media(pointer:coarse){.model-controls select{min-height:44px}}
+
+/* COMBAT-UX3: in-panel, bounded result reveal; never covers map controls. */
+.combat-result-panel{border:1px solid #a59666;border-radius:6px;margin:10px 0;padding:12px;background:#1c2930}.result-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}.result-heading button,.result-history button{min-height:44px}.result-id,.result-note{font-size:12px;opacity:.8;overflow-wrap:anywhere}.result-crt{font-size:24px;margin:8px 0}.result-dice{justify-content:center;margin:12px 0}.result-history summary{padding:12px 0;cursor:pointer}.result-history button{display:block;width:100%;margin:6px 0;overflow-wrap:anywhere}.dice-reveal .die{animation:result-reveal .48s ease-out both}.dice-reveal .die:nth-child(2){animation-delay:.06s}@keyframes result-reveal{0%{opacity:0;transform:rotate(-12deg) translateY(-5px)}55%{opacity:1;transform:rotate(5deg)}100%{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){.dice-reveal .die{animation:none}}

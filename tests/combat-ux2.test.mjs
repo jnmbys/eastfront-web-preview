@@ -25,7 +25,7 @@ test('UX2 actual counter → enemy → ATTACK bindings finish a simple battle in
  h.click('[data-unit-id="d"]');clicks++;
  assert.match(h.html(),/战斗预览/);assert.match(h.html(),/战斗比/);
  const button=h.click('#attack-declare');clicks++;
- assert.equal(button.disabled,true);assert.equal(button.textContent,t('combat.submitting'));assert.equal(button.attrs['aria-busy'],'true');
+ assert.equal(button.disabled,true);assert.equal(button.textContent,t('result.waiting'));assert.equal(button.attrs['aria-busy'],'true');
  button.fire('click'); // Duplicate event cannot submit another combat.
  assert.equal(Object.keys(s.state.combatTransactions).length,0,'busy state paints before dispatch');
  await h.paint();

@@ -1,3 +1,4 @@
+import {combatResults} from '../dist/app/ui/combatResult.js';
 import { bindStartupDiagnostics } from '../dist/app/web/startupDiagnostics.js';
 import {isNetwork} from '../dist/app/multiplayer/playerSession.js';
 import {DynamicMapRenderer} from '../dist/app/render/dynamicMap.js';
@@ -33,7 +34,7 @@ const raw=JSON.parse(readFileSync('vendor/eastfront-digital-core/reference/strat
 const main=readFileSync('dist/app/main.js','utf8');
 const setup=(seed=17)=>({s:createLocalGameSession(raw,seed),p:createPresentationState(false,false),d:touch.createDeploymentTouch()});
 function panels(s,p,d){
- const ctx=vm.createContext({isNetwork,DynamicMapRenderer,DeploymentPanelRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
+ const ctx=vm.createContext({combatResults,isNetwork,DynamicMapRenderer,DeploymentPanelRenderer,...l10n,...ui,...preview,...touch,issueText,deploymentRejection,combatAttackPanel,coreHexKey,session:s,presentation:p,deploymentTouch:d,developerUi:false,esc:ui.escapeUi});
  vm.runInContext(main.slice(main.indexOf('function sideLabel('),main.indexOf('function startNewGame(')),ctx);
  vm.runInContext(main.slice(main.indexOf('function sidePanelMarkup('),main.indexOf('function refreshDynamicView(')),ctx);
  return ctx;

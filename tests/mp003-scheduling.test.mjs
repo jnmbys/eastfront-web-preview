@@ -78,7 +78,7 @@ test('MP003 disconnect clears queued input and reconnect restores current state 
 });
 test('MP003 network UI keeps selection buttons live while guarding Actions and Core-disabled controls',()=>{
  const source=readFileSync('src/main.ts','utf8'),code=source.slice(source.indexOf('function updateNetworkStatus():void'),source.indexOf('async function enterNetworkMatch')).replace(/:void/g,'').replace(/querySelector<HTMLElement>/g,'querySelector').replace(/querySelectorAll<HTMLButtonElement>/g,'querySelectorAll');
- const buttons=[{kind:'selection',disabled:false,dataset:{}},{kind:'action',disabled:false,dataset:{}},{kind:'illegal',disabled:true,dataset:{}}];for(const b of buttons)b.matches=()=>b.kind==='selection';
+ const buttons=[{kind:'selection',disabled:false,dataset:{}},{kind:'action',disabled:false,dataset:{}},{kind:'illegal',disabled:true,dataset:{}}];for(const b of buttons)b.matches=selector=>selector.includes('[data-deploy-unit-id]')&&b.kind==='selection';
  const context={session:{canSelect:true,interactive:false,status:'ACTIVE',statusText:'Syncing',matchRevision:1},isNetwork:()=>true,document:{querySelector:()=>null,querySelectorAll:()=>buttons}};vm.createContext(context);vm.runInContext(code,context);vm.runInContext('updateNetworkStatus()',context);
  assert.deepEqual(buttons.map(b=>b.disabled),[false,true,true]);context.session.interactive=true;vm.runInContext('updateNetworkStatus()',context);assert.deepEqual(buttons.map(b=>b.disabled),[false,false,true]);context.session.canSelect=false;vm.runInContext('updateNetworkStatus()',context);assert(buttons.every(b=>b.disabled));
 });
