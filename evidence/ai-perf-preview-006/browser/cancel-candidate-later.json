@@ -1,0 +1,184 @@
+{
+  "report": {
+    "version": "AI-PERF-006",
+    "build": {
+      "task": "AI-PERF-PREVIEW-006",
+      "sourceCommit": "a0c1485d9841eaea1ec6ed2bd9b97a569ff5c9cb",
+      "strategySource": "695ca0524eb039808491b18c69cea1fb74da0cca",
+      "oldRelease": "f3fac5a9b58deab1f9391fd46e782c728711ef76",
+      "variant": "candidate",
+      "performanceQuery": "?aiPerf006=1&aiSeed=17",
+      "productionConnection": false
+    },
+    "active": false,
+    "generation": 4,
+    "visibility": "visible",
+    "supported": [
+      "element",
+      "event",
+      "first-input",
+      "interaction-contentful-paint",
+      "largest-contentful-paint",
+      "layout-shift",
+      "long-animation-frame",
+      "longtask",
+      "mark",
+      "measure",
+      "navigation",
+      "paint",
+      "resource",
+      "soft-navigation",
+      "visibility-state"
+    ],
+    "stages": {
+      "workerToMain": {
+        "count": 4,
+        "totalMs": 13.399658203125,
+        "maxMs": 5.699951171875,
+        "lastMs": 5.699951171875,
+        "samples": [
+          2.199951171875,
+          2.89990234375,
+          2.599853515625,
+          5.699951171875
+        ]
+      },
+      "policyMs": {
+        "count": 4,
+        "totalMs": 1.7999999970197678,
+        "maxMs": 0.8000000007450581,
+        "lastMs": 0.19999999925494194,
+        "samples": [
+          0,
+          0.8000000007450581,
+          0.7999999970197678,
+          0.19999999925494194
+        ]
+      },
+      "thinkMs": {
+        "count": 4,
+        "totalMs": 170.19999999552965,
+        "maxMs": 67.39999999850988,
+        "lastMs": 67.39999999850988,
+        "samples": [
+          0,
+          54.69999999925494,
+          48.099999997764826,
+          67.39999999850988
+        ]
+      },
+      "snapshotMs": {
+        "count": 4,
+        "totalMs": 30.599999994039536,
+        "maxMs": 10.800000000745058,
+        "lastMs": 6.299999997019768,
+        "samples": [
+          10.800000000745058,
+          6.599999997764826,
+          6.899999998509884,
+          6.299999997019768
+        ]
+      },
+      "clientReceive": {
+        "count": 4,
+        "totalMs": 37.600000005215406,
+        "maxMs": 14.400000002235174,
+        "lastMs": 10.400000002235174,
+        "samples": [
+          0.3999999985098839,
+          14.400000002235174,
+          12.400000002235174,
+          10.400000002235174
+        ]
+      },
+      "mapUpdate": {
+        "count": 3,
+        "totalMs": 2.199999999254942,
+        "maxMs": 0.8999999985098839,
+        "lastMs": 0.5999999977648258,
+        "samples": [
+          0.8999999985098839,
+          0.7000000029802322,
+          0.5999999977648258
+        ]
+      },
+      "viewUpdate": {
+        "count": 3,
+        "totalMs": 36.69999999925494,
+        "maxMs": 14.300000000745058,
+        "lastMs": 10.199999999254942,
+        "samples": [
+          14.300000000745058,
+          12.199999999254942,
+          10.199999999254942
+        ]
+      },
+      "sessionApplyInclusive": {
+        "count": 3,
+        "totalMs": 36.900000002235174,
+        "maxMs": 14.400000002235174,
+        "lastMs": 10.199999999254942,
+        "samples": [
+          14.400000002235174,
+          12.300000000745058,
+          10.199999999254942
+        ]
+      },
+      "sessionApplyOutsideView": {
+        "count": 3,
+        "totalMs": 0.20000000298023224,
+        "maxMs": 0.10000000149011612,
+        "lastMs": 0,
+        "samples": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0
+        ]
+      },
+      "exitEventQueue": {
+        "count": 3,
+        "totalMs": 80.99999999627471,
+        "maxMs": 79.29999999701977,
+        "lastMs": 0.8999999985098839,
+        "samples": [
+          79.29999999701977,
+          0.8000000007450581,
+          0.8999999985098839
+        ]
+      },
+      "exitCallbackToRAF": {
+        "count": 1,
+        "totalMs": 0.4000000022351742,
+        "maxMs": 0.4000000022351742,
+        "lastMs": 0.4000000022351742,
+        "samples": [
+          0.4000000022351742
+        ]
+      },
+      "exitHandler": {
+        "count": 1,
+        "totalMs": 4.800000000745058,
+        "maxMs": 4.800000000745058,
+        "lastMs": 4.800000000745058,
+        "samples": [
+          4.800000000745058
+        ]
+      },
+      "stopHandled": {
+        "count": 1,
+        "totalMs": 0,
+        "maxMs": 0,
+        "lastMs": 0,
+        "samples": [
+          0
+        ]
+      }
+    }
+  },
+  "unchanged": true,
+  "viewport": {
+    "height": 936,
+    "visibility": "visible",
+    "width": 1363
+  }
+}

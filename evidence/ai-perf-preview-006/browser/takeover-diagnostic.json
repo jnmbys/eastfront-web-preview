@@ -1,0 +1,180 @@
+{
+  "diagnostic": {
+    "version": "AI-PERF-006",
+    "humanSide": "SOVIET",
+    "ownerSide": "SOVIET",
+    "paused": false,
+    "manual": true,
+    "reason": null,
+    "accepted": 0,
+    "rejected": 0,
+    "revision": 0,
+    "performance": {
+      "version": "AI-PERF-006",
+      "build": {
+        "task": "AI-PERF-PREVIEW-006",
+        "sourceCommit": "a0c1485d9841eaea1ec6ed2bd9b97a569ff5c9cb",
+        "strategySource": "695ca0524eb039808491b18c69cea1fb74da0cca",
+        "oldRelease": "f3fac5a9b58deab1f9391fd46e782c728711ef76",
+        "variant": "candidate",
+        "performanceQuery": "?aiPerf006=1&aiSeed=17",
+        "productionConnection": false
+      },
+      "active": true,
+      "generation": 7,
+      "visibility": "visible",
+      "supported": [
+        "element",
+        "event",
+        "first-input",
+        "interaction-contentful-paint",
+        "largest-contentful-paint",
+        "layout-shift",
+        "long-animation-frame",
+        "longtask",
+        "mark",
+        "measure",
+        "navigation",
+        "paint",
+        "resource",
+        "soft-navigation",
+        "visibility-state"
+      ],
+      "stages": {
+        "workerToMain": {
+          "count": 4,
+          "totalMs": 20.200439453125,
+          "maxMs": 6.500244140625,
+          "lastMs": 5.800048828125,
+          "samples": [
+            2.2001953125,
+            6.500244140625,
+            5.699951171875,
+            5.800048828125
+          ]
+        },
+        "policyMs": {
+          "count": 4,
+          "totalMs": 0.10000000149011612,
+          "maxMs": 0.10000000149011612,
+          "lastMs": 0,
+          "samples": [
+            0,
+            0.10000000149011612,
+            0,
+            0
+          ]
+        },
+        "thinkMs": {
+          "count": 4,
+          "totalMs": 40.099999997764826,
+          "maxMs": 40.099999997764826,
+          "lastMs": 0,
+          "samples": [
+            0,
+            40.099999997764826,
+            0,
+            0
+          ]
+        },
+        "snapshotMs": {
+          "count": 4,
+          "totalMs": 35.099999997764826,
+          "maxMs": 13.199999999254942,
+          "lastMs": 0,
+          "samples": [
+            9.600000001490116,
+            12.299999997019768,
+            13.199999999254942,
+            0
+          ]
+        },
+        "clientReceive": {
+          "count": 4,
+          "totalMs": 22.900000002235174,
+          "maxMs": 11.199999999254942,
+          "lastMs": 11.199999999254942,
+          "samples": [
+            0.6000000014901161,
+            10.800000000745058,
+            0.30000000074505806,
+            11.199999999254942
+          ]
+        },
+        "mainLongTask": {
+          "count": 3,
+          "totalMs": 3097,
+          "maxMs": 2990,
+          "lastMs": 57,
+          "samples": [
+            50,
+            2990,
+            57
+          ]
+        },
+        "mapUpdate": {
+          "count": 2,
+          "totalMs": 1.4000000022351742,
+          "maxMs": 1.1000000014901161,
+          "lastMs": 0.30000000074505806,
+          "samples": [
+            1.1000000014901161,
+            0.30000000074505806
+          ]
+        },
+        "viewUpdate": {
+          "count": 2,
+          "totalMs": 21.400000002235174,
+          "maxMs": 11,
+          "lastMs": 11,
+          "samples": [
+            10.400000002235174,
+            11
+          ]
+        },
+        "sessionApplyInclusive": {
+          "count": 2,
+          "totalMs": 22,
+          "maxMs": 11.199999999254942,
+          "lastMs": 11.199999999254942,
+          "samples": [
+            10.800000000745058,
+            11.199999999254942
+          ]
+        },
+        "sessionApplyOutsideView": {
+          "count": 2,
+          "totalMs": 0.5999999977648258,
+          "maxMs": 0.3999999985098839,
+          "lastMs": 0.19999999925494194,
+          "samples": [
+            0.3999999985098839,
+            0.19999999925494194
+          ]
+        },
+        "takeoverEventQueue": {
+          "count": 3,
+          "totalMs": 9.699999999254942,
+          "maxMs": 9.300000000745058,
+          "lastMs": 0.19999999925494194,
+          "samples": [
+            9.300000000745058,
+            0.19999999925494194,
+            0.19999999925494194
+          ]
+        },
+        "takeoverCallbackToRAF": {
+          "count": 2,
+          "totalMs": 2991.199999999255,
+          "maxMs": 2991,
+          "lastMs": 2991,
+          "samples": [
+            0.19999999925494194,
+            2991
+          ]
+        }
+      }
+    }
+  },
+  "confirmToolTimeout": "Error: Error: Input.dispatchMouseEvent timed out. Increase the 'protocolTimeout' setting in launch/connect calls for a higher timeout if needed.\nwaiting on click for selector internal:role=button[name=\"明确接管 苏军（切换授权视角）\"s]"
+}
