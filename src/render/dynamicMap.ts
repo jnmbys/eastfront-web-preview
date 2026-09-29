@@ -1,3 +1,4 @@
+import {perf006} from '../local-ai/performance.js';
 import type {BrowserRenderModel} from './coreModel.js';
 import {coreSvgDynamicMarkup,coreSvgOverlayMarkup,renderCounter,renderCounterHit,type CoreSvgOptions} from './coreSvg.js';
 import {getLocale} from '../localization/index.js';
@@ -10,6 +11,9 @@ export class DynamicMapRenderer {
   private deploymentOverlays:string|null=null;
   adopt(layer:SVGGElement|null,model:BrowserRenderModel,options:CoreSvgOptions):void{this.layer=layer;this.previous=model;this.locale=getLocale();this.debug=options.debug;this.deploymentOverlays=model.deployment?coreSvgOverlayMarkup(model,options):null;}
   update(layer:SVGGElement,model:BrowserRenderModel,options:CoreSvgOptions):{full:boolean;units:number} {
+    return perf006.measure('mapUpdate',()=>this.updateNow(layer,model,options));
+  }
+  private updateNow(layer:SVGGElement,model:BrowserRenderModel,options:CoreSvgOptions):{full:boolean;units:number} {
     const previous=this.previous,locale=getLocale();
     const deployment=this.layer===layer&&previous?.deployment&&model.deployment&&previous.phase===model.phase&&previous.playerView.viewer===model.playerView.viewer&&previous.viewerControllerId===model.viewerControllerId&&this.locale===locale&&!this.debug&&!options.debug;
     const full=this.layer!==layer||!previous||previous.playerView!==model.playerView||this.locale!==locale||this.debug!==options.debug;

@@ -1,3 +1,4 @@
+import {perf006} from './performance.js';
 import type {LobbyState} from '../multiplayer/client.js';
 import type {PlayerClientTransport} from '../multiplayer/networkSession.js';
 import type {ClientPayloads,ServerMessage} from '../multiplayer/protocol.js';
@@ -12,19 +13,20 @@ export class LocalAiClient implements PlayerClientTransport {
  private takeoverResolve:(()=>void)|null=null;private takeoverReject:((e:Error)=>void)|null=null;private watchdog:ReturnType<typeof setTimeout>|null=null;
  constructor(private port:WorkerPort,options:LocalStart,private update:()=>void){
   this.meta={humanSide:options.humanSide,ownerSide:'SOVIET',paused:false,manual:false,reason:null,accepted:0,rejected:0};
-  this.port.onmessage=e=>this.receiveLocal(e.data);this.port.onerror=()=>this.fail('WORKER_ERROR');
+  this.port.onmessage=e=>{if(this.dead||this.faulted||e.data.epoch!==this.epoch)return;perf006.measure('clientReceive',()=>this.receiveLocal(e.data));};this.port.onerror=()=>this.fail('WORKER_ERROR');
  }
  start(options:LocalStart):Promise<void>{if(this.started||this.dead)return Promise.reject(new Error('Already started'));this.started=true;return new Promise((resolve,reject)=>{this.bootResolve=resolve;this.bootReject=reject;this.arm();this.port.postMessage({kind:'START',epoch:this.epoch,options});});}
  subscribe(cb:(message:ServerMessage|null)=>void){this.callbacks.add(cb);return ()=>{this.callbacks.delete(cb);};}
  private receiveLocal(reply:LocalReply){
   if(this.dead||this.faulted||reply.epoch!==this.epoch)return;
   if(this.watchdog!==null)clearTimeout(this.watchdog);this.watchdog=null;
+  if(reply.perf){perf006.record('workerToMain',Math.max(0,performance.timeOrigin+performance.now()-reply.perf.sentAt));for(const key of ['policyMs','thinkMs','snapshotMs'] as const)perf006.record(key,reply.perf[key]);}
   this.meta=reply.meta;const m=reply.message;
   if(m?.messageType==='PLAYER_VIEW_SNAPSHOT'){
    this.state.snapshot=m.payload;this.state.view=m.payload.view;this.state.controllerId=m.payload.model.viewerControllerId;this.state.connection='CONNECTED';this.state.synced=true;this.state.pending=false;
   }else if(m&&['MATCH_QUERY','ACTION_ACCEPTED','ACTION_REJECTED'].includes(m.messageType))this.state.pending=false;
   if(this.bootResolve&&this.state.snapshot){this.bootResolve();this.bootResolve=null;this.bootReject=null;}
-  for(const cb of [...this.callbacks])cb(m);
+  for(const cb of [...this.callbacks]){if(!perf006.enabled){cb(m);continue;}const start=performance.now(),viewBefore=perf006.total('viewUpdate');perf006.measure('sessionApplyInclusive',()=>cb(m));perf006.record('sessionApplyOutsideView',Math.max(0,performance.now()-start-(perf006.total('viewUpdate')-viewBefore)));}
   if(reply.takeover){this.takeoverResolve?.();this.takeoverResolve=null;this.takeoverReject=null;}
   this.update();
   if(!this.meta.paused&&this.meta.ownerSide!==this.meta.humanSide&&!this.meta.manual&&this.state.snapshot?.status==='ACTIVE')this.arm();

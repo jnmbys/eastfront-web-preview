@@ -1,0 +1,31 @@
+✔ PERF006 same 33 accepted states, three status notifications each: controls retain identity and latest metadata (13.64418ms)
+✖ PERF006 actual module Workers preserve seeded snapshot sequence with diagnostics off/on (53.654458ms)
+✔ PERF006 disposed client rejects queued reply and new client has independent state (1.095032ms)
+✔ PERF006 diagnostics bounded, opt-in, scalar, stopped spans cannot enter restarted report (0.955852ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 157.325008
+
+✖ failing tests:
+
+test at ai/tests/perf006.test.mjs:54:1
+✖ PERF006 actual module Workers preserve seeded snapshot sequence with diagnostics off/on (53.654458ms)
+  Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/tmp/ai-perf006-baseline-dist/vendor/eastfront-digital-core/dist/rules/reinforcement.js' imported from /tmp/ai-perf006-baseline-dist/ai/authority/FairHost.js
+      at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+      at moduleResolve (node:internal/modules/esm/resolve:865:10)
+      at defaultResolve (node:internal/modules/esm/resolve:992:11)
+      at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+      at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+      at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+      at #resolve (node:internal/modules/esm/loader:683:17)
+      at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+      at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33)
+      at ModuleJob.link (node:internal/modules/esm/module_job:253:17) {
+    code: 'ERR_MODULE_NOT_FOUND',
+    url: 'file:///tmp/ai-perf006-baseline-dist/vendor/eastfront-digital-core/dist/rules/reinforcement.js'
+  }

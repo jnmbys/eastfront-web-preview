@@ -1,3 +1,4 @@
+import {perf006} from '../../src/local-ai/performance.js';
 /** Trusted Worker authority. Never loaded by the UI or handed to the policy. */
 import {FairHost} from '../authority/FairHost.js';
 import {minimalAgent} from '../fair/minimalAgent.js';
@@ -30,6 +31,9 @@ export class LocalMatch {
  private order(){return {matchId:this.match.matchId,matchRevision:this.match.matchRevision,serverSequence:(this.match.serverSequences[this.recipient]=(this.match.serverSequences[this.recipient]??0)+1)};}
  private model(draft?:QueryDraft){const m=queryModel(this.match,this.recipient,draft);m.battleSummaries=battleSummaries(this.match,this.recipient);if(this.paused)m.readOnly=true;return m;}
  snapshot(resync=false,events:readonly PresentationEvent[]=[]):ServerMessage {
+  return perf006.measure('snapshotMs',()=>this.snapshotNow(resync,events));
+ }
+ private snapshotNow(resync:boolean,events:readonly PresentationEvent[]):ServerMessage {
   const model=this.model();const canAct=!this.paused&&this.meta.ownerSide===this.humanSide&&this.match.status==='ACTIVE';
   const payload:MatchSnapshot={...this.order(),revision:this.match.matchRevision,format:'snapshot-v1',resync,status:this.match.status,canAct,view:playerSnapshot(this.match,this.recipient),model,forcedAction:canAct?forcedAction(this.match,this.recipient):null,events};
   return serverMessage('PLAYER_VIEW_SNAPSHOT',payload);

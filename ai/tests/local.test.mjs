@@ -128,7 +128,7 @@ test('AI003 cold entry awaits existing terrain boot and cancelled starts cannot 
  const start=main.slice(main.indexOf('async function startLocalAi('),main.indexOf('function updateLocalAiStatus('));
  let release,workers=0,entered=0;const ready=new Promise(r=>{release=r;});
  class Client {async start(){} dispose(){this.disposed=true;}}
- const c={localGeneration:0,session:null,localAi:null,productionMap:null,cachedTerrainSurface:null,appStatus:'HOME',isNetwork:()=>false,crypto:{getRandomValues:a=>{a[0]=17;return a;}},createLocalAiWorker:()=>{workers++;return {};},LocalAiClient:Client,render(){},updateLocalAiStatus(){},enterNetworkMatch:async()=>{entered++;},boot:async()=>{await ready;c.productionMap={};c.cachedTerrainSurface={};}};
+ const c={perf006:{start(){},enabled:false},query:new URLSearchParams(),localGeneration:0,session:null,localAi:null,productionMap:null,cachedTerrainSurface:null,appStatus:'HOME',isNetwork:()=>false,crypto:{getRandomValues:a=>{a[0]=17;return a;}},createLocalAiWorker:()=>{workers++;return {};},LocalAiClient:Client,render(){},updateLocalAiStatus(){},enterNetworkMatch:async()=>{entered++;},boot:async()=>{await ready;c.productionMap={};c.cachedTerrainSurface={};}};
  vm.createContext(c);vm.runInContext(start,c);const first=c.startLocalAi('GERMAN','campaign');assert.equal(workers,0);c.localGeneration++;release();await first;assert.equal(workers,0);assert.equal(entered,0);
  await c.startLocalAi('SOVIET','campaign');assert.equal(workers,1);assert.equal(entered,1);assert.equal(c.appStatus,'LOADING');
 });

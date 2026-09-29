@@ -1,0 +1,42 @@
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/workspace/scratch/2d63d88d2207/ai-perf-006/.ai-dist/ai/fair/index.js' imported from /workspace/scratch/2d63d88d2207/ai-perf-006/ai/tests/local.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+    at #resolve (node:internal/modules/esm/loader:683:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:253:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///workspace/scratch/2d63d88d2207/ai-perf-006/.ai-dist/ai/fair/index.js'
+}
+
+Node.js v24.19.0
+✖ ai/tests/local.test.mjs (127.021055ms)
+✔ PERF006 same 33 accepted states, three status notifications each: controls retain identity and latest metadata (25.31115ms)
+✔ PERF006 actual module Workers preserve seeded snapshot sequence with diagnostics off/on (9048.575436ms)
+✔ PERF006 disposed client rejects queued reply and new client has independent state (1.21282ms)
+✔ PERF006 diagnostics bounded, opt-in, scalar, stopped spans cannot enter restarted report (1.191738ms)
+✔ PERF004 all 32 deployment masks and recon overlays match original RGBA exactly; viewer switch remains private (957.771315ms)
+✔ PERF004 panel ancestors never detach, roster listeners remain single, and latest confirmed selection is retained (1847.741696ms)
+✔ PERF004 Presence retains unrelated models and definitions, updates stacked anchors/order identically to fresh render, and clears viewer state (1112.842923ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9202.388772
+
+✖ failing tests:
+
+test at ai/tests/local.test.mjs:1:1
+✖ ai/tests/local.test.mjs (127.021055ms)
+  'test failed'

@@ -1,0 +1,34 @@
+✔ PERF006 same 33 accepted states, three status notifications each: controls retain identity and latest metadata (19.05398ms)
+✖ PERF006 actual module Workers preserve seeded snapshot sequence with diagnostics off/on (8620.020152ms)
+✔ PERF006 disposed client rejects queued reply and new client has independent state (1.331889ms)
+✔ PERF006 diagnostics bounded, opt-in, scalar, stopped spans cannot enter restarted report (1.140079ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8744.450599
+
+✖ failing tests:
+
+test at ai/tests/perf006.test.mjs:54:1
+✖ PERF006 actual module Workers preserve seeded snapshot sequence with diagnostics off/on (8620.020152ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '3c91fd2e0f454e7ff29e9fbbbc2db5c904b3de728bfde1584216852c2b6ec090'
+  - '0e5d3146b26e015e189e7da9c1b62e278c12cfaaf6f8ecf84e46f057d26b8116'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/2d63d88d2207/ai-perf-006/ai/tests/perf006.test.mjs:59:9)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '3c91fd2e0f454e7ff29e9fbbbc2db5c904b3de728bfde1584216852c2b6ec090',
+    expected: '0e5d3146b26e015e189e7da9c1b62e278c12cfaaf6f8ecf84e46f057d26b8116',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

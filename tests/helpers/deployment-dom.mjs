@@ -61,6 +61,7 @@ export async function deploymentDom(session,presentation,{dist='dist/app',measur
  });
  // Optional presentation module added by PERF-002; baseline has no such import.
  if(source.includes('DeploymentPanelRenderer'))Object.assign(ctx,await load('ui/deploymentPanelRenderer.js'));
+ if(source.includes('perf006'))Object.assign(ctx,await load('local-ai/performance.js'));
  const run=(a,b)=>vm.runInContext(source.slice(source.indexOf(a),source.indexOf(b)),ctx);
  run('function syncFogSurface(','function parseHex(');
  run('function parseHex(','function startNewGame(');
