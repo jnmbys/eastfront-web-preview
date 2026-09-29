@@ -1,0 +1,246 @@
+{
+  "source_sha": "9cf0e5fb7fac27e16b2700559716b590e81957b7",
+  "target": "https://eastfront-supply-sandbox.onrender.com",
+  "environment": "Render Singapore 0.5c-512mb",
+  "started_at": "2026-09-29T01:44:41.931182+00:00",
+  "requests": [
+    {
+      "op": "reset",
+      "budget": null,
+      "action": null,
+      "status": 200,
+      "seconds": 8.477325995998399,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 0.001,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.36311223300072,
+      "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。"
+    },
+    {
+      "op": "reset",
+      "budget": null,
+      "action": null,
+      "status": 200,
+      "seconds": 10.106518434000463,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.049305608998111,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.213486106000346,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 8.38809522000156,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.879051300002175,
+      "error": null
+    },
+    {
+      "op": "reset",
+      "budget": null,
+      "action": null,
+      "status": 200,
+      "seconds": 7.898775629000738,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 7.985946232001879,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.27469483599998,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.094864319002227,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 9.169260383998335,
+      "error": null
+    },
+    {
+      "op": "reset",
+      "budget": null,
+      "action": null,
+      "status": 200,
+      "seconds": 8.67263500899935,
+      "error": null
+    },
+    {
+      "op": "action",
+      "budget": 3,
+      "action": {
+        "type": "END_SIDE"
+      },
+      "status": 200,
+      "seconds": 8.783625514999585,
+      "error": null
+    }
+  ],
+  "https_health": {
+    "status": 200,
+    "response": "{\"ready\": true}"
+  },
+  "four_sessions_peak_bytes": null,
+  "reset_isolation": true,
+  "timeout_rollback": true,
+  "clips": [
+    {
+      "clip": "prepare",
+      "repeat": 0,
+      "requests": [
+        {
+          "action": "END_SIDE",
+          "seconds": 9.049305608998111,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": false
+        },
+        {
+          "action": "END_SIDE",
+          "seconds": 9.213486106000346,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": true
+        },
+        {
+          "action": "END_SIDE",
+          "seconds": 8.38809522000156,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": false
+        },
+        {
+          "action": "END_SIDE",
+          "seconds": 9.879051300002175,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": true
+        }
+      ],
+      "complete": true,
+      "cumulative_peak_bytes": null
+    },
+    {
+      "clip": "prepare",
+      "repeat": 1,
+      "requests": [
+        {
+          "action": "END_SIDE",
+          "seconds": 7.985946232001879,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": false
+        },
+        {
+          "action": "END_SIDE",
+          "seconds": 9.27469483599998,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": true
+        },
+        {
+          "action": "END_SIDE",
+          "seconds": 9.094864319002227,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": false
+        },
+        {
+          "action": "END_SIDE",
+          "seconds": 9.169260383998335,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": true
+        }
+      ],
+      "complete": true,
+      "cumulative_peak_bytes": null
+    },
+    {
+      "clip": "prepare",
+      "repeat": 2,
+      "requests": [
+        {
+          "action": "END_SIDE",
+          "seconds": 8.783625514999585,
+          "status": 200,
+          "accepted": true,
+          "error": null,
+          "settled": false
+        }
+      ]
+    }
+  ],
+  "passed": false,
+  "failure": "AssertionError((520, 'error code: 520\\n'))",
+  "finished_at": "2026-09-29T01:50:05.745514+00:00"
+}

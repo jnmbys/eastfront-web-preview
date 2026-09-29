@@ -1,0 +1,90 @@
+{
+  "service": {
+    "autoDeploy": "no",
+    "autoDeployTrigger": "off",
+    "branch": "supply-render-candidate",
+    "createdAt": "2026-09-29T01:41:37.537554Z",
+    "dashboardUrl": "https://dashboard.render.com/web/srv-dathekek1f9s7389ksvg",
+    "id": "srv-dathekek1f9s7389ksvg",
+    "name": "eastfront-supply-sandbox",
+    "notifyOnFail": "default",
+    "ownerId": "tea-daos1iugekts73erk8j0",
+    "repo": "https://github.com/jnmbys/eastfront-web-preview",
+    "rootDir": "experiments/supply-exp-005",
+    "serviceDetails": {
+      "buildPlan": "starter",
+      "cache": {
+        "profile": "no-cache"
+      },
+      "env": "docker",
+      "envSpecificDetails": {
+        "dockerCommand": "",
+        "dockerContext": ".",
+        "dockerfilePath": "./Dockerfile"
+      },
+      "healthCheckPath": "/healthz",
+      "ipAllowList": [
+        {
+          "cidrBlock": "0.0.0.0/0",
+          "description": "everywhere"
+        }
+      ],
+      "maintenanceMode": {
+        "enabled": false,
+        "uri": ""
+      },
+      "numInstances": 1,
+      "openPorts": [
+        {
+          "port": 10000,
+          "protocol": "TCP"
+        }
+      ],
+      "plan": "0.5c-512mb",
+      "previews": {
+        "generation": "off"
+      },
+      "pullRequestPreviewsEnabled": "no",
+      "region": "singapore",
+      "renderSubdomainPolicy": "enabled",
+      "runtime": "docker",
+      "sshAddress": "srv-dathekek1f9s7389ksvg@ssh.singapore.render.com",
+      "url": "https://eastfront-supply-sandbox.onrender.com"
+    },
+    "slug": "eastfront-supply-sandbox",
+    "suspended": "not_suspended",
+    "suspenders": [],
+    "type": "web_service",
+    "updatedAt": "2026-09-29T01:43:19.209345Z"
+  },
+  "recorded_at": "2026-09-29",
+  "billing": {
+    "displayed_compute_usd_per_month": 7,
+    "workspace": "My Workspace",
+    "shared_workspace_build_and_bandwidth": true,
+    "credits_usd_user_report": 0
+  },
+  "initial_failed_deploy": "dep-dathekuk1f9s7389kvog",
+  "live_deploy": "dep-dathfiuk1f9s7389ono0",
+  "runtime_source_sha": "9cf0e5fb7fac27e16b2700559716b590e81957b7",
+  "env": {
+    "BIND_HOST": "0.0.0.0",
+    "PORT": "10000",
+    "COOKIE_SECURE": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "WEB_CONCURRENCY": "1",
+    "PYTHONUNBUFFERED": "1",
+    "PUBLIC_ORIGIN": "https://eastfront-supply-sandbox.onrender.com"
+  },
+  "resource_observation": {
+    "instance": "srv-dathekek1f9s7389ksvg-79987db76-7j295",
+    "memory_max": 536870912,
+    "cpu_max": "50000 100000",
+    "pids_max": 141138,
+    "memory_swap_max": 0,
+    "startup_peak_bytes": 116473856
+  },
+  "secrets_imported": false,
+  "production_modified": false,
+  "post_test_instance": "srv-dathekek1f9s7389ksvg-b9b5b4544-2vm5c"
+}

@@ -1,0 +1,116 @@
+- main:
+  - heading "EASTFRONT · 补给试玩 · 先行动，再看变化" [level=1]
+  - paragraph: 独立补给实验 · 可自由选择行动 · 尚未验证易用性或平衡。
+  - text: 短局面
+  - combobox "短局面":
+    - option "备货后推进（较多储备）"
+    - option "断供后突围／救援"
+    - option "恢复线路后重新进攻" [selected]
+  - text: 规则
+  - combobox "规则":
+    - option "新补给实验" [selected]
+    - option "旧补给独立对照"
+  - button "重置此局面"
+  - text: 玩家视图
+  - combobox "玩家视图":
+    - option "德军"
+    - option "苏军" [selected]
+  - button "切换到德军继续操作"
+  - generic "高级设置与研究工具"
+  - option "3秒" [selected]
+  - option "超时探针"
+  - generic "这局怎么玩（可收起／重看）"
+  - heading "恢复线路后重新进攻" [level=2]
+  - paragraph:
+    - strong: 当前局势：
+    - text: 德军处于铁路修复阶段；C10—D10 未修，实验枢纽位于 D10。此片段使用特殊实验容量，非推荐数值。
+  - paragraph:
+    - strong: 你的问题：
+    - text: 修通线路后，是部分恢复就进攻，还是继续等待备货？
+  - paragraph:
+    - strong: 第一步：
+    - text: 先选 G-PZ-02 观察储备和短缺，再点“修复该铁路”。修路不会立即补充库存；随后可结束本方余下阶段，切换到苏军，再结束其余下阶段。
+  - paragraph:
+    - strong: 观察结果：
+    - text: 看苏军回合末的实际配送与短缺债务变化，再决定是否进攻。接通不保证足额供给；以真实回执为准。
+  - status: 现在等待德军操作；本方按钮暂不可用。此实验为独立热座，可点击上方切换。
+  - paragraph: 第 12 回合 · 补给与铁路阶段 · 行动方：德军 · 当前查看：苏军 · 新补给实验
+  - alert
+  - strong: 上次已提交的真实变化
+  - paragraph: 已到完整回合末：本次包含实际配送、维护和恢复结算。
+  - paragraph: 选中单位 S-I-01：本次实收 0 补给点；维护 0/1；短缺债务结算后 3。
+  - generic "展开本方全部配送与变化"
+  - generic: 选中 S-I-01 · 位于 A5 · 尚未移动 · 尚未攻击。 储备物资 0 / 2 补给点；短缺债务 3。攻击倍率上限 50%；移动点上限 1。实际攻击还受本次可支付储备影响。
+  - text: 本方单位
+  - combobox "本方单位":
+    - option "S-I-01 @ A5" [selected]
+    - option "S-I-02 @ I8"
+    - option "S-I-03 @ V7"
+    - option "S-I-05 @ H6"
+    - option "S-I-06 @ U8"
+    - option "S-I-07 @ A3"
+    - option "S-I-08 @ I6"
+    - option "S-I-09 @ V8"
+    - option "S-I-11 @ I9"
+    - option "S-I-12 @ V6"
+    - option "S-I-14 @ J6"
+    - option "S-I-15 @ W8"
+    - option "S-I-16 @ A3"
+    - option "S-EL-01 @ H5"
+    - option "S-EL-02 @ U10"
+    - option "S-TK-02 @ I7"
+    - option "S-TK-03 @ U7"
+    - option "S-MOT-01 @ A7"
+    - option "S-MOT-02 @ J5"
+    - option "S-HV-01 @ W9"
+    - option "S-AT-02 @ J7"
+    - option "S-AT-03 @ W7"
+    - option "S-ART-01 @ A5"
+    - option "S-ART-02 @ I7"
+    - option "S-ART-03 @ V8"
+    - option "S-ENG-02 @ I5"
+    - option "S-R-T04-G01-U01 @ AB2"
+    - option "S-R-T04-G01-U02 @ AB2"
+    - option "S-R-T07-G02-U01 @ AE4"
+    - option "S-R-T07-G02-U02 @ AE4"
+    - option "S-R-T07-G02-U03 @ AE10"
+    - option "S-R-T10-G03-U01 @ AF4"
+    - option "S-R-T10-G03-U02 @ AF4"
+    - option "S-R-T10-G03-U03 @ AF10"
+  - button "查看可点选路线"
+  - text: 连续移动路径（或点地图）
+  - textbox "连续移动路径（或点地图）":
+    - /placeholder: 先选路线，或在地图逐格点选
+  - button "移动" [disabled]
+  - button "清空路径"
+  - text: 攻击单位（可下方点选）
+  - textbox "攻击单位（可下方点选）"
+  - text: 目标格
+  - textbox "目标格"
+  - button "发起攻击" [disabled]
+  - textbox "修路端点": C10 D10
+  - button "修复该铁路" [disabled]
+  - button "结束当前阶段" [disabled]
+  - button "放弃本方余下阶段" [disabled]
+  - generic "点选参与攻击的单位"
+  - paragraph: 移动路径会受真实地形、堆叠、ZOC及阶段限制。战斗有选择时停下，由当前决策方完成；强制步骤不能跳过。实际攻击系数取债务系数与本次付款系数的较小值。没有每点一次就补给的按钮：仅苏军回合末自动结算双方。
+  - paragraph: 行动前 S-I-01：0 补给点；普通移动预计 0 补给点；所选攻击预计 0 补给点；短缺债务=3，普通移动上限 1，债务攻击系数 0.5。恢复片段使用特殊实验容量，非推荐值。
+  - paragraph: 下一次结算：苏军回合末（战斗强制步骤须先完成）；配送结果未知
+  - text: 点地图用于
+  - combobox "点地图用于":
+    - option "选中本方单位"
+    - option "普通移动路线" [selected]
+    - option "攻击目标"
+    - option "当前单位撤退路线"
+    - option "突破路线"
+    - option "重点突击目标"
+  - button "撤销最后一格"
+  - generic: 地图可横向滑动；路线包含起点。问号是已授权接触信息。
+  - complementary:
+    - generic "全军储备与技术账本"
+  - generic "名词说明"
+  - heading "记录这次试玩" [level=3]
+  - text: 哪里不清楚，或为何这样选择？
+  - textbox "哪里不清楚，或为何这样选择？"
+  - button "导出简短反馈（当前视图）"
+  - paragraph: 仅导出本次浏览器记录的本方可见结果，不含全知回放；热座切换后可分别导出。服务重启或会话过期会丢失局面，请先导出。

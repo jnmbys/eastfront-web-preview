@@ -1,0 +1,134 @@
+- main:
+  - heading "EASTFRONT · 补给试玩 · 先行动，再看变化" [level=1]
+  - paragraph: 独立补给实验 · 可自由选择行动 · 尚未验证易用性或平衡。
+  - text: 短局面
+  - combobox "短局面":
+    - option "备货后推进（较多储备）" [selected]
+    - option "断供后突围／救援"
+    - option "恢复线路后重新进攻"
+  - text: 规则
+  - combobox "规则":
+    - option "新补给实验" [selected]
+    - option "旧补给独立对照"
+  - button "重置此局面"
+  - text: 玩家视图
+  - combobox "玩家视图":
+    - option "德军" [selected]
+    - option "苏军"
+  - button "切换到德军继续操作"
+  - generic "高级设置与研究工具"
+  - option "3秒" [selected]
+  - option "超时探针"
+  - generic "这局怎么玩（可收起／重看）"
+  - heading "备货后推进" [level=2]
+  - paragraph:
+    - strong: 当前局势：
+    - text: 装甲部队带着储备处于移动阶段。
+  - paragraph:
+    - strong: 你的问题：
+    - text: 向前推进还是保留储备？观察移动与攻击分别付出的代价。
+  - paragraph:
+    - strong: 第一步：
+    - text: 选择 G-PZ-01 → 点“查看可点选路线” → 选一条路线，再点“移动”。也可选择其他单位或结束阶段。
+  - paragraph:
+    - strong: 观察结果：
+    - text: 看行动回执中的储备前后值。移动不会触发配送；进入战斗阶段后，可点选攻击单位与目标。
+  - status: 现在可在移动阶段自由行动，或结束阶段。
+  - paragraph: 第 4 回合 · 移动阶段 · 行动方：德军 · 当前查看：德军 · 新补给实验
+  - alert
+  - strong: 上次已提交的真实变化
+  - paragraph: 尚未到配送时点：本次只处理行动及其战斗后果，不配送、不自动清除短缺。
+  - paragraph: G-PZ-01 行动消耗 1 补给点。
+  - paragraph: G-PZ-01：储备 6 → 5；短缺债务 0 → 0；位置 C9 → C8；兵力阶数 2 → 2。
+  - generic: 选中 G-PZ-01 · 位于 C8 · 已移动 · 尚未攻击。 储备物资 5 / 8 补给点；短缺债务 0。攻击倍率上限 100%；移动点上限 按原兵种规则。实际攻击还受本次可支付储备影响。
+  - text: 本方单位
+  - combobox "本方单位":
+    - option "G-I-01 @ D3"
+    - option "G-I-02 @ D9"
+    - option "G-I-03 @ E15"
+    - option "G-I-04 @ C3"
+    - option "G-I-05 @ C9"
+    - option "G-I-06 @ D15"
+    - option "G-I-07 @ C5"
+    - option "G-I-08 @ D10"
+    - option "G-I-09 @ E14"
+    - option "G-I-10 @ D4"
+    - option "G-I-11 @ D9"
+    - option "G-J-01 @ E16"
+    - option "G-J-02 @ D3"
+    - option "G-PZ-01 @ C8 已移动" [selected]
+    - option "G-PZ-02 @ D14"
+    - option "G-PZ-03 @ D5"
+    - option "G-PZ-04 @ C10"
+    - option "G-MOT-01 @ D16"
+    - option "G-MOT-02 @ C2"
+    - option "G-MOT-03 @ C8"
+    - option "G-ART-01 @ D15"
+    - option "G-ART-02 @ D5"
+    - option "G-ENG-01 @ B8"
+    - option "G-ENG-02 @ F12"
+    - option "G-REC-01 @ E4"
+    - option "G-REC-02 @ E10"
+  - button "查看可点选路线"
+  - text: 连续移动路径（或点地图）
+  - textbox "连续移动路径（或点地图）":
+    - /placeholder: 先选路线，或在地图逐格点选
+    - text: C8
+  - button "移动"
+  - button "清空路径"
+  - text: 攻击单位（可下方点选）
+  - textbox "攻击单位（可下方点选）"
+  - text: 目标格
+  - textbox "目标格"
+  - button "发起攻击" [disabled]
+  - textbox "修路端点": C10 D10
+  - button "修复该铁路" [disabled]
+  - button "结束当前阶段"
+  - button "放弃本方余下阶段"
+  - generic "点选参与攻击的单位"
+  - paragraph: 移动路径会受真实地形、堆叠、ZOC及阶段限制。战斗有选择时停下，由当前决策方完成；强制步骤不能跳过。实际攻击系数取债务系数与本次付款系数的较小值。没有每点一次就补给的按钮：仅苏军回合末自动结算双方。
+  - paragraph: 行动前 G-PZ-01：5 补给点；普通移动预计 1 补给点；所选攻击预计 1 补给点；短缺债务=0，普通移动上限 原值，债务攻击系数 1。
+  - paragraph: 下一次结算：苏军回合末（战斗强制步骤须先完成）；配送结果未知
+  - text: 点地图用于
+  - combobox "点地图用于":
+    - option "选中本方单位"
+    - option "普通移动路线" [selected]
+    - option "攻击目标"
+    - option "当前单位撤退路线"
+    - option "突破路线"
+    - option "重点突击目标"
+  - button "撤销最后一格"
+  - generic: 地图可横向滑动；路线包含起点。问号是已授权接触信息。
+  - button "D9 → E10 · 3移动点"
+  - button "D9 → E9 · 4移动点"
+  - button "D9 → D8 · 3移动点"
+  - button "D9 → C10 · 3移动点"
+  - button "D9 → D10 · 3移动点"
+  - button "D8 · 1移动点"
+  - button "C8 · 1移动点"
+  - button "B8 · 1移动点"
+  - button "B8 → C8 · 2移动点"
+  - button "B8 → B7 · 2移动点"
+  - button "B8 → A8 · 2移动点"
+  - button "B8 → A9 · 2移动点"
+  - button "B8 → B9 · 2移动点"
+  - button "B9 · 1移动点"
+  - button "B9 → C10 · 2移动点"
+  - button "B9 → B8 · 2移动点"
+  - button "B9 → A9 · 2移动点"
+  - button "B9 → A10 · 2移动点（条件路线）"
+  - button "B9 → B10 · 2移动点"
+  - button "C10 · 1移动点"
+  - button "C10 → D10 · 2移动点"
+  - button "C10 → B9 · 2移动点"
+  - button "C10 → B10 · 2移动点"
+  - button "C10 → C11 · 2移动点"
+  - generic: 点选路线只填写路径；再点“移动”提交。候选限1–2步，可自行在地图选择其他连续路径。未知通路不保证安全。
+  - complementary:
+    - generic "全军储备与技术账本"
+  - generic "名词说明"
+  - heading "记录这次试玩" [level=3]
+  - text: 哪里不清楚，或为何这样选择？
+  - textbox "哪里不清楚，或为何这样选择？"
+  - button "导出简短反馈（当前视图）"
+  - paragraph: 仅导出本次浏览器记录的本方可见结果，不含全知回放；热座切换后可分别导出。服务重启或会话过期会丢失局面，请先导出。

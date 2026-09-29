@@ -1,0 +1,13 @@
+python - <<'PY'
+import urllib.request,json,time,pathlib,datetime
+url='https://raw.githubusercontent.com/jnmbys/eastfront-web-preview/160dd3fe42c3d5a63002b6bc515f197efeffcf46/experiments/supply-ci-009/run.py'
+src=urllib.request.urlopen(url,timeout=30).read().decode(); ns={'__name__':'validation'}; exec(src,ns)
+ns['URL']='https://eastfront-supply-sandbox.onrender.com'
+ns['peak']=lambda _:int(pathlib.Path('/sys/fs/cgroup/memory.peak').read_text())
+r={'environment':'Real Render instance HTTPS self-request; includes test client memory','started_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}; print('RENDER_CHECK_STARTED',flush=True)
+try:
+ ns['exercise']('render',r); r['passed']=all(c.get('complete') for c in r['clips']) and r['busy_rejected_without_commit']
+except Exception as e: r['passed']=False; r['failure']=repr(e)
+r['finished_at']=datetime.datetime.now(datetime.timezone.utc).isoformat();r['memory_events']=pathlib.Path('/sys/fs/cgroup/memory.events').read_text();pathlib.Path('/tmp/render-check.json').write_text(json.dumps(r))
+print('RENDER_CHECK_RESULT '+json.dumps(r),flush=True)
+PY
