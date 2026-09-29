@@ -1,6 +1,11 @@
 {
-  "task": "AI-PREVIEW-002",
-  "sourceCommit": "695ca0524eb039808491b18c69cea1fb74da0cca",
+  "task": "AI-PERF-PREVIEW-006",
+  "sourceCommit": "a0c1485d9841eaea1ec6ed2bd9b97a569ff5c9cb",
+  "strategySource": "695ca0524eb039808491b18c69cea1fb74da0cca",
+  "oldRelease": "f3fac5a9b58deab1f9391fd46e782c728711ef76",
+  "variant": "candidate",
+  "performanceQuery": "?aiPerf006=1&aiSeed=17",
+  "productionConnection": false,
   "files": [
     {
       "path": "ai/authority/FairHost.js",
@@ -52,9 +57,9 @@
     },
     {
       "path": "ai/local/LocalMatch.js",
-      "size": 7676,
-      "sha256": "125cde6227a58a711ceed77cff2c46c5b8ebc7f255c5fbf71ce4cd4813f63da4",
-      "gitBlob": "b54c4413d79f616b0683db27bfd5e118583a4f1f"
+      "size": 7863,
+      "sha256": "92ccaa8efb9e0d2fbf05246ee488a88e4331eb282a4d6586f4c6ead9fa5aafdf",
+      "gitBlob": "ad0c13ce4f2bed42f76165ab9573150c88377098"
     },
     {
       "path": "ai/local/scenarios.js",
@@ -63,22 +68,16 @@
       "gitBlob": "05653aad5cd87f9a7160c96f89b513667ee89085"
     },
     {
-      "path": "ai/local/worker-perf.js",
-      "size": 651,
-      "sha256": "02deec2f6cfededfa23068a8e11384ecac93479e04c50f8a7d076beb2ecbdd37",
-      "gitBlob": "9b4a579c43a4e0100746b7fbb6c481a6e3255390"
-    },
-    {
       "path": "ai/local/worker.js",
-      "size": 1592,
-      "sha256": "82fc4f276c5ddb9520b4a7bb14145692e20f076964b38d18a2f01c0c6cfe03a2",
-      "gitBlob": "ac14c009104dc60edd6db6a3ddb19edc94735af8"
+      "size": 2354,
+      "sha256": "cbd615d30cf4414353e54ed84c097c55b4ccaa101253e7b2e21c4b652abe8dbe",
+      "gitBlob": "100a162fb2eb24ed8cecd8ace2ad275e97b01b48"
     },
     {
       "path": "ai003-build.json",
-      "size": 429,
-      "sha256": "65847932ab4d1ee62fc367ea06ef7da039168073eeb383cc8f84d6eb2986baf7",
-      "gitBlob": "ed3cd8e3e13caa76c83c7b11b7b49e99719e8ddc"
+      "size": 329,
+      "sha256": "1261501ce195f21f3f80b65740c26edb2bfd1cf3e479a4960b3e382dd3b2fde6",
+      "gitBlob": "60a950abb11c16354408510e687c43ef63dc3750"
     },
     {
       "path": "app/assets/VS2_ASSET_MANIFEST.json",
@@ -148,9 +147,15 @@
     },
     {
       "path": "app/local-ai/client.js",
-      "size": 5190,
-      "sha256": "6fde46acca7d8af40e163d32186bd5958aacca96cb7450f5801e0c17d07adb11",
-      "gitBlob": "200c4aad2856dc798e3c3922c1a60c1357d76ac8"
+      "size": 6027,
+      "sha256": "0bcd544935304003718b52b484d21e4789c7099f46d195b03748acb6a436c15f",
+      "gitBlob": "d505a79ac40e005b538e097c6944a2814c728e7f"
+    },
+    {
+      "path": "app/local-ai/performance.js",
+      "size": 3331,
+      "sha256": "998b3c9b4584830dd1967233f9f92c0bef232111b44d86f769c58fea2dcbd98a",
+      "gitBlob": "8d3d16906fc3db0a305bba70e01f6e673971f866"
     },
     {
       "path": "app/local-ai/types.js",
@@ -196,9 +201,9 @@
     },
     {
       "path": "app/main.js",
-      "size": 80833,
-      "sha256": "94be134e50684644a6c2291221b4d64b1635a9c66f857adf9f00a4fd0d5de4a3",
-      "gitBlob": "7f55bf2c05b9eaefe96f2514f5efc315153e1c31"
+      "size": 82713,
+      "sha256": "1554a2312149576284b08d21a1a04c16e5b3ee7f7a2a9818dc5cf25c4666c6bb",
+      "gitBlob": "875d4470841f8becd1a546ba56a68feb2c7f7453"
     },
     {
       "path": "app/model/prototypeData.js",
@@ -394,9 +399,9 @@
     },
     {
       "path": "app/render/dynamicMap.js",
-      "size": 7275,
-      "sha256": "f089901d02b7c5888e1029b6cd05934abba0e04b1280ca539dfb84b887e6dffa",
-      "gitBlob": "54763db912b40cc8d28144a1c80dd7ceb2f4f1f6"
+      "size": 7464,
+      "sha256": "c695094870a5c9ad5dc98543def4250fee223056b8beaf5171880bad08c6eeb6",
+      "gitBlob": "62ab43351689e9072da81242803ee6cd524946cf"
     },
     {
       "path": "app/render/productionTerrain.js",
@@ -587,8 +592,8 @@
     {
       "path": "app/web/startupDiagnostics.js",
       "size": 3085,
-      "sha256": "bcbd7b1a93c41cdfbb4cda3ef9872f1296ac90ff80c4e7d0182dac6637cd930f",
-      "gitBlob": "a34bab260b74a9b28dc8937934b9269241b4b612"
+      "sha256": "7aebb8a97957cb49704adb757e600551d613edf012390cfc9b59ec870a8be768",
+      "gitBlob": "816e2ab47891c1235a853fd8a917e3c249c5980b"
     },
     {
       "path": "app/web/startupProgress.js",
@@ -1835,8 +1840,8 @@
     {
       "path": "diagnostics/transport/build.json",
       "size": 60,
-      "sha256": "4311da5814ce5ad9f66ae9e7e22b44a2c9577f2e8cd326c5caeb8dfdccdaaf1c",
-      "gitBlob": "a8b4e26c854276c4c097be3501179b3927af4812"
+      "sha256": "f137fcb6b2c286926ca809b66cad5a2631cd869146e8cd4261561453f399579c",
+      "gitBlob": "35285f0d4f48409e7867cb6de4af9bf8ee6e6b9a"
     },
     {
       "path": "diagnostics/transport/index.html",
@@ -1960,15 +1965,15 @@
     },
     {
       "path": "src/local-ai/client.js",
-      "size": 5264,
-      "sha256": "86ffe573abebca912322d34dc37e49405b16929db41e0d80f6cfa403f69b1b29",
-      "gitBlob": "407b9380624c31536b86a6ca75c8128371d932de"
+      "size": 6027,
+      "sha256": "0bcd544935304003718b52b484d21e4789c7099f46d195b03748acb6a436c15f",
+      "gitBlob": "d505a79ac40e005b538e097c6944a2814c728e7f"
     },
     {
-      "path": "src/local-ai/preview-perf.js",
-      "size": 3472,
-      "sha256": "3a828524eb3413e3d67de92f212151c51a9c7630f5af4051592d4b09a4cff73a",
-      "gitBlob": "647e78c9d05d71667af76a5862581834ab8775e0"
+      "path": "src/local-ai/performance.js",
+      "size": 3639,
+      "sha256": "99dd983ac07576f4baba121318c9b335b7395c74c87be68e2d7997c2868101b9",
+      "gitBlob": "f733fcf6a4c6e1ab37c9e589489f638144b0a0d9"
     },
     {
       "path": "src/local-ai/types.js",
@@ -2014,9 +2019,9 @@
     },
     {
       "path": "src/main.js",
-      "size": 80832,
-      "sha256": "eeea142b43c8cf0174af221ad4cfe8b0c42f6dc7027073d8c59be266f0059f5d",
-      "gitBlob": "c83c93e1b622db416c55dd8dc1a05f74889a1fa4"
+      "size": 82712,
+      "sha256": "3d55b24c0e31c8a77a8892e07dc84610b16652f8a51c379dd4ef3f43245e325a",
+      "gitBlob": "f50e70124c2bd68ac4e1e7f5743d69aa8da11443"
     },
     {
       "path": "src/model/prototypeData.js",
@@ -2212,9 +2217,9 @@
     },
     {
       "path": "src/render/dynamicMap.js",
-      "size": 7275,
-      "sha256": "f089901d02b7c5888e1029b6cd05934abba0e04b1280ca539dfb84b887e6dffa",
-      "gitBlob": "54763db912b40cc8d28144a1c80dd7ceb2f4f1f6"
+      "size": 7464,
+      "sha256": "c695094870a5c9ad5dc98543def4250fee223056b8beaf5171880bad08c6eeb6",
+      "gitBlob": "62ab43351689e9072da81242803ee6cd524946cf"
     },
     {
       "path": "src/render/productionTerrain.js",

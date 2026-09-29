@@ -1,3 +1,4 @@
+import { perf006 } from './performance.js';
 /** In-process transport facade only. Receives authorized DTOs, never GameState or agent inputs. */
 export class LocalAiClient {
     port;
@@ -19,7 +20,8 @@ export class LocalAiClient {
         this.port = port;
         this.update = update;
         this.meta = { humanSide: options.humanSide, ownerSide: 'SOVIET', paused: false, manual: false, reason: null, accepted: 0, rejected: 0 };
-        this.port.onmessage = e => this.receiveLocal(e.data);
+        this.port.onmessage = e => { if (this.dead || this.faulted || e.data.epoch !== this.epoch)
+            return; perf006.measure('clientReceive', () => this.receiveLocal(e.data)); };
         this.port.onerror = () => this.fail('WORKER_ERROR');
     }
     start(options) { if (this.started || this.dead)
@@ -31,6 +33,11 @@ export class LocalAiClient {
         if (this.watchdog !== null)
             clearTimeout(this.watchdog);
         this.watchdog = null;
+        if (reply.perf) {
+            perf006.record('workerToMain', Math.max(0, performance.timeOrigin + performance.now() - reply.perf.sentAt));
+            for (const key of ['policyMs', 'thinkMs', 'snapshotMs'])
+                perf006.record(key, reply.perf[key]);
+        }
         this.meta = reply.meta;
         const m = reply.message;
         if (m?.messageType === 'PLAYER_VIEW_SNAPSHOT') {
@@ -48,8 +55,15 @@ export class LocalAiClient {
             this.bootResolve = null;
             this.bootReject = null;
         }
-        for (const cb of [...this.callbacks])
-            cb(m);
+        for (const cb of [...this.callbacks]) {
+            if (!perf006.enabled) {
+                cb(m);
+                continue;
+            }
+            const start = performance.now(), viewBefore = perf006.total('viewUpdate');
+            perf006.measure('sessionApplyInclusive', () => cb(m));
+            perf006.record('sessionApplyOutsideView', Math.max(0, performance.now() - start - (perf006.total('viewUpdate') - viewBefore)));
+        }
         if (reply.takeover) {
             this.takeoverResolve?.();
             this.takeoverResolve = null;
@@ -85,5 +99,4 @@ export class LocalAiClient {
         return; this.dead = true; this.epoch++; if (this.watchdog !== null)
         clearTimeout(this.watchdog); this.port.onmessage = null; this.port.onerror = null; this.port.terminate(); this.callbacks.clear(); this.bootReject?.(new Error('CANCELLED')); this.takeoverReject?.(new Error('CANCELLED')); this.takeoverReject = null; this.takeoverResolve = null; this.bootResolve = null; this.bootReject = null; }
 }
-import { attachPreviewPerf } from './preview-perf.js';
-export function createLocalAiWorker() { return attachPreviewPerf(new Worker(new URL('../../ai/local/worker.js', import.meta.url), { type: 'module' })); }
+export function createLocalAiWorker() { return new Worker(new URL('../../ai/local/worker.js', import.meta.url), { type: 'module' }); }

@@ -1,3 +1,4 @@
+import { perf006 } from './local-ai/performance.js';
 import { LocalAiClient, createLocalAiWorker } from './local-ai/client.js';
 import { combatResults } from './ui/combatResult.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
@@ -417,6 +418,9 @@ function sidePanelMarkup(model, locations) {
 const dynamicMap = new DynamicMapRenderer();
 const deploymentPanelRenderer = new DeploymentPanelRenderer();
 function refreshDynamicView() {
+    return perf006.measure('viewUpdate', refreshDynamicViewNow);
+}
+function refreshDynamicViewNow() {
     if (isNetwork(session))
         session.requestProjection(presentation);
     if (!session || presentation.privacyGate) {
@@ -942,9 +946,10 @@ async function enterNetworkMatch(client) {
     terrainPipeline?.continueAll();
 }
 function localAiHome() {
-    return `<main class="home-screen"><h1>EASTFRONT · 本地人机</h1><p>实验 AI：流程验证，策略尚弱</p><p>本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label><p>战斗脚本仅验证交互，不代表 AI 已会主动进攻。</p><button id="ai-start" class="primary-action">开始本地人机</button></main>`;
+    return `<main class="home-screen"><h1>EASTFRONT · 本地人机</h1><p>实验 AI：流程验证，策略尚弱</p><p>本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label><p>战斗脚本仅验证交互，不代表 AI 已会主动进攻。</p><button id="ai-start" class="primary-action">开始本地人机</button>${perf006.enabled ? '<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>' : ''}</main>`;
 }
 function bindLocalAiHome() {
+    document.querySelector('#ai-perf-report')?.addEventListener('click', () => { const field = document.querySelector('#ai-perf-output'); field.hidden = false; field.value = JSON.stringify(perf006.report(), null, 2); field.select(); void navigator.clipboard?.writeText(field.value).catch(() => { }); });
     document.querySelector('#ai-start')?.addEventListener('click', () => {
         const side = (document.querySelector('#ai-side')?.value ?? 'GERMAN');
         const scenario = (document.querySelector('#ai-scenario')?.value ?? 'campaign');
@@ -952,16 +957,19 @@ function bindLocalAiHome() {
     });
 }
 function leaveLocalAi() {
-    localGeneration++;
-    if (isNetwork(session))
-        session.dispose();
-    else
-        localAi?.dispose();
-    localAi = null;
-    session = null;
-    appStatus = 'HOME';
-    terrainPipeline?.pause();
-    render();
+    perf006.measure('exitHandler', () => {
+        localGeneration++;
+        if (isNetwork(session))
+            session.dispose();
+        else
+            localAi?.dispose();
+        localAi = null;
+        session = null;
+        appStatus = 'HOME';
+        terrainPipeline?.pause();
+        render();
+    });
+    perf006.stop();
 }
 async function startLocalAi(humanSide, scenario) {
     const generation = ++localGeneration;
@@ -976,7 +984,10 @@ async function startLocalAi(humanSide, scenario) {
         if (generation !== localGeneration || !productionMap || !cachedTerrainSurface)
             return;
     }
-    const options = { humanSide, scenario, seed: crypto.getRandomValues(new Uint32Array(1))[0], map: productionMap };
+    perf006.start(query.get('aiPerf006') === '1');
+    const fixedSeed = query.get('aiSeed');
+    const seed = perf006.enabled && fixedSeed !== null && /^\d+$/.test(fixedSeed) && Number(fixedSeed) <= 0xffffffff ? Number(fixedSeed) : crypto.getRandomValues(new Uint32Array(1))[0];
+    const options = { humanSide, scenario, seed, map: productionMap, performance: perf006.enabled };
     const port = createLocalAiWorker();
     const client = new LocalAiClient(port, options, () => { if (localAi === client)
         updateLocalAiStatus(); });
@@ -1016,32 +1027,53 @@ function updateLocalAiStatus() {
     }
     const client = localAi, m = client.meta, side = (s) => s === 'GERMAN' ? '德军' : '苏军';
     const status = appStatus === 'LOADING' ? '正在准备本地对局 / 切换授权视角' : m.paused ? '已暂停：' + m.reason : m.manual ? '人工接管模式' : m.ownerSide === m.humanSide ? '等待你的操作' : 'AI 正在处理';
-    bar.innerHTML = `<strong>实验 AI：流程验证，策略尚弱</strong><span role="status">${esc(status)} · 你的视角：${side(m.humanSide)}</span><span>接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载</span>${m.manual || /^(AGENT_STOP|AGENT_ERROR|REJECTION_LIMIT)/.test(m.reason ?? '') ? `<button id="ai-takeover" class="mini-button">明确接管 ${side(m.ownerSide)}（切换授权视角）</button>` : ''}<button id="ai-diagnostic" class="mini-button">复制诊断</button><button id="ai-exit" class="mini-button">退出 / 新局</button>`;
-    const statusEl = document.querySelector('#network-match-status');
-    if (statusEl)
-        statusEl.textContent = status;
-    document.querySelector('#ai-exit')?.addEventListener('click', leaveLocalAi);
-    document.querySelector('#ai-diagnostic')?.addEventListener('click', () => { const field = document.createElement('textarea'); field.readOnly = true; field.value = JSON.stringify({ version: 'AI-003', ...m, revision: client.state.snapshot?.matchRevision }, null, 2); field.setAttribute('aria-label', '安全 AI 诊断'); bar.append(field); field.select(); void navigator.clipboard?.writeText(field.value).catch(() => { }); });
-    document.querySelector('#ai-takeover')?.addEventListener('click', async () => {
-        if (!window.confirm(`切换到${side(m.ownerSide)}的授权视角？接管后 AI 停止，后续切换座位仍需明确确认。`))
-            return;
-        const generation = ++localGeneration;
-        if (isNetwork(session))
-            session.dispose(false);
-        session = null;
-        appStatus = 'LOADING';
-        render();
-        try {
-            await client.takeover();
-            if (generation !== localGeneration || localAi !== client)
+    if (!bar.querySelector('#ai-exit')) {
+        bar.innerHTML = '<strong>实验 AI：流程验证，策略尚弱</strong><span id="ai-status-text" role="status"></span><span id="ai-status-count"></span><button id="ai-takeover" class="mini-button" hidden></button><button id="ai-diagnostic" class="mini-button">复制诊断</button><button id="ai-exit" class="mini-button">退出 / 新局</button>';
+        bar.querySelector('#ai-exit').addEventListener('click', leaveLocalAi);
+        bar.querySelector('#ai-diagnostic').addEventListener('click', () => {
+            let field = bar.querySelector('#ai-diagnostic-text');
+            if (!field) {
+                field = document.createElement('textarea');
+                field.id = 'ai-diagnostic-text';
+                field.readOnly = true;
+                field.setAttribute('aria-label', '安全 AI 诊断');
+                bar.append(field);
+            }
+            field.value = JSON.stringify({ version: 'AI-PERF-006', ...client.meta, revision: client.state.snapshot?.matchRevision, ...(perf006.enabled ? { performance: perf006.report() } : {}) }, null, 2);
+            field.select();
+            void navigator.clipboard?.writeText(field.value).catch(() => { });
+        });
+        bar.querySelector('#ai-takeover').addEventListener('click', async () => {
+            if (!window.confirm(`切换到${side(client.meta.ownerSide)}的授权视角？接管后 AI 停止，后续切换座位仍需明确确认。`))
                 return;
-            await enterNetworkMatch(client);
-        }
-        catch {
-            if (generation === localGeneration)
-                updateLocalAiStatus();
-        }
-    });
+            const generation = ++localGeneration;
+            if (isNetwork(session))
+                session.dispose(false);
+            session = null;
+            appStatus = 'LOADING';
+            render();
+            try {
+                await client.takeover();
+                if (generation !== localGeneration || localAi !== client)
+                    return;
+                await enterNetworkMatch(client);
+            }
+            catch {
+                if (generation === localGeneration)
+                    updateLocalAiStatus();
+            }
+        });
+    }
+    const setText = (selector, value) => { const el = bar.querySelector(selector); if (el.textContent !== value)
+        el.textContent = value; };
+    setText('#ai-status-text', status + ' · 你的视角：' + side(m.humanSide));
+    setText('#ai-status-count', `接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载`);
+    const takeover = bar.querySelector('#ai-takeover');
+    takeover.hidden = !(m.manual || /^(AGENT_STOP|AGENT_ERROR|REJECTION_LIMIT)/.test(m.reason ?? ''));
+    setText('#ai-takeover', `明确接管 ${side(m.ownerSide)}（切换授权视角）`);
+    const statusEl = document.querySelector('#network-match-status');
+    if (statusEl && statusEl.textContent !== status)
+        statusEl.textContent = status;
 }
 function updateTerrainDetailStatus() {
     const label = document.querySelector('#terrain-detail-status'), retry = document.querySelector('#terrain-detail-retry');

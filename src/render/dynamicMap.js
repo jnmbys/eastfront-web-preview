@@ -1,3 +1,4 @@
+import { perf006 } from '../local-ai/performance.js';
 import { coreSvgDynamicMarkup, coreSvgOverlayMarkup, renderCounter, renderCounterHit } from './coreSvg.js';
 import { getLocale } from '../localization/index.js';
 /** Camera never enters here. UI drafts patch overlays/adornments. Deployment
@@ -10,6 +11,9 @@ export class DynamicMapRenderer {
     deploymentOverlays = null;
     adopt(layer, model, options) { this.layer = layer; this.previous = model; this.locale = getLocale(); this.debug = options.debug; this.deploymentOverlays = model.deployment ? coreSvgOverlayMarkup(model, options) : null; }
     update(layer, model, options) {
+        return perf006.measure('mapUpdate', () => this.updateNow(layer, model, options));
+    }
+    updateNow(layer, model, options) {
         const previous = this.previous, locale = getLocale();
         const deployment = this.layer === layer && previous?.deployment && model.deployment && previous.phase === model.phase && previous.playerView.viewer === model.playerView.viewer && previous.viewerControllerId === model.viewerControllerId && this.locale === locale && !this.debug && !options.debug;
         const full = this.layer !== layer || !previous || previous.playerView !== model.playerView || this.locale !== locale || this.debug !== options.debug;
