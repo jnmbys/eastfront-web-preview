@@ -85,4 +85,5 @@ export class LocalAiClient {
         return; this.dead = true; this.epoch++; if (this.watchdog !== null)
         clearTimeout(this.watchdog); this.port.onmessage = null; this.port.onerror = null; this.port.terminate(); this.callbacks.clear(); this.bootReject?.(new Error('CANCELLED')); this.takeoverReject?.(new Error('CANCELLED')); this.takeoverReject = null; this.takeoverResolve = null; this.bootResolve = null; this.bootReject = null; }
 }
-export function createLocalAiWorker() { return new Worker(new URL('../../ai/local/worker.js', import.meta.url), { type: 'module' }); }
+import { attachPreviewPerf } from './preview-perf.js';
+export function createLocalAiWorker() { return attachPreviewPerf(new Worker(new URL('../../ai/local/worker.js', import.meta.url), { type: 'module' })); }

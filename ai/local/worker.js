@@ -1,3 +1,4 @@
+import { measuredPolicy, measuredThink } from './worker-perf.js';
 import { LocalMatch } from './LocalMatch.js';
 import { prepareLocalScenario } from './scenarios.js';
 const scope = self;
@@ -7,7 +8,7 @@ const send = (message, takeover = false) => { if (match)
 function schedule() { if (timer !== null || !match?.shouldThink)
     return; timer = setTimeout(() => { timer = null; if (!match)
     return; try {
-    send(match.think());
+    measuredThink(match, send);
     schedule();
 }
 catch {
@@ -25,7 +26,7 @@ scope.onmessage = event => {
         const prepared = prepareLocalScenario(message.options);
         if (current !== epoch)
             return;
-        match = new LocalMatch(prepared.session, message.options.humanSide, prepared.policy);
+        match = new LocalMatch(prepared.session, message.options.humanSide, measuredPolicy(prepared.policy));
         send(match.snapshot(true));
         schedule();
         return;
