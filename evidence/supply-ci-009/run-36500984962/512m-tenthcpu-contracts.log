@@ -1,0 +1,36 @@
+test_busy_and_owner_filter (test007.OnlineTests.test_busy_and_owner_filter) ... ok
+test_no_debug_csrf_expiry_and_capacity (test007.OnlineTests.test_no_debug_csrf_expiry_and_capacity) ... FAIL
+test_old_mode_zero_charge_and_timeout (test007.OnlineTests.test_old_mode_zero_charge_and_timeout) ... ok
+test_sessions_actions_receipts_replay (test007.OnlineTests.test_sessions_actions_receipts_replay) ... FAIL
+test_timeout_keeps_complete_new_bundle_and_retry (__main__.NewModeRollback.test_timeout_keeps_complete_new_bundle_and_retry) ... FAIL
+
+======================================================================
+FAIL: test_no_debug_csrf_expiry_and_capacity (test007.OnlineTests.test_no_debug_csrf_expiry_and_capacity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/app/test007.py", line 33, in test_no_debug_csrf_expiry_and_capacity
+    self.assertEqual(self.call(a,cmd=cmd)[0],409)
+AssertionError: 200 != 409
+
+======================================================================
+FAIL: test_sessions_actions_receipts_replay (test007.OnlineTests.test_sessions_actions_receipts_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/app/test007.py", line 22, in test_sessions_actions_receipts_replay
+    status,x=self.call(a,cmd=cmd);self.assertEqual(status,200);self.assertEqual(x['state']['revision'],rev+1);self.assertIsNotNone(x['state']['feedback']);self.assertEqual(self.call(b)[1]['state']['revision'],sb['state']['revision'])
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_timeout_keeps_complete_new_bundle_and_retry (__main__.NewModeRollback.test_timeout_keeps_complete_new_bundle_and_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/test_ci009.py", line 17, in test_timeout_keeps_complete_new_bundle_and_retry
+    self.assertTrue(r['ok'],r.get('error'));self.assertEqual(hash_bundle(execute(r['state'],cmd)['state']),hash_bundle(r['state']))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : total deadline
+
+----------------------------------------------------------------------
+Ran 5 tests in 32.302s
+
+FAILED (failures=3)

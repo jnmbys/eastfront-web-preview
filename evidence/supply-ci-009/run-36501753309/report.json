@@ -1,0 +1,1169 @@
+{
+  "source_sha": "9cf0e5fb7fac27e16b2700559716b590e81957b7",
+  "workflow_sha": "160dd3fe42c3d5a63002b6bc515f197efeffcf46",
+  "environment": "GitHub ubuntu-24.04; NOT Render measurements",
+  "profiles": [
+    {
+      "label": "512m-halfcpu",
+      "memory": "512m",
+      "cpu_quota": 0.5,
+      "swap_equals_memory": true,
+      "pids_limit": 128,
+      "cold_starts": [
+        {
+          "cold": 0,
+          "startup_seconds": 2.6223240320000016,
+          "startup_peak_bytes": 121548800,
+          "four_sessions_peak_bytes": 155811840,
+          "reset_isolation": true,
+          "timeout_rollback": true,
+          "clips": [
+            {
+              "clip": "prepare",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1160822269999926,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.138465212,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.153348168000008,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.0741518130000003,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 193687552
+            },
+            {
+              "clip": "prepare",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1400945279999917,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.0754697879999924,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.155265043,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.0639905649999974,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 200069120
+            },
+            {
+              "clip": "prepare",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1053259010000005,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.1486820979999948,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1583820449999962,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.0653929039999923,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 203001856
+            },
+            {
+              "clip": "isolation",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2949774829999967,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.335358440999997,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.276831983000008,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3389335439999996,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 207810560
+            },
+            {
+              "clip": "isolation",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2601071860000133,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3273202519999927,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2754371679999963,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3515239019999967,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 207810560
+            },
+            {
+              "clip": "isolation",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2581498629999999,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.336346575999997,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2990490050000005,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3463382110000026,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 207810560
+            },
+            {
+              "clip": "restore",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 1.2495630800000015,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2816153370000052,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.359744599999999,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2816502860000014,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3443334650000054,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "observed_G_PZ_02_debt": null,
+              "cumulative_peak_bytes": 209367040
+            },
+            {
+              "clip": "restore",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 1.2569049749999976,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.27071417800002,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.4396609540000043,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.283780121999996,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3501947489999964,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "observed_G_PZ_02_debt": null,
+              "cumulative_peak_bytes": 209367040
+            },
+            {
+              "clip": "restore",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 1.2635405929999877,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2840887729999793,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.3579832549999935,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.3376398629999926,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 2.357369984999991,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "observed_G_PZ_02_debt": null,
+              "cumulative_peak_bytes": 209367040
+            }
+          ],
+          "reset_after_trials": true,
+          "concurrent_statuses": [
+            503,
+            503,
+            503,
+            200
+          ],
+          "busy_rejected_without_commit": true,
+          "served_workload_peak_bytes": 209367040,
+          "contract_exit": 0,
+          "including_contract_tests_peak_bytes": 379092992,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 500000000,
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "PidsLimit": 128
+          }
+        },
+        {
+          "cold": 1,
+          "startup_seconds": 2.5378627300000005,
+          "startup_peak_bytes": 121335808,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 500000000,
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "PidsLimit": 128
+          }
+        },
+        {
+          "cold": 2,
+          "startup_seconds": 2.531712827000007,
+          "startup_peak_bytes": 121286656,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 500000000,
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "PidsLimit": 128
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "label": "2g-onecpu",
+      "memory": "2g",
+      "cpu_quota": 1,
+      "swap_equals_memory": true,
+      "pids_limit": 128,
+      "cold_starts": [
+        {
+          "cold": 0,
+          "startup_seconds": 1.4796917360000066,
+          "startup_peak_bytes": 120930304,
+          "four_sessions_peak_bytes": 157843456,
+          "reset_isolation": true,
+          "timeout_rollback": true,
+          "clips": [
+            {
+              "clip": "prepare",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.5827301390000059,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.0776566899999978,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.5943179030000181,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.057358856999997,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 198602752
+            },
+            {
+              "clip": "prepare",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.5821894999999984,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.0595499030000042,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6042964949999998,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.0608108699999832,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 202764288
+            },
+            {
+              "clip": "prepare",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.5950346189999891,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.0830442849999997,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.5966654629999937,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.0881359500000087,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 206446592
+            },
+            {
+              "clip": "isolation",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.693925973000006,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1859173219999946,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6691387519999807,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.170491759000015,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 211472384
+            },
+            {
+              "clip": "isolation",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6637107560000004,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1821687620000034,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6715645379999842,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1858398170000157,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 211472384
+            },
+            {
+              "clip": "isolation",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6797426109999947,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1800890890000062,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.668345697999996,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2079157109999983,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "cumulative_peak_bytes": 212074496
+            },
+            {
+              "clip": "restore",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 0.6482649390000006,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6687804599999936,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1897404270000038,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6829254640000215,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2010876169999847,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "observed_G_PZ_02_debt": null,
+              "cumulative_peak_bytes": 212918272
+            },
+            {
+              "clip": "restore",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 0.6364475510000034,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6654728720000094,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2153406939999911,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6747330919999968,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.1873668460000033,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "observed_G_PZ_02_debt": null,
+              "cumulative_peak_bytes": 213020672
+            },
+            {
+              "clip": "restore",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 0.6479664759999935,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6642106139999839,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.2162529000000006,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 0.6816082489999928,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": false
+                },
+                {
+                  "action": "END_SIDE",
+                  "seconds": 1.186070046999987,
+                  "status": 200,
+                  "accepted": true,
+                  "error": null,
+                  "settled": true
+                }
+              ],
+              "complete": true,
+              "observed_G_PZ_02_debt": null,
+              "cumulative_peak_bytes": 213020672
+            }
+          ],
+          "reset_after_trials": true,
+          "concurrent_statuses": [
+            503,
+            200,
+            503,
+            503
+          ],
+          "busy_rejected_without_commit": true,
+          "served_workload_peak_bytes": 213020672,
+          "contract_exit": 0,
+          "including_contract_tests_peak_bytes": 378908672,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 1000000000,
+            "Memory": 2147483648,
+            "MemorySwap": 2147483648,
+            "PidsLimit": 128
+          }
+        },
+        {
+          "cold": 1,
+          "startup_seconds": 1.4874145439999893,
+          "startup_peak_bytes": 121262080,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 1000000000,
+            "Memory": 2147483648,
+            "MemorySwap": 2147483648,
+            "PidsLimit": 128
+          }
+        },
+        {
+          "cold": 2,
+          "startup_seconds": 1.4744469290000097,
+          "startup_peak_bytes": 121061376,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 1000000000,
+            "Memory": 2147483648,
+            "MemorySwap": 2147483648,
+            "PidsLimit": 128
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "label": "512m-tenthcpu",
+      "memory": "512m",
+      "cpu_quota": 0.1,
+      "swap_equals_memory": true,
+      "pids_limit": 128,
+      "cold_starts": [
+        {
+          "cold": 0,
+          "startup_seconds": 12.923369306000012,
+          "startup_peak_bytes": 121049088,
+          "four_sessions_peak_bytes": 157655040,
+          "reset_isolation": true,
+          "timeout_rollback": true,
+          "clips": [
+            {
+              "clip": "prepare",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 4.288637620000031,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 175501312
+            },
+            {
+              "clip": "prepare",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 3.9882854090000137,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 177565696
+            },
+            {
+              "clip": "prepare",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 3.893714836000015,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 177942528
+            },
+            {
+              "clip": "isolation",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 3.9982726079999793,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 180740096
+            },
+            {
+              "clip": "isolation",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 4.0992033889999675,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 183803904
+            },
+            {
+              "clip": "isolation",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "END_SIDE",
+                  "seconds": 4.096933052999987,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 183803904
+            },
+            {
+              "clip": "restore",
+              "repeat": 0,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 3.9906468450000148,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 183988224
+            },
+            {
+              "clip": "restore",
+              "repeat": 1,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 4.002033194000035,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 183988224
+            },
+            {
+              "clip": "restore",
+              "repeat": 2,
+              "requests": [
+                {
+                  "action": "RAIL_REPAIR",
+                  "seconds": 3.997157542000025,
+                  "status": 200,
+                  "accepted": false,
+                  "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+                  "settled": false
+                }
+              ],
+              "complete": false,
+              "cumulative_peak_bytes": 184299520
+            }
+          ],
+          "reset_after_trials": true,
+          "concurrent_statuses": [
+            503,
+            503,
+            200,
+            503
+          ],
+          "busy_rejected_without_commit": true,
+          "served_workload_peak_bytes": 184299520,
+          "contract_exit": 1,
+          "including_contract_tests_peak_bytes": 343605248,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 100000000,
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "PidsLimit": 128
+          }
+        },
+        {
+          "cold": 1,
+          "startup_seconds": 12.762008994999974,
+          "startup_peak_bytes": 120946688,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 100000000,
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "PidsLimit": 128
+          }
+        },
+        {
+          "cold": 2,
+          "startup_seconds": 12.692370772000004,
+          "startup_peak_bytes": 121479168,
+          "container_exit": {
+            "Running": true,
+            "ExitCode": 0,
+            "OOMKilled": false,
+            "Error": ""
+          },
+          "applied_limits": {
+            "NanoCpus": 100000000,
+            "Memory": 536870912,
+            "MemorySwap": 536870912,
+            "PidsLimit": 128
+          }
+        }
+      ],
+      "passed": false
+    }
+  ],
+  "host": {
+    "kernel": "6.17.0-1022-azure",
+    "machine": "x86_64",
+    "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           48 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  4\nOn-line CPU(s) list:                     0-3\nVendor ID:                               AuthenticAMD\nModel name:                              AMD EPYC 7763 64-Core Processor\nCPU family:                              25\nModel:                                   1\nThread(s) per core:                      2\nCore(s) per socket:                      2\nSocket(s):                               1\nStepping:                                1\nBogoMIPS:                                4890.86\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves user_shstk clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm\nVirtualization:                          AMD-V\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full\nL1d cache:                               64 KiB (2 instances)\nL1i cache:                               64 KiB (2 instances)\nL2 cache:                                1 MiB (2 instances)\nL3 cache:                                32 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-3\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Vulnerable: No microcode\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+    "docker": "Client: Docker Engine - Community\n Version:           28.0.4\n API version:       1.48\n Go version:        go1.23.7\n Git commit:        b8034c0\n Built:             Tue Mar 25 15:07:16 2025\n OS/Arch:           linux/amd64\n Context:           default\n\nServer: Docker Engine - Community\n Engine:\n  Version:          28.0.4\n  API version:      1.48 (minimum version 1.24)\n  Go version:       go1.23.7\n  Git commit:       6430e49\n  Built:            Tue Mar 25 15:07:16 2025\n  OS/Arch:          linux/amd64\n  Experimental:     false\n containerd:\n  Version:          v2.3.5\n  GitCommit:        1294c24a7da8e5a793ed378161673abe94118892\n runc:\n  Version:          1.5.1\n  GitCommit:        v1.5.1-0-g8f2685a4\n docker-init:\n  Version:          0.19.0\n  GitCommit:        de40ad0\n",
+    "cgroup": "2"
+  },
+  "build_seconds": 22.52812206,
+  "image_id": "sha256:f3ba29572848bcde5115c0509a61d7ec5ea8ca4ba745260047dbbe51e3efb839",
+  "base_image_digest_references": [
+    "docker.io/library/node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c",
+    "docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e"
+  ]
+}
