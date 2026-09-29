@@ -1,0 +1,282 @@
+- strong: 实验 AI：流程验证，策略尚弱
+- status: AI 正在处理 · 你的视角：苏军
+- generic: 接受 85 / 拒绝 0 · 暂不支持存档 / 加载
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - generic: E
+  - strong: EASTFRONT
+  - generic: 网页版预览 · v0.0.10
+  - generic: 战略重置 F
+  - strong: 战斗
+  - generic: 回合
+  - strong: 第 1 回合
+  - generic: G
+  - strong: 德军
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - text: 指挥点
+  - strong: "1"
+  - text: 补充点
+  - strong: "12"
+  - button "离开房间"
+  - button "面板" [expanded]
+- main:
+  - strong: 战略重置 F · 作战地图
+  - generic: 苏军视角 · 德军 · 战斗
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - generic: 动画速度
+  - combobox "动画速度":
+    - option "正常" [selected]
+    - option "快速"
+    - option "即时"
+  - button "跳过动画"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 120%
+    - button "放大": +
+    - button "适应地图"
+  - status
+  - status: AI 正在处理
+  - generic "EASTFRONT 作战地图":
+    - img "战略重置 F 作战地图":
+      - button "德军 炮兵 G-ART-02；满编；攻击 0，防御 1，移动 2；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: ART-02
+        - generic: 0-1-2
+        - generic "补给中断"
+      - button "德军 步兵 G-I-02；满编；攻击 5，防御 5，移动 3；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: I-02
+        - generic: 5-5-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 工兵 G-ENG-02；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: ENG-02
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "德军 装甲部队 G-PZ-03；满编；攻击 8，防御 6，移动 6；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: PZ-03
+        - generic: 8-6-6
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 摩托化部队 G-MOT-03；满编；攻击 6，防御 5，移动 5；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: MOT-03
+        - generic: 6-5-5
+        - generic "补给中断"
+      - button "德军 装甲部队 G-PZ-04；满编；攻击 8，防御 6，移动 6；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: PZ-04
+        - generic: 8-6-6
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 装甲部队 G-PZ-02；满编；攻击 8，防御 6，移动 6；补给中断；格内 1 个单位":
+        - generic: DE
+        - generic: PZ-02
+        - generic: 8-6-6
+        - generic "补给中断"
+      - button "苏军 炮兵 S-ART-01；损伤等级 2；攻击 0，防御 1，移动 1；补给正常；格内 1 个单位":
+        - generic: SU
+        - generic: ART-01
+        - generic: 0-1-1
+        - generic: //
+      - button "苏军 炮兵 S-ART-02；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: SU
+        - generic: ART-02
+        - generic: 0-1-2
+      - button "苏军 炮兵 S-ART-03；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: SU
+        - generic: ART-03
+        - generic: 0-1-2
+      - button "苏军 反坦克部队 S-AT-01；满编；攻击 2，防御 2，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: AT-01
+        - generic: 2-2-3
+      - button "苏军 反坦克部队 S-AT-02；满编；攻击 2，防御 2，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: AT-02
+        - generic: 2-2-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 反坦克部队 S-AT-03；满编；攻击 2，防御 2，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: AT-03
+        - generic: 2-2-3
+      - button "苏军 工兵 S-ENG-01；满编；攻击 2，防御 2，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: ENG-01
+        - generic: 2-2-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 精锐步兵 S-EL-01；满编；攻击 5，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: EL-01
+        - generic: E
+        - generic: 5-5-3
+      - button "苏军 精锐步兵 S-EL-02；满编；攻击 5，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: EL-02
+        - generic: E
+        - generic: 5-5-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 工兵 S-ENG-02；满编；攻击 2，防御 2，移动 3；补给正常；格内 1 个单位":
+        - generic: SU
+        - generic: ENG-02
+        - generic: 2-2-3
+      - button "苏军 重型坦克 S-HV-01；满编；攻击 5，防御 7，移动 4；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: HV-01
+        - generic: H
+        - generic: 5-7-4
+      - button "苏军 摩托化部队 S-MOT-02；满编；攻击 4，防御 4，移动 5；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: MOT-02
+        - generic: 4-4-5
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-01；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-01
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-02；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-02
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-03；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-03
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-04；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-04
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-05；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-05
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-06；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-06
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-07；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-07
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-08；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-08
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-09；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-09
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-10；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-10
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-11；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-11
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-12；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-12
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-13；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-13
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-14；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-14
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-15；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-15
+        - generic: 3-3-3
+      - button "苏军 步兵 S-I-16；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: I-16
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 摩托化部队 S-MOT-01；满编；攻击 4，防御 4，移动 5；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: MOT-01
+        - generic: 4-4-5
+      - button "苏军 坦克 S-TK-03；满编；攻击 6，防御 5，移动 5；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: TK-03
+        - generic: 6-5-5
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 坦克 S-TK-01；满编；攻击 6，防御 5，移动 5；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: TK-01
+        - generic: 6-5-5
+      - button "苏军 坦克 S-TK-02；满编；攻击 6，防御 5，移动 5；补给正常；格内 2 个单位":
+        - generic: SU
+        - generic: TK-02
+        - generic: 6-5-5
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+  - complementary:
+    - region "战斗结果":
+      - strong: 战斗结果
+      - button "关闭结果"
+      - paragraph: B-000001 · 3,15
+      - generic "骰子 3 + 4 = 7":
+        - generic: "3"
+        - generic: "4"
+        - strong: = 7
+      - heading "D2R" [level=3]
+      - paragraph: CRT 要求：进攻方损失 0 级、撤退 0 格；防守方损失 2 级、撤退 2 格。
+      - generic: 基础战斗比
+      - strong: 4:1+
+      - generic: CRT 列修正
+      - strong: "0"
+      - generic: 最终战斗结果表列
+      - strong: 4:1+
+      - text: 仅显示 CRT 总列修正；私密支援来源已省略。
+      - paragraph: 以上修正作用于 CRT 列，不加减骰点。
+      - status: 待处理：战后推进。等待有权操作的玩家完成，你无需在此提交。
+      - heading "己方已执行后果" [level=4]
+      - list:
+        - listitem: S-ART-01：已损失 1 步。
+        - listitem: S-ART-01：已损失 1 步。
+        - listitem: S-ART-01：撤退，3,15 → 5,15（已执行）。
+      - text: 仅记录己方单位；敌方明细、支援来源和完整路线已省略。上方 CRT 要求与实际执行后果分开记录。
+      - generic "战斗记录"
+    - generic: 指挥面板
+    - generic: ◇
+    - paragraph: 选择单位，查看战力、补给和移动信息。
+    - paragraph: 等待对方决定
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥
+- generic "AI-005 性能诊断（毫秒）"

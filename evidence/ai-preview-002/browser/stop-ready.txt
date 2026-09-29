@@ -1,0 +1,69 @@
+- strong: 实验 AI：流程验证，策略尚弱
+- status: 已暂停：AGENT_STOP:NO_CANDIDATE · 你的视角：德军
+- generic: 接受 0 / 拒绝 0 · 暂不支持存档 / 加载
+- button "明确接管 苏军（切换授权视角）"
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - generic: E
+  - strong: EASTFRONT
+  - generic: 网页版预览 · v0.0.10
+  - generic: 战略重置 F
+  - strong: 战斗
+  - generic: 回合
+  - strong: 第 1 回合
+  - generic: S
+  - strong: 苏军
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - text: 指挥点
+  - strong: "2"
+  - text: 补充点
+  - strong: "8"
+  - button "离开房间"
+  - button "面板" [expanded]
+- main:
+  - strong: 战略重置 F · 作战地图
+  - generic: 德军视角 · 苏军 · 战斗
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - generic: 动画速度
+  - combobox "动画速度":
+    - option "正常" [selected]
+    - option "快速"
+    - option "即时"
+  - button "跳过动画"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 100%
+    - button "放大": +
+    - button "适应地图"
+  - status
+  - status: 已暂停：AGENT_STOP:NO_CANDIDATE
+  - generic "EASTFRONT 作战地图":
+    - img "战略重置 F 作战地图":
+      - button "苏军 坦克 attacker；满编；攻击 6，防御 5，移动 5；补给正常；格内 1 个单位":
+        - generic: SU
+        - generic: attacker
+        - generic: 6-5-5
+      - button "德军 步兵 defender；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE
+        - generic: defender
+        - generic: 5-5-3
+      - button "德军 步兵 reserve；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE
+        - generic: reserve
+        - generic: 5-5-3
+  - complementary:
+    - generic: 指挥面板
+    - generic: ◇
+    - paragraph: 选择单位，查看战力、补给和移动信息。
+    - paragraph: 等待对方决定
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥
+- generic "AI-005 性能诊断（毫秒）"
+- generic "AI-005 性能数据": "{ \"version\": \"AI-PREVIEW-002\", \"strategy\": \"AI-005\", \"source\": \"695ca0524eb039808491b18c69cea1fb74da0cca\", \"workerStarted\": 1, \"workerSteps\": 1, \"policyCalls\": 1, \"policyTotalMs\": 0, \"policyMaxMs\": 0, \"policyLastMs\": 0, \"workerStepMaxMs\": 37.30000000074506, \"longTaskSupported\": true, \"longTasks\": 0, \"longTaskMaxMs\": 0, \"thinkingLongTasks\": 0, \"thinkingLongTaskMaxMs\": 0, \"rafGapMaxMs\": 33.300000000046566, \"thinkingRafGapMaxMs\": 33.300000000046566, \"interactionSamples\": 0, \"interactionMaxMs\": 0, \"thinkingInteractionSamples\": 0, \"thinkingInteractionMaxMs\": 0, \"stopped\": false }"

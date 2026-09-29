@@ -1,0 +1,21 @@
+- main:
+  - heading "EASTFRONT · 本地人机" [level=1]
+  - paragraph: 实验 AI：流程验证，策略尚弱
+  - paragraph: 本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。
+  - text: 玩家阵营
+  - combobox "玩家阵营":
+    - option "德军" [selected]
+    - option "苏军"
+  - text: 场景
+  - combobox "场景":
+    - option "完整战役（从部署开始）" [selected]
+    - option "人类进攻 → AI 反应 / 撤退"
+    - option "脚本 AI 进攻 → 人类反应"
+    - option "第4回合增援"
+    - option "实际战斗后的推进 / 突破"
+    - option "现行终局检查前"
+    - option "停止与人工接管"
+  - paragraph: 战斗脚本仅验证交互，不代表 AI 已会主动进攻。
+  - button "开始本地人机"
+- generic "AI-005 性能诊断（毫秒）"
+- generic "AI-005 性能数据": "{ \"version\": \"AI-PREVIEW-002\", \"strategy\": \"AI-005\", \"source\": \"695ca0524eb039808491b18c69cea1fb74da0cca\", \"workerStarted\": 1, \"workerSteps\": 33, \"policyCalls\": 33, \"policyTotalMs\": 22.100000001490116, \"policyMaxMs\": 3.699999999254942, \"policyLastMs\": 0, \"workerStepMaxMs\": 89.30000000074506, \"longTaskSupported\": true, \"longTasks\": 0, \"longTaskMaxMs\": 0, \"thinkingLongTasks\": 0, \"thinkingLongTaskMaxMs\": 0, \"rafGapMaxMs\": 1016.5999999999767, \"thinkingRafGapMaxMs\": 1016.5, \"interactionSamples\": 0, \"interactionMaxMs\": 0, \"thinkingInteractionSamples\": 0, \"thinkingInteractionMaxMs\": 0, \"stopped\": true }"

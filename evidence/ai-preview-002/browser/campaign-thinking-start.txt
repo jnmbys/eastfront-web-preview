@@ -1,0 +1,993 @@
+- strong: 实验 AI：流程验证，策略尚弱
+- status: AI 正在处理 · 你的视角：苏军
+- generic: 接受 42 / 拒绝 0 · 暂不支持存档 / 加载
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - generic: E
+  - strong: EASTFRONT
+  - generic: 网页版预览 · v0.0.10
+  - generic: 战略重置 F
+  - strong: 部署
+  - generic: 回合
+  - strong: 第 1 回合
+  - generic: G
+  - strong: 德军
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - text: 指挥点
+  - strong: "1"
+  - text: 补充点
+  - strong: "12"
+  - button "离开房间"
+  - button "面板" [expanded]
+- main:
+  - strong: 战略重置 F · 作战地图
+  - generic: 苏军视角 · 德军 · 部署
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - generic: 动画速度
+  - combobox "动画速度":
+    - option "正常" [selected]
+    - option "快速"
+    - option "即时"
+  - button "跳过动画"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 120%
+    - button "放大" [active]: +
+    - button "适应地图"
+  - status
+  - status: AI 正在处理
+  - generic "EASTFRONT 作战地图":
+    - img "战略重置 F 作战地图":
+      - button "部署位置 10,-1"
+      - button "部署位置 10,-2"
+      - button "部署位置 10,-3"
+      - button "部署位置 10,-4"
+      - button "部署位置 10,-5"
+      - button "部署位置 10,0"
+      - button "部署位置 10,1"
+      - button "部署位置 10,10"
+      - button "部署位置 10,11"
+      - button "部署位置 10,12"
+      - button "部署位置 10,13"
+      - button "部署位置 10,14"
+      - button "部署位置 10,2"
+      - button "部署位置 10,3"
+      - button "部署位置 10,4"
+      - button "部署位置 10,5"
+      - button "部署位置 10,6"
+      - button "部署位置 10,7"
+      - button "部署位置 10,8"
+      - button "部署位置 10,9"
+      - button "部署位置 11,-1"
+      - button "部署位置 11,-2"
+      - button "部署位置 11,-3"
+      - button "部署位置 11,-4"
+      - button "部署位置 11,-5"
+      - button "部署位置 11,0"
+      - button "部署位置 11,1"
+      - button "部署位置 11,10"
+      - button "部署位置 11,11"
+      - button "部署位置 11,12"
+      - button "部署位置 11,13"
+      - button "部署位置 11,14"
+      - button "部署位置 11,2"
+      - button "部署位置 11,3"
+      - button "部署位置 11,4"
+      - button "部署位置 11,5"
+      - button "部署位置 11,6"
+      - button "部署位置 11,7"
+      - button "部署位置 11,8"
+      - button "部署位置 11,9"
+      - button "部署位置 12,-1"
+      - button "部署位置 12,-2"
+      - button "部署位置 12,-3"
+      - button "部署位置 12,-4"
+      - button "部署位置 12,-5"
+      - button "部署位置 12,-6"
+      - button "部署位置 12,0"
+      - button "部署位置 12,1"
+      - button "部署位置 12,10"
+      - button "部署位置 12,11"
+      - button "部署位置 12,12"
+      - button "部署位置 12,13"
+      - button "部署位置 12,2"
+      - button "部署位置 12,3"
+      - button "部署位置 12,4"
+      - button "部署位置 12,5"
+      - button "部署位置 12,6"
+      - button "部署位置 12,7"
+      - button "部署位置 12,8"
+      - button "部署位置 12,9"
+      - button "部署位置 13,-1"
+      - button "部署位置 13,-2"
+      - button "部署位置 13,-3"
+      - button "部署位置 13,-4"
+      - button "部署位置 13,-5"
+      - button "部署位置 13,-6"
+      - button "部署位置 13,0"
+      - button "部署位置 13,1"
+      - button "部署位置 13,10"
+      - button "部署位置 13,11"
+      - button "部署位置 13,12"
+      - button "部署位置 13,13"
+      - button "部署位置 13,2"
+      - button "部署位置 13,3"
+      - button "部署位置 13,4"
+      - button "部署位置 13,5"
+      - button "部署位置 13,6"
+      - button "部署位置 13,7"
+      - button "部署位置 13,8"
+      - button "部署位置 13,9"
+      - button "部署位置 14,-1"
+      - button "部署位置 14,-2"
+      - button "部署位置 14,-3"
+      - button "部署位置 14,-4"
+      - button "部署位置 14,-5"
+      - button "部署位置 14,-6"
+      - button "部署位置 14,-7"
+      - button "部署位置 14,0"
+      - button "部署位置 14,1"
+      - button "部署位置 14,10"
+      - button "部署位置 14,11"
+      - button "部署位置 14,12"
+      - button "部署位置 14,2"
+      - button "部署位置 14,3"
+      - button "部署位置 14,4"
+      - button "部署位置 14,5"
+      - button "部署位置 14,6"
+      - button "部署位置 14,7"
+      - button "部署位置 14,8"
+      - button "部署位置 14,9"
+      - button "部署位置 15,-1"
+      - button "部署位置 15,-2"
+      - button "部署位置 15,-3"
+      - button "部署位置 15,-4"
+      - button "部署位置 15,-5"
+      - button "部署位置 15,-7"
+      - button "部署位置 15,0"
+      - button "部署位置 15,1"
+      - button "部署位置 15,10"
+      - button "部署位置 15,11"
+      - button "部署位置 15,12"
+      - button "部署位置 15,2"
+      - button "部署位置 15,3"
+      - button "部署位置 15,4"
+      - button "部署位置 15,5"
+      - button "部署位置 15,6"
+      - button "部署位置 15,7"
+      - button "部署位置 15,8"
+      - button "部署位置 15,9"
+      - button "部署位置 16,-1"
+      - button "部署位置 16,-2"
+      - button "部署位置 16,-3"
+      - button "部署位置 16,-4"
+      - button "部署位置 16,-5"
+      - button "部署位置 16,-8"
+      - button "部署位置 16,0"
+      - button "部署位置 16,1"
+      - button "部署位置 16,10"
+      - button "部署位置 16,11"
+      - button "部署位置 16,2"
+      - button "部署位置 16,3"
+      - button "部署位置 16,4"
+      - button "部署位置 16,5"
+      - button "部署位置 16,6"
+      - button "部署位置 16,7"
+      - button "部署位置 16,8"
+      - button "部署位置 16,9"
+      - button "部署位置 17,-1"
+      - button "部署位置 17,-2"
+      - button "部署位置 17,-3"
+      - button "部署位置 17,-4"
+      - button "部署位置 17,-5"
+      - button "部署位置 17,-8"
+      - button "部署位置 17,0"
+      - button "部署位置 17,1"
+      - button "部署位置 17,10"
+      - button "部署位置 17,11"
+      - button "部署位置 17,2"
+      - button "部署位置 17,3"
+      - button "部署位置 17,4"
+      - button "部署位置 17,5"
+      - button "部署位置 17,6"
+      - button "部署位置 17,7"
+      - button "部署位置 17,8"
+      - button "部署位置 17,9"
+      - button "部署位置 18,-1"
+      - button "部署位置 18,-2"
+      - button "部署位置 18,-3"
+      - button "部署位置 18,-4"
+      - button "部署位置 18,-5"
+      - button "部署位置 18,-6"
+      - button "部署位置 18,-7"
+      - button "部署位置 18,-8"
+      - button "部署位置 18,-9"
+      - button "部署位置 18,0"
+      - button "部署位置 18,1"
+      - button "部署位置 18,10"
+      - button "部署位置 18,2"
+      - button "部署位置 18,3"
+      - button "部署位置 18,4"
+      - button "部署位置 18,5"
+      - button "部署位置 18,6"
+      - button "部署位置 18,7"
+      - button "部署位置 18,8"
+      - button "部署位置 18,9"
+      - button "部署位置 19,-1"
+      - button "部署位置 19,-2"
+      - button "部署位置 19,-3"
+      - button "部署位置 19,-4"
+      - button "部署位置 19,-5"
+      - button "部署位置 19,-6"
+      - button "部署位置 19,-7"
+      - button "部署位置 19,-8"
+      - button "部署位置 19,-9"
+      - button "部署位置 19,0"
+      - button "部署位置 19,1"
+      - button "部署位置 19,10"
+      - button "部署位置 19,2"
+      - button "部署位置 19,3"
+      - button "部署位置 19,4"
+      - button "部署位置 19,5"
+      - button "部署位置 19,6"
+      - button "部署位置 19,7"
+      - button "部署位置 19,8"
+      - button "部署位置 19,9"
+      - button "部署位置 20,-1"
+      - button "部署位置 20,-10"
+      - button "部署位置 20,-2"
+      - button "部署位置 20,-3"
+      - button "部署位置 20,-4"
+      - button "部署位置 20,-5"
+      - button "部署位置 20,-6"
+      - button "部署位置 20,-7"
+      - button "部署位置 20,-8"
+      - button "部署位置 20,-9"
+      - button "部署位置 20,0"
+      - button "部署位置 20,1"
+      - button "部署位置 20,2"
+      - button "部署位置 20,3"
+      - button "部署位置 20,4"
+      - button "部署位置 20,5"
+      - button "部署位置 20,6"
+      - button "部署位置 20,7"
+      - button "部署位置 20,8"
+      - button "部署位置 20,9"
+      - button "部署位置 21,-1"
+      - button "部署位置 21,-10"
+      - button "部署位置 21,-2"
+      - button "部署位置 21,-3"
+      - button "部署位置 21,-4"
+      - button "部署位置 21,-5"
+      - button "部署位置 21,-6"
+      - button "部署位置 21,-7"
+      - button "部署位置 21,-8"
+      - button "部署位置 21,-9"
+      - button "部署位置 21,0"
+      - button "部署位置 21,1"
+      - button "部署位置 21,2"
+      - button "部署位置 21,3"
+      - button "部署位置 21,4"
+      - button "部署位置 21,5"
+      - button "部署位置 21,6"
+      - button "部署位置 21,7"
+      - button "部署位置 21,8"
+      - button "部署位置 21,9"
+      - button "部署位置 22,-1"
+      - button "部署位置 22,-10"
+      - button "部署位置 22,-11"
+      - button "部署位置 22,-2"
+      - button "部署位置 22,-3"
+      - button "部署位置 22,-4"
+      - button "部署位置 22,-5"
+      - button "部署位置 22,-6"
+      - button "部署位置 22,-7"
+      - button "部署位置 22,-8"
+      - button "部署位置 22,-9"
+      - button "部署位置 22,0"
+      - button "部署位置 22,1"
+      - button "部署位置 22,2"
+      - button "部署位置 22,3"
+      - button "部署位置 22,4"
+      - button "部署位置 22,5"
+      - button "部署位置 22,6"
+      - button "部署位置 22,7"
+      - button "部署位置 22,8"
+      - button "部署位置 23,-1"
+      - button "部署位置 23,-10"
+      - button "部署位置 23,-11"
+      - button "部署位置 23,-2"
+      - button "部署位置 23,-3"
+      - button "部署位置 23,-4"
+      - button "部署位置 23,-5"
+      - button "部署位置 23,-6"
+      - button "部署位置 23,-7"
+      - button "部署位置 23,-8"
+      - button "部署位置 23,-9"
+      - button "部署位置 23,0"
+      - button "部署位置 23,1"
+      - button "部署位置 23,2"
+      - button "部署位置 23,3"
+      - button "部署位置 23,4"
+      - button "部署位置 23,5"
+      - button "部署位置 23,6"
+      - button "部署位置 23,7"
+      - button "部署位置 23,8"
+      - button "部署位置 24,-1"
+      - button "部署位置 24,-10"
+      - button "部署位置 24,-11"
+      - button "部署位置 24,-12"
+      - button "部署位置 24,-2"
+      - button "部署位置 24,-3"
+      - button "部署位置 24,-4"
+      - button "部署位置 24,-5"
+      - button "部署位置 24,-6"
+      - button "部署位置 24,-7"
+      - button "部署位置 24,-8"
+      - button "部署位置 24,-9"
+      - button "部署位置 24,0"
+      - button "部署位置 24,1"
+      - button "部署位置 24,2"
+      - button "部署位置 24,3"
+      - button "部署位置 24,4"
+      - button "部署位置 24,5"
+      - button "部署位置 24,6"
+      - button "部署位置 24,7"
+      - button "部署位置 25,-1"
+      - button "部署位置 25,-10"
+      - button "部署位置 25,-11"
+      - button "部署位置 25,-12"
+      - button "部署位置 25,-2"
+      - button "部署位置 25,-3"
+      - button "部署位置 25,-4"
+      - button "部署位置 25,-5"
+      - button "部署位置 25,-6"
+      - button "部署位置 25,-7"
+      - button "部署位置 25,-8"
+      - button "部署位置 25,-9"
+      - button "部署位置 25,0"
+      - button "部署位置 25,1"
+      - button "部署位置 25,2"
+      - button "部署位置 25,3"
+      - button "部署位置 25,4"
+      - button "部署位置 25,5"
+      - button "部署位置 25,6"
+      - button "部署位置 25,7"
+      - button "部署位置 26,-1"
+      - button "部署位置 26,-10"
+      - button "部署位置 26,-11"
+      - button "部署位置 26,-12"
+      - button "部署位置 26,-13"
+      - button "部署位置 26,-2"
+      - button "部署位置 26,-3"
+      - button "部署位置 26,-4"
+      - button "部署位置 26,-5"
+      - button "部署位置 26,-6"
+      - button "部署位置 26,-7"
+      - button "部署位置 26,-8"
+      - button "部署位置 26,-9"
+      - button "部署位置 26,0"
+      - button "部署位置 26,1"
+      - button "部署位置 26,2"
+      - button "部署位置 26,3"
+      - button "部署位置 26,4"
+      - button "部署位置 26,5"
+      - button "部署位置 26,6"
+      - button "部署位置 27,-1"
+      - button "部署位置 27,-10"
+      - button "部署位置 27,-11"
+      - button "部署位置 27,-12"
+      - button "部署位置 27,-13"
+      - button "部署位置 27,-2"
+      - button "部署位置 27,-3"
+      - button "部署位置 27,-4"
+      - button "部署位置 27,-5"
+      - button "部署位置 27,-6"
+      - button "部署位置 27,-7"
+      - button "部署位置 27,-8"
+      - button "部署位置 27,-9"
+      - button "部署位置 27,0"
+      - button "部署位置 27,1"
+      - button "部署位置 27,2"
+      - button "部署位置 27,3"
+      - button "部署位置 27,4"
+      - button "部署位置 27,5"
+      - button "部署位置 27,6"
+      - button "部署位置 28,-1"
+      - button "部署位置 28,-10"
+      - button "部署位置 28,-11"
+      - button "部署位置 28,-12"
+      - button "部署位置 28,-13"
+      - button "部署位置 28,-14"
+      - button "部署位置 28,-2"
+      - button "部署位置 28,-3"
+      - button "部署位置 28,-4"
+      - button "部署位置 28,-5"
+      - button "部署位置 28,-6"
+      - button "部署位置 28,-7"
+      - button "部署位置 28,-8"
+      - button "部署位置 28,-9"
+      - button "部署位置 28,0"
+      - button "部署位置 28,1"
+      - button "部署位置 28,2"
+      - button "部署位置 28,3"
+      - button "部署位置 28,4"
+      - button "部署位置 28,5"
+      - button "部署位置 29,-1"
+      - button "部署位置 29,-10"
+      - button "部署位置 29,-11"
+      - button "部署位置 29,-12"
+      - button "部署位置 29,-13"
+      - button "部署位置 29,-14"
+      - button "部署位置 29,-2"
+      - button "部署位置 29,-3"
+      - button "部署位置 29,-4"
+      - button "部署位置 29,-5"
+      - button "部署位置 29,-6"
+      - button "部署位置 29,-7"
+      - button "部署位置 29,-8"
+      - button "部署位置 29,-9"
+      - button "部署位置 29,0"
+      - button "部署位置 29,1"
+      - button "部署位置 29,2"
+      - button "部署位置 29,3"
+      - button "部署位置 29,4"
+      - button "部署位置 29,5"
+      - button "部署位置 3,-1"
+      - button "部署位置 3,0"
+      - button "部署位置 3,1"
+      - button "部署位置 3,10"
+      - button "部署位置 3,11"
+      - button "部署位置 3,12"
+      - button "部署位置 3,13"
+      - button "部署位置 3,14"
+      - button "部署位置 3,15"
+      - button "部署位置 3,16"
+      - button "部署位置 3,17"
+      - button "部署位置 3,18"
+      - button "部署位置 3,2"
+      - button "部署位置 3,3"
+      - button "部署位置 3,4"
+      - button "部署位置 3,5"
+      - button "部署位置 3,6"
+      - button "部署位置 3,7"
+      - button "部署位置 3,8"
+      - button "部署位置 3,9"
+      - button "部署位置 30,-1"
+      - button "部署位置 30,-10"
+      - button "部署位置 30,-11"
+      - button "部署位置 30,-12"
+      - button "部署位置 30,-13"
+      - button "部署位置 30,-14"
+      - button "部署位置 30,-15"
+      - button "部署位置 30,-2"
+      - button "部署位置 30,-3"
+      - button "部署位置 30,-4"
+      - button "部署位置 30,-5"
+      - button "部署位置 30,-6"
+      - button "部署位置 30,-7"
+      - button "部署位置 30,-8"
+      - button "部署位置 30,-9"
+      - button "部署位置 30,0"
+      - button "部署位置 30,1"
+      - button "部署位置 30,2"
+      - button "部署位置 30,3"
+      - button "部署位置 30,4"
+      - button "部署位置 31,-1"
+      - button "部署位置 31,-10"
+      - button "部署位置 31,-11"
+      - button "部署位置 31,-12"
+      - button "部署位置 31,-13"
+      - button "部署位置 31,-14"
+      - button "部署位置 31,-15"
+      - button "部署位置 31,-2"
+      - button "部署位置 31,-3"
+      - button "部署位置 31,-4"
+      - button "部署位置 31,-5"
+      - button "部署位置 31,-6"
+      - button "部署位置 31,-7"
+      - button "部署位置 31,-8"
+      - button "部署位置 31,-9"
+      - button "部署位置 31,0"
+      - button "部署位置 31,1"
+      - button "部署位置 31,2"
+      - button "部署位置 31,3"
+      - button "部署位置 31,4"
+      - button "部署位置 4,-1"
+      - button "部署位置 4,-2"
+      - button "部署位置 4,0"
+      - button "部署位置 4,1"
+      - button "部署位置 4,10"
+      - button "部署位置 4,11"
+      - button "部署位置 4,12"
+      - button "部署位置 4,13"
+      - button "部署位置 4,14"
+      - button "部署位置 4,15"
+      - button "部署位置 4,16"
+      - button "部署位置 4,17"
+      - button "部署位置 4,2"
+      - button "部署位置 4,3"
+      - button "部署位置 4,4"
+      - button "部署位置 4,5"
+      - button "部署位置 4,6"
+      - button "部署位置 4,7"
+      - button "部署位置 4,8"
+      - button "部署位置 4,9"
+      - button "部署位置 5,-1"
+      - button "部署位置 5,-2"
+      - button "部署位置 5,0"
+      - button "部署位置 5,1"
+      - button "部署位置 5,10"
+      - button "部署位置 5,11"
+      - button "部署位置 5,12"
+      - button "部署位置 5,13"
+      - button "部署位置 5,14"
+      - button "部署位置 5,15"
+      - button "部署位置 5,16"
+      - button "部署位置 5,17"
+      - button "部署位置 5,2"
+      - button "部署位置 5,3"
+      - button "部署位置 5,4"
+      - button "部署位置 5,5"
+      - button "部署位置 5,6"
+      - button "部署位置 5,7"
+      - button "部署位置 5,8"
+      - button "部署位置 5,9"
+      - button "部署位置 6,-1"
+      - button "部署位置 6,-2"
+      - button "部署位置 6,-3"
+      - button "部署位置 6,0"
+      - button "部署位置 6,1"
+      - button "部署位置 6,10"
+      - button "部署位置 6,11"
+      - button "部署位置 6,12"
+      - button "部署位置 6,13"
+      - button "部署位置 6,14"
+      - button "部署位置 6,15"
+      - button "部署位置 6,16"
+      - button "部署位置 6,2"
+      - button "部署位置 6,3"
+      - button "部署位置 6,4"
+      - button "部署位置 6,5"
+      - button "部署位置 6,6"
+      - button "部署位置 6,7"
+      - button "部署位置 6,8"
+      - button "部署位置 6,9"
+      - button "部署位置 7,-1"
+      - button "部署位置 7,-2"
+      - button "部署位置 7,-3"
+      - button "部署位置 7,0"
+      - button "部署位置 7,1"
+      - button "部署位置 7,10"
+      - button "部署位置 7,11"
+      - button "部署位置 7,12"
+      - button "部署位置 7,13"
+      - button "部署位置 7,14"
+      - button "部署位置 7,15"
+      - button "部署位置 7,16"
+      - button "部署位置 7,2"
+      - button "部署位置 7,3"
+      - button "部署位置 7,4"
+      - button "部署位置 7,5"
+      - button "部署位置 7,6"
+      - button "部署位置 7,7"
+      - button "部署位置 7,8"
+      - button "部署位置 7,9"
+      - button "部署位置 8,-1"
+      - button "部署位置 8,-2"
+      - button "部署位置 8,-3"
+      - button "部署位置 8,-4"
+      - button "部署位置 8,0"
+      - button "部署位置 8,1"
+      - button "部署位置 8,10"
+      - button "部署位置 8,11"
+      - button "部署位置 8,12"
+      - button "部署位置 8,13"
+      - button "部署位置 8,14"
+      - button "部署位置 8,15"
+      - button "部署位置 8,2"
+      - button "部署位置 8,3"
+      - button "部署位置 8,4"
+      - button "部署位置 8,5"
+      - button "部署位置 8,6"
+      - button "部署位置 8,7"
+      - button "部署位置 8,8"
+      - button "部署位置 8,9"
+      - button "部署位置 9,-1"
+      - button "部署位置 9,-2"
+      - button "部署位置 9,-3"
+      - button "部署位置 9,-4"
+      - button "部署位置 9,0"
+      - button "部署位置 9,1"
+      - button "部署位置 9,10"
+      - button "部署位置 9,11"
+      - button "部署位置 9,12"
+      - button "部署位置 9,13"
+      - button "部署位置 9,14"
+      - button "部署位置 9,15"
+      - button "部署位置 9,2"
+      - button "部署位置 9,3"
+      - button "部署位置 9,4"
+      - button "部署位置 9,5"
+      - button "部署位置 9,6"
+      - button "部署位置 9,7"
+      - button "部署位置 9,8"
+      - button "部署位置 9,9"
+      - button "苏军 炮兵 S-ART-01；满编；攻击 0，防御 1，移动 2；补给中断；格内 1 个单位":
+        - generic: SU
+        - generic: ART-01
+        - generic: 0-1-2
+        - generic "补给中断"
+      - button "苏军 炮兵 S-ART-02；满编；攻击 0，防御 1，移动 2；补给中断；格内 1 个单位":
+        - generic: SU
+        - generic: ART-02
+        - generic: 0-1-2
+        - generic "补给中断"
+      - button "苏军 炮兵 S-ART-03；满编；攻击 0，防御 1，移动 2；补给中断；格内 1 个单位":
+        - generic: SU
+        - generic: ART-03
+        - generic: 0-1-2
+        - generic "补给中断"
+      - button "苏军 反坦克部队 S-AT-01；满编；攻击 2，防御 2，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: AT-01
+        - generic: 2-2-3
+        - generic "补给中断"
+      - button "苏军 反坦克部队 S-AT-02；满编；攻击 2，防御 2，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: AT-02
+        - generic: 2-2-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 反坦克部队 S-AT-03；满编；攻击 2，防御 2，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: AT-03
+        - generic: 2-2-3
+        - generic "补给中断"
+      - button "苏军 工兵 S-ENG-01；满编；攻击 2，防御 2，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: ENG-01
+        - generic: 2-2-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 精锐步兵 S-EL-01；满编；攻击 5，防御 5，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: EL-01
+        - generic: E
+        - generic: 5-5-3
+        - generic "补给中断"
+      - button "苏军 精锐步兵 S-EL-02；满编；攻击 5，防御 5，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: EL-02
+        - generic: E
+        - generic: 5-5-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 工兵 S-ENG-02；满编；攻击 2，防御 2，移动 3；补给中断；格内 1 个单位":
+        - generic: SU
+        - generic: ENG-02
+        - generic: 2-2-3
+        - generic "补给中断"
+      - button "苏军 重型坦克 S-HV-01；满编；攻击 5，防御 7，移动 4；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: HV-01
+        - generic: H
+        - generic: 5-7-4
+        - generic "补给中断"
+      - button "苏军 摩托化部队 S-MOT-02；满编；攻击 4，防御 4，移动 5；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: MOT-02
+        - generic: 4-4-5
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-01；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-01
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-02；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-02
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-03；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-03
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-04；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-04
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-05；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-05
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-06；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-06
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-07；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-07
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-08；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-08
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-09；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-09
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-10；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-10
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-11；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-11
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-12；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-12
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-13；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-13
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-14；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-14
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 步兵 S-I-15；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-15
+        - generic: 3-3-3
+        - generic "补给中断"
+      - button "苏军 步兵 S-I-16；满编；攻击 3，防御 3，移动 3；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: I-16
+        - generic: 3-3-3
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 摩托化部队 S-MOT-01；满编；攻击 4，防御 4，移动 5；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: MOT-01
+        - generic: 4-4-5
+        - generic "补给中断"
+      - button "苏军 坦克 S-TK-03；满编；攻击 6，防御 5，移动 5；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: TK-03
+        - generic: 6-5-5
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "苏军 坦克 S-TK-01；满编；攻击 6，防御 5，移动 5；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: TK-01
+        - generic: 6-5-5
+        - generic "补给中断"
+      - button "苏军 坦克 S-TK-02；满编；攻击 6，防御 5，移动 5；补给中断；格内 2 个单位":
+        - generic: SU
+        - generic: TK-02
+        - generic: 6-5-5
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+  - complementary:
+    - generic: 指挥面板
+    - generic: ◇
+    - paragraph: 选择单位，查看战力、补给和移动信息。
+    - generic: 苏军部署
+    - strong: 32/32
+    - generic: 完成
+    - list:
+      - listitem: 选择单位
+      - listitem: 选择位置
+      - listitem: 部署
+    - status: 选择预备队单位，开始部署。
+    - button "步兵 S-I-01 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-01 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-02 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-02 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-03 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-03 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-04 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-04 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-05 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-05 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-06 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-06 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-07 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-07 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-08 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-08 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-09 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-09 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-10 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-10 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-11 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-11 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-12 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-12 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-13 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-13 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-14 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-14 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-15 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-15 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "步兵 S-I-16 · 步兵编队 攻 3 · 防 3 · 移 3 已部署" [disabled]:
+      - generic: 步兵
+      - text: S-I-16 · 步兵编队
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 已部署
+    - button "精锐步兵 S-EL-01 · 精锐步兵编队 攻 5 · 防 5 · 移 3 已部署" [disabled]:
+      - generic: 精锐步兵
+      - text: S-EL-01 · 精锐步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 已部署
+    - button "精锐步兵 S-EL-02 · 精锐步兵编队 攻 5 · 防 5 · 移 3 已部署" [disabled]:
+      - generic: 精锐步兵
+      - text: S-EL-02 · 精锐步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 已部署
+    - button "坦克 S-TK-01 · 坦克编队 攻 6 · 防 5 · 移 5 已部署" [disabled]:
+      - generic: 坦克
+      - text: S-TK-01 · 坦克编队
+      - text: 攻 6 · 防 5 · 移 5
+      - generic: 已部署
+    - button "坦克 S-TK-02 · 坦克编队 攻 6 · 防 5 · 移 5 已部署" [disabled]:
+      - generic: 坦克
+      - text: S-TK-02 · 坦克编队
+      - text: 攻 6 · 防 5 · 移 5
+      - generic: 已部署
+    - button "坦克 S-TK-03 · 坦克编队 攻 6 · 防 5 · 移 5 已部署" [disabled]:
+      - generic: 坦克
+      - text: S-TK-03 · 坦克编队
+      - text: 攻 6 · 防 5 · 移 5
+      - generic: 已部署
+    - button "摩托化部队 S-MOT-01 · 摩托化编队 攻 4 · 防 4 · 移 5 已部署" [disabled]:
+      - generic: 摩托化部队
+      - text: S-MOT-01 · 摩托化编队
+      - text: 攻 4 · 防 4 · 移 5
+      - generic: 已部署
+    - button "摩托化部队 S-MOT-02 · 摩托化编队 攻 4 · 防 4 · 移 5 已部署" [disabled]:
+      - generic: 摩托化部队
+      - text: S-MOT-02 · 摩托化编队
+      - text: 攻 4 · 防 4 · 移 5
+      - generic: 已部署
+    - button "重型坦克 S-HV-01 · 重型坦克编队 攻 5 · 防 7 · 移 4 已部署" [disabled]:
+      - generic: 重型坦克
+      - text: S-HV-01 · 重型坦克编队
+      - text: 攻 5 · 防 7 · 移 4
+      - generic: 已部署
+    - button "反坦克部队 S-AT-01 · 反坦克编队 攻 2 · 防 2 · 移 3 已部署" [disabled]:
+      - generic: 反坦克部队
+      - text: S-AT-01 · 反坦克编队
+      - text: 攻 2 · 防 2 · 移 3
+      - generic: 已部署
+    - button "反坦克部队 S-AT-02 · 反坦克编队 攻 2 · 防 2 · 移 3 已部署" [disabled]:
+      - generic: 反坦克部队
+      - text: S-AT-02 · 反坦克编队
+      - text: 攻 2 · 防 2 · 移 3
+      - generic: 已部署
+    - button "反坦克部队 S-AT-03 · 反坦克编队 攻 2 · 防 2 · 移 3 已部署" [disabled]:
+      - generic: 反坦克部队
+      - text: S-AT-03 · 反坦克编队
+      - text: 攻 2 · 防 2 · 移 3
+      - generic: 已部署
+    - button "炮兵 S-ART-01 · 炮兵支援 攻 0 · 防 1 · 移 2 已部署" [disabled]:
+      - generic: 炮兵
+      - text: S-ART-01 · 炮兵支援
+      - text: 攻 0 · 防 1 · 移 2
+      - generic: 已部署
+    - button "炮兵 S-ART-02 · 炮兵支援 攻 0 · 防 1 · 移 2 已部署" [disabled]:
+      - generic: 炮兵
+      - text: S-ART-02 · 炮兵支援
+      - text: 攻 0 · 防 1 · 移 2
+      - generic: 已部署
+    - button "炮兵 S-ART-03 · 炮兵支援 攻 0 · 防 1 · 移 2 已部署" [disabled]:
+      - generic: 炮兵
+      - text: S-ART-03 · 炮兵支援
+      - text: 攻 0 · 防 1 · 移 2
+      - generic: 已部署
+    - button "工兵 S-ENG-01 · 工兵支援 攻 2 · 防 2 · 移 3 已部署" [disabled]:
+      - generic: 工兵
+      - text: S-ENG-01 · 工兵支援
+      - text: 攻 2 · 防 2 · 移 3
+      - generic: 已部署
+    - button "工兵 S-ENG-02 · 工兵支援 攻 2 · 防 2 · 移 3 已部署" [disabled]:
+      - generic: 工兵
+      - text: S-ENG-02 · 工兵支援
+      - text: 攻 2 · 防 2 · 移 3
+      - generic: 已部署
+    - button "完成部署阶段" [disabled]:
+      - generic: 完成部署阶段
+      - generic: ›
+    - paragraph: 当前由另一方部署，敌方部署仍然保密。
+    - paragraph: 对方正在部署
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥
+- generic "AI-005 性能诊断（毫秒）"
