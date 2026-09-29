@@ -1,0 +1,961 @@
+ .gitignore                                         |     6 -
+ _headers                                           |     2 +-
+ {baseline/app => app}/assets/p4r3-manifest.json    |     0
+ {baseline/app => app}/core-adapter/core.js         |     0
+ app/experiments/artSlice.js                        |   149 +
+ app/experiments/sliceData.js                       |    49 +
+ app/experiments/sliceTerrain.js                    |   184 +
+ {baseline/app => app}/geometry/hex.js              |     0
+ {baseline/app => app}/localization/en-US.js        |     0
+ {baseline/app => app}/localization/enumKeys.js     |     0
+ {baseline/app => app}/localization/index.js        |     0
+ {baseline/app => app}/localization/zh-CN.js        |     0
+ .../app => app}/presentation/unitPresenceTypes.js  |     0
+ {candidate/app => app}/render/artRelief.js         |     0
+ {candidate/app => app}/render/artSurvey.js         |     0
+ {baseline/app => app}/render/compactUnitPlate.js   |     0
+ {baseline/app => app}/render/contactMarkers.js     |     0
+ {candidate/app => app}/render/coreSvg.js           |     0
+ {baseline/app => app}/render/derive.js             |     0
+ {baseline/app => app}/render/productionTerrain.js  |     0
+ {baseline/app => app}/render/terrainAssets.js      |     0
+ {baseline/app => app}/render/vs2Projection.js      |     0
+ {baseline/app => app}/render/vs2WorldField.js      |     0
+ {baseline/app => app}/web/mapInteraction.js        |     0
+ artifact-manifest.json                             |   772 -
+ .../art-slice-005/assets => assets}/buildings.webp |   Bin
+ .../art-slice-005/assets => assets}/meadow.webp    |   Bin
+ .../assets => assets}/terrain-atlas.webp           |   Bin
+ baseline/app/assets/VS2_ASSET_MANIFEST.json        |  4046 ----
+ baseline/app/core-adapter/browserProjection.js     |   196 -
+ baseline/app/core-adapter/session.js               |   105 -
+ baseline/app/fog/runtime.js                        |    94 -
+ baseline/app/fog/surface.js                        |   121 -
+ baseline/app/interaction/attackGroup.js            |    26 -
+ baseline/app/interaction/combatFlow.js             |   236 -
+ baseline/app/interaction/intents.js                |   529 -
+ baseline/app/localization/issues.js                |    97 -
+ baseline/app/localization/languageControl.js       |    24 -
+ baseline/app/main.js                               |  1029 -
+ baseline/app/model/prototypeData.js                |    64 -
+ baseline/app/multiplayer/battleSummary.js          |    15 -
+ baseline/app/multiplayer/catalog.js                |    53 -
+ baseline/app/multiplayer/client.js                 |   317 -
+ baseline/app/multiplayer/config.js                 |    17 -
+ baseline/app/multiplayer/diagnosticTiming.js       |     6 -
+ baseline/app/multiplayer/gameplayProtocol.js       |    49 -
+ baseline/app/multiplayer/lobby.js                  |   119 -
+ baseline/app/multiplayer/mapEncoding.js            |    37 -
+ baseline/app/multiplayer/networkIntents.js         |   172 -
+ baseline/app/multiplayer/networkSession.js         |   291 -
+ baseline/app/multiplayer/playerSession.js          |    55 -
+ baseline/app/multiplayer/protocol.js               |    68 -
+ baseline/app/multiplayer/snapshotCodec.js          |   141 -
+ baseline/app/player-view/playerView.js             |    92 -
+ baseline/app/player-view/presentationVisibility.js |    28 -
+ baseline/app/presentation/coordinator.js           |   198 -
+ baseline/app/presentation/events.js                |   125 -
+ baseline/app/presentation/modelDisplay.js          |    11 -
+ baseline/app/presentation/motion.js                |    39 -
+ baseline/app/presentation/runtime.js               |    57 -
+ baseline/app/presentation/svgUnits.js              |   290 -
+ baseline/app/presentation/timing.js                |     6 -
+ baseline/app/presentation/transitionBus.js         |    41 -
+ baseline/app/presentation/unitPresence.js          |   198 -
+ baseline/app/presentation/unitPresenceSvg.js       |    73 -
+ baseline/app/render/coreModel.js                   |     3 -
+ baseline/app/render/coreSvg.js                     |   252 -
+ baseline/app/render/dynamicMap.js                  |   132 -
+ baseline/app/render/progressiveTerrain.js          |   109 -
+ baseline/app/render/svg.js                         |   237 -
+ baseline/app/render/terrainDrawCommands.js         |    31 -
+ baseline/app/render/terrainLoadProgress.js         |    17 -
+ baseline/app/render/terrainSurface.js              |   720 -
+ baseline/app/render/terrainWork.js                 |    44 -
+ baseline/app/render/vs2Assets.js                   |    20 -
+ baseline/app/render/vs2CityClusters.js             |   287 -
+ baseline/app/render/vs2ForestSurface.js            |   109 -
+ baseline/app/render/vs2Infrastructure.js           |   181 -
+ baseline/app/render/vs2PlainTraces.js              |   192 -
+ baseline/app/render/vs2Presentation.js             |     6 -
+ baseline/app/render/vs2TerrainDetail.js            |    36 -
+ baseline/app/render/vs2TerrainSurface.js           |   124 -
+ baseline/app/render/vs2WorldRaster.js              |   115 -
+ baseline/app/state/presentation.js                 |    31 -
+ baseline/app/ui/animationControls.js               |    12 -
+ baseline/app/ui/assertions.js                      |    85 -
+ baseline/app/ui/combatAttackPanel.js               |    41 -
+ baseline/app/ui/combatResult.js                    |   127 -
+ baseline/app/ui/commandPresentation.js             |    46 -
+ baseline/app/ui/deploymentPanelRenderer.js         |   117 -
+ baseline/app/ui/deploymentPolish.js                |    15 -
+ baseline/app/ui/deploymentTouch.js                 |    30 -
+ baseline/app/ui/modelControls.js                   |     9 -
+ baseline/app/web/preview.js                        |    97 -
+ baseline/app/web/startupDiagnostics.js             |    52 -
+ baseline/app/web/startupProgress.js                |    47 -
+ baseline/app/web/startupShell.js                   |    16 -
+ baseline/app/web/startupView.js                    |    36 -
+ baseline/assets/terrain/p4r3/bridge/rail/BT01.png  |   Bin 3484 -> 0 bytes
+ baseline/assets/terrain/p4r3/bridge/rail/BT02.png  |   Bin 3647 -> 0 bytes
+ baseline/assets/terrain/p4r3/bridge/rail/BT03.png  |   Bin 3693 -> 0 bytes
+ baseline/assets/terrain/p4r3/bridge/road/BR01.png  |   Bin 3633 -> 0 bytes
+ baseline/assets/terrain/p4r3/bridge/road/BR02.png  |   Bin 3645 -> 0 bytes
+ baseline/assets/terrain/p4r3/bridge/road/BR03.png  |   Bin 3593 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC01.png   |   Bin 8526 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC02.png   |   Bin 8223 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC03.png   |   Bin 9047 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC04.png   |   Bin 11075 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC05.png   |   Bin 7210 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC06.png   |   Bin 12577 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC07.png   |   Bin 10815 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC08.png   |   Bin 10322 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/major/L01.png    |   Bin 159900 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/major/L02.png    |   Bin 152185 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/major/L03.png    |   Bin 149944 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/major/L04.png    |   Bin 131228 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/medium/M01.png   |   Bin 119521 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/medium/M02.png   |   Bin 125493 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/medium/M03.png   |   Bin 121283 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/medium/M04.png   |   Bin 115613 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/medium/M05.png   |   Bin 113605 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/medium/M06.png   |   Bin 127117 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/small/S01.png    |   Bin 57965 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/small/S02.png    |   Bin 120429 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/small/S03.png    |   Bin 47848 -> 0 bytes
+ baseline/assets/terrain/p4r3/city/small/S04.png    |   Bin 62528 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL01_mask.png     |   Bin 4889 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL02_mask.png     |   Bin 4504 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL03_mask.png     |   Bin 5537 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL04_mask.png     |   Bin 4991 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR01.png     |   Bin 25842 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR02.png     |   Bin 31280 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR03.png     |   Bin 26087 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR04.png     |   Bin 24661 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR05.png     |   Bin 31797 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR06.png     |   Bin 25257 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F01.png   |   Bin 67576 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F02.png   |   Bin 59466 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F03.png   |   Bin 69086 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F04.png   |   Bin 66426 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F05.png   |   Bin 69759 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F06.png   |   Bin 59917 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F07.png   |   Bin 60885 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F08.png   |   Bin 70490 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F09.png   |   Bin 66559 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F10.png   |   Bin 63198 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F11.png   |   Bin 60729 -> 0 bytes
+ baseline/assets/terrain/p4r3/forest/mass/F12.png   |   Bin 77182 -> 0 bytes
+ baseline/assets/terrain/p4r3/ground/ground_01.webp |   Bin 3116 -> 0 bytes
+ baseline/assets/terrain/p4r3/ground/ground_02.webp |   Bin 3176 -> 0 bytes
+ baseline/assets/terrain/p4r3/ground/ground_03.webp |   Bin 2922 -> 0 bytes
+ baseline/assets/terrain/p4r3/ground/ground_04.webp |   Bin 2810 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H01_height.png |   Bin 12910 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H02_height.png |   Bin 14478 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H03_height.png |   Bin 15205 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H04_height.png |   Bin 12216 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H05_height.png |   Bin 13840 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H06_height.png |   Bin 13989 -> 0 bytes
+ .../terrain/p4r3/hill/material/H01_material.png    |   Bin 303380 -> 0 bytes
+ .../terrain/p4r3/hill/material/H02_material.png    |   Bin 337605 -> 0 bytes
+ .../terrain/p4r3/hill/material/H03_material.png    |   Bin 326591 -> 0 bytes
+ .../terrain/p4r3/hill/material/H04_material.png    |   Bin 261221 -> 0 bytes
+ .../terrain/p4r3/hill/material/H05_material.png    |   Bin 328886 -> 0 bytes
+ .../terrain/p4r3/hill/material/H06_material.png    |   Bin 316147 -> 0 bytes
+ baseline/assets/terrain/p4r3/manifest.json         |  2542 ---
+ .../assets/terrain/p4r3/marsh/pool/POOL_01.png     |   Bin 67423 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_02.png     |   Bin 70290 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_03.png     |   Bin 82899 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_04.png     |   Bin 47029 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_05.png     |   Bin 58118 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_01.png     |   Bin 6367 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_02.png     |   Bin 6140 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_03.png     |   Bin 5877 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_04.png     |   Bin 6508 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M01.png     |   Bin 75635 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M02.png     |   Bin 55033 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M03.png     |   Bin 63809 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M04.png     |   Bin 61263 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M05.png     |   Bin 68691 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M06.png     |   Bin 70375 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M07.png     |   Bin 73938 -> 0 bytes
+ baseline/assets/terrain/p4r3/marsh/wet/M08.png     |   Bin 72365 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_01.png   |   Bin 40090 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_02.png   |   Bin 57217 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_03.png   |   Bin 35167 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_04.png   |   Bin 33796 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_05.png   |   Bin 51538 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_06.png   |   Bin 32313 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P01.webp |   Bin 2666 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P02.webp |   Bin 2538 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P03.webp |   Bin 2338 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P04.webp |   Bin 2596 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P05.webp |   Bin 2266 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P06.webp |   Bin 2580 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P07.webp |   Bin 2498 -> 0 bytes
+ baseline/assets/terrain/p4r3/plain/ground/P08.webp |   Bin 2462 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_01.png     |   Bin 22104 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_02.png     |   Bin 22882 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_03.png     |   Bin 23255 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_04.png     |   Bin 23636 -> 0 bytes
+ .../assets/terrain/p4r3/railway/contact_shadow.png |   Bin 233 -> 0 bytes
+ baseline/assets/terrain/p4r3/railway/rail_pair.png |   Bin 273 -> 0 bytes
+ .../assets/terrain/p4r3/railway/sleeper_motif.png  |   Bin 402 -> 0 bytes
+ baseline/assets/terrain/p4r3/river/bank_01.png     |   Bin 20117 -> 0 bytes
+ .../terrain/p4r3/river/bank_shadow_profile.png     |   Bin 404 -> 0 bytes
+ .../terrain/p4r3/river/edge_vegetation_01.png      |   Bin 2282 -> 0 bytes
+ .../terrain/p4r3/river/inner_highlight_01.png      |   Bin 1370 -> 0 bytes
+ baseline/assets/terrain/p4r3/river/water_01.webp   |   Bin 4706 -> 0 bytes
+ baseline/assets/terrain/p4r3/road/ROAD_01.png      |   Bin 21927 -> 0 bytes
+ baseline/assets/terrain/p4r3/road/ROAD_02.png      |   Bin 21513 -> 0 bytes
+ baseline/assets/terrain/p4r3/road/ROAD_03.png      |   Bin 20974 -> 0 bytes
+ baseline/assets/terrain/p4r3/road/ROAD_04.png      |   Bin 20782 -> 0 bytes
+ baseline/assets/terrain/p4r3/rough/base/R01.png    |   Bin 64106 -> 0 bytes
+ baseline/assets/terrain/p4r3/rough/base/R02.png    |   Bin 68956 -> 0 bytes
+ baseline/assets/terrain/p4r3/rough/base/R03.png    |   Bin 78068 -> 0 bytes
+ baseline/assets/terrain/p4r3/rough/base/R04.png    |   Bin 64587 -> 0 bytes
+ baseline/assets/terrain/p4r3/rough/base/R05.png    |   Bin 72789 -> 0 bytes
+ baseline/assets/terrain/p4r3/rough/base/R06.png    |   Bin 70194 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC01.png       |   Bin 10460 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC02.png       |   Bin 10316 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC03.png       |   Bin 6801 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC04.png       |   Bin 9098 -> 0 bytes
+ .../assets/terrain/vs2-002/VS2_ASSET_MANIFEST.json |  4046 ----
+ .../vs2-002/assets/bridge/deck_material.webp       |   Bin 77368 -> 0 bytes
+ .../terrain/vs2-002/assets/city/courtyard.webp     |   Bin 423870 -> 0 bytes
+ .../terrain/vs2-002/assets/city/medium_cluster.png |   Bin 95254 -> 0 bytes
+ .../vs2-002/assets/city/peripheral_houses.png      |   Bin 78832 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC01.png     |   Bin 8526 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC02.png     |   Bin 8223 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC03.png     |   Bin 9047 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC04.png     |   Bin 11075 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC05.png     |   Bin 7210 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC06.png     |   Bin 12577 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC07.png     |   Bin 10815 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC08.png     |   Bin 10322 -> 0 bytes
+ .../vs2-002/assets/city/settlement_ground.webp     |   Bin 442634 -> 0 bytes
+ .../terrain/vs2-002/assets/city/small_cluster.png  |   Bin 100128 -> 0 bytes
+ .../vs2-002/assets/city/station_structure.png      |   Bin 110802 -> 0 bytes
+ .../terrain/vs2-002/assets/city/urban_fragment.png |   Bin 135002 -> 0 bytes
+ .../terrain/vs2-002/assets/field/green_field.png   |   Bin 116678 -> 0 bytes
+ .../vs2-002/assets/field/irregular_field.png       |   Bin 133097 -> 0 bytes
+ .../terrain/vs2-002/assets/field/long_strip.png    |   Bin 54220 -> 0 bytes
+ .../terrain/vs2-002/assets/field/meadow_patch.png  |   Bin 159985 -> 0 bytes
+ .../terrain/vs2-002/assets/field/mixed_block.png   |   Bin 159224 -> 0 bytes
+ .../terrain/vs2-002/assets/field/soil_patch.png    |   Bin 76933 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/belt_winding.png |   Bin 32264 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/dense_branch.png |   Bin 128932 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/dense_long.png   |   Bin 128192 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/edge_broken.png  |   Bin 129910 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/edge_ragged.png  |   Bin 116346 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/hedgerow.png     |   Bin 38534 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/medium_fork.png  |   Bin 140070 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/medium_open.png  |   Bin 148010 -> 0 bytes
+ .../vs2-002/assets/forest/reuse_CL01_mask.png      |   Bin 4889 -> 0 bytes
+ .../vs2-002/assets/forest/reuse_CL02_mask.png      |   Bin 4504 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR01.png   |   Bin 25842 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR02.png   |   Bin 31280 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR03.png   |   Bin 26087 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR04.png   |   Bin 24661 -> 0 bytes
+ .../vs2-002/assets/forest/sparse_fragment.png      |   Bin 111928 -> 0 bytes
+ .../vs2-002/assets/forest/sparse_scatter.png       |   Bin 104122 -> 0 bytes
+ .../vs2-002/assets/ground/cultivated_soil.webp     |   Bin 434564 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/dry_soil.webp    |   Bin 443224 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/grass.webp       |   Bin 450290 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/meadow.webp      |   Bin 435316 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/moist_soil.webp  |   Bin 460014 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/dry_island.png    |   Bin 126065 -> 0 bytes
+ .../assets/terrain/vs2-002/assets/marsh/mud.webp   |   Bin 544228 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reedy_patch.png   |   Bin 140982 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_01.png |   Bin 6367 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_02.png |   Bin 6140 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_03.png |   Bin 5877 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_04.png |   Bin 6508 -> 0 bytes
+ .../vs2-002/assets/marsh/water_fragment.png        |   Bin 127746 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/wet_ground.webp   |   Bin 563290 -> 0 bytes
+ .../vs2-002/assets/masks/bridge_contact.png        |   Bin 556 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/broad_ridge.png   |   Bin 9269 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/gentle_height.png |   Bin 9945 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/gentle_shade.png  |   Bin 731 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/macro_value.png   |   Bin 9615 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/moisture_edge.png |   Bin 840 -> 0 bytes
+ .../vs2-002/assets/masks/rail_clearance.png        |   Bin 516 -> 0 bytes
+ .../vs2-002/assets/masks/road_depression.png       |   Bin 573 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/road_shoulder.png |   Bin 521 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/road_wear.png     |   Bin 619 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/rough_relief.png  |   Bin 5058 -> 0 bytes
+ .../vs2-002/assets/masks/roughness_variation.png   |   Bin 12720 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_BALLAST_01.png       |   Bin 22104 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_contact_shadow.png   |   Bin 233 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_rail_pair.png        |   Bin 273 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_sleeper_motif.png    |   Bin 402 -> 0 bytes
+ .../vs2-002/assets/relief/slope_material.webp      |   Bin 430202 -> 0 bytes
+ .../terrain/vs2-002/assets/river/reuse_bank_01.png |   Bin 20117 -> 0 bytes
+ .../assets/river/reuse_bank_shadow_profile.png     |   Bin 404 -> 0 bytes
+ .../assets/river/reuse_edge_vegetation_01.png      |   Bin 2282 -> 0 bytes
+ .../assets/river/reuse_inner_highlight_01.png      |   Bin 1370 -> 0 bytes
+ .../vs2-002/assets/river/reuse_water_01.webp       |   Bin 4706 -> 0 bytes
+ .../terrain/vs2-002/assets/road/reuse_ROAD_01.png  |   Bin 21927 -> 0 bytes
+ .../terrain/vs2-002/assets/road/reuse_ROAD_02.png  |   Bin 21513 -> 0 bytes
+ .../terrain/vs2-002/assets/rough/broken_soil.webp  |   Bin 463228 -> 0 bytes
+ .../terrain/vs2-002/assets/rough/dry_scrub.png     |   Bin 102261 -> 0 bytes
+ .../terrain/vs2-002/assets/rough/rock_exposure.png |   Bin 100701 -> 0 bytes
+ baseline/diagnostics/transport/build.json          |     1 -
+ baseline/diagnostics/transport/index.html          |     1 -
+ baseline/diagnostics/transport/observe.js          |    49 -
+ baseline/index.html                                |    10 -
+ baseline/multiplayer-config.json                   |     1 -
+ baseline/multiplayer.css                           |    14 -
+ baseline/preview/guard.js                          |     4 -
+ baseline/preview/measure.js                        |    24 -
+ baseline/preview/scene.mjs                         |    29 -
+ baseline/styles.css                                |   279 -
+ .../eastfront-digital-core/BASELINE_SHA256.txt     |     1 -
+ .../dist/core/collections.d.ts                     |     1 -
+ .../eastfront-digital-core/dist/core/config.d.ts   |   146 -
+ .../eastfront-digital-core/dist/core/edge.d.ts     |     4 -
+ .../eastfront-digital-core/dist/core/hex.d.ts      |    18 -
+ .../dist/core/ownership.d.ts                       |     4 -
+ .../eastfront-digital-core/dist/core/types.d.ts    |   659 -
+ .../dist/engine/RulesEngine.d.ts                   |     8 -
+ .../dist/engine/headless.d.ts                      |    44 -
+ .../dist/engine/identity.d.ts                      |    10 -
+ .../dist/engine/integrity.d.ts                     |     4 -
+ .../eastfront-digital-core/dist/engine/state.d.ts  |    20 -
+ .../dist/engine/transactionGuard.d.ts              |     2 -
+ .../vendor/eastfront-digital-core/dist/index.d.ts  |    36 -
+ .../dist/random/SeededRNG.d.ts                     |    18 -
+ .../eastfront-digital-core/dist/rules/actions.d.ts |     8 -
+ .../eastfront-digital-core/dist/rules/actions.js   |     8 -
+ .../dist/rules/breakthrough.d.ts                   |    14 -
+ .../eastfront-digital-core/dist/rules/combat.d.ts  |     9 -
+ .../dist/rules/combatLoss.d.ts                     |    25 -
+ .../dist/rules/combatTransaction.d.ts              |    61 -
+ .../dist/rules/commitment.d.ts                     |     2 -
+ .../eastfront-digital-core/dist/rules/crt.d.ts     |    12 -
+ .../dist/rules/deployment.d.ts                     |    30 -
+ .../dist/rules/entrenchment.d.ts                   |     3 -
+ .../eastfront-digital-core/dist/rules/hq.d.ts      |     3 -
+ .../dist/rules/movement.d.ts                       |    21 -
+ .../eastfront-digital-core/dist/rules/rail.d.ts    |    84 -
+ .../dist/rules/recovery.d.ts                       |    24 -
+ .../dist/rules/reinforcement.d.ts                  |    31 -
+ .../eastfront-digital-core/dist/rules/retreat.d.ts |    27 -
+ .../dist/rules/stacking.d.ts                       |     4 -
+ .../eastfront-digital-core/dist/rules/supply.d.ts  |    60 -
+ .../eastfront-digital-core/dist/rules/turn.d.ts    |    39 -
+ .../eastfront-digital-core/dist/rules/unit.d.ts    |     4 -
+ .../eastfront-digital-core/dist/rules/victory.d.ts |    26 -
+ .../eastfront-digital-core/dist/rules/zoc.d.ts     |     5 -
+ .../dist/scenario/defaultRules.d.ts                |     4 -
+ .../dist/scenario/defaultScenario.d.ts             |     2 -
+ .../dist/scenario/importLegacyFMap.d.ts            |    22 -
+ candidate/app/assets/VS2_ASSET_MANIFEST.json       |  4046 ----
+ candidate/app/assets/p4r3-manifest.json            |  2542 ---
+ candidate/app/core-adapter/browserProjection.js    |   196 -
+ candidate/app/core-adapter/core.js                 |     5 -
+ candidate/app/core-adapter/session.js              |   105 -
+ candidate/app/fog/runtime.js                       |    94 -
+ candidate/app/fog/surface.js                       |   121 -
+ candidate/app/geometry/hex.js                      |   104 -
+ candidate/app/interaction/attackGroup.js           |    26 -
+ candidate/app/interaction/combatFlow.js            |   236 -
+ candidate/app/interaction/intents.js               |   529 -
+ candidate/app/localization/en-US.js                |   546 -
+ candidate/app/localization/enumKeys.js             |    69 -
+ candidate/app/localization/index.js                |    70 -
+ candidate/app/localization/issues.js               |    97 -
+ candidate/app/localization/languageControl.js      |    24 -
+ candidate/app/localization/zh-CN.js                |   545 -
+ candidate/app/main.js                              |  1028 -
+ candidate/app/model/prototypeData.js               |    64 -
+ candidate/app/multiplayer/battleSummary.js         |    15 -
+ candidate/app/multiplayer/catalog.js               |    53 -
+ candidate/app/multiplayer/client.js                |   317 -
+ candidate/app/multiplayer/config.js                |    17 -
+ candidate/app/multiplayer/diagnosticTiming.js      |     6 -
+ candidate/app/multiplayer/gameplayProtocol.js      |    49 -
+ candidate/app/multiplayer/lobby.js                 |   119 -
+ candidate/app/multiplayer/mapEncoding.js           |    37 -
+ candidate/app/multiplayer/networkIntents.js        |   172 -
+ candidate/app/multiplayer/networkSession.js        |   291 -
+ candidate/app/multiplayer/playerSession.js         |    55 -
+ candidate/app/multiplayer/protocol.js              |    68 -
+ candidate/app/multiplayer/snapshotCodec.js         |   141 -
+ candidate/app/player-view/playerView.js            |    92 -
+ .../app/player-view/presentationVisibility.js      |    28 -
+ candidate/app/presentation/coordinator.js          |   198 -
+ candidate/app/presentation/events.js               |   125 -
+ candidate/app/presentation/modelDisplay.js         |    11 -
+ candidate/app/presentation/motion.js               |    39 -
+ candidate/app/presentation/runtime.js              |    57 -
+ candidate/app/presentation/svgUnits.js             |   290 -
+ candidate/app/presentation/timing.js               |     6 -
+ candidate/app/presentation/transitionBus.js        |    41 -
+ candidate/app/presentation/unitPresence.js         |   198 -
+ candidate/app/presentation/unitPresenceSvg.js      |    73 -
+ candidate/app/presentation/unitPresenceTypes.js    |    41 -
+ candidate/app/render/compactUnitPlate.js           |    22 -
+ candidate/app/render/contactMarkers.js             |    14 -
+ candidate/app/render/coreModel.js                  |     3 -
+ candidate/app/render/derive.js                     |    75 -
+ candidate/app/render/dynamicMap.js                 |   132 -
+ candidate/app/render/productionTerrain.js          |   283 -
+ candidate/app/render/progressiveTerrain.js         |   109 -
+ candidate/app/render/svg.js                        |   237 -
+ candidate/app/render/terrainAssets.js              |    22 -
+ candidate/app/render/terrainDrawCommands.js        |    31 -
+ candidate/app/render/terrainLoadProgress.js        |    17 -
+ candidate/app/render/terrainSurface.js             |   720 -
+ candidate/app/render/terrainWork.js                |    44 -
+ candidate/app/render/vs2Assets.js                  |    20 -
+ candidate/app/render/vs2CityClusters.js            |   287 -
+ candidate/app/render/vs2ForestSurface.js           |   109 -
+ candidate/app/render/vs2Infrastructure.js          |   181 -
+ candidate/app/render/vs2PlainTraces.js             |   192 -
+ candidate/app/render/vs2Presentation.js            |     6 -
+ candidate/app/render/vs2Projection.js              |    83 -
+ candidate/app/render/vs2TerrainDetail.js           |    36 -
+ candidate/app/render/vs2TerrainSurface.js          |   124 -
+ candidate/app/render/vs2WorldField.js              |   109 -
+ candidate/app/render/vs2WorldRaster.js             |   115 -
+ candidate/app/state/presentation.js                |    31 -
+ candidate/app/ui/animationControls.js              |    12 -
+ candidate/app/ui/assertions.js                     |    85 -
+ candidate/app/ui/combatAttackPanel.js              |    41 -
+ candidate/app/ui/combatResult.js                   |   127 -
+ candidate/app/ui/commandPresentation.js            |    46 -
+ candidate/app/ui/deploymentPanelRenderer.js        |   117 -
+ candidate/app/ui/deploymentPolish.js               |    15 -
+ candidate/app/ui/deploymentTouch.js                |    30 -
+ candidate/app/ui/modelControls.js                  |     9 -
+ candidate/app/web/mapInteraction.js                |    48 -
+ candidate/app/web/preview.js                       |    97 -
+ candidate/app/web/startupDiagnostics.js            |    52 -
+ candidate/app/web/startupProgress.js               |    47 -
+ candidate/app/web/startupShell.js                  |    16 -
+ candidate/app/web/startupView.js                   |    36 -
+ candidate/assets/terrain/p4r3/bridge/rail/BT01.png |   Bin 3484 -> 0 bytes
+ candidate/assets/terrain/p4r3/bridge/rail/BT02.png |   Bin 3647 -> 0 bytes
+ candidate/assets/terrain/p4r3/bridge/rail/BT03.png |   Bin 3693 -> 0 bytes
+ candidate/assets/terrain/p4r3/bridge/road/BR01.png |   Bin 3633 -> 0 bytes
+ candidate/assets/terrain/p4r3/bridge/road/BR02.png |   Bin 3645 -> 0 bytes
+ candidate/assets/terrain/p4r3/bridge/road/BR03.png |   Bin 3593 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC01.png   |   Bin 8526 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC02.png   |   Bin 8223 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC03.png   |   Bin 9047 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC04.png   |   Bin 11075 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC05.png   |   Bin 7210 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC06.png   |   Bin 12577 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC07.png   |   Bin 10815 -> 0 bytes
+ .../assets/terrain/p4r3/city/components/BC08.png   |   Bin 10322 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/major/L01.png   |   Bin 159900 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/major/L02.png   |   Bin 152185 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/major/L03.png   |   Bin 149944 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/major/L04.png   |   Bin 131228 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/medium/M01.png  |   Bin 119521 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/medium/M02.png  |   Bin 125493 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/medium/M03.png  |   Bin 121283 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/medium/M04.png  |   Bin 115613 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/medium/M05.png  |   Bin 113605 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/medium/M06.png  |   Bin 127117 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/small/S01.png   |   Bin 57965 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/small/S02.png   |   Bin 120429 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/small/S03.png   |   Bin 47848 -> 0 bytes
+ candidate/assets/terrain/p4r3/city/small/S04.png   |   Bin 62528 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL01_mask.png     |   Bin 4889 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL02_mask.png     |   Bin 4504 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL03_mask.png     |   Bin 5537 -> 0 bytes
+ .../terrain/p4r3/forest/clearing/CL04_mask.png     |   Bin 4991 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR01.png     |   Bin 25842 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR02.png     |   Bin 31280 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR03.png     |   Bin 26087 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR04.png     |   Bin 24661 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR05.png     |   Bin 31797 -> 0 bytes
+ .../assets/terrain/p4r3/forest/fringe/FR06.png     |   Bin 25257 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F01.png  |   Bin 67576 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F02.png  |   Bin 59466 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F03.png  |   Bin 69086 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F04.png  |   Bin 66426 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F05.png  |   Bin 69759 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F06.png  |   Bin 59917 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F07.png  |   Bin 60885 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F08.png  |   Bin 70490 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F09.png  |   Bin 66559 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F10.png  |   Bin 63198 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F11.png  |   Bin 60729 -> 0 bytes
+ candidate/assets/terrain/p4r3/forest/mass/F12.png  |   Bin 77182 -> 0 bytes
+ .../assets/terrain/p4r3/ground/ground_01.webp      |   Bin 3116 -> 0 bytes
+ .../assets/terrain/p4r3/ground/ground_02.webp      |   Bin 3176 -> 0 bytes
+ .../assets/terrain/p4r3/ground/ground_03.webp      |   Bin 2922 -> 0 bytes
+ .../assets/terrain/p4r3/ground/ground_04.webp      |   Bin 2810 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H01_height.png |   Bin 12910 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H02_height.png |   Bin 14478 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H03_height.png |   Bin 15205 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H04_height.png |   Bin 12216 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H05_height.png |   Bin 13840 -> 0 bytes
+ .../assets/terrain/p4r3/hill/height/H06_height.png |   Bin 13989 -> 0 bytes
+ .../terrain/p4r3/hill/material/H01_material.png    |   Bin 303380 -> 0 bytes
+ .../terrain/p4r3/hill/material/H02_material.png    |   Bin 337605 -> 0 bytes
+ .../terrain/p4r3/hill/material/H03_material.png    |   Bin 326591 -> 0 bytes
+ .../terrain/p4r3/hill/material/H04_material.png    |   Bin 261221 -> 0 bytes
+ .../terrain/p4r3/hill/material/H05_material.png    |   Bin 328886 -> 0 bytes
+ .../terrain/p4r3/hill/material/H06_material.png    |   Bin 316147 -> 0 bytes
+ candidate/assets/terrain/p4r3/manifest.json        |  2542 ---
+ .../assets/terrain/p4r3/marsh/pool/POOL_01.png     |   Bin 67423 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_02.png     |   Bin 70290 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_03.png     |   Bin 82899 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_04.png     |   Bin 47029 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/pool/POOL_05.png     |   Bin 58118 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_01.png     |   Bin 6367 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_02.png     |   Bin 6140 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_03.png     |   Bin 5877 -> 0 bytes
+ .../assets/terrain/p4r3/marsh/reed/REED_04.png     |   Bin 6508 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M01.png    |   Bin 75635 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M02.png    |   Bin 55033 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M03.png    |   Bin 63809 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M04.png    |   Bin 61263 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M05.png    |   Bin 68691 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M06.png    |   Bin 70375 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M07.png    |   Bin 73938 -> 0 bytes
+ candidate/assets/terrain/p4r3/marsh/wet/M08.png    |   Bin 72365 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_01.png   |   Bin 40090 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_02.png   |   Bin 57217 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_03.png   |   Bin 35167 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_04.png   |   Bin 33796 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_05.png   |   Bin 51538 -> 0 bytes
+ .../assets/terrain/p4r3/plain/field/FIELD_06.png   |   Bin 32313 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P01.webp      |   Bin 2666 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P02.webp      |   Bin 2538 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P03.webp      |   Bin 2338 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P04.webp      |   Bin 2596 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P05.webp      |   Bin 2266 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P06.webp      |   Bin 2580 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P07.webp      |   Bin 2498 -> 0 bytes
+ .../assets/terrain/p4r3/plain/ground/P08.webp      |   Bin 2462 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_01.png     |   Bin 22104 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_02.png     |   Bin 22882 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_03.png     |   Bin 23255 -> 0 bytes
+ .../assets/terrain/p4r3/railway/BALLAST_04.png     |   Bin 23636 -> 0 bytes
+ .../assets/terrain/p4r3/railway/contact_shadow.png |   Bin 233 -> 0 bytes
+ .../assets/terrain/p4r3/railway/rail_pair.png      |   Bin 273 -> 0 bytes
+ .../assets/terrain/p4r3/railway/sleeper_motif.png  |   Bin 402 -> 0 bytes
+ candidate/assets/terrain/p4r3/river/bank_01.png    |   Bin 20117 -> 0 bytes
+ .../terrain/p4r3/river/bank_shadow_profile.png     |   Bin 404 -> 0 bytes
+ .../terrain/p4r3/river/edge_vegetation_01.png      |   Bin 2282 -> 0 bytes
+ .../terrain/p4r3/river/inner_highlight_01.png      |   Bin 1370 -> 0 bytes
+ candidate/assets/terrain/p4r3/river/water_01.webp  |   Bin 4706 -> 0 bytes
+ candidate/assets/terrain/p4r3/road/ROAD_01.png     |   Bin 21927 -> 0 bytes
+ candidate/assets/terrain/p4r3/road/ROAD_02.png     |   Bin 21513 -> 0 bytes
+ candidate/assets/terrain/p4r3/road/ROAD_03.png     |   Bin 20974 -> 0 bytes
+ candidate/assets/terrain/p4r3/road/ROAD_04.png     |   Bin 20782 -> 0 bytes
+ candidate/assets/terrain/p4r3/rough/base/R01.png   |   Bin 64106 -> 0 bytes
+ candidate/assets/terrain/p4r3/rough/base/R02.png   |   Bin 68956 -> 0 bytes
+ candidate/assets/terrain/p4r3/rough/base/R03.png   |   Bin 78068 -> 0 bytes
+ candidate/assets/terrain/p4r3/rough/base/R04.png   |   Bin 64587 -> 0 bytes
+ candidate/assets/terrain/p4r3/rough/base/R05.png   |   Bin 72789 -> 0 bytes
+ candidate/assets/terrain/p4r3/rough/base/R06.png   |   Bin 70194 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC01.png       |   Bin 10460 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC02.png       |   Bin 10316 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC03.png       |   Bin 6801 -> 0 bytes
+ .../terrain/p4r3/rough/rock_cluster/RC04.png       |   Bin 9098 -> 0 bytes
+ .../assets/terrain/vs2-002/VS2_ASSET_MANIFEST.json |  4046 ----
+ .../vs2-002/assets/bridge/deck_material.webp       |   Bin 77368 -> 0 bytes
+ .../terrain/vs2-002/assets/city/courtyard.webp     |   Bin 423870 -> 0 bytes
+ .../terrain/vs2-002/assets/city/medium_cluster.png |   Bin 95254 -> 0 bytes
+ .../vs2-002/assets/city/peripheral_houses.png      |   Bin 78832 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC01.png     |   Bin 8526 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC02.png     |   Bin 8223 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC03.png     |   Bin 9047 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC04.png     |   Bin 11075 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC05.png     |   Bin 7210 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC06.png     |   Bin 12577 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC07.png     |   Bin 10815 -> 0 bytes
+ .../terrain/vs2-002/assets/city/reuse_BC08.png     |   Bin 10322 -> 0 bytes
+ .../vs2-002/assets/city/settlement_ground.webp     |   Bin 442634 -> 0 bytes
+ .../terrain/vs2-002/assets/city/small_cluster.png  |   Bin 100128 -> 0 bytes
+ .../vs2-002/assets/city/station_structure.png      |   Bin 110802 -> 0 bytes
+ .../terrain/vs2-002/assets/city/urban_fragment.png |   Bin 135002 -> 0 bytes
+ .../terrain/vs2-002/assets/field/green_field.png   |   Bin 116678 -> 0 bytes
+ .../vs2-002/assets/field/irregular_field.png       |   Bin 133097 -> 0 bytes
+ .../terrain/vs2-002/assets/field/long_strip.png    |   Bin 54220 -> 0 bytes
+ .../terrain/vs2-002/assets/field/meadow_patch.png  |   Bin 159985 -> 0 bytes
+ .../terrain/vs2-002/assets/field/mixed_block.png   |   Bin 159224 -> 0 bytes
+ .../terrain/vs2-002/assets/field/soil_patch.png    |   Bin 76933 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/belt_winding.png |   Bin 32264 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/dense_branch.png |   Bin 128932 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/dense_long.png   |   Bin 128192 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/edge_broken.png  |   Bin 129910 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/edge_ragged.png  |   Bin 116346 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/hedgerow.png     |   Bin 38534 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/medium_fork.png  |   Bin 140070 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/medium_open.png  |   Bin 148010 -> 0 bytes
+ .../vs2-002/assets/forest/reuse_CL01_mask.png      |   Bin 4889 -> 0 bytes
+ .../vs2-002/assets/forest/reuse_CL02_mask.png      |   Bin 4504 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR01.png   |   Bin 25842 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR02.png   |   Bin 31280 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR03.png   |   Bin 26087 -> 0 bytes
+ .../terrain/vs2-002/assets/forest/reuse_FR04.png   |   Bin 24661 -> 0 bytes
+ .../vs2-002/assets/forest/sparse_fragment.png      |   Bin 111928 -> 0 bytes
+ .../vs2-002/assets/forest/sparse_scatter.png       |   Bin 104122 -> 0 bytes
+ .../vs2-002/assets/ground/cultivated_soil.webp     |   Bin 434564 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/dry_soil.webp    |   Bin 443224 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/grass.webp       |   Bin 450290 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/meadow.webp      |   Bin 435316 -> 0 bytes
+ .../terrain/vs2-002/assets/ground/moist_soil.webp  |   Bin 460014 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/dry_island.png    |   Bin 126065 -> 0 bytes
+ .../assets/terrain/vs2-002/assets/marsh/mud.webp   |   Bin 544228 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reedy_patch.png   |   Bin 140982 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_01.png |   Bin 6367 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_02.png |   Bin 6140 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_03.png |   Bin 5877 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/reuse_REED_04.png |   Bin 6508 -> 0 bytes
+ .../vs2-002/assets/marsh/water_fragment.png        |   Bin 127746 -> 0 bytes
+ .../terrain/vs2-002/assets/marsh/wet_ground.webp   |   Bin 563290 -> 0 bytes
+ .../vs2-002/assets/masks/bridge_contact.png        |   Bin 556 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/broad_ridge.png   |   Bin 9269 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/gentle_height.png |   Bin 9945 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/gentle_shade.png  |   Bin 731 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/macro_value.png   |   Bin 9615 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/moisture_edge.png |   Bin 840 -> 0 bytes
+ .../vs2-002/assets/masks/rail_clearance.png        |   Bin 516 -> 0 bytes
+ .../vs2-002/assets/masks/road_depression.png       |   Bin 573 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/road_shoulder.png |   Bin 521 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/road_wear.png     |   Bin 619 -> 0 bytes
+ .../terrain/vs2-002/assets/masks/rough_relief.png  |   Bin 5058 -> 0 bytes
+ .../vs2-002/assets/masks/roughness_variation.png   |   Bin 12720 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_BALLAST_01.png       |   Bin 22104 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_contact_shadow.png   |   Bin 233 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_rail_pair.png        |   Bin 273 -> 0 bytes
+ .../vs2-002/assets/rail/reuse_sleeper_motif.png    |   Bin 402 -> 0 bytes
+ .../vs2-002/assets/relief/slope_material.webp      |   Bin 430202 -> 0 bytes
+ .../terrain/vs2-002/assets/river/reuse_bank_01.png |   Bin 20117 -> 0 bytes
+ .../assets/river/reuse_bank_shadow_profile.png     |   Bin 404 -> 0 bytes
+ .../assets/river/reuse_edge_vegetation_01.png      |   Bin 2282 -> 0 bytes
+ .../assets/river/reuse_inner_highlight_01.png      |   Bin 1370 -> 0 bytes
+ .../vs2-002/assets/river/reuse_water_01.webp       |   Bin 4706 -> 0 bytes
+ .../terrain/vs2-002/assets/road/reuse_ROAD_01.png  |   Bin 21927 -> 0 bytes
+ .../terrain/vs2-002/assets/road/reuse_ROAD_02.png  |   Bin 21513 -> 0 bytes
+ .../terrain/vs2-002/assets/rough/broken_soil.webp  |   Bin 463228 -> 0 bytes
+ .../terrain/vs2-002/assets/rough/dry_scrub.png     |   Bin 102261 -> 0 bytes
+ .../terrain/vs2-002/assets/rough/rock_exposure.png |   Bin 100701 -> 0 bytes
+ candidate/diagnostics/transport/build.json         |     1 -
+ candidate/diagnostics/transport/index.html         |     1 -
+ candidate/diagnostics/transport/observe.js         |    49 -
+ candidate/index.html                               |    10 -
+ candidate/multiplayer-config.json                  |     1 -
+ candidate/multiplayer.css                          |    14 -
+ candidate/preview/guard.js                         |     4 -
+ candidate/preview/measure.js                       |    24 -
+ candidate/preview/scene.mjs                        |    29 -
+ candidate/styles.css                               |   319 -
+ .../eastfront-digital-core/BASELINE_SHA256.txt     |     1 -
+ .../dist/core/collections.d.ts                     |     1 -
+ .../dist/core/collections.js                       |    10 -
+ .../eastfront-digital-core/dist/core/config.d.ts   |   146 -
+ .../eastfront-digital-core/dist/core/config.js     |     1 -
+ .../eastfront-digital-core/dist/core/edge.d.ts     |     4 -
+ .../eastfront-digital-core/dist/core/edge.js       |    22 -
+ .../eastfront-digital-core/dist/core/hex.d.ts      |    18 -
+ .../vendor/eastfront-digital-core/dist/core/hex.js |    70 -
+ .../dist/core/ownership.d.ts                       |     4 -
+ .../eastfront-digital-core/dist/core/ownership.js  |     7 -
+ .../eastfront-digital-core/dist/core/types.d.ts    |   659 -
+ .../eastfront-digital-core/dist/core/types.js      |     1 -
+ .../dist/engine/RulesEngine.d.ts                   |     8 -
+ .../dist/engine/RulesEngine.js                     |   416 -
+ .../dist/engine/headless.d.ts                      |    44 -
+ .../eastfront-digital-core/dist/engine/headless.js |   132 -
+ .../dist/engine/identity.d.ts                      |    10 -
+ .../eastfront-digital-core/dist/engine/identity.js |    75 -
+ .../dist/engine/integrity.d.ts                     |     4 -
+ .../dist/engine/integrity.js                       |   480 -
+ .../eastfront-digital-core/dist/engine/state.d.ts  |    20 -
+ .../eastfront-digital-core/dist/engine/state.js    |    97 -
+ .../dist/engine/transactionGuard.d.ts              |     2 -
+ .../dist/engine/transactionGuard.js                |    30 -
+ .../vendor/eastfront-digital-core/dist/index.d.ts  |    36 -
+ .../vendor/eastfront-digital-core/dist/index.js    |    36 -
+ .../dist/random/SeededRNG.d.ts                     |    18 -
+ .../dist/random/SeededRNG.js                       |    39 -
+ .../eastfront-digital-core/dist/rules/actions.d.ts |     8 -
+ .../eastfront-digital-core/dist/rules/actions.js   |     8 -
+ .../dist/rules/breakthrough.d.ts                   |    14 -
+ .../dist/rules/breakthrough.js                     |   109 -
+ .../eastfront-digital-core/dist/rules/combat.d.ts  |     9 -
+ .../eastfront-digital-core/dist/rules/combat.js    |   175 -
+ .../dist/rules/combatLoss.d.ts                     |    25 -
+ .../dist/rules/combatLoss.js                       |   127 -
+ .../dist/rules/combatTransaction.d.ts              |    61 -
+ .../dist/rules/combatTransaction.js                |   664 -
+ .../dist/rules/commitment.d.ts                     |     2 -
+ .../dist/rules/commitment.js                       |    36 -
+ .../eastfront-digital-core/dist/rules/crt.d.ts     |    12 -
+ .../eastfront-digital-core/dist/rules/crt.js       |    23 -
+ .../dist/rules/deployment.d.ts                     |    30 -
+ .../dist/rules/deployment.js                       |   131 -
+ .../dist/rules/entrenchment.d.ts                   |     3 -
+ .../dist/rules/entrenchment.js                     |    26 -
+ .../eastfront-digital-core/dist/rules/hq.d.ts      |     3 -
+ .../vendor/eastfront-digital-core/dist/rules/hq.js |    10 -
+ .../dist/rules/movement.d.ts                       |    21 -
+ .../eastfront-digital-core/dist/rules/movement.js  |   132 -
+ .../eastfront-digital-core/dist/rules/rail.d.ts    |    84 -
+ .../eastfront-digital-core/dist/rules/rail.js      |   308 -
+ .../dist/rules/recovery.d.ts                       |    24 -
+ .../eastfront-digital-core/dist/rules/recovery.js  |   173 -
+ .../dist/rules/reinforcement.d.ts                  |    31 -
+ .../dist/rules/reinforcement.js                    |   186 -
+ .../eastfront-digital-core/dist/rules/retreat.d.ts |    27 -
+ .../eastfront-digital-core/dist/rules/retreat.js   |    78 -
+ .../dist/rules/stacking.d.ts                       |     4 -
+ .../eastfront-digital-core/dist/rules/stacking.js  |    21 -
+ .../eastfront-digital-core/dist/rules/supply.d.ts  |    60 -
+ .../eastfront-digital-core/dist/rules/supply.js    |   127 -
+ .../eastfront-digital-core/dist/rules/turn.d.ts    |    39 -
+ .../eastfront-digital-core/dist/rules/turn.js      |   107 -
+ .../eastfront-digital-core/dist/rules/unit.d.ts    |     4 -
+ .../eastfront-digital-core/dist/rules/unit.js      |     9 -
+ .../eastfront-digital-core/dist/rules/victory.d.ts |    26 -
+ .../eastfront-digital-core/dist/rules/victory.js   |   102 -
+ .../eastfront-digital-core/dist/rules/zoc.d.ts     |     5 -
+ .../eastfront-digital-core/dist/rules/zoc.js       |    22 -
+ .../dist/scenario/defaultRules.d.ts                |     4 -
+ .../dist/scenario/defaultRules.js                  |   151 -
+ .../dist/scenario/defaultScenario.d.ts             |     2 -
+ .../dist/scenario/defaultScenario.js               |    57 -
+ .../dist/scenario/importLegacyFMap.d.ts            |    22 -
+ .../dist/scenario/importLegacyFMap.js              |    55 -
+ .../reference/strategic-reset-f-map.json           |  3877 ----
+ evidence/ART-BUILD-003/ACCEPTANCE.md               |    34 -
+ evidence/ART-BUILD-003/BUILD.md                    |    30 -
+ evidence/ART-BUILD-003/art003-1024-measure.json    |  1176 -
+ evidence/ART-BUILD-003/art003-1363-measure.json    |  1152 -
+ evidence/ART-BUILD-003/art003-combat.jpg           |   Bin 143752 -> 0 bytes
+ evidence/ART-BUILD-003/art003-combat.txt           |   232 -
+ evidence/ART-BUILD-003/art003-movement.jpg         |   Bin 91960 -> 0 bytes
+ evidence/ART-BUILD-003/art003-movement.txt         |   232 -
+ evidence/ART-BUILD-003/artifact-diff.json          |   400 -
+ evidence/ART-BUILD-003/artifact.diff               |    39 -
+ evidence/ART-BUILD-003/build.log                   |     6 -
+ evidence/ART-BUILD-003/clean-checkout.log          |    61 -
+ evidence/ART-BUILD-003/compare.log                 |    18 -
+ evidence/ART-BUILD-003/install.log                 |     3 -
+ evidence/ART-BUILD-003/integrity.json              |    10 -
+ evidence/ART-BUILD-003/rebuild.log                 |    25 -
+ evidence/ART-BUILD-003/tests.log                   |    24 -
+ evidence/ART-BUILD-003/typecheck.log               |     5 -
+ evidence/ART-PREVIEW-002/ACCEPTANCE.md             |    71 -
+ evidence/ART-PREVIEW-002/PREPARED.md               |    10 -
+ evidence/ART-PREVIEW-002/art002-1024-movement.json |  1176 -
+ evidence/ART-PREVIEW-002/art002-1024-stack.jpg     |   Bin 97623 -> 0 bytes
+ .../art002-final-1024-baseline-initial.json        |  1218 --
+ .../ART-PREVIEW-002/art002-final-1024-baseline.jpg |   Bin 97226 -> 0 bytes
+ .../art002-final-1024-candidate.jpg                |   Bin 100123 -> 0 bytes
+ .../ART-PREVIEW-002/art002-final-1024-combat.json  |  1156 -
+ .../ART-PREVIEW-002/art002-final-1024-dock.jpg     |   Bin 95417 -> 0 bytes
+ .../art002-final-1024-movement.json                |  1176 -
+ .../art002-final-1363-baseline-full.jpg            |   Bin 121511 -> 0 bytes
+ .../art002-final-1363-baseline-warm.json           |  1218 --
+ .../ART-PREVIEW-002/art002-final-1363-baseline.jpg |   Bin 109959 -> 0 bytes
+ .../art002-final-1363-candidate-full.jpg           |   Bin 120502 -> 0 bytes
+ .../art002-final-1363-candidate-raf.json           |  1154 -
+ .../art002-final-1363-candidate-warm.json          |  1148 -
+ .../art002-final-1363-candidate.jpg                |   Bin 110663 -> 0 bytes
+ .../ART-PREVIEW-002/art002-final-1363-movement.jpg |   Bin 108961 -> 0 bytes
+ .../art002-final-1363-movement.json                |  1180 -
+ .../ART-PREVIEW-002/art002-final-integrity.json    |    10 -
+ evidence/ART-PREVIEW-002/baseline-raf-summary.json |     8 -
+ evidence/ART-PREVIEW-002/targeted-tests.txt        |    19 -
+ evidence/ART-SLICE-005/REVIEW.md                   |    80 -
+ evidence/ART-SLICE-005/asset-hashes.json           |    14 -
+ evidence/ART-SLICE-005/baseline-far-1024.jpg       |   Bin 95756 -> 0 bytes
+ evidence/ART-SLICE-005/baseline-far-1363.jpg       |   Bin 119702 -> 0 bytes
+ evidence/ART-SLICE-005/baseline-near-1024.jpg      |   Bin 116737 -> 0 bytes
+ evidence/ART-SLICE-005/baseline-near-1363.jpg      |   Bin 153540 -> 0 bytes
+ evidence/ART-SLICE-005/browser-results.json        |  6895 ------
+ evidence/ART-SLICE-005/build.log                   |     7 -
+ evidence/ART-SLICE-005/candidate-far-1024.jpg      |   Bin 128713 -> 0 bytes
+ evidence/ART-SLICE-005/candidate-far-1363.jpg      |   Bin 178059 -> 0 bytes
+ evidence/ART-SLICE-005/candidate-near-1024.jpg     |   Bin 193577 -> 0 bytes
+ evidence/ART-SLICE-005/candidate-near-1363.jpg     |   Bin 286119 -> 0 bytes
+ evidence/ART-SLICE-005/clean-rebuild.log           |    11 -
+ evidence/ART-SLICE-005/operations-1024.json        |  1680 --
+ evidence/ART-SLICE-005/operations-1363.json        |  1680 --
+ evidence/ART-SLICE-005/regression.log              |    24 -
+ evidence/ART-SLICE-005/semantic-audit.json         |  2243 --
+ evidence/ART-SLICE-005/stack-1024.jpg              |   Bin 132848 -> 0 bytes
+ evidence/ART-SLICE-005/stack-1363.jpg              |   Bin 182369 -> 0 bytes
+ evidence/ART-SLICE-005/tests.json                  |    34 -
+ evidence/ART-SLICE-005/touch-emulation.json        |   889 -
+ experiments/art-slice-005/ASSETS.md                |    17 -
+ experiments/art-slice-005/README.md                |    48 -
+ experiments/art-slice-005/browser-check.cjs        |    41 -
+ experiments/art-slice-005/build.mjs                |    22 -
+ experiments/art-slice-005/index.html               |     5 -
+ experiments/art-slice-005/validate.mjs             |    23 -
+ index.html                                         |     6 +-
+ integrity.html                                     |     3 -
+ .../runtime-manifest.json => manifest.json         |     0
+ .../strategic-reset-f-map.json => map.json         |     0
+ scripts/build-art-candidate.mjs                    |    35 -
+ scripts/compare-art-build.mjs                      |    20 -
+ experiments/art-slice-005/slice.css => slice.css   |     0
+ task-source/ART-PREVIEW-002/README.md              |     5 -
+ task-source/ART-PREVIEW-002/index.html             |    10 -
+ task-source/ART-PREVIEW-002/package-lock.json      |    82 -
+ task-source/ART-PREVIEW-002/package.json           |    23 -
+ .../ART-PREVIEW-002/preview-only/bootstrap.txt     |    14 -
+ .../preview-only/comparison-index.html             |     1 -
+ task-source/ART-PREVIEW-002/preview-only/guard.js  |     4 -
+ .../ART-PREVIEW-002/preview-only/integrity.html    |     3 -
+ .../ART-PREVIEW-002/preview-only/measure.js        |    24 -
+ .../preview-only/reference-local-scene.json        | 21403 -------------------
+ task-source/ART-PREVIEW-002/preview-only/scene.mjs |    29 -
+ .../ART-PREVIEW-002/preview-only/verify-entry.mjs  |     8 -
+ .../ART-PREVIEW-002/preview-only/verify.mjs        |    23 -
+ .../ART-PREVIEW-002/preview-only/viewport.html     |     3 -
+ .../src/assets/VS2_ASSET_MANIFEST.json             |  4046 ----
+ .../ART-PREVIEW-002/src/assets/p4r3-manifest.json  |  2542 ---
+ .../src/core-adapter/browserProjection.ts          |   226 -
+ .../ART-PREVIEW-002/src/core-adapter/core.ts       |    95 -
+ .../ART-PREVIEW-002/src/core-adapter/session.ts    |   139 -
+ .../ART-PREVIEW-002/src/experiments/artSlice.ts    |    71 -
+ .../ART-PREVIEW-002/src/experiments/sliceData.ts   |    37 -
+ .../src/experiments/sliceTerrain.ts                |    81 -
+ task-source/ART-PREVIEW-002/src/fog/runtime.ts     |    49 -
+ task-source/ART-PREVIEW-002/src/fog/surface.ts     |    79 -
+ task-source/ART-PREVIEW-002/src/geometry/hex.ts    |   125 -
+ .../ART-PREVIEW-002/src/interaction/attackGroup.ts |    31 -
+ .../ART-PREVIEW-002/src/interaction/combatFlow.ts  |   194 -
+ .../ART-PREVIEW-002/src/interaction/intents.ts     |   341 -
+ .../ART-PREVIEW-002/src/localization/en-US.ts      |   552 -
+ .../ART-PREVIEW-002/src/localization/enumKeys.ts   |    70 -
+ .../ART-PREVIEW-002/src/localization/index.ts      |    56 -
+ .../ART-PREVIEW-002/src/localization/issues.ts     |    98 -
+ .../src/localization/languageControl.ts            |    19 -
+ .../ART-PREVIEW-002/src/localization/zh-CN.ts      |   551 -
+ task-source/ART-PREVIEW-002/src/main.ts            |   540 -
+ .../ART-PREVIEW-002/src/model/prototypeData.ts     |    98 -
+ .../src/multiplayer/battleSummary.ts               |    26 -
+ .../ART-PREVIEW-002/src/multiplayer/catalog.ts     |    54 -
+ .../ART-PREVIEW-002/src/multiplayer/client.ts      |   147 -
+ .../ART-PREVIEW-002/src/multiplayer/config.ts      |    13 -
+ .../src/multiplayer/diagnosticTiming.ts            |    10 -
+ .../src/multiplayer/gameplayProtocol.ts            |    67 -
+ .../ART-PREVIEW-002/src/multiplayer/lobby.ts       |    73 -
+ .../ART-PREVIEW-002/src/multiplayer/mapEncoding.ts |    25 -
+ .../src/multiplayer/networkIntents.ts              |    81 -
+ .../src/multiplayer/networkSession.ts              |   151 -
+ .../src/multiplayer/playerSession.ts               |    54 -
+ .../ART-PREVIEW-002/src/multiplayer/protocol.ts    |    79 -
+ .../src/multiplayer/snapshotCodec.ts               |   120 -
+ .../ART-PREVIEW-002/src/player-view/playerView.ts  |    89 -
+ .../src/player-view/presentationVisibility.ts      |    23 -
+ .../src/presentation/coordinator.ts                |   161 -
+ .../ART-PREVIEW-002/src/presentation/events.ts     |   120 -
+ .../src/presentation/modelDisplay.ts               |     5 -
+ .../ART-PREVIEW-002/src/presentation/motion.ts     |    42 -
+ .../ART-PREVIEW-002/src/presentation/runtime.ts    |    45 -
+ .../ART-PREVIEW-002/src/presentation/svgUnits.ts   |   212 -
+ .../ART-PREVIEW-002/src/presentation/timing.ts     |     7 -
+ .../src/presentation/transitionBus.ts              |    25 -
+ .../src/presentation/unitPresence.ts               |   159 -
+ .../src/presentation/unitPresenceSvg.ts            |    72 -
+ .../src/presentation/unitPresenceTypes.ts          |    44 -
+ .../ART-PREVIEW-002/src/render/artRelief.ts        |     2 -
+ .../ART-PREVIEW-002/src/render/artSurvey.ts        |    30 -
+ .../ART-PREVIEW-002/src/render/compactUnitPlate.ts |    23 -
+ .../ART-PREVIEW-002/src/render/contactMarkers.ts   |    15 -
+ .../ART-PREVIEW-002/src/render/coreModel.ts        |     3 -
+ task-source/ART-PREVIEW-002/src/render/coreSvg.ts  |   206 -
+ task-source/ART-PREVIEW-002/src/render/derive.ts   |   115 -
+ .../ART-PREVIEW-002/src/render/dynamicMap.ts       |    84 -
+ .../src/render/productionTerrain.ts                |   149 -
+ .../src/render/progressiveTerrain.ts               |    70 -
+ task-source/ART-PREVIEW-002/src/render/svg.ts      |   280 -
+ .../ART-PREVIEW-002/src/render/terrainAssets.ts    |    22 -
+ .../src/render/terrainDrawCommands.ts              |    19 -
+ .../src/render/terrainLoadProgress.ts              |    19 -
+ .../ART-PREVIEW-002/src/render/terrainSurface.ts   |   302 -
+ .../ART-PREVIEW-002/src/render/terrainWork.ts      |    32 -
+ .../ART-PREVIEW-002/src/render/vs2Assets.ts        |    40 -
+ .../ART-PREVIEW-002/src/render/vs2CityClusters.ts  |   212 -
+ .../ART-PREVIEW-002/src/render/vs2ForestSurface.ts |    93 -
+ .../src/render/vs2Infrastructure.ts                |   137 -
+ .../ART-PREVIEW-002/src/render/vs2PlainTraces.ts   |   130 -
+ .../ART-PREVIEW-002/src/render/vs2Presentation.ts  |     8 -
+ .../ART-PREVIEW-002/src/render/vs2Projection.ts    |    69 -
+ .../ART-PREVIEW-002/src/render/vs2TerrainDetail.ts |    36 -
+ .../src/render/vs2TerrainSurface.ts                |   122 -
+ .../ART-PREVIEW-002/src/render/vs2WorldField.ts    |   102 -
+ .../ART-PREVIEW-002/src/render/vs2WorldRaster.ts   |   107 -
+ .../ART-PREVIEW-002/src/state/presentation.ts      |    58 -
+ .../ART-PREVIEW-002/src/ui/animationControls.ts    |    14 -
+ task-source/ART-PREVIEW-002/src/ui/assertions.ts   |    76 -
+ .../ART-PREVIEW-002/src/ui/combatAttackPanel.ts    |    40 -
+ task-source/ART-PREVIEW-002/src/ui/combatResult.ts |    79 -
+ .../ART-PREVIEW-002/src/ui/commandPresentation.ts  |    39 -
+ .../src/ui/deploymentPanelRenderer.ts              |    66 -
+ .../ART-PREVIEW-002/src/ui/deploymentPolish.ts     |    14 -
+ .../ART-PREVIEW-002/src/ui/deploymentTouch.ts      |    21 -
+ .../ART-PREVIEW-002/src/ui/modelControls.ts        |     9 -
+ .../ART-PREVIEW-002/src/web/mapInteraction.ts      |    85 -
+ task-source/ART-PREVIEW-002/src/web/preview.ts     |   111 -
+ .../ART-PREVIEW-002/src/web/startupDiagnostics.ts  |    61 -
+ .../ART-PREVIEW-002/src/web/startupProgress.ts     |    49 -
+ .../ART-PREVIEW-002/src/web/startupShell.ts        |    16 -
+ task-source/ART-PREVIEW-002/src/web/startupView.ts |    34 -
+ task-source/ART-PREVIEW-002/styles.css             |   319 -
+ .../ART-PREVIEW-002/tests/art-prototype.test.mjs   |    25 -
+ .../tests/helpers/animation-fixture.mjs            |    30 -
+ .../ART-PREVIEW-002/tests/helpers/combat-dom.mjs   |    47 -
+ .../tests/helpers/combat-fixture.mjs               |    30 -
+ .../tests/helpers/deployment-dom.mjs               |    84 -
+ .../ART-PREVIEW-002/tests/helpers/move001.mjs      |    10 -
+ .../ART-PREVIEW-002/tests/helpers/mp001.mjs        |    49 -
+ .../ART-PREVIEW-002/tests/helpers/mp002.mjs        |    50 -
+ .../tests/helpers/performance-dom.mjs              |    10 -
+ .../ART-PREVIEW-002/tests/helpers/svg-dom.mjs      |    32 -
+ .../tests/helpers/tactical-fixture.mjs             |    34 -
+ .../ART-PREVIEW-002/tests/move001r1-state.test.mjs |    46 -
+ task-source/ART-PREVIEW-002/tsconfig.json          |    22 -
+ .../dist/core/collections.js                       |     0
+ .../eastfront-digital-core/dist/core/config.js     |     0
+ .../eastfront-digital-core/dist/core/edge.js       |     0
+ .../eastfront-digital-core/dist/core/hex.js        |     0
+ .../eastfront-digital-core/dist/core/ownership.js  |     0
+ .../eastfront-digital-core/dist/core/types.js      |     0
+ .../dist/engine/RulesEngine.js                     |     0
+ .../eastfront-digital-core/dist/engine/headless.js |     0
+ .../eastfront-digital-core/dist/engine/identity.js |     0
+ .../dist/engine/integrity.js                       |     0
+ .../eastfront-digital-core/dist/engine/state.js    |     0
+ .../dist/engine/transactionGuard.js                |     0
+ .../eastfront-digital-core/dist/index.js           |     0
+ .../dist/random/SeededRNG.js                       |     0
+ .../dist/rules/breakthrough.js                     |     0
+ .../eastfront-digital-core/dist/rules/combat.js    |     0
+ .../dist/rules/combatLoss.js                       |     0
+ .../dist/rules/combatTransaction.js                |     0
+ .../dist/rules/commitment.js                       |     0
+ .../eastfront-digital-core/dist/rules/crt.js       |     0
+ .../dist/rules/deployment.js                       |     0
+ .../dist/rules/entrenchment.js                     |     0
+ .../eastfront-digital-core/dist/rules/hq.js        |     0
+ .../eastfront-digital-core/dist/rules/movement.js  |     0
+ .../eastfront-digital-core/dist/rules/rail.js      |     0
+ .../eastfront-digital-core/dist/rules/recovery.js  |     0
+ .../dist/rules/reinforcement.js                    |     0
+ .../eastfront-digital-core/dist/rules/retreat.js   |     0
+ .../eastfront-digital-core/dist/rules/stacking.js  |     0
+ .../eastfront-digital-core/dist/rules/supply.js    |     0
+ .../eastfront-digital-core/dist/rules/turn.js      |     0
+ .../eastfront-digital-core/dist/rules/unit.js      |     0
+ .../eastfront-digital-core/dist/rules/victory.js   |     0
+ .../eastfront-digital-core/dist/rules/zoc.js       |     0
+ .../dist/scenario/defaultRules.js                  |     0
+ .../dist/scenario/defaultScenario.js               |     0
+ .../dist/scenario/importLegacyFMap.js              |     0
+ viewport.html                                      |     3 -
+ 960 files changed, 388 insertions(+), 119483 deletions(-)
