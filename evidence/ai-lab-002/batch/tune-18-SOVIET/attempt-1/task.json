@@ -1,0 +1,29 @@
+{
+  "job": {
+    "id": "tune-18-SOVIET",
+    "split": "tune",
+    "seed": 18,
+    "candidateSide": "SOVIET",
+    "seats": {
+      "GERMAN": {
+        "version": "ai005",
+        "params": {}
+      },
+      "SOVIET": {
+        "version": "ai005-param-v1",
+        "params": {
+          "attackRatio": 1.25,
+          "penaltyWeight": 0.5
+        }
+      }
+    }
+  },
+  "limits": {
+    "maxGames": 4,
+    "maxDecisions": 1800,
+    "matchMs": 120000,
+    "batchMs": 480000
+  },
+  "journal": "/workspace/scratch/2d63d88d2207/eastfront/evidence/ai-lab-002/batch/tune-18-SOVIET/attempt-1/trace.ndjson",
+  "result": "/workspace/scratch/2d63d88d2207/eastfront/evidence/ai-lab-002/batch/tune-18-SOVIET/attempt-1/result.json"
+}
