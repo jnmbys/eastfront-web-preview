@@ -81,7 +81,7 @@ test('PERF006 input probes separate dispatch queue from RAF and invalidate old-g
  const ctx=vm.createContext({performance:{now:()=>now},document:{visibilityState:'visible',addEventListener:(type,f)=>listeners[type]=f},Element,PerformanceObserver:Observer,requestAnimationFrame:f=>frames.push(f),structuredClone});
  vm.runInContext(source+'\nthis.probe=perf006;',ctx);const p=ctx.probe;p.start(true);
  listeners.click({target:new Element(),timeStamp:80});now=116;frames.shift()();
- assert.equal(p.report().stages.zoomEventQueue.lastMs,20);assert.equal(p.report().stages.zoomCallbackToRAF.lastMs,16);
+ assert.equal(p.report().inputs[0].timestampToCaptureMs,20);assert.equal(p.report().inputs[0].captureToRafCallbackMs,16);
  listeners.click({target:new Element(),timeStamp:115});p.stop();now=200;p.start(true);frames.shift()();
  observers[0]({getEntries:()=>[{startTime:100,duration:60}]});assert.equal(Object.keys(p.report().stages).length,0);
  observers[0]({getEntries:()=>[{startTime:201,duration:55}]});assert.equal(p.report().stages.mainLongTask.maxMs,55);
