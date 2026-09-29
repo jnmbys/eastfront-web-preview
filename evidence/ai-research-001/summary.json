@@ -1,0 +1,49 @@
+{
+  "sourceCommit": "15cf3d1aa377060b33c9086886cf698f87a5c3ed",
+  "status": "NO_NEW_MATCHES",
+  "previousActualParams": {
+    "attackRatio": 1.25,
+    "penaltyWeight": 0.5
+  },
+  "proposedNotRun": {
+    "attackRatio": 1.2,
+    "penaltyWeight": 0.75
+  },
+  "fixedBaseline": {
+    "attackRatio": 1.5,
+    "penaltyWeight": 0.75
+  },
+  "newGames": 0,
+  "holdoutRead": false,
+  "validHistoricalSources": 2,
+  "excludedRecoveredSources": [
+    "recovered tune-17-SOVIET",
+    "recovered tune-18-GERMAN"
+  ],
+  "reason": "No attack candidates blocked by default, previous or proposed threshold in either intact historical replay; proposed choice unchanged. Does not target an observed bottleneck.",
+  "historicalGames": [
+    {
+      "seed": 17,
+      "candidateSide": "GERMAN",
+      "winner": "SOVIET",
+      "turn": 16,
+      "attacks": 3,
+      "rejections": 0,
+      "germanCapitalControl": "0/2",
+      "nearestGermanToCapital": 10
+    },
+    {
+      "seed": 18,
+      "candidateSide": "SOVIET",
+      "winner": "SOVIET",
+      "turn": 16,
+      "attacks": 2,
+      "rejections": 0,
+      "germanCapitalControl": "0/2",
+      "nearestGermanToCapital": 10
+    }
+  ],
+  "newAnomalies": [],
+  "validation": "Both original trace hashes, lengths, each authorized observation hash, host result and final state hash verified; no recovery or data rewrite performed",
+  "scope": "Counterfactual scoring on existing authorized observations, not a simulated new outcome or strategy ranking"
+}

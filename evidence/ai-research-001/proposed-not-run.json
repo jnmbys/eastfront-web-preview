@@ -1,0 +1,28 @@
+{
+  "seeds": {
+    "tune": [
+      17,
+      18
+    ],
+    "holdout": [
+      1017
+    ]
+  },
+  "baseline": {
+    "version": "ai005",
+    "params": {}
+  },
+  "candidate": {
+    "version": "ai005-param-v1",
+    "params": {
+      "attackRatio": 1.2,
+      "penaltyWeight": 0.75
+    }
+  },
+  "limits": {
+    "maxGames": 4,
+    "maxDecisions": 1800,
+    "matchMs": 120000,
+    "batchMs": 480000
+  }
+}
