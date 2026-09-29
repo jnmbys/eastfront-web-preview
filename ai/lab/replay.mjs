@@ -1,0 +1,10 @@
+import {readFileSync} from 'node:fs';
+import {dirname,resolve,join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {root,identity,hash} from './common.mjs';
+import {records} from './runner.mjs';
+const path=resolve(process.argv[2]??'');
+execFileSync(process.execPath,['ai/build.mjs'],{cwd:root,stdio:'inherit'});
+const record=JSON.parse(readFileSync(path)),build=identity();if(record.build.runtimeHash!==build.runtimeHash)throw Error('Replay runtime differs');
+const rows=records(join(dirname(path),'trace.ndjson'));if(hash(rows)!==record.traceHash)throw Error('Trace hash mismatch');
+const {replay}=await import('./match.mjs');console.log(JSON.stringify({...replay(record.job,rows,record.finalHash),scope:record.finalHash?'complete state verified':'recorded prefix only; killed in-flight action may be absent'}));
