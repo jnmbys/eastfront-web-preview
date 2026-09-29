@@ -1,5 +1,0 @@
-# Source/reproduction
-This is the isolated candidate TypeScript source at 1f124566 with scoped ART-PREVIEW-002 changes. The deployed JS is the previously verified compiled artifact with corresponding minimal edits; a full compiler run is not claimed.
-For local compiler/test reproduction, copy ../../candidate/vendor to vendor and ../../candidate to dist (static assets and compiled baseline preserved), install dependencies from package-lock.json, run npx tsc --noEmit; the deployment has no server source and npm typecheck/server scripts from original package are not applicable here. For targeted runtime tests run node --test tests/move001r1-state.test.mjs tests/art-prototype.test.mjs after creating ../evidence.
-preview-only contains original scenario and guard, updated measurement, exact iframe window harness, integrity UI, and comparison index. Never copy preview-only entry into a production build. Baseline runtime lives at ../../baseline unchanged except measurement instrumentation.
-No package installation/build occurs in Cloudflare (existing exit 0/output . configuration).
