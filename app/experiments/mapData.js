@@ -1,6 +1,6 @@
 import { importLegacyMap, paperToAxial, axialToPaper, defaultRules } from '../../vendor/eastfront-digital-core/dist/index.js';
 import { hexKey, hexPolygon, hexToPixel, sharedHexEdge } from '../geometry/hex.js';
-export const SLICE_BOUNDS = { firstColumn: 20, lastColumn: 26, firstRow: 12, lastRow: 16 };
+export const SLICE_BOUNDS = { firstColumn: 1, lastColumn: 32, firstRow: 1, lastRow: 20 };
 export function createSlice(raw) {
     const full = importLegacyMap(raw), b = SLICE_BOUNDS;
     const hexes = full.hexes.filter(h => { const p = axialToPaper(h.coord); return h.coord.q + 1 >= b.firstColumn && h.coord.q + 1 <= b.lastColumn && p.row >= b.firstRow && p.row <= b.lastRow; });
@@ -12,6 +12,13 @@ export function createSlice(raw) {
         const template = Object.values(defaultRules.unitTemplates).find(t => t.side === side && t.type === type);
         return { id, side, type, step, stats: template.steps[step], hex: paperToAxial(col, row), supplyState: 'SUPPLIED', controllerId: side, selected: false, entrenched: false };
     });
+    // 58 public display fixtures stress the full-map counter layer; not a deployment or game state.
+    const occupied = new Set(counters.map(c => hexKey(c.hex))), available = hexes.filter(h => h.terrain !== 'LAKE' && !occupied.has(hexKey(h.coord)));
+    for (let i = 0; i < 54; i++) {
+        const h = available[Math.floor(i * available.length / 54)], side = i % 2 ? 'SOVIET' : 'GERMAN', type = i % 5 === 0 ? 'ENGINEER' : 'INFANTRY', step = i % 4 === 0 ? 1 : 0;
+        const template = Object.values(defaultRules.unitTemplates).find(t => t.side === side && t.type === type);
+        counters.push({ id: `F-${String(i + 1).padStart(2, '0')}`, side, type, step, stats: template.steps[step], hex: h.coord, supplyState: 'SUPPLIED', controllerId: side, selected: false, entrenched: false });
+    }
     return { hexes, edges, counters };
 }
 export const label = (h) => axialToPaper(h).label;
@@ -44,6 +51,6 @@ export function semanticAudit(data) {
     return {
         bounds: SLICE_BOUNDS, cells: data.hexes.map(h => ({ label: label(h.coord), coord: h.coord, terrain: h.terrain, polygon: hexPolygon(h.coord) })),
         edges: data.edges.map(e => ({ key: e.key, a: label(e.a), b: label(e.b), road: !!e.road, rail: !!e.railway?.present, river: e.river ?? null, bridge: e.bridge ?? null, roadLine: (e.road || e.railway?.present) ? [hexToPixel(e.a), hexToPixel(e.b)] : null, riverLine: e.river ? sharedHexEdge(e.a, e.b) : null })),
-        fixtureNotice: 'Four public display fixtures. Not a live game/PlayerView; no movement/combat or hidden state queried.'
+        fixtureNotice: '58 public display fixtures. Not a live game/PlayerView; no movement/combat or hidden state queried.'
     };
 }

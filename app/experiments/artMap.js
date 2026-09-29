@@ -1,17 +1,23 @@
-import { createSlice, label, semanticAudit } from './sliceData.js';
-import { paintSlice } from './sliceTerrain.js';
+import { createSlice, label, semanticAudit } from './mapData.js';
+import { paintSlice } from './mapTerrain.js';
 import { hexKey, hexToPixel, polygonPointsString } from '../geometry/hex.js';
 import { renderCounter, viewBoxForHexes } from '../render/coreSvg.js';
 import { surveyMarkup } from '../render/artSurvey.js';
-import { beginMapGesture, updateMapGesture, gesturePanViewport, dragSuppressesTap, zoomMapAt, pinchMapViewport } from '../web/mapInteraction.js';
+import { beginMapGesture, updateMapGesture, gesturePanViewport, dragSuppressesTap } from '../web/mapInteraction.js';
+// Full-map camera range only; pointer routing and unit contract unchanged.
+function zoomMapAt(view, requested, focus) { const zoom = Math.max(1, Math.min(8, requested)), ratio = zoom / view.zoom; return { zoom, panX: focus.x - (focus.x - view.panX) * ratio, panY: focus.y - (focus.y - view.panY) * ratio }; }
+function pinchMapViewport(view, startA, startB, a, b) { const from = { x: (startA.x + startB.x) / 2, y: (startA.y + startB.y) / 2 }, to = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }, distance = Math.hypot(startA.x - startB.x, startA.y - startB.y), next = zoomMapAt(view, view.zoom * Math.hypot(a.x - b.x, a.y - b.y) / (distance || 1), from); return { ...next, panX: next.panX + to.x - from.x, panY: next.panY + to.y - from.y }; }
 const $ = (s) => document.querySelector(s);
 const query = new URLSearchParams(location.search);
 let variant = query.get('variant') === 'baseline' ? 'baseline' : 'candidate';
 const events = [];
 const started = performance.now();
 let data, view = { zoom: 1, panX: 0, panY: 0 }, selected = null, cell = null;
-const terrainNames = { PLAIN: '平原', FOREST: '森林', HILL: '丘陵', ROUGH: '崎岖地', CITY: '城市' };
+const terrainNames = { MARSH: '沼泽', LAKE: '湖泊', MAIN_CITY: '主城', OUTER_CITY: '外城', PLAIN: '平原', FOREST: '森林', HILL: '丘陵', ROUGH: '崎岖地', CITY: '城市' };
 const typeNames = { PANZER: '装甲', INFANTRY: '步兵', ENGINEER: '工兵' };
+const longTasks = [];
+if (PerformanceObserver.supportedEntryTypes.includes('longtask'))
+    new PerformanceObserver(list => list.getEntries().forEach(e => longTasks.push({ start: e.startTime, duration: e.duration }))).observe({ type: 'longtask', buffered: true });
 let stats = {};
 let terrainReady = false;
 async function ensureTerrain() { if (!terrainReady) {
@@ -22,11 +28,11 @@ function log(action, detail = {}) { events.push({ action, at: Math.round(perform
 function paintView() {
     $('#world').style.transform = `translate(${view.panX}px,${view.panY}px) scale(${view.zoom})`;
     $('#zoom-value').textContent = `${Math.round(view.zoom * 100)}%`;
-    $('#view-mode').textContent = view.zoom > 1.6 ? '近景 · 材质检查' : '远景 · 战术阅读';
+    $('#view-mode').textContent = view.zoom > 4 ? '近景 · 材质检查' : view.zoom > 1.6 ? '中景 · 战术阅读' : '远景 · 全图概览';
 }
 async function setVariant(next) { if (next === 'candidate') {
     await ensureTerrain();
-} variant = next; $('#terrain').classList.toggle('hidden', variant === 'baseline'); $('#baseline-layer').classList.toggle('hidden', variant !== 'baseline'); $('#variant').textContent = variant === 'candidate' ? '切换基线' : '返回候选'; $('#variant').setAttribute('aria-pressed', String(variant === 'baseline')); $('#variant-label').textContent = variant === 'candidate' ? '005 · 材质切片' : '003 · 工程基线'; log('variant', { variant }); }
+} variant = next; $('#terrain').classList.toggle('hidden', variant === 'baseline'); $('#baseline-layer').classList.toggle('hidden', variant !== 'baseline'); $('#variant').textContent = variant === 'candidate' ? '切换基线' : '返回候选'; $('#variant').setAttribute('aria-pressed', String(variant === 'baseline')); $('#variant-label').textContent = variant === 'candidate' ? '006 · 全图材质' : '003 · 工程基线'; log('variant', { variant }); }
 function drawUnits() {
     $('#units').innerHTML = data.counters.map(c => { const peers = data.counters.filter(u => hexKey(u.hex) === hexKey(c.hex)); return renderCounter({ ...c, selected: c.id === selected }, peers.indexOf(c), peers.length); }).join('');
     $('#selection').innerHTML = cell ? `<polygon points="${polygonPointsString(data.hexes.find(h => hexKey(h.coord) === cell).coord)}"/>` : '';
@@ -111,6 +117,7 @@ function bindGestures() {
     wrap.addEventListener('wheel', e => { e.preventDefault(); view = zoomMapAt(view, view.zoom + (e.deltaY < 0 ? .12 : -.12), local(e)); paintView(); log('wheel', { ...view }); }, { passive: false });
     $('#zoom-in').onclick = () => { view = zoomMapAt(view, view.zoom + .25, { x: 0, y: 0 }); paintView(); log('zoom-in', { ...view }); };
     $('#zoom-out').onclick = () => { view = zoomMapAt(view, view.zoom - .25, { x: 0, y: 0 }); paintView(); log('zoom-out', { ...view }); };
+    $('#focus').onclick = () => { const h = data.hexes.find(h => label(h.coord) === 'X14'), p = hexToPixel(h.coord), box = viewBoxForHexes(data.hexes, 8), scale = $('#world').clientWidth / box.width; view = { zoom: 5, panX: -(p.x - box.minX - box.width / 2) * scale * 5, panY: -(p.y - box.minY - box.height / 2) * scale * 5 }; paintView(); log('focus', { ...view }); };
     $('#fit').onclick = () => { view = { zoom: 1, panX: 0, panY: 0 }; paintView(); log('fit'); };
 }
 async function sample() { const frames = []; let previous = performance.now(); const end = previous + 5000; $('#sample').textContent = '采样中 · 可拖动'; await new Promise(resolve => { function tick(now) { frames.push(now - previous); previous = now; if (now < end)
@@ -137,7 +144,7 @@ async function boot() {
     $('#variant').onclick = () => { void setVariant(variant === 'candidate' ? 'baseline' : 'candidate').catch(e => { console.error(e); $('#variant-label').textContent = '候选加载失败，请刷新重试'; }); };
     $('#grid').onclick = () => { svg.classList.toggle('grid-off'); $('#grid').setAttribute('aria-pressed', String(!svg.classList.contains('grid-off'))); };
     $('#sample').onclick = () => { void sample(); };
-    $('#export').onclick = () => { const blob = new Blob([JSON.stringify(report(), null, 2)], { type: 'application/json' }), url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'ART-SLICE-005-observation.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
+    $('#export').onclick = () => { const blob = new Blob([JSON.stringify(report(), null, 2)], { type: 'application/json' }), url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = 'ART-MAP-006-observation.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
     $('#loading').remove();
     stats.readyMs = performance.now() - started;
     stats.navigationToReadyMs = performance.now();
@@ -145,5 +152,5 @@ async function boot() {
     document.documentElement.dataset.ready = 'true';
     Object.assign(window, { sliceDebug: { report, inspect: (key) => chooseCell(key), data: semanticAudit(data) } });
 }
-function report() { return { task: 'ART-SLICE-005', variant, view, selected, cell, stats, events, resources: performance.getEntriesByType('resource').map(r => { const x = r; return { name: x.name.split('/').slice(-3).join('/'), duration: x.duration, transferSize: x.transferSize, encodedBodySize: x.encodedBodySize, decodedBodySize: x.decodedBodySize }; }), conditions: { viewport: [innerWidth, innerHeight], dpr: devicePixelRatio, visibility: document.visibilityState, userAgent: navigator.userAgent }, limits: ['Four visual fixtures, not a live match', 'RAF samples are not GPU measurements', 'No Huawei acceptance', 'Texture decoding/canvas backing memory is an estimate, not process memory'] }; }
+function report() { return { task: 'ART-MAP-006', longTasks, variant, view, selected, cell, stats, events, resources: performance.getEntriesByType('resource').map(r => { const x = r; return { name: x.name.split('/').slice(-3).join('/'), duration: x.duration, transferSize: x.transferSize, encodedBodySize: x.encodedBodySize, decodedBodySize: x.decodedBodySize }; }), conditions: { viewport: [innerWidth, innerHeight], dpr: devicePixelRatio, visibility: document.visibilityState, userAgent: navigator.userAgent }, limits: ['58 visual fixtures, not a live match', 'RAF samples are not GPU measurements', 'No Huawei acceptance', 'Texture decoding/canvas backing memory is an estimate, not process memory'] }; }
 boot().catch(e => { $('#loading').textContent = `地图加载失败：${String(e)}。请刷新重试。`; console.error(e); });
