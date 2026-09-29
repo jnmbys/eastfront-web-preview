@@ -1,0 +1,38 @@
+node:fs:622
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open 'vendor/eastfront-digital-core/reference/strategic-reset-f-map.json'
+    at Object.openSync (node:fs:622:18)
+    at readFileSync (node:fs:488:35)
+    at file:///workspace/scratch/e78960a8baae/art-slice-005/task-source/ART-PREVIEW-002/tests/art-prototype.test.mjs:9:22
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'vendor/eastfront-digital-core/reference/strategic-reset-f-map.json'
+}
+
+Node.js v24.19.0
+✖ task-source/ART-PREVIEW-002/tests/art-prototype.test.mjs (114.498857ms)
+✔ MOVE001R1 selecting a unit does not implicitly capture other friendly clicks (27.365777ms)
+✔ MOVE001R1 existing completed move must release target selection (21.095454ms)
+✔ MOVE001R1 full A -> friendly B -> confirm -> C -> confirm chain on all target surfaces (60.167497ms)
+✔ MOVE001R1 exit before first step, cancel and final undo permit switching and same-hex selection (57.462303ms)
+✔ MOVE001R1 full movement budget and rejected local move both release selection (32.836127ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 355.290852
+
+✖ failing tests:
+
+test at task-source/ART-PREVIEW-002/tests/art-prototype.test.mjs:1:1
+✖ task-source/ART-PREVIEW-002/tests/art-prototype.test.mjs (114.498857ms)
+  'test failed'

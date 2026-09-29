@@ -1,0 +1,97 @@
+{
+  "checks": [
+    {
+      "size": {
+        "width": 1363,
+        "height": 936
+      },
+      "test": "stack disambiguation G-03 to G-02 through 44px side-panel choice",
+      "status": "PASS"
+    },
+    {
+      "size": {
+        "width": 1363,
+        "height": 936
+      },
+      "test": "switch selected unit after stack selection",
+      "status": "PASS"
+    },
+    {
+      "size": {
+        "width": 1363,
+        "height": 936
+      },
+      "test": "forest sprite click inspects underlying V13; no scenery intercept",
+      "status": "PASS"
+    },
+    {
+      "size": {
+        "width": 1363,
+        "height": 936
+      },
+      "test": "city and adjacent transport inspection",
+      "status": "PASS"
+    }
+  ],
+  "loads": [
+    {
+      "variant": "baseline",
+      "cache": "cleared",
+      "stats": {
+        "readyMs": 100.60000000149012,
+        "navigationToReadyMs": 253.60000000149012
+      }
+    },
+    {
+      "variant": "baseline",
+      "cache": "warm-reload",
+      "stats": {
+        "readyMs": 93.69999999925494,
+        "navigationToReadyMs": 157
+      }
+    },
+    {
+      "variant": "candidate",
+      "cache": "cleared",
+      "stats": {
+        "box": {
+          "minX": -44.373066958946424,
+          "minY": -995,
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "rasterScale": 1.645397181032507,
+        "layoutMs": 42.80000000074506,
+        "paintAndDecodeMs": 362.79999999701977,
+        "canvasPixels": 15110144,
+        "estimatedCanvasBytes": 60440576,
+        "readyMs": 537.2000000029802,
+        "navigationToReadyMs": 782.5
+      }
+    },
+    {
+      "variant": "candidate",
+      "cache": "warm-reload",
+      "stats": {
+        "box": {
+          "minX": -44.373066958946424,
+          "minY": -995,
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "rasterScale": 1.645397181032507,
+        "layoutMs": 53.19999999925494,
+        "paintAndDecodeMs": 268.5,
+        "canvasPixels": 15110144,
+        "estimatedCanvasBytes": 60440576,
+        "readyMs": 392,
+        "navigationToReadyMs": 473
+      }
+    }
+  ],
+  "failure": {
+    "message": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-terrain=\"MAIN_CITY\"]').first()\u001b[22m\n\u001b[2m    - locator resolved to <polygon tabindex=\"0\" role=\"button\" data-cell=\"28,-5\" data-label=\"AC10\" aria-label=\"AC10 主城\" data-terrain=\"MAIN_CITY\" points=\"1891.399,-294.000 1855.026,-273.000 1818.653,-294.000 1818.653,-336.000 1855.026,-357.000 1891.399,-336.000\"></polygon>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <rect rx=\"3\" fill=\"#344c60\" stroke=\"#96b1c4\" stroke-width=\"1.3\" class=\"counter-body\" x=\"-23.939999999999998\" y=\"-23.939999999999998\" width=\"47.879999999999995\" height=\"47.879999999999995\"></rect> from <g id=\"units\">…</g> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <rect rx=\"3\" fill=\"#344c60\" stroke=\"#96b1c4\" stroke-width=\"1.3\" class=\"counter-body\" x=\"-23.939999999999998\" y=\"-23.939999999999998\" width=\"47.879999999999995\" height=\"47.879999999999995\"></rect> from <g id=\"units\">…</g> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <rect rx=\"3\" fill=\"#344c60\" stroke=\"#96b1c4\" stroke-width=\"1.3\" class=\"counter-body\" x=\"-23.939999999999998\" y=\"-23.939999999999998\" width=\"47.879999999999995\" height=\"47.879999999999995\"></rect> from <g id=\"units\">…</g> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+    "stack": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-terrain=\"MAIN_CITY\"]').first()\u001b[22m\n\u001b[2m    - locator resolved to <polygon tabindex=\"0\" role=\"button\" data-cell=\"28,-5\" data-label=\"AC10\" aria-label=\"AC10 主城\" data-terrain=\"MAIN_CITY\" points=\"1891.399,-294.000 1855.026,-273.000 1818.653,-294.000 1818.653,-336.000 1855.026,-357.000 1891.399,-336.000\"></polygon>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <rect rx=\"3\" fill=\"#344c60\" stroke=\"#96b1c4\" stroke-width=\"1.3\" class=\"counter-body\" x=\"-23.939999999999998\" y=\"-23.939999999999998\" width=\"47.879999999999995\" height=\"47.879999999999995\"></rect> from <g id=\"units\">…</g> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <rect rx=\"3\" fill=\"#344c60\" stroke=\"#96b1c4\" stroke-width=\"1.3\" class=\"counter-body\" x=\"-23.939999999999998\" y=\"-23.939999999999998\" width=\"47.879999999999995\" height=\"47.879999999999995\"></rect> from <g id=\"units\">…</g> subtree intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <rect rx=\"3\" fill=\"#344c60\" stroke=\"#96b1c4\" stroke-width=\"1.3\" class=\"counter-body\" x=\"-23.939999999999998\" y=\"-23.939999999999998\" width=\"47.879999999999995\" height=\"47.879999999999995\"></rect> from <g id=\"units\">…</g> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /workspace/scratch/e78960a8baae/art-slice-005/experiments/art-map-006/browser-check.cjs:21:147"
+  },
+  "diagnosis": "First MAIN_CITY cell AC10 center occupied by a display counter; hit ownership correctly prioritizes the counter. Change test to exposed cell point, not force-click or change interaction."
+}
