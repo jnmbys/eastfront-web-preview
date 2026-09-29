@@ -1,0 +1,116 @@
+{
+  "test": "focused inherited EXP006 battle fixture, not a full campaign",
+  "pending_kinds": [
+    "DEFENDER_REACTION",
+    "ADVANCE_AFTER_COMBAT"
+  ],
+  "commands": [
+    {
+      "id": "auto-0",
+      "revision": 0,
+      "action": {
+        "type": "ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "attackerUnitIds": [
+          "G-PZ-01"
+        ],
+        "target": {
+          "q": 6,
+          "r": 3
+        }
+      }
+    },
+    {
+      "id": "auto-1",
+      "revision": 1,
+      "action": {
+        "type": "PASS_REACTION",
+        "controllerId": "S-AI-1",
+        "battleId": "B-000018"
+      }
+    },
+    {
+      "id": "auto-2",
+      "revision": 2,
+      "action": {
+        "type": "ADVANCE_AFTER_COMBAT",
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000018",
+        "unitId": "G-PZ-01"
+      }
+    },
+    {
+      "id": "auto-3",
+      "revision": 3,
+      "action": {
+        "type": "BREAKTHROUGH",
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000018",
+        "unitId": "G-PZ-01",
+        "path": [
+          {
+            "q": 7,
+            "r": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "auto-4",
+      "revision": 4,
+      "action": {
+        "type": "SCHWERPUNKT_ATTACK",
+        "controllerId": "G-HUMAN-1",
+        "sourceBattleId": "B-000018",
+        "unitId": "G-PZ-01",
+        "target": {
+          "q": 8,
+          "r": 3
+        }
+      }
+    },
+    {
+      "id": "auto-5",
+      "revision": 5,
+      "action": {
+        "type": "PASS_REACTION",
+        "controllerId": "S-AI-1",
+        "battleId": "B-000019"
+      }
+    },
+    {
+      "id": "auto-6",
+      "revision": 6,
+      "action": {
+        "type": "PASS_ADVANCE",
+        "controllerId": "G-HUMAN-1",
+        "battleId": "B-000019"
+      }
+    },
+    {
+      "id": "auto-7",
+      "revision": 7,
+      "action": {
+        "type": "END_SIDE",
+        "controllerId": "G-HUMAN-1"
+      }
+    },
+    {
+      "id": "auto-8",
+      "revision": 8,
+      "action": {
+        "type": "END_SIDE",
+        "controllerId": "S-AI-1"
+      }
+    }
+  ],
+  "equal": true,
+  "audit": {
+    "initial": 876,
+    "injected": 160,
+    "maintenance": 264,
+    "action": 8,
+    "destroyed": 36,
+    "remaining": 728
+  }
+}

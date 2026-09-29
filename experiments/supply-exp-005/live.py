@@ -21,7 +21,7 @@ def effects(s,action=None):
 def node(core,mode,s,op='frame',deadline=None,**extra):
  remaining=10 if deadline is None else deadline-time.perf_counter()
  if remaining<=0:raise TimeoutError('total deadline')
- p=subprocess.run(['node',str(ROOT/'core-bridge.mjs')],input=json.dumps(dict(state=core,mode=mode,effects=effects(s,extra.get('action')),op=op,**extra)),text=True,capture_output=True,timeout=remaining,cwd=ROOT)
+ p=subprocess.run(['node',str(ROOT/'core-bridge.mjs')],input=json.dumps(dict(state=core,mode=mode,effects=effects(s,extra.get('action')),op=op,campaign=bool(s.get('campaign_config')),**extra)),text=True,capture_output=True,timeout=remaining,cwd=ROOT)
  if p.returncode:raise RuntimeError(p.stderr)
  r=json.loads(p.stdout)
  if not r['ok']:raise ValueError(r['error'])
@@ -38,7 +38,11 @@ def sync(s,f):
    if u['node']!=old[uid]['node']:events.append(dict(type='moved',unit=uid,side=u['side'],stock=u['stock']))
   else:
    if uid in out['continuity']['retired']:raise ValueError('retired id reused')
-   u.update(stock=0,cap=u['B']*s['reserve_setting'],target=u['B']*s['reserve_setting']);events.append(dict(type='reinforced_empty',unit=uid,side=u['side']))
+   u.update(stock=0,cap=u['B']*s['reserve_setting'],target=u['B']*s['reserve_setting'])
+   if s.get('campaign_config') and f['state']['phase'] in ['SOVIET_DEPLOYMENT','GERMAN_DEPLOYMENT']:
+    u['stock']=u['B']*s['campaign_config']['initial_reserve_B'];out['continuity']['initial']+=u['stock']
+    events.append(dict(type='initial_deployment_inventory',unit=uid,side=u['side'],stock=u['stock']))
+   else:events.append(dict(type='reinforced_empty',unit=uid,side=u['side']))
   u['strength']=f['capacities'][uid];units.append(u)
  for uid,u in old.items():
   if uid not in current:
@@ -73,12 +77,16 @@ def execute(original,command,seconds=3):
    return dict(ok=True,state=original,duplicate=True,seconds=time.perf_counter()-began)
   if command['revision']!=original['revision']:raise ValueError('stale revision')
   b=deepcopy(original);s=b['logistics'];core=b['core'];a=deepcopy(command['action'])
-  if core['turn']>15:raise ValueError('short experiment ends after T15')
+  if not s.get('campaign_config') and core['turn']>15:raise ValueError('short experiment ends after T15')
   controller=core['pendingDecision']['decisionOwnerControllerId'] if core['pendingDecision'] else next(x['id'] for x in core['controllers'].values() if x['side']==core['activeSide'])
   if a.get('controllerId')!=controller:raise ValueError('not active controller')
   fields={'MOVE':{'type','controllerId','unitId','path'},'ATTACK':{'type','controllerId','attackerUnitIds','target'},'END_PHASE':{'type','controllerId'},'END_SIDE':{'type','controllerId'},'RAIL_REPAIR':{'type','controllerId','edgeKeys'}}
   for kind,extra in {'ALLOCATE_LOSSES':{'unitIdsByStep'},'RETREAT':{'retreats'},'ADVANCE_AFTER_COMBAT':{'unitId'},'BREAKTHROUGH':{'unitId','path'},'PASS_ADVANCE':set(),'PASS_BREAKTHROUGH':set(),'PASS_SCHWERPUNKT':set(),'PASS_REACTION':set(),'COMBAT_REACTION':{'reaction'}}.items():fields[kind]={'type','controllerId','battleId'}|extra
   fields['SCHWERPUNKT_ATTACK']={'type','controllerId','sourceBattleId','unitId','target'}
+  if s.get('campaign_config'):
+   fields.update(DEPLOY_INITIAL_UNIT={'type','controllerId','deploymentUnitId','hex'},DEPLOY_REINFORCEMENT={'type','controllerId','reinforcementId','entryHex'},READY_FOR_PHASE_END={'type','controllerId'},ENTRENCH={'type','controllerId','unitId'},REPAIR_UNIT={'type','controllerId','unitId'})
+   fields['RAIL_REPAIR'].add('engineerUnitId')
+   if core['phase']=='GAME_OVER':raise ValueError('campaign finished')
   if a['type'] not in fields or set(a)-fields[a['type']]:raise ValueError('unsupported surface')
   r=node(core,b['mode'],s,'act',deadline,action=a);newcore=r['frame']['state'];charges=[]
   if b['mode']=='new':

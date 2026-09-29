@@ -1,0 +1,30 @@
+E
+======================================================================
+ERROR: test_lifecycle (test_campaign010.CampaignTests.test_lifecycle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign010/experiments/supply-exp-005/test_campaign010.py", line 22, in test_lifecycle
+    md=metadata(b['core'],side);zone=md['deployment']['zone'];roster=sorted(md['deployment']['roster'],key=lambda u:u['id'])
+                                     ~~~~~~~~~~~~~~~~^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+----------------------------------------------------------------------
+Ran 1 test in 0.859s
+
+FAILED (errors=1)
+
+HTTP test import shadowing, subsequently fixed:
+E
+======================================================================
+ERROR: test_http_entry (test_campaign010_seams.CampaignSeams.test_http_entry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign010/experiments/supply-exp-005/test_campaign010_seams.py", line 60, in test_http_entry
+    html=urllib.request.urlopen(url).read().decode();self.assertIn('campaign-ui.js',html);self.assertIn('<option value="S" selected>',html)
+         ^^^^^^
+UnboundLocalError: cannot access local variable 'urllib' where it is not associated with a value
+
+----------------------------------------------------------------------
+Ran 1 test in 1.231s
+
+FAILED (errors=1)

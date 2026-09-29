@@ -1,0 +1,3087 @@
+{
+  "mode": "new",
+  "seed": 17,
+  "profile": {
+    "id": "SUPPLY-CAMPAIGN-010-A-unbalanced",
+    "quantity_unit": "quarter supply point",
+    "clock": "full",
+    "variant": "A",
+    "reserve_B": 4,
+    "initial_reserve_B": 3,
+    "reinforcement_initial_stock": 0,
+    "delivery_range": 8,
+    "policy": "last",
+    "use_t": true,
+    "T": 2200,
+    "order": "GS",
+    "edge_capacity": 40,
+    "bridge_capacity": 24,
+    "sources": [
+      {
+        "id": "G-A5",
+        "node": "A5",
+        "side": "G",
+        "cap": 32
+      },
+      {
+        "id": "G-A10",
+        "node": "A10",
+        "side": "G",
+        "cap": 32
+      },
+      {
+        "id": "G-A16",
+        "node": "A16",
+        "side": "G",
+        "cap": 32
+      },
+      {
+        "id": "S-AF4",
+        "node": "AF4",
+        "side": "S",
+        "cap": 24
+      },
+      {
+        "id": "S-AF10",
+        "node": "AF10",
+        "side": "S",
+        "cap": 24
+      },
+      {
+        "id": "S-AF16",
+        "node": "AF16",
+        "side": "S",
+        "cap": 16
+      },
+      {
+        "id": "S-AC10",
+        "node": "AC10",
+        "side": "S",
+        "cap": 16
+      },
+      {
+        "id": "S-AC11",
+        "node": "AC11",
+        "side": "S",
+        "cap": 16
+      }
+    ],
+    "hub_nodes": {
+      "G": [
+        "A5",
+        "C10",
+        "A16"
+      ],
+      "S": [
+        "AC10",
+        "AC11",
+        "AF10"
+      ]
+    },
+    "hub": {
+      "stock": 8,
+      "cap": 32,
+      "W": 96,
+      "quota": 40,
+      "floor": 4,
+      "inactive": false
+    },
+    "victory": "unchanged Core defaultScenario (turnLimit 16); no allocation qualification",
+    "note": "EXP003 ordinary capacities and prepare reserve; NOT restore's raised capacities. Fixed experimental profile, not balanced."
+  },
+  "initial_hash": "635d7c9846b55d053dbbc1b1ffd972ea358eca9c885c121f9ca361ad557cc9d7",
+  "records": [
+    {
+      "command": {
+        "id": "auto-0",
+        "revision": 0,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-ART-01",
+          "hex": {
+            "q": 10,
+            "r": -1
+          }
+        }
+      },
+      "hash": "b45663930dd99fb15f22570556a516ccb3c85984f47a0370736697a65a53a6c9"
+    },
+    {
+      "command": {
+        "id": "auto-1",
+        "revision": 1,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-ART-02",
+          "hex": {
+            "q": 10,
+            "r": -1
+          }
+        }
+      },
+      "hash": "562d60ced23e8af4ed13fced71174dce6edada56cc9a66612f91024d80e7f79c"
+    },
+    {
+      "command": {
+        "id": "auto-2",
+        "revision": 2,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-ART-03",
+          "hex": {
+            "q": 10,
+            "r": -2
+          }
+        }
+      },
+      "hash": "0e5ed3c4180132f5d9f2e3b4b05ff63977d1bcc4362c64378d166feb0d2d68de"
+    },
+    {
+      "command": {
+        "id": "auto-3",
+        "revision": 3,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-AT-01",
+          "hex": {
+            "q": 10,
+            "r": -2
+          }
+        }
+      },
+      "hash": "03d74dc35094467b40687143d27aff293e6fb74c31d5667c1cf59c847df2af19"
+    },
+    {
+      "command": {
+        "id": "auto-4",
+        "revision": 4,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-AT-02",
+          "hex": {
+            "q": 10,
+            "r": -3
+          }
+        }
+      },
+      "hash": "06c6e1c30dbe534feb0718539f005cc169f2c4e12de850018fbed1df0d93aa2a"
+    },
+    {
+      "command": {
+        "id": "auto-5",
+        "revision": 5,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-AT-03",
+          "hex": {
+            "q": 10,
+            "r": -3
+          }
+        }
+      },
+      "hash": "0a5e3dcf11c9753803082e05717ba1ea00bbbce7cf786f59d116ca602b054b85"
+    },
+    {
+      "command": {
+        "id": "auto-6",
+        "revision": 6,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-EL-01",
+          "hex": {
+            "q": 10,
+            "r": -4
+          }
+        }
+      },
+      "hash": "177e33073807044349f7620f9adaa4d87c02f97b61f535d692c7f44d92ebf0ee"
+    },
+    {
+      "command": {
+        "id": "auto-7",
+        "revision": 7,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-EL-02",
+          "hex": {
+            "q": 10,
+            "r": -4
+          }
+        }
+      },
+      "hash": "d7b33b4824dc0cc32c1201031d47ae587d620bf9b9ea20012851afcae954b32e"
+    },
+    {
+      "command": {
+        "id": "auto-8",
+        "revision": 8,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-ENG-01",
+          "hex": {
+            "q": 10,
+            "r": -5
+          }
+        }
+      },
+      "hash": "c9dc1db6e97c8d56d10c182b2f5217dac659c72faa6a34c4ab245b48d0741c98"
+    },
+    {
+      "command": {
+        "id": "auto-9",
+        "revision": 9,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-ENG-02",
+          "hex": {
+            "q": 10,
+            "r": -5
+          }
+        }
+      },
+      "hash": "5bd9a28bf3db4962e2269c7b73af25f7767204d506a951286bef4f59891d337c"
+    },
+    {
+      "command": {
+        "id": "auto-10",
+        "revision": 10,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-HV-01",
+          "hex": {
+            "q": 10,
+            "r": 0
+          }
+        }
+      },
+      "hash": "55b3048237b09602c42c518f47f393a01314cfdf2dc8034169c4462d91802e00"
+    },
+    {
+      "command": {
+        "id": "auto-11",
+        "revision": 11,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-01",
+          "hex": {
+            "q": 10,
+            "r": 0
+          }
+        }
+      },
+      "hash": "7bfba7c65919d5de709c639d8529db90004b1a98ed0fb8ef2a64b40f031f265a"
+    },
+    {
+      "command": {
+        "id": "auto-12",
+        "revision": 12,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-02",
+          "hex": {
+            "q": 10,
+            "r": 1
+          }
+        }
+      },
+      "hash": "42cfe3f35be8d09fc3792d78c0d02c10e19e0b0846e4cdb27757f8d961ce89e0"
+    },
+    {
+      "command": {
+        "id": "auto-13",
+        "revision": 13,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-03",
+          "hex": {
+            "q": 10,
+            "r": 1
+          }
+        }
+      },
+      "hash": "2c2989894db0392d0f4b3d7a7f013fc1fb1fc2d804272f49d44c7faf7b60eb51"
+    },
+    {
+      "command": {
+        "id": "auto-14",
+        "revision": 14,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-04",
+          "hex": {
+            "q": 10,
+            "r": 10
+          }
+        }
+      },
+      "hash": "fdbbd98c6d00a08d09855bd57ec55d6d01958bcc4c96f99f296552caabfb7890"
+    },
+    {
+      "command": {
+        "id": "auto-15",
+        "revision": 15,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-05",
+          "hex": {
+            "q": 10,
+            "r": 10
+          }
+        }
+      },
+      "hash": "4ddb1589b352a00ceea774d4e3e91c1e7afe1e734ee9f0934208d08120802992"
+    },
+    {
+      "command": {
+        "id": "auto-16",
+        "revision": 16,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-06",
+          "hex": {
+            "q": 10,
+            "r": 11
+          }
+        }
+      },
+      "hash": "7d2b0dc67781a5019652653953fe2b098284170d30a22273a124501eaaf8a149"
+    },
+    {
+      "command": {
+        "id": "auto-17",
+        "revision": 17,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-07",
+          "hex": {
+            "q": 10,
+            "r": 11
+          }
+        }
+      },
+      "hash": "ba0d3bda3c06103898f5c9e5942eca2a6f9950f8d378568719492309d4008f3c"
+    },
+    {
+      "command": {
+        "id": "auto-18",
+        "revision": 18,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-08",
+          "hex": {
+            "q": 10,
+            "r": 12
+          }
+        }
+      },
+      "hash": "7133b909f546d5a68646cb2937e5c98ae47d77feb28469c5f7c0a04798e5b5fd"
+    },
+    {
+      "command": {
+        "id": "auto-19",
+        "revision": 19,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-09",
+          "hex": {
+            "q": 10,
+            "r": 12
+          }
+        }
+      },
+      "hash": "0b72226eb12d6a46f56b997db6021620ff4928afcc5d04a76da5e6b5c108d780"
+    },
+    {
+      "command": {
+        "id": "auto-20",
+        "revision": 20,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-10",
+          "hex": {
+            "q": 10,
+            "r": 13
+          }
+        }
+      },
+      "hash": "0df7de0bada020ba3cc290f941fda97b07f66a250d3f22e905dcef5a17b3f66a"
+    },
+    {
+      "command": {
+        "id": "auto-21",
+        "revision": 21,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-11",
+          "hex": {
+            "q": 10,
+            "r": 13
+          }
+        }
+      },
+      "hash": "37c0b06ea7f4ae601585d3e7092d6d0bac74199cfb65cf0e5a41da4301d79a3a"
+    },
+    {
+      "command": {
+        "id": "auto-22",
+        "revision": 22,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-12",
+          "hex": {
+            "q": 10,
+            "r": 14
+          }
+        }
+      },
+      "hash": "691d6af23ca3eea328c580c6eb87f3a188666acbca5ecca98e70abe598c37c8b"
+    },
+    {
+      "command": {
+        "id": "auto-23",
+        "revision": 23,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-13",
+          "hex": {
+            "q": 10,
+            "r": 14
+          }
+        }
+      },
+      "hash": "e876d7f683448fc78f2d23c96384a6543642f7654b804dd364a573d92a3bc5bb"
+    },
+    {
+      "command": {
+        "id": "auto-24",
+        "revision": 24,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-14",
+          "hex": {
+            "q": 10,
+            "r": 2
+          }
+        }
+      },
+      "hash": "515e0563997e7ee2449cca76f9d15c29f9a2924a2f14b71bbd9fcdb5997e7544"
+    },
+    {
+      "command": {
+        "id": "auto-25",
+        "revision": 25,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-15",
+          "hex": {
+            "q": 10,
+            "r": 2
+          }
+        }
+      },
+      "hash": "0eab3f330a46c896f8237093da20cbeb32d480e5186b6e4fc5bf1a46e6421a39"
+    },
+    {
+      "command": {
+        "id": "auto-26",
+        "revision": 26,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-I-16",
+          "hex": {
+            "q": 10,
+            "r": 3
+          }
+        }
+      },
+      "hash": "7aa190dd3a8d72c6a0945af47b35c93ea425995a57aba2cbf91509d608c59d81"
+    },
+    {
+      "command": {
+        "id": "auto-27",
+        "revision": 27,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-MOT-01",
+          "hex": {
+            "q": 10,
+            "r": 3
+          }
+        }
+      },
+      "hash": "5f361ea7debf050354c8de2aa3b85102500e0d8d9d96b0072e9152957b715dbc"
+    },
+    {
+      "command": {
+        "id": "auto-28",
+        "revision": 28,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-MOT-02",
+          "hex": {
+            "q": 10,
+            "r": 4
+          }
+        }
+      },
+      "hash": "b634bce914181f1ca1e27cc38d527493bdc97405141c6950782cc98622efb2c6"
+    },
+    {
+      "command": {
+        "id": "auto-29",
+        "revision": 29,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-TK-01",
+          "hex": {
+            "q": 10,
+            "r": 4
+          }
+        }
+      },
+      "hash": "03401dd54fc789d8436b4d8fac49ba6312d24d7517ca5b07519393d0f5c2d868"
+    },
+    {
+      "command": {
+        "id": "auto-30",
+        "revision": 30,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-TK-02",
+          "hex": {
+            "q": 10,
+            "r": 5
+          }
+        }
+      },
+      "hash": "779613333d62436f3a183165126384c4a9b833f3adfea871b9544cae09f865cb"
+    },
+    {
+      "command": {
+        "id": "auto-31",
+        "revision": 31,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "S-AI-1",
+          "deploymentUnitId": "S-TK-03",
+          "hex": {
+            "q": 10,
+            "r": 5
+          }
+        }
+      },
+      "hash": "75a796fed0f44ea876f845bf06c8e74ab9e4725ee4b4434cdf58d528ec50c503"
+    },
+    {
+      "command": {
+        "id": "auto-32",
+        "revision": 32,
+        "action": {
+          "type": "READY_FOR_PHASE_END",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "afdb67509fb80966088cdcd65d7c3bc891108221def5589e57be7b919c97ffab"
+    },
+    {
+      "command": {
+        "id": "auto-33",
+        "revision": 33,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-ART-01",
+          "hex": {
+            "q": 0,
+            "r": 0
+          }
+        }
+      },
+      "hash": "3b6b597edd24d6232310c390198cac890b7ebf4ca24795294e6fe8b5c2a168f1"
+    },
+    {
+      "command": {
+        "id": "auto-34",
+        "revision": 34,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-ART-02",
+          "hex": {
+            "q": 0,
+            "r": 0
+          }
+        }
+      },
+      "hash": "94bdcc8fd8546915fd512dd1c9ec180bc573887350dc2eccfc0e954f8da97266"
+    },
+    {
+      "command": {
+        "id": "auto-35",
+        "revision": 35,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-ENG-01",
+          "hex": {
+            "q": 0,
+            "r": 1
+          }
+        }
+      },
+      "hash": "53581a6192a0167d8a9ebebc384daff32e81bbddf63cbcd66587ac9d3c353337"
+    },
+    {
+      "command": {
+        "id": "auto-36",
+        "revision": 36,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-ENG-02",
+          "hex": {
+            "q": 0,
+            "r": 1
+          }
+        }
+      },
+      "hash": "f874978dc73a51f2effe5be1be66738d0a99a508d770a19e2b370ade157c447a"
+    },
+    {
+      "command": {
+        "id": "auto-37",
+        "revision": 37,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-01",
+          "hex": {
+            "q": 0,
+            "r": 10
+          }
+        }
+      },
+      "hash": "8c7bebb5c20a97de4abe3ebe038788025463754740d60d6d7dcefc670437bcd9"
+    },
+    {
+      "command": {
+        "id": "auto-38",
+        "revision": 38,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-02",
+          "hex": {
+            "q": 0,
+            "r": 10
+          }
+        }
+      },
+      "hash": "e9dcdea628d66febfc682f63a639c1b32556fdc9ae7423eccc0cf997e98608d8"
+    },
+    {
+      "command": {
+        "id": "auto-39",
+        "revision": 39,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-03",
+          "hex": {
+            "q": 0,
+            "r": 11
+          }
+        }
+      },
+      "hash": "98bb9c4eae35eb7d52cc1bf1ec169e04b4da5fc4046b9a5bed510d66ae90040a"
+    },
+    {
+      "command": {
+        "id": "auto-40",
+        "revision": 40,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-04",
+          "hex": {
+            "q": 0,
+            "r": 11
+          }
+        }
+      },
+      "hash": "5b6db76abf14202d63738d6de2806d28ddd6e26dc80474c695e966ad74090894"
+    },
+    {
+      "command": {
+        "id": "auto-41",
+        "revision": 41,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-05",
+          "hex": {
+            "q": 0,
+            "r": 12
+          }
+        }
+      },
+      "hash": "d938c921f339b1148846e04fe8214020c906e51044d3cf746ea9e2f94d2c67c6"
+    },
+    {
+      "command": {
+        "id": "auto-42",
+        "revision": 42,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-06",
+          "hex": {
+            "q": 0,
+            "r": 12
+          }
+        }
+      },
+      "hash": "376148acaa53a0f6fcd46bdedfc00a82e11223821458cd46f324db7973e29919"
+    },
+    {
+      "command": {
+        "id": "auto-43",
+        "revision": 43,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-07",
+          "hex": {
+            "q": 0,
+            "r": 13
+          }
+        }
+      },
+      "hash": "7a01c47be8a2231d831713a864650817c1e30123f56ee7eaf7f8041d6e4d8419"
+    },
+    {
+      "command": {
+        "id": "auto-44",
+        "revision": 44,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-08",
+          "hex": {
+            "q": 0,
+            "r": 13
+          }
+        }
+      },
+      "hash": "c63e6e48baa18c1a9722193e0ea0f67846e592c23dcfc7e833cc58c8fb65adeb"
+    },
+    {
+      "command": {
+        "id": "auto-45",
+        "revision": 45,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-09",
+          "hex": {
+            "q": 0,
+            "r": 14
+          }
+        }
+      },
+      "hash": "d9415aa38d9fa588b20daea2e44c0dd7785d059ec38427bff4cca8efed4487b9"
+    },
+    {
+      "command": {
+        "id": "auto-46",
+        "revision": 46,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-10",
+          "hex": {
+            "q": 0,
+            "r": 14
+          }
+        }
+      },
+      "hash": "dc197336b7dcb39f3f24567d24e4dae1ef45e3eaf04b399192c1a12c74c43941"
+    },
+    {
+      "command": {
+        "id": "auto-47",
+        "revision": 47,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-I-11",
+          "hex": {
+            "q": 0,
+            "r": 15
+          }
+        }
+      },
+      "hash": "81c5620f2a251e15ac2c965080b3c2ed2cc8ee1d6c5e3fcf1d778cc27d6c259c"
+    },
+    {
+      "command": {
+        "id": "auto-48",
+        "revision": 48,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-J-01",
+          "hex": {
+            "q": 0,
+            "r": 15
+          }
+        }
+      },
+      "hash": "2f3f26ab3447db532a76cf6451ed494082fd69eea98a327b9184e6ccb5472d6d"
+    },
+    {
+      "command": {
+        "id": "auto-49",
+        "revision": 49,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-J-02",
+          "hex": {
+            "q": 0,
+            "r": 16
+          }
+        }
+      },
+      "hash": "a148cbd3d48cc9f651c4566ac8ef040a1b1fe4b616460e62bdac93450b5ef557"
+    },
+    {
+      "command": {
+        "id": "auto-50",
+        "revision": 50,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-MOT-01",
+          "hex": {
+            "q": 0,
+            "r": 16
+          }
+        }
+      },
+      "hash": "547b6cef5b759fa89fa3f6a9e0e5efdee84e879b6fcea44074909f011b305a6b"
+    },
+    {
+      "command": {
+        "id": "auto-51",
+        "revision": 51,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-MOT-02",
+          "hex": {
+            "q": 0,
+            "r": 17
+          }
+        }
+      },
+      "hash": "dd84aa3c7c078fdaa20b3003e4d6a9a1f7c80548995287722c0670ef2c4b5b23"
+    },
+    {
+      "command": {
+        "id": "auto-52",
+        "revision": 52,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-MOT-03",
+          "hex": {
+            "q": 0,
+            "r": 17
+          }
+        }
+      },
+      "hash": "4bd1adba414f1b1b75a143d2cf71ebb13b1408782a6a7c7c8651adfbe83ab453"
+    },
+    {
+      "command": {
+        "id": "auto-53",
+        "revision": 53,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-PZ-01",
+          "hex": {
+            "q": 0,
+            "r": 18
+          }
+        }
+      },
+      "hash": "bea48734d937b2f65370054af7afbb8ee56991e8645f769e0ebd042faf801718"
+    },
+    {
+      "command": {
+        "id": "auto-54",
+        "revision": 54,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-PZ-02",
+          "hex": {
+            "q": 0,
+            "r": 18
+          }
+        }
+      },
+      "hash": "c73dc106d57864dee1c312f2f3453fc48faf49e4d8f4a78f1d2c96c3364bd12a"
+    },
+    {
+      "command": {
+        "id": "auto-55",
+        "revision": 55,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-PZ-03",
+          "hex": {
+            "q": 0,
+            "r": 19
+          }
+        }
+      },
+      "hash": "56b625fdfc9081c412c7340303b56f1b59bda931f9a3796064a4deb926caa4df"
+    },
+    {
+      "command": {
+        "id": "auto-56",
+        "revision": 56,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-PZ-04",
+          "hex": {
+            "q": 0,
+            "r": 19
+          }
+        }
+      },
+      "hash": "686b62ecacc55b2ee4299b1b58c7e534721ae4865c636f83c1a0865324eeb6cb"
+    },
+    {
+      "command": {
+        "id": "auto-57",
+        "revision": 57,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-REC-01",
+          "hex": {
+            "q": 0,
+            "r": 2
+          }
+        }
+      },
+      "hash": "0bf76bfe80a0a3550437cb915522f2825e74613e6dc5ddbe9fdb1e3cb8366be7"
+    },
+    {
+      "command": {
+        "id": "auto-58",
+        "revision": 58,
+        "action": {
+          "type": "DEPLOY_INITIAL_UNIT",
+          "controllerId": "G-HUMAN-1",
+          "deploymentUnitId": "G-REC-02",
+          "hex": {
+            "q": 0,
+            "r": 2
+          }
+        }
+      },
+      "hash": "08fc2287740208eda8ffe9ee22d6b0b31fdcdf6c83d5115afd8745ebfa57af04"
+    },
+    {
+      "command": {
+        "id": "auto-59",
+        "revision": 59,
+        "action": {
+          "type": "READY_FOR_PHASE_END",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "28832d4c63bb4e5d4a6eab8219ce5e1667fccd8079d300cb0738c64e35337516"
+    },
+    {
+      "command": {
+        "id": "auto-60",
+        "revision": 60,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c1ce5042bcd69f00e7682b7bbe4b3fde11639068f617cfc3f34e5e7edef0629b"
+    },
+    {
+      "command": {
+        "id": "auto-61",
+        "revision": 61,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d6a083aea698828fcac2a4999b8befab998e8f08ca21462e5c3eabc715bd7938"
+    },
+    {
+      "command": {
+        "id": "auto-62",
+        "revision": 62,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "0c6d95ee40a6e26b7ef133d5766902337512fcfdaab5c13f48cb09771c448f43"
+    },
+    {
+      "command": {
+        "id": "auto-63",
+        "revision": 63,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "5b3143bdb783be59b4be5b10089dffe6b07eca6638c5bcec98f40773a6516740"
+    },
+    {
+      "command": {
+        "id": "auto-64",
+        "revision": 64,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "e26a295c33617151bf408e70da569173ab953c7d692d9931dbad2226c0dffc56"
+    },
+    {
+      "command": {
+        "id": "auto-65",
+        "revision": 65,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "a5ef979b5ceeb2e340ab3786facba81f46a6457700b8dc0317ef30411b481887"
+    },
+    {
+      "command": {
+        "id": "auto-66",
+        "revision": 66,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "f751c16d20a23c0d495c47b44e383fa5284e9b3c8109e61897952ca9e1369f69"
+    },
+    {
+      "command": {
+        "id": "auto-67",
+        "revision": 67,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "5f8acc217f244a2b2d864eb7c93d8a80a07d694bd7c7dfb2bc12e75e7c25e9b7"
+    },
+    {
+      "command": {
+        "id": "auto-68",
+        "revision": 68,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "458063b410bb8ceadd5825a75b13db83b8517c17c170b7db94fd07ae39d62fde"
+    },
+    {
+      "command": {
+        "id": "auto-69",
+        "revision": 69,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "22b759b34f86fc3b3de6656f18047c9b328388145587389b4de5a7412662d1d2"
+    },
+    {
+      "command": {
+        "id": "auto-70",
+        "revision": 70,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "70bfa314d8411d73e5b7c595f4c37e9379534eb62a3e1b53b64cac83f25fd2de"
+    },
+    {
+      "command": {
+        "id": "auto-71",
+        "revision": 71,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "5d5544c677450e670fe7641a8fc4dda3c1b0f622961f3e5bbf4a1c10a208557b"
+    },
+    {
+      "command": {
+        "id": "auto-72",
+        "revision": 72,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "daa36281424faecd5544957e0536d9cb269a0a7f233545bcb4ac42a528751174"
+    },
+    {
+      "command": {
+        "id": "auto-73",
+        "revision": 73,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d74f6e231ff36267f9948f3d13e95d52e6fddfa6228853854ae0fb2e0de9a879"
+    },
+    {
+      "command": {
+        "id": "auto-74",
+        "revision": 74,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "bb26be41ab3ff2f8e6201c70d770a2ceab14aaf78cdd65734060b9ac0cb26975"
+    },
+    {
+      "command": {
+        "id": "auto-75",
+        "revision": 75,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "bf3847b59db5790fe8db9b709cddffb63df62af3bd24f101e597b491bf9716e5"
+    },
+    {
+      "command": {
+        "id": "auto-76",
+        "revision": 76,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "75936e4d02e7aaec8592e78fadcc22f5875956492739c2eeb5842216985eb150"
+    },
+    {
+      "command": {
+        "id": "auto-77",
+        "revision": 77,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "29c3b40b8b269abf085e07d59e9320fedd0f7a76ae2de3011f50e7bd7e7ec46b"
+    },
+    {
+      "command": {
+        "id": "auto-78",
+        "revision": 78,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "55250a257efffb8aa0272929df8d0ff1e2843b0c50bfb7008114c55490848b7d"
+    },
+    {
+      "command": {
+        "id": "auto-79",
+        "revision": 79,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "1cde88fb884ec98a79689dae874459e2e3386a5012385cc8f2fe66cdd3ef9d4d"
+    },
+    {
+      "command": {
+        "id": "auto-80",
+        "revision": 80,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c3bbfa21f4888f523f47c1148f21baf9a11e6d71b978a4a779e8b900746b6d9b"
+    },
+    {
+      "command": {
+        "id": "auto-81",
+        "revision": 81,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "da11b389f8939b183555eb6c19083536315fdd2d9d1323b0114dd3c4592f4cba"
+    },
+    {
+      "command": {
+        "id": "auto-82",
+        "revision": 82,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "11b894da77aca0588b8bb625ca89053502d6965b9667278d65da30a44dfc4f92"
+    },
+    {
+      "command": {
+        "id": "auto-83",
+        "revision": 83,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "56b0b97cfd20d7657b40658824d8037d18eae8d3be2c9418d1f75862a0d9ee97"
+    },
+    {
+      "command": {
+        "id": "auto-84",
+        "revision": 84,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c9a428b1bb15a6654cbd8c07e8c3a2c55ac8734f2b3e14035ed956f95cdd372a"
+    },
+    {
+      "command": {
+        "id": "auto-85",
+        "revision": 85,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "30f66dedb3abc6642c030163f3c0edd5c2feb2014bdc7d2c12df4db6d3a27281"
+    },
+    {
+      "command": {
+        "id": "auto-86",
+        "revision": 86,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "087515afff133d613443f6c36186d28ab370b5aa38790d620f7fe641315ebc48"
+    },
+    {
+      "command": {
+        "id": "auto-87",
+        "revision": 87,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e555f13a488edbe17171f06a233707eb2e34df469222c9c2314662b5c80954bc"
+    },
+    {
+      "command": {
+        "id": "auto-88",
+        "revision": 88,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "7209df9597bab58355bcba443065841b374af9feb8a9fdeb8c26a3cad0768137"
+    },
+    {
+      "command": {
+        "id": "auto-89",
+        "revision": 89,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "14461b1948c04ebec90e5a32a010baad9c078d4edb9c717c170e9f87475e413a"
+    },
+    {
+      "command": {
+        "id": "auto-90",
+        "revision": 90,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "bfe1026afcd322c29dc478db95c21c8a0a34cbb42254b3a87eb47cdb2ec19717"
+    },
+    {
+      "command": {
+        "id": "auto-91",
+        "revision": 91,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "60bb345f404735be93455e1ba0936d9f709ae3420669471ab058e52816e23883"
+    },
+    {
+      "command": {
+        "id": "auto-92",
+        "revision": 92,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "eafdbd369b26343480f5dea93eeec160e5f2aaa91ceda504e08b823e3d0c1249"
+    },
+    {
+      "command": {
+        "id": "auto-93",
+        "revision": 93,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "aff07fe69de73caac9b0a153ff98fcfab2592867aad8a079452dd12ad397e590"
+    },
+    {
+      "command": {
+        "id": "auto-94",
+        "revision": 94,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "27967c3bda1c15560ccacd25e6091de25f4c7dbe811f8b0ce9630dad51b4077f"
+    },
+    {
+      "command": {
+        "id": "auto-95",
+        "revision": 95,
+        "action": {
+          "type": "DEPLOY_REINFORCEMENT",
+          "controllerId": "S-AI-1",
+          "reinforcementId": "S-R-T04-G01-U01",
+          "entryHex": {
+            "q": 31,
+            "r": -12
+          }
+        }
+      },
+      "hash": "13c9bb4a7d658698f869f3dde827b48dedc2dc971caae7b71645d56570b1ec68"
+    },
+    {
+      "command": {
+        "id": "auto-96",
+        "revision": 96,
+        "action": {
+          "type": "DEPLOY_REINFORCEMENT",
+          "controllerId": "S-AI-1",
+          "reinforcementId": "S-R-T04-G01-U02",
+          "entryHex": {
+            "q": 31,
+            "r": -12
+          }
+        }
+      },
+      "hash": "ddbb2a69d48104055e0610b3609bd81f2a0281ac58b547359dd1bf2199ec14df"
+    },
+    {
+      "command": {
+        "id": "auto-97",
+        "revision": 97,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "57eefec4c0f8782d765b765d82827336fef44f1a335dceb0c8b42762c0319918"
+    },
+    {
+      "command": {
+        "id": "auto-98",
+        "revision": 98,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "024bc8f7b07603897e0e8597534d663071a4d8c2dc1eb3cbdee59b9d1a29d1e9"
+    },
+    {
+      "command": {
+        "id": "auto-99",
+        "revision": 99,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "1c5e9074b3724c43784562142d6d3cd6e3fd82f62b7e6b28b762923078743355"
+    },
+    {
+      "command": {
+        "id": "auto-100",
+        "revision": 100,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "c9397ef484c4ab332678315f2cffe8791493aadc5236ffdfad69f85731175648"
+    },
+    {
+      "command": {
+        "id": "auto-101",
+        "revision": 101,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "fd0dd00ca4299071978f30f8f7f7083664ac29ea0b8e419dcd6d79b80016d394"
+    },
+    {
+      "command": {
+        "id": "auto-102",
+        "revision": 102,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "bf08215c00b60630e7b3763394d6ed8c13c21b1965fa6a64449e9960e84b5499"
+    },
+    {
+      "command": {
+        "id": "auto-103",
+        "revision": 103,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "e7268cbc6915e99c69d4b22a094514d31b30505abcb1b17a1d769f3a7a3bfaa2"
+    },
+    {
+      "command": {
+        "id": "auto-104",
+        "revision": 104,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "9dd70fcf2efa874e62be41660eb07b080b817d32e06ab4652f6db2c1519b436b"
+    },
+    {
+      "command": {
+        "id": "auto-105",
+        "revision": 105,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "dc1c160b308faedc98c1d5c26acd6d5f928acf5d831a8b26f115d34e608d76fe"
+    },
+    {
+      "command": {
+        "id": "auto-106",
+        "revision": 106,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "fd2119a5e857c2f345ddb1308400870711691710e60318d8dc7092c4c62b3482"
+    },
+    {
+      "command": {
+        "id": "auto-107",
+        "revision": 107,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "7c1a90154d01e20c63c66e4ecb0cc03d4e42cc7ef1a90630e74132022a6ae997"
+    },
+    {
+      "command": {
+        "id": "auto-108",
+        "revision": 108,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "bf94150591e77fee19022a7e79a19ae1cb6ecb15c5bed3d814f7b6ff6e5c7ee1"
+    },
+    {
+      "command": {
+        "id": "auto-109",
+        "revision": 109,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "955f71d50c70aaaa956dcbabdc82ef324026ef9d1e8c57454218f5213ed0b67c"
+    },
+    {
+      "command": {
+        "id": "auto-110",
+        "revision": 110,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "89b231765794c1000775bf0fdcb4f04bc762015296394c8354269c8ea6ddb86d"
+    },
+    {
+      "command": {
+        "id": "auto-111",
+        "revision": 111,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "f6071cf8797ada4436a5304099dea3ca172fd11889d0fa5ea3b848edcb19a576"
+    },
+    {
+      "command": {
+        "id": "auto-112",
+        "revision": 112,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d77b278a149dc27f17e2bdba8477abcc4a990daf0b21fb19249bd6083122723c"
+    },
+    {
+      "command": {
+        "id": "auto-113",
+        "revision": 113,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "95a1cbcf18eea3a1aabb9539a66cbaab833a1105b490b62592085bbb259a5c49"
+    },
+    {
+      "command": {
+        "id": "auto-114",
+        "revision": 114,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "861296770c278ebf88a042f564fcd112546d4df53e78d409c64596f09aa5215a"
+    },
+    {
+      "command": {
+        "id": "auto-115",
+        "revision": 115,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "ec832daaac3c621ff3b0393e5a7e9aed7dbd53341efa427ebaae97ef68d38d43"
+    },
+    {
+      "command": {
+        "id": "auto-116",
+        "revision": 116,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "ad94e12edb59b5705ba66370eb8a723be9bfaddebec4c76316372daa6cf0a072"
+    },
+    {
+      "command": {
+        "id": "auto-117",
+        "revision": 117,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "633872030d42af2ccb443f67802a0c2e52297991efc60ec058503ad5e300a265"
+    },
+    {
+      "command": {
+        "id": "auto-118",
+        "revision": 118,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "136d28980c753b9c523999144b3bdc95b742e28e50ac5ed334ca2acb0936a389"
+    },
+    {
+      "command": {
+        "id": "auto-119",
+        "revision": 119,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "ba8e4b6b8fb27cff7ed43dca7e8a25a569f61d32c51bb8335ca741f7c2e37633"
+    },
+    {
+      "command": {
+        "id": "auto-120",
+        "revision": 120,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e76da73b75a9af5b0ff2375b8d24453ca91a006d8d6bdfca6adf3fca75c63042"
+    },
+    {
+      "command": {
+        "id": "auto-121",
+        "revision": 121,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "1d2710c9b6cc4cf373e7797bb6d4ffbf2da750102f913ba355277d5f70680d77"
+    },
+    {
+      "command": {
+        "id": "auto-122",
+        "revision": 122,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d19c755a98c75b9ca270a08f62a840346eca9e84952af1d3e2d7a33542e72b5d"
+    },
+    {
+      "command": {
+        "id": "auto-123",
+        "revision": 123,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "4ddb48d6fd80b1cda6a5953a45392f9dd71db00064ad8a3f530ef6ec288a2af6"
+    },
+    {
+      "command": {
+        "id": "auto-124",
+        "revision": 124,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c2ba7791f46679a641ad349c279e1a4c38c681e533a3103b1d619b67c4d659e6"
+    },
+    {
+      "command": {
+        "id": "auto-125",
+        "revision": 125,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "23362bb68a1c99f0843df5f7b328a1ab26e7e0dcc312779f714a7d053368696f"
+    },
+    {
+      "command": {
+        "id": "auto-126",
+        "revision": 126,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "5932a31ed59c19cb14fdc47ac575a8f38529a7cb52be87b71b7ac1de887faedd"
+    },
+    {
+      "command": {
+        "id": "auto-127",
+        "revision": 127,
+        "action": {
+          "type": "DEPLOY_REINFORCEMENT",
+          "controllerId": "S-AI-1",
+          "reinforcementId": "S-R-T07-G02-U01",
+          "entryHex": {
+            "q": 31,
+            "r": -6
+          }
+        }
+      },
+      "hash": "462b2dd286ce31fa59f8d4cc06b38d21b27a1a9bffcf36170e96767a38bb7e9a"
+    },
+    {
+      "command": {
+        "id": "auto-128",
+        "revision": 128,
+        "action": {
+          "type": "DEPLOY_REINFORCEMENT",
+          "controllerId": "S-AI-1",
+          "reinforcementId": "S-R-T07-G02-U02",
+          "entryHex": {
+            "q": 31,
+            "r": -6
+          }
+        }
+      },
+      "hash": "ea4efe119f45fc99b3baa62cfc1b4b3fc8abc393385e158abad9b09f94c66365"
+    },
+    {
+      "command": {
+        "id": "auto-129",
+        "revision": 129,
+        "action": {
+          "type": "DEPLOY_REINFORCEMENT",
+          "controllerId": "S-AI-1",
+          "reinforcementId": "S-R-T07-G02-U03",
+          "entryHex": {
+            "q": 31,
+            "r": 0
+          }
+        }
+      },
+      "hash": "8944a27dbfe86ca16e5476c358b6ee3ffb6bab72d219ac1564a16887f12c72b6"
+    },
+    {
+      "command": {
+        "id": "auto-130",
+        "revision": 130,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e4b6928c977b2cc21157f71ba967b66c6e9a5d56cc8af72901c9e7fc0ef83207"
+    },
+    {
+      "command": {
+        "id": "auto-131",
+        "revision": 131,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "3e090fc9d7c7e78face0f541eec8bee1c53f9b772da6d568a662afa3ef240ec7"
+    },
+    {
+      "command": {
+        "id": "auto-132",
+        "revision": 132,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "3ac9bf3a978b2de6e57d359c19ef42238bbd337334a9016befb1e16b48e2c570"
+    },
+    {
+      "command": {
+        "id": "auto-133",
+        "revision": 133,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "b7ee8e3492b3b4b9893ea7ff0297f9fb88e1df4d78c538458cae799483a01e69"
+    },
+    {
+      "command": {
+        "id": "auto-134",
+        "revision": 134,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "a3b38b39687c81f39a4c2d67bcf417d037bac08cd27b7a1b7093602ee5818783"
+    },
+    {
+      "command": {
+        "id": "auto-135",
+        "revision": 135,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c2e4b6b602905883df05ac59fe6a23703a0a0b2d3e06530930f02dc9c7f8f2b6"
+    },
+    {
+      "command": {
+        "id": "auto-136",
+        "revision": 136,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c3d28480ec605dabadc7aaa77873aef27721a2cfa0696f7b56b1b97c4f9d1484"
+    },
+    {
+      "command": {
+        "id": "auto-137",
+        "revision": 137,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "0d0facd83da6df53c06cb7e89657208519b9e322246fd962df1eb2239a18a62b"
+    },
+    {
+      "command": {
+        "id": "auto-138",
+        "revision": 138,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "c2a82f1d7c60221e375c87f5881c616d0084e8c0b9aa9bdd61ff22e729dcfff9"
+    },
+    {
+      "command": {
+        "id": "auto-139",
+        "revision": 139,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "b01d23822e3288459ba45d5ce6e0ab6f25826660192c50c893d0f56d8ab06de2"
+    },
+    {
+      "command": {
+        "id": "auto-140",
+        "revision": 140,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e4ada4e97e93af8926725fa81fac1091b9c6cc2c46efc9b47ffc3628ee28cc47"
+    },
+    {
+      "command": {
+        "id": "auto-141",
+        "revision": 141,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "68c7fdfbe69115b24610703efc4a7d8b5a2363637bf296306a9ca69a5ddda511"
+    },
+    {
+      "command": {
+        "id": "auto-142",
+        "revision": 142,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "f95790e79885e6cf39f2ccf061b800157c4df9d13c38043352aed9870f93d192"
+    },
+    {
+      "command": {
+        "id": "auto-143",
+        "revision": 143,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "ca1eb0b0b48e7c074c82171d62937edd656a011899a677ab46e8391f6f923adc"
+    },
+    {
+      "command": {
+        "id": "auto-144",
+        "revision": 144,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "5fec7478099ea480d3da692eea91332a4ef4ce1c6c94f4069cc126b8d78937af"
+    },
+    {
+      "command": {
+        "id": "auto-145",
+        "revision": 145,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d9463ef73b19287292242235865d89fcfcdf03af5079e2f1b95d7c6d89fb5fb7"
+    },
+    {
+      "command": {
+        "id": "auto-146",
+        "revision": 146,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "0c0aaebc09b5d2d6fbc07041ed773fb5cb3f45e940c1f126e93d01a4e750b580"
+    },
+    {
+      "command": {
+        "id": "auto-147",
+        "revision": 147,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "0e28a870ebb69ad10f6bb2c3066f0e9de40c0296cc3b09e83f2d4444e5174e4f"
+    },
+    {
+      "command": {
+        "id": "auto-148",
+        "revision": 148,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "da8b72ea553ec9fd5d2dee720b7c987b8f5da79e668712497b76bee37e49c915"
+    },
+    {
+      "command": {
+        "id": "auto-149",
+        "revision": 149,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "85e1f8c9c032549911be727a6c2cd1da0e0b1a3246b8e358b3625290f8d30652"
+    },
+    {
+      "command": {
+        "id": "auto-150",
+        "revision": 150,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "d56387756ecd9fbbe164a3dca9a86f05bd658dd543ab5829977f75b3c8f33de0"
+    },
+    {
+      "command": {
+        "id": "auto-151",
+        "revision": 151,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "cb44aa4293b6b5d6d42e1df6996b61e16b85089429801eda001552306cf879e1"
+    },
+    {
+      "command": {
+        "id": "auto-152",
+        "revision": 152,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "32e67839c881b25265fefaba12e520335f461912fc0c962b01b7e1486c1b5bd6"
+    },
+    {
+      "command": {
+        "id": "auto-153",
+        "revision": 153,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "bcf57e744cfd258261278a82f883598ea8341b971e274d3c563b58c715a60248"
+    },
+    {
+      "command": {
+        "id": "auto-154",
+        "revision": 154,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "16e90f6eb409a27662df31c97eef278ae7e053efb77c861199518f2af33b5e47"
+    },
+    {
+      "command": {
+        "id": "auto-155",
+        "revision": 155,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "cdf651ac06f01c542aff3c387931f89dede3f9a3101ea675d584d0b258b95044"
+    },
+    {
+      "command": {
+        "id": "auto-156",
+        "revision": 156,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "38e57e787b2831cf3717c31530696df9cb555ee8c0f58c98cf3d6a94bba95928"
+    },
+    {
+      "command": {
+        "id": "auto-157",
+        "revision": 157,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "444b3a75fd58bf6569003f65fb11623bdb0587c1d323fb0a794754dd0c918626"
+    },
+    {
+      "command": {
+        "id": "auto-158",
+        "revision": 158,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "7a6cec984124a10d3987b1e2f55b86552867c6dfcdf6d1b97aab71a399bb3a8f"
+    },
+    {
+      "command": {
+        "id": "auto-159",
+        "revision": 159,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "610bbbbf25f59720d3c7b8bd785b78313f60c29e890ea3403a00ffeb49b6aefb"
+    },
+    {
+      "command": {
+        "id": "auto-160",
+        "revision": 160,
+        "action": {
+          "type": "DEPLOY_REINFORCEMENT",
+          "controllerId": "S-AI-1",
+          "reinforcementId": "S-R-T10-G03-U01",
+          "entryHex": {
+            "q": 31,
+            "r": 0
+          }
+        }
+      },
+      "hash": "41ea3fbd4fb4b6c107d1db2cc08fcd131fb26a7f918be375c42893d4c22df706"
+    },
+    {
+      "command": {
+        "id": "auto-161",
+        "revision": 161,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "2849186952cae92a5ecb0e261363012b913511d1b52af6dd6d8ab901fa4905a7"
+    },
+    {
+      "command": {
+        "id": "auto-162",
+        "revision": 162,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "c4290d32cda4c2c274fca3f975c709fcceddc23e81cd882c2fe80151e09916b4"
+    },
+    {
+      "command": {
+        "id": "auto-163",
+        "revision": 163,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "3703e33c31c5d24beb5c982454fdd0a67ba913c02c8aafec7e6cfd85ebfe0495"
+    },
+    {
+      "command": {
+        "id": "auto-164",
+        "revision": 164,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "b67d128a45e311b6ed4164fbf70080986e5cc8ef260643cbd9094ecbd71a13a5"
+    },
+    {
+      "command": {
+        "id": "auto-165",
+        "revision": 165,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e849334335bb6f08bcc2b42dbc8fb278c4e9c5fe34fc872c30dda064db0cdc91"
+    },
+    {
+      "command": {
+        "id": "auto-166",
+        "revision": 166,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "2a00efe75cdac5427cc1772fa6d284e1e2bd0b19e1bea81ce8234a1d18c2b8bd"
+    },
+    {
+      "command": {
+        "id": "auto-167",
+        "revision": 167,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "930e32a5b4eb80a2992bc3f1e14ff590e7e380ab94d2ddc7788a6f793775e6f8"
+    },
+    {
+      "command": {
+        "id": "auto-168",
+        "revision": 168,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "1e52add5222d69c24ff5ba87edf93fe9a73b5b381bd77dc0238c9682d2b37d4b"
+    },
+    {
+      "command": {
+        "id": "auto-169",
+        "revision": 169,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "64ee8da050da38dc2ab2140cb75a493e52c3c6e1b4751171bf84ea22d3faaa78"
+    },
+    {
+      "command": {
+        "id": "auto-170",
+        "revision": 170,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "79578f0acbbbb517068e8244374a029a0af96365d20996bd97a07239c4d68169"
+    },
+    {
+      "command": {
+        "id": "auto-171",
+        "revision": 171,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "112d7558799def4bcc7ebe78dd625c8ec11782d3b6dfbe4f1a3b923a3222d5ff"
+    },
+    {
+      "command": {
+        "id": "auto-172",
+        "revision": 172,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "bf7121b3245eda7a324315c31372153a5683385c9b830dc6359795f9a6c1f4ed"
+    },
+    {
+      "command": {
+        "id": "auto-173",
+        "revision": 173,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "deca5325c5d22a3d2d09749f92e6960679e4376afa4197605c47d767942b3b73"
+    },
+    {
+      "command": {
+        "id": "auto-174",
+        "revision": 174,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "eb024bd400bd25be59922a3767e743d9fafc3eb1ea855c8c56e23674ce5433a9"
+    },
+    {
+      "command": {
+        "id": "auto-175",
+        "revision": 175,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "68535cc1aafe28dc9f884f12652a36bc57314e552006961780f660a8b932f383"
+    },
+    {
+      "command": {
+        "id": "auto-176",
+        "revision": 176,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "e3f9df3c6f3a31f32455a5181d0afefd97d60c6258de8a60ca4396d8e5d991b6"
+    },
+    {
+      "command": {
+        "id": "auto-177",
+        "revision": 177,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "04f9446b862129b2edf390be1bb1c0d00ec5a42afae002b79aa380f1e341669e"
+    },
+    {
+      "command": {
+        "id": "auto-178",
+        "revision": 178,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "6261ae15e763a6ec7e5604250cff02875c0abc6a1a3170110bc0e95bd75e12af"
+    },
+    {
+      "command": {
+        "id": "auto-179",
+        "revision": 179,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "209160468595bed2e15a9bc5f8ed55b01d2c8caf58ae6346481f0d72b1a3de33"
+    },
+    {
+      "command": {
+        "id": "auto-180",
+        "revision": 180,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "99b8dd98ffb533f498ae4b2ffdb125f2804c6dcf7e1af0f9ceda181dd8e22935"
+    },
+    {
+      "command": {
+        "id": "auto-181",
+        "revision": 181,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "3baa3cfe1f41d6829c2ba6dd60dfbd4b53b5b589312829d25794cc0e436e851f"
+    },
+    {
+      "command": {
+        "id": "auto-182",
+        "revision": 182,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "8d67924df83b478e438ceaef150a9581038d083d9792299300b01254648ad1a7"
+    },
+    {
+      "command": {
+        "id": "auto-183",
+        "revision": 183,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "cb28c6fa54aef535fbde11f4613f77fb76110161a0c5d81be02735f6423d1481"
+    },
+    {
+      "command": {
+        "id": "auto-184",
+        "revision": 184,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "8f3a60322284dff04de7b6f07844d3597063e141fe93ca23a106db5ff06471d0"
+    },
+    {
+      "command": {
+        "id": "auto-185",
+        "revision": 185,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "4aaa6c13f3c668d6f68eda4a7114f8d8b456e7df8e3138dc778e30202b8a7450"
+    },
+    {
+      "command": {
+        "id": "auto-186",
+        "revision": 186,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "b84acc9183e60d0cef32c90e4a35f6adca582e3ef1a80940ffe822bdd67a8480"
+    },
+    {
+      "command": {
+        "id": "auto-187",
+        "revision": 187,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "8de6bf7a14f0eb52b232b5bd62b89f46c63994c76c430fe951a91b66fccc83d7"
+    },
+    {
+      "command": {
+        "id": "auto-188",
+        "revision": 188,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "59df5cf5e022550e4a1ea93e8e4fc51b78e9a8aaf171f1c3a5c6cb3951ead910"
+    },
+    {
+      "command": {
+        "id": "auto-189",
+        "revision": 189,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "26cc8815a3b287d3d5cd04047219825b4c5eb388e7625cba9738f19e55875e79"
+    },
+    {
+      "command": {
+        "id": "auto-190",
+        "revision": 190,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "bbecd7a6b57f225e69d6b81c6e698f10840c40e70e1b23c365f1c5eae493ad29"
+    },
+    {
+      "command": {
+        "id": "auto-191",
+        "revision": 191,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e781fceff211a7314d6862c9fad547bb45404da11931a2b1f70c09c31b2f01c4"
+    },
+    {
+      "command": {
+        "id": "auto-192",
+        "revision": 192,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "cea5b2970c9710dbe8b081c842810a422c071a8b981aa5f15c99767a8950fd6a"
+    },
+    {
+      "command": {
+        "id": "auto-193",
+        "revision": 193,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "f3843356cc626386147cab5c75721ff277ed9a68fa1316406ac51bd3afd8b139"
+    },
+    {
+      "command": {
+        "id": "auto-194",
+        "revision": 194,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e7026e1caf78a947eed1ce092a9e5ddd8e3b6e1fef2f8985740420c1ce4eddcc"
+    },
+    {
+      "command": {
+        "id": "auto-195",
+        "revision": 195,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "650d9dbcd0e63a5d3528e398c29c58aa6a0348650dc2abcfc7a51e8209f32969"
+    },
+    {
+      "command": {
+        "id": "auto-196",
+        "revision": 196,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "065ca21bac42c5723901f73a85ea75b03a8dd8c550cfa93ec5a0b377f1c84e2e"
+    },
+    {
+      "command": {
+        "id": "auto-197",
+        "revision": 197,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "a8fa7254705e2133de15c66e37d182fa2666129d7667e7ca0136ebd23a265a1a"
+    },
+    {
+      "command": {
+        "id": "auto-198",
+        "revision": 198,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d4e4224932ee15ead389f3f986b25e6c8fe51c084849523a94dc3f335b1f58b4"
+    },
+    {
+      "command": {
+        "id": "auto-199",
+        "revision": 199,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "a35c3f5a78af0fd34df7df0d4a7065ba7827e0414e77bf247922b41a8f910954"
+    },
+    {
+      "command": {
+        "id": "auto-200",
+        "revision": 200,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "f06e3ef5875cf8fe9a67713d2a8dde259472679d83ff887013b3d78306a80219"
+    },
+    {
+      "command": {
+        "id": "auto-201",
+        "revision": 201,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "b8191d557c1f112d5236883db868ee3e9d06260ddba17c4546eb352d8605365a"
+    },
+    {
+      "command": {
+        "id": "auto-202",
+        "revision": 202,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "b427d1608ea8361a085ff7ce6d2457b0c807438abde97d1ed9f755ef0626df5f"
+    },
+    {
+      "command": {
+        "id": "auto-203",
+        "revision": 203,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "bcaa016d1f920db225835e4ae21c047aa3c7664db4423d9cf565b73752182e32"
+    },
+    {
+      "command": {
+        "id": "auto-204",
+        "revision": 204,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "20d4dd9f0e025985728c34596c4b209caad8343dce1b57b3187fef5ae619be1b"
+    },
+    {
+      "command": {
+        "id": "auto-205",
+        "revision": 205,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "ae2fc720aa2eb0eac6ab90b758bdace145cc581a5691c06417310b6833976cac"
+    },
+    {
+      "command": {
+        "id": "auto-206",
+        "revision": 206,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "6cf5b04f1748775cff7f9c82bfff3edac1d7add873501b9a93ee1bf2d08294dd"
+    },
+    {
+      "command": {
+        "id": "auto-207",
+        "revision": 207,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "7d25d4ef4256c40e2d29f054fb33275739f7105421c5585d72abfa40486d62af"
+    },
+    {
+      "command": {
+        "id": "auto-208",
+        "revision": 208,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "a8bc3e5cf9c61f17c7b615868f430b47186d08a2e72655f8fc0e218a2232c74e"
+    },
+    {
+      "command": {
+        "id": "auto-209",
+        "revision": 209,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "1ca6df90e989b4fa26e1077b874ed40a95b1053344eec279e83055215d5f25a5"
+    },
+    {
+      "command": {
+        "id": "auto-210",
+        "revision": 210,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d359cd8e6efd1fe6496a812e4e21992f520fbf3bb5c0f8d40f7237b2b637fcfa"
+    },
+    {
+      "command": {
+        "id": "auto-211",
+        "revision": 211,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "e04a0628e5a97f58273eac88947f54d43fcc18c6e4af149f077ab235776b181d"
+    },
+    {
+      "command": {
+        "id": "auto-212",
+        "revision": 212,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "6dd619976397ea569ef8c8cbb998c30a41de90e25a9770ee7dcc961c4119b676"
+    },
+    {
+      "command": {
+        "id": "auto-213",
+        "revision": 213,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "c4a4ced69e24638be4635fcb3ef470f6deeb6c0958f5c44694da1bac94ad70ac"
+    },
+    {
+      "command": {
+        "id": "auto-214",
+        "revision": 214,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "316397c3c068235707196e514143a4ef379e1ff5a12b35c76b4cca2502d90910"
+    },
+    {
+      "command": {
+        "id": "auto-215",
+        "revision": 215,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "S-AI-1"
+        }
+      },
+      "hash": "fd5ae9987e64eca8e5cbdb87b007424b81788aea773696079866b74671598365"
+    },
+    {
+      "command": {
+        "id": "auto-216",
+        "revision": 216,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "da0334c950549fcf8d416063afc7174d086197c9445b57b0cf3d851ea4d65da3"
+    },
+    {
+      "command": {
+        "id": "auto-217",
+        "revision": 217,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "3e1787fdbc792d6201d10dfff4694690c5f2de550a1bfe813f8497efa2b6a9cf"
+    },
+    {
+      "command": {
+        "id": "auto-218",
+        "revision": 218,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "32a152108cffff8c8a61ce8b1a67719d6da2408678bb266d69a4e88b746ab5d8"
+    },
+    {
+      "command": {
+        "id": "auto-219",
+        "revision": 219,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "282b87a875fee381fc277a84dc6efb0c2c091f3be5cc61e9bdce3868bff5c795"
+    },
+    {
+      "command": {
+        "id": "auto-220",
+        "revision": 220,
+        "action": {
+          "type": "END_PHASE",
+          "controllerId": "G-HUMAN-1"
+        }
+      },
+      "hash": "d86038fe77e721024a7348415130375f90fd1b2a8d15c15d96cfa6971786b5d5"
+    }
+  ],
+  "final_hash": "d86038fe77e721024a7348415130375f90fd1b2a8d15c15d96cfa6971786b5d5",
+  "victory": {
+    "winner": "SOVIET",
+    "reason": "SOVIET_CAPITAL_DEFENDED_TO_TURN_LIMIT",
+    "turn": 16,
+    "checkedAtPhase": "GERMAN_ENTRENCHMENT"
+  },
+  "settlements": 15,
+  "reinforced": 6,
+  "retired": 46,
+  "audit": {
+    "initial": 900,
+    "injected": 1179,
+    "maintenance": 1868,
+    "action": 0,
+    "destroyed": 0,
+    "remaining": 211
+  },
+  "seconds": [
+    0.36780325100335176,
+    0.37272776499958127,
+    0.39642164199904073,
+    0.3278727010001603,
+    0.36640232799982186,
+    0.3437498579987732,
+    0.36064541500309133,
+    0.39149754499885603,
+    0.355755283999315,
+    0.3765560709980491,
+    0.36496056300165947,
+    0.32850613800110295,
+    0.35968011200020555,
+    0.37716613699740265,
+    0.3405544720008038,
+    0.3628585810001823,
+    0.3274331600005098,
+    0.4003972749997047,
+    0.377365522999753,
+    0.37129135099894484,
+    0.3658298129994364,
+    0.39800272899810807,
+    0.36501497000062955,
+    0.39099328800148214,
+    0.36571690300115733,
+    0.39227034900250146,
+    0.388914407001721,
+    0.3680750599996827,
+    0.38620570700004464,
+    0.39608778100227937,
+    0.34930146300030174,
+    0.3638469030011038,
+    0.3921547339996323,
+    0.3625736079993658,
+    0.38883789800092927,
+    0.38639409099778277,
+    0.370420456998545,
+    0.4425900130008813,
+    0.3742587060005462,
+    0.36471984399759094,
+    0.3819494500021392,
+    0.37341363199811894,
+    0.38875141799871926,
+    0.39253396799904294,
+    0.3446553389985638,
+    0.36284429900115356,
+    0.39421138299803715,
+    0.3368440300000657,
+    0.36331477900239406,
+    0.3997785030005616,
+    0.35024753799734754,
+    0.4011431660001108,
+    0.43471702199894935,
+    0.3457520129995828,
+    0.3593324079993181,
+    0.3860347840018221,
+    0.3356427510007052,
+    0.38090940300025977,
+    0.3872168910020264,
+    0.3357275829985156,
+    0.35350676300004125,
+    0.3601266269979533,
+    0.33911455099951127,
+    0.36566348999986076,
+    0.33908224500191864,
+    0.3213519950004411,
+    0.35172539300037897,
+    0.35805804900155636,
+    0.3315470150009787,
+    0.5452281390025746,
+    0.37144304599860334,
+    0.37849366500086035,
+    0.3523911619995488,
+    0.36579396100205486,
+    0.38937233600154286,
+    0.36299327200322296,
+    0.39350183900023694,
+    0.3978532869987248,
+    0.3923528459999943,
+    0.5464564410031016,
+    0.4072408339998219,
+    0.3649481249995006,
+    0.39545950700266985,
+    0.4126182699983474,
+    0.3701218130008783,
+    0.39254739100215374,
+    0.40829961999770603,
+    0.4005967029988824,
+    0.3794299729997874,
+    0.52372115199978,
+    0.41101775499919313,
+    0.36217928400219535,
+    0.4013371190012549,
+    0.43437030199856963,
+    0.42683029399995576,
+    0.3723707809986081,
+    0.42723241100247833,
+    0.41231892200084985,
+    0.3858727730003011,
+    0.41553987500083167,
+    0.40869639399898006,
+    0.666999291999673,
+    0.3692391900003713,
+    0.39965515000221785,
+    0.3964950939989649,
+    0.384622212000977,
+    0.41753695599982166,
+    0.4179055119966506,
+    0.43005543199979,
+    0.37757935999979964,
+    0.4280435069995292,
+    0.699341887000628,
+    0.5004572170000756,
+    0.3761423020005168,
+    0.4193685780010128,
+    0.4165005880022363,
+    0.42403771099998266,
+    0.37671624699942186,
+    0.39660031600215007,
+    0.41506994600058533,
+    0.3679553100009798,
+    0.6516307679994497,
+    0.4124960139997711,
+    0.42223999299676507,
+    0.3787470370007213,
+    0.40334407999762334,
+    0.415532548999181,
+    0.47565440499965916,
+    0.40023906100032036,
+    0.38959839300150634,
+    0.4112397239987331,
+    0.368571303999488,
+    0.4109276429990132,
+    0.41126460599843995,
+    0.7630389110017859,
+    0.42023256300308276,
+    0.3713012739972328,
+    0.4111972859973321,
+    0.41763486499985447,
+    0.44361344700155314,
+    0.380288083000778,
+    0.4104127870014054,
+    0.4278382500015141,
+    0.4376115999984904,
+    0.789400363999448,
+    0.3862187230006384,
+    0.41253032199892914,
+    0.44573807699998724,
+    0.44390453300002264,
+    0.3796700890015927,
+    0.40608359500038205,
+    0.40430600300169317,
+    0.42940312400241964,
+    0.43207329800134175,
+    0.6663036469981307,
+    0.4226247670012526,
+    0.38565483700222103,
+    0.43631958500191104,
+    0.3659411650005495,
+    0.3976396689977264,
+    0.38058958200053894,
+    0.39032121999844094,
+    0.3994882909973967,
+    0.40328633899844135,
+    0.4269617880017904,
+    0.8222334589991078,
+    0.386746445998142,
+    0.4489681830018526,
+    0.42582917799882125,
+    0.4554011359978176,
+    0.46750667599917506,
+    0.453829650003172,
+    0.4050973730008991,
+    0.4352364280020993,
+    0.43912565799837466,
+    0.6736812160015688,
+    0.43170271800045157,
+    0.4072589089992107,
+    0.42689764000169816,
+    0.507401494000078,
+    0.4516472649993375,
+    0.5245690000010654,
+    0.4803323630003433,
+    0.4701195800007554,
+    0.41581732600025134,
+    0.6433859139979177,
+    0.4843781859999581,
+    0.47193901899663615,
+    0.4657614730022033,
+    0.469980416000908,
+    0.42085671099994215,
+    0.4131237499968847,
+    0.44923396699959994,
+    0.4664789260023099,
+    0.44685541900253156,
+    0.6854483820025052,
+    0.40254750800158945,
+    0.4537667340009648,
+    0.4498255899998185,
+    0.4613748929987196,
+    0.45389805200102273,
+    0.4600483539979905,
+    0.4843542919988977,
+    0.46697954299816047,
+    0.42495203600265086,
+    0.6732567420003761,
+    0.45532517100218683,
+    0.4797883629980788,
+    0.46451282600173727,
+    0.4896888779985602,
+    0.5314134929976717,
+    0.4289011490000121,
+    0.45737464199919486,
+    0.4498827759998676,
+    0.45504984600120224,
+    0.8193809010008408,
+    0.46607198199853883,
+    0.48149567100335844,
+    0.4883065809990512,
+    0.5147010859982402,
+    0.5562681750016054
+  ]
+}

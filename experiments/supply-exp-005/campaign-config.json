@@ -1,0 +1,22 @@
+{
+  "id": "SUPPLY-CAMPAIGN-010-A-unbalanced",
+  "quantity_unit": "quarter supply point",
+  "clock": "full", "variant": "A", "reserve_B": 4, "initial_reserve_B": 3,
+  "reinforcement_initial_stock": 0, "delivery_range": 8,
+  "policy": "last", "use_t": true, "T": 2200, "order": "GS",
+  "edge_capacity": 40, "bridge_capacity": 24,
+  "sources": [
+    {"id":"G-A5","node":"A5","side":"G","cap":32},
+    {"id":"G-A10","node":"A10","side":"G","cap":32},
+    {"id":"G-A16","node":"A16","side":"G","cap":32},
+    {"id":"S-AF4","node":"AF4","side":"S","cap":24},
+    {"id":"S-AF10","node":"AF10","side":"S","cap":24},
+    {"id":"S-AF16","node":"AF16","side":"S","cap":16},
+    {"id":"S-AC10","node":"AC10","side":"S","cap":16},
+    {"id":"S-AC11","node":"AC11","side":"S","cap":16}
+  ],
+  "hub_nodes": {"G":["A5","C10","A16"],"S":["AC10","AC11","AF10"]},
+  "hub": {"stock":8,"cap":32,"W":96,"quota":40,"floor":4,"inactive":false},
+  "victory": "unchanged Core defaultScenario (turnLimit 16); no allocation qualification",
+  "note": "EXP003 ordinary capacities and prepare reserve; NOT restore's raised capacities. Fixed experimental profile, not balanced."
+}
