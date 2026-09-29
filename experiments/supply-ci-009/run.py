@@ -70,9 +70,12 @@ def exercise(name,record):
  # Reset after failed/finished segments is real and independently observed.
  s=c.reset('prepare');assert s['clip']=='prepare' and not s['feedback'];record['reset_after_trials']=True
  # Busy responses from the real service while another request owns the global solver lock.
- barrier=__import__('threading').Barrier(4)
+ snapshots=[]
+ for client in clients:
+  st=client.get();client.viewer=st['decision_side'];snapshots.append(client.get())
+ barrier=__import__('threading').Barrier(4,timeout=15)
  def simultaneous(i):
-  st=clients[i].get();clients[i].viewer=st['decision_side'];st=clients[i].get();before=state_hash(st);barrier.wait();return i,clients[i].action(st,{'type':'END_SIDE'}),before
+  st=snapshots[i];before=state_hash(st);barrier.wait();return i,clients[i].action(st,{'type':'END_SIDE'}),before
  with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:arr=list(pool.map(simultaneous,range(4)))
  busy=[]
  for i,(code,r,dt,cmd),before in arr:

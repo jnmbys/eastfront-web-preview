@@ -9,3 +9,5 @@ Build failure and resource failures remain failures; all resource profiles conti
 Local validation before publication: Python compile only (Docker unavailable). Measurement scripts have not been labelled container-tested until Actions produces real results. Workflow permission rejection, if encountered, must be recorded once; do not bypass with alternate credentials. Subsequent remote run/results are separate from this source checkpoint.
 
 Execution: runner calls `python3 experiments/supply-ci-009/run.py --candidate <fixed-checkout> --out <results>`. `test_in_container.py` is copied to /tmp of the test container only; frozen runtime files remain unmodified. Docker candidate build context is experiments/supply-exp-005 and uses its original Dockerfile. HTTPS/Secure-cookie and Render account quotas remain separate future checks.
+
+Revision 2: prepare snapshots sequentially before simultaneous action barrier; barrier has 15s timeout. Superseded runs are cancelled by the same concurrency group to avoid spending the full job timeout on a harness wait. Initial run36500867785 is retained as superseded, not a benchmark conclusion.
