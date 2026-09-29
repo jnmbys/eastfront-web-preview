@@ -1,0 +1,62 @@
+{
+  "status": "review-only; NOT a Render API payload or an auto-applied Blueprint",
+  "repository": "https://github.com/jnmbys/eastfront-web-preview",
+  "source_sha": "9cf0e5fb7fac27e16b2700559716b590e81957b7",
+  "source_branch": {
+    "name": "supply-render-candidate",
+    "exists_created_by_this_task": false,
+    "require_head_equals_source_sha": true
+  },
+  "workspace": {
+    "id": null,
+    "required": "Separate experiment workspace; eligibility, price and non-pooled production quotas must be confirmed"
+  },
+  "service_name_proposed": "eastfront-supply-sandbox",
+  "type": "web",
+  "runtime": "docker",
+  "region_proposed": "singapore",
+  "plan": "0.5c-512mb",
+  "num_instances": 1,
+  "autoscaling": false,
+  "auto_deploy": "off",
+  "pr_previews": false,
+  "blueprint_sync": false,
+  "hooks": false,
+  "root_directory": "experiments/supply-exp-005",
+  "docker_context_relative_to_root": ".",
+  "dockerfile_relative_to_root": "./Dockerfile",
+  "dockerfile_git_blob": "d6b31d347762298e11472023a1e622ac8aac149b",
+  "docker_command": "/bin/sh -ec 'test \"$RENDER_GIT_COMMIT\" = \"9cf0e5fb7fac27e16b2700559716b590e81957b7\"; case \"$RENDER_EXTERNAL_URL\" in https://*.onrender.com) ;; *) echo \"Missing or invalid Render HTTPS URL\" >&2; exit 1;; esac; export PUBLIC_ORIGIN=\"$RENDER_EXTERNAL_URL\"; exec python online.py'",
+  "command_status": "Prepared from official Render environment documentation; not executed on Render",
+  "health_check_path": "/healthz",
+  "env": {
+    "BIND_HOST": "0.0.0.0",
+    "PORT": "10000",
+    "COOKIE_SECURE": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "WEB_CONCURRENCY": "1",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "public_origin": "Assigned at startup from RENDER_EXTERNAL_URL by Docker Command; same origin HTTPS",
+  "environment_groups": [],
+  "secret_files": [],
+  "production_secrets": [],
+  "production_wss": null,
+  "databases": [],
+  "disks": [],
+  "custom_domains": [],
+  "transaction_budget_seconds": 3,
+  "session_capacity": 4,
+  "session_ttl_seconds": 1800,
+  "target_runtime_limits": {
+    "cpu": 0.5,
+    "memory_plan_label": "512 MB",
+    "actual_memory_bytes": null,
+    "pids": null,
+    "swap": null
+  },
+  "ci_image_id_reference_only": "sha256:f3ba29572848bcde5115c0509a61d7ec5ea8ca4ba745260047dbbe51e3efb839",
+  "pullable_image": null,
+  "deployment_mode": "Rebuild unchanged Dockerfile from fixed source; not byte-identical CI image",
+  "failure_policy": "Save evidence and suspend only this service; no automatic upgrade or budget increase"
+}
