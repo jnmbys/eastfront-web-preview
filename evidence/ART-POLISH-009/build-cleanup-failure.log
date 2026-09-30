@@ -1,0 +1,39 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> eastfront-web-preview@0.0.10 build
+> node ../../scripts/build-art-candidate.mjs
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+[Error: ENOTEMPTY: directory not empty, rmdir '/workspace/scratch/5ef890554a06/eastfront-art-review/task-source/ART-PREVIEW-002/dist/app'] {
+  errno: -39,
+  code: 'ENOTEMPTY',
+  syscall: 'rmdir',
+  path: '/workspace/scratch/5ef890554a06/eastfront-art-review/task-source/ART-PREVIEW-002/dist/app'
+}
+
+Node.js v24.19.0
+node:internal/errors:985
+  const err = new Error(message);
+              ^
+
+Error: Command failed: npm run build --prefix /workspace/scratch/5ef890554a06/eastfront-art-review/task-source/ART-PREVIEW-002
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at file:///workspace/scratch/5ef890554a06/eastfront-art-review/experiments/art-polish-009/build.mjs:7:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 14,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v24.19.0

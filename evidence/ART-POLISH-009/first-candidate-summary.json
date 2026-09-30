@@ -1,0 +1,113 @@
+{
+  "reason": "Visual review: pull side buildings inward to make a coherent group; soften courtyard edge",
+  "checks": [
+    {
+      "test": "near identical camera/selection/unit SVG/hit polygons",
+      "status": "PASS",
+      "view": {
+        "zoom": 5,
+        "panX": -875.5859130242782,
+        "panY": 0
+      }
+    },
+    {
+      "test": "medium identical camera/selection/unit SVG/hit polygons",
+      "status": "PASS",
+      "view": {
+        "zoom": 3,
+        "panX": -525.3515478145669,
+        "panY": 0
+      }
+    },
+    {
+      "test": "stack G-03 \u2192 panel G-02",
+      "status": "PASS"
+    },
+    {
+      "test": "decorated forest click ownership",
+      "status": "PASS"
+    },
+    {
+      "test": "city click and selected outline",
+      "status": "PASS"
+    },
+    {
+      "test": "drag suppresses accidental selection",
+      "status": "PASS"
+    },
+    {
+      "test": "no page errors or nonlocal requests",
+      "status": "PASS"
+    }
+  ],
+  "cost": [
+    {
+      "variant": "baseline",
+      "stats": {
+        "settlementCells": [
+          "X14",
+          "W13",
+          "W14",
+          "V13",
+          "V14",
+          "W15",
+          "X15",
+          "Y15"
+        ],
+        "tintMs": 215.80000000074506,
+        "tintBackingBytes": 2287104,
+        "detailCount": 334,
+        "detailMs": 68.6000000005588,
+        "detailDecodedBytes": 6290064,
+        "box": {
+          "minX": -44.373066958946424,
+          "minY": -995,
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "rasterScale": 1.645397181032507,
+        "layoutMs": 74.29999999981374,
+        "paintAndDecodeMs": 746.9000000003725,
+        "canvasPixels": 15110144,
+        "estimatedCanvasBytes": 60440576,
+        "readyMs": 896.4000000003725,
+        "navigationToReadyMs": 1197.4000000003725
+      }
+    },
+    {
+      "variant": "candidate",
+      "stats": {
+        "localBakeMs": 9.599999999627471,
+        "localTileBytes": 2097152,
+        "settlementCells": [
+          "X14",
+          "W13",
+          "W14",
+          "V13",
+          "V14",
+          "W15",
+          "X15",
+          "Y15"
+        ],
+        "tintMs": 207.09999999962747,
+        "tintBackingBytes": 2287104,
+        "detailCount": 334,
+        "detailMs": 57.799999999813735,
+        "detailDecodedBytes": 6290064,
+        "box": {
+          "minX": -44.373066958946424,
+          "minY": -995,
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "rasterScale": 1.645397181032507,
+        "layoutMs": 85,
+        "paintAndDecodeMs": 822.5,
+        "canvasPixels": 15110144,
+        "estimatedCanvasBytes": 60440576,
+        "readyMs": 921,
+        "navigationToReadyMs": 1150.3999999994412
+      }
+    }
+  ]
+}
