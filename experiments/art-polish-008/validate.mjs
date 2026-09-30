@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {createSlice,label,inside,corridors} from './dist/app/experiments/mapData.js';
+import {hexToPixel,hexPolygon} from './dist/app/geometry/hex.js';
+import {placements} from './dist/app/experiments/polishTerrain.js';
+import {detailLayout} from './dist/app/experiments/polishDetails.js';
+import {settlementCells,composeSettlement,inSettlement} from './dist/app/experiments/settlementLayout.js';
+import {vs2RectangleSegmentDistance as distance} from './dist/app/render/vs2Projection.js';
+const raw=await readFile(new URL('./dist/map.json',import.meta.url)),data=createSlice(JSON.parse(raw)),before=JSON.stringify(data),base=placements(data),list=composeSettlement(data,base),lanes=corridors(data),tests=[];
+const test=(name,fn)=>{fn();tests.push({name,status:'PASS'});};
+test('Frozen semantic map, edges, bridge registry and fixtures unchanged',()=>{assert.equal(JSON.stringify(data),before);assert.equal(data.hexes.length,640);assert.equal(data.edges.length,257);assert.equal(data.counters.length,58);assert.equal(data.hexes.filter(inSettlement).length,8);});
+test('Outside eight-cell set, all original sprite placements retained exactly',()=>{assert.deepEqual(list.filter(p=>!settlementCells.has(p.cell)),base.filter(p=>!settlementCells.has(p.cell)));assert.deepEqual(composeSettlement(data,base),list);});
+test('Buildings only in X14 CITY, forest stamps only FOREST; corners/corridors/counter clearances',()=>{for(const p of list.filter(p=>settlementCells.has(p.cell)&&(p.kind==='city'||p.kind==='forest'))){const h=data.hexes.find(h=>label(h.coord)===p.cell);assert.equal(h.terrain,p.kind==='city'?'CITY':'FOREST');if(p.kind==='city')assert.equal(p.cell,'X14');for(const a of [-1,1])for(const b of [-1,1])assert(inside({x:p.x+a*p.width/2,y:p.y+b*p.height/2},hexPolygon(h.coord)));for(const l of lanes)assert(distance(p,p.width/2,p.height/2,l.a,l.b)>=l.width+.5);for(const u of data.counters){const c=hexToPixel(u.hex);assert(Math.abs(c.x-p.x)>=34+p.width/2||Math.abs(c.y-p.y)>=34+p.height/2);}}});
+test('Composition changes massing rather than increasing tiny decoration count',()=>{assert.equal(list.filter(p=>p.cell==='X14').length,9);assert(list.filter(p=>p.cell==='X14').length<base.filter(p=>p.cell==='X14').length);assert(detailLayout(data).filter(p=>!settlementCells.has(p.cell)).length<detailLayout(data).length);});
+const summary={tests,region:[...settlementCells],counts:{baseSprites:base.length,candidateSprites:list.length,baseCity:base.filter(p=>p.cell==='X14').length,candidateCity:list.filter(p=>p.cell==='X14').length,baseDetails:detailLayout(data).length,candidateDetails:detailLayout(data).filter(p=>!settlementCells.has(p.cell)).length},placements:list.filter(p=>settlementCells.has(p.cell))};
+await writeFile(new URL('../../evidence/ART-POLISH-008/semantic-tests.json',import.meta.url),JSON.stringify(summary,null,2)+'\n');console.log(JSON.stringify({tests:tests.length,...summary.counts}));
