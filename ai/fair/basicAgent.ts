@@ -2,6 +2,7 @@ import {hexKey} from '../../vendor/eastfront-digital-core/dist/core/hex.js';
 import {createMoveScorer} from './routing.js';
 import {observationCandidates} from './candidates.js';
 import {minimalAgent,agentOrder} from './minimalAgent.js';
+import {chooseCombatAdvance} from './advance.js';
 import type {FairAgent,FairInput,FairIntent,DeepReadonly} from './types.js';
 import {parseParameters,type Parameters} from './parameters.js';
 const defaults=parseParameters();
@@ -39,6 +40,9 @@ export function scoreIntent(input:Input,a:FairIntent,params:Readonly<Parameters>
 export function createBasicAgent(options:unknown={}):FairAgent {
  const params=parseParameters(options);
  return input=>{
+  if(input.view.pendingDecision?.kind==='ADVANCE_AFTER_COMBAT'){
+    const advance=chooseCombatAdvance(input);if(advance)return {kind:'INTENT',intent:advance};
+  }
   if(input.deployment||input.view.pendingDecision||!input.view.phase.endsWith('_MOVEMENT')&&!input.view.phase.endsWith('_COMBAT'))return minimalAgent(input);
   const rejected=new Set(input.history.filter(h=>h.outcome==='REJECTED'&&h.observationKey===input.observationKey).map(h=>key(h.intent)));
   // Avoid probing alternative tactical intents after repeated rejection. Never inspect error codes.

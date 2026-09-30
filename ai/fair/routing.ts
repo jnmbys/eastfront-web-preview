@@ -130,5 +130,10 @@ export function createMoveScorer(input:Input){
     }
     return path.length?{...a,path}:a;
   };
-  return {score,prefix,metrics};
+  // Reuse the same observed destination risk/occupancy guard for optional advance.
+  // This does not assert phase legality, remaining MP, or safety from unseen units.
+  const safeDestination=(unitId:string,to:Hex):boolean=>{
+    const u=own.find(u=>u.id===unitId);return !!u&&safeCell(u,hexKey(to));
+  };
+  return {score,prefix,metrics,safeDestination};
 }
