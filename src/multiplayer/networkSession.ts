@@ -1,11 +1,12 @@
 import {CLIENT_NETWORK} from './config.js';
-import {LobbyClient} from './client.js';
+import type {LobbyClient} from './client.js';
 import type {AuthorizedPlayerView,ServerMessage} from './protocol.js';
 import {queryDraft,type QueryDraft,type MatchSnapshot,type NetworkAction,type MatchStatus} from './gameplayProtocol.js';
 import type {BrowserRenderModel} from '../core-adapter/browserProjection.js';
 import {clearActionDrafts,type PresentationState} from '../state/presentation.js';
 import {publishAuthorizedEvents} from '../presentation/transitionBus.js';
 import {mt,type MPText} from './catalog.js';
+export type PlayerTransport=Pick<LobbyClient,'state'|'canMutate'|'send'|'subscribe'|'resyncMatch'|'dispose'> & {statusText?:string};
 interface ProjectionRequest {draft:QueryDraft;key:string;revision:number;requestId:string|null;}
 /** Contains no GameState, engine, RNG, enemy knowledge builder or local apply path. */
 export class NetworkPlayerSession {
@@ -16,7 +17,7 @@ export class NetworkPlayerSession {
   private snapshotDeadline:ReturnType<typeof setTimeout>|null=null;
   private submitting=false;private timer:ReturnType<typeof setTimeout>|null=null;private queryTimer:ReturnType<typeof setTimeout>|null=null;
   private onChange:(kind:'view'|'query'|'status'|'resync')=>void;
-  constructor(readonly client:LobbyClient,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange']){
+  constructor(readonly client:PlayerTransport,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange']){
     const snapshot=client.state.snapshot;if(!snapshot)throw new Error('Missing authorized snapshot');
     this.playerView=snapshot.view;this.model=snapshot.model;this.matchRevision=snapshot.matchRevision;this.serverSequence=snapshot.serverSequence;this.status=snapshot.status;this.canAct=snapshot.canAct;this.forced=snapshot.forcedAction;this.onChange=onChange;
     this.restoreDrafts(snapshot);
@@ -28,6 +29,7 @@ export class NetworkPlayerSession {
   get canSelect(){return this.client.state.connection==='CONNECTED'&&this.client.state.synced&&!this.syncing&&!this.submitting&&this.canAct&&this.status==='ACTIVE';}
   get interactive(){return this.ready&&this.canAct&&this.status==='ACTIVE';}
   get statusText():string {
+    if(this.client.statusText)return this.client.statusText;
     if(this.client.state.connection!=='CONNECTED')return mt('matchLost')+' · '+mt('reconnecting');
     if(this.status==='ABORTED')return mt('aborted');
     if(this.status==='WAITING_FOR_RECONNECT')return mt('waitingReconnect');

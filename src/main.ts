@@ -1,8 +1,9 @@
+import {SupplyClient,supplyPanel} from './experimental/supplyClient.js';
+import type {PlayerTransport} from './multiplayer/networkSession.js';
 import {combatResults} from './ui/combatResult.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import {NetworkPlayerSession} from './multiplayer/networkSession.js';
-import type {LobbyClient} from './multiplayer/client.js';
 import {mt} from './multiplayer/catalog.js';
 import {isNetwork,isSessionDeployment,sessionPlayerView,dispatchGameAction,deriveBrowserRenderModel,type PlayerSession} from './multiplayer/playerSession.js';
 import { addMultiplayerHomeButton, mountLobby } from './multiplayer/lobby.js';
@@ -154,7 +155,7 @@ function privacyGate():string{const gate=presentation.privacyGate;if(!gate)retur
 function gameOver(model:BrowserRenderModel):string{return gameOverMarkup(model.victory.winner,model.victory.reason,model.turn);}
 
 function startNewGame():void{terrainPipeline?.resume();terrainPipeline?.continueAll();deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
-function restartGame():void{if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
+function restartGame():void{if(isNetwork(session)&&session.client instanceof SupplyClient){const current=session;void session.client.close().then(closed=>{if(closed&&session===current){current.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();}});return;}if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
   const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
@@ -221,7 +222,7 @@ function mountCachedTerrainSurface():void{
 }
 function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
   const results=session?combatResults(session).html(model,typeof reducedMotion!=='undefined'&&reducedMotion.matches):'';
-  return `<div class="command-panel-scroll">${results}${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
+  return `<div class="command-panel-scroll">${results}${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${isNetwork(session)&&session.client instanceof SupplyClient?supplyPanel(session.client,presentation.selectedUnitId):''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
 }
 const dynamicMap=new DynamicMapRenderer();
 const deploymentPanelRenderer=new DeploymentPanelRenderer();
@@ -292,7 +293,15 @@ function bind():void{
   document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
   bindLanguageControl(root,()=>{forceNetworkRender=true;render();});
   document.querySelector('#terrain-detail-retry')?.addEventListener('click',()=>{terrainPipeline?.retry();updateTerrainDetailStatus();});
-  if(appStatus==='HOME')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
+  if(appStatus==='HOME'&&query.get('supply')!=='experiment')addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
+  if(appStatus==='HOME'&&query.get('supply')==='experiment'){
+    const normal=document.querySelector<HTMLButtonElement>('#new-game-button');if(normal)normal.hidden=true;
+    const parent=normal?.parentElement;
+    parent?.insertAdjacentHTML('beforeend','<p>隔离补给实验：热座；AI与多人未接通；旧补给正常入口不变。</p><button id="supply-start" class="primary-action">创建新补给实验对局</button><button id="supply-old" class="secondary-action">创建旧补给对照对局</button><p id="supply-start-error" role="alert"></p>');
+    for(const [id,mode] of [['supply-start','new'],['supply-old','old']] as const)document.getElementById(id)?.addEventListener('click',async()=>{
+      const client=new SupplyClient();try{await client.open(mode);await enterNetworkMatch(client);}catch(e){const p=document.getElementById('supply-start-error');if(p)p.textContent=String(e);}
+    });
+  }
   document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(!session)return;
   document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
@@ -398,6 +407,13 @@ function bindDeploymentControls():void{
 }
 
 function bindDynamic(model?:BrowserRenderModel):void{
+  if(isNetwork(session)&&session.client instanceof SupplyClient){
+    const client=session.client;
+    document.querySelector('#supply-handoff')?.addEventListener('click',()=>void client.switchSide());
+    document.querySelector('#supply-retry')?.addEventListener('click',()=>client.retry());
+    document.querySelector('#supply-sync')?.addEventListener('click',()=>client.resyncMatch());
+  }
+
   document.querySelectorAll<HTMLButtonElement>('[data-view-side]').forEach(element=>{const side=element.dataset.viewSide as Viewer|undefined;if(!side)return;element.addEventListener('click',()=>{switchViewerForDevelopment(session!,presentation,side);render();});});
   // Result inspection is local UI and remains available to non-decision viewers.
   document.querySelector('#result-close')?.addEventListener('click',()=>{if(session){combatResults(session).close();refreshDynamicView();}});
@@ -441,20 +457,22 @@ function updateNetworkStatus():void {
   const selectionControls='[data-deploy-unit-id],[data-deploy-destination],[data-remove-attacker],[data-attack-unit],#rail-mode,#rail-clear,#rail-no-engineer,[data-rail-engineer],#move-undo,#move-cancel,[data-reinforcement-id],#attack-toggle-selected,#attack-clear,#attack-art-none,[data-attack-artillery],#loss-clear,[data-retreater],#retreat-undo,[data-breakthrough-unit],#breakthrough-undo';
   const network=session;
   document.querySelectorAll<HTMLButtonElement>('#side-panel button').forEach(button=>{
+    if(button.matches('#supply-handoff, #supply-retry, #supply-sync')){button.disabled=network.client.state.pending;return;}
     if(button.matches('#result-close, [data-result-history]'))return;
     const blocked=!network.canSelect||(!network.interactive&&!button.matches(selectionControls));
     if(blocked&&!button.disabled){button.dataset.networkDisabled='true';button.disabled=true;}
     else if(!blocked&&button.dataset.networkDisabled){delete button.dataset.networkDisabled;button.disabled=false;}
   });
 }
-async function enterNetworkMatch(client:LobbyClient):Promise<void> {
+async function enterNetworkMatch(client:PlayerTransport):Promise<void> {
   presentation=createPresentationState(false,window.matchMedia('(max-width: 1100px)').matches);deploymentTouch=createDeploymentTouch();
   const network=new NetworkPlayerSession(client,presentation,kind=>{
     if(session!==network||appStatus!=='PLAYING')return;
-    if(kind==='resync'){combatResults(network).recover();unitAnimations.skip();deploymentTouch=createDeploymentTouch();deploymentPanelRenderer.clear();}
+    if(kind==='resync'){if(client instanceof SupplyClient)forceNetworkRender=true;combatResults(network).recover();unitAnimations.skip();deploymentTouch=createDeploymentTouch();deploymentPanelRenderer.clear();}
     if(network.notice&&!network.client.state.pending)combatResults(network).stopWaiting();
     if(kind==='status'){updateNetworkStatus();return;}
     if(kind==='view')deploymentTouch=createDeploymentTouch();
+    if(kind==='resync'&&client instanceof SupplyClient){render();return;}
     refreshDynamicView();
   });
   session=network;

@@ -1,3 +1,4 @@
+import {SupplyClient,supplyPanel} from '../../dist/app/experimental/supplyClient.js';
 // Minimal DOM adapter for executing the built application's actual event bindings.
 // This verifies interaction/state transitions, not browser layout or hit testing.
 import vm from 'node:vm';
@@ -11,7 +12,7 @@ import * as flow from '../../dist/app/interaction/combatFlow.js';
 import * as locale from '../../dist/app/localization/index.js';
 import {issueText} from '../../dist/app/localization/issues.js';
 import * as ui from '../../dist/app/ui/commandPresentation.js';
-import {createDeploymentTouch} from '../../dist/app/ui/deploymentTouch.js';
+import {createDeploymentTouch,chooseDeploymentTarget} from '../../dist/app/ui/deploymentTouch.js';
 import {combatAttackPanel} from '../../dist/app/ui/combatAttackPanel.js';
 import {deriveBrowserRenderModel} from '../../dist/app/multiplayer/playerSession.js';
 import {coreSvgDynamicMarkup} from '../../dist/app/render/coreSvg.js';
@@ -33,8 +34,9 @@ export function combatDom(s,p){
  const fixed={'#side-panel':panel,'#eastfront-map':svg,'#terrain-surface':surface,'#map-wrap':wrap,'#zoom-readout':readout,'#map-dynamic-layer':dynamic,'.command-panel-scroll':scroll};
  const match=(el,q)=>q.startsWith('#')?el.attrs.id===q.slice(1):/^\[/.test(q)?(()=>{const [,attr,value]=q.match(/^\[([\w-]+)(?:="([^"]*)")?\]$/)??[];return attr in el.attrs&&(value===undefined||el.attrs[attr]===value);})():false;
  const document={querySelector:q=>fixed[q]??[...mapNodes,...panelNodes].find(el=>match(el,q))??null,querySelectorAll:q=>[...mapNodes,...panelNodes].filter(el=>q.split(',').some(part=>match(el,part.trim())))};
- const ctx=vm.createContext({combatResults,DeploymentPanelRenderer,DynamicMapRenderer:class {update(layer,model,options){layer.innerHTML=coreSvgDynamicMarkup(model,options);}},...core,...sessionApi,...intents,...flow,...playerSession,...locale,...ui,issueText,combatAttackPanel,deriveBrowserRenderModel,coreSvgDynamicMarkup,session:s,presentation:p,document,developerUi:false,deploymentTouch:createDeploymentTouch(),esc:ui.escapeUi,mapViewport:{zoom:1.8,panX:94,panY:-61},chooseCounterTarget:()=>false,paintDeploymentFocus(){},mapRenderOptions:()=>({debug:false,rendererMode:'prototype'}),requestAnimationFrame:cb=>{frames.push(cb);return frames.length;},setTimeout:cb=>{cb();},render:()=>repaint()});
+ const ctx=vm.createContext({SupplyClient,supplyPanel,createDeploymentTouch,chooseDeploymentTarget,combatResults,DeploymentPanelRenderer,DynamicMapRenderer:class {update(layer,model,options){layer.innerHTML=coreSvgDynamicMarkup(model,options);}},...core,...sessionApi,...intents,...flow,...playerSession,...locale,...ui,issueText,combatAttackPanel,deriveBrowserRenderModel,coreSvgDynamicMarkup,session:s,presentation:p,document,developerUi:false,deploymentTouch:createDeploymentTouch(),esc:ui.escapeUi,mapViewport:{zoom:1.8,panX:94,panY:-61},chooseCounterTarget:()=>false,paintDeploymentFocus(){},mapRenderOptions:()=>({debug:false,rendererMode:'prototype'}),requestAnimationFrame:cb=>{frames.push(cb);return frames.length;},setTimeout:cb=>{cb();},render:()=>repaint()});
  const run=(start,end)=>vm.runInContext(source.slice(source.indexOf(start),source.indexOf(end)),ctx);
+ run('function chooseTouchTarget(', 'function chooseCounterTarget(');
  run('function sideLabel(','function startNewGame(');
  run('function applyMapViewport(','function bindMapViewport(');
  run('function sidePanelMarkup(','function render(');

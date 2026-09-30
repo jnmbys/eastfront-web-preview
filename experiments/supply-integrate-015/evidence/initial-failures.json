@@ -1,0 +1,34 @@
+{
+  "state_hash_order": [
+    {
+      "name": "new and old deployment: exact sandbox state, RNG, ledger",
+      "passed": false,
+      "error": "AssertionError()"
+    },
+    {
+      "name": "pending advance -> phase boundaries -> real delivery (9 recorded Actions)",
+      "passed": false,
+      "error": "AssertionError()"
+    },
+    {
+      "name": "recorded movement -> attack -> retreat, exact recorded states and dice",
+      "passed": false,
+      "error": "AssertionError()"
+    },
+    {
+      "name": "normal movement query -> armor MOVE costs 4, exact sandbox state",
+      "passed": false,
+      "error": "AssertionError()"
+    }
+  ],
+  "ui_harness_missing_dependency": [
+    {
+      "case": "deployment",
+      "error": "evalmachine.<anonymous>:169\n        return; boundDeploymentInputs.add(element); const action = () => { deploymentTouch = createDeploymentTouch(); selectDeploymentRosterUnit(presentation, id); refreshDynamicView(); }; element.addEventListener('click', action); bindKeyboardActivation(element, action); });\n                                                                           ^\n\nReferenceError: createDeploymentTouch is not defined\n    at action (evalmachine.<anonymous>:169:76)\n    at Object.fire (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:23:266)\n    at Object.click (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:48:259)\n    at file:///workspace/scratch/1dc165285827/campaign011/experiments/supply-integrate-015/verify-ui.mjs:23:4\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n\nNode.js v24.19.0\n"
+    },
+    {
+      "case": "advance-delivery",
+      "error": "evalmachine.<anonymous>:219\n    document.querySelector('#ready-button')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); readyForPhase(session, presentation); render(); });\n                                                                               ^\n\nReferenceError: createDeploymentTouch is not defined\n    at evalmachine.<anonymous>:219:80\n    at Object.fire (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:23:266)\n    at Object.click (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:48:259)\n    at file:///workspace/scratch/1dc165285827/campaign011/experiments/supply-integrate-015/verify-ui.mjs:50:49\n\nNode.js v24.19.0\n"
+    }
+  ]
+}

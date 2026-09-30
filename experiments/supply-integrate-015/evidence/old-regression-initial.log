@@ -1,0 +1,91 @@
+✔ frozen UI geometry source SHA remains byte-for-byte unchanged (5.411033ms)
+✔ real Strategic Reset F imports 640 unique Core hexes into deterministic UI pixels (33.322693ms)
+✔ Core axial coordinates are semantically compatible with locked pointy-top UI geometry (15.567132ms)
+✔ every real Core infrastructure edge resolves through canonical UI center/shared-edge geometry (7.309618ms)
+✔ setup-zone overlays and Core counter anchors use exact locked polygons/centers (46.928381ms)
+✔ actual browser render model enforces hidden deployment in both viewer directions (820.779557ms)
+✔ presentation changes and rejected Actions do not mutate authoritative browser GameState (22.544275ms)
+✔ deterministic real flow reaches Turn 1 movement and executes one accepted MOVE (1361.079907ms)
+✔ FOW001 GERMAN excludes hidden opposing UnitState and secret IDs (17.660751ms)
+✔ FOW001 SOVIET excludes hidden opposing UnitState and secret IDs (1.274361ms)
+✔ FOW001 observer snapshot is complete, detached, privileged and serializable (9.327902ms)
+✔ FOW001 friendly units always identified with their full controller information (1.065952ms)
+✔ FOW001 SOVIET_DEPLOYMENT never reveals even adjacent opposing setup (2.095135ms)
+✔ FOW001 GERMAN_DEPLOYMENT never reveals even adjacent opposing setup (1.388273ms)
+✔ FOW001 hidden formation is absent from Counter, Presence input and accessibility markup (6.563623ms)
+✔ FOW001 recon outer ring only exposes generic CONTACT with no identity/stats/stack count (3.544494ms)
+✔ FOW001 IDENTIFIED enemy exposes exactly allow-listed public fields (0.930346ms)
+✔ FOW001 recon ranges are centralized and independent of combat/movement statistics (1.427329ms)
+✔ FOW001 last-known memory records observation, not hidden current position or destruction (3.635836ms)
+✔ FOW001 returning to an observed empty hex clears stale memory; cross-side memory rejected (1.283455ms)
+✔ FOW001 CONTACT and LAST_KNOWN markers are distinguishable and have no gameplay target (1.294695ms)
+✔ FOW001 viewer switching preserves canonical state, RNG and legal gameplay drafts (2.311039ms)
+✔ FOW001 viewer switching keeps real UI camera transform unchanged (16.366117ms)
+✔ FOW001 deterministic pure projection tolerates deeply frozen authoritative inputs (1.643497ms)
+✔ FOW001 every view round-trips JSON with no hidden authoritative references (5.427266ms)
+✔ FOW001 public terrain remains complete while hidden live ownership is withheld (0.799368ms)
+✔ FOW001 accepted hidden enemy movement publishes no visible UA facts (7.141516ms)
+✔ FOW001 hidden fire/hit/destroyed payloads and unknown supporters are removed (0.744551ms)
+✔ FOW001 enemy paths crossing unseen intermediate hexes never animate (1.081154ms)
+✔ FOW001 viewer switch purges queued ghosts, active effects and RAF (16.173928ms)
+✔ FOW001 visible combat retains three-click flow, own Counter routing and canonical result (22.245682ms)
+✔ FOW001 hidden Counter cannot be inspected by a stale UI identifier (0.704543ms)
+✔ FOW001 foreign decision options never enter the player DTO or command panel (1.475277ms)
+✔ FOW001 language changes neither intelligence memory nor canonical state (5.714142ms)
+✔ FOW001 projection does not consume the fresh NEW GAME seed or gameplay RNG (39.804533ms)
+✔ FOW001 repeated projection and animation keep static terrain bytes unchanged (19.235596ms)
+✔ FOW001 Core, map, stats, camera, geometry, startup, VS2 and animation mechanics are byte frozen (52.742945ms)
+✖ MOVE001 real WebSocket clients: all target surfaces use authorized draft, pending sends once, snapshot moves (129.26919ms)
+✖ MOVE001 server rejection retains authority and recovers selection / next move (44.740019ms)
+✖ MOVE001 multiplayer full stack remains illegal through every target surface (54.468457ms)
+✖ MOVE001R1 first-step exit remains available while the authorized projection is pending (37.345884ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 37
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2496.66115
+
+✖ failing tests:
+
+test at tests/move001-network.test.mjs:30:1
+✖ MOVE001 real WebSocket clients: all target surfaces use authorized draft, pending sends once, snapshot moves (129.26919ms)
+  ReferenceError: SupplyClient is not defined
+      at Object.sidePanelMarkup (evalmachine.<anonymous>:3:97)
+      at repaint (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:44:228)
+      at combatDom (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:45:2)
+      at TestContext.<anonymous> (file:///workspace/scratch/1dc165285827/campaign011/tests/move001-network.test.mjs:31:64)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/move001-network.test.mjs:49:1
+✖ MOVE001 server rejection retains authority and recovers selection / next move (44.740019ms)
+  ReferenceError: SupplyClient is not defined
+      at Object.sidePanelMarkup (evalmachine.<anonymous>:3:97)
+      at repaint (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:44:228)
+      at combatDom (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:45:2)
+      at TestContext.<anonymous> (file:///workspace/scratch/1dc165285827/campaign011/tests/move001-network.test.mjs:50:72)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/move001-network.test.mjs:62:1
+✖ MOVE001 multiplayer full stack remains illegal through every target surface (54.468457ms)
+  ReferenceError: SupplyClient is not defined
+      at Object.sidePanelMarkup (evalmachine.<anonymous>:3:97)
+      at repaint (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:44:228)
+      at combatDom (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:45:2)
+      at TestContext.<anonymous> (file:///workspace/scratch/1dc165285827/campaign011/tests/move001-network.test.mjs:63:67)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/move001-network.test.mjs:72:1
+✖ MOVE001R1 first-step exit remains available while the authorized projection is pending (37.345884ms)
+  ReferenceError: SupplyClient is not defined
+      at Object.sidePanelMarkup (evalmachine.<anonymous>:3:97)
+      at repaint (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:44:228)
+      at combatDom (file:///workspace/scratch/1dc165285827/campaign011/tests/helpers/combat-dom.mjs:45:2)
+      at TestContext.<anonymous> (file:///workspace/scratch/1dc165285827/campaign011/tests/move001-network.test.mjs:73:62)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

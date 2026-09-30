@@ -1,0 +1,11 @@
+import {execFileSync} from 'node:child_process';
+import {cpSync,mkdirSync} from 'node:fs';
+const tsc='node_modules/typescript/bin/tsc';
+execFileSync(process.execPath,[tsc],{stdio:'inherit'});
+execFileSync(process.execPath,['scripts/copy-static.mjs'],{stdio:'inherit',env:{...process.env,MULTIPLAYER_SERVER_URL:''}});
+execFileSync(process.execPath,[tsc,'-p','server/tsconfig.json','--outDir','.integrate-dist'],{stdio:'inherit'});
+execFileSync(process.execPath,[tsc,'-p','experiments/supply-exp-005/core/tsconfig.json'],{stdio:'inherit'});
+mkdirSync('.integrate-dist/vendor/eastfront-digital-core',{recursive:true});
+cpSync('experiments/supply-exp-005/core/dist','.integrate-dist/vendor/eastfront-digital-core/dist',{recursive:true});
+cpSync('vendor/eastfront-digital-core/reference','.integrate-dist/vendor/eastfront-digital-core/reference',{recursive:true});
+console.log('Experimental server projection uses the frozen sandbox Core; browser/old mode vendor unchanged.');
