@@ -1,0 +1,11 @@
+Recorded successful commands on Windows, existing Node v24.19.0 and copied existing project dependencies:
+node experiments/art-scene-012/build.mjs
+TypeScript --noEmit and emission completed without diagnostics.
+{"files":75,"bytes":3969165}
+(Builder count excludes manifest.json; cost.json includes it.)
+node experiments/art-scene-012/validate.mjs
+{"tests":5,"status":"PASS"}
+git diff --check
+No errors.
+git diff --name-only BASE -- candidate baseline task-source/ART-PREVIEW-002/src/web/mapInteraction.ts task-source/ART-PREVIEW-002/src/experiments/mapData.ts
+No changes.
