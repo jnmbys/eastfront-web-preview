@@ -1,0 +1,192 @@
+{
+  "budget_seconds": 3,
+  "scope": "targeted 117->128, four sessions; not full campaign or Render validation",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "cpu_max": "800000 100000",
+    "memory_max": "8589934592"
+  },
+  "passed": true,
+  "harness_startup_seconds": 0.6017649220002568,
+  "four_campaign_sessions": true,
+  "short_clip_reset_compatibility": true,
+  "old_campaign_reset": true,
+  "checkpoint": {
+    "revision": 117,
+    "hash": "93285766e651fef9823626c4eda7f12d11d1972ad5e80bfb34991e8f1c90c78b",
+    "source": "evidence/campaign011-close/checkpoint-117.json.gz",
+    "test_only_injection": true
+  },
+  "four_populated_sessions_peak_bytes": 3762249728,
+  "actions": [
+    {
+      "revision": 118,
+      "action": "RAIL_REPAIR",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.2670321649993639,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5566104179997637
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 119,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.2570211619995462,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5459512400002495
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 120,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.1936389949996737,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5249118020001333
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 121,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.2139836810001725,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5438487969995549
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 122,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.253454667999904,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5214817470005073
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 123,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.28062680200037,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5423099489999004
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 124,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.384691119999843,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5498198319992298
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 125,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.2561952819996804,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.5754770010007633
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 126,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.4624618769994413,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.6346103229998334
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 127,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.3640547889999652,
+      "transaction": {
+        "ok": true,
+        "seconds": 0.6766776849999587
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": false
+    },
+    {
+      "revision": 128,
+      "action": "END_PHASE",
+      "status": 200,
+      "accepted": true,
+      "http_seconds": 1.9934721810004703,
+      "transaction": {
+        "ok": true,
+        "seconds": 1.10573714200018
+      },
+      "error": null,
+      "hash_equal": true,
+      "settled": true
+    }
+  ],
+  "representative_delivery": true,
+  "session_isolation": true,
+  "timeout_rollback": {
+    "passed": true,
+    "budget_seconds": 3,
+    "fault": "late frame latency after accepted Core Action",
+    "http_seconds": 3.5638610129999506,
+    "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+    "full_state_rng_journal_seen_unchanged": true
+  },
+  "busy_rejected_without_commit": true,
+  "information_filtering": true,
+  "reset_isolation": true,
+  "final_peak_bytes": 3762249728,
+  "memory_note": "Shared Work Mode parent cgroup peak is not attributable to this test; not a resource qualification. CI supplies isolated container measurements."
+}

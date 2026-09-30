@@ -17,6 +17,23 @@ MAX_STATE_BYTES=6*1024*1024
 SECURE=os.environ.get('COOKIE_SECURE','1')=='1'
 ORIGIN=os.environ.get('PUBLIC_ORIGIN','').rstrip('/')
 CREATIONS=[]
+# Opt-in campaign surface; short-clip service defaults remain compatible.
+CAMPAIGN=os.environ.get('ENABLE_CAMPAIGN','0')=='1'
+CAMPAIGN_MAX_ACTIONS=1000
+if CAMPAIGN:
+ from campaign import create_campaign,metadata
+ old_load,old_public=app.load,app.public
+ app.CLIPS=set(app.CLIPS)|{'campaign'}
+ def load(clip,mode):
+  if clip!='campaign':return old_load(clip,mode)
+  b=create_campaign(mode);return b,app.deepcopy(b)
+ def public(viewer):
+  result=old_public(viewer)
+  if app.state['clip']=='campaign':
+   result['state']['campaign']=metadata(app.state['core'],viewer)
+   result['notice']='完整战役实验 / 双方手动操作 / 原Core胜负 / 未平衡'
+  return result
+ app.load,app.public=load,public
 class Handler(app.Handler):
  def setup(self):
   super().setup();self.connection.settimeout(5);self.new_cookie=None
@@ -32,7 +49,7 @@ class Handler(app.Handler):
  def dispatch(self,post):
   path=urlparse(self.path).path
   if path=='/healthz':return self.reply({'ready':True})
-  if path not in ['/','/api','/options','/ux007.js'] and not path.startswith('/fonts/'):return self.send_error(404)
+  if path not in (['/','/api','/options','/ux007.js']+(['/campaign-ui.js'] if CAMPAIGN else [])) and not path.startswith('/fonts/'):return self.send_error(404)
   if post:
    if path!='/api':return self.send_error(404)
    origin=self.headers.get('Origin')
@@ -41,6 +58,10 @@ class Handler(app.Handler):
    try:n=int(self.headers.get('Content-Length','0'))
    except ValueError:return self.reply({'error':'请求长度无效。'},400)
    if not 0<n<=20000:return self.reply({'error':'请求过大或为空。'},413)
+  if CAMPAIGN and not post and path in ['/','/campaign-ui.js']:
+   data=(app.ROOT/('sandbox.html' if path=='/' else 'campaign-ui.js')).read_bytes()
+   if path=='/':data=data.replace(b'<option value="S">',b'<option value="S" selected>')+b'<script>window.campaignOnline=true;</script><script src="/campaign-ui.js"></script>'
+   self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8' if path=='/' else 'text/javascript; charset=utf-8');self.end_headers();self.wfile.write(data);return
   if path in ['/','/ux007.js'] or path.startswith('/fonts/'):
    return super().do_GET() if not post else self.send_error(404)
   if not GATE.acquire(False):return self.reply({'error':'另一局正在结算，请稍后重试；本次未提交。'},503)
@@ -58,7 +79,7 @@ class Handler(app.Handler):
     if path!='/api':return self.reply({'error':'请先打开试玩首页。'},409)
     CREATIONS[:]=[t for t in CREATIONS if now-t<60]
     if len(SESSIONS)>=MAX_SESSIONS or len(CREATIONS)>=8:return self.reply({'error':'试玩席位已满，请稍后再试。'},503)
-    token=secrets.token_urlsafe(32);state,initial=app.load('prepare','new');SESSIONS[token]=dict(state=state,initial=initial,error=None,receipt=None,touched=now,last=0,base_revision=state['revision']);CREATIONS.append(now);self.new_cookie=token
+    token=secrets.token_urlsafe(32);state,initial=app.load('campaign' if CAMPAIGN else 'prepare','new');SESSIONS[token]=dict(state=state,initial=initial,error=None,receipt=None,touched=now,last=0,base_revision=state['revision']);CREATIONS.append(now);self.new_cookie=token
    slot=SESSIONS[token]
    if post and now-slot['last']<.15:return self.reply({'error':'操作太快，请稍后重试；未提交。'},429)
    if post:slot['last']=now
@@ -70,7 +91,7 @@ class Handler(app.Handler):
     raw=self.rfile.read(n)
     try:cmd=app.json.loads(raw)
     except Exception:return self.reply({'error':'请求格式无效。'},400)
-    if cmd.get('op')!='reset' and (app.state['revision']-slot['base_revision']>=MAX_ACTIONS or len(app.json.dumps(app.state))>MAX_STATE_BYTES):return self.reply({'error':'本次短局面已达操作／内存限制，请导出反馈并重置。'},409)
+    if cmd.get('op')!='reset' and (app.state['revision']-slot['base_revision']>=(CAMPAIGN_MAX_ACTIONS if app.state['clip']=='campaign' else MAX_ACTIONS) or len(app.json.dumps(app.state))>MAX_STATE_BYTES):return self.reply({'error':'本局已达操作／内存限制，请导出反馈并重置。'},409)
     import io
     self.rfile=io.BytesIO(raw)
    try:
@@ -97,5 +118,5 @@ if __name__=='__main__':
  if SECURE and not ORIGIN:raise SystemExit('PUBLIC_ORIGIN is required for HTTPS candidate')
  warm_start()
  host=os.environ.get('BIND_HOST','127.0.0.1');port=int(os.environ.get('PORT','8765'))
- print('SUPPLY-UX-007 ready on '+host+':'+str(port),flush=True)
+ print('SUPPLY sandbox ready on '+host+':'+str(port),flush=True)
  Service((host,port),Handler).serve_forever()

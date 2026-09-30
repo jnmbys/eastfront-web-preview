@@ -1,0 +1,495 @@
+{
+  "classification": "controlled seam validation; NOT natural full campaign coverage",
+  "fixture": "test006.initial(CASES.SECOND_ATTACK) + campaign_config marker; inherited scenario inventory/settings, NOT global campaign defaults",
+  "initial_hash": "b3e7e21630f75f9c70fe053965bd7ccf67137adc72fff383999c36e985d7c973",
+  "initial_audit": {
+    "initial": 876,
+    "injected": 0,
+    "maintenance": 0,
+    "action": 0,
+    "destroyed": 0,
+    "remaining": 876
+  },
+  "records": [
+    {
+      "command": {
+        "id": "auto-0",
+        "revision": 0,
+        "action": {
+          "type": "ATTACK",
+          "controllerId": "G-HUMAN-1",
+          "attackerUnitIds": [
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 6,
+            "r": 3
+          }
+        }
+      },
+      "hash": "650a231be5846db68b8c280cb73f65e7cad0c230a9bd36c29a6593f94fea44d9",
+      "events": [
+        {
+          "type": "CombatDeclared",
+          "actionId": "A-000466",
+          "battleId": "B-000018",
+          "attackerUnitIds": [
+            "G-PZ-01"
+          ],
+          "defenderUnitIds": [
+            "S-TK-01"
+          ],
+          "target": {
+            "q": 6,
+            "r": 3
+          },
+          "sourceBattleId": null
+        }
+      ],
+      "charges": [
+        {
+          "unit": "G-PZ-01",
+          "side": "G",
+          "cost": 4,
+          "type": "ATTACK"
+        }
+      ],
+      "destroyed": [],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 4,
+        "destroyed": 0,
+        "remaining": 872
+      }
+    },
+    {
+      "command": {
+        "id": "auto-1",
+        "revision": 1,
+        "action": {
+          "type": "PASS_REACTION",
+          "controllerId": "S-AI-1",
+          "battleId": "B-000018"
+        }
+      },
+      "hash": "092e173a043fe77e684b8d52847fbef5e1881700a4d3f397c5a5c922e33864d8",
+      "events": [
+        {
+          "type": "CombatReactionPassed",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "controllerId": "S-AI-1"
+        },
+        {
+          "type": "DiceRolled",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "die1": 6,
+          "die2": 6,
+          "total": 12
+        },
+        {
+          "type": "CRTResolved",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "result": "D3R",
+          "finalCRTColumn": 3,
+          "finalCRTColumnLabel": "1:1"
+        },
+        {
+          "type": "UnitStepLost",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "unitId": "S-TK-01",
+          "fromStep": 0,
+          "toStep": 1
+        },
+        {
+          "type": "UnitStepLost",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "unitId": "S-TK-01",
+          "fromStep": 1,
+          "toStep": 2
+        },
+        {
+          "type": "UnitStepLost",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "unitId": "S-TK-01",
+          "fromStep": 2,
+          "toStep": null
+        },
+        {
+          "type": "UnitDestroyed",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "unitId": "S-TK-01"
+        },
+        {
+          "type": "LossesAllocated",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "side": "SOVIET",
+          "allocations": {
+            "S-TK-01": 3
+          },
+          "automatic": true
+        },
+        {
+          "type": "AdvanceAvailable",
+          "actionId": "A-000467",
+          "battleId": "B-000018",
+          "eligibleUnitIds": [
+            "G-PZ-01"
+          ]
+        }
+      ],
+      "charges": [],
+      "destroyed": [
+        {
+          "unit": "S-TK-01",
+          "stock_destroyed": 24,
+          "core_alive_false": true,
+          "removed_from_active_logistics": true,
+          "retired_once": true
+        }
+      ],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 4,
+        "destroyed": 24,
+        "remaining": 848
+      }
+    },
+    {
+      "command": {
+        "id": "auto-2",
+        "revision": 2,
+        "action": {
+          "type": "ADVANCE_AFTER_COMBAT",
+          "controllerId": "G-HUMAN-1",
+          "battleId": "B-000018",
+          "unitId": "G-PZ-01"
+        }
+      },
+      "hash": "1e529a3650e827dc8ad04c99c71135a0bcd823686bc1acc180629115d5fc7e34",
+      "events": [
+        {
+          "type": "UnitAdvanced",
+          "actionId": "A-000468",
+          "battleId": "B-000018",
+          "unitId": "G-PZ-01",
+          "from": {
+            "q": 5,
+            "r": 4
+          },
+          "to": {
+            "q": 6,
+            "r": 3
+          }
+        },
+        {
+          "type": "BreakthroughAvailable",
+          "actionId": "A-000468",
+          "battleId": "B-000018",
+          "eligibleUnitIds": [
+            "G-PZ-01"
+          ],
+          "maxHexesByUnitId": {
+            "G-PZ-01": 2
+          }
+        }
+      ],
+      "charges": [],
+      "destroyed": [],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 4,
+        "destroyed": 24,
+        "remaining": 848
+      }
+    },
+    {
+      "command": {
+        "id": "auto-3",
+        "revision": 3,
+        "action": {
+          "type": "BREAKTHROUGH",
+          "controllerId": "G-HUMAN-1",
+          "battleId": "B-000018",
+          "unitId": "G-PZ-01",
+          "path": [
+            {
+              "q": 7,
+              "r": 3
+            }
+          ]
+        }
+      },
+      "hash": "08a77cd2200a7eef84407858469ea07312ac7c8326cb67fe232518ae92bf58ee",
+      "events": [
+        {
+          "type": "UnitBrokeThrough",
+          "actionId": "A-000469",
+          "battleId": "B-000018",
+          "unitId": "G-PZ-01",
+          "from": {
+            "q": 6,
+            "r": 3
+          },
+          "to": {
+            "q": 7,
+            "r": 3
+          },
+          "path": [
+            {
+              "q": 7,
+              "r": 3
+            }
+          ]
+        },
+        {
+          "type": "SchwerpunktAvailable",
+          "actionId": "A-000469",
+          "battleId": "B-000018",
+          "eligibleUnitIds": [
+            "G-PZ-01"
+          ]
+        }
+      ],
+      "charges": [],
+      "destroyed": [],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 4,
+        "destroyed": 24,
+        "remaining": 848
+      }
+    },
+    {
+      "command": {
+        "id": "auto-4",
+        "revision": 4,
+        "action": {
+          "type": "SCHWERPUNKT_ATTACK",
+          "controllerId": "G-HUMAN-1",
+          "sourceBattleId": "B-000018",
+          "unitId": "G-PZ-01",
+          "target": {
+            "q": 8,
+            "r": 3
+          }
+        }
+      },
+      "hash": "5a3e2a2a6c869e69caacc1ea68124fdc0d7328817dd495d22216ac721b4dcd14",
+      "events": [
+        {
+          "type": "SchwerpunktDeclared",
+          "actionId": "A-000470",
+          "sourceBattleId": "B-000018",
+          "battleId": "B-000019",
+          "unitId": "G-PZ-01"
+        },
+        {
+          "type": "CombatDeclared",
+          "actionId": "A-000470",
+          "battleId": "B-000019",
+          "attackerUnitIds": [
+            "G-PZ-01"
+          ],
+          "defenderUnitIds": [
+            "S-ART-02"
+          ],
+          "target": {
+            "q": 8,
+            "r": 3
+          },
+          "sourceBattleId": "B-000018"
+        },
+        {
+          "type": "CombatCompleted",
+          "actionId": "A-000470",
+          "battleId": "B-000018"
+        }
+      ],
+      "charges": [
+        {
+          "unit": "G-PZ-01",
+          "side": "G",
+          "cost": 4,
+          "type": "SCHWERPUNKT_ATTACK"
+        }
+      ],
+      "destroyed": [],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 8,
+        "destroyed": 24,
+        "remaining": 844
+      }
+    },
+    {
+      "command": {
+        "id": "auto-5",
+        "revision": 5,
+        "action": {
+          "type": "PASS_REACTION",
+          "controllerId": "S-AI-1",
+          "battleId": "B-000019"
+        }
+      },
+      "hash": "769eb7a26be02cc8df25cac39daac1f8e512defdc612804586d784ca02c5e2d7",
+      "events": [
+        {
+          "type": "CombatReactionPassed",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "controllerId": "S-AI-1"
+        },
+        {
+          "type": "DiceRolled",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "die1": 3,
+          "die2": 6,
+          "total": 9
+        },
+        {
+          "type": "CRTResolved",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "result": "D3R",
+          "finalCRTColumn": 6,
+          "finalCRTColumnLabel": "3:1"
+        },
+        {
+          "type": "UnitStepLost",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "unitId": "S-ART-02",
+          "fromStep": 0,
+          "toStep": 1
+        },
+        {
+          "type": "UnitStepLost",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "unitId": "S-ART-02",
+          "fromStep": 1,
+          "toStep": 2
+        },
+        {
+          "type": "UnitStepLost",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "unitId": "S-ART-02",
+          "fromStep": 2,
+          "toStep": null
+        },
+        {
+          "type": "UnitDestroyed",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "unitId": "S-ART-02"
+        },
+        {
+          "type": "LossesAllocated",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "side": "SOVIET",
+          "allocations": {
+            "S-ART-02": 3
+          },
+          "automatic": true
+        },
+        {
+          "type": "AdvanceAvailable",
+          "actionId": "A-000471",
+          "battleId": "B-000019",
+          "eligibleUnitIds": [
+            "G-PZ-01"
+          ]
+        }
+      ],
+      "charges": [],
+      "destroyed": [
+        {
+          "unit": "S-ART-02",
+          "stock_destroyed": 12,
+          "core_alive_false": true,
+          "removed_from_active_logistics": true,
+          "retired_once": true
+        }
+      ],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 8,
+        "destroyed": 36,
+        "remaining": 832
+      }
+    },
+    {
+      "command": {
+        "id": "auto-6",
+        "revision": 6,
+        "action": {
+          "type": "PASS_ADVANCE",
+          "controllerId": "G-HUMAN-1",
+          "battleId": "B-000019"
+        }
+      },
+      "hash": "8ce57a7adc0a14dc95840f6230c634f33c846214941decd42c5836000590c93e",
+      "events": [
+        {
+          "type": "CombatCompleted",
+          "actionId": "A-000472",
+          "battleId": "B-000019"
+        }
+      ],
+      "charges": [],
+      "destroyed": [],
+      "audit": {
+        "initial": 876,
+        "injected": 0,
+        "maintenance": 0,
+        "action": 8,
+        "destroyed": 36,
+        "remaining": 832
+      }
+    }
+  ],
+  "destroyed": [
+    {
+      "unit": "S-TK-01",
+      "stock_destroyed": 24,
+      "core_alive_false": true,
+      "removed_from_active_logistics": true,
+      "retired_once": true
+    },
+    {
+      "unit": "S-ART-02",
+      "stock_destroyed": 12,
+      "core_alive_false": true,
+      "removed_from_active_logistics": true,
+      "retired_once": true
+    }
+  ],
+  "replay": true,
+  "duplicate_action": true,
+  "repeated_sync": true,
+  "no_transfer": true,
+  "natural_campaign_gap_retained": true
+}
