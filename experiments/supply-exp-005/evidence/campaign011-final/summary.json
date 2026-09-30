@@ -1,0 +1,80 @@
+{
+  "baseline": "1be79878ca07930a554d259560cd18814d0e7868",
+  "quantity_unit": "quarter supply point",
+  "runtime_rules_parameters_rng_changed": false,
+  "normal_budget_seconds": 3,
+  "same_unit_cycle": {
+    "passed": true,
+    "unit": "G-I-01",
+    "recovery_kind": "reserve, not debt or attack-factor recovery",
+    "first_attack_revision": 65,
+    "first_stock_before": 12,
+    "first_stock_after": 8,
+    "first_fee": 4,
+    "first_projected_factor": 1,
+    "first_group_Core_strength": 13,
+    "recovery_revision": 75,
+    "delivery": {
+      "id": "G-I-01",
+      "before": 8,
+      "received": 8,
+      "maintenance": 4,
+      "due": 4,
+      "after": 12,
+      "debt": "0",
+      "loss": 0
+    },
+    "second_attack": {
+      "turn": 2,
+      "phase": "GERMAN_COMBAT",
+      "revision": 79,
+      "attackers": [
+        {
+          "unit": "G-I-01",
+          "stock": 12,
+          "debt": "0",
+          "fee": 4,
+          "factor": 1
+        }
+      ],
+      "target_stock": 8,
+      "target_strength": 3,
+      "result": "AR",
+      "actual_attack_strength": 5,
+      "destroyed_events": []
+    }
+  },
+  "nonzero_combat_destruction": {
+    "passed": false,
+    "checkpoint_revision": 91,
+    "initial_target_stock": 4,
+    "initial_target_remaining_strength": 2,
+    "stock_at_attack": 0,
+    "reason": "Maintenance consumed 4 before next reachable attack window; AR inflicted no losses",
+    "needed": "legal combat checkpoint with positive-stock target and available adjacent lethal attacker; no global unreachability claim",
+    "actual_attack": {
+      "turn": 4,
+      "phase": "GERMAN_COMBAT",
+      "revision": 101,
+      "attackers": [
+        {
+          "unit": "G-MOT-01",
+          "stock": 0,
+          "debt": "0",
+          "fee": 0,
+          "factor": 0.5
+        }
+      ],
+      "target_stock": 0,
+      "target_strength": 2,
+      "result": "AR",
+      "actual_attack_strength": 3,
+      "destroyed_events": []
+    },
+    "sink_checks_exercised": false
+  },
+  "new_actions_replayed": 16,
+  "all_replayed_hashes_equal": true,
+  "existing_prefix_actions_reconstructed": 34,
+  "old_75_refusals": "archived; not rerun or changed"
+}
