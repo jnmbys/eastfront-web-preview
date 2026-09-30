@@ -1,0 +1,669 @@
+{
+  "seed": 18,
+  "turn": 4,
+  "n": 229,
+  "line": 230,
+  "observationKey": "1e4bf10ecd16db86e7ca171624bbf53fe472981aa11d6d7cfc13e20f0dc7b2fa",
+  "source": "f4c9b9732f3725fb067d4b29a6cff12e66eb3e53",
+  "replayedActions": 229,
+  "recordedChoice": {
+    "kind": "INTENT",
+    "intent": {
+      "type": "MOVE",
+      "unitId": "G-PZ-02",
+      "path": [
+        {
+          "q": 11,
+          "r": 3
+        }
+      ]
+    }
+  },
+  "choiceMatches": true,
+  "nearest": 16,
+  "branch": "GERMAN_MOVEMENT",
+  "rawCandidateCount": 155,
+  "boundedCandidateCount": 128,
+  "visibleEnemies": [
+    {
+      "visibility": "IDENTIFIED",
+      "id": "S-TK-03",
+      "side": "SOVIET",
+      "type": "TANK",
+      "step": 0,
+      "hex": {
+        "q": 12,
+        "r": 2
+      },
+      "stats": {
+        "attack": 6,
+        "defense": 5,
+        "movement": 5
+      },
+      "supplyState": "SUPPLIED",
+      "entrenched": false
+    }
+  ],
+  "contacts": [
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:12,-1",
+      "side": "SOVIET",
+      "hex": {
+        "q": 12,
+        "r": -1
+      },
+      "status": "CURRENT"
+    },
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:12,5",
+      "side": "SOVIET",
+      "hex": {
+        "q": 12,
+        "r": 5
+      },
+      "status": "CURRENT"
+    }
+  ],
+  "lastKnown": [],
+  "front": [
+    {
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "G-MOT-03",
+        "side": "GERMAN",
+        "type": "MOTORIZED",
+        "step": 0,
+        "hex": {
+          "q": 12,
+          "r": 1
+        },
+        "stats": {
+          "attack": 6,
+          "defense": 5,
+          "movement": 5
+        },
+        "supplyState": "OUT_OF_SUPPLY",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-MOT-03",
+          "templateId": "G-MOT",
+          "side": "GERMAN",
+          "type": "MOTORIZED",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 12,
+            "r": 1
+          },
+          "supplyState": "OUT_OF_SUPPLY",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "baseMP": 4,
+      "adjacentVisibleEnemies": [
+        "S-TK-03"
+      ],
+      "beforeCap": [
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 13,
+              "r": 0
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 12,
+              "r": 0
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 11,
+              "r": 1
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 11,
+              "r": 2
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 12,
+              "r": 2
+            }
+          ]
+        }
+      ],
+      "afterCap": [
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 13,
+              "r": 0
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 12,
+              "r": 0
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 11,
+              "r": 1
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 11,
+              "r": 2
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-MOT-03",
+          "path": [
+            {
+              "q": 12,
+              "r": 2
+            }
+          ]
+        }
+      ],
+      "actualScoreBranches": [
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "reason": "identified-enemy-adjacency"
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "reason": "identified-enemy-adjacency"
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 12,
+                "r": 0
+              }
+            ]
+          },
+          "reason": "identified-enemy-adjacency"
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              }
+            ]
+          },
+          "reason": "identified-enemy-adjacency"
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 11,
+                "r": 2
+              }
+            ]
+          },
+          "reason": "identified-enemy-adjacency"
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 12,
+                "r": 2
+              }
+            ]
+          },
+          "reason": "identified-enemy-adjacency"
+        }
+      ],
+      "offlineCoreNeighbors": [
+        {
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 13,
+                "r": 1
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 4
+        },
+        {
+          "path": [
+            {
+              "q": 13,
+              "r": 0
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 4
+        },
+        {
+          "path": [
+            {
+              "q": 12,
+              "r": 0
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 12,
+                "r": 0
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 4
+        },
+        {
+          "path": [
+            {
+              "q": 11,
+              "r": 1
+            }
+          ],
+          "issues": [],
+          "spentMP": 1,
+          "maxMP": 4
+        },
+        {
+          "path": [
+            {
+              "q": 11,
+              "r": 2
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 11,
+                "r": 2
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 4
+        },
+        {
+          "path": [
+            {
+              "q": 12,
+              "r": 2
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 12,
+                "r": 2
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 4
+        }
+      ]
+    },
+    {
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "G-PZ-04",
+        "side": "GERMAN",
+        "type": "PANZER",
+        "step": 1,
+        "hex": {
+          "q": 12,
+          "r": 1
+        },
+        "stats": {
+          "attack": 6,
+          "defense": 5,
+          "movement": 6
+        },
+        "supplyState": "OUT_OF_SUPPLY",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-PZ-04",
+          "templateId": "G-PANZER",
+          "side": "GERMAN",
+          "type": "PANZER",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 12,
+            "r": 1
+          },
+          "supplyState": "OUT_OF_SUPPLY",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "baseMP": 5,
+      "adjacentVisibleEnemies": [
+        "S-TK-03"
+      ],
+      "beforeCap": [
+        {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 13,
+              "r": 0
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 12,
+              "r": 0
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 11,
+              "r": 1
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 11,
+              "r": 2
+            }
+          ]
+        },
+        {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 12,
+              "r": 2
+            }
+          ]
+        }
+      ],
+      "afterCap": [],
+      "actualScoreBranches": [],
+      "offlineCoreNeighbors": [
+        {
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 13,
+                "r": 1
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 5
+        },
+        {
+          "path": [
+            {
+              "q": 13,
+              "r": 0
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 5
+        },
+        {
+          "path": [
+            {
+              "q": 12,
+              "r": 0
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 12,
+                "r": 0
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 5
+        },
+        {
+          "path": [
+            {
+              "q": 11,
+              "r": 1
+            }
+          ],
+          "issues": [],
+          "spentMP": 1,
+          "maxMP": 5
+        },
+        {
+          "path": [
+            {
+              "q": 11,
+              "r": 2
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 11,
+                "r": 2
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 5
+        },
+        {
+          "path": [
+            {
+              "q": 12,
+              "r": 2
+            }
+          ],
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 12,
+                "r": 2
+              }
+            }
+          ],
+          "spentMP": 0,
+          "maxMP": 5
+        }
+      ]
+    }
+  ],
+  "stateHash": "83e46dc9f3e063e538ef177aa0de195e12dcb7b1851e2b2e7e4e8eb200a5cde0"
+}
