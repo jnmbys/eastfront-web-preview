@@ -1,3 +1,5 @@
+> 后续收尾见 [CLOSE011.md](CLOSE011.md)：已新增真实战斗步损、主动推进与恢复单位攻击；同单位恢复后二次攻击仍待验。以下是f8284bd4阶段的历史记录。
+
 # SUPPLY-CAMPAIGN-011：同一战役的战斗与补给连续性
 
 基线 `8e2fe1249fd2ffeae765137bd225a4272cb7374d`，独立分支 `supply-campaign-011`。未发现既有011 checkpoint，首轮从该基线创建；此后 checkpoint 只续接同一局。此次仅增加验证脚本与证据，无运行接缝修复，无Core、RNG、公式、配置改动；不部署，不连接生产或AI。S-AI-1仍只是原Core控制方ID。

@@ -1,0 +1,170 @@
+"""011 closure: hash-verified prefix checkpoints and short real-Action continuations.
+No state editing and no attack/dice dry runs. All attack outcomes are committed once.
+"""
+from campaign import *
+from bounded import warm_start,close_worker
+from verify_campaign011 import check_losses
+import gzip,sys
+BASE='f8284bd4928b9183616bfeae81eeb3cdf899b8e0'
+OUT=ROOT/'evidence/campaign011-close';OUT.mkdir(exist_ok=True)
+COORD={n['id']:n['coord'] for n in __import__('realmap').MAP['nodes']}
+EDGE={frozenset((e['a'],e['b'])):e['core']['key'] for e in __import__('realmap').MAP['edges'] if e['core']}
+def packed(path,x):path.write_bytes(gzip.compress(json.dumps(x,ensure_ascii=False).encode(),mtime=0))
+def unpack(path):return json.loads(gzip.decompress(path.read_bytes()))
+def prepare():
+ d=unpack(ROOT/'evidence/campaign011/run.json.gz');warm_start();b=create_campaign('new',d['seed']);assert hash_bundle(b)==d['initial_hash']
+ for i,row in enumerate(d['records'][:117],1):
+  r=execute(b,row['command'],seconds=3);assert r['ok'],(i,r.get('error'));b=r['state'];assert hash_bundle(b)==row['hash']
+  if i in [66,117]:
+   packed(OUT/f'checkpoint-{i}.json.gz',{'base':BASE,'prefix_source':'../campaign011/run.json.gz','prefix_actions':i,'hash':hash_bundle(b),'state':b});print('CHECKPOINT',i,hash_bundle(b),flush=True)
+ close_worker()
+class Run:
+ def __init__(self,name,n):
+  self.name=name;self.source=f'checkpoint-{n}.json.gz';d=unpack(OUT/self.source);self.b=d['state'];assert hash_bundle(self.b)==d['hash'];self.initial=d['hash'];self.records=[];self.failures=[]
+ @classmethod
+ def resume(cls,name):
+  d=json.loads((OUT/(name+'.json')).read_text());self=cls.__new__(cls);self.name=name;self.source=d['checkpoint'];self.initial=d['initial_hash'];self.records=d['records'];self.failures=d['failures'];self.b=unpack(OUT/(name+'-state.json.gz'));assert hash_bundle(self.b)==d['final_hash'];return self
+ def act(self,a):
+  before=self.b;cmd=auto_command(before);cmd['id']='close-'+self.name+'-'+str(before['revision']);cmd['action'].update(a)
+  r=execute(before,cmd,seconds=3)
+  if not r['ok']:
+   assert r['state']==before;self.failures.append(dict(command=cmd,error=r.get('error'),unchanged=True));self.save();raise RuntimeError(self.failures[-1])
+  self.b=r['state'];j=self.b['journal'][-1];check_losses(before,self.b,j)
+  old={u['id']:u for u in before['logistics']['units']};new={u['id']:u for u in self.b['logistics']['units']}
+  changes=[dict(unit=u,before=old.get(u),after=new.get(u)) for u in sorted(set(old)|set(new)) if old.get(u)!=new.get(u)]
+  rec=dict(command=cmd,hash=hash_bundle(self.b),turn=before['core']['turn'],phase=before['core']['phase'],seconds=r['seconds'],events=j['events'],supply_events=j['supply_events'],charges=j['charges'],settled=j['settled'],changes=changes,audit=audit(self.b['logistics']))
+  if j['settled']:rec['ledger']=deepcopy(self.b['logistics']['ledger'])
+  if a['type'] in ['ATTACK','SCHWERPUNKT_ATTACK']:rec['pre_action_effects']=effects(before['logistics'],cmd['action'])
+  self.records.append(rec);self.save();print(self.name,self.b['revision'],a['type'],self.b['core']['phase'],self.b['core']['pendingDecision'] and self.b['core']['pendingDecision']['kind'],flush=True);return rec
+ def save(self):
+  packed(OUT/(self.name+'-state.json.gz'),self.b)
+  (OUT/(self.name+'.json')).write_text(json.dumps(dict(base=BASE,checkpoint=self.source,initial_hash=self.initial,records=self.records,failures=self.failures,final_hash=hash_bundle(self.b)),ensure_ascii=False,indent=2))
+ def choices(self,advance=False):
+  while self.b['core']['pendingDecision']:
+   p=self.b['core']['pendingDecision'];kind=p['kind'];base=dict(battleId=p['battleId'])
+   if kind=='ADVANCE_AFTER_COMBAT':
+    a=dict(type='ADVANCE_AFTER_COMBAT',unitId='G-PZ-01' if 'G-PZ-01' in p['eligibleUnitIds'] else p['eligibleUnitIds'][0],**base) if advance else dict(type='PASS_ADVANCE',**base)
+   elif kind in ['BREAKTHROUGH_OPTION','SCHWERPUNKT_OPTION','DEFENDER_REACTION']:
+    a=dict(type={'BREAKTHROUGH_OPTION':'PASS_BREAKTHROUGH','SCHWERPUNKT_OPTION':'PASS_SCHWERPUNKT','DEFENDER_REACTION':'PASS_REACTION'}[kind],**base)
+   else:
+    assert kind in ['LOSS_ALLOCATION','RETREAT']
+    # Existing forced-choice helper never probes ATTACK in these two pending kinds.
+    options=json.loads(subprocess.check_output(['node',str(ROOT/'choice-probe.mjs')],input=json.dumps(self.b['core']).encode()));assert options;a=options[0]
+   self.act(a)
+ def end(self):
+  assert not self.b['core']['pendingDecision']
+  if self.b['core']['phase']=='SOVIET_REINFORCEMENT_SUPPLY':
+   md=metadata(self.b['core'],'S')
+   for slot in md['reinforcements']:
+    # Own publicly known occupied entries: skip obvious full stacks in test input.
+    h=next((h for h in md['entry_hexes'] if sum(u['alive'] and u['hex']==h for u in self.b['core']['units'].values())<2),None)
+    if h is not None:self.act(dict(type='DEPLOY_REINFORCEMENT',reinforcementId=slot['id'],entryHex=h))
+  return self.act(dict(type='END_PHASE'))
+ def until(self,turn,phase):
+  for _ in range(40):
+   if self.b['core']['turn']==turn and self.b['core']['phase']==phase:return
+   self.end()
+  raise RuntimeError('phase target not reached')
+def run_a():
+ r=Run('advance-battle',66);r.choices(advance=True)
+ r.until(2,'GERMAN_MOVEMENT')
+ r.act(dict(type='MOVE',unitId='G-I-01',path=[COORD['E7']]))
+ r.end()
+ r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F8']))
+ r.choices(advance=True)
+ r.until(3,'GERMAN_ENTRENCHMENT');r.save()
+def run_b():
+ r=Run('recover-attack',117)
+ r.until(6,'GERMAN_SUPPLY_RAIL')
+ r.act(dict(type='RAIL_REPAIR',edgeKeys=[EDGE[frozenset(['A10','B10'])],EDGE[frozenset(['B10','C10'])]]))
+ r.end()
+ r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['C9'],COORD['C10']]))
+ r.until(7,'GERMAN_MOVEMENT')
+ u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+ r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['D9'],COORD['E9']]))
+ r.end()
+ r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F8']))
+ r.choices(advance=True)
+ r.until(8,'GERMAN_ENTRENCHMENT');r.save()
+def extend_a():
+ r=Run.resume('advance-battle');r.until(4,'GERMAN_MOVEMENT')
+ def tank():return next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01')
+ if Fraction(tank()['debt'])==0:r.until(5,'GERMAN_MOVEMENT')
+ assert Fraction(tank()['debt'])>0,tank()
+ turn=r.b['core']['turn']
+ r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['D8'],COORD['C8'],COORD['B8']]))
+ r.until(turn+1,'GERMAN_MOVEMENT')
+ r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['A8'],COORD['A7'],COORD['A6']]))
+ r.until(turn+2,'GERMAN_MOVEMENT');assert Fraction(tank()['debt'])==0,tank()
+ r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['B6'],COORD['C7'],COORD['D7']]))
+ r.until(turn+3,'GERMAN_MOVEMENT')
+ r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['D8'],COORD['E9']]))
+ r.end();r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F9']));r.choices(advance=True)
+ r.until(turn+4,'GERMAN_ENTRENCHMENT');r.save()
+def replay(name):
+ d=json.loads((OUT/(name+'.json')).read_text());b=unpack(OUT/d['checkpoint'])['state'];assert hash_bundle(b)==d['initial_hash'];warm_start()
+ for row in d['records']:
+  result=execute(b,row['command'],seconds=3);assert result['ok'],result.get('error');before=b;b=result['state'];assert hash_bundle(b)==row['hash'];check_losses(before,b,b['journal'][-1])
+ assert hash_bundle(b)==d['final_hash'];return dict(name=name,actions=len(d['records']),hash=d['final_hash'],passed=True)
+if __name__=='__main__':
+ try:
+  if sys.argv[1]=='prepare':prepare()
+  elif sys.argv[1]=='a':warm_start();run_a()
+  elif sys.argv[1]=='b':warm_start();run_b()
+  elif sys.argv[1]=='extend-a':warm_start();extend_a()
+  elif sys.argv[1]=='finish-a':
+   warm_start();r=Run.resume('advance-battle');r.until(3,'GERMAN_ENTRENCHMENT');r.save()
+  elif sys.argv[1]=='resume-a':
+   warm_start();r=Run.resume('advance-battle');r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F8']));r.choices(advance=True);r.save()
+  elif sys.argv[1]=='repair-branch':
+   warm_start();d=json.loads((OUT/'advance-battle.json').read_text());b=unpack(OUT/'checkpoint-66.json.gz')['state']
+   for row in d['records'][:54]:
+    result=execute(b,row['command'],seconds=3);assert result['ok'],result.get('error');b=result['state'];assert hash_bundle(b)==row['hash']
+   assert b['revision']==120 and b['core']['phase']=='GERMAN_SUPPLY_RAIL' and b['core']['turn']==6
+   packed(OUT/'checkpoint-120.json.gz',dict(base=BASE,prefix_source='advance-battle.json',prefix_actions=54,hash=hash_bundle(b),state=b))
+   r=Run('repaired-recovery',120)
+   r.act(dict(type='RAIL_REPAIR',edgeKeys=[EDGE[frozenset(['A10','B10'])],EDGE[frozenset(['B10','C10'])]]));r.end()
+   r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['A8'],COORD['A7'],COORD['A6']]))
+   r.until(7,'GERMAN_MOVEMENT')
+   u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+   r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['B6'],COORD['C7'],COORD['D7'],COORD['D8'],COORD['E9']]))
+   r.end();r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F9']));r.choices(advance=True)
+   r.until(8,'GERMAN_ENTRENCHMENT');r.save()
+  elif sys.argv[1]=='finish-repaired':
+   warm_start();r=Run.resume('repaired-recovery')
+   r.act(dict(type='MOVE',unitId='G-I-02',path=[COORD['A3'],COORD['A4']]))
+   r.until(8,'GERMAN_MOVEMENT')
+   u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+   r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['B6'],COORD['C7'],COORD['D7'],COORD['D8'],COORD['E9']]))
+   r.end();r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F9']));r.choices(advance=True)
+   r.until(9,'GERMAN_ENTRENCHMENT');r.save()
+  elif sys.argv[1]=='known-recovered':
+   warm_start();d=unpack(ROOT/'evidence/campaign011/run.json.gz');b=unpack(OUT/'checkpoint-117.json.gz')['state']
+   for row in d['records'][117:128]:
+    result=execute(b,row['command'],seconds=3);assert result['ok'],result.get('error');b=result['state'];assert hash_bundle(b)==row['hash']
+   packed(OUT/'checkpoint-128.json.gz',dict(base=BASE,prefix_source='../campaign011/run.json.gz',prefix_actions=128,derived_from_checkpoint=117,hash=hash_bundle(b),state=b))
+   r=Run('recovered-unit-attack',128);u=next(u for u in r.b['logistics']['units'] if u['id']=='G-MOT-01');assert Fraction(u['debt'])==0,u
+   r.until(7,'GERMAN_MOVEMENT')
+   r.act(dict(type='MOVE',unitId='G-MOT-01',path=[COORD['C9'],COORD['D9'],COORD['E9']]))
+   r.end();r.act(dict(type='ATTACK',attackerUnitIds=['G-MOT-01'],target=COORD['F9']));r.choices(advance=False)
+   r.until(8,'GERMAN_ENTRENCHMENT');r.save()
+  elif sys.argv[1]=='resupply-a':
+   warm_start();r=Run.resume('advance-battle')
+   for uid,names in [('G-ENG-02',['A3','A4']),('G-I-02',['A3','A4']),('G-ART-01',['A2']),('G-ART-02',['A2']),('G-I-01',['D6','C6']),('G-MOT-01',['A9','A8','A7','A6']),('G-PZ-02',['B9','A9','A8','A7'])]:
+    r.act(dict(type='MOVE',unitId=uid,path=[COORD[n] for n in names]))
+   r.until(8,'GERMAN_MOVEMENT')
+   u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+   r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['B6'],COORD['C7'],COORD['D7'],COORD['D8'],COORD['E9']]))
+   r.end();r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F9']));r.choices(advance=True)
+   r.until(9,'GERMAN_ENTRENCHMENT');r.save()
+  elif sys.argv[1]=='resume-b':
+   warm_start();r=Run.resume('recover-attack')
+   r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['B9'],COORD['B8']]))
+   r.until(8,'GERMAN_MOVEMENT')
+   u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+   r.act(dict(type='MOVE',unitId='G-PZ-01',path=[COORD['C8'],COORD['D8'],COORD['E8']]))
+   r.end();r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01'],target=COORD['F8']));r.choices(advance=True)
+   r.until(9,'GERMAN_ENTRENCHMENT');r.save()
+  elif sys.argv[1]=='replay':
+   results=[replay(n) for n in ['advance-battle','recover-attack']];(OUT/'replay.json').write_text(json.dumps(results,indent=2));print(results)
+ finally:close_worker()

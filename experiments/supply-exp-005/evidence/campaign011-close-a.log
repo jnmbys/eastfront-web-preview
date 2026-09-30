@@ -1,0 +1,141 @@
+advance-battle 67 ADVANCE_AFTER_COMBAT GERMAN_COMBAT None
+advance-battle 68 END_PHASE GERMAN_RECOVERY None
+advance-battle 69 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 70 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 71 END_PHASE SOVIET_MOVEMENT None
+advance-battle 72 END_PHASE SOVIET_COMBAT None
+advance-battle 73 END_PHASE SOVIET_RECOVERY None
+advance-battle 74 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 75 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 76 END_PHASE GERMAN_MOVEMENT None
+advance-battle 77 MOVE GERMAN_MOVEMENT None
+advance-battle 78 END_PHASE GERMAN_COMBAT None
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 94, in <module>
+    elif sys.argv[1]=='a':warm_start();run_a()
+                                       ^^^^^^^
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 70, in run_a
+    r.act(dict(type='ATTACK',attackerUnitIds=['G-PZ-01','G-I-01'],target=COORD['F8']))
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 28, in act
+    assert r['state']==before;self.failures.append(dict(command=cmd,error=r.get('error'),unchanged=True));self.save();raise RuntimeError(self.failures[-1])
+                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: {'command': {'id': 'close-advance-battle-78', 'revision': 78, 'action': {'type': 'ATTACK', 'controllerId': 'G-HUMAN-1', 'attackerUnitIds': ['G-PZ-01', 'G-I-01'], 'target': {'q': 5, 'r': 5}}}, 'error': 'Error: [{"code":"NOT_ADJACENT_TO_TARGET","message":"Combat attacker must be adjacent to target.","unitId":"G-I-01","hex":{"q":5,"r":5}}]', 'unchanged': True}
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/spawn.py", line 131, in _main
+    prepare(preparation_data)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/spawn.py", line 246, in prepare
+    _fixup_main_from_path(data['init_main_from_path'])
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/spawn.py", line 297, in _fixup_main_from_path
+    main_content = runpy.run_path(main_path,
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 286, in run_path
+  File "<frozen runpy>", line 254, in _get_code_from_file
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/<stdin>'
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/bounded.py", line 49, in warm_start
+    try:_ensure(began+seconds);return time.perf_counter()-began
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/bounded.py", line 43, in _ensure
+    if not _WORKER[1].recv().get('ready'):raise RuntimeError('invalid worker handshake')
+           ^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/connection.py", line 250, in recv
+    buf = self._recv_bytes()
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/connection.py", line 430, in _recv_bytes
+    buf = self._recv(4)
+          ^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/connection.py", line 399, in _recv
+    raise EOFError
+EOFError
+advance-battle 79 ATTACK GERMAN_COMBAT None
+advance-battle 80 END_PHASE GERMAN_RECOVERY None
+advance-battle 81 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 82 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 83 END_PHASE SOVIET_MOVEMENT None
+advance-battle 84 END_PHASE SOVIET_COMBAT None
+advance-battle 85 END_PHASE SOVIET_RECOVERY None
+advance-battle 86 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 87 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 88 END_PHASE GERMAN_MOVEMENT None
+advance-battle 89 END_PHASE GERMAN_COMBAT None
+advance-battle 90 END_PHASE GERMAN_RECOVERY None
+advance-battle 91 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 92 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 93 END_PHASE SOVIET_MOVEMENT None
+advance-battle 94 END_PHASE SOVIET_COMBAT None
+advance-battle 95 END_PHASE SOVIET_RECOVERY None
+advance-battle 96 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 97 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 98 END_PHASE GERMAN_MOVEMENT None
+advance-battle 99 END_PHASE GERMAN_COMBAT None
+advance-battle 100 END_PHASE GERMAN_RECOVERY None
+advance-battle 101 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 102 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 103 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 104 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 105 END_PHASE SOVIET_MOVEMENT None
+advance-battle 106 END_PHASE SOVIET_COMBAT None
+advance-battle 107 END_PHASE SOVIET_RECOVERY None
+advance-battle 108 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 109 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 110 END_PHASE GERMAN_MOVEMENT None
+advance-battle 111 MOVE GERMAN_MOVEMENT None
+advance-battle 112 END_PHASE GERMAN_COMBAT None
+advance-battle 113 END_PHASE GERMAN_RECOVERY None
+advance-battle 114 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 115 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 116 END_PHASE SOVIET_MOVEMENT None
+advance-battle 117 END_PHASE SOVIET_COMBAT None
+advance-battle 118 END_PHASE SOVIET_RECOVERY None
+advance-battle 119 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 120 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 121 END_PHASE GERMAN_MOVEMENT None
+advance-battle 122 MOVE GERMAN_MOVEMENT None
+advance-battle 123 END_PHASE GERMAN_COMBAT None
+advance-battle 124 END_PHASE GERMAN_RECOVERY None
+advance-battle 125 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 126 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 127 END_PHASE SOVIET_MOVEMENT None
+advance-battle 128 END_PHASE SOVIET_COMBAT None
+advance-battle 129 END_PHASE SOVIET_RECOVERY None
+advance-battle 130 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 131 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 132 END_PHASE GERMAN_MOVEMENT None
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 114, in <module>
+    elif sys.argv[1]=='extend-a':warm_start();extend_a()
+                                              ^^^^^^^^^^
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 98, in extend_a
+    r.until(turn+2,'GERMAN_MOVEMENT');assert Fraction(tank()['debt'])==0,tank()
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'id': 'G-PZ-01', 'node': 'A6', 'side': 'G', 'B': 8, 'stock': 0, 'cap': 32, 'target': 32, 'debt': '7/8', 'strength': 2, 'priority': 1, 'MP': 4, 'core_type': 'PANZER', 'core_controller': 'G-HUMAN-1', 'core_step': 1, 'attrition': '0'}
+advance-battle 133 MOVE GERMAN_MOVEMENT None
+advance-battle 134 MOVE GERMAN_MOVEMENT None
+advance-battle 135 MOVE GERMAN_MOVEMENT None
+advance-battle 136 MOVE GERMAN_MOVEMENT None
+advance-battle 137 MOVE GERMAN_MOVEMENT None
+advance-battle 138 MOVE GERMAN_MOVEMENT None
+advance-battle 139 MOVE GERMAN_MOVEMENT None
+advance-battle 140 END_PHASE GERMAN_COMBAT None
+advance-battle 141 END_PHASE GERMAN_RECOVERY None
+advance-battle 142 END_PHASE GERMAN_ENTRENCHMENT None
+advance-battle 143 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 144 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 145 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 146 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+advance-battle 147 END_PHASE SOVIET_MOVEMENT None
+advance-battle 148 END_PHASE SOVIET_COMBAT None
+advance-battle 149 END_PHASE SOVIET_RECOVERY None
+advance-battle 150 END_PHASE SOVIET_ENTRENCHMENT None
+advance-battle 151 END_PHASE GERMAN_SUPPLY_RAIL None
+advance-battle 152 END_PHASE GERMAN_MOVEMENT None
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 124, in <module>
+    u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'id': 'G-PZ-01', 'node': 'A6', 'side': 'G', 'B': 8, 'stock': 0, 'cap': 32, 'target': 32, 'debt': '11/8', 'strength': 2, 'priority': 1, 'MP': 4, 'core_type': 'PANZER', 'core_controller': 'G-HUMAN-1', 'core_step': 1, 'attrition': '0'}

@@ -1,0 +1,40 @@
+recover-attack 118 RAIL_REPAIR GERMAN_SUPPLY_RAIL None
+recover-attack 119 END_PHASE GERMAN_MOVEMENT None
+recover-attack 120 MOVE GERMAN_MOVEMENT None
+recover-attack 121 END_PHASE GERMAN_COMBAT None
+recover-attack 122 END_PHASE GERMAN_RECOVERY None
+recover-attack 123 END_PHASE GERMAN_ENTRENCHMENT None
+recover-attack 124 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+recover-attack 125 END_PHASE SOVIET_MOVEMENT None
+recover-attack 126 END_PHASE SOVIET_COMBAT None
+recover-attack 127 END_PHASE SOVIET_RECOVERY None
+recover-attack 128 END_PHASE SOVIET_ENTRENCHMENT None
+recover-attack 129 END_PHASE GERMAN_SUPPLY_RAIL None
+recover-attack 130 END_PHASE GERMAN_MOVEMENT None
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 98, in <module>
+    elif sys.argv[1]=='b':warm_start();run_b()
+                                       ^^^^^^^
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 83, in run_b
+    u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'id': 'G-PZ-01', 'node': 'C10', 'side': 'G', 'B': 8, 'stock': 0, 'cap': 32, 'target': 32, 'debt': '3/4', 'strength': 3, 'priority': 1, 'MP': 4, 'core_type': 'PANZER', 'core_controller': 'G-HUMAN-1', 'core_step': 0, 'attrition': '0'}
+recover-attack 131 MOVE GERMAN_MOVEMENT None
+recover-attack 132 END_PHASE GERMAN_COMBAT None
+recover-attack 133 END_PHASE GERMAN_RECOVERY None
+recover-attack 134 END_PHASE GERMAN_ENTRENCHMENT None
+recover-attack 135 END_PHASE SOVIET_REINFORCEMENT_SUPPLY None
+recover-attack 136 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+recover-attack 137 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+recover-attack 138 DEPLOY_REINFORCEMENT SOVIET_REINFORCEMENT_SUPPLY None
+recover-attack 139 END_PHASE SOVIET_MOVEMENT None
+recover-attack 140 END_PHASE SOVIET_COMBAT None
+recover-attack 141 END_PHASE SOVIET_RECOVERY None
+recover-attack 142 END_PHASE SOVIET_ENTRENCHMENT None
+recover-attack 143 END_PHASE GERMAN_SUPPLY_RAIL None
+recover-attack 144 END_PHASE GERMAN_MOVEMENT None
+Traceback (most recent call last):
+  File "/workspace/scratch/1dc165285827/campaign011/experiments/supply-exp-005/close011.py", line 107, in <module>
+    u=next(u for u in r.b['logistics']['units'] if u['id']=='G-PZ-01');assert Fraction(u['debt'])==0,u
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'id': 'G-PZ-01', 'node': 'B8', 'side': 'G', 'B': 8, 'stock': 0, 'cap': 32, 'target': 32, 'debt': '9/8', 'strength': 3, 'priority': 1, 'MP': 4, 'core_type': 'PANZER', 'core_controller': 'G-HUMAN-1', 'core_step': 0, 'attrition': '0'}

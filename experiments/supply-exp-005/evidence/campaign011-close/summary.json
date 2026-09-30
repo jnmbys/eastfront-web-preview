@@ -1,0 +1,49 @@
+{
+  "baseline": "f8284bd4928b9183616bfeae81eeb3cdf899b8e0",
+  "runtime_or_parameters_changed": false,
+  "transaction_budget_seconds": 3,
+  "new_short_replay_actions": 45,
+  "new_short_replay_passed": true,
+  "covered": [
+    "actual EX combat step loss and inventory/strength synchronization",
+    "voluntary advance with no extra charge or settlement",
+    "recovered unit attacks with zero reserve: paid 0, factor 0.5, Core strength 3, AR and retreat",
+    "post-attack real settlement and renewed debt 1/2"
+  ],
+  "remaining": [
+    "same unit attacks, suffers shortage, fully recovers, and attacks again",
+    "battle destruction with nonzero inventory sink in these branches"
+  ],
+  "refusals_75": {
+    "intentional_negative": 0,
+    "script_first_known_full_entry": 27,
+    "script_repeated_intent_in_later_turn": 48,
+    "failed_request_ids_recorded": false
+  },
+  "experiments": {
+    "advance-battle": {
+      "accepted_actions": 86,
+      "failed_actions": 1,
+      "final_hash": "0286f01350d1d084f3c04729e7aaa303a4e6855bbc9f7d4118b4983b9edc1121",
+      "goal_status": "partial; recovery loop not met"
+    },
+    "recover-attack": {
+      "accepted_actions": 27,
+      "failed_actions": 0,
+      "final_hash": "ee34f6ca832d0c9bbdc50cf80d38c34decc4f0c9146cee64f297e9c53a4e5543",
+      "goal_status": "partial; recovery loop not met"
+    },
+    "repaired-recovery": {
+      "accepted_actions": 27,
+      "failed_actions": 0,
+      "final_hash": "fec422c75f562aa5d03d2fd5b4cd99764daa06a7d3599e4b10e060fd6ce9c57b",
+      "goal_status": "partial; recovery loop not met"
+    },
+    "recovered-unit-attack": {
+      "accepted_actions": 20,
+      "failed_actions": 0,
+      "final_hash": "631023a3bf1efce1e3fd23cda159ae58c2e396a9d99839382f49d8e66a220e1f",
+      "goal_status": "recovered-unit first attack verified; not same-unit second attack"
+    }
+  }
+}

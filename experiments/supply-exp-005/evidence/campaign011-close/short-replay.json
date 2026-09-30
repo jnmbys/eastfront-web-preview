@@ -1,0 +1,458 @@
+[
+  {
+    "name": "advance-battle",
+    "actions": 25,
+    "rejected_unchanged": 1,
+    "final_hash": "6188a1aecfd2f0d85ca9c0883efe588244acd32dc298a7b2acf19d765d644b9e",
+    "passed": true,
+    "audit": {
+      "initial": 900,
+      "injected": 200,
+      "maintenance": 568,
+      "action": 16,
+      "destroyed": 0,
+      "remaining": 516
+    },
+    "records": [
+      {
+        "revision": 67,
+        "type": "ADVANCE_AFTER_COMBAT",
+        "seconds": 0.4669640580000305,
+        "settled": false,
+        "unit": "G-PZ-01",
+        "stock_unchanged": 16,
+        "from_node": "D8",
+        "to_node": "E8"
+      },
+      {
+        "revision": 68,
+        "type": "END_PHASE",
+        "seconds": 0.5172061379998922,
+        "settled": false
+      },
+      {
+        "revision": 69,
+        "type": "END_PHASE",
+        "seconds": 0.48920597300002555,
+        "settled": false
+      },
+      {
+        "revision": 70,
+        "type": "END_PHASE",
+        "seconds": 0.4844179910001003,
+        "settled": false
+      },
+      {
+        "revision": 71,
+        "type": "END_PHASE",
+        "seconds": 0.47327791699990485,
+        "settled": false
+      },
+      {
+        "revision": 72,
+        "type": "END_PHASE",
+        "seconds": 0.4441749190000337,
+        "settled": false
+      },
+      {
+        "revision": 73,
+        "type": "END_PHASE",
+        "seconds": 0.4922490959997958,
+        "settled": false
+      },
+      {
+        "revision": 74,
+        "type": "END_PHASE",
+        "seconds": 0.5070781740000712,
+        "settled": false
+      },
+      {
+        "revision": 75,
+        "type": "END_PHASE",
+        "seconds": 0.6861751650003498,
+        "settled": true,
+        "selected_units": [
+          {
+            "id": "G-MOT-01",
+            "before": 24,
+            "received": 0,
+            "maintenance": 8,
+            "due": 8,
+            "after": 16,
+            "debt": "0",
+            "loss": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "before": 16,
+            "received": 0,
+            "maintenance": 8,
+            "due": 8,
+            "after": 8,
+            "debt": "0",
+            "loss": 0
+          },
+          {
+            "id": "S-I-01",
+            "before": 12,
+            "received": 0,
+            "maintenance": 4,
+            "due": 4,
+            "after": 8,
+            "debt": "0",
+            "loss": 0
+          }
+        ]
+      },
+      {
+        "revision": 76,
+        "type": "END_PHASE",
+        "seconds": 0.5068836370001009,
+        "settled": false
+      },
+      {
+        "revision": 77,
+        "type": "MOVE",
+        "seconds": 0.5017755230001057,
+        "settled": false
+      },
+      {
+        "revision": 78,
+        "type": "END_PHASE",
+        "seconds": 0.5188150270000733,
+        "settled": false
+      },
+      {
+        "revision": 79,
+        "type": "ATTACK",
+        "seconds": 0.4817179510000642,
+        "settled": false,
+        "battle_damage": [
+          {
+            "unit": "G-PZ-01",
+            "from_step": 0,
+            "to_step": 1,
+            "stock_before": 8,
+            "stock_after": 4,
+            "strength_after": 2
+          },
+          {
+            "unit": "S-I-01",
+            "from_step": 0,
+            "to_step": 1,
+            "stock_before": 8,
+            "stock_after": 8,
+            "strength_after": 2
+          }
+        ],
+        "attackers": [
+          {
+            "unit": "G-PZ-01",
+            "stock_before": 8,
+            "debt_before": "0",
+            "paid": 4,
+            "base_attack": 8,
+            "factor": 1
+          }
+        ],
+        "attack_strength": 8,
+        "result": "EX",
+        "dice": {
+          "die1": 2,
+          "die2": 1,
+          "total": 3
+        }
+      },
+      {
+        "revision": 80,
+        "type": "END_PHASE",
+        "seconds": 0.4838761189998877,
+        "settled": false
+      },
+      {
+        "revision": 81,
+        "type": "END_PHASE",
+        "seconds": 0.5036174259998916,
+        "settled": false
+      },
+      {
+        "revision": 82,
+        "type": "END_PHASE",
+        "seconds": 0.5276657929998692,
+        "settled": false
+      },
+      {
+        "revision": 83,
+        "type": "END_PHASE",
+        "seconds": 0.4574268480000683,
+        "settled": false
+      },
+      {
+        "revision": 84,
+        "type": "END_PHASE",
+        "seconds": 0.5204421720000028,
+        "settled": false
+      },
+      {
+        "revision": 85,
+        "type": "END_PHASE",
+        "seconds": 0.5696194189999915,
+        "settled": false
+      },
+      {
+        "revision": 86,
+        "type": "END_PHASE",
+        "seconds": 0.5131429600000956,
+        "settled": false
+      },
+      {
+        "revision": 87,
+        "type": "END_PHASE",
+        "seconds": 0.9836295860000064,
+        "settled": true,
+        "selected_units": [
+          {
+            "id": "G-MOT-01",
+            "before": 16,
+            "received": 0,
+            "maintenance": 8,
+            "due": 8,
+            "after": 8,
+            "debt": "0",
+            "loss": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "before": 4,
+            "received": 4,
+            "maintenance": 8,
+            "due": 8,
+            "after": 0,
+            "debt": "0",
+            "loss": 0
+          },
+          {
+            "id": "S-I-01",
+            "before": 8,
+            "received": 0,
+            "maintenance": 4,
+            "due": 4,
+            "after": 4,
+            "debt": "0",
+            "loss": 0
+          }
+        ]
+      },
+      {
+        "revision": 88,
+        "type": "END_PHASE",
+        "seconds": 0.5889628139998422,
+        "settled": false
+      },
+      {
+        "revision": 89,
+        "type": "END_PHASE",
+        "seconds": 0.5393412889998217,
+        "settled": false
+      },
+      {
+        "revision": 90,
+        "type": "END_PHASE",
+        "seconds": 0.5477821719996427,
+        "settled": false
+      },
+      {
+        "revision": 91,
+        "type": "END_PHASE",
+        "seconds": 0.720211160999952,
+        "settled": false
+      }
+    ]
+  },
+  {
+    "name": "recovered-unit-attack",
+    "actions": 20,
+    "rejected_unchanged": 0,
+    "final_hash": "631023a3bf1efce1e3fd23cda159ae58c2e396a9d99839382f49d8e66a220e1f",
+    "passed": true,
+    "audit": {
+      "initial": 900,
+      "injected": 625,
+      "maintenance": 1325,
+      "action": 12,
+      "destroyed": 0,
+      "remaining": 188
+    },
+    "records": [
+      {
+        "revision": 129,
+        "type": "END_PHASE",
+        "seconds": 0.5566811399999096,
+        "settled": false
+      },
+      {
+        "revision": 130,
+        "type": "MOVE",
+        "seconds": 0.5439011319999736,
+        "settled": false
+      },
+      {
+        "revision": 131,
+        "type": "END_PHASE",
+        "seconds": 0.580564871000206,
+        "settled": false
+      },
+      {
+        "revision": 132,
+        "type": "ATTACK",
+        "seconds": 0.6858129239999471,
+        "settled": false,
+        "attackers": [
+          {
+            "unit": "G-MOT-01",
+            "stock_before": 0,
+            "debt_before": "0",
+            "paid": 0,
+            "base_attack": 6,
+            "factor": 0.5
+          }
+        ],
+        "attack_strength": 3,
+        "result": "AR",
+        "dice": {
+          "die1": 2,
+          "die2": 1,
+          "total": 3
+        }
+      },
+      {
+        "revision": 133,
+        "type": "RETREAT",
+        "seconds": 0.5701575789998969,
+        "settled": false
+      },
+      {
+        "revision": 134,
+        "type": "END_PHASE",
+        "seconds": 0.529572606000329,
+        "settled": false
+      },
+      {
+        "revision": 135,
+        "type": "END_PHASE",
+        "seconds": 0.5897584040003494,
+        "settled": false
+      },
+      {
+        "revision": 136,
+        "type": "END_PHASE",
+        "seconds": 0.5021276109996506,
+        "settled": false
+      },
+      {
+        "revision": 137,
+        "type": "DEPLOY_REINFORCEMENT",
+        "seconds": 0.5454678989999593,
+        "settled": false
+      },
+      {
+        "revision": 138,
+        "type": "DEPLOY_REINFORCEMENT",
+        "seconds": 0.5148415059998115,
+        "settled": false
+      },
+      {
+        "revision": 139,
+        "type": "DEPLOY_REINFORCEMENT",
+        "seconds": 0.5342490269999871,
+        "settled": false
+      },
+      {
+        "revision": 140,
+        "type": "END_PHASE",
+        "seconds": 0.5224592580002536,
+        "settled": false
+      },
+      {
+        "revision": 141,
+        "type": "END_PHASE",
+        "seconds": 0.5731149900002492,
+        "settled": false
+      },
+      {
+        "revision": 142,
+        "type": "END_PHASE",
+        "seconds": 0.5449782830000913,
+        "settled": false
+      },
+      {
+        "revision": 143,
+        "type": "END_PHASE",
+        "seconds": 0.492679914999826,
+        "settled": false
+      },
+      {
+        "revision": 144,
+        "type": "END_PHASE",
+        "seconds": 0.9548803070001668,
+        "settled": true,
+        "selected_units": [
+          {
+            "id": "G-MOT-01",
+            "before": 0,
+            "received": 4,
+            "maintenance": 4,
+            "due": 8,
+            "after": 0,
+            "debt": "1/2",
+            "loss": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "before": 0,
+            "received": 4,
+            "maintenance": 4,
+            "due": 8,
+            "after": 0,
+            "debt": "5/4",
+            "loss": 0
+          },
+          {
+            "id": "S-I-01",
+            "before": 0,
+            "received": 0,
+            "maintenance": 0,
+            "due": 4,
+            "after": 0,
+            "debt": "3",
+            "loss": 1
+          }
+        ]
+      },
+      {
+        "revision": 145,
+        "type": "END_PHASE",
+        "seconds": 0.5671303710000757,
+        "settled": false
+      },
+      {
+        "revision": 146,
+        "type": "END_PHASE",
+        "seconds": 0.534611772000062,
+        "settled": false
+      },
+      {
+        "revision": 147,
+        "type": "END_PHASE",
+        "seconds": 0.5413766340002439,
+        "settled": false
+      },
+      {
+        "revision": 148,
+        "type": "END_PHASE",
+        "seconds": 0.5393682199996874,
+        "settled": false
+      }
+    ]
+  }
+]
