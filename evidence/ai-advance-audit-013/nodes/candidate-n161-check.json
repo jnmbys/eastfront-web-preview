@@ -1,0 +1,410 @@
+{
+  "key": "candidate-n161",
+  "n": 161,
+  "traceLine": 162,
+  "turn": 2,
+  "phase": "SOVIET_MOVEMENT",
+  "side": "SOVIET",
+  "observationKey": "bc76587059205886dbd487167beaa88dfc8913d7f1574d8774275a8a32cd9593",
+  "inputHash": "32cf50c7cf26b63c6d9989be3d023d0efb537a13332f3bbe7da655dded97e196",
+  "stateHash": "69e061c951e54739313534b2d43000c5c56ac1472dddbb88b7f552417b5a377a",
+  "choice": {
+    "kind": "INTENT",
+    "intent": {
+      "type": "MOVE",
+      "unitId": "S-I-07",
+      "path": [
+        {
+          "q": 12,
+          "r": 1
+        }
+      ]
+    }
+  },
+  "policyReproduced": true,
+  "random": {
+    "seed": 1017,
+    "state": 4220421659,
+    "draws": 2
+  },
+  "visibleEnemies": [
+    {
+      "id": "G-MOT-03",
+      "hex": {
+        "q": 11,
+        "r": 1
+      },
+      "type": "MOTORIZED",
+      "stats": {
+        "attack": 6,
+        "defense": 5,
+        "movement": 5
+      },
+      "step": 0,
+      "supplyState": "OUT_OF_SUPPLY"
+    }
+  ],
+  "contacts": [],
+  "objectives": [
+    {
+      "q": 28,
+      "r": -5
+    },
+    {
+      "q": 28,
+      "r": -4
+    }
+  ],
+  "visibleEnemyCount": 1,
+  "routeGoalMode": "safe cells adjacent to any identified enemy",
+  "candidateCount": 128,
+  "focusedUnits": [],
+  "opponentChoices": [
+    {
+      "id": "S-ART-01",
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "S-ART-01",
+        "side": "SOVIET",
+        "type": "ARTILLERY",
+        "step": 1,
+        "hex": {
+          "q": 12,
+          "r": 1
+        },
+        "stats": {
+          "attack": 0,
+          "defense": 1,
+          "movement": 2
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "S-ART-01",
+          "templateId": "S-ARTY",
+          "side": "SOVIET",
+          "type": "ARTILLERY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 12,
+            "r": 1
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "S-AI-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "adjacentVisibleEnemies": [
+        {
+          "id": "G-MOT-03",
+          "hex": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      ],
+      "proposals": [
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 12,
+                "r": 0
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 2
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 12,
+                "r": 2
+              }
+            ]
+          },
+          "score": "-Infinity"
+        }
+      ]
+    },
+    {
+      "id": "S-I-07",
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "S-I-07",
+        "side": "SOVIET",
+        "type": "INFANTRY",
+        "step": 0,
+        "hex": {
+          "q": 13,
+          "r": 0
+        },
+        "stats": {
+          "attack": 3,
+          "defense": 3,
+          "movement": 3
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "S-I-07",
+          "templateId": "S-INF",
+          "side": "SOVIET",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 13,
+            "r": 0
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "S-AI-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "adjacentVisibleEnemies": [],
+      "proposals": [
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 14,
+                "r": 0
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 14,
+                "r": -1
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 13,
+                "r": -1
+              }
+            ]
+          },
+          "score": "-Infinity"
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 12,
+                "r": 0
+              }
+            ]
+          },
+          "score": 3.3545454545454545
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 12,
+                "r": 1
+              }
+            ]
+          },
+          "score": 3.4761904761904763
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "score": "-Infinity"
+        }
+      ]
+    },
+    {
+      "id": "S-I-12",
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "S-I-12",
+        "side": "SOVIET",
+        "type": "INFANTRY",
+        "step": 0,
+        "hex": {
+          "q": 11,
+          "r": -1
+        },
+        "stats": {
+          "attack": 3,
+          "defense": 3,
+          "movement": 3
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "S-I-12",
+          "templateId": "S-INF",
+          "side": "SOVIET",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 11,
+            "r": -1
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "S-AI-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "adjacentVisibleEnemies": [],
+      "proposals": []
+    },
+    {
+      "id": "S-TK-03",
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "S-TK-03",
+        "side": "SOVIET",
+        "type": "TANK",
+        "step": 0,
+        "hex": {
+          "q": 11,
+          "r": 3
+        },
+        "stats": {
+          "attack": 6,
+          "defense": 5,
+          "movement": 5
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "S-TK-03",
+          "templateId": "S-TANK",
+          "side": "SOVIET",
+          "type": "TANK",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 11,
+            "r": 3
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "S-AI-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "adjacentVisibleEnemies": [],
+      "proposals": []
+    }
+  ]
+}

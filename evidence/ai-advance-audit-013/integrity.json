@@ -1,0 +1,667 @@
+{
+  "base": "e4beb9ae04286e853fc244d5dd6bbb59637a1e5e",
+  "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+  "sources": [
+    {
+      "path": "evidence/ai-eval-012/manifest.json",
+      "blob": "7a7bcca13853d2fa0d4d894a17b7f60e58625199"
+    },
+    {
+      "path": "evidence/ai-eval-012/config.json",
+      "blob": "4b01861ddea1409f6ce53a329f7795807a0afe50"
+    },
+    {
+      "path": "evidence/ai-eval-012/build-identity.json",
+      "blob": "bc5d895497855a20ba2293be3921e7db7f68f6aa"
+    },
+    {
+      "path": "evidence/ai-eval-012/summary.json",
+      "blob": "0d7c47fd461c38227b90943c765712e0b0c9c315"
+    },
+    {
+      "path": "evidence/ai-eval-012/batch-run.log",
+      "blob": "d52b531a16ef8a574fe0060872bda6b3fe5d6676"
+    },
+    {
+      "path": "evidence/ai-eval-012/batch-resume.log",
+      "blob": "f6a32c2273e619062ad20808dc95c46e29cdead5"
+    },
+    {
+      "path": "evidence/ai-eval-012/run.mjs",
+      "blob": "7cc93dace324f7aa8096f0392a3f553de2c7f370"
+    },
+    {
+      "path": "evidence/ai-eval-012/run-initial.mjs.txt",
+      "blob": "a5cc3f7fdb0c1eabd9604dbc23e8485e527abd7a"
+    },
+    {
+      "path": "evidence/ai-eval-012/tests.log",
+      "blob": "824c0ed33a9799da9bc92947f44ac9d6d34d6b27"
+    },
+    {
+      "path": "evidence/ai-eval-012/lab-tests.log",
+      "blob": "06d72349b176b185603abce6f612d4dd9b38bf25"
+    },
+    {
+      "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-GERMAN/process-failure.json",
+      "blob": "402d3b16fc8289b8ccfb0a7b5cf3b417375e4241"
+    }
+  ],
+  "results": [
+    {
+      "job": {
+        "id": "holdout-1017-baseline-GERMAN",
+        "seed": 1017,
+        "version": "baseline",
+        "seat": "GERMAN"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-GERMAN/trace.ndjson",
+          "blob": "3898192bbb37628d378f42e7cd3b05cb84955855"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-GERMAN/events.ndjson",
+          "blob": "9475cb60cb44ea9882ffbb924adf6a38680f4df5"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-GERMAN/record.json",
+          "blob": "97f612dca42f4364105a2cb5f6c786d789cbc0d5"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-GERMAN/process.log",
+          "blob": "1d9bee3220f3e426fa2506446455b69860bf8bdb"
+        }
+      ],
+      "traceRows": 889,
+      "traceBytes": 281293,
+      "traceFileHash": "5a766ddf79455905f85d17445e079558138341cecde547700fb8aac059a97fbd",
+      "acceptedEventRows": 881,
+      "lastRow": {
+        "n": 888,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "544b126e2b4bc63fcefbf744fd1f8b8dad292540cedfc06c730e604c8f309058",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "286a99d43834bf4636c4a66472a8a82bf2d9d075fc384fa4b3f61e6250a15464",
+      "canonical": {
+        "actions": 881,
+        "finalHash": "286a99d43834bf4636c4a66472a8a82bf2d9d075fc384fa4b3f61e6250a15464"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 10,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 45,
+          "advances": 0,
+          "passAdvances": 36,
+          "lossSteps": 2,
+          "destroyedUnits": 0,
+          "rejections": 8
+        },
+        "SOVIET": {
+          "attacks": 0,
+          "advances": 0,
+          "passAdvances": 0,
+          "lossSteps": 51,
+          "destroyedUnits": 14,
+          "rejections": 0
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1017-baseline-SOVIET",
+        "seed": 1017,
+        "version": "baseline",
+        "seat": "SOVIET"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-SOVIET/trace.ndjson",
+          "blob": "3571b579bc5f73efa94b91dd99d5e411297f8d1d"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-SOVIET/events.ndjson",
+          "blob": "c2df6fef98f5a664e3d85bc44234e01743b21307"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-SOVIET/record.json",
+          "blob": "ac6f65f0ab53251abe5e6413566c1cddc9bfc87b"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-baseline-SOVIET/process.log",
+          "blob": "676992637e4cb6e2265a3c5879f91a24f54dfde2"
+        }
+      ],
+      "traceRows": 802,
+      "traceBytes": 252748,
+      "traceFileHash": "a7f5738f19dcc5d4ef9fbdd0afb3b14b7aee44fc5e1b3d79ebed496e15ac3f67",
+      "acceptedEventRows": 798,
+      "lastRow": {
+        "n": 801,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "13f29ab8384c1c3f64261fd8e2b5b1afb1b3fea0898025166e54f71811849234",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "08bb541cbbb9d8d785451b488b97022f254cbffff8bc3dfd4a5065f44321ed1f",
+      "canonical": {
+        "actions": 798,
+        "finalHash": "08bb541cbbb9d8d785451b488b97022f254cbffff8bc3dfd4a5065f44321ed1f"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 11,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 6,
+          "advances": 0,
+          "passAdvances": 4,
+          "lossSteps": 0,
+          "destroyedUnits": 0,
+          "rejections": 0
+        },
+        "SOVIET": {
+          "attacks": 1,
+          "advances": 0,
+          "passAdvances": 1,
+          "lossSteps": 4,
+          "destroyedUnits": 1,
+          "rejections": 4
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1017-candidate-GERMAN",
+        "seed": 1017,
+        "version": "candidate",
+        "seat": "GERMAN"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-GERMAN/trace.ndjson",
+          "blob": "e7fb94d88aeb913bc6707c89c87154fdca637c04"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-GERMAN/events.ndjson",
+          "blob": "ac89e3edd4c9005c907923fa016ed48069adb5df"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-GERMAN/record.json",
+          "blob": "d3998f5e1b713da7852458ca7c2e2dde20f3fe46"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-GERMAN/process.log",
+          "blob": "03952d6fc482a17e67ff60616bed3e3c4b0c78ec"
+        }
+      ],
+      "traceRows": 777,
+      "traceBytes": 246105,
+      "traceFileHash": "395ff667b5fb004f68dc87c83e3e42bdb1f225af1cba59b1695614150586adfa",
+      "acceptedEventRows": 774,
+      "lastRow": {
+        "n": 776,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "84fd5571d8d26dc82e2ba4068a26f4b4f7a88a282f3751d4e385414c45419e2d",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "e0e2f1c8a91801efb5731fdd54f07cf989b57a588e5adfe1203e07c2abdf0487",
+      "canonical": {
+        "actions": 774,
+        "finalHash": "e0e2f1c8a91801efb5731fdd54f07cf989b57a588e5adfe1203e07c2abdf0487"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 13,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 36,
+          "advances": 16,
+          "passAdvances": 6,
+          "lossSteps": 3,
+          "destroyedUnits": 0,
+          "rejections": 3
+        },
+        "SOVIET": {
+          "attacks": 1,
+          "advances": 0,
+          "passAdvances": 1,
+          "lossSteps": 42,
+          "destroyedUnits": 12,
+          "rejections": 0
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1017-candidate-SOVIET",
+        "seed": 1017,
+        "version": "candidate",
+        "seat": "SOVIET"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-SOVIET/trace.ndjson",
+          "blob": "3571b579bc5f73efa94b91dd99d5e411297f8d1d"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-SOVIET/events.ndjson",
+          "blob": "c2df6fef98f5a664e3d85bc44234e01743b21307"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-SOVIET/record.json",
+          "blob": "b77f2b1b5d018279cc3400409b207216b2160226"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1017-candidate-SOVIET/process.log",
+          "blob": "e3526692a4b464ba21d12b8f4a5178df995db5d9"
+        }
+      ],
+      "traceRows": 802,
+      "traceBytes": 252748,
+      "traceFileHash": "a7f5738f19dcc5d4ef9fbdd0afb3b14b7aee44fc5e1b3d79ebed496e15ac3f67",
+      "acceptedEventRows": 798,
+      "lastRow": {
+        "n": 801,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "13f29ab8384c1c3f64261fd8e2b5b1afb1b3fea0898025166e54f71811849234",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "08bb541cbbb9d8d785451b488b97022f254cbffff8bc3dfd4a5065f44321ed1f",
+      "canonical": {
+        "actions": 798,
+        "finalHash": "08bb541cbbb9d8d785451b488b97022f254cbffff8bc3dfd4a5065f44321ed1f"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 11,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 6,
+          "advances": 0,
+          "passAdvances": 4,
+          "lossSteps": 0,
+          "destroyedUnits": 0,
+          "rejections": 0
+        },
+        "SOVIET": {
+          "attacks": 1,
+          "advances": 0,
+          "passAdvances": 1,
+          "lossSteps": 4,
+          "destroyedUnits": 1,
+          "rejections": 4
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1018-baseline-GERMAN",
+        "seed": 1018,
+        "version": "baseline",
+        "seat": "GERMAN"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-GERMAN/trace.ndjson",
+          "blob": "27f410b62e8163976cd5cf3cd5abe89d48d70c1b"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-GERMAN/events.ndjson",
+          "blob": "46633fce229e44290085ba9126c8deefe969a6b0"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-GERMAN/record.json",
+          "blob": "7eb6641126546cc5d807b89a1e7fef084efd40a1"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-GERMAN/process.log",
+          "blob": "bc150f9f832ad792dff70632ef1caf8f2a9cdb92"
+        }
+      ],
+      "traceRows": 867,
+      "traceBytes": 274028,
+      "traceFileHash": "4e8fdd72a1d5d886ff26816b1ad5f79ac1ad6cc1db9ef1222957bebf68211824",
+      "acceptedEventRows": 860,
+      "lastRow": {
+        "n": 866,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "5ac1914ec9cf918803d3292e08815e11f8482de25d747de2927a5562b396e09d",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "10f7d275a40e7c4754ecf3cd88e639c5001e1b5c9cc0ca06a804857ea13a0a46",
+      "canonical": {
+        "actions": 860,
+        "finalHash": "10f7d275a40e7c4754ecf3cd88e639c5001e1b5c9cc0ca06a804857ea13a0a46"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 11,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 48,
+          "advances": 0,
+          "passAdvances": 37,
+          "lossSteps": 1,
+          "destroyedUnits": 0,
+          "rejections": 7
+        },
+        "SOVIET": {
+          "attacks": 0,
+          "advances": 0,
+          "passAdvances": 0,
+          "lossSteps": 57,
+          "destroyedUnits": 17,
+          "rejections": 0
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1018-baseline-SOVIET",
+        "seed": 1018,
+        "version": "baseline",
+        "seat": "SOVIET"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-SOVIET/trace.ndjson",
+          "blob": "582c474cc284f260fd51aedb2062f1e69958d773"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-SOVIET/events.ndjson",
+          "blob": "20deecb7de9c28b1958b21138ee7d751b2f551ba"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-SOVIET/record.json",
+          "blob": "b789ed23342b9300fa652c461c813759354a9935"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-baseline-SOVIET/process.log",
+          "blob": "94a533fdcd205763b094db04886a8f7785bae38c"
+        }
+      ],
+      "traceRows": 770,
+      "traceBytes": 241759,
+      "traceFileHash": "ced1b8b14e4701aa996c1cae9395d2a797afdafc409155293112c2924ba1289b",
+      "acceptedEventRows": 770,
+      "lastRow": {
+        "n": 769,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "4cfdc6804de821142665ae6f45aa32e14edb86dc3a365950f4917ca438bd24fd",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "3dc4f698279f7858d2ea7fd7c83dbe8614aa717cf578140fc7eed53581ec6b06",
+      "canonical": {
+        "actions": 770,
+        "finalHash": "3dc4f698279f7858d2ea7fd7c83dbe8614aa717cf578140fc7eed53581ec6b06"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 10,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 6,
+          "advances": 0,
+          "passAdvances": 5,
+          "lossSteps": 1,
+          "destroyedUnits": 0,
+          "rejections": 0
+        },
+        "SOVIET": {
+          "attacks": 0,
+          "advances": 0,
+          "passAdvances": 0,
+          "lossSteps": 9,
+          "destroyedUnits": 3,
+          "rejections": 0
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1018-candidate-GERMAN",
+        "seed": 1018,
+        "version": "candidate",
+        "seat": "GERMAN"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-GERMAN/trace.ndjson",
+          "blob": "733a34e5454e8ba7f0d3ccafbc79a5d13ea9af1d"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-GERMAN/events.ndjson",
+          "blob": "39cef2988ee6868fdbfd3ae51eda3022b6faa963"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-GERMAN/record.json",
+          "blob": "28cbedb52660cfce837e1948451aa3d7a59ae4df"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-GERMAN/process.log",
+          "blob": "1d24cc36c70280e3c9b728bf55f4c644e4262c70"
+        }
+      ],
+      "traceRows": 666,
+      "traceBytes": 210261,
+      "traceFileHash": "dfb062bcd193cb2d34b773ca446e3d4bea738f57dc01dbbc486d7be4cf2f55c2",
+      "acceptedEventRows": 656,
+      "lastRow": {
+        "n": 665,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "81c7f8df23106c7b5d1615139a52c6a7e64b8ac459b2588a3f125ed3d25304be",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "1199b458a5c9dd80719f1442344bc8197f382e78b10ac7ed2ae7b7f814e7e183",
+      "canonical": {
+        "actions": 656,
+        "finalHash": "1199b458a5c9dd80719f1442344bc8197f382e78b10ac7ed2ae7b7f814e7e183"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 12,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 30,
+          "advances": 14,
+          "passAdvances": 4,
+          "lossSteps": 1,
+          "destroyedUnits": 0,
+          "rejections": 10
+        },
+        "SOVIET": {
+          "attacks": 1,
+          "advances": 0,
+          "passAdvances": 1,
+          "lossSteps": 27,
+          "destroyedUnits": 7,
+          "rejections": 0
+        }
+      },
+      "complete": true
+    },
+    {
+      "job": {
+        "id": "holdout-1018-candidate-SOVIET",
+        "seed": 1018,
+        "version": "candidate",
+        "seat": "SOVIET"
+      },
+      "blobs": [
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-SOVIET/trace.ndjson",
+          "blob": "582c474cc284f260fd51aedb2062f1e69958d773"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-SOVIET/events.ndjson",
+          "blob": "20deecb7de9c28b1958b21138ee7d751b2f551ba"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-SOVIET/record.json",
+          "blob": "a5ff4c40e7cc8863b1a360c49fdb5c534cff81dc"
+        },
+        {
+          "path": "evidence/ai-eval-012/batch/holdout-1018-candidate-SOVIET/process.log",
+          "blob": "dab83a7d26458bd76262706d4e893eb7803058f2"
+        }
+      ],
+      "traceRows": 770,
+      "traceBytes": 241759,
+      "traceFileHash": "ced1b8b14e4701aa996c1cae9395d2a797afdafc409155293112c2924ba1289b",
+      "acceptedEventRows": 770,
+      "lastRow": {
+        "n": 769,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 16,
+        "phase": "GERMAN_ENTRENCHMENT",
+        "observationKey": "4cfdc6804de821142665ae6f45aa32e14edb86dc3a365950f4917ca438bd24fd",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "result": {
+          "status": "GAME_OVER",
+          "side": "GERMAN"
+        }
+      },
+      "finalHash": "3dc4f698279f7858d2ea7fd7c83dbe8614aa717cf578140fc7eed53581ec6b06",
+      "canonical": {
+        "actions": 770,
+        "finalHash": "3dc4f698279f7858d2ea7fd7c83dbe8614aa717cf578140fc7eed53581ec6b06"
+      },
+      "turn": 16,
+      "winner": "SOVIET",
+      "nearest": 10,
+      "controlled": 0,
+      "sides": {
+        "GERMAN": {
+          "attacks": 6,
+          "advances": 0,
+          "passAdvances": 5,
+          "lossSteps": 1,
+          "destroyedUnits": 0,
+          "rejections": 0
+        },
+        "SOVIET": {
+          "attacks": 0,
+          "advances": 0,
+          "passAdvances": 0,
+          "lossSteps": 9,
+          "destroyedUnits": 3,
+          "rejections": 0
+        }
+      },
+      "complete": true
+    }
+  ],
+  "affectedStatisticalSamples": [],
+  "processAnomaly": {
+    "sample": "holdout-1017-baseline-GERMAN",
+    "cause": "Imported ai/lab/match.mjs CLI recognized --child and attempted to read JSON job argument as a filename before the intended audit driver ran; caught ENOENT set process.exitCode=1 but did not abort module evaluation. Main game then reached GAME_OVER and journal fsync, record and replays completed.",
+    "scope": "Driver exit code only; original first-game process.log and error retained. Resume skipped it after integrity checks; exactly 8 directories/8 complete games. No replay of policy-generated new game in audit."
+  },
+  "validation": "Existing lab helpers reused; deterministic recorded Actions replayed. No test suite or policy match rerun."
+}

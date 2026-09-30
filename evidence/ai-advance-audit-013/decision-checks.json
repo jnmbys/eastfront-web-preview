@@ -1,0 +1,1030 @@
+{
+  "baseline": {
+    "replayedRows": 889,
+    "allObservationKeysAndResultsMatched": true,
+    "finalHash": "286a99d43834bf4636c4a66472a8a82bf2d9d075fc384fa4b3f61e6250a15464",
+    "checks": [
+      {
+        "key": "baseline-n156",
+        "n": 156,
+        "turn": 2,
+        "phase": "GERMAN_COMBAT",
+        "visibleEnemyCount": 2,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "PASS_ADVANCE",
+            "battleId": "B-000001"
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 4,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 10,
+              "r": 2
+            },
+            "hasMoved": true,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          }
+        ],
+        "advance": {
+          "pending": {
+            "battleId": "B-000001",
+            "side": "GERMAN",
+            "decisionOwnerControllerId": "G-HUMAN-1",
+            "eligibleControllerIds": [
+              "G-HUMAN-1"
+            ],
+            "kind": "ADVANCE_AFTER_COMBAT",
+            "eligibleUnitIds": [
+              "G-MOT-03",
+              "G-PZ-04",
+              "G-REC-02"
+            ]
+          },
+          "target": {
+            "q": 11,
+            "r": 1
+          },
+          "baselineChoice": {
+            "kind": "INTENT",
+            "intent": {
+              "type": "PASS_ADVANCE",
+              "battleId": "B-000001"
+            }
+          },
+          "candidateChoice": {
+            "kind": "INTENT",
+            "intent": {
+              "type": "ADVANCE_AFTER_COMBAT",
+              "battleId": "B-000001",
+              "unitId": "G-MOT-03"
+            }
+          },
+          "visibleEnemiesAdjacentToDestination": [
+            {
+              "id": "S-ART-01",
+              "hex": {
+                "q": 12,
+                "r": 1
+              },
+              "type": "ARTILLERY"
+            }
+          ],
+          "options": [
+            {
+              "id": "G-MOT-03",
+              "from": {
+                "q": 10,
+                "r": 1
+              },
+              "progress": 1,
+              "safeDestination": true
+            },
+            {
+              "id": "G-PZ-04",
+              "from": {
+                "q": 10,
+                "r": 1
+              },
+              "progress": 1,
+              "safeDestination": true
+            },
+            {
+              "id": "G-REC-02",
+              "from": {
+                "q": 10,
+                "r": 2
+              },
+              "progress": 1,
+              "safeDestination": true
+            }
+          ]
+        }
+      },
+      {
+        "key": "baseline-n161",
+        "n": 161,
+        "turn": 2,
+        "phase": "SOVIET_MOVEMENT",
+        "visibleEnemyCount": 0,
+        "routeGoalMode": "public objectives",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "S-AT-01",
+            "path": [
+              {
+                "q": 18,
+                "r": -1
+              }
+            ]
+          }
+        },
+        "focusedUnits": []
+      },
+      {
+        "key": "baseline-n181",
+        "n": 181,
+        "turn": 2,
+        "phase": "SOVIET_MOVEMENT",
+        "visibleEnemyCount": 0,
+        "routeGoalMode": "public objectives",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "S-ART-01",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          }
+        },
+        "focusedUnits": []
+      },
+      {
+        "key": "baseline-n189",
+        "n": 189,
+        "turn": 2,
+        "phase": "SOVIET_MOVEMENT",
+        "visibleEnemyCount": 0,
+        "routeGoalMode": "public objectives",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "S-I-12",
+            "path": [
+              {
+                "q": 12,
+                "r": -1
+              }
+            ]
+          }
+        },
+        "focusedUnits": []
+      },
+      {
+        "key": "baseline-n198",
+        "n": 198,
+        "turn": 3,
+        "phase": "GERMAN_MOVEMENT",
+        "visibleEnemyCount": 1,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 1
+              }
+            ]
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 4,
+            "adjacent": [],
+            "finiteMoves": 2,
+            "legalNeighborMoves": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 11,
+                "r": 0
+              },
+              {
+                "q": 10,
+                "r": 0
+              },
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              },
+              {
+                "q": 10,
+                "r": 2
+              }
+            ]
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 2,
+            "legalNeighborMoves": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 11,
+                "r": 0
+              },
+              {
+                "q": 10,
+                "r": 0
+              },
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              },
+              {
+                "q": 10,
+                "r": 2
+              }
+            ]
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 10,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": [
+              {
+                "q": 11,
+                "r": 2
+              },
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              },
+              {
+                "q": 9,
+                "r": 3
+              },
+              {
+                "q": 10,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "baseline-n200",
+        "n": 200,
+        "turn": 3,
+        "phase": "GERMAN_MOVEMENT",
+        "visibleEnemyCount": 2,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 1
+              }
+            ]
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 12,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 4,
+            "adjacent": [
+              "S-ART-01",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 2,
+            "legalNeighborMoves": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 11,
+                "r": 0
+              },
+              {
+                "q": 10,
+                "r": 0
+              },
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              },
+              {
+                "q": 10,
+                "r": 2
+              }
+            ]
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 10,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 2,
+            "legalNeighborMoves": [
+              {
+                "q": 11,
+                "r": 2
+              },
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 10,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              },
+              {
+                "q": 9,
+                "r": 3
+              },
+              {
+                "q": 10,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "baseline-n224",
+        "n": 224,
+        "turn": 3,
+        "phase": "GERMAN_MOVEMENT",
+        "visibleEnemyCount": 2,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 12,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 4,
+            "adjacent": [
+              "S-ART-01",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 12,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 5,
+            "adjacent": [
+              "S-ART-01",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 10,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 10,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              },
+              {
+                "q": 9,
+                "r": 3
+              },
+              {
+                "q": 10,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "baseline-n225",
+        "n": 225,
+        "turn": 3,
+        "phase": "GERMAN_COMBAT",
+        "visibleEnemyCount": 2,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "ATTACK",
+            "attackerUnitIds": [
+              "G-MOT-03",
+              "G-PZ-04"
+            ],
+            "target": {
+              "q": 13,
+              "r": 1
+            }
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 12,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 4,
+            "adjacent": [
+              "S-ART-01",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 12,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 5,
+            "adjacent": [
+              "S-ART-01",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 10,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 2,
+            "legalNeighborMoves": []
+          }
+        ]
+      }
+    ]
+  },
+  "candidate": {
+    "replayedRows": 777,
+    "allObservationKeysAndResultsMatched": true,
+    "finalHash": "e0e2f1c8a91801efb5731fdd54f07cf989b57a588e5adfe1203e07c2abdf0487",
+    "checks": [
+      {
+        "key": "candidate-n156",
+        "n": 156,
+        "turn": 2,
+        "phase": "GERMAN_COMBAT",
+        "visibleEnemyCount": 2,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "ADVANCE_AFTER_COMBAT",
+            "battleId": "B-000001",
+            "unitId": "G-MOT-03"
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 4,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": true,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 10,
+              "r": 2
+            },
+            "hasMoved": true,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          }
+        ],
+        "advance": {
+          "pending": {
+            "battleId": "B-000001",
+            "side": "GERMAN",
+            "decisionOwnerControllerId": "G-HUMAN-1",
+            "eligibleControllerIds": [
+              "G-HUMAN-1"
+            ],
+            "kind": "ADVANCE_AFTER_COMBAT",
+            "eligibleUnitIds": [
+              "G-MOT-03",
+              "G-PZ-04",
+              "G-REC-02"
+            ]
+          },
+          "target": {
+            "q": 11,
+            "r": 1
+          },
+          "baselineChoice": {
+            "kind": "INTENT",
+            "intent": {
+              "type": "PASS_ADVANCE",
+              "battleId": "B-000001"
+            }
+          },
+          "candidateChoice": {
+            "kind": "INTENT",
+            "intent": {
+              "type": "ADVANCE_AFTER_COMBAT",
+              "battleId": "B-000001",
+              "unitId": "G-MOT-03"
+            }
+          },
+          "visibleEnemiesAdjacentToDestination": [
+            {
+              "id": "S-ART-01",
+              "hex": {
+                "q": 12,
+                "r": 1
+              },
+              "type": "ARTILLERY"
+            }
+          ],
+          "options": [
+            {
+              "id": "G-MOT-03",
+              "from": {
+                "q": 10,
+                "r": 1
+              },
+              "progress": 1,
+              "safeDestination": true
+            },
+            {
+              "id": "G-PZ-04",
+              "from": {
+                "q": 10,
+                "r": 1
+              },
+              "progress": 1,
+              "safeDestination": true
+            },
+            {
+              "id": "G-REC-02",
+              "from": {
+                "q": 10,
+                "r": 2
+              },
+              "progress": 1,
+              "safeDestination": true
+            }
+          ]
+        }
+      },
+      {
+        "key": "candidate-n161",
+        "n": 161,
+        "turn": 2,
+        "phase": "SOVIET_MOVEMENT",
+        "visibleEnemyCount": 1,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "S-I-07",
+            "path": [
+              {
+                "q": 12,
+                "r": 1
+              }
+            ]
+          }
+        },
+        "focusedUnits": []
+      },
+      {
+        "key": "candidate-n190",
+        "n": 190,
+        "turn": 2,
+        "phase": "SOVIET_MOVEMENT",
+        "visibleEnemyCount": 3,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "focusedUnits": []
+      },
+      {
+        "key": "candidate-n199",
+        "n": 199,
+        "turn": 3,
+        "phase": "GERMAN_MOVEMENT",
+        "visibleEnemyCount": 5,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-02",
+            "path": [
+              {
+                "q": 9,
+                "r": 3
+              },
+              {
+                "q": 10,
+                "r": 2
+              }
+            ]
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 11,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 4,
+            "adjacent": [
+              "S-ART-01",
+              "S-I-07",
+              "S-I-12",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [
+              "S-I-12"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": [
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              }
+            ]
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 9,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": [
+              {
+                "q": 10,
+                "r": 2
+              },
+              {
+                "q": 10,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 8,
+                "r": 2
+              },
+              {
+                "q": 8,
+                "r": 3
+              },
+              {
+                "q": 9,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "candidate-n219",
+        "n": 219,
+        "turn": 3,
+        "phase": "GERMAN_MOVEMENT",
+        "visibleEnemyCount": 5,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "READY_FOR_PHASE_END"
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 11,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 4,
+            "adjacent": [
+              "S-ART-01",
+              "S-I-07",
+              "S-I-12",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [
+              "S-I-12"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": [
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 2
+              }
+            ]
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 9,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": [
+              {
+                "q": 10,
+                "r": 1
+              },
+              {
+                "q": 9,
+                "r": 1
+              },
+              {
+                "q": 8,
+                "r": 2
+              },
+              {
+                "q": 8,
+                "r": 3
+              },
+              {
+                "q": 9,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "candidate-n220",
+        "n": 220,
+        "turn": 3,
+        "phase": "GERMAN_COMBAT",
+        "visibleEnemyCount": 5,
+        "routeGoalMode": "safe cells adjacent to any identified enemy",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "ATTACK",
+            "attackerUnitIds": [
+              "G-MOT-03",
+              "G-PZ-01",
+              "G-PZ-04"
+            ],
+            "target": {
+              "q": 11,
+              "r": 0
+            }
+          }
+        },
+        "focusedUnits": [
+          {
+            "id": "G-MOT-03",
+            "hex": {
+              "q": 11,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 4,
+            "adjacent": [
+              "S-ART-01",
+              "S-I-07",
+              "S-I-12",
+              "S-TK-03"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-PZ-04",
+            "hex": {
+              "q": 10,
+              "r": 1
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [
+              "S-I-12"
+            ],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          },
+          {
+            "id": "G-REC-02",
+            "hex": {
+              "q": 9,
+              "r": 2
+            },
+            "hasMoved": false,
+            "baseMP": 5,
+            "adjacent": [],
+            "finiteMoves": 0,
+            "legalNeighborMoves": []
+          }
+        ]
+      }
+    ]
+  }
+}

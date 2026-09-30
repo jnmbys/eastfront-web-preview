@@ -1,0 +1,1037 @@
+{
+  "key": "baseline-n156",
+  "n": 156,
+  "traceLine": 157,
+  "turn": 2,
+  "phase": "GERMAN_COMBAT",
+  "side": "GERMAN",
+  "observationKey": "ce4b0c4dc4688a253181344e8141e08e40258c861e505028b7e28d9c87de519a",
+  "inputHash": "92513761dfd7485d41ef04f6904c5e74dbb6865bacdb547a781c49846713a3bc",
+  "stateHash": "54bbb94df21032cba01b89808a18689ef3f0229d118816b5e4464ce40e64ca93",
+  "choice": {
+    "kind": "INTENT",
+    "intent": {
+      "type": "PASS_ADVANCE",
+      "battleId": "B-000001"
+    }
+  },
+  "policyReproduced": true,
+  "random": {
+    "seed": 1017,
+    "state": 4220421659,
+    "draws": 2
+  },
+  "visibleEnemies": [
+    {
+      "id": "S-ART-01",
+      "hex": {
+        "q": 12,
+        "r": 1
+      },
+      "type": "ARTILLERY",
+      "stats": {
+        "attack": 0,
+        "defense": 1,
+        "movement": 2
+      },
+      "step": 1,
+      "supplyState": "SUPPLIED"
+    },
+    {
+      "id": "S-TK-03",
+      "hex": {
+        "q": 11,
+        "r": 3
+      },
+      "type": "TANK",
+      "stats": {
+        "attack": 6,
+        "defense": 5,
+        "movement": 5
+      },
+      "step": 0,
+      "supplyState": "SUPPLIED"
+    }
+  ],
+  "contacts": [
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:13,0",
+      "side": "SOVIET",
+      "hex": {
+        "q": 13,
+        "r": 0
+      },
+      "status": "CURRENT"
+    },
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:11,-1",
+      "side": "SOVIET",
+      "hex": {
+        "q": 11,
+        "r": -1
+      },
+      "status": "CURRENT"
+    },
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:11,6",
+      "side": "SOVIET",
+      "hex": {
+        "q": 11,
+        "r": 6
+      },
+      "status": "CURRENT"
+    },
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:12,4",
+      "side": "SOVIET",
+      "hex": {
+        "q": 12,
+        "r": 4
+      },
+      "status": "CURRENT"
+    }
+  ],
+  "objectives": [
+    {
+      "q": 28,
+      "r": -5
+    },
+    {
+      "q": 28,
+      "r": -4
+    }
+  ],
+  "visibleEnemyCount": 2,
+  "routeGoalMode": "safe cells adjacent to any identified enemy",
+  "candidateCount": 4,
+  "focusedUnits": [
+    {
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "G-MOT-03",
+        "side": "GERMAN",
+        "type": "MOTORIZED",
+        "step": 0,
+        "hex": {
+          "q": 10,
+          "r": 1
+        },
+        "stats": {
+          "attack": 6,
+          "defense": 5,
+          "movement": 5
+        },
+        "supplyState": "OUT_OF_SUPPLY",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-MOT-03",
+          "templateId": "G-MOT",
+          "side": "GERMAN",
+          "type": "MOTORIZED",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 10,
+            "r": 1
+          },
+          "supplyState": "OUT_OF_SUPPLY",
+          "entrenched": false,
+          "hasMoved": true,
+          "hasAttacked": true,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "capitalDistance": 18,
+      "normalMovePhase": false,
+      "baseMP": 4,
+      "baseMPIsNotReusablePool": true,
+      "adjacentVisibleEnemies": [],
+      "neighbors": [
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              }
+            ]
+          },
+          "distance": 17,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-MOT-03"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-MOT-03"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 4,
+            "allRoad": true,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 11,
+                "r": 0
+              }
+            ]
+          },
+          "distance": 17,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-MOT-03"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-MOT-03"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 4,
+            "allRoad": false,
+            "zocClean": false,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": true,
+            "enteredEnemyZocHex": {
+              "q": 11,
+              "r": 0
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 10,
+                "r": 0
+              }
+            ]
+          },
+          "distance": 18,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-MOT-03"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-MOT-03"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 4,
+            "allRoad": false,
+            "zocClean": false,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": true,
+            "enteredEnemyZocHex": {
+              "q": 10,
+              "r": 0
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 9,
+                "r": 1
+              }
+            ]
+          },
+          "distance": 19,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-MOT-03"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-MOT-03"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 4,
+            "allRoad": true,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 9,
+                "r": 2
+              }
+            ]
+          },
+          "distance": 19,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-MOT-03"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-MOT-03"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 4,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 10,
+                "r": 2
+              }
+            ]
+          },
+          "distance": 18,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-MOT-03"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-MOT-03"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 4,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        }
+      ],
+      "attacks": []
+    },
+    {
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "G-PZ-04",
+        "side": "GERMAN",
+        "type": "PANZER",
+        "step": 0,
+        "hex": {
+          "q": 10,
+          "r": 1
+        },
+        "stats": {
+          "attack": 8,
+          "defense": 6,
+          "movement": 6
+        },
+        "supplyState": "OUT_OF_SUPPLY",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-PZ-04",
+          "templateId": "G-PANZER",
+          "side": "GERMAN",
+          "type": "PANZER",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 10,
+            "r": 1
+          },
+          "supplyState": "OUT_OF_SUPPLY",
+          "entrenched": false,
+          "hasMoved": true,
+          "hasAttacked": true,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "capitalDistance": 18,
+      "normalMovePhase": false,
+      "baseMP": 5,
+      "baseMPIsNotReusablePool": true,
+      "adjacentVisibleEnemies": [],
+      "neighbors": [
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              }
+            ]
+          },
+          "distance": 17,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-PZ-04"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-PZ-04"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": true,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 11,
+                "r": 0
+              }
+            ]
+          },
+          "distance": 17,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-PZ-04"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-PZ-04"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": false,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": true,
+            "enteredEnemyZocHex": {
+              "q": 11,
+              "r": 0
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 10,
+                "r": 0
+              }
+            ]
+          },
+          "distance": 18,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-PZ-04"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-PZ-04"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": false,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": true,
+            "enteredEnemyZocHex": {
+              "q": 10,
+              "r": 0
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 9,
+                "r": 1
+              }
+            ]
+          },
+          "distance": 19,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-PZ-04"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-PZ-04"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": true,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 9,
+                "r": 2
+              }
+            ]
+          },
+          "distance": 19,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-PZ-04"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-PZ-04"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 10,
+                "r": 2
+              }
+            ]
+          },
+          "distance": 18,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-PZ-04"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-PZ-04"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        }
+      ],
+      "attacks": []
+    },
+    {
+      "unit": {
+        "visibility": "IDENTIFIED",
+        "id": "G-REC-02",
+        "side": "GERMAN",
+        "type": "RECON",
+        "step": 0,
+        "hex": {
+          "q": 10,
+          "r": 2
+        },
+        "stats": {
+          "attack": 2,
+          "defense": 2,
+          "movement": 6
+        },
+        "supplyState": "OUT_OF_SUPPLY",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-REC-02",
+          "templateId": "G-RECON",
+          "side": "GERMAN",
+          "type": "RECON",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 10,
+            "r": 2
+          },
+          "supplyState": "OUT_OF_SUPPLY",
+          "entrenched": false,
+          "hasMoved": true,
+          "hasAttacked": true,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      },
+      "capitalDistance": 18,
+      "normalMovePhase": false,
+      "baseMP": 5,
+      "baseMPIsNotReusablePool": true,
+      "adjacentVisibleEnemies": [],
+      "neighbors": [
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 2
+              }
+            ]
+          },
+          "distance": 17,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-REC-02"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": false,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": true,
+            "enteredEnemyZocHex": {
+              "q": 11,
+              "r": 2
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              }
+            ]
+          },
+          "distance": 17,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-REC-02"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 10,
+                "r": 1
+              }
+            ]
+          },
+          "distance": 18,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "STACKING_LIMIT",
+                "message": "Destination 10,1 already contains 2 friendly units; limit is 2.",
+                "unitId": "G-REC-02",
+                "hex": {
+                  "q": 10,
+                  "r": 1
+                },
+                "details": {
+                  "stackingLimit": 2,
+                  "currentFriendlyUnits": [
+                    "G-MOT-03",
+                    "G-PZ-04"
+                  ]
+                }
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 9,
+                "r": 2
+              }
+            ]
+          },
+          "distance": 19,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-REC-02"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 9,
+                "r": 3
+              }
+            ]
+          },
+          "distance": 19,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-REC-02"
+              }
+            ],
+            "spentMP": 1,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": true,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": false,
+            "enteredEnemyZocHex": null
+          }
+        },
+        {
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 10,
+                "r": 3
+              }
+            ]
+          },
+          "distance": 18,
+          "inPolicyCandidates": false,
+          "hostCandidate": false,
+          "policyScore": "-Infinity",
+          "offlineCore": {
+            "issues": [
+              {
+                "code": "UNIT_ALREADY_MOVED",
+                "message": "Unit has already moved this phase.",
+                "unitId": "G-REC-02"
+              },
+              {
+                "code": "WRONG_PHASE",
+                "message": "Move action is not legal in the current phase.",
+                "unitId": "G-REC-02"
+              }
+            ],
+            "spentMP": 2,
+            "maxMP": 5,
+            "allRoad": false,
+            "zocClean": false,
+            "reconIgnoreConsumed": false,
+            "enteredEnemyZoc": true,
+            "enteredEnemyZocHex": {
+              "q": 10,
+              "r": 3
+            }
+          }
+        }
+      ],
+      "attacks": []
+    }
+  ],
+  "advance": {
+    "pending": {
+      "battleId": "B-000001",
+      "side": "GERMAN",
+      "decisionOwnerControllerId": "G-HUMAN-1",
+      "eligibleControllerIds": [
+        "G-HUMAN-1"
+      ],
+      "kind": "ADVANCE_AFTER_COMBAT",
+      "eligibleUnitIds": [
+        "G-MOT-03",
+        "G-PZ-04",
+        "G-REC-02"
+      ]
+    },
+    "target": {
+      "q": 11,
+      "r": 1
+    },
+    "baselineChoice": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "PASS_ADVANCE",
+        "battleId": "B-000001"
+      }
+    },
+    "candidateChoice": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "ADVANCE_AFTER_COMBAT",
+        "battleId": "B-000001",
+        "unitId": "G-MOT-03"
+      }
+    },
+    "visibleEnemiesAdjacentToDestination": [
+      {
+        "id": "S-ART-01",
+        "hex": {
+          "q": 12,
+          "r": 1
+        },
+        "type": "ARTILLERY"
+      }
+    ],
+    "options": [
+      {
+        "id": "G-MOT-03",
+        "from": {
+          "q": 10,
+          "r": 1
+        },
+        "progress": 1,
+        "safeDestination": true
+      },
+      {
+        "id": "G-PZ-04",
+        "from": {
+          "q": 10,
+          "r": 1
+        },
+        "progress": 1,
+        "safeDestination": true
+      },
+      {
+        "id": "G-REC-02",
+        "from": {
+          "q": 10,
+          "r": 2
+        },
+        "progress": 1,
+        "safeDestination": true
+      }
+    ]
+  }
+}
