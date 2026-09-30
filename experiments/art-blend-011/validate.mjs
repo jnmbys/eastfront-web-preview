@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {createSlice,label,inside,corridors} from './dist/app/experiments/mapData.js';
+import {hexToPixel,hexPolygon} from './dist/app/geometry/hex.js';
+import {placements} from './dist/app/experiments/terrain010Terrain.js';
+import {detailLayout} from './dist/app/experiments/polishDetails.js';
+import {settlementCells,composeSettlement,inSettlement} from './dist/app/experiments/blend011Layout.js';
+import {composeSettlement as compose009} from './dist/app/experiments/terrain010Layout.js';
+import {vs2RectangleSegmentDistance as distance} from './dist/app/render/vs2Projection.js';
+const raw=await readFile(new URL('./dist/map.json',import.meta.url)),data=createSlice(JSON.parse(raw)),before=JSON.stringify(data),base=placements(data),list=composeSettlement(data,base),lanes=corridors(data),tests=[];
+const test=(name,fn)=>{fn();tests.push({name,status:'PASS'});};
+test('Frozen semantic map, edges, bridge registry and fixtures unchanged',()=>{assert.equal(JSON.stringify(data),before);assert.equal(data.hexes.length,640);assert.equal(data.edges.length,257);assert.equal(data.counters.length,58);assert.equal(data.hexes.filter(inSettlement).length,8);});
+test('Outside eight-cell set, all original sprite placements retained exactly',()=>{assert.deepEqual(list.filter(p=>!settlementCells.has(p.cell)),base.filter(p=>!settlementCells.has(p.cell)));assert.deepEqual(composeSettlement(data,base),list);});
+test('Terrain ownership, unchanged 010 buildings and authored ridge/canopy envelopes',()=>{const old=compose009(data,base);assert.deepEqual(list.filter(p=>p.kind==='city'),old.filter(p=>p.kind==='city'));for(const p of list.filter(p=>settlementCells.has(p.cell))){const h=data.hexes.find(h=>label(h.coord)===p.cell);assert.equal(h.terrain,p.kind==='city'?'CITY':p.kind==='forest'?'FOREST':p.kind);if(p.kind==='city'){for(const a of [-1,1])for(const b of [-1,1])assert(inside({x:p.x+a*p.width/2,y:p.y+b*p.height/2},hexPolygon(h.coord)));for(const l of lanes)assert(distance(p,p.width/2,p.height/2,l.a,l.b)>=l.width+.5);for(const u of data.counters){const c=hexToPixel(u.hex);assert(Math.abs(c.x-p.x)>=34+p.width/2||Math.abs(c.y-p.y)>=34+p.height/2);}}else{assert(p.tile>=0&&p.tile<=3);assert(p.width<=76&&p.height<=69);}}assert.equal(list.filter(p=>p.kind==='forest'&&settlementCells.has(p.cell)).length,4);});
+test('Composition changes massing rather than increasing tiny decoration count',()=>{assert.equal(list.filter(p=>p.cell==='X14').length,7);const hero=list.find(p=>p.cell==='X14'&&p.roof===3);assert(hero.width>=25&&hero.height>=27,'Main architectural group must remain prominent after clearance guards');assert(list.filter(p=>p.cell==='X14').length<base.filter(p=>p.cell==='X14').length);assert(detailLayout(data).filter(p=>!settlementCells.has(p.cell)).length<detailLayout(data).length);});
+const summary={tests,region:[...settlementCells],counts:{baseSprites:base.length,candidateSprites:list.length,baseCity:base.filter(p=>p.cell==='X14').length,candidateCity:list.filter(p=>p.cell==='X14').length,baseDetails:detailLayout(data).length,candidateDetails:detailLayout(data).filter(p=>!settlementCells.has(p.cell)).length},placements:list.filter(p=>settlementCells.has(p.cell))};
+await writeFile(new URL('../../evidence/ART-BLEND-011/semantic-tests.json',import.meta.url),JSON.stringify(summary,null,2)+'\n');console.log(JSON.stringify({tests:tests.length,...summary.counts}));
