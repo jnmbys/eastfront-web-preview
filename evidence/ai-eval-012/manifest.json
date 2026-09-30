@@ -1,0 +1,92 @@
+{
+  "config": {
+    "task": "AI-EVAL-012",
+    "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+    "baseline": "ecb15ce201a4ca096bab2cb918f7c295dd474eda",
+    "candidate": "3f9c1441c50a4cb44638c816070df58d6bc96db6",
+    "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+    "seeds": [
+      1017,
+      1018
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "sharedRetreat": "AI-RETREAT-010 minimalAgent on both seats in all eight games",
+    "limits": {
+      "maxGames": 8,
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 1440000
+    },
+    "runOrder": "seed ascending, baseline then candidate, each GERMAN then SOVIET",
+    "exposureDefinition": "For each UnitAdvanced, count UnitStepLost and UnitDestroyed for that unit during the next opposing side's phases; end at next own side phase, game end is censored. Also report matched baseline unit losses in same turn window.",
+    "rngLimitation": "Identical initial seed does not align later battle dice if different actions change RNG draw consumption.",
+    "decisionRule": "No German-win requirement. Assess capital control/distance, actual advance, paired whole-game losses, next-enemy-turn advanced-unit losses, and anomalies. Mixed results retained; no retuning, replacement seeds or expansion."
+  },
+  "buildIdentityHash": "148b5616ece1cbabeecd1e704f6c27096b16bd3aac540af64444f9ea73ca6005",
+  "preRegistrationCommit": "9a1bf6c54b735af66a86405193e8c19aa0549024",
+  "rules": {
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "jobs": [
+    {
+      "id": "holdout-1017-baseline-GERMAN",
+      "seed": 1017,
+      "version": "baseline",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "holdout-1017-baseline-SOVIET",
+      "seed": 1017,
+      "version": "baseline",
+      "seat": "SOVIET"
+    },
+    {
+      "id": "holdout-1017-candidate-GERMAN",
+      "seed": 1017,
+      "version": "candidate",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "holdout-1017-candidate-SOVIET",
+      "seed": 1017,
+      "version": "candidate",
+      "seat": "SOVIET"
+    },
+    {
+      "id": "holdout-1018-baseline-GERMAN",
+      "seed": 1018,
+      "version": "baseline",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "holdout-1018-baseline-SOVIET",
+      "seed": 1018,
+      "version": "baseline",
+      "seat": "SOVIET"
+    },
+    {
+      "id": "holdout-1018-candidate-GERMAN",
+      "seed": 1018,
+      "version": "candidate",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "holdout-1018-candidate-SOVIET",
+      "seed": 1018,
+      "version": "candidate",
+      "seat": "SOVIET"
+    }
+  ],
+  "startedAt": "2026-09-30T12:13:15.590Z"
+}
