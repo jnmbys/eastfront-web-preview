@@ -1,0 +1,557 @@
+{
+  "config": {
+    "seeds": [
+      17,
+      18
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "baseline": "695ca0524eb039808491b18c69cea1fb74da0cca",
+    "candidate": "AI-MOVE-006",
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "limits": {
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 720000
+    }
+  },
+  "build": {
+    "sourceParent": "300a4affba4aaa77cae945736e61c5b165dc1708",
+    "sourceDiffHash": "ccea8a7a084340990cae786c037a76e6247ad78147ee85873018e4573c458be3",
+    "runtimeHash": "f97de2ffd42836665a876b55c95ef186aae5d311cb9b0a941117b8c4e9bd43bc",
+    "baselineRuntimeHash": "a17da90d54667fcad5274b06f70d695d3775aed4a278df742967d78a46a4dce8",
+    "node": "v24.19.0",
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "games": [
+    {
+      "job": {
+        "id": "tune-17-GERMAN",
+        "seed": 17,
+        "candidateSide": "GERMAN"
+      },
+      "status": "GAME_OVER",
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "reason": null,
+      "winner": "SOVIET",
+      "turn": 16,
+      "decisions": 536,
+      "elapsedMs": 29974.989771,
+      "sides": {
+        "GERMAN": {
+          "acceptedMoves": 124,
+          "movedHexes": 261,
+          "pathLengths": {
+            "1": 41,
+            "2": 56,
+            "3": 8,
+            "4": 11,
+            "5": 8
+          },
+          "attacks": 3,
+          "rejections": 0,
+          "firstIdentifiedTurn": 2,
+          "firstAdjacentTurn": 2,
+          "meanHexesPerAcceptedMove": 2.1048387096774195
+        },
+        "SOVIET": {
+          "acceptedMoves": 177,
+          "movedHexes": 177,
+          "pathLengths": {
+            "1": 177
+          },
+          "attacks": 1,
+          "rejections": 0,
+          "firstIdentifiedTurn": 2,
+          "firstAdjacentTurn": 2,
+          "meanHexesPerAcceptedMove": 1
+        }
+      },
+      "turnDistances": [
+        {
+          "turn": 1,
+          "nearest": 21
+        },
+        {
+          "turn": 2,
+          "nearest": 18
+        },
+        {
+          "turn": 3,
+          "nearest": 18
+        },
+        {
+          "turn": 4,
+          "nearest": 17
+        },
+        {
+          "turn": 5,
+          "nearest": 17
+        },
+        {
+          "turn": 6,
+          "nearest": 17
+        },
+        {
+          "turn": 7,
+          "nearest": 17
+        },
+        {
+          "turn": 8,
+          "nearest": 17
+        },
+        {
+          "turn": 9,
+          "nearest": 17
+        },
+        {
+          "turn": 10,
+          "nearest": 17
+        },
+        {
+          "turn": 11,
+          "nearest": 17
+        },
+        {
+          "turn": 12,
+          "nearest": 17
+        },
+        {
+          "turn": 13,
+          "nearest": 17
+        },
+        {
+          "turn": 14,
+          "nearest": 17
+        },
+        {
+          "turn": 15,
+          "nearest": 17
+        },
+        {
+          "turn": 16,
+          "nearest": 17
+        }
+      ],
+      "objectiveProgress": {
+        "germanControlledCapitalHexes": 0,
+        "nearestGermanToCapital": 17
+      },
+      "traceHash": "18afa67e31c0f4465687e66e5a6d98a3f7faf01d0e1da27664616721aabad655",
+      "traceBytes": 167196,
+      "finalHash": "db87cc1f056ca36bd6b0d5c905e20a178a60490ce7687e3f8b90d6cf7db14107",
+      "finalRandom": {
+        "seed": 17,
+        "state": 3727251969,
+        "draws": 8
+      },
+      "integrity": "PASS",
+      "replay": {
+        "actions": 536,
+        "finalHash": "db87cc1f056ca36bd6b0d5c905e20a178a60490ce7687e3f8b90d6cf7db14107"
+      }
+    },
+    {
+      "job": {
+        "id": "tune-17-SOVIET",
+        "seed": 17,
+        "candidateSide": "SOVIET"
+      },
+      "status": "GAME_OVER",
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "reason": null,
+      "winner": "SOVIET",
+      "turn": 16,
+      "decisions": 816,
+      "elapsedMs": 58962.929883000004,
+      "sides": {
+        "GERMAN": {
+          "acceptedMoves": 385,
+          "movedHexes": 385,
+          "pathLengths": {
+            "1": 385
+          },
+          "attacks": 10,
+          "rejections": 0,
+          "firstIdentifiedTurn": 9,
+          "firstAdjacentTurn": 9,
+          "meanHexesPerAcceptedMove": 1
+        },
+        "SOVIET": {
+          "acceptedMoves": 168,
+          "movedHexes": 422,
+          "pathLengths": {
+            "1": 28,
+            "2": 53,
+            "3": 67,
+            "4": 13,
+            "5": 7
+          },
+          "attacks": 0,
+          "rejections": 2,
+          "firstIdentifiedTurn": 9,
+          "firstAdjacentTurn": 9,
+          "meanHexesPerAcceptedMove": 2.511904761904762
+        }
+      },
+      "turnDistances": [
+        {
+          "turn": 1,
+          "nearest": 25
+        },
+        {
+          "turn": 2,
+          "nearest": 24
+        },
+        {
+          "turn": 3,
+          "nearest": 23
+        },
+        {
+          "turn": 4,
+          "nearest": 22
+        },
+        {
+          "turn": 5,
+          "nearest": 21
+        },
+        {
+          "turn": 6,
+          "nearest": 20
+        },
+        {
+          "turn": 7,
+          "nearest": 19
+        },
+        {
+          "turn": 8,
+          "nearest": 18
+        },
+        {
+          "turn": 9,
+          "nearest": 17
+        },
+        {
+          "turn": 10,
+          "nearest": 16
+        },
+        {
+          "turn": 11,
+          "nearest": 15
+        },
+        {
+          "turn": 12,
+          "nearest": 14
+        },
+        {
+          "turn": 13,
+          "nearest": 13
+        },
+        {
+          "turn": 14,
+          "nearest": 11
+        },
+        {
+          "turn": 15,
+          "nearest": 11
+        },
+        {
+          "turn": 16,
+          "nearest": 11
+        }
+      ],
+      "objectiveProgress": {
+        "germanControlledCapitalHexes": 0,
+        "nearestGermanToCapital": 11
+      },
+      "traceHash": "b8a4ba8e68b6cb437424a13437b0c2eb5412b0b1f39d265f3e4718af38b6a841",
+      "traceBytes": 257413,
+      "finalHash": "6472c4e6365ce9144c63e7e75b440d8ce149b2c65087fc18ee917956de25dd14",
+      "finalRandom": {
+        "seed": 17,
+        "state": 2448530468,
+        "draws": 20
+      },
+      "integrity": "PASS",
+      "replay": {
+        "actions": 814,
+        "finalHash": "6472c4e6365ce9144c63e7e75b440d8ce149b2c65087fc18ee917956de25dd14"
+      }
+    },
+    {
+      "job": {
+        "id": "tune-18-GERMAN",
+        "seed": 18,
+        "candidateSide": "GERMAN"
+      },
+      "status": "GAME_OVER",
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "reason": null,
+      "winner": "SOVIET",
+      "turn": 16,
+      "decisions": 627,
+      "elapsedMs": 40032.939244,
+      "sides": {
+        "GERMAN": {
+          "acceptedMoves": 123,
+          "movedHexes": 271,
+          "pathLengths": {
+            "1": 33,
+            "2": 59,
+            "3": 12,
+            "4": 11,
+            "5": 8
+          },
+          "attacks": 2,
+          "rejections": 1,
+          "firstIdentifiedTurn": 2,
+          "firstAdjacentTurn": 2,
+          "meanHexesPerAcceptedMove": 2.203252032520325
+        },
+        "SOVIET": {
+          "acceptedMoves": 270,
+          "movedHexes": 270,
+          "pathLengths": {
+            "1": 270
+          },
+          "attacks": 0,
+          "rejections": 0,
+          "firstIdentifiedTurn": 2,
+          "firstAdjacentTurn": 2,
+          "meanHexesPerAcceptedMove": 1
+        }
+      },
+      "turnDistances": [
+        {
+          "turn": 1,
+          "nearest": 21
+        },
+        {
+          "turn": 2,
+          "nearest": 18
+        },
+        {
+          "turn": 3,
+          "nearest": 16
+        },
+        {
+          "turn": 4,
+          "nearest": 16
+        },
+        {
+          "turn": 5,
+          "nearest": 16
+        },
+        {
+          "turn": 6,
+          "nearest": 16
+        },
+        {
+          "turn": 7,
+          "nearest": 16
+        },
+        {
+          "turn": 8,
+          "nearest": 16
+        },
+        {
+          "turn": 9,
+          "nearest": 16
+        },
+        {
+          "turn": 10,
+          "nearest": 16
+        },
+        {
+          "turn": 11,
+          "nearest": 16
+        },
+        {
+          "turn": 12,
+          "nearest": 16
+        },
+        {
+          "turn": 13,
+          "nearest": 16
+        },
+        {
+          "turn": 14,
+          "nearest": 16
+        },
+        {
+          "turn": 15,
+          "nearest": 16
+        },
+        {
+          "turn": 16,
+          "nearest": 16
+        }
+      ],
+      "objectiveProgress": {
+        "germanControlledCapitalHexes": 0,
+        "nearestGermanToCapital": 16
+      },
+      "traceHash": "ccc2c7b85c1a250edbaf7ae33d6fee2b5ad9de6923fb7c0172ccf01b945008f9",
+      "traceBytes": 196418,
+      "finalHash": "184ae2f21ace8cfda9e784469dbd66dc03a128925f3a7d936f03ae2520b54c7e",
+      "finalRandom": {
+        "seed": 18,
+        "state": 1889345756,
+        "draws": 4
+      },
+      "integrity": "PASS",
+      "replay": {
+        "actions": 626,
+        "finalHash": "184ae2f21ace8cfda9e784469dbd66dc03a128925f3a7d936f03ae2520b54c7e"
+      }
+    },
+    {
+      "job": {
+        "id": "tune-18-SOVIET",
+        "seed": 18,
+        "candidateSide": "SOVIET"
+      },
+      "status": "GAME_OVER",
+      "termination": {
+        "status": "GAME_OVER",
+        "side": "GERMAN"
+      },
+      "reason": null,
+      "winner": "SOVIET",
+      "turn": 16,
+      "decisions": 769,
+      "elapsedMs": 97423.127524,
+      "sides": {
+        "GERMAN": {
+          "acceptedMoves": 396,
+          "movedHexes": 396,
+          "pathLengths": {
+            "1": 396
+          },
+          "attacks": 6,
+          "rejections": 0,
+          "firstIdentifiedTurn": 9,
+          "firstAdjacentTurn": 9,
+          "meanHexesPerAcceptedMove": 1
+        },
+        "SOVIET": {
+          "acceptedMoves": 133,
+          "movedHexes": 331,
+          "pathLengths": {
+            "1": 22,
+            "2": 42,
+            "3": 56,
+            "4": 8,
+            "5": 5
+          },
+          "attacks": 0,
+          "rejections": 0,
+          "firstIdentifiedTurn": 9,
+          "firstAdjacentTurn": 9,
+          "meanHexesPerAcceptedMove": 2.488721804511278
+        }
+      },
+      "turnDistances": [
+        {
+          "turn": 1,
+          "nearest": 25
+        },
+        {
+          "turn": 2,
+          "nearest": 24
+        },
+        {
+          "turn": 3,
+          "nearest": 23
+        },
+        {
+          "turn": 4,
+          "nearest": 22
+        },
+        {
+          "turn": 5,
+          "nearest": 21
+        },
+        {
+          "turn": 6,
+          "nearest": 20
+        },
+        {
+          "turn": 7,
+          "nearest": 19
+        },
+        {
+          "turn": 8,
+          "nearest": 18
+        },
+        {
+          "turn": 9,
+          "nearest": 17
+        },
+        {
+          "turn": 10,
+          "nearest": 16
+        },
+        {
+          "turn": 11,
+          "nearest": 15
+        },
+        {
+          "turn": 12,
+          "nearest": 14
+        },
+        {
+          "turn": 13,
+          "nearest": 13
+        },
+        {
+          "turn": 14,
+          "nearest": 12
+        },
+        {
+          "turn": 15,
+          "nearest": 11
+        },
+        {
+          "turn": 16,
+          "nearest": 10
+        }
+      ],
+      "objectiveProgress": {
+        "germanControlledCapitalHexes": 0,
+        "nearestGermanToCapital": 10
+      },
+      "traceHash": "575276d5db45b3f5717068f2e453fcd3b5b5a28b37732922c8dce77d0c96f096",
+      "traceBytes": 241398,
+      "finalHash": "cb1d9e996c8fec0834ba6081bc8f1c03b985a1500c0d39ab28b5597004019648",
+      "finalRandom": {
+        "seed": 18,
+        "state": 3583061580,
+        "draws": 12
+      },
+      "integrity": "PASS",
+      "replay": {
+        "actions": 769,
+        "finalHash": "cb1d9e996c8fec0834ba6081bc8f1c03b985a1500c0d39ab28b5597004019648"
+      }
+    }
+  ]
+}

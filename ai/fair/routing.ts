@@ -3,12 +3,12 @@ import type {DeepReadonly,FairInput,FairIntent} from './types.js';
 type Input=DeepReadonly<FairInput>;
 type Hex={readonly q:number;readonly r:number};
 type Unit=Input['view']['units'][number];
-export const ROUTE_UNIT_LIMIT=768,ROUTE_DECISION_LIMIT=32768;
+export const ROUTE_UNIT_LIMIT=768,ROUTE_DECISION_LIMIT=32768,ROUTE_PATH_LIMIT=16;
 const edgeKey=(a:Hex,b:Hex)=>[hexKey(a),hexKey(b)].sort().join('|');
 
 /** Decision-local indexes and lazy per-unit reverse Dijkstra. No retained match state,
  * callbacks, authoritative validators or inferred hidden obstacles. A route is an estimate
- * across future turns: submit ONE existing one-hex Action, then plan from the next view. */
+ * across future turns: submit one budgeted path prefix per MOVE, then replan from the next view. */
 export function createMoveScorer(input:Input){
   const {view,rules}=input;
   const board=new Map(view.hexes.map(h=>[hexKey(h.coord),h]));
@@ -28,7 +28,11 @@ export function createMoveScorer(input:Input){
   // These are temporary failed intentions, NOT newly discovered enemy locations.
   let end=-1;for(let i=0;i<input.history.length;i++){const h=input.history[i]!;if(h.outcome==='ACCEPTED'&&h.intent?.type==='READY_FOR_PHASE_END')end=i;}
   const recent=input.history.slice(end+1);
-  const failed=new Set(recent.filter(h=>h.outcome==='REJECTED'&&h.intent?.type==='MOVE').map(h=>JSON.stringify(h.intent)));
+  const rejectedMoves=recent.filter(h=>h.outcome==='REJECTED'&&h.intent?.type==='MOVE').map(h=>h.intent).filter((a):a is Extract<FairIntent,{type:'MOVE'}>=>a?.type==='MOVE');
+  const failed=new Set(rejectedMoves.map(a=>JSON.stringify({...a,path:a.path.slice(0,1)})));
+  // A rejected multi-step path reveals no blocker position. Conservatively rest this
+  // unit while that own receipt remains in bounded phase-local history; never probe its prefixes.
+  const failedUnits=new Set(rejectedMoves.filter(a=>a.path.length>1).map(a=>a.unitId));
   const metrics={expanded:0,searches:0,exhausted:false};
   type Plan={distance:Map<string,number>;safe:Set<string>};
   const plans=new Map<string,Plan>();
@@ -42,13 +46,17 @@ export function createMoveScorer(input:Input){
   };
   // R1 public cost calculation, reused for every future one-step edge. Unknown ZOC
   // never cancels a possible road bonus; only the engine can adjudicate that uncertainty.
-  const cost=(u:Unit,from:Hex,to:Hex):number=>{
+  const stepCost=(u:Unit,from:Hex,to:Hex):number=>{
     const cell=board.get(hexKey(to));if(!cell)return Infinity;
     const terrain=rules.terrainMovementCost[cell.terrain];if(terrain==='IMPASSABLE'||terrain===undefined)return Infinity;
     const edge=edges.get(edgeKey(from,to)),road=edge?.road===true;
     const bridge=road&&edge?.bridge&&!edge.bridge.destroyed&&['ROAD','BOTH'].includes(edge.bridge.kind);
     const terrainCost=road?rules.road.movementCost:u.type==='JAGER'&&['FOREST','HILL'].includes(cell.terrain)?Math.max(1,terrain-1):terrain;
     const step=terrainCost+(edge?.river&&!(bridge&&rules.road.bridgeCancelsRiverMovementSurcharge)?rules.riverMovementSurcharge[edge.river]??0:0);
+    return step;
+  };
+  const cost=(u:Unit,from:Hex,to:Hex):number=>{
+    const step=stepCost(u,from,to),road=edges.get(edgeKey(from,to))?.road===true;
     const knownZoc=zoc.has(hexKey(from))||zoc.has(hexKey(to));
     const bonus=road&&rules.road.wholeMoveBonusEnabled&&!knownZoc?rules.road.wholeMoveBonusMP:0;
     const mp=Math.max(0,u.stats.movement-(u.supplyState==='OUT_OF_SUPPLY'?rules.oosMovementPenalty:0)+bonus);
@@ -77,7 +85,7 @@ export function createMoveScorer(input:Input){
         const k=hexKey(from);if((k!==start&&!safe.has(k))||!board.has(k)||distance.has(k))continue;
         if(k===start&&failed.has(JSON.stringify({type:'MOVE',unitId:u.id,path:[to]})))continue;
         const step=cost(u,from,to);if(!Number.isFinite(step))continue;
-        // A turn per step dominates ordinary terrain preferences. Positive weights give
+        // Existing route potential preserves the first-hop preference. Positive weights give
         // a strictly descending potential: fixed goals/occupancy cannot produce A-B-A.
         const d=n.d+10+step;if(d<(best.get(k)??Infinity)){best.set(k,d);push({k,d});}
       }
@@ -87,7 +95,7 @@ export function createMoveScorer(input:Input){
   const score=(a:FairIntent):number=>{
     if(a.type!=='MOVE'||a.path.length!==1||failed.has(JSON.stringify(a)))return -Infinity;
     const u=own.find(u=>u.id===a.unitId),to=a.path[0];
-    if(!u||!to||!('friendly' in u)||u.friendly.hasMoved||hexDistance(u.hex,to)!==1)return -Infinity;
+    if(!u||!to||!('friendly' in u)||u.friendly.hasMoved||u.friendly.dedicatedRailRepair||failedUnits.has(u.id)||hexDistance(u.hex,to)!==1)return -Infinity;
     // Preserve R1's stop at identified adjacency and its immediate risk thresholds.
     if(enemies.some(e=>hexDistance(u.hex,e.hex)<=1))return -Infinity;
     const step=cost(u,u.hex,to);if(!Number.isFinite(step))return -Infinity;
@@ -96,5 +104,31 @@ export function createMoveScorer(input:Input){
     const total=10+step+after;
     return 3+1/(1+total/10)-(total-before)/10;
   };
-  return {score,metrics};
+  const prefix=(a:FairIntent):FairIntent=>{
+    if(a.type!=='MOVE'||!Number.isFinite(score(a)))return a;
+    const u=own.find(u=>u.id===a.unitId)!,p=plan(u);
+    const path:{q:number;r:number}[]=[];
+    const base=Math.max(0,u.stats.movement-(u.supplyState==='OUT_OF_SUPPLY'?rules.oosMovementPenalty:0));
+    let from=u.hex,next=a.path[0]!,spent=0,allRoad=true,clean=!zoc.has(hexKey(from));
+    while(path.length<ROUTE_PATH_LIMIT){
+      const k=hexKey(next),edge=edges.get(edgeKey(from,next));
+      const nextRoad:boolean=allRoad&&edge?.road===true,nextClean:boolean=clean&&!zoc.has(k);
+      const bonus=nextRoad&&nextClean&&rules.road.wholeMoveBonusEnabled?rules.road.wholeMoveBonusMP:0;
+      const step=stepCost(u,from,next);
+      // Safe cells also constrain intermediate stacking/contact/risk conservatively.
+      // All-road bonus is conditional on the WHOLE submitted path, never paid per edge.
+      if(!p.safe.has(k)||spent+step>base+bonus)break;
+      path.push({q:next.q,r:next.r});spent+=step;allRoad=nextRoad;clean=nextClean;from=next;
+      const d=p.distance.get(k)!;
+      // Preserve the existing stop at identified adjacency, even for non-ZOC units.
+      if(d===0||zoc.has(k)||enemies.some(e=>hexDistance(from,e.hex)<=1))break;
+      const options=getNeighbors(from).filter(h=>p.safe.has(hexKey(h))&&(p.distance.get(hexKey(h))??Infinity)<d)
+        .map(h=>({h,total:10+cost(u,from,h)+(p.distance.get(hexKey(h))??Infinity)}))
+        .filter(x=>Number.isFinite(x.total)).sort((a,b)=>a.total-b.total||hexKey(a.h).localeCompare(hexKey(b.h)));
+      if(!options.length)break;
+      next=options[0]!.h;
+    }
+    return path.length?{...a,path}:a;
+  };
+  return {score,prefix,metrics};
 }

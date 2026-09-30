@@ -1,0 +1,16 @@
+{"id":"tune-17-GERMAN","status":"GAME_OVER","winner":"SOVIET","turn":16,"elapsedMs":29974.989771,"objective":{"germanControlledCapitalHexes":0,"nearestGermanToCapital":17},"sides":{"GERMAN":{"acceptedMoves":124,"movedHexes":261,"pathLengths":{"1":41,"2":56,"3":8,"4":11,"5":8},"attacks":3,"rejections":0,"firstIdentifiedTurn":2,"firstAdjacentTurn":2,"meanHexesPerAcceptedMove":2.1048387096774195},"SOVIET":{"acceptedMoves":177,"movedHexes":177,"pathLengths":{"1":177},"attacks":1,"rejections":0,"firstIdentifiedTurn":2,"firstAdjacentTurn":2,"meanHexesPerAcceptedMove":1}},"integrity":"PASS"}
+file:///workspace/scratch/2d63d88d2207/eastfront/evidence/ai-move-006/batch.mjs:82
+  if(result.status!==0){summarize();throw Error(`Child failed: ${job.id}: ${result.error??result.stderr}`);}
+                                          ^
+
+Error: Child failed: tune-17-GERMAN: Error: ENOENT: no such file or directory, open '{"id":"tune-17-GERMAN","seed":17,"candidateSide":"GERMAN"}'
+    at Object.openSync (node:fs:622:18)
+    at readFileSync (node:fs:488:35)
+    at file:///workspace/scratch/2d63d88d2207/eastfront/ai/lab/match.mjs:39:51
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+    at file:///workspace/scratch/2d63d88d2207/eastfront/evidence/ai-move-006/batch.mjs:82:43
+
+Node.js v24.19.0

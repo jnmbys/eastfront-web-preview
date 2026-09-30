@@ -44,10 +44,10 @@ export function createBasicAgent(options:unknown={}):FairAgent {
   // Avoid probing alternative tactical intents after repeated rejection. Never inspect error codes.
   const failures=input.history.filter(h=>h.outcome==='REJECTED'&&h.observationKey===input.observationKey).length;
   const moves=createMoveScorer(input);
-  const ranked=observationCandidates(input).filter(a=>!rejected.has(key(a))&&(failures<3||a.type==='READY_FOR_PHASE_END'))
+  const ranked=observationCandidates(input,false).filter(a=>!rejected.has(key(a))&&(failures<3||a.type==='READY_FOR_PHASE_END'))
     .map((a,i)=>({a,score:a.type==='MOVE'?moves.score(a):scoreIntent(input,a,params),tie:agentOrder(input.agentRandom.seed,i)}))
     .filter(x=>Number.isFinite(x.score)).sort((a,b)=>b.score-a.score||a.tie-b.tie);
-  return ranked.length?{kind:'INTENT',intent:ranked[0]!.a}:{kind:'STOP',reason:'NO_CANDIDATE'};
+  return ranked.length?{kind:'INTENT',intent:moves.prefix(ranked[0]!.a)}:{kind:'STOP',reason:'NO_CANDIDATE'};
 };
 
 }

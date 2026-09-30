@@ -1,8 +1,9 @@
 import {getNeighbors,hexKey} from '../../vendor/eastfront-digital-core/dist/core/hex.js';
+import {createMoveScorer} from './routing.js';
 import type {DeepReadonly,FairInput,FairIntent} from './types.js';
 export const CANDIDATE_LIMIT=128;
 /** Proposals, NOT an oracle of legal actions. No engine, preview, GameState or callback. */
-export function observationCandidates(input:DeepReadonly<FairInput>):FairIntent[] {
+export function observationCandidates(input:DeepReadonly<FairInput>,includeMovePrefixes=true):FairIntent[] {
   const {view,deployment}=input,p=view.pendingDecision;
   if(view.phase==='GAME_OVER'||view.victory.winner)return [];
   const own=view.units.filter(u=>'friendly' in u&&u.friendly.controllerId===input.scope.controllerId);
@@ -65,7 +66,14 @@ export function observationCandidates(input:DeepReadonly<FairInput>):FairIntent[
     for(const target of view.units.filter(v=>v.side!==view.viewer&&adjacent.has(hexKey(v.hex))))
       actions.push({type:'ATTACK',attackerUnitIds:[u.id],target:{q:target.hex.q,r:target.hex.r}});
   }
-  return unique(actions).slice(0,CANDIDATE_LIMIT);
+  const base=unique(actions).slice(0,CANDIDATE_LIMIT);
+  if(includeMovePrefixes&&view.phase.endsWith('_MOVEMENT')){
+    const moves=createMoveScorer(input);
+    // Keep legacy one-hop proposals for human/AI-005 compatibility. At most 127
+    // additional deterministic prefixes; authority still validates a single Action.
+    return unique([...base,...base.filter(a=>a.type==='MOVE').map(a=>moves.prefix(a))]);
+  }
+  return base;
 }
 function unique(actions:FairIntent[]):FairIntent[]{return [...new Map(actions.map(a=>[JSON.stringify(a),a])).values()];}
 

@@ -1,0 +1,19 @@
+[
+  {
+    "kind": "BUILD_ERROR",
+    "reason": "TS7022 nextRoad type inference",
+    "resolution": "explicit boolean annotation; subsequent build PASS"
+  },
+  {
+    "kind": "HARNESS_ENTRY_COLLISION",
+    "job": "tune-17-GERMAN",
+    "processExit": 1,
+    "reason": "--child also activated imported ai/lab/match.mjs, which tried to read JSON argument as a filename and immediately failed before starting any game",
+    "resolution": "--move006-child; original complete game retained after trace hash, length, bytes and Core replay final hash checks; no extra game",
+    "evidence": [
+      "batch-first-process-error.log",
+      "batch/tune-17-GERMAN/process.log",
+      "batch/integrity.json"
+    ]
+  }
+]
