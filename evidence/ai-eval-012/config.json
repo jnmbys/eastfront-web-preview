@@ -1,0 +1,30 @@
+{
+  "task": "AI-EVAL-012",
+  "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+  "baseline": "ecb15ce201a4ca096bab2cb918f7c295dd474eda",
+  "candidate": "3f9c1441c50a4cb44638c816070df58d6bc96db6",
+  "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+  "seeds": [
+    1017,
+    1018
+  ],
+  "agentSeeds": {
+    "GERMAN": 101,
+    "SOVIET": 202
+  },
+  "parameters": {
+    "attackRatio": 1.5,
+    "penaltyWeight": 0.75
+  },
+  "sharedRetreat": "AI-RETREAT-010 minimalAgent on both seats in all eight games",
+  "limits": {
+    "maxGames": 8,
+    "maxDecisions": 1800,
+    "matchMs": 180000,
+    "batchMs": 1440000
+  },
+  "runOrder": "seed ascending, baseline then candidate, each GERMAN then SOVIET",
+  "exposureDefinition": "For each UnitAdvanced, count UnitStepLost and UnitDestroyed for that unit during the next opposing side's phases; end at next own side phase, game end is censored. Also report matched baseline unit losses in same turn window.",
+  "rngLimitation": "Identical initial seed does not align later battle dice if different actions change RNG draw consumption.",
+  "decisionRule": "No German-win requirement. Assess capital control/distance, actual advance, paired whole-game losses, next-enemy-turn advanced-unit losses, and anomalies. Mixed results retained; no retuning, replacement seeds or expansion."
+}
