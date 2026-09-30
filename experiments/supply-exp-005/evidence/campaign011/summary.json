@@ -1,0 +1,108 @@
+{
+  "baseline": "8e2fe1249fd2ffeae765137bd225a4272cb7374d",
+  "runtime_changed": false,
+  "config_sha256": "eb6279d4f809ac7c39f122f7b12664830f370a932810772acb92122fb6e1d5a0",
+  "seed": 17,
+  "actions": 227,
+  "core_actions": 228,
+  "automatic_reaction": "one PASS_REACTION with no eligible HQ/artillery choice (existing bridge)",
+  "settlements": 15,
+  "epochs": [
+    "L0",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L9",
+    "L10",
+    "L11",
+    "L12",
+    "L13",
+    "L14"
+  ],
+  "victory": {
+    "winner": "SOVIET",
+    "reason": "SOVIET_CAPITAL_DEFENDED_TO_TURN_LIMIT",
+    "turn": 16,
+    "checkedAtPhase": "GERMAN_ENTRENCHMENT"
+  },
+  "final_hash": "f8336aee0043be0ef6ac863c63fc093861bd1ee777462c2b652e3effcfb982c9",
+  "replays_matching_all_227_hashes": 2,
+  "action_types": {
+    "DEPLOY_INITIAL_UNIT": 58,
+    "READY_FOR_PHASE_END": 2,
+    "END_PHASE": 155,
+    "MOVE": 2,
+    "ATTACK": 1,
+    "RETREAT": 1,
+    "PASS_ADVANCE": 1,
+    "DEPLOY_REINFORCEMENT": 6,
+    "RAIL_REPAIR": 1
+  },
+  "inventory": {
+    "initial": 900,
+    "injected": 1493,
+    "maintenance": 2173,
+    "action": 12,
+    "destroyed": 0,
+    "remaining": 208
+  },
+  "supply_loss_steps": 119,
+  "supply_destroyed_units": 39,
+  "reinforcements_empty": 6,
+  "rejected_requests": {
+    "STACKING_LIMIT": 75,
+    "all_unchanged": true
+  },
+  "budget_seconds": 3,
+  "natural_timeout_or_solver_failure": 0,
+  "timeout_injection": {
+    "revision": 74,
+    "injected_budget_seconds": 0.001,
+    "error": "total deadline",
+    "unchanged": true
+  },
+  "maximum_transaction_seconds_all_passes": 2.7208352180000475,
+  "maximum_settlement_transaction_seconds_all_passes": 2.5063163629999963,
+  "valid_memory_run": "replay.json",
+  "peak_sampled_process_tree_RSS_MiB": 240.3046875,
+  "memory_scope": "sum RSS of harness + live descendants from host PPid tree sampled every100ms; shared pages may double count, short peaks may be missed; NOT cgroup/cloud peak",
+  "invalid_memory_results": [
+    {
+      "file": "run.json.gz",
+      "bytes": 462848,
+      "reason": "wrong PID namespace"
+    },
+    {
+      "file": "replay-first.json",
+      "bytes": 106209280,
+      "reason": "children interface absent; root RSS only"
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "node": "v24.19.0",
+    "cpu_max": "800000 100000",
+    "memory_max": "8589934592",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "untested": [
+    "CRT battle loss allocation/destruction in this full campaign",
+    "advance rather than pass",
+    "repeated battles after shortage recovery",
+    "nonzero inventory destruction in this campaign (010 fixture reused)",
+    "full campaign tablet UI / Render / 0.5CPU-512MiB / balance"
+  ],
+  "reused_010_evidence": [
+    "campaign010-validation.json",
+    "campaign010-seams.log",
+    "campaign010-atomic.log",
+    "campaign010-http.log",
+    "campaign010-old.json"
+  ]
+}
