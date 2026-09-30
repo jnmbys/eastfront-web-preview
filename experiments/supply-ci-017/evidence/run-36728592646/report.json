@@ -1,0 +1,368 @@
+{
+  "source_sha": "813b4072568352e95d0726fe5fe04060c889c554",
+  "workflow_sha": "9034ac2617520a9c749cf0330f64b0395c29e0bf",
+  "environment": "GitHub ubuntu-24.04; NOT Render",
+  "budget_seconds": 3,
+  "limits": {
+    "cpus": 0.5,
+    "memory_bytes": 536870912,
+    "memory_swap_bytes": 536870912,
+    "pids": 128
+  },
+  "passed": true,
+  "host": {
+    "kernel": "6.17.0-1022-azure",
+    "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           48 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  4\nOn-line CPU(s) list:                     0-3\nVendor ID:                               AuthenticAMD\nModel name:                              AMD EPYC 7763 64-Core Processor\nCPU family:                              25\nModel:                                   1\nThread(s) per core:                      2\nCore(s) per socket:                      2\nSocket(s):                               1\nStepping:                                1\nBogoMIPS:                                4890.86\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves user_shstk clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm\nVirtualization:                          AMD-V\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full\nL1d cache:                               64 KiB (2 instances)\nL1i cache:                               64 KiB (2 instances)\nL2 cache:                                1 MiB (2 instances)\nL3 cache:                                32 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-3\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Vulnerable: No microcode\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+    "docker": "Client: Docker Engine - Community\n Version:           28.0.4\n API version:       1.48\n Go version:        go1.23.7\n Git commit:        b8034c0\n Built:             Tue Mar 25 15:07:16 2025\n OS/Arch:           linux/amd64\n Context:           default\n\nServer: Docker Engine - Community\n Engine:\n  Version:          28.0.4\n  API version:      1.48 (minimum version 1.24)\n  Go version:       go1.23.7\n  Git commit:       6430e49\n  Built:            Tue Mar 25 15:07:16 2025\n  OS/Arch:          linux/amd64\n  Experimental:     false\n containerd:\n  Version:          v2.3.5\n  GitCommit:        1294c24a7da8e5a793ed378161673abe94118892\n runc:\n  Version:          1.5.1\n  GitCommit:        v1.5.1-0-g8f2685a4\n docker-init:\n  Version:          0.19.0\n  GitCommit:        de40ad0\n"
+  },
+  "dockerfile_sha256": "f3dfd04c5a687e17849e375de672874712df087cecb50b9a9e557f9656f4b0b1",
+  "build_context": "repository root",
+  "build_seconds": 26.44456140599999,
+  "image": {
+    "Id": "sha256:cc5675d240625a956db4c02fab219c57c0e85bd368004fe4db67f81e421d53e3",
+    "RepoTags": [
+      "supply-ci017:candidate"
+    ],
+    "RepoDigests": [],
+    "Parent": "",
+    "Comment": "buildkit.dockerfile.v0",
+    "Created": "2026-09-30T14:22:52.668512833Z",
+    "DockerVersion": "",
+    "Author": "",
+    "Config": {
+      "Hostname": "",
+      "Domainname": "",
+      "User": "sandboxuser",
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "AttachStderr": false,
+      "ExposedPorts": {
+        "10000/tcp": {}
+      },
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+        "PYTHON_VERSION=3.12.14",
+        "PYTHON_SHA256=5c8462af5790baf43a321a1559dbe0db06d1be4300fb85fb53c40060668e548a",
+        "BIND_HOST=0.0.0.0",
+        "PORT=10000",
+        "COOKIE_SECURE=1",
+        "OPENBLAS_NUM_THREADS=1"
+      ],
+      "Cmd": [
+        "python",
+        "experiments/supply-integrate-015/service.py"
+      ],
+      "ArgsEscaped": true,
+      "Image": "",
+      "Volumes": null,
+      "WorkingDir": "/app",
+      "Entrypoint": null,
+      "OnBuild": null,
+      "Labels": null
+    },
+    "Architecture": "amd64",
+    "Os": "linux",
+    "Size": 662987582,
+    "GraphDriver": {
+      "Data": {
+        "LowerDir": "/var/lib/docker/overlay2/lsylokgj55lqajwzw81svq3i5/diff:/var/lib/docker/overlay2/rlp3ahwla8kya0s06c6pkc9ym/diff:/var/lib/docker/overlay2/c8vcblw6j5mv1nuz9oknh7qfm/diff:/var/lib/docker/overlay2/ryyxz2504flyzd8u9i9fae0mb/diff:/var/lib/docker/overlay2/8tdmwxmbpterkfy53dvh6woej/diff:/var/lib/docker/overlay2/q7tm1pph18gnddh37z2nspqe5/diff:/var/lib/docker/overlay2/5on1shu0n6hvvwjzfz9fuarfa/diff:/var/lib/docker/overlay2/r5vtp4rbejpf76xmck43hfc3o/diff:/var/lib/docker/overlay2/f7a4je3ud48m4vvm6kpk4pvjt/diff:/var/lib/docker/overlay2/da47c1ef0e933606c1c48d59543be44016c427e71e026aed2f8b1427c3457106/diff:/var/lib/docker/overlay2/ab0c1e5ebbb03f2de13ddbc9fb2afb4367cd1436bad26a88a643f60e5fb37090/diff:/var/lib/docker/overlay2/38abf16c91475f5cfea6db3bd7a507c8b1a9f36ad5c3001ed8a8cd8ec9c442d9/diff:/var/lib/docker/overlay2/9524af4a8175af15729b09fcc373ba4a9e2c8b7210e6e635368e1c1e86f85918/diff",
+        "MergedDir": "/var/lib/docker/overlay2/w2gj25fbk0q6zn6b2ifqc4wsd/merged",
+        "UpperDir": "/var/lib/docker/overlay2/w2gj25fbk0q6zn6b2ifqc4wsd/diff",
+        "WorkDir": "/var/lib/docker/overlay2/w2gj25fbk0q6zn6b2ifqc4wsd/work"
+      },
+      "Name": "overlay2"
+    },
+    "RootFS": {
+      "Type": "layers",
+      "Layers": [
+        "sha256:34467cc93912af891dfee8a3902adf9b4f355a9bca4eaa46f658d1181a21de0d",
+        "sha256:16df0073c13c96653ee2b601b16e514321513eb4af983de156c2d4e17df8a5d9",
+        "sha256:9639007baab8a136bc468bd5d757fdf79cf5d77b6ff2a87889071252e334fab3",
+        "sha256:abca6d63c9dbe51fa3bc42e75e0387da12803ef64430ad151814e468d5e1c203",
+        "sha256:67004f5a9d45977a5eeb9e2de4bd6fbc1486db1f24e8a670f7290ef163d7ed9b",
+        "sha256:6abeec793c0b313d742e28229cb0b4922869f35488d9e26cbc2becae991d3d5f",
+        "sha256:d22c1882db6f158fb8256de331803069f4e9fe974461c1131b18b51e55a459b3",
+        "sha256:20166c81cc920b5b3e807b0e39a6b2f8f13824e4e72cfec16ab6d72b84a64e1a",
+        "sha256:2b2d4086ad93ae355744ee92e692d27a79cb218a0565ac8e7191ff42dc19f916",
+        "sha256:2f29571fbca7219a8881f0c98fffc9f262ae25b70f58b15ac5b943aa3071c4e0",
+        "sha256:820a4359e504d6eececd5c3cdf10ec8d1ac9c08c63e8ae78d0e96d0f5898a00a",
+        "sha256:75ecbda27ab76b215ee18fbfc6c91725a2ba9331fc0a66ab7bb3e2490eb5eeef",
+        "sha256:1e9a090eabcf0c105362fdcd63d1311b55e76fe977d7e84985424d1f2fd43f9c",
+        "sha256:054d85e2d9a4415920eade1bb5ca58fcb1e842b911ecc700c8f9eee6ad16d4cb"
+      ]
+    },
+    "Metadata": {
+      "LastTagTime": "2026-09-30T14:22:54.662571426Z"
+    }
+  },
+  "image_id": "sha256:cc5675d240625a956db4c02fab219c57c0e85bd368004fe4db67f81e421d53e3",
+  "startup_seconds": 2.828766946999991,
+  "health": {
+    "ready": true,
+    "version": "SUPPLY-INTEGRATE-015-v1",
+    "source": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435"
+  },
+  "assets": [
+    {
+      "path": "/?supply=experiment",
+      "bytes": 1540,
+      "http_seconds": 0.001460101000020586,
+      "sha256": "f7e7abfe63248d2afbd639a1f83233ec1d3c3afbbc7b6979f41d6363eccc4b6b"
+    },
+    {
+      "path": "./app/web/startupShell.js",
+      "bytes": 768
+    },
+    {
+      "path": "./app/main.js",
+      "bytes": 77051
+    },
+    {
+      "path": "/styles.css",
+      "bytes": 57893,
+      "http_seconds": 0.0010029510000038044,
+      "sha256": "14cf1f48999b164e5a4e8c283e7738fe0e1cdceec58107601b0fe04c67453cbe"
+    },
+    {
+      "path": "/app/experimental/supplyClient.js",
+      "bytes": 8053,
+      "http_seconds": 0.0009967789999905108,
+      "sha256": "6be1a0dfb4e6b9a34995b8e1a77cd680769043e98c5e4be25e9dcf333a976fbc"
+    }
+  ],
+  "service_only_peak_bytes": 124129280,
+  "service_cgroup": {
+    "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+    "cpu.stat": "usage_usec 1275253\nuser_usec 1014675\nsystem_usec 260578\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 29\nnr_throttled 24\nthrottled_usec 1340108\nnr_bursts 0\nburst_usec 0",
+    "cpu.max": "50000 100000",
+    "memory.max": "536870912",
+    "memory.swap.max": "0"
+  },
+  "service_memory_scope": "default service.py + warm solver + descendants; HTTP acceptance client runs on host outside cgroup; includes transient docker exec reader",
+  "startup_inspect": {
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2993,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-30T14:22:54.755803625Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  },
+  "startup_stopped_inspect": {
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 137,
+      "Error": "",
+      "StartedAt": "2026-09-30T14:22:54.755803625Z",
+      "FinishedAt": "2026-09-30T14:23:07.921191726Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  },
+  "targeted_exit": 0,
+  "targeted_inspect": {
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-30T14:23:08.0893498Z",
+      "FinishedAt": "2026-09-30T14:23:34.086320213Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  },
+  "targeted": {
+    "passed": true,
+    "budget_seconds": 3,
+    "memory_scope": "one constrained container: Python HTTP service + acceptance client/thread + four session states + checkpoint/reference/deepcopy test data + warm solver + transient Node projections; NOT service-only RSS",
+    "cgroup": {
+      "cpu.max": "50000 100000",
+      "memory.max": "536870912",
+      "memory.swap.max": "0"
+    },
+    "session_open_seconds": [
+      0.9585660879999978,
+      0.8933393519999981,
+      0.8440742340000043,
+      0.8858728449999944
+    ],
+    "four_sessions_and_mode_lock": true,
+    "checkpoint": {
+      "revision": 66,
+      "hash": "2cebd4601e0b98a6c2e690d54bf0b5420f29884940ba80f6174dfec8b4318e53",
+      "path": "campaign011-close/checkpoint-66.json.gz",
+      "test_only": true
+    },
+    "four_populated_peak_bytes": 160702464,
+    "actions": [
+      {
+        "revision": 67,
+        "type": "ADVANCE_AFTER_COMBAT",
+        "http_status": 200,
+        "http_seconds": 1.3981650549999927,
+        "transaction_seconds": 1.388071943,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 68,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.3460451669999998,
+        "transaction_seconds": 1.336185104000009,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 69,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.3133032839999998,
+        "transaction_seconds": 1.3034742620000088,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 70,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.3930221159999974,
+        "transaction_seconds": 1.3828734180000026,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 71,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.4047077080000179,
+        "transaction_seconds": 1.3932904679999751,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 72,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.4051684730000034,
+        "transaction_seconds": 1.394279603000001,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 73,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.404102877000014,
+        "transaction_seconds": 1.393501361999995,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 74,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.4005081629999836,
+        "transaction_seconds": 1.33682648300001,
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 75,
+        "type": "END_PHASE",
+        "http_status": 200,
+        "http_seconds": 1.9789264740000192,
+        "transaction_seconds": 1.9679776110000091,
+        "error": null,
+        "hash_equal": true,
+        "settled": true
+      }
+    ],
+    "representative_delivery": true,
+    "session_isolation": true,
+    "busy": {
+      "status": 503,
+      "http_seconds": 0.0011041409999847929,
+      "error": "服务忙碌；本次未提交，请稍后重试。",
+      "unchanged": true
+    },
+    "timeout": {
+      "status": 503,
+      "http_seconds": 3.047062407999988,
+      "error": "超过3秒预算；本次未提交，库存与骰点未改变。",
+      "budget_seconds": 3,
+      "rollback": true,
+      "scope": "all slot fields except HTTP last-touch timestamp: Core/RNG/inventory/seen/journal/receipt/memory/viewer/seconds",
+      "fault": "post-action projection delayed until unchanged deadline + 0.03s after actual execution"
+    },
+    "recovered_after_timeout": true,
+    "final_peak_bytes": 197230592,
+    "peak_bytes": 197230592
+  },
+  "final_inspect": {
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-30T14:23:08.0893498Z",
+      "FinishedAt": "2026-09-30T14:23:34.086320213Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  }
+}

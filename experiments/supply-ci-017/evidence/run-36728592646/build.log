@@ -1,0 +1,167 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.41kB 0.0s done
+#1 DONE 0.0s
+
+#2 [auth] library/node:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:22-bookworm-slim
+#4 ...
+
+#5 [internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#5 DONE 0.4s
+
+#4 [internal] load metadata for docker.io/library/node:22-bookworm-slim
+#4 DONE 0.4s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 2B done
+#6 DONE 0.0s
+
+#7 [stage-1  1/11] FROM docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
+#7 resolve docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e done
+#7 sha256:1aaa65a85fda306ffb8b910824d4e93bdce61e212c7e87168123ea3073b41a1a 1.75kB / 1.75kB done
+#7 sha256:febd0be41adb897a0ab8f1f1c693d8912669ea60c4940e076e9946b60e210ef0 5.68kB / 5.68kB done
+#7 sha256:774043ccc8ccd0d0833a9ee0792142ab7ad93df971e59dd248fbf82db16d0150 23.07MB / 28.24MB 0.1s
+#7 sha256:1c5e03f304918f89aed0c098c8f4b6f163f7bf9d2702991696bf0132a2853e30 3.53MB / 3.53MB 0.1s done
+#7 sha256:a2e58067964fcd8f46a6b5992975e9c8ab34e7620d96204e08e99bf0fdf4dab8 9.44MB / 13.67MB 0.1s
+#7 sha256:7c6fab1667eb7d9029684d783e4c127f11dd7ed5120829f875b799a0b9431558 249B / 249B 0.1s done
+#7 sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e 6.55kB / 6.55kB done
+#7 sha256:a2e58067964fcd8f46a6b5992975e9c8ab34e7620d96204e08e99bf0fdf4dab8 13.67MB / 13.67MB 0.1s done
+#7 ...
+
+#8 [internal] load build context
+#8 transferring context: 42.03MB 0.4s done
+#8 DONE 0.4s
+
+#7 [stage-1  1/11] FROM docker.io/library/python:3.12-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
+#7 extracting sha256:774043ccc8ccd0d0833a9ee0792142ab7ad93df971e59dd248fbf82db16d0150 0.1s
+#7 extracting sha256:1c5e03f304918f89aed0c098c8f4b6f163f7bf9d2702991696bf0132a2853e30 0.1s
+#7 extracting sha256:1c5e03f304918f89aed0c098c8f4b6f163f7bf9d2702991696bf0132a2853e30 0.4s done
+#7 extracting sha256:a2e58067964fcd8f46a6b5992975e9c8ab34e7620d96204e08e99bf0fdf4dab8
+#7 extracting sha256:a2e58067964fcd8f46a6b5992975e9c8ab34e7620d96204e08e99bf0fdf4dab8 0.7s done
+#7 extracting sha256:7c6fab1667eb7d9029684d783e4c127f11dd7ed5120829f875b799a0b9431558
+#7 extracting sha256:7c6fab1667eb7d9029684d783e4c127f11dd7ed5120829f875b799a0b9431558 done
+#7 DONE 3.5s
+
+#9 [build  1/13] FROM docker.io/library/node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c
+#9 resolve docker.io/library/node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c done
+#9 sha256:774043ccc8ccd0d0833a9ee0792142ab7ad93df971e59dd248fbf82db16d0150 28.24MB / 28.24MB 0.1s done
+#9 sha256:8ab8fd6c944526e5da2ca93b1663b2ab6f4bb8d4ea7b50a90d53c9fdcc5b0b9e 3.31kB / 3.31kB 0.1s done
+#9 sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c 5.22kB / 5.22kB done
+#9 sha256:25330af3531fb5e23318554a0aa911125b6e91b1b777edf7655501d207c067a2 1.93kB / 1.93kB done
+#9 sha256:88f8ba583a884279252779bbe221bf1ff2c61cf236cc973f8ca97676ae6d07f0 6.77kB / 6.77kB done
+#9 sha256:61592f5b60306b96e5208206668cdf0fa62d3cda3a3baeed26efdcd1a21aaba5 49.84MB / 49.84MB 0.3s done
+#9 sha256:8d9d84ee31888adba85837fbf8f0e6eca99263904b2ba04d79e7d4fc1da40056 1.71MB / 1.71MB 0.2s done
+#9 sha256:dc40c63c08b5453854c13da6d72b3182737b2e223156b786c67779e0d6f4e8e0 446B / 446B 0.2s done
+#9 extracting sha256:774043ccc8ccd0d0833a9ee0792142ab7ad93df971e59dd248fbf82db16d0150 1.2s done
+#9 extracting sha256:8ab8fd6c944526e5da2ca93b1663b2ab6f4bb8d4ea7b50a90d53c9fdcc5b0b9e done
+#9 extracting sha256:61592f5b60306b96e5208206668cdf0fa62d3cda3a3baeed26efdcd1a21aaba5 1.0s
+#9 extracting sha256:61592f5b60306b96e5208206668cdf0fa62d3cda3a3baeed26efdcd1a21aaba5 1.4s done
+#9 extracting sha256:8d9d84ee31888adba85837fbf8f0e6eca99263904b2ba04d79e7d4fc1da40056
+#9 extracting sha256:8d9d84ee31888adba85837fbf8f0e6eca99263904b2ba04d79e7d4fc1da40056 0.0s done
+#9 extracting sha256:dc40c63c08b5453854c13da6d72b3182737b2e223156b786c67779e0d6f4e8e0 done
+#9 DONE 4.1s
+
+#10 [build  2/13] WORKDIR /app
+#10 DONE 0.0s
+
+#11 [build  3/13] COPY package.json package-lock.json ./
+#11 DONE 0.0s
+
+#12 [build  4/13] RUN npm ci
+#12 0.951 
+#12 0.951 added 5 packages, and audited 6 packages in 757ms
+#12 0.952 
+#12 0.952 found 0 vulnerabilities
+#12 0.953 npm notice
+#12 0.953 npm notice New major version of npm available! 10.9.9 -> 12.1.0
+#12 0.953 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+#12 0.953 npm notice To update run: npm install -g npm@12.1.0
+#12 0.953 npm notice
+#12 DONE 1.1s
+
+#13 [build  5/13] COPY tsconfig.json index.html styles.css multiplayer.css ./
+#13 DONE 0.0s
+
+#14 [build  6/13] COPY src ./src
+#14 DONE 0.0s
+
+#15 [build  7/13] COPY server ./server
+#15 DONE 0.0s
+
+#16 [build  8/13] COPY scripts ./scripts
+#16 DONE 0.0s
+
+#17 [build  9/13] COPY vendor ./vendor
+#17 DONE 0.0s
+
+#18 [build 10/13] COPY public ./public
+#18 DONE 0.1s
+
+#19 [build 11/13] COPY experiments/supply-exp-005 ./experiments/supply-exp-005
+#19 DONE 0.1s
+
+#20 [build 12/13] COPY experiments/supply-integrate-015 ./experiments/supply-integrate-015
+#20 DONE 0.0s
+
+#21 [build 13/13] RUN node experiments/supply-integrate-015/build.mjs
+#21 8.612 Experimental server projection uses the frozen sandbox Core; browser/old mode vendor unchanged.
+#21 DONE 8.6s
+
+#22 [stage-1  2/11] COPY --from=build /usr/local/bin/node /usr/local/bin/node
+#22 DONE 0.1s
+
+#23 [stage-1  3/11] WORKDIR /app
+#23 DONE 0.0s
+
+#24 [stage-1  4/11] COPY --from=build /app/package.json ./package.json
+#24 DONE 0.0s
+
+#25 [stage-1  5/11] COPY experiments/supply-exp-005/requirements.txt ./requirements.txt
+#25 DONE 0.0s
+
+#26 [stage-1  6/11] RUN pip install --no-cache-dir -r requirements.txt
+#26 1.722 Collecting numpy==2.3.5 (from -r requirements.txt (line 1))
+#26 1.765   Downloading numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+#26 1.908 Collecting scipy==1.17.0 (from -r requirements.txt (line 2))
+#26 1.914   Downloading scipy-1.17.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+#26 1.940 Downloading numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.6 MB)
+#26 2.012    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 249.8 MB/s eta 0:00:00
+#26 2.016 Downloading scipy-1.17.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.0 MB)
+#26 2.237    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.0/35.0 MB 160.6 MB/s eta 0:00:00
+#26 2.323 Installing collected packages: numpy, scipy
+#26 7.867 Successfully installed numpy-2.3.5 scipy-1.17.0
+#26 7.867 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#26 7.986 
+#26 7.986 [notice] A new release of pip is available: 25.0.1 -> 26.2.1
+#26 7.986 [notice] To update, run: pip install --upgrade pip
+#26 DONE 8.1s
+
+#27 [stage-1  7/11] COPY --from=build /app/dist ./dist
+#27 DONE 0.1s
+
+#28 [stage-1  8/11] COPY --from=build /app/.integrate-dist ./.integrate-dist
+#28 DONE 0.0s
+
+#29 [stage-1  9/11] COPY --from=build /app/experiments/supply-exp-005 ./experiments/supply-exp-005
+#29 DONE 0.1s
+
+#30 [stage-1 10/11] COPY --from=build /app/experiments/supply-integrate-015 ./experiments/supply-integrate-015
+#30 DONE 0.0s
+
+#31 [stage-1 11/11] RUN cd experiments/supply-exp-005 && python restore-fixtures.py && useradd --uid 10001 --create-home sandboxuser && chown -R sandboxuser:sandboxuser /app
+#31 0.629 All fixture and font hashes verified
+#31 DONE 1.2s
+
+#32 exporting to image
+#32 exporting layers
+#32 exporting layers 2.0s done
+#32 writing image sha256:cc5675d240625a956db4c02fab219c57c0e85bd368004fe4db67f81e421d53e3 done
+#32 naming to docker.io/library/supply-ci017:candidate done
+#32 DONE 2.0s
