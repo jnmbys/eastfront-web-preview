@@ -1,3 +1,4 @@
+import {sceneGeometry} from './scene012Geometry.js';
 import {composeSettlement,paintSettlementGround,inSettlement,settlementCells,clipNaturalSpace,bakeNatural,paintNaturalBanks} from './blend011Layout.js';
 import {inPolish,detailLayout,drawDetails,prepareDetails,tintedTile} from './polishDetails.js';
 import {hexPolygon,hexToPixel,sharedHexEdge,hexKey,type Point} from '../geometry/hex.js';
@@ -41,7 +42,8 @@ function riverChains(data:SliceData,kind:string):Point[][]{
  edges.forEach((e,i)=>{for(const p of e)if(links.get(key(p))!.length!==2&&!used.has(i))walk(p,i);});edges.forEach((e,i)=>{if(!used.has(i))walk(e[0],i);});return paths;
 }
 export async function loadImage(url:string){const image=new Image();image.src=url;await image.decode();return image;}
-export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
+export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scene=false){
+ const geometry=sceneGeometry(data);
  const started=performance.now(),[detailsAtlas,ground,atlas,buildings,newTerrain]=await Promise.all([loadImage('./assets/details.webp'),loadImage('./assets/meadow.webp'),loadImage('./assets/terrain-atlas.webp'),loadImage('./assets/buildings.webp'),loadImage('./assets/terrain010.webp')]);
  const box=viewBoxForHexes(data.hexes,8),scale=Math.min(2,4096/Math.max(box.width,box.height));
  canvas.width=Math.ceil(box.width*scale);canvas.height=Math.ceil(box.height*scale);
@@ -57,7 +59,7 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
  }
  // Local material balance: warm sunlit meadow and cooler damp edges, never a full-map filter.
  for(const h of data.hexes.filter(inPolish)){const c=hexToPixel(h.coord);ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();const g=ctx.createRadialGradient(c.x-7,c.y-10,3,c.x,c.y,43);g.addColorStop(0,h.terrain==='FOREST'?'rgba(44,100,58,.19)':'rgba(156,173,67,.19)');g.addColorStop(1,'transparent');ctx.globalCompositeOperation='soft-light';ctx.fillStyle=g;ctx.fillRect(c.x-44,c.y-44,88,88);ctx.restore();}
- const layoutStarted=performance.now(),baseList=placements(data),list=composeSettlement(data,baseList),layoutMs=performance.now()-layoutStarted,cells=new Map(data.hexes.map(h=>[label(h.coord),h]));
+ const layoutStarted=performance.now(),baseList=placements(data),list=composeSettlement(data,baseList,scene),layoutMs=performance.now()-layoutStarted,cells=new Map(data.hexes.map(h=>[label(h.coord),h]));
  const source:Record<string,[number,number,number,number]>={forest:[15,20,705,625],fringe:[740,105,494,510],HILL:[20,655,660,590],ROUGH:[20,655,660,590],city:[678,670,568,550]};
  const cityIndices=new Map(baseList.filter(p=>p.kind==='city').map((p,i)=>[p,i]));
  const tintStarted=performance.now(),terrainTiles=Object.fromEntries(Object.entries(source).filter(([k])=>k!=='city').map(([kind,rect])=>[kind,tintedTile(atlas,rect,kind==='forest'||kind==='fringe'?'saturate(1.21) contrast(1.09) brightness(1.08)':'contrast(1.14) brightness(1.08)',256)]));
@@ -82,7 +84,7 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
  });
  const terrain010TileBytes=4*384*384*4;
  const localBakeMs=performance.now()-localBakeStart,localTileBytes=localRoofs.length*256*256*4;
- const naturalTiles=new Map(list.filter(p=>settlementCells.has(p.cell)&&p.kind!=='city').map(p=>[p,bakeNatural(terrain010Tiles[p.tile??0]!,p,data)]));
+ const naturalTiles=new Map(list.filter(p=>settlementCells.has(p.cell)&&p.kind!=='city').map(p=>[p,bakeNatural(terrain010Tiles[p.tile??0]!,p,data,scene)]));
  const blendTileBytes=[...naturalTiles.values()].reduce((n,c)=>n+c.width*c.height*4,0);
  const drawStamp=(p:Placement)=>{const rect=source[p.kind]!,h=cells.get(p.cell)!;ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();
   if(p.kind==='city'){const index=p.roof??((cityIndices.get(p)??0)%19===0?3:(cityIndices.get(p)??0)%3);
@@ -93,7 +95,7 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
   else if(inPolish(h))ctx.drawImage(terrainTiles[p.kind]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
   else ctx.drawImage(atlas,...rect,p.x-p.width/2,p.y-p.height/2,p.width,p.height);ctx.restore();};
 
- const groundField=paintSettlementGround(ctx,data,list);
+ const groundField=paintSettlementGround(ctx,data,list,scene);
  list.filter(p=>p.kind==='HILL'||p.kind==='ROUGH').forEach(drawStamp);
  // Marsh/lake material is original procedural world-space detail over the accepted meadow.
  // Clip to each canonical terrain polygon: no invented adjacent water or wetland cells.
@@ -118,8 +120,8 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
  const chains=['MAJOR','MINOR'].flatMap(kind=>riverChains(data,kind).map(points=>({kind,points})));
  // Densely sampled, gently rounded centerlines retain their original edge corridors.
  const smooth=(points:Point[])=>{const out:Point[]=[points[0]!];const lineTo=(b:Point)=>{const a=out.at(-1)!,n=Math.max(1,Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/1.6));for(let j=1;j<=n;j++)out.push({x:a.x+(b.x-a.x)*j/n,y:a.y+(b.y-a.y)*j/n});};for(let i=1;i<points.length-1;i++){const a=points[i-1]!,p=points[i]!,b=points[i+1]!,f=Math.min(.2,3/Math.hypot(p.x-a.x,p.y-a.y)),g=Math.min(.2,3/Math.hypot(b.x-p.x,b.y-p.y)),from={x:p.x+(a.x-p.x)*f,y:p.y+(a.y-p.y)*f},to={x:p.x+(b.x-p.x)*g,y:p.y+(b.y-p.y)*g};lineTo(from);for(let j=1;j<=6;j++){const t=j/6;out.push({x:(1-t)**2*from.x+2*(1-t)*t*p.x+t*t*to.x,y:(1-t)**2*from.y+2*(1-t)*t*p.y+t*t*to.y});}}lineTo(points.at(-1)!);return out;};
- const waterPaths=chains.map(c=>({...c,points:smooth(c.points)}));
- const ribbon=(points:Point[],half:number,color:string)=>{const left:Point[]=[],right:Point[]=[];for(let i=0;i<points.length;i++){const p=points[i]!,a=points[Math.max(0,i-1)]!,b=points[Math.min(points.length-1,i+1)]!,dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy)||1,nx=-dy/l,ny=dx/l,variation=.38*Math.sin(p.x*.44+p.y*.27)+.18*Math.sin(p.x*1.17-p.y*.78),w=half+variation;left.push({x:p.x+nx*w,y:p.y+ny*w});right.push({x:p.x-nx*w,y:p.y-ny*w});}ctx.beginPath();path([...left,...right.reverse()]);ctx.fillStyle=color;ctx.fill();};
+ const waterPaths=chains.map(c=>({...c,points:scene?geometry.water(smooth(c.points)):smooth(c.points)}));
+ const ribbon=(points:Point[],half:number,color:string)=>{const left:Point[]=[],right:Point[]=[];for(let i=0;i<points.length;i++){const p=points[i]!,a=points[Math.max(0,i-1)]!,b=points[Math.min(points.length-1,i+1)]!,dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy)||1,nx=-dy/l,ny=dx/l,variation=.38*Math.sin(p.x*.44+p.y*.27)+.18*Math.sin(p.x*1.17-p.y*.78),w=half+variation+(scene?geometry.weight(p)*geometry.bridgeWeight(p)*(.60*Math.sin(p.x*.075-p.y*.046)):0);left.push({x:p.x+nx*w,y:p.y+ny*w});right.push({x:p.x-nx*w,y:p.y-ny*w});}ctx.beginPath();path([...left,...right.reverse()]);ctx.fillStyle=color;ctx.fill();};
  paintNaturalBanks(ctx,data);
  for(const [major,minor,color] of [[7.4,5.4,'#53614b'],[6.2,4.4,'#938c69'],[4.7,3.1,'#747c65'],[3.8,2.35,'#426e70']] as const){ctx.save();if(color!=='#426e70'){ctx.beginPath();ctx.rect(box.minX-10,box.minY-10,box.width+20,box.height+20);data.hexes.filter(inSettlement).forEach(h=>path(hexPolygon(h.coord)));ctx.clip('evenodd');}for(const {kind,points} of waterPaths)ribbon(points,kind==='MAJOR'?major:minor,color);ctx.restore();}
  ctx.save();ctx.beginPath();data.hexes.filter(inPolish).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();for(const {kind,points} of waterPaths)ribbon(points,kind==='MAJOR'?3.8:2.35,'#397f80');ctx.restore();
@@ -134,6 +136,8 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
  }
  // Do not draw a crossing unless the imported registry explicitly has a bridge.
  const segments=data.edges.filter(e=>e.road||e.railway?.present);
+ const localClip=()=>{ctx.beginPath();data.hexes.filter(inSettlement).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();};
+ ctx.save();if(scene){ctx.beginPath();ctx.rect(box.minX-10,box.minY-10,box.width+20,box.height+20);data.hexes.filter(inSettlement).forEach(h=>path(hexPolygon(h.coord)));ctx.clip('evenodd');}
  const transportLine=(e:typeof segments[number],width:number,color:string)=>{
  const a=hexToPixel(e.a),b=hexToPixel(e.b);if(!e.river||e.bridge&&!e.bridge.destroyed){stroke(a,b,width,color);return;}
  const t=.38,u=.62;stroke(a,{x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},width,color);stroke({x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u},b,width,color);
@@ -141,6 +145,13 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData){
  for(const e of segments)transportLine(e,e.road?7:5.6,'rgba(108,102,73,.7)');
  for(const e of segments)transportLine(e,e.road?4.5:4.2,e.road?'#b7a77a':'#847e68');
  for(const e of segments){if(e.road)transportLine(e,2.7,'#c3b58c');if(e.railway?.present){const a=hexToPixel(e.a),b=hexToPixel(e.b),dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy),nx=-dy/l,ny=dx/l;for(let d=0;d<l;d+=3){if(e.river&&(!e.bridge||e.bridge.destroyed)&&d/l>.38&&d/l<.62)continue;const x=a.x+dx*d/l,y=a.y+dy*d/l;stroke({x:x-nx*2,y:y-ny*2},{x:x+nx*2,y:y+ny*2},.65,'#4e4a3e');}for(const s of [-.95,.95]){const from={x:a.x+nx*s,y:a.y+ny*s},to={x:b.x+nx*s,y:b.y+ny*s};if(e.river&&(!e.bridge||e.bridge.destroyed)){stroke(from,{x:from.x+dx*.38,y:from.y+dy*.38},.47,'#303935');stroke({x:from.x+dx*.62,y:from.y+dy*.62},to,.47,'#303935');}else stroke(from,to,.47,'#303935');}}}
+ ctx.restore();
+ if(scene){ctx.save();localClip();
+ const transportLine=(e:typeof segments[number],width:number,color:string,offset=0)=>{const points=geometry.route(e);for(let i=1;i<points.length;i++){const a=points[i-1]!,b=points[i]!;if(e.river&&(!e.bridge||e.bridge.destroyed)&&b.t>.38&&a.t<.62)continue;const dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy)||1;stroke({x:a.x-dy/l*offset,y:a.y+dx/l*offset},{x:b.x-dy/l*offset,y:b.y+dx/l*offset},width,color);}};
+ for(const e of segments)transportLine(e,e.road?7:5.6,'rgba(108,102,73,.7)');
+ for(const e of segments)transportLine(e,e.road?4.5:4.2,e.road?'#b7a77a':'#847e68');
+ for(const e of segments){if(e.road)transportLine(e,2.7,'#c3b58c');if(e.railway?.present){const points=geometry.route(e),a=hexToPixel(e.a),b=hexToPixel(e.b),len=Math.hypot(b.x-a.x,b.y-a.y);for(let d=0;d<len;d+=3){const t=d/len;if(e.river&&(!e.bridge||e.bridge.destroyed)&&t>.38&&t<.62)continue;const i=Math.min(31,Math.floor(t*32)),u=points[i]!,v=points[i+1]!,f=t*32-i,dx=v.x-u.x,dy=v.y-u.y,l=Math.hypot(dx,dy)||1,x=u.x+dx*f,y=u.y+dy*f;stroke({x:x+dy/l*2,y:y-dx/l*2},{x:x-dy/l*2,y:y+dx/l*2},.65,'#4e4a3e');}for(const side of [-.95,.95])transportLine(e,.47,'#303935',side);}}
+ctx.restore();}
  for(const e of data.edges.filter(e=>e.bridge&&!e.bridge.destroyed)){const g=deriveBridgeGeometry(e.a,e.b);stroke(g.from,g.to,8,'#414943');stroke(g.from,g.to,6,'#b9ad8e');stroke(g.from,g.to,2,e.bridge!.kind==='ROAD'?'#d2c19a':'#4c5046');const dx=g.to.x-g.from.x,dy=g.to.y-g.from.y,l=Math.hypot(dx,dy);for(const s of [-3.3,3.3])stroke({x:g.from.x-dy/l*s,y:g.from.y+dx/l*s},{x:g.to.x-dy/l*s,y:g.to.y+dx/l*s},.55,'#eee2bc');}
  for(const h of data.hexes.filter(h=>isCity(h.terrain)&&!inSettlement(h))){const c=hexToPixel(h.coord),g=ctx.createRadialGradient(c.x,c.y,2,c.x,c.y,35);g.addColorStop(0,'rgba(168,144,99,.22)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(c.x-35,c.y-35,70,70);}
  list.filter(p=>p.kind!=='HILL'&&p.kind!=='ROUGH').sort((a,b)=>a.y-b.y).forEach(drawStamp);

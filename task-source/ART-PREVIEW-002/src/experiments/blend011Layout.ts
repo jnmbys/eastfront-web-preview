@@ -2,11 +2,12 @@ import {hexToPixel,hexPolygon,type Point} from '../geometry/hex.js';
 import {corridors,label,inside,segmentDistance,type SliceData} from './mapData.js';
 import {composeSettlement as compose009,settlementCells,inSettlement} from './dioramaLayout.js';
 import type {Placement} from './blend011Terrain.js';
+import {vs2RectangleSegmentDistance} from '../render/vs2Projection.js';
 export {settlementCells,inSettlement};
 
 // Continuous canopies and distinct ridge profiles replace repeated small hill/tree stamps.
 // Rectangles are visual envelopes; actual alpha is clipped to terrain and public clearances.
-export function composeSettlement(data:SliceData,base:Placement[]):Placement[]{
+export function composeSettlement(data:SliceData,base:Placement[],scene=false):Placement[]{
  const old=compose009(data,base),list:Placement[]=old.filter(p=>!settlementCells.has(p.cell)||p.kind==='city');
  const specs:Record<string,number[][]>={
   W14:[[-3,-5,76,49,0]], V14:[[0,3,58,69,1]], Y15:[[2,-1,72,37,1]],
@@ -16,6 +17,13 @@ export function composeSettlement(data:SliceData,base:Placement[]):Placement[]{
  for(const h of data.hexes.filter(inSettlement)){
   const cell=label(h.coord),c=hexToPixel(h.coord);
   for(const [dx,dy,width,height,tile] of specs[cell]??[])list.push({cell,kind:h.terrain==='FOREST'?'forest':h.terrain,x:c.x+dx!,y:c.y+dy!,width:width!,height:height!,tile:tile!});
+ }
+ if(scene){
+  const town=data.hexes.find(h=>label(h.coord)==='X14')!,c=hexToPixel(town.coord),poly=hexPolygon(town.coord),lanes=corridors(data);
+  const blocks=[[-25,-14,13,15,1],[24,-14,13,15,0],[-28,11,12,14,0],[-16,14,13,14,2],[16,14,13,14,1],[28,11,12,14,2],[-13,26,11,12,1],[-5,32,9,10,0],[5,32,9,10,2],[13,26,11,12,0],[0,15,16,17,3]];
+  const roofs:Placement[]=blocks.map(([x,y,w,h,roof])=>({cell:'X14',kind:'city',x:c.x+x!,y:c.y+y!,width:w!,height:h!,roof:roof!}));
+  for(const p of roofs){const fits=()=>[-1,1].every(a=>[-1,1].every(b=>inside({x:p.x+a*p.width/2,y:p.y+b*p.height/2},poly)))&&!lanes.some(l=>vs2RectangleSegmentDistance(p,p.width/2,p.height/2,l.a,l.b)<l.width+2)&&!data.counters.some(u=>{const q=hexToPixel(u.hex);return Math.abs(q.x-p.x)<34+p.width/2&&Math.abs(q.y-p.y)<34+p.height/2;});for(let i=0;i<20&&!fits();i++){p.width*=.96;p.height*=.96;}if(!fits())throw Error('Scene roof clearance '+JSON.stringify(p));}
+  return [...list.filter(p=>p.cell!=='X14'),...roofs];
  }
  return list;
 }
@@ -41,7 +49,7 @@ const noise=(x:number,y:number)=>Math.sin(x*.17+y*.11)*.55+Math.sin(x*.39-y*.23)
 
 /** Bake soft clearance shoulders into each original static stamp, before the strict
  * 010 ownership clip. No transport geometry or public hit polygon is changed. */
-export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData){
+export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData,scene=false){
  const tile=document.createElement('canvas'),scale=3;tile.width=Math.ceil(p.width*scale);tile.height=Math.ceil(p.height*scale);
  const ctx=tile.getContext('2d')!;ctx.drawImage(source,0,0,tile.width,tile.height);
  const h=data.hexes.find(h=>label(h.coord)===p.cell)!,poly=hexPolygon(h.coord),c=hexToPixel(h.coord);
@@ -53,7 +61,7 @@ export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData)
   if(!inside(q,poly))margin=0;
   for(const l of lanes)margin=Math.min(margin,segmentDistance(q,l.a,l.b)-l.width-.8);
   for(const u of units)margin=Math.min(margin,Math.max(Math.abs(q.x-u.x)-34,Math.abs(q.y-u.y)-34));
-  const feather=p.kind==='forest'?6.5:9;
+  const feather=scene?(p.kind==='forest'?3.7:3.0):(p.kind==='forest'?6.5:9);
   const alpha=smooth(0,feather+noise(q.x,q.y)*1.4,margin);
   a[(y*tile.width+x)*4+3]=Math.round(a[(y*tile.width+x)*4+3]!*alpha);
  }
@@ -63,7 +71,7 @@ export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData)
 /** A single bounded material field replaces 009+010 stacked ground/bank washes.
  * Broad weights meet across internal hex edges; only the region's outer boundary
  * fades. Dirt/litter is visual surface, never a new road, obstacle or terrain type. */
-export function paintSettlementGround(ctx:CanvasRenderingContext2D,data:SliceData,list:Placement[]){
+export function paintSettlementGround(ctx:CanvasRenderingContext2D,data:SliceData,list:Placement[],scene=false){
  const local=data.hexes.filter(inSettlement),polys=local.map(h=>hexPolygon(h.coord));
  const edges=new Map<string,{a:Point;b:Point;n:number}>();
  const key=(p:Point)=>p.x.toFixed(4)+','+p.y.toFixed(4);
@@ -80,8 +88,8 @@ export function paintSettlementGround(ctx:CanvasRenderingContext2D,data:SliceDat
   for(const v of natural){const forest=v.kind==='forest',dx=(p.x-v.x-2)/(v.width*.67),dy=(p.y-v.y-4)/(v.height*.73),dist=Math.hypot(dx,dy);const w=(1-smooth(.40+n*.07,1.22,dist));if(w>0)mix(forest?64:147,forest?79:139,forest?42:88,w*(forest?.40:.30));}
   // Continuous town surface meets only existing transport; no line or invented entrance.
   const town=Math.hypot((p.x-city.x)/44,(p.y-city.y-13)/37),court=Math.hypot((p.x-city.x+2)/29,(p.y-city.y-22)/21);
-  mix(154,133,90,(1-smooth(.55,1.25+n*.06,town))*.62);
-  mix(198,177,125,(1-smooth(.35,1.16,court))*.52);
+  mix(154,133,90,(1-smooth(.55,1.25+n*.06,town))*(scene?.76:.62));
+  mix(198,177,125,(1-smooth(.35,1.16,court))*(scene?.66:.52));
   const distance=Math.min(...rivers.map(l=>segmentDistance(p,l.a,l.b)));
   const width=7.5+2.0*Math.sin(p.x*.082+p.y*.047)+.8*n;
   mix(66,99,65,(1-smooth(width+1,width+11,distance))*.32);

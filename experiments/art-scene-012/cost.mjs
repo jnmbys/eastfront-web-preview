@@ -1,0 +1,7 @@
+import {readFile,writeFile,readdir,stat,cp} from 'node:fs/promises';
+const dist=new URL('./dist/',import.meta.url),evidence=new URL('../../evidence/ART-SCENE-012/',import.meta.url);
+const manifest=JSON.parse(await readFile(new URL('manifest.json',dist)));let bytes=0,count=0;async function walk(url){for(const d of await readdir(url,{withFileTypes:true})){const p=new URL(d.name+(d.isDirectory()?'/':''),url);if(d.isDirectory())await walk(p);else{bytes+=(await stat(p)).size;count++;}}}await walk(dist);
+const historic=JSON.parse(await readFile(new URL('../../evidence/ART-BLEND-011/cost.json',import.meta.url)));
+await cp(new URL('manifest.json',dist),new URL('runtime-manifest.json',evidence));
+const report={runtimeFiles:count,runtimeBytes:bytes,historical011RuntimeBytes:historic.runtimeBytes,deltaVsHistorical011Bytes:bytes-historic.runtimeBytes,comparisonCaveat:'Historical 011 build used a different platform/compiler environment; this delta is artifact size only, not a controlled build regression.',newImageBytes:0,newAssetCount:0,canvasBackingEstimates:historic.canvasBackingEstimates,sumListedCanvasBytes:historic.sumListedCanvasBytes,estimateBasis:'Source dimensions/count unchanged from 011; no new runtime canvas sampling. Excludes JS arrays/caches/peak RSS/VRAM/GPU copies.',sameConditionStartupSamples:[],startupStatus:'BLOCKED: browser policy denied raw CDP runtime inspection; no bypass. Historical 708ms issue remains open.'};
+await writeFile(new URL('cost.json',evidence),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

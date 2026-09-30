@@ -9,6 +9,7 @@ import type {MapViewport} from '../web/preview.js';
 function zoomMapAt(view:MapViewport,requested:number,focus:Point):MapViewport{const zoom=Math.max(1,Math.min(8,requested)),ratio=zoom/view.zoom;return {zoom,panX:focus.x-(focus.x-view.panX)*ratio,panY:focus.y-(focus.y-view.panY)*ratio};}
 function pinchMapViewport(view:MapViewport,startA:Point,startB:Point,a:Point,b:Point):MapViewport{const from={x:(startA.x+startB.x)/2,y:(startA.y+startB.y)/2},to={x:(a.x+b.x)/2,y:(a.y+b.y)/2},distance=Math.hypot(startA.x-startB.x,startA.y-startB.y),next=zoomMapAt(view,view.zoom*Math.hypot(a.x-b.x,a.y-b.y)/(distance||1),from);return {...next,panX:next.panX+to.x-from.x,panY:next.panY+to.y-from.y};}
 const $=<T extends Element=HTMLElement>(s:string)=>document.querySelector<T>(s)!;
+const scene012=document.documentElement.dataset.scene==='012';
 const query=new URLSearchParams(location.search);let variant=query.get('variant')==='baseline'?'baseline':'candidate';
 const events:Record<string,unknown>[]=[];const started=performance.now();
 let data:SliceData,view:MapViewport={zoom:1,panX:0,panY:0},selected:string|null=null,cell:string|null=null;
@@ -23,7 +24,7 @@ function paintView(){
 }
 async function setVariant(next:string){
  if(switching)return;switching=true;($<HTMLButtonElement>('#variant')).disabled=true;
- try{const begin=performance.now();stats={...stats,...await (next==='candidate'?paintBlend011:paintTerrain010)($<HTMLCanvasElement>('#terrain'),data)};variant=next;const townLabel=document.querySelector<SVGTextElement>('[data-terrain-label="X14"]');if(townLabel){const town=data.hexes.find(h=>label(h.coord)==='X14')!,c=hexToPixel(town.coord);townLabel.setAttribute('y',String(c.y+(-22)));townLabel.setAttribute('text-anchor','middle');}$('#variant').textContent=variant==='candidate'?'查看当前版':'查看精修版';$('#variant').setAttribute('aria-pressed',String(variant==='baseline'));$('#variant-label').textContent=variant==='candidate'?'011 · 自然衔接':'010 · 对照版';log('variant',{variant,switchMs:performance.now()-begin});}finally{switching=false;($<HTMLButtonElement>('#variant')).disabled=false;}
+ try{const begin=performance.now();stats={...stats,...await (scene012?paintBlend011($<HTMLCanvasElement>('#terrain'),data,next==='candidate'):(next==='candidate'?paintBlend011:paintTerrain010)($<HTMLCanvasElement>('#terrain'),data))};variant=next;const townLabel=document.querySelector<SVGTextElement>('[data-terrain-label="X14"]');if(townLabel){const town=data.hexes.find(h=>label(h.coord)==='X14')!,c=hexToPixel(town.coord);townLabel.setAttribute('y',String(c.y+(-22)));townLabel.setAttribute('text-anchor','middle');}$('#variant').textContent=variant==='candidate'?'查看当前版':'查看精修版';$('#variant').setAttribute('aria-pressed',String(variant==='baseline'));$('#variant-label').textContent=scene012?(variant==='candidate'?'012 · 地貌与街区':'011 · 对照版'):(variant==='candidate'?'011 · 自然衔接':'010 · 对照版');log('variant',{variant,switchMs:performance.now()-begin});}finally{switching=false;($<HTMLButtonElement>('#variant')).disabled=false;}
 }
 function drawUnits(){
  $('#units').innerHTML=data.counters.map(c=>{const peers=data.counters.filter(u=>hexKey(u.hex)===hexKey(c.hex));return renderCounter({...c,selected:c.id===selected},peers.indexOf(c),peers.length);}).join('');

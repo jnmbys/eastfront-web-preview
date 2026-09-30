@@ -1,0 +1,11 @@
+{
+  "environment": "Windows, Codex in-app browser, local HTTP, existing host fonts",
+  "viewport": [1363, 936],
+  "selectedFixture": "G-02",
+  "comparison": "Same loaded document, focus camera at 500%, eight minus clicks for 300%, variant switch preserves UI selection",
+  "passedUI": ["G-03 to panel G-02 disambiguation", "G-02 aria-pressed persists across variants", "300% and 500% zoom", "V13 forest selection", "X14 city selection", "65x30 drag retains X14 selection", "visual label and bridge continuity inspection"],
+  "blocked": ["Raw CDP runtime inspection: security policy reports user denied permission", "Exact runtime camera/viewport/DPR sampling", "Canvas pixel difference outside eight cells", "Same-condition startup measurements"],
+  "startupSamples": [],
+  "notClaimed": ["stable performance", "Huawei acceptance", "GPU acceptance", "live-game rule acceptance"],
+  "screenshots": ["011-medium.jpg", "012-medium.jpg", "011-near.jpg", "012-near.jpg", "drag-selection.jpg"]
+}
