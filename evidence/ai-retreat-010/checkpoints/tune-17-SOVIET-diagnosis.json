@@ -1,0 +1,967 @@
+{
+  "id": "tune-17-SOVIET",
+  "source": "d6470f331a7afd3758a6eeb0f5935e8201f98767",
+  "start": 739,
+  "controller": {
+    "matchId": "tune-17-SOVIET",
+    "controllerId": "G-HUMAN-1",
+    "side": "GERMAN"
+  },
+  "phase": "SOVIET_COMBAT",
+  "pending": {
+    "battleId": "B-000008",
+    "side": "GERMAN",
+    "decisionOwnerControllerId": "G-HUMAN-1",
+    "eligibleControllerIds": [
+      "G-HUMAN-1"
+    ],
+    "kind": "RETREAT",
+    "retreatSteps": 2,
+    "unitIds": [
+      "G-J-02"
+    ]
+  },
+  "viewHash": "729ec3277f1390796ca20eb29582a3ed1f469d491bb3bab8b4a1ac8ac60be686",
+  "stateHash": "28f0399b3e97f39f5d816bab896edd3178f405edda84d8725319ce10c3cc4058",
+  "inputHash": "6b287f0f78dd6f7d75adaac1a9f7e5468865b53e8e6a45febc90cfeff1e27374",
+  "visibleEnemies": [
+    {
+      "visibility": "IDENTIFIED",
+      "id": "S-EL-02",
+      "side": "SOVIET",
+      "type": "ELITE_INFANTRY",
+      "step": 0,
+      "hex": {
+        "q": 18,
+        "r": 4
+      },
+      "stats": {
+        "attack": 5,
+        "defense": 5,
+        "movement": 3
+      },
+      "supplyState": "SUPPLIED",
+      "entrenched": false
+    },
+    {
+      "visibility": "IDENTIFIED",
+      "id": "S-ENG-02",
+      "side": "SOVIET",
+      "type": "ENGINEER",
+      "step": 0,
+      "hex": {
+        "q": 17,
+        "r": 5
+      },
+      "stats": {
+        "attack": 2,
+        "defense": 2,
+        "movement": 3
+      },
+      "supplyState": "SUPPLIED",
+      "entrenched": false
+    },
+    {
+      "visibility": "IDENTIFIED",
+      "id": "S-I-11",
+      "side": "SOVIET",
+      "type": "INFANTRY",
+      "step": 0,
+      "hex": {
+        "q": 18,
+        "r": 4
+      },
+      "stats": {
+        "attack": 3,
+        "defense": 3,
+        "movement": 3
+      },
+      "supplyState": "SUPPLIED",
+      "entrenched": false
+    }
+  ],
+  "contacts": [
+    {
+      "visibility": "CONTACT",
+      "contactId": "contact:SOVIET:18,2",
+      "side": "SOVIET",
+      "hex": {
+        "q": 18,
+        "r": 2
+      },
+      "status": "CURRENT"
+    }
+  ],
+  "lastKnown": [],
+  "own": [
+    {
+      "visibility": "IDENTIFIED",
+      "id": "G-J-02",
+      "side": "GERMAN",
+      "type": "JAGER",
+      "step": 2,
+      "hex": {
+        "q": 17,
+        "r": 4
+      },
+      "stats": {
+        "attack": 3,
+        "defense": 3,
+        "movement": 3
+      },
+      "supplyState": "OUT_OF_SUPPLY",
+      "entrenched": false,
+      "friendly": {
+        "id": "G-J-02",
+        "templateId": "G-JAGER",
+        "side": "GERMAN",
+        "type": "JAGER",
+        "step": 2,
+        "alive": true,
+        "hex": {
+          "q": 17,
+          "r": 4
+        },
+        "supplyState": "OUT_OF_SUPPLY",
+        "entrenched": false,
+        "hasMoved": true,
+        "hasAttacked": true,
+        "controllerId": "G-HUMAN-1",
+        "temporarySupply": false,
+        "dedicatedRailRepair": false,
+        "reconZocIgnoreUsed": false,
+        "artillerySupportUsed": false,
+        "lastHQCommandTurn": null
+      }
+    }
+  ],
+  "attempts": [
+    {
+      "n": 739,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 17,
+                  "r": 3
+                },
+                {
+                  "q": 18,
+                  "r": 2
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ],
+      "historyRejected": 0
+    },
+    {
+      "n": 740,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 17,
+                  "r": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 1
+          }
+        }
+      ],
+      "historyRejected": 1
+    },
+    {
+      "n": 741,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": []
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 0
+          }
+        }
+      ],
+      "historyRejected": 2
+    },
+    {
+      "n": 742,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 17,
+                  "r": 3
+                },
+                {
+                  "q": 17,
+                  "r": 2
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ],
+      "historyRejected": 3
+    },
+    {
+      "n": 743,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 16,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 1
+          }
+        }
+      ],
+      "historyRejected": 4
+    },
+    {
+      "n": 744,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 17,
+                  "r": 3
+                },
+                {
+                  "q": 16,
+                  "r": 3
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ],
+      "historyRejected": 5
+    },
+    {
+      "n": 745,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 16,
+                  "r": 5
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 1
+          }
+        }
+      ],
+      "historyRejected": 6
+    },
+    {
+      "n": 746,
+      "side": "GERMAN",
+      "controllerId": "G-HUMAN-1",
+      "turn": 14,
+      "phase": "SOVIET_COMBAT",
+      "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000008",
+          "retreats": [
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 17,
+                  "r": 3
+                },
+                {
+                  "q": 16,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTION_LIMIT",
+        "side": "GERMAN"
+      },
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ],
+      "historyRejected": 7
+    }
+  ],
+  "candidates": [
+    {
+      "index": 0,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 17,
+                "r": 3
+              },
+              {
+                "q": 18,
+                "r": 2
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 17,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 1
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": []
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 0
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 17,
+                "r": 3
+              },
+              {
+                "q": 17,
+                "r": 2
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 1
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 17,
+                "r": 3
+              },
+              {
+                "q": 16,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 5
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+          "unitId": "G-J-02",
+          "details": {
+            "requiredSteps": 2,
+            "maximumLegalSteps": 2,
+            "providedSteps": 1
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 17,
+                "r": 3
+              },
+              {
+                "q": 16,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 4
+              },
+              {
+                "q": 17,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": false,
+      "issues": [
+        {
+          "code": "INVALID_RETREAT",
+          "message": "Submitted retreat path contains an illegal step.",
+          "unitId": "G-J-02",
+          "hex": {
+            "q": 17,
+            "r": 3
+          },
+          "details": {
+            "stepIssues": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 4
+              },
+              {
+                "q": 16,
+                "r": 3
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": true,
+      "issues": []
+    },
+    {
+      "index": 10,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 4
+              },
+              {
+                "q": 15,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": true,
+      "issues": []
+    },
+    {
+      "index": 11,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 4
+              },
+              {
+                "q": 16,
+                "r": 5
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": true,
+      "issues": []
+    },
+    {
+      "index": 12,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 5
+              },
+              {
+                "q": 16,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": true,
+      "issues": []
+    },
+    {
+      "index": 13,
+      "intent": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 5
+              },
+              {
+                "q": 15,
+                "r": 6
+              }
+            ]
+          }
+        ]
+      },
+      "accepted": true,
+      "issues": []
+    }
+  ],
+  "offlineOnlyLegalOptions": [
+    {
+      "unitId": "G-J-02",
+      "hex": {
+        "q": 17,
+        "r": 4
+      },
+      "options": [
+        {
+          "q": 16,
+          "r": 4
+        },
+        {
+          "q": 16,
+          "r": 5
+        }
+      ],
+      "max": 2
+    }
+  ]
+}

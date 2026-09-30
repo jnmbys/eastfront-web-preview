@@ -1,0 +1,2028 @@
+{
+  "task": "AI-RETREAT-010",
+  "sourceParent": "d6470f331a7afd3758a6eeb0f5935e8201f98767",
+  "scope": "Retreat enumeration order only; shared new retreat handling on BOTH seats. Fixed AI005 movement/attack unchanged.",
+  "checkpoints": [
+    {
+      "id": "tune-17-SOVIET",
+      "decision": 739,
+      "pending": {
+        "battleId": "B-000008",
+        "side": "GERMAN",
+        "decisionOwnerControllerId": "G-HUMAN-1",
+        "eligibleControllerIds": [
+          "G-HUMAN-1"
+        ],
+        "kind": "RETREAT",
+        "retreatSteps": 2,
+        "unitIds": [
+          "G-J-02"
+        ]
+      },
+      "originalFirstAcceptedCandidate": 10,
+      "originalUniqueAttempts": 8,
+      "originalObservationKeys": [
+        "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4"
+      ],
+      "originalReasons": [
+        {
+          "n": 739,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 17,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 740,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 741,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 742,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 17,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 743,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 744,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 17,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 745,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 746,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 17,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "offlineOnlyBlockers": [
+        {
+          "id": "S-I-07",
+          "hex": {
+            "q": 18,
+            "r": 2
+          },
+          "identified": false
+        },
+        {
+          "id": "S-I-14",
+          "hex": {
+            "q": 18,
+            "r": 2
+          },
+          "identified": false
+        }
+      ],
+      "recoveryAttempts": 6,
+      "accepted": {
+        "type": "RETREAT",
+        "battleId": "B-000008",
+        "retreats": [
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 16,
+                "r": 5
+              },
+              {
+                "q": 16,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "postFlowPending": null
+    },
+    {
+      "id": "tune-18-GERMAN",
+      "decision": 632,
+      "pending": {
+        "battleId": "B-000031",
+        "side": "GERMAN",
+        "decisionOwnerControllerId": "G-HUMAN-1",
+        "eligibleControllerIds": [
+          "G-HUMAN-1"
+        ],
+        "kind": "RETREAT",
+        "retreatSteps": 1,
+        "unitIds": [
+          "G-ENG-01",
+          "G-I-07",
+          "G-J-02"
+        ]
+      },
+      "originalFirstAcceptedCandidate": 14,
+      "originalUniqueAttempts": 8,
+      "originalObservationKeys": [
+        "d9cfb6db313a5756ab85012803d31c46a1c4cff4bce23f376a4a3066038e9024"
+      ],
+      "originalReasons": [
+        {
+          "n": 632,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 633,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-ENG-01",
+              "details": {
+                "requiredSteps": 1,
+                "maximumLegalSteps": 1,
+                "providedSteps": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 634,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 635,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 636,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 637,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 638,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 639,
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "offlineOnlyBlockers": [
+        {
+          "id": "S-AT-02",
+          "hex": {
+            "q": 14,
+            "r": 2
+          },
+          "identified": false
+        }
+      ],
+      "recoveryAttempts": 6,
+      "accepted": {
+        "type": "RETREAT",
+        "battleId": "B-000031",
+        "retreats": [
+          {
+            "unitId": "G-ENG-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 4
+              }
+            ]
+          },
+          {
+            "unitId": "G-I-07",
+            "path": [
+              {
+                "q": 11,
+                "r": 4
+              }
+            ]
+          },
+          {
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "postFlowPending": null
+    }
+  ],
+  "games": [
+    {
+      "id": "tune-17-GERMAN",
+      "candidateSide": "GERMAN",
+      "old": {
+        "status": "GAME_OVER",
+        "turn": 16,
+        "winner": "SOVIET",
+        "sides": {
+          "GERMAN": {
+            "attacks": 26,
+            "jointAttacks": 26,
+            "lossSteps": 6,
+            "destroyedUnits": 1,
+            "movedHexes": 301,
+            "rejections": 4
+          },
+          "SOVIET": {
+            "attacks": 3,
+            "jointAttacks": 0,
+            "lossSteps": 31,
+            "destroyedUnits": 6,
+            "movedHexes": 179,
+            "rejections": 0
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 15
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 21
+          },
+          {
+            "turn": 2,
+            "nearest": 18
+          },
+          {
+            "turn": 3,
+            "nearest": 18
+          },
+          {
+            "turn": 4,
+            "nearest": 18
+          },
+          {
+            "turn": 5,
+            "nearest": 17
+          },
+          {
+            "turn": 6,
+            "nearest": 17
+          },
+          {
+            "turn": 7,
+            "nearest": 17
+          },
+          {
+            "turn": 8,
+            "nearest": 16
+          },
+          {
+            "turn": 9,
+            "nearest": 16
+          },
+          {
+            "turn": 10,
+            "nearest": 15
+          },
+          {
+            "turn": 11,
+            "nearest": 14
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 15
+          },
+          {
+            "turn": 14,
+            "nearest": 15
+          },
+          {
+            "turn": 15,
+            "nearest": 15
+          },
+          {
+            "turn": 16,
+            "nearest": 15
+          }
+        ],
+        "elapsedMs": 38528.767545,
+        "traceHash": "bb996d1ed6b69c36b0098562a61c14c1edc2a747ed8c9addf61d07ff42c08e2b",
+        "finalHash": "c06e06b8349fa7f196531254c5dffb001480df1c1b9d3543fe9a8deb0140b4ae",
+        "decisions": 654
+      },
+      "current": {
+        "status": "GAME_OVER",
+        "turn": 16,
+        "winner": "SOVIET",
+        "sides": {
+          "GERMAN": {
+            "attacks": 26,
+            "jointAttacks": 26,
+            "lossSteps": 6,
+            "destroyedUnits": 1,
+            "movedHexes": 301,
+            "rejections": 4
+          },
+          "SOVIET": {
+            "attacks": 3,
+            "jointAttacks": 0,
+            "lossSteps": 31,
+            "destroyedUnits": 6,
+            "movedHexes": 179,
+            "rejections": 0
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 15
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 21
+          },
+          {
+            "turn": 2,
+            "nearest": 18
+          },
+          {
+            "turn": 3,
+            "nearest": 18
+          },
+          {
+            "turn": 4,
+            "nearest": 18
+          },
+          {
+            "turn": 5,
+            "nearest": 17
+          },
+          {
+            "turn": 6,
+            "nearest": 17
+          },
+          {
+            "turn": 7,
+            "nearest": 17
+          },
+          {
+            "turn": 8,
+            "nearest": 16
+          },
+          {
+            "turn": 9,
+            "nearest": 16
+          },
+          {
+            "turn": 10,
+            "nearest": 15
+          },
+          {
+            "turn": 11,
+            "nearest": 14
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 15
+          },
+          {
+            "turn": 14,
+            "nearest": 15
+          },
+          {
+            "turn": 15,
+            "nearest": 15
+          },
+          {
+            "turn": 16,
+            "nearest": 15
+          }
+        ],
+        "elapsedMs": 40822.298091000004,
+        "traceHash": "bb996d1ed6b69c36b0098562a61c14c1edc2a747ed8c9addf61d07ff42c08e2b",
+        "finalHash": "c06e06b8349fa7f196531254c5dffb001480df1c1b9d3543fe9a8deb0140b4ae",
+        "decisions": 654
+      },
+      "firstChangedDecision": 654,
+      "previous": null,
+      "next": null,
+      "rejected": [
+        {
+          "n": 319,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 7
+              },
+              {
+                "q": 12,
+                "r": 6
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-MOT-01",
+              "hex": {
+                "q": 11,
+                "r": 7
+              }
+            }
+          ]
+        },
+        {
+          "n": 320,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-J-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 8
+              },
+              {
+                "q": 11,
+                "r": 7
+              },
+              {
+                "q": 12,
+                "r": 6
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-J-01",
+              "hex": {
+                "q": 11,
+                "r": 7
+              }
+            }
+          ]
+        },
+        {
+          "n": 351,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 7
+              },
+              {
+                "q": 12,
+                "r": 6
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-MOT-01",
+              "hex": {
+                "q": 11,
+                "r": 7
+              }
+            }
+          ]
+        },
+        {
+          "n": 352,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-J-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 7
+              },
+              {
+                "q": 11,
+                "r": 7
+              },
+              {
+                "q": 12,
+                "r": 6
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-J-01",
+              "hex": {
+                "q": 11,
+                "r": 7
+              }
+            }
+          ]
+        }
+      ],
+      "integrity": "PASS"
+    },
+    {
+      "id": "tune-17-SOVIET",
+      "candidateSide": "SOVIET",
+      "old": {
+        "status": "REJECTION_LIMIT",
+        "turn": 14,
+        "winner": null,
+        "sides": {
+          "GERMAN": {
+            "attacks": 7,
+            "jointAttacks": 0,
+            "lossSteps": 2,
+            "destroyedUnits": 0,
+            "movedHexes": 345,
+            "rejections": 8
+          },
+          "SOVIET": {
+            "attacks": 1,
+            "jointAttacks": 1,
+            "lossSteps": 3,
+            "destroyedUnits": 1,
+            "movedHexes": 410,
+            "rejections": 2
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 11
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 25
+          },
+          {
+            "turn": 2,
+            "nearest": 24
+          },
+          {
+            "turn": 3,
+            "nearest": 23
+          },
+          {
+            "turn": 4,
+            "nearest": 22
+          },
+          {
+            "turn": 5,
+            "nearest": 21
+          },
+          {
+            "turn": 6,
+            "nearest": 20
+          },
+          {
+            "turn": 7,
+            "nearest": 19
+          },
+          {
+            "turn": 8,
+            "nearest": 18
+          },
+          {
+            "turn": 9,
+            "nearest": 17
+          },
+          {
+            "turn": 10,
+            "nearest": 16
+          },
+          {
+            "turn": 11,
+            "nearest": 15
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 13
+          },
+          {
+            "turn": 14,
+            "nearest": 11
+          }
+        ],
+        "elapsedMs": 61057.636262,
+        "traceHash": "26eccf0016f904fac69c146352f194c72eba4046c249380186573555e1a8a57c",
+        "finalHash": "28f0399b3e97f39f5d816bab896edd3178f405edda84d8725319ce10c3cc4058",
+        "decisions": 747
+      },
+      "current": {
+        "status": "GAME_OVER",
+        "turn": 16,
+        "winner": "SOVIET",
+        "sides": {
+          "GERMAN": {
+            "attacks": 10,
+            "jointAttacks": 0,
+            "lossSteps": 4,
+            "destroyedUnits": 0,
+            "movedHexes": 388,
+            "rejections": 5
+          },
+          "SOVIET": {
+            "attacks": 2,
+            "jointAttacks": 2,
+            "lossSteps": 6,
+            "destroyedUnits": 1,
+            "movedHexes": 420,
+            "rejections": 2
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 11
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 25
+          },
+          {
+            "turn": 2,
+            "nearest": 24
+          },
+          {
+            "turn": 3,
+            "nearest": 23
+          },
+          {
+            "turn": 4,
+            "nearest": 22
+          },
+          {
+            "turn": 5,
+            "nearest": 21
+          },
+          {
+            "turn": 6,
+            "nearest": 20
+          },
+          {
+            "turn": 7,
+            "nearest": 19
+          },
+          {
+            "turn": 8,
+            "nearest": 18
+          },
+          {
+            "turn": 9,
+            "nearest": 17
+          },
+          {
+            "turn": 10,
+            "nearest": 16
+          },
+          {
+            "turn": 11,
+            "nearest": 15
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 13
+          },
+          {
+            "turn": 14,
+            "nearest": 12
+          },
+          {
+            "turn": 15,
+            "nearest": 11
+          },
+          {
+            "turn": 16,
+            "nearest": 11
+          }
+        ],
+        "elapsedMs": 62303.631295,
+        "traceHash": "8994abea378ec75f767943308e10694af07caaaf06aa75e49c50a1f11041b20b",
+        "finalHash": "0330be86a7738b5145851f5650b97799c12a186a8359d6a6bcda0934c6b7fbad",
+        "decisions": 833
+      },
+      "firstChangedDecision": 742,
+      "previous": {
+        "n": 742,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 14,
+        "phase": "SOVIET_COMBAT",
+        "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 17,
+                    "r": 3
+                  },
+                  {
+                    "q": 17,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "result": {
+          "status": "REJECTED",
+          "side": "GERMAN"
+        }
+      },
+      "next": {
+        "n": 742,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 14,
+        "phase": "SOVIET_COMBAT",
+        "observationKey": "58773d6d486bd83cfe6d7ed1786d9c90fbe20fc6c081b269045d4d5ce9c579f4",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 16,
+                    "r": 4
+                  },
+                  {
+                    "q": 17,
+                    "r": 3
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "result": {
+          "status": "REJECTED",
+          "side": "GERMAN"
+        }
+      },
+      "rejected": [
+        {
+          "n": 708,
+          "turn": 14,
+          "side": "SOVIET",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "S-I-12",
+            "path": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": 1
+              },
+              {
+                "q": 17,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "S-I-12",
+              "hex": {
+                "q": 17,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 725,
+          "turn": 14,
+          "side": "SOVIET",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "S-I-12",
+            "path": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": 1
+              },
+              {
+                "q": 17,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "S-I-12",
+              "hex": {
+                "q": 17,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 739,
+          "turn": 14,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 17,
+                    "r": 3
+                  },
+                  {
+                    "q": 18,
+                    "r": 2
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 17,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 740,
+          "turn": 14,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 17,
+                    "r": 3
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 741,
+          "turn": 14,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": []
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 742,
+          "turn": 14,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 16,
+                    "r": 4
+                  },
+                  {
+                    "q": 17,
+                    "r": 3
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 17,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 743,
+          "turn": 14,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000008",
+            "retreats": [
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 16,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-J-02",
+              "details": {
+                "requiredSteps": 2,
+                "maximumLegalSteps": 2,
+                "providedSteps": 1
+              }
+            }
+          ]
+        }
+      ],
+      "integrity": "PASS"
+    },
+    {
+      "id": "tune-18-GERMAN",
+      "candidateSide": "GERMAN",
+      "old": {
+        "status": "REJECTION_LIMIT",
+        "turn": 12,
+        "winner": null,
+        "sides": {
+          "GERMAN": {
+            "attacks": 28,
+            "jointAttacks": 27,
+            "lossSteps": 5,
+            "destroyedUnits": 1,
+            "movedHexes": 310,
+            "rejections": 8
+          },
+          "SOVIET": {
+            "attacks": 3,
+            "jointAttacks": 0,
+            "lossSteps": 31,
+            "destroyedUnits": 9,
+            "movedHexes": 192,
+            "rejections": 1
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 14
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 21
+          },
+          {
+            "turn": 2,
+            "nearest": 18
+          },
+          {
+            "turn": 3,
+            "nearest": 18
+          },
+          {
+            "turn": 4,
+            "nearest": 17
+          },
+          {
+            "turn": 5,
+            "nearest": 17
+          },
+          {
+            "turn": 6,
+            "nearest": 17
+          },
+          {
+            "turn": 7,
+            "nearest": 17
+          },
+          {
+            "turn": 8,
+            "nearest": 17
+          },
+          {
+            "turn": 9,
+            "nearest": 15
+          },
+          {
+            "turn": 10,
+            "nearest": 13
+          },
+          {
+            "turn": 11,
+            "nearest": 13
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          }
+        ],
+        "elapsedMs": 46922.320655999996,
+        "traceHash": "a086ca3fca1e7a5d37fc5479e37f955103f9e6abed016109e495b385e06f978b",
+        "finalHash": "83794208af7cea7eb7e41afbcd51d8ae4ca69f7aead0f0ec3b6a51b8136911db",
+        "decisions": 640
+      },
+      "current": {
+        "status": "GAME_OVER",
+        "turn": 16,
+        "winner": "SOVIET",
+        "sides": {
+          "GERMAN": {
+            "attacks": 39,
+            "jointAttacks": 37,
+            "lossSteps": 8,
+            "destroyedUnits": 2,
+            "movedHexes": 342,
+            "rejections": 5
+          },
+          "SOVIET": {
+            "attacks": 4,
+            "jointAttacks": 0,
+            "lossSteps": 46,
+            "destroyedUnits": 14,
+            "movedHexes": 248,
+            "rejections": 1
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 13
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 21
+          },
+          {
+            "turn": 2,
+            "nearest": 18
+          },
+          {
+            "turn": 3,
+            "nearest": 18
+          },
+          {
+            "turn": 4,
+            "nearest": 17
+          },
+          {
+            "turn": 5,
+            "nearest": 17
+          },
+          {
+            "turn": 6,
+            "nearest": 17
+          },
+          {
+            "turn": 7,
+            "nearest": 17
+          },
+          {
+            "turn": 8,
+            "nearest": 17
+          },
+          {
+            "turn": 9,
+            "nearest": 15
+          },
+          {
+            "turn": 10,
+            "nearest": 13
+          },
+          {
+            "turn": 11,
+            "nearest": 13
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 14
+          },
+          {
+            "turn": 14,
+            "nearest": 13
+          },
+          {
+            "turn": 15,
+            "nearest": 12
+          },
+          {
+            "turn": 16,
+            "nearest": 13
+          }
+        ],
+        "elapsedMs": 46746.239702,
+        "traceHash": "af5b0c2012443c67395f48a3cb9f6d1f46a2d6a16f6f1e117ab55754414545ac",
+        "finalHash": "95247b241de7622c9c744d048ee14adcf295bb186d8dde2b341d21c9da25ec6d",
+        "decisions": 811
+      },
+      "firstChangedDecision": 634,
+      "previous": {
+        "n": 634,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 12,
+        "phase": "GERMAN_COMBAT",
+        "observationKey": "d9cfb6db313a5756ab85012803d31c46a1c4cff4bce23f376a4a3066038e9024",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-I-07",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 11,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "result": {
+          "status": "REJECTED",
+          "side": "GERMAN"
+        }
+      },
+      "next": {
+        "n": 634,
+        "side": "GERMAN",
+        "controllerId": "G-HUMAN-1",
+        "turn": 12,
+        "phase": "GERMAN_COMBAT",
+        "observationKey": "d9cfb6db313a5756ab85012803d31c46a1c4cff4bce23f376a4a3066038e9024",
+        "choice": {
+          "kind": "INTENT",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": [
+                  {
+                    "q": 11,
+                    "r": 4
+                  }
+                ]
+              },
+              {
+                "unitId": "G-I-07",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 10,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "result": {
+          "status": "REJECTED",
+          "side": "GERMAN"
+        }
+      },
+      "rejected": [
+        {
+          "n": 505,
+          "turn": 9,
+          "side": "SOVIET",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000021",
+            "retreats": [
+              {
+                "unitId": "S-MOT-02",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": -1
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "S-MOT-02",
+              "details": {
+                "requiredSteps": 1,
+                "maximumLegalSteps": 0,
+                "providedSteps": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 632,
+          "turn": 12,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-I-07",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 10,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 633,
+          "turn": 12,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": []
+              },
+              {
+                "unitId": "G-I-07",
+                "path": []
+              },
+              {
+                "unitId": "G-J-02",
+                "path": []
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-ENG-01",
+              "details": {
+                "requiredSteps": 1,
+                "maximumLegalSteps": 1,
+                "providedSteps": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 634,
+          "turn": 12,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": [
+                  {
+                    "q": 11,
+                    "r": 4
+                  }
+                ]
+              },
+              {
+                "unitId": "G-I-07",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 10,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-I-07",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 635,
+          "turn": 12,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": []
+              },
+              {
+                "unitId": "G-I-07",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 10,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "G-ENG-01",
+              "details": {
+                "requiredSteps": 1,
+                "maximumLegalSteps": 1,
+                "providedSteps": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 636,
+          "turn": 12,
+          "side": "GERMAN",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000031",
+            "retreats": [
+              {
+                "unitId": "G-ENG-01",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": 3
+                  }
+                ]
+              },
+              {
+                "unitId": "G-I-07",
+                "path": [
+                  {
+                    "q": 11,
+                    "r": 4
+                  }
+                ]
+              },
+              {
+                "unitId": "G-J-02",
+                "path": [
+                  {
+                    "q": 10,
+                    "r": 4
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "G-ENG-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "integrity": "PASS"
+    },
+    {
+      "id": "tune-18-SOVIET",
+      "candidateSide": "SOVIET",
+      "old": {
+        "status": "GAME_OVER",
+        "turn": 16,
+        "winner": "SOVIET",
+        "sides": {
+          "GERMAN": {
+            "attacks": 6,
+            "jointAttacks": 0,
+            "lossSteps": 1,
+            "destroyedUnits": 0,
+            "movedHexes": 396,
+            "rejections": 0
+          },
+          "SOVIET": {
+            "attacks": 0,
+            "jointAttacks": 0,
+            "lossSteps": 9,
+            "destroyedUnits": 3,
+            "movedHexes": 331,
+            "rejections": 0
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 10
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 25
+          },
+          {
+            "turn": 2,
+            "nearest": 24
+          },
+          {
+            "turn": 3,
+            "nearest": 23
+          },
+          {
+            "turn": 4,
+            "nearest": 22
+          },
+          {
+            "turn": 5,
+            "nearest": 21
+          },
+          {
+            "turn": 6,
+            "nearest": 20
+          },
+          {
+            "turn": 7,
+            "nearest": 19
+          },
+          {
+            "turn": 8,
+            "nearest": 18
+          },
+          {
+            "turn": 9,
+            "nearest": 17
+          },
+          {
+            "turn": 10,
+            "nearest": 16
+          },
+          {
+            "turn": 11,
+            "nearest": 15
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 13
+          },
+          {
+            "turn": 14,
+            "nearest": 12
+          },
+          {
+            "turn": 15,
+            "nearest": 11
+          },
+          {
+            "turn": 16,
+            "nearest": 10
+          }
+        ],
+        "elapsedMs": 57308.211635,
+        "traceHash": "575276d5db45b3f5717068f2e453fcd3b5b5a28b37732922c8dce77d0c96f096",
+        "finalHash": "cb1d9e996c8fec0834ba6081bc8f1c03b985a1500c0d39ab28b5597004019648",
+        "decisions": 769
+      },
+      "current": {
+        "status": "GAME_OVER",
+        "turn": 16,
+        "winner": "SOVIET",
+        "sides": {
+          "GERMAN": {
+            "attacks": 6,
+            "jointAttacks": 0,
+            "lossSteps": 1,
+            "destroyedUnits": 0,
+            "movedHexes": 396,
+            "rejections": 0
+          },
+          "SOVIET": {
+            "attacks": 0,
+            "jointAttacks": 0,
+            "lossSteps": 9,
+            "destroyedUnits": 3,
+            "movedHexes": 331,
+            "rejections": 0
+          }
+        },
+        "objective": {
+          "germanControlledCapitalHexes": 0,
+          "nearestGermanToCapital": 10
+        },
+        "turnDistances": [
+          {
+            "turn": 1,
+            "nearest": 25
+          },
+          {
+            "turn": 2,
+            "nearest": 24
+          },
+          {
+            "turn": 3,
+            "nearest": 23
+          },
+          {
+            "turn": 4,
+            "nearest": 22
+          },
+          {
+            "turn": 5,
+            "nearest": 21
+          },
+          {
+            "turn": 6,
+            "nearest": 20
+          },
+          {
+            "turn": 7,
+            "nearest": 19
+          },
+          {
+            "turn": 8,
+            "nearest": 18
+          },
+          {
+            "turn": 9,
+            "nearest": 17
+          },
+          {
+            "turn": 10,
+            "nearest": 16
+          },
+          {
+            "turn": 11,
+            "nearest": 15
+          },
+          {
+            "turn": 12,
+            "nearest": 14
+          },
+          {
+            "turn": 13,
+            "nearest": 13
+          },
+          {
+            "turn": 14,
+            "nearest": 12
+          },
+          {
+            "turn": 15,
+            "nearest": 11
+          },
+          {
+            "turn": 16,
+            "nearest": 10
+          }
+        ],
+        "elapsedMs": 60605.628125,
+        "traceHash": "575276d5db45b3f5717068f2e453fcd3b5b5a28b37732922c8dce77d0c96f096",
+        "finalHash": "cb1d9e996c8fec0834ba6081bc8f1c03b985a1500c0d39ab28b5597004019648",
+        "decisions": 769
+      },
+      "firstChangedDecision": 769,
+      "previous": null,
+      "next": null,
+      "rejected": [],
+      "integrity": "PASS"
+    }
+  ],
+  "natural": 4,
+  "anomalies": [],
+  "validation": {
+    "directedTests": 5,
+    "build": "PASS",
+    "traceIntegrity": "PASS",
+    "replay": "PASS",
+    "frozenFiles": "PASS"
+  }
+}

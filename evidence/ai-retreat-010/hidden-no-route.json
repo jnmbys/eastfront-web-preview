@@ -1,0 +1,76 @@
+{
+  "trace": [
+    {
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000001",
+          "retreats": [
+            {
+              "unitId": "d",
+              "path": [
+                {
+                  "q": 1,
+                  "r": 0
+                },
+                {
+                  "q": 2,
+                  "r": 0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "SOVIET"
+      }
+    },
+    {
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000001",
+          "retreats": [
+            {
+              "unitId": "d",
+              "path": [
+                {
+                  "q": 1,
+                  "r": 0
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "REJECTED",
+        "side": "SOVIET"
+      }
+    },
+    {
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000001",
+          "retreats": [
+            {
+              "unitId": "d",
+              "path": []
+            }
+          ]
+        }
+      },
+      "result": {
+        "status": "ACCEPTED",
+        "side": "SOVIET"
+      }
+    }
+  ],
+  "extraLossApplied": true
+}

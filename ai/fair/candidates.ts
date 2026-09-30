@@ -124,9 +124,9 @@ function retreatCandidates(input:DeepReadonly<FairInput>):FairIntent[]{
   // on full-length routes blocked by the same unseen ZOC. These remain unvalidated intents.
   for(let ceiling=p.retreatSteps;ceiling>=0;ceiling--){
     const out:FairIntent[]=[];const limit=Math.floor(CANDIDATE_LIMIT/(p.retreatSteps+1));
-    const assign=(ids:readonly string[],done:R[],positions:Map<string,H>):void=>{
-      if(--budget<0||out.length>=limit)return;
-      if(!ids.length){out.push({type:'RETREAT',battleId:p.battleId,retreats:done});return;}
+    function* assign(ids:readonly string[],done:R[],positions:Map<string,H>):Generator<FairIntent>{
+      if(--budget<0)return;
+      if(!ids.length){yield {type:'RETREAT',battleId:p!.battleId,retreats:done};return;}
       const id=ids[0]!,start=positions.get(id)!;const paths:H[][]=[];
       const walk=(from:H,path:H[]):void=>{
         if(path.length<ceiling)for(const h of getNeighbors(from)){
@@ -137,10 +137,32 @@ function retreatCandidates(input:DeepReadonly<FairInput>):FairIntent[]{
         }
         paths.push(path);
       };
-      walk(start,[]);paths.sort((a,b)=>b.length-a.length);
-      for(const path of paths){const next=new Map(positions);next.set(id,path.at(-1)??start);assign(ids.slice(1),[...done,{unitId:id,path}],next);if(out.length>=limit||budget<0)break;}
-    };
-    assign([...p.unitIds].sort(),[],new Map(own.map(u=>[u.id,{...u.hex}])));
+      walk(start,[]);
+      // Round-robin first-step families at each length. One unseen blocked first
+      // step must not spend every retry on different suffixes of the same route.
+      const ordered:H[][]=[];
+      for(let length=ceiling;length>=0;length--){
+        const families=new Map<string,H[][]>();
+        for(const path of paths.filter(path=>path.length===length)){
+          const key=path[0]?hexKey(path[0]):'';
+          if(!families.has(key))families.set(key,[]);families.get(key)!.push(path);
+        }
+        for(let i=0;i<6;i++)for(const family of families.values())if(family[i])ordered.push(family[i]!);
+      }
+      // Lazily interleave assignments instead of exhausting all suffix units
+      // before trying another path for an earlier unit. Positions remain ordered.
+      const streams=ordered.map(path=>{const next=new Map(positions);next.set(id,path.at(-1)??start);
+        return assign(ids.slice(1),[...done,{unitId:id,path}],next);});
+      let active=streams;
+      while(active.length&&budget>=0){
+        const remaining:Generator<FairIntent>[]=[];
+        for(const stream of active){const next=stream.next();if(!next.done){yield next.value;remaining.push(stream);}if(budget<0)break;}
+        active=remaining;
+      }
+    }
+    for(const candidate of assign([...p.unitIds].sort(),[],new Map(own.map(u=>[u.id,{...u.hex}])))){
+      out.push(candidate);if(out.length>=limit)break;
+    }
     groups.push(out);
   }
   const proposals:FairIntent[]=[];

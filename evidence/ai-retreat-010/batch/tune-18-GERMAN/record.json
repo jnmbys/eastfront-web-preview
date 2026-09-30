@@ -1,0 +1,2992 @@
+{
+  "job": {
+    "id": "tune-18-GERMAN",
+    "seed": 18,
+    "candidateSide": "GERMAN"
+  },
+  "config": {
+    "seeds": [
+      17,
+      18
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "baseline": "695ca0524eb039808491b18c69cea1fb74da0cca",
+    "candidate": "AI-RETREAT-010",
+    "control": "d6470f331a7afd3758a6eeb0f5935e8201f98767",
+    "sharedRetreatFlow": "AI-RETREAT-010 on BOTH seats; baseline tactical AI005 unchanged",
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "limits": {
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 720000
+    }
+  },
+  "build": {
+    "sourceParent": "d6470f331a7afd3758a6eeb0f5935e8201f98767",
+    "sourceDiffHash": "70cc254d639b75bc7f7b65f310a98157dde7a3ad2817d9de33ab84c40bda539d",
+    "runtimeHash": "90f641d352eea14d4a465ea5a1d08185b78dc554d48b655900b5abd283a9d575",
+    "baselineRuntimeHash": "a17da90d54667fcad5274b06f70d695d3775aed4a278df742967d78a46a4dce8",
+    "node": "v24.19.0",
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "status": "GAME_OVER",
+  "termination": {
+    "status": "GAME_OVER",
+    "side": "GERMAN"
+  },
+  "reason": null,
+  "winner": "SOVIET",
+  "turn": 16,
+  "decisions": 811,
+  "elapsedMs": 46746.239702,
+  "sides": {
+    "GERMAN": {
+      "acceptedMoves": 187,
+      "movedHexes": 342,
+      "pathLengths": {
+        "1": 87,
+        "2": 72,
+        "3": 9,
+        "4": 11,
+        "5": 8
+      },
+      "perUnit": {
+        "G-J-02": {
+          "acceptedMoves": 5,
+          "movedHexes": 10,
+          "byTurn": {
+            "1": 3,
+            "2": 3,
+            "3": 2,
+            "9": 1,
+            "15": 1
+          }
+        },
+        "G-I-03": {
+          "acceptedMoves": 12,
+          "movedHexes": 22,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "6": 1,
+            "9": 2,
+            "10": 2,
+            "11": 2,
+            "12": 2,
+            "13": 1,
+            "15": 2,
+            "16": 2
+          }
+        },
+        "G-I-07": {
+          "acceptedMoves": 7,
+          "movedHexes": 11,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "6": 1,
+            "9": 1,
+            "12": 1
+          }
+        },
+        "G-MOT-03": {
+          "acceptedMoves": 3,
+          "movedHexes": 9,
+          "byTurn": {
+            "1": 4,
+            "2": 4,
+            "8": 1
+          }
+        },
+        "G-I-10": {
+          "acceptedMoves": 12,
+          "movedHexes": 16,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 2,
+            "4": 2,
+            "5": 1,
+            "7": 1,
+            "9": 2,
+            "10": 1,
+            "12": 2,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "G-I-09": {
+          "acceptedMoves": 15,
+          "movedHexes": 17,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 2,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "12": 2,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1
+          }
+        },
+        "G-I-01": {
+          "acceptedMoves": 9,
+          "movedHexes": 12,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
+        },
+        "G-PZ-02": {
+          "acceptedMoves": 4,
+          "movedHexes": 10,
+          "byTurn": {
+            "1": 2,
+            "2": 4,
+            "3": 3,
+            "5": 1
+          }
+        },
+        "G-PZ-03": {
+          "acceptedMoves": 4,
+          "movedHexes": 14,
+          "byTurn": {
+            "1": 5,
+            "2": 3,
+            "3": 5,
+            "5": 1
+          }
+        },
+        "G-ENG-02": {
+          "acceptedMoves": 15,
+          "movedHexes": 22,
+          "byTurn": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 2,
+            "7": 2,
+            "8": 1,
+            "9": 1,
+            "11": 1,
+            "12": 2,
+            "13": 2,
+            "14": 2,
+            "15": 2,
+            "16": 1
+          }
+        },
+        "G-ART-02": {
+          "acceptedMoves": 1,
+          "movedHexes": 1,
+          "byTurn": {
+            "1": 1
+          }
+        },
+        "G-I-08": {
+          "acceptedMoves": 5,
+          "movedHexes": 9,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "5": 1
+          }
+        },
+        "G-REC-01": {
+          "acceptedMoves": 9,
+          "movedHexes": 27,
+          "byTurn": {
+            "1": 5,
+            "2": 5,
+            "3": 4,
+            "7": 3,
+            "9": 5,
+            "10": 2,
+            "12": 1,
+            "13": 1,
+            "14": 1
+          }
+        },
+        "G-MOT-02": {
+          "acceptedMoves": 3,
+          "movedHexes": 10,
+          "byTurn": {
+            "1": 4,
+            "2": 4,
+            "3": 2
+          }
+        },
+        "G-PZ-04": {
+          "acceptedMoves": 3,
+          "movedHexes": 10,
+          "byTurn": {
+            "1": 5,
+            "2": 4,
+            "8": 1
+          }
+        },
+        "G-I-02": {
+          "acceptedMoves": 15,
+          "movedHexes": 23,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "5": 1,
+            "6": 2,
+            "7": 2,
+            "8": 2,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 2
+          }
+        },
+        "G-ENG-01": {
+          "acceptedMoves": 8,
+          "movedHexes": 14,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "5": 2,
+            "6": 2,
+            "9": 1,
+            "12": 1
+          }
+        },
+        "G-I-04": {
+          "acceptedMoves": 11,
+          "movedHexes": 15,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 1,
+            "5": 1,
+            "7": 1,
+            "9": 1,
+            "10": 2,
+            "11": 1,
+            "13": 1,
+            "15": 1
+          }
+        },
+        "G-PZ-01": {
+          "acceptedMoves": 6,
+          "movedHexes": 13,
+          "byTurn": {
+            "1": 4,
+            "2": 4,
+            "3": 2,
+            "9": 1,
+            "12": 1,
+            "15": 1
+          }
+        },
+        "G-MOT-01": {
+          "acceptedMoves": 4,
+          "movedHexes": 14,
+          "byTurn": {
+            "1": 4,
+            "2": 3,
+            "3": 3,
+            "4": 4
+          }
+        },
+        "G-J-01": {
+          "acceptedMoves": 5,
+          "movedHexes": 12,
+          "byTurn": {
+            "1": 3,
+            "2": 2,
+            "3": 2,
+            "4": 3,
+            "5": 2
+          }
+        },
+        "G-REC-02": {
+          "acceptedMoves": 2,
+          "movedHexes": 10,
+          "byTurn": {
+            "1": 5,
+            "2": 5
+          }
+        },
+        "G-I-05": {
+          "acceptedMoves": 9,
+          "movedHexes": 13,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "5": 1,
+            "6": 1,
+            "9": 1,
+            "12": 1,
+            "15": 1
+          }
+        },
+        "G-I-11": {
+          "acceptedMoves": 7,
+          "movedHexes": 12,
+          "byTurn": {
+            "1": 2,
+            "2": 2,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2,
+            "7": 1
+          }
+        },
+        "G-I-06": {
+          "acceptedMoves": 13,
+          "movedHexes": 16,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 2,
+            "4": 2,
+            "5": 2,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "13": 1,
+            "15": 1
+          }
+        }
+      },
+      "attacks": 39,
+      "rejections": 5,
+      "firstIdentifiedTurn": 2,
+      "firstAdjacentTurn": 2,
+      "meanHexesPerAcceptedMove": 1.8288770053475936
+    },
+    "SOVIET": {
+      "acceptedMoves": 248,
+      "movedHexes": 248,
+      "pathLengths": {
+        "1": 248
+      },
+      "perUnit": {
+        "S-AT-01": {
+          "acceptedMoves": 4,
+          "movedHexes": 4,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "9": 1,
+            "10": 1
+          }
+        },
+        "S-AT-03": {
+          "acceptedMoves": 5,
+          "movedHexes": 5,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "9": 1,
+            "10": 1,
+            "14": 1
+          }
+        },
+        "S-EL-01": {
+          "acceptedMoves": 9,
+          "movedHexes": 9,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
+        },
+        "S-I-03": {
+          "acceptedMoves": 14,
+          "movedHexes": 14,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1
+          }
+        },
+        "S-AT-02": {
+          "acceptedMoves": 5,
+          "movedHexes": 5,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "9": 1,
+            "10": 1,
+            "14": 1
+          }
+        },
+        "S-I-01": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "S-I-10": {
+          "acceptedMoves": 9,
+          "movedHexes": 9,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1
+          }
+        },
+        "S-TK-01": {
+          "acceptedMoves": 7,
+          "movedHexes": 7,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1
+          }
+        },
+        "S-I-09": {
+          "acceptedMoves": 4,
+          "movedHexes": 4,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        },
+        "S-I-04": {
+          "acceptedMoves": 14,
+          "movedHexes": 14,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1
+          }
+        },
+        "S-I-13": {
+          "acceptedMoves": 5,
+          "movedHexes": 5,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        },
+        "S-ART-03": {
+          "acceptedMoves": 1,
+          "movedHexes": 1,
+          "byTurn": {
+            "1": 1
+          }
+        },
+        "S-TK-02": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "S-I-08": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "S-I-02": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        },
+        "S-HV-01": {
+          "acceptedMoves": 4,
+          "movedHexes": 4,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        },
+        "S-EL-02": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        },
+        "S-I-07": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        },
+        "S-I-16": {
+          "acceptedMoves": 13,
+          "movedHexes": 13,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1
+          }
+        },
+        "S-I-15": {
+          "acceptedMoves": 2,
+          "movedHexes": 2,
+          "byTurn": {
+            "1": 1,
+            "2": 1
+          }
+        },
+        "S-I-05": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "S-ENG-01": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "9": 1,
+            "10": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-I-11": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "S-I-14": {
+          "acceptedMoves": 2,
+          "movedHexes": 2,
+          "byTurn": {
+            "1": 1,
+            "2": 1
+          }
+        },
+        "S-ART-01": {
+          "acceptedMoves": 1,
+          "movedHexes": 1,
+          "byTurn": {
+            "1": 1
+          }
+        },
+        "S-TK-03": {
+          "acceptedMoves": 2,
+          "movedHexes": 2,
+          "byTurn": {
+            "1": 1,
+            "2": 1
+          }
+        },
+        "S-MOT-02": {
+          "acceptedMoves": 5,
+          "movedHexes": 5,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "8": 1
+          }
+        },
+        "S-I-12": {
+          "acceptedMoves": 8,
+          "movedHexes": 8,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "14": 1
+          }
+        },
+        "S-MOT-01": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1
+          }
+        },
+        "S-ENG-02": {
+          "acceptedMoves": 4,
+          "movedHexes": 4,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "10": 1,
+            "14": 1
+          }
+        },
+        "S-I-06": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        },
+        "S-ART-02": {
+          "acceptedMoves": 1,
+          "movedHexes": 1,
+          "byTurn": {
+            "1": 1
+          }
+        },
+        "S-R-T04-G01-U02": {
+          "acceptedMoves": 12,
+          "movedHexes": 12,
+          "byTurn": {
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T04-G01-U01": {
+          "acceptedMoves": 12,
+          "movedHexes": 12,
+          "byTurn": {
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T07-G02-U02": {
+          "acceptedMoves": 9,
+          "movedHexes": 9,
+          "byTurn": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T07-G02-U01": {
+          "acceptedMoves": 9,
+          "movedHexes": 9,
+          "byTurn": {
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T07-G02-U03": {
+          "acceptedMoves": 4,
+          "movedHexes": 4,
+          "byTurn": {
+            "9": 1,
+            "10": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T10-G03-U02": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T10-G03-U01": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T10-G03-U03": {
+          "acceptedMoves": 6,
+          "movedHexes": 6,
+          "byTurn": {
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T13-G04-U02": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T13-G04-U03": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T13-G04-U01": {
+          "acceptedMoves": 3,
+          "movedHexes": 3,
+          "byTurn": {
+            "13": 1,
+            "14": 1,
+            "15": 1
+          }
+        },
+        "S-R-T15-G05-U01": {
+          "acceptedMoves": 1,
+          "movedHexes": 1,
+          "byTurn": {
+            "15": 1
+          }
+        },
+        "S-R-T15-G05-U02": {
+          "acceptedMoves": 1,
+          "movedHexes": 1,
+          "byTurn": {
+            "15": 1
+          }
+        }
+      },
+      "attacks": 4,
+      "rejections": 1,
+      "firstIdentifiedTurn": 2,
+      "firstAdjacentTurn": 2,
+      "meanHexesPerAcceptedMove": 1
+    }
+  },
+  "turnDistances": [
+    {
+      "turn": 1,
+      "nearest": 21
+    },
+    {
+      "turn": 2,
+      "nearest": 18
+    },
+    {
+      "turn": 3,
+      "nearest": 18
+    },
+    {
+      "turn": 4,
+      "nearest": 17
+    },
+    {
+      "turn": 5,
+      "nearest": 17
+    },
+    {
+      "turn": 6,
+      "nearest": 17
+    },
+    {
+      "turn": 7,
+      "nearest": 17
+    },
+    {
+      "turn": 8,
+      "nearest": 17
+    },
+    {
+      "turn": 9,
+      "nearest": 15
+    },
+    {
+      "turn": 10,
+      "nearest": 13
+    },
+    {
+      "turn": 11,
+      "nearest": 13
+    },
+    {
+      "turn": 12,
+      "nearest": 14
+    },
+    {
+      "turn": 13,
+      "nearest": 14
+    },
+    {
+      "turn": 14,
+      "nearest": 13
+    },
+    {
+      "turn": 15,
+      "nearest": 12
+    },
+    {
+      "turn": 16,
+      "nearest": 13
+    }
+  ],
+  "objectiveProgress": {
+    "germanControlledCapitalHexes": 0,
+    "nearestGermanToCapital": 13
+  },
+  "traceHash": "af5b0c2012443c67395f48a3cb9f6d1f46a2d6a16f6f1e117ab55754414545ac",
+  "traceBytes": 256129,
+  "finalHash": "95247b241de7622c9c744d048ee14adcf295bb186d8dde2b341d21c9da25ec6d",
+  "finalRandom": {
+    "seed": 18,
+    "state": 3185398320,
+    "draws": 86
+  },
+  "integrity": "PASS",
+  "replay": {
+    "finalHash": "95247b241de7622c9c744d048ee14adcf295bb186d8dde2b341d21c9da25ec6d",
+    "sides": {
+      "GERMAN": {
+        "attacks": 39,
+        "jointAttacks": 37,
+        "lossSteps": 8,
+        "destroyedUnits": 2,
+        "movedHexes": 342,
+        "rejections": 5
+      },
+      "SOVIET": {
+        "attacks": 4,
+        "jointAttacks": 0,
+        "lossSteps": 46,
+        "destroyedUnits": 14,
+        "movedHexes": 248,
+        "rejections": 1
+      }
+    },
+    "turnDistances": [
+      {
+        "turn": 1,
+        "nearest": 21
+      },
+      {
+        "turn": 2,
+        "nearest": 18
+      },
+      {
+        "turn": 3,
+        "nearest": 18
+      },
+      {
+        "turn": 4,
+        "nearest": 17
+      },
+      {
+        "turn": 5,
+        "nearest": 17
+      },
+      {
+        "turn": 6,
+        "nearest": 17
+      },
+      {
+        "turn": 7,
+        "nearest": 17
+      },
+      {
+        "turn": 8,
+        "nearest": 17
+      },
+      {
+        "turn": 9,
+        "nearest": 15
+      },
+      {
+        "turn": 10,
+        "nearest": 13
+      },
+      {
+        "turn": 11,
+        "nearest": 13
+      },
+      {
+        "turn": 12,
+        "nearest": 14
+      },
+      {
+        "turn": 13,
+        "nearest": 14
+      },
+      {
+        "turn": 14,
+        "nearest": 13
+      },
+      {
+        "turn": 15,
+        "nearest": 12
+      },
+      {
+        "turn": 16,
+        "nearest": 13
+      }
+    ],
+    "rejected": [
+      {
+        "n": 505,
+        "turn": 9,
+        "side": "SOVIET",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000021",
+          "retreats": [
+            {
+              "unitId": "S-MOT-02",
+              "path": [
+                {
+                  "q": 13,
+                  "r": -1
+                }
+              ]
+            }
+          ]
+        },
+        "issues": [
+          {
+            "code": "INVALID_RETREAT",
+            "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+            "unitId": "S-MOT-02",
+            "details": {
+              "requiredSteps": 1,
+              "maximumLegalSteps": 0,
+              "providedSteps": 1
+            }
+          }
+        ]
+      },
+      {
+        "n": 632,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000031",
+          "retreats": [
+            {
+              "unitId": "G-ENG-01",
+              "path": [
+                {
+                  "q": 13,
+                  "r": 3
+                }
+              ]
+            },
+            {
+              "unitId": "G-I-07",
+              "path": [
+                {
+                  "q": 13,
+                  "r": 3
+                }
+              ]
+            },
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 10,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        },
+        "issues": [
+          {
+            "code": "INVALID_RETREAT",
+            "message": "Submitted retreat path contains an illegal step.",
+            "unitId": "G-ENG-01",
+            "hex": {
+              "q": 13,
+              "r": 3
+            },
+            "details": {
+              "stepIssues": [
+                "ENEMY_ZOC_STOP"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "n": 633,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000031",
+          "retreats": [
+            {
+              "unitId": "G-ENG-01",
+              "path": []
+            },
+            {
+              "unitId": "G-I-07",
+              "path": []
+            },
+            {
+              "unitId": "G-J-02",
+              "path": []
+            }
+          ]
+        },
+        "issues": [
+          {
+            "code": "INVALID_RETREAT",
+            "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+            "unitId": "G-ENG-01",
+            "details": {
+              "requiredSteps": 1,
+              "maximumLegalSteps": 1,
+              "providedSteps": 0
+            }
+          }
+        ]
+      },
+      {
+        "n": 634,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000031",
+          "retreats": [
+            {
+              "unitId": "G-ENG-01",
+              "path": [
+                {
+                  "q": 11,
+                  "r": 4
+                }
+              ]
+            },
+            {
+              "unitId": "G-I-07",
+              "path": [
+                {
+                  "q": 13,
+                  "r": 3
+                }
+              ]
+            },
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 10,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        },
+        "issues": [
+          {
+            "code": "INVALID_RETREAT",
+            "message": "Submitted retreat path contains an illegal step.",
+            "unitId": "G-I-07",
+            "hex": {
+              "q": 13,
+              "r": 3
+            },
+            "details": {
+              "stepIssues": [
+                "ENEMY_ZOC_STOP"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "n": 635,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000031",
+          "retreats": [
+            {
+              "unitId": "G-ENG-01",
+              "path": []
+            },
+            {
+              "unitId": "G-I-07",
+              "path": [
+                {
+                  "q": 13,
+                  "r": 3
+                }
+              ]
+            },
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 10,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        },
+        "issues": [
+          {
+            "code": "INVALID_RETREAT",
+            "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+            "unitId": "G-ENG-01",
+            "details": {
+              "requiredSteps": 1,
+              "maximumLegalSteps": 1,
+              "providedSteps": 0
+            }
+          }
+        ]
+      },
+      {
+        "n": 636,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "RETREAT",
+          "battleId": "B-000031",
+          "retreats": [
+            {
+              "unitId": "G-ENG-01",
+              "path": [
+                {
+                  "q": 13,
+                  "r": 3
+                }
+              ]
+            },
+            {
+              "unitId": "G-I-07",
+              "path": [
+                {
+                  "q": 11,
+                  "r": 4
+                }
+              ]
+            },
+            {
+              "unitId": "G-J-02",
+              "path": [
+                {
+                  "q": 10,
+                  "r": 4
+                }
+              ]
+            }
+          ]
+        },
+        "issues": [
+          {
+            "code": "INVALID_RETREAT",
+            "message": "Submitted retreat path contains an illegal step.",
+            "unitId": "G-ENG-01",
+            "hex": {
+              "q": 13,
+              "r": 3
+            },
+            "details": {
+              "stepIssues": [
+                "ENEMY_ZOC_STOP"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "attacks": [
+      {
+        "n": 153,
+        "turn": 2,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-MOT-03",
+            "G-PZ-04",
+            "G-REC-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 189,
+        "turn": 2,
+        "side": "SOVIET",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "S-TK-03"
+          ],
+          "target": {
+            "q": 10,
+            "r": 2
+          }
+        }
+      },
+      {
+        "n": 219,
+        "turn": 3,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-MOT-02",
+            "G-MOT-03",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 223,
+        "turn": 3,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-PZ-02",
+            "G-PZ-03"
+          ],
+          "target": {
+            "q": 11,
+            "r": 5
+          }
+        }
+      },
+      {
+        "n": 271,
+        "turn": 4,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-03",
+            "G-I-07",
+            "G-PZ-02",
+            "G-PZ-03"
+          ],
+          "target": {
+            "q": 11,
+            "r": 5
+          }
+        }
+      },
+      {
+        "n": 274,
+        "turn": 4,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-MOT-02",
+            "G-MOT-03",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 323,
+        "turn": 5,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-07",
+            "G-J-02",
+            "G-PZ-02",
+            "G-PZ-03"
+          ],
+          "target": {
+            "q": 11,
+            "r": 4
+          }
+        }
+      },
+      {
+        "n": 326,
+        "turn": 5,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-MOT-02",
+            "G-MOT-03",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 330,
+        "turn": 5,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-10",
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 10,
+            "r": -1
+          }
+        }
+      },
+      {
+        "n": 368,
+        "turn": 6,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-03",
+            "G-I-07",
+            "G-I-08",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 3
+          }
+        }
+      },
+      {
+        "n": 372,
+        "turn": 6,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-05",
+            "G-I-09",
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 10,
+            "r": -1
+          }
+        }
+      },
+      {
+        "n": 376,
+        "turn": 6,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-MOT-02",
+            "G-MOT-03",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 414,
+        "turn": 7,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-06",
+            "G-I-09",
+            "G-I-10"
+          ],
+          "target": {
+            "q": 11,
+            "r": -2
+          }
+        }
+      },
+      {
+        "n": 417,
+        "turn": 7,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-MOT-02",
+            "G-MOT-03",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 11,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 420,
+        "turn": 7,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-03",
+            "G-I-07",
+            "G-I-08",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 3
+          }
+        }
+      },
+      {
+        "n": 423,
+        "turn": 7,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-05",
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 11,
+            "r": -1
+          }
+        }
+      },
+      {
+        "n": 456,
+        "turn": 8,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-05",
+            "G-I-10",
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 11,
+            "r": -1
+          }
+        }
+      },
+      {
+        "n": 460,
+        "turn": 8,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07",
+            "G-I-08",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 3
+          }
+        }
+      },
+      {
+        "n": 463,
+        "turn": 8,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-02",
+            "G-I-01",
+            "G-I-11"
+          ],
+          "target": {
+            "q": 11,
+            "r": 9
+          }
+        }
+      },
+      {
+        "n": 500,
+        "turn": 9,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 12,
+            "r": 2
+          }
+        }
+      },
+      {
+        "n": 503,
+        "turn": 9,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-05",
+            "G-PZ-01",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 12,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 538,
+        "turn": 10,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-09",
+            "G-I-10",
+            "G-PZ-01",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 12,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 541,
+        "turn": 10,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 12,
+            "r": 2
+          }
+        }
+      },
+      {
+        "n": 544,
+        "turn": 10,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-02",
+            "G-I-01",
+            "G-I-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 10
+          }
+        }
+      },
+      {
+        "n": 571,
+        "turn": 10,
+        "side": "SOVIET",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "S-I-16"
+          ],
+          "target": {
+            "q": 14,
+            "r": -1
+          }
+        }
+      },
+      {
+        "n": 574,
+        "turn": 10,
+        "side": "SOVIET",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "S-I-04"
+          ],
+          "target": {
+            "q": 14,
+            "r": -1
+          }
+        }
+      },
+      {
+        "n": 588,
+        "turn": 11,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-05",
+            "G-PZ-01",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 12,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 591,
+        "turn": 11,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-06"
+          ],
+          "target": {
+            "q": 13,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 593,
+        "turn": 11,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07"
+          ],
+          "target": {
+            "q": 13,
+            "r": 2
+          }
+        }
+      },
+      {
+        "n": 626,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-05",
+            "G-I-06",
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 13,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 630,
+        "turn": 12,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 12,
+            "r": 2
+          }
+        }
+      },
+      {
+        "n": 666,
+        "turn": 13,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-06",
+            "G-REC-01"
+          ],
+          "target": {
+            "q": 13,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 669,
+        "turn": 13,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07",
+            "G-I-08",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 3
+          }
+        }
+      },
+      {
+        "n": 673,
+        "turn": 13,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-05",
+            "G-PZ-01",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 12,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 708,
+        "turn": 14,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-06",
+            "G-PZ-01",
+            "G-PZ-04"
+          ],
+          "target": {
+            "q": 12,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 712,
+        "turn": 14,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07",
+            "G-I-08",
+            "G-J-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 3
+          }
+        }
+      },
+      {
+        "n": 740,
+        "turn": 14,
+        "side": "SOVIET",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "S-AT-01"
+          ],
+          "target": {
+            "q": 15,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 758,
+        "turn": 15,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-06",
+            "G-PZ-01"
+          ],
+          "target": {
+            "q": 12,
+            "r": 2
+          }
+        }
+      },
+      {
+        "n": 762,
+        "turn": 15,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-09",
+            "G-I-10"
+          ],
+          "target": {
+            "q": 16,
+            "r": 0
+          }
+        }
+      },
+      {
+        "n": 766,
+        "turn": 15,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-02"
+          ],
+          "target": {
+            "q": 11,
+            "r": 11
+          }
+        }
+      },
+      {
+        "n": 769,
+        "turn": 15,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07"
+          ],
+          "target": {
+            "q": 12,
+            "r": 3
+          }
+        }
+      },
+      {
+        "n": 800,
+        "turn": 16,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-I-04",
+            "G-I-09",
+            "G-I-10"
+          ],
+          "target": {
+            "q": 14,
+            "r": 1
+          }
+        }
+      },
+      {
+        "n": 805,
+        "turn": 16,
+        "side": "GERMAN",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "G-ENG-01",
+            "G-I-07"
+          ],
+          "target": {
+            "q": 12,
+            "r": 3
+          }
+        }
+      }
+    ],
+    "losses": [
+      {
+        "n": 190,
+        "turn": 2,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000191",
+          "battleId": "B-000002",
+          "unitId": "G-REC-02",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 190,
+        "turn": 2,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000191",
+          "battleId": "B-000002",
+          "unitId": "G-REC-02",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 190,
+        "turn": 2,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000191",
+          "battleId": "B-000002",
+          "unitId": "G-REC-02",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 190,
+        "turn": 2,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000191",
+          "battleId": "B-000002",
+          "unitId": "G-REC-02"
+        }
+      },
+      {
+        "n": 272,
+        "turn": 4,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000273",
+          "battleId": "B-000005",
+          "unitId": "S-I-14",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 272,
+        "turn": 4,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000273",
+          "battleId": "B-000005",
+          "unitId": "S-I-14",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 272,
+        "turn": 4,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000273",
+          "battleId": "B-000005",
+          "unitId": "S-I-14",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 272,
+        "turn": 4,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000273",
+          "battleId": "B-000005",
+          "unitId": "S-I-14"
+        }
+      },
+      {
+        "n": 275,
+        "turn": 4,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000276",
+          "battleId": "B-000006",
+          "unitId": "S-I-07",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 275,
+        "turn": 4,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000276",
+          "battleId": "B-000006",
+          "unitId": "S-I-07",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 324,
+        "turn": 5,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000325",
+          "battleId": "B-000007",
+          "unitId": "S-I-15",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 324,
+        "turn": 5,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000325",
+          "battleId": "B-000007",
+          "unitId": "S-I-15",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 324,
+        "turn": 5,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000325",
+          "battleId": "B-000007",
+          "unitId": "S-I-15",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 324,
+        "turn": 5,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000325",
+          "battleId": "B-000007",
+          "unitId": "S-I-15"
+        }
+      },
+      {
+        "n": 369,
+        "turn": 6,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000370",
+          "battleId": "B-000010",
+          "unitId": "S-I-13",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 373,
+        "turn": 6,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000374",
+          "battleId": "B-000011",
+          "unitId": "S-I-06",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 415,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000416",
+          "battleId": "B-000013",
+          "unitId": "S-I-06",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 415,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000416",
+          "battleId": "B-000013",
+          "unitId": "S-I-06",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 415,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000416",
+          "battleId": "B-000013",
+          "unitId": "S-I-06"
+        }
+      },
+      {
+        "n": 418,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000419",
+          "battleId": "B-000014",
+          "unitId": "S-I-08",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 418,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000419",
+          "battleId": "B-000014",
+          "unitId": "S-I-08",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 418,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000419",
+          "battleId": "B-000014",
+          "unitId": "S-I-08",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 418,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000419",
+          "battleId": "B-000014",
+          "unitId": "S-I-08"
+        }
+      },
+      {
+        "n": 422,
+        "turn": 7,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000423",
+          "battleId": "B-000015",
+          "unitId": "G-I-03",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 422,
+        "turn": 7,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000423",
+          "battleId": "B-000015",
+          "unitId": "S-TK-02",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 461,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000462",
+          "battleId": "B-000018",
+          "unitId": "S-TK-02",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 461,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000462",
+          "battleId": "B-000018",
+          "unitId": "S-TK-02",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 461,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000462",
+          "battleId": "B-000018",
+          "unitId": "S-TK-02"
+        }
+      },
+      {
+        "n": 464,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000465",
+          "battleId": "B-000019",
+          "unitId": "S-I-11",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 464,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000465",
+          "battleId": "B-000019",
+          "unitId": "S-I-11",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 464,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000465",
+          "battleId": "B-000019",
+          "unitId": "S-I-11",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 464,
+        "turn": 8,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000465",
+          "battleId": "B-000019",
+          "unitId": "S-I-11"
+        }
+      },
+      {
+        "n": 501,
+        "turn": 9,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000502",
+          "battleId": "B-000020",
+          "unitId": "S-I-13",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 501,
+        "turn": 9,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000502",
+          "battleId": "B-000020",
+          "unitId": "S-I-13",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 501,
+        "turn": 9,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000502",
+          "battleId": "B-000020",
+          "unitId": "S-I-13"
+        }
+      },
+      {
+        "n": 506,
+        "turn": 9,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000506",
+          "battleId": "B-000021",
+          "unitId": "S-MOT-02",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 540,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000540",
+          "battleId": "B-000022",
+          "unitId": "S-MOT-02",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 542,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000542",
+          "battleId": "B-000023",
+          "unitId": "S-I-10",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 542,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000542",
+          "battleId": "B-000023",
+          "unitId": "S-I-10",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 542,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000542",
+          "battleId": "B-000023",
+          "unitId": "S-I-10",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 542,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000542",
+          "battleId": "B-000023",
+          "unitId": "S-I-10"
+        }
+      },
+      {
+        "n": 545,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000545",
+          "battleId": "B-000024",
+          "unitId": "S-ENG-02",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 545,
+        "turn": 10,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000545",
+          "battleId": "B-000024",
+          "unitId": "S-ENG-02",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 575,
+        "turn": 10,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000575",
+          "battleId": "B-000026",
+          "unitId": "G-REC-01",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 589,
+        "turn": 11,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000589",
+          "battleId": "B-000027",
+          "unitId": "S-MOT-02",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 589,
+        "turn": 11,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000589",
+          "battleId": "B-000027",
+          "unitId": "S-MOT-02"
+        }
+      },
+      {
+        "n": 667,
+        "turn": 13,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000662",
+          "battleId": "B-000032",
+          "unitId": "S-I-07",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 667,
+        "turn": 13,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000662",
+          "battleId": "B-000032",
+          "unitId": "S-I-07"
+        }
+      },
+      {
+        "n": 676,
+        "turn": 13,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000671",
+          "battleId": "B-000034",
+          "unitId": "S-ART-01",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 709,
+        "turn": 14,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000704",
+          "battleId": "B-000035",
+          "unitId": "S-I-12",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 709,
+        "turn": 14,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000704",
+          "battleId": "B-000035",
+          "unitId": "S-I-12",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 713,
+        "turn": 14,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000708",
+          "battleId": "B-000036",
+          "unitId": "S-I-03",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 713,
+        "turn": 14,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000708",
+          "battleId": "B-000036",
+          "unitId": "S-I-03",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 741,
+        "turn": 14,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000736",
+          "battleId": "B-000037",
+          "unitId": "G-REC-01",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 741,
+        "turn": 14,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000736",
+          "battleId": "B-000037",
+          "unitId": "G-REC-01",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 741,
+        "turn": 14,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000736",
+          "battleId": "B-000037",
+          "unitId": "G-REC-01"
+        }
+      },
+      {
+        "n": 759,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000754",
+          "battleId": "B-000038",
+          "unitId": "S-ART-01",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 760,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000755",
+          "battleId": "B-000038",
+          "unitId": "S-ART-01",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 760,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000755",
+          "battleId": "B-000038",
+          "unitId": "S-ART-01"
+        }
+      },
+      {
+        "n": 763,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000758",
+          "battleId": "B-000039",
+          "unitId": "S-AT-01",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 763,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000758",
+          "battleId": "B-000039",
+          "unitId": "S-AT-01",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 767,
+        "turn": 15,
+        "side": "GERMAN",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000762",
+          "battleId": "B-000040",
+          "unitId": "G-I-02",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 767,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000762",
+          "battleId": "B-000040",
+          "unitId": "S-ENG-02",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 767,
+        "turn": 15,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000762",
+          "battleId": "B-000040",
+          "unitId": "S-ENG-02"
+        }
+      },
+      {
+        "n": 802,
+        "turn": 16,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000797",
+          "battleId": "B-000042",
+          "unitId": "S-I-03",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 802,
+        "turn": 16,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000797",
+          "battleId": "B-000042",
+          "unitId": "S-I-03"
+        }
+      },
+      {
+        "n": 806,
+        "turn": 16,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000801",
+          "battleId": "B-000043",
+          "unitId": "S-I-04",
+          "fromStep": 0,
+          "toStep": 1
+        }
+      },
+      {
+        "n": 806,
+        "turn": 16,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000801",
+          "battleId": "B-000043",
+          "unitId": "S-I-04",
+          "fromStep": 1,
+          "toStep": 2
+        }
+      },
+      {
+        "n": 806,
+        "turn": 16,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitStepLost",
+          "actionId": "A-000801",
+          "battleId": "B-000043",
+          "unitId": "S-I-04",
+          "fromStep": 2,
+          "toStep": null
+        }
+      },
+      {
+        "n": 806,
+        "turn": 16,
+        "side": "SOVIET",
+        "event": {
+          "type": "UnitDestroyed",
+          "actionId": "A-000801",
+          "battleId": "B-000043",
+          "unitId": "S-I-04"
+        }
+      }
+    ]
+  }
+}

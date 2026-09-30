@@ -1,0 +1,68 @@
+{
+  "build": "PASS",
+  "tests": {
+    "command": "node --test ai/tests/retreat010.test.mjs",
+    "pass": 5,
+    "fail": 0
+  },
+  "checkpoints": [
+    {
+      "id": "tune-17-SOVIET",
+      "attempts": 6,
+      "originalFirstLegal": 10
+    },
+    {
+      "id": "tune-18-GERMAN",
+      "attempts": 6,
+      "originalFirstLegal": 14
+    }
+  ],
+  "games": [
+    {
+      "id": "tune-17-GERMAN",
+      "status": "GAME_OVER",
+      "turn": 16,
+      "traceHash": "bb996d1ed6b69c36b0098562a61c14c1edc2a747ed8c9addf61d07ff42c08e2b",
+      "finalHash": "c06e06b8349fa7f196531254c5dffb001480df1c1b9d3543fe9a8deb0140b4ae",
+      "decisions": 654,
+      "replay": "PASS",
+      "sameAs009": true
+    },
+    {
+      "id": "tune-17-SOVIET",
+      "status": "GAME_OVER",
+      "turn": 16,
+      "traceHash": "8994abea378ec75f767943308e10694af07caaaf06aa75e49c50a1f11041b20b",
+      "finalHash": "0330be86a7738b5145851f5650b97799c12a186a8359d6a6bcda0934c6b7fbad",
+      "decisions": 833,
+      "replay": "PASS",
+      "sameAs009": false
+    },
+    {
+      "id": "tune-18-GERMAN",
+      "status": "GAME_OVER",
+      "turn": 16,
+      "traceHash": "af5b0c2012443c67395f48a3cb9f6d1f46a2d6a16f6f1e117ab55754414545ac",
+      "finalHash": "95247b241de7622c9c744d048ee14adcf295bb186d8dde2b341d21c9da25ec6d",
+      "decisions": 811,
+      "replay": "PASS",
+      "sameAs009": false
+    },
+    {
+      "id": "tune-18-SOVIET",
+      "status": "GAME_OVER",
+      "turn": 16,
+      "traceHash": "575276d5db45b3f5717068f2e453fcd3b5b5a28b37732922c8dce77d0c96f096",
+      "finalHash": "cb1d9e996c8fec0834ba6081bc8f1c03b985a1500c0d39ab28b5597004019648",
+      "decisions": 769,
+      "replay": "PASS",
+      "sameAs009": true
+    }
+  ],
+  "sourceDiffHash": "70cc254d639b75bc7f7b65f310a98157dde7a3ad2817d9de33ab84c40bda539d",
+  "runtimeHash": "90f641d352eea14d4a465ea5a1d08185b78dc554d48b655900b5abd283a9d575",
+  "sourceParent": "d6470f331a7afd3758a6eeb0f5935e8201f98767",
+  "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+  "failures": [],
+  "remaining": "Hidden blockers and bounded enumeration do not guarantee recovery in all other states; browser/Huawei not tested."
+}
