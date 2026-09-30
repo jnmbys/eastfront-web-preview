@@ -1,0 +1,46 @@
+name: Supply campaign 012 targeted qualification
+on:
+  push:
+    branches: [supply-campaign-012]
+    paths:
+      - '.github/workflows/supply-campaign-012.yml'
+      - 'experiments/supply-ci-012/**'
+permissions:
+  contents: read
+concurrency:
+  group: supply-campaign-012
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout validation driver
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          path: validation
+      - name: Checkout immutable campaign candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: aca1f4b9801ab7b7c7073ac7973bb028cd6df435
+          persist-credentials: false
+          path: candidate
+      - name: Build and run 0.5 CPU 512 MiB targeted checks
+        timeout-minutes: 21
+        run: |
+          mkdir -p results
+          python3 validation/experiments/supply-ci-012/run.py --candidate candidate --sha aca1f4b9801ab7b7c7073ac7973bb028cd6df435 --out results
+      - name: Publish concise summary
+        if: always()
+        run: |
+          if [ -f results/SUMMARY.md ]; then cat results/SUMMARY.md >> "$GITHUB_STEP_SUMMARY"; else echo 'No completed report; inspect build log.' >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Upload reports and logs only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: supply-campaign-012-${{ github.run_id }}
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
+          compression-level: 9
