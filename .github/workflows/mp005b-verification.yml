@@ -1,26 +1,44 @@
-name: MP005B backend compatibility gate
+# Reuses an already registered manual workflow; change exists ONLY on supply-ci-017.
+name: Supply CI 017 container qualification
 on:
-  push:
-    branches: [source-main]
-    paths: ['src/multiplayer/snapshotCodec.ts', 'scripts/mp005b/public-check.mjs']
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: supply-ci-017
+  cancel-in-progress: false
 jobs:
-  verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  validate:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/supply-ci-017'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout validation driver
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run server:build
-      - run: node scripts/mp005b/public-check.mjs
-      - uses: actions/upload-artifact@v4
+          persist-credentials: false
+          path: validation
+      - name: Checkout immutable 016 candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: 813b4072568352e95d0726fe5fe04060c889c554
+          persist-credentials: false
+          path: candidate
+      - name: Build root context and validate 0.5 CPU 512 MiB
+        timeout-minutes: 21
+        run: |
+          mkdir -p results
+          python3 validation/experiments/supply-ci-017/run.py --candidate candidate --sha 813b4072568352e95d0726fe5fe04060c889c554 --out results
+      - name: Publish summary
         if: always()
+        run: |
+          if [ -f results/SUMMARY.md ]; then cat results/SUMMARY.md >> "$GITHUB_STEP_SUMMARY"; else echo 'No completed report; inspect build logs.' >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Preserve reports and logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: mp005b-public-check
-          path: mp005b-public-check.json
+          name: supply-ci-017-${{ github.run_id }}
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
+          compression-level: 9
