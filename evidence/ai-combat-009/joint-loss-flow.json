@@ -1,0 +1,61 @@
+{
+  "seed": 17,
+  "trace": [
+    {
+      "pending": null,
+      "controllerId": "G-HUMAN-1",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "g1",
+            "g2"
+          ],
+          "target": {
+            "q": 0,
+            "r": 0
+          }
+        }
+      },
+      "result": {
+        "status": "ACCEPTED",
+        "side": "GERMAN"
+      }
+    },
+    {
+      "pending": "DEFENDER_REACTION",
+      "controllerId": "S-AI-1",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "PASS_REACTION",
+          "battleId": "B-000001"
+        }
+      },
+      "result": {
+        "status": "ACCEPTED",
+        "side": "SOVIET"
+      }
+    },
+    {
+      "pending": "LOSS_ALLOCATION",
+      "controllerId": "G-HUMAN-1",
+      "choice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "ALLOCATE_LOSSES",
+          "battleId": "B-000001",
+          "unitIdsByStep": [
+            "g1"
+          ]
+        }
+      },
+      "result": {
+        "status": "ACCEPTED",
+        "side": "GERMAN"
+      }
+    }
+  ],
+  "replayMatches": true
+}

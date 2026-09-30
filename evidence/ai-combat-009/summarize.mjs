@@ -1,0 +1,41 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+const dir='evidence/ai-combat-009',comparison=JSON.parse(readFileSync(dir+'/comparison.json'));
+const pair=(r,key)=>['GERMAN','SOVIET'].map(s=>r.sides[s][key]).join('/');
+const rows=comparison.comparisons.map(g=>{
+ const b=g.control,c=g.candidate;
+ return `|${g.seed}/${g.candidateSide}|0→${c.sides[g.candidateSide].jointAttacks}|${pair(b,'attacks')}→${pair(c,'attacks')}|${pair(b,'lossSteps')}→${pair(c,'lossSteps')}|${b.nearestGermanCapital}→${c.nearestGermanCapital}（T${c.turn}）|${pair(b,'rejections')}→${pair(c,'rejections')}|${c.status==='GAME_OVER'?'T16苏胜':'异常：REJECTION_LIMIT†'}|`;
+});
+const complete=comparison.comparisons.filter(x=>x.validOutcomeComparison).length;
+const report={...comparison,completePairs:complete,abnormalPairs:4-complete,totalAcceptedJointAttacks:comparison.comparisons.reduce((n,g)=>n+g.candidate.sides[g.candidateSide].jointAttacks,0),acceptance:'Targeted candidate/score/boundary tests passed; full-match integration incomplete due to two retreat-limit stops.'};
+writeFileSync(dir+'/summary.json',JSON.stringify(report,null,2)+'\n');
+writeFileSync(dir+'/summary.md',`# AI-COMBAT-009 研究摘要
+
+候选源码/证据由本文件所在Git提交固定。父提交3640246770921fb907eb68fd7e8a37f8f368af11；配对对照006=f4c9b9732f3725fb067d4b29a6cff12e66eb3e53。双方默认参数attackRatio=1.5、penaltyWeight=0.75不变。
+
+候选009与原固定AI005（695ca0524eb039808491b18c69cea1fb74da0cca）对战；006历史对照使用同一个AI005对手、种子、阵营、规则/地图及agent seeds。这是同对手的配对前后比较，不是009直接对006的交叉比赛。只新增4局，未触留出集。
+
+仅攻击候选发生变化：2～4个同控制者、有攻击资格且邻接同一可见目标的单位；最多64个组合、总候选128，单攻和不攻击保留。原评分已经支持参战攻击力求和，OOS逐单位取整、最差河流/地形惩罚和门槛完全不改；不添加人数奖励、不选择或重复计算支援。
+
+下面德/苏数字均按阵营顺序；损失为累计损失步，不是单位消灭数；最近距离取当时存活德军到公开首都的最小值，不是固定单位轨迹。006列均为原T16终局数据。
+
+|种子/候选阵营|候选联攻006→009|总攻击德/苏006→009|损失步德/苏006→009|德最近距离006→009|拒绝德/苏006→009|009结果|
+|---|---|---|---|---|---|---|
+${rows.join('\n')}
+
+† 两异常局在T14/T12中途停止；其累计数字和停局距离仅作记录，不与T16当作同长度完整比较，不计胜负或有效增强证据。正常两局仍均苏军胜，四局德军均未占首都格。没有以50%胜率或增加攻击次数作为通过条件。
+
+**局部通路证据**：17候选德军，T3 n219由G-PZ-02/G-PZ-03联合攻击(11,5)，结算有守军消灭；T7 n404的G-I-03普通MOVE进入(11,5)。另两个例子在opened-hex-examples.json。这里只证明联合攻击及随后进入原目标格均实际发生，不推断所有后续推进均由该次攻击造成。
+
+**异常**：17候选苏军局，固定对手德军T14 n739～746连续8次RETREAT/INVALID_RETREAT；18候选德军局，候选德军T12 n632～639同类连续8次，触及既有上限。另有6次MOVE/ENEMY_ZOC_STOP和1次苏军RETREAT拒绝后恢复；全4局共23次拒绝，零ATTACK拒绝。未改撤退流程或拒绝上限。
+
+**验证**：新增7项定向测试和既有4项LAB参数/公平测试通过，构建通过。涵盖单攻不够/联攻过门槛、仍应不攻击、资格与唯一ID、2～4人和64/128上限、没有人数/支援加分、真实联攻及消耗资格、反应/战后选择/己方损失分配回放、隐藏状态与未来RNG隔离。4局trace字节/条数/哈希及终态重放一致；2局正常终局、2局上限异常。异常局日志完整不等于完整对局验收通过。
+
+建议研究聊天先判断两段撤退失败是否需要独立修复任务；当前只能确认候选功能有效、局部可利用共同攻击，不能宣称整体更强或已完整验收。未部署，未改Core、RNG、补给、攻击评分、参数或移动策略。首次测试夹具假设和终止拒绝漏计均已纠正并留档，见README及failures.json。
+`);
+// Reconcile only derived summaries after the documented terminal-rejection count correction.
+const old=JSON.parse(readFileSync(dir+'/batch/summary.json'));
+const games=comparison.comparisons.map(g=>JSON.parse(readFileSync(`${dir}/batch/${g.id}/record.json`)));
+old.games=games.map(({config,build,sides,...r})=>({...r,sides:Object.fromEntries(Object.entries(sides).map(([side,{perUnit,...s}])=>[side,s]))}));
+writeFileSync(dir+'/batch/summary.json',JSON.stringify(old,null,2)+'\n');
+writeFileSync(dir+'/batch/anomalies.json',JSON.stringify(games.filter(r=>r.status!=='GAME_OVER'||r.integrity!=='PASS'),null,2)+'\n');
+console.log(JSON.stringify({completePairs:complete,abnormalPairs:4-complete,jointAttacks:report.totalAcceptedJointAttacks}));

@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "initial test fixture assumption",
+    "detail": "Initial solo-insufficient fixture used G-INF against S-INF, incorrectly assuming German infantry attack 3. Production G-INF attack is 5, so solo 5/3 already meets 1.5. Two test assertions failed for this same reason.",
+    "correction": "Use existing S-TANK defender with defense 5: solo 5/5 fails, joint 10/5 passes. No template, parameter or strategy change was made to pass the tests. Saved first failure log; reran only affected new test file, then one additional loss-allocation case.",
+    "evidence": "tests-first-fixture-failure.log"
+  },
+  {
+    "kind": "reused batch telemetry omission",
+    "detail": "Original MOVE006 runner counted only result.status=REJECTED; a terminal REJECTION_LIMIT adjudication is also a rejection. New two abnormal records initially undercounted the German total by one each (7 versus 8).",
+    "correction": "Count REJECTION_LIMIT too. Raw traces and post-game Core metrics already retained all eight. Corrected derived record.sides totals and summaries; recorded exact changes. No match or decision was rerun, no original trace was edited.",
+    "evidence": "rejection-count-corrections.json"
+  },
+  {
+    "kind": "match termination, not normal defeat",
+    "games": ["tune-17-SOVIET", "tune-18-GERMAN"],
+    "detail": "Eight consecutive Core INVALID_RETREAT rejections terminate the fixed German baseline at T14 or candidate German at T12. No ATTACK rejection occurred. Forced-flow/routing expansion is outside this attack-candidate change; do not remove the bound or count these games as normal outcomes.",
+    "evidence": "comparison.json and batch/anomalies.json"
+  }
+]

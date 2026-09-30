@@ -2,6 +2,7 @@ import {getNeighbors,hexKey} from '../../vendor/eastfront-digital-core/dist/core
 import {createMoveScorer} from './routing.js';
 import type {DeepReadonly,FairInput,FairIntent} from './types.js';
 export const CANDIDATE_LIMIT=128;
+export const ATTACK_GROUP_LIMIT=4,ATTACK_COMBINATION_LIMIT=64;
 /** Proposals, NOT an oracle of legal actions. No engine, preview, GameState or callback. */
 export function observationCandidates(input:DeepReadonly<FairInput>,includeMovePrefixes=true):FairIntent[] {
   const {view,deployment}=input,p=view.pendingDecision;
@@ -55,16 +56,11 @@ export function observationCandidates(input:DeepReadonly<FairInput>,includeMoveP
     const entries=input.reinforcements.entries.filter(h=>own.filter(u=>hexKey(u.hex)===hexKey(h)).length<input.rules.stackingLimit);
     return [...(id?entries.slice(0,CANDIDATE_LIMIT-1).map(h=>({type:'DEPLOY_REINFORCEMENT' as const,reinforcementId:id,entryHex:{q:h.q,r:h.r}})):[]),{type:'READY_FOR_PHASE_END'}];
   }
+  if(view.phase.endsWith('_COMBAT'))return attackCandidates(input);
   const actions:FairIntent[]=[{type:'READY_FOR_PHASE_END'}],board=new Set(view.hexes.map(h=>hexKey(h.coord)));
   if(view.phase.endsWith('_MOVEMENT'))for(const u of own){
     if(!('friendly' in u)||u.friendly.hasMoved)continue;
     for(const h of getNeighbors(u.hex))if(board.has(hexKey(h)))actions.push({type:'MOVE',unitId:u.id,path:[h]});
-  }
-  if(view.phase.endsWith('_COMBAT'))for(const u of own){
-    if(!('friendly' in u)||u.friendly.hasAttacked||u.stats.attack<=0)continue;
-    const adjacent=new Set(getNeighbors(u.hex).map(hexKey));
-    for(const target of view.units.filter(v=>v.side!==view.viewer&&adjacent.has(hexKey(v.hex))))
-      actions.push({type:'ATTACK',attackerUnitIds:[u.id],target:{q:target.hex.q,r:target.hex.r}});
   }
   const base=unique(actions).slice(0,CANDIDATE_LIMIT);
   if(includeMovePrefixes&&view.phase.endsWith('_MOVEMENT')){
@@ -76,6 +72,37 @@ export function observationCandidates(input:DeepReadonly<FairInput>,includeMoveP
   return base;
 }
 function unique(actions:FairIntent[]):FairIntent[]{return [...new Map(actions.map(a=>[JSON.stringify(a),a])).values()];}
+
+/** Direct attackers only: no foreign commitments, support slots or legality oracle.
+ * Keep singles first; round-robin target/size streams use only the remaining budget. */
+function attackCandidates(input:DeepReadonly<FairInput>):FairIntent[]{
+  const {view}=input;
+  const own=view.units.filter(u=>u.side===view.viewer&&'friendly' in u&&u.friendly.controllerId===input.scope.controllerId&&u.friendly.alive&&!u.friendly.hasAttacked&&!u.friendly.dedicatedRailRepair&&u.stats.attack>0)
+    .sort((a,b)=>a.id.localeCompare(b.id));
+  const targets=[...new Map(view.units.filter(u=>u.side!==view.viewer).map(u=>[hexKey(u.hex),{q:u.hex.q,r:u.hex.r}])).entries()].sort(([a],[b])=>a.localeCompare(b));
+  const adjacent=new Map(own.map(u=>[u.id,new Set(getNeighbors(u.hex).map(hexKey))]));
+  const actions:FairIntent[]=[{type:'READY_FOR_PHASE_END'}];
+  for(const u of own)for(const [k,target] of targets)if(adjacent.get(u.id)!.has(k)&&actions.length<CANDIDATE_LIMIT)actions.push({type:'ATTACK',attackerUnitIds:[u.id],target});
+  function* groups(ids:string[],size:number,start=0,prefix:string[]=[]):Generator<string[]>{
+    if(!size){yield prefix;return;}
+    for(let i=start;i<=ids.length-size;i++)yield* groups(ids,size-1,i+1,[...prefix,ids[i]!]);
+  }
+  const streams=targets.flatMap(([k,target])=>{
+    const ids=own.filter(u=>adjacent.get(u.id)!.has(k)).map(u=>u.id);
+    return Array.from({length:Math.max(0,Math.min(ATTACK_GROUP_LIMIT,ids.length)-1)},(_,i)=>({target,iterator:groups(ids,i+2),done:false}));
+  });
+  let added=0,active=streams.length;
+  while(active&&added<ATTACK_COMBINATION_LIMIT&&actions.length<CANDIDATE_LIMIT){
+    for(const stream of streams){
+      if(stream.done)continue;
+      const next=stream.iterator.next();
+      if(next.done){stream.done=true;active--;continue;}
+      actions.push({type:'ATTACK',attackerUnitIds:next.value,target:stream.target});added++;
+      if(added>=ATTACK_COMBINATION_LIMIT||actions.length>=CANDIDATE_LIMIT)break;
+    }
+  }
+  return actions;
+}
 
 /** Bounded observation search, not authoritative retreat legality. Hidden blockers can reject it.
  * Keep shorter and empty proposals: only the engine may decide that retreat is impossible.

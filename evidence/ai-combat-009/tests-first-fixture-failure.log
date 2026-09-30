@@ -1,0 +1,62 @@
+✖ COMBAT009 solo fails unchanged threshold, joint passes real Core; participants spent once and forced flow replays (41.293109ms)
+✖ COMBAT009 joint can remain unattractive; wait stays available and bounded refusal feedback is preserved (16.844926ms)
+✔ COMBAT009 only eligible owned adjacent direct attackers; movement does not spend attack eligibility (7.142959ms)
+✔ COMBAT009 original sum/OOS/worst-river score, no headcount or support bonus (5.263444ms)
+✔ COMBAT009 combinations have unique sorted IDs, deterministic target/size traversal and fixed budgets (9.417862ms)
+✔ COMBAT009 hidden composition and future RNG cannot change joint proposals or selected intent (9.440282ms)
+✔ LAB002 default coefficients and decisions equal frozen AI005 across threshold/terrain cases (835.175587ms)
+✔ LAB002 each parameter independently changes actual selected intent (75.87498ms)
+✔ LAB002 strict validation, normalized defaults, immutable baseline and disjoint splits (9.823207ms)
+✔ LAB002 configured candidate ignores hidden composition and future combat RNG (29.320221ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 8
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1290.984829
+
+✖ failing tests:
+
+test at ai/tests/combat009.test.mjs:15:1
+✖ COMBAT009 solo fails unchanged threshold, joint passes real Core; participants spent once and forced flow replays (41.293109ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+    assert(a.filter(a=>a.attackerUnitIds.length===1).every(a=>scoreIntent(x,a)===-Infinity))
+
+      at TestContext.<anonymous> (file:///workspace/scratch/2d63d88d2207/eastfront/ai/tests/combat009.test.mjs:18:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ai/tests/combat009.test.mjs:38:1
+✖ COMBAT009 joint can remain unattractive; wait stays available and bounded refusal feedback is preserved (16.844926ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + 'ATTACK'
+  - 'READY_FOR_PHASE_END'
+
+      at TestContext.<anonymous> (file:///workspace/scratch/2d63d88d2207/eastfront/ai/tests/combat009.test.mjs:43:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ATTACK',
+    expected: 'READY_FOR_PHASE_END',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
