@@ -1,0 +1,9 @@
+[
+  {
+    "stage": "first offline validation",
+    "kind": "diagnostic assertion error, not a game or search failure",
+    "detail": "The script expected a rejected RulesEngine.apply returned state to equal the input in every field. Core records the rejected action and advances nextAction; FairHost normally discards this returned state.",
+    "correction": "Assert unchanged input and unchanged returned gameplay/RNG, separately verify the single appended log entry and nextAction increment.",
+    "effect": "Stopped at first seed-18 improving path before writing offline-validation.json. Search outputs and checkpoints remained unchanged. Only the eight checkpoint validations were rerun after correcting the diagnostic assertion; no new game was run."
+  }
+]

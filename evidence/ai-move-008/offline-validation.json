@@ -1,0 +1,318 @@
+[
+  {
+    "seed": 17,
+    "checkpointHash": "d78c277f636003040686df52920e3dd5a99b11b802280c128f747d9874c56c7b",
+    "sealedSearchHash": "912c159592809e7292fdbde94929742c8e1b2988b1fde5ad6efc8e2a1f80d87d",
+    "noFeedback": true,
+    "results": [
+      {
+        "unitId": "G-MOT-01",
+        "path": [
+          {
+            "q": 10,
+            "r": 7
+          }
+        ],
+        "kind": "retreat-first-step-control",
+        "accepted": true,
+        "issues": [],
+        "spentMP": 1,
+        "maxMP": 4,
+        "events": [
+          {
+            "type": "UnitMoved",
+            "actionId": "A-000301",
+            "unitId": "G-MOT-01",
+            "from": {
+              "q": 11,
+              "r": 6
+            },
+            "to": {
+              "q": 10,
+              "r": 7
+            },
+            "spentMP": 1,
+            "maxMP": 4
+          }
+        ]
+      },
+      {
+        "unitId": "G-PZ-04",
+        "path": [
+          {
+            "q": 10,
+            "r": 1
+          }
+        ],
+        "kind": "retreat-first-step-control",
+        "accepted": true,
+        "issues": [],
+        "spentMP": 1,
+        "maxMP": 5,
+        "events": [
+          {
+            "type": "UnitMoved",
+            "actionId": "A-000301",
+            "unitId": "G-PZ-04",
+            "from": {
+              "q": 11,
+              "r": 1
+            },
+            "to": {
+              "q": 10,
+              "r": 1
+            },
+            "spentMP": 1,
+            "maxMP": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "seed": 18,
+    "checkpointHash": "83e46dc9f3e063e538ef177aa0de195e12dcb7b1851e2b2e7e4e8eb200a5cde0",
+    "sealedSearchHash": "78a2dbaa914430a255141f612976d2cc77d5663de1fae821e87d22cd2674aca5",
+    "noFeedback": true,
+    "results": [
+      {
+        "unitId": "G-MOT-03",
+        "path": [
+          {
+            "q": 11,
+            "r": 1
+          }
+        ],
+        "kind": "retreat-first-step-control",
+        "accepted": true,
+        "issues": [],
+        "spentMP": 1,
+        "maxMP": 4,
+        "events": [
+          {
+            "type": "UnitMoved",
+            "actionId": "A-000230",
+            "unitId": "G-MOT-03",
+            "from": {
+              "q": 12,
+              "r": 1
+            },
+            "to": {
+              "q": 11,
+              "r": 1
+            },
+            "spentMP": 1,
+            "maxMP": 4
+          }
+        ]
+      },
+      {
+        "unitId": "G-MOT-03",
+        "path": [
+          {
+            "q": 11,
+            "r": 1
+          },
+          {
+            "q": 12,
+            "r": 0
+          },
+          {
+            "q": 13,
+            "r": 0
+          }
+        ],
+        "spentMP": 3,
+        "endDistance": 15,
+        "netProgress": 1,
+        "kind": "improving-path",
+        "accepted": false,
+        "issues": [
+          {
+            "code": "ENEMY_ZOC_STOP",
+            "message": "Entering enemy ZOC ends movement.",
+            "unitId": "G-MOT-03",
+            "hex": {
+              "q": 12,
+              "r": 0
+            }
+          }
+        ],
+        "maxMP": 4,
+        "events": [
+          {
+            "type": "ActionRejected",
+            "actionId": "A-000230",
+            "validationCodes": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        ]
+      },
+      {
+        "unitId": "G-PZ-04",
+        "path": [
+          {
+            "q": 11,
+            "r": 1
+          }
+        ],
+        "kind": "retreat-first-step-control",
+        "accepted": true,
+        "issues": [],
+        "spentMP": 1,
+        "maxMP": 5,
+        "events": [
+          {
+            "type": "UnitMoved",
+            "actionId": "A-000230",
+            "unitId": "G-PZ-04",
+            "from": {
+              "q": 12,
+              "r": 1
+            },
+            "to": {
+              "q": 11,
+              "r": 1
+            },
+            "spentMP": 1,
+            "maxMP": 5
+          }
+        ]
+      },
+      {
+        "unitId": "G-PZ-04",
+        "path": [
+          {
+            "q": 11,
+            "r": 1
+          },
+          {
+            "q": 12,
+            "r": 0
+          },
+          {
+            "q": 13,
+            "r": -1
+          }
+        ],
+        "spentMP": 3,
+        "endDistance": 15,
+        "netProgress": 1,
+        "kind": "improving-path",
+        "accepted": false,
+        "issues": [
+          {
+            "code": "ENEMY_ZOC_STOP",
+            "message": "Entering enemy ZOC ends movement.",
+            "unitId": "G-PZ-04",
+            "hex": {
+              "q": 12,
+              "r": 0
+            }
+          }
+        ],
+        "maxMP": 5,
+        "events": [
+          {
+            "type": "ActionRejected",
+            "actionId": "A-000230",
+            "validationCodes": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        ]
+      },
+      {
+        "unitId": "G-PZ-04",
+        "path": [
+          {
+            "q": 11,
+            "r": 1
+          },
+          {
+            "q": 12,
+            "r": 0
+          },
+          {
+            "q": 13,
+            "r": 0
+          }
+        ],
+        "spentMP": 3,
+        "endDistance": 15,
+        "netProgress": 1,
+        "kind": "improving-path",
+        "accepted": false,
+        "issues": [
+          {
+            "code": "ENEMY_ZOC_STOP",
+            "message": "Entering enemy ZOC ends movement.",
+            "unitId": "G-PZ-04",
+            "hex": {
+              "q": 12,
+              "r": 0
+            }
+          }
+        ],
+        "maxMP": 5,
+        "events": [
+          {
+            "type": "ActionRejected",
+            "actionId": "A-000230",
+            "validationCodes": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        ]
+      },
+      {
+        "unitId": "G-PZ-04",
+        "path": [
+          {
+            "q": 11,
+            "r": 1
+          },
+          {
+            "q": 12,
+            "r": 0
+          },
+          {
+            "q": 13,
+            "r": 0
+          },
+          {
+            "q": 14,
+            "r": -1
+          }
+        ],
+        "spentMP": 3,
+        "endDistance": 14,
+        "netProgress": 2,
+        "kind": "improving-path",
+        "accepted": false,
+        "issues": [
+          {
+            "code": "ENEMY_ZOC_STOP",
+            "message": "Entering enemy ZOC ends movement.",
+            "unitId": "G-PZ-04",
+            "hex": {
+              "q": 12,
+              "r": 0
+            }
+          }
+        ],
+        "maxMP": 5,
+        "events": [
+          {
+            "type": "ActionRejected",
+            "actionId": "A-000230",
+            "validationCodes": [
+              "ENEMY_ZOC_STOP"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
