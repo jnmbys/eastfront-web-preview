@@ -1,0 +1,89 @@
+{
+  "runtimeFiles": 74,
+  "runtimeBytes": 3964473,
+  "baseline009RuntimeBytes": 3354989,
+  "deltaVs009Bytes": 609484,
+  "newImageBytes": 605378,
+  "newAtlasDecodedBytes": 6290064,
+  "newTileBackingBytes": 2359296,
+  "oldAssetHashesUnchanged": true,
+  "singleColdSamples": [
+    {
+      "variant": "009",
+      "stats": {
+        "localBakeMs": 10.100000000558794,
+        "localTileBytes": 2097152,
+        "settlementCells": [
+          "X14",
+          "W13",
+          "W14",
+          "V13",
+          "V14",
+          "W15",
+          "X15",
+          "Y15"
+        ],
+        "tintMs": 203,
+        "tintBackingBytes": 2287104,
+        "detailCount": 334,
+        "detailMs": 54.200000000186265,
+        "detailDecodedBytes": 6290064,
+        "box": {
+          "minX": -44.373066958946424,
+          "minY": -995,
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "rasterScale": 1.645397181032507,
+        "layoutMs": 74.29999999981374,
+        "paintAndDecodeMs": 784.7999999998137,
+        "canvasPixels": 15110144,
+        "estimatedCanvasBytes": 60440576,
+        "readyMs": 931.2999999998137,
+        "navigationToReadyMs": 1179
+      },
+      "nodes": 2449,
+      "longestTaskMs": 1266
+    },
+    {
+      "variant": "010",
+      "stats": {
+        "terrain010DecodedBytes": 6290064,
+        "terrain010TileBytes": 2359296,
+        "localBakeMs": 89,
+        "localTileBytes": 2097152,
+        "settlementCells": [
+          "X14",
+          "W13",
+          "W14",
+          "V13",
+          "V14",
+          "W15",
+          "X15",
+          "Y15"
+        ],
+        "tintMs": 206.19999999925494,
+        "tintBackingBytes": 2287104,
+        "detailCount": 334,
+        "detailMs": 667.5,
+        "detailDecodedBytes": 6290064,
+        "box": {
+          "minX": -44.373066958946424,
+          "minY": -995,
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "rasterScale": 1.645397181032507,
+        "layoutMs": 85.20000000018626,
+        "paintAndDecodeMs": 1542.7999999998137,
+        "canvasPixels": 15110144,
+        "estimatedCanvasBytes": 60440576,
+        "readyMs": 1642.5,
+        "navigationToReadyMs": 1840.2000000001863
+      },
+      "nodes": 2449,
+      "longestTaskMs": 1375
+    }
+  ],
+  "limits": "One final cold context each; no CPU/network throttle. Ready is not presented-frame time. Slower observed 010 paint, no performance acceptance. Main canvas unchanged. Decoded/backing byte arithmetic is not RSS/VRAM. Original 708ms startup issue remains open."
+}
