@@ -1,0 +1,259 @@
+{
+  "source_sha": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435",
+  "workflow_sha": "e71b9f66e5fa5cc494c2bd7bbaca277b8b4aa82a",
+  "environment": "GitHub ubuntu-24.04; NOT Render",
+  "limits": {
+    "cpus": 0.5,
+    "memory_bytes": 536870912,
+    "memory_swap_bytes": 536870912,
+    "pids": 128
+  },
+  "budget_seconds": 3,
+  "passed": true,
+  "host": {
+    "kernel": "6.17.0-1022-azure",
+    "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           48 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  4\nOn-line CPU(s) list:                     0-3\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      2\nCore(s) per socket:                      2\nSocket(s):                               1\nStepping:                                2\nCPU(s) scaling MHz:                      123%\nCPU max MHz:                             2300.0000\nCPU min MHz:                             800.0000\nBogoMIPS:                                4599.99\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch tpr_shadow ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves user_shstk avx_vnni avx512_bf16 vnmi avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk ibt amx_bf16 avx512_fp16 amx_tile amx_int8 arch_capabilities\nVirtualization:                          VT-x\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full\nL1d cache:                               96 KiB (2 instances)\nL1i cache:                               64 KiB (2 instances)\nL2 cache:                                4 MiB (2 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-3\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Mitigation; Aligned branch/return thunks\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Retpoline\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+    "docker": "Client: Docker Engine - Community\n Version:           28.0.4\n API version:       1.48\n Go version:        go1.23.7\n Git commit:        b8034c0\n Built:             Tue Mar 25 15:07:16 2025\n OS/Arch:           linux/amd64\n Context:           default\n\nServer: Docker Engine - Community\n Engine:\n  Version:          28.0.4\n  API version:      1.48 (minimum version 1.24)\n  Go version:       go1.23.7\n  Git commit:       6430e49\n  Built:            Tue Mar 25 15:07:16 2025\n  OS/Arch:          linux/amd64\n  Experimental:     false\n containerd:\n  Version:          v2.3.6\n  GitCommit:        ee2735368117d2eb259779949d5e75cdafec9761\n runc:\n  Version:          1.5.1\n  GitCommit:        v1.5.1-0-g8f2685a4\n docker-init:\n  Version:          0.19.0\n  GitCommit:        de40ad0\n"
+  },
+  "dockerfile_sha256": "729cf4920229583adac7d212451295489878b709ca3a57c930270b67aa63e7a1",
+  "dockerfile_blob": "d6b31d347762298e11472023a1e622ac8aac149b",
+  "build_seconds": 23.874579949000008,
+  "image_id": "sha256:20a98412cf7444c212b285009d5d593564c3577ba58c197ecef4819432235ec7",
+  "startup_seconds": 2.2224456210000056,
+  "startup_peak_bytes": 118063104,
+  "four_empty_campaign_sessions_peak_bytes": 150536192,
+  "startup_inspect": {
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2712,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-30T06:02:51.121395023Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  },
+  "targeted_exit": 0,
+  "targeted_inspect": {
+    "state": {
+      "Status": "exited",
+      "Running": false,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 0,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-30T06:02:56.662744388Z",
+      "FinishedAt": "2026-09-30T06:03:33.369358289Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  },
+  "targeted": {
+    "budget_seconds": 3,
+    "scope": "targeted 117->128, four sessions; not full campaign or Render validation",
+    "environment": {
+      "python": "3.12.14 (main, Sep 19 2026, 01:05:48) [GCC 12.2.0]",
+      "cpu_max": "50000 100000",
+      "memory_max": "536870912"
+    },
+    "passed": true,
+    "harness_startup_seconds": 1.3140498150000042,
+    "four_campaign_sessions": true,
+    "short_clip_reset_compatibility": true,
+    "old_campaign_reset": true,
+    "checkpoint": {
+      "revision": 117,
+      "hash": "93285766e651fef9823626c4eda7f12d11d1972ad5e80bfb34991e8f1c90c78b",
+      "source": "evidence/campaign011-close/checkpoint-117.json.gz",
+      "test_only_injection": true
+    },
+    "four_populated_sessions_peak_bytes": 178728960,
+    "actions": [
+      {
+        "revision": 118,
+        "action": "RAIL_REPAIR",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.612822470999987,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8085857389999944
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 119,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.5592683280000017,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.7408081460000062
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 120,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.5459493779999889,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8007127409999839
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 121,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.6269064180000044,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8087153760000092
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 122,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.6253761210000164,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8129214049999973
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 123,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.642625116000005,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8141668980000247
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 124,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.6505566390000013,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8828261440000063
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 125,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.6474197670000024,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8702843469999948
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 126,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.6213401939999983,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8296658990000196
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 127,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 1.644989645999999,
+        "transaction": {
+          "ok": true,
+          "seconds": 0.8316508880000129
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": false
+      },
+      {
+        "revision": 128,
+        "action": "END_PHASE",
+        "status": 200,
+        "accepted": true,
+        "http_seconds": 2.4201716110000007,
+        "transaction": {
+          "ok": true,
+          "seconds": 1.6020999940000138
+        },
+        "error": null,
+        "hash_equal": true,
+        "settled": true
+      }
+    ],
+    "representative_delivery": true,
+    "session_isolation": true,
+    "timeout_rollback": {
+      "passed": true,
+      "budget_seconds": 3,
+      "fault": "late frame latency after accepted Core Action",
+      "http_seconds": 3.6314874469999836,
+      "error": "未提交：行动不合法、版本过期或整次事务未解；原状态与资源保留。",
+      "full_state_rng_journal_seen_unchanged": true
+    },
+    "busy_rejected_without_commit": true,
+    "information_filtering": true,
+    "reset_isolation": true,
+    "final_peak_bytes": 254205952
+  }
+}
