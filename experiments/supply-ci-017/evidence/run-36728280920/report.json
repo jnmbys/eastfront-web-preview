@@ -1,0 +1,154 @@
+{
+  "source_sha": "813b4072568352e95d0726fe5fe04060c889c554",
+  "workflow_sha": "d27dd0a65b3bc8ab28a492e21c425bbdaad84a3b",
+  "environment": "GitHub ubuntu-24.04; NOT Render",
+  "budget_seconds": 3,
+  "limits": {
+    "cpus": 0.5,
+    "memory_bytes": 536870912,
+    "memory_swap_bytes": 536870912,
+    "pids": 128
+  },
+  "passed": false,
+  "host": {
+    "kernel": "6.17.0-1022-azure",
+    "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           48 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  4\nOn-line CPU(s) list:                     0-3\nVendor ID:                               AuthenticAMD\nModel name:                              AMD EPYC 7763 64-Core Processor\nCPU family:                              25\nModel:                                   1\nThread(s) per core:                      2\nCore(s) per socket:                      2\nSocket(s):                               1\nStepping:                                1\nBogoMIPS:                                4890.86\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves user_shstk clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm\nVirtualization:                          AMD-V\nHypervisor vendor:                       Microsoft\nVirtualization type:                     full\nL1d cache:                               64 KiB (2 instances)\nL1i cache:                               64 KiB (2 instances)\nL2 cache:                                1 MiB (2 instances)\nL3 cache:                                32 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-3\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Vulnerable: Safe RET, no microcode\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Retpolines; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Vulnerable: No microcode\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+    "docker": "Client: Docker Engine - Community\n Version:           28.0.4\n API version:       1.48\n Go version:        go1.23.7\n Git commit:        b8034c0\n Built:             Tue Mar 25 15:07:16 2025\n OS/Arch:           linux/amd64\n Context:           default\n\nServer: Docker Engine - Community\n Engine:\n  Version:          28.0.4\n  API version:      1.48 (minimum version 1.24)\n  Go version:       go1.23.7\n  Git commit:       6430e49\n  Built:            Tue Mar 25 15:07:16 2025\n  OS/Arch:          linux/amd64\n  Experimental:     false\n containerd:\n  Version:          v2.3.6\n  GitCommit:        ee2735368117d2eb259779949d5e75cdafec9761\n runc:\n  Version:          1.5.1\n  GitCommit:        v1.5.1-0-g8f2685a4\n docker-init:\n  Version:          0.19.0\n  GitCommit:        de40ad0\n"
+  },
+  "dockerfile_sha256": "f3dfd04c5a687e17849e375de672874712df087cecb50b9a9e557f9656f4b0b1",
+  "build_context": "repository root",
+  "build_seconds": 27.248281843,
+  "image": {
+    "Id": "sha256:6bff093f70bf9c838c6555bf65b92807d1249be7b5aff930b77e61ad44e95c0d",
+    "RepoTags": [
+      "supply-ci017:candidate"
+    ],
+    "RepoDigests": [],
+    "Parent": "",
+    "Comment": "buildkit.dockerfile.v0",
+    "Created": "2026-09-30T14:20:29.09092054Z",
+    "DockerVersion": "",
+    "Author": "",
+    "Config": {
+      "Hostname": "",
+      "Domainname": "",
+      "User": "sandboxuser",
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "AttachStderr": false,
+      "ExposedPorts": {
+        "10000/tcp": {}
+      },
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+        "PYTHON_VERSION=3.12.14",
+        "PYTHON_SHA256=5c8462af5790baf43a321a1559dbe0db06d1be4300fb85fb53c40060668e548a",
+        "BIND_HOST=0.0.0.0",
+        "PORT=10000",
+        "COOKIE_SECURE=1",
+        "OPENBLAS_NUM_THREADS=1"
+      ],
+      "Cmd": [
+        "python",
+        "experiments/supply-integrate-015/service.py"
+      ],
+      "ArgsEscaped": true,
+      "Image": "",
+      "Volumes": null,
+      "WorkingDir": "/app",
+      "Entrypoint": null,
+      "OnBuild": null,
+      "Labels": null
+    },
+    "Architecture": "amd64",
+    "Os": "linux",
+    "Size": 662987582,
+    "GraphDriver": {
+      "Data": {
+        "LowerDir": "/var/lib/docker/overlay2/kc0e3d19odkknl5qzs2knv7d3/diff:/var/lib/docker/overlay2/kgfmpbzo7dr2d8nc3qsabv98r/diff:/var/lib/docker/overlay2/v21g0lh43p8wpdc9elqx8wi0d/diff:/var/lib/docker/overlay2/ibrz5a9gwf3n8msm63g8jggw2/diff:/var/lib/docker/overlay2/i4kvcj38ro7ah2awjq4j863xf/diff:/var/lib/docker/overlay2/26apl0hvohk21x3yc14c42qu5/diff:/var/lib/docker/overlay2/qft1mbi07zi9wy9hnsko9vlde/diff:/var/lib/docker/overlay2/71telexep8e0afasl5c0hpeed/diff:/var/lib/docker/overlay2/7entx2ktdw3rd3ovc0cb0z1n8/diff:/var/lib/docker/overlay2/06861f1eea885f94f697c9474ab69d6285c49a713a26e6e39ba41f0c5b51cafd/diff:/var/lib/docker/overlay2/1b87943550a3dae3dc9e384b9b5a53ff235625c414a3d3f3ec3ed0eb1ee5dbd5/diff:/var/lib/docker/overlay2/5868416f7602445d6001748f1e891435788d3246aaa940ab1bd7b268c41a9bc8/diff:/var/lib/docker/overlay2/69030f0bd97302bff44c2399713a1aef43e4afc7bce3f6a262568ea59a43ce85/diff",
+        "MergedDir": "/var/lib/docker/overlay2/z6ltb8q7tx09t794sbofuh1tx/merged",
+        "UpperDir": "/var/lib/docker/overlay2/z6ltb8q7tx09t794sbofuh1tx/diff",
+        "WorkDir": "/var/lib/docker/overlay2/z6ltb8q7tx09t794sbofuh1tx/work"
+      },
+      "Name": "overlay2"
+    },
+    "RootFS": {
+      "Type": "layers",
+      "Layers": [
+        "sha256:34467cc93912af891dfee8a3902adf9b4f355a9bca4eaa46f658d1181a21de0d",
+        "sha256:16df0073c13c96653ee2b601b16e514321513eb4af983de156c2d4e17df8a5d9",
+        "sha256:9639007baab8a136bc468bd5d757fdf79cf5d77b6ff2a87889071252e334fab3",
+        "sha256:abca6d63c9dbe51fa3bc42e75e0387da12803ef64430ad151814e468d5e1c203",
+        "sha256:8f0a49f8c1af26ba4b551d294ef3e995752c22c7ff66c46e8095b67ab6ab7414",
+        "sha256:d2400e33fa7a8ecdb651ed52093b099c00bee13d850061c4db47b529e66dd1d7",
+        "sha256:caf4c6ed700807770d7134396713951cfab63de4264467045af34eb4f8171e68",
+        "sha256:694daa61f85d2c25c3e276b6af744a3cd57a52190a778fb1568ba12da4d2b22e",
+        "sha256:8feaf326ad8ed6acd00c1eb8d39ef1b2dd6bbfafa66026e96c13746935db7cc9",
+        "sha256:213f0883ce9e72756dae25c6f1c8550b30ea6f876f74198aadb60d82e2fead0e",
+        "sha256:15de6cca3cd3ec144d84a0cb5f2b87ff99327e0f4d962f8c2bd692f3a29f3c78",
+        "sha256:4301c0866c0399bab6c5056611cd53826249841db164f2df3b14bac217647be3",
+        "sha256:104fce923d77e94468bba0ada1ed2f9aecb4023424b8b89451ac9a7ffd6a1813",
+        "sha256:8ad40892be412c74a6b3781409f75d1496378d503b4dbae509a9981e328e4e22"
+      ]
+    },
+    "Metadata": {
+      "LastTagTime": "2026-09-30T14:20:31.111262763Z"
+    }
+  },
+  "image_id": "sha256:6bff093f70bf9c838c6555bf65b92807d1249be7b5aff930b77e61ad44e95c0d",
+  "startup_seconds": 3.3864623040000055,
+  "health": {
+    "ready": true,
+    "version": "SUPPLY-INTEGRATE-015-v1",
+    "source": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435"
+  },
+  "assets": [
+    {
+      "path": "/?supply=experiment",
+      "bytes": 1540,
+      "http_seconds": 0.0014110949999945888,
+      "sha256": "f7e7abfe63248d2afbd639a1f83233ec1d3c3afbbc7b6979f41d6363eccc4b6b"
+    },
+    {
+      "path": "./app/web/startupShell.js",
+      "bytes": 768
+    },
+    {
+      "path": "./app/main.js",
+      "bytes": 77051
+    },
+    {
+      "path": "/styles.css",
+      "bytes": 57893,
+      "http_seconds": 0.0010430940000105693,
+      "sha256": "14cf1f48999b164e5a4e8c283e7738fe0e1cdceec58107601b0fe04c67453cbe"
+    }
+  ],
+  "failure": "<HTTPError 404: 'Not Found'>",
+  "final_inspect": {
+    "state": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 3087,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-09-30T14:20:31.226983407Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "limits": {
+      "NanoCpus": 500000000,
+      "Memory": 536870912,
+      "MemorySwap": 536870912,
+      "PidsLimit": 128
+    }
+  }
+}

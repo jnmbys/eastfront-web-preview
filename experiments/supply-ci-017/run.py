@@ -41,7 +41,7 @@ def main():
    time.sleep(.25)
   report['startup_seconds']=time.perf_counter()-t;assert ready,'startup timeout';report['health']=health
   report['assets']=[]
-  for path in ['/?supply=experiment','/styles.css','/experimental/supplyClient.js']:
+  for path in ['/?supply=experiment','/styles.css','/app/experimental/supplyClient.js']:
    t=time.perf_counter()
    with urllib.request.urlopen(url+path,timeout=10) as r:data=r.read();assert r.status==200
    report['assets'].append(dict(path=path,bytes=len(data),http_seconds=time.perf_counter()-t,sha256=hashlib.sha256(data).hexdigest()))
@@ -52,6 +52,7 @@ def main():
     for src in scripts:
      with urllib.request.urlopen(url+'/'+src.lstrip('./'),timeout=10) as r:assert r.status==200;report['assets'].append(dict(path=src,bytes=len(r.read())))
   report['service_only_peak_bytes']=int(shell(['docker','exec',name,'cat','/sys/fs/cgroup/memory.peak']))
+  report['service_cgroup']={f:shell(['docker','exec',name,'cat','/sys/fs/cgroup/'+f]).strip() for f in ['memory.events','cpu.stat','cpu.max','memory.max','memory.swap.max']}
   report['service_memory_scope']='default service.py + warm solver + descendants; HTTP acceptance client runs on host outside cgroup; includes transient docker exec reader'
   report['startup_inspect']=inspect();log('startup.log');shell(['docker','stop','--time','10',name]);report['startup_stopped_inspect']=inspect();shell(['docker','rm',name])
   with (out/'targeted.log').open('w') as f:

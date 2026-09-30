@@ -1,0 +1,137 @@
+{
+  "id": 36728280920,
+  "html_url": "https://github.com/jnmbys/eastfront-web-preview/actions/runs/36728280920",
+  "event": "workflow_dispatch",
+  "head_sha": "d27dd0a65b3bc8ab28a492e21c425bbdaad84a3b",
+  "head_branch": "supply-ci-017",
+  "status": "completed",
+  "conclusion": "failure",
+  "run_attempt": 1,
+  "created_at": "2026-09-30T14:19:46Z",
+  "updated_at": "2026-09-30T14:20:38Z",
+  "path": ".github/workflows/mp005b-verification.yml",
+  "jobs": [
+    {
+      "id": 109930762738,
+      "run_id": 36728280920,
+      "workflow_name": "Supply CI 017 container qualification",
+      "head_branch": "supply-ci-017",
+      "run_url": "https://api.github.com/repos/jnmbys/eastfront-web-preview/actions/runs/36728280920",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUg60_88AAAAZmGJR8g",
+      "head_sha": "d27dd0a65b3bc8ab28a492e21c425bbdaad84a3b",
+      "url": "https://api.github.com/repos/jnmbys/eastfront-web-preview/actions/jobs/109930762738",
+      "html_url": "https://github.com/jnmbys/eastfront-web-preview/actions/runs/36728280920/job/109930762738",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-09-30T14:19:48Z",
+      "started_at": "2026-09-30T14:19:50Z",
+      "completed_at": "2026-09-30T14:20:38Z",
+      "name": "validate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-30T14:19:50Z",
+          "completed_at": "2026-09-30T14:19:51Z"
+        },
+        {
+          "name": "Checkout validation driver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-30T14:19:51Z",
+          "completed_at": "2026-09-30T14:19:55Z"
+        },
+        {
+          "name": "Checkout immutable 016 candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-30T14:19:55Z",
+          "completed_at": "2026-09-30T14:19:58Z"
+        },
+        {
+          "name": "Build root context and validate 0.5 CPU 512 MiB",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 4,
+          "started_at": "2026-09-30T14:19:58Z",
+          "completed_at": "2026-09-30T14:20:34Z"
+        },
+        {
+          "name": "Publish summary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-30T14:20:34Z",
+          "completed_at": "2026-09-30T14:20:34Z"
+        },
+        {
+          "name": "Preserve reports and logs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-30T14:20:34Z",
+          "completed_at": "2026-09-30T14:20:35Z"
+        },
+        {
+          "name": "Post Checkout immutable 016 candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-09-30T14:20:35Z",
+          "completed_at": "2026-09-30T14:20:35Z"
+        },
+        {
+          "name": "Post Checkout validation driver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-09-30T14:20:35Z",
+          "completed_at": "2026-09-30T14:20:35Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-09-30T14:20:35Z",
+          "completed_at": "2026-09-30T14:20:35Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/jnmbys/eastfront-web-preview/check-runs/109930762738",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000185,
+      "runner_name": "GitHub Actions 1000000185",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11103253734,
+      "node_id": "MDg6QXJ0aWZhY3QxMTEwMzI1MzczNA==",
+      "name": "supply-ci-017-36728280920",
+      "size_in_bytes": 8311,
+      "url": "https://api.github.com/repos/jnmbys/eastfront-web-preview/actions/artifacts/11103253734",
+      "archive_download_url": "https://api.github.com/repos/jnmbys/eastfront-web-preview/actions/artifacts/11103253734/zip",
+      "expired": false,
+      "digest": "sha256:346a6d8293009a10e89dff96bc6bd612e0a9283f17ab1463aa6018318f7a856e",
+      "created_at": "2026-09-30T14:20:35Z",
+      "updated_at": "2026-09-30T14:20:35Z",
+      "expires_at": "2026-10-07T14:20:34Z",
+      "workflow_run": {
+        "id": 36728280920,
+        "repository_id": 1376695551,
+        "head_repository_id": 1376695551,
+        "head_branch": "supply-ci-017",
+        "head_sha": "d27dd0a65b3bc8ab28a492e21c425bbdaad84a3b"
+      }
+    }
+  ]
+}
