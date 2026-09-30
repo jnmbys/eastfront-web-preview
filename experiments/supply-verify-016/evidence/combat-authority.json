@@ -1,0 +1,91 @@
+{
+  "case": "combat",
+  "baseline_revision": 78,
+  "baseline_hash": "a4937a186682e94f53e067908d605cef375d5a775a515d981adabcba3232d9e2",
+  "fixture_only": true,
+  "actions": [
+    {
+      "accepted": true,
+      "type": "ATTACK",
+      "action": {
+        "type": "ATTACK",
+        "attackerUnitIds": [
+          "G-I-01"
+        ],
+        "target": {
+          "q": 5,
+          "r": 5
+        }
+      },
+      "revision": 79,
+      "seconds": 0.5919572000002518,
+      "wall_seconds": 0.5928330999995524,
+      "sandbox_state_equal": true,
+      "hash": "c500e9b8776d80a318ea50742654e84e5def5e2442d5d881a140e4eb7dcfd933",
+      "receipt": {
+        "GERMAN": {
+          "settled": false,
+          "charges": [
+            {
+              "unit": "G-I-01",
+              "side": "G",
+              "cost": 4,
+              "type": "ATTACK"
+            }
+          ],
+          "changes": [
+            {
+              "id": "G-I-01",
+              "stockBefore": 12,
+              "stockAfter": 8,
+              "debtBefore": "0",
+              "debtAfter": "0",
+              "removed": false
+            }
+          ]
+        },
+        "SOVIET": {
+          "settled": false,
+          "charges": [],
+          "changes": []
+        }
+      }
+    },
+    {
+      "accepted": true,
+      "type": "RETREAT",
+      "action": {
+        "type": "RETREAT",
+        "battleId": "B-000002",
+        "retreats": [
+          {
+            "unitId": "G-I-01",
+            "path": [
+              {
+                "q": 4,
+                "r": 4
+              }
+            ]
+          }
+        ]
+      },
+      "revision": 80,
+      "seconds": 0.537673700000596,
+      "wall_seconds": 0.5383600000004662,
+      "sandbox_state_equal": true,
+      "hash": "3427ef13b219608e50f4e6c5f48d919e27ece972f401b052a9a37b8c1eb7f50f",
+      "receipt": {
+        "GERMAN": {
+          "settled": false,
+          "charges": [],
+          "changes": []
+        },
+        "SOVIET": {
+          "settled": false,
+          "charges": [],
+          "changes": []
+        }
+      }
+    }
+  ]
+}

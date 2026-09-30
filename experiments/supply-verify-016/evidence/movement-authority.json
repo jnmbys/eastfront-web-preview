@@ -1,0 +1,55 @@
+{
+  "case": "movement",
+  "baseline_revision": 76,
+  "baseline_hash": "7d771fddbd2be9813e9de081e3c895c93f4ce2d82f627876bed2ef45031e4b1d",
+  "fixture_only": true,
+  "actions": [
+    {
+      "accepted": true,
+      "type": "MOVE",
+      "action": {
+        "type": "MOVE",
+        "unitId": "G-PZ-01",
+        "path": [
+          {
+            "q": 4,
+            "r": 6
+          }
+        ]
+      },
+      "revision": 77,
+      "seconds": 0.5469262999995408,
+      "wall_seconds": 0.5476779999999053,
+      "sandbox_state_equal": true,
+      "hash": "a7334ad1c614337681fae65d1db61ad8d6d86a9952d3ac7c9a591d287a058059",
+      "receipt": {
+        "GERMAN": {
+          "settled": false,
+          "charges": [
+            {
+              "unit": "G-PZ-01",
+              "side": "G",
+              "cost": 4,
+              "type": "MOVE"
+            }
+          ],
+          "changes": [
+            {
+              "id": "G-PZ-01",
+              "stockBefore": 8,
+              "stockAfter": 4,
+              "debtBefore": "0",
+              "debtAfter": "0",
+              "removed": false
+            }
+          ]
+        },
+        "SOVIET": {
+          "settled": false,
+          "charges": [],
+          "changes": []
+        }
+      }
+    }
+  ]
+}

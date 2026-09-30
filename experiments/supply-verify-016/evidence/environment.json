@@ -1,0 +1,50 @@
+{
+  "task": "SUPPLY-VERIFY-016",
+  "date": "2026-09-30",
+  "baseline_sha": "a3346e4c34567811fb07652cb26b706833daa183",
+  "baseline_tree": "5ddc4217f059a8f0e8da302e73d7e7fe31eb0b03",
+  "branch": "supply-verify-016",
+  "platform": "Windows 11",
+  "python": "3.12.14",
+  "node": "v24.19.0",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "logical_cpus": 32,
+  "docker_on_path": null,
+  "docker_standard_install": false,
+  "wsl_observation": "wsl --list --quiet exited 1: WSL not installed",
+  "resource_validation": {
+    "status": "BLOCKED",
+    "required_cpu": 0.5,
+    "required_memory_bytes": 536870912,
+    "budget_seconds": 3,
+    "container_started": false,
+    "memory_peak_bytes": null,
+    "reason": "No Docker executable, standard Docker installation or WSL runtime; no install or capacity change requested."
+  },
+  "health": {
+    "status": 200,
+    "body": {
+      "ready": true,
+      "version": "SUPPLY-INTEGRATE-015-v1",
+      "source": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435"
+    },
+    "request_seconds": 0.04789729999993142
+  },
+  "startup": "Service printed SUPPLY-INTEGRATE-015 ready 127.0.0.1 8765; cold-start duration not instrumented.",
+  "browser": "Codex in-app Chromium browser; real DOM clicks and screenshots; 1280x720 viewport; no touch/Huawei claim",
+  "authority_observations": {
+    "count": 13,
+    "all_accepted": true,
+    "all_frozen_state_equal": true,
+    "max_transaction_seconds": 0.671269200000097,
+    "all_within_3s": true
+  },
+  "unmodified_runtime_diff": "",
+  "missing_governance_files": [
+    "PROJECT_STATE",
+    "WORKER_PROTOCOL",
+    "AGENTS.md"
+  ],
+  "render_read": "list_services returned no workspace selected; no service mutation or deploy; plan uses versioned 013 evidence, not fresh live configuration."
+}
