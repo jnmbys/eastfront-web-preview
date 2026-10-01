@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {gunzipSync} from 'node:zlib';
+import {execFileSync} from 'node:child_process';
+import {hash,atomic} from '../../ai/lab/common.mjs';
+const out='evidence/ai-plan-021',base='a655892a1eed5f8a136b6c73b9d9000560df8d91',b=JSON.parse(readFileSync('evidence/ai-advance-014/build-identity.json')),p=JSON.parse(readFileSync(out+'/admission-proof.json')),raw=readFileSync(out+'/checkpoint.json.gz'),cp=JSON.parse(gunzipSync(raw));
+assert.equal(execFileSync('git',['diff',base,'--','ai','src','vendor','server'],{encoding:'utf8'}),'');
+for(const [path,h] of b.experiment)assert.equal(hash(readFileSync('.ai-dist/'+path)),h);
+assert.equal(hash(raw),p.archiveHash);assert.equal(hash(cp.input),p.checkpointInputHash);assert.equal(hash(cp.state),p.checkpointStateHash);assert(p.checked<=p.limits.maximumProposalChecks);assert(p.witness.offlineCore.accepted&&p.witness.offlineCore.rngUnchanged);assert.equal(p.host.receipt.status,'REJECTED');assert(p.host.candidateMenuIdentical&&p.host.authorityNeverInvoked&&p.host.stateUnchanged);
+atomic(out+'/verification.json',{status:'PASS_DIAGNOSTIC_ONLY',baseline:base,productionSourceDiff:[],originalRuntimeFilesVerified:b.experiment.length,checkpointCount:1,proposalChecks:p.checked,newGames:0,strategyImplemented:false,strategyValidation:'NOT_RUN: no shared-plan candidate implemented',reason:'Direct private-goal multi-step route is outside Host exact candidate admission; strategy hypothesis remains untested.'});console.log('PASS: unchanged014 production, one admission witness, exact archive/input/state hashes; no new strategy or games.');
