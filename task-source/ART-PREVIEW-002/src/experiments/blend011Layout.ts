@@ -62,8 +62,8 @@ const noise=(x:number,y:number)=>Math.sin(x*.17+y*.11)*.55+Math.sin(x*.39-y*.23)
 
 /** Bake soft clearance shoulders into each original static stamp, before the strict
  * 010 ownership clip. No transport geometry or public hit polygon is changed. */
-export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData,scene:boolean|'014'=false){
- const tile=document.createElement('canvas'),scale=3;tile.width=Math.ceil(p.width*scale);tile.height=Math.ceil(p.height*scale);
+export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData,scene:boolean|'014'=false,target?:HTMLCanvasElement,scale=3,reserveLabel=false){
+ const tile=target??document.createElement('canvas');tile.width=Math.ceil(p.width*scale);tile.height=Math.ceil(p.height*scale);
  const ctx=tile.getContext('2d')!;
  if(scene==='014'){ctx.shadowColor='rgba(28,37,26,.38)';ctx.shadowOffsetX=3;ctx.shadowOffsetY=5;ctx.shadowBlur=5;}
  ctx.drawImage(source,0,0,tile.width,tile.height);ctx.shadowColor='transparent';
@@ -76,6 +76,7 @@ export function bakeNatural(source:HTMLCanvasElement,p:Placement,data:SliceData,
   if(!inside(q,poly))margin=0;
   for(const l of lanes)margin=Math.min(margin,segmentDistance(q,l.a,l.b)-l.width-.8);
   for(const u of units)margin=Math.min(margin,Math.max(Math.abs(q.x-u.x)-34,Math.abs(q.y-u.y)-34));
+  if(reserveLabel)margin=Math.min(margin,Math.max(Math.abs(q.x-c.x)-10,Math.abs(q.y-c.y-29)-5));
   const feather=scene==='014'?(p.kind==='forest'?4.6:3.0):scene?(p.kind==='forest'?3.7:3.0):(p.kind==='forest'?6.5:9);
   const alpha=smooth(0,feather+noise(q.x,q.y)*1.4,margin);
   a[(y*tile.width+x)*4+3]=Math.round(a[(y*tile.width+x)*4+3]!*alpha);

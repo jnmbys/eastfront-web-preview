@@ -1,0 +1,509 @@
+{
+  "baseline": "1a33de2bf90fa3e97579482a0e534db8ff41927d",
+  "tests": [
+    {
+      "name": "Full 640-cell map, 257 edges and 58 fixtures unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "Approved X14 and seven neighboring cells match committed 014 golden",
+      "status": "PASS"
+    },
+    {
+      "name": "World rules use actual adjacency and never create terrain on a plain, marsh or lake",
+      "status": "PASS"
+    },
+    {
+      "name": "Every town roof fits real city, every transport/water corridor, every unit and label",
+      "status": "PASS"
+    },
+    {
+      "name": "Town plans vary with space; budgets bounded; empty occupied city is explicit",
+      "status": "PASS"
+    },
+    {
+      "name": "Natural alpha cannot cover neighboring terrain, transport, units or labels",
+      "status": "PASS"
+    },
+    {
+      "name": "River chains, centerline/width geometry, routes, rail gaps, bridges and interaction handlers frozen",
+      "status": "PASS"
+    },
+    {
+      "name": "Tracked change allowlist excludes map, Core, RNG, AI, supply and asset mutations",
+      "status": "PASS"
+    }
+  ],
+  "mapSHA256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
+  "semanticAndFixturesSHA256": "41bcc47a0432a7eb2588c458167e1f4a832f64a762ba4fba749fc5b76d15d385",
+  "terrainCounts": {
+    "FOREST": 92,
+    "PLAIN": 460,
+    "HILL": 37,
+    "MARSH": 19,
+    "CITY": 6,
+    "ROUGH": 18,
+    "LAKE": 5,
+    "MAIN_CITY": 2,
+    "OUTER_CITY": 1
+  },
+  "cityLayouts": [
+    {
+      "cell": "D10",
+      "terrain": "CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -19,
+          "dy": -16,
+          "w": 16,
+          "h": 14,
+          "roof": 1
+        },
+        {
+          "dx": -12,
+          "dy": 14,
+          "w": 21,
+          "h": 12,
+          "roof": 0
+        },
+        {
+          "dx": 9,
+          "dy": 14,
+          "w": 21,
+          "h": 12,
+          "roof": 1
+        },
+        {
+          "dx": -29,
+          "dy": 16,
+          "w": 12,
+          "h": 11,
+          "roof": 2
+        },
+        {
+          "dx": 26,
+          "dy": 16,
+          "w": 12,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": -4,
+          "dy": -24,
+          "w": 12,
+          "h": 11,
+          "roof": 2
+        },
+        {
+          "dx": 26,
+          "dy": -14,
+          "w": 12,
+          "h": 11,
+          "roof": 1
+        }
+      ]
+    },
+    {
+      "cell": "J6",
+      "terrain": "CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -7,
+          "dy": -20,
+          "w": 13.289343999999998,
+          "h": 12.458759999999998,
+          "roof": 0
+        },
+        {
+          "dx": 12,
+          "dy": 16,
+          "w": 15,
+          "h": 13,
+          "roof": 1
+        },
+        {
+          "dx": 27,
+          "dy": 16,
+          "w": 11,
+          "h": 12,
+          "roof": 2
+        },
+        {
+          "dx": -23,
+          "dy": -19,
+          "w": 11,
+          "h": 12,
+          "roof": 0
+        },
+        {
+          "dx": 27,
+          "dy": -14,
+          "w": 11,
+          "h": 12,
+          "roof": 2
+        },
+        {
+          "dx": -28,
+          "dy": 16,
+          "w": 11,
+          "h": 12,
+          "roof": 0
+        }
+      ]
+    },
+    {
+      "cell": "M15",
+      "terrain": "CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -10,
+          "dy": -20,
+          "w": 18,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": -20,
+          "dy": -8,
+          "w": 13,
+          "h": 16,
+          "roof": 2
+        },
+        {
+          "dx": -29,
+          "dy": 6,
+          "w": 11,
+          "h": 11,
+          "roof": 0
+        },
+        {
+          "dx": 26,
+          "dy": -14,
+          "w": 11,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": 16,
+          "dy": 16,
+          "w": 11,
+          "h": 11,
+          "roof": 0
+        }
+      ]
+    },
+    {
+      "cell": "R10",
+      "terrain": "CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -7,
+          "dy": -20,
+          "w": 13.289343999999998,
+          "h": 12.458759999999998,
+          "roof": 2
+        },
+        {
+          "dx": 12,
+          "dy": 16,
+          "w": 15,
+          "h": 13,
+          "roof": 0
+        },
+        {
+          "dx": 26,
+          "dy": 16,
+          "w": 11,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": -24,
+          "dy": -19,
+          "w": 11,
+          "h": 11,
+          "roof": 2
+        },
+        {
+          "dx": 26,
+          "dy": -14,
+          "w": 11,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": -29,
+          "dy": 16,
+          "w": 11,
+          "h": 11,
+          "roof": 2
+        }
+      ]
+    },
+    {
+      "cell": "V5",
+      "terrain": "CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -17,
+          "dy": -15,
+          "w": 21,
+          "h": 12,
+          "roof": 2
+        },
+        {
+          "dx": 10,
+          "dy": 16,
+          "w": 14.137599999999999,
+          "h": 13.254,
+          "roof": 1
+        },
+        {
+          "dx": -30,
+          "dy": 1,
+          "w": 12,
+          "h": 10,
+          "roof": 1
+        },
+        {
+          "dx": -30,
+          "dy": 16,
+          "w": 12,
+          "h": 10,
+          "roof": 1
+        }
+      ]
+    },
+    {
+      "cell": "X14",
+      "terrain": "CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -25,
+          "dy": -14,
+          "w": 11.17582597369495,
+          "h": 10.587624606658375,
+          "roof": 0
+        },
+        {
+          "dx": 25,
+          "dy": -14,
+          "w": 11.17582597369495,
+          "h": 10.587624606658375,
+          "roof": 0
+        },
+        {
+          "dx": -23,
+          "dy": 13,
+          "w": 20,
+          "h": 12,
+          "roof": 0
+        },
+        {
+          "dx": 23,
+          "dy": 13,
+          "w": 20,
+          "h": 12,
+          "roof": 2
+        },
+        {
+          "dx": -16,
+          "dy": 20,
+          "w": 19.2,
+          "h": 13.44,
+          "roof": 0
+        },
+        {
+          "dx": 16,
+          "dy": 20,
+          "w": 19.2,
+          "h": 13.44,
+          "roof": 2
+        },
+        {
+          "dx": -7,
+          "dy": 26,
+          "w": 18,
+          "h": 10,
+          "roof": 0
+        },
+        {
+          "dx": 7,
+          "dy": 26,
+          "w": 18,
+          "h": 10,
+          "roof": 2
+        }
+      ]
+    },
+    {
+      "cell": "AC10",
+      "terrain": "MAIN_CITY",
+      "unitOccupied": true,
+      "roofs": []
+    },
+    {
+      "cell": "AC11",
+      "terrain": "MAIN_CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": -22,
+          "dy": -8,
+          "w": 11.628176,
+          "h": 10.797591999999998,
+          "roof": 2
+        },
+        {
+          "dx": 12,
+          "dy": -14,
+          "w": 17.86,
+          "h": 10.34,
+          "roof": 1
+        },
+        {
+          "dx": 23,
+          "dy": 0,
+          "w": 13,
+          "h": 15,
+          "roof": 2
+        },
+        {
+          "dx": -23,
+          "dy": 10,
+          "w": 10.93048544,
+          "h": 10.93048544,
+          "roof": 0
+        },
+        {
+          "dx": 10,
+          "dy": 18,
+          "w": 18,
+          "h": 11,
+          "roof": 2
+        },
+        {
+          "dx": 23,
+          "dy": 15,
+          "w": 11.486799999999999,
+          "h": 10.6032,
+          "roof": 0
+        },
+        {
+          "dx": 27,
+          "dy": -14,
+          "w": 11,
+          "h": 12,
+          "roof": 2
+        }
+      ]
+    },
+    {
+      "cell": "AD10",
+      "terrain": "OUTER_CITY",
+      "unitOccupied": false,
+      "roofs": [
+        {
+          "dx": 7,
+          "dy": 14,
+          "w": 17,
+          "h": 11,
+          "roof": 2
+        },
+        {
+          "dx": -12,
+          "dy": 14,
+          "w": 19,
+          "h": 11,
+          "roof": 0
+        },
+        {
+          "dx": 10,
+          "dy": -18,
+          "w": 18,
+          "h": 11,
+          "roof": 0
+        },
+        {
+          "dx": -10,
+          "dy": -18,
+          "w": 18,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": -23,
+          "dy": -15,
+          "w": 11.486799999999999,
+          "h": 10.6032,
+          "roof": 2
+        },
+        {
+          "dx": 26,
+          "dy": -14,
+          "w": 11,
+          "h": 11,
+          "roof": 1
+        },
+        {
+          "dx": -29,
+          "dy": 16,
+          "w": 11,
+          "h": 11,
+          "roof": 2
+        },
+        {
+          "dx": 26,
+          "dy": 16,
+          "w": 11,
+          "h": 11,
+          "roof": 1
+        }
+      ]
+    }
+  ],
+  "stampCount": 290,
+  "naturalStampCount": 239,
+  "maskSamples": 74348,
+  "maskedTiles": 232,
+  "scratchPeak": 72864,
+  "changedTrackedFiles": [
+    ".gitignore",
+    "evidence/ART-MAP-015/014-central-medium.jpg",
+    "evidence/ART-MAP-015/014-full.jpg",
+    "evidence/ART-MAP-015/014-north-medium.jpg",
+    "evidence/ART-MAP-015/014-south-medium.jpg",
+    "evidence/ART-MAP-015/014-x14-near.jpg",
+    "evidence/ART-MAP-015/015-central-medium.jpg",
+    "evidence/ART-MAP-015/015-full.jpg",
+    "evidence/ART-MAP-015/015-north-medium.jpg",
+    "evidence/ART-MAP-015/015-south-medium.jpg",
+    "evidence/ART-MAP-015/015-x14-near.jpg",
+    "evidence/ART-MAP-015/REPORT.md",
+    "evidence/ART-MAP-015/browser-results.json",
+    "evidence/ART-MAP-015/build.log",
+    "evidence/ART-MAP-015/cost.json",
+    "evidence/ART-MAP-015/drag-selection.jpg",
+    "evidence/ART-MAP-015/runtime-manifest.json",
+    "evidence/ART-MAP-015/screenshot-record.json",
+    "evidence/ART-MAP-015/semantic-map.json",
+    "evidence/ART-MAP-015/semantic-tests.json",
+    "experiments/art-map-015/README.md",
+    "experiments/art-map-015/build.mjs",
+    "experiments/art-map-015/index.html",
+    "experiments/art-map-015/serve.cjs",
+    "experiments/art-map-015/slice.css",
+    "experiments/art-map-015/validate.mjs",
+    "task-source/ART-PREVIEW-002/src/experiments/artBlend011.ts",
+    "task-source/ART-PREVIEW-002/src/experiments/blend011Layout.ts",
+    "task-source/ART-PREVIEW-002/src/experiments/blend011Terrain.ts",
+    "task-source/ART-PREVIEW-002/src/experiments/map015Layout.ts"
+  ],
+  "limits": "Synthetic opaque alpha-mask samples test clearance, not visual quality. All actual screenshots come from browser."
+}
