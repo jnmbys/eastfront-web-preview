@@ -1,0 +1,17 @@
+file:///C:/Users/jinyibo/eastfront/ai-midgame-015/evidence/ai-midgame-015/report.mjs:24
+let md='# 1017/E T6 德军逐单位表\n\n范围仅 n373–389（原 trace 行374–390），26个在册德军单位全部列入。首都距离为到两个首都核心格的最小六角距离。n373前/ n389后是阶段快照；“决策点”则是该单位实际提交 MOVE 前的冻结状态，未提交单位采用全军 READY 前 n389，二者不得混用。\n\n战力写为“耐损余量/最大；当前基础攻/防（失补有效攻）”；耐损余量不是战斗胜率。本阶段所有德军失补。M0/R0 表示未普通移动/未专职修铁，均活着且属德军控制，属于资格检查而非路径合法性保证。B为扣失补后的单次基础MP；花/限为实际完整MOVE的spentMP/maxMP。成功MOVE后hasMoved=true，即使算术余额为正也不可再次MOVE。未行动单位只有基础额度，没有可自由反复消费的MP池。\n\n原记录没有战略目标或兵力指派字段：**每个单位实际战略目标均未知**，下表路径是动作内容，不从终点反推意图。评分是原策略在冻结PlayerView上的离线复现，不是原日志记载。PlayerView候选与权威Core移动验证分列；“通过”默认指移动验证，代表节点另有完整Engine接受证据。\n\n| 单位/兵种 | 剩余战力 | 阶段位置；距 | 实际决策点资格/MP | 目标；提交→接受 | PlayerView候选 | Core前进选项/阻挡 | 判断 |
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SyntaxError: Invalid or unexpected token
+    at compileSourceTextModule (node:internal/modules/esm/utils:318:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:89:18)
+    at #translate (node:internal/modules/esm/loader:434:20)
+    at afterLoad (node:internal/modules/esm/loader:502:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+    at afterResolve (node:internal/modules/esm/loader:607:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12)
+    at node:internal/modules/esm/loader:632:32
+    at TracingChannel.tracePromise (node:diagnostics_channel:362:14)
+
+Node.js v24.19.0

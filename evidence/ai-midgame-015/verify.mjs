@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {gunzipSync} from 'node:zlib';
+import {hash} from '../../ai/lab/common.mjs';
+const p='evidence/ai-midgame-015/',read=f=>JSON.parse(readFileSync(p+f)),index=read('checkpoint-index.json'),bytes=readFileSync(p+'checkpoints.json.gz'),ds=read('decisions.json'),units=read('units.json'),summary=read('summary.json'),reps=read('representatives.json');
+assert.equal(hash(bytes),index.archive.sha256);const archive=JSON.parse(gunzipSync(bytes));
+assert.equal(archive.checkpoints.length,17);assert.equal(units.length,26);assert.equal(new Set(units.map(u=>u.id)).size,26);assert.equal(readFileSync(p+'units.md','utf8').split('\n').filter(l=>l.startsWith('| G-')).length,26);
+for(const c of archive.checkpoints){const i=index.checkpoints.find(i=>i.n===c.n),d=ds.find(d=>d.n===c.n);assert.equal(hash(c.input),i.inputHash);assert.equal(hash(c.state),i.stateHash);assert.equal(d.stateHash,i.stateHash);assert.equal(d.inputHash,i.inputHash);assert.equal(c.state.turn,6);assert.equal(c.state.phase,'GERMAN_MOVEMENT');assert(d.rankingReproduced);assert(!d.scorerMetrics.exhausted);const j=d.offlineCoreCandidates.filter(c=>c.intent.unitId==='G-J-02');assert.equal(j.length,6);assert(j.every(c=>c.core.issues.some(i=>['ENEMY_OCCUPIED_HEX','ENEMY_ZOC_TO_ZOC'].includes(i.code))));}
+assert.equal(hash(archive.phaseEnd),index.phaseEnd.stateHash);assert.equal(summary.acceptedMoves,16);assert.equal(summary.rejectedMoves,0);assert.equal(summary.advancedTowardCapital.length,14);assert.deepEqual(summary.nearest.beforeUnits,['G-J-02']);assert.equal(summary.nearest.before,13);assert.equal(summary.nearest.after,13);assert(summary.rngUnchanged);
+assert(units.every(u=>u.before.supplyState==='OUT_OF_SUPPLY'&&u.before.alive&&u.after.alive&&u.before.damageStep===u.after.damageStep&&u.strategicTarget===null));
+assert(reps.searches.every(s=>!s.hitCap));const panzer=reps.searches.find(s=>s.unitId==='G-PZ-04');assert(panzer.witness.accepted);assert.equal(panzer.witnessInPlayerViewCandidates,false);assert.deepEqual(panzer.witness.intent.path,[{q:14,r:0},{q:15,r:0}]);assert.equal(panzer.witness.move.spentMP,3);
+const before=reps.examples.find(e=>e.unitId==='G-I-04'&&e.n===373),after=reps.examples.find(e=>e.unitId==='G-I-04'&&e.n===381);assert(!before.offlineEngine.accepted);assert(before.offlineEngine.issues.some(i=>i.code==='STACKING_LIMIT'));assert(after.offlineEngine.accepted);
+console.log('PASS: 26 table rows; 17 checkpoint hashes and exact policy rankings; 16 accepted MOVE, 0 actual rejections, 14 units closer, nearest13 unchanged; all-stage J02 first-step barrier; PZ04 multihex counterexample; I04 time-dependent stacking; no search cap reached; no new game.');
