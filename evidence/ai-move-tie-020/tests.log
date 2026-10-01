@@ -1,0 +1,34 @@
+✔ ADVANCE014 actual C156 excludes new ART adjacency and falls back to existing PASS (44.8627ms)
+✔ ADVANCE014 empty adjacency sets preserve forward advance (2.4464ms)
+✔ ADVANCE014 same existing neighbor or subset is allowed; adjacency alone is not a veto (4.6549ms)
+✔ ADVANCE014 equal counts with a different enemy identity are new adjacency (0.7209ms)
+✔ ADVANCE014 existing adjacency does not exempt an additional visible enemy (0.6567ms)
+✔ ADVANCE014 skip blocked preferred options and evaluate remaining unit (2.8985ms)
+✔ ADVANCE014 hidden enemy and future RNG mutations leave the same authorized view and choice (46.9757ms)
+✔ ADVANCE014 existing destination/risk/receipt/rejection/Soviet guards remain (3.7102ms)
+✔ MOVE006 Core consumes phase eligibility once; one budgeted prefix moves three cells and replays exactly (27.8853ms)
+✔ MOVE006 cumulative MP, OOS, river and bridge costs agree with authoritative execution (23.1064ms)
+✔ MOVE006 stops at goals and identified adjacency; respects contact, risk and full friendly stacks (5.198ms)
+✔ MOVE006 road bonus belongs to entire path, never each step; search and path remain bounded (5.8506ms)
+✔ MOVE006 hidden blockers and RNG cannot change candidates or choice; atomic rejection rests unit without prefix probes (12.8196ms)
+✔ MOVE-TIE020 n383 I08 exact-score tie changes full endpoint18 to17; original candidates and Core legality retained (48.7148ms)
+✔ MOVE-TIE020 unequal primary scores, including tiny differences, cannot be overridden (14.777ms)
+✔ MOVE-TIE020 equal secondary distance preserves original stable order; non-MOVE slots stay fixed (0.308ms)
+✔ MOVE-TIE020 risk/occupancy filters and014 adjacent-origin stop are unchanged (11.8016ms)
+✔ MOVE-TIE020 hidden units and future RNG paired inputs leave candidates and policy identical (83.8903ms)
+✔ MOVE-TIE020 Soviet movement and combat retain014 policy choices (10.5677ms)
+✔ MOVE006 plans a non-greedy detour, one Action per view; fixed map has no revisits (16.0063ms)
+✔ MOVE006 avoids a nearer dead end and ends if the public goal is unreachable (6.4981ms)
+✔ MOVE006 target/terrain/authorized occupancy changes immediately invalidate the old route (3.4305ms)
+✔ MOVE006 visible enemy goal replaces objective and disappearance restores public objective (3.2931ms)
+✔ MOVE006 rejected edge stays suppressed after unrelated view change, resets on phase end (2.1666ms)
+✔ MOVE006 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (27.2385ms)
+✔ MOVE006 bounded settled-node search ends safely; repeated input is identical and immutable (7.6058ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 400.636

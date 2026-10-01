@@ -1,8 +1,9 @@
-import {hexKey} from '../../vendor/eastfront-digital-core/dist/core/hex.js';
+import {hexKey,hexDistance} from '../../vendor/eastfront-digital-core/dist/core/hex.js';
 import {createMoveScorer} from './routing.js';
 import {observationCandidates} from './candidates.js';
 import {minimalAgent,agentOrder} from './minimalAgent.js';
 import {chooseCombatAdvance} from './advance.js';
+import {prioritizeMoveTies} from './moveTie.js';
 import type {FairAgent,FairInput,FairIntent,DeepReadonly} from './types.js';
 import {parseParameters,type Parameters} from './parameters.js';
 const defaults=parseParameters();
@@ -51,7 +52,12 @@ export function createBasicAgent(options:unknown={}):FairAgent {
   const ranked=observationCandidates(input,false).filter(a=>!rejected.has(key(a))&&(failures<3||a.type==='READY_FOR_PHASE_END'))
     .map((a,i)=>({a,score:a.type==='MOVE'?moves.score(a):scoreIntent(input,a,params),tie:agentOrder(input.agentRandom.seed,i)}))
     .filter(x=>Number.isFinite(x.score)).sort((a,b)=>b.score-a.score||a.tie-b.tie);
-  return ranked.length?{kind:'INTENT',intent:moves.prefix(ranked[0]!.a)}:{kind:'STOP',reason:'NO_CANDIDATE'};
+  const ordered=input.view.viewer==='GERMAN'&&input.view.phase==='GERMAN_MOVEMENT'&&input.rules.objectives.length
+    ?prioritizeMoveTies(ranked,a=>{
+      const prefix=moves.prefix(a);if(prefix.type!=='MOVE')return Infinity;
+      return Math.min(...input.rules.objectives.map(h=>hexDistance(prefix.path.at(-1)!,h)));
+    }):ranked;
+  return ordered.length?{kind:'INTENT',intent:moves.prefix(ordered[0]!.a)}:{kind:'STOP',reason:'NO_CANDIDATE'};
 };
 
 }

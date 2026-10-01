@@ -1,0 +1,40 @@
+{
+  "task": "AI-MOVE-TIE-020",
+  "baseline": "a655892a1eed5f8a136b6c73b9d9000560df8d91",
+  "audit015": "69d1638d6c292346e27ddc3accce6bdb6e4064d4",
+  "audit016": "51b19025ba0c246da3e5a0ffd2c3f5d942933451",
+  "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+  "seeds": [
+    1017,
+    1018
+  ],
+  "agentSeeds": {
+    "GERMAN": 101,
+    "SOVIET": 202
+  },
+  "parameters": {
+    "attackRatio": 1.5,
+    "penaltyWeight": 0.75
+  },
+  "limits": {
+    "maxGames": 2,
+    "maxDecisions": 1800,
+    "matchMs": 180000,
+    "batchMs": 420000
+  },
+  "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+  "runOrder": "1017 then1018 candidate GERMAN only; reuse014 records; no017/019 strategy",
+  "fixedUnits": [
+    "G-I-08",
+    "G-PZ-04",
+    "G-PZ-01",
+    "G-MOT-03",
+    "G-J-02"
+  ],
+  "sharedRetreat": "Unchanged AI-RETREAT-010 on both seats",
+  "experiment": "Only exact German MOVE primary-score ties prefer the full prefix endpoint nearest a public capital core; equal distance retains original stable order, other action slots fixed.",
+  "targetDistance": "minimum hexDistance(full submitted MOVE prefix endpoint, public rules.objectives capital cores); absolute distance, not own relative gain",
+  "stableTie": "Existing order retained for equal secondary distance; only MOVE slots reordered inside exact primary-score groups",
+  "rngLimitation": "Identical initial seed does not align later battle dice if different actions change RNG draw consumption.",
+  "stopRule": "Exactly two candidate German development games after targeted checks; no retuning, expansion,017/019 additions or deployment"
+}

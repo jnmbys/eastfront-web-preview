@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync,cpSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {join,relative} from 'node:path';
+import {hash,atomic} from '../../ai/lab/common.mjs';
+const out='evidence/ai-move-tie-020',old=JSON.parse(readFileSync('evidence/ai-advance-014/build-identity.json'));
+for(const [name,dir] of [['experiment','.evaluation/baseline014/.ai-dist'],['original','.evaluation/original/.ai-dist'],['opponent','.evaluation/ai005/.ai-dist']])for(const [p,h] of old[name])assert.equal(hash(readFileSync(dir+'/'+p)),h);
+execFileSync(process.execPath,['node_modules/typescript/bin/tsc','-p','ai/tsconfig.json'],{stdio:'inherit'});cpSync('vendor','.ai-dist/vendor',{recursive:true});
+const files=p=>readdirSync(p,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name)).flatMap(e=>e.isDirectory()?files(join(p,e.name)):[join(p,e.name)]);
+const experiment=files('.ai-dist').filter(p=>p.endsWith('.js')).map(p=>[relative('.ai-dist',p).replaceAll('\\','/'),hash(readFileSync(p))]);
+const changes=experiment.filter(([p,h])=>old.experiment.find(([q])=>p===q)?.[1]!==h).map(([p])=>p);assert.deepEqual(changes,['ai/fair/basicAgent.js','ai/fair/moveTie.js']);
+atomic(out+'/build-identity.json',{node:process.version,runtimeChanges:changes,experiment,baseline014:old.experiment,original:old.original,opponent:old.opponent,configHash:hash(readFileSync(out+'/config.json'))});
+console.log('PASS:014 parent; only basicAgent and MOVE tie helper differ; routing, scoring parameters, candidates, Core, RNG,014 advance and opponent unchanged.');

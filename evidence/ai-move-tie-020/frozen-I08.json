@@ -1,0 +1,150 @@
+{
+  "archiveHash": "a41c1be9043c2dfc66ae2c037be916735293d46128299aca61f1104ae024ae62",
+  "inputHash": "7ed8c32c1d4534d54e88e9918c6d9521c6469f276ee5214b77ab28928b3f973f",
+  "old": {
+    "kind": "INTENT",
+    "intent": {
+      "type": "MOVE",
+      "unitId": "G-I-08",
+      "path": [
+        {
+          "q": 10,
+          "r": 4
+        }
+      ]
+    }
+  },
+  "choice": {
+    "kind": "INTENT",
+    "intent": {
+      "type": "MOVE",
+      "unitId": "G-I-08",
+      "path": [
+        {
+          "q": 10,
+          "r": 6
+        },
+        {
+          "q": 11,
+          "r": 6
+        }
+      ]
+    }
+  },
+  "tied": [
+    {
+      "a": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 10,
+            "r": 4
+          }
+        ]
+      },
+      "score": 3.1492537313432836,
+      "tie": 1154321703,
+      "prefix": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 10,
+            "r": 4
+          }
+        ]
+      }
+    },
+    {
+      "a": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 10,
+            "r": 6
+          }
+        ]
+      },
+      "score": 3.1492537313432836,
+      "tie": 1306729562,
+      "prefix": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 10,
+            "r": 6
+          },
+          {
+            "q": 11,
+            "r": 6
+          }
+        ]
+      }
+    },
+    {
+      "a": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 11,
+            "r": 5
+          }
+        ]
+      },
+      "score": 3.1492537313432836,
+      "tie": 1473644111,
+      "prefix": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 11,
+            "r": 5
+          },
+          {
+            "q": 11,
+            "r": 6
+          }
+        ]
+      }
+    },
+    {
+      "a": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 11,
+            "r": 4
+          }
+        ]
+      },
+      "score": 3.1492537313432836,
+      "tie": 3282822842,
+      "prefix": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 11,
+            "r": 4
+          }
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "expanded": 1447,
+    "searches": 8,
+    "exhausted": false
+  },
+  "offlineCore": {
+    "accepted": true,
+    "issues": []
+  },
+  "note": "Full prefix endpoint; identical primary score, existing Host candidate, Core offline only."
+}
