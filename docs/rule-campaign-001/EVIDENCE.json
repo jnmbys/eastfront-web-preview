@@ -1,0 +1,333 @@
+{
+  "task": "RULE-CAMPAIGN-001",
+  "date": "2026-10-02",
+  "status": "design integration only; read-only evidence extraction and arithmetic; no simulation or gameplay validation",
+  "parent": "09bc1bde826b5b1ce6b6d84e084e12c392bdcca5",
+  "source_manifest": [
+    {
+      "commit": "31ec97e40ce78037ec62008649e5f39674753446",
+      "path": "docs/industry-exp-002/REPORT.md",
+      "sha256": "7147811d19228a5c09567154061e53f1fd5b5995180222e5e95f8db8cf3d0d8b"
+    },
+    {
+      "commit": "31ec97e40ce78037ec62008649e5f39674753446",
+      "path": "docs/industry-exp-002/METHOD.md",
+      "sha256": "3528f9b5b6d747405c0ae3228917e71e2342d2c4d7e9e2534ff2a4f4e7dff692"
+    },
+    {
+      "commit": "31ec97e40ce78037ec62008649e5f39674753446",
+      "path": "docs/industry-exp-002/PARAMETERS.json",
+      "sha256": "b780f23c40db82228b6e1506b2f89c458dd35320c18c988659954fb7766538b7"
+    },
+    {
+      "commit": "31ec97e40ce78037ec62008649e5f39674753446",
+      "path": "docs/industry-exp-002/SENSITIVITY.json",
+      "sha256": "41eed1a4a40f4de2d99f6020758223d30592095172749ae3afcba4c22c01d270"
+    },
+    {
+      "commit": "09bc1bde826b5b1ce6b6d84e084e12c392bdcca5",
+      "path": "docs/rule-victory-024/REPORT.md",
+      "sha256": "4e3591b29b563ea8b862566712361587249a52bef3cb390111f7bc62ef4a3ffb"
+    },
+    {
+      "commit": "b8b2c50a48eb12f570151a632bf5bf9907dfbbf0",
+      "path": "docs/rule-scale-022/SCALE.md",
+      "sha256": "7c202dc7a299ce456f422f72f0b5a9363086845ee29e7047322df2d9d0d1841b"
+    },
+    {
+      "commit": "b4a30a7c6958db1246a8c031850c4f936d1ceb61",
+      "path": "experiments/supply-rules-019/PLAYER_GUIDE019.md",
+      "sha256": "9f20e3bb652ea340be23f28bd4f5adcdfafec0d28cf9ee3535b2b14caa75dd84"
+    }
+  ],
+  "report_sha256": "ecc75022e65547c34b1faf1d8f5d4eccd18352bc118279761fe7db0ac819d54f",
+  "industry_excerpts": [
+    {
+      "name": "long24",
+      "options": {
+        "horizon": 24
+      },
+      "routes": [
+        {
+          "route": "A",
+          "endingUnits": 19,
+          "repaired": 22,
+          "personnel": 5,
+          "eRemaining": 3,
+          "fullAttacks": 53,
+          "degradedAttacks": 274,
+          "attackPowerSum": 1238,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        },
+        {
+          "route": "B",
+          "endingUnits": 20,
+          "repaired": 22,
+          "personnel": 2,
+          "eRemaining": 24,
+          "fullAttacks": 67,
+          "degradedAttacks": 274,
+          "attackPowerSum": 1180,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        },
+        {
+          "route": "C",
+          "endingUnits": 18,
+          "repaired": 22,
+          "personnel": 8,
+          "eRemaining": 4.5,
+          "fullAttacks": 158,
+          "degradedAttacks": 122,
+          "attackPowerSum": 1263,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        },
+        {
+          "route": "D",
+          "endingUnits": 15,
+          "repaired": 22,
+          "personnel": 17,
+          "eRemaining": 3,
+          "fullAttacks": 143,
+          "degradedAttacks": 104,
+          "attackPowerSum": 1108,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        }
+      ]
+    },
+    {
+      "name": "C_transport_only",
+      "options": {
+        "salvageE": 0
+      },
+      "routes": [
+        {
+          "route": "A",
+          "endingUnits": 16,
+          "repaired": 14,
+          "personnel": 22,
+          "eRemaining": 4,
+          "fullAttacks": 53,
+          "degradedAttacks": 139,
+          "attackPowerSum": 805,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        },
+        {
+          "route": "B",
+          "endingUnits": 19,
+          "repaired": 14,
+          "personnel": 13,
+          "eRemaining": 7,
+          "fullAttacks": 67,
+          "degradedAttacks": 123,
+          "attackPowerSum": 735,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        },
+        {
+          "route": "C",
+          "endingUnits": 12,
+          "repaired": 14,
+          "personnel": 34,
+          "eRemaining": 4,
+          "fullAttacks": 144,
+          "degradedAttacks": 0,
+          "attackPowerSum": 703,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 19
+        },
+        {
+          "route": "D",
+          "endingUnits": 12,
+          "repaired": 14,
+          "personnel": 34,
+          "eRemaining": 4,
+          "fullAttacks": 144,
+          "degradedAttacks": 0,
+          "attackPowerSum": 703,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 0
+        }
+      ]
+    },
+    {
+      "name": "very_low_source",
+      "options": {
+        "sourceSP": 6
+      },
+      "routes": [
+        {
+          "route": "A",
+          "endingUnits": 7,
+          "repaired": 4,
+          "personnel": 44,
+          "eRemaining": 24,
+          "fullAttacks": 15,
+          "degradedAttacks": 112,
+          "attackPowerSum": 359,
+          "maintenanceShort": 33.5,
+          "actualAttritionLoss": 12,
+          "spRemaining": 0
+        },
+        {
+          "route": "B",
+          "endingUnits": 3,
+          "repaired": 4,
+          "personnel": 56,
+          "eRemaining": 24,
+          "fullAttacks": 15,
+          "degradedAttacks": 103,
+          "attackPowerSum": 328,
+          "maintenanceShort": 24.5,
+          "actualAttritionLoss": 10,
+          "spRemaining": 0
+        },
+        {
+          "route": "C",
+          "endingUnits": 3,
+          "repaired": 7,
+          "personnel": 50,
+          "eRemaining": 24.5,
+          "fullAttacks": 15,
+          "degradedAttacks": 101,
+          "attackPowerSum": 342,
+          "maintenanceShort": 26.5,
+          "actualAttritionLoss": 14,
+          "spRemaining": 0
+        },
+        {
+          "route": "D",
+          "endingUnits": 3,
+          "repaired": 4,
+          "personnel": 56,
+          "eRemaining": 24,
+          "fullAttacks": 15,
+          "degradedAttacks": 103,
+          "attackPowerSum": 328,
+          "maintenanceShort": 24.5,
+          "actualAttritionLoss": 10,
+          "spRemaining": 0
+        }
+      ]
+    },
+    {
+      "name": "long24_ample",
+      "options": {
+        "horizon": 24,
+        "sourceSP": 40,
+        "cargo": 44
+      },
+      "routes": [
+        {
+          "route": "A",
+          "endingUnits": 19,
+          "repaired": 22,
+          "personnel": 5,
+          "eRemaining": 3,
+          "fullAttacks": 327,
+          "degradedAttacks": 0,
+          "attackPowerSum": 1610,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 38
+        },
+        {
+          "route": "B",
+          "endingUnits": 22,
+          "repaired": 18,
+          "personnel": 0,
+          "eRemaining": 26,
+          "fullAttacks": 363,
+          "degradedAttacks": 0,
+          "attackPowerSum": 1776,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 13
+        },
+        {
+          "route": "C",
+          "endingUnits": 18,
+          "repaired": 22,
+          "personnel": 8,
+          "eRemaining": 4.5,
+          "fullAttacks": 280,
+          "degradedAttacks": 0,
+          "attackPowerSum": 1375,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 36
+        },
+        {
+          "route": "D",
+          "endingUnits": 15,
+          "repaired": 22,
+          "personnel": 17,
+          "eRemaining": 3,
+          "fullAttacks": 247,
+          "degradedAttacks": 0,
+          "attackPowerSum": 1210,
+          "maintenanceShort": 0,
+          "actualAttritionLoss": 0,
+          "spRemaining": 30
+        }
+      ]
+    }
+  ],
+  "arithmetic": {
+    "window_assumptions": "Unbalanced 002 price/yield; hypothetical order at T_s; 3 construction boundaries; +2E starting E_(s+3); L=1; sufficient capacity; excludes formation/march/objective confirmation and early ending",
+    "windows": [
+      {
+        "order_turn": 1,
+        "first_extra_E": 4,
+        "first_available_T": 5,
+        "quantity_equivalent_12E_T": 10
+      },
+      {
+        "order_turn": 9,
+        "first_extra_E": 12,
+        "first_available_T": 13,
+        "quantity_equivalent_12E_T": 18
+      },
+      {
+        "order_turn": 15,
+        "first_extra_E": 18,
+        "first_available_T": 19,
+        "quantity_equivalent_12E_T": 24
+      },
+      {
+        "order_turn": 16,
+        "first_extra_E": 19,
+        "first_available_T": 20,
+        "quantity_equivalent_12E_T": 25
+      }
+    ],
+    "confirmed_10VP_at_E23_E24": "29/4",
+    "terminal_10VP_change_of_owner_differential": "14"
+  },
+  "checks": [
+    "quoted long24 four-route counts and proxy values match fixed-commit data",
+    "quoted long24 maintenance shortage and attrition are zero",
+    "four hypothetical investment windows computed consistently",
+    "late objective contribution uses exact fractions"
+  ],
+  "not_validated": [
+    "24 full rounds and E24 settlement",
+    "real industrial orders, legal entry and rear reserve maintenance",
+    "real shared-route optimizer equivalence",
+    "map VP placement and capture timing",
+    "C-model early collapse calibration",
+    "AI, fairness, performance, deployment"
+  ]
+}
