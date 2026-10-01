@@ -36,9 +36,25 @@ try {
  for(const [id,u] of Object.entries(query.authoritative.state.units))if(u.side!==req.viewer&&!visible.has(id))delete query.authoritative.state.units[id];
  for(const [id,effect] of Object.entries(req.effects??{})){
   const u=query.authoritative.state.units[id];if(u?.expSupply&&!req.core.pendingDecision)u.expSupply={attackFactor:effect.factor,movementCap:effect.cap};
+  // A second attack is a new payment, unlike a pending first-attack reaction.
+  if(u?.expSupply&&req.core.pendingDecision?.kind==='SCHWERPUNKT_OPTION'){
+   const next=req.nextAttackEffects[id];u.expSupply={attackFactor:next.factor,movementCap:next.cap};
+  }
  }
  const model=queryModel(query,controller,req.draft);model.playerView=view;model.hexes=view.hexes;model.edges=view.edges;
  // Optional attack-support selection is outside frozen sandbox live.execute's allowlist.
  if(model.combat){model.combat.attackDraft.artilleryUnitIds=[];model.combat.attackDraft.selectedArtilleryId=null;}
- console.log(JSON.stringify({view,model,events,memory,forcedAction:forcedAction(query,controller,req.draft),canAct:!model.readOnly,status:m.status}));
+ // Quote only complete, authorized drafts from the already-filtered query model.
+ // These are conditional inventory costs, never a hidden-route legality verdict.
+ const supplyActions=[],d=req.draft,c=model.combat;
+ if(d&&!model.readOnly){
+  if(!req.core.pendingDecision&&d.interactionMode==='MOVE_PATH'&&model.movement?.path.length&&!model.movement.issues.length&&model.selectedCounter?.side===req.viewer)
+   supplyActions.push({type:'MOVE',unitId:model.selectedCounter.id});
+  if(!req.core.pendingDecision&&d.interactionMode==='ATTACK'&&c?.attackDraft.preview&&!c.attackDraft.issues.length&&c.attackDraft.target&&view.units.some(u=>u.side!==req.viewer&&u.hex.q===c.attackDraft.target.q&&u.hex.r===c.attackDraft.target.r))
+   supplyActions.push({type:'ATTACK',attackerUnitIds:c.attackDraft.attackerUnitIds});
+  if(req.core.pendingDecision?.kind==='SCHWERPUNKT_OPTION'&&c?.schwerpunkt?.target)
+   for(const choice of c.schwerpunkt.choices)if(choice.target.q===c.schwerpunkt.target.q&&choice.target.r===c.schwerpunkt.target.r)
+    supplyActions.push({type:'SCHWERPUNKT_ATTACK',unitId:choice.unitId});
+ }
+ console.log(JSON.stringify({view,model,events,memory,supplyActions,forcedAction:forcedAction(query,controller,req.draft),canAct:!model.readOnly,status:m.status}));
 } catch(e){console.error(String(e));process.exitCode=1;}

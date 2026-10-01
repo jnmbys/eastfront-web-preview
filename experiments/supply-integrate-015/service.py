@@ -13,6 +13,7 @@ from live import execute,effects
 from campaign import create_campaign,CONFIG
 from display import player_display
 from bounded import warm_start
+from supply_preview import action_preview, debt_inventory
 VERSION='SUPPLY-INTEGRATE-015-v1'
 SOURCE='aca1f4b9801ab7b7c7073ac7973bb028cd6df435'
 SESSIONS={};GATE=threading.Lock();CREATIONS=[]
@@ -20,7 +21,7 @@ class Rejected(Exception):pass
 
 def projection(b,viewer,draft=None,deadline=None,**extra):
  action={'type':'ATTACK','attackerUnitIds':draft.get('attackUnitIds',[])} if draft else None
- request=dict(core=b['core'],revision=b['revision'],viewer=viewer,draft=draft,effects=effects(b['logistics'],action),**extra)
+ request=dict(core=b['core'],revision=b['revision'],viewer=viewer,draft=draft,effects=effects(b['logistics'],action),nextAttackEffects=effects(b['logistics'],{'type':'ATTACK','attackerUnitIds':[u['id'] for u in b['logistics']['units']]}),**extra)
  remaining=(deadline-time.perf_counter()) if deadline else 3
  if remaining<=0:raise TimeoutError()
  p=subprocess.run(['node',str(Path(__file__).with_name('projection.mjs'))],input=json.dumps(request),text=True,capture_output=True,timeout=remaining,cwd=ROOT)
@@ -29,13 +30,14 @@ def projection(b,viewer,draft=None,deadline=None,**extra):
 
 def packet(slot,b=None,draft=None,deadline=None,**extra):
  b=b or slot['state'];viewer=slot['viewer'];p=projection(b,viewer,draft,deadline,memory=deepcopy(slot['memory']),**extra)
- memory=p.pop('memory')
+ memory=p.pop('memory');actions=p.pop('supplyActions')
  supply=player_display(b['logistics'],'G' if viewer=='GERMAN' else 'S')
  own=supply['units'];fx=effects(b['logistics'])
  p['supply']={'version':VERSION,'source':SOURCE,'mode':b['mode'],'profile':CONFIG['id'],
-  'units':[dict(id=u['id'],stock=u['stock'],reserve=u['target'],debt=u['debt'],effect=fx[u['id']]) for u in own],
-  'ledger':supply['ledger'],'transition':supply['transition'],'receipt':slot.get('receipt',{}).get(viewer),
-  'next':'苏军回合末配送；恢复在已提交配送后生效','seconds':slot.get('seconds'),
+  'units':[dict(id=u['id'],stock=u['stock'],reserve=u['target'],debt=u['debt'],maintenance=u['B'],debtInventory=debt_inventory(u['debt'],u['B']),effect=fx[u['id']]) for u in own],
+  'preview':action_preview(b,viewer,actions,draft),
+  'ledger':[{**row,'units':[{**u,'debtInventory':debt_inventory(u['debt'],u['due'])} for u in row['units']]} for row in supply['ledger']],'transition':supply['transition'],'receipt':slot.get('receipt',{}).get(viewer),
+  'next':'苏军回合末统一配送、维护和恢复；修路不会立即补仓','seconds':slot.get('seconds'),
   'owner':b['core']['pendingDecision']['side'] if b['core']['pendingDecision'] else b['core']['activeSide']}
  p.update(matchRevision=b['revision'],version=VERSION)
  return p,memory
@@ -66,7 +68,7 @@ def transact(slot,cmd):
   before={u['id']:u for u in b['logistics']['units']}
   after={u['id']:u for u in r['state']['logistics']['units']}
   candidate['receipt']={side:dict(settled=entry['settled'],charges=[c for c in entry['charges'] if c['side']==short],
-   changes=[dict(id=id,stockBefore=before.get(id,{}).get('stock',0),stockAfter=after.get(id,{}).get('stock',0),debtBefore=before.get(id,{}).get('debt','0'),debtAfter=after.get(id,{}).get('debt','0'),removed=id not in after) for id in sorted(before.keys()|after.keys()) if (after.get(id) or before[id])['side']==short and (before.get(id,{}).get('stock'),before.get(id,{}).get('debt'))!=(after.get(id,{}).get('stock'),after.get(id,{}).get('debt'))]) for side,short in [('GERMAN','G'),('SOVIET','S')]}
+   changes=[dict(id=id,stockBefore=before.get(id,{}).get('stock',0),stockAfter=after.get(id,{}).get('stock',0),debtBefore=before.get(id,{}).get('debt','0'),debtAfter=after.get(id,{}).get('debt','0'),debtInventoryBefore=debt_inventory(before.get(id,{}).get('debt','0'),(before.get(id) or after[id])['B']),debtInventoryAfter=debt_inventory(after.get(id,{}).get('debt','0'),(after.get(id) or before[id])['B']),removed=id not in after) for id in sorted(before.keys()|after.keys()) if (after.get(id) or before[id])['side']==short and (before.get(id,{}).get('stock'),before.get(id,{}).get('debt'))!=(after.get(id,{}).get('stock'),after.get(id,{}).get('debt'))]) for side,short in [('GERMAN','G'),('SOVIET','S')]}
  p,memory=packet(candidate,deadline=deadline,**extra)
  elapsed=time.perf_counter()-started
  if elapsed>3:raise TimeoutError()
