@@ -1,0 +1,56 @@
+✔ ADVANCE014 actual C156 excludes new ART adjacency and falls back to existing PASS (43.4363ms)
+✔ ADVANCE014 empty adjacency sets preserve forward advance (2.1396ms)
+✔ ADVANCE014 same existing neighbor or subset is allowed; adjacency alone is not a veto (3.9783ms)
+✔ ADVANCE014 equal counts with a different enemy identity are new adjacency (0.7116ms)
+✔ ADVANCE014 existing adjacency does not exempt an additional visible enemy (0.6382ms)
+✔ ADVANCE014 skip blocked preferred options and evaluate remaining unit (2.8094ms)
+✔ ADVANCE014 hidden enemy and future RNG mutations leave the same authorized view and choice (47.4173ms)
+✔ ADVANCE014 existing destination/risk/receipt/rejection/Soviet guards remain (3.8132ms)
+✖ MANEUVER017 n389 adjacent PZ04 gets a bounded prefix; unchanged ranking chooses PZ01 (34.729ms)
+✔ MANEUVER017 known ZOC-to-ZOC first hops remain unscored; entry ends the prefix (0.9711ms)
+✔ MANEUVER017 negative public risk, occupied destination and moved eligibility guards remain (4.8833ms)
+✔ MANEUVER017 nonadjacent decisions and midpoint stop are covered unchanged by MOVE006; budget caps unchanged (28.7392ms)
+✔ MANEUVER017 hidden enemy and future RNG changes leave equal projections, candidates and choices (70.4151ms)
+✔ MOVE006 Core consumes phase eligibility once; one budgeted prefix moves three cells and replays exactly (31.7107ms)
+✔ MOVE006 cumulative MP, OOS, river and bridge costs agree with authoritative execution (25.6226ms)
+✔ MOVE006 stops at goals and identified adjacency; respects contact, risk and full friendly stacks (4.4677ms)
+✔ MOVE006 road bonus belongs to entire path, never each step; search and path remain bounded (5.9979ms)
+✔ MOVE006 hidden blockers and RNG cannot change candidates or choice; atomic rejection rests unit without prefix probes (13.3178ms)
+✔ MOVE006 plans a non-greedy detour, one Action per view; fixed map has no revisits (16.055ms)
+✔ MOVE006 avoids a nearer dead end and ends if the public goal is unreachable (5.4278ms)
+✔ MOVE006 target/terrain/authorized occupancy changes immediately invalidate the old route (3.8243ms)
+✔ MOVE006 visible enemy goal replaces objective and disappearance restores public objective (3.1269ms)
+✔ MOVE006 rejected edge stays suppressed after unrelated view change, resets on phase end (3.1464ms)
+✔ MOVE006 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (24.0458ms)
+✔ MOVE006 bounded settled-node search ends safely; repeated input is identical and immutable (6.7323ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 24
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 322.7047
+
+✖ failing tests:
+
+test at ai\tests\maneuver017.test.mjs:16:1
+✖ MANEUVER017 n389 adjacent PZ04 gets a bounded prefix; unchanged ranking chooses PZ01 (34.729ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(r.accepted)
+  
+      at file:///C:/Users/jinyibo/eastfront/ai-maneuver-017/ai/tests/maneuver017.test.mjs:19:265
+      at Array.map (<anonymous>)
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-maneuver-017/ai/tests/maneuver017.test.mjs:19:144)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,33 @@
+✔ ADVANCE014 actual C156 excludes new ART adjacency and falls back to existing PASS (44.7214ms)
+✔ ADVANCE014 empty adjacency sets preserve forward advance (2.1863ms)
+✔ ADVANCE014 same existing neighbor or subset is allowed; adjacency alone is not a veto (4.0065ms)
+✔ ADVANCE014 equal counts with a different enemy identity are new adjacency (0.698ms)
+✔ ADVANCE014 existing adjacency does not exempt an additional visible enemy (0.6007ms)
+✔ ADVANCE014 skip blocked preferred options and evaluate remaining unit (2.4918ms)
+✔ ADVANCE014 hidden enemy and future RNG mutations leave the same authorized view and choice (46.2125ms)
+✔ ADVANCE014 existing destination/risk/receipt/rejection/Soviet guards remain (3.4194ms)
+✔ MANEUVER017 n389 adjacent PZ04 gets a bounded prefix; unchanged ranking chooses PZ01 (36.6713ms)
+✔ MANEUVER017 known ZOC-to-ZOC first hops remain unscored; entry ends the prefix (0.717ms)
+✔ MANEUVER017 negative public risk, occupied destination and moved eligibility guards remain (5.1176ms)
+✔ MANEUVER017 nonadjacent decisions and midpoint stop are covered unchanged by MOVE006; budget caps unchanged (27.838ms)
+✔ MANEUVER017 hidden enemy and future RNG changes leave equal projections, candidates and choices (68.3484ms)
+✔ MOVE006 Core consumes phase eligibility once; one budgeted prefix moves three cells and replays exactly (28.8974ms)
+✔ MOVE006 cumulative MP, OOS, river and bridge costs agree with authoritative execution (22.1227ms)
+✔ MOVE006 stops at goals and identified adjacency; respects contact, risk and full friendly stacks (5.2882ms)
+✔ MOVE006 road bonus belongs to entire path, never each step; search and path remain bounded (5.9976ms)
+✔ MOVE006 hidden blockers and RNG cannot change candidates or choice; atomic rejection rests unit without prefix probes (12.7424ms)
+✔ MOVE006 plans a non-greedy detour, one Action per view; fixed map has no revisits (16.1357ms)
+✔ MOVE006 avoids a nearer dead end and ends if the public goal is unreachable (6.386ms)
+✔ MOVE006 target/terrain/authorized occupancy changes immediately invalidate the old route (3.2082ms)
+✔ MOVE006 visible enemy goal replaces objective and disappearance restores public objective (2.9326ms)
+✔ MOVE006 rejected edge stays suppressed after unrelated view change, resets on phase end (2.3452ms)
+✔ MOVE006 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (25.5351ms)
+✔ MOVE006 bounded settled-node search ends safely; repeated input is identical and immutable (6.6161ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 314.47
