@@ -1,0 +1,889 @@
+{
+  "inputs": {
+    "baseline": "f09b0fb7eef0325604b71ae8640fcde9f5061b94",
+    "formalMapSHA256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
+    "method": "Unweighted undirected intact rail graph. No ownership, damage, enemy, supply, movement or VP simulation."
+  },
+  "terrainCounts": {
+    "FOREST": 92,
+    "PLAIN": 460,
+    "HILL": 37,
+    "MARSH": 19,
+    "CITY": 6,
+    "ROUGH": 18,
+    "LAKE": 5,
+    "MAIN_CITY": 2,
+    "OUTER_CITY": 1
+  },
+  "network": {
+    "uniqueFeatureEdges": 257,
+    "roadEdges": 60,
+    "railEdges": 132,
+    "riverEdges": 108,
+    "roadRailOverlaps": 37,
+    "riverTransportCrossings": [
+      {
+        "a": "U12",
+        "b": "V12",
+        "road": true,
+        "rail": true,
+        "bridge": {
+          "kind": "BOTH",
+          "destroyed": false
+        }
+      },
+      {
+        "a": "V5",
+        "b": "W6",
+        "road": true,
+        "rail": true,
+        "bridge": {
+          "kind": "BOTH",
+          "destroyed": false
+        }
+      },
+      {
+        "a": "D15",
+        "b": "E15",
+        "road": false,
+        "rail": true,
+        "bridge": {
+          "kind": "RAILWAY",
+          "destroyed": false
+        }
+      },
+      {
+        "a": "U10",
+        "b": "V10",
+        "road": false,
+        "rail": true,
+        "bridge": {
+          "kind": "RAILWAY",
+          "destroyed": false
+        }
+      },
+      {
+        "a": "V5",
+        "b": "W5",
+        "road": false,
+        "rail": true,
+        "bridge": {
+          "kind": "RAILWAY",
+          "destroyed": false
+        }
+      },
+      {
+        "a": "V14",
+        "b": "W14",
+        "road": false,
+        "rail": true,
+        "bridge": {
+          "kind": "RAILWAY",
+          "destroyed": false
+        }
+      }
+    ],
+    "railCells": 129,
+    "railCellSharePercent": 20.15625,
+    "degreeHistogram": {
+      "1": 6,
+      "2": 113,
+      "3": 8,
+      "4": 2
+    },
+    "componentCount": 1,
+    "cycleRank": 4,
+    "terminals": [
+      "A10",
+      "A16",
+      "A5",
+      "AF10",
+      "AF16",
+      "AF4"
+    ],
+    "junctions": [
+      {
+        "label": "AC10",
+        "degree": 3,
+        "terrain": "MAIN_CITY"
+      },
+      {
+        "label": "J6",
+        "degree": 3,
+        "terrain": "CITY"
+      },
+      {
+        "label": "M15",
+        "degree": 3,
+        "terrain": "CITY"
+      },
+      {
+        "label": "Q11",
+        "degree": 3,
+        "terrain": "PLAIN"
+      },
+      {
+        "label": "R10",
+        "degree": 4,
+        "terrain": "CITY"
+      },
+      {
+        "label": "S10",
+        "degree": 3,
+        "terrain": "PLAIN"
+      },
+      {
+        "label": "U6",
+        "degree": 3,
+        "terrain": "PLAIN"
+      },
+      {
+        "label": "V5",
+        "degree": 3,
+        "terrain": "CITY"
+      },
+      {
+        "label": "X14",
+        "degree": 4,
+        "terrain": "CITY"
+      },
+      {
+        "label": "Z9",
+        "degree": 3,
+        "terrain": "PLAIN"
+      }
+    ],
+    "articulationCells": [
+      "AA16",
+      "AA4",
+      "AB16",
+      "AB4",
+      "AC10",
+      "AC16",
+      "AC5",
+      "AD10",
+      "AD16",
+      "AD4",
+      "AE11",
+      "AE17",
+      "AE4",
+      "B10",
+      "B16",
+      "B5",
+      "C10",
+      "C16",
+      "C5",
+      "D10",
+      "D15",
+      "D5",
+      "E10",
+      "E15",
+      "E5",
+      "F15",
+      "F5",
+      "F9",
+      "G10",
+      "G16",
+      "G6",
+      "H15",
+      "H6",
+      "H9",
+      "I10",
+      "I15",
+      "I6",
+      "J10",
+      "J14",
+      "J6",
+      "K10",
+      "K15",
+      "L10",
+      "L15",
+      "M11",
+      "M15",
+      "N10",
+      "O11",
+      "P11",
+      "Q11",
+      "V5",
+      "W5",
+      "X14",
+      "X4",
+      "Y15",
+      "Y4",
+      "Z15",
+      "Z3"
+    ],
+    "cityRailDistances": [
+      {
+        "from": "D10",
+        "to": {
+          "D10": 0,
+          "J6": 22,
+          "M15": 19,
+          "R10": 14,
+          "V5": 21,
+          "X14": 21,
+          "AC10": 25,
+          "AC11": 26,
+          "AD10": 26
+        }
+      },
+      {
+        "from": "J6",
+        "to": {
+          "D10": 22,
+          "J6": 0,
+          "M15": 15,
+          "R10": 8,
+          "V5": 12,
+          "X14": 15,
+          "AC10": 19,
+          "AC11": 20,
+          "AD10": 20
+        }
+      },
+      {
+        "from": "M15",
+        "to": {
+          "D10": 19,
+          "J6": 15,
+          "M15": 0,
+          "R10": 7,
+          "V5": 14,
+          "X14": 11,
+          "AC10": 18,
+          "AC11": 17,
+          "AD10": 19
+        }
+      },
+      {
+        "from": "R10",
+        "to": {
+          "D10": 14,
+          "J6": 8,
+          "M15": 7,
+          "R10": 0,
+          "V5": 7,
+          "X14": 7,
+          "AC10": 11,
+          "AC11": 12,
+          "AD10": 12
+        }
+      },
+      {
+        "from": "V5",
+        "to": {
+          "D10": 21,
+          "J6": 12,
+          "M15": 14,
+          "R10": 7,
+          "V5": 0,
+          "X14": 14,
+          "AC10": 9,
+          "AC11": 10,
+          "AD10": 10
+        }
+      },
+      {
+        "from": "X14",
+        "to": {
+          "D10": 21,
+          "J6": 15,
+          "M15": 11,
+          "R10": 7,
+          "V5": 14,
+          "X14": 0,
+          "AC10": 7,
+          "AC11": 6,
+          "AD10": 8
+        }
+      },
+      {
+        "from": "AC10",
+        "to": {
+          "D10": 25,
+          "J6": 19,
+          "M15": 18,
+          "R10": 11,
+          "V5": 9,
+          "X14": 7,
+          "AC10": 0,
+          "AC11": 1,
+          "AD10": 1
+        }
+      },
+      {
+        "from": "AC11",
+        "to": {
+          "D10": 26,
+          "J6": 20,
+          "M15": 17,
+          "R10": 12,
+          "V5": 10,
+          "X14": 6,
+          "AC10": 1,
+          "AC11": 0,
+          "AD10": 2
+        }
+      },
+      {
+        "from": "AD10",
+        "to": {
+          "D10": 26,
+          "J6": 20,
+          "M15": 19,
+          "R10": 12,
+          "V5": 10,
+          "X14": 8,
+          "AC10": 1,
+          "AC11": 2,
+          "AD10": 0
+        }
+      }
+    ],
+    "ports": {
+      "westRailEntries": [
+        "A5",
+        "A10",
+        "A16"
+      ],
+      "eastRailExits": [
+        "AF4",
+        "AF10",
+        "AF16"
+      ],
+      "sovietSupplySources": [
+        "AC10",
+        "AC11"
+      ]
+    },
+    "portReachability": [
+      {
+        "from": "A5",
+        "reachesPorts": [
+          "A5",
+          "A10",
+          "A16",
+          "AF4",
+          "AF10",
+          "AF16"
+        ],
+        "reachesCities": [
+          "D10",
+          "J6",
+          "M15",
+          "R10",
+          "V5",
+          "X14",
+          "AC10",
+          "AC11",
+          "AD10"
+        ]
+      },
+      {
+        "from": "A10",
+        "reachesPorts": [
+          "A5",
+          "A10",
+          "A16",
+          "AF4",
+          "AF10",
+          "AF16"
+        ],
+        "reachesCities": [
+          "D10",
+          "J6",
+          "M15",
+          "R10",
+          "V5",
+          "X14",
+          "AC10",
+          "AC11",
+          "AD10"
+        ]
+      },
+      {
+        "from": "A16",
+        "reachesPorts": [
+          "A5",
+          "A10",
+          "A16",
+          "AF4",
+          "AF10",
+          "AF16"
+        ],
+        "reachesCities": [
+          "D10",
+          "J6",
+          "M15",
+          "R10",
+          "V5",
+          "X14",
+          "AC10",
+          "AC11",
+          "AD10"
+        ]
+      },
+      {
+        "from": "AF4",
+        "reachesPorts": [
+          "A5",
+          "A10",
+          "A16",
+          "AF4",
+          "AF10",
+          "AF16"
+        ],
+        "reachesCities": [
+          "D10",
+          "J6",
+          "M15",
+          "R10",
+          "V5",
+          "X14",
+          "AC10",
+          "AC11",
+          "AD10"
+        ]
+      },
+      {
+        "from": "AF10",
+        "reachesPorts": [
+          "A5",
+          "A10",
+          "A16",
+          "AF4",
+          "AF10",
+          "AF16"
+        ],
+        "reachesCities": [
+          "D10",
+          "J6",
+          "M15",
+          "R10",
+          "V5",
+          "X14",
+          "AC10",
+          "AC11",
+          "AD10"
+        ]
+      },
+      {
+        "from": "AF16",
+        "reachesPorts": [
+          "A5",
+          "A10",
+          "A16",
+          "AF4",
+          "AF10",
+          "AF16"
+        ],
+        "reachesCities": [
+          "D10",
+          "J6",
+          "M15",
+          "R10",
+          "V5",
+          "X14",
+          "AC10",
+          "AC11",
+          "AD10"
+        ]
+      }
+    ]
+  },
+  "cities": [
+    {
+      "label": "D10",
+      "terrain": "CITY",
+      "railDegree": 2,
+      "nearestOtherComplexByRail": {
+        "label": "R10",
+        "edges": 14
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "C10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "C11",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "D9",
+          "terrain": "FOREST"
+        },
+        {
+          "label": "D11",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "E10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "E11",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "J6",
+      "terrain": "CITY",
+      "railDegree": 3,
+      "nearestOtherComplexByRail": {
+        "label": "R10",
+        "edges": 8
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "I6",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "I7",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "J5",
+          "terrain": "HILL"
+        },
+        {
+          "label": "J7",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "K6",
+          "terrain": "HILL"
+        },
+        {
+          "label": "K7",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "M15",
+      "terrain": "CITY",
+      "railDegree": 3,
+      "nearestOtherComplexByRail": {
+        "label": "R10",
+        "edges": 7
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "L14",
+          "terrain": "FOREST"
+        },
+        {
+          "label": "L15",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "M14",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "M16",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "N14",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "N15",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "R10",
+      "terrain": "CITY",
+      "railDegree": 4,
+      "nearestOtherComplexByRail": {
+        "label": "M15",
+        "edges": 7
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "Q10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "Q11",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "R9",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "R11",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "S10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "S11",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "V5",
+      "terrain": "CITY",
+      "railDegree": 3,
+      "nearestOtherComplexByRail": {
+        "label": "R10",
+        "edges": 7
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "U5",
+          "terrain": "ROUGH"
+        },
+        {
+          "label": "U6",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "V4",
+          "terrain": "FOREST"
+        },
+        {
+          "label": "V6",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "W5",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "W6",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "X14",
+      "terrain": "CITY",
+      "railDegree": 4,
+      "nearestOtherComplexByRail": {
+        "label": "AC11",
+        "edges": 6
+      },
+      "nearestOtherComplexHexDistance": 6,
+      "ring1": [
+        {
+          "label": "W14",
+          "terrain": "HILL"
+        },
+        {
+          "label": "W15",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "X13",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "X15",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "Y14",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "Y15",
+          "terrain": "ROUGH"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "AC10",
+      "terrain": "MAIN_CITY",
+      "railDegree": 3,
+      "nearestOtherComplexByRail": {
+        "label": "X14",
+        "edges": 7
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "AB9",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AB10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AC9",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AC11",
+          "terrain": "MAIN_CITY"
+        },
+        {
+          "label": "AD9",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AD10",
+          "terrain": "OUTER_CITY"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "AC11",
+      "terrain": "MAIN_CITY",
+      "railDegree": 2,
+      "nearestOtherComplexByRail": {
+        "label": "X14",
+        "edges": 6
+      },
+      "nearestOtherComplexHexDistance": 6,
+      "ring1": [
+        {
+          "label": "AB10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AB11",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AC10",
+          "terrain": "MAIN_CITY"
+        },
+        {
+          "label": "AC12",
+          "terrain": "FOREST"
+        },
+        {
+          "label": "AD10",
+          "terrain": "OUTER_CITY"
+        },
+        {
+          "label": "AD11",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    },
+    {
+      "label": "AD10",
+      "terrain": "OUTER_CITY",
+      "railDegree": 2,
+      "nearestOtherComplexByRail": {
+        "label": "X14",
+        "edges": 8
+      },
+      "nearestOtherComplexHexDistance": 7,
+      "ring1": [
+        {
+          "label": "AC10",
+          "terrain": "MAIN_CITY"
+        },
+        {
+          "label": "AC11",
+          "terrain": "MAIN_CITY"
+        },
+        {
+          "label": "AD9",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AD11",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AE10",
+          "terrain": "PLAIN"
+        },
+        {
+          "label": "AE11",
+          "terrain": "PLAIN"
+        }
+      ],
+      "ring2NonLakeCells": 12
+    }
+  ],
+  "displayFixtures": {
+    "units": 58,
+    "occupiedCells": 57,
+    "stackHistogram": {
+      "1": 56,
+      "2": 1
+    },
+    "notice": "Display fixtures, not a strategic roster or stack stress test."
+  },
+  "industrialBudgetExamples": [
+    {
+      "clusters": 4,
+      "reservationCells": [
+        8,
+        12
+      ],
+      "sharePercent": [
+        1.25,
+        1.875
+      ],
+      "status": "proposed planning range, not actual locations or rule occupancy"
+    },
+    {
+      "clusters": 6,
+      "reservationCells": [
+        12,
+        18
+      ],
+      "sharePercent": [
+        1.875,
+        2.8125
+      ],
+      "status": "proposed planning range, not actual locations or rule occupancy"
+    },
+    {
+      "clusters": 8,
+      "reservationCells": [
+        16,
+        24
+      ],
+      "sharePercent": [
+        2.5,
+        3.75
+      ],
+      "status": "stress-case only"
+    }
+  ],
+  "checks": {
+    "formalHash": "PASS",
+    "terrainAndEdgesMatch015": "PASS",
+    "allEdgesAdjacent": "PASS",
+    "railDegreeSum": "PASS",
+    "boundaryPortsOnRail": "PASS"
+  },
+  "limitations": [
+    "Static graph connectivity is not valid current supply or legal movement.",
+    "No map/renderer/assets/rules changed.",
+    "No startup, GPU, Huawei, browser or physical touch acceptance performed."
+  ]
+}
