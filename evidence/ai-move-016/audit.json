@@ -1,0 +1,614 @@
+{
+  "task": "AI-MOVE-016",
+  "base": "69d1638d6c292346e27ddc3accce6bdb6e4064d4",
+  "strategy": "a655892a1eed5f8a136b6c73b9d9000560df8d91",
+  "scope": "1017/E T6 frozen n389; n373/381 occupancy and n383 existing prefix positive control only",
+  "newGames": 0,
+  "policyChanged": false,
+  "candidateRecovered": false,
+  "candidateSelected": false,
+  "checkpoints": [
+    {
+      "n": 373,
+      "inputHash": "7046e8c5479d1a5b79d4e36d954d8eece3635de2bc12253064d49a6fcefe018f",
+      "stateHash": "39762677fd478d33d4054658b5accbf590458a5f4626257ae52b40070e5345b4",
+      "traceLine": 374
+    },
+    {
+      "n": 381,
+      "inputHash": "ce98e212c43a4a762e7c17d7441012eb81a6d30a0197c23966a72f7cde7a05c2",
+      "stateHash": "436369ee08fa411119f9362965f670fdc819d7d09210d60d39ba8172fa5dbca2",
+      "traceLine": 382
+    },
+    {
+      "n": 383,
+      "inputHash": "7ed8c32c1d4534d54e88e9918c6d9521c6469f276ee5214b77ab28928b3f973f",
+      "stateHash": "b7f12c9697ef5451f9308b690066e3d42760be343480db61e3f3c0219531206f",
+      "traceLine": 384
+    },
+    {
+      "n": 389,
+      "inputHash": "3cfb72673344e1c2f8f1b13a9a1f1e989592e92d52f3876513e41e30492e84ef",
+      "stateHash": "eda65265e0848b59000f881b1f95043881324c94e90138e00c1863eb0254eb18",
+      "traceLine": 390
+    }
+  ],
+  "archive": {
+    "file": "checkpoints.json.gz",
+    "sha256": "a41c1be9043c2dfc66ae2c037be916735293d46128299aca61f1104ae024ae62",
+    "bytes": 462838,
+    "format": "gzip UTF-8 JSON {checkpoints:[{n,input,state}],phaseEnd}; input and authoritative state remain separate",
+    "path": "evidence/ai-midgame-015/checkpoints.json.gz",
+    "commit": "69d1638d6c292346e27ddc3accce6bdb6e4064d4"
+  },
+  "identity": {
+    "node": "v24.19.0",
+    "verifiedRuntimeFiles": 102,
+    "productionDiff": "",
+    "sourcePaths": [
+      "ai/fair",
+      "ai/authority",
+      "vendor",
+      "src/multiplayer/gameplayProtocol.ts"
+    ],
+    "sourceFiles": [
+      {
+        "path": "ai/fair/routing.ts",
+        "sha256": "4a08c00cb26b065274744aed1f0a800e08de56f03d842d7683bf6848c08c12d9"
+      },
+      {
+        "path": "ai/fair/candidates.ts",
+        "sha256": "f9e756b8821cdf26ec4c495385279a029103d4df958cddcdcfec0412dca5a7a7"
+      },
+      {
+        "path": "ai/fair/basicAgent.ts",
+        "sha256": "c5281efe7f46cf0847a69f2ea933ffacd60eb1fb86c61974bf983e3b21d06e4e"
+      },
+      {
+        "path": "ai/fair/advance.ts",
+        "sha256": "838ffe63a403adeecef5cf9cdbcfc5aac33370c9cb950a4b24d7fb36b7baf8a4"
+      },
+      {
+        "path": "ai/authority/FairHost.ts",
+        "sha256": "5763c92871343e4643be103b02af8589fa502e30852fce070c5d6e39f32c5f2a"
+      }
+    ]
+  },
+  "pipeline": {
+    "baseCount": 59,
+    "hostCount": 59,
+    "candidateLimit": 128,
+    "pz04": [
+      {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 15,
+              "r": 1
+            }
+          ]
+        },
+        "score": "-Infinity",
+        "prefix": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 15,
+              "r": 1
+            }
+          ]
+        },
+        "inHost": true
+      },
+      {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 15,
+              "r": 0
+            }
+          ]
+        },
+        "score": "-Infinity",
+        "prefix": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 15,
+              "r": 0
+            }
+          ]
+        },
+        "inHost": true
+      },
+      {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 14,
+              "r": 0
+            }
+          ]
+        },
+        "score": "-Infinity",
+        "prefix": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 14,
+              "r": 0
+            }
+          ]
+        },
+        "inHost": true
+      },
+      {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ]
+        },
+        "score": "-Infinity",
+        "prefix": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 13,
+              "r": 1
+            }
+          ]
+        },
+        "inHost": true
+      },
+      {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 13,
+              "r": 2
+            }
+          ]
+        },
+        "score": "-Infinity",
+        "prefix": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 13,
+              "r": 2
+            }
+          ]
+        },
+        "inHost": true
+      },
+      {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 14,
+              "r": 2
+            }
+          ]
+        },
+        "score": "-Infinity",
+        "prefix": {
+          "type": "MOVE",
+          "unitId": "G-PZ-04",
+          "path": [
+            {
+              "q": 14,
+              "r": 2
+            }
+          ]
+        },
+        "inHost": true
+      }
+    ],
+    "unitSearchCost": {
+      "expanded": 0,
+      "searches": 0,
+      "exhausted": false
+    },
+    "wholeDecisionSearchCost": {
+      "expanded": 0,
+      "searches": 2,
+      "exhausted": false
+    },
+    "limits": {
+      "ROUTE_UNIT_LIMIT": 768,
+      "ROUTE_DECISION_LIMIT": 32768,
+      "ROUTE_PATH_LIMIT": 16
+    },
+    "finiteRanking": [
+      {
+        "intent": {
+          "type": "READY_FOR_PHASE_END"
+        },
+        "score": 0,
+        "tie": 1416980528
+      }
+    ],
+    "choice": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "READY_FOR_PHASE_END"
+      }
+    },
+    "originalResult": {
+      "status": "ACCEPTED",
+      "side": "GERMAN"
+    },
+    "routeInHost": false,
+    "earliestExclusion": "routing.ts:100 origin identified-enemy adjacency; prefix early-return at109; no plan search reached for PZ04",
+    "originalStageRejections": 0
+  },
+  "fairRoute": {
+    "unitId": "G-PZ-04",
+    "origin": {
+      "hex": {
+        "q": 14,
+        "r": 1
+      },
+      "identifiedHex": true,
+      "knownZoc": true,
+      "adjacentEnemies": [
+        "S-TK-03"
+      ],
+      "visibleEnemies": [],
+      "contacts": [],
+      "friendlyOccupants": []
+    },
+    "path": [
+      {
+        "q": 14,
+        "r": 0
+      },
+      {
+        "q": 15,
+        "r": 0
+      }
+    ],
+    "steps": [
+      {
+        "hex": {
+          "q": 14,
+          "r": 0
+        },
+        "identifiedHex": true,
+        "knownZoc": false,
+        "adjacentEnemies": [],
+        "visibleEnemies": [],
+        "contacts": [],
+        "friendlyOccupants": [],
+        "terrain": "FOREST",
+        "edge": null,
+        "cost": 2,
+        "cumulativeMP": 2
+      },
+      {
+        "hex": {
+          "q": 15,
+          "r": 0
+        },
+        "identifiedHex": true,
+        "knownZoc": true,
+        "adjacentEnemies": [
+          "S-I-08"
+        ],
+        "visibleEnemies": [],
+        "contacts": [],
+        "friendlyOccupants": [],
+        "terrain": "PLAIN",
+        "edge": null,
+        "cost": 1,
+        "cumulativeMP": 3
+      }
+    ],
+    "spentMP": 3,
+    "maxMP": 5,
+    "issues": [],
+    "proposalSupported": true,
+    "limits": {
+      "maxSuppliedSteps": 2,
+      "noEnumeration": true,
+      "noCore": true,
+      "unknownEnemiesNotExcluded": true,
+      "notCovered": [
+        "recon exception",
+        "enabled road bonus",
+        "future occupancy",
+        "unknown enemy ZOC or blockers"
+      ]
+    }
+  },
+  "fairDirectStep": {
+    "unitId": "G-PZ-04",
+    "origin": {
+      "hex": {
+        "q": 14,
+        "r": 1
+      },
+      "identifiedHex": true,
+      "knownZoc": true,
+      "adjacentEnemies": [
+        "S-TK-03"
+      ],
+      "visibleEnemies": [],
+      "contacts": [],
+      "friendlyOccupants": []
+    },
+    "path": [
+      {
+        "q": 15,
+        "r": 0
+      }
+    ],
+    "steps": [
+      {
+        "hex": {
+          "q": 15,
+          "r": 0
+        },
+        "identifiedHex": true,
+        "knownZoc": true,
+        "adjacentEnemies": [
+          "S-I-08"
+        ],
+        "visibleEnemies": [],
+        "contacts": [],
+        "friendlyOccupants": [],
+        "terrain": "PLAIN",
+        "edge": null,
+        "cost": 1,
+        "cumulativeMP": 1
+      }
+    ],
+    "spentMP": 1,
+    "maxMP": 5,
+    "issues": [
+      "KNOWN_ZOC_TO_ZOC"
+    ],
+    "proposalSupported": false,
+    "limits": {
+      "maxSuppliedSteps": 2,
+      "noEnumeration": true,
+      "noCore": true,
+      "unknownEnemiesNotExcluded": true,
+      "notCovered": [
+        "recon exception",
+        "enabled road bonus",
+        "future occupancy",
+        "unknown enemy ZOC or blockers"
+      ]
+    }
+  },
+  "offlineCore": {
+    "intent": {
+      "type": "MOVE",
+      "unitId": "G-PZ-04",
+      "path": [
+        {
+          "q": 14,
+          "r": 0
+        },
+        {
+          "q": 15,
+          "r": 0
+        }
+      ]
+    },
+    "accepted": true,
+    "issues": [],
+    "events": [
+      {
+        "type": "UnitMoved",
+        "actionId": "A-000384",
+        "unitId": "G-PZ-04",
+        "from": {
+          "q": 14,
+          "r": 1
+        },
+        "to": {
+          "q": 15,
+          "r": 0
+        },
+        "spentMP": 3,
+        "maxMP": 5
+      },
+      {
+        "type": "EnteredEnemyZOC",
+        "actionId": "A-000384",
+        "unitId": "G-PZ-04",
+        "hex": {
+          "q": 15,
+          "r": 0
+        }
+      }
+    ],
+    "validation": {
+      "issues": [],
+      "spentMP": 3,
+      "maxMP": 5,
+      "allRoad": false,
+      "zocClean": false,
+      "reconIgnoreConsumed": false,
+      "enteredEnemyZoc": true,
+      "enteredEnemyZocHex": {
+        "q": 15,
+        "r": 0
+      }
+    },
+    "randomUnchanged": true
+  },
+  "nonZocFixture": {
+    "knownOriginZoc": false,
+    "score": "-Infinity",
+    "metrics": {
+      "expanded": 0,
+      "searches": 0,
+      "exhausted": false
+    },
+    "meaning": "Identified adjacency policy is deliberately stronger than ordinary ZOC rules; no production mutation."
+  },
+  "dynamicOccupancy": [
+    {
+      "n": 373,
+      "safeDestination": false,
+      "friendlyOccupants": [
+        "G-I-09",
+        "G-I-10"
+      ],
+      "coreIssues": [
+        {
+          "code": "STACKING_LIMIT",
+          "message": "Destination 10,1 already contains 2 friendly units; limit is 2.",
+          "unitId": "G-I-04",
+          "hex": {
+            "q": 10,
+            "r": 1
+          },
+          "details": {
+            "stackingLimit": 2,
+            "currentFriendlyUnits": [
+              "G-I-09",
+              "G-I-10"
+            ]
+          }
+        }
+      ],
+      "actualChoice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-I-03",
+          "path": [
+            {
+              "q": 13,
+              "r": 4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "n": 381,
+      "safeDestination": true,
+      "friendlyOccupants": [
+        "G-I-05"
+      ],
+      "coreIssues": [],
+      "actualChoice": {
+        "kind": "INTENT",
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-I-04",
+          "path": [
+            {
+              "q": 10,
+              "r": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "positivePrefix": {
+    "n": 383,
+    "intent": {
+      "type": "MOVE",
+      "unitId": "G-I-08",
+      "path": [
+        {
+          "q": 11,
+          "r": 5
+        },
+        {
+          "q": 11,
+          "r": 6
+        }
+      ]
+    },
+    "prefix": {
+      "type": "MOVE",
+      "unitId": "G-I-08",
+      "path": [
+        {
+          "q": 11,
+          "r": 5
+        },
+        {
+          "q": 11,
+          "r": 6
+        }
+      ]
+    },
+    "hostCandidate": true,
+    "selected": false,
+    "actualChoice": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "MOVE",
+        "unitId": "G-I-08",
+        "path": [
+          {
+            "q": 10,
+            "r": 4
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "expanded": 170,
+      "searches": 1,
+      "exhausted": false
+    },
+    "interpretation": "Original first-hop score/tie still decides; presence does not force selection."
+  },
+  "hiddenIsolation": {
+    "hiddenUnit": "S-ART-02",
+    "projectionHash": "bdcaf3c02a894813b1ac03273d7dba276bd356fb4f6b78631033529a055c4e38",
+    "equalProjections": true,
+    "equalCandidates": true,
+    "equalChoice": true,
+    "equalViewRoute": true,
+    "choice": {
+      "kind": "INTENT",
+      "intent": {
+        "type": "READY_FOR_PHASE_END"
+      }
+    },
+    "limitation": "Paired fresh-host projections with original own history; not claimed byte-identical to historical Host memory/observationKey."
+  },
+  "disposition": {
+    "decision": "KEEP_EXISTING_POLICY",
+    "reason": "Explicit origin-adjacency stop is an existing tactical policy choice, not loss of a computed prefix. The permitted route does not establish that relaxing this choice improves play.",
+    "repair": null,
+    "newDevelopmentGames": 0,
+    "conditionalGameGate": "false: no policy fix and no changed actual decision",
+    "unknown": [
+      "Strategic benefit or harm of withdrawing and re-entering ZOC",
+      "Whether any alternate policy would choose this route or improve later combat"
+    ],
+    "noFutureStateOrAuthorityInPolicy": true
+  }
+}
