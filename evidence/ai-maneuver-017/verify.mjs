@@ -11,7 +11,10 @@ const out='evidence/ai-maneuver-017',config=JSON.parse(readFileSync(out+'/config
 assert.equal(hash(readFileSync(out+'/config.json')),build.configHash);assert.equal(hash(build),manifest.buildIdentityHash);assert.deepEqual(rulesIdentity(),manifest.rules);assert.equal(summary.games.length,4);assert.equal(manifest.jobs.length,2);
 for(const [p,h] of build.experiment)assert.equal(hash(readFileSync('.ai-dist/'+p)),h,p);
 assert.deepEqual(execFileSync('git',['diff',config.baseline,'--name-only','--','ai/fair','ai/authority','src','vendor'],{encoding:'utf8'}).trim().split('\n'),['ai/fair/routing.ts']);
-assert.equal(execFileSync('git',['diff','5b6bce366f2ffb8780b984a927d229e6cb847881','--','ai/fair/routing.ts','ai/tests/maneuver017.test.mjs',out+'/config.json',out+'/run.mjs',out+'/observe.mjs'],{encoding:'utf8'}),'');
+// The remote mirror has the same frozen tree and is reachable in fresh clones;
+// the original local commit remains recorded in manifest/preregistration.json.
+const frozenRef=JSON.parse(readFileSync(out+'/preregistration.json')).remoteCommit;
+assert.equal(execFileSync('git',['diff',frozenRef,'--','ai/fair/routing.ts','ai/tests/maneuver017.test.mjs',out+'/config.json',out+'/run.mjs',out+'/observe.mjs'],{encoding:'utf8'}),'');
 const checks=[];
 for(const seed of config.seeds){
  const dir=`${out}/batch/development-${seed}-experiment-GERMAN`,rows=records(dir+'/trace.ndjson'),record=JSON.parse(readFileSync(dir+'/record.json')),audit=JSON.parse(readFileSync(`${out}/${seed}-017-audit.json`)),old=JSON.parse(readFileSync(`evidence/ai-advance-014/batch/development-${seed}-experiment-GERMAN/record.json`));
