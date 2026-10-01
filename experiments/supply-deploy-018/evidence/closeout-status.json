@@ -1,0 +1,64 @@
+{
+  "checked_at": "2026-10-01T08:45:22Z",
+  "request": "Continue SUPPLY-DEPLOY-018 only; fixed dep-dav1e1npn0mc739lk1ng",
+  "service": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"autoDeploy\":\"no\",\"autoDeployTrigger\":\"off\",\"branch\":\"supply-verify-016\",\"createdAt\":\"2026-09-29T01:41:37.537554Z\",\"dashboardUrl\":\"https://dashboard.render.com/web/srv-dathekek1f9s7389ksvg\",\"id\":\"srv-dathekek1f9s7389ksvg\",\"name\":\"eastfront-supply-sandbox\",\"notifyOnFail\":\"default\",\"ownerId\":\"tea-daos1iugekts73erk8j0\",\"repo\":\"https://github.com/jnmbys/eastfront-web-preview\",\"rootDir\":\"\",\"serviceDetails\":{\"buildPlan\":\"starter\",\"cache\":{\"profile\":\"no-cache\"},\"env\":\"docker\",\"envSpecificDetails\":{\"dockerCommand\":\"\",\"dockerContext\":\".\",\"dockerfilePath\":\"experiments/supply-integrate-015/Dockerfile\"},\"healthCheckPath\":\"/healthz\",\"ipAllowList\":[{\"cidrBlock\":\"0.0.0.0/0\",\"description\":\"everywhere\"}],\"maintenanceMode\":{\"enabled\":false,\"uri\":\"\"},\"numInstances\":1,\"openPorts\":[{\"port\":10000,\"protocol\":\"TCP\"}],\"plan\":\"0.5c-512mb\",\"previews\":{\"generation\":\"off\"},\"pullRequestPreviewsEnabled\":\"no\",\"region\":\"singapore\",\"renderSubdomainPolicy\":\"enabled\",\"runtime\":\"docker\",\"sshAddress\":\"srv-dathekek1f9s7389ksvg@ssh.singapore.render.com\",\"url\":\"https://eastfront-supply-sandbox.onrender.com\"},\"slug\":\"eastfront-supply-sandbox\",\"suspended\":\"not_suspended\",\"suspenders\":[],\"type\":\"web_service\",\"updatedAt\":\"2026-10-01T08:18:26.327378Z\"}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "fixed_deploy": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"commit\":{\"createdAt\":\"2026-09-30T13:54:42Z\",\"id\":\"813b4072568352e95d0726fe5fe04060c889c554\",\"message\":\"[CF-Pages-Skip] SUPPLY-VERIFY-016: real browser acceptance; container blocked; no deployment\"},\"createdAt\":\"2026-10-01T08:17:10.394508Z\",\"finishedAt\":\"2026-10-01T08:18:26.325882Z\",\"id\":\"dep-dav1e1npn0mc739lk1ng\",\"startedAt\":\"2026-10-01T08:17:10.377212Z\",\"status\":\"live\",\"trigger\":\"manual\",\"updatedAt\":\"2026-10-01T08:19:03.569377Z\"}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "rollback_target": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"commit\":{\"createdAt\":\"2026-09-30T06:01:29Z\",\"id\":\"aca1f4b9801ab7b7c7073ac7973bb028cd6df435\",\"message\":\"[CF-Pages-Skip] SUPPLY-CAMPAIGN-012 isolated online candidate and controlled destruction seams\"},\"createdAt\":\"2026-09-30T06:40:54.242283Z\",\"finishedAt\":\"2026-09-30T06:41:42.950368Z\",\"id\":\"dep-dauattnavr4c738ergg0\",\"startedAt\":\"2026-09-30T06:40:54.223198Z\",\"status\":\"deactivated\",\"trigger\":\"manual\",\"updatedAt\":\"2026-10-01T08:18:26.32498Z\"}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "current_health": {
+    "url": "https://eastfront-supply-sandbox.onrender.com/healthz",
+    "http_status": 200,
+    "body": {
+      "ready": true,
+      "version": "SUPPLY-INTEGRATE-015-v1",
+      "source": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435"
+    },
+    "source_meaning": "frozen rules source, not deployed application SHA"
+  },
+  "control": {
+    "browser_retried": false,
+    "remote_ssh_attempted": false,
+    "render_cli_available": false,
+    "ssh_agent_inventory": "ssh-add -l: Error connecting to agent: No such file or directory",
+    "standard_ssh_directory_keys_found": false,
+    "remote_exec_tool_available": false,
+    "prior_browser_blocker": "experiments/supply-deploy-018/evidence/access-resume.json",
+    "screenshot_received_in_this_request": false
+  },
+  "performed_private_tests": [],
+  "performed_browser_actions": [],
+  "service_mutations": [],
+  "rollback_executed": false
+}

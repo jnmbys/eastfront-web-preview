@@ -67,3 +67,7 @@ External HTTPS checks passed: experiment HTML and four JS/CSS resources, version
 Platform metrics for new instance sq6dm report startup sampled memory maximum 122580990 bytes (~116.9 MiB), with 0.5 CPU limit and ~512 MiB limit. After-smoke samples max 118865920 bytes. These are platform instance samples, not process RSS, cgroup peak, or a guarantee of no transient peak/OOM. Sampled instance_count remains one; deployment overlap includes old-instance time series. App logs fetched through the check contain no error/OOM/failure message; exited-process/OOM counters are not exposed here.
 
 Outstanding: user browser acceptance on new deployment; private actual-image representative delivery, four sessions, busy refusal, and 3-second rollback; process/harness memory and exit/OOM counters; 013 rollback-control confirmation. These are pending, not passed. No rollback has been required by the checks executed so far.
+
+## Fixed deployment closeout checkpoint
+
+2026-10-01 08:45 UTC: dep-dav1e1npn0mc739lk1ng and source813b4072568352e95d0726fe5fe04060c889c554 reconfirmed live at unchanged0.5CPU/512MiB/one instance; health200. Actual-image private checks, browser flow, and013Rollback screenshot remain unverified. No failed-connection retry, service mutation, new deploy, or rollback. See CLOSEOUT018.md and evidence/closeout-status.json. Acceptance is incomplete.

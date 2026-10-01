@@ -6,8 +6,8 @@
   "workspace_id": "tea-daos1iugekts73erk8j0",
   "service_id": "srv-dathekek1f9s7389ksvg",
   "approval": "explicit user approval remains valid for the stated scope; no repeat deployment approval required",
-  "status": "deployed_live_postdeploy_acceptance_incomplete",
-  "checked_at": "2026-10-01T08:24:55.424032+00:00",
+  "status": "fixed_deploy_reconfirmed_acceptance_blocked",
+  "checked_at": "2026-10-01T08:45:22Z",
   "read_only_identity_and_exposed_config": "passed",
   "current_deploy": "dep-dav1e1npn0mc739lk1ng",
   "current_source_sha": "813b4072568352e95d0726fe5fe04060c889c554",
@@ -35,11 +35,11 @@
   "production_completed": false,
   "post_deploy_checks": {
     "public_https": "passed",
-    "actual_browser": "pending user operation; no browser control retry",
-    "private_actual_image_delivery_busy_3s_rollback": "pending Shell access",
-    "rollback_button": "pending screenshot now 013 is previous deploy"
+    "actual_browser": "not executed; prior control failure retained, no retries",
+    "private_actual_image_delivery_busy_3s_rollback": "not executed; existing immutable017 private harness supplied for user Shell",
+    "rollback_button": "unverified; old013 API identity/status verified only"
   },
-  "blocker": null,
+  "blocker": "No rollback screenshot in this request; browser controls remain under stop-retry instruction; no authenticated private Shell control.",
   "recovery": "Verify 013 Rollback entry via user Dashboard, then actual-image private targeted tests via existing Shell and manual browser smoke. Existing approval remains valid. Do not treat current partial acceptance as complete.",
   "user_confirmed_render_login": true,
   "observed_authenticated_dashboard": {
@@ -51,5 +51,6 @@
   "environment_verification_method": "User Dashboard screenshot; evidence/environment-verification.json",
   "rollback_target": "dep-dauattnavr4c738ergg0",
   "rollback_target_status": "deactivated",
-  "rollback_executed": false
+  "rollback_executed": false,
+  "closeout_evidence_branch": "supply-deploy-018-closeout"
 }
