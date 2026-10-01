@@ -1,0 +1,342 @@
+{
+  "inputs": {
+    "baseline": "754da7cdfb7a343f51d7a008cec921c4dbd9d0fa",
+    "formalMapSHA256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
+    "formalCells": 640,
+    "formalEdges": 257,
+    "formalFixtureUnits": 58,
+    "baselinePackage": 3996913,
+    "assetBytes": 3212410,
+    "assumptions": [
+      "Same effective bounding-box aspect ratio; scalar extent estimate, no expanded map objects.",
+      "Same HEX_SIZE=42, five atlases, terrain/connection density, renderer and 015 local reference caches.",
+      "58 display fixtures are not the future game roster.",
+      "Industrial images, industrial rules, real map placement and UI not decided."
+    ],
+    "limits": [
+      "All B/C costs are projections, not runtime measurements.",
+      "Canvas totals exclude decoded images, transient ImageData, browser copies, GPU/RSS and GC.",
+      "No startup, GPU, Huawei or touch measurement. Historical 708ms remains open."
+    ]
+  },
+  "scenarios": [
+    {
+      "cells": 640,
+      "areaRatio": 1,
+      "linearRatio": 1,
+      "assetBytes": 3212410,
+      "newAssetBytesAssumingReuse": 0,
+      "package": {
+        "baselineBytes": 3996913,
+        "mapJsonBaselineBytes": 49764,
+        "estimatedMapDeltaBytes": 0,
+        "estimatedTotalBytes": 3996913,
+        "note": "Uncompressed map JSON scales with cells/features at unchanged schema and feature density; all other runtime files fixed. Not a generated build."
+      },
+      "canvas": {
+        "box": {
+          "width": 2489.3685532083564,
+          "height": 2242
+        },
+        "scale": 1.645397181032507,
+        "rasterWidth": 4096,
+        "rasterHeight": 3689,
+        "mainBytes": 60440576,
+        "listedAuxBytes": 7492540,
+        "listedTotalBytes": 67933116,
+        "perHexLinearResolutionVs640": 1,
+        "perHexPixelAreaVs640": 1,
+        "preserve640Resolution": {
+          "width": 4096,
+          "height": 3689,
+          "mainBytes": 60440576,
+          "listedTotalBytes": 67933116
+        }
+      },
+      "dom": {
+        "fixed58": 2457,
+        "sameDensity": {
+          "units": 58,
+          "estimatedLow": 2457,
+          "estimatedHigh": 2457
+        },
+        "industrialIncrement": "3F for existing inert placeholder groups; 0 for canvas-only stamps; actual interactive facility UI unknown"
+      },
+      "density": {
+        "fixedUnits": 58,
+        "per100Cells": 9.0625,
+        "sameDensityUnits": 58,
+        "sameDensityPer100Cells": 9.0625
+      },
+      "industrial": {
+        "illustrativeClusters": 8,
+        "minimumTwoCellReservations": 16,
+        "threeCellReservations": 24,
+        "sharePercent": [
+          2.5,
+          3.75
+        ],
+        "note": "8 clusters is a comparison assumption, not a requested factory count; reservation cells are design-space bookkeeping, not new terrain/rules."
+      },
+      "mobile": {
+        "availableMapArea": [
+          360,
+          600
+        ],
+        "unitVisualCssAt300": 20.772496677261557,
+        "zoomFor44CssUnit": 6.3545563179457725,
+        "zoomLimitInViewer": 8,
+        "note": "Illustrative CSS projection only; 44px is an operation-budget assumption, not measured touch acceptance."
+      },
+      "fullScanWorkRatios": {
+        "fixedDensityEdges": 1,
+        "fixedUnits": 1,
+        "scaledUnits": 1
+      },
+      "strategicInterpretations": {
+        "fixedHexDistance": {
+          "areaRatio": 1,
+          "typicalLinearExtentRatio": 1
+        },
+        "fixedWorldExtent": {
+          "hexDistanceRatio": 1,
+          "hexAreaRatio": 1,
+          "note": "Would require rules/time/movement/industrial scale decisions; art does not select these."
+        }
+      }
+    },
+    {
+      "cells": 800,
+      "areaRatio": 1.25,
+      "linearRatio": 1.118033988749895,
+      "assetBytes": 3212410,
+      "newAssetBytesAssumingReuse": 0,
+      "package": {
+        "baselineBytes": 3996913,
+        "mapJsonBaselineBytes": 49764,
+        "estimatedMapDeltaBytes": 12441,
+        "estimatedTotalBytes": 4009354,
+        "note": "Uncompressed map JSON scales with cells/features at unchanged schema and feature density; all other runtime files fixed. Not a generated build."
+      },
+      "canvas": {
+        "box": {
+          "width": 2783.1986530120935,
+          "height": 2506.6322027772644
+        },
+        "scale": 1.4716879787100854,
+        "rasterWidth": 4096,
+        "rasterHeight": 3689,
+        "mainBytes": 60440576,
+        "listedAuxBytes": 7492540,
+        "listedTotalBytes": 67933116,
+        "perHexLinearResolutionVs640": 0.8944271909999159,
+        "perHexPixelAreaVs640": 0.8,
+        "preserve640Resolution": {
+          "width": 4580,
+          "height": 4125,
+          "mainBytes": 75570000,
+          "listedTotalBytes": 83062540
+        }
+      },
+      "dom": {
+        "fixed58": 2777,
+        "sameDensity": {
+          "units": 73,
+          "estimatedLow": 3077,
+          "estimatedHigh": 3257
+        },
+        "industrialIncrement": "3F for existing inert placeholder groups; 0 for canvas-only stamps; actual interactive facility UI unknown"
+      },
+      "density": {
+        "fixedUnits": 58,
+        "per100Cells": 7.25,
+        "sameDensityUnits": 73,
+        "sameDensityPer100Cells": 9.125
+      },
+      "industrial": {
+        "illustrativeClusters": 8,
+        "minimumTwoCellReservations": 16,
+        "threeCellReservations": 24,
+        "sharePercent": [
+          2,
+          3
+        ],
+        "note": "8 clusters is a comparison assumption, not a requested factory count; reservation cells are design-space bookkeeping, not new terrain/rules."
+      },
+      "mobile": {
+        "availableMapArea": [
+          360,
+          600
+        ],
+        "unitVisualCssAt300": 18.57948585309814,
+        "zoomFor44CssUnit": 7.104609946888757,
+        "zoomLimitInViewer": 8,
+        "note": "Illustrative CSS projection only; 44px is an operation-budget assumption, not measured touch acceptance."
+      },
+      "fullScanWorkRatios": {
+        "fixedDensityEdges": 1.5625,
+        "fixedUnits": 1.25,
+        "scaledUnits": 1.5732758620689655
+      },
+      "strategicInterpretations": {
+        "fixedHexDistance": {
+          "areaRatio": 1.25,
+          "typicalLinearExtentRatio": 1.118033988749895
+        },
+        "fixedWorldExtent": {
+          "hexDistanceRatio": 0.8944271909999159,
+          "hexAreaRatio": 0.8,
+          "note": "Would require rules/time/movement/industrial scale decisions; art does not select these."
+        }
+      }
+    },
+    {
+      "cells": 1000,
+      "areaRatio": 1.5625,
+      "linearRatio": 1.25,
+      "assetBytes": 3212410,
+      "newAssetBytesAssumingReuse": 0,
+      "package": {
+        "baselineBytes": 3996913,
+        "mapJsonBaselineBytes": 49764,
+        "estimatedMapDeltaBytes": 27992,
+        "estimatedTotalBytes": 4024905,
+        "note": "Uncompressed map JSON scales with cells/features at unchanged schema and feature density; all other runtime files fixed. Not a generated build."
+      },
+      "canvas": {
+        "box": {
+          "width": 3111.7106915104455,
+          "height": 2802.5
+        },
+        "scale": 1.3163177448260055,
+        "rasterWidth": 4096,
+        "rasterHeight": 3689,
+        "mainBytes": 60440576,
+        "listedAuxBytes": 7492540,
+        "listedTotalBytes": 67933116,
+        "perHexLinearResolutionVs640": 0.8,
+        "perHexPixelAreaVs640": 0.64,
+        "preserve640Resolution": {
+          "width": 5120,
+          "height": 4612,
+          "mainBytes": 94453760,
+          "listedTotalBytes": 101946300
+        }
+      },
+      "dom": {
+        "fixed58": 3177,
+        "sameDensity": {
+          "units": 91,
+          "estimatedLow": 3837,
+          "estimatedHigh": 4233
+        },
+        "industrialIncrement": "3F for existing inert placeholder groups; 0 for canvas-only stamps; actual interactive facility UI unknown"
+      },
+      "density": {
+        "fixedUnits": 58,
+        "per100Cells": 5.8,
+        "sameDensityUnits": 91,
+        "sameDensityPer100Cells": 9.1
+      },
+      "industrial": {
+        "illustrativeClusters": 8,
+        "minimumTwoCellReservations": 16,
+        "threeCellReservations": 24,
+        "sharePercent": [
+          1.6,
+          2.4
+        ],
+        "note": "8 clusters is a comparison assumption, not a requested factory count; reservation cells are design-space bookkeeping, not new terrain/rules."
+      },
+      "mobile": {
+        "availableMapArea": [
+          360,
+          600
+        ],
+        "unitVisualCssAt300": 16.617997341809247,
+        "zoomFor44CssUnit": 7.943195397432215,
+        "zoomLimitInViewer": 8,
+        "note": "Illustrative CSS projection only; 44px is an operation-budget assumption, not measured touch acceptance."
+      },
+      "fullScanWorkRatios": {
+        "fixedDensityEdges": 2.44140625,
+        "fixedUnits": 1.5625,
+        "scaledUnits": 2.4515086206896552
+      },
+      "strategicInterpretations": {
+        "fixedHexDistance": {
+          "areaRatio": 1.5625,
+          "typicalLinearExtentRatio": 1.25
+        },
+        "fixedWorldExtent": {
+          "hexDistanceRatio": 0.8,
+          "hexAreaRatio": 0.64,
+          "note": "Would require rules/time/movement/industrial scale decisions; art does not select these."
+        }
+      }
+    }
+  ],
+  "packing": {
+    "hex": {
+      "size": 42,
+      "width": 72.74613391789285,
+      "height": 84,
+      "area": 4583.00643682725
+    },
+    "unitClearance": [
+      68,
+      68
+    ],
+    "labelClearance": [
+      20,
+      10
+    ],
+    "railHalfExclusion": 7,
+    "placeholderOnly": {
+      "footprint": [
+        38,
+        20
+      ],
+      "emptyCell": {
+        "count": 4115,
+        "example": {
+          "x": 0,
+          "y": -21
+        }
+      },
+      "centerRail": {
+        "count": 127,
+        "example": {
+          "x": 0,
+          "y": -21
+        }
+      },
+      "unitCell": {
+        "count": 0,
+        "example": null
+      }
+    },
+    "withProvisionalTwoUnitPadding": {
+      "footprint": [
+        42,
+        24
+      ],
+      "emptyCell": {
+        "count": 3072,
+        "example": {
+          "x": -0.5,
+          "y": -17.5
+        }
+      },
+      "centerRail": {
+        "count": 0,
+        "example": null
+      },
+      "unitCell": {
+        "count": 0,
+        "example": null
+      }
+    },
+    "method": "Geometric packing only, axis-aligned rectangle, horizontal center rail and label at (0,29). 0.5-unit sample grid is not a guarantee for all orientations/bridge/river situations; occupied-cell impossibility also follows from bounding rectangles."
+  }
+}
