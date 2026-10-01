@@ -43,9 +43,10 @@ function riverChains(data:SliceData,kind:string):Point[][]{
  edges.forEach((e,i)=>{for(const p of e)if(links.get(key(p))!.length!==2&&!used.has(i))walk(p,i);});edges.forEach((e,i)=>{if(!used.has(i))walk(e[0],i);});return paths;
 }
 export async function loadImage(url:string){const image=new Image();image.src=url;await image.decode();return image;}
-export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scene:boolean|'014'|'015'=false){
- const world=scene==='015',finish=world?'014':scene;
- const geometry=sceneGeometry(data);
+export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scene:boolean|'014'|'015'|'017'=false){
+ const generic=scene==='017',world=scene==='015'||generic,finish=world?'014':scene;
+ const referenceCell=(h:SliceData['hexes'][number])=>!generic&&inSettlement(h);
+ const geometry=sceneGeometry(generic?{...data,hexes:[]}:data);
  const started=performance.now(),[detailsAtlas,ground,atlas,buildings,newTerrain]=await Promise.all([loadImage('./assets/details.webp'),loadImage('./assets/meadow.webp'),loadImage('./assets/terrain-atlas.webp'),loadImage('./assets/buildings.webp'),loadImage('./assets/terrain010.webp')]);
  const box=viewBoxForHexes(data.hexes,8),scale=Math.min(2,4096/Math.max(box.width,box.height));
  canvas.width=Math.ceil(box.width*scale);canvas.height=Math.ceil(box.height*scale);
@@ -60,8 +61,8 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
  g.addColorStop(0,i%3?'rgba(158,143,97,.16)':'rgba(57,83,49,.19)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);
  }
  // Local material balance: warm sunlit meadow and cooler damp edges, never a full-map filter.
- for(const h of data.hexes.filter(h=>inPolish(h)&&(!world||inSettlement(h)))){const c=hexToPixel(h.coord);ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();const g=ctx.createRadialGradient(c.x-7,c.y-10,3,c.x,c.y,43);g.addColorStop(0,h.terrain==='FOREST'?'rgba(44,100,58,.19)':'rgba(156,173,67,.19)');g.addColorStop(1,'transparent');ctx.globalCompositeOperation='soft-light';ctx.fillStyle=g;ctx.fillRect(c.x-44,c.y-44,88,88);ctx.restore();}
- const layoutStarted=performance.now(),baseList=placements(data),approved=composeSettlement(data,baseList,finish),list=world?composeWorld(data,approved):approved,layoutMs=performance.now()-layoutStarted,cells=new Map(data.hexes.map(h=>[label(h.coord),h]));
+ for(const h of data.hexes.filter(h=>inPolish(h)&&(!world||referenceCell(h)))){const c=hexToPixel(h.coord);ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();const g=ctx.createRadialGradient(c.x-7,c.y-10,3,c.x,c.y,43);g.addColorStop(0,h.terrain==='FOREST'?'rgba(44,100,58,.19)':'rgba(156,173,67,.19)');g.addColorStop(1,'transparent');ctx.globalCompositeOperation='soft-light';ctx.fillStyle=g;ctx.fillRect(c.x-44,c.y-44,88,88);ctx.restore();}
+ const layoutStarted=performance.now(),baseList=generic?[]:placements(data),approved=generic?[]:composeSettlement(data,baseList,finish),list=world?composeWorld(data,approved,!generic):approved,layoutMs=performance.now()-layoutStarted,cells=new Map(data.hexes.map(h=>[label(h.coord),h]));
  const source:Record<string,[number,number,number,number]>={forest:[15,20,705,625],fringe:[740,105,494,510],HILL:[20,655,660,590],ROUGH:[20,655,660,590],city:[678,670,568,550]};
  const cityIndices=new Map(baseList.filter(p=>p.kind==='city').map((p,i)=>[p,i]));
  const tintStarted=performance.now(),terrainTiles=Object.fromEntries(Object.entries(source).filter(([k])=>k!=='city').map(([kind,rect])=>[kind,tintedTile(atlas,rect,kind==='forest'||kind==='fringe'?'saturate(1.21) contrast(1.09) brightness(1.08)':'contrast(1.14) brightness(1.08)',256)]));
@@ -89,22 +90,22 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
  });
  const terrain010TileBytes=4*384*384*4;
  const localBakeMs=performance.now()-localBakeStart,localTileBytes=localRoofs.length*256*256*4;
- const naturalTiles=new Map(list.filter(p=>settlementCells.has(p.cell)&&p.kind!=='city').map(p=>[p,bakeNatural(terrain010Tiles[p.tile??0]!,p,data,finish)]));
+ const naturalTiles=new Map(list.filter(p=>!generic&&settlementCells.has(p.cell)&&p.kind!=='city').map(p=>[p,bakeNatural(terrain010Tiles[p.tile??0]!,p,data,finish)]));
  const blendTileBytes=[...naturalTiles.values()].reduce((n,c)=>n+c.width*c.height*4,0);
  // One reusable, <= 144 x 144 world-terrain scratch buffer; never retained per cell.
  const scratch=world?document.createElement('canvas'):undefined;let scratchPeakBytes=0;
  if(scratch)scratch.width=scratch.height=1;
  const drawStamp=(p:Placement)=>{const rect=source[p.kind]!,h=cells.get(p.cell)!;ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();
   if(p.kind==='city'){const index=p.roof??((cityIndices.get(p)??0)%19===0?3:(cityIndices.get(p)??0)%3);
-   if(world||inSettlement(h))drawLocalRoof(p,index);
+   if(world||referenceCell(h))drawLocalRoof(p,index);
    else if(inPolish(h))ctx.drawImage(roofTiles[index]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
    else ctx.drawImage(buildings,...tileRects[index]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
-  }else if(world||inSettlement(h)){clipNaturalSpace(ctx,data,h);const tile=naturalTiles.get(p)??bakeNatural(terrain010Tiles[p.tile??0]!,p,data,'014',scratch,2,true);scratchPeakBytes=Math.max(scratchPeakBytes,scratch?scratch.width*scratch.height*4:0);ctx.drawImage(tile,p.x-p.width/2,p.y-p.height/2,p.width,p.height);}
+  }else if(world||referenceCell(h)){clipNaturalSpace(ctx,data,h);const tile=naturalTiles.get(p)??bakeNatural(terrain010Tiles[p.tile??0]!,p,data,'014',scratch,2,true);scratchPeakBytes=Math.max(scratchPeakBytes,scratch?scratch.width*scratch.height*4:0);ctx.drawImage(tile,p.x-p.width/2,p.y-p.height/2,p.width,p.height);}
   else if(inPolish(h))ctx.drawImage(terrainTiles[p.kind]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
   else ctx.drawImage(atlas,...rect,p.x-p.width/2,p.y-p.height/2,p.width,p.height);ctx.restore();};
 
- if(world)paintWorldGround(ctx,data,list);
- const groundField=paintSettlementGround(ctx,data,list.filter(p=>!world||settlementCells.has(p.cell)),finish);
+ if(world)paintWorldGround(ctx,data,list,!generic);
+ const groundField=generic?{groundFieldBytes:0,groundFieldPixels:0}:paintSettlementGround(ctx,data,list.filter(p=>!world||settlementCells.has(p.cell)),finish);
  list.filter(p=>p.kind==='HILL'||p.kind==='ROUGH').forEach(drawStamp);
  // Marsh/lake material is original procedural world-space detail over the accepted meadow.
  // Clip to each canonical terrain polygon: no invented adjacent water or wetland cells.
@@ -132,10 +133,10 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
  const waterPaths=chains.map(c=>({...c,points:scene?geometry.water(smooth(c.points)):smooth(c.points)}));
  const ribbon=(points:Point[],half:number,color:string)=>{const left:Point[]=[],right:Point[]=[];for(let i=0;i<points.length;i++){const p=points[i]!,a=points[Math.max(0,i-1)]!,b=points[Math.min(points.length-1,i+1)]!,dx=b.x-a.x,dy=b.y-a.y,l=Math.hypot(dx,dy)||1,nx=-dy/l,ny=dx/l,variation=.38*Math.sin(p.x*.44+p.y*.27)+.18*Math.sin(p.x*1.17-p.y*.78),w=half+variation+(scene?geometry.weight(p)*geometry.bridgeWeight(p)*(.60*Math.sin(p.x*.075-p.y*.046)):0);left.push({x:p.x+nx*w,y:p.y+ny*w});right.push({x:p.x-nx*w,y:p.y-ny*w});}ctx.beginPath();path([...left,...right.reverse()]);ctx.fillStyle=color;ctx.fill();};
  paintNaturalBanks(ctx,data);
- for(const [major,minor,color] of [[7.4,5.4,'#53614b'],[6.2,4.4,'#938c69'],[4.7,3.1,'#747c65'],[3.8,2.35,'#426e70']] as const){ctx.save();if(color!=='#426e70'){ctx.beginPath();ctx.rect(box.minX-10,box.minY-10,box.width+20,box.height+20);data.hexes.filter(inSettlement).forEach(h=>path(hexPolygon(h.coord)));ctx.clip('evenodd');}for(const {kind,points} of waterPaths)ribbon(points,kind==='MAJOR'?major:minor,color);ctx.restore();}
+ for(const [major,minor,color] of [[7.4,5.4,'#53614b'],[6.2,4.4,'#938c69'],[4.7,3.1,'#747c65'],[3.8,2.35,'#426e70']] as const){ctx.save();if(color!=='#426e70'){ctx.beginPath();ctx.rect(box.minX-10,box.minY-10,box.width+20,box.height+20);data.hexes.filter(referenceCell).forEach(h=>path(hexPolygon(h.coord)));ctx.clip('evenodd');}for(const {kind,points} of waterPaths)ribbon(points,kind==='MAJOR'?major:minor,color);ctx.restore();}
  ctx.save();ctx.beginPath();data.hexes.filter(h=>world||inPolish(h)).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();for(const {kind,points} of waterPaths)ribbon(points,kind==='MAJOR'?3.8:2.35,'#397f80');ctx.restore();
  // Depth and reflected sky stay inside the existing water centerline envelope.
- ctx.save();ctx.beginPath();data.hexes.filter(h=>world||inSettlement(h)).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();
+ ctx.save();ctx.beginPath();data.hexes.filter(h=>world||referenceCell(h)).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();
  for(const {kind,points} of waterPaths){ribbon(points,kind==='MAJOR'?3.35:1.95,'#2f737e');ribbon(points,kind==='MAJOR'?1.65:.8,'#559c9a');}
  ctx.restore();
  for(const {kind,points} of waterPaths)for(let i=0;i<points.length;i+=2){const p=points[i]!,spread=kind==='MAJOR'?2.6:1.3,x=p.x+(random()-.5)*spread,y=p.y+(random()-.5)*spread;stroke({x:x-.45,y},{x:x+.65,y:y-.12},.18,i%3?'rgba(146,176,151,.32)':'rgba(21,57,62,.28)');}
@@ -145,8 +146,8 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
  }
  // Do not draw a crossing unless the imported registry explicitly has a bridge.
  const segments=data.edges.filter(e=>e.road||e.railway?.present);
- const localClip=()=>{ctx.beginPath();data.hexes.filter(inSettlement).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();};
- ctx.save();if(scene){ctx.beginPath();ctx.rect(box.minX-10,box.minY-10,box.width+20,box.height+20);data.hexes.filter(inSettlement).forEach(h=>path(hexPolygon(h.coord)));ctx.clip('evenodd');}
+ const localClip=()=>{ctx.beginPath();data.hexes.filter(referenceCell).forEach(h=>path(hexPolygon(h.coord)));ctx.clip();};
+ ctx.save();if(scene){ctx.beginPath();ctx.rect(box.minX-10,box.minY-10,box.width+20,box.height+20);data.hexes.filter(referenceCell).forEach(h=>path(hexPolygon(h.coord)));ctx.clip('evenodd');}
  const transportLine=(e:typeof segments[number],width:number,color:string)=>{
  const a=hexToPixel(e.a),b=hexToPixel(e.b);if(!e.river||e.bridge&&!e.bridge.destroyed){stroke(a,b,width,color);return;}
  const t=.38,u=.62;stroke(a,{x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t},width,color);stroke({x:a.x+(b.x-a.x)*u,y:a.y+(b.y-a.y)*u},b,width,color);
@@ -162,7 +163,7 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
  for(const e of segments){if(e.road)transportLine(e,2.7,'#c3b58c');if(e.railway?.present){const points=geometry.route(e),a=hexToPixel(e.a),b=hexToPixel(e.b),len=Math.hypot(b.x-a.x,b.y-a.y);for(let d=0;d<len;d+=3){const t=d/len;if(e.river&&(!e.bridge||e.bridge.destroyed)&&t>.38&&t<.62)continue;const i=Math.min(31,Math.floor(t*32)),u=points[i]!,v=points[i+1]!,f=t*32-i,dx=v.x-u.x,dy=v.y-u.y,l=Math.hypot(dx,dy)||1,x=u.x+dx*f,y=u.y+dy*f;stroke({x:x+dy/l*2,y:y-dx/l*2},{x:x-dy/l*2,y:y+dx/l*2},.65,'#4e4a3e');}for(const side of [-.95,.95])transportLine(e,.47,'#303935',side);}}
 ctx.restore();}
  for(const e of data.edges.filter(e=>e.bridge&&!e.bridge.destroyed)){const g=deriveBridgeGeometry(e.a,e.b);stroke(g.from,g.to,8,'#414943');stroke(g.from,g.to,6,'#b9ad8e');stroke(g.from,g.to,2,e.bridge!.kind==='ROAD'?'#d2c19a':'#4c5046');const dx=g.to.x-g.from.x,dy=g.to.y-g.from.y,l=Math.hypot(dx,dy);for(const s of [-3.3,3.3])stroke({x:g.from.x-dy/l*s,y:g.from.y+dx/l*s},{x:g.to.x-dy/l*s,y:g.to.y+dx/l*s},.55,'#eee2bc');}
- for(const h of data.hexes.filter(h=>!world&&isCity(h.terrain)&&!inSettlement(h))){const c=hexToPixel(h.coord),g=ctx.createRadialGradient(c.x,c.y,2,c.x,c.y,35);g.addColorStop(0,'rgba(168,144,99,.22)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(c.x-35,c.y-35,70,70);}
+ for(const h of data.hexes.filter(h=>!world&&isCity(h.terrain)&&!referenceCell(h))){const c=hexToPixel(h.coord),g=ctx.createRadialGradient(c.x,c.y,2,c.x,c.y,35);g.addColorStop(0,'rgba(168,144,99,.22)');g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(c.x-35,c.y-35,70,70);}
  list.filter(p=>p.kind!=='HILL'&&p.kind!=='ROUGH').sort((a,b)=>a.y-b.y).forEach(drawStamp);
  const detailStarted=performance.now(),details=world?[]:detailLayout(data).filter(p=>!settlementCells.has(p.cell));drawDetails(ctx,detailTiles,details);const detailMs=performance.now()-detailStarted;
  ctx.restore();return {...groundField,scratchPeakBytes,blendTileBytes,terrain010DecodedBytes:newTerrain.width*newTerrain.height*4,terrain010TileBytes,localBakeMs,localTileBytes,settlementCells:[...settlementCells],tintMs,tintBackingBytes,details,detailCount:details.length,detailMs,detailDecodedBytes:detailsAtlas.width*detailsAtlas.height*4,box,rasterScale:scale,layoutMs,placements:list,paintAndDecodeMs:performance.now()-started,canvasPixels:canvas.width*canvas.height,estimatedCanvasBytes:canvas.width*canvas.height*4};

@@ -16,10 +16,10 @@ export function worldContext(data:SliceData){
 }
 
 /** Replaces the old global scatter. X14 and the seven approved neighbors are golden. */
-export function composeWorld(data:SliceData,approved:Placement[]):Placement[]{
- const out=approved.filter(p=>settlementCells.has(p.cell)),units=data.counters.map(u=>hexToPixel(u.hex));
+export function composeWorld(data:SliceData,approved:Placement[],preserveReference=true):Placement[]{
+ const out=approved.filter(p=>preserveReference&&settlementCells.has(p.cell)),units=data.counters.map(u=>hexToPixel(u.hex));
  for(const {h,c,neighbors,lanes} of worldContext(data)){
-  const cell=label(h.coord);if(settlementCells.has(cell))continue;
+  const cell=label(h.coord);if(preserveReference&&settlementCells.has(cell))continue;
   const s=style(h),poly=hexPolygon(h.coord);
   if(natural(h.terrain)){
    const same=neighbors.filter(n=>h.terrain==='FOREST'?n.terrain==='FOREST':n.terrain==='HILL'||n.terrain==='ROUGH');
@@ -82,12 +82,12 @@ export function composeWorld(data:SliceData,approved:Placement[]):Placement[]{
 
 /** Draw broad material shoulders directly into the existing map canvas. No per-cell
  * canvases, new plant symbols on plains, new paths, or extra decorative scatter. */
-export function paintWorldGround(ctx:CanvasRenderingContext2D,data:SliceData,list:Placement[]){
+export function paintWorldGround(ctx:CanvasRenderingContext2D,data:SliceData,list:Placement[],preserveReference=true){
  const path=(poly:Point[])=>{ctx.moveTo(poly[0]!.x,poly[0]!.y);for(const p of poly.slice(1))ctx.lineTo(p.x,p.y);ctx.closePath();};
  const wash=(x:number,y:number,rx:number,ry:number,color:string)=>{ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);const g=ctx.createRadialGradient(0,0,.05,0,0,1);g.addColorStop(0,color);g.addColorStop(.45,color);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);ctx.restore();};
  const grouped=new Map<string,Placement[]>();for(const p of list)grouped.set(p.cell,[...(grouped.get(p.cell)??[]),p]);
  for(const {h,c,neighbors,lanes} of worldContext(data)){
-  const cell=label(h.coord);if(settlementCells.has(cell)||h.terrain==='LAKE')continue;
+  const cell=label(h.coord);if((preserveReference&&settlementCells.has(cell))||h.terrain==='LAKE')continue;
   ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();
   const local=grouped.get(cell)??[],forest=h.terrain==='FOREST';
   for(const p of local.filter(p=>p.kind!=='city')){

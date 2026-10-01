@@ -1,0 +1,2296 @@
+{
+  "baseline": "35e36314b61e157be016040d91d9d05eeaf39f5a",
+  "tests": [
+    {
+      "name": "640-cell formal map, edges, units and source input unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "015 default layouts exactly match pinned original; eight-cell reference preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "Synthetic fixture remains detached, valid and deterministic",
+      "status": "PASS"
+    },
+    {
+      "name": "Town roofs stay in city polygons and clear units, labels, roads and river",
+      "status": "PASS"
+    },
+    {
+      "name": "Industrial reservations clear the unit square, transport and label without map features",
+      "status": "PASS"
+    },
+    {
+      "name": "Same bounded layout functions accept 32, 60 and 108 synthetic cells at different origins",
+      "status": "PASS"
+    },
+    {
+      "name": "Town layouts vary, while 12-column style periodicity is explicitly exposed",
+      "status": "PASS"
+    },
+    {
+      "name": "All five image assets are byte-identical to 015",
+      "status": "PASS"
+    },
+    {
+      "name": "Tracked change scope restricted to renderer gates, harness and evidence",
+      "status": "PASS"
+    }
+  ],
+  "sizes": [
+    {
+      "cells": 32,
+      "stamps": 59,
+      "origin": {
+        "q": 40,
+        "r": 3
+      },
+      "box": {
+        "minX": 2974.591490633607,
+        "minY": 139,
+        "width": 707.0882722199817,
+        "height": 289
+      }
+    },
+    {
+      "cells": 60,
+      "stamps": 101,
+      "origin": {
+        "q": 64,
+        "r": 0
+      },
+      "box": {
+        "minX": 4611.3795037861955,
+        "minY": -50,
+        "width": 1034.4458748505003,
+        "height": 352
+      }
+    },
+    {
+      "cells": 108,
+      "stamps": 186,
+      "origin": {
+        "q": 90,
+        "r": 12
+      },
+      "box": {
+        "minX": 6939.255789158767,
+        "minY": 706,
+        "width": 1507.2957453168028,
+        "height": 415
+      }
+    }
+  ],
+  "citySignatures": [
+    {
+      "cell": "BM35",
+      "signature": "[[9,-20,11.038,10.348,2],[-7,-20,12.492,11.711,0],[-17,-11,14.053,8.588,1],[-17,7,18,11,2],[12,16,15,13,1],[27,16,11,12,2],[-18,21,11,12,1]]"
+    },
+    {
+      "cell": "BN35",
+      "signature": "[[19,16,16,14,0],[12,-14,21,12,2],[-9,-14,21,12,0],[-19,13,12.492,11.711,1],[-5,16,12,10,0]]"
+    },
+    {
+      "cell": "BO36",
+      "signature": "[[9,-20,11.038,10.348,1],[-7,-20,12.492,11.711,2],[-5,17,10.798,13.289,2],[12,16,15,13,0],[-19,-14,11,11,1],[26,16,11,11,1],[-19,16,11,11,1]]"
+    },
+    {
+      "cell": "BQ37",
+      "signature": "[[9,-20,11.038,10.348,0],[-7,-20,12.492,11.711,1],[-5,17,10.798,13.289,1],[12,16,15,13,2],[-20,-14,11,10,0],[-20,16,11,10,0]]"
+    },
+    {
+      "cell": "BR37",
+      "signature": "[[12,-14,17.86,10.34,0],[-10,18,18,11,0],[10,18,18,11,1],[23,15,11.487,10.603,2],[-29,16,12,11,2]]"
+    },
+    {
+      "cell": "BS38",
+      "signature": "[[9,-20,11.038,10.348,2],[-7,-20,12.492,11.711,0],[-5,17,10.798,13.289,0],[12,16,15,13,1],[27,16,11,12,2],[-18,16,11,12,2]]"
+    },
+    {
+      "cell": "BU39",
+      "signature": "[[9,-20,11.038,10.348,1],[-7,-20,12.492,11.711,2],[-5,17,10.798,13.289,2],[12,16,15,13,0],[-19,-14,11,11,1],[26,16,11,11,1],[-19,16,11,11,1]]"
+    },
+    {
+      "cell": "BV39",
+      "signature": "[[19,16,16,14,2],[12,-14,21,12,1],[-9,-14,21,12,2],[-19,13,12.492,11.711,0],[2,16,12,12,1]]"
+    },
+    {
+      "cell": "BW40",
+      "signature": "[[9,-20,11.038,10.348,0],[-7,-20,12.492,11.711,1],[-5,17,10.798,13.289,1],[12,16,15,13,2],[-20,-14,11,10,0],[-20,16,11,10,0]]"
+    },
+    {
+      "cell": "BN36",
+      "signature": "[]"
+    },
+    {
+      "cell": "BR38",
+      "signature": "[[9,-20,16,15,0],[-7,-20,16,15,1],[-5,17,10.798,13.289,1],[12,16,15,13,2],[25,-19,11,10,1],[-20,16,11,10,0],[-25,-19,11,10,1]]"
+    },
+    {
+      "cell": "BV40",
+      "signature": "[[9,-20,16,15,1],[-7,-20,16,15,2],[-5,17,10.798,13.289,2],[12,16,15,13,0],[26,16,11,11,1],[-19,16,11,11,1],[-24,-19,11,11,2],[26,-14,11,11,1]]"
+    }
+  ],
+  "fixture": {
+    "hexes": [
+      {
+        "coord": {
+          "q": 64,
+          "r": 0
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 65,
+          "r": 0
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 66,
+          "r": 0
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 67,
+          "r": 0
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 68,
+          "r": 0
+        },
+        "terrain": "HILL",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 69,
+          "r": 0
+        },
+        "terrain": "ROUGH",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 70,
+          "r": 0
+        },
+        "terrain": "HILL",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 71,
+          "r": 0
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 72,
+          "r": 0
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 73,
+          "r": 0
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 74,
+          "r": 0
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 75,
+          "r": 0
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 64,
+          "r": 1
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 65,
+          "r": 1
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 66,
+          "r": 1
+        },
+        "terrain": "HILL",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 67,
+          "r": 1
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 68,
+          "r": 1
+        },
+        "terrain": "HILL",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 69,
+          "r": 1
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 70,
+          "r": 1
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 71,
+          "r": 1
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 72,
+          "r": 1
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 73,
+          "r": 1
+        },
+        "terrain": "HILL",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 74,
+          "r": 1
+        },
+        "terrain": "ROUGH",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 75,
+          "r": 1
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 64,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 65,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 66,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 67,
+          "r": 2
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 68,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 69,
+          "r": 2
+        },
+        "terrain": "MAIN_CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 70,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 71,
+          "r": 2
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 72,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 73,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 74,
+          "r": 2
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 75,
+          "r": 2
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 64,
+          "r": 3
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 65,
+          "r": 3
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 66,
+          "r": 3
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 67,
+          "r": 3
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 68,
+          "r": 3
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 69,
+          "r": 3
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 70,
+          "r": 3
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 71,
+          "r": 3
+        },
+        "terrain": "HILL",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 72,
+          "r": 3
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 73,
+          "r": 3
+        },
+        "terrain": "CITY",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 74,
+          "r": 3
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 75,
+          "r": 3
+        },
+        "terrain": "FOREST",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 64,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 65,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 66,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 67,
+          "r": 4
+        },
+        "terrain": "MARSH",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 68,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 69,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 70,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 71,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 72,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 73,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 74,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      },
+      {
+        "coord": {
+          "q": 75,
+          "r": 4
+        },
+        "terrain": "PLAIN",
+        "control": null
+      }
+    ],
+    "edges": [
+      {
+        "key": "64,1|64,2",
+        "a": {
+          "q": 64,
+          "r": 1
+        },
+        "b": {
+          "q": 64,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "64,2|65,1",
+        "a": {
+          "q": 65,
+          "r": 1
+        },
+        "b": {
+          "q": 64,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "65,1|65,2",
+        "a": {
+          "q": 65,
+          "r": 1
+        },
+        "b": {
+          "q": 65,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "65,2|66,1",
+        "a": {
+          "q": 66,
+          "r": 1
+        },
+        "b": {
+          "q": 65,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "66,1|66,2",
+        "a": {
+          "q": 66,
+          "r": 1
+        },
+        "b": {
+          "q": 66,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "66,2|67,1",
+        "a": {
+          "q": 67,
+          "r": 1
+        },
+        "b": {
+          "q": 66,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "67,1|67,2",
+        "a": {
+          "q": 67,
+          "r": 1
+        },
+        "b": {
+          "q": 67,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "67,2|68,1",
+        "a": {
+          "q": 68,
+          "r": 1
+        },
+        "b": {
+          "q": 67,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "68,1|68,2",
+        "a": {
+          "q": 68,
+          "r": 1
+        },
+        "b": {
+          "q": 68,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "68,2|69,1",
+        "a": {
+          "q": 69,
+          "r": 1
+        },
+        "b": {
+          "q": 68,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "69,1|69,2",
+        "a": {
+          "q": 69,
+          "r": 1
+        },
+        "b": {
+          "q": 69,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": {
+          "kind": "ROAD",
+          "destroyed": false
+        }
+      },
+      {
+        "key": "69,2|70,1",
+        "a": {
+          "q": 70,
+          "r": 1
+        },
+        "b": {
+          "q": 69,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "70,1|70,2",
+        "a": {
+          "q": 70,
+          "r": 1
+        },
+        "b": {
+          "q": 70,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "70,2|71,1",
+        "a": {
+          "q": 71,
+          "r": 1
+        },
+        "b": {
+          "q": 70,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "71,1|71,2",
+        "a": {
+          "q": 71,
+          "r": 1
+        },
+        "b": {
+          "q": 71,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "71,2|72,1",
+        "a": {
+          "q": 72,
+          "r": 1
+        },
+        "b": {
+          "q": 71,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "72,1|72,2",
+        "a": {
+          "q": 72,
+          "r": 1
+        },
+        "b": {
+          "q": 72,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "72,2|73,1",
+        "a": {
+          "q": 73,
+          "r": 1
+        },
+        "b": {
+          "q": 72,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "73,1|73,2",
+        "a": {
+          "q": 73,
+          "r": 1
+        },
+        "b": {
+          "q": 73,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "73,2|74,1",
+        "a": {
+          "q": 74,
+          "r": 1
+        },
+        "b": {
+          "q": 73,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "74,1|74,2",
+        "a": {
+          "q": 74,
+          "r": 1
+        },
+        "b": {
+          "q": 74,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "74,2|75,1",
+        "a": {
+          "q": 75,
+          "r": 1
+        },
+        "b": {
+          "q": 74,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "75,1|75,2",
+        "a": {
+          "q": 75,
+          "r": 1
+        },
+        "b": {
+          "q": 75,
+          "r": 2
+        },
+        "road": false,
+        "railway": null,
+        "river": "MINOR",
+        "bridge": null
+      },
+      {
+        "key": "64,2|65,2",
+        "a": {
+          "q": 64,
+          "r": 2
+        },
+        "b": {
+          "q": 65,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "64,3|65,3",
+        "a": {
+          "q": 64,
+          "r": 3
+        },
+        "b": {
+          "q": 65,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "65,2|66,2",
+        "a": {
+          "q": 65,
+          "r": 2
+        },
+        "b": {
+          "q": 66,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "65,3|66,3",
+        "a": {
+          "q": 65,
+          "r": 3
+        },
+        "b": {
+          "q": 66,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "66,2|67,2",
+        "a": {
+          "q": 66,
+          "r": 2
+        },
+        "b": {
+          "q": 67,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "66,3|67,3",
+        "a": {
+          "q": 66,
+          "r": 3
+        },
+        "b": {
+          "q": 67,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "67,2|68,2",
+        "a": {
+          "q": 67,
+          "r": 2
+        },
+        "b": {
+          "q": 68,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "67,3|68,3",
+        "a": {
+          "q": 67,
+          "r": 3
+        },
+        "b": {
+          "q": 68,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "68,2|69,2",
+        "a": {
+          "q": 68,
+          "r": 2
+        },
+        "b": {
+          "q": 69,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "68,3|69,3",
+        "a": {
+          "q": 68,
+          "r": 3
+        },
+        "b": {
+          "q": 69,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "69,2|70,2",
+        "a": {
+          "q": 69,
+          "r": 2
+        },
+        "b": {
+          "q": 70,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "69,3|70,3",
+        "a": {
+          "q": 69,
+          "r": 3
+        },
+        "b": {
+          "q": 70,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "70,2|71,2",
+        "a": {
+          "q": 70,
+          "r": 2
+        },
+        "b": {
+          "q": 71,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "70,3|71,3",
+        "a": {
+          "q": 70,
+          "r": 3
+        },
+        "b": {
+          "q": 71,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "71,2|72,2",
+        "a": {
+          "q": 71,
+          "r": 2
+        },
+        "b": {
+          "q": 72,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "71,3|72,3",
+        "a": {
+          "q": 71,
+          "r": 3
+        },
+        "b": {
+          "q": 72,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "72,2|73,2",
+        "a": {
+          "q": 72,
+          "r": 2
+        },
+        "b": {
+          "q": 73,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "72,3|73,3",
+        "a": {
+          "q": 72,
+          "r": 3
+        },
+        "b": {
+          "q": 73,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "73,2|74,2",
+        "a": {
+          "q": 73,
+          "r": 2
+        },
+        "b": {
+          "q": 74,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "73,3|74,3",
+        "a": {
+          "q": 73,
+          "r": 3
+        },
+        "b": {
+          "q": 74,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "74,2|75,2",
+        "a": {
+          "q": 74,
+          "r": 2
+        },
+        "b": {
+          "q": 75,
+          "r": 2
+        },
+        "road": true,
+        "railway": null,
+        "river": null,
+        "bridge": null
+      },
+      {
+        "key": "74,3|75,3",
+        "a": {
+          "q": 74,
+          "r": 3
+        },
+        "b": {
+          "q": 75,
+          "r": 3
+        },
+        "road": false,
+        "railway": {
+          "present": true,
+          "repairedBy": null,
+          "destroyed": false
+        },
+        "river": null,
+        "bridge": null
+      }
+    ],
+    "counters": [
+      {
+        "id": "TEST-1",
+        "side": "GERMAN",
+        "type": "INFANTRY",
+        "step": 0,
+        "stats": {
+          "attack": 3,
+          "defense": 3,
+          "movement": 4
+        },
+        "hex": {
+          "q": 65,
+          "r": 3
+        },
+        "supplyState": "SUPPLIED",
+        "controllerId": "GERMAN",
+        "selected": false,
+        "entrenched": false
+      },
+      {
+        "id": "TEST-2",
+        "side": "GERMAN",
+        "type": "ENGINEER",
+        "step": 0,
+        "stats": {
+          "attack": 3,
+          "defense": 3,
+          "movement": 4
+        },
+        "hex": {
+          "q": 65,
+          "r": 3
+        },
+        "supplyState": "SUPPLIED",
+        "controllerId": "GERMAN",
+        "selected": false,
+        "entrenched": false
+      }
+    ]
+  },
+  "placements": [
+    {
+      "cell": "BM33",
+      "kind": "forest",
+      "x": 4661.572261458574,
+      "y": -4,
+      "width": 67,
+      "height": 59,
+      "tile": 2
+    },
+    {
+      "cell": "BM33",
+      "kind": "forest",
+      "x": 4641.932880031711,
+      "y": 17,
+      "width": 52,
+      "height": 31,
+      "tile": 3
+    },
+    {
+      "cell": "BN33",
+      "kind": "forest",
+      "x": 4728.588859306319,
+      "y": 1.04,
+      "width": 70,
+      "height": 63,
+      "tile": 2
+    },
+    {
+      "cell": "BN33",
+      "kind": "forest",
+      "x": 4739.408550019751,
+      "y": 14.984,
+      "width": 56,
+      "height": 34,
+      "tile": 3
+    },
+    {
+      "cell": "BO34",
+      "kind": "forest",
+      "x": 4792.425147867496,
+      "y": -4,
+      "width": 64,
+      "height": 55,
+      "tile": 2
+    },
+    {
+      "cell": "BO34",
+      "kind": "forest",
+      "x": 4799.064529294359,
+      "y": 17,
+      "width": 48,
+      "height": 28,
+      "tile": 3
+    },
+    {
+      "cell": "BQ35",
+      "kind": "HILL",
+      "x": 4955.556797130145,
+      "y": -4,
+      "width": 60,
+      "height": 54,
+      "tile": 0
+    },
+    {
+      "cell": "BR35",
+      "kind": "ROUGH",
+      "x": 5022.302931048038,
+      "y": -4,
+      "width": 69,
+      "height": 58,
+      "tile": 1
+    },
+    {
+      "cell": "BS36",
+      "kind": "HILL",
+      "x": 5086.409683539068,
+      "y": -4,
+      "width": 66,
+      "height": 50,
+      "tile": 0
+    },
+    {
+      "cell": "BU37",
+      "kind": "forest",
+      "x": 5231.811796731569,
+      "y": 1.04,
+      "width": 64,
+      "height": 55,
+      "tile": 2
+    },
+    {
+      "cell": "BU37",
+      "kind": "forest",
+      "x": 5232.631487445001,
+      "y": 14.984,
+      "width": 52,
+      "height": 28,
+      "tile": 3
+    },
+    {
+      "cell": "BW38",
+      "kind": "forest",
+      "x": 5392.033600637502,
+      "y": -4,
+      "width": 70,
+      "height": 63,
+      "tile": 2
+    },
+    {
+      "cell": "BW38",
+      "kind": "forest",
+      "x": 5369.394219210639,
+      "y": 17,
+      "width": 48,
+      "height": 34,
+      "tile": 3
+    },
+    {
+      "cell": "BX38",
+      "kind": "forest",
+      "x": 5447.140353128532,
+      "y": -4,
+      "width": 64,
+      "height": 55,
+      "tile": 2
+    },
+    {
+      "cell": "BX38",
+      "kind": "forest",
+      "x": 5469.779734555395,
+      "y": 17,
+      "width": 48,
+      "height": 28,
+      "tile": 3
+    },
+    {
+      "cell": "BM34",
+      "kind": "forest",
+      "x": 4686.215792347373,
+      "y": 53.96,
+      "width": 64,
+      "height": 55,
+      "tile": 2
+    },
+    {
+      "cell": "BM34",
+      "kind": "forest",
+      "x": 4703.035483060805,
+      "y": 82.016,
+      "width": 52,
+      "height": 28,
+      "tile": 3
+    },
+    {
+      "cell": "BO35",
+      "kind": "HILL",
+      "x": 4840.617905539874,
+      "y": 59,
+      "width": 69,
+      "height": 54,
+      "tile": 1
+    },
+    {
+      "cell": "BQ36",
+      "kind": "HILL",
+      "x": 4980.200328018945,
+      "y": 53.96,
+      "width": 63,
+      "height": 50,
+      "tile": 1
+    },
+    {
+      "cell": "BR36",
+      "kind": "forest",
+      "x": 5058.856307293553,
+      "y": 59,
+      "width": 70,
+      "height": 63,
+      "tile": 2
+    },
+    {
+      "cell": "BR36",
+      "kind": "forest",
+      "x": 5047.856307293553,
+      "y": 80,
+      "width": 44,
+      "height": 34,
+      "tile": 3
+    },
+    {
+      "cell": "BT37",
+      "kind": "forest",
+      "x": 5207.16826584277,
+      "y": 59,
+      "width": 67,
+      "height": 59,
+      "tile": 2
+    },
+    {
+      "cell": "BT37",
+      "kind": "forest",
+      "x": 5187.528884415907,
+      "y": 80,
+      "width": 52,
+      "height": 31,
+      "tile": 3
+    },
+    {
+      "cell": "BU38",
+      "kind": "forest",
+      "x": 5271.2750183338,
+      "y": 59,
+      "width": 70,
+      "height": 63,
+      "tile": 2
+    },
+    {
+      "cell": "BU38",
+      "kind": "forest",
+      "x": 5287.914399760663,
+      "y": 80,
+      "width": 52,
+      "height": 34,
+      "tile": 3
+    },
+    {
+      "cell": "BV38",
+      "kind": "HILL",
+      "x": 5349.660533678556,
+      "y": 59,
+      "width": 60,
+      "height": 46,
+      "tile": 0
+    },
+    {
+      "cell": "BW39",
+      "kind": "ROUGH",
+      "x": 5413.7672861695855,
+      "y": 59,
+      "width": 69,
+      "height": 62,
+      "tile": 1
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4737.498704663035,
+      "y": 106,
+      "width": 11.037916496895996,
+      "height": 10.348046715839997,
+      "roof": 2
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4721.498704663035,
+      "y": 106,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 0
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4711.498704663035,
+      "y": 115,
+      "width": 14.053481279999998,
+      "height": 8.588238559999999,
+      "roof": 1
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4711.498704663035,
+      "y": 133,
+      "width": 18,
+      "height": 11,
+      "roof": 2
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4740.498704663035,
+      "y": 142,
+      "width": 15,
+      "height": 13,
+      "roof": 1
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4755.498704663035,
+      "y": 142,
+      "width": 11,
+      "height": 12,
+      "roof": 2
+    },
+    {
+      "cell": "BM35",
+      "kind": "city",
+      "x": 4710.498704663035,
+      "y": 147,
+      "width": 11,
+      "height": 12,
+      "roof": 1
+    },
+    {
+      "cell": "BN35",
+      "kind": "city",
+      "x": 4820.2448385809275,
+      "y": 142,
+      "width": 16,
+      "height": 14,
+      "roof": 0
+    },
+    {
+      "cell": "BN35",
+      "kind": "city",
+      "x": 4813.2448385809275,
+      "y": 112,
+      "width": 21,
+      "height": 12,
+      "roof": 2
+    },
+    {
+      "cell": "BN35",
+      "kind": "city",
+      "x": 4792.2448385809275,
+      "y": 112,
+      "width": 21,
+      "height": 12,
+      "roof": 0
+    },
+    {
+      "cell": "BN35",
+      "kind": "city",
+      "x": 4782.2448385809275,
+      "y": 139,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 1
+    },
+    {
+      "cell": "BN35",
+      "kind": "city",
+      "x": 4796.2448385809275,
+      "y": 142,
+      "width": 12,
+      "height": 10,
+      "roof": 0
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4882.990972498821,
+      "y": 106,
+      "width": 11.037916496895996,
+      "height": 10.348046715839997,
+      "roof": 1
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4866.990972498821,
+      "y": 106,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 2
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4868.990972498821,
+      "y": 143,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 2
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4885.990972498821,
+      "y": 142,
+      "width": 15,
+      "height": 13,
+      "roof": 0
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4854.990972498821,
+      "y": 112,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4899.990972498821,
+      "y": 142,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BO36",
+      "kind": "city",
+      "x": 4854.990972498821,
+      "y": 142,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BQ37",
+      "kind": "city",
+      "x": 5028.483240334606,
+      "y": 106,
+      "width": 11.037916496895996,
+      "height": 10.348046715839997,
+      "roof": 0
+    },
+    {
+      "cell": "BQ37",
+      "kind": "city",
+      "x": 5012.483240334606,
+      "y": 106,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 1
+    },
+    {
+      "cell": "BQ37",
+      "kind": "city",
+      "x": 5014.483240334606,
+      "y": 143,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 1
+    },
+    {
+      "cell": "BQ37",
+      "kind": "city",
+      "x": 5031.483240334606,
+      "y": 142,
+      "width": 15,
+      "height": 13,
+      "roof": 2
+    },
+    {
+      "cell": "BQ37",
+      "kind": "city",
+      "x": 4999.483240334606,
+      "y": 112,
+      "width": 11,
+      "height": 10,
+      "roof": 0
+    },
+    {
+      "cell": "BQ37",
+      "kind": "city",
+      "x": 4999.483240334606,
+      "y": 142,
+      "width": 11,
+      "height": 10,
+      "roof": 0
+    },
+    {
+      "cell": "BR37",
+      "kind": "city",
+      "x": 5104.2293742525,
+      "y": 112,
+      "width": 17.86,
+      "height": 10.34,
+      "roof": 0
+    },
+    {
+      "cell": "BR37",
+      "kind": "city",
+      "x": 5082.2293742525,
+      "y": 144,
+      "width": 18,
+      "height": 11,
+      "roof": 0
+    },
+    {
+      "cell": "BR37",
+      "kind": "city",
+      "x": 5102.2293742525,
+      "y": 144,
+      "width": 18,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BR37",
+      "kind": "city",
+      "x": 5115.2293742525,
+      "y": 141,
+      "width": 11.486799999999999,
+      "height": 10.6032,
+      "roof": 2
+    },
+    {
+      "cell": "BR37",
+      "kind": "city",
+      "x": 5063.2293742525,
+      "y": 142,
+      "width": 12,
+      "height": 11,
+      "roof": 2
+    },
+    {
+      "cell": "BS38",
+      "kind": "city",
+      "x": 5173.9755081703925,
+      "y": 106,
+      "width": 11.037916496895996,
+      "height": 10.348046715839997,
+      "roof": 2
+    },
+    {
+      "cell": "BS38",
+      "kind": "city",
+      "x": 5157.9755081703925,
+      "y": 106,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 0
+    },
+    {
+      "cell": "BS38",
+      "kind": "city",
+      "x": 5159.9755081703925,
+      "y": 143,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 0
+    },
+    {
+      "cell": "BS38",
+      "kind": "city",
+      "x": 5176.9755081703925,
+      "y": 142,
+      "width": 15,
+      "height": 13,
+      "roof": 1
+    },
+    {
+      "cell": "BS38",
+      "kind": "city",
+      "x": 5191.9755081703925,
+      "y": 142,
+      "width": 11,
+      "height": 12,
+      "roof": 2
+    },
+    {
+      "cell": "BS38",
+      "kind": "city",
+      "x": 5146.9755081703925,
+      "y": 142,
+      "width": 11,
+      "height": 12,
+      "roof": 2
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5319.467776006178,
+      "y": 106,
+      "width": 11.037916496895996,
+      "height": 10.348046715839997,
+      "roof": 1
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5303.467776006178,
+      "y": 106,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 2
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5305.467776006178,
+      "y": 143,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 2
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5322.467776006178,
+      "y": 142,
+      "width": 15,
+      "height": 13,
+      "roof": 0
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5291.467776006178,
+      "y": 112,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5336.467776006178,
+      "y": 142,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BU39",
+      "kind": "city",
+      "x": 5291.467776006178,
+      "y": 142,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BV39",
+      "kind": "city",
+      "x": 5402.21390992407,
+      "y": 142,
+      "width": 16,
+      "height": 14,
+      "roof": 2
+    },
+    {
+      "cell": "BV39",
+      "kind": "city",
+      "x": 5395.21390992407,
+      "y": 112,
+      "width": 21,
+      "height": 12,
+      "roof": 1
+    },
+    {
+      "cell": "BV39",
+      "kind": "city",
+      "x": 5374.21390992407,
+      "y": 112,
+      "width": 21,
+      "height": 12,
+      "roof": 2
+    },
+    {
+      "cell": "BV39",
+      "kind": "city",
+      "x": 5364.21390992407,
+      "y": 139,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 0
+    },
+    {
+      "cell": "BV39",
+      "kind": "city",
+      "x": 5385.21390992407,
+      "y": 142,
+      "width": 12,
+      "height": 12,
+      "roof": 1
+    },
+    {
+      "cell": "BW40",
+      "kind": "city",
+      "x": 5464.960043841964,
+      "y": 106,
+      "width": 11.037916496895996,
+      "height": 10.348046715839997,
+      "roof": 0
+    },
+    {
+      "cell": "BW40",
+      "kind": "city",
+      "x": 5448.960043841964,
+      "y": 106,
+      "width": 12.491983359999997,
+      "height": 11.711234399999997,
+      "roof": 1
+    },
+    {
+      "cell": "BW40",
+      "kind": "city",
+      "x": 5450.960043841964,
+      "y": 143,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 1
+    },
+    {
+      "cell": "BW40",
+      "kind": "city",
+      "x": 5467.960043841964,
+      "y": 142,
+      "width": 15,
+      "height": 13,
+      "roof": 2
+    },
+    {
+      "cell": "BW40",
+      "kind": "city",
+      "x": 5435.960043841964,
+      "y": 112,
+      "width": 11,
+      "height": 10,
+      "roof": 0
+    },
+    {
+      "cell": "BW40",
+      "kind": "city",
+      "x": 5435.960043841964,
+      "y": 142,
+      "width": 11,
+      "height": 10,
+      "roof": 0
+    },
+    {
+      "cell": "BP37",
+      "kind": "forest",
+      "x": 4983.11017337566,
+      "y": 185,
+      "width": 67,
+      "height": 59,
+      "tile": 2
+    },
+    {
+      "cell": "BP37",
+      "kind": "forest",
+      "x": 4975.11017337566,
+      "y": 206,
+      "width": 44,
+      "height": 31,
+      "tile": 3
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5137.602441211446,
+      "y": 169,
+      "width": 16,
+      "height": 15,
+      "roof": 0
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5121.602441211446,
+      "y": 169,
+      "width": 16,
+      "height": 15,
+      "roof": 1
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5123.602441211446,
+      "y": 206,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 1
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5140.602441211446,
+      "y": 205,
+      "width": 15,
+      "height": 13,
+      "roof": 2
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5153.602441211446,
+      "y": 170,
+      "width": 11,
+      "height": 10,
+      "roof": 1
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5108.602441211446,
+      "y": 205,
+      "width": 11,
+      "height": 10,
+      "roof": 0
+    },
+    {
+      "cell": "BR38",
+      "kind": "city",
+      "x": 5103.602441211446,
+      "y": 170,
+      "width": 11,
+      "height": 10,
+      "roof": 1
+    },
+    {
+      "cell": "BT39",
+      "kind": "HILL",
+      "x": 5277.094709047232,
+      "y": 185,
+      "width": 60,
+      "height": 54,
+      "tile": 0
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5428.586976883017,
+      "y": 169,
+      "width": 16,
+      "height": 15,
+      "roof": 1
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5412.586976883017,
+      "y": 169,
+      "width": 16,
+      "height": 15,
+      "roof": 2
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5414.586976883017,
+      "y": 206,
+      "width": 10.797591999999998,
+      "height": 13.289343999999998,
+      "roof": 2
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5431.586976883017,
+      "y": 205,
+      "width": 15,
+      "height": 13,
+      "roof": 0
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5445.586976883017,
+      "y": 205,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5400.586976883017,
+      "y": 205,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5395.586976883017,
+      "y": 170,
+      "width": 11,
+      "height": 11,
+      "roof": 2
+    },
+    {
+      "cell": "BV40",
+      "kind": "city",
+      "x": 5445.586976883017,
+      "y": 175,
+      "width": 11,
+      "height": 11,
+      "roof": 1
+    },
+    {
+      "cell": "BX41",
+      "kind": "forest",
+      "x": 5562.079244718803,
+      "y": 185,
+      "width": 64,
+      "height": 55,
+      "tile": 2
+    },
+    {
+      "cell": "BX41",
+      "kind": "forest",
+      "x": 5557.079244718803,
+      "y": 206,
+      "width": 44,
+      "height": 28,
+      "tile": 3
+    }
+  ],
+  "formalMapSHA256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
+  "repetition": "Identical terrain/adjacency translated 12 columns produces identical relative layout. This is a known limit, not a randomness pass."
+}
