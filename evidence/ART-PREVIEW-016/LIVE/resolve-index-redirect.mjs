@@ -1,0 +1,16 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const root=new URL('./',import.meta.url),file=new URL('http-hashes.json',root);
+const report=JSON.parse(await readFile(file));
+const e=report.results.find(e=>e.path==='index.html');
+if(e.status!==308)throw Error('Only resolves recorded index redirect');
+const b=await readFile(new URL('index-http-body.html',root));
+const headers=await readFile(new URL('index-http-headers.txt',root),'utf8');
+const sha256=createHash('sha256').update(b).digest('hex');
+if(!headers.includes('200 OK')||sha256!==e.expectedSHA256)throw Error('index redirect content mismatch');
+Object.assign(e,{initialStatus:308,status:200,effectiveURL:report.base,bytes:b.length,sha256,match:true});
+report.matched=report.results.filter(e=>e.match).length;
+report.status=report.matched===report.expectedPublicResources?'PASS':'PARTIAL_OR_FAILED';
+report.redirectNote='Cloudflare /index.html canonicalizes to /. Followed observed 308 once; no 403 or network retry.';
+await writeFile(file,JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({status:report.status,matched:report.matched,bytes:b.length,sha256}));

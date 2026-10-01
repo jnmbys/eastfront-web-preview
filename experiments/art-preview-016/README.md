@@ -1,9 +1,15 @@
-# ART-PREVIEW-016 — prepared, not published
+# ART-PREVIEW-016 — published comparison preview
+
+Publication update (2026-10-01): authorized fixed commit
+`86241e5d24ed9457f54891056b90abe9772b25f3` is live on `art-map-preview-016`.
+[Open HTTPS preview](https://art-map-preview-016.eastfront-web-preview.pages.dev/?view=full).
+[Publication evidence, remaining acceptance and withdrawal](../../evidence/ART-PREVIEW-016/LIVE/REPORT.md).
+The following preparation notes are retained as historical build documentation.
 
 Fixed visual source: `art-map-015` at
 `35e36314b61e157be016040d91d9d05eeaf39f5a`.
 Source/evidence branch: `art-preview-016` (commits use `[CF-Pages-Skip]`).
-Prepared runtime branch: `art-map-preview-016` (local only).
+Runtime branch: `art-map-preview-016` (now published at the fixed SHA above).
 
 ## Open and operate
 

@@ -1,4 +1,8 @@
-# Exact publication plan — NOT EXECUTED
+# Exact publication plan — historical preparation record
+
+Update 2026-10-01: publication was explicitly authorized and executed at the
+exact prepared SHA. See [live results and remaining acceptance](LIVE/REPORT.md).
+The preparation-time wording below is preserved; withdrawal is still unexecuted.
 
 Visual baseline: `35e36314b61e157be016040d91d9d05eeaf39f5a`.
 Prepared publication commit: `86241e5d24ed9457f54891056b90abe9772b25f3`.

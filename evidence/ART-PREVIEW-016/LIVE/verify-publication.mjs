@@ -1,0 +1,24 @@
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {writeFileSync} from 'node:fs';
+const sha='86241e5d24ed9457f54891056b90abe9772b25f3';
+const git=(...args)=>execFileSync('git',args);
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const plan=JSON.parse(git('show','HEAD:evidence/ART-PREVIEW-016/release-plan.json'));
+const tree=git('rev-parse',sha+'^{tree}').toString().trim();
+if(tree!==plan.runtimeTree||tree!==git('rev-parse','HEAD:'+plan.runtimeRoot).toString().trim())throw Error('tree mismatch');
+const manifestBytes=git('show',sha+':manifest.json');
+if(hash(manifestBytes)!==plan.manifestSHA256)throw Error('manifest mismatch');
+const entries=JSON.parse(manifestBytes).entries;
+const files=git('ls-tree','-r','--name-only',sha).toString().trim().split('\n');
+if(files.length!==78||entries.length!==77)throw Error('file count mismatch');
+let bytes=manifestBytes.length;
+for(const entry of entries){const path=entry.path.replaceAll('\\','/');if(!files.includes(path))throw Error(path);const b=git('show',sha+':'+path);if(b.length!==entry.bytes||hash(b)!==entry.sha256)throw Error('hash mismatch '+path);bytes+=b.length;}
+if(bytes!==plan.runtimeBytes)throw Error('size mismatch');
+const objects=git('rev-list','--objects',sha,'--missing=print').toString().trim().split('\n');
+if(objects.some(x=>x.startsWith('?')))throw Error('missing object');
+const refs=git('ls-remote','origin','refs/heads/art-map-preview-016','refs/heads/main','refs/heads/source-main').toString().trim();
+if(refs.includes('refs/heads/art-map-preview-016'))throw Error('target already exists: reconcile before push');
+const result={time:new Date().toISOString(),status:'PASS',sha,tree,files:files.length,bytes,manifestSHA256:hash(manifestBytes),reachableObjects:objects.length,missingObjects:0,remoteBefore:refs,recovery:'recover-release.mjs recreated exact commit from tracked raw commit bytes and complete runtime subtree'};
+writeFileSync(new URL('prepublish.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result));
