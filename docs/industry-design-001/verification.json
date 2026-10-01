@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "baseline": "813b4072568352e95d0726fe5fe04060c889c554",
+  "main_rows_checked": 48,
+  "sensitivity_pairs": 4,
+  "delayed_industry_cases": 1,
+  "deterministic_output": true,
+  "local_markdown_links_checked": 8,
+  "scope": "docs/industry-design-001 only; no runtime or map changes",
+  "checks": [
+    "row-by-row equipment, personnel and SP conservation",
+    "shared transport capacity",
+    "equal 12I budget",
+    "no E16 settlement",
+    "summary agrees with CSV",
+    "published outputs reproduce byte-for-byte"
+  ],
+  "limitation": "Aggregate design arithmetic; no legal Core battle, balance, online latency or supply optimizer verification"
+}
