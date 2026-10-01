@@ -12,6 +12,8 @@ Commit: The pre-run commit containing the frozen source/config/runner; runtime m
 
 Validation: AI build and 34/34 targeted checks passed; AI005 opponent runtime matches 67/67 historical hashes. Independent source/runner review completed. Two games are still pending at this entry's preregistration; results will be recorded in `evidence/ai-plan-023/README.md`.
 
+Result update: Exactly two games completed and replayed, both natural T16 Soviet victories. German mean capital distance changed 13.1923→16.1667 and 12.5→16.2, with more German losses. Reject adoption and retain 014; no retry, retuning, extra seeds or deployment. Independent review verified source freeze, all journal and archive hashes, and fixed cohort membership. Local/remote freeze identities are recorded in `evidence/ai-plan-023/DELIVERY.json`.
+
 ---
 
 Date: 2026-10-01 (Asia/Shanghai)

@@ -1,0 +1,72 @@
+{
+  "config": {
+    "task": "AI-PLAN-023",
+    "base": "3553c3f982583ed32ddc83b5cd7ec2cefed2b007",
+    "comparison": "a655892a1eed5f8a136b6c73b9d9000560df8d91",
+    "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+    "seeds": [
+      1017,
+      1018
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "provider": {
+      "enabledSeat": "GERMAN",
+      "members": 4,
+      "clusterRadius": 2,
+      "targetRadius": 3,
+      "cells": 37,
+      "minimumMP": 3
+    },
+    "sharedRetreat": "Current AI-RETREAT-010 minimalAgent on both seats, same as 014",
+    "limits": {
+      "maxGames": 2,
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 420000
+    },
+    "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+    "runOrder": "1017 candidate GERMAN then 1018 candidate GERMAN; no baseline rerun, no retry or second candidate",
+    "baselineLogs": [
+      "evidence/ai-advance-014/batch/development-1017-experiment-GERMAN",
+      "evidence/ai-advance-014/batch/development-1018-experiment-GERMAN"
+    ],
+    "progressDefinition": "All alive deployed German units: mean and minimum distance to closest public capital; fixed initial group members recorded on each group's creation and tracked through removal and phase end; deaths counted separately, group end survivor mean is not interpreted without per-member/death records.",
+    "waitingDefinition": "At each German movement phase end count alive unmoved nonartillery/nonrepair units with effective MP>=3; separately count those whose public passable on-map neighbors are all occupied to friendly stacking capacity. This is a descriptive waiting/congestion proxy, not a reachability or legal-move test.",
+    "impactDefinition": "Same authorized DTO with plan deleted: count changed policy choices and chosen MOVE absent from old exact menu; record candidate menu changes for grouped unit moves. Passive diagnostics cannot change returned policy action.",
+    "rngLimitation": "After action divergence, equal initial seeds do not align battle dice; no per-battle causal attribution.",
+    "decisionRule": "Two development games decide research value only, never production adoption or overall strength. Stop on anomaly or opponent identity mismatch; no retuning/retry. If gains disagree across games or all-army mean/minimum distance regresses versus 014, retain 014. Even consistent gains only retain a promising research candidate; report losses, rejections, cap, and fixed-cohort trajectories.",
+    "timingDefinition": "Each 180s game and 420s batch include passive observation diagnostics and journal fsync. Replay and summary are post-game offline audit; existing child hard deadline matchMs+30000 and remaining batch budget still applies."
+  },
+  "buildIdentityHash": "ac500771976ae4d2fb0f012f7524426be3ef91e227739a73ce45bbcd8b74b4f4",
+  "preRegistrationCommit": "3937b4c4797a90917b5ce8ffb2afaa1687b8dc3b",
+  "registrationScope": "LOCAL_GIT_PRE_RUN; remote mirror occurs only after experiment",
+  "rules": {
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "jobs": [
+    {
+      "id": "development-1017-candidate-GERMAN",
+      "seed": 1017,
+      "version": "candidate",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "development-1018-candidate-GERMAN",
+      "seed": 1018,
+      "version": "candidate",
+      "seat": "GERMAN"
+    }
+  ],
+  "startedAt": "2026-10-01T14:25:56.797Z"
+}

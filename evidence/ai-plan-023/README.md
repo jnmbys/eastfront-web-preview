@@ -29,7 +29,7 @@ The new checks prove a provider-selected action absent from the old exact menu i
 
 `build.mjs` reconstructs all six AI005 source blobs from `evidence/ai-eval-012/frozen/ai005`, validates their Git blob IDs, compiles them, and requires all **67 runtime JS hashes** to match the 014 recorded opponent exactly. It verifies the 014 basic/advance/parameters/minimal/candidates JS hashes, and permits only the already authorized 022 Host/routing/plan plus the new provider runtime differences. The current minimal retreat policy is used for both seats, matching 014. `.evaluation` and `.ai-dist` are temporary rebuildable outputs, not committed artifacts.
 
-One initial build-identity attempt used `git show` of the historical management identity, which is not a source tree in this checkout; it failed after successfully matching the opponent. `initial-build-missing-git-object.log` preserves this failure. The final gate instead checks the exact previously recorded runtime hashes; no surrogate opponent or baseline was used. An exploratory fixture had a mistyped artillery template `G-ART`; corrected to existing `G-ARTY` before the six tests were written. No evaluation games were involved in either correction.
+One initial build-identity attempt could not read `ai/fair/basicAgent.ts` through `git show a655892a…:ai/fair/basicAgent.ts`; it failed after successfully matching the opponent. `initial-build-missing-git-object.log` preserves the actual error. The final gate instead checks the exact previously recorded runtime hashes; no surrogate opponent or baseline was used. An exploratory fixture had a mistyped artillery template `G-ART`; corrected to existing `G-ARTY` before the six tests were written. No evaluation games were involved in either correction.
 
 ## Frozen experiment and replay
 
@@ -47,7 +47,7 @@ For a **separately authorized reproduction**, preserve the committed results and
 node evidence/ai-plan-023/run.mjs --run-frozen /absolute/path/to/fresh-plan023-reproduction
 ```
 
-Read-only replay of saved results (build first and expand archived `trace.ndjson.gz`/`events.ndjson.gz` if the raw copies are absent):
+Offline recomputation of saved results, without new games (this rewrites `comparison.json`; build first and expand archived `trace.ndjson.gz`/`events.ndjson.gz` if the raw copies are absent):
 
 ```sh
 node evidence/ai-plan-023/run.mjs --replay-existing
@@ -63,6 +63,68 @@ Actual plan impact reports changed policy choice on the same authorized DTO, cho
 
 Two games can support only continued research. If progress is inconsistent or all-army mean/minimum regresses against 014, retain 014. Even consistent improvements merely retain a promising candidate and must report losses, rejections, cap and fixed-group readability. No second strategy, tuning, expanded games, deployment, push, PR or merge in this implementation task.
 
-## Results
+## Results — do not adopt; retain 014
 
-Pending the Leader's source/config freeze and explicit experiment gate. No new games have been run while preparing this file.
+The sole preregistered batch completed exactly two games, both `GAME_OVER`, Soviet victory at T16, zero German-controlled capital cells out of two. No abnormal termination, failure, retry, extra seed, or second candidate occurred. Both canonical replays and metric replays match their recorded final state hashes. Frozen source hashes and all four gzip round trips pass (`validation.json`). Pre-run local identity is `3937b4c4797a90917b5ce8ffb2afaa1687b8dc3b`; manifest is unchanged. Root later mirrored that identical source tree as `4e177e8dc9ef8cec488f327b1164ad747528bac7`; that remote commit was created after games started and is not remote preregistration.
+
+All distance figures are alive German units' distances to the closest capital; lower is better. The final alive population changes, so mean distance must be read with losses and per-member records.
+
+| Seed | Version | Alive | Mean distance | Nearest distance | German MOVEs | Attacks | German step losses / destroyed | Soviet step losses / destroyed | German rejections |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1017 | 014 saved | 26 | 13.1923 | 8 | 233 | 46 | 6 / 0 | 54 / 16 | 7 |
+| 1017 | 023 | 24 | 16.1667 | 11 | 179 | 37 | 8 / 2 | 39 / 10 | 6 |
+| 1018 | 014 saved | 26 | 12.5000 | 8 | 244 | 47 | 3 / 0 | 62 / 18 | 8 |
+| 1018 | 023 | 25 | 16.2000 | 13 | 189 | 39 | 6 / 1 | 40 / 8 | 5 |
+
+The 023 final mean regresses by **2.9744 / 3.7000 hexes**, and nearest distance by **3 / 5**. Its German losses are also larger; reduced rejection count does not offset this failed progress criterion. These are observed game-level outcomes, not same-dice combat causal estimates. Under the frozen decision rule this candidate is **not adopted**; 014 remains the experimental comparison baseline, itself not a production approval.
+
+| Seed | Decisions | Gameplay elapsed (includes diagnostics/fsync) | Planned decisions | Changed choice | Chosen MOVE absent from old menu | Changed group menu | Cohorts |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1017 | 819 | 30.73 s | 34 | 19 | 8 | 34 | 5 |
+| 1018 | 857 | 33.94 s | 75 | 46 | 15 | 70 | 9 |
+
+The interface and policy genuinely affect executable decisions: **65 changed choices**, including **23 selected MOVEs missing from the unplanned menu**. This does not imply strategic benefit. The total phase-end unmoved-eligible unit counts are 014→023 **101→94** (1017) and **90→108** (1018); these are repeated unit-phase counts, not unique units or proven missed legal opportunities. The narrow full-friendly-neighbor congestion proxy is zero for both versions/seeds and does not rule out other congestion, risk or route blockage.
+
+Fixed cohort progress follows every initially selected ID through removal from the live plan. Entries below list initial→phase-end capital distances in the exact ID order; raw `groups.samples`, `changes`, and corresponding baseline cohort positions are retained in `comparison.json` and per-game `record.json`. These phase-local groups are not a persistent force across turns, and improvement of an individual phase group is insufficient when whole-army progress regresses.
+
+| Seed | Turn | Fixed initial members | Member distances start → phase end |
+|---|---:|---|---|
+| 1017 | 1 | G-J-01, G-PZ-02 | [28, 26] → [26, 24] |
+| 1017 | 2 | G-MOT-01, G-PZ-03 | [23, 21] → [20, 19] |
+| 1017 | 3 | G-MOT-02, G-MOT-03, G-PZ-04, G-REC-02 | [20, 18, 18, 18] → [17, 16, 16, 17] |
+| 1017 | 14 | G-J-01, G-PZ-03 | [17, 17] → [15, 15] |
+| 1017 | 15 | G-J-01, G-PZ-02, G-PZ-03 | [15, 15, 15] → [14, 14, 14] |
+| 1018 | 1 | G-J-01, G-PZ-02 | [28, 26] → [26, 24] |
+| 1018 | 2 | G-MOT-01, G-PZ-03 | [23, 21] → [20, 19] |
+| 1018 | 3 | G-MOT-02, G-MOT-03, G-PZ-04, G-REC-02 | [20, 18, 18, 18] → [17, 16, 16, 17] |
+| 1018 | 5 | G-MOT-01, G-PZ-02, G-PZ-03 | [19, 18, 19] → [19, 18, 19] |
+| 1018 | 6 | G-MOT-03, G-PZ-04 | [16, 16] → [15, 15] |
+| 1018 | 7 | G-J-01, G-REC-01 | [19, 18] → [16, 16] |
+| 1018 | 8 | G-MOT-01, G-PZ-02, G-PZ-03 | [18, 18, 18] → [17, 16, 17] |
+| 1018 | 9 | G-PZ-01, G-REC-02 | [17, 18] → [16, 17] |
+| 1018 | 10 | G-PZ-01, G-REC-02 | [16, 17] → [18, 17] |
+
+1018's turn-5 fixed group has no phase progress, and turn 10 includes a distance increase for one original member. Plans are limited movement-phase guidance and release members back to the original policy; the full journal is retained to inspect such transitions without attributing them to identical post-divergence dice. This experiment ends here. No tuning or follow-up games were run.
+
+The full raw journals remain in the working checkout. Four `.ndjson.gz` files are the durable lossless log artifacts, with compressed/uncompressed SHA256 and byte sizes in `validation.json`. To restore archived replay inputs into a **fresh independent directory**, leaving saved evidence intact (replace the sample absolute destination; this does not start new games):
+
+```sh
+python - /tmp/plan023-replay-copy <<'RESTORE'
+from pathlib import Path
+import gzip, shutil, sys
+source = Path('evidence/ai-plan-023/batch')
+out = Path(sys.argv[1])
+out.mkdir(parents=True, exist_ok=False)
+for job in source.iterdir():
+    if not job.is_dir():
+        continue
+    target = out / 'batch' / job.name
+    target.mkdir(parents=True)
+    shutil.copyfile(job / 'record.json', target / 'record.json')
+    for p in job.glob('*.ndjson.gz'):
+        with (target / p.with_suffix('').name).open('xb') as f:
+            f.write(gzip.decompress(p.read_bytes()))
+RESTORE
+node evidence/ai-plan-023/build.mjs
+node evidence/ai-plan-023/run.mjs --replay-existing /tmp/plan023-replay-copy
+```

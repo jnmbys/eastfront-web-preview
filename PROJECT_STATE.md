@@ -13,12 +13,13 @@
 | AI-PLAN-021 | `ca0d53ca76f44013f61170355c9e5fb1a620eefa` | Leader read the remote evidence and code: private intermediate goals can produce a Core-accepted route absent from Host's exact candidate menu. No new games or strategy implementation. |
 | AI-014 experimental comparison baseline | `a655892a1eed5f8a136b6c73b9d9000560df8d91` | Retained for experiments, not production adoption. Later 017/019/020 candidates are not incorporated. |
 | AI-PLAN-022 / AUTO-COORD-001 | `3553c3f982583ed32ddc83b5cd7ec2cefed2b007` | Shared authorized plan interface: frozen 021 route accepted by real Host; 28/28 checks. Leader reviewed source and caught/fixed hidden-revision cache risk. No new campaign or deployment. |
+| AI-PLAN-023 | Commit containing this state; source freeze `3937b4c4797a90917b5ce8ffb2afaa1687b8dc3b` | 34/34 targeted checks, exact opponent, two T16 Soviet wins, complete replay. Both games' German objective progress and losses worsened. NOT ADOPTED; retain 014 as experimental comparison baseline. |
 
 ## Active Tasks
 
 | Task ID | Objective | Owner | Status |
 | --- | --- | --- | --- |
-| AI-PLAN-023 | One bounded German main-attack planning policy using the shared interface | Programming subagent; separate read-only reviewer; Leader final review | Targeted checks/review passed; freeze candidate before two development games. No strategy result or deployment yet. |
+| AI-PLAN-023 | Shared intermediate-region experiment | Programming subagent; independent reviewer; Leader | Complete, rejected for adoption. No additional games or tuning queued for this candidate. |
 
 Other independent Worker chats are **not** members of this agent tree. Their tasks are not automatically reassigned or presumed stopped. User-supplied checkpoints remain reports until read and verified; this file is branch-scoped, not a merged global release manifest.
 
@@ -40,11 +41,11 @@ Other independent Worker chats are **not** members of this agent tree. Their tas
 
 ## Blockers
 
-- Whether a shared main-attack plan improves strategy remains untested.
+- This specific short intermediate-region planner worsened both development games. It does not establish that all grouping strategies fail. No overall AI improvement or rule imbalance is inferred.
 - Other existing Worker conversations cannot receive messages through this thread's subagent tools.
 - Production deployment and a permanently running background coordinator are outside this trial.
 
 ## Next Actions
 
-1. Freeze one bounded candidate after local validation and independent review; run only seeds 1017/1018 as German against the exact historical AI005 opponent. Reuse 014 experiment logs for comparison; no retuning or expanded batch.
+1. Keep 014 as the experimental comparison baseline and retain 022 as an optional interface. Do not register/deploy the 023 provider or retune it automatically; a different future hypothesis needs separate evidence and bounded scope.
 2. Adopt completed external Worker checkpoints when reported, without duplicating their in-flight work.
