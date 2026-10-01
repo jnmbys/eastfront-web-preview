@@ -56,7 +56,7 @@ export function observationCandidates(input:DeepReadonly<FairInput>,includeMoveP
     const entries=input.reinforcements.entries.filter(h=>own.filter(u=>hexKey(u.hex)===hexKey(h)).length<input.rules.stackingLimit);
     return [...(id?entries.slice(0,CANDIDATE_LIMIT-1).map(h=>({type:'DEPLOY_REINFORCEMENT' as const,reinforcementId:id,entryHex:{q:h.q,r:h.r}})):[]),{type:'READY_FOR_PHASE_END'}];
   }
-  if(view.phase.endsWith('_COMBAT'))return attackCandidates(input);
+  if(view.phase.endsWith('_COMBAT'))return attackCandidatePool(input).intents;
   const actions:FairIntent[]=[{type:'READY_FOR_PHASE_END'}],board=new Set(view.hexes.map(h=>hexKey(h.coord)));
   if(view.phase.endsWith('_MOVEMENT'))for(const u of own){
     if(!('friendly' in u)||u.friendly.hasMoved)continue;
@@ -75,7 +75,7 @@ function unique(actions:FairIntent[]):FairIntent[]{return [...new Map(actions.ma
 
 /** Direct attackers only: no foreign commitments, support slots or legality oracle.
  * Keep singles first; round-robin target/size streams use only the remaining budget. */
-function attackCandidates(input:DeepReadonly<FairInput>):FairIntent[]{
+export function attackCandidatePool(input:DeepReadonly<FairInput>):{intents:FairIntent[];completeTargets:ReadonlySet<string>}{
   const {view}=input;
   const own=view.units.filter(u=>u.side===view.viewer&&'friendly' in u&&u.friendly.controllerId===input.scope.controllerId&&u.friendly.alive&&!u.friendly.hasAttacked&&!u.friendly.dedicatedRailRepair&&u.stats.attack>0)
     .sort((a,b)=>a.id.localeCompare(b.id));
@@ -101,7 +101,20 @@ function attackCandidates(input:DeepReadonly<FairInput>):FairIntent[]{
       if(added>=ATTACK_COMBINATION_LIMIT||actions.length>=CANDIDATE_LIMIT)break;
     }
   }
-  return actions;
+  // Coverage describes this existing bounded direct-attack family, not Core legality.
+  // Count possible groups without enumerating beyond the original candidate budget.
+  const completeTargets=new Set<string>();
+  for(const [k] of targets){
+    const n=own.filter(u=>adjacent.get(u.id)!.has(k)).length;
+    let expected=0,choose=1;
+    for(let size=1;size<=Math.min(ATTACK_GROUP_LIMIT,n);size++){
+      choose=choose*(n-size+1)/size;expected+=choose;
+      if(expected>CANDIDATE_LIMIT)break;
+    }
+    const actual=actions.filter(a=>a.type==='ATTACK'&&hexKey(a.target)===k).length;
+    if(actual===expected)completeTargets.add(k);
+  }
+  return {intents:actions,completeTargets};
 }
 
 /** Bounded observation search, not authoritative retreat legality. Hidden blockers can reject it.

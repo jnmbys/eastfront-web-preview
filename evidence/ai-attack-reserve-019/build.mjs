@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync,readdirSync,cpSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {join,relative} from 'node:path';
+import {hash,atomic} from '../../ai/lab/common.mjs';
+const out='evidence/ai-attack-reserve-019',old=JSON.parse(readFileSync('evidence/ai-maneuver-017/build-identity.json'));
+for(const [name,dir] of [['experiment','.evaluation/experiment017/.ai-dist'],['baseline014','.evaluation/baseline014/.ai-dist'],['opponent','.evaluation/ai005/.ai-dist']])for(const [p,h] of old[name])assert.equal(hash(readFileSync(dir+'/'+p)),h);
+execFileSync(process.execPath,['node_modules/typescript/bin/tsc','-p','ai/tsconfig.json'],{stdio:'inherit'});cpSync('vendor','.ai-dist/vendor',{recursive:true});
+const files=p=>readdirSync(p,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name)).flatMap(e=>e.isDirectory()?files(join(p,e.name)):[join(p,e.name)]);
+const experiment=files('.ai-dist').filter(p=>p.endsWith('.js')).map(p=>[relative('.ai-dist',p).replaceAll('\\','/'),hash(readFileSync(p))]);
+const changes=experiment.filter(([p,h])=>old.experiment.find(([q])=>p===q)?.[1]!==h).map(([p])=>p);
+assert.deepEqual(changes,['ai/fair/attackReserve.js','ai/fair/basicAgent.js','ai/fair/candidates.js']);
+atomic(out+'/build-identity.json',{node:process.version,runtimeChanges:changes,experiment,experiment017:old.experiment,baseline014:old.baseline014,opponent:old.opponent,configHash:hash(readFileSync(out+'/config.json'))});
+console.log('PASS: only reserve guard, policy filtering, attack coverage metadata changed; routing, Core, RNG, rules,014 advance and opponent hashes unchanged.');
