@@ -1,0 +1,45 @@
+{
+  "task": "AI-PLAN-023",
+  "base": "3553c3f982583ed32ddc83b5cd7ec2cefed2b007",
+  "comparison": "a655892a1eed5f8a136b6c73b9d9000560df8d91",
+  "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+  "seeds": [
+    1017,
+    1018
+  ],
+  "agentSeeds": {
+    "GERMAN": 101,
+    "SOVIET": 202
+  },
+  "parameters": {
+    "attackRatio": 1.5,
+    "penaltyWeight": 0.75
+  },
+  "provider": {
+    "enabledSeat": "GERMAN",
+    "members": 4,
+    "clusterRadius": 2,
+    "targetRadius": 3,
+    "cells": 37,
+    "minimumMP": 3
+  },
+  "sharedRetreat": "Current AI-RETREAT-010 minimalAgent on both seats, same as 014",
+  "limits": {
+    "maxGames": 2,
+    "maxDecisions": 1800,
+    "matchMs": 180000,
+    "batchMs": 420000
+  },
+  "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+  "runOrder": "1017 candidate GERMAN then 1018 candidate GERMAN; no baseline rerun, no retry or second candidate",
+  "baselineLogs": [
+    "evidence/ai-advance-014/batch/development-1017-experiment-GERMAN",
+    "evidence/ai-advance-014/batch/development-1018-experiment-GERMAN"
+  ],
+  "progressDefinition": "All alive deployed German units: mean and minimum distance to closest public capital; fixed initial group members recorded on each group's creation and tracked through removal and phase end; deaths counted separately, group end survivor mean is not interpreted without per-member/death records.",
+  "waitingDefinition": "At each German movement phase end count alive unmoved nonartillery/nonrepair units with effective MP>=3; separately count those whose public passable on-map neighbors are all occupied to friendly stacking capacity. This is a descriptive waiting/congestion proxy, not a reachability or legal-move test.",
+  "impactDefinition": "Same authorized DTO with plan deleted: count changed policy choices and chosen MOVE absent from old exact menu; record candidate menu changes for grouped unit moves. Passive diagnostics cannot change returned policy action.",
+  "rngLimitation": "After action divergence, equal initial seeds do not align battle dice; no per-battle causal attribution.",
+  "decisionRule": "Two development games decide research value only, never production adoption or overall strength. Stop on anomaly or opponent identity mismatch; no retuning/retry. If gains disagree across games or all-army mean/minimum distance regresses versus 014, retain 014. Even consistent gains only retain a promising research candidate; report losses, rejections, cap, and fixed-cohort trajectories.",
+  "timingDefinition": "Each 180s game and 420s batch include passive observation diagnostics and journal fsync. Replay and summary are post-game offline audit; existing child hard deadline matchMs+30000 and remaining batch budget still applies."
+}

@@ -1,0 +1,29 @@
+fatal: path 'ai/fair/basicAgent.ts' exists on disk, but not in 'a655892a1eed5f8a136b6c73b9d9000560df8d91'
+node:internal/errors:985
+  const err = new Error(message);
+              ^
+
+Error: Command failed: git show a655892a1eed5f8a136b6c73b9d9000560df8d91:ai/fair/basicAgent.ts
+fatal: path 'ai/fair/basicAgent.ts' exists on disk, but not in 'a655892a1eed5f8a136b6c73b9d9000560df8d91'
+
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at checkExecSyncError (node:child_process:942:11)
+    at execFileSync (node:child_process:978:15)
+    at file:///workspace/scratch/3ab76d22522e/eastfront-auto/evidence/ai-plan-023/build.mjs:21:173
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  status: 128,
+  signal: null,
+  output: [
+    null,
+    '',
+    "fatal: path 'ai/fair/basicAgent.ts' exists on disk, but not in 'a655892a1eed5f8a136b6c73b9d9000560df8d91'\n"
+  ],
+  pid: 40,
+  stdout: '',
+  stderr: "fatal: path 'ai/fair/basicAgent.ts' exists on disk, but not in 'a655892a1eed5f8a136b6c73b9d9000560df8d91'\n"
+}
+
+Node.js v24.19.0

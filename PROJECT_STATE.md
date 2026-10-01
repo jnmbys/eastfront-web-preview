@@ -1,9 +1,9 @@
 # EASTFRONT PROJECT STATE
 
 - Last Update: 2026-10-01 (Asia/Shanghai)
-- Current Branch: `ai-plan-interface-022`
-- Current Commit: use `git rev-parse HEAD`; parent checkpoint `ca0d53ca76f44013f61170355c9e5fb1a620eefa`. The commit containing this file is the handoff identity; do not embed a self-referencing SHA.
-- Current Build: AI build passed; 28/28 targeted checks (13 new, 15 existing). Old advance014 suite lacks its external comparison build and was not validated. See `evidence/ai-plan-interface-022/README.md`; no globally green Web/Core build is claimed.
+- Current Branch: `ai-plan-023`
+- Current Commit: use `git rev-parse HEAD`; interface parent checkpoint `3553c3f982583ed32ddc83b5cd7ec2cefed2b007`. The commit containing this file is the handoff identity; do not embed a self-referencing SHA.
+- Current Build: AI build passed; 34/34 targeted checks (6 plan023, 13 interface022, 15 movement/path/cost). Restored AI005 opponent matches all 67 historical runtime hashes. No full Web/Core, browser or performance acceptance is claimed.
 - Project Goal: Headless Game → iPad Browser Multiplayer → Human + AI Mixed Wargame
 
 ## Completed
@@ -12,13 +12,13 @@
 | --- | --- | --- |
 | AI-PLAN-021 | `ca0d53ca76f44013f61170355c9e5fb1a620eefa` | Leader read the remote evidence and code: private intermediate goals can produce a Core-accepted route absent from Host's exact candidate menu. No new games or strategy implementation. |
 | AI-014 experimental comparison baseline | `a655892a1eed5f8a136b6c73b9d9000560df8d91` | Retained for experiments, not production adoption. Later 017/019/020 candidates are not incorporated. |
-| AI-PLAN-022 / AUTO-COORD-001 | Commit containing this file | Shared authorized plan interface: frozen 021 route accepted by real Host; 28/28 checks. Leader reviewed source and caught/fixed hidden-revision cache risk. No new campaign or deployment. |
+| AI-PLAN-022 / AUTO-COORD-001 | `3553c3f982583ed32ddc83b5cd7ec2cefed2b007` | Shared authorized plan interface: frozen 021 route accepted by real Host; 28/28 checks. Leader reviewed source and caught/fixed hidden-revision cache risk. No new campaign or deployment. |
 
 ## Active Tasks
 
 | Task ID | Objective | Owner | Status |
 | --- | --- | --- | --- |
-| AI-PLAN-023 (proposed) | One bounded main-attack planning policy using the shared interface | Leader to dispatch programming subagent | Not started; interface is ready, strategy hypothesis remains untested |
+| AI-PLAN-023 | One bounded German main-attack planning policy using the shared interface | Programming subagent; separate read-only reviewer; Leader final review | Targeted checks/review passed; freeze candidate before two development games. No strategy result or deployment yet. |
 
 Other independent Worker chats are **not** members of this agent tree. Their tasks are not automatically reassigned or presumed stopped. User-supplied checkpoints remain reports until read and verified; this file is branch-scoped, not a merged global release manifest.
 
@@ -46,5 +46,5 @@ Other independent Worker chats are **not** members of this agent tree. Their tas
 
 ## Next Actions
 
-1. Implement one bounded plan policy as a separate experiment; no unbounded tuning, no claim that 022 itself makes AI stronger.
+1. Freeze one bounded candidate after local validation and independent review; run only seeds 1017/1018 as German against the exact historical AI005 opponent. Reuse 014 experiment logs for comparison; no retuning or expanded batch.
 2. Adopt completed external Worker checkpoints when reported, without duplicating their in-flight work.
