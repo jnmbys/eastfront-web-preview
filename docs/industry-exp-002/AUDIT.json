@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "date": "2026-10-02",
+  "baseline": "c4602bc8d5fd8b88dcd7db883a49f26d2d332387",
+  "main_routes": 3,
+  "main_rows": 48,
+  "trace_rows_main_control_starvation": 80,
+  "sensitivity_case_groups": 22,
+  "sensitivity_runs": 88,
+  "industrial_grid_points": 24,
+  "C_grid_points": 9,
+  "checks": [
+    "equipment/P/SP/wreck conservation",
+    "per-unit pre-charge attack factor and rounding",
+    "resting recovery unit excluded from attacks",
+    "per-unit quarter-SP stock and debt bounds",
+    "shared freight plus SP capacity",
+    "new units maintain from completion settlement",
+    "no terminal settlement or production",
+    "deterministic main/control/starvation rerun",
+    "all sensitivity summaries reproduced",
+    "24 industrial grid points and 9 C grid points reproduced",
+    "all JSON parses and 10 local document links resolve",
+    "Core, src, experiments, AI, server, public, vendor and 001 artifacts unchanged"
+  ],
+  "limitations": [
+    "No Core legal-action replay",
+    "No multi-route supply optimizer equivalence",
+    "No casualty response to attack outcomes",
+    "No victory or balance certification",
+    "No deployment or runtime code edits"
+  ]
+}

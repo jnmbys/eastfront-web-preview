@@ -1,0 +1,74 @@
+{
+  "task": "INDUSTRY-EXP-002",
+  "date": "2026-10-02",
+  "base_commit": "c4602bc8d5fd8b88dcd7db883a49f26d2d332387",
+  "status": "Hypothetical accounting experiment. No Core replay, real battle validation, solver equivalence or deployment.",
+  "quantities": {
+    "SP_q": "1q=0.25SP; unit stock in trace is q",
+    "equipment": "1E=one infantry-step equipment package, accounted internally in half-E",
+    "P": "one trained personnel step package",
+    "I": "investment allocation, not cash/RP/CP/SP"
+  },
+  "common": {
+    "investment_available": 12,
+    "personnel": 60,
+    "initial_old_units": 8,
+    "initial_missing_steps": 2,
+    "initial_SP": 24,
+    "initial_equipment": 0,
+    "initial_recoverable_wreck_E": 1,
+    "base_E_per_settlement": 2,
+    "SP_source_cap": 22,
+    "shared_cargo": 21,
+    "equipment_loading_cap_E": 4,
+    "equipment_load_per_E": 1,
+    "SP_load_per_SP": 1,
+    "rear_storage_E": 24,
+    "front_storage_E": 24,
+    "unit_stock_before_maintenance_cap_SP": 4,
+    "unit_maintenance_SP": 1,
+    "repair_units_per_turn": 1,
+    "repair_cost_E": 1,
+    "repair_cost_P": 1,
+    "new_formation_E": 3,
+    "new_formation_P": 3,
+    "new_formation_queue": 1,
+    "transport_L": 1,
+    "additional_income_I_after_initial_allocation": 0,
+    "additional_income_P_after_initial_allocation": 0
+  },
+  "routes": {
+    "A": {
+      "spent_I": 12,
+      "purchase_E": 12,
+      "arrive_rear_epoch": 1
+    },
+    "B": {
+      "spent_I": 12,
+      "construction_boundaries": 3,
+      "first_extra_output_epoch": 4,
+      "extra_output_E": 2
+    },
+    "C": {
+      "spent_I": 12,
+      "transport_I": 8,
+      "repair_I": 4,
+      "construction_boundaries": 2,
+      "first_effect_epoch": 3,
+      "extra_cargo": 4,
+      "wreck_recondition_E_per_epoch": 0.5
+    },
+    "D": {
+      "spent_I": 0,
+      "remaining_I": 12,
+      "description": "same-start no-investment control, not a fourth equal-spend main route"
+    }
+  },
+  "timing": "T1..T16 German action-window convention, E1..E15 settlements only. New formation ordered before E_t has zero SP, participates in E_t maintenance, and becomes attack eligible at T(t+1) under assumed legal entry. No E16.",
+  "damage": "Two initial one-step wounds; one fixed old-unit hit at start T3..T(H-1), cyclic ID. Hit on dead ID skipped and logged via actualBattleLoss. H16 main. Repair oldest recoverable wound, then form one unit if materials suffice. Initial-wound waiting excluded from mean.",
+  "attack": "All alive non-resting units each get at most one hypothetical independent target; no movement cost for infantry. Full means paid 1SP and debt factor 1. Reduced/zero stock attacks remain possible. Sum of unit attack opportunities is not verified Core attack-command count.",
+  "recovery": "Select at most one alive wounded unit with D<2 and sufficient equipment/personnel. Assume this selected unit starts in legal recovery position, does not attack or move. No map legality proof.",
+  "supply": "Single corridor, quarter-SP deterministic water filling to common maintenance level first, then lowest reserves to cap; tie rotation by insertion order and t modulo living roster. Equipment freight reserves net maintenance capacity first. This is not the actual multi-route optimizer.",
+  "salvage": "Each lost infantry step has 0.5E recoverable wreck and 0.5E written off. Wreck remains unavailable equipment until repaired; C consumes up to0.5E wreck each E>=3 into local equipment, without another long-haul freight. No personnel refund.",
+  "methods_file": "METHOD.md"
+}
