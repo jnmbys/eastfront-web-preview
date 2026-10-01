@@ -1,0 +1,39 @@
+{
+  "viewport": [
+    1363,
+    936
+  ],
+  "method": "Codex in-app browser ordinary UI and screenshot API; no CDP, injected events or runtime evaluate",
+  "checks": {
+    "ready": true,
+    "forestClick": "V13 森林",
+    "cityEdges": [
+      "X13—X14 道路/铁路",
+      "X14—Y14 道路/铁路",
+      "W14—X14 铁路",
+      "X14—Y15 铁路"
+    ],
+    "stack": "G-03 map click then G-02 sidebar; aria-pressed true",
+    "zoom": "500% and 300% buttons; selected G-02 and same camera preserved across variant switch",
+    "drag": {
+      "before": "width: 799.44px; height: 720px; left: 126.78px; top: 14px; transform: translate(-875.586px, 0px) scale(5);",
+      "after": "width: 799.44px; height: 720px; left: 126.78px; top: 14px; transform: translate(-805.586px, 30px) scale(5);",
+      "selected": "G-02",
+      "selectionRetained": true
+    },
+    "console": []
+  },
+  "startup": {
+    "status": "UNVERIFIED",
+    "attempt": "Existing page export button, download event/path workflow",
+    "result": "cua_repl execution timed out after 30.0359 seconds; no returned measurement file",
+    "historicalRestriction": "012 raw CDP policy denial retained; not retried"
+  },
+  "unverified": [
+    "Touch pinch on physical device",
+    "Huawei and GPU performance",
+    "Cold startup and long-task numerical capture",
+    "Exact full-resolution outside-region pixel diff",
+    "Live game integration"
+  ]
+}

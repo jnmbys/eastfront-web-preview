@@ -42,7 +42,7 @@ function riverChains(data:SliceData,kind:string):Point[][]{
  edges.forEach((e,i)=>{for(const p of e)if(links.get(key(p))!.length!==2&&!used.has(i))walk(p,i);});edges.forEach((e,i)=>{if(!used.has(i))walk(e[0],i);});return paths;
 }
 export async function loadImage(url:string){const image=new Image();image.src=url;await image.decode();return image;}
-export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scene=false){
+export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scene:boolean|'014'=false){
  const geometry=sceneGeometry(data);
  const started=performance.now(),[detailsAtlas,ground,atlas,buildings,newTerrain]=await Promise.all([loadImage('./assets/details.webp'),loadImage('./assets/meadow.webp'),loadImage('./assets/terrain-atlas.webp'),loadImage('./assets/buildings.webp'),loadImage('./assets/terrain010.webp')]);
  const box=viewBoxForHexes(data.hexes,8),scale=Math.min(2,4096/Math.max(box.width,box.height));
@@ -75,10 +75,13 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
   b.globalCompositeOperation='source-atop';const light=b.createLinearGradient(0,0,256,256);
   light.addColorStop(0,forest?'rgba(215,224,119,.23)':'rgba(255,219,147,.24)');light.addColorStop(.48,'rgba(0,0,0,0)');light.addColorStop(1,'rgba(19,40,38,.29)');b.fillStyle=light;b.fillRect(0,0,256,256);return baked;
  };
- const localRoofs=tileRects.map(rect=>bake(tintedTile(buildings,rect,'saturate(1.42) contrast(1.16) brightness(1.16)',256)));
+ const localRoofs=tileRects.map(rect=>bake(tintedTile(buildings,rect,scene==='014'?'saturate(1.12) contrast(1.12) brightness(1.12)':'saturate(1.42) contrast(1.16) brightness(1.16)',256)));
+ // Crop the same prepared roof tiles tightly for the connected ranges. This is
+ // static atlas composition, with no new image or gesture-time pass.
+ const drawLocalRoof=(p:Placement,index:number)=>{const roof=localRoofs[index]!;if(scene==='014')ctx.drawImage(roof,10,10,231,231,p.x-p.width/2,p.y-p.height/2,p.width,p.height);else ctx.drawImage(roof,p.x-p.width/2,p.y-p.height/2,p.width,p.height);};
 
  const terrain010Tiles=([0,1,2,3] as const).map(i=>{
-  const tile=tintedTile(newTerrain,[(i%2)*627,Math.floor(i/2)*627,627,627],'saturate(.89) contrast(.96) brightness(.96)',384),b=tile.getContext('2d')!;
+  const tile=tintedTile(newTerrain,[(i%2)*627,Math.floor(i/2)*627,627,627],scene==='014'?'saturate(.89) contrast(1.02) brightness(1.02)':'saturate(.89) contrast(.96) brightness(.96)',384),b=tile.getContext('2d')!;
   // Static alpha feather avoids a rectangular ground skirt; no extra animated material pass.
   b.globalCompositeOperation='destination-in';for(const vertical of [false,true]){const g=b.createLinearGradient(0,0,vertical?0:384,vertical?384:0);g.addColorStop(0,'transparent');g.addColorStop(.085,'white');g.addColorStop(.915,'white');g.addColorStop(1,'transparent');b.fillStyle=g;b.fillRect(0,0,384,384);}b.globalCompositeOperation='source-over';return tile;
  });
@@ -88,7 +91,7 @@ export async function paintBlend011(canvas:HTMLCanvasElement,data:SliceData,scen
  const blendTileBytes=[...naturalTiles.values()].reduce((n,c)=>n+c.width*c.height*4,0);
  const drawStamp=(p:Placement)=>{const rect=source[p.kind]!,h=cells.get(p.cell)!;ctx.save();ctx.beginPath();path(hexPolygon(h.coord));ctx.clip();
   if(p.kind==='city'){const index=p.roof??((cityIndices.get(p)??0)%19===0?3:(cityIndices.get(p)??0)%3);
-   if(inSettlement(h))ctx.drawImage(localRoofs[index]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
+   if(inSettlement(h))drawLocalRoof(p,index);
    else if(inPolish(h))ctx.drawImage(roofTiles[index]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
    else ctx.drawImage(buildings,...tileRects[index]!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);
   }else if(inSettlement(h)){clipNaturalSpace(ctx,data,h);ctx.drawImage(naturalTiles.get(p)!,p.x-p.width/2,p.y-p.height/2,p.width,p.height);}
