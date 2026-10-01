@@ -6,25 +6,50 @@
   "workspace_id": "tea-daos1iugekts73erk8j0",
   "service_id": "srv-dathekek1f9s7389ksvg",
   "approval": "explicit user approval remains valid for the stated scope; no repeat deployment approval required",
-  "status": "blocked_before_service_mutation",
-  "checked_at": "2026-10-01T07:31:08.896630+00:00",
+  "status": "deployed_live_postdeploy_acceptance_incomplete",
+  "checked_at": "2026-10-01T08:24:55.424032+00:00",
   "read_only_identity_and_exposed_config": "passed",
-  "current_deploy": "dep-dauattnavr4c738ergg0",
-  "current_source_sha": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435",
+  "current_deploy": "dep-dav1e1npn0mc739lk1ng",
+  "current_source_sha": "813b4072568352e95d0726fe5fe04060c889c554",
   "current_deploy_status": "live",
   "current_health_http": 200,
-  "environment_values_verified": false,
+  "environment_values_verified": true,
   "rollback_operation_available_verified": false,
-  "service_mutations": [],
-  "new_deployment_id": null,
-  "deployed": false,
+  "service_mutations": [
+    {
+      "by": "user via Dashboard",
+      "rootDir": "",
+      "dockerfilePath": "experiments/supply-integrate-015/Dockerfile",
+      "verified_by": "Render get_service",
+      "evidence": "evidence/manual-config-step1.json"
+    },
+    {
+      "by": "user via Dashboard",
+      "branch": "supply-verify-016",
+      "verified_by": "Render get_service",
+      "evidence": "evidence/manual-config-step2.json"
+    }
+  ],
+  "new_deployment_id": "dep-dav1e1npn0mc739lk1ng",
+  "deployed": true,
   "production_completed": false,
-  "post_deploy_checks": "not run: deployment not started",
-  "blocker": "Both browser control channels failed: fresh in-app dashboard navigation timed out; user-authorized Edge fallback returned nodeRepl.fetch request failed. No Render service mutation.",
-  "recovery": "Restore a responsive browser control connection. Render login and original deployment approval are already supplied; do not ask to repeat them. Then verify rollback operation and run the fixed-source plan.",
+  "post_deploy_checks": {
+    "public_https": "passed",
+    "actual_browser": "pending user operation; no browser control retry",
+    "private_actual_image_delivery_busy_3s_rollback": "pending Shell access",
+    "rollback_button": "pending screenshot now 013 is previous deploy"
+  },
+  "blocker": null,
+  "recovery": "Verify 013 Rollback entry via user Dashboard, then actual-image private targeted tests via existing Shell and manual browser smoke. Existing approval remains valid. Do not treat current partial acceptance as complete.",
   "user_confirmed_render_login": true,
   "observed_authenticated_dashboard": {
     "title": "eastfront-supply-sandbox · Web Service · Render Dashboard",
     "url": "https://dashboard.render.com/web/srv-dathekek1f9s7389ksvg"
-  }
+  },
+  "workflow": "User Dashboard actions plus assistant connector verification; stop browser-control retries.",
+  "rollback_assessment": "Policy-based inference: latest successful live 013 remains within minimum 5 retained builds after one new build. Direct artifact availability and actual rollback not tested.",
+  "environment_verification_method": "User Dashboard screenshot; evidence/environment-verification.json",
+  "rollback_target": "dep-dauattnavr4c738ergg0",
+  "rollback_target_status": "deactivated",
+  "rollback_executed": false
 }

@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-10-01T07:50:13.877Z",
+  "workflow": "User operates Dashboard; assistant uses Render connector. No further browser-control retries.",
+  "current_deploy": "dep-dauattnavr4c738ergg0",
+  "current_source": "aca1f4b9801ab7b7c7073ac7973bb028cd6df435",
+  "observed": "Current live deploy is latest successful deployment; older successful deployment shows enabled Rollback in user screenshot. Current deployment has no Rollback button shown.",
+  "retention_source": "https://render.com/pricing",
+  "retention_rule": "Official pricing search result: Hobby 5 builds retained; Pro 15; Scale/Enterprise 30.",
+  "rollback_docs": "https://render.com/docs/rollbacks",
+  "assessment": "Policy-based inference: current latest successful 013 is within retained builds and a single new build does not age it out. No direct artifact-availability API field, rollback execution, or 013 rollback-button verification. Recheck 013 rollback entry after update; do not claim rollback exercise passed.",
+  "service_snapshot": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"autoDeploy\":\"no\",\"autoDeployTrigger\":\"off\",\"branch\":\"supply-campaign-012\",\"createdAt\":\"2026-09-29T01:41:37.537554Z\",\"dashboardUrl\":\"https://dashboard.render.com/web/srv-dathekek1f9s7389ksvg\",\"id\":\"srv-dathekek1f9s7389ksvg\",\"name\":\"eastfront-supply-sandbox\",\"notifyOnFail\":\"default\",\"ownerId\":\"tea-daos1iugekts73erk8j0\",\"repo\":\"https://github.com/jnmbys/eastfront-web-preview\",\"rootDir\":\"experiments/supply-exp-005\",\"serviceDetails\":{\"buildPlan\":\"starter\",\"cache\":{\"profile\":\"no-cache\"},\"env\":\"docker\",\"envSpecificDetails\":{\"dockerCommand\":\"\",\"dockerContext\":\".\",\"dockerfilePath\":\"./Dockerfile\"},\"healthCheckPath\":\"/healthz\",\"ipAllowList\":[{\"cidrBlock\":\"0.0.0.0/0\",\"description\":\"everywhere\"}],\"maintenanceMode\":{\"enabled\":false,\"uri\":\"\"},\"numInstances\":1,\"openPorts\":[{\"port\":10000,\"protocol\":\"TCP\"}],\"plan\":\"0.5c-512mb\",\"previews\":{\"generation\":\"off\"},\"pullRequestPreviewsEnabled\":\"no\",\"region\":\"singapore\",\"renderSubdomainPolicy\":\"enabled\",\"runtime\":\"docker\",\"sshAddress\":\"srv-dathekek1f9s7389ksvg@ssh.singapore.render.com\",\"url\":\"https://eastfront-supply-sandbox.onrender.com\"},\"slug\":\"eastfront-supply-sandbox\",\"suspended\":\"not_suspended\",\"suspenders\":[],\"type\":\"web_service\",\"updatedAt\":\"2026-09-30T06:41:42.951594Z\"}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "deploy_snapshot": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"commit\":{\"createdAt\":\"2026-09-30T06:01:29Z\",\"id\":\"aca1f4b9801ab7b7c7073ac7973bb028cd6df435\",\"message\":\"[CF-Pages-Skip] SUPPLY-CAMPAIGN-012 isolated online candidate and controlled destruction seams\"},\"createdAt\":\"2026-09-30T06:40:54.242283Z\",\"finishedAt\":\"2026-09-30T06:41:42.950368Z\",\"id\":\"dep-dauattnavr4c738ergg0\",\"startedAt\":\"2026-09-30T06:40:54.223198Z\",\"status\":\"live\",\"trigger\":\"manual\",\"updatedAt\":\"2026-09-30T06:42:16.701786Z\"}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "service_mutations": [],
+  "deployment_started": false
+}
