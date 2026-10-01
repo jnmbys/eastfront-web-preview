@@ -1,0 +1,1869 @@
+✔ remount and dynamic refresh preserve x/y/zoom and align surface with SVG (2.1337ms)
+✔ mouse and single touch pan preserve tap arbitration; next tap is not swallowed (1.2447ms)
+✔ pinch keeps its world focus beneath moving midpoint, suppresses counter click, and resumes pan (0.6082ms)
+✔ wheel zoom anchors at cursor without remount; zoom limits never reset translation (0.5662ms)
+✔ pinch cancellation and third finger removal leave no stale pointer or tap suppression (0.5067ms)
+✔ off-centre pinch math preserves anchor at clamped zoom and handles coincident fingers (0.1027ms)
+✔ normal inspect remains available outside target mode (8.743ms)
+✔ enemy counter routes to target without overwriting inspector or mutating GameState (3.1674ms)
+✔ enemy hex follows same route; illegal enemy and empty target rejected (1.3868ms)
+✔ pending decision and privacy handoff do not enter attack target routing (0.6303ms)
+✔ declare requires target; valid target uses existing Core ATTACK dispatch (6.369ms)
+✔ target panel disables declaration until valid and displays selected coordinates (2.8146ms)
+✔ feedback marks legal enemies and selected target, excludes illegal enemies (1.9002ms)
+✔ single attacker auto-selection is legal, non-mutating, and matches manual ATTACK outcome (4.7057ms)
+✔ map multi attacker selection preserves existing attackers and dispatches combined attack (3.1768ms)
+✔ unavailable attacker is not automatically selected and basic preview keeps advanced controls collapsed (0.6388ms)
+✔ UX2 actual counter → enemy → ATTACK bindings finish a simple battle in exactly three clicks (34.1429ms)
+✔ UX2 simple flow matches the baseline manual Core sequence, including RNG, for six seeds (45.7469ms)
+✔ UX2 no-choice reaction and unique losses progress without declare/resolve confirmations (4.9307ms)
+✔ UX2 artillery is a genuine choice; selecting it automatically resolves when no other reaction remains (13.7429ms)
+✔ UX2 HQ reaction is not silently passed after an artillery choice (16.9806ms)
+✔ UX2 real loss choice stops; choosing the final loss submits without a second confirmation (9.8435ms)
+✔ UX2 retreat is highlighted immediately; destination click applies retreat with no unit/list/confirm step (21.6149ms)
+✔ UX2 friendly counter covering a retreat highlight routes to the same destination action (16.9469ms)
+✔ UX2 illegal retreat clicks and wrong-controller clicks never change authoritative state (5.0715ms)
+✔ UX2 blocked retreats auto-submit Core empty routes; impossible-retreat loss remains Core-owned (6.6571ms)
+✔ UX2 multi-unit retreat uses ordered Core legality and preserves choice of first unit (12.9196ms)
+✔ UX2 two-step retreat submits only after the final destination and retains breakthrough/Schwerpunkt decisions (35.4029ms)
+✔ UX2 advance remains optional and requires a unit choice when several can advance (16.6452ms)
+✔ UX2 no legal advance is skipped using Core validation, not UI terrain/stacking rules (8.402ms)
+✔ UX2 language handler preserves an attack draft and a partial retreat, including RNG and camera (22.6601ms)
+✔ UX2 new labels are bilingual, CRT data comes directly from Core, and queries never consume RNG (3.7965ms)
+✔ UX2 retains fresh NEW GAME combat seeds while the visual seed stays fixed (10.0626ms)
+✔ UX2 production 640-hex scenario closes an ordinary combat in three actual UI clicks with clean integrity (1530.9333ms)
+✔ UX2 an initially blocked retreater can wait while another unit frees its route (17.4788ms)
+✔ UX2.1 one-on-one still closes through exactly three actual UI clicks (32.096ms)
+✔ UX2.1 target → friendly counter adds, second tap removes; primary survives sorted IDs (13.5647ms)
+✔ UX2.1 existing expanded touch hit target follows the same toggle route (10.1823ms)
+✔ UX2.1 illegal friendly additions are rejected by Core without replacing the draft (34.6787ms)
+✔ UX2.1 eligibility reflects Core supply policy and the complete selected artillery payload (9.2895ms)
+✔ UX2.1 every add/remove repaints strength, odds, shift and modifiers from Core immediately (10.8239ms)
+✔ UX2.1 compact chips remove additional units but never expose a primary delete (9.6623ms)
+✔ UX2.1 the existing advanced primary replacement keeps one primary selected (7.1541ms)
+✔ UX2.1 group feedback distinguishes primary, selected, eligible and unrelated counters without covering symbols (7.1305ms)
+✔ UX2.1 toggle routing activates only for an editable draft with a target; other inspect behavior remains (35.7709ms)
+✔ UX2.1 map edits and chip removal preserve camera, target, terrain and GameState (10.6807ms)
+✔ UX2.1 language switch preserves selected group, primary, target, Core state, RNG and camera (17.9036ms)
+✔ UX2.1 artillery stays in advanced options and retains its existing Core support payload (19.5429ms)
+✔ UX2.1 three-unit map attack submits canonical ATTACK and exactly matches frozen UX2 GameState/RNG (106.6601ms)
+✔ UX2.1 production 640-hex map accepts three-unit attack through five UI taps with clean integrity (1450.4151ms)
+✔ UX3 actual buttons show waiting before dispatch, authorized dice persist and history never replays or mutates RNG (31.3736ms)
+✔ UX3 new authorized event animates once; duplicate, history, refresh bootstrap, resync and reduced motion are static (4.8898ms)
+✔ UX3 viewer isolation and absent authorized model never synthesize dice or use another viewer cache (4.6009ms)
+✔ UX3 a new pending battle hides old result; later consecutive result matches its own ID and details (4.6166ms)
+✔ UX3 pending consequences use actual requirement fields, not an invented completed loss ledger (4.8683ms)
+✔ UX3 multi-attacker UI result is identical to Core and remains closable during follow-up choices (17.4437ms)
+✔ UX3 bilingual results preserve dice and no modifier is labelled as dice arithmetic (5.3769ms)
+✔ UX3 implementation stays within authorized DTOs, light CSS and local history controls (3.645ms)
+✔ UX3 hotseat decision-owner handoff reveals once on the first authorized result, not later on returning to attacker (3.9971ms)
+✔ UX31 both decision and nondecision recipients get exact authorized dice on snapshot-v1 (60.2307ms)
+✔ UX31 both decision and nondecision recipients get exact authorized dice on snapshot-v2-inline-view (26.2555ms)
+✔ UX31 both decision and nondecision recipients get exact authorized dice on snapshot-v3-map-table (23.9356ms)
+✔ UX31 unnegotiated clients get exact old model shape; nonmembers cannot query a summary (21.3525ms)
+✔ UX31 actual losses are recorded once from accepted events, no remaining steps, enemy IDs or hidden support details (30.7424ms)
+✔ UX31 hidden support has no identity, source modifier or coordinates in opponent result archive (28.9404ms)
+✔ UX31 decoder rejects malformed summary atomically and does not mutate input (39.0949ms)
+✔ UX31 summary updates, old revisions, duplicate events and history never replay; viewer/match data isolated (28.7286ms)
+✔ UX31 bounded DTO size and consequences are explicit; oversized/duplicate entries rejected (31.6497ms)
+✔ UX31 two real WebSockets deliver each stage, executed retreat/advance/breakthrough, reconnect and preserved Core state/RNG (354.5637ms)
+✔ UX31 result close/history are bound before the read-only and selection guards (1.0715ms)
+✔ frozen UI geometry source SHA remains byte-for-byte unchanged (2.8194ms)
+✔ real Strategic Reset F imports 640 unique Core hexes into deterministic UI pixels (16.8979ms)
+✔ Core axial coordinates are semantically compatible with locked pointy-top UI geometry (5.6959ms)
+✔ every real Core infrastructure edge resolves through canonical UI center/shared-edge geometry (4.0521ms)
+✔ setup-zone overlays and Core counter anchors use exact locked polygons/centers (25.232ms)
+✔ actual browser render model enforces hidden deployment in both viewer directions (779.3299ms)
+✔ presentation changes and rejected Actions do not mutate authoritative browser GameState (41.7424ms)
+✔ deterministic real flow reaches Turn 1 movement and executes one accepted MOVE (1310.3711ms)
+✔ counter repaint preserves authoritative anchor, click identity, data and stats for each faction/damage state (1.395ms)
+✔ stack count only appears on top counter and status markers reflect projected state (0.2304ms)
+✔ FOW001 GERMAN excludes hidden opposing UnitState and secret IDs (9.4879ms)
+✔ FOW001 SOVIET excludes hidden opposing UnitState and secret IDs (0.6265ms)
+✔ FOW001 observer snapshot is complete, detached, privileged and serializable (1.8689ms)
+✔ FOW001 friendly units always identified with their full controller information (0.5931ms)
+✔ FOW001 SOVIET_DEPLOYMENT never reveals even adjacent opposing setup (0.8451ms)
+✔ FOW001 GERMAN_DEPLOYMENT never reveals even adjacent opposing setup (0.5747ms)
+✔ FOW001 hidden formation is absent from Counter, Presence input and accessibility markup (3.3814ms)
+✔ FOW001 recon outer ring only exposes generic CONTACT with no identity/stats/stack count (1.9911ms)
+✔ FOW001 IDENTIFIED enemy exposes exactly allow-listed public fields (0.8794ms)
+✔ FOW001 recon ranges are centralized and independent of combat/movement statistics (0.8916ms)
+✔ FOW001 last-known memory records observation, not hidden current position or destruction (1.2178ms)
+✔ FOW001 returning to an observed empty hex clears stale memory; cross-side memory rejected (0.8978ms)
+✔ FOW001 CONTACT and LAST_KNOWN markers are distinguishable and have no gameplay target (0.6407ms)
+✔ FOW001 viewer switching preserves canonical state, RNG and legal gameplay drafts (1.6383ms)
+✔ FOW001 viewer switching keeps real UI camera transform unchanged (10.4666ms)
+✔ FOW001 deterministic pure projection tolerates deeply frozen authoritative inputs (1.2513ms)
+✔ FOW001 every view round-trips JSON with no hidden authoritative references (2.4234ms)
+✔ FOW001 public terrain remains complete while hidden live ownership is withheld (0.6329ms)
+✔ FOW001 accepted hidden enemy movement publishes no visible UA facts (5.4779ms)
+✔ FOW001 hidden fire/hit/destroyed payloads and unknown supporters are removed (0.6309ms)
+✔ FOW001 enemy paths crossing unseen intermediate hexes never animate (0.3905ms)
+✔ FOW001 viewer switch purges queued ghosts, active effects and RAF (7.9808ms)
+✔ FOW001 visible combat retains three-click flow, own Counter routing and canonical result (15.1293ms)
+✔ FOW001 hidden Counter cannot be inspected by a stale UI identifier (0.5597ms)
+✔ FOW001 foreign decision options never enter the player DTO or command panel (0.7872ms)
+✔ FOW001 language changes neither intelligence memory nor canonical state (1.9978ms)
+✔ FOW001 projection does not consume the fresh NEW GAME seed or gameplay RNG (17.2719ms)
+✔ FOW001 repeated projection and animation keep static terrain bytes unchanged (13.7668ms)
+✔ FOW001 Core, map, stats, camera, geometry, startup, VS2 and animation mechanics are byte frozen (353.3046ms)
+✔ FOW002 fog input uses authorized PlayerView only, independent of hidden roster and RNG (13.7172ms)
+✔ FOW002 hidden enemy has no Counter or Presence beneath the fog layer (3.9635ms)
+✔ FOW002 deterministic world-space raster ignores input ordering and language (21.7776ms)
+✔ FOW002 observed centres remain clear; fog keeps terrain partially visible with a soft edge (6.9677ms)
+✔ FOW002 surface is a bounded raster, never per-Hex polygons or SVG filters (3.2086ms)
+✔ FOW002 cache survives repeated remount, camera transforms and unchanged visibility (7.9309ms)
+✔ FOW002 visibility change crossfades only fog for 220ms while unit truth changes immediately (2.811ms)
+✔ FOW002 rapid updates stay bounded and skip/instant clean every previous image (6.3987ms)
+✔ FOW002 viewer switch immediately clears former footprint without crossfade (3.7673ms)
+✔ FOW002 Observer has no fog and no residual player imagery (4.5354ms)
+✔ FOW002 selected Recon shows a soft preview only within authorized observed area (8.0946ms)
+✔ FOW002 CONTACT marker contains no identity, type, stats, damage or supply fields (0.9861ms)
+✔ FOW002 last-known has a distinct clock/dashed marker and never follows hidden movement (1.7623ms)
+✔ FOW002 fog transitions cannot authorize hidden move, fire, hit or destroyed cues (0.8387ms)
+✔ FOW002 camera and gameplay RNG unchanged through projection, selection and viewer changes (13.4961ms)
+✔ FOW002 no idle RAF, terrain reconstruction or canvas scene introduced in fog runtime (15.9117ms)
+✔ FOW002 authoritative accepted movement produces identical state with/without fog rendering (11.6902ms)
+✔ FOW002 UA003R1, FOW001 projection/privacy, Core, startup, Camera and VS2 bytes unchanged (109.6377ms)
+✔ new sessions consume fresh entropy, reject zero, and retain explicit-seed replay (28.3432ms)
+✔ production startup and SVG rendering use fixed visual seed independently of gameplay (0.793ms)
+✔ hexToPixel is deterministic (2.2019ms)
+✔ six neighbors have expected center distance (0.2876ms)
+✔ hexPolygon always has 6 vertices (0.1227ms)
+✔ sharedHexEdge exists only for adjacent hexes (0.2011ms)
+✔ shared edge endpoints are vertices in both polygons (0.2201ms)
+✔ road path consecutive hexes are adjacent (0.141ms)
+✔ hexLine creates only adjacent path segments (0.2339ms)
+✔ Counter authoritative anchor equals hexToPixel(unit.hex) (0.2184ms)
+✔ two-unit stack keeps one shared authoritative hex anchor (0.1687ms)
+✔ Reachable overlay points exactly equal base polygon points (0.3593ms)
+✔ ZOC overlay points exactly equal base polygon points (0.1675ms)
+✔ River geometry is exactly sharedHexEdge (0.3131ms)
+✔ Bridge crossing is midpoint of its river shared edge (0.1591ms)
+✔ Railway path consecutive hexes are adjacent (0.0729ms)
+✔ Attack Target overlay points exactly equal base polygon points (0.0548ms)
+✔ River segment sequence is continuous vertex-to-vertex (0.1855ms)
+✔ Each bridge edge is both a river edge and a road/rail center crossing (0.1025ms)
+✔ Single and stacked counter rectangles stay inside their owning hex (0.4672ms)
+✔ Selected state keeps the same authoritative anchor (4.1458ms)
+✔ OOS state does not change authoritative anchor (0.1261ms)
+✔ Damage state does not change authoritative anchor (0.0639ms)
+✔ Touch hit area is >=44 units and centered on canonical anchor (0.0811ms)
+✔ Attack Target derived bracket points remain inside/on owning target hex (0.1716ms)
+✔ Overlay renderer preserves exact canonical polygon points (0.9402ms)
+✔ Responsive renderer uses one canonical viewBox and preserveAspectRatio (3.3274ms)
+✔ No unit model contains authoritative x/y placement (0.1279ms)
+✔ No tactical overlay model contains hand-authored pixel vertices (0.0818ms)
+✔ Counter layer renders above overlay layer and handlers stop propagation (9.0861ms)
+✔ Forest vector variant selection is deterministic across renders (2.3867ms)
+✔ Debug mode includes counter bounds, touch bounds and canonical anchors (0.9744ms)
+✔ zh-CN is the default player language (0.9209ms)
+✔ zh-CN and en-US cover every stable key with identical interpolation parameters (1.7298ms)
+✔ English fallback, missing key and missing parameter detection are explicit (0.1578ms)
+✔ all canonical player-facing enums and validation codes have mappings (7.6197ms)
+✔ stored feedback and Core rejections translate at render time, retaining identifiers (21.3328ms)
+✔ language preference persists when available and works when storage is denied (2.4539ms)
+✔ real language change handler preserves GameState, RNG, camera, drafts and scroll positions (30.8868ms)
+✔ Chinese production flow: new game, deployment confirmation, movement plan, attack preview, resolve, end phase; same state as English (2605.6399ms)
+✔ every pending Combat UX panel and all actual phases render Chinese with CRT codes retained (912.8629ms)
+✔ language changes leave the next dice sequence identical; New Game still requests fresh seeds independently of terrain (8.6968ms)
+✔ counter mechanics and symbols are identical across locales; only accessible text changes (0.9225ms)
+✔ main render and binding preserve the existing camera transform during language switching (27.9035ms)
+✔ fatal-screen messages also retranslate without changing diagnostics (0.6532ms)
+✔ MOVE001 real WebSocket clients: all target surfaces use authorized draft, pending sends once, snapshot moves (621.4267ms)
+✔ MOVE001 server rejection retains authority and recovers selection / next move (228.2847ms)
+✔ MOVE001 multiplayer full stack remains illegal through every target surface (172.6437ms)
+✔ MOVE001R1 first-step exit remains available while the authorized projection is pending (138.2564ms)
+✔ MOVE001 counter retains mover and uses same draft/commit as blank target (53.434ms)
+✔ MOVE001 inspect, cancel, switch, origin undo and illegal targets preserve conventions (15.3754ms)
+✔ MOVE001 full stack uses existing invalid preview and Core refusal, never moves (38.895ms)
+✔ MOVE001 retained nodes bind once and every consumed click stops bubbling (24.646ms)
+✔ MOVE001R1 selecting a unit does not implicitly capture other friendly clicks (25.4837ms)
+✔ MOVE001R1 existing completed move must release target selection (16.8515ms)
+✔ MOVE001R1 full A -> friendly B -> confirm -> C -> confirm chain on all target surfaces (44.7245ms)
+✔ MOVE001R1 exit before first step, cancel and final undo permit switching and same-hex selection (64.1997ms)
+✔ MOVE001R1 full movement budget and rejected local move both release selection (44.8857ms)
+✔ MP001 active room codes unique; secure generation retries collisions (4.3006ms)
+✔ MP001 valid room joins case-insensitively; invalid room rejected (0.7486ms)
+✔ MP001 GERMANY claim bound to server controller (0.6609ms)
+✔ MP001 SOVIET claim bound to server controller (0.4762ms)
+✔ MP001 same-seat ordered claims have exactly one winner (0.5582ms)
+✔ MP001 switching seat emits one atomic revision and clears readiness (0.7822ms)
+✔ MP001 occupied target rejects switch without losing original seat or Ready (0.6319ms)
+✔ MP001 ready requires occupied controller; both connected seats required (49.4826ms)
+✔ MP001 not-ready clears server flag; assignment change invalidates prior confirmation (0.8057ms)
+✔ MP001 actual fresh production scenario and same RulesEngine live only on server (39.7521ms)
+✔ MP001 GERMANY receives only GERMAN PlayerView (29.4109ms)
+✔ MP001 SOVIET receives only SOVIET PlayerView (30.2888ms)
+✔ MP001 unsupported client authority FORCE_START_MATCH rejected (0.6995ms)
+✔ MP001 unsupported client authority SET_GAME_STATE rejected (0.445ms)
+✔ MP001 unsupported client authority SET_ENEMY_VIEW rejected (0.3932ms)
+✔ MP001 unsupported client authority OBSERVER rejected (0.3257ms)
+✔ MP001 unsupported client authority ACTION rejected (0.2784ms)
+✔ MP001 Observer, seat authority, seed and GameState payload smuggling rejected (0.7447ms)
+✔ MP001 no room membership or foreign identity can mutate another room (0.2986ms)
+✔ MP001 malformed JSON/version/types and duplicate requests rejected safely (0.508ms)
+✔ MP001 versioned protocol cleanly serializes and rejects extra envelope keys (0.6809ms)
+✔ MP001 disconnect retains seat, broadcasts disconnected state and clears Ready (0.6002ms)
+✔ MP001 token reclaims same controller with new connection; nickname cannot (0.5605ms)
+✔ MP001 invalid/expired/live reconnect tokens rejected and identity stays unclaimed (0.4148ms)
+✔ MP001 room/token secrets never appear in lobby DTOs (0.3547ms)
+✔ MP001 grace expiry releases lobby seat; empty rooms/code eventually cleaned (0.5684ms)
+✔ MP001 IN_GAME third player/seat changes rejected; leaving closes session (56.029ms)
+✔ MP001 match creation failure rolls lobby back without success snapshots (0.8857ms)
+✔ MP001 room codes never consume gameplay RNG; fresh matches retain new seed behavior (62.8437ms)
+✔ MP001 unauthenticated and message-rate gates fail safely (0.3649ms)
+✔ MP001 snapshot cannot be requested for an unassigned controller (28.5192ms)
+✔ MP001 single-player uses unchanged factory and runs independently of server (17.578ms)
+✔ MP001 FOW semantics and Performance Pass 1 frozen files unchanged (213.0334ms)
+✔ MP001 both catalogs complete; default/English texts available (0.4266ms)
+✔ MP001 idle room closes even when members remain connected (3.7237ms)
+✔ MP001 active-session reconnect reclaims identity and receives current snapshot without old animations (101.8095ms)
+✔ MP001 abandoned active-session grace closes match without gameplay mutation (51.4154ms)
+✔ MP001 IN_GAME leave sends correlated acknowledgement to release client pending state (62.3523ms)
+✔ MP001 wire: two clients create/join/seat/ready -> server match and private snapshots (196.379ms)
+✔ MP001 wire: nonempty hidden deployment DTO contains own units and no enemy IDs (1426.7061ms)
+✔ MP001 wire: simultaneous Germany claim resolves to one owner (11.8814ms)
+✔ MP001 wire: disconnect broadcasts reserved seat and token reconnect restores identity (15.4174ms)
+✔ MP001 wire: malformed JSON, wrong protocol, Observer and force-start rejected safely (8.5763ms)
+✔ MP001 wire: origin enforcement and oversized frames cannot crash runtime (13.1835ms)
+✔ MP002 client has no canonical state/engine/RNG; submit is intent only and double click is suppressed (35.1238ms)
+✔ MP002 accepted snapshot alone adopts position and publishes authorized events, ACK contains no raw result (23.0146ms)
+✔ MP002 gap triggers RESYNC; trusted fresh snapshot restores current state without replay (12.2621ms)
+✔ MP002 out-of-order triggers RESYNC; trusted fresh snapshot restores current state without replay (9.0327ms)
+✔ MP002 revision mismatch triggers RESYNC; trusted fresh snapshot restores current state without replay (11.5439ms)
+✔ MP002 stale action rejection resyncs and invalid action clears busy without optimistic state changes (11.5128ms)
+✔ MP002 network loss disables actions and drafts clear on active resync; camera is not a session field (8.5815ms)
+✔ MP002 query coalescing retains the authorized PlayerView object; unchanged observation reuses Fog and dynamic map (37.2245ms)
+✔ MP002 real two WebSockets: entire production Scenario from hidden deployments through move/combat/reconnect to official victory (13792.7293ms)
+✔ MP002 real two WebSockets: combat fixture loss/retreat/advance/breakthrough/Schwerpunkt and decision reconnect (106.1273ms)
+✔ MP002 Soviet deployment authoritative; wrong Germany controller cannot deploy Soviet; hidden DTOs (145.1916ms)
+✔ MP002 same requestId executes once, changed payload rejected; stale revision has no state/RNG effect (74.2659ms)
+✔ MP002 all authority/state/random/Observer smuggling, unknown actions and malformed drafts rejected before engine (86.1222ms)
+✔ MP002 move accepts own intent; wrong controller and illegal phase safely reject (31.2063ms)
+✔ MP002 combat declaration/multi-attacker locks reaction to defender and hides private choices (29.0057ms)
+✔ MP002 loss allocation belongs to defender; query options do not accept hidden IDs or mutate RNG (35.112ms)
+✔ MP002 hidden MOVE emits no route/cue or enemy identifier (20.2596ms)
+✔ MP002 CONTACT becomes Last Known through server-owned knowledge, no client upload (16.631ms)
+✔ MP002 active reconnect normal turn restores view/revision; disconnect cannot decide; grace ABORTED has no victory (15.7776ms)
+✔ MP002 active reconnect during reaction restores view/revision; disconnect cannot decide; grace ABORTED has no victory (34.5465ms)
+✔ MP002 receipts survive token reconnect and resync is private; stream sequences strictly increase per recipient (134.9781ms)
+✔ MP002 room/token entropy and authorized queries never alter gameplay RNG (39.8413ms)
+✔ MP002 trusted debug inspection cannot alter a remote viewer assignment or query projection (96.6657ms)
+✔ MP002 semantically identical payload key ordering replays accepted request reference (86.5234ms)
+✔ MP003 real clients: lobby handoff consumes initial snapshot once, deployments send no queries, both revisions agree (533.4676ms)
+✔ MP003 real clients: dropped observer snapshot triggers one resync, privacy holds and play continues (413.1272ms)
+✔ MP003 real clients: token reconnect restores current private view and continues once without automatic decision (1071.1465ms)
+✔ MP003 real clients: replayed deployment request is idempotent and legal ACK/snapshot interleaving does not resync (223.3359ms)
+✔ MP003 deployment unit/destination selection is local, sends no query and changes no canonical placement (70.5063ms)
+✔ MP003 same-turn selections send only the latest query; selected counter feedback is immediate (21.9329ms)
+✔ MP003 one in-flight plus latest unsent query; obsolete result consumes sequence without overwriting selection (47.1026ms)
+✔ MP003 A-B-A clears the unsent B instead of applying it after A (32.1766ms)
+✔ MP003 snapshot while query is in flight does not free its transport slot or send duplicate queries (46.0425ms)
+✔ MP003 genuine sequence gap still requests exactly one resync and applies a current private snapshot (41.3971ms)
+✔ MP003 future query revision still forces recovery; version validation is retained (18.3506ms)
+✔ MP003 unrelated correlated response consumes order but cannot complete the current query (28.7389ms)
+✔ MP003 Action ACK does not adopt state; one deployment click/reclick executes once and creates no follow-up query (93.0125ms)
+✔ MP003 query rejection does not retry itself or expose the previous selection options (48.8701ms)
+✔ MP003 ordered pending-resync frames cannot produce repeated recovery requests or roll back state (36.3654ms)
+✔ MP003 disconnect clears queued input and reconnect restores current state before accepting another action (53.935ms)
+✔ MP003 network UI keeps selection buttons live while guarding Actions and Core-disabled controls (4.0576ms)
+✔ MP004 transport compressed preserves authorized JSON, ordering, idempotency and reconnect (1245.0701ms)
+✔ MP004 transport fallback preserves authorized JSON, ordering, idempotency and reconnect (894.4111ms)
+✔ MP004 compressed inbound frame still enforces decompressed payload limit (184.2242ms)
+✔ MP004 health reports only a valid provider deployment commit, no arbitrary env data (11.0558ms)
+✔ MP0041 wire evidence counts continuations and ignores interleaved control frames (1.7864ms)
+✔ MP0041 ordinary game diagnostic is inert without explicit opt-in (2.8025ms)
+✔ MP005A accounting is UTF-8, additive and never double-counts overlapping fields (1.5534ms)
+✔ MP005A proposal rejects a false alias assumption in the offline oracle (2.0512ms)
+✔ MP005A standalone reconstruction preserves state and independent mutable objects (0.7202ms)
+✔ MP005A no previous-view dependency survives observation loss, resync or viewer change (0.6718ms)
+✔ MP005B actual codec roundtrips all 142 MP005A authorized samples including hidden deployment, artillery, knowledge loss and combat (10292.7271ms)
+✔ MP005B malformed full/compact structures, unknown fields, Observer, inconsistent revision and unnegotiated compact fail atomically (50.8187ms)
+✖ MP005B real mixed room: baseline client gets full, new client compact; ACK alone never places; duplicate Action executes once (97.7037ms)
+✖ MP005B new clients on exact baseline server automatically fallback once on correlated UNSUPPORTED_MESSAGE without reconnect (91.8875ms)
+✔ MP005B malformed compact causes one full resync, no partial fake unit, then stays full and continues (199.9583ms)
+✔ MP005B persistent malformed recovery terminates with an error instead of a resync/reconnect loop (1020.6164ms)
+✔ MP005B real sequence gap uses full recovery; reconnect renegotiates independently and continues (1039.794ms)
+✔ MP005B negotiation completion resumes only the already server-authorized forced decision (56.189ms)
+✖ MP006 mixed v2/v3 recipients, duplicate ACK semantics, gap recovery and reconnect (89.5414ms)
+✖ MP006 v3 preference falls back to exact v2 server without reconnect (85.238ms)
+✖ MP006 v3 preference falls back to exact v1 server without reconnect (85.6867ms)
+✔ MP006 corrupt table never applies; one full recovery, persistent corruption terminates (208.6235ms)
+✔ MP006 v3 sequence gap triggers one full recovery with no stale partial apply (189.6981ms)
+✔ UX31 malformed optional summary recovers atomically on real client WebSocket (88.6608ms)
+✔ UX31 malformed optional summary terminates after one recovery on real client WebSocket (166.2343ms)
+✔ MP005C opt-in production timings correlate compact processing without payloads; invalid snapshots are not applied (9719.3547ms)
+✔ MP006 production v3 roundtrips all 142 authorized both-side cross-phase privacy samples (10482.9084ms)
+✔ MP006 presence masks preserve missing/null, nested values, finite precision and array order (0.4185ms)
+✔ MP006 malformed map data, privacy fields and v3 recovery fail before application (7464.2294ms)
+✔ MP007 opt-in, per-connection, bounded diagnostics exclude payloads and disappear on close (1.7677ms)
+✔ MP007 real WS snapshot-v2-inline-view: stage correlation, one apply, rejected/duplicate actions and private metadata (283.6ms)
+✔ MP007 real WS snapshot-v3-map-table: stage correlation, one apply, rejected/duplicate actions and private metadata (166.4802ms)
+✔ MP007 broken diagnostic sink cannot reject or reapply a legal action (72.6009ms)
+✔ MP007 analysis uses duration differences across offset clocks and leaves missing/duplicate evidence unknown (0.7614ms)
+✔ PERF002 location cache matches fresh markup after occupancy, latest selection, type and locale changes (299.8721ms)
+✔ PERF002 cache lifetime: new session, explicit resync, viewer, map dependency and phase invalidate (112.8748ms)
+✔ PERF002 deployment map reconciles stack z-order and geometry exactly, retaining unrelated counters and zone nodes (216.7813ms)
+✔ PERF002 real main handlers: continuous deployment, stable card listeners/scroll, rejection, last unit and phase handoff (4484.2257ms)
+✔ PERF002 main preserves invalid-deployment rejection without a phantom and selects latest rapid intent (576.3128ms)
+✔ PERF003 duplicate requests and reprioritization keep one builder and one complete surface per LOD (33.9785ms)
+✔ PERF003 paused background work resumes without duplicate work; disposal prevents stale completion (75.9476ms)
+✔ PERF003 failure remains explicit and bounded until deliberate retry; completed fallback retained (47.6304ms)
+✔ PERF003 CPU work gives real timer/input opportunities and preserves iterator order/finally (50.5779ms)
+✔ PERF003 chunked raster bytes match original baseline at every LOD and visual seed; no input mutation (839.0492ms)
+✔ PERF003 city order, visual seed, footprints and courts match the baseline after chunking and cached centrality (61.6077ms)
+✔ PERF003 decorative planning yields without touching the final Canvas; atomic replay exactly matches original draw stream and releases buffer (16.5812ms)
+✔ PERF004 all 32 deployment masks and recon overlays match original RGBA exactly; viewer switch remains private (1106.5022ms)
+✔ PERF004 panel ancestors never detach, roster listeners remain single, and latest confirmed selection is retained (1575.248ms)
+✔ PERF004 Presence retains unrelated models and definitions, updates stacked anchors/order identically to fresh render, and clears viewer state (859.6343ms)
+✔ PERF unchanged view is cached and immutable without authoritative references (5.3258ms)
+✔ PERF state identity and explicit revision independently invalidate projection (2.6157ms)
+✔ PERF accepted action invalidates without stale position (19.2224ms)
+✔ PERF viewer and knowledge revisions invalidate with no state/RNG mutation (3.0256ms)
+✔ PERF selection patches only old/new units; Counter, proxy and Presence identities survive (13.4829ms)
+✔ PERF combat group patches only changed attackers with live routing identity (12.2132ms)
+✔ PERF repeated runtime sync allocates no Presence and leaves no idle RAF (6.0487ms)
+✔ PERF hidden enemies have no Counter/model/proxy after privacy remount (3.1521ms)
+✔ PERF language preserves fog/terrain surfaces, model toggle preserves unit nodes and state (4.8414ms)
+✔ PERF visibility change builds fog once; equivalent view avoids a raster rebuild (30.5594ms)
+✔ PERF animation frames do not reproject/remount; skip and instant settle canonically (12.4785ms)
+✔ PERF pan hot path has zero PlayerView work and bounded layout reads (6.2933ms)
+✔ PERF pan hot path has zero Fog work and bounded layout reads (3.7052ms)
+✔ PERF pan hot path has zero VS2 work and bounded layout reads (2.0538ms)
+✔ PERF pinch pointermove reads no layout; thresholds keep existing camera math (9.0132ms)
+✔ PERF frozen Core, geometry, spotting/privacy semantics, startup, VS2, UA timing/art and compact plate (216.8363ms)
+✔ PERF retained input nodes bind once; repeated refresh binding cannot duplicate an attacker toggle (19.3119ms)
+✔ PERF localized canonical Counter selection attributes match a fresh render (2.4934ms)
+✔ PERF fog raster remains byte identical to baseline for visible/recon/observer footprints (12.7327ms)
+✔ Safari/iPad/WebKit policy is bounded; desktop Chrome/Android keep their existing budget (1.6573ms)
+✔ Chrome success stays direct-image first: no decode/fetch/bitmap/Canvas fallback (2.5544ms)
+✔ Safari decode can complete when no load event is delivered (4.4194ms)
+✔ Safari reject decode still loads via onload/Canvas (14.1812ms)
+✔ Safari hang decode still loads via onload/Canvas (31.3411ms)
+✔ Safari absent decode still loads via onload/Canvas (32.05ms)
+✔ Safari cached complete image does not depend on another load event (0.5915ms)
+✔ Safari slow first decode can pass 15 seconds without being misclassified as timeout (1.3867ms)
+✔ Safari deadline recovers complete pixels when both load and decode signals stall (0.5722ms)
+✔ broken complete image is rejected, cancelled and cannot report a late success (1.0441ms)
+✔ Safari Canvas failure can still resolve through decode without blank texture success (24.6263ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:120:112
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:129:121
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ bitmap rejection falls back to blob image decode and revokes URL after use (18.4589ms)
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png Error: createImageBitmap VS2_MARSH_WET_GROUND timed out after 5ms
+    at Timeout._onTimeout (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:196:65)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:138:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ slow bitmap times out to blob/Canvas; a late bitmap is closed and never counted twice (13.1257ms)
+✔ successful Chrome bitmap fallback preserves ownership and does not leave its deadline timer (1.1876ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/bad.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/bad.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at Timeout._onTimeout (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:149:74)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/bad.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?existing=keep TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png?existing=keep
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:106:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:177:31)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png?existing=keep',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 15000ms',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:106:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:198:31)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 15000ms',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:106:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:201:31)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 15000ms',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:209:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:221:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:430a98cd-56e7-4948-ab17-27bc8ae0fb9f
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:430a98cd-56e7-4948-ab17-27bc8ae0fb9f',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:ba801470-701b-4b61-8832-3141e005dcc3
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:ba801470-701b-4b61-8832-3141e005dcc3',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:bedec64d-bc74-4055-8d21-a2de321906f5
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:bedec64d-bc74-4055-8d21-a2de321906f5',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:5a2755d0-bfc0-46c4-b1b9-2fdbc23795ae
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:5a2755d0-bfc0-46c4-b1b9-2fdbc23795ae',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:7a887b1e-46af-470f-9d11-e9795af6d648
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:7a887b1e-46af-470f-9d11-e9795af6d648',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:262598fb-14e8-414c-a139-962795f85486
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:262598fb-14e8-414c-a139-962795f85486',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:c96df048-51d8-44ec-ae66-0e857f2e7f1d
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:c96df048-51d8-44ec-ae66-0e857f2e7f1d',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:a70d9f4e-80db-4c40-b17a-af5a29717d29
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:a70d9f4e-80db-4c40-b17a-af5a29717d29',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:9f1f149f-de49-47c1-8693-e2ed758e0bd6
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:9f1f149f-de49-47c1-8693-e2ed758e0bd6',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:bbd4d9eb-5c17-4342-aa2f-3641e38680dd
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:bbd4d9eb-5c17-4342-aa2f-3641e38680dd',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:169e3719-de0a-4938-b7cf-88d24c923427
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:169e3719-de0a-4938-b7cf-88d24c923427',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:8ac6192c-09fc-4df9-8530-5761e27e4189
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:8ac6192c-09fc-4df9-8530-5761e27e4189',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:70e3017e-c60a-43a4-9c8f-8c898977760f
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:70e3017e-c60a-43a4-9c8f-8c898977760f',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:30:110)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:197:54
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:1816b6c7-9bd3-42cb-92f2-3bffe795c72b
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/safari-terrain-loading.test.mjs:233:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:1816b6c7-9bd3-42cb-92f2-3bffe795c72b',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ Safari simultaneous preload requests run one at a time and failure does not poison queue (75.9873ms)
+✔ Safari queued request budget begins after prior load, not at enqueue time (1.0375ms)
+✔ timed-out direct transfer gets one fresh same-origin fetch and a slow-network recovery budget (1.4254ms)
+✔ both network paths timing out aborts once, preserves diagnostics and allows a subsequent attempt (1.6682ms)
+✔ STARTUP002 ignored abort cannot hang startup, late headers are discarded, next image job succeeds (0.9634ms)
+✔ STARTUP002 stalled body ends at deadline even if fetch ignores abort and diagnostics retain HTTP headers (29.8994ms)
+✔ STARTUP002 transfer success and decode failure are distinct and bounded diagnostic records exclude query secrets (19.8665ms)
+✔ startup feedback exists in HTML before modules and before pending map/assets (14.8065ms)
+✔ startup progress is monotonic across asset batches and LOD milestones (0.6563ms)
+✔ first usable LOD releases the loading gate but 100 percent requires every completed surface (27.676ms)
+✔ startup failure retains fatal diagnostics and never emits success (17.0127ms)
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ startup retains resource concurrency, current LOD priority, fixed seed and observer cleanup (45.8154ms)
+✔ Huawei direct-image path is still first and observer exceptions cannot trigger fallback (3.3176ms)
+✔ fetch/blob fallback success counts exactly once after the original path succeeds (5.8529ms)
+✔ failed image does not increment completion or change resource error semantics (2.5644ms)
+✔ bitmap fallback completion preserves release and skips the blob-image branch (1.0749ms)
+✔ actual VS2 asset batch totals come from the selected material list and actual completions (132.4474ms)
+✔ VS2 observer on/off produces identical draw trace, pixels, resource order and stats (477.17ms)
+✔ recorded reviewed terrain startup checkpoint matches frozen source after removing observation (9.8218ms)
+✔ UA-001 transition boundary and session adapter match recorded FOW integration (2.4731ms)
+✔ loading stages and counters are complete in zh-CN/en-US and language changes retain progress (0.7179ms)
+✔ unknown totals never imply an asset percentage, and updates touch only loading DOM nodes (0.4737ms)
+✔ loading interpolation never runs a timer and respects reduced motion (3.8164ms)
+✔ STARTUP002 existing fatal page offers readable copyable safe diagnostics in both languages (2.9485ms)
+✔ STARTUP002 copy remains manually selectable if the device denies clipboard access (4.5622ms)
+✔ UA001 projection reads frozen actual Core results without mutating either GameState (38.3757ms)
+✔ UA001 accepted MOVE retains real source and every canonical path waypoint (7.3377ms)
+✔ UA001 rejected moves never publish, replace state or schedule animation (14.4515ms)
+✔ UA001 move starts at source before first frame while Core has already reached destination (8.6167ms)
+✔ UA001 multi-step movement passes exact canonical centers and settles to canonical Counter V2 destination (7.0016ms)
+✔ UA001 skip and natural finish have identical counter, hit target and GameState (11.3249ms)
+✔ UA001 normal, fast and instant produce byte-identical complete GameStates (18.1721ms)
+✔ UA001 projection, queue and rendering never call gameplay RNG or global entropy (14.9555ms)
+✔ UA001 stack departure and arrival use frozen Counter V2 offsets; all counters settle to current layout (14.0194ms)
+✔ UA001 moving expanded touch target follows canonical visual anchor and keeps existing identity (10.8832ms)
+✔ UA001 camera transform remains untouched across movement frames and repeated dynamic remounts (11.8859ms)
+✔ UA001 language changes during and after movement preserve progress, positions and full state (9.6785ms)
+✔ UA001 sequential barriers hold waiting movers at actual sources without destination flash (0.5556ms)
+✔ UA001 optional parallel barriers advance disjoint units together (0.2723ms)
+✔ UA001 conflicting parallel clips serialize; long frames complete multiple barriers with cleanup (0.2815ms)
+✔ UA001 interruption can finish the old queue and replace it without late callbacks (0.2893ms)
+✔ UA001 speed changes retain current interpolation and fast mode finishes sooner (4.9916ms)
+✔ UA001 reduced motion settles immediately and can change during animation without altering rules (10.6769ms)
+✔ UA001 session replacement, hidden map and disposal cancel frames and remove stale observers (10.7087ms)
+✔ UA001 NEW GAME retains fresh combat seed behavior with animation runtime attached (34.6353ms)
+✔ UA001 ATTACK publishes setup after acceptance, fire only after resolved Core result, without delaying UX2.1 (35.4458ms)
+✔ UA001 pending defender choice cannot enqueue fire or result before Core resolves combat (5.1764ms)
+✔ UA001 actual retreat, advance and breakthrough results produce ordered movement hooks (29.5555ms)
+✔ UA001 actual destruction yields a presentation hook without retaining combat truth (5.274ms)
+✔ UA001 combat GameState and RNG match animation-disabled flow across speeds and six seeds (236.6756ms)
+✔ UA001 multi-attacker map selection remains intact while animation is registered (25.6841ms)
+✔ UA001 animation observer exceptions cannot undo or reject accepted Core actions (3.8165ms)
+✔ UA001 frame work never writes non-unit SVG/canvas or rebuilds VS2 through repeated render (25.2843ms)
+✔ UA001 player animation controls are bilingual and operate without changing state (5.4861ms)
+✔ UA001 actual VS2 world cache is built once and never repainted by 60 animation frames/remounts (4206.3283ms)
+✔ UA001 combat lifecycle hooks preserve setup → fire → result → reaction order and skip notifications (0.429ms)
+✔ UA002 MOVE has lift, eased travel and arrival settle at the identical canonical destination (36.6254ms)
+✔ UA002 RETREAT follows the accepted Core path and exact destination (55.9598ms)
+✔ UA002 ADVANCE follows the accepted Core path and exact destination (42.6148ms)
+✔ UA002 BREAKTHROUGH follows the accepted Core path and exact destination (40.5062ms)
+✔ UA002 travel profiles are observably distinct and never overshoot canonical segments (33.7529ms)
+✔ UA002 fire occurs only after accepted CRT resolution; rejected actions and unresolved choices have no fire (24.3692ms)
+✔ UA002 all three actual attackers fire with bounded stagger and real unit-type character (16.3992ms)
+✔ UA002 hit changes only transient rendering, then restores canonical Counter damage artwork (36.4048ms)
+✔ UA002 destroyed ghost and descendants have no gameplay identity, focus or pointer target (9.4674ms)
+✔ UA002 Skip during firing settles to canonical presence/absence without residual DOM (9.0276ms)
+✔ UA002 Skip during hit settles to canonical presence/absence without residual DOM (8.2046ms)
+✔ UA002 Skip during destroyed settles to canonical presence/absence without residual DOM (10.8971ms)
+✔ UA002 normal, fast, instant and reduced motion preserve byte-identical tactical GameState and RNG (132.0654ms)
+✔ UA002 battle playback consumes no gameplay RNG, entropy, Core query or GameState read (17.7514ms)
+✔ UA002 live camera zoom selects effect LOD without camera transforms or layout reads per frame (14.2639ms)
+✔ UA002 Combat UX2.1 actual DOM bindings retain duplicate-submit protection and map multi-selection (47.0622ms)
+✖ UA002 frozen baseline with explicitly recorded FOW projection integration (26.4377ms)
+✔ UA002 battle frames only update active units and reusable effect paths; no SVG rebuild or terrain writes (39.3593ms)
+✔ UA002 ghost/effect cleanup survives repeated remount, new game, hidden map, disposal and pagehide Skip hook (43.7807ms)
+✔ UA002 language switching during fire, hit and destroyed retains exact playback and complete state (28.8252ms)
+✔ UA002 ordinary single and three-attacker sequences remain short at normal/fast speeds (48.4499ms)
+✔ UA002 instant destruction never leaves an interactive corpse or a pending frame (7.1452ms)
+✔ UA002 explicit parallel fire/move conflict serializes the shared attacker (7.4245ms)
+✔ UA003 far LOD preserves Counter and selects the expected presence detail (13.3266ms)
+✔ UA003 medium LOD preserves Counter and selects the expected presence detail (7.4292ms)
+✔ UA003 close LOD preserves Counter and selects the expected presence detail (7.1476ms)
+✔ UA003 idle zoom changes LOD through the existing camera scalar and disconnects observers (6.4854ms)
+✔ UA003 every actual template maps to an existing original visual family; no invented types (35.1225ms)
+✔ UA003 faction colors are deterministic and independent of locale and RNG (9.9134ms)
+✔ UA003 presence cannot intercept pointer/touch, focus, accessibility, or gameplay routing (2.3516ms)
+✔ UA003 presence paints behind every Counter; identity, NATO symbol, stats, damage and selection remain identical (8.8934ms)
+✔ UA003 two-unit stack uses each exact Counter anchor with separate pedestal positions (3.2837ms)
+✔ UA003 MOVE follows the existing anchor on every frame and settles to exact Counter destination (19.6918ms)
+✔ UA003 retreat stays synchronized on the accepted tactical path (47.3187ms)
+✔ UA003 advance stays synchronized on the accepted tactical path (34.3603ms)
+✔ UA003 breakthrough stays synchronized on the accepted tactical path (39.2695ms)
+✔ UA003 no fire from selection, rejected action or unresolved combat declaration (5.7169ms)
+✔ UA003 three accepted attackers all fire, using their target directions and existing stagger (15.7139ms)
+✔ UA003 attacker support fires only when resolved context proves it participated (14.7025ms)
+✔ UA003 defensive support targets the actual attacker without changing attack group (11.3297ms)
+✔ UA003 hit feedback leaves step, GameState and Counter damage artwork unchanged (29.9556ms)
+✔ UA003 destroyed presence is inert immediately after accepted death and fully removed at completion (8.0127ms)
+✔ UA003 Skip during fire removes transient presence and retains canonical survivors (8.4435ms)
+✔ UA003 Skip during hit removes transient presence and retains canonical survivors (7.7874ms)
+✔ UA003 Skip during destroyed removes transient presence and retains canonical survivors (9.6047ms)
+✔ UA003 Normal/Fast/Instant/reduced-motion yield identical final presence DOM and GameState (132.2868ms)
+✔ UA003 frame playback reads no GameState, gameplay RNG, entropy or layout (16.6463ms)
+✔ UA003 camera attributes and inactive units do not change during combat (14.3663ms)
+✔ UA003 Combat UX2.1 actual UI bindings preserve three clicks and duplicate protection (27.8204ms)
+✔ UA003 repeated remount/hidden/new game/disposal removes old companion nodes and pending runtime state (70.4237ms)
+✔ UA003 language remount preserves full presence state and GameState during fire (13.3299ms)
+✔ UA003 animation does not build terrain, clone SVG, or allocate companion elements per frame (13.2912ms)
+✖ UA003 frozen baseline with explicitly recorded FOW projection integration (513.1967ms)
+✔ UA003 slow pinch near LOD thresholds does not flicker or create nodes (0.4083ms)
+✔ UA003 heavy tank respects the existing smaller stacked Counter footprint (9.3045ms)
+✔ UA003R1 enlarged models, ground shadows and ghosts stay inert across every LOD (47.2846ms)
+✔ UA003R1 composition leaves all canonical Counter, NATO, damage, selection and touch markup byte-identical (19.5553ms)
+✔ UA003R3 stack retains canonical Counter anchors and centers model ground on its owning hex (5.457ms)
+✔ UA003R1 major family profiles occupy readable Medium/Close widths without spanning a full adjacent hex (29.618ms)
+✔ UA003R1 Move and tactical playback settle to exactly the same canonical Counter and grounded composition after skip/Instant (136.5586ms)
+✔ UA003R1 grounded playback consumes no gameplay RNG and makes no frame-time Core reads (12.8057ms)
+✔ UA003R1 arriving into a stack interpolates display composition without a first-frame jump or remount reset (8.5494ms)
+✔ UA003R1 a real VS2 cache is unchanged by enlarged models, zoom LOD, fire and repeated remount (12417.1815ms)
+✖ UA003R1 frozen baseline with explicitly recorded FOW integration and player/observer fixture updates (196.0945ms)
+✔ UA003R3 AUTO far selects one information surface (15.6537ms)
+✔ UA003R3 AUTO medium selects one information surface (3.5874ms)
+✔ UA003R3 AUTO close selects one information surface (3.942ms)
+✔ UA003R3 OFF restores complete Counter at every zoom (3.415ms)
+✔ UA003R3 preference changes preserve GameState, selection, draft, session, Camera and RNG (3.0328ms)
+✔ UA003R3 model proxy bubbles to the existing unit button identity (3.5325ms)
+✔ UA003R3 stack proxies cover both distinct model centers with independently routed identities (13.1782ms)
+✔ UA003R3 HIDDEN enemy has no Counter, model, plate or proxy (3.742ms)
+✔ UA003R3 CONTACT and Last Known are unchanged by model preference (5.4697ms)
+✔ UA003R3 normal keeps model/plate synchronized and settles canonically (16.9969ms)
+✔ UA003R3 skip keeps model/plate synchronized and settles canonically (9.2645ms)
+✔ UA003R3 instant keeps model/plate synchronized and settles canonically (7.2421ms)
+✔ UA003R3 OFF skips active miniature paint work (4.9421ms)
+✔ UA003R3 destroyed model/plate proxy becomes inert and is completely cleaned (14.3224ms)
+✔ UA003R3 animation and toggle do not rebuild the authorized fog mask (29.5224ms)
+✔ UA003R3 bilingual controls persist a presentation preference without remounting (2.2457ms)
+✔ UA003R3 preference safely defaults to AUTO without storage (0.2339ms)
+✔ UA003R3 no R2 flattening; no new frame scheduler or terrain/fog imports (3.0325ms)
+✔ UA003R3 freezes Core, Camera, FOW projection/material, VS2, startup and UA timing (125.4279ms)
+✔ UA003R3 both model proxy identities execute the actual application selection binding (14.7388ms)
+✔ UA003R3 stack entry shares model interpolation with plate and its hit proxy (9.2635ms)
+✔ large deployment controls use only projected positions and preserve Core dispatch (68.35ms)
+✔ command HUD displays authoritative phase side and turn without inventing date (9.8325ms)
+✔ target selection is presentation-only; confirmation uses existing Core action and selects next reserve (72.4502ms)
+✔ same-hex repeated deployment preserves Core stacking rejection and clear invalid feedback (66.3855ms)
+✔ stale unit selection cannot submit the previous destination; inactive view exposes no cards (9.0829ms)
+✔ card selection creates exact canonical noninteractive focus; stale or private selection creates none (36.3706ms)
+✔ UI rejection translation preserves source issues and handles unknown codes safely (0.3189ms)
+✔ tablet CSS reserves panel space through 1366px and keeps confirm outside the scroll container (1.7773ms)
+✔ multi-step movement draft is presentation-only until accepted commit, then rerenders final Core Hex (1369.8413ms)
+✔ rejected MOVE preserves authoritative state and leaves Counter at real Hex (782.7217ms)
+✔ rail-repair draft does not mutate state and accepted repair comes only from result.state (686.7607ms)
+✔ Soviet reinforcement phase derives list from Core, Ready blocker is real, and legal deployment succeeds (891.8395ms)
+✔ Recovery preview is Core-derived and accepted REPAIR_UNIT mutates only through Action result (916.5193ms)
+✔ Entrench preview and accepted ENTRENCH use frozen Core authority (892.4048ms)
+✔ hot-seat side handoff changes viewer only after confirmation and never mutates GameState (863.851ms)
+✔ browser/session passive production loop reaches Turn 16 GAME_OVER with frozen reinforcement behavior (2440.523ms)
+✔ UI-004 generic phase additions preserve UI-003 hidden deployment zero-leak (457.2588ms)
+✔ UI-004 keeps frozen geometry SHA exactly locked (4.9221ms)
+✔ UI attack draft is presentation-only; accepted ATTACK creates Core transaction and hot-seat reaction handoff (31.3533ms)
+✔ Defender Reaction PASS and defensive artillery both use real Core reaction transaction (14.8351ms)
+✔ Loss Allocation player choice draft is non-mutating; accepted allocation comes only from Core result (11.3992ms)
+✔ Unique loss auto-resolves without fabricating a loss dialog (7.7074ms)
+✔ Retreat path draft and Advance After Combat accept use ordered real Core actions (16.8146ms)
+✔ Pass Advance and retreat-impossible extra-loss branches are driven by Core (20.3221ms)
+✔ Breakthrough movement and Pass Breakthrough both follow real transaction state (30.3326ms)
+✔ Natural Schwerpunkt creates child combat; Pass Schwerpunkt closes source without child (32.9764ms)
+✔ real production map declares and resolves one complete combat transaction to CLOSED (1248.8998ms)
+✔ UI-005 keeps frozen geometry SHA exactly locked (5.2117ms)
+✔ retreat default selection accepts a step without first clicking the unit button (7.5884ms)
+✔ friendly counter on legal retreat destination routes to path instead of inspect (5.5786ms)
+✔ P4R3 manifest loads all 117 entries and required families (1.1676ms)
+✔ deterministic variant selection repeats for same seed/hex (0.2254ms)
+✔ different visual seed deterministically changes at least one map variant (113.7286ms)
+✔ rendering production terrain does not mutate GameState or RNG draws (56.2749ms)
+✔ same Hex selects identical production markup after rerender (82.1047ms)
+✔ real 640 map renders all canonical production grid hexes (35.6642ms)
+✔ every production terrain type has a visual path or documented lake fallback (12.7598ms)
+✔ production infrastructure remains based on real Core edge count/types (46.9399ms)
+✔ production renderer preserves hidden German deployment zero-leak (640.7556ms)
+✔ production renderer preserves deployment/action hit testing markup (33.4726ms)
+✔ LOD thresholds follow Far/Medium/Close screen hex width contract (0.2999ms)
+✔ LOD changes presentation only and strips microdetail at Far (56.6327ms)
+✔ Prototype/Production switch is presentation-only and geometry hash remains locked (43.8409ms)
+✔ UI006R1 Forest primary mass is rendered exactly once per Forest Hex (26.2241ms)
+✔ UI006R1 Marsh wet primary is rendered exactly once per Marsh Hex (32.8349ms)
+✔ UI006R1 normal City uses exactly one medium primary family (26.4953ms)
+✔ UI006R1 Main City uses major primary without hidden medium duplicate (27.4415ms)
+✔ UI006R1 Outer City uses small primary without hidden medium duplicate (32.3437ms)
+✔ UI006R1 Hill height raster is mask input, not ordinary visible high-opacity artwork (29.0353ms)
+✔ UI006R1 Hill remains visually represented at Far LOD (18.8354ms)
+✔ UI006R1 Rough remains visually represented at Far LOD without close microdetail (30.9978ms)
+✔ UI006R1 River Medium includes shadow bank water and highlight (24.2203ms)
+✔ UI006R1 River Close adds edge vegetation (30.8166ms)
+✔ UI006R1 Railway Medium and Close include contact shadow (66.2137ms)
+✔ UI006R1 active visual seed controls eligible asset transform variation (0.6719ms)
+✔ UI007R1 runtime preserves UI007 P5 provenance except the authorized P5R1 S02 micro-fix (458.4074ms)
+✔ UI007 active runtime contains only manifest production rasters plus manifest (13.8399ms)
+✔ UI007 P4R3/P5 A-B asset switch is presentation-only and preserves canonical markup structure (125.7916ms)
+✔ UI007 locked geometry hash remains unchanged (1.8719ms)
+✔ UI007R1 Marsh-Marsh continuity decision is deterministic and unordered-edge stable (89.3472ms)
+✔ UI007R1 same visual seed produces identical Marsh continuity markup (112.7361ms)
+✔ UI007R1 alternate visual seed can legally vary Marsh continuity without touching terrain semantics (100.4258ms)
+✔ UI007R1 Marsh-Plain boundaries never receive continuity geometry (52.6787ms)
+✔ UI007R1 Marsh-Forest boundaries never receive continuity geometry (42.0374ms)
+✔ UI007R1 Marsh continuity rendering is presentation-only and never mutates GameState (42.4454ms)
+✔ UI007R1 LOD changes Marsh detail only, not continuity decisions or GameState (97.4543ms)
+✔ UI007R1 Marsh continuity stays below grid, tactical overlays and counters (36.4139ms)
+✔ UI007R1 locked Geometry SHA remains unchanged (8.2974ms)
+✔ UI007R1 runtime S02 hash equals P5R1 micro-fix and manifest contract remains byte-identical (6.2661ms)
+✔ UI007R1 other 122 production rasters remain byte-identical to P5 baseline (236.1269ms)
+✔ UI007R1 OUTER_CITY 29,-5 has no canonical Road, keeps Railway, and renders S02 through normal city selection (91.6152ms)
+✔ UI008 Home renders formal branding and New Game (1.4372ms)
+✔ UI008 New Game helper creates real production Soviet deployment (20.6284ms)
+✔ UI008 Restart helper path creates a fresh legal independent state (650.027ms)
+✔ UI008 public hosts hide developer controls even with dev query (0.408ms)
+✔ UI008 production dist excludes P4R3 A-B dev assets (4.76ms)
+✔ UI008 P5R1 runtime assets are present and S02 is the approved micro-fix (6.0177ms)
+✔ UI008 Home-to-deployment hidden-view contract remains zero-leak (531.4676ms)
+✔ UI008 fatal state is safe user-facing fallback (0.894ms)
+✔ UI008 loading state is explicit (0.3387ms)
+✔ UI008 desktop responsive profile (0.3015ms)
+✔ UI008 iPad landscape responsive profile covers target sizes (0.094ms)
+✔ UI008 mobile narrow stays renderable with advisory (0.0747ms)
+✔ UI008 production asset URLs are relative for subpath hosting (0.0829ms)
+✔ UI008 locked Geometry SHA unchanged (3.5468ms)
+✔ UI008 production New Game helper matches direct frozen session semantics (8.8858ms)
+✔ UI008 zoom viewport gives touch-accessible deterministic alternative to wheel zoom (1.2699ms)
+✔ UI008 CSS constrains gestures only to map and preserves large touch controls (5.218ms)
+✔ UI008 final dist has no review/test/source-map directories (0.8104ms)
+✔ UI008 combat closure returns privacy handoff to the active side when defender owned the last decision (803.3334ms)
+✔ UI008 production manifest startup contract resolves exactly 123 P5R1 raster paths (3.7483ms)
+✔ UI009R1 pointerdown alone remains TAP candidate and does not start drag (1.0405ms)
+✔ UI009R1 movement at or below 6 CSS px remains TAP (0.2254ms)
+✔ UI009R1 movement above threshold becomes DRAG and suppresses tap (0.1241ms)
+✔ UI009R1 pointercancel semantics never convert a drag into a click suppression leak (0.1031ms)
+✔ UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport (1.2306ms)
+✔ UI009R1 map smaller than viewport stays centered on that axis (0.729ms)
+✔ UI009R1 zoom recomputes pan range from rendered content bounds (0.1732ms)
+✔ UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds (0.2332ms)
+✔ UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState (22.6887ms)
+✔ UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical (100.8682ms)
+✔ UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical (105.7031ms)
+✔ UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action (24.3241ms)
+✔ UI009R1 hidden Soviet deployment remains zero-leak after handoff (622.435ms)
+✔ UI009R1 drag suppression is map-local and map touch-action does not disable the whole page (0.4102ms)
+✔ UI009R1 frozen Core, Geometry and P5R1 remain exact (12.8995ms)
+✔ Safari compatibility: SVG root declares xlink namespace (83.5139ms)
+✔ Safari compatibility: every production raster image has href and xlink:href to the same relative asset (50.1546ms)
+✔ Safari compatibility: per-Hex production clip ids are defined exactly once (50.1769ms)
+✔ Strategic Reset F production renderer contains all release-critical terrain and infrastructure families (61.5944ms)
+✔ UI009R2D2 startup loader uses direct URL image first with optional fetch/bitmap fallback (2.8143ms)
+✔ UI009R2 startup resource failures preserve exact URL asset family HTTP stage and capabilities (1.9744ms)
+✔ UI009R2 production fatal screen exposes startup detail instead of generic-only resource failure (0.2343ms)
+✔ UI009R2 Strategic Reset F cached terrain plan covers every release-critical static category (51.4707ms)
+✔ UI009R2 static terrain plan is deterministic for the same canonical map and visual seed (30.7382ms)
+✔ UI009R2 production live SVG removes raster terrain while retaining grid and interactive deployment layer (18.99ms)
+✔ UI009R2 terrain surface is created only during boot, never by selection/deployment/combat render paths (0.6831ms)
+✔ UI009R2 pan and zoom transform the same cached canvas without mutating/repainting it (0.4627ms)
+✔ UI009R2 terrain cache avoids all-at-once preload and bounds decoded-image residency (0.2272ms)
+✔ UI009R2D2 direct image URL is primary and succeeds without fetch (5.5975ms)
+✔ UI009R2D2 timed out fetch aborts underlying request before returning (11.352ms)
+✔ UI009R2D2 loader removes force-cache and only fetches after direct-image failure (0.4076ms)
+✔ UI009R2D2 cached terrain surface lifecycle remains boot-time cached architecture (2.9282ms)
+✔ D canonical chains cover every real-map infrastructure edge once with uninterrupted arc length (38.4356ms)
+✔ D chain extraction handles closed loops and branches deterministically (0.3904ms)
+✔ D forest union remains continuous across same-terrain shared edges and clears all infrastructure (82.3787ms)
+✔ F1 marsh remains distinct from dry plain and forest while allowing earthy reed/mud colours (35.5985ms)
+✔ D all LODs render the complete 20×32 map with cities, canopy, canonical paths and an unchanged live SVG (49225.5339ms)
+✔ D rail dominance is reduced within manifest limits and bridge decks precede restored road/rail surfaces (11.9091ms)
+✔ D production mounts cached Far/Medium/Close surfaces without rebuilding on interaction (0.9314ms)
+✔ F urban mass stays inside all nine real city cells and clear of every transport/river corridor at all LODs (810.8798ms)
+✔ F1 settlements have deterministic focus, size gradients and non-overlapping road-oriented roofs (150.8593ms)
+✔ F2 core courts preserve canonical city unions and infrastructure clearances (173.8981ms)
+✔ F3 civic silhouettes gain mass without expanding city or corridor footprints (123.2962ms)
+✔ C projects all 640 real-map centers and vertices onto a fixed world raster without shifting hex geometry (50.042ms)
+✔ C infrastructure envelopes exactly follow canonical Road/Rail centers and River shared edges (29.8827ms)
+✔ C rectangle clearance catches crossing segments, endpoints, and degenerate bridge envelopes (0.5048ms)
+✔ C city groups cover every real city and reject entire footprints over infrastructure or non-city terrain (396.5138ms)
+✔ C city plans are order-independent, seed-dependent, and leave scenario/RNG/live SVG untouched (1015.727ms)
+✔ C real-map cache draws projected raster, VS2 city components, then VS2 infrastructure without legacy duplication (11902.1722ms)
+✔ VS2 masks union same-terrain cells without a seam on their shared edge (2.4816ms)
+✔ VS2 region transitions are continuous, normalized, and retain semantic centers (2.4471ms)
+✔ VS2 exterior feathering preserves holes and is independent of input order (8.5027ms)
+✔ VS2 raster has deterministic seed-separated pixels and uninterrupted world UV across crops (16.2131ms)
+✔ VS2 scalar masks use luminance rather than opaque alpha and bound value modulation (0.8771ms)
+✔ VS2 canonical map semantics, RNG, geometry and live grid remain unchanged (69.8862ms)
+✔ VS2 production cache invokes one world pass and preserves existing infrastructure/city loading (37.8019ms)
+✔ VS2 world pass loads exactly the selected namespace materials sequentially and releases scratch canvases (168.4475ms)
+✔ F2 hill, rough and marsh materials remain crop-invariant and seed-separated (102.6331ms)
+ℹ tests 642
+ℹ suites 0
+ℹ pass 634
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 51228.9102
+
+✖ failing tests:
+
+test at tests\mp005b-compact.test.mjs:83:1
+✖ MP005B real mixed room: baseline client gets full, new client compact; ACK alone never places; duplicate Action executes once (97.7037ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\jinyibo\eastfront\mp-007\node_modules' -> 'C:\Users\jinyibo\AppData\Local\Temp\mp005b-legacy-vBq0V7\node_modules'
+      at symlinkSync (node:fs:1938:11)
+      at legacy (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:26:57)
+      at pair (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:38:41)
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:84:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\jinyibo\\eastfront\\mp-007\\node_modules',
+    dest: 'C:\\Users\\jinyibo\\AppData\\Local\\Temp\\mp005b-legacy-vBq0V7\\node_modules'
+  }
+
+test at tests\mp005b-compact.test.mjs:96:1
+✖ MP005B new clients on exact baseline server automatically fallback once on correlated UNSUPPORTED_MESSAGE without reconnect (91.8875ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\jinyibo\eastfront\mp-007\node_modules' -> 'C:\Users\jinyibo\AppData\Local\Temp\mp005b-legacy-MNKJLA\node_modules'
+      at symlinkSync (node:fs:1938:11)
+      at legacy (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:26:57)
+      at pair (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:38:41)
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:97:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\jinyibo\\eastfront\\mp-007\\node_modules',
+    dest: 'C:\\Users\\jinyibo\\AppData\\Local\\Temp\\mp005b-legacy-MNKJLA\\node_modules'
+  }
+
+test at tests\mp005b-compact.test.mjs:130:1
+✖ MP006 mixed v2/v3 recipients, duplicate ACK semantics, gap recovery and reconnect (89.5414ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\jinyibo\eastfront\mp-007\node_modules' -> 'C:\Users\jinyibo\AppData\Local\Temp\mp005b-legacy-g5thSg\node_modules'
+      at symlinkSync (node:fs:1938:11)
+      at legacy (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:26:57)
+      at pair (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:38:41)
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:131:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\jinyibo\\eastfront\\mp-007\\node_modules',
+    dest: 'C:\\Users\\jinyibo\\AppData\\Local\\Temp\\mp005b-legacy-g5thSg\\node_modules'
+  }
+
+test at tests\mp005b-compact.test.mjs:145:1
+✖ MP006 v3 preference falls back to exact v2 server without reconnect (85.238ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\jinyibo\eastfront\mp-007\node_modules' -> 'C:\Users\jinyibo\AppData\Local\Temp\mp005b-legacy-QFlvKO\node_modules'
+      at symlinkSync (node:fs:1938:11)
+      at legacy (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:26:57)
+      at pair (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:38:41)
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:146:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\jinyibo\\eastfront\\mp-007\\node_modules',
+    dest: 'C:\\Users\\jinyibo\\AppData\\Local\\Temp\\mp005b-legacy-QFlvKO\\node_modules'
+  }
+
+test at tests\mp005b-compact.test.mjs:150:1
+✖ MP006 v3 preference falls back to exact v1 server without reconnect (85.6867ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\jinyibo\eastfront\mp-007\node_modules' -> 'C:\Users\jinyibo\AppData\Local\Temp\mp005b-legacy-e75XOj\node_modules'
+      at symlinkSync (node:fs:1938:11)
+      at legacy (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:26:57)
+      at pair (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:38:41)
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp005b-compact.test.mjs:151:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\jinyibo\\eastfront\\mp-007\\node_modules',
+    dest: 'C:\\Users\\jinyibo\\AppData\\Local\\Temp\\mp005b-legacy-e75XOj\\node_modules'
+  }
+
+test at tests\ua002-tactical.test.mjs:115:1
+✖ UA002 frozen baseline with explicitly recorded FOW projection integration (26.4377ms)
+  AssertionError [ERR_ASSERTION]: src/main.ts
+  + actual - expected
+  
+  + 'b29bc06f280dc8acda4e52fbc606b4150d875982d2629f3935b3df80b8bc6a92'
+  - '9e3464865ca2fe3545befe16cec972c8ff2ab3c1a359108448db5bb45af16fbe'
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/ua002-tactical.test.mjs:117:56)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'b29bc06f280dc8acda4e52fbc606b4150d875982d2629f3935b3df80b8bc6a92',
+    expected: '9e3464865ca2fe3545befe16cec972c8ff2ab3c1a359108448db5bb45af16fbe',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ua003-presence.test.mjs:127:1
+✖ UA003 frozen baseline with explicitly recorded FOW projection integration (513.1967ms)
+  AssertionError [ERR_ASSERTION]: src/main.ts
+  + actual - expected
+  
+  + 'b29bc06f280dc8acda4e52fbc606b4150d875982d2629f3935b3df80b8bc6a92'
+  - '9e3464865ca2fe3545befe16cec972c8ff2ab3c1a359108448db5bb45af16fbe'
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/ua003-presence.test.mjs:128:135)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'b29bc06f280dc8acda4e52fbc606b4150d875982d2629f3935b3df80b8bc6a92',
+    expected: '9e3464865ca2fe3545befe16cec972c8ff2ab3c1a359108448db5bb45af16fbe',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\ua003r1-grounding.test.mjs:58:1
+✖ UA003R1 frozen baseline with explicitly recorded FOW integration and player/observer fixture updates (196.0945ms)
+  AssertionError [ERR_ASSERTION]: src/main.ts
+  + actual - expected
+  
+  + 'b29bc06f280dc8acda4e52fbc606b4150d875982d2629f3935b3df80b8bc6a92'
+  - '9e3464865ca2fe3545befe16cec972c8ff2ab3c1a359108448db5bb45af16fbe'
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/ua003r1-grounding.test.mjs:59:139)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'b29bc06f280dc8acda4e52fbc606b4150d875982d2629f3935b3df80b8bc6a92',
+    expected: '9e3464865ca2fe3545befe16cec972c8ff2ab3c1a359108448db5bb45af16fbe',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

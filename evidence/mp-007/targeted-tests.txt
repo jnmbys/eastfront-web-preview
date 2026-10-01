@@ -1,0 +1,29 @@
+✔ MP005B actual codec roundtrips all 142 MP005A authorized samples including hidden deployment, artillery, knowledge loss and combat (7032.3637ms)
+✔ MP005B malformed full/compact structures, unknown fields, Observer, inconsistent revision and unnegotiated compact fail atomically (42.0953ms)
+✔ MP005B real mixed room: baseline client gets full, new client compact; ACK alone never places; duplicate Action executes once (804.6844ms)
+✔ MP005B new clients on exact baseline server automatically fallback once on correlated UNSUPPORTED_MESSAGE without reconnect (499.294ms)
+✔ MP005B malformed compact causes one full resync, no partial fake unit, then stays full and continues (176.1202ms)
+✔ MP005B persistent malformed recovery terminates with an error instead of a resync/reconnect loop (1010.3001ms)
+✔ MP005B real sequence gap uses full recovery; reconnect renegotiates independently and continues (990.1811ms)
+✔ MP005B negotiation completion resumes only the already server-authorized forced decision (51.8592ms)
+✔ MP006 mixed v2/v3 recipients, duplicate ACK semantics, gap recovery and reconnect (1384.9363ms)
+✔ MP006 v3 preference falls back to exact v2 server without reconnect (485.5327ms)
+✔ MP006 v3 preference falls back to exact v1 server without reconnect (513.781ms)
+✔ MP006 corrupt table never applies; one full recovery, persistent corruption terminates (165.4698ms)
+✔ MP006 v3 sequence gap triggers one full recovery with no stale partial apply (166.9293ms)
+✔ UX31 malformed optional summary recovers atomically on real client WebSocket (147.1754ms)
+✔ UX31 malformed optional summary terminates after one recovery on real client WebSocket (142.2512ms)
+✔ MP007 production client measures send/apply/UI readiness; ACK never restores controls or canonical state (67.0261ms)
+✔ MP007 opt-in, per-connection, bounded diagnostics exclude payloads and disappear on close (0.9077ms)
+✔ MP007 real WS snapshot-v2-inline-view: stage correlation, one apply, rejected/duplicate actions and private metadata (125.4267ms)
+✔ MP007 real WS snapshot-v3-map-table: stage correlation, one apply, rejected/duplicate actions and private metadata (75.7379ms)
+✔ MP007 broken diagnostic sink cannot reject or reapply a legal action (34.2007ms)
+✔ MP007 analysis uses duration differences across offset clocks and leaves missing/duplicate evidence unknown (0.3721ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13945.3817

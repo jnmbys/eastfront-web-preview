@@ -93,10 +93,12 @@ export function validateIntent(match:MatchSession,controllerId:string,action:Net
   }
   return null;
 }
-export function applyIntent(match:MatchSession,controllerId:string,action:NetworkAction):Map<string,readonly PresentationEvent[]>|null {
+export function applyIntent(match:MatchSession,controllerId:string,action:NetworkAction,coreTiming?:{startAt:number;endAt:number}):Map<string,readonly PresentationEvent[]>|null {
   const assignment=match.controllerAssignments.find(a=>a.controllerId===controllerId)!;
   const before=match.authoritative.state,views=new Map(match.controllerAssignments.map(a=>[a.controllerId,playerSnapshot(match,a.controllerId)]));
+  if(coreTiming)coreTiming.startAt=performance.now();
   const result=dispatchGameAction(match.authoritative,toCoreAction(action,assignment.coreControllerId)).result;
+  if(coreTiming)coreTiming.endAt=performance.now();
   if(!result.accepted)return null;
   match.matchRevision++;match.actionSequence++;
   if(result.state.phase==='GAME_OVER'||result.state.victory.winner)match.status='FINISHED';

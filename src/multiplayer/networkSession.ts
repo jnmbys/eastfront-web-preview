@@ -1,4 +1,5 @@
 import {CLIENT_NETWORK} from './config.js';
+import {transportTimingEnabled,publishActionTiming} from './diagnosticTiming.js';
 import type {LobbyClient} from './client.js';
 import type {AuthorizedPlayerView,ServerMessage} from './protocol.js';
 import {queryDraft,type QueryDraft,type MatchSnapshot,type NetworkAction,type MatchStatus} from './gameplayProtocol.js';
@@ -78,11 +79,13 @@ export class NetworkPlayerSession {
     },0);
   }
   submit(action:NetworkAction):void {
+    const inputAt=transportTimingEnabled?performance.now():0;
     if(!this.interactive)return;
     this.submitting=true;this.notice=null;this.forced=null;
     if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);
     this.snapshotDeadline=setTimeout(()=>{this.snapshotDeadline=null;this.resync();},CLIENT_NETWORK.requestTimeoutMs);
-    this.client.send('SUBMIT_ACTION',{matchId:this.client.state.snapshot!.matchId,expectedRevision:this.matchRevision,action});
+    const id=this.client.send('SUBMIT_ACTION',{matchId:this.client.state.snapshot!.matchId,expectedRevision:this.matchRevision,action});
+    if(transportTimingEnabled)publishActionTiming({stage:'submit',at:inputAt,requestId:id,revision:this.matchRevision});
   }
   resync():void {
     if(this.syncing)return;this.syncing=true;this.flight=null;this.queued=null;this.submitting=false;this.forced=null;this.notice='outdated';
@@ -144,6 +147,7 @@ export class NetworkPlayerSession {
       if(m.payload.code==='STALE_REVISION'){this.resync();return;}this.onChange('query');
     }
     this.flush();this.scheduleForced();
+    if(transportTimingEnabled)publishActionTiming({stage:'ui',at:performance.now(),requestId:m.requestId,type:m.messageType,revision:this.matchRevision,sequence:this.serverSequence,ready:this.ready,interactive:this.interactive,syncing:this.syncing});
   }
   private scheduleForced():void {
     if(this.timer!==null)clearTimeout(this.timer);

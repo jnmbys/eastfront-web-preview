@@ -23,7 +23,7 @@ async function legacy(t,v2=false){
  const dir=mkdtempSync(resolve(tmpdir(),'mp005b-legacy-'));cpSync('.server-dist',dir,{recursive:true});
  cpSync('dist/app/multiplayer/config.js',dir+'/src/multiplayer/config.js');
  cpSync('dist/app/multiplayer/diagnosticTiming.js',dir+'/src/multiplayer/diagnosticTiming.js');
- writeFileSync(dir+'/package.json','{"type":"module"}');symlinkSync(resolve('node_modules'),dir+'/node_modules');
+ writeFileSync(dir+'/package.json','{"type":"module"}');symlinkSync(resolve('node_modules'),dir+'/node_modules',process.platform==='win32'?'junction':'dir');
  for(const [name,path] of [['client','src/multiplayer/client'],['protocol','src/multiplayer/protocol'],['authority','server/authority'],['runtime','server/runtime']]){
   const source=readFileSync(v2?(['client','protocol','authority'].includes(name)?`tests/fixtures/mp006-v2/${name}.ts`:`${path}.ts`):`tests/fixtures/mp005b-legacy/${name}.ts`,'utf8');
   writeFileSync(`${dir}/${path}.js`,ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText);

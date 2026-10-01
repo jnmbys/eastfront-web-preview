@@ -2,6 +2,7 @@ import {PROTOCOL_VERSION} from '../src/multiplayer/protocol.js';
 import {createServer} from 'node:http';
 import {WebSocketServer,WebSocket} from 'ws';
 import {TransportDiagnostics} from './transportDiagnostics.js';
+import {beginSpan,endSpan} from './latencyDiagnostics.js';
 import {RoomAuthority} from './authority.js';
 import {configFromEnv,type ServerConfig} from './config.js';
 
@@ -10,6 +11,7 @@ export function createMultiplayerServer(config:ServerConfig=configFromEnv(),auth
   // of a version. Never expose arbitrary environment values or match data.
   const sourceCommit=/^[0-9a-f]{40}$/i.test(process.env.RENDER_GIT_COMMIT??'')?(process.env.RENDER_GIT_COMMIT??null):null;
   const diagnostics=new TransportDiagnostics(config.allowedOrigins,sourceCommit);
+  authority.setDiagnostics?.(diagnostics);
   const acceptedExtensions=new WeakMap<object,string>();
   const http=createServer((request,response)=>{
     response.setHeader('Content-Type','application/json');response.setHeader('Cache-Control','no-store');
@@ -47,7 +49,10 @@ export function createMultiplayerServer(config:ServerConfig=configFromEnv(),auth
     diagnostics.add(id,ws,request.headers['sec-websocket-extensions'],acceptedExtensions.get(request)??'');
     peers.set(ws,{id,alive:true,openedAt:Date.now()});
     ws.on('pong',()=>{const peer=peers.get(ws);if(peer)peer.alive=true;});
-    ws.on('message',(data,binary)=>{if(binary){ws.close(1003,'Text JSON required');return;}authority.receive(id,data.toString());});
+    ws.on('message',(data,binary)=>{if(binary){ws.close(1003,'Text JSON required');return;}
+      const start=beginSpan(diagnostics,id);
+      try{authority.receive(id,data.toString());}finally{endSpan(diagnostics,id,start,'receive');}
+    });
     ws.on('error',()=>ws.terminate());
     ws.on('close',()=>{peers.delete(ws);diagnostics.remove(id);authority.disconnect(id);});
   });

@@ -4,7 +4,7 @@ import type {MatchSnapshot} from './gameplayProtocol.js';
 import {PROTOCOL_VERSION,clientMessage,type ClientPayloads,type ServerMessage,type RoomState,type MatchInfo,type AuthorizedPlayerView} from './protocol.js';
 import {CLIENT_NETWORK} from './config.js';
 import type {MPText} from './catalog.js';
-import {transportTimingEnabled,publishReceiveTiming} from './diagnosticTiming.js';
+import {transportTimingEnabled,publishReceiveTiming,publishActionTiming} from './diagnosticTiming.js';
 export interface LobbyState {
   connection:'DISCONNECTED'|'CONNECTING'|'RECONNECTING'|'CONNECTED';controllerId:string|null;
   snapshot:MatchSnapshot|null;room:RoomState|null;match:MatchInfo|null;view:AuthorizedPlayerView|null;pending:boolean;synced:boolean;error:MPText|null;
@@ -59,7 +59,7 @@ export class LobbyClient {
       if(transportTimingEnabled)decodedAt=performance.now();
       if(message.messageType==='MATCH_QUERY'&&message.payload.model?.battleSummaries!==undefined&&(!validBattleSummaries(message.payload.model.battleSummaries)||message.payload.model.battleSummaries.matchId!==message.payload.matchId||message.payload.model.battleSummaries.viewerControllerId!==message.payload.model.viewerControllerId||message.payload.model.battleSummaries.entries.some(e=>e.revision>message.payload.matchRevision))){this.recoverSnapshot();return;}
       this.receive(message);
-      if(transportTimingEnabled&&['PLAYER_VIEW_SNAPSHOT','ACTION_ACCEPTED','ACTION_REJECTED'].includes(message.messageType)){
+      if(transportTimingEnabled&&['PLAYER_VIEW_SNAPSHOT','MATCH_QUERY','ACTION_ACCEPTED','ACTION_REJECTED'].includes(message.messageType)){
         const p=message.payload as {matchRevision?:number;serverSequence?:number};
         publishReceiveTiming({type:message.messageType,requestId:message.requestId,revision:p.matchRevision,sequence:p.serverSequence,callbackAt,parsedAt,decodedAt,appliedAt:performance.now(),outcome:'processed'});
         if(message.messageType==='PLAYER_VIEW_SNAPSHOT'&&decodeTiming)window.dispatchEvent(new CustomEvent('eastfront-map-codec-timing',{detail:{revision:p.matchRevision,sequence:p.serverSequence,...decodeTiming}}));
@@ -75,7 +75,10 @@ export class LobbyClient {
   private sendHandshake(){if(this.token)this.sendRaw('RECONNECT',{reconnectToken:this.token});else this.sendRaw('HELLO',{displayName:this.name});}
   private sendRaw<K extends keyof ClientPayloads>(type:K,payload:ClientPayloads[K]):string {
     const requestId=crypto.randomUUID();this.pendingId=requestId;this.state.pending=true;
-    this.socket?.send(JSON.stringify(clientMessage(type,payload,requestId)));
+    const raw=JSON.stringify(clientMessage(type,payload,requestId));
+    const sentAt=transportTimingEnabled?performance.now():0;
+    this.socket?.send(raw);
+    if(transportTimingEnabled&&['SUBMIT_ACTION','QUERY_MATCH','RESYNC_MATCH'].includes(type))publishActionTiming({stage:'send',at:sentAt,requestId,type});
     this.clearDeadline();this.deadline=setTimeout(()=>{this.state.error='unavailable';if(this.negotiationId||this.recoveryId)this.stopped=true;this.socket?.close();},CLIENT_NETWORK.requestTimeoutMs);
     return requestId;
   }

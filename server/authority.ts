@@ -1,4 +1,5 @@
 import {battleSummaries} from './battleSummary.js';
+import {beginSpan,endSpan,recordSpan,type LatencySink} from './latencyDiagnostics.js';
 import {encodeSnapshot,FULL_SNAPSHOT,type SnapshotFormat} from '../src/multiplayer/snapshotCodec.js';
 import {actionOwner,queryModel,forcedAction,validateIntent,applyIntent} from './gameplay.js';
 import type {PresentationEvent} from '../src/presentation/events.js';
@@ -23,6 +24,8 @@ class Rejection extends Error {constructor(readonly code:ErrorCode){super(code);
 function reject(code:ErrorCode):never {throw new Rejection(code);}
 /** One synchronous mutation boundary: no await between membership/phase checks and commit. */
 export class RoomAuthority {
+  private diagnostics:LatencySink|undefined;
+  setDiagnostics(sink:LatencySink):void {this.diagnostics=sink;}
   #connections=new Map<string,Connection>();#identities=new Map<string,Identity>();#tokens=new Map<string,string>();
   #rooms=new Map<string,Room>();#codes=new Map<string,string>();#matches=new Map<string,MatchSession>();
   constructor(readonly config:ServerConfig={...DEFAULTS},private now:()=>number=Date.now,
@@ -34,9 +37,16 @@ export class RoomAuthority {
   }
   private emit<K extends keyof ServerPayloads>(connectionId:string,type:K,payload:ServerPayloads[K],requestId:string|null=null):void {
     // Transport failures cannot interrupt a committed room mutation or another recipient.
-    try{const c=this.#connections.get(connectionId);if(!c)return;const message=serverMessage(type,payload,requestId);c.send(message.messageType==='PLAYER_VIEW_SNAPSHOT'?{...message,payload:encodeSnapshot(message.payload,c.snapshotFormat)}:message);}catch{/* close/heartbeat drives disconnect */}
+    try{const c=this.#connections.get(connectionId);if(!c)return;const message=serverMessage(type,payload,requestId);
+      if(message.messageType==='PLAYER_VIEW_SNAPSHOT'){
+        const start=beginSpan(this.diagnostics,connectionId),encoded=encodeSnapshot(message.payload,c.snapshotFormat);
+        endSpan(this.diagnostics,connectionId,start,'snapshot-encode',{revision:message.payload.matchRevision,sequence:message.payload.serverSequence});
+        c.send({...message,payload:encoded});
+      }else c.send(message);
+    }catch{/* close/heartbeat drives disconnect */}
   }
   receive(connectionId:string,raw:string):void {
+    const started=beginSpan(this.diagnostics,connectionId);
     const c=this.#connections.get(connectionId);if(!c)return;
     const now=this.now();if(now-c.windowAt>=this.config.rateWindowMs){c.windowAt=now;c.messages=0;}
     if(++c.messages>this.config.messagesPerWindow){this.emit(connectionId,'ROOM_ERROR',{code:'RATE_LIMIT'});return;}
@@ -47,6 +57,7 @@ export class RoomAuthority {
     if(m.messageType!=='SUBMIT_ACTION'&&c.requests.has(m.requestId)){this.emit(connectionId,'ROOM_ERROR',{code:'BAD_MESSAGE'},m.requestId);return;}
     c.requests.add(m.requestId);if(c.requests.size>128)c.requests.delete(c.requests.values().next().value!);
     try{this.handle(connectionId,c,m);}catch(error){this.emit(connectionId,'ROOM_ERROR',{code:error instanceof Rejection?error.code:'MATCH_FAILED'},m.requestId);}
+    finally{if(['SUBMIT_ACTION','QUERY_MATCH','RESYNC_MATCH'].includes(m.messageType))endSpan(this.diagnostics,connectionId,started,'request',{requestId:m.requestId,type:m.messageType});}
   }
   private handle(connectionId:string,c:Connection,m:ClientMessage):void {
     if(m.messageType==='HELLO'||m.messageType==='RECONNECT'){
@@ -99,8 +110,10 @@ export class RoomAuthority {
       if(m.messageType==='RESYNC_MATCH'){c.snapshotFormat=FULL_SNAPSHOT;this.snapshot(connectionId,identity.controllerId,match,true,[],m.requestId);return;}
       if(m.messageType==='QUERY_MATCH'){
         if(m.payload.expectedRevision!==match.matchRevision){this.snapshot(connectionId,identity.controllerId,match,true,[],m.requestId);return;}
+        const queryStart=beginSpan(this.diagnostics,connectionId);
         const model=queryModel(match,identity.controllerId,m.payload.draft),forced=forcedAction(match,identity.controllerId,m.payload.draft);
         if(c.battleSummary)model.battleSummaries=battleSummaries(match,identity.controllerId);
+        endSpan(this.diagnostics,connectionId,queryStart,'query-build',{requestId:m.requestId,revision:match.matchRevision});
         this.emit(connectionId,'MATCH_QUERY',{...this.order(match,identity.controllerId),model,forcedAction:forced},m.requestId);return;
       }
       const cache=match.receipts[identity.controllerId]!,fingerprint=canonical(m.payload),existing=cache.get(m.requestId);
@@ -109,12 +122,20 @@ export class RoomAuthority {
         const {fingerprint:_,...reply}=existing;this.emit(connectionId,reply.acceptedRevision===null?'ACTION_REJECTED':'ACTION_ACCEPTED',{...this.order(match,identity.controllerId),...reply},m.requestId);return;
       }
       let code:import('../src/multiplayer/gameplayProtocol.js').ActionError|undefined;
+      const validateStart=beginSpan(this.diagnostics,connectionId);
       if(cache.size>=4096)code='REQUEST_LIMIT';
       else if(match.status!=='ACTIVE')code='MATCH_UNAVAILABLE';
       else if(m.payload.expectedRevision!==match.matchRevision)code='STALE_REVISION';
       else code=validateIntent(match,identity.controllerId,m.payload.action)??undefined;
+      endSpan(this.diagnostics,connectionId,validateStart,'validate',{requestId:m.requestId,revision:match.matchRevision});
       let events:Map<string,readonly PresentationEvent[]>|null=null;
-      if(!code){events=applyIntent(match,identity.controllerId,m.payload.action);if(!events)code='INVALID_ACTION';}
+      if(!code){
+        const applyStart=beginSpan(this.diagnostics,connectionId),coreTiming=applyStart===undefined?undefined:{startAt:0,endAt:0};
+        events=applyIntent(match,identity.controllerId,m.payload.action,coreTiming);
+        endSpan(this.diagnostics,connectionId,applyStart,'apply-intent',{requestId:m.requestId,revision:match.matchRevision});
+        if(coreTiming)recordSpan(this.diagnostics,connectionId,{stage:'core-apply',...coreTiming,serverTimestamp:performance.timeOrigin+coreTiming.startAt,requestId:m.requestId,revision:match.matchRevision});
+        if(!events)code='INVALID_ACTION';
+      }
       const receipt={fingerprint,acceptedRevision:code?null:match.matchRevision,actionSequence:match.actionSequence,...(code?{code}:{})};
       if(cache.size<4096)cache.set(m.requestId,receipt);
       const {fingerprint:_,...reply}=receipt;
@@ -175,10 +196,13 @@ export class RoomAuthority {
   }
   private order(match:MatchSession,controllerId:string){return {matchId:match.matchId,matchRevision:match.matchRevision,serverSequence:++match.serverSequences[controllerId]!};}
   private snapshot(connectionId:string,controllerId:string,match:MatchSession,resync=false,events:readonly PresentationEvent[]=[],requestId:string|null=null):void {
+    const started=beginSpan(this.diagnostics,connectionId);
     const model=queryModel(match,controllerId);
     if(this.#connections.get(connectionId)?.battleSummary)model.battleSummaries=battleSummaries(match,controllerId);
-    this.emit(connectionId,'PLAYER_VIEW_SNAPSHOT',{...this.order(match,controllerId),revision:match.matchRevision,format:'snapshot-v1',resync,status:match.status,
-      canAct:match.status==='ACTIVE'&&actionOwner(match)===model.viewerControllerId,view:model.playerView as import('../src/multiplayer/protocol.js').AuthorizedPlayerView,model,events:resync?[]:events,forcedAction:forcedAction(match,controllerId)},requestId);
+    const payload={...this.order(match,controllerId),revision:match.matchRevision,format:'snapshot-v1' as const,resync,status:match.status,
+      canAct:match.status==='ACTIVE'&&actionOwner(match)===model.viewerControllerId,view:model.playerView as import('../src/multiplayer/protocol.js').AuthorizedPlayerView,model,events:resync?[]:events,forcedAction:forcedAction(match,controllerId)};
+    endSpan(this.diagnostics,connectionId,started,'snapshot-build',{revision:match.matchRevision,sequence:payload.serverSequence,requestId});
+    this.emit(connectionId,'PLAYER_VIEW_SNAPSHOT',payload,requestId);
   }
   private broadcastSnapshots(room:Room,match:MatchSession,resync=false,events=new Map<string,readonly PresentationEvent[]>()):void {
     for(const client of room.state.clients){const connection=this.#identities.get(client.controllerId)?.connectionId;
