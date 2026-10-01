@@ -1,0 +1,62 @@
+node:internal/modules/esm/resolve:271
+    throw new ERR_MODULE_NOT_FOUND(
+          ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/workspace/scratch/3ab76d22522e/eastfront-auto/.evaluation/original/.ai-dist/ai/fair/advance.js' imported from /workspace/scratch/3ab76d22522e/eastfront-auto/ai/tests/advance014.test.mjs
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)
+    at #resolve (node:internal/modules/esm/loader:683:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33)
+    at ModuleJob.link (node:internal/modules/esm/module_job:253:17) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///workspace/scratch/3ab76d22522e/eastfront-auto/.evaluation/original/.ai-dist/ai/fair/advance.js'
+}
+
+Node.js v24.19.0
+✖ ai/tests/advance014.test.mjs (126.60533ms)
+✔ MOVE006 Core consumes phase eligibility once; one budgeted prefix moves three cells and replays exactly (79.582142ms)
+✔ MOVE006 cumulative MP, OOS, river and bridge costs agree with authoritative execution (56.072248ms)
+✔ MOVE006 stops at goals and identified adjacency; respects contact, risk and full friendly stacks (15.251004ms)
+✔ MOVE006 road bonus belongs to entire path, never each step; search and path remain bounded (13.516762ms)
+✔ MOVE006 hidden blockers and RNG cannot change candidates or choice; atomic rejection rests unit without prefix probes (28.280249ms)
+✔ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (874.893179ms)
+✔ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (3.477188ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (9.298653ms)
+✔ MOVE006 plans a non-greedy detour, one Action per view; fixed map has no revisits (36.469568ms)
+✔ MOVE006 avoids a nearer dead end and ends if the public goal is unreachable (9.727781ms)
+✔ MOVE006 target/terrain/authorized occupancy changes immediately invalidate the old route (12.904195ms)
+✔ MOVE006 visible enemy goal replaces objective and disappearance restores public objective (8.044757ms)
+✔ MOVE006 rejected edge stays suppressed after unrelated view change, resets on phase end (9.62143ms)
+✔ MOVE006 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (51.996234ms)
+✔ MOVE006 bounded settled-node search ends safely; repeated input is identical and immutable (31.165801ms)
+✔ 022 frozen 021 witness: old Host rejects before Core; shared snapshot admits exact new prefix via real Host (275.279815ms)
+✔ 022 disabled/null provider retains original v1 input, menu, policy action and frozen transition (217.795672ms)
+✔ 022 same observation/decision prepares once; provider receives copied frozen seat memory (16.383526ms)
+✔ 022 changed goals affect only assigned unit; shared policy choice belongs to same Host menu (13.348126ms)
+✔ 022 stale decision, changed observation and foreign scope cannot drive routing (16.051534ms)
+✔ 022 malformed/provider-forged snapshots fail closed without authority transition or RNG draw (26.167924ms)
+✔ 022 copied/tampered policy input cannot alter the Host-held exact admission menu (45.328325ms)
+✔ 022 hidden-state pairs and hidden RNG generate identical snapshots, candidates and decisions (16.395015ms)
+✔ 022 match and seat plans stay isolated; nonmovement clears plan, then next active seat starts empty (23.603866ms)
+✔ 022 original route bounds and finite candidate budget retained (38.249555ms)
+✔ 022 plan revision changes cannot reset the existing eight-rejection limit (15.375873ms)
+✔ 022 compiled fair-plan runtime dependency is only the existing public hex helper (0.462569ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1030.894015
+
+✖ failing tests:
+
+test at ai/tests/advance014.test.mjs:1:1
+✖ ai/tests/advance014.test.mjs (126.60533ms)
+  'test failed'

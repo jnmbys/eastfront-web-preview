@@ -1,4 +1,5 @@
 import {getNeighbors,hexDistance,hexKey} from '../../vendor/eastfront-digital-core/dist/core/hex.js';
+import {planGoals} from './plan.js';
 import type {DeepReadonly,FairInput,FairIntent} from './types.js';
 type Input=DeepReadonly<FairInput>;
 type Hex={readonly q:number;readonly r:number};
@@ -67,7 +68,8 @@ export function createMoveScorer(input:Input){
     const start=hexKey(u.hex),safe=new Set([...board.keys()].filter(k=>safeCell(u,k)));
     const distance=new Map<string,number>(),out={distance,safe};plans.set(u.id,out);metrics.searches++;
     if(u.stats.movement<=0)return out;
-    const goals=enemies.length?[...safe].filter(k=>enemies.some(e=>hexDistance(board.get(k)!.coord,e.hex)===1)):rules.objectives.map(hexKey).filter(k=>safe.has(k));
+    const sharedGoals=planGoals(input,u.id);
+    const goals=sharedGoals?sharedGoals.map(hexKey).filter(k=>safe.has(k)):enemies.length?[...safe].filter(k=>enemies.some(e=>hexDistance(board.get(k)!.coord,e.hex)===1)):rules.objectives.map(hexKey).filter(k=>safe.has(k));
     // Heap order includes a coordinate tie breaker, independent of insertion/container order.
     type Node={k:string;d:number};const heap:Node[]=[];
     const less=(a:Node,b:Node)=>a.d<b.d||a.d===b.d&&a.k<b.k;

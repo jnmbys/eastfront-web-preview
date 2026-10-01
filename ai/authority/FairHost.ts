@@ -6,11 +6,13 @@ import {derivePlayerView,rememberPlayerView,type Knowledge} from '../../src/play
 import {isNetworkAction,toCoreAction,type NetworkAction} from '../../src/multiplayer/gameplayProtocol.js';
 import {observationCandidates} from '../fair/candidates.js';
 import type {FairInput,FairAgent,FairIntent,OwnAttempt,DeepReadonly} from '../fair/types.js';
+import {validatePlanSpec,type FairPlanSnapshot,type FairPlanProvider} from '../fair/plan.js';
 import {fairView,publicRules} from './projection.js';
 export const HISTORY_LIMIT=16,REJECTION_LIMIT=8;
 export type StepStatus='ACCEPTED'|'REJECTED'|'GAME_OVER'|'AGENT_STOP'|'AGENT_ERROR'|'REJECTION_LIMIT'|'INTEGRITY_FAILURE';
 export interface HostStep {status:StepStatus;side:Side|null;reason?:string;}
-interface SeatMemory {seed:number;decisions:number;history:OwnAttempt[];rejections:number;}
+interface SeatMemory {seed:number;decisions:number;history:OwnAttempt[];rejections:number;
+  plan:FairPlanSnapshot|null;planRevision:number;prepared?:{decisionIndex:number;observationKey:string;input:DeepReadonly<FairInput>};}
 function freeze<T>(value:T):DeepReadonly<T>{
   if(value&&typeof value==='object'){for(const child of Object.values(value))freeze(child);Object.freeze(value);}return value as DeepReadonly<T>;
 }
@@ -24,16 +26,18 @@ function stable(value:unknown):string {
 export class FairHost {
   #lastResult:import('../../src/core-adapter/core.js').ActionResult|null=null;
   #state:GameState;#rules:GameRules;#scenario:ScenarioConfig;#engine:RulesEngine;#matchId:string;
+  #planProviders:Partial<Record<Side,FairPlanProvider>>;
   #knowledge:Partial<Record<Side,Knowledge>>={};#memory=new Map<string,SeatMemory>();#terminal:HostStep|null=null;
-  constructor(options:{matchId:string;initialState:GameState;rules:GameRules;scenario:ScenarioConfig;agentSeeds:Record<Side,number>}){
+  constructor(options:{matchId:string;initialState:GameState;rules:GameRules;scenario:ScenarioConfig;agentSeeds:Record<Side,number>;planProviders?:Partial<Record<Side,FairPlanProvider>>}){
     if(!options.matchId)throw new Error('A fresh match scope is required.');
     this.#state=structuredClone(options.initialState);this.#rules=structuredClone(options.rules);this.#scenario=structuredClone(options.scenario);this.#matchId=options.matchId;
+    this.#planProviders={...options.planProviders};
     this.#engine=new RulesEngine(this.#rules,this.#scenario);
     for(const side of ['GERMAN','SOVIET'] as const){
       const seats=Object.values(this.#state.controllers).filter(c=>c.side===side);
       if(seats.length!==1)throw new Error('AI-001 supports exactly one controller per side.');
       const seed=options.agentSeeds[side];if(!Number.isSafeInteger(seed))throw new Error('Agent seeds must be explicit integers independent of combat RNG.');
-      this.#memory.set(seats[0]!.id,{seed,decisions:0,history:[],rejections:0});
+      this.#memory.set(seats[0]!.id,{seed,decisions:0,history:[],rejections:0,plan:null,planRevision:0});
       this.#knowledge[side]=rememberPlayerView(derivePlayerView(this.#state,side,this.#rules))!;
     }
     if(validateGameStateIntegrity(this.#state,this.#rules,this.#scenario).length)this.#terminal={status:'INTEGRITY_FAILURE',side:null};
@@ -57,17 +61,29 @@ export class FairHost {
       entries:this.#scenario.sovietEastRailExits.map(h=>({q:h.q,r:h.r})),
     }:null;
     const observationKey=sha256(stable({view,rules,deployment,reinforcements}));
-    return freeze(structuredClone({schema:'fair-player-view-v1' as const,observationKey,scope:{matchId:this.#matchId,controllerId,side:seat.side},view,rules,deployment,reinforcements,
+    const input=freeze(structuredClone({schema:'fair-player-view-v1' as const,observationKey,scope:{matchId:this.#matchId,controllerId,side:seat.side},view,rules,deployment,reinforcements,
       history:memory.history,agentRandom:{seed:memory.seed,decisionIndex:memory.decisions}}));
+    const provider=this.#planProviders[seat.side];
+    if(!provider)return input; // Disabled means exactly the original v1 DTO.
+    if(!view.phase.endsWith('_MOVEMENT')||view.activeSide!==seat.side||view.pendingDecision){memory.plan=null;delete memory.prepared;return input;}
+    // Cache only authorized observation + own decision sequence, never hidden authority revisions.
+    const cached=memory.prepared;
+    if(cached&&cached.decisionIndex===memory.decisions&&cached.observationKey===observationKey)return cached.input;
+    // Provider sees a copied/frozen seat-local plan, never authority state or global revisions.
+    const spec=validatePlanSpec(input,provider(input,memory.plan?freeze(structuredClone(memory.plan)):null));
+    memory.plan=spec?{...spec,schema:'fair-plan-v1',scope:{...input.scope},observationKey,decisionIndex:memory.decisions,revision:++memory.planRevision}:null;
+    const prepared=memory.plan?freeze(structuredClone({...input,plan:memory.plan})):input;
+    memory.prepared={decisionIndex:memory.decisions,observationKey,input:prepared};
+    return prepared;
   }
   step(agents:Record<Side,FairAgent>):HostStep {
     this.#lastResult=null;
     if(this.#terminal)return {...this.#terminal};
     if((this.#state as GameState).phase==='GAME_OVER'||this.#state.victory.winner)return this.#finish('GAME_OVER',null);
     const controllerId=this.#state.pendingDecision?.decisionOwnerControllerId??Object.values(this.#state.controllers).find(c=>c.side===this.#state.activeSide)!.id;
-    const seat=this.#state.controllers[controllerId]!,memory=this.#memory.get(controllerId)!,input=this.observe(controllerId);
-    let decision:ReturnType<FairAgent>;
-    try{const policy=agents[seat.side];decision=policy(input);}catch{return this.#finish('AGENT_ERROR',seat.side);}
+    const seat=this.#state.controllers[controllerId]!,memory=this.#memory.get(controllerId)!;
+    let input:DeepReadonly<FairInput>,decision:ReturnType<FairAgent>;
+    try{input=this.observe(controllerId);const policy=agents[seat.side];decision=policy(input);}catch{return this.#finish('AGENT_ERROR',seat.side);}
     memory.decisions++;
     if(decision?.kind==='STOP')return this.#finish('AGENT_STOP',seat.side,decision.reason==='UNSUPPORTED_RETREAT'?'UNSUPPORTED_RETREAT':'NO_CANDIDATE');
     // Exact existing intent schema plus observation-only admission. No forged controller/action IDs,
@@ -92,6 +108,8 @@ export class FairHost {
   }
   #accept(result:import('../../src/core-adapter/core.js').ActionResult):void {
     const before=this.#state;this.#state=result.state;this.#lastResult=result;
+    // Public phase/turn boundaries invalidate plans even during human takeover.
+    if(before.phase!==this.#state.phase||before.turn!==this.#state.turn)for(const memory of this.#memory.values()){memory.plan=null;delete memory.prepared;}
     for(const side of ['GERMAN','SOVIET'] as const){
       const prior=rememberPlayerView(derivePlayerView(before,side,this.#rules,this.#knowledge[side]))!;
       this.#knowledge[side]=rememberPlayerView(derivePlayerView(this.#state,side,this.#rules,prior))!;

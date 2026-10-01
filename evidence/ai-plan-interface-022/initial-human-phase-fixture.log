@@ -1,0 +1,61 @@
+✔ MOVE006 Core consumes phase eligibility once; one budgeted prefix moves three cells and replays exactly (62.208378ms)
+✔ MOVE006 cumulative MP, OOS, river and bridge costs agree with authoritative execution (52.823482ms)
+✔ MOVE006 stops at goals and identified adjacency; respects contact, risk and full friendly stacks (9.175188ms)
+✔ MOVE006 road bonus belongs to entire path, never each step; search and path remain bounded (12.53419ms)
+✔ MOVE006 hidden blockers and RNG cannot change candidates or choice; atomic rejection rests unit without prefix probes (26.267503ms)
+✔ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (967.272882ms)
+✔ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (4.142235ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (8.01952ms)
+✔ MOVE006 plans a non-greedy detour, one Action per view; fixed map has no revisits (40.484528ms)
+✔ MOVE006 avoids a nearer dead end and ends if the public goal is unreachable (10.589469ms)
+✔ MOVE006 target/terrain/authorized occupancy changes immediately invalidate the old route (9.014069ms)
+✔ MOVE006 visible enemy goal replaces objective and disappearance restores public objective (4.950528ms)
+✔ MOVE006 rejected edge stays suppressed after unrelated view change, resets on phase end (3.700758ms)
+✔ MOVE006 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (43.539619ms)
+✔ MOVE006 bounded settled-node search ends safely; repeated input is identical and immutable (18.10716ms)
+✔ 022 frozen 021 witness: old Host rejects before Core; shared snapshot admits exact new prefix via real Host (257.198001ms)
+✔ 022 disabled/null provider retains original v1 input, menu, policy action and frozen transition (264.888589ms)
+✔ 022 same observation/decision prepares once; provider receives copied frozen seat memory (15.463801ms)
+✔ 022 changed goals affect only assigned unit; shared policy choice belongs to same Host menu (22.486734ms)
+✔ 022 stale decision, changed observation and foreign scope cannot drive routing (21.762409ms)
+✔ 022 malformed/provider-forged snapshots fail closed without authority transition or RNG draw (25.354131ms)
+✔ 022 copied/tampered policy input cannot alter the Host-held exact admission menu (58.347367ms)
+✔ 022 hidden-state pairs and hidden RNG generate identical snapshots, candidates and decisions (25.548295ms)
+✔ 022 match and seat plans stay isolated; nonmovement clears plan, then next active seat starts empty (34.121063ms)
+✔ 022 original route bounds and finite candidate budget retained (61.411773ms)
+✔ 022 plan revision changes cannot reset the existing eight-rejection limit (17.489756ms)
+✔ 022 compiled fair-plan runtime dependency is only the existing public hex helper (0.508489ms)
+✖ 022 human phase changes clear old plans without observing the inactive AI seat (13.701495ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 27
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1141.298849
+
+✖ failing tests:
+
+test at ai/tests/plan022.test.mjs:132:1
+✖ 022 human phase changes clear old plans without observing the inactive AI seat (13.701495ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'SOVIET_ENTRENCHMENT'
+  - 'GERMAN_MOVEMENT'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/3ab76d22522e/eastfront-auto/ai/tests/plan022.test.mjs:140:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'SOVIET_ENTRENCHMENT',
+    expected: 'GERMAN_MOVEMENT',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

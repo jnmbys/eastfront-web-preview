@@ -1,0 +1,36 @@
+✔ MOVE006 Core consumes phase eligibility once; one budgeted prefix moves three cells and replays exactly (65.634163ms)
+✔ MOVE006 cumulative MP, OOS, river and bridge costs agree with authoritative execution (62.133156ms)
+✔ MOVE006 stops at goals and identified adjacency; respects contact, risk and full friendly stacks (11.395847ms)
+✔ MOVE006 road bonus belongs to entire path, never each step; search and path remain bounded (11.821601ms)
+✔ MOVE006 hidden blockers and RNG cannot change candidates or choice; atomic rejection rests unit without prefix probes (26.801504ms)
+✔ R1 public single-step cost agrees with Core across terrain, river, road, bridge, OOS and Jager cases (1106.996423ms)
+✔ R1 cost filter chooses another affordable progress move instead of ending or repeating an impossible crossing (3.551381ms)
+✔ R1 uncertain road bonus stays a proposal; unseen units and RNG cannot change preexecution output (9.479228ms)
+✔ MOVE006 plans a non-greedy detour, one Action per view; fixed map has no revisits (31.067603ms)
+✔ MOVE006 avoids a nearer dead end and ends if the public goal is unreachable (10.212407ms)
+✔ MOVE006 target/terrain/authorized occupancy changes immediately invalidate the old route (7.128754ms)
+✔ MOVE006 visible enemy goal replaces objective and disappearance restores public objective (4.851328ms)
+✔ MOVE006 rejected edge stays suppressed after unrelated view change, resets on phase end (4.606858ms)
+✔ MOVE006 hidden ZOC has identical planning but can reject a road-bonus intent; replay and recovery stay bounded (65.972049ms)
+✔ MOVE006 bounded settled-node search ends safely; repeated input is identical and immutable (28.848516ms)
+✔ 022 frozen 021 witness: old Host rejects before Core; shared snapshot admits exact new prefix via real Host (417.326763ms)
+✔ 022 disabled/null provider retains original v1 input, menu, policy action and frozen transition (329.098896ms)
+✔ 022 same observation/decision prepares once; provider receives copied frozen seat memory (12.306144ms)
+✔ 022 changed goals affect only assigned unit; shared policy choice belongs to same Host menu (21.67088ms)
+✔ 022 stale decision, changed observation and foreign scope cannot drive routing (23.781617ms)
+✔ 022 malformed/provider-forged snapshots fail closed without authority transition or RNG draw (26.624186ms)
+✔ 022 copied/tampered policy input cannot alter the Host-held exact admission menu (51.102538ms)
+✔ 022 hidden-state pairs and hidden RNG generate identical snapshots, candidates and decisions (23.517021ms)
+✔ 022 match and seat plans stay isolated; nonmovement clears plan, then next active seat starts empty (33.77043ms)
+✔ 022 original route bounds and finite candidate budget retained (56.628445ms)
+✔ 022 plan revision changes cannot reset the existing eight-rejection limit (19.9463ms)
+✔ 022 compiled fair-plan runtime dependency is only the existing public hex helper (0.617334ms)
+✔ 022 human phase changes clear old plans without observing the inactive AI seat (27.171409ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1280.416116

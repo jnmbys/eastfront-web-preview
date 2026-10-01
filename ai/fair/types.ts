@@ -22,6 +22,8 @@ export interface PublicRules {
 export type FairIntent=Extract<NetworkAction,{type:'DEPLOY_REINFORCEMENT'|'RETREAT'|'ADVANCE_AFTER_COMBAT'|'BREAKTHROUGH'|'SCHWERPUNKT_ATTACK'|'DEPLOY_INITIAL_UNIT'|'READY_FOR_PHASE_END'|'MOVE'|'ATTACK'|'PASS_REACTION'|'ALLOCATE_LOSSES'|'PASS_ADVANCE'|'PASS_BREAKTHROUGH'|'PASS_SCHWERPUNKT'}>;
 export interface OwnAttempt {observationKey:string;intent:FairIntent|null;outcome:'ACCEPTED'|'REJECTED';}
 export interface FairInput {
+  /** Optional headless-only shared plan; absent by default, preserving v1 observations. */
+  plan?:import('./plan.js').FairPlanSnapshot;
   schema:'fair-player-view-v1';observationKey:string;scope:{matchId:string;controllerId:string;side:Side};
   view:FairView;rules:PublicRules;
   deployment:{roster:{id:string;templateId:string}[];zone:HexCoord[]}|null;
