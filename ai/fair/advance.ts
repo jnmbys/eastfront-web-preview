@@ -23,9 +23,14 @@ export function chooseCombatAdvance(input:DeepReadonly<FairInput>):FairIntent|nu
   if(!view.identifiedHexKeys.includes(k)||view.units.some(u=>u.side!==view.viewer&&hexKey(u.hex)===k))return null;
   const distance=(h:{q:number;r:number})=>Math.min(...input.rules.objectives.map(g=>hexDistance(h,g)));
   const risk=createMoveScorer(input),options=observationCandidates(input).filter(a=>a.type==='ADVANCE_AFTER_COMBAT');
+  const enemies=view.units.filter(u=>u.side!==view.viewer);
   const eligible=options.flatMap(intent=>{
     const u=view.units.find(u=>u.id===intent.unitId&&'friendly' in u&&u.friendly.controllerId===input.scope.controllerId);
     if(!u||!('friendly' in u)||!u.friendly.alive||u.type==='ARTILLERY'||u.friendly.dedicatedRailRepair||hexDistance(u.hex,target)!==1||!risk.safeDestination(u.id,target))return [];
+    // Compare identified enemy identities, not counts or mere adjacency. Existing
+    // neighbors may remain; exclude only this option if the destination adds one.
+    const adjacentBefore=new Set(enemies.filter(e=>hexDistance(u.hex,e.hex)===1).map(e=>e.id));
+    if(enemies.some(e=>hexDistance(target,e.hex)===1&&!adjacentBefore.has(e.id)))return [];
     const progress=distance(u.hex)-distance(target);return progress>0?[{intent,progress}]:[];
   }).sort((a,b)=>b.progress-a.progress||a.intent.unitId.localeCompare(b.intent.unitId));
   return eligible[0]?.intent??null;

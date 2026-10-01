@@ -1,0 +1,39 @@
+{
+  "task": "AI-ADVANCE-014",
+  "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+  "baseline": "ecb15ce201a4ca096bab2cb918f7c295dd474eda",
+  "candidate": "3f9c1441c50a4cb44638c816070df58d6bc96db6",
+  "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+  "seeds": [
+    1017,
+    1018
+  ],
+  "agentSeeds": {
+    "GERMAN": 101,
+    "SOVIET": 202
+  },
+  "parameters": {
+    "attackRatio": 1.5,
+    "penaltyWeight": 0.75
+  },
+  "sharedRetreat": "AI-RETREAT-010 minimalAgent on both seats in all eight games",
+  "limits": {
+    "maxGames": 2,
+    "maxDecisions": 1800,
+    "matchMs": 180000,
+    "batchMs": 420000
+  },
+  "runOrder": "1017 experiment GERMAN, then 1018 experiment GERMAN; no old-version or Soviet-seat matches",
+  "exposureDefinition": "For each UnitAdvanced, count UnitStepLost and UnitDestroyed for that unit during the next opposing side's phases; end at next own side phase, game end is censored. Also report matched baseline unit losses in same turn window.",
+  "rngLimitation": "Identical initial seed does not align later battle dice if different actions change RNG draw consumption.",
+  "decisionRule": "No retuning or expansion. Abandon adoption if near-all-PASS/return to baseline or if claimed mobility/objective benefit is unsupported; distinguish synthetic retained opportunities from actual games. No claim of overall strength from zero losses, fewer advances, or C156 alone.",
+  "audit": "92805a8550ddfb314fa77828d6c83b5a2f7f5e27",
+  "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+  "testedSeat": "GERMAN",
+  "versionsRun": [
+    "experiment"
+  ],
+  "guard": "Exclude candidate iff identified enemy ID set adjacent to destination minus set adjacent to origin is nonempty; continue other candidates.",
+  "mobilityDefinition": "For each accepted advance, inspect advanced unit at first and last following own movement decision; record alive/hasMoved, visible adjacency, finite scorer moves and actual forward MOVE. Offline Core neighbor legality is audit-only. Compare original advances with denominator and same-unit/turn checkpoints; do not infer benefit from fewer advances alone.",
+  "protectionCounting": "Report distinct offered windows, legacy-eligible unit candidates excluded, windows with any exclusion, changed choice vs original policy on same DTO, retained candidates declined. Do not conflate candidate counts with decisions."
+}
