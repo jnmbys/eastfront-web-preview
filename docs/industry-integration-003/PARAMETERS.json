@@ -1,0 +1,90 @@
+{
+  "task": "INDUSTRY-INTEGRATION-003",
+  "date": "2026-10-02",
+  "all_numbers": "EXPERIMENTAL HYPOTHESES except cited source facts; not calibrated",
+  "base_commit": "31ec97e40ce78037ec62008649e5f39674753446",
+  "victory_design_reference": "09bc1bde826b5b1ce6b6d84e084e12c392bdcca5",
+  "runtime_reference": "813b4072568352e95d0726fe5fe04060c889c554",
+  "common": {
+    "investment_available": 12,
+    "personnel": 60,
+    "initial_old_units": 8,
+    "initial_missing_steps": 2,
+    "initial_SP": 24,
+    "initial_equipment": 0,
+    "initial_recoverable_wreck_E": 1,
+    "base_E_per_settlement": 2,
+    "SP_source_cap": 22,
+    "shared_cargo": 21,
+    "equipment_loading_cap_E": 4,
+    "equipment_load_per_E": 1,
+    "SP_load_per_SP": 1,
+    "rear_storage_E": 24,
+    "front_storage_E": 24,
+    "unit_stock_before_maintenance_cap_SP": 4,
+    "unit_maintenance_SP": 1,
+    "repair_units_per_turn": 1,
+    "repair_cost_E": 1,
+    "repair_cost_P": 1,
+    "new_formation_E": 3,
+    "new_formation_P": 3,
+    "new_formation_queue": 1,
+    "transport_L": 1,
+    "additional_income_I_after_initial_allocation": 0,
+    "additional_income_P_after_initial_allocation": 0
+  },
+  "routes": {
+    "A": {
+      "spent_I": 12,
+      "purchase_E": 12,
+      "arrive_rear_epoch": 1
+    },
+    "B": {
+      "spent_I": 12,
+      "construction_boundaries": 3,
+      "first_extra_output_epoch": 4,
+      "extra_output_E": 2
+    },
+    "C": {
+      "spent_I": 12,
+      "transport_I": 8,
+      "repair_I": 4,
+      "construction_boundaries": 2,
+      "first_effect_epoch": 3,
+      "extra_cargo": 4,
+      "wreck_recondition_E_per_epoch": 0.5
+    },
+    "D": {
+      "spent_I": 0,
+      "remaining_I": 12,
+      "description": "same-start no-investment control, not a fourth equal-spend main route"
+    }
+  },
+  "defaults": {
+    "horizon": 24,
+    "terminalSettlement": true,
+    "terminalDamage": true,
+    "terminalRecovery": true,
+    "baseE": 2,
+    "sourceSP": 22,
+    "cargo": 21,
+    "extraE": 2,
+    "firstIndustry": 4,
+    "firstFacility": 3,
+    "extraCargo": 4,
+    "salvageE": 0.5,
+    "transit": 1,
+    "initialOld": 8,
+    "damagePerTurn": 1,
+    "formation": true,
+    "targets": 999,
+    "formationLimit": 999,
+    "depotTarget": 24
+  },
+  "timing": "24 own action windows, E1..E24; opposing actions represented only by exogenous damage; final E income has no T25 offensive value",
+  "damage": "2 initial wounded steps plus one cyclic old-unit hit T3..T24; hit skipped if target already dead",
+  "terminalPolicy": "repair allowed T24; no new formations T24; automatic freight continues E24 as a fixed policy, not a claim of optimal terminal logistics",
+  "unitAccounting": "new formation ordered before E_t pays E_t maintenance at assembly; action eligible T(t+1) under hypothetical legal deployment; Victory R cannot increase merely on payment",
+  "method": "METHOD.md plus ../industry-exp-002/METHOD.md",
+  "unchanged": "No source, map, Core, SUPPLY, Victory, AI or live parameters changed"
+}
