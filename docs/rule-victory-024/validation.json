@@ -1,0 +1,211 @@
+{
+  "task": "RULE-VICTORY-024",
+  "date": "2026-10-02",
+  "status": "offline arithmetic only; design hypotheses; not runtime or balance acceptance",
+  "parent": "b8b2c50a48eb12f570151a632bf5bf9907dfbbf0",
+  "report_sha256": "4e3591b29b563ea8b862566712361587249a52bef3cb390111f7bc62ef4a3ffb",
+  "passed": 32,
+  "cases": [
+    {
+      "name": "design_objective_budget",
+      "actual": "100",
+      "expected": "100",
+      "passed": true
+    },
+    {
+      "name": "capital_loss_alone",
+      "actual": "92",
+      "expected": "92",
+      "passed": true
+    },
+    {
+      "name": "capital_loss_no_collapse",
+      "actual": "0",
+      "expected": "0",
+      "passed": true
+    },
+    {
+      "name": "capital_plus_three_sites_and_60pct_loss",
+      "actual": "46",
+      "expected": "46",
+      "passed": true
+    },
+    {
+      "name": "pressure_warning",
+      "actual": "19",
+      "expected": "19",
+      "passed": true
+    },
+    {
+      "name": "first_warning_not_terminal",
+      "actual": "1",
+      "expected": "1",
+      "passed": true
+    },
+    {
+      "name": "second_warning_terminal",
+      "actual": "2",
+      "expected": "2",
+      "passed": true
+    },
+    {
+      "name": "recovery_resets_warning",
+      "actual": "0",
+      "expected": "0",
+      "passed": true
+    },
+    {
+      "name": "recovery_will",
+      "actual": "24",
+      "expected": "24",
+      "passed": true
+    },
+    {
+      "name": "stock_empty_alone_not_surrender",
+      "actual": "70",
+      "expected": "70",
+      "passed": true
+    },
+    {
+      "name": "logistics_rise_cap",
+      "actual": "5",
+      "expected": "5",
+      "passed": true
+    },
+    {
+      "name": "logistics_no_overshoot",
+      "actual": "15",
+      "expected": "15",
+      "passed": true
+    },
+    {
+      "name": "logistics_recovery_cap",
+      "actual": "20",
+      "expected": "20",
+      "passed": true
+    },
+    {
+      "name": "logistics_never_negative",
+      "actual": "0",
+      "expected": "0",
+      "passed": true
+    },
+    {
+      "name": "site_reacquisition_no_bonus",
+      "actual": "100",
+      "expected": "100",
+      "passed": true
+    },
+    {
+      "name": "repeated_loss_same_pressure",
+      "actual": "[Fraction(92, 1), Fraction(100, 1), Fraction(92, 1), Fraction(100, 1)]",
+      "expected": "[Fraction(92, 1), Fraction(100, 1), Fraction(92, 1), Fraction(100, 1)]",
+      "passed": true
+    },
+    {
+      "name": "net_step_repair",
+      "actual": "40/3",
+      "expected": "40/3",
+      "passed": true
+    },
+    {
+      "name": "destroyed_ids_not_removed_from_reference",
+      "actual": "20",
+      "expected": "20",
+      "passed": true
+    },
+    {
+      "name": "reinforcement_not_erase_destroyed_loss",
+      "actual": "40/3",
+      "expected": "40/3",
+      "passed": true
+    },
+    {
+      "name": "whole_campaign_100pt_cap",
+      "actual": "100",
+      "expected": "100",
+      "passed": true
+    },
+    {
+      "name": "late_counteroffensive_G",
+      "actual": "62",
+      "expected": "62",
+      "passed": true
+    },
+    {
+      "name": "late_counteroffensive_S",
+      "actual": "38",
+      "expected": "38",
+      "passed": true
+    },
+    {
+      "name": "late_counteroffensive_result",
+      "actual": "G limited",
+      "expected": "G limited",
+      "passed": true
+    },
+    {
+      "name": "full_symmetry_draw",
+      "actual": "draw",
+      "expected": "draw",
+      "passed": true
+    },
+    {
+      "name": "exact_threshold_10",
+      "actual": "G limited",
+      "expected": "G limited",
+      "passed": true
+    },
+    {
+      "name": "exact_threshold_30",
+      "actual": "G decisive",
+      "expected": "G decisive",
+      "passed": true
+    },
+    {
+      "name": "exact_threshold_-10",
+      "actual": "S limited",
+      "expected": "S limited",
+      "passed": true
+    },
+    {
+      "name": "exact_threshold_-30",
+      "actual": "S decisive",
+      "expected": "S decisive",
+      "passed": true
+    },
+    {
+      "name": "exact_threshold_999/100",
+      "actual": "draw",
+      "expected": "draw",
+      "passed": true
+    },
+    {
+      "name": "last_round_unconfirmed_capture_no_attacker_points",
+      "actual": "0",
+      "expected": "0",
+      "passed": true
+    },
+    {
+      "name": "last_round_unconfirmed_capture_denies_old_owner",
+      "actual": "23/8",
+      "expected": "23/8",
+      "passed": true
+    },
+    {
+      "name": "simultaneous_second_collapse",
+      "actual": "(2, 2)",
+      "expected": "(2, 2)",
+      "passed": true
+    }
+  ],
+  "not_tested": [
+    "legal Core gameplay and supply settlement",
+    "map objective placement, initial owners and role deduplication",
+    "occupation and industrial confirmation state machines",
+    "no-army exception and promised reinforcement authority integration",
+    "loss/chronic history collection and information authorization",
+    "T24 complete-round terminal transaction, idempotency and rollback",
+    "scenario fairness, industrial return, AI and performance"
+  ]
+}
