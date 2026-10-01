@@ -1,0 +1,33 @@
+{
+  "browser_inventory": {
+    "edge": "nodeRepl.fetch request failed",
+    "iab": "available; tab inventory observed Render Dashboard login redirect"
+  },
+  "observed_url": "https://dashboard.render.com/login?next=%2Fweb%2Fsrv-dathekek1f9s7389ksvg",
+  "attempts": [
+    {
+      "operation": "createBrowserTab iab target service dashboard",
+      "result": "30-second timeout; kernel reset"
+    },
+    {
+      "operation": "tabs.list",
+      "result": "tab 1 title Render Dashboard, URL login?next=target service"
+    },
+    {
+      "operation": "cua.getTab tab 1",
+      "result": "30-second timeout; kernel reset"
+    },
+    {
+      "operation": "tabs.get + markHandoff + url/screenshot",
+      "result": "20-second timeout; kernel reset; screenshot not obtained"
+    }
+  ],
+  "local_fallback": {
+    "render_cli_in_path": false,
+    "render_api_key_env_present": false,
+    "render_cli_config_at_standard_paths": false
+  },
+  "mcp_mutation_capability": "trigger_deploy has no commit input; no update-service/rollback tool; not invoked",
+  "ui_handoff": "open_in_codex target service dashboard returned queued",
+  "credentials_captured": false
+}
