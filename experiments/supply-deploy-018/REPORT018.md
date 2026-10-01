@@ -25,3 +25,9 @@
 4. 成功后交付实际实验入口 https://eastfront-supply-sandbox.onrender.com/?supply=experiment。**此刻尚不能把该路径标为 018 已上线试玩。**
 
 预检原始响应、健康结果、访问阻塞、任务状态均随本独立分支保存。017 的容器通过证据仍有效，但不替代平台新镜像复验。
+
+## 用户登录后续验（取代前述待登录状态）
+
+用户确认已在内置浏览器登录。标签清单出现目标服务控制台标题和完整目标 URL，绑定 tab 3 成功；登录阻塞已解除。随后 DOM 快照、截图、文档明确支持的 CDP DOM.getDocument 以及同一浏览器新建目标控制台标签均超时。没有获得页面内容、回滚按钮或截图证据，不据标题猜测操作位置。
+
+重新通过 Render MCP 读取，服务仍是原分支/根目录，013 deploy 仍 live；没有执行任何服务写入或新部署。当前阻塞是浏览器控制连接失效，不再要求重复登录，也不要求重复批准。需要恢复响应正常的浏览器控制连接后继续原方案。证据见 access-after-login.json、service-after-login.json、rollback-after-login.json。
