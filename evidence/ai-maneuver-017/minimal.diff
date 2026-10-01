@@ -1,0 +1,37 @@
+diff --git a/ai/fair/routing.ts b/ai/fair/routing.ts
+index 505a529..c44aebc 100644
+--- a/ai/fair/routing.ts
++++ b/ai/fair/routing.ts
+@@ -56,6 +56,10 @@ export function createMoveScorer(input:Input){
+     return step;
+   };
+   const cost=(u:Unit,from:Hex,to:Hex):number=>{
++    // Newly movable adjacent units may leave known ZOC, but ordinary first hops
++    // must not cross directly between two known enemy ZOC hexes. Conservative
++    // for recon too: this planner does not spend its special ZOC exception.
++    if(hexKey(from)===hexKey(u.hex)&&zoc.has(hexKey(from))&&zoc.has(hexKey(to)))return Infinity;
+     const step=stepCost(u,from,to),road=edges.get(edgeKey(from,to))?.road===true;
+     const knownZoc=zoc.has(hexKey(from))||zoc.has(hexKey(to));
+     const bonus=road&&rules.road.wholeMoveBonusEnabled&&!knownZoc?rules.road.wholeMoveBonusMP:0;
+@@ -67,7 +71,9 @@ export function createMoveScorer(input:Input){
+     const start=hexKey(u.hex),safe=new Set([...board.keys()].filter(k=>safeCell(u,k)));
+     const distance=new Map<string,number>(),out={distance,safe};plans.set(u.id,out);metrics.searches++;
+     if(u.stats.movement<=0)return out;
+-    const goals=enemies.length?[...safe].filter(k=>enemies.some(e=>hexDistance(board.get(k)!.coord,e.hex)===1)):rules.objectives.map(hexKey).filter(k=>safe.has(k));
++    // The current adjacent hex is not a destination for this MOVE. Keeping it
++    // as a zero-distance goal would silently reinstate the old origin stop.
++    const goals=enemies.length?[...safe].filter(k=>k!==start&&enemies.some(e=>hexDistance(board.get(k)!.coord,e.hex)===1)):rules.objectives.map(hexKey).filter(k=>safe.has(k));
+     // Heap order includes a coordinate tie breaker, independent of insertion/container order.
+     type Node={k:string;d:number};const heap:Node[]=[];
+     const less=(a:Node,b:Node)=>a.d<b.d||a.d===b.d&&a.k<b.k;
+@@ -96,8 +102,8 @@ export function createMoveScorer(input:Input){
+     if(a.type!=='MOVE'||a.path.length!==1||failed.has(JSON.stringify(a)))return -Infinity;
+     const u=own.find(u=>u.id===a.unitId),to=a.path[0];
+     if(!u||!to||!('friendly' in u)||u.friendly.hasMoved||u.friendly.dedicatedRailRepair||failedUnits.has(u.id)||hexDistance(u.hex,to)!==1)return -Infinity;
+-    // Preserve R1's stop at identified adjacency and its immediate risk thresholds.
+-    if(enemies.some(e=>hexDistance(u.hex,e.hex)<=1))return -Infinity;
++    // Origin adjacency may now seek another position; all destination risk,
++    // observed occupancy, public cost and bounded prefix stops still apply.
+     const step=cost(u,u.hex,to);if(!Number.isFinite(step))return -Infinity;
+     const p=plan(u),before=p.distance.get(hexKey(u.hex)),after=p.distance.get(hexKey(to));
+     if(!p.safe.has(hexKey(to))||before===undefined||after===undefined||after>=before)return -Infinity;

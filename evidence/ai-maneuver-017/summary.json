@@ -1,0 +1,2452 @@
+{
+  "task": "AI-MANEUVER-017",
+  "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+  "newGames": 2,
+  "games": [
+    {
+      "seed": 1017,
+      "version": "014",
+      "source": "evidence/ai-advance-014/batch/development-1017-experiment-GERMAN",
+      "finalHash": "d2163bd2eb61b843700bfc9e815d595b0975e490e647edd3075d45c283c8e1e0",
+      "traceFileHash": "dc819f7876cdbfb47b3f1116d9c26fc52fb1e14e25c9304da204915821ca3b7b",
+      "status": "GAME_OVER",
+      "winner": "SOVIET",
+      "turn": 16,
+      "elapsedMs": 20053.131800000003,
+      "sides": {
+        "GERMAN": {
+          "attacks": 46,
+          "advances": 10,
+          "passAdvances": 26,
+          "lossSteps": 6,
+          "destroyedUnits": 0,
+          "rejections": 7
+        },
+        "SOVIET": {
+          "attacks": 4,
+          "advances": 0,
+          "passAdvances": 4,
+          "lossSteps": 54,
+          "destroyedUnits": 16,
+          "rejections": 0
+        }
+      },
+      "rejected": [
+        {
+          "n": 202,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 204,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 219,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 221,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 243,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 0
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 11,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 305,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 14,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 671,
+          "turn": 12,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 13,
+                "r": 6
+              },
+              {
+                "q": 12,
+                "r": 7
+              },
+              {
+                "q": 12,
+                "r": 8
+              },
+              {
+                "q": 12,
+                "r": 9
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 12,
+                "r": 9
+              }
+            }
+          ]
+        }
+      ],
+      "mobility": {
+        "offeredDecisionWindows": 0,
+        "finiteFirstHopOffers": 0,
+        "uniqueUnitTurnPathOffers": 0,
+        "acceptedMoves": 0,
+        "rejectedMoves": 0,
+        "closer": 0,
+        "equal": 0,
+        "farther": 0,
+        "lostAttackTargetMoves": 0,
+        "lostAttackTargetIncidences": 0,
+        "laterAttackedMoves": 0
+      },
+      "cost": null,
+      "final": {
+        "statistics": {
+          "n": 26,
+          "min": 8,
+          "median": 13,
+          "mean": 13.192307692307692,
+          "max": 28,
+          "p95": 25
+        },
+        "distribution": [
+          8,
+          9,
+          9,
+          9,
+          10,
+          10,
+          11,
+          11,
+          11,
+          12,
+          12,
+          13,
+          13,
+          13,
+          13,
+          13,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          15,
+          25,
+          28
+        ],
+        "fixed": [
+          {
+            "id": "G-PZ-04",
+            "alive": true,
+            "hex": {
+              "q": 14,
+              "r": 2
+            },
+            "distance": 14,
+            "step": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "alive": true,
+            "hex": {
+              "q": 17,
+              "r": -1
+            },
+            "distance": 11,
+            "step": 0
+          },
+          {
+            "id": "G-MOT-03",
+            "alive": true,
+            "hex": {
+              "q": 18,
+              "r": -2
+            },
+            "distance": 10,
+            "step": 2
+          },
+          {
+            "id": "G-J-02",
+            "alive": true,
+            "hex": {
+              "q": 15,
+              "r": 1
+            },
+            "distance": 13,
+            "step": 1
+          }
+        ],
+        "cityCounts": {
+          "germanOccupied": 0,
+          "germanControlled": 0,
+          "sovietOccupied": 0,
+          "total": 9
+        },
+        "capitalControlled": 0
+      }
+    },
+    {
+      "seed": 1017,
+      "version": "017",
+      "source": "evidence/ai-maneuver-017/batch/development-1017-experiment-GERMAN",
+      "finalHash": "a6c630514851043b1202d2b4a568d935cf506869b510016373f1c488a2b47037",
+      "traceFileHash": "2d092ac61285b615a790ef61cc6b0b3932024affbd0662b37e134eff1d44d69f",
+      "status": "GAME_OVER",
+      "winner": "SOVIET",
+      "turn": 16,
+      "elapsedMs": 30544.5159,
+      "sides": {
+        "GERMAN": {
+          "attacks": 48,
+          "advances": 9,
+          "passAdvances": 26,
+          "lossSteps": 4,
+          "destroyedUnits": 0,
+          "rejections": 13
+        },
+        "SOVIET": {
+          "attacks": 0,
+          "advances": 0,
+          "passAdvances": 0,
+          "lossSteps": 58,
+          "destroyedUnits": 16,
+          "rejections": 2
+        }
+      },
+      "rejected": [
+        {
+          "n": 202,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 204,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 219,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 221,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 240,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 242,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 259,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 312,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-02",
+            "path": [
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-02",
+              "hex": {
+                "q": 15,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 313,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 12,
+                "r": 1
+              },
+              {
+                "q": 13,
+                "r": 1
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 15,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 314,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 12,
+                "r": 2
+              },
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 15,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 358,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-02",
+            "path": [
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-02",
+              "hex": {
+                "q": 16,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 696,
+          "turn": 11,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 15,
+                "r": -1
+              },
+              {
+                "q": 14,
+                "r": -1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 15,
+                "r": -1
+              }
+            }
+          ]
+        },
+        {
+          "n": 1016,
+          "turn": 16,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-I-03",
+            "path": [
+              {
+                "q": 17,
+                "r": 4
+              },
+              {
+                "q": 18,
+                "r": 4
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-I-03",
+              "hex": {
+                "q": 17,
+                "r": 4
+              }
+            }
+          ]
+        },
+        {
+          "n": 1034,
+          "turn": 16,
+          "side": "SOVIET",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000047",
+            "retreats": [
+              {
+                "unitId": "S-MOT-02",
+                "path": [
+                  {
+                    "q": 13,
+                    "r": -1
+                  }
+                ]
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Submitted retreat path contains an illegal step.",
+              "unitId": "S-MOT-02",
+              "hex": {
+                "q": 13,
+                "r": -1
+              },
+              "details": {
+                "stepIssues": [
+                  "ENEMY_ZOC_STOP"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "n": 1035,
+          "turn": 16,
+          "side": "SOVIET",
+          "intent": {
+            "type": "RETREAT",
+            "battleId": "B-000047",
+            "retreats": [
+              {
+                "unitId": "S-MOT-02",
+                "path": []
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "INVALID_RETREAT",
+              "message": "Retreat path must execute the maximum legal distance available in the submitted unit order.",
+              "unitId": "S-MOT-02",
+              "details": {
+                "requiredSteps": 1,
+                "maximumLegalSteps": 1,
+                "providedSteps": 0
+              }
+            }
+          ]
+        }
+      ],
+      "mobility": {
+        "offeredDecisionWindows": 204,
+        "finiteFirstHopOffers": 2064,
+        "uniqueUnitTurnPathOffers": 267,
+        "acceptedMoves": 117,
+        "rejectedMoves": 5,
+        "closer": 38,
+        "equal": 28,
+        "farther": 51,
+        "lostAttackTargetMoves": 53,
+        "lostAttackTargetIncidences": 57,
+        "laterAttackedMoves": 65
+      },
+      "cost": {
+        "movementDecisions": 366,
+        "policyMs": {
+          "n": 366,
+          "min": 0.26749999999992724,
+          "median": 7.131049999999959,
+          "mean": 7.447534153005578,
+          "max": 37.442400000000134,
+          "p95": 16.12119999999959
+        },
+        "expanded": {
+          "n": 366,
+          "min": 0,
+          "median": 2016.5,
+          "mean": 2556.1748633879783,
+          "max": 13729,
+          "p95": 8193
+        },
+        "expandedTotal": 935560,
+        "oldExpandedOnSameViewsTotal": 653713,
+        "exhaustedDecisions": 0,
+        "diagnosticMs": {
+          "n": 366,
+          "min": 0.9445999999998094,
+          "median": 14.077300000000832,
+          "mean": 17.183747814207702,
+          "max": 101.74310000000014,
+          "p95": 45.21369999999979
+        }
+      },
+      "final": {
+        "statistics": {
+          "n": 26,
+          "min": 10,
+          "median": 12.5,
+          "mean": 13.615384615384615,
+          "max": 28,
+          "p95": 25
+        },
+        "distribution": [
+          10,
+          10,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          11,
+          12,
+          12,
+          12,
+          12,
+          13,
+          13,
+          13,
+          13,
+          14,
+          14,
+          14,
+          16,
+          16,
+          16,
+          16,
+          25,
+          28
+        ],
+        "fixed": [
+          {
+            "id": "G-PZ-04",
+            "alive": true,
+            "hex": {
+              "q": 15,
+              "r": 3
+            },
+            "distance": 13,
+            "step": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "alive": true,
+            "hex": {
+              "q": 17,
+              "r": 1
+            },
+            "distance": 11,
+            "step": 1
+          },
+          {
+            "id": "G-MOT-03",
+            "alive": true,
+            "hex": {
+              "q": 16,
+              "r": -2
+            },
+            "distance": 12,
+            "step": 0
+          },
+          {
+            "id": "G-J-02",
+            "alive": true,
+            "hex": {
+              "q": 16,
+              "r": -4
+            },
+            "distance": 12,
+            "step": 1
+          }
+        ],
+        "cityCounts": {
+          "germanOccupied": 2,
+          "germanControlled": 0,
+          "sovietOccupied": 2,
+          "total": 9
+        },
+        "capitalControlled": 0
+      }
+    },
+    {
+      "seed": 1018,
+      "version": "014",
+      "source": "evidence/ai-advance-014/batch/development-1018-experiment-GERMAN",
+      "finalHash": "ca0ae713f99ee1f6c66864c431da004d7c3f0c3b18588763fee3cbd7bd3249fd",
+      "traceFileHash": "3516da2aab37ad83da87bade4fec6e7671ae99f00540a98925660d6399d2c684",
+      "status": "GAME_OVER",
+      "winner": "SOVIET",
+      "turn": 16,
+      "elapsedMs": 20054.8678,
+      "sides": {
+        "GERMAN": {
+          "attacks": 47,
+          "advances": 11,
+          "passAdvances": 22,
+          "lossSteps": 3,
+          "destroyedUnits": 0,
+          "rejections": 8
+        },
+        "SOVIET": {
+          "attacks": 2,
+          "advances": 0,
+          "passAdvances": 1,
+          "lossSteps": 62,
+          "destroyedUnits": 18,
+          "rejections": 0
+        }
+      },
+      "rejected": [
+        {
+          "n": 202,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 204,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 219,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 221,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 243,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 11,
+                "r": 0
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 11,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 305,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 14,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 557,
+          "turn": 9,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-01",
+            "path": [
+              {
+                "q": 14,
+                "r": 6
+              },
+              {
+                "q": 15,
+                "r": 5
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-MOT-01",
+              "hex": {
+                "q": 14,
+                "r": 6
+              }
+            }
+          ]
+        },
+        {
+          "n": 877,
+          "turn": 16,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-I-05",
+            "path": [
+              {
+                "q": 20,
+                "r": -5
+              },
+              {
+                "q": 21,
+                "r": -6
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-I-05",
+              "hex": {
+                "q": 20,
+                "r": -5
+              }
+            }
+          ]
+        }
+      ],
+      "mobility": {
+        "offeredDecisionWindows": 0,
+        "finiteFirstHopOffers": 0,
+        "uniqueUnitTurnPathOffers": 0,
+        "acceptedMoves": 0,
+        "rejectedMoves": 0,
+        "closer": 0,
+        "equal": 0,
+        "farther": 0,
+        "lostAttackTargetMoves": 0,
+        "lostAttackTargetIncidences": 0,
+        "laterAttackedMoves": 0
+      },
+      "cost": null,
+      "final": {
+        "statistics": {
+          "n": 26,
+          "min": 8,
+          "median": 12,
+          "mean": 12.5,
+          "max": 28,
+          "p95": 25
+        },
+        "distribution": [
+          8,
+          8,
+          9,
+          9,
+          9,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          13,
+          13,
+          13,
+          14,
+          14,
+          14,
+          25,
+          28
+        ],
+        "fixed": [
+          {
+            "id": "G-PZ-04",
+            "alive": true,
+            "hex": {
+              "q": 18,
+              "r": -1
+            },
+            "distance": 10,
+            "step": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "alive": true,
+            "hex": {
+              "q": 16,
+              "r": 0
+            },
+            "distance": 12,
+            "step": 0
+          },
+          {
+            "id": "G-MOT-03",
+            "alive": true,
+            "hex": {
+              "q": 19,
+              "r": -1
+            },
+            "distance": 9,
+            "step": 0
+          },
+          {
+            "id": "G-J-02",
+            "alive": true,
+            "hex": {
+              "q": 17,
+              "r": 0
+            },
+            "distance": 11,
+            "step": 0
+          }
+        ],
+        "cityCounts": {
+          "germanOccupied": 0,
+          "germanControlled": 0,
+          "sovietOccupied": 2,
+          "total": 9
+        },
+        "capitalControlled": 0
+      }
+    },
+    {
+      "seed": 1018,
+      "version": "017",
+      "source": "evidence/ai-maneuver-017/batch/development-1018-experiment-GERMAN",
+      "finalHash": "1fc5396ad6ea4aa4cbfb2b21836733effc41ef660db221f956b0fa41541c0407",
+      "traceFileHash": "0f76617848776ac43c696d4579cd57904c1fb19e3b90be2438d1532da6cfd19a",
+      "status": "GAME_OVER",
+      "winner": "SOVIET",
+      "turn": 16,
+      "elapsedMs": 31688.302499999998,
+      "sides": {
+        "GERMAN": {
+          "attacks": 39,
+          "advances": 8,
+          "passAdvances": 21,
+          "lossSteps": 5,
+          "destroyedUnits": 0,
+          "rejections": 23
+        },
+        "SOVIET": {
+          "attacks": 0,
+          "advances": 0,
+          "passAdvances": 0,
+          "lossSteps": 50,
+          "destroyedUnits": 12,
+          "rejections": 0
+        }
+      },
+      "rejected": [
+        {
+          "n": 202,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 204,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 219,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-02",
+            "path": [
+              {
+                "q": 11,
+                "r": 1
+              },
+              {
+                "q": 12,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 0
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-02",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 221,
+          "turn": 3,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-REC-01",
+            "path": [
+              {
+                "q": 10,
+                "r": 4
+              },
+              {
+                "q": 11,
+                "r": 4
+              },
+              {
+                "q": 12,
+                "r": 4
+              },
+              {
+                "q": 13,
+                "r": 3
+              },
+              {
+                "q": 14,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-REC-01",
+              "hex": {
+                "q": 13,
+                "r": 3
+              }
+            }
+          ]
+        },
+        {
+          "n": 240,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 242,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 259,
+          "turn": 4,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 13,
+                "r": 0
+              },
+              {
+                "q": 13,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 13,
+                "r": 0
+              }
+            }
+          ]
+        },
+        {
+          "n": 313,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-02",
+            "path": [
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-02",
+              "hex": {
+                "q": 15,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 314,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-03",
+            "path": [
+              {
+                "q": 12,
+                "r": 1
+              },
+              {
+                "q": 13,
+                "r": 1
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-03",
+              "hex": {
+                "q": 15,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 315,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 12,
+                "r": 2
+              },
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 15,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 359,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-MOT-02",
+            "path": [
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 1
+              },
+              {
+                "q": 15,
+                "r": 1
+              },
+              {
+                "q": 16,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_OCCUPIED_HEX",
+              "message": "Cannot move through or into an enemy-occupied hex.",
+              "unitId": "G-MOT-02",
+              "hex": {
+                "q": 16,
+                "r": 1
+              }
+            }
+          ]
+        },
+        {
+          "n": 362,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 12,
+                "r": 2
+              },
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 2
+              },
+              {
+                "q": 15,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 14,
+                "r": 2
+              }
+            }
+          ]
+        },
+        {
+          "n": 363,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-02",
+            "path": [
+              {
+                "q": 12,
+                "r": 2
+              },
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 2
+              },
+              {
+                "q": 15,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-02",
+              "hex": {
+                "q": 14,
+                "r": 2
+              }
+            }
+          ]
+        },
+        {
+          "n": 364,
+          "turn": 6,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 13,
+                "r": 1
+              },
+              {
+                "q": 13,
+                "r": 2
+              },
+              {
+                "q": 14,
+                "r": 2
+              },
+              {
+                "q": 15,
+                "r": 2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-04",
+              "hex": {
+                "q": 14,
+                "r": 2
+              }
+            }
+          ]
+        },
+        {
+          "n": 527,
+          "turn": 9,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 14,
+                "r": -1
+              },
+              {
+                "q": 15,
+                "r": -1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 14,
+                "r": -1
+              }
+            }
+          ]
+        },
+        {
+          "n": 528,
+          "turn": 9,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 14,
+                "r": -1
+              },
+              {
+                "q": 15,
+                "r": -1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 14,
+                "r": -1
+              }
+            }
+          ]
+        },
+        {
+          "n": 544,
+          "turn": 9,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 14,
+                "r": -1
+              },
+              {
+                "q": 15,
+                "r": -1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 14,
+                "r": -1
+              }
+            }
+          ]
+        },
+        {
+          "n": 545,
+          "turn": 9,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 14,
+                "r": -1
+              },
+              {
+                "q": 15,
+                "r": -1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 14,
+                "r": -1
+              }
+            }
+          ]
+        },
+        {
+          "n": 582,
+          "turn": 10,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-01",
+            "path": [
+              {
+                "q": 13,
+                "r": -2
+              },
+              {
+                "q": 14,
+                "r": -2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-PZ-01",
+              "hex": {
+                "q": 13,
+                "r": -2
+              }
+            }
+          ]
+        },
+        {
+          "n": 584,
+          "turn": 10,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-I-10",
+            "path": [
+              {
+                "q": 13,
+                "r": -2
+              },
+              {
+                "q": 14,
+                "r": -2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-I-10",
+              "hex": {
+                "q": 13,
+                "r": -2
+              }
+            }
+          ]
+        },
+        {
+          "n": 586,
+          "turn": 10,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 13,
+                "r": -2
+              },
+              {
+                "q": 14,
+                "r": -2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_TO_ZOC",
+              "message": "Ordinary units may not move directly from enemy ZOC to enemy ZOC.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 13,
+                "r": -2
+              }
+            }
+          ]
+        },
+        {
+          "n": 587,
+          "turn": 10,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-I-09",
+            "path": [
+              {
+                "q": 13,
+                "r": -2
+              },
+              {
+                "q": 14,
+                "r": -2
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-I-09",
+              "hex": {
+                "q": 13,
+                "r": -2
+              }
+            }
+          ]
+        },
+        {
+          "n": 1030,
+          "turn": 16,
+          "side": "GERMAN",
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-J-02",
+            "path": [
+              {
+                "q": 18,
+                "r": -1
+              },
+              {
+                "q": 18,
+                "r": 0
+              },
+              {
+                "q": 18,
+                "r": 1
+              }
+            ]
+          },
+          "issues": [
+            {
+              "code": "ENEMY_ZOC_STOP",
+              "message": "Entering enemy ZOC ends movement.",
+              "unitId": "G-J-02",
+              "hex": {
+                "q": 18,
+                "r": 0
+              }
+            }
+          ]
+        }
+      ],
+      "mobility": {
+        "offeredDecisionWindows": 185,
+        "finiteFirstHopOffers": 1455,
+        "uniqueUnitTurnPathOffers": 208,
+        "acceptedMoves": 86,
+        "rejectedMoves": 6,
+        "closer": 20,
+        "equal": 31,
+        "farther": 35,
+        "lostAttackTargetMoves": 37,
+        "lostAttackTargetIncidences": 38,
+        "laterAttackedMoves": 43
+      },
+      "cost": {
+        "movementDecisions": 356,
+        "policyMs": {
+          "n": 356,
+          "min": 0.24690000000009604,
+          "median": 6.429549999999836,
+          "mean": 6.957885393258417,
+          "max": 38.46640000000002,
+          "p95": 16.542599999998856
+        },
+        "expanded": {
+          "n": 356,
+          "min": 0,
+          "median": 1767.5,
+          "mean": 2424.946629213483,
+          "max": 13729,
+          "p95": 8270
+        },
+        "expandedTotal": 863281,
+        "oldExpandedOnSameViewsTotal": 722626,
+        "exhaustedDecisions": 0,
+        "diagnosticMs": {
+          "n": 356,
+          "min": 0.9691000000002532,
+          "median": 14.999050000000352,
+          "mean": 18.203878651685358,
+          "max": 99.45090000000005,
+          "p95": 47.65169999999989
+        }
+      },
+      "final": {
+        "statistics": {
+          "n": 26,
+          "min": 10,
+          "median": 13,
+          "mean": 14.307692307692308,
+          "max": 28,
+          "p95": 25
+        },
+        "distribution": [
+          10,
+          11,
+          12,
+          12,
+          12,
+          12,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          14,
+          14,
+          15,
+          16,
+          17,
+          18,
+          25,
+          28
+        ],
+        "fixed": [
+          {
+            "id": "G-PZ-04",
+            "alive": true,
+            "hex": {
+              "q": 15,
+              "r": 3
+            },
+            "distance": 13,
+            "step": 0
+          },
+          {
+            "id": "G-PZ-01",
+            "alive": true,
+            "hex": {
+              "q": 16,
+              "r": -1
+            },
+            "distance": 12,
+            "step": 0
+          },
+          {
+            "id": "G-MOT-03",
+            "alive": true,
+            "hex": {
+              "q": 15,
+              "r": 6
+            },
+            "distance": 13,
+            "step": 0
+          },
+          {
+            "id": "G-J-02",
+            "alive": true,
+            "hex": {
+              "q": 17,
+              "r": -1
+            },
+            "distance": 11,
+            "step": 0
+          }
+        ],
+        "cityCounts": {
+          "germanOccupied": 0,
+          "germanControlled": 0,
+          "sovietOccupied": 1,
+          "total": 9
+        },
+        "capitalControlled": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Historical014 timing includes different instrumentation; not a speed benchmark.",
+    "Positive attack-score target losses are a visibility/heuristic proxy, not proof of foregone favorable legal combat. No counterfactual dice rolled.",
+    "Matched seeds cease to be matched battle dice after diverging action consumption.",
+    "All German alive units form each distribution; dead IDs are listed separately; fixed units are tracked even if destroyed."
+  ]
+}

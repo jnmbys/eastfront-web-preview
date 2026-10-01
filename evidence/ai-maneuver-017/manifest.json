@@ -1,0 +1,66 @@
+{
+  "config": {
+    "task": "AI-MANEUVER-017",
+    "audit": "51b19025ba0c246da3e5a0ffd2c3f5d942933451",
+    "baseline": "a655892a1eed5f8a136b6c73b9d9000560df8d91",
+    "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+    "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+    "seeds": [
+      1017,
+      1018
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "limits": {
+      "maxGames": 2,
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 420000
+    },
+    "opponent": "Frozen AI005 695ca0524eb039808491b18c69cea1fb74da0cca; identical to014",
+    "sharedRetreat": "AI-RETREAT-010 minimalAgent on both seats, unchanged from014",
+    "runOrder": "1017 then1018 candidate GERMAN only; read existing014 logs, no baseline reruns",
+    "experiment": "Remove origin identified-adjacency stop; exclude current position as a destination; explicitly reject known ZOC-to-ZOC first hops. Preserve existing scored target family, ordering, risk guards, budget and intermediate stops.",
+    "fixedUnits": [
+      "G-PZ-04",
+      "G-PZ-01",
+      "G-MOT-03",
+      "G-J-02"
+    ],
+    "progress": "For every end-of-turn: each alive German unit ID/hex/distance and dead IDs, sorted distances, nearest/median/mean, city control versus physical occupation; also fixed unit trajectories",
+    "attackOpportunity": "Same authorized movement views, hypothetical combat-phase proposals using unchanged attack score; compare qualifying target hexes for the moved unit before/after and actual later combat attempts. This is an opportunity proxy, not Core combat legality or expected value. No speculative battle resolution.",
+    "cost": "policy choice wall ms separately from passive search diagnostics; expanded settled nodes, searches, exhausted, diagnostic ms per German movement decision; elapsed game includes instrumentation and Host",
+    "rngLimitation": "Same initial seed does not align subsequent battle dice after action/RNG-consumption divergence.",
+    "stopRule": "One variant, exactly two development games after targeted checks; preserve abnormal logs without rerun, no tuning or expansion, no deployment"
+  },
+  "buildIdentityHash": "7784a3df605b93d5215d5e9f04668aaac2e05899dcb06f1bf4b0bb8c7770f2b5",
+  "preRegistrationCommit": "5b6bce366f2ffb8780b984a927d229e6cb847881",
+  "rules": {
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "jobs": [
+    {
+      "id": "development-1017-experiment-GERMAN",
+      "seed": 1017,
+      "version": "experiment",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "development-1018-experiment-GERMAN",
+      "seed": 1018,
+      "version": "experiment",
+      "seat": "GERMAN"
+    }
+  ],
+  "startedAt": "2026-10-01T08:20:24.667Z"
+}
