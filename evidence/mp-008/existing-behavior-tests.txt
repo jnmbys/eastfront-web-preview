@@ -1,0 +1,26 @@
+✔ MOVE001 real WebSocket clients: all target surfaces use authorized draft, pending sends once, snapshot moves (514.1125ms)
+✔ MOVE001 server rejection retains authority and recovers selection / next move (294.2287ms)
+✔ MOVE001 multiplayer full stack remains illegal through every target surface (162.0797ms)
+✔ MOVE001R1 first-step exit remains available while the authorized projection is pending (133.1764ms)
+✔ MP003 deployment unit/destination selection is local, sends no query and changes no canonical placement (33.6195ms)
+✔ MP003 same-turn selections send only the latest query; selected counter feedback is immediate (19.4054ms)
+✔ MP003 one in-flight plus latest unsent query; obsolete result consumes sequence without overwriting selection (46.7917ms)
+✔ MP003 A-B-A clears the unsent B instead of applying it after A (29.3415ms)
+✔ MP003 snapshot while query is in flight does not free its transport slot or send duplicate queries (47.8509ms)
+✔ MP003 genuine sequence gap still requests exactly one resync and applies a current private snapshot (15.6651ms)
+✔ MP003 future query revision still forces recovery; version validation is retained (16.0298ms)
+✔ MP003 unrelated correlated response consumes order but cannot complete the current query (15.4315ms)
+✔ MP003 Action ACK does not adopt state; one deployment click/reclick executes once and creates no follow-up query (45.6117ms)
+✔ MP003 query rejection does not retry itself or expose the previous selection options (45.9069ms)
+✔ MP003 ordered pending-resync frames cannot produce repeated recovery requests or roll back state (16.0972ms)
+✔ MP003 disconnect clears queued input and reconnect restores current state before accepting another action (46.9394ms)
+✔ MP003 network UI keeps selection buttons live while guarding Actions and Core-disabled controls (2.2109ms)
+✔ MP007 production client measures send/apply/UI readiness; ACK never restores controls or canonical state (71.7715ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1291.2278
