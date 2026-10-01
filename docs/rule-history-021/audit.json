@@ -1,0 +1,1957 @@
+{
+  "baseline": "813b4072568352e95d0726fe5fe04060c889c554",
+  "governanceFilesFound": [],
+  "equivalence": {
+    "rules": true,
+    "scenario": true
+  },
+  "sourceTemplatesMatchShippedJS": true,
+  "counts": {
+    "templates": 17,
+    "germanInitial": 26,
+    "sovietInitial": 32,
+    "sovietReinforcements": 13,
+    "maximumCountersIncludingAllReinforcements": 71
+  },
+  "terrain": {
+    "PLAIN": {
+      "movementCost": 1,
+      "attackShift": 0
+    },
+    "FOREST": {
+      "movementCost": 2,
+      "attackShift": -1
+    },
+    "HILL": {
+      "movementCost": 2,
+      "attackShift": -1
+    },
+    "MARSH": {
+      "movementCost": 2,
+      "attackShift": -1
+    },
+    "ROUGH": {
+      "movementCost": 2,
+      "attackShift": 0
+    },
+    "CITY": {
+      "movementCost": 1,
+      "attackShift": -1
+    },
+    "MAIN_CITY": {
+      "movementCost": 1,
+      "attackShift": -1
+    },
+    "OUTER_CITY": {
+      "movementCost": 1,
+      "attackShift": -1
+    },
+    "LAKE": {
+      "movementCost": "IMPASSABLE",
+      "attackShift": 0
+    }
+  },
+  "river": {
+    "MINOR": {
+      "movementSurcharge": 1,
+      "attackShift": -1
+    },
+    "MAJOR": {
+      "movementSurcharge": 2,
+      "attackShift": -2
+    }
+  },
+  "road": {
+    "movementCost": 1,
+    "wholeMoveBonusEnabled": false,
+    "wholeMoveBonusMP": 1,
+    "bridgeCancelsRiverMovementSurcharge": true
+  },
+  "crt": {
+    "columns": [
+      "1:3",
+      "1:2",
+      "2:3",
+      "1:1",
+      "3:2",
+      "2:1",
+      "3:1",
+      "4:1+"
+    ],
+    "thresholds": [
+      0.3333333333333333,
+      0.5,
+      0.6666666666666666,
+      1,
+      1.5,
+      2,
+      3,
+      4
+    ],
+    "maxNetShift": 2,
+    "table": {
+      "2": [
+        "A3R",
+        "A3R",
+        "A3R",
+        "A2",
+        "A1",
+        "AR",
+        "EX",
+        "NE"
+      ],
+      "3": [
+        "A3R",
+        "A3R",
+        "A2",
+        "A1",
+        "AR",
+        "EX",
+        "NE",
+        "DR"
+      ],
+      "4": [
+        "A3R",
+        "A3R",
+        "A2",
+        "A1",
+        "AR",
+        "EX",
+        "NE",
+        "DR"
+      ],
+      "5": [
+        "A3R",
+        "A2",
+        "A1",
+        "AR",
+        "EX",
+        "NE",
+        "DR",
+        "D1R"
+      ],
+      "6": [
+        "A3R",
+        "A2",
+        "A1",
+        "AR",
+        "EX",
+        "NE",
+        "DR",
+        "D1R"
+      ],
+      "7": [
+        "A2",
+        "A1",
+        "AR",
+        "EX",
+        "NE",
+        "DR",
+        "D1R",
+        "D2R"
+      ],
+      "8": [
+        "A1",
+        "AR",
+        "EX",
+        "NE",
+        "DR",
+        "D1R",
+        "D2R",
+        "D3R"
+      ],
+      "9": [
+        "AR",
+        "EX",
+        "NE",
+        "DR",
+        "D1R",
+        "D2R",
+        "D3R",
+        "D3R"
+      ],
+      "10": [
+        "EX",
+        "NE",
+        "DR",
+        "D1R",
+        "D2R",
+        "D3R",
+        "D3R",
+        "D3R"
+      ],
+      "11": [
+        "NE",
+        "DR",
+        "D1R",
+        "D2R",
+        "D3R",
+        "D3R",
+        "D3R",
+        "D3R"
+      ],
+      "12": [
+        "DR",
+        "D1R",
+        "D2R",
+        "D3R",
+        "D3R",
+        "D3R",
+        "D3R",
+        "D3R"
+      ]
+    }
+  },
+  "combatRules": {
+    "combinedArmsShift": 1,
+    "unsupportedArmorComplexTerrainShift": -1,
+    "antiTankShift": -1,
+    "artilleryShift": 1,
+    "flankShift": 1,
+    "entrenchmentShift": -1,
+    "schwerpunktSecondAttackShift": -1,
+    "germanCombinedArmsArmorTypes": [
+      "PANZER"
+    ],
+    "germanCombinedArmsCoordinationTypes": [
+      "INFANTRY",
+      "JAGER",
+      "MOTORIZED"
+    ],
+    "complexTerrainForArmor": [
+      "FOREST",
+      "CITY",
+      "MAIN_CITY",
+      "OUTER_CITY",
+      "MARSH"
+    ]
+  },
+  "movement": [
+    {
+      "id": "G-INF",
+      "terrain": "PLAIN",
+      "movement": 3,
+      "cost": 1,
+      "uniformTerrainHexes": 3
+    },
+    {
+      "id": "G-INF",
+      "terrain": "FOREST",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "G-INF",
+      "terrain": "HILL",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "G-INF",
+      "terrain": "ROUGH",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "G-INF",
+      "terrain": "MARSH",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "G-JAGER",
+      "terrain": "PLAIN",
+      "movement": 4,
+      "cost": 1,
+      "uniformTerrainHexes": 4
+    },
+    {
+      "id": "G-JAGER",
+      "terrain": "FOREST",
+      "movement": 4,
+      "cost": 1,
+      "uniformTerrainHexes": 4
+    },
+    {
+      "id": "G-JAGER",
+      "terrain": "HILL",
+      "movement": 4,
+      "cost": 1,
+      "uniformTerrainHexes": 4
+    },
+    {
+      "id": "G-JAGER",
+      "terrain": "ROUGH",
+      "movement": 4,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "G-JAGER",
+      "terrain": "MARSH",
+      "movement": 4,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "G-MOT",
+      "terrain": "PLAIN",
+      "movement": 5,
+      "cost": 1,
+      "uniformTerrainHexes": 5
+    },
+    {
+      "id": "G-MOT",
+      "terrain": "FOREST",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "G-MOT",
+      "terrain": "HILL",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "G-MOT",
+      "terrain": "ROUGH",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "G-MOT",
+      "terrain": "MARSH",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "G-PANZER",
+      "terrain": "PLAIN",
+      "movement": 6,
+      "cost": 1,
+      "uniformTerrainHexes": 6
+    },
+    {
+      "id": "G-PANZER",
+      "terrain": "FOREST",
+      "movement": 6,
+      "cost": 2,
+      "uniformTerrainHexes": 3
+    },
+    {
+      "id": "G-PANZER",
+      "terrain": "HILL",
+      "movement": 6,
+      "cost": 2,
+      "uniformTerrainHexes": 3
+    },
+    {
+      "id": "G-PANZER",
+      "terrain": "ROUGH",
+      "movement": 6,
+      "cost": 2,
+      "uniformTerrainHexes": 3
+    },
+    {
+      "id": "G-PANZER",
+      "terrain": "MARSH",
+      "movement": 6,
+      "cost": 2,
+      "uniformTerrainHexes": 3
+    },
+    {
+      "id": "S-INF",
+      "terrain": "PLAIN",
+      "movement": 3,
+      "cost": 1,
+      "uniformTerrainHexes": 3
+    },
+    {
+      "id": "S-INF",
+      "terrain": "FOREST",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "S-INF",
+      "terrain": "HILL",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "S-INF",
+      "terrain": "ROUGH",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "S-INF",
+      "terrain": "MARSH",
+      "movement": 3,
+      "cost": 2,
+      "uniformTerrainHexes": 1
+    },
+    {
+      "id": "S-MOT",
+      "terrain": "PLAIN",
+      "movement": 5,
+      "cost": 1,
+      "uniformTerrainHexes": 5
+    },
+    {
+      "id": "S-MOT",
+      "terrain": "FOREST",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-MOT",
+      "terrain": "HILL",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-MOT",
+      "terrain": "ROUGH",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-MOT",
+      "terrain": "MARSH",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-TANK",
+      "terrain": "PLAIN",
+      "movement": 5,
+      "cost": 1,
+      "uniformTerrainHexes": 5
+    },
+    {
+      "id": "S-TANK",
+      "terrain": "FOREST",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-TANK",
+      "terrain": "HILL",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-TANK",
+      "terrain": "ROUGH",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    },
+    {
+      "id": "S-TANK",
+      "terrain": "MARSH",
+      "movement": 5,
+      "cost": 2,
+      "uniformTerrainHexes": 2
+    }
+  ],
+  "combat": [
+    {
+      "attack": [
+        "G-INF"
+      ],
+      "defender": "S-INF",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "3:2",
+        "baseCRTColumn": 4,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 4,
+        "finalCRTColumnLabel": "3:2",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-JAGER"
+      ],
+      "defender": "S-INF",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "3:2",
+        "baseCRTColumn": 4,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 4,
+        "finalCRTColumnLabel": "3:2",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-INF"
+      ],
+      "defender": "S-INF",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "4:1+",
+        "baseCRTColumn": 7,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 1,
+          "cappedShift": 1
+        },
+        "finalShift": 1,
+        "finalCRTColumn": 7,
+        "finalCRTColumnLabel": "4:1+",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-JAGER"
+      ],
+      "defender": "S-INF",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "4:1+",
+        "baseCRTColumn": 7,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 1,
+          "cappedShift": 1
+        },
+        "finalShift": 1,
+        "finalCRTColumn": 7,
+        "finalCRTColumnLabel": "4:1+",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-MOT"
+      ],
+      "defender": "S-INF",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 6,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 5,
+        "finalCRTColumnLabel": "2:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-INF"
+      ],
+      "defender": "S-INF",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "3:2",
+        "baseCRTColumn": 4,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-JAGER"
+      ],
+      "defender": "S-INF",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "3:2",
+        "baseCRTColumn": 4,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 4,
+        "finalCRTColumnLabel": "3:2",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-INF"
+      ],
+      "defender": "S-INF",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "4:1+",
+        "baseCRTColumn": 7,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 7,
+        "finalCRTColumnLabel": "4:1+",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-JAGER"
+      ],
+      "defender": "S-INF",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "4:1+",
+        "baseCRTColumn": 7,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 1,
+          "cappedShift": 1
+        },
+        "finalShift": 1,
+        "finalCRTColumn": 7,
+        "finalCRTColumnLabel": "4:1+",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-MOT"
+      ],
+      "defender": "S-INF",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 6,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 4,
+        "finalCRTColumnLabel": "3:2",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-INF"
+      ],
+      "defender": "S-INF",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "3:2",
+        "baseCRTColumn": 4,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-JAGER"
+      ],
+      "defender": "S-INF",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "3:2",
+        "baseCRTColumn": 4,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-INF"
+      ],
+      "defender": "S-INF",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "4:1+",
+        "baseCRTColumn": 7,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 7,
+        "finalCRTColumnLabel": "4:1+",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-JAGER"
+      ],
+      "defender": "S-INF",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "4:1+",
+        "baseCRTColumn": 7,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 7,
+        "finalCRTColumnLabel": "4:1+",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-MOT"
+      ],
+      "defender": "S-INF",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 6,
+        "rawDefenseStrength": 3,
+        "finalDefenseStrength": 3,
+        "defenseStrength": 3,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 4,
+        "finalCRTColumnLabel": "3:2",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-INF"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-JAGER"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-INF"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 1,
+          "cappedShift": 1
+        },
+        "finalShift": 1,
+        "finalCRTColumn": 6,
+        "finalCRTColumnLabel": "3:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-JAGER"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 1,
+          "cappedShift": 1
+        },
+        "finalShift": 1,
+        "finalCRTColumn": 6,
+        "finalCRTColumnLabel": "3:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-MOT"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "PLAIN",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 6,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-INF"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 2,
+        "finalCRTColumnLabel": "2:3",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-JAGER"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 3,
+        "finalCRTColumnLabel": "1:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-INF"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 5,
+        "finalCRTColumnLabel": "2:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-JAGER"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": 0,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 1,
+          "cappedShift": 1
+        },
+        "finalShift": 1,
+        "finalCRTColumn": 6,
+        "finalCRTColumnLabel": "3:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-MOT"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "FOREST",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 6,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 2,
+        "finalCRTColumnLabel": "2:3",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-INF"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 2,
+        "finalCRTColumnLabel": "2:3",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-JAGER"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 5,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 2,
+        "finalCRTColumnLabel": "2:3",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-INF"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 5,
+        "finalCRTColumnLabel": "2:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-PANZER",
+        "G-JAGER"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0",
+          "A1"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 13,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "2:1",
+        "baseCRTColumn": 5,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 1,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": 0,
+          "cappedShift": 0
+        },
+        "finalShift": 0,
+        "finalCRTColumn": 5,
+        "finalCRTColumnLabel": "2:1",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    },
+    {
+      "attack": [
+        "G-MOT"
+      ],
+      "defender": "S-ELITE",
+      "terrain": "HILL",
+      "context": {
+        "attackerSide": "GERMAN",
+        "target": {
+          "q": 0,
+          "r": 0
+        },
+        "attackerUnitIds": [
+          "A0"
+        ],
+        "defenderUnitIds": [
+          "D"
+        ],
+        "attackStrength": 6,
+        "rawDefenseStrength": 5,
+        "finalDefenseStrength": 5,
+        "defenseStrength": 5,
+        "oosSurroundedDefenseHalved": false,
+        "baseOdds": "1:1",
+        "baseCRTColumn": 3,
+        "modifiers": {
+          "terrainShift": -1,
+          "riverShift": 0,
+          "engineerShift": 0,
+          "combinedArmsShift": 0,
+          "unsupportedArmorShift": 0,
+          "antiTankShift": 0,
+          "attackerArtilleryShift": 0,
+          "defenderArtilleryShift": 0,
+          "flankShift": 0,
+          "entrenchmentShift": 0,
+          "hqShift": 0,
+          "secondAttackShift": 0,
+          "rawShift": -1,
+          "cappedShift": -1
+        },
+        "finalShift": -1,
+        "finalCRTColumn": 2,
+        "finalCRTColumnLabel": "2:3",
+        "attackerArtilleryUnitId": null,
+        "defenderArtilleryUnitId": null
+      }
+    }
+  ],
+  "sourceSHA256": {
+    "core/source/src/scenario/defaultRules.ts": "c8cc54c45bf18811c4462c14e3364f74cbc277254d619f21fbcec9458c71de5a",
+    "core/source/src/scenario/defaultScenario.ts": "40e1a8683a9385f5e1ad421c97000cf4848844d945b8bd27da8617bc12dac04e",
+    "experiments/supply-exp-005/core/src/scenario/defaultRules.ts": "c8cc54c45bf18811c4462c14e3364f74cbc277254d619f21fbcec9458c71de5a",
+    "experiments/supply-exp-005/core/src/scenario/defaultScenario.ts": "40e1a8683a9385f5e1ad421c97000cf4848844d945b8bd27da8617bc12dac04e",
+    "vendor/eastfront-digital-core/dist/scenario/defaultRules.js": "3ddcf45985cf429d6bbf92bbcc2f20ea1880aba7f31f36f7f4cc8a3c38911c8b",
+    "vendor/eastfront-digital-core/dist/scenario/defaultScenario.js": "33eb1bde9c139694fc268fd03a9cde70ccca918032116b9ba53f26c416ee5690",
+    "core/source/src/rules/movement.ts": "8c72388fc2db70f802a849f12b3f810b30be95bae757aaa15d4d596733c1eeda",
+    "core/source/src/rules/combat.ts": "782ffb3bd964efdce96398d48d09dbcbf1f86f3bd9d65ba8be42b6dc35b5fe21",
+    "core/source/src/rules/combatLoss.ts": "0bc6a86e2c4c0f54ff1430cf5d1924acd5c30ae6babdac9d070d09f5f3df10e5",
+    "core/source/src/rules/combatTransaction.ts": "a7790238f29892876a8bc8a7010326f5cac3dab12f7ed9cd6ebfa14a26bb2c40",
+    "experiments/supply-exp-005/core/src/rules/unit.ts": "f47713e4c2d59b9803b2219c5af7240a997fdc196393910e12364b39f161f86f",
+    "experiments/supply-exp-005/core/src/rules/movement.ts": "64ef1a9bc0c1a7babea376fa26064c3f2052eb59bfa680f5a926f9587583075d",
+    "experiments/supply-exp-005/core/src/rules/combat.ts": "0f3897c9239e418664b47f92501fb7a36251ee0249e2e5c3eb912032b6a86d69"
+  }
+}

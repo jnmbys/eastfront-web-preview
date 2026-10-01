@@ -1,0 +1,1005 @@
+{
+  "baseline": "813b4072568352e95d0726fe5fe04060c889c554",
+  "scenarioId": "strategic-reset-f",
+  "turnLimit": 16,
+  "board": {
+    "paperColumns": 32,
+    "paperRows": 20
+  },
+  "calendarDate": null,
+  "daysPerTurn": null,
+  "kmPerHex": null,
+  "formalUnitEchelon": null,
+  "templates": [
+    {
+      "id": "G-INF",
+      "side": "GERMAN",
+      "type": "INFANTRY",
+      "steps": [
+        {
+          "attack": 5,
+          "defense": 5,
+          "movement": 3
+        },
+        {
+          "attack": 4,
+          "defense": 4,
+          "movement": 3
+        },
+        {
+          "attack": 3,
+          "defense": 3,
+          "movement": 2
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": true,
+      "isArmor": false,
+      "infantryCoordination": true,
+      "isSupport": false,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "G-I-01",
+        "G-I-02",
+        "G-I-03",
+        "G-I-04",
+        "G-I-05",
+        "G-I-06",
+        "G-I-07",
+        "G-I-08",
+        "G-I-09",
+        "G-I-10",
+        "G-I-11"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-JAGER",
+      "side": "GERMAN",
+      "type": "JAGER",
+      "steps": [
+        {
+          "attack": 5,
+          "defense": 5,
+          "movement": 4
+        },
+        {
+          "attack": 4,
+          "defense": 4,
+          "movement": 4
+        },
+        {
+          "attack": 3,
+          "defense": 3,
+          "movement": 3
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": true,
+      "isArmor": false,
+      "infantryCoordination": true,
+      "isSupport": false,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "G-J-01",
+        "G-J-02"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-PANZER",
+      "side": "GERMAN",
+      "type": "PANZER",
+      "steps": [
+        {
+          "attack": 8,
+          "defense": 6,
+          "movement": 6
+        },
+        {
+          "attack": 6,
+          "defense": 5,
+          "movement": 6
+        },
+        {
+          "attack": 4,
+          "defense": 3,
+          "movement": 5
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": true,
+      "infantryCoordination": false,
+      "isSupport": false,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "G-PZ-01",
+        "G-PZ-02",
+        "G-PZ-03",
+        "G-PZ-04"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-MOT",
+      "side": "GERMAN",
+      "type": "MOTORIZED",
+      "steps": [
+        {
+          "attack": 6,
+          "defense": 5,
+          "movement": 5
+        },
+        {
+          "attack": 5,
+          "defense": 4,
+          "movement": 5
+        },
+        {
+          "attack": 3,
+          "defense": 3,
+          "movement": 4
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": true,
+      "isSupport": false,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "G-MOT-01",
+        "G-MOT-02",
+        "G-MOT-03"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-ARTY",
+      "side": "GERMAN",
+      "type": "ARTILLERY",
+      "steps": [
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 2
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 2
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 1
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": false,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": true,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "G-ART-01",
+        "G-ART-02"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-ENG",
+      "side": "GERMAN",
+      "type": "ENGINEER",
+      "steps": [
+        {
+          "attack": 3,
+          "defense": 3,
+          "movement": 3
+        },
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 3
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 2
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": false,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": true,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "G-ENG-01",
+        "G-ENG-02"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-RECON",
+      "side": "GERMAN",
+      "type": "RECON",
+      "steps": [
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 6
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 6
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 5
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": false,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "G-REC-01",
+        "G-REC-02"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "G-HQ",
+      "side": "GERMAN",
+      "type": "HQ",
+      "steps": [
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 4
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 4
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 4
+        }
+      ],
+      "maxDamageSteps": 1,
+      "exertsZoc": false,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": true,
+      "recoveryCostPerStep": 1,
+      "initialIds": [],
+      "reinforcementIds": []
+    },
+    {
+      "id": "S-INF",
+      "side": "SOVIET",
+      "type": "INFANTRY",
+      "steps": [
+        {
+          "attack": 3,
+          "defense": 3,
+          "movement": 3
+        },
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 3
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 2
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": true,
+      "isArmor": false,
+      "infantryCoordination": true,
+      "isSupport": false,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "S-I-01",
+        "S-I-02",
+        "S-I-03",
+        "S-I-04",
+        "S-I-05",
+        "S-I-06",
+        "S-I-07",
+        "S-I-08",
+        "S-I-09",
+        "S-I-10",
+        "S-I-11",
+        "S-I-12",
+        "S-I-13",
+        "S-I-14",
+        "S-I-15",
+        "S-I-16"
+      ],
+      "reinforcementIds": [
+        "S-R-T04-G01-U01",
+        "S-R-T04-G01-U02",
+        "S-R-T07-G02-U01",
+        "S-R-T07-G02-U02",
+        "S-R-T10-G03-U01",
+        "S-R-T13-G04-U01"
+      ]
+    },
+    {
+      "id": "S-ELITE",
+      "side": "SOVIET",
+      "type": "ELITE_INFANTRY",
+      "steps": [
+        {
+          "attack": 5,
+          "defense": 5,
+          "movement": 3
+        },
+        {
+          "attack": 4,
+          "defense": 4,
+          "movement": 3
+        },
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 2
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": true,
+      "isArmor": false,
+      "infantryCoordination": true,
+      "isSupport": false,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "S-EL-01",
+        "S-EL-02"
+      ],
+      "reinforcementIds": [
+        "S-R-T13-G04-U03"
+      ]
+    },
+    {
+      "id": "S-TANK",
+      "side": "SOVIET",
+      "type": "TANK",
+      "steps": [
+        {
+          "attack": 6,
+          "defense": 5,
+          "movement": 5
+        },
+        {
+          "attack": 4,
+          "defense": 4,
+          "movement": 5
+        },
+        {
+          "attack": 3,
+          "defense": 2,
+          "movement": 4
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": true,
+      "infantryCoordination": false,
+      "isSupport": false,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "S-TK-01",
+        "S-TK-02",
+        "S-TK-03"
+      ],
+      "reinforcementIds": [
+        "S-R-T10-G03-U03",
+        "S-R-T13-G04-U02",
+        "S-R-T15-G05-U01"
+      ]
+    },
+    {
+      "id": "S-MOT",
+      "side": "SOVIET",
+      "type": "MOTORIZED",
+      "steps": [
+        {
+          "attack": 4,
+          "defense": 4,
+          "movement": 5
+        },
+        {
+          "attack": 3,
+          "defense": 3,
+          "movement": 4
+        },
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 4
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": true,
+      "isSupport": false,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "S-MOT-01",
+        "S-MOT-02"
+      ],
+      "reinforcementIds": [
+        "S-R-T10-G03-U02",
+        "S-R-T15-G05-U02"
+      ]
+    },
+    {
+      "id": "S-HEAVY",
+      "side": "SOVIET",
+      "type": "HEAVY_TANK",
+      "steps": [
+        {
+          "attack": 5,
+          "defense": 7,
+          "movement": 4
+        },
+        {
+          "attack": 4,
+          "defense": 6,
+          "movement": 4
+        },
+        {
+          "attack": 2,
+          "defense": 4,
+          "movement": 3
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": true,
+      "infantryCoordination": false,
+      "isSupport": false,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "S-HV-01"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "S-AT",
+      "side": "SOVIET",
+      "type": "ANTI_TANK",
+      "steps": [
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 3
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 3
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 2
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": true,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": false,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "S-AT-01",
+        "S-AT-02",
+        "S-AT-03"
+      ],
+      "reinforcementIds": [
+        "S-R-T07-G02-U03"
+      ]
+    },
+    {
+      "id": "S-ARTY",
+      "side": "SOVIET",
+      "type": "ARTILLERY",
+      "steps": [
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 2
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 2
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 1
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": false,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": true,
+      "recoveryCostPerStep": 2,
+      "initialIds": [
+        "S-ART-01",
+        "S-ART-02",
+        "S-ART-03"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "S-ENG",
+      "side": "SOVIET",
+      "type": "ENGINEER",
+      "steps": [
+        {
+          "attack": 2,
+          "defense": 2,
+          "movement": 3
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 3
+        },
+        {
+          "attack": 1,
+          "defense": 1,
+          "movement": 2
+        }
+      ],
+      "maxDamageSteps": 3,
+      "exertsZoc": false,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": true,
+      "recoveryCostPerStep": 1,
+      "initialIds": [
+        "S-ENG-01",
+        "S-ENG-02"
+      ],
+      "reinforcementIds": []
+    },
+    {
+      "id": "S-HQ",
+      "side": "SOVIET",
+      "type": "HQ",
+      "steps": [
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 4
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 4
+        },
+        {
+          "attack": 0,
+          "defense": 1,
+          "movement": 4
+        }
+      ],
+      "maxDamageSteps": 1,
+      "exertsZoc": false,
+      "canEntrench": false,
+      "isArmor": false,
+      "infantryCoordination": false,
+      "isSupport": true,
+      "recoveryCostPerStep": 1,
+      "initialIds": [],
+      "reinforcementIds": []
+    }
+  ],
+  "initial": [
+    {
+      "id": "G-I-01",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-02",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-03",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-04",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-05",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-06",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-07",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-08",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-09",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-10",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-I-11",
+      "templateId": "G-INF",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-J-01",
+      "templateId": "G-JAGER",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-J-02",
+      "templateId": "G-JAGER",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-PZ-01",
+      "templateId": "G-PANZER",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-PZ-02",
+      "templateId": "G-PANZER",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-PZ-03",
+      "templateId": "G-PANZER",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-PZ-04",
+      "templateId": "G-PANZER",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-MOT-01",
+      "templateId": "G-MOT",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-MOT-02",
+      "templateId": "G-MOT",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-MOT-03",
+      "templateId": "G-MOT",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-ART-01",
+      "templateId": "G-ARTY",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-ART-02",
+      "templateId": "G-ARTY",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-ENG-01",
+      "templateId": "G-ENG",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-ENG-02",
+      "templateId": "G-ENG",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-REC-01",
+      "templateId": "G-RECON",
+      "side": "GERMAN"
+    },
+    {
+      "id": "G-REC-02",
+      "templateId": "G-RECON",
+      "side": "GERMAN"
+    },
+    {
+      "id": "S-I-01",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-02",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-03",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-04",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-05",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-06",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-07",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-08",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-09",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-10",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-11",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-12",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-13",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-14",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-15",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-I-16",
+      "templateId": "S-INF",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-EL-01",
+      "templateId": "S-ELITE",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-EL-02",
+      "templateId": "S-ELITE",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-TK-01",
+      "templateId": "S-TANK",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-TK-02",
+      "templateId": "S-TANK",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-TK-03",
+      "templateId": "S-TANK",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-MOT-01",
+      "templateId": "S-MOT",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-MOT-02",
+      "templateId": "S-MOT",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-HV-01",
+      "templateId": "S-HEAVY",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-AT-01",
+      "templateId": "S-AT",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-AT-02",
+      "templateId": "S-AT",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-AT-03",
+      "templateId": "S-AT",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-ART-01",
+      "templateId": "S-ARTY",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-ART-02",
+      "templateId": "S-ARTY",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-ART-03",
+      "templateId": "S-ARTY",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-ENG-01",
+      "templateId": "S-ENG",
+      "side": "SOVIET"
+    },
+    {
+      "id": "S-ENG-02",
+      "templateId": "S-ENG",
+      "side": "SOVIET"
+    }
+  ],
+  "reinforcements": [
+    {
+      "id": "S-R-T04-G01-U01",
+      "scheduledTurn": 4,
+      "type": "INFANTRY",
+      "templateId": "S-INF"
+    },
+    {
+      "id": "S-R-T04-G01-U02",
+      "scheduledTurn": 4,
+      "type": "INFANTRY",
+      "templateId": "S-INF"
+    },
+    {
+      "id": "S-R-T07-G02-U01",
+      "scheduledTurn": 7,
+      "type": "INFANTRY",
+      "templateId": "S-INF"
+    },
+    {
+      "id": "S-R-T07-G02-U02",
+      "scheduledTurn": 7,
+      "type": "INFANTRY",
+      "templateId": "S-INF"
+    },
+    {
+      "id": "S-R-T07-G02-U03",
+      "scheduledTurn": 7,
+      "type": "ANTI_TANK",
+      "templateId": "S-AT"
+    },
+    {
+      "id": "S-R-T10-G03-U01",
+      "scheduledTurn": 10,
+      "type": "INFANTRY",
+      "templateId": "S-INF"
+    },
+    {
+      "id": "S-R-T10-G03-U02",
+      "scheduledTurn": 10,
+      "type": "MOTORIZED",
+      "templateId": "S-MOT"
+    },
+    {
+      "id": "S-R-T10-G03-U03",
+      "scheduledTurn": 10,
+      "type": "TANK",
+      "templateId": "S-TANK"
+    },
+    {
+      "id": "S-R-T13-G04-U01",
+      "scheduledTurn": 13,
+      "type": "INFANTRY",
+      "templateId": "S-INF"
+    },
+    {
+      "id": "S-R-T13-G04-U02",
+      "scheduledTurn": 13,
+      "type": "TANK",
+      "templateId": "S-TANK"
+    },
+    {
+      "id": "S-R-T13-G04-U03",
+      "scheduledTurn": 13,
+      "type": "ELITE_INFANTRY",
+      "templateId": "S-ELITE"
+    },
+    {
+      "id": "S-R-T15-G05-U01",
+      "scheduledTurn": 15,
+      "type": "TANK",
+      "templateId": "S-TANK"
+    },
+    {
+      "id": "S-R-T15-G05-U02",
+      "scheduledTurn": 15,
+      "type": "MOTORIZED",
+      "templateId": "S-MOT"
+    }
+  ]
+}
