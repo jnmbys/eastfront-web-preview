@@ -1,0 +1,65 @@
+{
+  "config": {
+    "task": "AI-ADVANCE-014",
+    "management": "c7531c70fab4b7c7402cd2f7d927c2134adee228",
+    "baseline": "ecb15ce201a4ca096bab2cb918f7c295dd474eda",
+    "candidate": "3f9c1441c50a4cb44638c816070df58d6bc96db6",
+    "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+    "seeds": [
+      1017,
+      1018
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "sharedRetreat": "AI-RETREAT-010 minimalAgent on both seats in all eight games",
+    "limits": {
+      "maxGames": 2,
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 420000
+    },
+    "runOrder": "1017 experiment GERMAN, then 1018 experiment GERMAN; no old-version or Soviet-seat matches",
+    "exposureDefinition": "For each UnitAdvanced, count UnitStepLost and UnitDestroyed for that unit during the next opposing side's phases; end at next own side phase, game end is censored. Also report matched baseline unit losses in same turn window.",
+    "rngLimitation": "Identical initial seed does not align later battle dice if different actions change RNG draw consumption.",
+    "decisionRule": "No retuning or expansion. Abandon adoption if near-all-PASS/return to baseline or if claimed mobility/objective benefit is unsupported; distinguish synthetic retained opportunities from actual games. No claim of overall strength from zero losses, fewer advances, or C156 alone.",
+    "audit": "92805a8550ddfb314fa77828d6c83b5a2f7f5e27",
+    "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+    "testedSeat": "GERMAN",
+    "versionsRun": [
+      "experiment"
+    ],
+    "guard": "Exclude candidate iff identified enemy ID set adjacent to destination minus set adjacent to origin is nonempty; continue other candidates.",
+    "mobilityDefinition": "For each accepted advance, inspect advanced unit at first and last following own movement decision; record alive/hasMoved, visible adjacency, finite scorer moves and actual forward MOVE. Offline Core neighbor legality is audit-only. Compare original advances with denominator and same-unit/turn checkpoints; do not infer benefit from fewer advances alone.",
+    "protectionCounting": "Report distinct offered windows, legacy-eligible unit candidates excluded, windows with any exclusion, changed choice vs original policy on same DTO, retained candidates declined. Do not conflate candidate counts with decisions."
+  },
+  "buildIdentityHash": "dc4cd5076ad530d11d10bcd3b08428d5554f2461b60da66c9b057256a2ec5eb0",
+  "preRegistrationCommit": "027dc73607b2c32cec69df1816f971dd999d668a",
+  "rules": {
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "jobs": [
+    {
+      "id": "development-1017-experiment-GERMAN",
+      "seed": 1017,
+      "version": "experiment",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "development-1018-experiment-GERMAN",
+      "seed": 1018,
+      "version": "experiment",
+      "seat": "GERMAN"
+    }
+  ],
+  "startedAt": "2026-10-01T07:21:59.758Z"
+}
