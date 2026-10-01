@@ -1,0 +1,66 @@
+{
+  "config": {
+    "task": "AI-MOVE-TIE-020",
+    "baseline": "a655892a1eed5f8a136b6c73b9d9000560df8d91",
+    "audit015": "69d1638d6c292346e27ddc3accce6bdb6e4064d4",
+    "audit016": "51b19025ba0c246da3e5a0ffd2c3f5d942933451",
+    "opponent": "695ca0524eb039808491b18c69cea1fb74da0cca",
+    "seeds": [
+      1017,
+      1018
+    ],
+    "agentSeeds": {
+      "GERMAN": 101,
+      "SOVIET": 202
+    },
+    "parameters": {
+      "attackRatio": 1.5,
+      "penaltyWeight": 0.75
+    },
+    "limits": {
+      "maxGames": 2,
+      "maxDecisions": 1800,
+      "matchMs": 180000,
+      "batchMs": 420000
+    },
+    "classification": "DEVELOPMENT_REUSE_NOT_HOLDOUT",
+    "runOrder": "1017 then1018 candidate GERMAN only; reuse014 records; no017/019 strategy",
+    "fixedUnits": [
+      "G-I-08",
+      "G-PZ-04",
+      "G-PZ-01",
+      "G-MOT-03",
+      "G-J-02"
+    ],
+    "sharedRetreat": "Unchanged AI-RETREAT-010 on both seats",
+    "experiment": "Only exact German MOVE primary-score ties prefer the full prefix endpoint nearest a public capital core; equal distance retains original stable order, other action slots fixed.",
+    "targetDistance": "minimum hexDistance(full submitted MOVE prefix endpoint, public rules.objectives capital cores); absolute distance, not own relative gain",
+    "stableTie": "Existing order retained for equal secondary distance; only MOVE slots reordered inside exact primary-score groups",
+    "rngLimitation": "Identical initial seed does not align later battle dice if different actions change RNG draw consumption.",
+    "stopRule": "Exactly two candidate German development games after targeted checks; no retuning, expansion,017/019 additions or deployment"
+  },
+  "buildIdentityHash": "545bb3f374580094ab60764e6cc46565440d89220b9e6d218fe036269c2d4f9a",
+  "preRegistrationCommit": "d626cc38a996e746671fef3cb02fe28f0a1c33f3",
+  "rules": {
+    "rulesId": "paper-rules-digital-branch-0.1",
+    "scenarioId": "strategic-reset-f",
+    "rulesHash": "7fad258f8e5902df7afd2ba945ab16f893bd80ac0643b541c3383d2c7f0e0542",
+    "scenarioHash": "065c284b584e7cb8de02ca12a350202b47a514690b139ac877efcd6dec468f90",
+    "mapHash": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3"
+  },
+  "jobs": [
+    {
+      "id": "development-1017-experiment-GERMAN",
+      "seed": 1017,
+      "version": "experiment",
+      "seat": "GERMAN"
+    },
+    {
+      "id": "development-1018-experiment-GERMAN",
+      "seed": 1018,
+      "version": "experiment",
+      "seat": "GERMAN"
+    }
+  ],
+  "startedAt": "2026-10-01T13:12:16.315Z"
+}

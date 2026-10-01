@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {hash,atomic} from '../../ai/lab/common.mjs';
+import {records} from '../../ai/lab/runner.mjs';
+const out='evidence/ai-move-tie-020',b=JSON.parse(readFileSync(out+'/build-identity.json')),c=JSON.parse(readFileSync(out+'/config.json')),manifest=JSON.parse(readFileSync(out+'/manifest.json')),games=[];
+assert.equal(hash(readFileSync(out+'/config.json')),b.configHash);assert.equal(hash(b),manifest.buildIdentityHash);assert.deepEqual(c.seeds,[1017,1018]);assert.equal(manifest.jobs.length,2);assert.equal(manifest.preRegistrationCommit,'d626cc38a996e746671fef3cb02fe28f0a1c33f3');
+for(const [name,dir] of [['experiment','.ai-dist'],['baseline014','.evaluation/baseline014/.ai-dist'],['original','.evaluation/original/.ai-dist'],['opponent','.evaluation/ai005/.ai-dist']])for(const [p,h] of b[name])assert.equal(hash(readFileSync(dir+'/'+p)),h);
+assert.equal(execFileSync('git',['diff',manifest.preRegistrationCommit,'--','ai','src','vendor'],{encoding:'utf8'}),'');
+const sourceChanges=execFileSync('git',['diff',c.baseline,'--name-only','--','ai/fair','ai/authority','src','vendor'],{encoding:'utf8'}).trim().split('\n');assert.deepEqual(sourceChanges,['ai/fair/basicAgent.ts','ai/fair/moveTie.ts']);
+for(const seed of c.seeds){
+ const dir=`${out}/batch/development-${seed}-experiment-GERMAN`,r=JSON.parse(readFileSync(dir+'/record.json')),old=JSON.parse(readFileSync(`evidence/ai-advance-014/batch/development-${seed}-experiment-GERMAN/record.json`)),a=JSON.parse(readFileSync(`${out}/${seed}-020-audit.json`)),base=JSON.parse(readFileSync(`${out}/baseline-${seed}.json`)),rows=records(dir+'/trace.ndjson');
+ assert.equal(r.integrity,'PASS');assert.equal(r.status,'GAME_OVER');assert.equal(r.configHash,b.configHash);assert.equal(r.buildIdentityHash,hash(b));assert.equal(hash(rows),r.traceHash);assert.equal(hash(readFileSync(dir+'/trace.ndjson')),r.traceFileHash);assert.equal(rows.length,r.decisions);assert(rows.every((r,i)=>r.n===i));assert.deepEqual(r.rules,old.rules);assert.equal(a.finalHash,r.finalHash);assert.equal(base.finalHash,old.finalHash);assert.equal(base.traceFileHash,old.traceFileHash);assert.equal(a.final.units.length,26);
+ const probes=rows.filter(r=>r.movementProbe);for(const row of probes){const p=row.movementProbe;assert(p.metrics.expanded<=32768);if(p.changed){assert(p.newEndpointDistance<p.oldEndpointDistance);assert.equal(row.choice.intent.type,'MOVE');assert.equal(p.original.intent.type,'MOVE');assert(p.topTied.some(t=>JSON.stringify(t.intent)===JSON.stringify(row.choice.intent)));}}
+ games.push({seed,decisions:r.decisions,finalHash:r.finalHash,allGermanUnits:26,changedDecisions:a.ties.changedDecisions,acceptedChanged:a.ties.acceptedChanged,policyProbeDecisions:probes.length,searchBudgetExceeded:false});
+}
+atomic(out+'/verification.json',{status:'PASS',exactNewGames:2,oldGamesRerun:0,sourceChanges,runtimeChanges:b.runtimeChanges,preregisteredCommit:manifest.preRegistrationCommit,configAndRuntimeStillFrozen:true,traceIntegrityAndCanonicalReplay:true,fairHostReplay:'analyze.mjs checked every stored observation/input hash/receipt/final state; run.mjs performed canonical replay',games});console.log('PASS: exact two games, full stored replay integrity, primary-tie-only changes, unchanged search budget and frozen config/runtime.');
