@@ -1,15 +1,34 @@
-// Explicitly descriptive only: no P95 or performance improvement claims from ten trials.
+// Descriptive only; every category retains its metrics and complete source rows.
 import {readFileSync} from 'node:fs';
+import {resolve} from 'node:path';
 import {VERSIONS,FORMAT,SERVER_SHA} from './config.mjs';
-const data=JSON.parse(readFileSync(process.argv[2],'utf8')),groups=new Map();
-for(const row of data.rows??[]){
- const key=JSON.stringify([row.deviceRunId??'legacy-preflight',row.device,row.platform,row.network,row.scenario,row.mode,row.version,row.sourceSha,row.samplerSha256,row.harnessSha256,row.metrics?.compression]);
- if(!groups.has(key))groups.set(key,{group:JSON.parse(key),attempts:0,excluded:0,automaticComplete:0,videoReviewed:0,samples:[]});
- const g=groups.get(key),m=row.metrics;g.attempts++;
- if(row.check!=='sample'||row.invalidBuild||row.sourceSha!==VERSIONS[row.version]||row.serverSha!==SERVER_SHA||row.snapshotFormat!==FORMAT||!m||m.snapshotFormat!==FORMAT||m.flags.length||m.rejected||m.submitCount!==1||row.observation?.outcome==='invalid'){g.excluded++;continue;}
- if(Number.isFinite(m.authorizedAppliedMs)&&Number.isFinite(m.interactiveMs))g.automaticComplete++;
- if(row.observation?.method==='manual-video'&&Number.isFinite(m.visibleFeedbackMs)&&row.observation?.fps>0)g.videoReviewed++;
- g.samples.push(m);
+import {classify,statistics} from './web/classify.mjs';
+const expected = {versions:VERSIONS, format:FORMAT, serverSha:SERVER_SHA};
+const metricNames = ['visibleFeedbackMs','feedbackFrameOpportunityMs','authorizedAppliedMs','interactiveMs','ackMs'];
+export function summarize(data) {
+  const groups = new Map();
+  for (const [sourceIndex,row] of (data.rows ?? []).entries()) {
+    const key = JSON.stringify([row.deviceRunId??'legacy-preflight',row.device,row.platform,row.network,row.scenario,
+      row.mode,row.version,row.sourceSha,row.samplerSha256,row.harnessSha256,row.metrics?.compression]);
+    if (!groups.has(key)) groups.set(key,{group:JSON.parse(key),attempts:0,buckets:{}});
+    const group = groups.get(key), classification = classify(row,expected);
+    group.attempts++;
+    const bucket = group.buckets[classification.category] ??= {count:0,reasonCounts:{},records:[]};
+    bucket.count++;
+    for (const reason of classification.reasons) bucket.reasonCounts[reason]=(bucket.reasonCounts[reason]??0)+1;
+    bucket.records.push({sourceIndex,classification,row});
+  }
+  for (const group of groups.values()) {
+    for (const category of ['normal','abnormal','incomplete','warmup','check','excluded']) {
+      const bucket = group.buckets[category] ??= {count:0,reasonCounts:{},records:[]};
+      bucket.metrics=Object.fromEntries(metricNames.map(name=>[name,statistics(bucket.records.map(r=>r.row.metrics?.[name]))]));
+    }
+    group.normalCount=group.buckets.normal.count;
+    group.normalVideoReviewed=group.buckets.normal.records.filter(({row})=>row.observation?.method==='manual-video' &&
+      Number.isFinite(row.metrics?.visibleFeedbackMs) && row.metrics.visibleFeedbackMs>=0 && row.observation?.fps>0).length;
+    group.target=10;group.targetNormalMet=group.normalCount>=10;group.targetVideoMet=group.normalVideoReviewed>=10;
+  }
+  return {schema:'MP010-descriptive-v2',warning:'Exploratory only. No stable P95 or lower-network-latency inference. Missing values never become zero. Categories are exclusive; all reasons and original rows are retained.',groups:[...groups.values()]};
 }
-function summary(values){const xs=values.filter(x=>Number.isFinite(x)&&x>=0).sort((a,b)=>a-b),n=xs.length;return {n,min:n?xs[0]:null,median:n?(xs[Math.floor((n-1)/2)]+xs[Math.floor(n/2)])/2:null,max:n?xs[n-1]:null};}
-console.log(JSON.stringify({schema:'MP010-descriptive-v1',warning:'Exploratory only. No stable P95 or lower-network-latency inference. Null/manual-unreviewed is missing, never zero.',groups:[...groups.values()].map(({samples,...g})=>({...g,target:10,targetAutomaticMet:g.automaticComplete>=10,targetVideoMet:g.videoReviewed>=10,metrics:Object.fromEntries(['visibleFeedbackMs','feedbackFrameOpportunityMs','authorizedAppliedMs','interactiveMs','ackMs'].map(k=>[k,summary(samples.map(s=>s[k]))]))}))},null,2));
+if(process.argv[1]&&resolve(process.argv[1])===resolve(import.meta.filename))
+  console.log(JSON.stringify(summarize(JSON.parse(readFileSync(process.argv[2],'utf8'))),null,2));

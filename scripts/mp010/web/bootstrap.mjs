@@ -1,6 +1,7 @@
 import {NetworkPlayerSession} from '../app/multiplayer/networkSession.js';
 import {LobbyClient} from '../app/multiplayer/client.js';
 import {Trial} from './measure.mjs';
+import {ForegroundGate} from './foreground.mjs';
 const build=await (await fetch('./mp010-build.json',{cache:'no-store'})).json();
 const config=await (await fetch('./multiplayer-config.json',{cache:'no-store'})).json();
 const query=new URLSearchParams(location.search),scenario=query.get('scenario');
@@ -8,8 +9,19 @@ if(!isSecureContext||typeof crypto.randomUUID!=='function')throw Error('MP010 re
 // A fresh identity per fresh iframe creates the same clean scenario. Never read/export the token.
 sessionStorage.removeItem(`eastfront.mp.identity:${config.serverUrl}`);
 let trial=null,input=null,entry=null,baselineStatus='',session=null,frame=0,bootSteps=new Set();
+const gate=new ForegroundGate();let targetPrepared=false,preparation=null,waitTimer=null,lastWaitLabel='';
 const scope=s=>JSON.stringify([s.client.state.snapshot?.matchId,s.model.viewerControllerId]);
 const message=(type,data)=>parent.postMessage({source:'MP010',type,...data},location.origin);
+function gateState(){
+ const button=document.querySelector(scenario==='move'?'#move-commit':'#confirm-deployment');
+ return gate.update(performance.now(),document.visibilityState==='visible',targetPrepared&&!!button&&!button.disabled);
+}
+function showWait(){
+ if(trial)return;
+ const state=gateState(),label=state.satisfiedAtInput?'ready':`waiting-${Math.ceil(Math.max(0,5000-state.continuousVisibleMs)/1000)}`;
+ if(label!==lastWaitLabel){lastWaitLabel=label;message(state.satisfiedAtInput?'ready':'waiting',{remainingMs:Math.max(0,5000-state.continuousVisibleMs)});}
+}
+document.addEventListener('visibilitychange',()=>{if(!trial){gateState();showWait();}});
 function pollFeedback(){
  if(!trial||trial.feedback)return;
  if(document.visibilityState==='visible'){
@@ -22,6 +34,8 @@ function pollFeedback(){
 document.addEventListener('click',e=>{
  const button=e.target.closest?.('#confirm-deployment,#move-commit');if(!button)return;
  if(trial){trial.clicks++;return;}if(button.disabled)return;
+ const ready=gateState();if(!ready.satisfiedAtInput){e.preventDefault();e.stopImmediatePropagation();showWait();return;}
+ preparation=ready;clearInterval(waitTimer);
  input={at:performance.now(),kind:button.id==='move-commit'?'MOVE':'DEPLOY_INITIAL_UNIT'};
  baselineStatus=document.querySelector('#network-match-status')?.textContent??'';
  // Microtasks may run between capture and bubble listeners in native input dispatch.
@@ -61,7 +75,7 @@ for(const type of ['offline','online','visibilitychange'])window.addEventListene
 window.addEventListener('message',e=>{
  if(e.source!==parent||e.origin!==location.origin||e.data?.source!=='MP010')return;
  if(e.data.type==='finish'){
-  cancelAnimationFrame(frame);message('result',{build,result:trial?.result()??null,finalState:{interactive:session?.interactive??false,pendingMarker:!!document.querySelector('#pending-action-layer')}});
+  cancelAnimationFrame(frame);message('result',{build,result:trial?.result()??null,preparation,finalState:{interactive:session?.interactive??false,pendingMarker:!!document.querySelector('#pending-action-layer')}});
  }
 });
 await import('../app/main.js');
@@ -81,6 +95,6 @@ const timer=setInterval(()=>{
   if(once('target','[data-role="move-option"][data-hex="1,1"][data-legal="true"]'))return;
  }
  const confirm=document.querySelector(scenario==='move'?'#move-commit':'#confirm-deployment');
- if(confirm&&!confirm.disabled){clearInterval(timer);message('ready',{sourceSha:build.sourceSha,format:session?.client.snapshotFormat??build.snapshotFormat});}
+ if(confirm&&!confirm.disabled){clearInterval(timer);targetPrepared=true;showWait();waitTimer=setInterval(showWait,100);}
 },250);
 setTimeout(()=>{if(!document.querySelector('#eastfront-map'))message('setup-warning',{reason:'startup-not-ready'});},60000);

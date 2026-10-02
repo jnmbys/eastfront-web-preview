@@ -39,5 +39,5 @@ for(const scenario of ['deployment','move'])for(const mode of ['real','delay','t
   rows.push({scenario,mode,snapshotFormat:FORMAT,compression:ws.extensions,elapsedMs:performance.now()-started,ordered:true,events:events.map(e=>({...e,at:Math.round((e.at-started)*1000)/1000}))});
  }finally{ws.terminate();}
 }
-writeFileSync('evidence/mp-010/wire-smoke.json',JSON.stringify({origin,versions:VERSIONS,serverSha:manifest.serverSha,samplerSha256:manifest.samplerSha256,harnessSha256:manifest.harnessSha256,scope:'Local wire/fixture validation, not device measurements',rows},null,2)+'\n');
+writeFileSync('evidence/mp-010-r1/wire-smoke.json',JSON.stringify({origin,versions:VERSIONS,serverSha:manifest.serverSha,samplerSha256:manifest.samplerSha256,harnessSha256:manifest.harnessSha256,scope:'Local wire/fixture validation, not device measurements',rows},null,2)+'\n');
 console.log('MP010 local wire smoke: six scenario/mode combinations passed; FIFO and fixed-format negotiation verified');

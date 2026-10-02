@@ -13,6 +13,7 @@ export class Trial {
  result(){
   const applied=this.applied.get(this.accepted),ready=this.ready.get(this.accepted),delta=t=>t==null?null:Math.round((t-this.inputAt)*1000)/1000;
   return {schema:'MP010-v1',requestId:this.id,snapshotFormat:this.format,compression:this.compression,baseRevision:this.base,acceptedRevision:this.accepted,appliedSequence:applied?.sequence??null,
+   appliedRevision:applied?this.accepted:null,interactiveRevision:ready!=null?this.accepted:null,
    sendMs:delta(this.sentAt),ackMs:delta(this.ackAt),authorizedAppliedMs:delta(applied?.at),interactiveMs:delta(ready),
    feedbackFrameOpportunityMs:delta(this.feedback?.at),feedbackProxyKind:this.feedback?.kind??null,
    visibleFeedbackMs:null,visibleFeedbackMethod:'unreviewed-video',rejected:this.rejected,resyncCount:this.resyncs,queryCount:this.queries,confirmClicks:this.clicks,submitCount:this.submits,flags:[...this.flags]};

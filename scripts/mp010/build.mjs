@@ -41,5 +41,5 @@ for(const [label,ref] of Object.entries(VERSIONS)){
 const serverHashes=Object.fromEntries(files(join(out,'server')).map(p=>[relative(join(out,'server'),p).replaceAll('\\','/'),sha(readFileSync(p))]));
 const manifest={versions:VERSIONS,serverSha:SERVER_SHA,snapshotFormat:FORMAT,seed:SEED,modes:MODES,node:process.version,typescript:JSON.parse(readFileSync(join(repo,'node_modules/typescript/package.json'))).version,lockfileSha256:sha(readFileSync(join(repo,'package-lock.json'))),samplerSha256,harnessSha256,harnessHashes,server:{treeSha256:sha(JSON.stringify(serverHashes)),hashes:serverHashes},builds};
 writeFileSync(join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
-mkdirSync(join(repo,'evidence/mp-010'),{recursive:true});writeFileSync(join(repo,'evidence/mp-010/build-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+mkdirSync(join(repo,'evidence/mp-010-r1'),{recursive:true});writeFileSync(join(repo,'evidence/mp-010-r1/build-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 console.log('MP010 artifacts:',out);for(const [label,b] of Object.entries(builds))console.log(label,b.sourceSha,b.treeSha256);

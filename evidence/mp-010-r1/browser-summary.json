@@ -1,0 +1,1454 @@
+{
+  "schema": "MP010-descriptive-v2",
+  "warning": "Exploratory only. No stable P95 or lower-network-latency inference. Missing values never become zero. Categories are exclusive; all reasons and original rows are retained.",
+  "groups": [
+    {
+      "group": [
+        "22773197-0752-4af5-b55d-d471a9e5ff8b",
+        "桌面预检",
+        "Windows / Codex Chromium R1预检",
+        "本机回环预检",
+        "deployment",
+        "real",
+        "candidate",
+        "6ea4983047757a4a32a707a23d61f4962bca36d3",
+        "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+        "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+        "permessage-deflate"
+      ],
+      "attempts": 2,
+      "buckets": {
+        "warmup": {
+          "count": 1,
+          "reasonCounts": {},
+          "records": [
+            {
+              "sourceIndex": 0,
+              "classification": {
+                "category": "warmup",
+                "reasons": []
+              },
+              "row": {
+                "device": "桌面预检",
+                "platform": "Windows / Codex Chromium R1预检",
+                "network": "本机回环预检",
+                "scenario": "deployment",
+                "mode": "real",
+                "check": "warmup",
+                "deviceRunId": "22773197-0752-4af5-b55d-d471a9e5ff8b",
+                "version": "candidate",
+                "sourceSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "serverSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "snapshotFormat": "snapshot-v3-map-table",
+                "samplerSha256": "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+                "harnessSha256": "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+                "seed": 17,
+                "delays": {
+                  "ackMs": 0,
+                  "snapshotMs": 0
+                },
+                "trialId": "b4148a66-a722-4587-92b4-33b2d7a9b9f4",
+                "ordinal": 1,
+                "startedAt": "2026-10-02T06:15:27.728Z",
+                "viewport": {
+                  "width": 1280,
+                  "height": 720,
+                  "dpr": 1
+                },
+                "metrics": {
+                  "schema": "MP010-v1",
+                  "requestId": "18c3fee6-b458-4170-8425-8ce8ddb05bc6",
+                  "snapshotFormat": "snapshot-v3-map-table",
+                  "compression": "permessage-deflate",
+                  "baseRevision": 0,
+                  "acceptedRevision": 1,
+                  "appliedSequence": 3,
+                  "appliedRevision": 1,
+                  "interactiveRevision": 1,
+                  "sendMs": 0.4,
+                  "ackMs": 71.2,
+                  "authorizedAppliedMs": 116.4,
+                  "interactiveMs": 135.9,
+                  "feedbackFrameOpportunityMs": 62.4,
+                  "feedbackProxyKind": "pending-marker",
+                  "visibleFeedbackMs": null,
+                  "visibleFeedbackMethod": "unreviewed-video",
+                  "rejected": false,
+                  "resyncCount": 0,
+                  "queryCount": 0,
+                  "confirmClicks": 1,
+                  "submitCount": 1,
+                  "flags": []
+                },
+                "finalState": {
+                  "interactive": true,
+                  "pendingMarker": false
+                },
+                "preparation": {
+                  "requiredVisibleMs": 5000,
+                  "continuousVisibleMs": 19026.900000000373,
+                  "satisfiedAtInput": true
+                },
+                "observation": {
+                  "visibleFeedbackMs": null,
+                  "method": "unreviewed-video",
+                  "kind": "unreviewed",
+                  "clip": "",
+                  "fps": null,
+                  "outcome": "unreviewed"
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 1,
+              "min": 62.4,
+              "median": 62.4,
+              "max": 62.4
+            },
+            "authorizedAppliedMs": {
+              "n": 1,
+              "min": 116.4,
+              "median": 116.4,
+              "max": 116.4
+            },
+            "interactiveMs": {
+              "n": 1,
+              "min": 135.9,
+              "median": 135.9,
+              "max": 135.9
+            },
+            "ackMs": {
+              "n": 1,
+              "min": 71.2,
+              "median": 71.2,
+              "max": 71.2
+            }
+          }
+        },
+        "normal": {
+          "count": 1,
+          "reasonCounts": {},
+          "records": [
+            {
+              "sourceIndex": 2,
+              "classification": {
+                "category": "normal",
+                "reasons": []
+              },
+              "row": {
+                "device": "桌面预检",
+                "platform": "Windows / Codex Chromium R1预检",
+                "network": "本机回环预检",
+                "scenario": "deployment",
+                "mode": "real",
+                "check": "sample",
+                "deviceRunId": "22773197-0752-4af5-b55d-d471a9e5ff8b",
+                "version": "candidate",
+                "sourceSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "serverSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "snapshotFormat": "snapshot-v3-map-table",
+                "samplerSha256": "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+                "harnessSha256": "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+                "seed": 17,
+                "delays": {
+                  "ackMs": 0,
+                  "snapshotMs": 0
+                },
+                "trialId": "7f811964-f5ac-4fbd-a213-03c3d1071059",
+                "ordinal": 1,
+                "startedAt": "2026-10-02T06:16:27.716Z",
+                "viewport": {
+                  "width": 1280,
+                  "height": 720,
+                  "dpr": 1
+                },
+                "metrics": {
+                  "schema": "MP010-v1",
+                  "requestId": "63e3f002-b107-4e57-859a-661353af3182",
+                  "snapshotFormat": "snapshot-v3-map-table",
+                  "compression": "permessage-deflate",
+                  "baseRevision": 0,
+                  "acceptedRevision": 1,
+                  "appliedSequence": 3,
+                  "appliedRevision": 1,
+                  "interactiveRevision": 1,
+                  "sendMs": 0.3,
+                  "ackMs": 103.2,
+                  "authorizedAppliedMs": 117.8,
+                  "interactiveMs": 139.5,
+                  "feedbackFrameOpportunityMs": 988.3,
+                  "feedbackProxyKind": "authoritative-result",
+                  "visibleFeedbackMs": null,
+                  "visibleFeedbackMethod": "unreviewed-video",
+                  "rejected": false,
+                  "resyncCount": 0,
+                  "queryCount": 0,
+                  "confirmClicks": 1,
+                  "submitCount": 1,
+                  "flags": []
+                },
+                "finalState": {
+                  "interactive": true,
+                  "pendingMarker": false
+                },
+                "preparation": {
+                  "requiredVisibleMs": 5000,
+                  "continuousVisibleMs": 53163.60000000149,
+                  "satisfiedAtInput": true
+                },
+                "observation": {
+                  "visibleFeedbackMs": null,
+                  "method": "unreviewed-video",
+                  "kind": "unreviewed",
+                  "clip": "",
+                  "fps": null,
+                  "outcome": "unreviewed"
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 1,
+              "min": 988.3,
+              "median": 988.3,
+              "max": 988.3
+            },
+            "authorizedAppliedMs": {
+              "n": 1,
+              "min": 117.8,
+              "median": 117.8,
+              "max": 117.8
+            },
+            "interactiveMs": {
+              "n": 1,
+              "min": 139.5,
+              "median": 139.5,
+              "max": 139.5
+            },
+            "ackMs": {
+              "n": 1,
+              "min": 103.2,
+              "median": 103.2,
+              "max": 103.2
+            }
+          }
+        },
+        "abnormal": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "incomplete": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "check": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "excluded": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        }
+      },
+      "normalCount": 1,
+      "normalVideoReviewed": 0,
+      "target": 10,
+      "targetNormalMet": false,
+      "targetVideoMet": false
+    },
+    {
+      "group": [
+        "22773197-0752-4af5-b55d-d471a9e5ff8b",
+        "桌面预检",
+        "Windows / Codex Chromium R1预检",
+        "本机回环预检",
+        "deployment",
+        "real",
+        "control",
+        "73d2dee2f2dab3bfb09d6466d54fa391d19d39fb",
+        "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+        "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+        "permessage-deflate"
+      ],
+      "attempts": 2,
+      "buckets": {
+        "warmup": {
+          "count": 1,
+          "reasonCounts": {},
+          "records": [
+            {
+              "sourceIndex": 1,
+              "classification": {
+                "category": "warmup",
+                "reasons": []
+              },
+              "row": {
+                "device": "桌面预检",
+                "platform": "Windows / Codex Chromium R1预检",
+                "network": "本机回环预检",
+                "scenario": "deployment",
+                "mode": "real",
+                "check": "warmup",
+                "deviceRunId": "22773197-0752-4af5-b55d-d471a9e5ff8b",
+                "version": "control",
+                "sourceSha": "73d2dee2f2dab3bfb09d6466d54fa391d19d39fb",
+                "serverSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "snapshotFormat": "snapshot-v3-map-table",
+                "samplerSha256": "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+                "harnessSha256": "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+                "seed": 17,
+                "delays": {
+                  "ackMs": 0,
+                  "snapshotMs": 0
+                },
+                "trialId": "6e2ad604-2a8c-4d1f-844c-a6b50d3043ef",
+                "ordinal": 2,
+                "startedAt": "2026-10-02T06:15:54.7Z",
+                "viewport": {
+                  "width": 1280,
+                  "height": 720,
+                  "dpr": 1
+                },
+                "metrics": {
+                  "schema": "MP010-v1",
+                  "requestId": "6c1822af-235c-46a5-b9a2-a39996c1303b",
+                  "snapshotFormat": "snapshot-v3-map-table",
+                  "compression": "permessage-deflate",
+                  "baseRevision": 0,
+                  "acceptedRevision": 1,
+                  "appliedSequence": 3,
+                  "appliedRevision": 1,
+                  "interactiveRevision": 1,
+                  "sendMs": 0.3,
+                  "ackMs": 58.9,
+                  "authorizedAppliedMs": 109.8,
+                  "interactiveMs": 128.9,
+                  "feedbackFrameOpportunityMs": 52.9,
+                  "feedbackProxyKind": "status-change",
+                  "visibleFeedbackMs": null,
+                  "visibleFeedbackMethod": "unreviewed-video",
+                  "rejected": false,
+                  "resyncCount": 0,
+                  "queryCount": 0,
+                  "confirmClicks": 1,
+                  "submitCount": 1,
+                  "flags": []
+                },
+                "finalState": {
+                  "interactive": true,
+                  "pendingMarker": false
+                },
+                "preparation": {
+                  "requiredVisibleMs": 5000,
+                  "continuousVisibleMs": 24855.5,
+                  "satisfiedAtInput": true
+                },
+                "observation": {
+                  "visibleFeedbackMs": null,
+                  "method": "unreviewed-video",
+                  "kind": "unreviewed",
+                  "clip": "",
+                  "fps": null,
+                  "outcome": "unreviewed"
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 1,
+              "min": 52.9,
+              "median": 52.9,
+              "max": 52.9
+            },
+            "authorizedAppliedMs": {
+              "n": 1,
+              "min": 109.8,
+              "median": 109.8,
+              "max": 109.8
+            },
+            "interactiveMs": {
+              "n": 1,
+              "min": 128.9,
+              "median": 128.9,
+              "max": 128.9
+            },
+            "ackMs": {
+              "n": 1,
+              "min": 58.9,
+              "median": 58.9,
+              "max": 58.9
+            }
+          }
+        },
+        "normal": {
+          "count": 1,
+          "reasonCounts": {},
+          "records": [
+            {
+              "sourceIndex": 3,
+              "classification": {
+                "category": "normal",
+                "reasons": []
+              },
+              "row": {
+                "device": "桌面预检",
+                "platform": "Windows / Codex Chromium R1预检",
+                "network": "本机回环预检",
+                "scenario": "deployment",
+                "mode": "real",
+                "check": "sample",
+                "deviceRunId": "22773197-0752-4af5-b55d-d471a9e5ff8b",
+                "version": "control",
+                "sourceSha": "73d2dee2f2dab3bfb09d6466d54fa391d19d39fb",
+                "serverSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "snapshotFormat": "snapshot-v3-map-table",
+                "samplerSha256": "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+                "harnessSha256": "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+                "seed": 17,
+                "delays": {
+                  "ackMs": 0,
+                  "snapshotMs": 0
+                },
+                "trialId": "548525c7-5f58-4495-b1c6-cd1b614ca5b3",
+                "ordinal": 2,
+                "startedAt": "2026-10-02T06:17:29.356Z",
+                "viewport": {
+                  "width": 1280,
+                  "height": 720,
+                  "dpr": 1
+                },
+                "metrics": {
+                  "schema": "MP010-v1",
+                  "requestId": "3ff10af7-1f01-4182-abc7-89c920ff58ac",
+                  "snapshotFormat": "snapshot-v3-map-table",
+                  "compression": "permessage-deflate",
+                  "baseRevision": 0,
+                  "acceptedRevision": 1,
+                  "appliedSequence": 3,
+                  "appliedRevision": 1,
+                  "interactiveRevision": 1,
+                  "sendMs": 0.2,
+                  "ackMs": 107.8,
+                  "authorizedAppliedMs": 120,
+                  "interactiveMs": 138.3,
+                  "feedbackFrameOpportunityMs": 969.5,
+                  "feedbackProxyKind": "authoritative-result",
+                  "visibleFeedbackMs": null,
+                  "visibleFeedbackMethod": "unreviewed-video",
+                  "rejected": false,
+                  "resyncCount": 0,
+                  "queryCount": 0,
+                  "confirmClicks": 1,
+                  "submitCount": 1,
+                  "flags": []
+                },
+                "finalState": {
+                  "interactive": true,
+                  "pendingMarker": false
+                },
+                "preparation": {
+                  "requiredVisibleMs": 5000,
+                  "continuousVisibleMs": 35076,
+                  "satisfiedAtInput": true
+                },
+                "observation": {
+                  "visibleFeedbackMs": null,
+                  "method": "unreviewed-video",
+                  "kind": "unreviewed",
+                  "clip": "",
+                  "fps": null,
+                  "outcome": "unreviewed"
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 1,
+              "min": 969.5,
+              "median": 969.5,
+              "max": 969.5
+            },
+            "authorizedAppliedMs": {
+              "n": 1,
+              "min": 120,
+              "median": 120,
+              "max": 120
+            },
+            "interactiveMs": {
+              "n": 1,
+              "min": 138.3,
+              "median": 138.3,
+              "max": 138.3
+            },
+            "ackMs": {
+              "n": 1,
+              "min": 107.8,
+              "median": 107.8,
+              "max": 107.8
+            }
+          }
+        },
+        "abnormal": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "incomplete": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "check": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "excluded": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        }
+      },
+      "normalCount": 1,
+      "normalVideoReviewed": 0,
+      "target": 10,
+      "targetNormalMet": false,
+      "targetVideoMet": false
+    },
+    {
+      "group": [
+        "22773197-0752-4af5-b55d-d471a9e5ff8b",
+        "桌面预检",
+        "Windows / Codex Chromium R1预检",
+        "本机回环预检",
+        "move",
+        "delay",
+        "candidate",
+        "6ea4983047757a4a32a707a23d61f4962bca36d3",
+        "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+        "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+        "permessage-deflate"
+      ],
+      "attempts": 1,
+      "buckets": {
+        "normal": {
+          "count": 1,
+          "reasonCounts": {},
+          "records": [
+            {
+              "sourceIndex": 4,
+              "classification": {
+                "category": "normal",
+                "reasons": []
+              },
+              "row": {
+                "device": "桌面预检",
+                "platform": "Windows / Codex Chromium R1预检",
+                "network": "本机回环预检",
+                "scenario": "move",
+                "mode": "delay",
+                "check": "sample",
+                "deviceRunId": "22773197-0752-4af5-b55d-d471a9e5ff8b",
+                "version": "candidate",
+                "sourceSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "serverSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "snapshotFormat": "snapshot-v3-map-table",
+                "samplerSha256": "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+                "harnessSha256": "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+                "seed": 17,
+                "delays": {
+                  "ackMs": 1800,
+                  "snapshotMs": 4500
+                },
+                "trialId": "b53dd135-ecd5-4872-926a-4526edd424fd",
+                "ordinal": 1,
+                "startedAt": "2026-10-02T06:18:13.874Z",
+                "viewport": {
+                  "width": 1280,
+                  "height": 720,
+                  "dpr": 1
+                },
+                "metrics": {
+                  "schema": "MP010-v1",
+                  "requestId": "98031166-d41b-4056-9b31-d5d2f8bf56fd",
+                  "snapshotFormat": "snapshot-v3-map-table",
+                  "compression": "permessage-deflate",
+                  "baseRevision": 0,
+                  "acceptedRevision": 1,
+                  "appliedSequence": 7,
+                  "appliedRevision": 1,
+                  "interactiveRevision": 1,
+                  "sendMs": 0.4,
+                  "ackMs": 1826.4,
+                  "authorizedAppliedMs": 4519.6,
+                  "interactiveMs": 4557.7,
+                  "feedbackFrameOpportunityMs": 12.2,
+                  "feedbackProxyKind": "pending-marker",
+                  "visibleFeedbackMs": null,
+                  "visibleFeedbackMethod": "unreviewed-video",
+                  "rejected": false,
+                  "resyncCount": 0,
+                  "queryCount": 1,
+                  "confirmClicks": 1,
+                  "submitCount": 1,
+                  "flags": []
+                },
+                "finalState": {
+                  "interactive": true,
+                  "pendingMarker": false
+                },
+                "preparation": {
+                  "requiredVisibleMs": 5000,
+                  "continuousVisibleMs": 47956.300000000745,
+                  "satisfiedAtInput": true
+                },
+                "observation": {
+                  "visibleFeedbackMs": null,
+                  "method": "unreviewed-video",
+                  "kind": "unreviewed",
+                  "clip": "",
+                  "fps": null,
+                  "outcome": "unreviewed"
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 1,
+              "min": 12.2,
+              "median": 12.2,
+              "max": 12.2
+            },
+            "authorizedAppliedMs": {
+              "n": 1,
+              "min": 4519.6,
+              "median": 4519.6,
+              "max": 4519.6
+            },
+            "interactiveMs": {
+              "n": 1,
+              "min": 4557.7,
+              "median": 4557.7,
+              "max": 4557.7
+            },
+            "ackMs": {
+              "n": 1,
+              "min": 1826.4,
+              "median": 1826.4,
+              "max": 1826.4
+            }
+          }
+        },
+        "abnormal": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "incomplete": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "warmup": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "check": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "excluded": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        }
+      },
+      "normalCount": 1,
+      "normalVideoReviewed": 0,
+      "target": 10,
+      "targetNormalMet": false,
+      "targetVideoMet": false
+    },
+    {
+      "group": [
+        "22773197-0752-4af5-b55d-d471a9e5ff8b",
+        "桌面预检",
+        "Windows / Codex Chromium R1预检",
+        "本机回环预检",
+        "move",
+        "delay",
+        "control",
+        "73d2dee2f2dab3bfb09d6466d54fa391d19d39fb",
+        "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+        "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+        "permessage-deflate"
+      ],
+      "attempts": 1,
+      "buckets": {
+        "normal": {
+          "count": 1,
+          "reasonCounts": {},
+          "records": [
+            {
+              "sourceIndex": 5,
+              "classification": {
+                "category": "normal",
+                "reasons": []
+              },
+              "row": {
+                "device": "桌面预检",
+                "platform": "Windows / Codex Chromium R1预检",
+                "network": "本机回环预检",
+                "scenario": "move",
+                "mode": "delay",
+                "check": "sample",
+                "deviceRunId": "22773197-0752-4af5-b55d-d471a9e5ff8b",
+                "version": "control",
+                "sourceSha": "73d2dee2f2dab3bfb09d6466d54fa391d19d39fb",
+                "serverSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+                "snapshotFormat": "snapshot-v3-map-table",
+                "samplerSha256": "5111a2b9545742cb5f2e5d094dca46f859e11d3a2021640eec3164fedd704796",
+                "harnessSha256": "80b2370bf5dbbfc6b42502d6fdad4368539f4e45f60a6fdc12c00768e282d574",
+                "seed": 17,
+                "delays": {
+                  "ackMs": 1800,
+                  "snapshotMs": 4500
+                },
+                "trialId": "911bc919-70a9-4dac-9208-fc4cc381c3cf",
+                "ordinal": 2,
+                "startedAt": "2026-10-02T06:19:52.753Z",
+                "viewport": {
+                  "width": 1280,
+                  "height": 720,
+                  "dpr": 1
+                },
+                "metrics": {
+                  "schema": "MP010-v1",
+                  "requestId": "47e339de-f180-4b46-8cfb-a253887d2e67",
+                  "snapshotFormat": "snapshot-v3-map-table",
+                  "compression": "permessage-deflate",
+                  "baseRevision": 0,
+                  "acceptedRevision": 1,
+                  "appliedSequence": 7,
+                  "appliedRevision": 1,
+                  "interactiveRevision": 1,
+                  "sendMs": 0.3,
+                  "ackMs": 1823.3,
+                  "authorizedAppliedMs": 4529.2,
+                  "interactiveMs": 4581.5,
+                  "feedbackFrameOpportunityMs": 12.8,
+                  "feedbackProxyKind": "status-change",
+                  "visibleFeedbackMs": null,
+                  "visibleFeedbackMethod": "unreviewed-video",
+                  "rejected": false,
+                  "resyncCount": 0,
+                  "queryCount": 1,
+                  "confirmClicks": 1,
+                  "submitCount": 1,
+                  "flags": []
+                },
+                "finalState": {
+                  "interactive": true,
+                  "pendingMarker": false
+                },
+                "preparation": {
+                  "requiredVisibleMs": 5000,
+                  "continuousVisibleMs": 50940.89999999851,
+                  "satisfiedAtInput": true
+                },
+                "observation": {
+                  "visibleFeedbackMs": null,
+                  "method": "unreviewed-video",
+                  "kind": "unreviewed",
+                  "clip": "",
+                  "fps": null,
+                  "outcome": "unreviewed"
+                }
+              }
+            }
+          ],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 1,
+              "min": 12.8,
+              "median": 12.8,
+              "max": 12.8
+            },
+            "authorizedAppliedMs": {
+              "n": 1,
+              "min": 4529.2,
+              "median": 4529.2,
+              "max": 4529.2
+            },
+            "interactiveMs": {
+              "n": 1,
+              "min": 4581.5,
+              "median": 4581.5,
+              "max": 4581.5
+            },
+            "ackMs": {
+              "n": 1,
+              "min": 1823.3,
+              "median": 1823.3,
+              "max": 1823.3
+            }
+          }
+        },
+        "abnormal": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "incomplete": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "warmup": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "check": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        },
+        "excluded": {
+          "count": 0,
+          "reasonCounts": {},
+          "records": [],
+          "metrics": {
+            "visibleFeedbackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "feedbackFrameOpportunityMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "authorizedAppliedMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "interactiveMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            },
+            "ackMs": {
+              "n": 0,
+              "min": null,
+              "median": null,
+              "max": null
+            }
+          }
+        }
+      },
+      "normalCount": 1,
+      "normalVideoReviewed": 0,
+      "target": 10,
+      "targetNormalMet": false,
+      "targetVideoMet": false
+    }
+  ]
+}

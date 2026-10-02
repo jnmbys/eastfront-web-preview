@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-02T06:04:05.468Z",
+  "source": "Render list_services(includePreviews=true), workspace confirmed by user; local read-only runtime and host checks",
+  "workspace": "My Workspace",
+  "services": [
+    {
+      "id": "srv-dathekek1f9s7389ksvg",
+      "name": "eastfront-supply-sandbox",
+      "branch": "supply-verify-016",
+      "suspended": "not_suspended",
+      "autoDeploy": "no",
+      "region": "singapore",
+      "plan": "0.5c-512mb",
+      "url": "https://eastfront-supply-sandbox.onrender.com",
+      "instances": 1,
+      "previewGeneration": "off"
+    },
+    {
+      "id": "srv-daouf0lg1s2s738nnqbg",
+      "name": "eastfront-server",
+      "branch": "source-main",
+      "suspended": "not_suspended",
+      "autoDeploy": "yes",
+      "region": "singapore",
+      "plan": "0.5c-512mb",
+      "url": "https://eastfront-server.onrender.com",
+      "instances": 1,
+      "previewGeneration": "off"
+    }
+  ],
+  "selectedHost": {
+    "name": "LAPTOP-G2NEE96G",
+    "os": "Windows 11 10.0.26200",
+    "node": "v24.19.0",
+    "npm": "11.17.0",
+    "freeDiskBytesObserved": 110220783616,
+    "freePhysicalMemoryKiBObserved": 18005260,
+    "labLoopbackPort": 4180,
+    "accessLoopbackPort": 4181,
+    "cloudflaredOnPath": false,
+    "existingCloudflaredYaml": false
+  },
+  "decision": "Use existing local host; leave both Render services unchanged. Quick Tunnel hostname is allocated only when a later approved run starts. No resources or tunnel created.",
+  "limitations": [
+    "Local compute/runtime verified; Cloudflare tunnel and tablet reachability not exercised.",
+    "Cloudflared must be obtained from the official download before a later approved publication.",
+    "Existing paid Render charges unchanged; local electricity/network costs are not measured."
+  ]
+}
