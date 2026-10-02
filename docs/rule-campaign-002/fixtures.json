@@ -1,0 +1,566 @@
+{
+  "contractVersion": "CAMPAIGN-SETTLEMENT-002-candidate.1",
+  "status": "PENDING_LEADER_REVIEW",
+  "units": {
+    "stock": "q;4q=1SP",
+    "equipment": "E2;2E2=1E",
+    "personnel": "P"
+  },
+  "cases": [
+    {
+      "id": "C01",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "acceptedTurn": 2,
+        "completedEpoch": 2,
+        "entryEligibleFromTurn": 3,
+        "enteredTurn": 3,
+        "firstActionEligibleTurn": 3,
+        "entryStock_q": 0,
+        "owners": [
+          [
+            "O1",
+            2,
+            "REAR",
+            4
+          ],
+          [
+            "O1",
+            3,
+            "FRONT",
+            4
+          ]
+        ]
+      },
+      "checks": [
+        {
+          "label": "P after acceptance",
+          "left": "6",
+          "right": "6",
+          "relation": "eq"
+        },
+        {
+          "label": "E2 after acceptance",
+          "left": "12",
+          "right": "12",
+          "relation": "eq"
+        },
+        {
+          "label": "P after completion",
+          "left": "6",
+          "right": "6",
+          "relation": "eq"
+        },
+        {
+          "label": "E2 after completion",
+          "left": "12",
+          "right": "12",
+          "relation": "eq"
+        },
+        {
+          "label": "E2 source budget",
+          "left": "40",
+          "right": "40",
+          "relation": "eq"
+        },
+        {
+          "label": "E3 source budget",
+          "left": "40",
+          "right": "40",
+          "relation": "eq"
+        },
+        {
+          "label": "R after actual entry",
+          "left": "8",
+          "right": "8",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "enteredTurn": null,
+        "entryResult": "REJECTED",
+        "Rdelta": 0,
+        "owners": [
+          [
+            "O1",
+            3,
+            "REAR",
+            4
+          ],
+          [
+            "O1",
+            4,
+            "REAR",
+            4
+          ]
+        ]
+      },
+      "checks": [
+        {
+          "label": "source budget",
+          "left": "40",
+          "right": "40",
+          "relation": "eq"
+        },
+        {
+          "label": "R blocked",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        },
+        {
+          "label": "embodied P",
+          "left": "3",
+          "right": "3",
+          "relation": "eq"
+        },
+        {
+          "label": "embodied E2",
+          "left": "6",
+          "right": "6",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C03",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "entryStock_q": 0,
+        "entryMaterialCharge": 0,
+        "owners": [
+          [
+            "O1",
+            2,
+            "REAR",
+            4
+          ],
+          [
+            "O1",
+            3,
+            "FRONT",
+            4
+          ]
+        ],
+        "retryEpochSourceIssued_q": 8
+      },
+      "checks": [
+        {
+          "label": "O1 lifetime paid through E3",
+          "left": "8",
+          "right": "8",
+          "relation": "eq"
+        },
+        {
+          "label": "R after retry",
+          "left": "8",
+          "right": "8",
+          "relation": "eq"
+        },
+        {
+          "label": "E3 source including old unit",
+          "left": "8",
+          "right": "8",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C04",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "dispatchEpoch": 5,
+        "L": 1,
+        "arrivalDueEpoch": 5,
+        "receivedEpoch": 5,
+        "availableFromTurn": 6,
+        "maintenanceBefore_q": 12,
+        "equipmentLoad_q": 12,
+        "corridorCap_q": 24,
+        "frontSourceAfterRear_q": 28,
+        "stockWithFreight_q": 0,
+        "stockWithoutFreight_q": 12
+      },
+      "checks": [
+        {
+          "label": "corridor used",
+          "left": "24",
+          "right": "24",
+          "relation": "eq"
+        },
+        {
+          "label": "source budget",
+          "left": "32",
+          "right": "32",
+          "relation": "eq"
+        },
+        {
+          "label": "equipment E2",
+          "left": "6",
+          "right": "6",
+          "relation": "eq"
+        },
+        {
+          "label": "front stock flow",
+          "left": "12",
+          "right": "12",
+          "relation": "eq"
+        },
+        {
+          "label": "counterfactual source",
+          "left": "32",
+          "right": "32",
+          "relation": "eq"
+        },
+        {
+          "label": "counterfactual stock",
+          "left": "24",
+          "right": "24",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C05",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "repairTurn": 24,
+        "repairPhase": "GERMAN_RECOVERY",
+        "repairPayment": "PE_ONLY_CANDIDATE",
+        "R": 4,
+        "stepBefore": 1,
+        "stepAfterRepair": 0,
+        "stepAtE24": 0,
+        "stockAfter_q": 0,
+        "scope": "conditional whole scoring set; P_geo=S=0; no subsequent damage"
+      },
+      "checks": [
+        {
+          "label": "P repair",
+          "left": "1",
+          "right": "1",
+          "relation": "eq"
+        },
+        {
+          "label": "E2 repair",
+          "left": "2",
+          "right": "2",
+          "relation": "eq"
+        },
+        {
+          "label": "source",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        },
+        {
+          "label": "initial L",
+          "left": "4/3",
+          "right": "4/3",
+          "relation": "eq"
+        },
+        {
+          "label": "initial F",
+          "left": "40/3",
+          "right": "40/3",
+          "relation": "eq"
+        },
+        {
+          "label": "initial W",
+          "left": "260/3",
+          "right": "260/3",
+          "relation": "eq"
+        },
+        {
+          "label": "final F",
+          "left": "0",
+          "right": "0",
+          "relation": "eq"
+        },
+        {
+          "label": "R unchanged",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C06",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "dispatchEpoch": 22,
+        "L": 3,
+        "arrivalDueEpoch": 24,
+        "receivedEpoch": 24,
+        "availableFromTurn": 25,
+        "additionalTransportChargeAtArrival": 0,
+        "terminalUnusable": true,
+        "directVPDelta": 0
+      },
+      "checks": [
+        {
+          "label": "cargo conservation E2",
+          "left": "6",
+          "right": "6",
+          "relation": "eq"
+        },
+        {
+          "label": "T24 available E2",
+          "left": "0",
+          "right": "0",
+          "relation": "eq"
+        },
+        {
+          "label": "personnel unspent",
+          "left": "3",
+          "right": "3",
+          "relation": "eq"
+        },
+        {
+          "label": "source",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        },
+        {
+          "label": "R unchanged",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C07",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "acceptedTurn": 24,
+        "completedEpoch": 24,
+        "entryEligibleFromTurn": 25,
+        "enteredTurn": null,
+        "firstActionEligibleTurn": null,
+        "owners": [
+          [
+            "O2",
+            24,
+            "REAR",
+            4
+          ]
+        ],
+        "directVPDelta": 0
+      },
+      "checks": [
+        {
+          "label": "P transfer",
+          "left": "3",
+          "right": "3",
+          "relation": "eq"
+        },
+        {
+          "label": "E2 transfer",
+          "left": "6",
+          "right": "6",
+          "relation": "eq"
+        },
+        {
+          "label": "source",
+          "left": "8",
+          "right": "8",
+          "relation": "eq"
+        },
+        {
+          "label": "R excludes waiting",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C08",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "acceptedBeforeEpoch": 5,
+        "completedEpoch": 6,
+        "entryEligibleFromTurn": 7,
+        "enteredTurn": null,
+        "rearRows": [
+          {
+            "epoch": 5,
+            "arrearsBefore_q": 0,
+            "currentDue_q": 4,
+            "paidArrears_q": 0,
+            "paidCurrent_q": 2,
+            "arrearsAfter_q": 2
+          },
+          {
+            "epoch": 6,
+            "arrearsBefore_q": 2,
+            "currentDue_q": 4,
+            "paidArrears_q": 2,
+            "paidCurrent_q": 4,
+            "arrearsAfter_q": 0
+          }
+        ],
+        "frontRows": [
+          {
+            "epoch": 5,
+            "stockBefore_q": 0,
+            "received_q": 0,
+            "B_q": 4,
+            "paid_q": 0,
+            "stockAfter_q": 0,
+            "D_before": "0",
+            "D_after": "1"
+          },
+          {
+            "epoch": 6,
+            "stockBefore_q": 0,
+            "received_q": 2,
+            "B_q": 4,
+            "paid_q": 2,
+            "stockAfter_q": 0,
+            "D_before": "1",
+            "D_after": "3/2"
+          }
+        ],
+        "owners": [
+          [
+            "O3",
+            5,
+            "REAR",
+            2
+          ],
+          [
+            "O3",
+            6,
+            "REAR",
+            6
+          ]
+        ],
+        "scope": "two hypothetical epochs, no survival claim"
+      },
+      "checks": [
+        {
+          "label": "E5 arrears",
+          "left": "2",
+          "right": "2",
+          "relation": "eq"
+        },
+        {
+          "label": "E5 source",
+          "left": "2",
+          "right": "2",
+          "relation": "eq"
+        },
+        {
+          "label": "E6 arrears",
+          "left": "0",
+          "right": "0",
+          "relation": "eq"
+        },
+        {
+          "label": "E6 source",
+          "left": "8",
+          "right": "8",
+          "relation": "eq"
+        },
+        {
+          "label": "front E6 debt",
+          "left": "3/2",
+          "right": "3/2",
+          "relation": "eq"
+        },
+        {
+          "label": "R excludes waiting",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        }
+      ]
+    },
+    {
+      "id": "C09",
+      "evidenceKind": "DESIGN_ARITHMETIC_ONLY",
+      "facts": {
+        "scope": "tracked units only, not full-army F/source/attack audit",
+        "G_steps": [
+          1,
+          0,
+          1
+        ],
+        "S_steps": [
+          1,
+          0
+        ],
+        "G_R": 4,
+        "S_R": 4,
+        "maxSteps": 3,
+        "attackLegality": "NOT_VERIFIED; independent authoritative receipt required"
+      },
+      "checks": [
+        {
+          "label": "G P repair",
+          "left": "1",
+          "right": "1",
+          "relation": "eq"
+        },
+        {
+          "label": "G E2 repair",
+          "left": "2",
+          "right": "2",
+          "relation": "eq"
+        },
+        {
+          "label": "S P repair",
+          "left": "1",
+          "right": "1",
+          "relation": "eq"
+        },
+        {
+          "label": "S E2 repair",
+          "left": "2",
+          "right": "2",
+          "relation": "eq"
+        },
+        {
+          "label": "tracked G maintenance",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        },
+        {
+          "label": "tracked S maintenance",
+          "left": "4",
+          "right": "4",
+          "relation": "eq"
+        },
+        {
+          "label": "tracked final G F",
+          "left": "40/3",
+          "right": "40/3",
+          "relation": "eq"
+        },
+        {
+          "label": "tracked final S F",
+          "left": "0",
+          "right": "0",
+          "relation": "eq"
+        }
+      ]
+    }
+  ],
+  "notVerified": [
+    "Core legal deployment/actions",
+    "real transport routes",
+    "full 24-turn survival",
+    "industrial003 recomputation",
+    "balance",
+    "real VP/W without approved objectives"
+  ]
+}
