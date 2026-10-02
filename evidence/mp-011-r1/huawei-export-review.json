@@ -1,0 +1,138 @@
+{
+  "sourceSha256": "eda63e4de44a71eea15e36372c92988c74d2555ea76948ed7c89d38170efecbb",
+  "sourceBytes": 8994,
+  "exportedAt": "2026-10-02T08:29:02.062Z",
+  "categories": {
+    "warmup": 2,
+    "incomplete": 2
+  },
+  "normalQuotaConsumed": 0,
+  "huaweiWarmupGatePassed": false,
+  "reviewed": [
+    {
+      "sourceIndex": 0,
+      "trialId": "207ac95c-2bcb-4480-9577-715a3b1e8b1a",
+      "device": "华为平板",
+      "platform": "hormony",
+      "scenario": "deployment",
+      "version": "candidate",
+      "classification": {
+        "category": "warmup",
+        "reasons": []
+      },
+      "packageMatches": true,
+      "inputToAckMs": 389.7,
+      "inputToAppliedMs": 435.9,
+      "inputToInteractiveMs": 501.1,
+      "submittedToAckMs": 385.4,
+      "submittedToAppliedMs": 431.6,
+      "ackToAppliedMs": 46.2,
+      "appliedToInteractiveMs": 65.2,
+      "frameOpportunityProxyMs": 184.3,
+      "visibleFeedbackMs": null,
+      "queryCount": 0,
+      "resyncCount": 0,
+      "finalState": {
+        "interactive": true,
+        "pendingMarker": false
+      }
+    },
+    {
+      "sourceIndex": 1,
+      "trialId": "4b90a8fc-95a7-4f83-a194-6b813905215f",
+      "device": "华为平板",
+      "platform": "hormony",
+      "scenario": "deployment",
+      "version": "control",
+      "classification": {
+        "category": "warmup",
+        "reasons": []
+      },
+      "packageMatches": true,
+      "inputToAckMs": 416.7,
+      "inputToAppliedMs": 1480.3,
+      "inputToInteractiveMs": 1565.1,
+      "submittedToAckMs": 414.1,
+      "submittedToAppliedMs": 1477.7,
+      "ackToAppliedMs": 1063.6,
+      "appliedToInteractiveMs": 84.8,
+      "frameOpportunityProxyMs": 161.5,
+      "visibleFeedbackMs": null,
+      "queryCount": 0,
+      "resyncCount": 0,
+      "finalState": {
+        "interactive": true,
+        "pendingMarker": false
+      }
+    },
+    {
+      "sourceIndex": 2,
+      "trialId": "84884746-b539-4f9e-8dee-af00937c4b27",
+      "device": "华为平板",
+      "platform": "hormony",
+      "scenario": "move",
+      "version": "candidate",
+      "classification": {
+        "category": "incomplete",
+        "reasons": [
+          "not-interactive"
+        ]
+      },
+      "packageMatches": true,
+      "inputToAckMs": 609.6,
+      "inputToAppliedMs": 2748.4,
+      "inputToInteractiveMs": null,
+      "submittedToAckMs": 607.6,
+      "submittedToAppliedMs": 2746.4,
+      "ackToAppliedMs": 2138.8,
+      "appliedToInteractiveMs": null,
+      "frameOpportunityProxyMs": 43.3,
+      "visibleFeedbackMs": null,
+      "queryCount": 1,
+      "resyncCount": 0,
+      "finalState": {
+        "interactive": false,
+        "pendingMarker": false
+      }
+    },
+    {
+      "sourceIndex": 3,
+      "trialId": "8c819bfd-ec1f-432e-bd76-36cfaccec5e6",
+      "device": "华为平板",
+      "platform": "hormony",
+      "scenario": "move",
+      "version": "control",
+      "classification": {
+        "category": "incomplete",
+        "reasons": [
+          "not-interactive"
+        ]
+      },
+      "packageMatches": true,
+      "inputToAckMs": 381.5,
+      "inputToAppliedMs": 929.8,
+      "inputToInteractiveMs": null,
+      "submittedToAckMs": 380,
+      "submittedToAppliedMs": 928.3,
+      "ackToAppliedMs": 548.3,
+      "appliedToInteractiveMs": null,
+      "frameOpportunityProxyMs": 40.4,
+      "visibleFeedbackMs": null,
+      "queryCount": 1,
+      "resyncCount": 0,
+      "finalState": {
+        "interactive": false,
+        "pendingMarker": false
+      }
+    }
+  ],
+  "userClarification": "User reports ending both move trials as soon as the piece moved; recovery time was not fully observed. This does not establish a stuck UI.",
+  "limitations": [
+    "Device label is Huawei tablet; platform was entered as hormony. Exact model, OS version and browser are unknown.",
+    "No video reviewed; rAF is only a frame-opportunity proxy; authoritative application is not proof of visible paint.",
+    "Move recovery times remain missing, never zero and never reclassified as completed.",
+    "ACK-to-application intervals cannot separate server snapshot work, network delivery and client processing.",
+    "Deployment viewport heights differ (376 vs 740); conditions are not fully matched.",
+    "One warmup per combination cannot demonstrate a regression, latency reduction or stable P95. iPad remains pending."
+  ]
+}
