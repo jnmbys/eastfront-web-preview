@@ -1,0 +1,38 @@
+{
+  "task": "CAMPAIGN-005 original-task repair",
+  "baseCommit": "5dca81b174b9423e02f9f68598a7eccce33a1b79",
+  "change": "Normalize backslash to slash only in the top-level RUN originalRuntime metadata field during comparison; keep saved records unchanged.",
+  "unchanged": [
+    "Gameplay states, actions and query results are still compared exactly.",
+    "Historical bundleJSON and material/capacity/service/epoch comparisons remain exact.",
+    "Each run's complete immutable material sidecar and its hash remain checked.",
+    "Only the pre-existing timing exclusions remain; no new gameplay exclusions.",
+    "prepare.py, fixed runtime manifest hashes, per-file hash checks, policy and all original evidence files are unchanged."
+  ],
+  "validation": {
+    "command": "python docs/campaign-005/test_replay_compare.py",
+    "status": "PASS",
+    "testMethods": 7,
+    "armsPerMethod": ["A", "B", "C"],
+    "cases": [
+      "Windows/POSIX separators accepted in both directions; comparator inputs unchanged",
+      "Final game RP difference rejected",
+      "Action controller difference rejected",
+      "Combat query attackStrength difference rejected",
+      "Historical handoff material quantity difference rejected",
+      "Terminal material quantity difference rejected",
+      "Actual runtime path content difference rejected"
+    ],
+    "unchangedOriginalFilesVerifiedAgainstPriorFILES": 28,
+    "evidenceSource": "Existing committed RUN and PREFIX records; synthetic differences only in memory",
+    "newGames": 0,
+    "policyChanges": 0,
+    "runPyMainExecuted": false,
+    "oldTransactionSuitesRun": false,
+    "priorTenChecks": "Leader reported PASS; not rerun or rewritten in this repair."
+  },
+  "environment": "README clarifies fixed prepared-artifact/manifest byte identity, original build environment, and why regeneration on another platform may fail hashes. No hashes removed or relaxed.",
+  "globalBlockersRetained": 35,
+  "merged": false,
+  "deployed": false
+}
