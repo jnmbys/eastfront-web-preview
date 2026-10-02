@@ -1,5 +1,7 @@
 # INDUSTRY-INTEGRATION-003 方法与复核口径
 
+**临时口径说明：以下是已完成实验的复建方法，不是已统一的运行合同。** RULE-CAMPAIGN-001核查及与RULE-CAMPAIGN-002的待决接缝见 [CONTRACT_DIFF.md](CONTRACT_DIFF.md)。尤其不得把本方法的假定入场或集结维护作为正式规则；本次保留参数、流水、审计和计算结果，不重算。
+
 本轮沿用 [002方法](../industry-exp-002/METHOD.md) 的人员、成品、残骸、SP分账、逐单位攻击和单走廊装运算法，只改变研究的终局边界。所有参数在 [PARAMETERS.json](PARAMETERS.json)；计算在会话内临时执行，没有新增可运行代码或导入Core。
 
 ## 终局差异
