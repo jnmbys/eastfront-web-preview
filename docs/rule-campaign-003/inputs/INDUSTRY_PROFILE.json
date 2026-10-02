@@ -1,0 +1,38 @@
+{
+  "id": "INDUSTRY-CONTRACT-004-profile.1",
+  "contract": "CAMPAIGN-SETTLEMENT-002-candidate.1",
+  "contractCommit": "9ed3f4f16450c2ff936de242b328c7ba30059dc5",
+  "baselineCommit": "5cac9bd81a9776b8a2e2837f33818c0c72561ba4",
+  "authority": "User/Leader authorizes offline conditional accounting only, not formal rules or runtime integration.",
+  "sourceParameters": "../industry-integration-003/PARAMETERS.json",
+  "horizon": 24,
+  "assemblyBoundaries": 1,
+  "assemblyQueueCap": 1,
+  "undeployedOrderCap": 2,
+  "entryCapPerTurn": 1,
+  "rearSourceId": "SOURCE-003",
+  "nominalSourceSP": 22,
+  "sourceBinding": "The exact single 003 source budget; no additional source or reserved external allowance.",
+  "assemblyDepotId": "BASE-003-CONDITIONAL",
+  "locationAssumption": "The existing 003 receiving equipment account is explicitly interpreted as a registered source-side assembly/recovery base for this scalar diagnostic. Production depot -> base equipment shipments still pay the original shared 21-capacity handling budget, 1 load/E, L=1. Front SP uses the same handling budget; rear upkeep consumes source SP before this handling stage. No named map hex is assigned. Recovery position/control and salvage availability retain 003 conditional assumptions. This is not a proven spatial or multi-route embedding.",
+  "entryConditions": "Separate assumed entry-request receipts per order in the own-side pre-movement window. Open case presumes friendly control, no enemy occupancy/ZOC, valid entry tag, stack space and valid initialization. No Core event exists. Closed calendar rejects entry, not unloading. One entry per turn in accepted-order order; stocks and D initialize to zero; same-turn conditional attack allowed.",
+  "parameterRationale": {
+    "assemblyBoundaries": "003 formed across one E; candidate C01 fixture explicitly illustrates one fully-paid boundary; retained as an experiment assumption, not a frozen template rule.",
+    "assemblyQueueCap": "003 permits one new formation per turn; explicit one active assembly slot is the smallest matching finite queue.",
+    "undeployedOrderCap": "Missing in 003: two finite slots permit one completed waiter plus one assembling order, sufficient to expose blocking/arrears without an unlimited backlog.",
+    "entryCapPerTurn": "Missing in 003: one entry slot preserves the original one-new-unit cadence; no unlimited catch-up deployment is inferred.",
+    "locationAssumption": "003 did not register rear source-side assembly geography. This explicit conditional interpretation preserves delivered-equipment costs and avoids silently making frontline map cities eligible for free source-side service. Needs separate spatial approval before runtime use."
+  },
+  "scenarios": [
+    {"id":"open", "entryBlockedTurns":[], "sourceUnavailableEpochs":[], "declineOrdersFromTurn":null},
+    {"id":"entry_block", "entryBlockedTurns":[13,14,15,16,17], "sourceUnavailableEpochs":[], "declineOrdersFromTurn":null},
+    {"id":"arrears", "entryBlockedTurns":[13,14,15,16,17], "sourceUnavailableEpochs":[14,15], "declineOrdersFromTurn":null},
+    {"id":"uncommitted", "entryBlockedTurns":[13,14,15,16,17], "sourceUnavailableEpochs":[14,15], "declineOrdersFromTurn":13}
+  ],
+  "outageAuthority": "User explicitly selected the E14-E15 unavailable, E16 original-22SP restored conditional branch. The same window applies to arrears and uncommitted; no capacity increase or fee waiver.",
+  "uncommittedPolicy": "At the common T13 pre-order checkpoint decline every new order T13..T23. All earlier accepted orders remain payable. No cancellation/refund. Repair, production, dispatch, attacks and other policies unchanged.",
+  "scoreStatus": "UNRESOLVED",
+  "runtimeEntryEvidence": null,
+  "artCandidates": ["J7","M14","R9","AD9"],
+  "artUse": "User-supplied ART-LAYOUT-020 spatial candidates for loading/storage/repair review only. Layout source SHA not supplied. No source, transport capacity, repair capacity, production or entry eligibility granted by coordinates."
+}

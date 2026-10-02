@@ -1,0 +1,273 @@
+{
+  "errors": [],
+  "blockers": [
+    "RUNTIME_NOT_APPROVED",
+    "MISSING_RUNTIME_DECISION",
+    "MISSING_SERVICE_GRANT:DEP-G-A10",
+    "MISSING_SERVICE_GRANT:DEP-S-AF10",
+    "MISSING_SERVICE_GRANT:REC-G-C10",
+    "MISSING_SERVICE_GRANT:REC-S-AC10",
+    "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+    "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+    "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+    "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+    "UNRESOLVED:authorization.approvedNullControlPolicy",
+    "UNRESOLVED:authorization.nullControlApprovalRef",
+    "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+    "UNRESOLVED:recovery.recipeApprovalRef",
+    "UNRESOLVED:recovery.integrationHookApprovalRef",
+    "UNRESOLVED:budget.policyApprovalRef",
+    "UNRESOLVED:transport.approvedEquipmentVectorRule",
+    "UNRESOLVED:transport.approvedPersonnelTransportRule",
+    "UNRESOLVED:transport.vectorRuleApprovalRef",
+    "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+    "UNRESOLVED:transport.initialMaterialManifest"
+  ],
+  "baseline": {
+    "G": {
+      "maintenance_q": 132,
+      "source_q": 96,
+      "gap_q": 36
+    },
+    "S": {
+      "maintenance_q": 152,
+      "source_q": 96,
+      "gap_q": 56
+    }
+  },
+  "runtimeDecision": "REJECT",
+  "reviewStatus": "VALID_CANDIDATE_WITH_BLOCKERS",
+  "configSha256": "249511bc8f382e86305184c3e81ddb347222c873acd1593aef3b96f0cbef6ad0",
+  "validatorSha256": "07db318c14fb3b8f7ea6d76fc2d05e7b7d53f7b53e2bd3573d8c96071297d54b",
+  "offlineChecks": [
+    {
+      "name": "add source capacity",
+      "result": "PASS"
+    },
+    {
+      "name": "add industrial scalar22",
+      "result": "PASS"
+    },
+    {
+      "name": "use visual reserve as receiver",
+      "result": "PASS"
+    },
+    {
+      "name": "infer industrial yield",
+      "result": "PASS"
+    },
+    {
+      "name": "steal Soviet scenario slots",
+      "result": "PASS"
+    },
+    {
+      "name": "8q rear debit stays in G-A10; global baseline not increased",
+      "result": "PASS"
+    },
+    {
+      "name": "unavailable bound source cannot borrow other sources",
+      "result": "PASS"
+    },
+    {
+      "name": "double rear/front Owner",
+      "result": "EXPECTED_REJECTION",
+      "reason": "DUPLICATE_MAINTENANCE_OWNER"
+    },
+    {
+      "name": "abstract source cannot pay map orders",
+      "result": "EXPECTED_REJECTION",
+      "reason": "REAR_SOURCE_UNBOUND_OR_WRONG_SIDE"
+    },
+    {
+      "name": "PE plan pays 1P/2E2, zero RP; input remains unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "RP plan keeps all material untouched",
+      "result": "PASS"
+    },
+    {
+      "name": "actual candidate has no PE approval",
+      "result": "EXPECTED_REJECTION",
+      "reason": "PE_RECIPE_OR_HOOK_UNAPPROVED"
+    },
+    {
+      "name": "mixed payment fields refused",
+      "result": "EXPECTED_REJECTION",
+      "reason": "UNKNOWN_OR_MIXED_PAYMENT_FIELDS"
+    },
+    {
+      "name": "unknown Core check: controllerExists",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:controllerExists"
+    },
+    {
+      "name": "unknown Core check: activeSide",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:activeSide"
+    },
+    {
+      "name": "unknown Core check: permanentController",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:permanentController"
+    },
+    {
+      "name": "unknown Core check: correctRecoveryPhase",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:correctRecoveryPhase"
+    },
+    {
+      "name": "unknown Core check: alive",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:alive"
+    },
+    {
+      "name": "unknown Core check: damaged",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:damaged"
+    },
+    {
+      "name": "unknown Core check: templateExists",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:templateExists"
+    },
+    {
+      "name": "unknown Core check: normalSupplied",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:normalSupplied"
+    },
+    {
+      "name": "unknown Core check: notMoved",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:notMoved"
+    },
+    {
+      "name": "unknown Core check: notAttacked",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:notAttacked"
+    },
+    {
+      "name": "unknown Core check: notArtillerySupportUsed",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:notArtillerySupportUsed"
+    },
+    {
+      "name": "unknown Core check: notDedicatedRailRepair",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:notDedicatedRailRepair"
+    },
+    {
+      "name": "unknown Core check: noAdjacentLivingEnemy",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:noAdjacentLivingEnemy"
+    },
+    {
+      "name": "unknown Core check: withinCoreRecoveryBaseDistance",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:withinCoreRecoveryBaseDistance"
+    },
+    {
+      "name": "unknown Core check: notRecoveredThisTurn",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:notRecoveredThisTurn"
+    },
+    {
+      "name": "unknown Core check: sideRecoveryLimitAvailable",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:sideRecoveryLimitAvailable"
+    },
+    {
+      "name": "unknown Core check: noPendingDecision",
+      "result": "EXPECTED_REJECTION",
+      "reason": "CORE_PREDICATE_FALSE_OR_UNKNOWN:noPendingDecision"
+    },
+    {
+      "name": "future E24 delivery cannot fund T24",
+      "result": "EXPECTED_REJECTION",
+      "reason": "MATERIAL_NOT_YET_AVAILABLE"
+    },
+    {
+      "name": "source receipt missing",
+      "result": "EXPECTED_REJECTION",
+      "reason": "MATERIAL_PROVENANCE_MISSING"
+    },
+    {
+      "name": "material already reserved",
+      "result": "EXPECTED_REJECTION",
+      "reason": "INSUFFICIENT_MATERIAL:P"
+    },
+    {
+      "name": "no free service across adjacent hex",
+      "result": "EXPECTED_REJECTION",
+      "reason": "MATERIAL_SERVICE_REQUIRES_SAME_HEX"
+    },
+    {
+      "name": "null map control is not friendly",
+      "result": "EXPECTED_REJECTION",
+      "reason": "NULL_CONTROL_NOT_AUTHORIZED"
+    },
+    {
+      "name": "wrong-side warehouse stock",
+      "result": "EXPECTED_REJECTION",
+      "reason": "MATERIAL_CUSTODY_MISMATCH"
+    },
+    {
+      "name": "duplicate lot must not double-count",
+      "result": "EXPECTED_REJECTION",
+      "reason": "DUPLICATE_MATERIAL_LOT"
+    },
+    {
+      "name": "no PE fallback even when RP is rich",
+      "result": "EXPECTED_REJECTION",
+      "reason": "INSUFFICIENT_MATERIAL:P"
+    },
+    {
+      "name": "grant cannot authorize another operation",
+      "result": "EXPECTED_REJECTION",
+      "reason": "SERVICE_GRANT_SCOPE_OR_REVISION_INVALID"
+    }
+  ],
+  "notProven": [
+    "runtime authorization",
+    "Core eligibility execution",
+    "equipment routes/capacity",
+    "transaction idempotency",
+    "campaign balance",
+    "industrial order/deployment implementation"
+  ],
+  "verification": {
+    "readonlyDirectoryUnchanged": true,
+    "optimizedOutputIdentical": true,
+    "runtimeGateExitCode": 2,
+    "oldExperimentsRerun": false,
+    "scope": "candidate structure and conditional plans only",
+    "corruptedSourceCLIExitCode": 1,
+    "runtimeSourcesMatchFixedCommit": true
+  },
+  "artifactHashes": {
+    "candidate.json": "249511bc8f382e86305184c3e81ddb347222c873acd1593aef3b96f0cbef6ad0",
+    "REPORT.md": "8d2f45e186c734d1703637c8ee393c58c3748274089e4412c0ff46c11b6cd8a9",
+    "SOURCES.json": "f557635a5426352de35aad661f57d7df614090f4057c91d679229ab38557ac25",
+    "validate.py": "07db318c14fb3b8f7ea6d76fc2d05e7b7d53f7b53e2bd3573d8c96071297d54b",
+    "inputs\\CAMPAIGN004.md": "4c581af7ca8a96406ca83b0d9a7f434186573212de5c504f7fc61e4161a62b90",
+    "inputs\\FACTS.json": "18b33c7ac49355e6ad873dc4212d3e3cc9882b65c81b2102b909c75bfa9f509e",
+    "inputs\\INDUSTRY_DEPENDENCY.md": "f19d5716816bae8a21a2a88a40b0d56c12d69d466ae9f8c573148c15d6cb0a62",
+    "inputs\\INDUSTRY_PROFILE.json": "57c7becd828485f9944569a695d33fb0968d7ce9d47cd1ce23a2d4dbb93180df",
+    "inputs\\MAP_NODES.json": "6388808f43c22fca1ee1faddd7a2b5ec55c275f6ad720fc38b83d4f94dfd6b5c",
+    "inputs\\R1_DECISION.json": "8028f17f396ee3d14f5273782901d9a9cd61f0ff048f11160a2ca6095e141d89"
+  }
+}

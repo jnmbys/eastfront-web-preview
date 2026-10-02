@@ -1,0 +1,104 @@
+{
+  "refs": {
+    "campaign004": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "rule002r1": "1fe5a2f342928fe9da0cd9f0aaaf825b993483e1",
+    "industry004": "46529bef14a331b07947cb9bb5e352825af6640b",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554",
+    "layout020": "2aa9a655e2906667929f3828d4dd6f58d7286ea2"
+  },
+  "inputs": [
+    {
+      "file": "inputs/FACTS.json",
+      "commit": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+      "path": "docs/campaign-004/FACTS.json",
+      "sha256": "18b33c7ac49355e6ad873dc4212d3e3cc9882b65c81b2102b909c75bfa9f509e"
+    },
+    {
+      "file": "inputs/CAMPAIGN004.md",
+      "commit": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+      "path": "docs/campaign-004/REPORT.md",
+      "sha256": "4c581af7ca8a96406ca83b0d9a7f434186573212de5c504f7fc61e4161a62b90"
+    },
+    {
+      "file": "inputs/INDUSTRY_PROFILE.json",
+      "commit": "46529bef14a331b07947cb9bb5e352825af6640b",
+      "path": "docs/industry-contract-004/PROFILE.json",
+      "sha256": "57c7becd828485f9944569a695d33fb0968d7ce9d47cd1ce23a2d4dbb93180df"
+    },
+    {
+      "file": "inputs/INDUSTRY_DEPENDENCY.md",
+      "commit": "46529bef14a331b07947cb9bb5e352825af6640b",
+      "path": "docs/industry-contract-004/DEPENDENCY_R1.md",
+      "sha256": "f19d5716816bae8a21a2a88a40b0d56c12d69d466ae9f8c573148c15d6cb0a62"
+    },
+    {
+      "file": "inputs/R1_DECISION.json",
+      "commit": "1fe5a2f342928fe9da0cd9f0aaaf825b993483e1",
+      "path": "docs/rule-campaign-002/r1/DECISION.json",
+      "sha256": "8028f17f396ee3d14f5273782901d9a9cd61f0ff048f11160a2ca6095e141d89"
+    }
+  ],
+  "derivedInputs": [
+    {
+      "file": "inputs/MAP_NODES.json",
+      "sha256": "6388808f43c22fca1ee1faddd7a2b5ec55c275f6ad720fc38b83d4f94dfd6b5c"
+    }
+  ],
+  "sourceAvailabilityRule": "signature_model.solve uses model.usable(node,side) for source injection; no new source availability predicate executed here",
+  "inspectedRuntimeSources": [
+    {
+      "path": "experiments/supply-exp-005/live.py",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "adf3b25d722092dffafd4d2e5cfa03e1c128cb259a09b5da34ef4c0275ccf713",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/core-bridge.mjs",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "a973c34d57c00580d1179b41892cec90912c959663ecb963bef70bee4a6e58a4",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/signature_model.py",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "3a21e319ee7c59204bab9000db04afa6f8de2c8f5e3aba275a527b6e476e9274",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/model.py",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "0b10b0e91d06fb9b6a21e9941d98e00caa0982e0b16a129e297f412734e3e848",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/core/src/rules/recovery.ts",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "e164a2b1098106fba3ee7013a43b1652f7971f44a44f4eb850320a532e9f6bff",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/core/src/rules/reinforcement.ts",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "550ea11a4bbdc6519e678411c3d5e1e12a5f164f7ea0e630093a8f0cdefc9b9c",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/core/src/scenario/defaultScenario.ts",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "40e1a8683a9385f5e1ad421c97000cf4848844d945b8bd27da8617bc12dac04e",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/core/src/scenario/defaultRules.ts",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "c8cc54c45bf18811c4462c14e3364f74cbc277254d619f21fbcec9458c71de5a",
+      "inspection": "read-only source; no import or execution"
+    },
+    {
+      "path": "experiments/supply-exp-005/core/src/rules/rail.ts",
+      "commit": "813b4072568352e95d0726fe5fe04060c889c554",
+      "sha256": "3c0f624122322ec2f641a0d7d85ca80931c97bf41d936a81640519dc36245002",
+      "inspection": "read-only active boundary query definitions"
+    }
+  ]
+}

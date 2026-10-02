@@ -1,0 +1,395 @@
+{
+  "schema": "RULE-CAMPAIGN-003-config-candidate.1",
+  "status": "IMPLEMENTATION_REVIEW_ONLY",
+  "runtimeEnabled": false,
+  "runtimeApprovalRef": null,
+  "refs": {
+    "campaign004": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "rule002r1": "1fe5a2f342928fe9da0cd9f0aaaf825b993483e1",
+    "industry004": "46529bef14a331b07947cb9bb5e352825af6640b",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554",
+    "layout020": "2aa9a655e2906667929f3828d4dd6f58d7286ea2"
+  },
+  "mapSha256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
+  "contract": "CAMPAIGN-SETTLEMENT-002-candidate.1",
+  "offlineDecisionRef": "LEADER-RULE-CAMPAIGN-002-20261002",
+  "sources": [
+    {
+      "id": "G-A5",
+      "node": "A5",
+      "side": "G",
+      "cap": 32
+    },
+    {
+      "id": "G-A10",
+      "node": "A10",
+      "side": "G",
+      "cap": 32
+    },
+    {
+      "id": "G-A16",
+      "node": "A16",
+      "side": "G",
+      "cap": 32
+    },
+    {
+      "id": "S-AF4",
+      "node": "AF4",
+      "side": "S",
+      "cap": 24
+    },
+    {
+      "id": "S-AF10",
+      "node": "AF10",
+      "side": "S",
+      "cap": 24
+    },
+    {
+      "id": "S-AF16",
+      "node": "AF16",
+      "side": "S",
+      "cap": 16
+    },
+    {
+      "id": "S-AC10",
+      "node": "AC10",
+      "side": "S",
+      "cap": 16
+    },
+    {
+      "id": "S-AC11",
+      "node": "AC11",
+      "side": "S",
+      "cap": 16
+    }
+  ],
+  "industrialScalarInput": {
+    "profileId": "INDUSTRY-CONTRACT-004-profile.1",
+    "sourceId": "SOURCE-003",
+    "sourceSP": 22,
+    "capacity": 21,
+    "binding": "REFERENCE_ONLY_NOT_ADDITIVE_NOT_POOL_ALIAS"
+  },
+  "authorization": {
+    "grantRequired": true,
+    "operatingSideIsNotHomeSide": true,
+    "hostileControlOrOccupancyOrZoc": "REJECT",
+    "unknownPredicate": "REJECT",
+    "proposedNullControlPolicy": "REQUIRE_EXPLICIT_SCENARIO_SERVICE_GRANT",
+    "approvedNullControlPolicy": null,
+    "nullControlApprovalRef": null
+  },
+  "depots": [
+    {
+      "id": "DEP-G-A10",
+      "side": "G",
+      "anchorNode": "A10",
+      "kind": "PROPOSED_SOURCE_SIDE_ASSEMBLY_ACCOUNT",
+      "sourceId": "G-A10",
+      "mapFunctionAlreadyExists": false,
+      "grantRef": null,
+      "storageCapacityE2": null,
+      "personnelCapacityP": null,
+      "stockOriginManifest": null,
+      "productionCapability": null
+    },
+    {
+      "id": "DEP-S-AF10",
+      "side": "S",
+      "anchorNode": "AF10",
+      "kind": "PROPOSED_SOURCE_SIDE_ASSEMBLY_ACCOUNT",
+      "sourceId": "S-AF10",
+      "mapFunctionAlreadyExists": false,
+      "grantRef": null,
+      "storageCapacityE2": null,
+      "personnelCapacityP": null,
+      "stockOriginManifest": null,
+      "productionCapability": null
+    }
+  ],
+  "receivers": [
+    {
+      "id": "REC-G-C10",
+      "side": "G",
+      "node": "C10",
+      "hubRef": "GH2",
+      "sourceDepotId": "DEP-G-A10",
+      "routeWitness": {
+        "sourceId": "G-A10",
+        "checkpoint": "after_rail_opening",
+        "edges": [
+          "A10~B10",
+          "B10~C10"
+        ],
+        "kind": "SP_CONNECTIVITY_ONLY_NOT_EQUIPMENT_PERMISSION"
+      },
+      "grantRef": null,
+      "storageCapacityE2": null,
+      "personnelCapacityP": null,
+      "transferPermissionRef": null,
+      "industrialOutput": null,
+      "captureDisposition": null
+    },
+    {
+      "id": "REC-S-AC10",
+      "side": "S",
+      "node": "AC10",
+      "hubRef": "SH1",
+      "sourceDepotId": "DEP-S-AF10",
+      "routeWitness": {
+        "sourceId": "S-AF10",
+        "checkpoint": "after_rail_opening",
+        "edges": [
+          "AE11~AF10",
+          "AD10~AE11",
+          "AC10~AD10"
+        ],
+        "kind": "SP_CONNECTIVITY_ONLY_NOT_EQUIPMENT_PERMISSION"
+      },
+      "grantRef": null,
+      "storageCapacityE2": null,
+      "personnelCapacityP": null,
+      "transferPermissionRef": null,
+      "industrialOutput": null,
+      "captureDisposition": null
+    }
+  ],
+  "entries": [
+    {
+      "id": "ENTRY-G-A10",
+      "side": "G",
+      "node": "A10",
+      "assemblyDepotId": "DEP-G-A10",
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "namespace": "INDUSTRIAL_ORDER_ONLY",
+      "grantRef": null,
+      "usesScenarioReinforcementSlots": false,
+      "stockOnEntry_q": 0,
+      "debtOnEntry": 0,
+      "countsInR": "ONLY_AFTER_ATOMIC_ACTUAL_DEPLOYMENT",
+      "initializationApprovalRef": null,
+      "alternativesNotEnabled": [
+        "A5",
+        "A16"
+      ],
+      "activeBoundaryQuery": "computeActiveGermanRailNetwork.entryHexKeys",
+      "requiredPredicates": [
+        "trustedServiceGrant",
+        "approvedControlDisposition",
+        "noEnemyOccupancy",
+        "noEnemyZoc",
+        "stackSpace",
+        "activeBoundaryRailEntry",
+        "ownPreMovementWindow",
+        "completedOrder",
+        "zeroRearArrears",
+        "lastEpochRearFullyPaid",
+        "perSideEntryQuota",
+        "permanentIdNotPreviouslyDeployed"
+      ]
+    },
+    {
+      "id": "ENTRY-S-AF10",
+      "side": "S",
+      "node": "AF10",
+      "assemblyDepotId": "DEP-S-AF10",
+      "phase": "SOVIET_REINFORCEMENT_SUPPLY",
+      "namespace": "INDUSTRIAL_ORDER_ONLY",
+      "grantRef": null,
+      "usesScenarioReinforcementSlots": false,
+      "stockOnEntry_q": 0,
+      "debtOnEntry": 0,
+      "countsInR": "ONLY_AFTER_ATOMIC_ACTUAL_DEPLOYMENT",
+      "initializationApprovalRef": null,
+      "alternativesNotEnabled": [
+        "AF4",
+        "AF16"
+      ],
+      "activeBoundaryQuery": "computeActiveSovietRailNetwork.exitHexKeys",
+      "requiredPredicates": [
+        "trustedServiceGrant",
+        "approvedControlDisposition",
+        "noEnemyOccupancy",
+        "noEnemyZoc",
+        "stackSpace",
+        "activeBoundaryRailEntry",
+        "ownPreMovementWindow",
+        "completedOrder",
+        "zeroRearArrears",
+        "lastEpochRearFullyPaid",
+        "perSideEntryQuota",
+        "permanentIdNotPreviouslyDeployed"
+      ]
+    }
+  ],
+  "visualOnlyNodes": [
+    "J7",
+    "M14",
+    "R9",
+    "AD9"
+  ],
+  "assembly": {
+    "boundaries": 1,
+    "queueCap": 1,
+    "undeployedCap": 2,
+    "entryPerTurnCap": 1,
+    "provenance": "INDUSTRY004_OFFLINE_CANDIDATE_ONLY",
+    "recipeCatalogApprovalRef": null
+  },
+  "recovery": {
+    "legacyCommandDefault": "RP_ONLY",
+    "candidatePaymentModes": [
+      "RP",
+      "PE"
+    ],
+    "oneModePerAction": true,
+    "automaticFallback": false,
+    "sharedRecoveryCounter": true,
+    "paymentOwner": "RecoveryTransactionCoordinator",
+    "materialService": "SAME_HEX_ONLY_FOR_FIRST_SLICE",
+    "recipes": {
+      "G-INF": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "S-INF": {
+        "P": 1,
+        "E2:L": 2
+      }
+    },
+    "recipeStatus": "R1_AND_INDUSTRY004_INFANTRY_CONDITIONAL_PRICE_NOT_GENERAL_RULE",
+    "recipeApprovalRef": null,
+    "commonEligibility": "ALL_EXISTING_RECOVERY_PREDICATES_EXCEPT_PAYMENT_SPECIFIC_RP_BALANCE",
+    "integrationHookApprovalRef": null,
+    "availableRule": "RECEIVED_AND_AVAILABLE_FROM_TURN_LE_CURRENT_TURN",
+    "arrivalAvailability": "RECEIVED_E_t_AVAILABLE_T_t_PLUS_1"
+  },
+  "budget": {
+    "clock": "full",
+    "unit": "q;4q=1SP",
+    "rearRate": "TEMPLATE_B",
+    "sourceSelection": "ORDER_BOUND_SOURCE_ONLY",
+    "rearOrder": [
+      "acceptedTurn",
+      "orderId"
+    ],
+    "paymentOrder": [
+      "OLD_ARREARS",
+      "CURRENT_REAR_B",
+      "FRONT_FROM_RESIDUAL_SOURCE"
+    ],
+    "ownerKey": [
+      "permanentUnitId",
+      "epoch"
+    ],
+    "negativeResidual": "REJECT",
+    "equipmentOrder": "PROTECT_FEASIBLE_FRONT_NET_MAINTENANCE_THEN_EQUIPMENT_THEN_RESERVE",
+    "hubStocks": "EXISTING_ONLY_NOT_SOURCE_CAP_OR_REAR_PAYMENT_POOL",
+    "scalar22Additive": false,
+    "policyApprovalRef": null
+  },
+  "transport": {
+    "originalProfile": {
+      "id": "SUPPLY-CAMPAIGN-010-A-unbalanced",
+      "quantity_unit": "quarter supply point",
+      "clock": "full",
+      "variant": "A",
+      "reserve_B": 4,
+      "initial_reserve_B": 3,
+      "reinforcement_initial_stock": 0,
+      "delivery_range": 8,
+      "policy": "last",
+      "use_t": true,
+      "T": 2200,
+      "order": "GS",
+      "edge_capacity": 40,
+      "bridge_capacity": 24,
+      "sources": [
+        {
+          "id": "G-A5",
+          "node": "A5",
+          "side": "G",
+          "cap": 32
+        },
+        {
+          "id": "G-A10",
+          "node": "A10",
+          "side": "G",
+          "cap": 32
+        },
+        {
+          "id": "G-A16",
+          "node": "A16",
+          "side": "G",
+          "cap": 32
+        },
+        {
+          "id": "S-AF4",
+          "node": "AF4",
+          "side": "S",
+          "cap": 24
+        },
+        {
+          "id": "S-AF10",
+          "node": "AF10",
+          "side": "S",
+          "cap": 24
+        },
+        {
+          "id": "S-AF16",
+          "node": "AF16",
+          "side": "S",
+          "cap": 16
+        },
+        {
+          "id": "S-AC10",
+          "node": "AC10",
+          "side": "S",
+          "cap": 16
+        },
+        {
+          "id": "S-AC11",
+          "node": "AC11",
+          "side": "S",
+          "cap": 16
+        }
+      ],
+      "hub_nodes": {
+        "G": [
+          "A5",
+          "C10",
+          "A16"
+        ],
+        "S": [
+          "AC10",
+          "AC11",
+          "AF10"
+        ]
+      },
+      "hub": {
+        "stock": 8,
+        "cap": 32,
+        "W": 96,
+        "quota": 40,
+        "floor": 4,
+        "inactive": false
+      },
+      "victory": "unchanged Core defaultScenario (turnLimit 16); no allocation qualification",
+      "note": "EXP003 ordinary capacities and prepare reserve; NOT restore's raised capacities. Fixed experimental profile, not balanced."
+    },
+    "equipmentLoadProposal_qPerE2": 2,
+    "approvedEquipmentVectorRule": null,
+    "approvedPersonnelTransportRule": null,
+    "vectorRuleApprovalRef": null,
+    "maintenanceCertificate": "CURRENT_SNAPSHOT_ROUTED_WITNESS_REQUIRED",
+    "maxTotalSeconds": 3,
+    "productionToDepotTransferApprovalRef": null,
+    "initialMaterialManifest": null
+  },
+  "score": {
+    "objectiveIds": null,
+    "homeSide": null,
+    "vpValues": null,
+    "industrialOutput": null
+  }
+}
