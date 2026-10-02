@@ -1,0 +1,318 @@
+{
+  "reviewStatus": "VALID_CANDIDATE_ONLY",
+  "runtimeDecision": "REJECT",
+  "approvalMissing": true,
+  "originalBlockerCount": 35,
+  "globallyResolved": 0,
+  "sliceProposals": 12,
+  "outsideSlice": 23,
+  "checkpointReadOnly": true,
+  "gameActionsExecuted": 0,
+  "materialsImported": 0,
+  "boundaryChecks": [
+    {
+      "name": "actual approval absent",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "NO_VERIFIED_LOCAL_APPROVAL",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "conditional initial manifest shape",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "conditionalChecksSatisfied": true,
+        "executable": false,
+        "operation": "IMPORT_CHECK",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong side",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_SIDE_OR_CONTROLLER",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong controller",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_SIDE_OR_CONTROLLER",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong hex",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_HEX_OR_UNIT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong Core key",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_HEX_OR_UNIT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong unit",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_HEX_OR_UNIT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "early turn",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_TIME_OR_GAME_SNAPSHOT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong phase",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_TIME_OR_GAME_SNAPSHOT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "late revision",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_TIME_OR_GAME_SNAPSHOT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "wrong saved snapshot",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "WRONG_TIME_OR_GAME_SNAPSHOT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "enemy access",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "NULL_CONTROL_SCOPE_OR_HOSTILE_ACCESS",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "control edited to friendly",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "NULL_CONTROL_SCOPE_OR_HOSTILE_ACCESS",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "material list changed",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "MANIFEST_CONTENT_MISMATCH",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "lost journal cannot refill used ledger",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "INITIAL_LEDGER_NOT_EMPTY",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "approval does not bind candidate",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "APPROVAL_SCOPE_OR_CONTENT_MISMATCH",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "same manifest twice",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "ALREADY_IMPORTED_NO_CREDIT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "same ID different content",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "MANIFEST_ID_CONFLICT",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "spent lot cannot reappear",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "LOT_ID_ALREADY_USED",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "conditional PE prerequisites only; no debit or recovery",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "conditionalChecksSatisfied": true,
+        "executable": false,
+        "operation": "RECOVERY_CHECK",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "RP choice stays separate",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "RP_USE_UNCHANGED_RP_BRANCH_NOT_PE_SLICE",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "mixed payment",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "MIXED_PAYMENT_OR_CALLER_QUOTE",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "caller price",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "MIXED_PAYMENT_OR_CALLER_QUOTE",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "missing common checks",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "COMMON_ELIGIBILITY_FALSE_OR_UNKNOWN",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "another RP recovery already counted",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "SHARED_RECOVERY_LIMIT_OR_ALREADY_USED",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "target recovered",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "SHARED_RECOVERY_LIMIT_OR_ALREADY_USED",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "no initial import",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "INITIAL_MATERIAL_NOT_IMPORTED_OR_STALE",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "material spent",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "INSUFFICIENT_OR_RESERVED_MATERIAL",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "material reserved",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "INSUFFICIENT_OR_RESERVED_MATERIAL",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "stale material hash",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "STALE_MATERIAL_LEDGER",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "material does not waive base eligibility",
+      "basis": "SYNTHETIC_GIVEN_RECEIPTS_ONLY",
+      "result": {
+        "rejected": "COMMON_ELIGIBILITY_FALSE_OR_UNKNOWN",
+        "mutations": 0
+      }
+    },
+    {
+      "name": "fake historical production",
+      "basis": "MUTATED_PROPOSAL_ONLY",
+      "result": {
+        "rejected": "FALSE_HISTORICAL_OR_CONVERTED_MATERIAL",
+        "mutationsToGame": 0
+      }
+    },
+    {
+      "name": "SP conversion not an origin",
+      "basis": "MUTATED_PROPOSAL_ONLY",
+      "result": {
+        "rejected": "NO_SP_SOURCE_AS_MATERIAL_ORIGIN",
+        "mutationsToGame": 0
+      }
+    },
+    {
+      "name": "backdated E4 receipt refused",
+      "basis": "MUTATED_PROPOSAL_ONLY",
+      "result": {
+        "rejected": "INITIAL_IS_NOT_BACKDATED_DELIVERY",
+        "mutationsToGame": 0
+      }
+    },
+    {
+      "name": "duplicate lot in proposed list",
+      "basis": "MUTATED_PROPOSAL_ONLY",
+      "result": {
+        "rejected": "DUPLICATE_OR_WRONG_LOT_SET",
+        "mutationsToGame": 0
+      }
+    },
+    {
+      "name": "RP debit and refund forbidden",
+      "basis": "MUTATED_PROPOSAL_ONLY",
+      "result": {
+        "rejected": "EXCLUSIVE_PAYMENT_AND_SHARED_COUNT_REQUIRED",
+        "mutationsToGame": 0
+      }
+    }
+  ],
+  "candidateSha256": "a80e32622ea28dc01472ca75a7c9d6ccb8cb9b03eed50e293a45f31fd4087038",
+  "candidateValueDigest": "5d5aa55f222496aaa2db11464624d86b8746b409600d06a3545e3e8f47db7d26",
+  "manifestValueDigest": "6d41a085974bf8390d4c7532cd9a5d06ba6dd35eced8ca8b4c70e99b7cf129d3",
+  "validatorSha256": "597474558604e60200cbfff03b82e53e37747e4983aebe5e61fe459e59cb2ca9",
+  "fixedBundleUnchanged": true,
+  "notProven": [
+    "actual grant validity",
+    "new PE Core/effect seam",
+    "atomic material commit",
+    "importer persistence/idempotency",
+    "new runtime legality; boundary tests assume given eligibility receipts"
+  ]
+}

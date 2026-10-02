@@ -1,0 +1,193 @@
+{
+  "schema": "RULE-CAMPAIGN-004.same-hex-PE.candidate.1",
+  "status": "LEADER_REVIEW_REQUIRED",
+  "runtimeEnabled": false,
+  "approval": {
+    "decisionRef": null,
+    "approvedCandidateSha256": null,
+    "trustedGrantRef": null
+  },
+  "refs": {
+    "ruleR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
+    "industry006": "4ba4867862d54c3f436b7395fff3b52d38da7848",
+    "campaign004": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554"
+  },
+  "checkpoint": {
+    "commit": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "path": "docs/campaign-004/CHECKPOINTS.json.gz",
+    "checkpoint": "german_recovery_T5",
+    "archiveSha256": "b3e47f0179fa3413fc5f8db673a35bc1f3cf76eda0116a0b25b238d0d213ad5b",
+    "serialization": "Python json.dumps(ensure_ascii=False), UTF-8; preserve original int/float types",
+    "serializedSnapshotSha256": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+    "industry006FullValueHashReference": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+    "revision": 109,
+    "turn": 5,
+    "phase": "GERMAN_RECOVERY"
+  },
+  "scope": {
+    "experimentId": "RC004-T5-C10-G-I-01-PE-ONCE",
+    "instanceScope": "ONE_ISOLATED_OWNER_NO_HTTP",
+    "unitId": "G-I-01",
+    "templateId": "G-INF",
+    "controllerId": "G-HUMAN-1",
+    "side": "G",
+    "coreSide": "GERMAN",
+    "nodeId": "C10",
+    "coreKey": "2,8",
+    "turn": 5,
+    "phase": "GERMAN_RECOVERY",
+    "maxAcceptedRecoveries": 1,
+    "expiresOnAnyOtherAcceptedGameAction": true
+  },
+  "service": {
+    "proposalId": "RC004-GRANT-C10-PE-ONCE",
+    "receiverId": "REC-G-C10",
+    "side": "G",
+    "nodeId": "C10",
+    "coreKey": "2,8",
+    "operations": [
+      "IMPORT_EXPERIMENT_INITIAL_MATERIAL",
+      "PE_RECOVER_SAME_HEX_ONCE"
+    ],
+    "nullControlPolicy": "EXPLICIT_SCOPE_GRANT_ONLY_KEEP_NULL",
+    "requireNoEnemyOccupancy": true,
+    "requireNoEnemyZoc": true,
+    "capacity": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "capacitySharedWithSPHub": false,
+    "custody": "DIRECT_INITIAL_RECEIVER_NO_DEPOT_OR_TRANSPORT",
+    "transferScope": "RECEIVER_TO_SAME_HEX_TARGET_ONLY",
+    "onScopeInvalidated": "QUARANTINE_UNSPENT_LEDGER_NO_TRANSFER_NO_VP"
+  },
+  "initialManifest": {
+    "manifestId": "RC004-INITIAL-T5-C10-001",
+    "origin": "NEW_ISOLATED_EXPERIMENT_INITIAL_CONDITION",
+    "originSourceId": "RC004-EXPERIMENT-ENDOWMENT",
+    "isNewExperimentalInput": true,
+    "historicalReceiptClaim": false,
+    "receiverId": "REC-G-C10",
+    "side": "G",
+    "nodeId": "C10",
+    "coreKey": "2,8",
+    "quantities": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "lots": [
+      {
+        "lotId": "RC004-INITIAL-P-001",
+        "material": "P",
+        "quantity": 1
+      },
+      {
+        "lotId": "RC004-INITIAL-E2L-001",
+        "material": "E2:L",
+        "quantity": 2
+      }
+    ],
+    "availability": {
+      "kind": "EXPERIMENT_INITIAL_AT_CHECKPOINT",
+      "turn": 5,
+      "phase": "GERMAN_RECOVERY",
+      "gameRevision": 109,
+      "event": "AFTER_EXACT_CHECKPOINT_RESTORE_BEFORE_FIRST_GAME_ACTION",
+      "receivedEpoch": null,
+      "transportReceiptId": null,
+      "productionReceiptId": null
+    },
+    "importIdentity": [
+      "experimentId",
+      "manifestId",
+      "manifestSha256",
+      "baseSnapshotSha256"
+    ],
+    "oncePerIsolatedStore": true,
+    "gameBundleMustRemainByteIdentical": true,
+    "onDuplicate": "ALREADY_IMPORTED_NO_CREDIT",
+    "onSameIdDifferentContent": "MANIFEST_ID_CONFLICT",
+    "journalRequired": true,
+    "retireAfterSpend": true,
+    "conversionsAllowed": []
+  },
+  "payment": {
+    "selectedExperimentMode": "PE",
+    "explicitChoiceOnly": [
+      "RP",
+      "PE"
+    ],
+    "recipe": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "RPDeltaInPE": 0,
+    "SPDeltaForMaterialPayment": 0,
+    "automaticFallback": false,
+    "callOriginalRPApplyThenRefund": false,
+    "sameRecoveryCounterAcrossModes": true,
+    "oneStepDelta": -1,
+    "expectedTargetStepAfter": 0,
+    "expectedMaterialAfter": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "expectationOnlyNotExecuted": true
+  },
+  "seam": {
+    "reuse": [
+      "005.queryRecoveryEligibility common issues plus engine/envelope/integrity",
+      "006 single-owner queue, request fingerprint and one-root publication",
+      "existing RP branch unchanged for an exclusive RP choice"
+    ],
+    "mustAdd": [
+      "verified local approval bound to exact candidate and snapshot",
+      "initial-condition importer with manifest/lot dedup and root-owned ledger",
+      "dedicated PE-only effect seam that never invokes RP-debit apply",
+      "same REPAIR_UNIT accepted action/count semantics for RP and PE",
+      "atomic root includes bundle+losslessJSON+materialLedger+importJournal+requestReceipts",
+      "materialLedgerRevision/hash included in stale check and full transaction fingerprint"
+    ],
+    "commonEligibility": "ALL_ORIGINAL_NON_PAYMENT_CHECKS_REEVALUATED_UNDER_OWNER_LOCK_BEFORE_COMMIT",
+    "onlyModeSpecificIssue": "INVALID_SUPPORT/details.reason=INSUFFICIENT_RP belongs to RP only; no other issue filtered",
+    "notEligibleBySavedFactsAlone": true,
+    "atomicOrder": [
+      "bind request fingerprint and dedup before stale checks; reject old seen ID collision",
+      "lock owner and verify game revision/full hash plus material revision/hash",
+      "verify local approved scope and all live original common eligibility",
+      "select exactly RP or PE; PE validates unspent initial lots and exact recipe",
+      "stage material debits and one damage-step recovery on private copies",
+      "retain normal engine acceptance, IDs, log/count, logistics sync/audit and existing 3-second budget",
+      "recheck preconditions; publish bundle+ledger+importJournal+receipt with single root swap",
+      "lost response replays receipt only; never republishes old game or replenishes lots"
+    ],
+    "onPrecommitFailure": "NO_GAME_OR_MATERIAL_PUBLICATION",
+    "onCommittedRetry": "RECEIPT_ONLY_NO_REPEAT_DEBIT_OR_COUNT",
+    "importChangesGameRevision": false,
+    "importChangesMaterialRevision": [
+      0,
+      1
+    ],
+    "recoveryChangesGameRevision": [
+      109,
+      110
+    ],
+    "recoveryChangesMaterialRevision": [
+      1,
+      2
+    ],
+    "durability": "NONE_SINGLE_PROCESS; never reuse advanced bundle with lost ledger/tombstones; restart new explicitly identified isolated experiment",
+    "RNG": "NO_ADDITIONAL_DRAWS",
+    "transportBudget": "NO_SHIPMENT_CREATED_NO_ROUTE_OR_CAPACITY_CLAIM"
+  },
+  "preserved": {
+    "globalRuntimeGate": "REJECT",
+    "globalBlockersClosed": 0,
+    "germanSourceGapSP": 9,
+    "sovietSourceGapSP": 14,
+    "industrial22SPAdditive": false,
+    "sourceOrMaintenanceChanges": false,
+    "ordersDeliveryEntryImplemented": false
+  }
+}

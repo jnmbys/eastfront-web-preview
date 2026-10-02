@@ -1,0 +1,82 @@
+{
+  "checkpointBinding": {
+    "commit": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "path": "docs/campaign-004/CHECKPOINTS.json.gz",
+    "checkpoint": "german_recovery_T5",
+    "archiveSha256": "b3e47f0179fa3413fc5f8db673a35bc1f3cf76eda0116a0b25b238d0d213ad5b",
+    "serialization": "Python json.dumps(ensure_ascii=False), UTF-8; preserve original int/float types",
+    "serializedSnapshotSha256": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+    "industry006FullValueHashReference": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+    "revision": 109,
+    "turn": 5,
+    "phase": "GERMAN_RECOVERY"
+  },
+  "unit": {
+    "id": "G-I-01",
+    "templateId": "G-INF",
+    "side": "GERMAN",
+    "type": "INFANTRY",
+    "step": 1,
+    "alive": true,
+    "hex": {
+      "q": 2,
+      "r": 8
+    },
+    "supplyState": "SUPPLIED",
+    "entrenched": false,
+    "hasMoved": false,
+    "hasAttacked": false,
+    "controllerId": "G-HUMAN-1",
+    "temporarySupply": false,
+    "dedicatedRailRepair": false,
+    "reconZocIgnoreUsed": false,
+    "artillerySupportUsed": false,
+    "lastHQCommandTurn": null,
+    "expSupply": {
+      "attackFactor": 1,
+      "movementCap": null
+    }
+  },
+  "cell": {
+    "coord": {
+      "q": 2,
+      "r": 8
+    },
+    "terrain": "PLAIN",
+    "control": null
+  },
+  "RP": {
+    "GERMAN": 8,
+    "SOVIET": 12
+  },
+  "random": {
+    "seed": 17,
+    "state": 1150042706,
+    "draws": 2
+  },
+  "recoveryCount": 0,
+  "germanRecoveryLimit": 1,
+  "logisticsUnit": {
+    "id": "G-I-01",
+    "node": "C10",
+    "side": "G",
+    "B": 4,
+    "stock": 12,
+    "cap": 16,
+    "target": 16,
+    "debt": "0",
+    "strength": 2,
+    "priority": 1,
+    "MP": 4,
+    "core_type": "INFANTRY",
+    "core_controller": "G-HUMAN-1",
+    "core_step": 1,
+    "attrition": "0"
+  },
+  "existingEvidenceOnly": {
+    "commit": "4ba4867862d54c3f436b7395fff3b52d38da7848",
+    "case": "full_original_result_control",
+    "status": "PASS",
+    "note": "RP control already recorded; no recovery executed in RULE-CAMPAIGN-004"
+  }
+}
