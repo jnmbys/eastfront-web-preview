@@ -1,5 +1,6 @@
 import {CLIENT_NETWORK} from './config.js';
 import {PendingActionTracker} from './pendingAction.js';
+import {ActionCompletionDiagnostics} from './actionCompletion.js';
 import {transportTimingEnabled,publishActionTiming} from './diagnosticTiming.js';
 import type {LobbyClient} from './client.js';
 import type {AuthorizedPlayerView,ServerMessage} from './protocol.js';
@@ -13,6 +14,7 @@ interface ProjectionRequest {draft:QueryDraft;key:string;revision:number;request
 /** Contains no GameState, engine, RNG, enemy knowledge builder or local apply path. */
 export class NetworkPlayerSession {
   private pendingFeedback=new PendingActionTracker();
+  private actionCompletion=transportTimingEnabled?new ActionCompletionDiagnostics(record=>publishActionTiming({stage:'snapshot-applied',...record})):null;
   get pendingAction(){return this.pendingFeedback.current;}
   readonly kind='network';
   playerView:AuthorizedPlayerView;model:BrowserRenderModel;matchRevision:number;serverSequence:number;status:MatchStatus;
@@ -96,7 +98,9 @@ export class NetworkPlayerSession {
     try{id=this.client.send('SUBMIT_ACTION',{matchId:this.client.state.snapshot!.matchId,expectedRevision:this.matchRevision,action});}
     catch{this.pendingFeedback.uncertain();this.submitting=false;if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);this.snapshotDeadline=null;this.resync();return;}
     if(id===null){this.pendingFeedback.clear();this.pendingFeedback.notice='notSent';this.submitting=false;if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);this.snapshotDeadline=null;this.onChange('status');return;}
-    this.pendingFeedback.bind(id);this.onChange('status');
+    this.pendingFeedback.bind(id);
+    if(supported)this.actionCompletion?.submitted(id,this.client.state.snapshot!.matchId,this.model.viewerControllerId,this.matchRevision,this.serverSequence);
+    this.onChange('status');
     if(transportTimingEnabled)publishActionTiming({stage:'submit',at:inputAt,requestId:id,revision:this.matchRevision});
   }
   resync():void {
@@ -114,6 +118,7 @@ export class NetworkPlayerSession {
   private receive(m:ServerMessage|null):void {
     if(!m){if(this.client.state.connection!=='CONNECTED'){this.pendingFeedback.uncertain();this.flight=null;this.queued=null;this.submitting=false;this.syncing=true;this.forced=null;}this.onChange('status');this.flush();this.scheduleForced();return;}
     if(m.messageType==='ROOM_ERROR'){
+      this.actionCompletion?.rejected(m.requestId);
       if(this.flight?.requestId===m.requestId){this.failedKey=this.flight.key;this.flight=null;}
       if(!this.pendingAction||this.pendingFeedback.matches(m.requestId)){
         this.pendingFeedback.reject(m.requestId,this.client.state.error??'actionRejected');this.submitting=false;this.notice=this.client.state.error;
@@ -138,8 +143,8 @@ export class NetworkPlayerSession {
       const lost=this.playerView.units.some(u=>!next.view.units.some(n=>n.id===u.id));
       if(lost||resync)this.visibilityRevision++;
       this.playerView=next.view;this.model=next.model;this.matchRevision=next.matchRevision;this.canAct=next.canAct;this.status=next.status;this.forced=next.forcedAction;
+      this.actionCompletion?.applied(next.matchId,next.model.viewerControllerId,next.matchRevision,next.serverSequence,performance.now());
       this.pendingFeedback.snapshot(next.matchRevision,next.serverSequence);
-      if(pending&&next.matchRevision>pending.baseRevision&&transportTimingEnabled)publishActionTiming({stage:'snapshot-applied',at:performance.now(),requestId:pending.requestId,revision:next.matchRevision,sequence:next.serverSequence});
       if(resync)this.pendingFeedback.clear();
       else if(pending&&(!next.canAct||next.status!=='ACTIVE'||next.model.viewerControllerId!==pending.viewerId||next.view.phase!==pending.phase||
         (pending.kind==='move'&&!next.view.units.some(u=>u.id===pending.unitId&&u.side===next.view.viewer))))this.pendingFeedback.uncertain();
@@ -162,6 +167,7 @@ export class NetworkPlayerSession {
         }else{this.requestProjection();this.onChange('status');}
       }
     }else if(m.messageType==='ACTION_ACCEPTED'){
+      this.actionCompletion?.accepted(m.requestId,m.payload.acceptedRevision);
       if(this.pendingFeedback.matches(m.requestId)){
         if(transportTimingEnabled)publishActionTiming({stage:'ack',at:performance.now(),requestId:m.requestId,revision:m.payload.acceptedRevision??this.matchRevision,sequence:m.payload.serverSequence});
         if(this.pendingFeedback.accepted(m.requestId,m.payload.acceptedRevision)){
@@ -170,6 +176,7 @@ export class NetworkPlayerSession {
         this.onChange('status');
       }
     }else if(m.messageType==='ACTION_REJECTED'){
+      this.actionCompletion?.rejected(m.requestId);
       if(this.pendingAction&&!this.pendingFeedback.matches(m.requestId)){this.flush();return;}
       const reasons={STALE_REVISION:'actionStale',NOT_ACTION_OWNER:'actionOwner',INVALID_ACTION:'actionInvalid',MATCH_UNAVAILABLE:'actionUnavailable',REQUEST_REUSED:'actionReused',REQUEST_LIMIT:'actionLimit'} as const;
       this.pendingFeedback.reject(m.requestId,m.payload.code?reasons[m.payload.code]:'actionRejected');
@@ -186,5 +193,5 @@ export class NetworkPlayerSession {
     if(this.timer!==null)clearTimeout(this.timer);
     this.timer=setTimeout(()=>{this.timer=null;if(this.interactive&&this.forced&&!this.queued){const action=this.forced;this.forced=null;this.submit(action);}},0);
   }
-  dispose():void {this.pendingFeedback.clear();this.unsubscribe();if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);if(this.timer!==null)clearTimeout(this.timer);if(this.queryTimer!==null)clearTimeout(this.queryTimer);this.client.dispose();}
+  dispose():void {this.pendingFeedback.clear();this.actionCompletion?.clear();this.unsubscribe();if(this.snapshotDeadline!==null)clearTimeout(this.snapshotDeadline);if(this.timer!==null)clearTimeout(this.timer);if(this.queryTimer!==null)clearTimeout(this.queryTimer);this.client.dispose();}
 }

@@ -1,0 +1,232 @@
+{
+  "base": "33e7e8e292a509760f69ebdea29e541df69aea6c",
+  "runtime": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "typescript": "5.9.3"
+  },
+  "results": [
+    {
+      "name": "prepare-baselines",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "scripts/prepare-mp009-r1-baselines.mjs"
+      ],
+      "env": {},
+      "expectedExit": 0,
+      "actualExit": 0,
+      "expectedOutcome": true
+    },
+    {
+      "name": "original-correlation-red",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--test",
+        "tests/mp009-r1-correlation.test.mjs"
+      ],
+      "env": {
+        "MP009_CLIENT_DIST": "node_modules/.cache/mp009-r1/mp009/app"
+      },
+      "expectedExit": 1,
+      "actualExit": 1,
+      "expectedOutcome": true
+    },
+    {
+      "name": "candidate-correlation",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--test",
+        "tests/mp009-r1-correlation.test.mjs"
+      ],
+      "env": {},
+      "expectedExit": 0,
+      "actualExit": 0,
+      "expectedOutcome": true
+    },
+    {
+      "name": "development-recovery",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--test",
+        "tests/mp009-r1-recovery.test.mjs"
+      ],
+      "env": {
+        "MP009_CLIENT_DIST": "node_modules/.cache/mp009-r1/development/app",
+        "MP009_TRACE_DIR": "evidence/mp-009-r1/recovery/development"
+      },
+      "expectedExit": 0,
+      "actualExit": 0,
+      "expectedOutcome": true
+    },
+    {
+      "name": "mp009-recovery",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--test",
+        "tests/mp009-r1-recovery.test.mjs"
+      ],
+      "env": {
+        "MP009_CLIENT_DIST": "node_modules/.cache/mp009-r1/mp009/app",
+        "MP009_TRACE_DIR": "evidence/mp-009-r1/recovery/mp009"
+      },
+      "expectedExit": 0,
+      "actualExit": 0,
+      "expectedOutcome": true
+    },
+    {
+      "name": "candidate-recovery",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--test",
+        "tests/mp009-r1-recovery.test.mjs"
+      ],
+      "env": {
+        "MP009_CLIENT_DIST": "dist/app",
+        "MP009_TRACE_DIR": "evidence/mp-009-r1/recovery/candidate"
+      },
+      "expectedExit": 0,
+      "actualExit": 0,
+      "expectedOutcome": true
+    },
+    {
+      "name": "frozen-audit",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "scripts/audit-mp009-r1-frozen.mjs"
+      ],
+      "env": {},
+      "expectedExit": 0,
+      "actualExit": 0,
+      "expectedOutcome": true
+    }
+  ],
+  "originals": [
+    {
+      "path": "evidence/mp-009/browser-state-checks.json",
+      "before": "0a54a19b9c4c747c6cdc4ac208c2c4f2b1136737c1758886198acea185c2f9be",
+      "after": "0a54a19b9c4c747c6cdc4ac208c2c4f2b1136737c1758886198acea185c2f9be",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/browser-timing.json",
+      "before": "3e1b3fd6d790d22b717dbe8bd20a87ccda21e18f5eb3d5bc2d33cad5517db724",
+      "after": "3e1b3fd6d790d22b717dbe8bd20a87ccda21e18f5eb3d5bc2d33cad5517db724",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/deployment-accepted.jpg",
+      "before": "595e065d87578103b7ca810caee2abd1ecbb3e42067562d7cbd315bcfd1234eb",
+      "after": "595e065d87578103b7ca810caee2abd1ecbb3e42067562d7cbd315bcfd1234eb",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/deployment-applied.jpg",
+      "before": "89617b0be25710a9926b77528c07621e58ca21fee5608f7ee91a4a793a467275",
+      "after": "89617b0be25710a9926b77528c07621e58ca21fee5608f7ee91a4a793a467275",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/deployment-submitting.jpg",
+      "before": "955619bdc839751fbf4338a423392e09adc83e6885b1f6c235ce326ea1c5030c",
+      "after": "955619bdc839751fbf4338a423392e09adc83e6885b1f6c235ce326ea1c5030c",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/deployment-timing.json",
+      "before": "048590338c260772cc6d7267c5d905052d4403d84acd5ed9cbd0cc9f42255a18",
+      "after": "048590338c260772cc6d7267c5d905052d4403d84acd5ed9cbd0cc9f42255a18",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/full-suite.txt",
+      "before": "a81af7549aa44d514f255f2f8f5eb7fb512ef67eeb62e369bde8a1eb6566c51d",
+      "after": "a81af7549aa44d514f255f2f8f5eb7fb512ef67eeb62e369bde8a1eb6566c51d",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/move-accepted-pan.jpg",
+      "before": "c0fbc20c2b95fc9bbc175d41464747d16097f16d9b80c166bf694789832e20dc",
+      "after": "c0fbc20c2b95fc9bbc175d41464747d16097f16d9b80c166bf694789832e20dc",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/move-applied.jpg",
+      "before": "049a7c57aca0e9991d676979d84cfc45ecf3cb3643d5c0c4231e7357e0322cbf",
+      "after": "049a7c57aca0e9991d676979d84cfc45ecf3cb3643d5c0c4231e7357e0322cbf",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/move-recovered.jpg",
+      "before": "3a6580c7f4587d9a46b0ea3eef09eb76685064408b33bd978955773801100610",
+      "after": "3a6580c7f4587d9a46b0ea3eef09eb76685064408b33bd978955773801100610",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/move-submitting.jpg",
+      "before": "2e6a655c51a7fd7d7c4d18d7fb3d66acaa8d341add9d7efe3fa3678c0357d52e",
+      "after": "2e6a655c51a7fd7d7c4d18d7fb3d66acaa8d341add9d7efe3fa3678c0357d52e",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/move-timeout.jpg",
+      "before": "12622c102f2ab12ba026dcd6494f6d904b7a8638791069c560e0bed98f6d574e",
+      "after": "12622c102f2ab12ba026dcd6494f6d904b7a8638791069c560e0bed98f6d574e",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/scope-check.json",
+      "before": "efaba1beaf0222e95a93a57b3cdf6daec66e77a6c8f88b0a594259b5886d6b30",
+      "after": "efaba1beaf0222e95a93a57b3cdf6daec66e77a6c8f88b0a594259b5886d6b30",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/targeted-tests.txt",
+      "before": "8dd9b50dc5bb8738ebec467d820cf4eb0cc9cc373096c823b818832d8b344d74",
+      "after": "8dd9b50dc5bb8738ebec467d820cf4eb0cc9cc373096c823b818832d8b344d74",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/timeout-observation.json",
+      "before": "3417ee95c07c13d513dca9f79b93015610517ee3844d6c4381a28c7516b6fd97",
+      "after": "3417ee95c07c13d513dca9f79b93015610517ee3844d6c4381a28c7516b6fd97",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/timeout-recovery.json",
+      "before": "aa50933d467fb06b891843e796b9eebe425f91a28ae67f1c62e4c0e3e5d3eed5",
+      "after": "aa50933d467fb06b891843e796b9eebe425f91a28ae67f1c62e4c0e3e5d3eed5",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/timing-summary.json",
+      "before": "5ff106b4786426435717800d4d4dc428609b8c243e656b776a2531b71a8928bf",
+      "after": "5ff106b4786426435717800d4d4dc428609b8c243e656b776a2531b71a8928bf",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/typecheck.txt",
+      "before": "de4c8f25fd59e5f391bba888cb7376e3db068a4b1e5fabe6e043960a1ad0ca66",
+      "after": "de4c8f25fd59e5f391bba888cb7376e3db068a4b1e5fabe6e043960a1ad0ca66",
+      "unchanged": true
+    },
+    {
+      "path": "evidence/mp-009/updated-harness-tests.txt",
+      "before": "4d1ce47a27b0c0af7950d2f0e17286238e5487daad76524b7c5d290fe245717c",
+      "after": "4d1ce47a27b0c0af7950d2f0e17286238e5487daad76524b7c5d290fe245717c",
+      "unchanged": true
+    }
+  ],
+  "protectedPaths": [
+    "server",
+    "vendor",
+    "src/core-adapter",
+    "src/player-view",
+    "src/geometry",
+    "src/fog",
+    "src/multiplayer/protocol.ts",
+    "src/multiplayer/gameplayProtocol.ts",
+    "src/multiplayer/snapshotCodec.ts",
+    "tests/fixtures"
+  ],
+  "protectedDiff": ""
+}

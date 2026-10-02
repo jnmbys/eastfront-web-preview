@@ -1,0 +1,232 @@
+{
+  "sources": [
+    "evidence/mp-009/timeout-recovery.json",
+    "evidence/mp-009/browser-timing.json"
+  ],
+  "clocks": "Browser and server performance clocks are separate; do not subtract across them.",
+  "clientResyncs": [
+    {
+      "stage": "send",
+      "at": 346736.9999999999,
+      "requestId": "99921935-a53f-4630-9b94-6892279e115d",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790911700494.4
+    },
+    {
+      "stage": "send",
+      "at": 417376.9,
+      "requestId": "4f7679f1-a604-4cf4-876f-8f0391893e44",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790911771134.2998
+    },
+    {
+      "stage": "send",
+      "at": 419455.9999999999,
+      "requestId": "fa35a7c6-1335-424c-b4d5-1afbe45b8012",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790911773213.4
+    }
+  ],
+  "serverResyncs": [
+    {
+      "at": 404012.9121,
+      "requestId": "99921935-a53f-4630-9b94-6892279e115d",
+      "type": "RESYNC_MATCH"
+    },
+    {
+      "at": 474652.8235,
+      "requestId": "4f7679f1-a604-4cf4-876f-8f0391893e44",
+      "type": "RESYNC_MATCH"
+    },
+    {
+      "at": 476731.9007,
+      "requestId": "fa35a7c6-1335-424c-b4d5-1afbe45b8012",
+      "type": "RESYNC_MATCH"
+    }
+  ],
+  "timeoutTimelines": [
+    {
+      "stage": "send",
+      "at": 336735.4999999999,
+      "requestId": "e6e99049-b4c4-4b49-a741-bec8f211fe28",
+      "type": "SUBMIT_ACTION",
+      "clientTimestamp": 1790911690492.9
+    },
+    {
+      "stage": "submit",
+      "at": 336735.4,
+      "requestId": "e6e99049-b4c4-4b49-a741-bec8f211fe28",
+      "revision": 1,
+      "clientTimestamp": 1790911690492.7998
+    },
+    {
+      "stage": "feedback-frame",
+      "at": 336740.20000000007,
+      "requestId": "e6e99049-b4c4-4b49-a741-bec8f211fe28",
+      "clientTimestamp": 1790911690497.5999
+    },
+    {
+      "stage": "ack",
+      "at": 338567.9,
+      "requestId": "e6e99049-b4c4-4b49-a741-bec8f211fe28",
+      "revision": 2,
+      "sequence": 14,
+      "clientTimestamp": 1790911692325.2998
+    },
+    {
+      "stage": "ui",
+      "at": 338568.20000000007,
+      "requestId": "e6e99049-b4c4-4b49-a741-bec8f211fe28",
+      "type": "ACTION_ACCEPTED",
+      "revision": 1,
+      "sequence": 14,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790911692325.5999
+    },
+    {
+      "stage": "send",
+      "at": 346736.9999999999,
+      "requestId": "99921935-a53f-4630-9b94-6892279e115d",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790911700494.4
+    },
+    {
+      "stage": "ui",
+      "at": 348781.70000000007,
+      "requestId": "99921935-a53f-4630-9b94-6892279e115d",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 2,
+      "sequence": 16,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790911702539.0999
+    },
+    {
+      "stage": "send",
+      "at": 348792.9999999999,
+      "requestId": "84bda5c1-d467-4a94-aa1c-65f649aa82f7",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1790911702550.4
+    },
+    {
+      "stage": "ui",
+      "at": 348813.29999999993,
+      "requestId": "84bda5c1-d467-4a94-aa1c-65f649aa82f7",
+      "type": "MATCH_QUERY",
+      "revision": 2,
+      "sequence": 17,
+      "ready": true,
+      "interactive": true,
+      "syncing": false,
+      "clientTimestamp": 1790911702570.7
+    },
+    {
+      "stage": "send",
+      "at": 407374.1,
+      "requestId": "82ef033b-36e1-4762-ac29-59287b5bb011",
+      "type": "SUBMIT_ACTION",
+      "clientTimestamp": 1790911761131.5
+    },
+    {
+      "stage": "submit",
+      "at": 407373.9999999999,
+      "requestId": "82ef033b-36e1-4762-ac29-59287b5bb011",
+      "revision": 2,
+      "clientTimestamp": 1790911761131.4
+    },
+    {
+      "stage": "feedback-frame",
+      "at": 407378.4999999999,
+      "requestId": "82ef033b-36e1-4762-ac29-59287b5bb011",
+      "clientTimestamp": 1790911761135.9
+    },
+    {
+      "stage": "ack",
+      "at": 409195.9,
+      "requestId": "82ef033b-36e1-4762-ac29-59287b5bb011",
+      "revision": 3,
+      "sequence": 21,
+      "clientTimestamp": 1790911762953.2998
+    },
+    {
+      "stage": "ui",
+      "at": 409196.1,
+      "requestId": "82ef033b-36e1-4762-ac29-59287b5bb011",
+      "type": "ACTION_ACCEPTED",
+      "revision": 2,
+      "sequence": 21,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790911762953.5
+    },
+    {
+      "stage": "send",
+      "at": 417376.9,
+      "requestId": "4f7679f1-a604-4cf4-876f-8f0391893e44",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790911771134.2998
+    },
+    {
+      "stage": "ui",
+      "at": 419419.1,
+      "requestId": "4f7679f1-a604-4cf4-876f-8f0391893e44",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 3,
+      "sequence": 23,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790911773176.5
+    },
+    {
+      "stage": "send",
+      "at": 419434.9,
+      "requestId": "acd1bb6e-6635-4243-ab53-d7859aa6e49f",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1790911773192.2998
+    },
+    {
+      "stage": "send",
+      "at": 419455.9999999999,
+      "requestId": "fa35a7c6-1335-424c-b4d5-1afbe45b8012",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790911773213.4
+    },
+    {
+      "stage": "ui",
+      "at": 419491.1,
+      "requestId": "fa35a7c6-1335-424c-b4d5-1afbe45b8012",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 3,
+      "sequence": 25,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790911773248.5
+    },
+    {
+      "stage": "send",
+      "at": 419492.9999999999,
+      "requestId": "b0758105-27b3-45d0-9d95-1456d2f89d07",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1790911773250.4
+    },
+    {
+      "stage": "ui",
+      "at": 419512.9999999999,
+      "requestId": "b0758105-27b3-45d0-9d95-1456d2f89d07",
+      "type": "MATCH_QUERY",
+      "revision": 3,
+      "sequence": 26,
+      "ready": true,
+      "interactive": true,
+      "syncing": false,
+      "clientTimestamp": 1790911773270.4
+    }
+  ],
+  "inference": "Two deadline recoveries plus one additional recovery. Original evidence lacks raw discarded receive frames and trigger reasons; replay demonstrates a plausible fixture reorder mechanism, not proof of the historical packet order."
+}

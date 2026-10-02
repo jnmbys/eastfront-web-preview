@@ -1,0 +1,855 @@
+{
+  "client": "dist/app",
+  "mode": "second-snapshot-after-resync",
+  "clock": "virtual milliseconds; original 10000 ms deadline retained",
+  "transport": "serialized in-process WebSocket adapter; real authority/client/codec, no browser or compression emulation",
+  "actionCount": 2,
+  "resyncCount": 3,
+  "trace": [
+    {
+      "at": 0,
+      "type": "HELLO",
+      "requestId": "d7c40b7f-93b7-4f37-a5af-6ca1f0b6ca59",
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 0,
+      "type": "WELCOME",
+      "requestId": "d7c40b7f-93b7-4f37-a5af-6ca1f0b6ca59",
+      "revision": null,
+      "sequence": null,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 0,
+      "type": "SET_SNAPSHOT_FORMAT",
+      "requestId": "11ea2a85-590c-4372-8c6e-7060b892df2a",
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 0,
+      "index": 1,
+      "type": "SNAPSHOT_FORMAT_SELECTED",
+      "requestId": "11ea2a85-590c-4372-8c6e-7060b892df2a",
+      "revision": null,
+      "sequence": null,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 0,
+      "index": 1,
+      "due": 0,
+      "type": "SNAPSHOT_FORMAT_SELECTED",
+      "requestId": "11ea2a85-590c-4372-8c6e-7060b892df2a",
+      "revision": null,
+      "sequence": null,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 0,
+      "type": "SNAPSHOT_FORMAT_SELECTED",
+      "requestId": "11ea2a85-590c-4372-8c6e-7060b892df2a",
+      "revision": null,
+      "sequence": null,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 0,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 0,
+      "sequence": 1,
+      "resync": true,
+      "stage": "receive"
+    },
+    {
+      "at": 0,
+      "type": "SUBMIT_ACTION",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "expectedRevision": 0,
+      "action": "MOVE",
+      "stage": "send"
+    },
+    {
+      "at": 0,
+      "index": 2,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "revision": 1,
+      "sequence": 2,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 0,
+      "index": 2,
+      "due": 1800,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "revision": 1,
+      "sequence": 2,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 0,
+      "index": 3,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 1,
+      "sequence": 3,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 0,
+      "index": 3,
+      "due": 12000,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 1,
+      "sequence": 3,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 0,
+      "stage": "client-timing",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "type": "SUBMIT_ACTION",
+      "clientTimestamp": 1790914435922.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 0,
+      "kind": "status",
+      "sequence": 1,
+      "revision": 0,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 0,
+      "kind": "status",
+      "sequence": 1,
+      "revision": 0,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 0,
+      "stage": "client-timing",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "revision": 0,
+      "clientTimestamp": 1790914435922.824,
+      "timingStage": "submit"
+    },
+    {
+      "at": 1800,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "revision": 1,
+      "sequence": 2,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 1800,
+      "stage": "client-timing",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "revision": 1,
+      "sequence": 2,
+      "clientTimestamp": 1790914437722.824,
+      "timingStage": "ack"
+    },
+    {
+      "at": 1800,
+      "kind": "status",
+      "sequence": 2,
+      "revision": 0,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 1800,
+      "stage": "client-timing",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "type": "ACTION_ACCEPTED",
+      "revision": 0,
+      "sequence": 2,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790914437722.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 10000,
+      "reason": "snapshot-deadline",
+      "expectedSequence": 3,
+      "currentRevision": 0,
+      "syncing": false,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 10000,
+      "type": "RESYNC_MATCH",
+      "requestId": "591e7fbe-1963-424a-8894-406d778728c9",
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 10000,
+      "index": 4,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "591e7fbe-1963-424a-8894-406d778728c9",
+      "revision": 1,
+      "sequence": 4,
+      "resync": true,
+      "stage": "server-generated"
+    },
+    {
+      "at": 10000,
+      "index": 4,
+      "due": 12000,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "591e7fbe-1963-424a-8894-406d778728c9",
+      "revision": 1,
+      "sequence": 4,
+      "resync": true,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 10000,
+      "stage": "client-timing",
+      "requestId": "591e7fbe-1963-424a-8894-406d778728c9",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790914445922.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 10000,
+      "kind": "status",
+      "sequence": 2,
+      "revision": 0,
+      "syncing": true,
+      "stage": "session-change"
+    },
+    {
+      "at": 10000,
+      "kind": "status",
+      "sequence": 2,
+      "revision": 0,
+      "syncing": true,
+      "stage": "session-change"
+    },
+    {
+      "at": 12000,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 1,
+      "sequence": 3,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 12000,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "591e7fbe-1963-424a-8894-406d778728c9",
+      "revision": 1,
+      "sequence": 4,
+      "resync": true,
+      "stage": "receive"
+    },
+    {
+      "at": 12000,
+      "stage": "client-timing",
+      "requestId": "5d20735e-ac79-4ced-8d56-c11de2020c22",
+      "revision": 1,
+      "sequence": 4,
+      "clientTimestamp": 1790914447922.824,
+      "timingStage": "snapshot-applied"
+    },
+    {
+      "at": 12000,
+      "kind": "resync",
+      "sequence": 4,
+      "revision": 1,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 12000,
+      "stage": "client-timing",
+      "requestId": "591e7fbe-1963-424a-8894-406d778728c9",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 1,
+      "sequence": 4,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790914447922.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 12000,
+      "type": "QUERY_MATCH",
+      "requestId": "73f1fc32-be95-4ed5-8a4c-7f6982d7e4b5",
+      "expectedRevision": 1,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 12000,
+      "index": 5,
+      "type": "MATCH_QUERY",
+      "requestId": "73f1fc32-be95-4ed5-8a4c-7f6982d7e4b5",
+      "revision": 1,
+      "sequence": 5,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 12000,
+      "index": 5,
+      "due": 12000,
+      "type": "MATCH_QUERY",
+      "requestId": "73f1fc32-be95-4ed5-8a4c-7f6982d7e4b5",
+      "revision": 1,
+      "sequence": 5,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 12000,
+      "stage": "client-timing",
+      "requestId": "73f1fc32-be95-4ed5-8a4c-7f6982d7e4b5",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1790914447922.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 12000,
+      "kind": "status",
+      "sequence": 4,
+      "revision": 1,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 12000,
+      "type": "MATCH_QUERY",
+      "requestId": "73f1fc32-be95-4ed5-8a4c-7f6982d7e4b5",
+      "revision": 1,
+      "sequence": 5,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 12000,
+      "kind": "query",
+      "sequence": 5,
+      "revision": 1,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 12000,
+      "stage": "client-timing",
+      "requestId": "73f1fc32-be95-4ed5-8a4c-7f6982d7e4b5",
+      "type": "MATCH_QUERY",
+      "revision": 1,
+      "sequence": 5,
+      "ready": true,
+      "interactive": true,
+      "syncing": false,
+      "clientTimestamp": 1790914447922.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 12002,
+      "type": "SUBMIT_ACTION",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "expectedRevision": 1,
+      "action": "MOVE",
+      "stage": "send"
+    },
+    {
+      "at": 12002,
+      "index": 6,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "revision": 2,
+      "sequence": 6,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 12002,
+      "index": 6,
+      "due": 13802,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "revision": 2,
+      "sequence": 6,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 12002,
+      "index": 7,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 2,
+      "sequence": 7,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 12002,
+      "index": 7,
+      "due": 24003,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 2,
+      "sequence": 7,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 12002,
+      "stage": "client-timing",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "type": "SUBMIT_ACTION",
+      "clientTimestamp": 1790914447924.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 12002,
+      "kind": "status",
+      "sequence": 5,
+      "revision": 1,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 12002,
+      "kind": "status",
+      "sequence": 5,
+      "revision": 1,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 12002,
+      "stage": "client-timing",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "revision": 1,
+      "clientTimestamp": 1790914447924.824,
+      "timingStage": "submit"
+    },
+    {
+      "at": 13802,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "revision": 2,
+      "sequence": 6,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 13802,
+      "stage": "client-timing",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "revision": 2,
+      "sequence": 6,
+      "clientTimestamp": 1790914449724.824,
+      "timingStage": "ack"
+    },
+    {
+      "at": 13802,
+      "kind": "status",
+      "sequence": 6,
+      "revision": 1,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 13802,
+      "stage": "client-timing",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "type": "ACTION_ACCEPTED",
+      "revision": 1,
+      "sequence": 6,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790914449724.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 22002,
+      "reason": "snapshot-deadline",
+      "expectedSequence": 7,
+      "currentRevision": 1,
+      "syncing": false,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 22002,
+      "type": "RESYNC_MATCH",
+      "requestId": "e79991fb-3ab1-43ae-adba-a1fdce6cddc8",
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 22002,
+      "index": 8,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "e79991fb-3ab1-43ae-adba-a1fdce6cddc8",
+      "revision": 2,
+      "sequence": 8,
+      "resync": true,
+      "stage": "server-generated"
+    },
+    {
+      "at": 22002,
+      "index": 8,
+      "due": 24002,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "e79991fb-3ab1-43ae-adba-a1fdce6cddc8",
+      "revision": 2,
+      "sequence": 8,
+      "resync": true,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 22002,
+      "stage": "client-timing",
+      "requestId": "e79991fb-3ab1-43ae-adba-a1fdce6cddc8",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790914457924.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 22002,
+      "kind": "status",
+      "sequence": 6,
+      "revision": 1,
+      "syncing": true,
+      "stage": "session-change"
+    },
+    {
+      "at": 22002,
+      "kind": "status",
+      "sequence": 6,
+      "revision": 1,
+      "syncing": true,
+      "stage": "session-change"
+    },
+    {
+      "at": 24002,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "e79991fb-3ab1-43ae-adba-a1fdce6cddc8",
+      "revision": 2,
+      "sequence": 8,
+      "resync": true,
+      "stage": "receive"
+    },
+    {
+      "at": 24002,
+      "stage": "client-timing",
+      "requestId": "201765e5-715e-46d6-a340-5f7547aad67b",
+      "revision": 2,
+      "sequence": 8,
+      "clientTimestamp": 1790914459924.824,
+      "timingStage": "snapshot-applied"
+    },
+    {
+      "at": 24002,
+      "kind": "resync",
+      "sequence": 8,
+      "revision": 2,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 24002,
+      "stage": "client-timing",
+      "requestId": "e79991fb-3ab1-43ae-adba-a1fdce6cddc8",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 2,
+      "sequence": 8,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790914459924.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 24002,
+      "type": "QUERY_MATCH",
+      "requestId": "37264763-0673-44f4-9d3a-628fc165eac7",
+      "expectedRevision": 2,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 24002,
+      "index": 9,
+      "type": "MATCH_QUERY",
+      "requestId": "37264763-0673-44f4-9d3a-628fc165eac7",
+      "revision": 2,
+      "sequence": 9,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 24002,
+      "index": 9,
+      "due": 24002,
+      "type": "MATCH_QUERY",
+      "requestId": "37264763-0673-44f4-9d3a-628fc165eac7",
+      "revision": 2,
+      "sequence": 9,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 24002,
+      "stage": "client-timing",
+      "requestId": "37264763-0673-44f4-9d3a-628fc165eac7",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1790914459924.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 24002,
+      "kind": "status",
+      "sequence": 8,
+      "revision": 2,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 24002,
+      "type": "MATCH_QUERY",
+      "requestId": "37264763-0673-44f4-9d3a-628fc165eac7",
+      "revision": 2,
+      "sequence": 9,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 24002,
+      "kind": "query",
+      "sequence": 9,
+      "revision": 2,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 24002,
+      "stage": "client-timing",
+      "requestId": "37264763-0673-44f4-9d3a-628fc165eac7",
+      "type": "MATCH_QUERY",
+      "revision": 2,
+      "sequence": 9,
+      "ready": true,
+      "interactive": true,
+      "syncing": false,
+      "clientTimestamp": 1790914459924.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 24003,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 2,
+      "sequence": 7,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 24003,
+      "reason": "ordered-frame-check",
+      "expectedSequence": 10,
+      "currentRevision": 2,
+      "syncing": false,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 2,
+      "sequence": 7,
+      "resync": false,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 24003,
+      "type": "RESYNC_MATCH",
+      "requestId": "c2e6341a-3886-4160-8f20-6a2f69ad42c8",
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 24003,
+      "index": 10,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "c2e6341a-3886-4160-8f20-6a2f69ad42c8",
+      "revision": 2,
+      "sequence": 10,
+      "resync": true,
+      "stage": "server-generated"
+    },
+    {
+      "at": 24003,
+      "index": 10,
+      "due": 24003,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "c2e6341a-3886-4160-8f20-6a2f69ad42c8",
+      "revision": 2,
+      "sequence": 10,
+      "resync": true,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 24003,
+      "stage": "client-timing",
+      "requestId": "c2e6341a-3886-4160-8f20-6a2f69ad42c8",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1790914459925.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 24003,
+      "kind": "status",
+      "sequence": 9,
+      "revision": 2,
+      "syncing": true,
+      "stage": "session-change"
+    },
+    {
+      "at": 24003,
+      "kind": "status",
+      "sequence": 9,
+      "revision": 2,
+      "syncing": true,
+      "stage": "session-change"
+    },
+    {
+      "at": 24003,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "c2e6341a-3886-4160-8f20-6a2f69ad42c8",
+      "revision": 2,
+      "sequence": 10,
+      "resync": true,
+      "stage": "receive"
+    },
+    {
+      "at": 24003,
+      "kind": "resync",
+      "sequence": 10,
+      "revision": 2,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 24003,
+      "stage": "client-timing",
+      "requestId": "c2e6341a-3886-4160-8f20-6a2f69ad42c8",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 2,
+      "sequence": 10,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1790914459925.824,
+      "timingStage": "ui"
+    },
+    {
+      "at": 24003,
+      "type": "QUERY_MATCH",
+      "requestId": "a72f4e8c-4fdb-4a5e-afc5-414420c7ed63",
+      "expectedRevision": 2,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 24003,
+      "index": 11,
+      "type": "MATCH_QUERY",
+      "requestId": "a72f4e8c-4fdb-4a5e-afc5-414420c7ed63",
+      "revision": 2,
+      "sequence": 11,
+      "resync": false,
+      "stage": "server-generated"
+    },
+    {
+      "at": 24003,
+      "index": 11,
+      "due": 24003,
+      "type": "MATCH_QUERY",
+      "requestId": "a72f4e8c-4fdb-4a5e-afc5-414420c7ed63",
+      "revision": 2,
+      "sequence": 11,
+      "resync": false,
+      "stage": "fixture-scheduled"
+    },
+    {
+      "at": 24003,
+      "stage": "client-timing",
+      "requestId": "a72f4e8c-4fdb-4a5e-afc5-414420c7ed63",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1790914459925.824,
+      "timingStage": "send"
+    },
+    {
+      "at": 24003,
+      "kind": "status",
+      "sequence": 10,
+      "revision": 2,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 24003,
+      "type": "MATCH_QUERY",
+      "requestId": "a72f4e8c-4fdb-4a5e-afc5-414420c7ed63",
+      "revision": 2,
+      "sequence": 11,
+      "resync": false,
+      "stage": "receive"
+    },
+    {
+      "at": 24003,
+      "kind": "query",
+      "sequence": 11,
+      "revision": 2,
+      "syncing": false,
+      "stage": "session-change"
+    },
+    {
+      "at": 24003,
+      "stage": "client-timing",
+      "requestId": "a72f4e8c-4fdb-4a5e-afc5-414420c7ed63",
+      "type": "MATCH_QUERY",
+      "revision": 2,
+      "sequence": 11,
+      "ready": true,
+      "interactive": true,
+      "syncing": false,
+      "clientTimestamp": 1790914459925.824,
+      "timingStage": "ui"
+    }
+  ]
+}

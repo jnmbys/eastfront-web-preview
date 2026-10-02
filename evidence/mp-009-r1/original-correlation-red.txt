@@ -1,0 +1,130 @@
+✖ MP009R1 newer unrelated snapshot cannot be attributed before a matching receipt (29.5094ms)
+✖ MP009R1 late ACK emits once using first actual snapshot application time and sequence (16.9192ms)
+✔ MP009R1 ACK before snapshot completes exactly once at application, never at ACK (17.9633ms)
+✖ MP009R1 wrong result revision is excluded even after a matching request receipt (14.9281ms)
+✖ MP009R1 recovery may correlate an acknowledged exact revision after UI intent cleanup (15.8427ms)
+✖ MP009R1 a different authorized viewer cannot complete the request (17.5567ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 1
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 252.4297
+
+✖ failing tests:
+
+test at tests\mp009-r1-correlation.test.mjs:25:1
+✖ MP009R1 newer unrelated snapshot cannot be attributed before a matching receipt (29.5094ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+  + [
+  +   {
+  +     at: 20,
+  +     clientTimestamp: 1790914434892.308,
+  +     requestId: 'own-request',
+  +     revision: 1,
+  +     sequence: 2,
+  +     stage: 'snapshot-applied'
+  +   }
+  + ]
+  - []
+
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp009-r1-correlation.test.mjs:26:127)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { stage: 'snapshot-applied', at: 20, requestId: 'own-request', revision: 1, sequence: 2, clientTimestamp: 1790914434892.308 } ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\mp009-r1-correlation.test.mjs:29:1
+✖ MP009R1 late ACK emits once using first actual snapshot application time and sequence (16.9192ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp009-r1-correlation.test.mjs:30:122)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\mp009-r1-correlation.test.mjs:39:1
+✖ MP009R1 wrong result revision is excluded even after a matching request receipt (14.9281ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp009-r1-correlation.test.mjs:40:63)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\mp009-r1-correlation.test.mjs:42:1
+✖ MP009R1 recovery may correlate an acknowledged exact revision after UI intent cleanup (15.8427ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp009-r1-correlation.test.mjs:43:130)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\mp009-r1-correlation.test.mjs:45:1
+✖ MP009R1 a different authorized viewer cannot complete the request (17.5567ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  1 !== 0
+
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/mp-007/tests/mp009-r1-correlation.test.mjs:46:110)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
