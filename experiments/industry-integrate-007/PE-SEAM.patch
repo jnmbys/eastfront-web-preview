@@ -1,0 +1,54 @@
+--- a/core/src/rules/recovery.ts
++++ b/core/src/rules/recovery.ts
+@@ -192,3 +192,9 @@
+   unit.step=(unit.step-1) as UnitState['step'];
+   state.rp[unit.side]-=template.recoveryCostPerStep;
+ }
++
++/** 007 isolated PE effect: eligibility stays in the engine; material debit is root-owned. */
++export function applyPERecoveryAction(state:GameState,action:RepairUnitAction):void {
++  const unit=state.units[action.unitId]!;
++  unit.step=(unit.step-1) as UnitState['step'];
++}
+--- a/core/src/engine/RulesEngine.ts
++++ b/core/src/engine/RulesEngine.ts
+@@ -17,7 +17,7 @@
+ import { beginGameTurn, beginPhase, beginPlayerTurn, endPhase, endPlayerTurn } from '../rules/turn.js';
+ import { applyGermanRailRepair, validateRailRepairAction } from '../rules/rail.js';
+ import { validateHQCommand } from '../rules/hq.js';
+-import { applyRecoveryAction, validateRecoveryAction } from '../rules/recovery.js';
++import { applyRecoveryAction, applyPERecoveryAction, validateRecoveryAction } from '../rules/recovery.js';
+ import { applyDeploySovietReinforcement, hasDeployableSovietReinforcement, validateDeploySovietReinforcementAction } from '../rules/reinforcement.js';
+ import { validateAuthorizeUnitCommitment } from '../rules/commitment.js';
+ import { evaluateVictoryAtCheckpoint, victoryCheckpointForPhase } from '../rules/victory.js';
+@@ -76,7 +76,7 @@
+ }
+ 
+ export class RulesEngine {
+-  constructor(public readonly rules:GameRules, public readonly scenario:ScenarioConfig) {}
++  constructor(public readonly rules:GameRules, public readonly scenario:ScenarioConfig, private readonly recoveryPaymentMode:'RP'|'PE'='RP') {}
+ 
+   apply(state:GameState,inputAction:Action):ActionResult {
+     const next=cloneGameState(state);
+@@ -329,8 +329,10 @@
+ 
+       case 'REPAIR_UNIT': {
+         issues=validateRecoveryAction(next,this.rules,this.scenario,action);
+-        if (issues.length>0) return reject();
+-        applyRecoveryAction(next,this.rules,action);
++        if (this.recoveryPaymentMode==='PE') issues=issues.filter(issue=>!(issue.code==='INVALID_SUPPORT'&&issue.details?.reason==='INSUFFICIENT_RP'));
++        if (issues.length>0) return reject();
++        if (this.recoveryPaymentMode==='PE') applyPERecoveryAction(next,action);
++        else applyRecoveryAction(next,this.rules,action);
+         return accept();
+       }
+ 
+--- a/core-bridge.mjs
++++ b/core-bridge.mjs
+@@ -1,5 +1,5 @@
+ import fs from 'node:fs';import crypto from 'node:crypto';import * as c from './core/dist/index.js';import {applyLossSequence} from './core/dist/rules/combatLoss.js';import {derivePlayerView} from './player-view.mjs';
+-const req=JSON.parse(fs.readFileSync(0,'utf8')),rules=c.defaultRules,scenario=c.defaultScenario,engine=new c.RulesEngine(rules,scenario);let state=req.state;const actions=[],events=[];const hash=o=>crypto.createHash('sha256').update(JSON.stringify(o)).digest('hex');
++const req=JSON.parse(fs.readFileSync(0,'utf8')),rules=c.defaultRules,scenario=c.defaultScenario,engine=new c.RulesEngine(rules,scenario,process.env.INDUSTRY007_PAYMENT_MODE==='PE'?'PE':'RP');let state=req.state;const actions=[],events=[];const hash=o=>crypto.createHash('sha256').update(JSON.stringify(o)).digest('hex');
+ function project(){if(req.mode!=='new'){delete state.expSupplyMode;for(const u of Object.values(state.units))delete u.expSupply;return;}state.expSupplyMode=true;for(const u of Object.values(state.units)){const tx=state.pendingDecision&&state.combatTransactions[state.pendingDecision.battleId];const locked=tx&&!tx.resolution&&tx.attackerUnitIds.includes(u.id)&&!['ATTACK','SCHWERPUNKT_ATTACK'].includes(req.action?.type);const p=req.effects[u.id];if(locked&&u.expSupply)continue;u.expSupply={attackFactor:p?.factor??1,movementCap:p?.cap??null};u.supplyState=p?.exhausted?'OUT_OF_SUPPLY':'SUPPLIED';u.temporarySupply=false;}}
+ function apply(a,probe=false){
+  // Re-enable ONLY the existing winning Core checkpoint. No supply-based new victory.
