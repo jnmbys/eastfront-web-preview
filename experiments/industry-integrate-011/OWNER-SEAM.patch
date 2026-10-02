@@ -1,0 +1,318 @@
+--- a/adapter.py
++++ b/adapter.py
+@@ -7,10 +7,13 @@
+ from copy import deepcopy
+ from pathlib import Path
+ from config import HERE,OUT,CANDIDATE_SHA,load_launch,verify_runtime,initial_json,digest,sha,serialized
++import service_receipt
+ 
+ _OWNERS=set()
+ _EXECUTION=threading.Lock() # Original live/worker globals belong to one in-process execution owner.
+ _VERIFIED=False
++_MAIN_CREATED=False
++_OWNER_CREATION=threading.Lock()
+ def runtime():
+     global _VERIFIED
+     if not _VERIFIED:verify_runtime();_VERIFIED=True
+@@ -88,16 +91,23 @@
+ 
+ class Transactions:
+     def __init__(self,instance_id,config_file=HERE/'launch.json',*,test_fault=None,test_mode=False):
++        with _OWNER_CREATION:self._initialize(instance_id,config_file,test_fault=test_fault,test_mode=test_mode)
++    def _initialize(self,instance_id,config_file,*,test_fault,test_mode):
++        global _MAIN_CREATED
+         if test_fault and not test_mode:raise ValueError('TEST_MODE_REQUIRED')
+         self._launch=load_launch(config_file);self.c=self._launch['candidate']
++        if not test_mode:
++            assert instance_id=='011-main' and not _MAIN_CREATED,'ONLY_ONE_APPROVED_MAIN_INSTANCE'
++        else:assert instance_id.startswith('011-synthetic-replica-'),'TEST_REPLICA_MUST_BE_LABELLED'
+         assert isinstance(instance_id,str) and instance_id and instance_id not in _OWNERS,'NEW_INSTANCE_REQUIRED'
+         live,bounded=runtime()
+         with _EXECUTION:bounded.warm_start() # Explicit service startup outside transaction budget.
+         self._lock=threading.RLock();self._fault=test_fault;self._test_mode=test_mode
+         raw=initial_json();assert sha(raw.encode())==self.c['checkpoint']['serializedSnapshotSha256']
+         self._root=dict(bundle=json.loads(raw),bundleJSON=raw,materials=dict(revision=0,instanceId=instance_id,imports={},lots={},journal=[],scope='ACTIVE'),
+-            capacity=dict(epoch=None,rows=[],holds={},used={}),epoch=None,receipts={},boundary=None)
++            capacity=dict(epoch=None,rows=[],holds={},used={}),epoch=None,receipts={},boundary=None,services={})
+         _OWNERS.add(instance_id)
++        if not test_mode:_MAIN_CREATED=True
+     def snapshot(self):
+         # Published roots are never mutated; readers can see the prior root while
+         # private solve/transfer runs. They never wait on, or see, private holds.
+@@ -106,13 +116,14 @@
+     def _binding(self,r):
+         return dict(revision=r['bundle']['revision'],gameHash=sha(r['bundleJSON'].encode()),materialRevision=r['materials']['revision'],materialHash=digest(r['materials']),
+             jointHash=digest(dict(gameHash=sha(r['bundleJSON'].encode()),materials=r['materials'],capacity=r['capacity'],epoch=r['epoch'],
+-                witnessHash=digest(r['boundary']) if r['boundary'] else None,candidateHash=CANDIDATE_SHA,approvalHash=self._launch['approvalHash'])))
++                services=r['services'],witnessHash=digest(r['boundary']) if r['boundary'] else None,candidateHash=CANDIDATE_SHA,approvalHash=self._launch['approvalHash'])))
+     def request(self,id,action,mode='NONE'):
+-        with self._lock:return dict(id=id,action=deepcopy(action),paymentMode=mode,**self._binding(self._root))
++        with self._lock:return dict(id=id,action=deepcopy(action),paymentMode=mode,
++            serviceReceiptId=next(iter(self._root['services']),None) if mode=='PE' else None,**self._binding(self._root))
+     def gates(self):
+         return dict(runtimeAllowed=False,runtimeDecision='REJECT',globalBlockersClosed=0,
+-            blockers=[x['blocker'] for x in self.c['blockerReview']['rows']],localApprovedItems=19,
+-            outOfSliceBlockers=16,scope='RC005_A10_C10_E5_T6_ISOLATED_ONLY')
++            blockers=[x['blocker'] for x in self.c['blockerReview']['rows']],
++            scope='INDUSTRY011_SINGLE_INSTANCE_A10_C10_E5_T6',localDecisionRef=self._launch['approval']['decisionRef'])
+     def _fault_at(self,stage):
+         if self._fault:self._fault(stage)
+     def import_initial(self,manifest=None):
+@@ -139,11 +150,13 @@
+             return dict(ok=True,replayed=False,receipt=deepcopy(rec))
+     def _plan(self,r,request,deadline):
+         errors=[];common=None
+-        fields={'id','action','paymentMode','revision','gameHash','materialRevision','materialHash','jointHash'}
++        fields={'id','action','paymentMode','serviceReceiptId','revision','gameHash','materialRevision','materialHash','jointHash'}
+         if not isinstance(request,dict) or set(request)!=fields or not isinstance(request['id'],str) or not request['id'] or not isinstance(request['action'],dict):return dict(ok=False,errors=['INVALID_REQUEST_SCHEMA'],common=None)
+         for k,v in self._binding(r).items():
+             if request[k]!=v:errors.append('STALE_'+k)
+         a=request['action'];b=r['bundle'];s=self.c['scope'];m=r['materials']
++        if request['serviceReceiptId'] is not None and not isinstance(request['serviceReceiptId'],str):return dict(ok=False,errors=['INVALID_SERVICE_REFERENCE'],common=None)
++        if request['paymentMode']!='PE' and request['serviceReceiptId'] is not None:errors.append('SERVICE_ON_NON_PE_REQUEST')
+         if a.get('type')=='REPAIR_UNIT':
+             mode=request['paymentMode']
+             if set(a)!={'type','controllerId','unitId'} or mode not in ['RP','PE']:errors.append('INVALID_RECOVERY_REQUEST')
+@@ -151,6 +164,7 @@
+             if not common['commonEligible']:errors.append('CORE_COMMON_INELIGIBLE')
+             if mode=='RP' and common['rpIssues']:errors.append('RP_PAYMENT_INSUFFICIENT')
+             if mode=='PE':
++                errors.extend(service_receipt.check(r,request,self._launch['approvalHash']))
+                 u=b['core']['units'].get(a.get('unitId'),{});node=next((n for n in b['logistics']['nodes'] if n['id']=='C10'),{})
+                 if a.get('unitId')!=s['recoveryUnitId'] or a.get('controllerId')!=s['controllerId'] or u.get('hex')!={'q':2,'r':8}:errors.append('TARGET_OUTSIDE_SCOPE')
+                 if b['core']['turn']!=6 or b['core']['phase']!='GERMAN_RECOVERY':errors.append('T6_SCOPE_INVALID')
+@@ -208,6 +222,10 @@
+                 assert r['bundle']['core']['turn']==5 and r['bundle']['core']['phase']=='SOVIET_ENTRENCHMENT'
+                 assert n['bundle']['core']['turn']==6 and witness['epoch']=='L4' and n['bundle']['logistics']['epoch']=='L5'
+                 transfer_private(n,witness,self.c,request,self._fault_at)
++                assert witness['jointSPInputHash']=='1dc34b43a456170325db0dc6e91b2dc4433aacf666765f423d52fc65a1fd681c','ACTUAL_INPUT_DIFFERS_FROM_010'
++                if witness['ship']:
++                    service_receipt.issue_private(n,self._launch['approvalHash'])
++                    self._fault_at('after_service_issue')
+             if request['paymentMode']=='PE':
+                 assert n['bundle']['core']['rp']==r['bundle']['core']['rp']
+                 assert n['bundle']['core']['random']==r['bundle']['core']['random']
+@@ -217,16 +235,21 @@
+                     return dict(units=[{k:u[k] for k in ['id','stock','debt','B','cap']} for u in s['units']],
+                         hubs=s['hubs'],sources=s['sources'],done=s['done'],T=s['T'],spent=s['action_spent'])
+                 assert payment_sp(n['bundle'])==payment_sp(r['bundle']),'MATERIAL_PAYMENT_CHANGED_SP'
++                assert not service_receipt.check(r,request,self._launch['approvalHash'])
++                service_receipt.consume_private(n,request,self._launch['approvalHash'])
+                 for lot in m['lots'].values():lot['spent']+=lot['quantity'];lot.update(quantity=0,status='SPENT')
+                 m['revision']+=1;m['scope']='CONSUMED'
+                 m['imports'][self.c['initialManifest']['id']]['retired']=True
+-                m['journal'].append(dict(event='T6_PE_SPENT',requestId=id,debits=self.c['recovery']['materialPrice']))
++                m['journal'].append(dict(event='T6_PE_SPENT',requestId=id,debits=self.c['recovery']['materialPrice'],
++                    serviceReceiptId=request['serviceReceiptId'],extraW=0))
+             core=n['bundle']['core']
+             if (request['paymentMode']=='RP' and core['turn']==6) or core['phase']=='GAME_OVER' or (core['turn']==6 and core['phase']=='GERMAN_ENTRENCHMENT'):
+                 if m['scope']=='ACTIVE' and m['lots']:
+                     for lot in m['lots'].values():
+                         if lot['quantity']:lot['status']='QUARANTINED'
+                     m['scope']='QUARANTINED';m['revision']+=1;m['journal'].append(dict(event='SCOPE_EXPIRED_QUARANTINE'))
++                    for service in n['services'].values():
++                        if service['status']=='PAID':service['status']='EXPIRED_NO_REFUND'
+             custody_audit(m)
+             self._fault_at('after_execute');assert self._root is r
+             receipt={**bound,'status':'COMMITTED'}
+--- a/freight_audit.py
++++ b/freight_audit.py
+@@ -5,6 +5,24 @@
+ from collections import defaultdict
+ 
+ PROGRAMS={}
++CARGO={}
++CURRENT_INPUT=None
++FLOW_AUDITS={}
++
++def configure(s,context):
++    global CARGO,CURRENT_INPUT
++    PROGRAMS.clear();FLOW_AUDITS.clear();CARGO={};CURRENT_INPUT=s
++    assert context is not None and set(context)=={'shipRequested','testFault'}
++    assert digest(s)=='dbce10dbbcdbb06e04737dd2d771f8892c1bb5f83dcc073a2c5b906138e0541d','E5_INPUT_DIFFERS_FROM_010'
++    d=Path(__file__).parent
++    raw=(d/'POLICY010.json').read_bytes()
++    assert hashlib.sha256(raw).hexdigest()=='959157110a5b90ea2dca9fe1bc7aa6178f9a1102468f43338be5f963526c395f'
++    rule=(d/'rule006.json').read_bytes()
++    assert hashlib.sha256(rule).hexdigest()=='4fe43573896d7e7d3a4e5b0c320f822fe7ea7517fa283584408d56d71dca2eed'
++    assert json.loads(rule)['charges']['rows']==json.loads((d/'candidate008.json').read_bytes())['capacity']['rows']
++    if context['shipRequested']:CARGO=json.loads(raw)['cargoReservation']
++
++def reservation(side):return deepcopy(CARGO) if side=='G' else {}
+ def digest(value):return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+ def allocate(rows,requested):
+     """Pure all-or-zero arithmetic; never an authority certificate or publication."""
+@@ -17,7 +35,14 @@
+         r['remaining']=r['cap']-r['spUsed']-r['otherHolds']-r['alreadyCommitted']-r['freight']
+         assert r['remaining']>=0
+     return rows,fits,ship
+-def capture_program(side,p,x):
++def capture_program(side,p,x,r,arcs):
++    from audit009 import capture
++    from reference009 import audit_flows
++    assert side not in PROGRAMS,'SIDE_SOLVED_MORE_THAN_ONCE'
++    certificate=capture(p,x)
++    witness=deepcopy(r);witness['certificate']=certificate
++    witness['flows']=[{k:v for k,v in a.items() if k!='i'}|{'q':int(x[a['i']]),'variable':p.names[a['i']]} for a in arcs if x[a['i']]>0]
++    FLOW_AUDITS[side]=dict(rows=audit_flows(CURRENT_INPUT,witness,reservation(side)),certificate=certificate,flows=witness['flows'])
+     rows=[]
+     for (a,lo,hi),label in zip(p.rows,p.labels):
+         used=sum(float(x[i])*v for i,v in a.items())
+@@ -85,12 +110,13 @@
+     for spec in c['capacity']['rows']:
+         k=spec['id'];r=constraints[k]
+         cap=budget(s['T'],s) if k=='T' else budget(hubs['GH2']['W'],s) if k=='W:GH2' else budget(edges[k[5:]]['cap'],s)
+-        assert cap==r['cap']==spec['capAtT5'] and recomputed[k]==r['used'],('ARC_ROW_MISMATCH',k)
++        assert cap==r['cap']+CARGO.get(k,0)==spec['capAtT5'] and recomputed[k]==r['used'],('ARC_ROW_MISMATCH',k)
+         assert cargo_rows[k]==spec['perKit'],'CARGO_ROW_COST_MISMATCH'
+         assert r['used']<=cap
+         rows.append(dict(id=k,cap=cap,spUsed=recomputed[k],otherHolds=0,alreadyCommitted=0,
+                          reservation=0,freight=0,perKit=spec['perKit'],remaining=cap-recomputed[k]))
+     rows,fits,ship=allocate(rows,context['shipRequested'])
++    assert not context['shipRequested'] or (fits and ship),'PRIORITY_RESERVED_BUT_NO_DELIVERY_ROLLBACK'
+     units=[]
+     for result in results:
+         for u in result['units']:
+@@ -103,4 +129,7 @@
+         fullProgramAudit={side:deepcopy(PROGRAMS[side]) for side in ['G','S']},routeNodes=route_nodes,routeEdges=route_edges,
+         routeHash=digest(dict(nodes=route_nodes,edges=route_edges)),rows=rows,localRailWorkIncludedInT=local_work,
+         fits=fits,ship=ship,reason='ONE_KIT' if ship else 'NO_MATERIAL_CONTROL' if not context['shipRequested'] else 'INSUFFICIENT_RESIDUAL_CAPACITY',
+-        maintenance=units,solveCount=2,extraSolveForCargo=0)
++        maintenance=units,solveCount=2,extraSolveForCargo=0,priorityReservation=deepcopy(CARGO),
++        fullFlowAudit=deepcopy(FLOW_AUDITS),
++        solverProfile=[{k:v for k,v in p.items() if k!='ms' and not k.endswith('_ms')} for p in __import__('model').PROFILE],
++        serviceKind='RECEIVE_STORE_AND_PREPARE_FOR_ONE_SAME_HEX_TARGET')
+--- a/prepare.py
++++ b/prepare.py
+@@ -22,11 +22,18 @@
+     (OUT/'rule').mkdir(exist_ok=True)
+     for name in ['candidate.json','VALIDATION.json','T5_FACTS.json']:
+         (OUT/'rule'/name).write_bytes(git('show',RULE+':docs/rule-campaign-005/'+name))
++    for commit,path,dest in [
++        ('f09911e4792bd1da33185807f03c68b2cd9565fe','docs/rule-campaign-006/candidate.json','rule006.json'),
++        ('2e5e4b810a8ca1c088012381bd52c9870ad0198e','experiments/industry-integrate-010/POLICY.json','POLICY010.json'),
++        ('2e5e4b810a8ca1c088012381bd52c9870ad0198e','experiments/industry-integrate-010/RESULT.json','PREDICTION010.json'),
++        ('96bf1d7307063ecb6331fc44b28a832bb2aceac6','experiments/industry-integrate-008/TRACE.json.gz','TRACE008.json.gz'),
++        ('96bf1d7307063ecb6331fc44b28a832bb2aceac6','experiments/industry-integrate-008/EVIDENCE.json','EVIDENCE008.json')]:
++        (OUT/'rule'/dest).write_bytes(git('show',commit+':'+path))
+     assert sha((OUT/'rule/candidate.json').read_bytes())==CANDIDATE_SHA
+     source=OUT/'pe-original';derived=OUT/'live'
+     shutil.copytree(target/prefix/'.runtime/live/experiments/supply-exp-005',source,dirs_exist_ok=True)
+     pe_patch=git('show',BASE+':experiments/industry-integrate-007/PE-SEAM.patch')
+-    subprocess.run(['git','apply','--directory=experiments/industry-integrate-008/.runtime/pe-original','-'],input=pe_patch,check=True,cwd=ROOT)
++    subprocess.run(['git','apply','--directory=experiments/industry-integrate-011/.runtime/pe-original','-'],input=pe_patch,check=True,cwd=ROOT)
+     subprocess.run(['node','--input-type=module','-e',"import fs from 'node:fs';import {stripTypeScriptTypes} from 'node:module';const d=process.argv[1];for(const n of ['rules/recovery','engine/RulesEngine'])fs.writeFileSync(d+'/core/dist/'+n+'.js',stripTypeScriptTypes(fs.readFileSync(d+'/core/src/'+n+'.ts','utf8'),{mode:'transform'}));",str(source)],check=True)
+     pinned_pe=json.loads(git('show',BASE+':experiments/industry-integrate-007/SEAM-HASHES.json'))
+     assert sha(pe_patch)==pinned_pe['patchSha256']
+@@ -55,18 +62,38 @@
+     edit('bounded.py',[
+         ('import multiprocessing as mp,time,atexit\n_WORKER=None','import multiprocessing as mp,time,atexit\n_WORKER=None\nCONTEXT=None'),
+         ('s,op,deadline=job;', 's,op,deadline,context=job;boundary=None;'),
+-        ("if op=='settle':out,result,retry=model.settle(s,s['epoch'])", "if op=='settle':\n    import freight_audit\n    freight_audit.PROGRAMS.clear()\n    if context and context.get('testFault')=='solver_failure':raise ValueError('SYNTHETIC_SOLVER_FAILURE')\n    out,result,retry=model.settle(s,s['epoch'])\n    boundary=freight_audit.inspect(s,out,result,context,deadline)"),
++        ("if op=='settle':out,result,retry=model.settle(s,s['epoch'])", "if op=='settle':\n    import freight_audit\n    freight_audit.configure(s,context)\n    if context and context.get('testFault')=='solver_failure':raise ValueError('SYNTHETIC_SOLVER_FAILURE')\n    out,result,retry=model.settle(s,s['epoch'])\n    boundary=freight_audit.inspect(s,out,result,context,deadline)"),
+         ("result=result,retry=retry,profile=list(model.PROFILE)", "result=result,retry=retry,profile=list(model.PROFILE),boundary=boundary"),
+         ('conn.send((s,op,deadline))', 'conn.send((s,op,deadline,CONTEXT))')])
+     # The exact solver already checks all rows/bounds and integrality each stage.
+     # Retain a final independent full-program witness, including unnamed rows.
+-    edit('signature_model.py',[("r['solver_retries']=p.solver_retries", "r['solver_retries']=p.solver_retries\n import freight_audit\n freight_audit.capture_program(side,p,x)")])
++    edit('signature_model.py',[
++        ("began=time.perf_counter();p=Program();groups={};", "import freight_audit\n cargo=freight_audit.reservation(side)\n began=time.perf_counter();p=Program();groups={};"),
++        ("def row(a,hi,label):p.row(a,hi=hi,label=label);groups[label]=(a,hi)",
++         "def row(a,hi,label):\n  bound=hi-cargo.get(label,0);assert bound>=0\n  p.row(a,hi=bound,label=label);groups[label]=(a,bound)"),
++        ("r['solver_retries']=p.solver_retries", "r['solver_retries']=p.solver_retries\n freight_audit.capture_program(side,p,x,r,arcs)")])
++    original=(source/'signature_model.py').read_text(encoding='utf8');modified=(derived/'signature_model.py').read_text(encoding='utf8')
++    start=" if s.get('allocator')!='progressive':";end=' # Report actual arc flows'
++    assert original[original.index(start):original.index(end)]==modified[modified.index(start):modified.index(end)]
++    for name,dest in [('experiment.py','reference009.py'),('solver_audit.py','audit009.py')]:
++        (derived/dest).write_bytes(git('show','b5bc3e6f4400c6a91152d9170e420aa31dc51dcb:experiments/industry-integrate-009/'+name))
+     shutil.copyfile(HERE/'freight_audit.py',derived/'freight_audit.py')
+     # Worker reads the same fixed candidate from disk, never a request certificate.
+     shutil.copyfile(OUT/'rule/candidate.json',derived/'candidate008.json')
++    for name in ['rule006.json','POLICY010.json']:
++        shutil.copyfile(OUT/'rule'/name,derived/name)
+     (HERE/'SETTLEMENT-SEAM.patch').write_bytes(''.join(patch).encode())
+     (HERE/'SEAM-HASHES.json').write_text(json.dumps(dict(base=BASE,changes=changes,patchSha256=sha(''.join(patch).encode()),PESeam=pinned_pe),indent=2)+'\n',encoding='utf8')
+     files={str(p.relative_to(OUT)).replace('\\','/'):sha(p.read_bytes()) for folder in ['base6','pe-original','live','rule'] for p in sorted((OUT/folder).rglob('*')) if p.is_file() and '__pycache__' not in p.parts}
+-    (OUT/'manifest.json').write_text(json.dumps(dict(base=BASE,rule=RULE,files=files),indent=2)+'\n',encoding='utf8')
+-    print(json.dumps(dict(status='PREPARED_008',files=len(files),campaignReplayed=False)))
++    (OUT/'manifest.json').write_text(json.dumps(dict(base=BASE,rule=RULE,industry011Base='2e5e4b810a8ca1c088012381bd52c9870ad0198e',industry011Rule='f09911e4792bd1da33185807f03c68b2cd9565fe',files=files),indent=2)+'\n',encoding='utf8')
++    # Explicit diff against the pinned 008 owner/audit/query/preparer, never edit those files.
++    inheritance=[];lineage=[]
++    for name in ['adapter.py','freight_audit.py','query.mjs','prepare.py','config.py']:
++        old=git('show','96bf1d7307063ecb6331fc44b28a832bb2aceac6:experiments/industry-integrate-008/'+name).decode()
++        new=(HERE/name).read_text(encoding='utf8')
++        inheritance.extend(difflib.unified_diff(old.splitlines(True),new.splitlines(True),fromfile='a/'+name,tofile='b/'+name))
++        lineage.append(dict(path=name,baseline008Sha256=sha(old.encode()),derived011Sha256=sha(new.encode())))
++    (HERE/'OWNER-SEAM.patch').write_bytes(''.join(inheritance).encode())
++    (HERE/'LINEAGE.json').write_bytes((json.dumps(dict(changes=lineage,ownerPatchSha256=sha(''.join(inheritance).encode()),completeObjectivesPreserved=True),indent=2)+'\n').encode())
++    print(json.dumps(dict(status='PREPARED_011',files=len(files),campaignReplayed=False)))
+ if __name__=='__main__':main()
+--- a/config.py
++++ b/config.py
+@@ -1,38 +1,48 @@
+-"""Trusted startup files, not request-supplied grants. Filesystem is the trust boundary."""
++"""Local startup configuration is trusted; requests cannot grant authority."""
+ import hashlib,json
+ from pathlib import Path
+ HERE=Path(__file__).resolve().parent
+ OUT=HERE/'.runtime'
+ CANDIDATE_SHA='65cb3f2a20262c82fdc7cd9a44f5c2d93a81c46c806e05e9524c0dc72060cef5'
+-RULE='e0c7fed6bfb2053b865f242fd4cf783a040eeb7f'
+-BASE='bad006249b81d07c6f63f8df4010ce4fcec51871'
++RULE='f09911e4792bd1da33185807f03c68b2cd9565fe'
++BASE='2e5e4b810a8ca1c088012381bd52c9870ad0198e'
++POLICY_SHA='959157110a5b90ea2dca9fe1bc7aa6178f9a1102468f43338be5f963526c395f'
++RULE_SHA='4fe43573896d7e7d3a4e5b0c320f822fe7ea7517fa283584408d56d71dca2eed'
+ def sha(raw):return hashlib.sha256(raw).hexdigest()
+ def digest(value):return sha(json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode())
+ def serialized(value):return json.dumps(value,ensure_ascii=False)
+ def candidate():
+-    raw=(OUT/'rule/candidate.json').read_bytes()
+-    assert sha(raw)==CANDIDATE_SHA,'CANDIDATE_HASH_MISMATCH'
++    raw=(OUT/'rule/candidate.json').read_bytes();assert sha(raw)==CANDIDATE_SHA
+     return json.loads(raw)
+ def initial_json():return (OUT/'base6/experiments/industry-integrate-006/.runtime/checkpoints/german_recovery_T5.json').read_text(encoding='utf8')
+ def load_launch(path=HERE/'launch.json'):
+     path=Path(path);cfg=json.loads(path.read_bytes())
+-    assert set(cfg)=={'approvalFile','candidateFile'},'STARTUP_CONFIG_SCHEMA'
++    assert set(cfg)=={'approvalFile','candidateFile','ruleFile','policyFile'},'STARTUP_CONFIG_SCHEMA'
+     raw=(path.parent/cfg['candidateFile']).read_bytes();assert sha(raw)==CANDIDATE_SHA
+-    c=json.loads(raw);raw_a=(path.parent/cfg['approvalFile']).read_bytes();a=json.loads(raw_a)
+-    expected=dict(decisionRef='LEADER-RULE-CAMPAIGN-005-20261002',transportGrantRef='LEADER-RC005-TRANSPORT-20261002',
+-        T6RecoveryGrantRef='LEADER-RC005-RECOVERY-20261002',candidateSha256=CANDIDATE_SHA,ruleCommit=RULE,industryCommit=BASE,
+-        candidateDigest=digest(c),manifestDigest=digest(c['initialManifest']),baseSnapshotSha256=c['checkpoint']['serializedSnapshotSha256'],
+-        experimentId=c['scope']['experimentId'],approvedLocalBlockers=[r['blocker'] for r in c['blockerReview']['rows'] if r['status']=='LOCAL_PROPOSAL_NOT_APPROVED'],
+-        globalBlockersResolved=0,productionRuntimeApproval=False)
++    rawr=(path.parent/cfg['ruleFile']).read_bytes();assert sha(rawr)==RULE_SHA
++    rawp=(path.parent/cfg['policyFile']).read_bytes();assert sha(rawp)==POLICY_SHA
++    c=json.loads(raw);rule=json.loads(rawr)
++    rawa=(path.parent/cfg['approvalFile']).read_bytes();a=json.loads(rawa)
++    expected=dict(decisionRef='LEADER-INDUSTRY-INTEGRATE-011-20261002',industryCommit=BASE,
++        transactionCommit='96bf1d7307063ecb6331fc44b28a832bb2aceac6',ruleCommit=RULE,
++        policySha256=POLICY_SHA,rule006Sha256=RULE_SHA,routeCandidateSha256=CANDIDATE_SHA,
++        baseSnapshotSha256=c['checkpoint']['serializedSnapshotSha256'],archiveSha256=c['checkpoint']['archiveSha256'],
++        manifestDigest=digest(c['initialManifest']),routeDigest=digest(c['route']),
++        scope=dict(instanceType='NEW_SINGLE_PROCESS_ISOLATED_T5_ONLY',source='A10',receiver='C10',targetUnit='G-I-01',
++            controllerId='G-HUMAN-1',dispatch='E5',availableTurn=6,recoveryPhase='GERMAN_RECOVERY',kit={'P':1,'E2:L':2},singleUse=True),
++        priority='KIT_FIRST_THEN_ORIGINAL_COMPLETE_PROGRESSIVE_AND_RESERVE_OBJECTIVES',
++        terminalService='RECEIVE_STORE_AND_PREPARE_FOR_ONE_SAME_HEX_TARGET',globalBlockersClosed=0,productionRuntimeApproval=False,persistence=False)
+     assert a==expected,'LOCAL_APPROVAL_INVALID'
+-    assert len(a['approvedLocalBlockers'])==19 and len(c['blockerReview']['rows'])==35
+-    assert c['approval']==dict(decisionRef=None,candidateSha256=None,transportGrantRef=None,T6RecoveryGrantRef=None,inherit004or007Approval=False)
++    assert len(c['blockerReview']['rows'])==35 and not rule['runtimeEnabled']
++    assert rule['approval']=={'decisionRef':None,'inherits005or008':False}
++    assert all(v is None or v is False for v in c['approval'].values())
++    assert rule['charges']['rows']==c['capacity']['rows']
+     assert sha(initial_json().encode())==a['baseSnapshotSha256']
+     archive=OUT/'base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/.runtime/fixtures/CHECKPOINTS.json.gz'
+-    assert sha(archive.read_bytes())==c['checkpoint']['archiveSha256']
+-    return dict(candidate=c,approval=a,approvalHash=sha(raw_a))
++    assert sha(archive.read_bytes())==a['archiveSha256']
++    return dict(candidate=c,rule=rule,approval=a,approvalHash=sha(rawa))
+ def verify_runtime():
+-    m=json.loads((OUT/'manifest.json').read_bytes());assert m['base']==BASE and m['rule']==RULE
+-    for name,expected in m['files'].items():assert sha((OUT/name).read_bytes())==expected,'RUNTIME_CHANGED:'+name
++    m=json.loads((OUT/'manifest.json').read_bytes());assert m['industry011Base']==BASE and m['industry011Rule']==RULE
++    for name,h in m['files'].items():assert sha((OUT/name).read_bytes())==h,'RUNTIME_CHANGED:'+name
+     assert sha((HERE/'freight_audit.py').read_bytes())==sha((OUT/'live/freight_audit.py').read_bytes())
+     return m

@@ -1,0 +1,97 @@
+--- a/live.py
++++ b/live.py
+@@ -69,7 +69,7 @@
+  f=FRAMES[fid];r=node(deepcopy(f['state']),mode,s);s=sync(s,r['frame'])
+  return dict(core=r['frame']['state'],logistics=s,mode=mode,clip=clip,revision=0,seen={},journal=[])
+ def execute(original,command,seconds=3):
+- began=time.perf_counter();deadline=began+seconds
++ began=time.perf_counter();deadline=began+seconds;boundary=None
+  try:
+   cid=command['id'];ph=digest({k:v for k,v in command.items() if k!='id'})
+   if cid in original['seen']:
+@@ -97,15 +97,15 @@
+   s=sync(s,r['frame']);settled=False;supply_events=[]
+   if b['mode']=='new' and newcore['turn']>core['turn']:
+    result=logistics_transaction(s,'settle',deadline-time.perf_counter())
+-   if not result['ok']:raise TimeoutError('supply unresolved')
+-   s=result['state'];settled=True;losses={u['id']:u['loss'] for rs in s['ledger'] for u in rs['units'] if u['loss']}
++   if not result['ok']:raise TimeoutError('supply unresolved: '+str(result.get('error')))
++   boundary=result['boundary'];boundary.update(coreSnapshot=deepcopy(newcore),jointSPInputHash=digest(dict(core=newcore,logistics=s)));s=result['state'];settled=True;losses={u['id']:u['loss'] for rs in s['ledger'] for u in rs['units'] if u['loss']}
+    post=node(newcore,b['mode'],s,'attrition',deadline,losses=losses,epoch='L'+str(s['tick']-1));newcore=post['frame']['state'];supply_events=post['events'];s=sync(s,post['frame'])
+   elif b['mode']=='new':
+    post=node(newcore,b['mode'],s,'frame',deadline);newcore=post['frame']['state'];s=sync(s,post['frame'])
+   b.update(core=newcore,logistics=s,revision=b['revision']+1);audit(s);b['seen'][cid]=ph
+   b['journal'].append(dict(command=command,core_actions=r['actions'],events=r['events'],charges=charges,settled=settled,supply_events=supply_events,hash=hash_bundle(b)))
+   if time.perf_counter()>deadline:raise TimeoutError('total deadline')
+-  return dict(ok=True,state=b,seconds=time.perf_counter()-began)
++  return dict(ok=True,state=b,seconds=time.perf_counter()-began,boundary=boundary)
+  except Exception as e:return dict(ok=False,state=original,error=str(e),seconds=time.perf_counter()-began)
+ def auto_command(b,kind='END_SIDE'):
+  controller=b['core']['pendingDecision']['decisionOwnerControllerId'] if b['core']['pendingDecision'] else next(x['id'] for x in b['core']['controllers'].values() if x['side']==b['core']['activeSide'])
+--- a/bounded.py
++++ b/bounded.py
+@@ -4,6 +4,7 @@
+ """
+ import multiprocessing as mp,time,atexit
+ _WORKER=None
++CONTEXT=None
+ 
+ def _worker(conn):
+  import model
+@@ -11,16 +12,21 @@
+  while True:
+   try:job=conn.recv()
+   except EOFError:break
+-  s,op,deadline=job;model.DEADLINE=deadline;model.PROFILE.clear()
++  s,op,deadline,context=job;boundary=None;model.DEADLINE=deadline;model.PROFILE.clear()
+   try:
+-   if op=='settle':out,result,retry=model.settle(s,s['epoch'])
++   if op=='settle':
++    import freight_audit
++    freight_audit.configure(s,context)
++    if context and context.get('testFault')=='solver_failure':raise ValueError('SYNTHETIC_SOLVER_FAILURE')
++    out,result,retry=model.settle(s,s['epoch'])
++    boundary=freight_audit.inspect(s,out,result,context,deadline)
+    elif op=='next':
+     out=s;old=s['tick']
+     while out['tick']==old:out=model.advance(out,'bounded-'+str(out['half']))
+     result=out['ledger'];retry=False
+    elif op=='half':out=model.advance(s,'bounded-'+str(s['half']));result=out.get('ledger',[]);retry=False
+    else:raise ValueError('unsupported transaction')
+-   model.check_budget();conn.send(dict(ok=True,state=out,result=result,retry=retry,profile=list(model.PROFILE)))
++   model.check_budget();conn.send(dict(ok=True,state=out,result=result,retry=retry,profile=list(model.PROFILE),boundary=boundary))
+   except Exception as e:conn.send(dict(ok=False,error=str(e),profile=list(model.PROFILE)))
+  conn.close()
+ 
+@@ -53,7 +59,7 @@
+  began=time.perf_counter();deadline=began+seconds
+  try:
+   if seconds<=0:raise TimeoutError('zero budget')
+-  proc,conn,ready=_ensure(deadline);conn.send((s,op,deadline))
++  proc,conn,ready=_ensure(deadline);conn.send((s,op,deadline,CONTEXT))
+   if not conn.poll(max(0,deadline-time.perf_counter())):raise TimeoutError('transaction deadline')
+   result=conn.recv()
+   if time.perf_counter()>deadline:raise TimeoutError('completed after deadline')
+--- a/signature_model.py
++++ b/signature_model.py
+@@ -7,8 +7,12 @@
+ from model import Program,budget,adjacency,maintenance_stages,usable
+ 
+ def solve_network(s,side='G'):
++ import freight_audit
++ cargo=freight_audit.reservation(side)
+  began=time.perf_counter();p=Program();groups={};units=sorted([u for u in s['units'] if u['side']==side and u.get('strength',3)>0],key=lambda u:u['id']);hubs=sorted([h for h in s['hubs'] if h['side']==side and not h.get('inactive')],key=lambda h:h['id']);sources=[a for a in s['sources'] if a['side']==side];edges={e['id']:e for e in s['edges']};big=sum(max(0,u['target']-u['stock']) for u in units)+sum(h['cap'] for h in hubs)+1
+- def row(a,hi,label):p.row(a,hi=hi,label=label);groups[label]=(a,hi)
++ def row(a,hi,label):
++  bound=hi-cargo.get(label,0);assert bound>=0
++  p.row(a,hi=bound,label=label);groups[label]=(a,bound)
+  def add(d,i,v):d[i]=d.get(i,0)+v
+  rail=adjacency(s,'rail',side);road=adjacency(s,'road',side);rb=defaultdict(dict);railuse=defaultdict(dict);bridgeuse=defaultdict(dict);work={};arcs=[];injections={};draw={};local=defaultdict(dict)
+  for a in sources:
+@@ -94,5 +98,6 @@
+  flows=[{k:v for k,v in a.items() if k!='i'}|{'q':int(x[a['i']])} for a in arcs if x[a['i']]>0]
+  r=dict(side=side,deliveries={u['id']:int(sum(x[i] for i in delivery[u['id']])) for u in units},hubs={h['id']:int((h['stock'] if s['variant']=='A' else 0)+sum(x[i]*v for i,v in hub_end[h['id']].items())) for h in hubs},flows=flows,source_used={a['id']:int(sum(x[i] for i in injections[a['id']])) for a in sources},hub_unload={h['id']:int(x[draw[h['id']]]+sum(x[i] for i in local[h['id']])) for h in hubs},constraints=[dict(id=n,used=int(sum(x[i]*v for i,v in a.items())),cap=cap,saturated=bool(a) and int(sum(x[i]*v for i,v in a.items()))==cap) for n,(a,cap) in groups.items()],objectives=objectives,paths=None,variables=len(p.names),rows=len(p.rows),exact=True,solver='exact-signature',conditional=s.get('view')=='player' and any(not n.get('known',True) for n in s['nodes']),ms=round((time.perf_counter()-began)*1000,3))
+  r['solver_retries']=p.solver_retries
++ freight_audit.capture_program(side,p,x,r,arcs)
+  assert sum(r['source_used'].values())+sum(h['stock'] if s['variant']=='A' else 0 for h in hubs)==sum(r['hubs'].values())+sum(r['deliveries'].values())
+  return r
