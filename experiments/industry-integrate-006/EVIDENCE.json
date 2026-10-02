@@ -1,0 +1,4872 @@
+{
+  "status": "PASS",
+  "cases": 24,
+  "originalGameSuccessIsControlOnly": true,
+  "fullCampaignReplayed": false,
+  "inputsUnchanged": true,
+  "savedInputHash": "e5584e034c4e364cbe50b8c01a0249cc91c4f2b296ff80c141fea0bab89ac066",
+  "originalGateBlockers": [
+    "RUNTIME_NOT_APPROVED",
+    "MISSING_RUNTIME_DECISION",
+    "MISSING_SERVICE_GRANT:DEP-G-A10",
+    "MISSING_SERVICE_GRANT:DEP-S-AF10",
+    "MISSING_SERVICE_GRANT:REC-G-C10",
+    "MISSING_SERVICE_GRANT:REC-S-AC10",
+    "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+    "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+    "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+    "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+    "UNRESOLVED:authorization.approvedNullControlPolicy",
+    "UNRESOLVED:authorization.nullControlApprovalRef",
+    "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+    "UNRESOLVED:recovery.recipeApprovalRef",
+    "UNRESOLVED:recovery.integrationHookApprovalRef",
+    "UNRESOLVED:budget.policyApprovalRef",
+    "UNRESOLVED:transport.approvedEquipmentVectorRule",
+    "UNRESOLVED:transport.approvedPersonnelTransportRule",
+    "UNRESOLVED:transport.vectorRuleApprovalRef",
+    "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+    "UNRESOLVED:transport.initialMaterialManifest"
+  ],
+  "rows": [
+    {
+      "name": "full_original_result_control",
+      "origin": "REAL_T5_EXISTING_RP_CONTROL",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "c004-122": {
+          "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+          "request": {
+            "requestId": "c004-122",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": false,
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullResultEqualsOriginalExecute": true,
+        "fullResultEqualsSavedRepaired": true,
+        "serializedResultEqualsSavedRepaired": true,
+        "newContribution": "Atomic publication and separate receipt; RP recovery itself is existing behavior."
+      }
+    },
+    {
+      "name": "same_ID_same_content_retry",
+      "origin": "SYNTHETIC_REQUEST_SEQUENCE_REAL_T5",
+      "before": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "c004-122": {
+          "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+          "request": {
+            "requestId": "c004-122",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": true,
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ID_conflict_unitId",
+      "origin": "SYNTHETIC_REQUEST_SEQUENCE_REAL_T5",
+      "before": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "c004-122": {
+          "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+          "request": {
+            "requestId": "c004-122",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "REQUEST_ID_CONFLICT",
+            "details": null
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ID_conflict_paymentMode",
+      "origin": "SYNTHETIC_REQUEST_SEQUENCE_REAL_T5",
+      "before": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "c004-122": {
+          "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+          "request": {
+            "requestId": "c004-122",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "REQUEST_ID_CONFLICT",
+            "details": null
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ID_conflict_expectedRevision",
+      "origin": "SYNTHETIC_REQUEST_SEQUENCE_REAL_T5",
+      "before": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "c004-122": {
+          "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+          "request": {
+            "requestId": "c004-122",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "REQUEST_ID_CONFLICT",
+            "details": null
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ID_conflict_snapshotHash",
+      "origin": "SYNTHETIC_REQUEST_SEQUENCE_REAL_T5",
+      "before": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "c004-122": {
+          "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+          "request": {
+            "requestId": "c004-122",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "c004-122",
+            "fingerprint": "91c5ec7c5b1633e0335c62f30b50aa66f4af152104dccf7762371d74e97452ad",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "committedSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+            "command": {
+              "id": "c004-122",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "REQUEST_ID_CONFLICT",
+            "details": null
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "stale_revision",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-stale_revision": {
+          "fingerprint": "cfc512a7067d150c838129d124e3ce61815d5dec130ae8bcd5bdfbf6dd1e12d0",
+          "request": {
+            "requestId": "006-stale_revision",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 108,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "STALE_RECOVERY_CONTEXT",
+            "details": null
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "STALE_RECOVERY_CONTEXT",
+            "details": null
+          },
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "stale_full_hash",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-stale_full_hash": {
+          "fingerprint": "1df7e5ab686fd759fdff8d1c0ad9779ae72fb4ea6e8df82cf051b36bcbde1c83",
+          "request": {
+            "requestId": "006-stale_full_hash",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "stale",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "STALE_RECOVERY_CONTEXT",
+            "details": null
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "STALE_RECOVERY_CONTEXT",
+            "details": null
+          },
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "no_base",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "51fafb89c027da32d443c8d6a62237936dcd13e89665485bc6de34e2a0ef2340",
+        "coreHash": "c5714a225c08ad63450b8a637f1b3ffe54f8a5a2c06017666a34402169dbc74f",
+        "logisticsHash": "58113f078afec56bbc4ec4b5ff005498d1600d685819acd1d6aae963b74acf15",
+        "revision": 75,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 77,
+          "nextBattle": 2
+        },
+        "actionCount": 76,
+        "recoveryCount": 0,
+        "seenCount": 75,
+        "journalCount": 75
+      },
+      "after": {
+        "fullHash": "51fafb89c027da32d443c8d6a62237936dcd13e89665485bc6de34e2a0ef2340",
+        "coreHash": "c5714a225c08ad63450b8a637f1b3ffe54f8a5a2c06017666a34402169dbc74f",
+        "logisticsHash": "58113f078afec56bbc4ec4b5ff005498d1600d685819acd1d6aae963b74acf15",
+        "revision": 75,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 77,
+          "nextBattle": 2
+        },
+        "actionCount": 76,
+        "recoveryCount": 0,
+        "seenCount": 75,
+        "journalCount": 75
+      },
+      "afterSerializedHash": "8acf2619acec7443ce941624f932804bed322363f9cd4ee0b896f94c00d41214",
+      "transactionMetadata": {
+        "006-no_base": {
+          "fingerprint": "3c4a2df810d7abb2a24084dc8a2827bf8ec56086dbbb41d2aa7671ac8769601b",
+          "request": {
+            "requestId": "006-no_base",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 75,
+            "snapshotHash": "51fafb89c027da32d443c8d6a62237936dcd13e89665485bc6de34e2a0ef2340",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "RECOVERY_NOT_ELIGIBLE",
+            "details": {
+              "common": [
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "Unit is outside Recovery Base range.",
+                  "details": {
+                    "reason": "RECOVERY_BASE_TOO_FAR",
+                    "unitId": "G-I-01",
+                    "maxDistance": 2,
+                    "minimumDistance": null,
+                    "recoveryBaseHexKeys": []
+                  }
+                }
+              ],
+              "payment": []
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "RECOVERY_NOT_ELIGIBLE",
+            "details": {
+              "common": [
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "Unit is outside Recovery Base range.",
+                  "details": {
+                    "reason": "RECOVERY_BASE_TOO_FAR",
+                    "unitId": "G-I-01",
+                    "maxDistance": 2,
+                    "minimumDistance": null,
+                    "recoveryBaseHexKeys": []
+                  }
+                }
+              ],
+              "payment": []
+            }
+          },
+          "currentRevision": 75,
+          "currentHash": "51fafb89c027da32d443c8d6a62237936dcd13e89665485bc6de34e2a0ef2340",
+          "currentSerializedHash": "8acf2619acec7443ce941624f932804bed322363f9cd4ee0b896f94c00d41214",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "already_recovered",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "after": {
+        "fullHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+      "transactionMetadata": {
+        "006-already_recovered": {
+          "fingerprint": "fe5f3a0f6c20facaff12b2f9ec8f6b8dbed0c126c9bd5f0007cc798104100937",
+          "request": {
+            "requestId": "006-already_recovered",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 110,
+            "snapshotHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "RECOVERY_NOT_ELIGIBLE",
+            "details": {
+              "common": [
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "Full-strength units cannot recover.",
+                  "details": {
+                    "reason": "UNIT_NOT_DAMAGED",
+                    "unitId": "G-I-01"
+                  }
+                },
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "A unit may recover only once in its Recovery phase.",
+                  "details": {
+                    "reason": "UNIT_ALREADY_RECOVERED_THIS_TURN",
+                    "unitId": "G-I-01"
+                  }
+                },
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "Side-wide Recovery unit limit has been reached for this turn.",
+                  "details": {
+                    "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+                    "side": "GERMAN",
+                    "turn": 5,
+                    "recoveredUnits": 1,
+                    "limit": 1
+                  }
+                }
+              ],
+              "payment": []
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "RECOVERY_NOT_ELIGIBLE",
+            "details": {
+              "common": [
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "Full-strength units cannot recover.",
+                  "details": {
+                    "reason": "UNIT_NOT_DAMAGED",
+                    "unitId": "G-I-01"
+                  }
+                },
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "A unit may recover only once in its Recovery phase.",
+                  "details": {
+                    "reason": "UNIT_ALREADY_RECOVERED_THIS_TURN",
+                    "unitId": "G-I-01"
+                  }
+                },
+                {
+                  "code": "INVALID_SUPPORT",
+                  "message": "Side-wide Recovery unit limit has been reached for this turn.",
+                  "details": {
+                    "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+                    "side": "GERMAN",
+                    "turn": 5,
+                    "recoveredUnits": 1,
+                    "limit": 1
+                  }
+                }
+              ],
+              "payment": []
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "48f61755261e932ef5249e34bb3b88366f52eadfdc1f1501b8551ae6c2d236c7",
+          "currentSerializedHash": "2ba6620aa33568c1de21541239d49bdb0f559e81f68286f3c76cd136ed9b840a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "wrong_side",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-wrong_side": {
+          "fingerprint": "333e838a253b5553532dbcc226a94b83f59974bbbaf9498536d3412f6aa02af3",
+          "request": {
+            "requestId": "006-wrong_side",
+            "controllerId": "S-AI-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "RECOVERY_NOT_ELIGIBLE",
+            "details": {
+              "common": [
+                {
+                  "code": "NOT_ACTIVE_CONTROLLER",
+                  "message": "not active controller"
+                },
+                {
+                  "code": "WRONG_SIDE",
+                  "message": "Only an active-side controller may recover a unit."
+                },
+                {
+                  "code": "NOT_UNIT_CONTROLLER",
+                  "message": "Recovery requires the unit permanent controller.",
+                  "unitId": "G-I-01"
+                }
+              ],
+              "payment": []
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "RECOVERY_NOT_ELIGIBLE",
+            "details": {
+              "common": [
+                {
+                  "code": "NOT_ACTIVE_CONTROLLER",
+                  "message": "not active controller"
+                },
+                {
+                  "code": "WRONG_SIDE",
+                  "message": "Only an active-side controller may recover a unit."
+                },
+                {
+                  "code": "NOT_UNIT_CONTROLLER",
+                  "message": "Recovery requires the unit permanent controller.",
+                  "unitId": "G-I-01"
+                }
+              ],
+              "payment": []
+            }
+          },
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "PE_no_RP_fallback",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-PE_no_RP_fallback": {
+          "fingerprint": "0453959f30c58ea62cae477203bf8e4ad3ac343f76c70e981ad172b1701aeb33",
+          "request": {
+            "requestId": "006-PE_no_RP_fallback",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "PE"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "PE_OR_UNKNOWN_MODE_BLOCKED",
+            "details": null
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "PE_OR_UNKNOWN_MODE_BLOCKED",
+            "details": null
+          },
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "caller_quote_not_trusted",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {},
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "INVALID_REQUEST_SCHEMA",
+            "details": null
+          },
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "legacy_ID_collision",
+      "origin": "REAL_CHECKPOINT_SYNTHETIC_REQUEST",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "c004-0": {
+          "fingerprint": "9f2a343a4f3fb7c6dbe0b9764596942e52510cdc52b8d7de6962aae68a4e070e",
+          "request": {
+            "requestId": "c004-0",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "LEGACY_REQUEST_ID_COLLISION",
+            "details": null
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "LEGACY_REQUEST_ID_COLLISION",
+            "details": null
+          },
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "fullGameStateUnchanged": true
+      }
+    },
+    {
+      "name": "fault_before_execute",
+      "origin": "SYNTHETIC_FAULT_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-fault-before_execute": {
+          "fingerprint": "aaa4bcbe6da062d30cacd259557255d36864ab7ff360b8a5004eb3d5638fbe80",
+          "request": {
+            "requestId": "006-fault-before_execute",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "RETRYABLE",
+          "receipt": null,
+          "error": {
+            "code": "PRECOMMIT_FAILURE",
+            "details": "Error: SYNTHETIC_FAILURE:before_execute"
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "PRECOMMIT_FAILURE",
+            "details": "Error: SYNTHETIC_FAILURE:before_execute"
+          },
+          "retryable": true,
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "noPartialCommit": true
+      }
+    },
+    {
+      "name": "retry_after_before_execute",
+      "origin": "SYNTHETIC_FAULT_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "b475a924d512923e7405ac2eebb5cdec94969824e49c856ea603854749aa19f9",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "358bad1c15acaae9b880efa916583ca7c67a217134e58fc5d12817936a4b688d",
+      "transactionMetadata": {
+        "006-fault-before_execute": {
+          "fingerprint": "aaa4bcbe6da062d30cacd259557255d36864ab7ff360b8a5004eb3d5638fbe80",
+          "request": {
+            "requestId": "006-fault-before_execute",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-fault-before_execute",
+            "fingerprint": "aaa4bcbe6da062d30cacd259557255d36864ab7ff360b8a5004eb3d5638fbe80",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "b475a924d512923e7405ac2eebb5cdec94969824e49c856ea603854749aa19f9",
+            "committedSerializedHash": "358bad1c15acaae9b880efa916583ca7c67a217134e58fc5d12817936a4b688d",
+            "command": {
+              "id": "006-fault-before_execute",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": false,
+          "receipt": {
+            "requestId": "006-fault-before_execute",
+            "fingerprint": "aaa4bcbe6da062d30cacd259557255d36864ab7ff360b8a5004eb3d5638fbe80",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "b475a924d512923e7405ac2eebb5cdec94969824e49c856ea603854749aa19f9",
+            "committedSerializedHash": "358bad1c15acaae9b880efa916583ca7c67a217134e58fc5d12817936a4b688d",
+            "command": {
+              "id": "006-fault-before_execute",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "b475a924d512923e7405ac2eebb5cdec94969824e49c856ea603854749aa19f9",
+          "currentSerializedHash": "358bad1c15acaae9b880efa916583ca7c67a217134e58fc5d12817936a4b688d",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "fault_after_execute",
+      "origin": "SYNTHETIC_FAULT_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-fault-after_execute": {
+          "fingerprint": "b8575f6d83f437ec2209e7f3463fdaf446ae13939d015def4958c043d50427be",
+          "request": {
+            "requestId": "006-fault-after_execute",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "RETRYABLE",
+          "receipt": null,
+          "error": {
+            "code": "PRECOMMIT_FAILURE",
+            "details": "Error: SYNTHETIC_FAILURE:after_execute"
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "PRECOMMIT_FAILURE",
+            "details": "Error: SYNTHETIC_FAILURE:after_execute"
+          },
+          "retryable": true,
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "noPartialCommit": true
+      }
+    },
+    {
+      "name": "retry_after_after_execute",
+      "origin": "SYNTHETIC_FAULT_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "ac99824389aec00d89896b44cd53567adbfe97a2f52fc5523863b1c881afbef9",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "a089fae6112ae6018f45d0ee7bd2c4376a066d3579408afe07e8a83eb449070a",
+      "transactionMetadata": {
+        "006-fault-after_execute": {
+          "fingerprint": "b8575f6d83f437ec2209e7f3463fdaf446ae13939d015def4958c043d50427be",
+          "request": {
+            "requestId": "006-fault-after_execute",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-fault-after_execute",
+            "fingerprint": "b8575f6d83f437ec2209e7f3463fdaf446ae13939d015def4958c043d50427be",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "ac99824389aec00d89896b44cd53567adbfe97a2f52fc5523863b1c881afbef9",
+            "committedSerializedHash": "a089fae6112ae6018f45d0ee7bd2c4376a066d3579408afe07e8a83eb449070a",
+            "command": {
+              "id": "006-fault-after_execute",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": false,
+          "receipt": {
+            "requestId": "006-fault-after_execute",
+            "fingerprint": "b8575f6d83f437ec2209e7f3463fdaf446ae13939d015def4958c043d50427be",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "ac99824389aec00d89896b44cd53567adbfe97a2f52fc5523863b1c881afbef9",
+            "committedSerializedHash": "a089fae6112ae6018f45d0ee7bd2c4376a066d3579408afe07e8a83eb449070a",
+            "command": {
+              "id": "006-fault-after_execute",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "ac99824389aec00d89896b44cd53567adbfe97a2f52fc5523863b1c881afbef9",
+          "currentSerializedHash": "a089fae6112ae6018f45d0ee7bd2c4376a066d3579408afe07e8a83eb449070a",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "fault_before_commit",
+      "origin": "SYNTHETIC_FAULT_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "afterSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "transactionMetadata": {
+        "006-fault-before_commit": {
+          "fingerprint": "025f9f7e5d620f6ac72ac3832a908ca454fc8d4c09f81b8ded14bed47ce8a106",
+          "request": {
+            "requestId": "006-fault-before_commit",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "RETRYABLE",
+          "receipt": null,
+          "error": {
+            "code": "PRECOMMIT_FAILURE",
+            "details": "Error: SYNTHETIC_FAILURE:before_commit"
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": false,
+          "error": {
+            "code": "PRECOMMIT_FAILURE",
+            "details": "Error: SYNTHETIC_FAILURE:before_commit"
+          },
+          "retryable": true,
+          "currentRevision": 109,
+          "currentHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+          "currentSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "noPartialCommit": true
+      }
+    },
+    {
+      "name": "retry_after_before_commit",
+      "origin": "SYNTHETIC_FAULT_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "1663eaccd33f57e1423e23c1dd2c06049b74f28fd4cc04fd49635c6fca056a67",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "6015fc9abe9413b3d904ede95f308b9dac58de73a6bbef9c668be4222044b088",
+      "transactionMetadata": {
+        "006-fault-before_commit": {
+          "fingerprint": "025f9f7e5d620f6ac72ac3832a908ca454fc8d4c09f81b8ded14bed47ce8a106",
+          "request": {
+            "requestId": "006-fault-before_commit",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-fault-before_commit",
+            "fingerprint": "025f9f7e5d620f6ac72ac3832a908ca454fc8d4c09f81b8ded14bed47ce8a106",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "1663eaccd33f57e1423e23c1dd2c06049b74f28fd4cc04fd49635c6fca056a67",
+            "committedSerializedHash": "6015fc9abe9413b3d904ede95f308b9dac58de73a6bbef9c668be4222044b088",
+            "command": {
+              "id": "006-fault-before_commit",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": false,
+          "receipt": {
+            "requestId": "006-fault-before_commit",
+            "fingerprint": "025f9f7e5d620f6ac72ac3832a908ca454fc8d4c09f81b8ded14bed47ce8a106",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "1663eaccd33f57e1423e23c1dd2c06049b74f28fd4cc04fd49635c6fca056a67",
+            "committedSerializedHash": "6015fc9abe9413b3d904ede95f308b9dac58de73a6bbef9c668be4222044b088",
+            "command": {
+              "id": "006-fault-before_commit",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "1663eaccd33f57e1423e23c1dd2c06049b74f28fd4cc04fd49635c6fca056a67",
+          "currentSerializedHash": "6015fc9abe9413b3d904ede95f308b9dac58de73a6bbef9c668be4222044b088",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "two_requests_one_version",
+      "origin": "SYNTHETIC_CONCURRENCY_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+      "transactionMetadata": {
+        "006-race-A": {
+          "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+          "request": {
+            "requestId": "006-race-A",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-race-A",
+            "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+            "committedSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+            "command": {
+              "id": "006-race-A",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        },
+        "006-race-B": {
+          "fingerprint": "3f9a620dbde40b9609f57a19bef4b6af811a952da6680fb20f591ab8f215c3f9",
+          "request": {
+            "requestId": "006-race-B",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "REJECTED",
+          "receipt": null,
+          "error": {
+            "code": "STALE_RECOVERY_CONTEXT",
+            "details": null
+          }
+        }
+      },
+      "detail": {
+        "replies": [
+          {
+            "ok": true,
+            "replayed": false,
+            "receipt": {
+              "requestId": "006-race-A",
+              "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+              "beforeRevision": 109,
+              "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+              "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+              "committedRevision": 110,
+              "committedHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+              "committedSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+              "command": {
+                "id": "006-race-A",
+                "revision": 109,
+                "action": {
+                  "type": "REPAIR_UNIT",
+                  "controllerId": "G-HUMAN-1",
+                  "unitId": "G-I-01"
+                }
+              }
+            },
+            "currentRevision": 110,
+            "currentHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+            "currentSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+            "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+            "runtimeGate": {
+              "allowed": false,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ]
+            }
+          },
+          {
+            "ok": false,
+            "error": {
+              "code": "STALE_RECOVERY_CONTEXT",
+              "details": null
+            },
+            "currentRevision": 110,
+            "currentHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+            "currentSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+            "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+            "runtimeGate": {
+              "allowed": false,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ]
+            }
+          }
+        ],
+        "originalExecutions": 1,
+        "privateCandidateInvisibleBeforeCommit": true
+      }
+    },
+    {
+      "name": "concurrent_identical_retry",
+      "origin": "SYNTHETIC_CONCURRENCY_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+      "transactionMetadata": {
+        "006-race-A": {
+          "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+          "request": {
+            "requestId": "006-race-A",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-race-A",
+            "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+            "committedSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+            "command": {
+              "id": "006-race-A",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "replies": [
+          {
+            "ok": true,
+            "replayed": false,
+            "receipt": {
+              "requestId": "006-race-A",
+              "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+              "beforeRevision": 109,
+              "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+              "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+              "committedRevision": 110,
+              "committedHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+              "committedSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+              "command": {
+                "id": "006-race-A",
+                "revision": 109,
+                "action": {
+                  "type": "REPAIR_UNIT",
+                  "controllerId": "G-HUMAN-1",
+                  "unitId": "G-I-01"
+                }
+              }
+            },
+            "currentRevision": 110,
+            "currentHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+            "currentSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+            "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+            "runtimeGate": {
+              "allowed": false,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ]
+            }
+          },
+          {
+            "ok": true,
+            "replayed": true,
+            "receipt": {
+              "requestId": "006-race-A",
+              "fingerprint": "3291f57fdf46fd229330395bb226f3be8e76443a1b52cc21fdd4c556472c6742",
+              "beforeRevision": 109,
+              "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+              "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+              "committedRevision": 110,
+              "committedHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+              "committedSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+              "command": {
+                "id": "006-race-A",
+                "revision": 109,
+                "action": {
+                  "type": "REPAIR_UNIT",
+                  "controllerId": "G-HUMAN-1",
+                  "unitId": "G-I-01"
+                }
+              }
+            },
+            "currentRevision": 110,
+            "currentHash": "9b9b7b04f6e2ddb2baa60842cacfee488a863a4e70e93d9cb352dbe62ee24aeb",
+            "currentSerializedHash": "546a81c0183973e4ff2270ecd1cf632732f64fdf4633b5edd90a21b004f46339",
+            "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+            "runtimeGate": {
+              "allowed": false,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ]
+            }
+          }
+        ],
+        "originalExecutions": 1,
+        "privateCandidateInvisibleBeforeCommit": true
+      }
+    },
+    {
+      "name": "retry_after_lost_reply",
+      "origin": "SYNTHETIC_ACK_LOSS_REAL_T5",
+      "before": {
+        "fullHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+        "coreHash": "b7a610ed0b61c8aad561457d9dc918f4b587a60c48bd77790bd62b389ef8a3d2",
+        "logisticsHash": "290110f6adb00a283e180749f5fa8570d085de906aba49d3951083c6f7bca2df",
+        "revision": 109,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 111,
+          "nextBattle": 2
+        },
+        "actionCount": 110,
+        "recoveryCount": 0,
+        "seenCount": 109,
+        "journalCount": 109
+      },
+      "after": {
+        "fullHash": "a3efc5d5e0db78bc0f0515c859b0df0ac172197d63376c42616c76c3f5914524",
+        "coreHash": "af494326931360fbba3a10cb5b901ec59e3c4e7bef6853abdcd988634fc11e69",
+        "logisticsHash": "e25806672a8f1551b1b84c69860eeeea7d6dfbcb3287d975a7c66967577af230",
+        "revision": 110,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 112,
+          "nextBattle": 2
+        },
+        "actionCount": 111,
+        "recoveryCount": 1,
+        "seenCount": 110,
+        "journalCount": 110
+      },
+      "afterSerializedHash": "d1fbc22915feb84705305039550668dde9a97fe5b9d58bdf76cedf3bdb7db51d",
+      "transactionMetadata": {
+        "006-lost-reply": {
+          "fingerprint": "6dcdd957bd26be6c3a54c9c04aa1a152549432a03b14fd3b12d837ea2b0f28f4",
+          "request": {
+            "requestId": "006-lost-reply",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-lost-reply",
+            "fingerprint": "6dcdd957bd26be6c3a54c9c04aa1a152549432a03b14fd3b12d837ea2b0f28f4",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "a3efc5d5e0db78bc0f0515c859b0df0ac172197d63376c42616c76c3f5914524",
+            "committedSerializedHash": "d1fbc22915feb84705305039550668dde9a97fe5b9d58bdf76cedf3bdb7db51d",
+            "command": {
+              "id": "006-lost-reply",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": true,
+          "receipt": {
+            "requestId": "006-lost-reply",
+            "fingerprint": "6dcdd957bd26be6c3a54c9c04aa1a152549432a03b14fd3b12d837ea2b0f28f4",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "a3efc5d5e0db78bc0f0515c859b0df0ac172197d63376c42616c76c3f5914524",
+            "committedSerializedHash": "d1fbc22915feb84705305039550668dde9a97fe5b9d58bdf76cedf3bdb7db51d",
+            "command": {
+              "id": "006-lost-reply",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 110,
+          "currentHash": "a3efc5d5e0db78bc0f0515c859b0df0ac172197d63376c42616c76c3f5914524",
+          "currentSerializedHash": "d1fbc22915feb84705305039550668dde9a97fe5b9d58bdf76cedf3bdb7db51d",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "late_retry_preserves_newer_state",
+      "origin": "SYNTHETIC_REQUEST_SEQUENCE_ORIGINAL_PHASE_ADVANCE",
+      "before": {
+        "fullHash": "4bbe035bf6c9d3416441a5b14f089b0f431e3ffb295819bae7bda8bdbfdf0da9",
+        "coreHash": "a16528b4992b141f4e7188bc98966c7c7289604b312e7db734d7175e2945fe40",
+        "logisticsHash": "61d2e63d412f407219bedceb487c668e9a064822c682b5bf5c6b3448d18ba5b2",
+        "revision": 111,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 113,
+          "nextBattle": 2
+        },
+        "actionCount": 112,
+        "recoveryCount": 1,
+        "seenCount": 111,
+        "journalCount": 111
+      },
+      "after": {
+        "fullHash": "4bbe035bf6c9d3416441a5b14f089b0f431e3ffb295819bae7bda8bdbfdf0da9",
+        "coreHash": "a16528b4992b141f4e7188bc98966c7c7289604b312e7db734d7175e2945fe40",
+        "logisticsHash": "61d2e63d412f407219bedceb487c668e9a064822c682b5bf5c6b3448d18ba5b2",
+        "revision": 111,
+        "RP": {
+          "GERMAN": 7,
+          "SOVIET": 12
+        },
+        "unit": {
+          "id": "G-I-01",
+          "templateId": "G-INF",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 2,
+            "r": 8
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "G-HUMAN-1",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null,
+          "expSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          }
+        },
+        "random": {
+          "seed": 17,
+          "state": 1150042706,
+          "draws": 2
+        },
+        "identityCounters": {
+          "nextAction": 113,
+          "nextBattle": 2
+        },
+        "actionCount": 112,
+        "recoveryCount": 1,
+        "seenCount": 111,
+        "journalCount": 111
+      },
+      "afterSerializedHash": "d391dd545d2f60bca5cf9c863069f013c6b57daa9570e282255882921bedef02",
+      "transactionMetadata": {
+        "006-lost-reply": {
+          "fingerprint": "6dcdd957bd26be6c3a54c9c04aa1a152549432a03b14fd3b12d837ea2b0f28f4",
+          "request": {
+            "requestId": "006-lost-reply",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "expectedRevision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "paymentMode": "RP"
+          },
+          "status": "COMMITTED",
+          "receipt": {
+            "requestId": "006-lost-reply",
+            "fingerprint": "6dcdd957bd26be6c3a54c9c04aa1a152549432a03b14fd3b12d837ea2b0f28f4",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "a3efc5d5e0db78bc0f0515c859b0df0ac172197d63376c42616c76c3f5914524",
+            "committedSerializedHash": "d1fbc22915feb84705305039550668dde9a97fe5b9d58bdf76cedf3bdb7db51d",
+            "command": {
+              "id": "006-lost-reply",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          }
+        }
+      },
+      "detail": {
+        "reply": {
+          "ok": true,
+          "replayed": true,
+          "receipt": {
+            "requestId": "006-lost-reply",
+            "fingerprint": "6dcdd957bd26be6c3a54c9c04aa1a152549432a03b14fd3b12d837ea2b0f28f4",
+            "beforeRevision": 109,
+            "beforeHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "beforeSerializedHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+            "committedRevision": 110,
+            "committedHash": "a3efc5d5e0db78bc0f0515c859b0df0ac172197d63376c42616c76c3f5914524",
+            "committedSerializedHash": "d1fbc22915feb84705305039550668dde9a97fe5b9d58bdf76cedf3bdb7db51d",
+            "command": {
+              "id": "006-lost-reply",
+              "revision": 109,
+              "action": {
+                "type": "REPAIR_UNIT",
+                "controllerId": "G-HUMAN-1",
+                "unitId": "G-I-01"
+              }
+            }
+          },
+          "currentRevision": 111,
+          "currentHash": "4bbe035bf6c9d3416441a5b14f089b0f431e3ffb295819bae7bda8bdbfdf0da9",
+          "currentSerializedHash": "d391dd545d2f60bca5cf9c863069f013c6b57daa9570e282255882921bedef02",
+          "executionScope": "ISOLATED_RP_EXPERIMENT_ONLY",
+          "runtimeGate": {
+            "allowed": false,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ]
+          }
+        },
+        "originalPhaseCommand": {
+          "id": "006-test-phase-110",
+          "revision": 110,
+          "action": {
+            "type": "END_PHASE",
+            "controllerId": "G-HUMAN-1"
+          }
+        },
+        "fullContinuationEqualsOriginal": true
+      }
+    }
+  ],
+  "implementation": {
+    "prepare.py": "730ccc751856bbf76f734812ed6a8bcfff30bd81d247b1f9bb67eda9b27c96a7",
+    "live_bridge.py": "014be584b5fe7f08e918be6c1c07f86a0675918b1356bb44e1a7ba0bc0609f41",
+    "authority.mjs": "ca79b30e795a94e1306970964855345bfd1b14a9199f6a279bbdbeebcfb3314c",
+    "adapter.mjs": "6f736675e5e6d1b8b87a1fe3d702b97b7c660411d614b98577c60adcfd5f32d4",
+    "verify.mjs": "e565f1aacb7b4aec3f61533fa3518709b313836cfd71526b8f6132bf252b327d"
+  },
+  "dependencies": {
+    "base": "8cd45705559f2ecdffb5cf5696a6c4ff198a095d",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554",
+    "rule": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
+    "fixtures": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "versions": {
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "node": "v24.19.0"
+    },
+    "manifestHash": "d91bc031eda41cb8a21b50673e4febcaa8641f7e1bac6448526c9299c587f522"
+  },
+  "scope": "Single owner in one Node process; no durability, cross-process CAS, HTTP or deployment guarantee."
+}
