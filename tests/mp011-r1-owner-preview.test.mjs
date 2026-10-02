@@ -16,9 +16,11 @@ test('MP011R1 diagnostics preserve authentication, denial, credential stripping 
       let text='';res.on('data',data=>text+=data);res.on('end',()=>resolve({status:res.statusCode,headers:res.headers,text}));
     });req.on('error',reject);req.end(body);
   });}
-  const deny=path=>new Promise((resolve,reject)=>{const ws=new WebSocket(`ws://127.0.0.1:${port}${path}`,{headers:{host:'owner-preview.test',origin,'x-mp011-request-id':'mp011-12345678-abcd','cf-ray':'1234567890abcdef-LAX'}});ws.on('unexpected-response',(_req,res)=>{res.resume();res.on('end',()=>resolve(res.statusCode));});ws.on('open',()=>{ws.terminate();reject(Error('Unexpected anonymous acceptance'));});ws.on('error',reject);});
+  const deny=path=>new Promise((resolve,reject)=>{const ws=new WebSocket(`ws://127.0.0.1:${port}${path}`,{headers:{host:'owner-preview.test',origin,'x-mp011-request-id':'mp011-12345678-abcd','cf-ray':'1234567890abcdef-LAX'}});ws.on('unexpected-response',(_req,res)=>{assert.equal(res.headers['content-length'],'0');assert.equal(res.headers.connection,'close');let size=0;res.on('data',data=>size+=data.length);res.on('end',()=>{assert.equal(size,0);resolve(res.statusCode);});});ws.on('open',()=>{ws.terminate();reject(Error('Unexpected anonymous acceptance'));});ws.on('error',reject);});
   try{
     assert.equal((await http()).status,303);
+    assert.equal((await http('/__mp010_login')).headers['referrer-policy'],'same-origin');
+    assert.equal((await http('/')).headers['referrer-policy'],'no-referrer');
     assert.equal((await http('/',{host:'foreign.test'})).status,403);
     for(let repeat=0;repeat<3;repeat++)for(const scenario of ['deployment','move'])for(const mode of ['real','delay','timeout'])assert.equal(await deny(`/ws/${scenario}/${mode}`),403);
     const wsEvents=events.filter(e=>e.kind==='ws');
@@ -27,7 +29,10 @@ test('MP011R1 diagnostics preserve authentication, denial, credential stripping 
     assert(wsEvents.every(e=>e.requestId==='mp011-12345678-abcd'&&e.cfRay==='1234567890abcdef-LAX'));
     const formHeaders={origin,'content-type':'application/x-www-form-urlencoded'};
     assert.equal((await http('/__mp010_login',{...formHeaders,origin:'https://foreign.test'},'password='+password)).status,403);
+    assert.equal((await http('/__mp010_login',{...formHeaders,origin:'null'},'password='+password)).status,403);
     assert.equal((await http('/__mp010_login',formHeaders,'password=wrong')).status,403);
+    assert(events.some(e=>e.reason==='login-origin'&&e.status===403));
+    assert(events.some(e=>e.reason==='credential-mismatch'&&e.status===403));
     const login=await http('/__mp010_login',formHeaders,'password='+password);assert.equal(login.status,303);
     const setCookie=login.headers['set-cookie'][0];assert.match(setCookie,/Secure; HttpOnly; SameSite=Strict/);const cookie=setCookie.split(';')[0];
     assert.equal((await http('/',{cookie,authorization:'must-not-reach-game'})).text,'fixed test build');

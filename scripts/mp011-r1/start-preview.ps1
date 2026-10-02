@@ -17,7 +17,7 @@ $dir=Join-Path $repo '.mp010-build/mp011-r1'
 $stateFile=Join-Path $dir 'processes.json'
 if (Test-Path -LiteralPath $stateFile) { throw 'Archive previous local lifecycle files before a new attempt' }
 $tunnel=Start-Process -FilePath $exe -ArgumentList @('tunnel','--url','http://127.0.0.1:4181','--no-autoupdate','--protocol','quic') -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput (Join-Path $dir 'tunnel.stdout.log') -RedirectStandardError (Join-Path $dir 'tunnel.stderr.log') -PassThru
-$state=@{attempt=$Attempt; fixedCommit=$fixed; revisionBase='3e8d78a67e039ac10ea2eb2943d70fc4138ec9df'; transport='quic'; denialMode='original'; tunnelPid=$tunnel.Id; tunnelStartedAt=$tunnel.StartTime.ToUniversalTime().ToString('o'); target='http://127.0.0.1:4181'}
+$state=@{attempt=$Attempt; fixedCommit=$fixed; revisionBase='3e8d78a67e039ac10ea2eb2943d70fc4138ec9df'; transport='quic'; denialMode='content-length-zero'; tunnelPid=$tunnel.Id; tunnelStartedAt=$tunnel.StartTime.ToUniversalTime().ToString('o'); target='http://127.0.0.1:4181'}
 $state | ConvertTo-Json | Set-Content -LiteralPath $stateFile
 try {
   $origin=''

@@ -24,25 +24,26 @@ export function ownerPreview({origin,passwordSha256,upstreamPort=4180,now=Date.n
     res.setHeader('Content-Security-Policy',"frame-ancestors 'self'");
     if(req.headers.host!==url.host){trace.decision(403,'host');res.writeHead(403);res.end();return;}
     if(req.url==='/__mp010_login'){
-      if(req.method==='GET'){res.setHeader('Content-Type','text/html; charset=utf-8');res.end(form);return;}
-      if(req.method!=='POST'||req.headers.origin!==origin||!req.headers['content-type']?.startsWith('application/x-www-form-urlencoded')){res.writeHead(403);res.end();return;}
+      if(req.method==='GET'){trace.decision(200,'login-form');res.setHeader('Referrer-Policy','same-origin');res.setHeader('Content-Type','text/html; charset=utf-8');res.end(form);return;}
+      if(req.method!=='POST'||req.headers.origin!==origin||!req.headers['content-type']?.startsWith('application/x-www-form-urlencoded')){trace.decision(403,req.method!=='POST'?'login-method':req.headers.origin!==origin?'login-origin':'login-content-type');res.writeHead(403);res.end();return;}
       if(now()-attemptWindow>=60000){attemptWindow=now();attempts=0;}
-      if(++attempts>5){res.writeHead(429);res.end('Too many attempts');return;}
+      if(++attempts>5){trace.decision(429,'login-rate-limit');res.writeHead(429);res.end('Too many attempts');return;}
       let body='',size=0,oversize=false;
       req.on('data',chunk=>{size+=chunk.length;if(size>4096){oversize=true;body='';}else if(!oversize)body+=chunk;});
       req.on('end',()=>{
-        if(oversize){res.writeHead(413);res.end();return;}
+        if(oversize){trace.decision(413,'login-size');res.writeHead(413);res.end();return;}
         const password=new URLSearchParams(body).get('password')??'';body='';
-        if(!timingSafeEqual(createHash('sha256').update(password).digest(),expected)){res.writeHead(403);res.end('Access denied');return;}
+        if(!timingSafeEqual(createHash('sha256').update(password).digest(),expected)){trace.decision(403,'credential-mismatch');res.writeHead(403);res.end('Access denied');return;}
         for(const [key,expires] of sessions)if(expires<=now())sessions.delete(key);
         if(sessions.size>=4)sessions.delete(sessions.keys().next().value);
         const token=randomBytes(32).toString('hex');sessions.set(token,now()+8*3600000);
         res.setHeader('Set-Cookie',`${cookieName}=${token}; Path=/; Secure; HttpOnly; SameSite=Strict; Max-Age=28800`);
-        res.writeHead(303,{Location:'/'});res.end();
+        trace.decision(303,'login-success');res.writeHead(303,{Location:'/'});res.end();
       });return;
     }
     if(!authenticated(req)){trace.decision(303,'unauthenticated');res.writeHead(303,{Location:'/__mp010_login'});res.end();return;}
     const proxy=request({host:'127.0.0.1',port:upstreamPort,path:req.url,method:req.method,headers:headers(req)},reply=>{
+      trace.decision(reply.statusCode,'authorized-upstream');
       res.writeHead(reply.statusCode,reply.headers);reply.pipe(res);
     });proxy.on('error',error=>{trace.error(error);if(!res.headersSent)res.writeHead(502);res.end();});req.pipe(proxy);
   });
@@ -50,7 +51,7 @@ export function ownerPreview({origin,passwordSha256,upstreamPort=4180,now=Date.n
     const trace=observe(req,socket,'ws',diagnostic);
     if(req.headers.host!==url.host||req.headers.origin!==origin||!authenticated(req)){
       trace.decision(403,req.headers.host!==url.host?'host':req.headers.origin!==origin?'origin':'unauthenticated');
-      socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n');return;
+      socket.end('HTTP/1.1 403 Forbidden\r\nContent-Length: 0\r\nConnection: close\r\n\r\n');return;
     }
     const proxy=request({host:'127.0.0.1',port:upstreamPort,path:req.url,method:'GET',headers:headers(req)});
     proxy.on('upgrade',(reply,upstream,upHead)=>{

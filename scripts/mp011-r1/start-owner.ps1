@@ -2,6 +2,8 @@ $ErrorActionPreference = 'Stop'
 $repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $stateDir = Join-Path $repo '.mp010-build/mp011-r1'
 Set-Location -LiteralPath $repo
+node scripts/mp011-r1/integrity.mjs
+if ($LASTEXITCODE -ne 0) { throw 'Revision integrity failed' }
 if ($env:COMPUTERNAME -ne 'LAPTOP-G2NEE96G') { throw 'Unexpected host' }
 $state = Get-Content -LiteralPath (Join-Path $stateDir 'processes.json') -Raw | ConvertFrom-Json
 $origin = [Uri]$state.origin

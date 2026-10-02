@@ -2,13 +2,13 @@ import {randomUUID} from 'node:crypto';
 import {performance} from 'node:perf_hooks';
 const safePath=value=>/^\/ws\/(deployment|move)\/(real|delay|timeout)$/.test(value)?value:
   ['/', '/__mp010_login','/lab-config.json'].includes(value)?value:
-  /^\/v\/(candidate|control)\/(deployment|move)\/(real|delay|timeout)\/[a-zA-Z0-9_.\/-]+$/.test(value)?value:'<other>';
+  /^\/v\/(candidate|control)\/(deployment|move)\/(real|delay|timeout)\/(index.html|mp010-build.json|multiplayer-config.json)$/.test(value)?value:'<other>';
 export function observe(req,connection,kind,write){
   const started=performance.now();
   const supplied=req.headers['x-mp011-request-id'];
   const requestId=typeof supplied==='string'&&/^mp011-[a-f0-9-]{8,60}$/.test(supplied)?supplied:'mp011-'+randomUUID();
   const ray=req.headers['cf-ray'];
-  const base={requestId,path:safePath(req.url),kind,cfRay:typeof ray==='string'&&/^[a-f0-9]{16,32}-[A-Z]{3}$/.test(ray)?ray:null};
+  const base={requestId,path:safePath(req.url),method:['GET','POST','HEAD','OPTIONS'].includes(req.method)?req.method:'OTHER',kind,cfRay:typeof ray==='string'&&/^[a-f0-9]{16,32}-[A-Z]{3}$/.test(ray)?ray:null};
   let status=null,reason=null;
   const emit=(event,extra={})=>write({...base,at:new Date().toISOString(),elapsedMs:performance.now()-started,event,status,reason,...extra});
   emit('received');
