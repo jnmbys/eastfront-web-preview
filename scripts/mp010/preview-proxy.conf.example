@@ -1,0 +1,20 @@
+# Proposed isolated HTTPS hostname only. Not installed or deployed by this task.
+# Use an already trusted certificate for the approved preview hostname.
+server {
+    listen 443 ssl;
+    server_name mp010-device-lab.example.invalid;
+    ssl_certificate /approved/certificates/fullchain.pem;
+    ssl_certificate_key /approved/certificates/privkey.pem;
+    # Restrict access to the approved testers using the host's existing access gateway.
+    # Do not reuse the production origin, cookies, upstream or log configuration.
+    access_log off;
+    location / {
+        proxy_pass http://127.0.0.1:4180;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 90s;
+        proxy_buffering off;
+    }
+}
