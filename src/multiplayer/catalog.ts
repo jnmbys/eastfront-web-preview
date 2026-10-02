@@ -1,5 +1,7 @@
 import {getLocale} from '../localization/index.js';
 const en = {
+  acceptedSyncing:'Accepted, syncing',resultUncertain:'Result unconfirmed / resynchronizing',intentOnly:'Pending intent',
+  actionInvalid:'Request rejected: action is not valid for the current state.',actionOwner:'Request rejected: you cannot act now.',actionUnavailable:'Request rejected: match unavailable.',actionLimit:'Request rejected: request limit reached.',actionReused:'Request rejected: request identifier reused.',actionStale:'Request rejected: state changed; resynchronizing.',notSent:'Request was not sent. Check the connection and current options.',
   syncing:'Syncing',submitting:'Submitting',reconnected:'Reconnected',outdated:'State outdated, resyncing',opponentDeploying:'Opponent is deploying',opponentDecision:'Waiting for opponent decision',matchLost:'Match connection lost',waitingReconnect:'Waiting for opponent to reconnect',aborted:'Opponent connection timed out or left. Network session ended.',actionRejected:'Action rejected. Check the current legal options.',
   title:'Multiplayer',create:'Create Room',join:'Join Room',code:'Room Code',name:'Nickname',
   germany:'Germany',soviet:'Soviet',chooseGermany:'Choose Germany',chooseSoviet:'Choose Soviet',
@@ -25,6 +27,8 @@ const en = {
   'error.RATE_LIMIT':'Too many requests. Please wait a moment.', 'error.MATCH_FAILED':'The match could not be created. Please ready up again.',
 } as const;
 const zh:Record<keyof typeof en,string> = {
+  acceptedSyncing:'已接受，正在同步',resultUncertain:'结果待确认 / 正在重新同步',intentOnly:'待确认意图',
+  actionInvalid:'请求未被接受：操作不符合当前状态。',actionOwner:'请求未被接受：当前没有行动权限。',actionUnavailable:'请求未被接受：对局当前不可用。',actionLimit:'请求未被接受：已达到请求数量上限。',actionReused:'请求未被接受：请求编号被重复使用。',actionStale:'请求未被接受：状态已变化，正在重新同步。',notSent:'请求未发送，请检查连接和当前可用操作。',
   syncing:'正在同步',submitting:'正在提交',reconnected:'连接已恢复',outdated:'状态已过期，正在重新同步',opponentDeploying:'对方正在部署',opponentDecision:'等待对方决定',matchLost:'对局连接中断',waitingReconnect:'等待对手重新连接',aborted:'对手连接超时或已离开，网络对局已结束。',actionRejected:'操作未被接受，请检查当前合法选项。',
   title:'多人游戏',create:'创建房间',join:'加入房间',code:'房间码',name:'玩家昵称',
   germany:'德国',soviet:'苏联',chooseGermany:'选择德国',chooseSoviet:'选择苏联',

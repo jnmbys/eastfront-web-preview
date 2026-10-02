@@ -1,0 +1,37 @@
+✔ MOVE001 real WebSocket clients: all target surfaces use authorized draft, pending sends once, snapshot moves (508.997ms)
+✔ MOVE001 server rejection retains authority and recovers selection / next move (280.3947ms)
+✔ MOVE001 multiplayer full stack remains illegal through every target surface (162.4396ms)
+✔ MOVE001R1 first-step exit remains available while the authorized projection is pending (135.1244ms)
+✔ MP003 deployment unit/destination selection is local, sends no query and changes no canonical placement (35.3279ms)
+✔ MP003 same-turn selections send only the latest query; selected counter feedback is immediate (16.2987ms)
+✔ MP003 one in-flight plus latest unsent query; obsolete result consumes sequence without overwriting selection (46.8128ms)
+✔ MP003 A-B-A clears the unsent B instead of applying it after A (30.2925ms)
+✔ MP003 snapshot while query is in flight does not free its transport slot or send duplicate queries (47.3893ms)
+✔ MP003 genuine sequence gap still requests exactly one resync and applies a current private snapshot (15.9745ms)
+✔ MP003 future query revision still forces recovery; version validation is retained (15.9584ms)
+✔ MP003 unrelated correlated response consumes order but cannot complete the current query (15.9886ms)
+✔ MP003 Action ACK does not adopt state; one deployment click/reclick executes once and creates no follow-up query (60.5384ms)
+✔ MP003 query rejection does not retry itself or expose the previous selection options (47.5351ms)
+✔ MP003 ordered pending-resync frames cannot produce repeated recovery requests or roll back state (20.5695ms)
+✔ MP003 disconnect clears queued input and reconnect restores current state before accepting another action (42.874ms)
+✔ MP003 network UI keeps selection buttons live while guarding Actions and Core-disabled controls (3.2714ms)
+✔ MP007 production client measures send/apply/UI readiness; ACK never restores controls or canonical state (68.9699ms)
+✔ MP009 deployment waits for authoritative snapshot, guards repeats, owns a copied private intent (56.025ms)
+✔ MP009 move waits for authoritative snapshot, guards repeats, owns a copied private intent (17.2651ms)
+✔ MP009 actual authorized deployment result updates canonical state only on application (36.3562ms)
+✔ MP009 legal snapshot-before-ACK completes once; unrelated frames never clear intent (17.3332ms)
+✔ MP009 accepted receipt is not completed by an unrelated same-revision snapshot (33.7692ms)
+✔ MP009 rejection clears intent and move capture, displays safe reason without resending (3.3392ms)
+✔ MP009 timeout enters uncertainty, requests one recovery and never resends an action (14.4665ms)
+✔ MP009 disconnect/permission/phase/viewer/lost unit/resync clean up expired overlays (20.364ms)
+✔ MP009 stale revision requests existing recovery once; null send and throw do not leave phantom markers (35.5833ms)
+✔ MP009 leaving disposes pending intent; tracker ignores unrelated receipts and unsupported actions (10.7307ms)
+✔ MP009 real main status handler mounts a non-hit-test overlay without rebuilding terrain/counters; rejection removes it (158.363ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1251.7609

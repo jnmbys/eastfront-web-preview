@@ -39,6 +39,8 @@ test('MOVE001 real WebSocket clients: all target surfaces use authorized draft, 
  const commit=h.document.querySelector('#move-commit'),target=h.document.querySelector('[data-unit-id="friend"]'),cancel=h.document.querySelector('#move-cancel');
  commit.fire('click');assert.equal(s.canSelect,false);commit.fire('click');target.fire('click');cancel.fire('click');
  assert.equal(sent.filter(m=>m.messageType==='SUBMIT_ACTION').length,1);assert.equal(p.selectedUnitId,'mover');assert.deepEqual(p.pathDraft,[{q:1,r:0}]);assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:0,r:0});
+ assert.equal(s.pendingAction.kind,'move');assert.equal(b.session.pendingAction,null,'the other real WebSocket peer receives no private pending intent');
+ assert.deepEqual(Object.keys(sent.find(m=>m.messageType==='SUBMIT_ACTION').payload).sort(),['action','expectedRevision','matchId'],'pending UI adds no protocol fields');
  await wait(()=>s.matchRevision===1&&b.session.matchRevision===1&&s.interactive);
  assert.deepEqual(s.playerView.units.find(u=>u.id==='mover').hex,{q:1,r:0});assert.deepEqual(p.pathDraft,[]);
  assert.equal(p.interactionMode,'SELECT');h.repaint();h.click('[data-unit-id="far"]');assert.equal(p.selectedUnitId,'far');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-start');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('[data-hex="2,0"]');await wait(()=>s.interactive&&s.renderModel().movement);h.repaint();h.click('#move-commit');

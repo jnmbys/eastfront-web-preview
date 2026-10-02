@@ -1,0 +1,131 @@
+✔ zh-CN is the default player language (0.7454ms)
+✔ zh-CN and en-US cover every stable key with identical interpolation parameters (1.443ms)
+✔ English fallback, missing key and missing parameter detection are explicit (0.1304ms)
+✔ all canonical player-facing enums and validation codes have mappings (4.4436ms)
+✔ stored feedback and Core rejections translate at render time, retaining identifiers (14.7821ms)
+✔ language preference persists when available and works when storage is denied (1.7307ms)
+✔ real language change handler preserves GameState, RNG, camera, drafts and scroll positions (21.18ms)
+✔ Chinese production flow: new game, deployment confirmation, movement plan, attack preview, resolve, end phase; same state as English (1268.4129ms)
+✔ every pending Combat UX panel and all actual phases render Chinese with CRT codes retained (582.0131ms)
+✔ language changes leave the next dice sequence identical; New Game still requests fresh seeds independently of terrain (5.536ms)
+✔ counter mechanics and symbols are identical across locales; only accessible text changes (0.6299ms)
+✔ main render and binding preserve the existing camera transform during language switching (19.847ms)
+✔ fatal-screen messages also retranslate without changing diagnostics (0.3763ms)
+✔ MP002 client has no canonical state/engine/RNG; submit is intent only and double click is suppressed (17.7739ms)
+✔ MP002 accepted snapshot alone adopts position and publishes authorized events, ACK contains no raw result (11.1836ms)
+✔ MP002 gap triggers RESYNC; trusted fresh snapshot restores current state without replay (5.7198ms)
+✔ MP002 out-of-order triggers RESYNC; trusted fresh snapshot restores current state without replay (4.249ms)
+✔ MP002 revision mismatch triggers RESYNC; trusted fresh snapshot restores current state without replay (4.7749ms)
+✔ MP002 stale action rejection resyncs and invalid action clears busy without optimistic state changes (3.771ms)
+✔ MP002 network loss disables actions and drafts clear on active resync; camera is not a session field (2.9773ms)
+✔ MP002 query coalescing retains the authorized PlayerView object; unchanged observation reuses Fog and dynamic map (22.4259ms)
+✔ MP009 deployment waits for authoritative snapshot, guards repeats, owns a copied private intent (55.3714ms)
+✔ MP009 move waits for authoritative snapshot, guards repeats, owns a copied private intent (24.538ms)
+✔ MP009 actual authorized deployment result updates canonical state only on application (43.4209ms)
+✔ MP009 legal snapshot-before-ACK completes once; unrelated frames never clear intent (18.9778ms)
+✔ MP009 accepted receipt is not completed by an unrelated same-revision snapshot (18.8208ms)
+✔ MP009 rejection clears intent and move capture, displays safe reason without resending (3.5433ms)
+✔ MP009 timeout enters uncertainty, requests one recovery and never resends an action (14.0068ms)
+✔ MP009 disconnect/permission/phase/viewer/lost unit/resync clean up expired overlays (20.5836ms)
+✔ MP009 stale revision requests existing recovery once; null send and throw do not leave phantom markers (34.6638ms)
+✔ MP009 leaving disposes pending intent; tracker ignores unrelated receipts and unsupported actions (11.2572ms)
+✔ MP009 real main status handler mounts a non-hit-test overlay without rebuilding terrain/counters; rejection removes it (162.134ms)
+✔ startup feedback exists in HTML before modules and before pending map/assets (4.572ms)
+✔ startup progress is monotonic across asset batches and LOD milestones (0.2739ms)
+✔ first usable LOD releases the loading gate but 100 percent requires every completed surface (29.1277ms)
+✔ startup failure retains fatal diagnostics and never emits success (15.4362ms)
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:73:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/mp-007/dist/app/render/terrainSurface.js:124:29)
+    at file:///C:/Users/jinyibo/eastfront/mp-007/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ startup retains resource concurrency, current LOD priority, fixed seed and observer cleanup (47.5694ms)
+✔ Huawei direct-image path is still first and observer exceptions cannot trigger fallback (1.3669ms)
+✔ fetch/blob fallback success counts exactly once after the original path succeeds (1.3463ms)
+✔ failed image does not increment completion or change resource error semantics (0.7775ms)
+✔ bitmap fallback completion preserves release and skips the blob-image branch (0.5219ms)
+✔ actual VS2 asset batch totals come from the selected material list and actual completions (136.7408ms)
+✔ VS2 observer on/off produces identical draw trace, pixels, resource order and stats (405.0126ms)
+✔ recorded reviewed terrain startup checkpoint matches frozen source after removing observation (4.6596ms)
+✔ UA-001 transition boundary and session adapter match recorded FOW integration (1.1514ms)
+✔ loading stages and counters are complete in zh-CN/en-US and language changes retain progress (0.3938ms)
+✔ unknown totals never imply an asset percentage, and updates touch only loading DOM nodes (0.2732ms)
+✔ loading interpolation never runs a timer and respects reduced motion (1.9847ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2045.1689

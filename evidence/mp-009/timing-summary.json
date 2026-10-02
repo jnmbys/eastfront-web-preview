@@ -1,0 +1,49 @@
+{
+  "browser": "Codex in-app Chromium on Windows desktop",
+  "initialInjectedDelayMs": {
+    "ack": 1800,
+    "snapshot": 4500
+  },
+  "timeoutInjectedDelayMs": {
+    "ack": 1800,
+    "snapshot": 12000
+  },
+  "samples": [
+    {
+      "scenario": "deployment",
+      "requestId": "44c2a81d-cf47-41b4-a91a-f19e8505ae49",
+      "inputToFeedbackFrameMs": 64.7,
+      "submitToAckMs": 1823.9,
+      "submitToSnapshotApplyMs": 4529.1,
+      "snapshotRevision": 1,
+      "note": "rAF callback proxy, not compositor paint. Artificial delays. Timed-out intent is cleared before resync and no longer linked by the client-only pending tracker."
+    },
+    {
+      "scenario": "move",
+      "requestId": "ad71b301-96c9-4b29-a68f-4c687aabb259",
+      "inputToFeedbackFrameMs": 5.6,
+      "submitToAckMs": 1818.1,
+      "submitToSnapshotApplyMs": 4520.6,
+      "snapshotRevision": 1,
+      "note": "rAF callback proxy, not compositor paint. Artificial delays. Timed-out intent is cleared before resync and no longer linked by the client-only pending tracker."
+    },
+    {
+      "scenario": "move-timeout-1",
+      "requestId": "e6e99049-b4c4-4b49-a741-bec8f211fe28",
+      "inputToFeedbackFrameMs": 4.8,
+      "submitToAckMs": 1832.5,
+      "submitToSnapshotApplyMs": null,
+      "snapshotRevision": null,
+      "note": "rAF callback proxy, not compositor paint. Artificial delays. Timed-out intent is cleared before resync and no longer linked by the client-only pending tracker."
+    },
+    {
+      "scenario": "move-timeout-2",
+      "requestId": "82ef033b-36e1-4762-ac29-59287b5bb011",
+      "inputToFeedbackFrameMs": 4.6,
+      "submitToAckMs": 1821.9,
+      "submitToSnapshotApplyMs": null,
+      "snapshotRevision": null,
+      "note": "rAF callback proxy, not compositor paint. Artificial delays. Timed-out intent is cleared before resync and no longer linked by the client-only pending tracker."
+    }
+  ]
+}

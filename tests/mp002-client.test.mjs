@@ -22,7 +22,7 @@ test('MP002 client has no canonical state/engine/RNG; submit is intent only and 
 });
 test('MP002 accepted snapshot alone adopts position and publishes authorized events, ACK contains no raw result',()=>{
  const {h,n,c}=setup(),events=[];observePresentationTransitions(n,e=>events.push(...e));n.submit({type:'MOVE',unitId:'g',path:[{q:-1,r:0}]});
- h.submit(h.a,{type:'MOVE',unitId:'g',path:[{q:-1,r:0}]});const reply=h.a.last('ACTION_ACCEPTED');c.emit(reply);assert.deepEqual(n.playerView.units[0].hex,{q:0,r:0});
+ h.submit(h.a,{type:'MOVE',unitId:'g',path:[{q:-1,r:0}]},0,c.sent[0].requestId);const reply=h.a.last('ACTION_ACCEPTED');c.emit(reply);assert.deepEqual(n.playerView.units[0].hex,{q:0,r:0});
  c.emit(h.a.last('PLAYER_VIEW_SNAPSHOT'));assert.deepEqual(n.playerView.units[0].hex,{q:-1,r:0});assert(events.some(e=>e.kind==='move'));assert(n.interactive);n.dispose();
 });
 for(const reason of ['gap','out-of-order','revision mismatch'])test(`MP002 ${reason} triggers RESYNC; trusted fresh snapshot restores current state without replay`,()=>{

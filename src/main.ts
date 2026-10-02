@@ -4,6 +4,7 @@ import {combatResults} from './ui/combatResult.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import {NetworkPlayerSession} from './multiplayer/networkSession.js';
+import {PendingFeedbackRenderer} from './multiplayer/pendingFeedback.js';
 import {mt} from './multiplayer/catalog.js';
 import {isNetwork,isSessionDeployment,sessionPlayerView,dispatchGameAction,deriveBrowserRenderModel,type PlayerSession} from './multiplayer/playerSession.js';
 import { addMultiplayerHomeButton, mountLobby } from './multiplayer/lobby.js';
@@ -225,6 +226,7 @@ function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
   return `<div class="command-panel-scroll">${results}${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${isNetwork(session)&&session.client instanceof SupplyClient?supplyPanel(session.client,presentation.selectedUnitId):''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
 }
 const dynamicMap=new DynamicMapRenderer();
+const pendingFeedbackRenderer=new PendingFeedbackRenderer();
 const deploymentPanelRenderer=new DeploymentPanelRenderer();
 function refreshDynamicView():void{
   if(isNetwork(session))session.requestProjection(presentation);
@@ -259,6 +261,7 @@ function refreshDynamicView():void{
   if(isNetwork(session)){const resources=document.querySelectorAll('.resource-strip>span>strong');if(resources[0])resources[0].textContent=String(model.cp[model.viewerSide]??'—');if(resources[1])resources[1].textContent=String(model.rp[model.viewerSide]??'—');}
 }
 function render():void{
+  if(!isNetwork(session)||appStatus!=='PLAYING')pendingFeedbackRenderer.update(null,null);
   if(isNetwork(session)&&appStatus==='PLAYING'&&session.playerView.phase!=='GAME_OVER'&&!forceNetworkRender&&document.querySelector('#map-dynamic-layer')&&document.querySelector('#side-panel')){
     const workspace=document.querySelector('.workspace');workspace?.classList.toggle('panel-collapsed',presentation.panelCollapsed);workspace?.classList.toggle('panel-open',!presentation.panelCollapsed);
     document.querySelector('#side-panel')?.setAttribute('aria-hidden',String(presentation.panelCollapsed));
@@ -435,7 +438,10 @@ function bindDynamic(model?:BrowserRenderModel):void{
   if(!session)return;
   document.querySelector('#ready-button')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});
   document.querySelector('#rail-mode')?.addEventListener('click',()=>{enterRailRepairMode(presentation);render();});document.querySelector('#rail-clear')?.addEventListener('click',()=>{cancelRailRepair(presentation);render();});document.querySelector('#rail-commit')?.addEventListener('click',()=>{commitRailRepair(session!,presentation);render();});document.querySelector('#rail-no-engineer')?.addEventListener('click',()=>{selectRailEngineer(presentation,null);render();});document.querySelectorAll<HTMLElement>('[data-rail-engineer]').forEach((el)=>el.addEventListener('click',()=>{selectRailEngineer(presentation,el.dataset.railEngineer??null);render();}));
-  document.querySelector('#move-start')?.addEventListener('click',startMoveSelection);document.querySelector('#move-undo')?.addEventListener('click',()=>editMoveSelection(()=>undoMoveDraft(presentation)));document.querySelector('#move-cancel')?.addEventListener('click',()=>editMoveSelection(()=>cancelMoveDraft(presentation)));document.querySelector('#move-commit')?.addEventListener('click',()=>editMoveSelection(()=>commitMoveDraft(session!,presentation)));document.querySelector('#recover-unit')?.addEventListener('click',()=>{recoverSelectedUnit(session!,presentation);render();});document.querySelector('#entrench-unit')?.addEventListener('click',()=>{entrenchSelectedUnit(session!,presentation);render();});
+  document.querySelector('#move-start')?.addEventListener('click',startMoveSelection);document.querySelector('#move-undo')?.addEventListener('click',()=>editMoveSelection(()=>undoMoveDraft(presentation)));document.querySelector('#move-cancel')?.addEventListener('click',()=>editMoveSelection(()=>cancelMoveDraft(presentation)));document.querySelector('#move-commit')?.addEventListener('click',()=>{
+    if(isNetwork(session)){if(session.interactive&&presentation.interactionMode==='MOVE_PATH')commitMoveDraft(session,presentation);return;}
+    editMoveSelection(()=>commitMoveDraft(session!,presentation));
+  });document.querySelector('#recover-unit')?.addEventListener('click',()=>{recoverSelectedUnit(session!,presentation);render();});document.querySelector('#entrench-unit')?.addEventListener('click',()=>{entrenchSelectedUnit(session!,presentation);render();});
   bindUnitInputs();
   document.querySelectorAll<SVGPolygonElement>('[data-role="move-option"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundMoveInputs.has(element))return;boundMoveInputs.add(element);const action=()=>chooseMoveTarget(parseHex(key));element.addEventListener('click',event=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});
   document.querySelectorAll<SVGLineElement>('[data-role="rail-repair-edge"]').forEach((element)=>{const key=element.dataset.edgeKey;if(!key)return;const action=()=>{if(presentation.interactionMode!=='RAIL_REPAIR')enterRailRepairMode(presentation);toggleRailRepairEdge(session!,presentation,key);render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});document.querySelectorAll<HTMLElement>('[data-reinforcement-id]').forEach((element)=>{const id=element.dataset.reinforcementId;if(!id)return;element.addEventListener('click',()=>{selectReinforcement(presentation,id);render();});});document.querySelectorAll<SVGPolygonElement>('[data-role="reinforcement-entry"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{deploySelectedReinforcement(session!,presentation,parseHex(key));render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
@@ -451,6 +457,7 @@ function bindDynamic(model?:BrowserRenderModel):void{
 
 function updateNetworkStatus():void {
   if(!isNetwork(session))return;
+  pendingFeedbackRenderer.update(document.querySelector('#map-dynamic-layer'),session.pendingAction);
   const status=document.querySelector<HTMLElement>('#network-match-status');if(status){status.textContent=session.statusText;status.dataset.status=session.status;status.dataset.revision=String(session.matchRevision);status.dataset.interactive=String(session.interactive);}
   // Local selection stays responsive during read-only queries. Action controls
   // still wait for the latest authorized options and the single transport slot.

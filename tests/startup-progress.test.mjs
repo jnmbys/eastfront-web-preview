@@ -23,7 +23,7 @@ function bootHarness(overrides = {}) {
   const progress = new StartupProgress(), calls = [], frames = [], snapshots = [];
   progress.subscribe(s => snapshots.push(s));
   const root = { innerHTML: '' };
-  const context = { ProgressiveTerrain,terrainBoot:null,terrainPipeline:null,mapRenderOptions:()=>({lod:"far"}),document:{querySelector:()=>null},deploymentPanelRenderer:new DeploymentPanelRenderer(), isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
+  const context = { pendingFeedbackRenderer:{update(){}}, ProgressiveTerrain,terrainBoot:null,terrainPipeline:null,mapRenderOptions:()=>({lod:"far"}),document:{querySelector:()=>null},deploymentPanelRenderer:new DeploymentPanelRenderer(), isNetwork:()=>false, startupProgress: progress, observeTerrainLoad, root, appStatus: 'LOADING', session: null,
     productionMap: null, cachedTerrainSurface: null, cachedTerrainSurfaces: new Map(), TERRAIN_VISUAL_SEED: 17,
     loadProductionMapFromUrl: async () => { calls.push('map'); return { map: true }; },
     loadProductionRuntimeManifest: async () => { calls.push('manifest'); return {}; },

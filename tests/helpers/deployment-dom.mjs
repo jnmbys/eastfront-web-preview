@@ -1,3 +1,4 @@
+import {SupplyClient,supplyPanel} from '../../dist/app/experimental/supplyClient.js';
 import {combatResults} from '../../dist/app/ui/combatResult.js';
 // Production main handlers in a counted software DOM. No layout/paint/GPU emulation.
 import vm from 'node:vm';
@@ -53,12 +54,13 @@ export async function deploymentDom(session,presentation,{dist='dist/app',measur
  const animations=new animApi.UnitAnimationRuntime({now:()=>performance.now(),request:f=>{frames.set(++serial,f);return serial;},cancel:id=>frames.delete(id)});
  const fog=new fogApi.FogRuntime(r=>`software:${r.width}:${r.height}`);
  const source=readFileSync(resolve(dist,'main.js'),'utf8');
- const ctx=vm.createContext({combatResults,...core,...sessionApi,...playerSession,...locale,...ui,...touch,...polish,...combat,...svgApi,issueText,
+ const ctx=vm.createContext({SupplyClient,supplyPanel,combatResults,...core,...sessionApi,...playerSession,...locale,...ui,...touch,...polish,...combat,...svgApi,issueText,
   DynamicMapRenderer:class extends mapApi.DynamicMapRenderer {update(...args){return measure('dynamicMapUpdate',()=>super.update(...args));}},session,presentation,document,performance,developerUi:false,
   deploymentTouch:touch.createDeploymentTouch(),esc:ui.escapeUi,mapViewport:{zoom:1.8,panX:94,panY:-61},
   unitAnimations:animations,fogSurface:fog,mapRenderOptions:()=>options,applyMapViewport(){},
   requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},setTimeout,clearTimeout,render:()=>{if(presentation.privacyGate){root.innerHTML='';return;}ctx.refreshDynamicView();}
  });
+ if(source.includes('PendingFeedbackRenderer'))Object.assign(ctx,await load('multiplayer/pendingFeedback.js'));
  // Optional presentation module added by PERF-002; baseline has no such import.
  if(source.includes('DeploymentPanelRenderer'))Object.assign(ctx,await load('ui/deploymentPanelRenderer.js'));
  const run=(a,b)=>vm.runInContext(source.slice(source.indexOf(a),source.indexOf(b)),ctx);
