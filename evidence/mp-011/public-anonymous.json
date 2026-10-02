@@ -1,0 +1,131 @@
+{
+  "at": "2026-10-02T06:46:07.423Z",
+  "attempt": 2,
+  "fixedCommit": "1052f31d686f71a975d3c0c79b42aeae6633386a",
+  "originSha256": "5be2aa48ba503518008bd571ee445a70c1e3d6228dd16f2b109fc49639011050",
+  "route": "direct",
+  "tlsValidation": true,
+  "redirectsFollowed": false,
+  "authenticated": false,
+  "wsKeyDecodedBytes": 16,
+  "checks": [
+    {
+      "path": "/__mp010_login",
+      "transport": "anonymous-https",
+      "status": 200,
+      "expected": 200,
+      "location": null,
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/",
+      "transport": "anonymous-https",
+      "status": 303,
+      "expected": 303,
+      "location": "/__mp010_login",
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/lab-config.json",
+      "transport": "anonymous-https",
+      "status": 303,
+      "expected": 303,
+      "location": "/__mp010_login",
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/v/candidate/deployment/real/index.html",
+      "transport": "anonymous-https",
+      "status": 303,
+      "expected": 303,
+      "location": "/__mp010_login",
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/v/candidate/deployment/real/mp010-build.json",
+      "transport": "anonymous-https",
+      "status": 303,
+      "expected": 303,
+      "location": "/__mp010_login",
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/v/control/deployment/real/index.html",
+      "transport": "anonymous-https",
+      "status": 303,
+      "expected": 303,
+      "location": "/__mp010_login",
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/v/control/deployment/real/mp010-build.json",
+      "transport": "anonymous-https",
+      "status": 303,
+      "expected": 303,
+      "location": "/__mp010_login",
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/ws/deployment/real",
+      "transport": "anonymous-ws-upgrade",
+      "status": 403,
+      "expected": 403,
+      "location": null,
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/ws/deployment/delay",
+      "transport": "anonymous-ws-upgrade",
+      "status": 403,
+      "expected": 403,
+      "location": null,
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/ws/deployment/timeout",
+      "transport": "anonymous-ws-upgrade",
+      "status": 403,
+      "expected": 403,
+      "location": null,
+      "pass": true,
+      "curlExit": 0
+    },
+    {
+      "path": "/ws/move/real",
+      "transport": "anonymous-ws-upgrade",
+      "status": 500,
+      "expected": 403,
+      "location": null,
+      "pass": false,
+      "curlExit": 0
+    },
+    {
+      "path": "/ws/move/delay",
+      "transport": "anonymous-ws-upgrade",
+      "status": 500,
+      "expected": 403,
+      "location": null,
+      "pass": false,
+      "curlExit": 0
+    },
+    {
+      "path": "/ws/move/timeout",
+      "transport": "anonymous-ws-upgrade",
+      "status": 403,
+      "expected": 403,
+      "location": null,
+      "pass": true,
+      "curlExit": 0
+    }
+  ],
+  "pass": false
+}
