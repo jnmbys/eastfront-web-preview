@@ -1,0 +1,2999 @@
+{
+  "task": "INDUSTRY-INTEGRATE-008",
+  "status": "PASS_WITH_REAL_TRANSPORT_BLOCKED",
+  "candidateSha256": "65cb3f2a20262c82fdc7cd9a44f5c2d93a81c46c806e05e9524c0dc72060cef5",
+  "capacity": [
+    {
+      "id": "rail:A10~B10",
+      "cap": 40,
+      "spUsed": 32,
+      "otherHolds": 0,
+      "alreadyCommitted": 0,
+      "reservation": 0,
+      "freight": 0,
+      "perKit": 8,
+      "remaining": 8,
+      "privateReservation": 0
+    },
+    {
+      "id": "rail:B10~C10",
+      "cap": 40,
+      "spUsed": 32,
+      "otherHolds": 0,
+      "alreadyCommitted": 0,
+      "reservation": 0,
+      "freight": 0,
+      "perKit": 8,
+      "remaining": 8,
+      "privateReservation": 0
+    },
+    {
+      "id": "T",
+      "cap": 2200,
+      "spUsed": 108,
+      "otherHolds": 0,
+      "alreadyCommitted": 0,
+      "reservation": 0,
+      "freight": 0,
+      "perKit": 16,
+      "remaining": 2092,
+      "privateReservation": 0
+    },
+    {
+      "id": "W:GH2",
+      "cap": 96,
+      "spUsed": 96,
+      "otherHolds": 0,
+      "alreadyCommitted": 0,
+      "reservation": 0,
+      "freight": 0,
+      "perKit": 8,
+      "remaining": 0,
+      "privateReservation": 0
+    }
+  ],
+  "actualShipment": 0,
+  "T6CoreEligible": true,
+  "T6PERestored": false,
+  "reason": "GH2 W: 96/96 SP; kit needs 8",
+  "cases": [
+    {
+      "name": "rear_once_front_zero_bundle_byte_identical",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "initialHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+        "manifestDigest": "3345c56cda694bab622bcc1d0b6e13bf5b1e127291e7440d2a859b029640ed9b"
+      }
+    },
+    {
+      "name": "duplicate_and_conflicting_import_no_credit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "007_front_endowment_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "T5_cannot_consume_rear_material",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "errors": [
+          "T6_SCOPE_INVALID",
+          "NO_E5_TRANSPORT_RECEIPT",
+          "MATERIAL_UNAVAILABLE:P",
+          "MATERIAL_UNAVAILABLE:E2:L"
+        ],
+        "common": {
+          "commonEligible": true,
+          "commonIssues": [],
+          "requestIssues": [],
+          "envelopeIssues": [],
+          "enginePreconditions": {
+            "passed": true,
+            "issues": []
+          },
+          "integrityIssues": [],
+          "recoveryIssues": [],
+          "rpIssues": [],
+          "target": {
+            "id": "G-I-01",
+            "side": "GERMAN",
+            "templateId": "G-INF",
+            "step": 1,
+            "nodeId": "C10",
+            "supplyState": "SUPPLIED"
+          },
+          "context": {
+            "revision": 109,
+            "snapshotHash": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+            "turn": 5,
+            "phase": "GERMAN_RECOVERY",
+            "recoveryCount": 0,
+            "recoveryLimit": 1
+          }
+        },
+        "payment": "PE",
+        "materialDebits": null,
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "actual_E5_zero_shipment_W_saturated",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "rows": [
+          {
+            "id": "rail:A10~B10",
+            "cap": 40,
+            "spUsed": 32,
+            "otherHolds": 0,
+            "alreadyCommitted": 0,
+            "reservation": 0,
+            "freight": 0,
+            "perKit": 8,
+            "remaining": 8,
+            "privateReservation": 0
+          },
+          {
+            "id": "rail:B10~C10",
+            "cap": 40,
+            "spUsed": 32,
+            "otherHolds": 0,
+            "alreadyCommitted": 0,
+            "reservation": 0,
+            "freight": 0,
+            "perKit": 8,
+            "remaining": 8,
+            "privateReservation": 0
+          },
+          {
+            "id": "T",
+            "cap": 2200,
+            "spUsed": 108,
+            "otherHolds": 0,
+            "alreadyCommitted": 0,
+            "reservation": 0,
+            "freight": 0,
+            "perKit": 16,
+            "remaining": 2092,
+            "privateReservation": 0
+          },
+          {
+            "id": "W:GH2",
+            "cap": 96,
+            "spUsed": 96,
+            "otherHolds": 0,
+            "alreadyCommitted": 0,
+            "reservation": 0,
+            "freight": 0,
+            "perKit": 8,
+            "remaining": 0,
+            "privateReservation": 0
+          }
+        ],
+        "localRailWorkIncludedInT": 44,
+        "seconds": 0.6333903000013379,
+        "budgetSeconds": 3,
+        "solveCount": 2,
+        "extraSolveForCargo": 0
+      }
+    },
+    {
+      "name": "real_T6_common_eligible_but_PE_no_arrival",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "errors": [
+          "MATERIAL_SCOPE_QUARANTINED",
+          "NO_E5_TRANSPORT_RECEIPT",
+          "MATERIAL_UNAVAILABLE:P",
+          "MATERIAL_UNAVAILABLE:E2:L"
+        ],
+        "common": {
+          "commonEligible": true,
+          "commonIssues": [],
+          "requestIssues": [],
+          "envelopeIssues": [],
+          "enginePreconditions": {
+            "passed": true,
+            "issues": []
+          },
+          "integrityIssues": [],
+          "recoveryIssues": [],
+          "rpIssues": [],
+          "target": {
+            "id": "G-I-01",
+            "side": "GERMAN",
+            "templateId": "G-INF",
+            "step": 1,
+            "nodeId": "C10",
+            "supplyState": "SUPPLIED"
+          },
+          "context": {
+            "revision": 119,
+            "snapshotHash": "90bec71141007c2f11170562ec7153567029a9d1c91974eb4ceedde2f5bde45b",
+            "turn": 6,
+            "phase": "GERMAN_RECOVERY",
+            "recoveryCount": 0,
+            "recoveryLimit": 1
+          }
+        },
+        "payment": "PE",
+        "materialDebits": null,
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "late_E5_receipt_retry_does_not_rollback_T6_or_refill",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "currentRevision": 119,
+        "receiptRevision": 116
+      }
+    },
+    {
+      "name": "no_material_control_full_game_and_each_unit_maintenance_identical",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "units": 60,
+        "G": 106,
+        "S": 156
+      }
+    },
+    {
+      "name": "unchanged_original_live_execute_full_E5_and_T6_control",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "commands": 10,
+        "allCommandsLegal": true,
+        "pendingDecisionsEncountered": 0
+      }
+    },
+    {
+      "name": "T6_original_RP_control_and_real_shared_Core_limit",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "common": {
+          "commonEligible": false,
+          "commonIssues": [
+            {
+              "code": "INVALID_SUPPORT",
+              "message": "Full-strength units cannot recover.",
+              "details": {
+                "reason": "UNIT_NOT_DAMAGED",
+                "unitId": "G-I-01"
+              }
+            },
+            {
+              "code": "INVALID_SUPPORT",
+              "message": "A unit may recover only once in its Recovery phase.",
+              "details": {
+                "reason": "UNIT_ALREADY_RECOVERED_THIS_TURN",
+                "unitId": "G-I-01"
+              }
+            },
+            {
+              "code": "INVALID_SUPPORT",
+              "message": "Side-wide Recovery unit limit has been reached for this turn.",
+              "details": {
+                "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+                "side": "GERMAN",
+                "turn": 6,
+                "recoveredUnits": 1,
+                "limit": 1
+              }
+            }
+          ],
+          "requestIssues": [],
+          "envelopeIssues": [],
+          "enginePreconditions": {
+            "passed": true,
+            "issues": []
+          },
+          "integrityIssues": [],
+          "recoveryIssues": [
+            {
+              "code": "INVALID_SUPPORT",
+              "message": "Full-strength units cannot recover.",
+              "details": {
+                "reason": "UNIT_NOT_DAMAGED",
+                "unitId": "G-I-01"
+              }
+            },
+            {
+              "code": "INVALID_SUPPORT",
+              "message": "A unit may recover only once in its Recovery phase.",
+              "details": {
+                "reason": "UNIT_ALREADY_RECOVERED_THIS_TURN",
+                "unitId": "G-I-01"
+              }
+            },
+            {
+              "code": "INVALID_SUPPORT",
+              "message": "Side-wide Recovery unit limit has been reached for this turn.",
+              "details": {
+                "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+                "side": "GERMAN",
+                "turn": 6,
+                "recoveredUnits": 1,
+                "limit": 1
+              }
+            }
+          ],
+          "rpIssues": [],
+          "target": {
+            "id": "G-I-01",
+            "side": "GERMAN",
+            "templateId": "G-INF",
+            "step": 0,
+            "nodeId": "C10",
+            "supplyState": "SUPPLIED"
+          },
+          "context": {
+            "revision": 120,
+            "snapshotHash": "77c462b4e60c24e0ef0825fd762628a8e6303d91770cdeaebd3173ddaedef3a7",
+            "turn": 6,
+            "phase": "GERMAN_RECOVERY",
+            "recoveryCount": 1,
+            "recoveryLimit": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "stale_material_hash",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "PLAN_BLOCKED",
+        "plan": {
+          "ok": false,
+          "errors": [
+            "STALE_materialHash",
+            "MATERIAL_SCOPE_QUARANTINED",
+            "NO_E5_TRANSPORT_RECEIPT",
+            "MATERIAL_UNAVAILABLE:P",
+            "MATERIAL_UNAVAILABLE:E2:L"
+          ],
+          "common": {
+            "commonEligible": true,
+            "commonIssues": [],
+            "requestIssues": [],
+            "envelopeIssues": [],
+            "enginePreconditions": {
+              "passed": true,
+              "issues": []
+            },
+            "integrityIssues": [],
+            "recoveryIssues": [],
+            "rpIssues": [],
+            "target": {
+              "id": "G-I-01",
+              "side": "GERMAN",
+              "templateId": "G-INF",
+              "step": 1,
+              "nodeId": "C10",
+              "supplyState": "SUPPLIED"
+            },
+            "context": {
+              "revision": 119,
+              "snapshotHash": "90bec71141007c2f11170562ec7153567029a9d1c91974eb4ceedde2f5bde45b",
+              "turn": 6,
+              "phase": "GERMAN_RECOVERY",
+              "recoveryCount": 0,
+              "recoveryLimit": 1
+            }
+          },
+          "payment": "PE",
+          "materialDebits": null
+        },
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "stale_game_hash",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "PLAN_BLOCKED",
+        "plan": {
+          "ok": false,
+          "errors": [
+            "STALE_gameHash",
+            "MATERIAL_SCOPE_QUARANTINED",
+            "NO_E5_TRANSPORT_RECEIPT",
+            "MATERIAL_UNAVAILABLE:P",
+            "MATERIAL_UNAVAILABLE:E2:L"
+          ],
+          "common": {
+            "commonEligible": true,
+            "commonIssues": [],
+            "requestIssues": [],
+            "envelopeIssues": [],
+            "enginePreconditions": {
+              "passed": true,
+              "issues": []
+            },
+            "integrityIssues": [],
+            "recoveryIssues": [],
+            "rpIssues": [],
+            "target": {
+              "id": "G-I-01",
+              "side": "GERMAN",
+              "templateId": "G-INF",
+              "step": 1,
+              "nodeId": "C10",
+              "supplyState": "SUPPLIED"
+            },
+            "context": {
+              "revision": 119,
+              "snapshotHash": "90bec71141007c2f11170562ec7153567029a9d1c91974eb4ceedde2f5bde45b",
+              "turn": 6,
+              "phase": "GERMAN_RECOVERY",
+              "recoveryCount": 0,
+              "recoveryLimit": 1
+            }
+          },
+          "payment": "PE",
+          "materialDebits": null
+        },
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "stale_joint_hash",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "PLAN_BLOCKED",
+        "plan": {
+          "ok": false,
+          "errors": [
+            "STALE_jointHash",
+            "MATERIAL_SCOPE_QUARANTINED",
+            "NO_E5_TRANSPORT_RECEIPT",
+            "MATERIAL_UNAVAILABLE:P",
+            "MATERIAL_UNAVAILABLE:E2:L"
+          ],
+          "common": {
+            "commonEligible": true,
+            "commonIssues": [],
+            "requestIssues": [],
+            "envelopeIssues": [],
+            "enginePreconditions": {
+              "passed": true,
+              "issues": []
+            },
+            "integrityIssues": [],
+            "recoveryIssues": [],
+            "rpIssues": [],
+            "target": {
+              "id": "G-I-01",
+              "side": "GERMAN",
+              "templateId": "G-INF",
+              "step": 1,
+              "nodeId": "C10",
+              "supplyState": "SUPPLIED"
+            },
+            "context": {
+              "revision": 119,
+              "snapshotHash": "90bec71141007c2f11170562ec7153567029a9d1c91974eb4ceedde2f5bde45b",
+              "turn": 6,
+              "phase": "GERMAN_RECOVERY",
+              "recoveryCount": 0,
+              "recoveryLimit": 1
+            }
+          },
+          "payment": "PE",
+          "materialDebits": null
+        },
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "self_verified_authority",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "PLAN_BLOCKED",
+        "plan": {
+          "ok": false,
+          "errors": [
+            "INVALID_REQUEST_SCHEMA"
+          ],
+          "common": null
+        },
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_before_execute",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "PRECOMMIT_FAILURE",
+          "detail": "SYNTHETIC:before_execute",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_after_execute",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "PRECOMMIT_FAILURE",
+          "detail": "SYNTHETIC:after_execute",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_before_commit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "PRECOMMIT_FAILURE",
+          "detail": "SYNTHETIC:before_commit",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_inject_unknown_route",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "ENGINE_OR_BOUNDARY_REJECTED",
+          "detail": "supply unresolved: SYNTHETIC_UNKNOWN_ROUTE",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_inject_missing_audit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "ENGINE_OR_BOUNDARY_REJECTED",
+          "detail": "supply unresolved: SYNTHETIC_MISSING_AUDIT",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_inject_solver_failure",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "ENGINE_OR_BOUNDARY_REJECTED",
+          "detail": "supply unresolved: SYNTHETIC_SOLVER_FAILURE",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "E5_atomic_rollback_inject_timeout",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "failure": {
+          "ok": false,
+          "error": "ENGINE_OR_BOUNDARY_REJECTED",
+          "detail": "supply unresolved: SYNTHETIC_TOTAL_BUDGET_EXPIRED",
+          "gates": {
+            "runtimeAllowed": false,
+            "runtimeDecision": "REJECT",
+            "globalBlockersClosed": 0,
+            "blockers": [
+              "RUNTIME_NOT_APPROVED",
+              "MISSING_RUNTIME_DECISION",
+              "MISSING_SERVICE_GRANT:DEP-G-A10",
+              "MISSING_SERVICE_GRANT:DEP-S-AF10",
+              "MISSING_SERVICE_GRANT:REC-G-C10",
+              "MISSING_SERVICE_GRANT:REC-S-AC10",
+              "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+              "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+              "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+              "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+              "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+              "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+              "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+              "UNRESOLVED:authorization.approvedNullControlPolicy",
+              "UNRESOLVED:authorization.nullControlApprovalRef",
+              "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+              "UNRESOLVED:recovery.recipeApprovalRef",
+              "UNRESOLVED:recovery.integrationHookApprovalRef",
+              "UNRESOLVED:budget.policyApprovalRef",
+              "UNRESOLVED:transport.approvedEquipmentVectorRule",
+              "UNRESOLVED:transport.approvedPersonnelTransportRule",
+              "UNRESOLVED:transport.vectorRuleApprovalRef",
+              "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+              "UNRESOLVED:transport.initialMaterialManifest"
+            ],
+            "localApprovedItems": 19,
+            "outOfSliceBlockers": 16,
+            "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+          }
+        },
+        "retryRevision": 116
+      }
+    },
+    {
+      "name": "actual_total_deadline_rejects_late_publication",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "PRECOMMIT_FAILURE",
+        "detail": "TOTAL_3_SECOND_BOUNDARY_BUDGET",
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "same_version_one_winner",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "results": [
+          {
+            "ok": true,
+            "replayed": false,
+            "receipt": {
+              "fingerprint": "42d1d7047a413af6e7797ba11f088bc82682b44b1c86af8895d5a62815367200",
+              "status": "COMMITTED",
+              "request": {
+                "id": "008-race-a",
+                "action": {
+                  "type": "END_PHASE",
+                  "controllerId": "S-AI-1"
+                },
+                "paymentMode": "NONE",
+                "revision": 115,
+                "gameHash": "7d59d0dd631093e480400f189f3d020cdedc6066648bd8038d8aa84f81f59d8e",
+                "materialRevision": 1,
+                "materialHash": "4879e074c62818df05190647e5d7b1ad6e58878ef2f7643c345d9ad09c9d9956",
+                "jointHash": "b3c40ec463fccc6bd25c65426afca9e4e76c0c86aa48c108f5453e1ce3d15138"
+              },
+              "before": {
+                "revision": 115,
+                "gameHash": "7d59d0dd631093e480400f189f3d020cdedc6066648bd8038d8aa84f81f59d8e",
+                "materialRevision": 1,
+                "materialHash": "4879e074c62818df05190647e5d7b1ad6e58878ef2f7643c345d9ad09c9d9956",
+                "jointHash": "b3c40ec463fccc6bd25c65426afca9e4e76c0c86aa48c108f5453e1ce3d15138"
+              },
+              "after": {
+                "revision": 116,
+                "gameHash": "017306f5990c9dfc3a365f718b17c585971c48dcb6055819c282124953e88396",
+                "materialRevision": 2,
+                "materialHash": "b8f4b5f46a0d4f7104db36992373beb6e94db1d20d4d7e50a3b710fe770168c5",
+                "jointHash": "1590e5eeefebf3ec3eb81a408b6e3ae14fa32c827eda2db2569ec190312b0edc"
+              },
+              "command": {
+                "id": "008-race-a",
+                "revision": 115,
+                "action": {
+                  "type": "END_PHASE",
+                  "controllerId": "S-AI-1"
+                }
+              },
+              "boundaryHash": "cc2bef7e8daec0480e311763ea9a066a75f520da2dafdf61b2ed64b53a7d9b16",
+              "arrived": false
+            },
+            "current": {
+              "revision": 116,
+              "gameHash": "017306f5990c9dfc3a365f718b17c585971c48dcb6055819c282124953e88396",
+              "materialRevision": 2,
+              "materialHash": "b8f4b5f46a0d4f7104db36992373beb6e94db1d20d4d7e50a3b710fe770168c5",
+              "jointHash": "1590e5eeefebf3ec3eb81a408b6e3ae14fa32c827eda2db2569ec190312b0edc"
+            },
+            "seconds": 0.6955462000005355,
+            "budgetSeconds": 3,
+            "gates": {
+              "runtimeAllowed": false,
+              "runtimeDecision": "REJECT",
+              "globalBlockersClosed": 0,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ],
+              "localApprovedItems": 19,
+              "outOfSliceBlockers": 16,
+              "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+            }
+          },
+          {
+            "ok": false,
+            "error": "PLAN_BLOCKED",
+            "plan": {
+              "ok": false,
+              "errors": [
+                "STALE_revision",
+                "STALE_gameHash",
+                "STALE_materialRevision",
+                "STALE_materialHash",
+                "STALE_jointHash"
+              ],
+              "common": null,
+              "payment": "NONE",
+              "materialDebits": null
+            },
+            "gates": {
+              "runtimeAllowed": false,
+              "runtimeDecision": "REJECT",
+              "globalBlockersClosed": 0,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ],
+              "localApprovedItems": 19,
+              "outOfSliceBlockers": 16,
+              "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "same_ID_single_commit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "results": [
+          {
+            "ok": true,
+            "replayed": false,
+            "receipt": {
+              "fingerprint": "5837265c60060792553cfaba3ee8b82ec2ffca51a991c5d94a16b85555952a8d",
+              "status": "COMMITTED",
+              "request": {
+                "id": "008-race-a",
+                "action": {
+                  "type": "END_PHASE",
+                  "controllerId": "S-AI-1"
+                },
+                "paymentMode": "NONE",
+                "revision": 115,
+                "gameHash": "7d59d0dd631093e480400f189f3d020cdedc6066648bd8038d8aa84f81f59d8e",
+                "materialRevision": 1,
+                "materialHash": "634c61805b9ef52cabbccb6557d6720572a083181274c5e53987ee7017eaab34",
+                "jointHash": "7df99a7946219e96b8f094e83f65c9749080f06952601d3d46ba45e1f19ecb66"
+              },
+              "before": {
+                "revision": 115,
+                "gameHash": "7d59d0dd631093e480400f189f3d020cdedc6066648bd8038d8aa84f81f59d8e",
+                "materialRevision": 1,
+                "materialHash": "634c61805b9ef52cabbccb6557d6720572a083181274c5e53987ee7017eaab34",
+                "jointHash": "7df99a7946219e96b8f094e83f65c9749080f06952601d3d46ba45e1f19ecb66"
+              },
+              "after": {
+                "revision": 116,
+                "gameHash": "017306f5990c9dfc3a365f718b17c585971c48dcb6055819c282124953e88396",
+                "materialRevision": 2,
+                "materialHash": "6d02b0b716296491df6799bedf3b6d8122b78d143a8d90b4e40b4b776d1a9543",
+                "jointHash": "f8a403343c50a2a9773e6a59e13ea5d44574925fb504160cfc986de08c51d74c"
+              },
+              "command": {
+                "id": "008-race-a",
+                "revision": 115,
+                "action": {
+                  "type": "END_PHASE",
+                  "controllerId": "S-AI-1"
+                }
+              },
+              "boundaryHash": "cc2bef7e8daec0480e311763ea9a066a75f520da2dafdf61b2ed64b53a7d9b16",
+              "arrived": false
+            },
+            "current": {
+              "revision": 116,
+              "gameHash": "017306f5990c9dfc3a365f718b17c585971c48dcb6055819c282124953e88396",
+              "materialRevision": 2,
+              "materialHash": "6d02b0b716296491df6799bedf3b6d8122b78d143a8d90b4e40b4b776d1a9543",
+              "jointHash": "f8a403343c50a2a9773e6a59e13ea5d44574925fb504160cfc986de08c51d74c"
+            },
+            "seconds": 0.7309652000003553,
+            "budgetSeconds": 3,
+            "gates": {
+              "runtimeAllowed": false,
+              "runtimeDecision": "REJECT",
+              "globalBlockersClosed": 0,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ],
+              "localApprovedItems": 19,
+              "outOfSliceBlockers": 16,
+              "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+            }
+          },
+          {
+            "ok": true,
+            "replayed": true,
+            "receipt": {
+              "fingerprint": "5837265c60060792553cfaba3ee8b82ec2ffca51a991c5d94a16b85555952a8d",
+              "status": "COMMITTED",
+              "request": {
+                "id": "008-race-a",
+                "action": {
+                  "type": "END_PHASE",
+                  "controllerId": "S-AI-1"
+                },
+                "paymentMode": "NONE",
+                "revision": 115,
+                "gameHash": "7d59d0dd631093e480400f189f3d020cdedc6066648bd8038d8aa84f81f59d8e",
+                "materialRevision": 1,
+                "materialHash": "634c61805b9ef52cabbccb6557d6720572a083181274c5e53987ee7017eaab34",
+                "jointHash": "7df99a7946219e96b8f094e83f65c9749080f06952601d3d46ba45e1f19ecb66"
+              },
+              "before": {
+                "revision": 115,
+                "gameHash": "7d59d0dd631093e480400f189f3d020cdedc6066648bd8038d8aa84f81f59d8e",
+                "materialRevision": 1,
+                "materialHash": "634c61805b9ef52cabbccb6557d6720572a083181274c5e53987ee7017eaab34",
+                "jointHash": "7df99a7946219e96b8f094e83f65c9749080f06952601d3d46ba45e1f19ecb66"
+              },
+              "after": {
+                "revision": 116,
+                "gameHash": "017306f5990c9dfc3a365f718b17c585971c48dcb6055819c282124953e88396",
+                "materialRevision": 2,
+                "materialHash": "6d02b0b716296491df6799bedf3b6d8122b78d143a8d90b4e40b4b776d1a9543",
+                "jointHash": "f8a403343c50a2a9773e6a59e13ea5d44574925fb504160cfc986de08c51d74c"
+              },
+              "command": {
+                "id": "008-race-a",
+                "revision": 115,
+                "action": {
+                  "type": "END_PHASE",
+                  "controllerId": "S-AI-1"
+                }
+              },
+              "boundaryHash": "cc2bef7e8daec0480e311763ea9a066a75f520da2dafdf61b2ed64b53a7d9b16",
+              "arrived": false
+            },
+            "current": {
+              "revision": 116,
+              "gameHash": "017306f5990c9dfc3a365f718b17c585971c48dcb6055819c282124953e88396",
+              "materialRevision": 2,
+              "materialHash": "6d02b0b716296491df6799bedf3b6d8122b78d143a8d90b4e40b4b776d1a9543",
+              "jointHash": "f8a403343c50a2a9773e6a59e13ea5d44574925fb504160cfc986de08c51d74c"
+            },
+            "gates": {
+              "runtimeAllowed": false,
+              "runtimeDecision": "REJECT",
+              "globalBlockersClosed": 0,
+              "blockers": [
+                "RUNTIME_NOT_APPROVED",
+                "MISSING_RUNTIME_DECISION",
+                "MISSING_SERVICE_GRANT:DEP-G-A10",
+                "MISSING_SERVICE_GRANT:DEP-S-AF10",
+                "MISSING_SERVICE_GRANT:REC-G-C10",
+                "MISSING_SERVICE_GRANT:REC-S-AC10",
+                "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+                "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+                "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+                "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+                "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+                "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+                "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+                "UNRESOLVED:authorization.approvedNullControlPolicy",
+                "UNRESOLVED:authorization.nullControlApprovalRef",
+                "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+                "UNRESOLVED:recovery.recipeApprovalRef",
+                "UNRESOLVED:recovery.integrationHookApprovalRef",
+                "UNRESOLVED:budget.policyApprovalRef",
+                "UNRESOLVED:transport.approvedEquipmentVectorRule",
+                "UNRESOLVED:transport.approvedPersonnelTransportRule",
+                "UNRESOLVED:transport.vectorRuleApprovalRef",
+                "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+                "UNRESOLVED:transport.initialMaterialManifest"
+              ],
+              "localApprovedItems": 19,
+              "outOfSliceBlockers": 16,
+              "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "private_execution_not_public_until_single_root_swap",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lost_ack_then_late_retry_no_rollback_or_refill",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "currentRevision": 119
+      }
+    },
+    {
+      "name": "before_import_commit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "after_import_commit_before_reply",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "concurrent_import_single_credit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_approval_startup_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "old004_approval_startup_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "candidate_tamper_startup_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manifest_tamper_startup_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "expired_scope_no_E6_retry_and_material_stays_quarantined",
+      "origin": "REAL_T5_E5_T6",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "PLAN_BLOCKED",
+        "plan": {
+          "ok": false,
+          "errors": [
+            "CORE_COMMON_INELIGIBLE",
+            "T6_SCOPE_INVALID",
+            "MATERIAL_SCOPE_QUARANTINED",
+            "NO_E5_TRANSPORT_RECEIPT",
+            "MATERIAL_UNAVAILABLE:P",
+            "MATERIAL_UNAVAILABLE:E2:L"
+          ],
+          "common": {
+            "commonEligible": false,
+            "commonIssues": [
+              {
+                "code": "WRONG_PHASE",
+                "message": "GERMAN units may recover only during GERMAN_RECOVERY.",
+                "unitId": "G-I-01"
+              }
+            ],
+            "requestIssues": [],
+            "envelopeIssues": [],
+            "enginePreconditions": {
+              "passed": true,
+              "issues": []
+            },
+            "integrityIssues": [],
+            "recoveryIssues": [
+              {
+                "code": "WRONG_PHASE",
+                "message": "GERMAN units may recover only during GERMAN_RECOVERY.",
+                "unitId": "G-I-01"
+              }
+            ],
+            "rpIssues": [],
+            "target": {
+              "id": "G-I-01",
+              "side": "GERMAN",
+              "templateId": "G-INF",
+              "step": 1,
+              "nodeId": "C10",
+              "supplyState": "SUPPLIED"
+            },
+            "context": {
+              "revision": 120,
+              "snapshotHash": "dd5ccd0c40bc816d28e1d760b0fef3b7bb3198bf5e6c8ed33b2c71d8d1c5e2fc",
+              "turn": 6,
+              "phase": "GERMAN_ENTRENCHMENT",
+              "recoveryCount": 0,
+              "recoveryLimit": 1
+            }
+          },
+          "payment": "PE",
+          "materialDebits": null
+        },
+        "gates": {
+          "runtimeAllowed": false,
+          "runtimeDecision": "REJECT",
+          "globalBlockersClosed": 0,
+          "blockers": [
+            "RUNTIME_NOT_APPROVED",
+            "MISSING_RUNTIME_DECISION",
+            "MISSING_SERVICE_GRANT:DEP-G-A10",
+            "MISSING_SERVICE_GRANT:DEP-S-AF10",
+            "MISSING_SERVICE_GRANT:REC-G-C10",
+            "MISSING_SERVICE_GRANT:REC-S-AC10",
+            "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+            "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+            "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+            "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+            "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+            "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+            "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+            "UNRESOLVED:authorization.approvedNullControlPolicy",
+            "UNRESOLVED:authorization.nullControlApprovalRef",
+            "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+            "UNRESOLVED:recovery.recipeApprovalRef",
+            "UNRESOLVED:recovery.integrationHookApprovalRef",
+            "UNRESOLVED:budget.policyApprovalRef",
+            "UNRESOLVED:transport.approvedEquipmentVectorRule",
+            "UNRESOLVED:transport.approvedPersonnelTransportRule",
+            "UNRESOLVED:transport.vectorRuleApprovalRef",
+            "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+            "UNRESOLVED:transport.initialMaterialManifest"
+          ],
+          "localApprovedItems": 19,
+          "outOfSliceBlockers": 16,
+          "scope": "RC005_A10_C10_E5_T6_ISOLATED_ONLY"
+        }
+      }
+    },
+    {
+      "name": "synthetic_each_of_four_capacity_rows_short_means_all_zero",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "synthetic_private_transfer_after_reserve_no_publication",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "synthetic_private_transfer_after_transfer_no_publication",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "synthetic_positive_custody_reservation_reducer_only",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "noRealShipmentOrRecoveryClaim": true,
+        "history": [
+          {
+            "stage": "SOURCE_RESERVED",
+            "materials": {
+              "RC005-LOT-P-001": {
+                "id": "RC005-LOT-P-001",
+                "material": "P",
+                "quantity": 1,
+                "initialQuantity": 1,
+                "spent": 0,
+                "status": "SOURCE_RESERVED",
+                "owner": "RC005-DEP-G-A10",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              },
+              "RC005-LOT-E2L-001": {
+                "id": "RC005-LOT-E2L-001",
+                "material": "E2:L",
+                "quantity": 2,
+                "initialQuantity": 2,
+                "spent": 0,
+                "status": "SOURCE_RESERVED",
+                "owner": "RC005-DEP-G-A10",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              }
+            },
+            "capacity": {
+              "epoch": "L4",
+              "rows": [
+                {
+                  "id": "rail:A10~B10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "rail:B10~C10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "T",
+                  "cap": 2200,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 16,
+                  "freight": 0,
+                  "perKit": 16,
+                  "remaining": 2184,
+                  "privateReservation": 16
+                },
+                {
+                  "id": "W:GH2",
+                  "cap": 96,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 88,
+                  "privateReservation": 8
+                }
+              ],
+              "holds": {
+                "008-phase-115": {
+                  "sourceLots": [
+                    "RC005-LOT-P-001",
+                    "RC005-LOT-E2L-001"
+                  ],
+                  "receiver": "RC005-REC-G-C10",
+                  "receiverSpace": {
+                    "P": 1,
+                    "E2:L": 2
+                  },
+                  "quantities": {
+                    "P": 1,
+                    "E2:L": 2
+                  },
+                  "rows": {
+                    "rail:A10~B10": 8,
+                    "rail:B10~C10": 8,
+                    "T": 16,
+                    "W:GH2": 8
+                  },
+                  "key": {
+                    "experimentId": "RC005-A10-C10-E5-T6-ONE-KIT",
+                    "epoch": "L4",
+                    "shipmentId": "008-phase-115",
+                    "manifestDigest": "3345c56cda694bab622bcc1d0b6e13bf5b1e127291e7440d2a859b029640ed9b",
+                    "routeDigest": "57d228d57d8dd2d9da6a5c22c32fcafd0b8008c2f7270ceaab7649c52007e599",
+                    "jointSnapshotHash": "fe3ebf1653ef4e10ce25934f4531b2817ab5ec4871137d65a31c7f3e0c6c8094"
+                  }
+                }
+              },
+              "used": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              }
+            }
+          },
+          {
+            "stage": "IN_TRANSIT",
+            "materials": {
+              "RC005-LOT-P-001": {
+                "id": "RC005-LOT-P-001",
+                "material": "P",
+                "quantity": 1,
+                "initialQuantity": 1,
+                "spent": 0,
+                "status": "IN_TRANSIT",
+                "owner": "shipment:008-phase-115",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              },
+              "RC005-LOT-E2L-001": {
+                "id": "RC005-LOT-E2L-001",
+                "material": "E2:L",
+                "quantity": 2,
+                "initialQuantity": 2,
+                "spent": 0,
+                "status": "IN_TRANSIT",
+                "owner": "shipment:008-phase-115",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              }
+            },
+            "capacity": {
+              "epoch": "L4",
+              "rows": [
+                {
+                  "id": "rail:A10~B10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "rail:B10~C10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "T",
+                  "cap": 2200,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 16,
+                  "freight": 0,
+                  "perKit": 16,
+                  "remaining": 2184,
+                  "privateReservation": 16
+                },
+                {
+                  "id": "W:GH2",
+                  "cap": 96,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 88,
+                  "privateReservation": 8
+                }
+              ],
+              "holds": {
+                "008-phase-115": {
+                  "sourceLots": [
+                    "RC005-LOT-P-001",
+                    "RC005-LOT-E2L-001"
+                  ],
+                  "receiver": "RC005-REC-G-C10",
+                  "receiverSpace": {
+                    "P": 1,
+                    "E2:L": 2
+                  },
+                  "quantities": {
+                    "P": 1,
+                    "E2:L": 2
+                  },
+                  "rows": {
+                    "rail:A10~B10": 8,
+                    "rail:B10~C10": 8,
+                    "T": 16,
+                    "W:GH2": 8
+                  },
+                  "key": {
+                    "experimentId": "RC005-A10-C10-E5-T6-ONE-KIT",
+                    "epoch": "L4",
+                    "shipmentId": "008-phase-115",
+                    "manifestDigest": "3345c56cda694bab622bcc1d0b6e13bf5b1e127291e7440d2a859b029640ed9b",
+                    "routeDigest": "57d228d57d8dd2d9da6a5c22c32fcafd0b8008c2f7270ceaab7649c52007e599",
+                    "jointSnapshotHash": "fe3ebf1653ef4e10ce25934f4531b2817ab5ec4871137d65a31c7f3e0c6c8094"
+                  }
+                }
+              },
+              "used": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              }
+            }
+          },
+          {
+            "stage": "RECEIVED_LOCKED",
+            "materials": {
+              "RC005-LOT-P-001": {
+                "id": "RC005-LOT-P-001",
+                "material": "P",
+                "quantity": 1,
+                "initialQuantity": 1,
+                "spent": 0,
+                "status": "RECEIVED_LOCKED",
+                "owner": "RC005-REC-G-C10",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              },
+              "RC005-LOT-E2L-001": {
+                "id": "RC005-LOT-E2L-001",
+                "material": "E2:L",
+                "quantity": 2,
+                "initialQuantity": 2,
+                "spent": 0,
+                "status": "RECEIVED_LOCKED",
+                "owner": "RC005-REC-G-C10",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              }
+            },
+            "capacity": {
+              "epoch": "L4",
+              "rows": [
+                {
+                  "id": "rail:A10~B10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "rail:B10~C10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "T",
+                  "cap": 2200,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 16,
+                  "freight": 0,
+                  "perKit": 16,
+                  "remaining": 2184,
+                  "privateReservation": 16
+                },
+                {
+                  "id": "W:GH2",
+                  "cap": 96,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 8,
+                  "freight": 0,
+                  "perKit": 8,
+                  "remaining": 88,
+                  "privateReservation": 8
+                }
+              ],
+              "holds": {
+                "008-phase-115": {
+                  "sourceLots": [
+                    "RC005-LOT-P-001",
+                    "RC005-LOT-E2L-001"
+                  ],
+                  "receiver": "RC005-REC-G-C10",
+                  "receiverSpace": {
+                    "P": 1,
+                    "E2:L": 2
+                  },
+                  "quantities": {
+                    "P": 1,
+                    "E2:L": 2
+                  },
+                  "rows": {
+                    "rail:A10~B10": 8,
+                    "rail:B10~C10": 8,
+                    "T": 16,
+                    "W:GH2": 8
+                  },
+                  "key": {
+                    "experimentId": "RC005-A10-C10-E5-T6-ONE-KIT",
+                    "epoch": "L4",
+                    "shipmentId": "008-phase-115",
+                    "manifestDigest": "3345c56cda694bab622bcc1d0b6e13bf5b1e127291e7440d2a859b029640ed9b",
+                    "routeDigest": "57d228d57d8dd2d9da6a5c22c32fcafd0b8008c2f7270ceaab7649c52007e599",
+                    "jointSnapshotHash": "fe3ebf1653ef4e10ce25934f4531b2817ab5ec4871137d65a31c7f3e0c6c8094"
+                  }
+                }
+              },
+              "used": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              }
+            }
+          },
+          {
+            "stage": "AVAILABLE_AT_T6_PUBLICATION",
+            "materials": {
+              "RC005-LOT-P-001": {
+                "id": "RC005-LOT-P-001",
+                "material": "P",
+                "quantity": 1,
+                "initialQuantity": 1,
+                "spent": 0,
+                "status": "AVAILABLE",
+                "owner": "RC005-REC-G-C10",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              },
+              "RC005-LOT-E2L-001": {
+                "id": "RC005-LOT-E2L-001",
+                "material": "E2:L",
+                "quantity": 2,
+                "initialQuantity": 2,
+                "spent": 0,
+                "status": "AVAILABLE",
+                "owner": "RC005-REC-G-C10",
+                "manifestId": "RC005-REAR-INITIAL-001"
+              }
+            },
+            "capacity": {
+              "epoch": "L4",
+              "rows": [
+                {
+                  "id": "rail:A10~B10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 0,
+                  "freight": 8,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "rail:B10~C10",
+                  "cap": 40,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 0,
+                  "freight": 8,
+                  "perKit": 8,
+                  "remaining": 32,
+                  "privateReservation": 8
+                },
+                {
+                  "id": "T",
+                  "cap": 2200,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 0,
+                  "freight": 16,
+                  "perKit": 16,
+                  "remaining": 2184,
+                  "privateReservation": 16
+                },
+                {
+                  "id": "W:GH2",
+                  "cap": 96,
+                  "spUsed": 0,
+                  "otherHolds": 0,
+                  "alreadyCommitted": 0,
+                  "reservation": 0,
+                  "freight": 8,
+                  "perKit": 8,
+                  "remaining": 88,
+                  "privateReservation": 8
+                }
+              ],
+              "holds": {},
+              "used": {
+                "rail:A10~B10": 8,
+                "rail:B10~C10": 8,
+                "T": 16,
+                "W:GH2": 8
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "globalBlockers": 35,
+  "outOfSliceBlockers": 16,
+  "localApprovedItems": 19,
+  "globalBlockersClosed": 0,
+  "singleProcessOwnerOnly": true,
+  "crashPersistence": false,
+  "referenceCommands": 10,
+  "audit": {
+    "maintenance": [
+      {
+        "side": "G",
+        "id": "G-ART-01",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-ART-02",
+        "before": 4,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-ENG-01",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-ENG-02",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-01",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-02",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-03",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-04",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-05",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-06",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-07",
+        "before": 4,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-I-08",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-I-09",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-I-10",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "3/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-I-11",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "3/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-J-01",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "3/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-J-02",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "3/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-MOT-01",
+        "before": 0,
+        "received": 5,
+        "maintenance": 5,
+        "due": 8,
+        "after": 0,
+        "debt": "7/8",
+        "loss": 0,
+        "net": 5
+      },
+      {
+        "side": "G",
+        "id": "G-MOT-02",
+        "before": 0,
+        "received": 5,
+        "maintenance": 5,
+        "due": 8,
+        "after": 0,
+        "debt": "7/8",
+        "loss": 0,
+        "net": 5
+      },
+      {
+        "side": "G",
+        "id": "G-MOT-03",
+        "before": 0,
+        "received": 5,
+        "maintenance": 5,
+        "due": 8,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "net": 5
+      },
+      {
+        "side": "G",
+        "id": "G-PZ-01",
+        "before": 20,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 20,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "G",
+        "id": "G-PZ-02",
+        "before": 0,
+        "received": 5,
+        "maintenance": 5,
+        "due": 8,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "net": 5
+      },
+      {
+        "side": "G",
+        "id": "G-PZ-03",
+        "before": 0,
+        "received": 6,
+        "maintenance": 6,
+        "due": 8,
+        "after": 0,
+        "debt": "7/8",
+        "loss": 0,
+        "net": 6
+      },
+      {
+        "side": "G",
+        "id": "G-PZ-04",
+        "before": 0,
+        "received": 5,
+        "maintenance": 5,
+        "due": 8,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "net": 5
+      },
+      {
+        "side": "G",
+        "id": "G-REC-01",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "3/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "G",
+        "id": "G-REC-02",
+        "before": 0,
+        "received": 3,
+        "maintenance": 3,
+        "due": 4,
+        "after": 0,
+        "debt": "3/4",
+        "loss": 0,
+        "net": 3
+      },
+      {
+        "side": "S",
+        "id": "S-ART-01",
+        "before": 0,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 4
+      },
+      {
+        "side": "S",
+        "id": "S-ART-02",
+        "before": 4,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-ART-03",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-AT-01",
+        "before": 12,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-AT-02",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-AT-03",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-EL-01",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-EL-02",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-ENG-01",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-ENG-02",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-HV-01",
+        "before": 24,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 24,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-01",
+        "before": 0,
+        "received": 0,
+        "maintenance": 0,
+        "due": 4,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-02",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-03",
+        "before": 12,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-04",
+        "before": 12,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-05",
+        "before": 12,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-06",
+        "before": 12,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-07",
+        "before": 12,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-08",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-09",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-10",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-11",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-12",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-13",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-14",
+        "before": 8,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-15",
+        "before": 4,
+        "received": 0,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 0
+      },
+      {
+        "side": "S",
+        "id": "S-I-16",
+        "before": 0,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 4
+      },
+      {
+        "side": "S",
+        "id": "S-MOT-01",
+        "before": 0,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 8
+      },
+      {
+        "side": "S",
+        "id": "S-MOT-02",
+        "before": 0,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 8
+      },
+      {
+        "side": "S",
+        "id": "S-TK-01",
+        "before": 0,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 8
+      },
+      {
+        "side": "S",
+        "id": "S-TK-02",
+        "before": 0,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 8
+      },
+      {
+        "side": "S",
+        "id": "S-TK-03",
+        "before": 0,
+        "received": 8,
+        "maintenance": 8,
+        "due": 8,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 8
+      },
+      {
+        "side": "S",
+        "id": "S-R-T04-G01-U01",
+        "before": 0,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 4
+      },
+      {
+        "side": "S",
+        "id": "S-R-T04-G01-U02",
+        "before": 0,
+        "received": 4,
+        "maintenance": 4,
+        "due": 4,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "net": 4
+      }
+    ],
+    "sources": {
+      "G": {
+        "G-A5": 32,
+        "G-A10": 32,
+        "G-A16": 12
+      },
+      "S": {
+        "S-AF4": 24,
+        "S-AF10": 24,
+        "S-AF16": 16,
+        "S-AC10": 16,
+        "S-AC11": 16
+      }
+    },
+    "fullProgramRowCounts": {
+      "G": 360,
+      "S": 539
+    },
+    "traceSha256": "56f5edbe9c784db35dc29b429a7db6be631f32997ae54f623f89762c82531455"
+  }
+}
