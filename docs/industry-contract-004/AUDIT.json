@@ -1,0 +1,102 @@
+{
+  "status": "PASS_OFFLINE_ACCOUNTING_NOT_RUNTIME",
+  "baselineExact": true,
+  "baselineRuns": 4,
+  "baselineRows": 96,
+  "candidateRuns": 16,
+  "totalEpochRows": 384,
+  "continuedEpochRows": 344,
+  "maintenanceOwnerRows": 4843,
+  "zeroStockEntriesChecked": 146,
+  "forks": [
+    {
+      "route": "A",
+      "checkpointHash": "dc9f95e2c54f0be18e29f76512c3591866571092f2876057cb1757d47a0134c9",
+      "phase": "T13_PRE_ORDER_AFTER_COMMON_ACTION_AND_REPAIR",
+      "priorOrders": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07"
+      ],
+      "samePreCommitState": true
+    },
+    {
+      "route": "B",
+      "checkpointHash": "bab12f439308ccd919de0b2faaba454cf26fd4fada2af45582b19db6d9301ac6",
+      "phase": "T13_PRE_ORDER_AFTER_COMMON_ACTION_AND_REPAIR",
+      "priorOrders": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F09"
+      ],
+      "samePreCommitState": true
+    },
+    {
+      "route": "C",
+      "checkpointHash": "ec258d49d61c27855e5157c6b6bfa092d985ea24e9c4e245b979a16b0962247e",
+      "phase": "T13_PRE_ORDER_AFTER_COMMON_ACTION_AND_REPAIR",
+      "priorOrders": [
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05"
+      ],
+      "samePreCommitState": true
+    },
+    {
+      "route": "D",
+      "checkpointHash": "61bdadef8f75a04950dff5dd76c157f86de0e0d5a20b92fd062c889b6b67740a",
+      "phase": "T13_PRE_ORDER_AFTER_COMMON_ACTION_AND_REPAIR",
+      "priorOrders": [
+        "F01",
+        "F02",
+        "F03"
+      ],
+      "samePreCommitState": true
+    }
+  ],
+  "checks": [
+    "single E1..E24",
+    "exact saved baseline gate",
+    "saved snapshot continuation before first order",
+    "four ledgers including explicit physical equipment",
+    "P/E escrow once, completion no second charge",
+    "old arrears before current, rear before front",
+    "source/cargo conservation",
+    "unique maintenance owner",
+    "zero stock/D entry, no entry charge",
+    "arrival availability t+1",
+    "finite queue/waiter/entry caps",
+    "uncommitted fork includes all earlier commitments"
+  ],
+  "scopeLimits": [
+    "synthetic entry receipts, not Core legal events",
+    "single corridor allocator retained from 003, not actual optimizer",
+    "source-side assembly/recovery location is a disclosed diagnostic assumption",
+    "no VP/W/victory/survival prediction",
+    "no full sensitivity scan"
+  ],
+  "hashes": {
+    "baseline.mjs": "102db86664b375c18fe509ee5bedf26a6fbc2f1da1cb1f12bd1268ad6a890f50",
+    "check-baseline.mjs": "108436a026e2eed05ebb40bafbcb6c8c7cbba9108d52bcabea44b55576929778",
+    "candidate.mjs": "3b2f797fa3a5821e5c2b28bf53e1bde18f40b54f5f4393d24985b5dd24bd5839",
+    "reproduce.mjs": "bbe00d1f8e72fd2ee4d7a081a070d66c898100bcc4a8e9c45d26f1e3ef57090e",
+    "make-tables.mjs": "0ea8d0c8eda4fc7409fb80c810838982bec8fca9586db4455387a3d11ed142c1",
+    "audit-saved.py": "c655b3424a62217400024f88f5e95577b14b70b2e3d2d5ebbbabb4458fa1e5fe",
+    "SOURCES.json": "24e684521f89f525231d6353cb72b8ef8a54060ec0d043f21b9ca04bdd4aba9f",
+    "PROFILE.json": "57c7becd828485f9944569a695d33fb0968d7ce9d47cd1ce23a2d4dbb93180df",
+    "RESULTS.json": "26441ecf9c0e3cbe5ea535649b052c44d15ad53c00dfc5a4c3a9e213e74a01cc",
+    "DIFFERENCES.json": "cfbfdca42b1a5b863c5ef3f7e9ed72e0c7e3cb6a1ed700e64369f1697f1ad4ba"
+  }
+}
