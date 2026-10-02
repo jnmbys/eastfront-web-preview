@@ -1,0 +1,147 @@
+{
+  "status": "PASS",
+  "scope": "离线设计算术与保存数据独立复核；不是Core回放、规则实现、平衡或部署验收",
+  "campaigns": 25,
+  "mainCampaigns": 3,
+  "controls": 22,
+  "turnRows": 600,
+  "sideTurnRows": 1200,
+  "assertions": 65908,
+  "checks": [
+    "E/P/残骸/SP守恒",
+    "净伤与死亡ID",
+    "容量与来源上限",
+    "逐单位行动支付与战力",
+    "独立重建战损与维护前存活快照",
+    "净压推进与节点归属",
+    "确认VP与持有累计",
+    "P/F/S/W与连续崩溃",
+    "E24完整结算且没有T25订单"
+  ],
+  "boundaryCases": {
+    "首都失守": [
+      {
+        "P": 8,
+        "F": 0,
+        "S": 0,
+        "W": 92,
+        "count": 0,
+        "end": false
+      }
+    ],
+    "持续崩溃": [
+      {
+        "P": 24,
+        "F": 32,
+        "S": 25,
+        "W": 19,
+        "count": 1,
+        "end": false
+      },
+      {
+        "P": 24,
+        "F": 32,
+        "S": 25,
+        "W": 19,
+        "count": 2,
+        "end": true
+      }
+    ],
+    "救援解除": [
+      {
+        "P": 24,
+        "F": 32,
+        "S": 25,
+        "W": 19,
+        "count": 1,
+        "end": false
+      },
+      {
+        "P": 24,
+        "F": 32,
+        "S": 20,
+        "W": 24,
+        "count": 0,
+        "end": false
+      },
+      {
+        "P": 24,
+        "F": 32,
+        "S": 25,
+        "W": 19,
+        "count": 1,
+        "end": false
+      }
+    ],
+    "单独断供": [
+      {
+        "P": 0,
+        "F": 0,
+        "S": 30,
+        "W": 70,
+        "count": 0,
+        "end": false
+      },
+      {
+        "P": 0,
+        "F": 0,
+        "S": 30,
+        "W": 70,
+        "count": 0,
+        "end": false
+      }
+    ],
+    "同时崩溃双方相同": [
+      {
+        "P": 24,
+        "F": 32,
+        "S": 25,
+        "W": 19,
+        "count": 1,
+        "end": false
+      },
+      {
+        "P": 24,
+        "F": 32,
+        "S": 25,
+        "W": 19,
+        "count": 2,
+        "end": true
+      }
+    ],
+    "W等于20边界": [
+      {
+        "P": 24,
+        "F": 31,
+        "S": 25,
+        "W": 20,
+        "count": 1,
+        "end": false
+      },
+      {
+        "P": 24,
+        "F": 31,
+        "S": 25,
+        "W": 20,
+        "count": 2,
+        "end": true
+      }
+    ]
+  },
+  "limits": [
+    "无军队承诺增援只作设计边界，未执行完整场景",
+    "没有运行Core或真实物流求解器"
+  ],
+  "sha256": {
+    "BOUNDARIES.md": "18eb6505da2ca3c8a039e62dbcfd46cc445f4bdfec4c2940a211c6ed17ed289e",
+    "COMPARISONS.md": "bb224721b278ab96feb913a4b70a79ad4ee61c3490f896832eb4cdee14b009f0",
+    "LEDGER_A.md": "b154cb57a6c1694893c2c0472c5596699834e81ad59c77e4fc43bbc30a59769c",
+    "LEDGER_B.md": "2de9958d6eb3de00fae8e7a886bd66a032b443b24132496fae4c73bda3bb96fe",
+    "LEDGER_C.md": "2010cf6fa184c993668f6819860dccfd45576d38d6d02737f6481cb4a68a2444",
+    "LEDGER_DATA.json": "a5eb11c3b00b01994eafdd21387b1e42cee0ef63c21d17d8e0fd3ad60663a297",
+    "METHOD.md": "940738de445a1154f54e40e0f515a2cf2e84f358d0d20cfec4aee59664ab9c0c",
+    "PARAMETERS.json": "e50ab0242aa23226342cac776b266314c97cde004215a3c19e0098fc89b7cecc",
+    "REPORT.md": "cef5184cee7f9bcce31a39d210ce3ed36c23d8093c42fe1096601fdcb152b36f",
+    "SUMMARY.json": "89ed40416b126f7dc2cc90291a5759f39e1f8501e51363343567adc4f6a2ef4c"
+  }
+}

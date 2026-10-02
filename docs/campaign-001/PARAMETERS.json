@@ -1,0 +1,176 @@
+{
+  "label": "实验参数；账本代理，不是游戏配置或平衡值",
+  "turns": 24,
+  "km_per_hex": 10,
+  "weeks_per_turn": 1,
+  "units": {
+    "GI": {
+      "steps": 3,
+      "w": 4,
+      "m": 4,
+      "cap": 16,
+      "a": 10,
+      "d": 10,
+      "cost": 3,
+      "mobile": false
+    },
+    "GA": {
+      "steps": 3,
+      "w": 4,
+      "m": 8,
+      "cap": 32,
+      "a": 16,
+      "d": 12,
+      "cost": 6,
+      "mobile": true
+    },
+    "GE": {
+      "steps": 2,
+      "w": 1,
+      "m": 4,
+      "cap": 16,
+      "a": 2,
+      "d": 2,
+      "cost": 2,
+      "mobile": false
+    },
+    "SI": {
+      "steps": 3,
+      "w": 4,
+      "m": 4,
+      "cap": 16,
+      "a": 8,
+      "d": 8,
+      "cost": 3,
+      "mobile": false
+    },
+    "ST": {
+      "steps": 2,
+      "w": 2,
+      "m": 8,
+      "cap": 32,
+      "a": 8,
+      "d": 6,
+      "cost": 2,
+      "mobile": true
+    },
+    "SE": {
+      "steps": 2,
+      "w": 1,
+      "m": 4,
+      "cap": 16,
+      "a": 2,
+      "d": 2,
+      "cost": 2,
+      "mobile": false
+    }
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "name": "G入口",
+      "home": "G",
+      "role": "source",
+      "vp": 10
+    },
+    {
+      "id": 1,
+      "name": "G工业",
+      "home": "G",
+      "role": "industry",
+      "vp": 10
+    },
+    {
+      "id": 2,
+      "name": "G铁路",
+      "home": "G",
+      "role": "rail",
+      "vp": 10
+    },
+    {
+      "id": 3,
+      "name": "西城",
+      "home": "S",
+      "role": "city",
+      "vp": 10
+    },
+    {
+      "id": 4,
+      "name": "S铁路",
+      "home": "S",
+      "role": "rail",
+      "vp": 10
+    },
+    {
+      "id": 5,
+      "name": "S工业",
+      "home": "S",
+      "role": "industry",
+      "vp": 10
+    },
+    {
+      "id": 6,
+      "name": "东城",
+      "home": "S",
+      "role": "city",
+      "vp": 10
+    },
+    {
+      "id": 7,
+      "name": "S入口",
+      "home": "S",
+      "role": "source",
+      "vp": 10
+    },
+    {
+      "id": 8,
+      "name": "首都",
+      "home": "S",
+      "role": "capital",
+      "vp": 20
+    }
+  ],
+  "initial": {
+    "G": {
+      "roster": {
+        "GI": 8,
+        "GA": 3,
+        "GE": 1
+      },
+      "I": 12,
+      "P": 72,
+      "frontE": 2,
+      "rearE": 0,
+      "Wreck": 0,
+      "sourceSP": 24,
+      "transport": 24
+    },
+    "S": {
+      "roster": {
+        "SI": 10,
+        "ST": 3,
+        "SE": 1
+      },
+      "I": 12,
+      "P": 84,
+      "frontE": 2,
+      "rearE": 0,
+      "Wreck": 0,
+      "sourceSP": 26,
+      "transport": 26
+    }
+  },
+  "projects": {
+    "A": "T1 12I换12E急拨；E1入后方",
+    "B": "T1 8I工业+2I运输+2I回收；E3完成工业，E4起+2E；E2完成其余，E3起+1运力/+0.25E回收",
+    "C": "T1 8I铁路运输+4I回收；E2完成，E3起+4运力/+0.5E回收",
+    "S": "T1 8I工业恢复+4I运输；E3完成工业，E4起+2E；E2完成运输，E3起+2运力"
+  },
+  "warehouseE": 24,
+  "equipmentLoadMax": 4,
+  "repairSlots": 1,
+  "newUnitSlots": 1,
+  "baseOutputE": 2,
+  "initialSP": "各单位3倍维护量",
+  "note": "数值输出继承实验参数属性；日期/版本/文件数量为交付元数据。"
+}
