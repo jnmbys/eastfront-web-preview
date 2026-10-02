@@ -1,0 +1,208 @@
+{
+  "checkpoint": {
+    "commit": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "path": "docs/campaign-004/CHECKPOINTS.json.gz",
+    "checkpoint": "german_recovery_T5",
+    "archiveSha256": "b3e47f0179fa3413fc5f8db673a35bc1f3cf76eda0116a0b25b238d0d213ad5b",
+    "serialization": "Python json.dumps(ensure_ascii=False), UTF-8; preserve original int/float types",
+    "serializedSnapshotSha256": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+    "industry006FullValueHashReference": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+    "revision": 109,
+    "turn": 5,
+    "phase": "GERMAN_RECOVERY"
+  },
+  "coreTurn": 5,
+  "corePhase": "GERMAN_RECOVERY",
+  "logisticsTick": 4,
+  "nextLogisticsEpoch": "L4",
+  "completedEpochs": [
+    "L0",
+    "L1",
+    "L2",
+    "L3"
+  ],
+  "mapNodes": [
+    {
+      "nodeId": "A10",
+      "key": "0,9",
+      "terrain": "PLAIN",
+      "control": null
+    },
+    {
+      "nodeId": "B10",
+      "key": "1,9",
+      "terrain": "PLAIN",
+      "control": null
+    },
+    {
+      "nodeId": "C10",
+      "key": "2,8",
+      "terrain": "PLAIN",
+      "control": null
+    }
+  ],
+  "currentRouteNodes": [
+    {
+      "id": "A10",
+      "x": 0,
+      "y": 9,
+      "terrain": "PLAIN",
+      "core_control": null,
+      "control": null,
+      "known": false,
+      "guard": false,
+      "occupants": [],
+      "zoc_by": []
+    },
+    {
+      "id": "B10",
+      "x": 1,
+      "y": 9.5,
+      "terrain": "PLAIN",
+      "core_control": null,
+      "control": null,
+      "known": false,
+      "guard": false,
+      "occupants": [],
+      "zoc_by": [
+        "G"
+      ]
+    },
+    {
+      "id": "C10",
+      "x": 2,
+      "y": 9,
+      "terrain": "PLAIN",
+      "core_control": null,
+      "control": null,
+      "known": false,
+      "guard": false,
+      "occupants": [
+        "G",
+        "G"
+      ],
+      "zoc_by": []
+    }
+  ],
+  "edges": [
+    {
+      "id": "A10~B10",
+      "a": "A10",
+      "b": "B10",
+      "modes": [
+        "road",
+        "rail"
+      ],
+      "cost": 1,
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "rail_cost": 1,
+      "cap": 40,
+      "bridge_cap": null,
+      "cut": false,
+      "physical_road": false,
+      "river": null,
+      "bridge": null,
+      "core_railway": {
+        "present": true,
+        "repairedBy": "GERMAN",
+        "destroyed": false
+      },
+      "rail_repair_overlay": null
+    },
+    {
+      "id": "B10~C10",
+      "a": "B10",
+      "b": "C10",
+      "modes": [
+        "road",
+        "rail"
+      ],
+      "cost": 1,
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "rail_cost": 1,
+      "cap": 40,
+      "bridge_cap": null,
+      "cut": false,
+      "physical_road": false,
+      "river": null,
+      "bridge": null,
+      "core_railway": {
+        "present": true,
+        "repairedBy": "GERMAN",
+        "destroyed": false
+      },
+      "rail_repair_overlay": null
+    }
+  ],
+  "GH2": {
+    "id": "GH2",
+    "side": "G",
+    "node": "C10",
+    "range": 8,
+    "stock": 0,
+    "cap": 32,
+    "W": 96,
+    "quota": 40,
+    "floor": 4,
+    "inactive": false
+  },
+  "sources": [
+    {
+      "id": "G-A5",
+      "node": "A5",
+      "side": "G",
+      "cap": 32
+    },
+    {
+      "id": "G-A10",
+      "node": "A10",
+      "side": "G",
+      "cap": 32
+    },
+    {
+      "id": "G-A16",
+      "node": "A16",
+      "side": "G",
+      "cap": 32
+    },
+    {
+      "id": "S-AF4",
+      "node": "AF4",
+      "side": "S",
+      "cap": 24
+    },
+    {
+      "id": "S-AF10",
+      "node": "AF10",
+      "side": "S",
+      "cap": 24
+    },
+    {
+      "id": "S-AF16",
+      "node": "AF16",
+      "side": "S",
+      "cap": 16
+    },
+    {
+      "id": "S-AC10",
+      "node": "AC10",
+      "side": "S",
+      "cap": 16
+    },
+    {
+      "id": "S-AC11",
+      "node": "AC11",
+      "side": "S",
+      "cap": 16
+    }
+  ],
+  "clock": "full",
+  "allocator": "progressive",
+  "solver": "signature",
+  "T": 2200,
+  "use_t": true,
+  "historicalLedgerIsNotE5Capacity": true,
+  "E5JointPlanExists": false
+}

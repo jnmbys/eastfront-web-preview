@@ -1,0 +1,385 @@
+{
+  "reviewStatus": "VALID_CANDIDATE_ONLY",
+  "runtimeDecision": "REJECT",
+  "originalBlockers": 35,
+  "localProposalsPending": 19,
+  "untouched": 16,
+  "globallyResolved": 0,
+  "checks": [
+    {
+      "name": "exactly 8 residual fits kit; personnel costs 4, equipment costs 4",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "CONDITIONAL_ONE_KIT",
+        "reconstructedSPUsage": {
+          "rail:A10~B10": 32,
+          "rail:B10~C10": 32,
+          "T": 64,
+          "W:GH2": 32
+        },
+        "remaining": {
+          "rail:A10~B10": 8,
+          "rail:B10~C10": 8,
+          "T": 2136,
+          "W:GH2": 64
+        },
+        "conditionalLoad": {
+          "rail:A10~B10": 8,
+          "rail:B10~C10": 8,
+          "T": 16,
+          "W:GH2": 8
+        },
+        "executable": false
+      }
+    },
+    {
+      "name": "authorizationExperiment invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NEW_TRANSPORT_GRANT_MISSING_OR_OLD_SCOPE"
+      }
+    },
+    {
+      "name": "authorizationExperiment invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NEW_TRANSPORT_GRANT_MISSING_OR_OLD_SCOPE"
+      }
+    },
+    {
+      "name": "side invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "WRONG_SIDE_OR_RECEIVER"
+      }
+    },
+    {
+      "name": "epoch invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "WRONG_EPOCH_OR_SNAPSHOT"
+      }
+    },
+    {
+      "name": "snapshotHash invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "WRONG_EPOCH_OR_SNAPSHOT"
+      }
+    },
+    {
+      "name": "origin invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NO_CURRENT_EXACT_SP_CERTIFICATE"
+      }
+    },
+    {
+      "name": "exactVerified invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NO_CURRENT_EXACT_SP_CERTIFICATE"
+      }
+    },
+    {
+      "name": "pathCurrentlyVerified invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "DYNAMIC_PATH_NOT_VERIFIED"
+      }
+    },
+    {
+      "name": "frontInitial invalid",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "DOUBLE_FRONT_ENDOWMENT"
+      }
+    },
+    {
+      "name": "material cannot displace SP reference",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "SP_REFERENCE_CHANGED"
+      }
+    },
+    {
+      "name": "historical total cannot stand in for actual row use",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "SP_USAGE_NOT_DERIVED_FROM_ARCS"
+      }
+    },
+    {
+      "name": "stock-funded maintenance is not net delivery",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NET_MAINTENANCE_MISMATCH"
+      }
+    },
+    {
+      "name": "binding row rail:A10~B10 leaves no complete kit",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "DEFERRED_ZERO_CARGO_SP_PLAN_PRESERVED",
+        "reconstructedSPUsage": {
+          "rail:A10~B10": 32,
+          "rail:B10~C10": 32,
+          "T": 64,
+          "W:GH2": 32
+        },
+        "remaining": {
+          "rail:A10~B10": 7,
+          "rail:B10~C10": 8,
+          "T": 2136,
+          "W:GH2": 64
+        },
+        "conditionalLoad": {
+          "rail:A10~B10": 0,
+          "rail:B10~C10": 0,
+          "T": 0,
+          "W:GH2": 0
+        },
+        "executable": false
+      }
+    },
+    {
+      "name": "binding row rail:B10~C10 leaves no complete kit",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "DEFERRED_ZERO_CARGO_SP_PLAN_PRESERVED",
+        "reconstructedSPUsage": {
+          "rail:A10~B10": 32,
+          "rail:B10~C10": 32,
+          "T": 64,
+          "W:GH2": 32
+        },
+        "remaining": {
+          "rail:A10~B10": 8,
+          "rail:B10~C10": 0,
+          "T": 2136,
+          "W:GH2": 64
+        },
+        "conditionalLoad": {
+          "rail:A10~B10": 0,
+          "rail:B10~C10": 0,
+          "T": 0,
+          "W:GH2": 0
+        },
+        "executable": false
+      }
+    },
+    {
+      "name": "binding row T leaves no complete kit",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "DEFERRED_ZERO_CARGO_SP_PLAN_PRESERVED",
+        "reconstructedSPUsage": {
+          "rail:A10~B10": 32,
+          "rail:B10~C10": 32,
+          "T": 64,
+          "W:GH2": 32
+        },
+        "remaining": {
+          "rail:A10~B10": 8,
+          "rail:B10~C10": 8,
+          "T": 15,
+          "W:GH2": 64
+        },
+        "conditionalLoad": {
+          "rail:A10~B10": 0,
+          "rail:B10~C10": 0,
+          "T": 0,
+          "W:GH2": 0
+        },
+        "executable": false
+      }
+    },
+    {
+      "name": "binding row W:GH2 leaves no complete kit",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "DEFERRED_ZERO_CARGO_SP_PLAN_PRESERVED",
+        "reconstructedSPUsage": {
+          "rail:A10~B10": 32,
+          "rail:B10~C10": 32,
+          "T": 64,
+          "W:GH2": 32
+        },
+        "remaining": {
+          "rail:A10~B10": 8,
+          "rail:B10~C10": 8,
+          "T": 2136,
+          "W:GH2": 7
+        },
+        "conditionalLoad": {
+          "rail:A10~B10": 0,
+          "rail:B10~C10": 0,
+          "T": 0,
+          "W:GH2": 0
+        },
+        "executable": false
+      }
+    },
+    {
+      "name": "preexisting overbook refused",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "EXISTING_CAPACITY_OVERBOOKED"
+      }
+    },
+    {
+      "name": "duplicate committed shipment replays no cargo/no capacity",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "RECEIPT_REPLAY_ONLY",
+        "extraLoad": 0,
+        "extraMaterial": 0,
+        "executable": false
+      }
+    },
+    {
+      "name": "late committed retry returns receipt without reinstalling old state",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "result": "RECEIPT_REPLAY_ONLY",
+        "extraLoad": 0,
+        "extraMaterial": 0,
+        "executable": false
+      }
+    },
+    {
+      "name": "same shipment ID different content",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "SHIPMENT_ID_CONFLICT"
+      }
+    },
+    {
+      "name": "second shipment cannot reuse committed E5",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "EPOCH_ALREADY_COMMITTED"
+      }
+    },
+    {
+      "name": "failed private dispatch releases only own holds",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "second release rejected",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "RELEASE_WRONG_HOLD_OR_TWICE"
+      }
+    },
+    {
+      "name": "lost receipt is not cancellation of consumed use",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "COMMITTED_USE_CANNOT_BE_RELEASED"
+      }
+    },
+    {
+      "name": "single custody source",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "single custody inTransit",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "single custody receiver",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "single custody spent",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "single custody quarantined",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "duplicate arrival or failed source debit",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "MATERIAL_DUPLICATED_OR_LOST:P"
+      }
+    },
+    {
+      "name": "T5 use rejected",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NOT_T6_RECOVERY_WINDOW"
+      }
+    },
+    {
+      "name": "T6 wrong phase rejected",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "NOT_T6_RECOVERY_WINDOW"
+      }
+    },
+    {
+      "name": "T6 still needs actual Core eligibility",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "CORE_ELIGIBILITY_FALSE_OR_UNKNOWN"
+      }
+    },
+    {
+      "name": "conditional T6 availability only",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": "PASS"
+    },
+    {
+      "name": "E4 invented receipt rejected",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "BACKDATED_OR_EARLY_RECEIPT"
+      }
+    },
+    {
+      "name": "free personnel",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "POSITIVE_PERSONNEL_AND_EQUIPMENT_LOAD_REQUIRED"
+      }
+    },
+    {
+      "name": "extra rail capacity",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "CAPACITY_VECTOR_NOT_REAL_ROWS"
+      }
+    },
+    {
+      "name": "front gifted as well",
+      "basis": "SYNTHETIC_BOUNDARY_ARITHMETIC_NOT_ACTUAL_E5",
+      "result": {
+        "rejected": "REAR_ONLY_NO_DOUBLE_ENDOWMENT"
+      }
+    }
+  ],
+  "candidateSha256": "65cb3f2a20262c82fdc7cd9a44f5c2d93a81c46c806e05e9524c0dc72060cef5",
+  "validatorSha256": "f2bba820de3023adcfbc76d2f9d1c5d33a1fc4bd3b217a2f657b53e93e3d08aa",
+  "actualE5CapacityVerified": false,
+  "actualCargoMoved": 0,
+  "materialsImported": 0,
+  "gameActionsExecuted": 0,
+  "checkpointUnchanged": true,
+  "notProven": [
+    "real E5 spare capacity or solver feasibility",
+    "trusted new approval",
+    "transport/reservation atomicity and idempotency",
+    "T6 actual recovery eligibility",
+    "same-boundary 3-second performance",
+    "persistent or cross-process ownership"
+  ]
+}

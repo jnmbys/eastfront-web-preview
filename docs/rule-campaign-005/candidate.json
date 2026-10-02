@@ -1,0 +1,565 @@
+{
+  "schema": "RULE-CAMPAIGN-005.material-transport.candidate.1",
+  "status": "LEADER_REVIEW_REQUIRED",
+  "runtimeEnabled": false,
+  "refs": {
+    "industry007": "bad006249b81d07c6f63f8df4010ce4fcec51871",
+    "rule004": "24afa379ad98b8a62470f79bd65a210fd0df61ce",
+    "ruleR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
+    "campaign004": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554"
+  },
+  "approval": {
+    "decisionRef": null,
+    "candidateSha256": null,
+    "transportGrantRef": null,
+    "T6RecoveryGrantRef": null,
+    "inherit004or007Approval": false
+  },
+  "checkpoint": {
+    "commit": "268ea7bd3d139936c4c6e52579cd4a84470e2611",
+    "path": "docs/campaign-004/CHECKPOINTS.json.gz",
+    "checkpoint": "german_recovery_T5",
+    "archiveSha256": "b3e47f0179fa3413fc5f8db673a35bc1f3cf76eda0116a0b25b238d0d213ad5b",
+    "serialization": "Python json.dumps(ensure_ascii=False), UTF-8; preserve original int/float types",
+    "serializedSnapshotSha256": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+    "industry006FullValueHashReference": "f7f29d3b5af5a2495f3071e198ed996b8d6516cb44afd5f8896c00ef07d72930",
+    "revision": 109,
+    "turn": 5,
+    "phase": "GERMAN_RECOVERY"
+  },
+  "scope": {
+    "experimentId": "RC005-A10-C10-E5-T6-ONE-KIT",
+    "owner": "ONE_ISOLATED_STORE_NO_HTTP",
+    "importGameRevision": 109,
+    "dispatchBoundary": "E5",
+    "logisticsEpoch": "L4",
+    "shipmentsMaximum": 1,
+    "recoveryUnitId": "G-I-01",
+    "controllerId": "G-HUMAN-1",
+    "side": "G",
+    "coreSide": "GERMAN",
+    "recoveryTurn": 6,
+    "recoveryPhase": "GERMAN_RECOVERY",
+    "recoveryNode": "C10",
+    "recoveryCoreKey": "2,8",
+    "maxRecoveries": 1,
+    "permitLegalPhaseProgression": true,
+    "noPhaseOrStateEditing": true,
+    "onE5ZeroShipment": "KEEP_SOURCE_STOCK_QUARANTINE_AFTER_E5_NO_E6_AUTO_RETRY",
+    "expires": "AFTER_T6_GERMAN_RECOVERY_OR_GAME_OVER"
+  },
+  "services": {
+    "source": {
+      "id": "RC005-DEP-G-A10",
+      "node": "A10",
+      "coreKey": "0,9",
+      "side": "G",
+      "capacity": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "grantProposalId": "RC005-GRANT-SOURCE"
+    },
+    "receiver": {
+      "id": "RC005-REC-G-C10",
+      "node": "C10",
+      "coreKey": "2,8",
+      "side": "G",
+      "capacity": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "grantProposalId": "RC005-GRANT-RECEIVER"
+    },
+    "nullControlPolicy": "EXPLICIT_LOCAL_SERVICE_AND_ROUTE_GRANTS_KEEP_NULL",
+    "homeSide": null,
+    "sourceSPAccountAlias": false,
+    "receiverSPStockAlias": false,
+    "capturedOrIneligible": "QUARANTINE_NO_LOOT_NO_FREE_RETURN_NO_VP",
+    "capacityReservationsIncludeReceivedLocked": true
+  },
+  "initialManifest": {
+    "id": "RC005-REAR-INITIAL-001",
+    "origin": "NEW_EXPERIMENT_INITIAL_CONDITION_NOT_PRODUCTION",
+    "originId": "RC005-REAR-ENDOWMENT",
+    "atService": "RC005-DEP-G-A10",
+    "side": "G",
+    "quantities": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "lotIds": {
+      "P": "RC005-LOT-P-001",
+      "E2:L": "RC005-LOT-E2L-001"
+    },
+    "frontInitial": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "forbiddenManifestIds": [
+      "RC004-INITIAL-T5-C10-001"
+    ],
+    "forbiddenOriginExperiment": "RC004-T5-C10-G-I-01-PE-ONCE",
+    "SPorRPConversion": false,
+    "productionReceiptId": null,
+    "transportReceiptId": null,
+    "importOnce": true,
+    "gameBundleUnchanged": true
+  },
+  "cargo": {
+    "loadUnit": "LQ: capacity-accounting unit only; 1 LQ occupies one existing q-capacity slot, NOT SP inventory",
+    "rates": {
+      "P": 4,
+      "E2:L": 2
+    },
+    "rateStatus": "NEW_EXPERIMENT_DESIGN_ASSUMPTION_PENDING_REVIEW",
+    "kit": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "kitLoadLQ": 8,
+    "partialShipment": false,
+    "allowedShipmentCounts": [
+      0,
+      1
+    ],
+    "selection": "ONE_COMPLETE_RECOVERY_KIT_OR_ZERO"
+  },
+  "route": {
+    "mode": "rail",
+    "side": "G",
+    "nodes": [
+      "A10",
+      "B10",
+      "C10"
+    ],
+    "coreKeys": [
+      "0,9",
+      "1,9",
+      "2,8"
+    ],
+    "edges": [
+      "A10~B10",
+      "B10~C10"
+    ],
+    "coreEdges": [
+      "0,9|1,9",
+      "1,9|2,8"
+    ],
+    "reroute": false,
+    "requireAtDispatch": [
+      "CURRENT_SAME_SNAPSHOT_AND_REVISION",
+      "ORIGINAL_LEGAL_RAIL_ADJACENCY",
+      "RAIL_PRESENT_REPAIRED_BY_GERMAN_NOT_DESTROYED_NOT_CUT",
+      "NO_ENEMY_OCCUPANTS",
+      "MATERIAL_ONLY_NO_ENEMY_ZOC_ON_ROUTE",
+      "SERVICES_GRANTED_WITHOUT_CONTROL_EDITS",
+      "SOURCE_UNSPENT_KIT",
+      "RECEIVER_EMPTY_OR_RESERVED_FOR_SAME_SHIPMENT",
+      "BOTH_SIDES_ACTIONS_AND_PENDING_COMPLETE"
+    ],
+    "bridgePolicy": "ONLY_THIS_NO_BRIDGE_PATH; added/changed bridge or topology requires re-review; no zero-cost bridge assumption",
+    "handling": {
+      "constraintId": "W:GH2",
+      "costLQPerLoadLQ": 1,
+      "status": "PROPOSED_SHARED_SAME_HEX_HANDLING_CHARGE; no new W capacity"
+    }
+  },
+  "capacity": {
+    "budgetKey": [
+      "experimentId",
+      "logisticsEpoch",
+      "side",
+      "constraintId"
+    ],
+    "poolScope": "PER_SIDE_AS_CURRENT_SOLVE; G material shares G SP; S result unchanged; no invented cross-side global pool",
+    "rows": [
+      {
+        "id": "rail:A10~B10",
+        "capAtT5": 40,
+        "perKit": 8
+      },
+      {
+        "id": "rail:B10~C10",
+        "capAtT5": 40,
+        "perKit": 8
+      },
+      {
+        "id": "T",
+        "capAtT5": 2200,
+        "perKit": 16
+      },
+      {
+        "id": "W:GH2",
+        "capAtT5": 96,
+        "perKit": 8
+      }
+    ],
+    "TFormula": "sum(edge.rail_cost * loadLQ) over actual traversed edges; here 8*(1+1)=16",
+    "railFormula": "sum all SP rail/depart flows in both directions + committed cargo + live holds <= same row cap",
+    "WFormula": "sum original GH2 last-mile cost-weighted SP outflow + same-hex cargo handling LQ <= budget(GH2.W)",
+    "sourceCapRole": "G-A10 cap32 is SP injection limit, not rail loading capacity; material is existing stock, never subtract from or increase source32",
+    "noNewCapacity": true,
+    "historicalFlowAsResidual": false,
+    "currentWitnessRequired": true
+  },
+  "maintenanceProtection": {
+    "policy": "CONSERVATIVE_FREEZE_FULL_CURRENT_SP_PLAN_THEN_MATERIAL",
+    "referenceInput": "CURRENT_E5_PRIVATE_PRE_SETTLEMENT_SNAPSHOT_AFTER_ORIGINAL_PHASE_TRANSITION_AND_SYNC; not saved T5 or E4 ledger",
+    "referenceSolver": "ORIGINAL_SIGNATURE_PROGRESSIVE_FULL_OBJECTIVES_BOTH_SIDES",
+    "referenceMustBeExactAndAudited": true,
+    "freeze": [
+      "all SP arc flows",
+      "source injection",
+      "per-unit deliveries",
+      "hub balances",
+      "maintenance/debt/attrition outcomes for both sides"
+    ],
+    "netMaintenanceFormula": "paid_i=min(B_i, stockBefore_i+delivery_i); net_i=max(0,paid_i-min(B_i,stockBefore_i))",
+    "invariant": "every unit paid_i and net_i identical to reference; no all-maintenance-feasible assumption",
+    "reservePolicy": "also preserves SP reserve refill, deliberately stronger than maintenance-only floor; may defer material although a reoptimized maintenance-only plan could fit",
+    "allOriginalConstraintsRetained": true,
+    "onNoCapacity": "SHIP_ZERO_AND_COMMIT_VALID_SP_ONLY",
+    "onUnknownOrSolverFailure": "REJECT_ROLLBACK_WHOLE_BOUNDARY_NOT_ZERO_SUCCESS",
+    "totalExistingTimeoutSeconds": 3,
+    "noExtraTimeoutPerStage": true
+  },
+  "reservation": {
+    "owner": "E5_SINGLE_TRANSACTION_COORDINATOR",
+    "planIsReadOnly": true,
+    "key": [
+      "experimentId",
+      "logisticsEpoch",
+      "shipmentId",
+      "manifestDigest",
+      "routeDigest",
+      "jointSnapshotHash"
+    ],
+    "holds": "under same owner lock reserve whole kit at source, full receiver space, all four capacity rows atomically; included exactly once",
+    "allocationRule": "spUsed+otherHolds+alreadyCommitted+newLoad<=cap; same reservation retry excluded from otherHolds",
+    "dispatchCommit": "reserved capacity becomes used exactly once; never used+same reservation twice",
+    "failureBeforeCommit": "release only this request holds; cargo remains at source; no material/SP/game/epoch publication",
+    "afterCommit": "receipt replay only; never release consumed capacity or credit source; receipt loss is not cancellation"
+  },
+  "events": [
+    {
+      "order": 1,
+      "at": "T5_RESTORE",
+      "event": "approved rear-only one-time import; game unchanged, front zero"
+    },
+    {
+      "order": 2,
+      "at": "T5_PLAY",
+      "event": "advance actual legal phases and pending; no T5 PE recovery from these lots"
+    },
+    {
+      "order": 3,
+      "at": "T5_SOVIET_ENTRENCHMENT_END",
+      "event": "original private phase transition to T6, sync, then existing L4 settlement seam; E5 receipt keeps ending turn=5"
+    },
+    {
+      "order": 4,
+      "at": "E5_PLAN",
+      "event": "original exact SP plan on this private snapshot; freeze witness; check real route and residual capacity; choose kit or zero"
+    },
+    {
+      "order": 5,
+      "at": "E5_PRIVATE_TRANSFER",
+      "event": "if kit fits: SOURCE_RESERVED -> IN_TRANSIT -> RECEIVED_LOCKED; unique custody; receipt arrivalEpoch=5 availableFromTurn=6"
+    },
+    {
+      "order": 6,
+      "at": "E5_COMMIT",
+      "event": "single root commits original SP maintenance/debt/attrition, cargo, holds/usage, receipts and original epoch; failure publishes none"
+    },
+    {
+      "order": 7,
+      "at": "T6_PUBLIC",
+      "event": "received lots become AVAILABLE no earlier than published turn6; no second material credit or extra epoch"
+    },
+    {
+      "order": 8,
+      "at": "T6_GERMAN_RECOVERY",
+      "event": "only G-I-01 at C10 with real current Core eligibility may use 1P+2E2; RP exclusive/shared count; not guaranteed"
+    }
+  ],
+  "custody": {
+    "states": [
+      "SOURCE_AVAILABLE",
+      "SOURCE_RESERVED",
+      "IN_TRANSIT",
+      "RECEIVED_LOCKED",
+      "AVAILABLE",
+      "SPENT",
+      "QUARANTINED"
+    ],
+    "singleOwnerStates": true,
+    "reservationRemainsSourceOwned": true,
+    "inTransit": "PRIVATE_ONLY_WITHIN_ONE_E5_TX_NO_PUBLIC_PARTIAL_DISPATCH",
+    "receiverStatesShareOneQuantity": [
+      "RECEIVED_LOCKED",
+      "AVAILABLE"
+    ],
+    "conservation": "initial(material)=source+inTransit+receiver+spent+quarantined; reservations and availability labels do not add quantity",
+    "dedup": [
+      "initial manifest id+content",
+      "shipment id+request fingerprint",
+      "arrival receipt binds shipment+source lots+quantity+epoch+receiver",
+      "(store,L4) committed epoch",
+      "spent/import tombstones retained"
+    ],
+    "scopeHashIncludes": [
+      "full lossless game bundle hash",
+      "material ledger revision/hash",
+      "reservation and used-capacity ledger",
+      "epoch/SP witness/route hash",
+      "grant/candidate digest"
+    ],
+    "onStoreLoss": "no advanced-game restart with empty material ledger; no persistence guarantee"
+  },
+  "recovery": {
+    "newGrantRequired": true,
+    "004ApprovalReusable": false,
+    "007ExpiryRuleReusable": false,
+    "sourceKind": "RECEIVED_TRANSPORT",
+    "arrivalEpoch": 5,
+    "availableFromTurn": 6,
+    "materialPrice": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "RPDeltaInPE": 0,
+    "sharedOriginalRecoveryCount": true,
+    "check": "ALL_ORIGINAL_CORE_NON_PAYMENT_QUALIFICATIONS_AT_REAL_T6; only RP balance is payment-specific",
+    "noRPRefund": true,
+    "unspentAtExpiry": "QUARANTINE_NO_VP_NO_AUTO_TRANSFER"
+  },
+  "preserved": {
+    "runtimeDecision": "REJECT",
+    "globalBlockersResolved": 0,
+    "germanSourceGapSP": 9,
+    "sovietSourceGapSP": 14,
+    "industrial22SPAdded": false,
+    "SPSourceOrMaintenanceChanged": false,
+    "productionOrdersEntryImplemented": false
+  },
+  "blockerReview": {
+    "originalCount": 35,
+    "sliceProposals": 19,
+    "untouched": 16,
+    "globalResolved": 0,
+    "rows": [
+      {
+        "blocker": "RUNTIME_NOT_APPROVED",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "approval / scope",
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_RUNTIME_DECISION",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "approval.decisionRef",
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_SERVICE_GRANT:DEP-G-A10",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.source (new RC005 namespace, no assembly grant)",
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_SERVICE_GRANT:DEP-S-AF10",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_SERVICE_GRANT:REC-G-C10",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.receiver (new RC005 namespace)",
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_SERVICE_GRANT:REC-S-AC10",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.source.capacity.E2:L",
+        "globalResolved": false
+      },
+      {
+        "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.source.capacity.P",
+        "globalResolved": false
+      },
+      {
+        "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "initialManifest",
+        "globalResolved": false
+      },
+      {
+        "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.receiver.capacity.E2:L",
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.receiver.capacity.P",
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "route / reservation / custody",
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.capturedOrIneligible",
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:authorization.approvedNullControlPolicy",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "services.nullControlPolicy",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:authorization.nullControlApprovalRef",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "approval.transportGrantRef",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:recovery.recipeApprovalRef",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "recovery.materialPrice",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:recovery.integrationHookApprovalRef",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "recovery + new T6 scope (007 reusable seam only)",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:budget.policyApprovalRef",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:transport.approvedEquipmentVectorRule",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "cargo.rates.E2:L / capacity",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:transport.approvedPersonnelTransportRule",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "cargo.rates.P / capacity",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:transport.vectorRuleApprovalRef",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "approval.transportGrantRef",
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+        "status": "OUT_OF_SLICE_STILL_BLOCKED",
+        "proposal": null,
+        "globalResolved": false
+      },
+      {
+        "blocker": "UNRESOLVED:transport.initialMaterialManifest",
+        "status": "LOCAL_PROPOSAL_NOT_APPROVED",
+        "proposal": "initialManifest (rear-only replaces front endowment)",
+        "globalResolved": false
+      }
+    ]
+  }
+}
