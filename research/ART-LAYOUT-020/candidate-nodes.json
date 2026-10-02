@@ -1,0 +1,1293 @@
+{
+  "schema": "ART-LAYOUT-020-candidate-v1",
+  "mapSHA256": "150ed628f53e9d1d3b2663157ec9a02678c0e09a840c03e404469a1a850ce0d3",
+  "status": "SPATIAL_CANDIDATE_ONLY",
+  "industrial003": {
+    "commit": "5cac9bd81a9776b8a2e2837f33818c0c72561ba4",
+    "currentModel": "OFF_MAP_INDUSTRY_AND_ABSTRACT_THEATER_RECEIVING",
+    "mapProductionCentersApproved": 0,
+    "note": "Four former industrial visual budget groups are receiving/warehouse/repair space candidates. No mapping from industry003 abstract receiver has been approved."
+  },
+  "counts": {
+    "VP": 6,
+    "FACILITY_VISUAL_RESERVE": 4,
+    "STATION": 6,
+    "WAREHOUSE": 3
+  },
+  "nodes": [
+    {
+      "id": "N01",
+      "cityGroupId": "CITY-D10",
+      "anchor": {
+        "paper": "D10",
+        "axial": {
+          "q": 3,
+          "r": 8
+        }
+      },
+      "cityCells": [
+        "D10"
+      ],
+      "candidateRoles": [
+        "VP",
+        "STATION",
+        "FRONT_LOADING"
+      ],
+      "involvedCells": [
+        {
+          "paper": "D10",
+          "axial": {
+            "q": 3,
+            "r": 8
+          },
+          "terrain": "CITY",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "D10~E10",
+          "a": "D10",
+          "b": "E10",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "C10~D10",
+          "a": "C10",
+          "b": "D10",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "C11",
+          "axial": {
+            "q": 2,
+            "r": 9
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "D10"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "E11",
+          "axial": {
+            "q": 4,
+            "r": 8
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "D10"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": null,
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED."
+      ],
+      "reason": "前沿装卸候选，解释14边长段；不列生产工业或新增供给源。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    },
+    {
+      "id": "N02",
+      "cityGroupId": "CITY-J6",
+      "anchor": {
+        "paper": "J6",
+        "axial": {
+          "q": 9,
+          "r": 1
+        }
+      },
+      "cityCells": [
+        "J6"
+      ],
+      "candidateRoles": [
+        "FACILITY_VISUAL_RESERVE",
+        "STATION",
+        "WAREHOUSE"
+      ],
+      "involvedCells": [
+        {
+          "paper": "I7",
+          "axial": {
+            "q": 8,
+            "r": 2
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        },
+        {
+          "paper": "J6",
+          "axial": {
+            "q": 9,
+            "r": 1
+          },
+          "terrain": "CITY",
+          "displayFixtures": []
+        },
+        {
+          "paper": "J7",
+          "axial": {
+            "q": 9,
+            "r": 2
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "J6~K7",
+          "a": "J6",
+          "b": "K7",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "I6~J6",
+          "a": "I6",
+          "b": "J6",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "J6~K6",
+          "a": "J6",
+          "b": "K6",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "I7",
+          "axial": {
+            "q": 8,
+            "r": 2
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "J6",
+            "J7"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "K7",
+          "axial": {
+            "q": 10,
+            "r": 1
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "J6",
+            "J7"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": {
+        "reservationCells": [
+          "J7",
+          "J6",
+          "I7"
+        ],
+        "facilityCell": "J7",
+        "loadingCell": "J6",
+        "operationCell": "I7",
+        "facilityType": null,
+        "output": null,
+        "inMapProductionCandidate": {
+          "status": "UNDEFINED_NOT_APPROVED",
+          "productionCells": [],
+          "output": null
+        },
+        "receptionRoleCandidates": [
+          "loading",
+          "warehouse"
+        ],
+        "roleClass": "theater_reception_visual_reserve_no_function",
+        "facilityToLoading": {
+          "pair": [
+            "J7",
+            "J6"
+          ],
+          "distanceHex": 1,
+          "riverBoundary": null,
+          "physicalTransportEdge": false,
+          "transferPermission": "UNDEFINED"
+        },
+        "dimensionsStatus": "38x20 content + 2 padding per side; world units only; unapproved receiving/repair facility type/size, not a factory specification",
+        "geometry": {
+          "centerWorld": [
+            727.4613391789285,
+            121
+          ],
+          "contentSize": [
+            38,
+            20
+          ],
+          "paddingEachSide": 2,
+          "envelope": [
+            706.4613391789285,
+            109,
+            42,
+            24
+          ],
+          "offset": [
+            0.0,
+            -5
+          ],
+          "minimumTransportDistance": 36.31346652052679,
+          "labelRect": [
+            717.4613391789285,
+            150,
+            20,
+            10
+          ]
+        },
+        "trafficClearance": [
+          {
+            "edge": "H7~I7",
+            "kind": "transport",
+            "distance": 51.746,
+            "required": 7
+          },
+          {
+            "edge": "I7~J6",
+            "kind": "transport",
+            "distance": 36.313,
+            "required": 7
+          },
+          {
+            "edge": "J6~K7",
+            "kind": "transport",
+            "distance": 46.0,
+            "required": 7
+          },
+          {
+            "edge": "K7~L7",
+            "kind": "transport",
+            "distance": 48.501,
+            "required": 7
+          },
+          {
+            "edge": "I6~J6",
+            "kind": "transport",
+            "distance": 48.501,
+            "required": 7
+          },
+          {
+            "edge": "J6~K6",
+            "kind": "transport",
+            "distance": 48.501,
+            "required": 7
+          }
+        ],
+        "existingFixtureConflicts": [],
+        "occupancyChecks": {
+          "emptyFacility": "ENVELOPE_FITS_NOT_ART_ACCEPTANCE",
+          "oneUnitOnFacility": "CONFLICT_68x68_CLEARANCE",
+          "twoUnitsOnFacility": "CONFLICT_68x68_CLEARANCE_AND_STACK_OPERATION",
+          "unitsOnLoadingAndOperationCells": {
+            "J6": "FACILITY_ENVELOPE_CLEAR_ONLY",
+            "I7": "FACILITY_ENVELOPE_CLEAR_ONLY"
+          },
+          "touchAcceptance": "NOT_TESTED"
+        },
+        "railAccessStatus": "Loading cell has real incident rail edges; adjacent facility has NO added siding and NO approved logistics transfer link",
+        "rejectedNearbySite": null
+      },
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED.",
+        "Occupied facility needs approved reduced display/inspection policy; cannot move units to preserve roof."
+      ],
+      "reason": "北部铁路分流，装卸/仓储视觉预留放邻近平原J7；本轮不分配VP，不赋予生产。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    },
+    {
+      "id": "N03",
+      "cityGroupId": "CITY-M15",
+      "anchor": {
+        "paper": "M15",
+        "axial": {
+          "q": 12,
+          "r": 8
+        }
+      },
+      "cityCells": [
+        "M15"
+      ],
+      "candidateRoles": [
+        "VP",
+        "FACILITY_VISUAL_RESERVE",
+        "STATION"
+      ],
+      "involvedCells": [
+        {
+          "paper": "M14",
+          "axial": {
+            "q": 12,
+            "r": 7
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        },
+        {
+          "paper": "M15",
+          "axial": {
+            "q": 12,
+            "r": 8
+          },
+          "terrain": "CITY",
+          "displayFixtures": []
+        },
+        {
+          "paper": "N15",
+          "axial": {
+            "q": 13,
+            "r": 8
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "L15~M15",
+          "a": "L15",
+          "b": "M15",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "M15~N14",
+          "a": "M15",
+          "b": "N14",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "M15~N15",
+          "a": "M15",
+          "b": "N15",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "N15~O15",
+          "a": "N15",
+          "b": "O15",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "N14",
+          "axial": {
+            "q": 13,
+            "r": 7
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "M14",
+            "M15",
+            "N15"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "N15",
+          "axial": {
+            "q": 13,
+            "r": 8
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "M15"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": {
+        "reservationCells": [
+          "M14",
+          "M15",
+          "N15"
+        ],
+        "facilityCell": "M14",
+        "loadingCell": "M15",
+        "operationCell": "N15",
+        "facilityType": null,
+        "output": null,
+        "inMapProductionCandidate": {
+          "status": "UNDEFINED_NOT_APPROVED",
+          "productionCells": [],
+          "output": null
+        },
+        "receptionRoleCandidates": [
+          "loading",
+          "repair"
+        ],
+        "roleClass": "theater_reception_visual_reserve_no_function",
+        "facilityToLoading": {
+          "pair": [
+            "M14",
+            "M15"
+          ],
+          "distanceHex": 1,
+          "riverBoundary": null,
+          "physicalTransportEdge": false,
+          "transferPermission": "UNDEFINED"
+        },
+        "dimensionsStatus": "38x20 content + 2 padding per side; world units only; unapproved receiving/repair facility type/size, not a factory specification",
+        "geometry": {
+          "centerWorld": [
+            1127.5650757273393,
+            436
+          ],
+          "contentSize": [
+            38,
+            20
+          ],
+          "paddingEachSide": 2,
+          "envelope": [
+            1106.5650757273393,
+            424,
+            42,
+            24
+          ],
+          "offset": [
+            0.0,
+            -5
+          ],
+          "minimumTransportDistance": 41.31346652052664,
+          "labelRect": [
+            1117.5650757273393,
+            465,
+            20,
+            10
+          ]
+        },
+        "trafficClearance": [
+          {
+            "edge": "L15~M15",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          },
+          {
+            "edge": "M15~N14",
+            "kind": "transport",
+            "distance": 41.313,
+            "required": 7
+          },
+          {
+            "edge": "N14~O14",
+            "kind": "transport",
+            "distance": 51.746,
+            "required": 7
+          },
+          {
+            "edge": "M15~N15",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          }
+        ],
+        "existingFixtureConflicts": [],
+        "occupancyChecks": {
+          "emptyFacility": "ENVELOPE_FITS_NOT_ART_ACCEPTANCE",
+          "oneUnitOnFacility": "CONFLICT_68x68_CLEARANCE",
+          "twoUnitsOnFacility": "CONFLICT_68x68_CLEARANCE_AND_STACK_OPERATION",
+          "unitsOnLoadingAndOperationCells": {
+            "M15": "FACILITY_ENVELOPE_CLEAR_ONLY",
+            "N15": "FACILITY_ENVELOPE_CLEAR_ONLY"
+          },
+          "touchAcceptance": "NOT_TESTED"
+        },
+        "railAccessStatus": "Loading cell has real incident rail edges; adjacent facility has NO added siding and NO approved logistics transfer link",
+        "rejectedNearbySite": {
+          "cell": "M16",
+          "reason": "M16~M15 and M16~N15 river boundaries have no bridges; empty envelope fit is insufficient"
+        }
+      },
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED.",
+        "Occupied facility needs approved reduced display/inspection policy; cannot move units to preserve roof."
+      ],
+      "reason": "南部接收/维修空间候选，设施退至M14；M16跨无桥河段不采用；L15已有单位，不作为新增屋顶用地。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    },
+    {
+      "id": "N04",
+      "cityGroupId": "CITY-R10",
+      "anchor": {
+        "paper": "R10",
+        "axial": {
+          "q": 17,
+          "r": 1
+        }
+      },
+      "cityCells": [
+        "R10"
+      ],
+      "candidateRoles": [
+        "VP",
+        "FACILITY_VISUAL_RESERVE",
+        "STATION",
+        "WAREHOUSE"
+      ],
+      "involvedCells": [
+        {
+          "paper": "R10",
+          "axial": {
+            "q": 17,
+            "r": 1
+          },
+          "terrain": "CITY",
+          "displayFixtures": []
+        },
+        {
+          "paper": "R9",
+          "axial": {
+            "q": 17,
+            "r": 0
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        },
+        {
+          "paper": "S10",
+          "axial": {
+            "q": 18,
+            "r": 0
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "Q10~R10",
+          "a": "Q10",
+          "b": "R10",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "Q11~R10",
+          "a": "Q11",
+          "b": "R10",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "R10~S10",
+          "a": "R10",
+          "b": "S10",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "R10~S11",
+          "a": "R10",
+          "b": "S11",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "S10~S9",
+          "a": "S10",
+          "b": "S9",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "S10~T9",
+          "a": "S10",
+          "b": "T9",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "R11",
+          "axial": {
+            "q": 17,
+            "r": 2
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "R10"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "S10",
+          "axial": {
+            "q": 18,
+            "r": 0
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "R10",
+            "R9"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": {
+        "reservationCells": [
+          "R9",
+          "R10",
+          "S10"
+        ],
+        "facilityCell": "R9",
+        "loadingCell": "R10",
+        "operationCell": "S10",
+        "facilityType": null,
+        "output": null,
+        "inMapProductionCandidate": {
+          "status": "UNDEFINED_NOT_APPROVED",
+          "productionCells": [],
+          "output": null
+        },
+        "receptionRoleCandidates": [
+          "loading",
+          "warehouse",
+          "repair"
+        ],
+        "roleClass": "theater_reception_visual_reserve_no_function",
+        "facilityToLoading": {
+          "pair": [
+            "R9",
+            "R10"
+          ],
+          "distanceHex": 1,
+          "riverBoundary": null,
+          "physicalTransportEdge": false,
+          "transferPermission": "UNDEFINED"
+        },
+        "dimensionsStatus": "38x20 content + 2 padding per side; world units only; unapproved receiving/repair facility type/size, not a factory specification",
+        "geometry": {
+          "centerWorld": [
+            1236.6842766041784,
+            -5
+          ],
+          "contentSize": [
+            38,
+            20
+          ],
+          "paddingEachSide": 2,
+          "envelope": [
+            1215.6842766041784,
+            -17,
+            42,
+            24
+          ],
+          "offset": [
+            0.0,
+            -5
+          ],
+          "minimumTransportDistance": 36.313466520526845,
+          "labelRect": [
+            1226.6842766041784,
+            24,
+            20,
+            10
+          ]
+        },
+        "trafficClearance": [
+          {
+            "edge": "P9~Q10",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          },
+          {
+            "edge": "Q10~R10",
+            "kind": "transport",
+            "distance": 56.0,
+            "required": 7
+          },
+          {
+            "edge": "Q11~R10",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          },
+          {
+            "edge": "R10~S10",
+            "kind": "transport",
+            "distance": 41.313,
+            "required": 7
+          },
+          {
+            "edge": "R10~S11",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          },
+          {
+            "edge": "S10~S9",
+            "kind": "transport",
+            "distance": 36.313,
+            "required": 7
+          },
+          {
+            "edge": "S9~T8",
+            "kind": "transport",
+            "distance": 48.501,
+            "required": 7
+          },
+          {
+            "edge": "S10~T9",
+            "kind": "transport",
+            "distance": 51.746,
+            "required": 7
+          }
+        ],
+        "existingFixtureConflicts": [],
+        "occupancyChecks": {
+          "emptyFacility": "ENVELOPE_FITS_NOT_ART_ACCEPTANCE",
+          "oneUnitOnFacility": "CONFLICT_68x68_CLEARANCE",
+          "twoUnitsOnFacility": "CONFLICT_68x68_CLEARANCE_AND_STACK_OPERATION",
+          "unitsOnLoadingAndOperationCells": {
+            "R10": "FACILITY_ENVELOPE_CLEAR_ONLY",
+            "S10": "FACILITY_ENVELOPE_CLEAR_ONLY"
+          },
+          "touchAcceptance": "NOT_TESTED"
+        },
+        "railAccessStatus": "Loading cell has real incident rail edges; adjacent facility has NO added siding and NO approved logistics transfer link",
+        "rejectedNearbySite": null
+      },
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED.",
+        "Occupied facility needs approved reduced display/inspection policy; cannot move units to preserve roof."
+      ],
+      "reason": "中央四向铁路，装卸/仓储或维修空间退至R9；多角色共享需分层，Q11已有单位。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    },
+    {
+      "id": "N05",
+      "cityGroupId": "CITY-V5",
+      "anchor": {
+        "paper": "V5",
+        "axial": {
+          "q": 21,
+          "r": -6
+        }
+      },
+      "cityCells": [
+        "V5"
+      ],
+      "candidateRoles": [
+        "VP",
+        "BRIDGE_GATE"
+      ],
+      "involvedCells": [
+        {
+          "paper": "V5",
+          "axial": {
+            "q": 21,
+            "r": -6
+          },
+          "terrain": "CITY",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "U6~V5",
+          "a": "U6",
+          "b": "V5",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "V5~W6",
+          "a": "V5",
+          "b": "W6",
+          "road": true,
+          "rail": true,
+          "river": "MAJOR",
+          "bridge": {
+            "kind": "BOTH",
+            "destroyed": false
+          }
+        },
+        {
+          "edge": "V5~W5",
+          "a": "V5",
+          "b": "W5",
+          "road": false,
+          "rail": true,
+          "river": "MAJOR",
+          "bridge": {
+            "kind": "RAILWAY",
+            "destroyed": false
+          }
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "V6",
+          "axial": {
+            "q": 21,
+            "r": -5
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "V5"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "U6",
+          "axial": {
+            "q": 20,
+            "r": -5
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "V5"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": null,
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED."
+      ],
+      "reason": "北部双桥门户；保持铁路交汇，不再配置功能站场/工业，避免桥头拥挤。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    },
+    {
+      "id": "N06",
+      "cityGroupId": "CITY-X14",
+      "anchor": {
+        "paper": "X14",
+        "axial": {
+          "q": 23,
+          "r": 2
+        }
+      },
+      "cityCells": [
+        "X14"
+      ],
+      "candidateRoles": [
+        "VP",
+        "STATION"
+      ],
+      "involvedCells": [
+        {
+          "paper": "X14",
+          "axial": {
+            "q": 23,
+            "r": 2
+          },
+          "terrain": "CITY",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "X13~X14",
+          "a": "X13",
+          "b": "X14",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "X14~Y14",
+          "a": "X14",
+          "b": "Y14",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "W14~X14",
+          "a": "W14",
+          "b": "X14",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "X14~Y15",
+          "a": "X14",
+          "b": "Y15",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "W15",
+          "axial": {
+            "q": 22,
+            "r": 3
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "X14"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "X15",
+          "axial": {
+            "q": 23,
+            "r": 3
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "X14"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": null,
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED."
+      ],
+      "reason": "保留认可视觉对照；X13双牌、Y14单牌使工业共格风险高，本候选不放工业。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    },
+    {
+      "id": "N07",
+      "cityGroupId": "CITY-AC10",
+      "anchor": {
+        "paper": "AC10",
+        "axial": {
+          "q": 28,
+          "r": -5
+        }
+      },
+      "cityCells": [
+        "AC10",
+        "AC11",
+        "AD10"
+      ],
+      "candidateRoles": [
+        "VP",
+        "FACILITY_VISUAL_RESERVE",
+        "STATION",
+        "WAREHOUSE"
+      ],
+      "involvedCells": [
+        {
+          "paper": "AC10",
+          "axial": {
+            "q": 28,
+            "r": -5
+          },
+          "terrain": "MAIN_CITY",
+          "displayFixtures": [
+            "F-49"
+          ]
+        },
+        {
+          "paper": "AC11",
+          "axial": {
+            "q": 28,
+            "r": -4
+          },
+          "terrain": "MAIN_CITY",
+          "displayFixtures": []
+        },
+        {
+          "paper": "AD10",
+          "axial": {
+            "q": 29,
+            "r": -5
+          },
+          "terrain": "OUTER_CITY",
+          "displayFixtures": []
+        },
+        {
+          "paper": "AD9",
+          "axial": {
+            "q": 29,
+            "r": -6
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        },
+        {
+          "paper": "AE10",
+          "axial": {
+            "q": 30,
+            "r": -6
+          },
+          "terrain": "PLAIN",
+          "displayFixtures": []
+        }
+      ],
+      "railAccessEdges": [
+        {
+          "edge": "AB9~AC10",
+          "a": "AB9",
+          "b": "AC10",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "AB11~AC11",
+          "a": "AB11",
+          "b": "AC11",
+          "road": true,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "AC10~AC11",
+          "a": "AC10",
+          "b": "AC11",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "AC10~AD10",
+          "a": "AC10",
+          "b": "AD10",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        },
+        {
+          "edge": "AD10~AE11",
+          "a": "AD10",
+          "b": "AE11",
+          "road": false,
+          "rail": true,
+          "river": null,
+          "bridge": null
+        }
+      ],
+      "adjacentOperationSpace": [
+        {
+          "paper": "AD11",
+          "axial": {
+            "q": 29,
+            "r": -4
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "AC11",
+            "AD10"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        },
+        {
+          "paper": "AE10",
+          "axial": {
+            "q": 30,
+            "r": -6
+          },
+          "terrain": "PLAIN",
+          "adjacentTo": [
+            "AD10",
+            "AD9"
+          ],
+          "displayFixtures": [],
+          "legalMovement": "NOT_EVALUATED"
+        }
+      ],
+      "industrial": {
+        "reservationCells": [
+          "AD9",
+          "AD10",
+          "AE10"
+        ],
+        "facilityCell": "AD9",
+        "loadingCell": "AD10",
+        "operationCell": "AE10",
+        "facilityType": null,
+        "output": null,
+        "inMapProductionCandidate": {
+          "status": "UNDEFINED_NOT_APPROVED",
+          "productionCells": [],
+          "output": null
+        },
+        "receptionRoleCandidates": [
+          "theater_receiving",
+          "warehouse"
+        ],
+        "roleClass": "theater_reception_visual_reserve_no_function",
+        "facilityToLoading": {
+          "pair": [
+            "AD9",
+            "AD10"
+          ],
+          "distanceHex": 1,
+          "riverBoundary": null,
+          "physicalTransportEdge": false,
+          "transferPermission": "UNDEFINED"
+        },
+        "dimensionsStatus": "38x20 content + 2 padding per side; world units only; unapproved receiving/repair facility type/size, not a factory specification",
+        "geometry": {
+          "centerWorld": [
+            1891.399481865214,
+            -383
+          ],
+          "contentSize": [
+            38,
+            20
+          ],
+          "paddingEachSide": 2,
+          "envelope": [
+            1870.399481865214,
+            -395,
+            42,
+            24
+          ],
+          "offset": [
+            0.0,
+            -5
+          ],
+          "minimumTransportDistance": 56.0,
+          "labelRect": [
+            1881.399481865214,
+            -354,
+            20,
+            10
+          ]
+        },
+        "trafficClearance": [
+          {
+            "edge": "AB9~AC10",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          },
+          {
+            "edge": "AC10~AC11",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          },
+          {
+            "edge": "AC10~AD10",
+            "kind": "transport",
+            "distance": 56.0,
+            "required": 7
+          },
+          {
+            "edge": "AD10~AE11",
+            "kind": "transport",
+            "distance": 58.072,
+            "required": 7
+          }
+        ],
+        "existingFixtureConflicts": [],
+        "occupancyChecks": {
+          "emptyFacility": "ENVELOPE_FITS_NOT_ART_ACCEPTANCE",
+          "oneUnitOnFacility": "CONFLICT_68x68_CLEARANCE",
+          "twoUnitsOnFacility": "CONFLICT_68x68_CLEARANCE_AND_STACK_OPERATION",
+          "unitsOnLoadingAndOperationCells": {
+            "AD10": "FACILITY_ENVELOPE_CLEAR_ONLY",
+            "AE10": "FACILITY_ENVELOPE_CLEAR_ONLY"
+          },
+          "touchAcceptance": "NOT_TESTED"
+        },
+        "railAccessStatus": "Loading cell has real incident rail edges; adjacent facility has NO added siding and NO approved logistics transfer link",
+        "rejectedNearbySite": null
+      },
+      "sharedRoleConflicts": [
+        "Roles share a location, not a center footprint or VP credit.",
+        "Ownership, VP weight, capture predicate, production, supply qualification and station throughput UNASSIGNED.",
+        "Occupied facility needs approved reduced display/inspection policy; cannot move units to preserve roof.",
+        "AC10 F-49 hides roof; unselected recognition issue remains."
+      ],
+      "reason": "首都三格为一个目标群；战区接收/仓储空间退至AD9，不挤占AC10单位；既有补给源与接收设施分开记录。",
+      "vpWeight": null,
+      "initialOwner": null,
+      "captureCondition": null
+    }
+  ]
+}
