@@ -1,0 +1,25 @@
+{
+  "policyChanged": false,
+  "stateParametersOrSeedEdited": false,
+  "engineeringCorrections": [
+    {
+      "issue": "Windows MAX_PATH and extended-path Node entrypoint incompatibility",
+      "correction": "Flatten copied owner directories; normalize tar member paths for Windows copying; use normal paths during execution.",
+      "gameplayImpact": "No valid prefix completed during these startup failures. Every accepted prefix later matched the saved historical bundleJSON exactly."
+    },
+    {
+      "issue": "Windows multiprocessing bootstrap requires main guard",
+      "correction": "Put prefix execution behind __main__ guard.",
+      "gameplayImpact": "Worker startup failed before any experimental action."
+    },
+    {
+      "issue": "First A continuation used nonexistent S-HUMAN-1 in the Soviet entrenchment request; real controller is S-AI-1",
+      "excludedRecord": "HARNESS-ERROR-A.json.gz",
+      "correction": "Read controllerId from the actual S-I-01 state to implement the preregistered entrenchment policy.",
+      "timing": "Found after first A continuation, before any B or C continuation. Original erroneous trace retained in full. All three corrected arms were then run and exactly replayed.",
+      "policyImpact": "No policy, seed, state, target, route, supply setting or parameter changed. Corrected valid arms each entrench once through original live.execute."
+    }
+  ],
+  "excludedRecordIsNotAnAdditionalStrategyArm": true,
+  "noOutcomeDependentParameterAdjustment": true
+}

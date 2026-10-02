@@ -1,0 +1,39 @@
+{
+  "id": "CAMPAIGN-005-POLICY-1",
+  "status": "FROZEN_BEFORE_FIRST_ARM_EXECUTION",
+  "scope": "New isolated offline comparison authorized by the current user request; historical 008/011 grants are not extended to runtime defaults.",
+  "start": "Identical verified german_recovery_T5, game revision 109; preserve complete random object, seed17/state1150042706/draws2.",
+  "arms": {
+    "A": "008 original SP-first E5, same initial rear kit, no recovery; retain quarantined kit.",
+    "B": "008 original SP-first E5, same initial rear kit; T6 original REPAIR_UNIT on G-I-01 for 1RP; retain quarantined kit.",
+    "C": "011 kit-first E5 with exactly one 1P+2E2:L kit; T6 existing isolated PE recovery G-I-01; retain spent lots and consumed service receipt."
+  },
+  "initial_resources": "All arms import the identical single manifest once at A10 with zero C10 material. Game/SP/RP and random states are byte-identical. No extra material, retried transport, sources, capacity or free action.",
+  "prefix": "All arms reuse the exact ten 008 END_PHASE commands from T5 recovery through T6 recovery; no voluntary movement, combat, rail work, entrenchment or RP recovery in that prefix. Exact saved E5/T6 outcomes must match before continuing.",
+  "handoff": "After the arm-specific T6 recovery choice, freeze the complete material/capacity/service root. Continue the unedited resulting game bundle through original live.execute, with no industrial calls or payment mode override. Original E6 supply and attrition still execute.",
+  "general": "No other voluntary recovery, rail repair, HQ action or unit movement/attack. Advance phases only after pending decisions are resolved. No END_SIDE shortcut. No scenario/RNG edits or outcome-dependent rerun.",
+  "soviet_T6": "All units hold; no attacks or recovery. At SOVIET_ENTRENCHMENT attempt ENTRENCH S-I-01 once. Rejection is recorded and no substitute is chosen. No reinforcement is scheduled at T6; unexpected phase blockers stop.",
+  "german_T7_moves": [
+    {"unitId":"G-I-01", "path":["D10"]},
+    {"unitId":"G-PZ-03", "path":["C8","C9","C10","D10"]},
+    {"unitId":"G-PZ-02", "path":["C4","D4","D5","D6"]}
+  ],
+  "move_rejection": "Submit the fixed entire path once. Record original legality/cost/cap and rejection. No shortened path, alternative destination, fake move or second attempt.",
+  "german_T7_combat": {
+    "target": "E11",
+    "attacker_priority": ["G-I-01","G-PZ-03","G-PZ-02"],
+    "selection": "Select living listed units adjacent to target and individually accepted by original attack validation under actual stock/debt effects. Log every exclusion. Submit one joint ATTACK with all eligible listed units; if rejected, record and do not replace. Empty target/no eligible attacker means no attack and an explicit scenario limitation."
+  },
+  "pending": {
+    "defender_reaction": "PASS_REACTION, no discretionary artillery/HQ intervention.",
+    "loss_allocation": "Depth-first unit sequences in ascending permanent ID; choose first sequence accepted by original RulesEngine on a cloned state. This may concentrate losses; same rule both sides and all arms.",
+    "retreat": "Enumerate simple paths using original legal retreat-step query, prefer longest path then canonical axial-coordinate lexicographic order. For units in ascending ID choose first complete joint RETREAT accepted by original RulesEngine. Search cap 100000 candidates; cap exhaustion stops, never fabricates a retreat.",
+    "advance": "Try first accepted ADVANCE_AFTER_COMBAT for G-I-01, G-PZ-03, G-PZ-02, then remaining eligible IDs sorted; otherwise PASS_ADVANCE.",
+    "breakthrough": "PASS_BREAKTHROUGH",
+    "schwerpunkt": "PASS_SCHWERPUNKT",
+    "unknown": "Stop and preserve evidence; do not bypass mandatory choice."
+  },
+  "stop": "After all T7 German combat pending decisions and one legal END_PHASE into GERMAN_RECOVERY. Execute no T7 recovery, Soviet T7 or E7. Earlier GAME_OVER/rejected mandatory progression stops and is reported.",
+  "observations": ["target actual participation and attack strength", "both panzers move/attack legality, actual SP payment, maintenance, D, supply/combat step losses", "E5 and E6 both-army deliveries and shortage", "RP and immutable material terminal state", "actual RNG draws and battle transactions", "unit positions and literal Core control changes", "Core victory state; absent VP schema is UNAVAILABLE, never synthesized"],
+  "limits": "No win requirement. Supply factor0.75 is not actual loss25%. One short fixed-state result does not establish long-term balance. All 35 global blockers remain open."
+}
