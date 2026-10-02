@@ -9,6 +9,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+from map_validation import validate_map, validate_bindings
 
 ROOT = Path(__file__).resolve().parent
 PREDICATES = (
@@ -59,6 +60,9 @@ def inspect(config, facts, map_data, profile):
     for k, v in [('boundaries', 'assemblyBoundaries'), ('queueCap', 'assemblyQueueCap'),
                  ('undeployedCap', 'undeployedOrderCap'), ('entryPerTurnCap', 'entryCapPerTurn')]:
         require(config['assembly'][k] == profile[v], 'OFFLINE_PROFILE_VALUE_CHANGED:' + k)
+    errors.extend(validate_map(map_data))
+    binding_review = validate_bindings(config, map_data)
+    errors.extend(binding_review['errors'])
     nodes = {n['nodeId']: n for n in map_data['nodes']}
     require(len(nodes) == len(map_data['nodes']) == 640, 'MAP_NODE_SET_INVALID')
     sources = {s['id']: s for s in config['sources']}
@@ -138,7 +142,7 @@ def inspect(config, facts, map_data, profile):
     for s in baseline:
         baseline[s]['gap_q'] = baseline[s]['maintenance_q'] - baseline[s]['source_q']
     require(baseline['G']['gap_q'] == 36 and baseline['S']['gap_q'] == 56, 'BASELINE_DEFICIT_ERASED')
-    return {'errors': errors, 'blockers': blockers, 'baseline': baseline,
+    return {'errors': errors, 'blockers': blockers, 'baseline': baseline, 'mapBindings': binding_review,
             'runtimeDecision': 'REJECT', 'reviewStatus': 'VALID_CANDIDATE_WITH_BLOCKERS' if not errors else 'INVALID'}
 
 
@@ -322,6 +326,8 @@ def self_test(config, facts, nodes, profile):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', type=Path, default=ROOT / 'candidate.json')
+    parser.add_argument('--map', type=Path, default=ROOT / 'inputs/MAP_NODES.json',
+                        help='Optional projection under review; authority remains pinned.')
     parser.add_argument('--runtime-gate', action='store_true')
     parser.add_argument('--self-test', action='store_true')
     args = parser.parse_args()
@@ -330,10 +336,12 @@ def main():
         need(hashlib.sha256((ROOT / row['file']).read_bytes()).hexdigest() == row['sha256'], 'FIXED_INPUT_CHANGED:' + row['file'])
     config = json.loads(args.config.read_bytes())
     need(config['refs'] == manifest['refs'], 'FIXED_COMMIT_REFS_CHANGED')
-    facts, nodes, profile = read('inputs/FACTS.json'), read('inputs/MAP_NODES.json'), read('inputs/INDUSTRY_PROFILE.json')
+    facts, nodes, profile = read('inputs/FACTS.json'), json.loads(args.map.read_bytes()), read('inputs/INDUSTRY_PROFILE.json')
     result = inspect(config, facts, nodes, profile)
     result.update(configSha256=hashlib.sha256(args.config.read_bytes()).hexdigest(),
                   validatorSha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  mapValidatorSha256=hashlib.sha256((ROOT / 'map_validation.py').read_bytes()).hexdigest(),
+                  mapSha256=hashlib.sha256(args.map.read_bytes()).hexdigest(),
                   offlineChecks=self_test(config, facts, nodes, profile) if args.self_test and not result['errors'] else [],
                   notProven=['runtime authorization', 'Core eligibility execution', 'equipment routes/capacity',
                              'transaction idempotency', 'campaign balance', 'industrial order/deployment implementation'])

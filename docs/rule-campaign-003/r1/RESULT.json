@@ -1,0 +1,4187 @@
+{
+  "task": "RULE-CAMPAIGN-003-R1",
+  "baseCommit": "0670565ff6491c2f5fe9b1db9b3f7f6a4e03b356",
+  "result": "PASS_OFFLINE_CORRECTION_ONLY",
+  "cells": 640,
+  "correctedKeys": 620,
+  "wrongKeysPointingAtAnotherValidCell": 180,
+  "terrainControlChanges": 0,
+  "blockersIdentical": true,
+  "blockerCount": 35,
+  "candidateSha256Unchanged": "249511bc8f382e86305184c3e81ddb347222c873acd1593aef3b96f0cbef6ad0",
+  "baselineDeficit": {
+    "G": {
+      "maintenance_q": 132,
+      "source_q": 96,
+      "gap_q": 36
+    },
+    "S": {
+      "maintenance_q": 152,
+      "source_q": 96,
+      "gap_q": 56
+    }
+  },
+  "negativeMapChecks": [
+    {
+      "case": "render_coordinates",
+      "mutation": "C10 key replaced by original logistics x/y (2,9)",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_LABEL_TO_KEY:C10",
+        "MAP_KEY_TO_LABEL:2,9"
+      ],
+      "actualReasons": [
+        "MAP_DUPLICATE_KEY",
+        "MAP_CORE_KEY_COVERAGE",
+        "MAP_LABEL_TO_KEY:C10:expected=2,8:actual=2,9",
+        "MAP_KEY_TO_LABEL:2,9:actualLabel=C10",
+        "SERVICE_CORE_BINDING:REC-G-C10",
+        "PATH_CORE_ENDPOINT_MISMATCH:B10~C10",
+        "PATH_NOT_CORE_RAIL_NEIGHBORS:B10~C10"
+      ]
+    },
+    {
+      "case": "other_valid_cell",
+      "mutation": "Swap C10/C11 keys: membership, uniqueness and complete key set still valid",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_LABEL_TO_KEY:C10",
+        "MAP_LABEL_TO_KEY:C11",
+        "MAP_KEY_TO_LABEL:"
+      ],
+      "actualReasons": [
+        "MAP_LABEL_TO_KEY:C10:expected=2,8:actual=2,9",
+        "MAP_KEY_TO_LABEL:2,9:actualLabel=C10",
+        "MAP_LABEL_TO_KEY:C11:expected=2,9:actual=2,8",
+        "MAP_KEY_TO_LABEL:2,8:actualLabel=C11",
+        "SERVICE_CORE_BINDING:REC-G-C10",
+        "PATH_CORE_ENDPOINT_MISMATCH:B10~C10",
+        "PATH_NOT_CORE_RAIL_NEIGHBORS:B10~C10"
+      ]
+    },
+    {
+      "case": "duplicate_key",
+      "mutation": "C10 copies C11 key, C11 unchanged",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_DUPLICATE_KEY",
+        "MAP_CORE_KEY_COVERAGE"
+      ],
+      "actualReasons": [
+        "MAP_DUPLICATE_KEY",
+        "MAP_CORE_KEY_COVERAGE",
+        "MAP_LABEL_TO_KEY:C10:expected=2,8:actual=2,9",
+        "MAP_KEY_TO_LABEL:2,9:actualLabel=C10",
+        "SERVICE_CORE_BINDING:REC-G-C10",
+        "PATH_CORE_ENDPOINT_MISMATCH:B10~C10",
+        "PATH_NOT_CORE_RAIL_NEIGHBORS:B10~C10"
+      ]
+    },
+    {
+      "case": "paper_name_mismatch",
+      "mutation": "Swap only C10/C11 labels; full unique label/key sets retained",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_LABEL_TO_KEY:C10",
+        "MAP_LABEL_TO_KEY:C11"
+      ],
+      "actualReasons": [
+        "MAP_LABEL_TO_KEY:C11:expected=2,9:actual=2,8",
+        "MAP_KEY_TO_LABEL:2,8:actualLabel=C11",
+        "MAP_LABEL_TO_KEY:C10:expected=2,8:actual=2,9",
+        "MAP_KEY_TO_LABEL:2,9:actualLabel=C10",
+        "SERVICE_CORE_BINDING:REC-G-C10",
+        "PATH_CORE_ENDPOINT_MISMATCH:B10~C10",
+        "PATH_NOT_CORE_RAIL_NEIGHBORS:B10~C10"
+      ]
+    },
+    {
+      "case": "terrain_mismatch",
+      "mutation": "C10 terrain becomes LAKE",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_TERRAIN_MISMATCH:C10"
+      ],
+      "actualReasons": [
+        "MAP_TERRAIN_MISMATCH:C10"
+      ]
+    },
+    {
+      "case": "control_mismatch",
+      "mutation": "C10 control becomes G",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_CONTROL_MISMATCH:C10"
+      ],
+      "actualReasons": [
+        "MAP_CONTROL_MISMATCH:C10"
+      ]
+    },
+    {
+      "case": "missing_cell",
+      "mutation": "Remove AF20",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_NODE_COUNT",
+        "MAP_LABEL_COVERAGE",
+        "MAP_CORE_KEY_COVERAGE"
+      ],
+      "actualReasons": [
+        "MAP_NODE_COUNT",
+        "MAP_LABEL_COVERAGE",
+        "MAP_CORE_KEY_COVERAGE",
+        "MAP_NODE_SET_INVALID"
+      ]
+    },
+    {
+      "case": "duplicate_label",
+      "mutation": "C10 renamed C11",
+      "result": "REJECT",
+      "expectedReasons": [
+        "MAP_DUPLICATE_LABEL",
+        "MAP_LABEL_COVERAGE"
+      ],
+      "actualReasons": [
+        "MAP_DUPLICATE_LABEL",
+        "MAP_LABEL_COVERAGE",
+        "MAP_LABEL_TO_KEY:C11:expected=2,9:actual=2,8",
+        "MAP_KEY_TO_LABEL:2,8:actualLabel=C11",
+        "SERVICE_CORE_BINDING:REC-G-C10",
+        "PATH_UNKNOWN_ENDPOINT:B10~C10",
+        "PATH_RECEIVER_ENDPOINT:REC-G-C10",
+        "MAP_NODE_SET_INVALID",
+        "UNKNOWN_MAP_NODE:REC-G-C10"
+      ]
+    }
+  ],
+  "negativePathChecks": [
+    {
+      "case": "disconnected",
+      "edges": [
+        "B10~C10",
+        "A10~B10"
+      ],
+      "result": "REJECT",
+      "actualReasons": [
+        "PATH_DISCONNECTED:REC-G-C10:B10~C10",
+        "PATH_RECEIVER_ENDPOINT:REC-G-C10"
+      ]
+    },
+    {
+      "case": "wrong_receiver",
+      "edges": [
+        "A10~B10"
+      ],
+      "result": "REJECT",
+      "actualReasons": [
+        "PATH_RECEIVER_ENDPOINT:REC-G-C10"
+      ]
+    },
+    {
+      "case": "non_neighbor",
+      "edges": [
+        "A10~C10"
+      ],
+      "result": "REJECT",
+      "actualReasons": [
+        "PATH_NOT_CORE_RAIL_NEIGHBORS:A10~C10"
+      ]
+    }
+  ],
+  "cliChecks": [
+    {
+      "args": [],
+      "exit": 0,
+      "reviewStatus": "VALID_CANDIDATE_WITH_BLOCKERS",
+      "runtimeDecision": "REJECT"
+    },
+    {
+      "args": [
+        "--runtime-gate"
+      ],
+      "exit": 2,
+      "reviewStatus": "VALID_CANDIDATE_WITH_BLOCKERS",
+      "runtimeDecision": "REJECT"
+    },
+    {
+      "args": [
+        "--map",
+        "r1/BASELINE_MAP_NODES.json"
+      ],
+      "exit": 1,
+      "reviewStatus": "INVALID",
+      "runtimeDecision": "REJECT"
+    }
+  ],
+  "oldProjectionNowRejected": {
+    "errorCount": 1260,
+    "status": "INVALID"
+  },
+  "bindings": {
+    "errors": [],
+    "services": [
+      {
+        "kind": "sources",
+        "id": "G-A5",
+        "side": "G",
+        "nodeId": "A5",
+        "key": "0,4",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "0,4",
+        "keyChanged": false
+      },
+      {
+        "kind": "sources",
+        "id": "G-A10",
+        "side": "G",
+        "nodeId": "A10",
+        "key": "0,9",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "0,9",
+        "keyChanged": false
+      },
+      {
+        "kind": "sources",
+        "id": "G-A16",
+        "side": "G",
+        "nodeId": "A16",
+        "key": "0,15",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "0,15",
+        "keyChanged": false
+      },
+      {
+        "kind": "sources",
+        "id": "S-AF4",
+        "side": "S",
+        "nodeId": "AF4",
+        "key": "31,-12",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "31,3.5",
+        "keyChanged": true
+      },
+      {
+        "kind": "sources",
+        "id": "S-AF10",
+        "side": "S",
+        "nodeId": "AF10",
+        "key": "31,-6",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "31,9.5",
+        "keyChanged": true
+      },
+      {
+        "kind": "sources",
+        "id": "S-AF16",
+        "side": "S",
+        "nodeId": "AF16",
+        "key": "31,0",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "31,15.5",
+        "keyChanged": true
+      },
+      {
+        "kind": "sources",
+        "id": "S-AC10",
+        "side": "S",
+        "nodeId": "AC10",
+        "key": "28,-5",
+        "terrain": "MAIN_CITY",
+        "control": null,
+        "beforeKey": "28,9",
+        "keyChanged": true
+      },
+      {
+        "kind": "sources",
+        "id": "S-AC11",
+        "side": "S",
+        "nodeId": "AC11",
+        "key": "28,-4",
+        "terrain": "MAIN_CITY",
+        "control": null,
+        "beforeKey": "28,10",
+        "keyChanged": true
+      },
+      {
+        "kind": "depots",
+        "id": "DEP-G-A10",
+        "side": "G",
+        "nodeId": "A10",
+        "key": "0,9",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "0,9",
+        "keyChanged": false
+      },
+      {
+        "kind": "depots",
+        "id": "DEP-S-AF10",
+        "side": "S",
+        "nodeId": "AF10",
+        "key": "31,-6",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "31,9.5",
+        "keyChanged": true
+      },
+      {
+        "kind": "receivers",
+        "id": "REC-G-C10",
+        "side": "G",
+        "nodeId": "C10",
+        "key": "2,8",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "2,9",
+        "keyChanged": true
+      },
+      {
+        "kind": "receivers",
+        "id": "REC-S-AC10",
+        "side": "S",
+        "nodeId": "AC10",
+        "key": "28,-5",
+        "terrain": "MAIN_CITY",
+        "control": null,
+        "beforeKey": "28,9",
+        "keyChanged": true
+      },
+      {
+        "kind": "entries",
+        "id": "ENTRY-G-A10",
+        "side": "G",
+        "nodeId": "A10",
+        "key": "0,9",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "0,9",
+        "keyChanged": false
+      },
+      {
+        "kind": "entries",
+        "id": "ENTRY-S-AF10",
+        "side": "S",
+        "nodeId": "AF10",
+        "key": "31,-6",
+        "terrain": "PLAIN",
+        "control": null,
+        "beforeKey": "31,9.5",
+        "keyChanged": true
+      }
+    ],
+    "routes": [
+      {
+        "receiverId": "REC-G-C10",
+        "sourceId": "G-A10",
+        "sourceNode": "A10",
+        "receiverNode": "C10",
+        "steps": [
+          {
+            "from": "A10",
+            "to": "B10",
+            "fromKey": "0,9",
+            "toKey": "1,9",
+            "coreEdge": "0,9|1,9",
+            "beforeFromKey": "0,9",
+            "beforeToKey": "1,9.5",
+            "endpointsChanged": true
+          },
+          {
+            "from": "B10",
+            "to": "C10",
+            "fromKey": "1,9",
+            "toKey": "2,8",
+            "coreEdge": "1,9|2,8",
+            "beforeFromKey": "1,9.5",
+            "beforeToKey": "2,9",
+            "endpointsChanged": true
+          }
+        ]
+      },
+      {
+        "receiverId": "REC-S-AC10",
+        "sourceId": "S-AF10",
+        "sourceNode": "AF10",
+        "receiverNode": "AC10",
+        "steps": [
+          {
+            "from": "AF10",
+            "to": "AE11",
+            "fromKey": "31,-6",
+            "toKey": "30,-5",
+            "coreEdge": "30,-5|31,-6",
+            "beforeFromKey": "31,9.5",
+            "beforeToKey": "30,10",
+            "endpointsChanged": true
+          },
+          {
+            "from": "AE11",
+            "to": "AD10",
+            "fromKey": "30,-5",
+            "toKey": "29,-5",
+            "coreEdge": "29,-5|30,-5",
+            "beforeFromKey": "30,10",
+            "beforeToKey": "29,9.5",
+            "endpointsChanged": true
+          },
+          {
+            "from": "AD10",
+            "to": "AC10",
+            "fromKey": "29,-5",
+            "toKey": "28,-5",
+            "coreEdge": "28,-5|29,-5",
+            "beforeFromKey": "29,9.5",
+            "beforeToKey": "28,9",
+            "endpointsChanged": true
+          }
+        ]
+      }
+    ],
+    "scope": "Pinned initial terrain/control and rail geometry only; checkpoint usability/industrial grants NOT inferred."
+  },
+  "corrections": [
+    {
+      "nodeId": "B1",
+      "beforeKey": "1,0.5",
+      "afterKey": "1,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B2",
+      "beforeKey": "1,1.5",
+      "afterKey": "1,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B3",
+      "beforeKey": "1,2.5",
+      "afterKey": "1,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B4",
+      "beforeKey": "1,3.5",
+      "afterKey": "1,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B5",
+      "beforeKey": "1,4.5",
+      "afterKey": "1,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B6",
+      "beforeKey": "1,5.5",
+      "afterKey": "1,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B7",
+      "beforeKey": "1,6.5",
+      "afterKey": "1,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B8",
+      "beforeKey": "1,7.5",
+      "afterKey": "1,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B9",
+      "beforeKey": "1,8.5",
+      "afterKey": "1,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B10",
+      "beforeKey": "1,9.5",
+      "afterKey": "1,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B11",
+      "beforeKey": "1,10.5",
+      "afterKey": "1,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B12",
+      "beforeKey": "1,11.5",
+      "afterKey": "1,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B13",
+      "beforeKey": "1,12.5",
+      "afterKey": "1,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B14",
+      "beforeKey": "1,13.5",
+      "afterKey": "1,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B15",
+      "beforeKey": "1,14.5",
+      "afterKey": "1,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B16",
+      "beforeKey": "1,15.5",
+      "afterKey": "1,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B17",
+      "beforeKey": "1,16.5",
+      "afterKey": "1,16",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B18",
+      "beforeKey": "1,17.5",
+      "afterKey": "1,17",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B19",
+      "beforeKey": "1,18.5",
+      "afterKey": "1,18",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "B20",
+      "beforeKey": "1,19.5",
+      "afterKey": "1,19",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "C1",
+      "beforeKey": "2,0",
+      "afterKey": "2,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C2",
+      "beforeKey": "2,1",
+      "afterKey": "2,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C3",
+      "beforeKey": "2,2",
+      "afterKey": "2,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C4",
+      "beforeKey": "2,3",
+      "afterKey": "2,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C5",
+      "beforeKey": "2,4",
+      "afterKey": "2,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C6",
+      "beforeKey": "2,5",
+      "afterKey": "2,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C7",
+      "beforeKey": "2,6",
+      "afterKey": "2,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C8",
+      "beforeKey": "2,7",
+      "afterKey": "2,6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C9",
+      "beforeKey": "2,8",
+      "afterKey": "2,7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C10",
+      "beforeKey": "2,9",
+      "afterKey": "2,8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C11",
+      "beforeKey": "2,10",
+      "afterKey": "2,9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C12",
+      "beforeKey": "2,11",
+      "afterKey": "2,10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C13",
+      "beforeKey": "2,12",
+      "afterKey": "2,11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C14",
+      "beforeKey": "2,13",
+      "afterKey": "2,12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C15",
+      "beforeKey": "2,14",
+      "afterKey": "2,13",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C16",
+      "beforeKey": "2,15",
+      "afterKey": "2,14",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C17",
+      "beforeKey": "2,16",
+      "afterKey": "2,15",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C18",
+      "beforeKey": "2,17",
+      "afterKey": "2,16",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C19",
+      "beforeKey": "2,18",
+      "afterKey": "2,17",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "C20",
+      "beforeKey": "2,19",
+      "afterKey": "2,18",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D1",
+      "beforeKey": "3,0.5",
+      "afterKey": "3,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D2",
+      "beforeKey": "3,1.5",
+      "afterKey": "3,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D3",
+      "beforeKey": "3,2.5",
+      "afterKey": "3,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D4",
+      "beforeKey": "3,3.5",
+      "afterKey": "3,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D5",
+      "beforeKey": "3,4.5",
+      "afterKey": "3,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D6",
+      "beforeKey": "3,5.5",
+      "afterKey": "3,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D7",
+      "beforeKey": "3,6.5",
+      "afterKey": "3,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D8",
+      "beforeKey": "3,7.5",
+      "afterKey": "3,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D9",
+      "beforeKey": "3,8.5",
+      "afterKey": "3,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D10",
+      "beforeKey": "3,9.5",
+      "afterKey": "3,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D11",
+      "beforeKey": "3,10.5",
+      "afterKey": "3,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D12",
+      "beforeKey": "3,11.5",
+      "afterKey": "3,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D13",
+      "beforeKey": "3,12.5",
+      "afterKey": "3,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D14",
+      "beforeKey": "3,13.5",
+      "afterKey": "3,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D15",
+      "beforeKey": "3,14.5",
+      "afterKey": "3,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D16",
+      "beforeKey": "3,15.5",
+      "afterKey": "3,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D17",
+      "beforeKey": "3,16.5",
+      "afterKey": "3,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D18",
+      "beforeKey": "3,17.5",
+      "afterKey": "3,16",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D19",
+      "beforeKey": "3,18.5",
+      "afterKey": "3,17",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "D20",
+      "beforeKey": "3,19.5",
+      "afterKey": "3,18",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "E1",
+      "beforeKey": "4,0",
+      "afterKey": "4,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E2",
+      "beforeKey": "4,1",
+      "afterKey": "4,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E3",
+      "beforeKey": "4,2",
+      "afterKey": "4,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E4",
+      "beforeKey": "4,3",
+      "afterKey": "4,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E5",
+      "beforeKey": "4,4",
+      "afterKey": "4,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E6",
+      "beforeKey": "4,5",
+      "afterKey": "4,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E7",
+      "beforeKey": "4,6",
+      "afterKey": "4,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E8",
+      "beforeKey": "4,7",
+      "afterKey": "4,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E9",
+      "beforeKey": "4,8",
+      "afterKey": "4,6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E10",
+      "beforeKey": "4,9",
+      "afterKey": "4,7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E11",
+      "beforeKey": "4,10",
+      "afterKey": "4,8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E12",
+      "beforeKey": "4,11",
+      "afterKey": "4,9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E13",
+      "beforeKey": "4,12",
+      "afterKey": "4,10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E14",
+      "beforeKey": "4,13",
+      "afterKey": "4,11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E15",
+      "beforeKey": "4,14",
+      "afterKey": "4,12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E16",
+      "beforeKey": "4,15",
+      "afterKey": "4,13",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E17",
+      "beforeKey": "4,16",
+      "afterKey": "4,14",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E18",
+      "beforeKey": "4,17",
+      "afterKey": "4,15",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "E19",
+      "beforeKey": "4,18",
+      "afterKey": "4,16",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "E20",
+      "beforeKey": "4,19",
+      "afterKey": "4,17",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F1",
+      "beforeKey": "5,0.5",
+      "afterKey": "5,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F2",
+      "beforeKey": "5,1.5",
+      "afterKey": "5,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F3",
+      "beforeKey": "5,2.5",
+      "afterKey": "5,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F4",
+      "beforeKey": "5,3.5",
+      "afterKey": "5,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F5",
+      "beforeKey": "5,4.5",
+      "afterKey": "5,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F6",
+      "beforeKey": "5,5.5",
+      "afterKey": "5,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F7",
+      "beforeKey": "5,6.5",
+      "afterKey": "5,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F8",
+      "beforeKey": "5,7.5",
+      "afterKey": "5,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F9",
+      "beforeKey": "5,8.5",
+      "afterKey": "5,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F10",
+      "beforeKey": "5,9.5",
+      "afterKey": "5,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F11",
+      "beforeKey": "5,10.5",
+      "afterKey": "5,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F12",
+      "beforeKey": "5,11.5",
+      "afterKey": "5,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F13",
+      "beforeKey": "5,12.5",
+      "afterKey": "5,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F14",
+      "beforeKey": "5,13.5",
+      "afterKey": "5,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F15",
+      "beforeKey": "5,14.5",
+      "afterKey": "5,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F16",
+      "beforeKey": "5,15.5",
+      "afterKey": "5,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F17",
+      "beforeKey": "5,16.5",
+      "afterKey": "5,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F18",
+      "beforeKey": "5,17.5",
+      "afterKey": "5,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F19",
+      "beforeKey": "5,18.5",
+      "afterKey": "5,16",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "F20",
+      "beforeKey": "5,19.5",
+      "afterKey": "5,17",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "G1",
+      "beforeKey": "6,0",
+      "afterKey": "6,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G2",
+      "beforeKey": "6,1",
+      "afterKey": "6,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G3",
+      "beforeKey": "6,2",
+      "afterKey": "6,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G4",
+      "beforeKey": "6,3",
+      "afterKey": "6,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G5",
+      "beforeKey": "6,4",
+      "afterKey": "6,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G6",
+      "beforeKey": "6,5",
+      "afterKey": "6,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G7",
+      "beforeKey": "6,6",
+      "afterKey": "6,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G8",
+      "beforeKey": "6,7",
+      "afterKey": "6,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G9",
+      "beforeKey": "6,8",
+      "afterKey": "6,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G10",
+      "beforeKey": "6,9",
+      "afterKey": "6,6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G11",
+      "beforeKey": "6,10",
+      "afterKey": "6,7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G12",
+      "beforeKey": "6,11",
+      "afterKey": "6,8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G13",
+      "beforeKey": "6,12",
+      "afterKey": "6,9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G14",
+      "beforeKey": "6,13",
+      "afterKey": "6,10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G15",
+      "beforeKey": "6,14",
+      "afterKey": "6,11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G16",
+      "beforeKey": "6,15",
+      "afterKey": "6,12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G17",
+      "beforeKey": "6,16",
+      "afterKey": "6,13",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "G18",
+      "beforeKey": "6,17",
+      "afterKey": "6,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "G19",
+      "beforeKey": "6,18",
+      "afterKey": "6,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "G20",
+      "beforeKey": "6,19",
+      "afterKey": "6,16",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H1",
+      "beforeKey": "7,0.5",
+      "afterKey": "7,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H2",
+      "beforeKey": "7,1.5",
+      "afterKey": "7,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H3",
+      "beforeKey": "7,2.5",
+      "afterKey": "7,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H4",
+      "beforeKey": "7,3.5",
+      "afterKey": "7,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H5",
+      "beforeKey": "7,4.5",
+      "afterKey": "7,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H6",
+      "beforeKey": "7,5.5",
+      "afterKey": "7,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H7",
+      "beforeKey": "7,6.5",
+      "afterKey": "7,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H8",
+      "beforeKey": "7,7.5",
+      "afterKey": "7,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H9",
+      "beforeKey": "7,8.5",
+      "afterKey": "7,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H10",
+      "beforeKey": "7,9.5",
+      "afterKey": "7,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H11",
+      "beforeKey": "7,10.5",
+      "afterKey": "7,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H12",
+      "beforeKey": "7,11.5",
+      "afterKey": "7,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H13",
+      "beforeKey": "7,12.5",
+      "afterKey": "7,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H14",
+      "beforeKey": "7,13.5",
+      "afterKey": "7,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H15",
+      "beforeKey": "7,14.5",
+      "afterKey": "7,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H16",
+      "beforeKey": "7,15.5",
+      "afterKey": "7,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H17",
+      "beforeKey": "7,16.5",
+      "afterKey": "7,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H18",
+      "beforeKey": "7,17.5",
+      "afterKey": "7,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H19",
+      "beforeKey": "7,18.5",
+      "afterKey": "7,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "H20",
+      "beforeKey": "7,19.5",
+      "afterKey": "7,16",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "I1",
+      "beforeKey": "8,0",
+      "afterKey": "8,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I2",
+      "beforeKey": "8,1",
+      "afterKey": "8,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I3",
+      "beforeKey": "8,2",
+      "afterKey": "8,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I4",
+      "beforeKey": "8,3",
+      "afterKey": "8,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I5",
+      "beforeKey": "8,4",
+      "afterKey": "8,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I6",
+      "beforeKey": "8,5",
+      "afterKey": "8,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I7",
+      "beforeKey": "8,6",
+      "afterKey": "8,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I8",
+      "beforeKey": "8,7",
+      "afterKey": "8,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I9",
+      "beforeKey": "8,8",
+      "afterKey": "8,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I10",
+      "beforeKey": "8,9",
+      "afterKey": "8,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I11",
+      "beforeKey": "8,10",
+      "afterKey": "8,6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I12",
+      "beforeKey": "8,11",
+      "afterKey": "8,7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I13",
+      "beforeKey": "8,12",
+      "afterKey": "8,8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I14",
+      "beforeKey": "8,13",
+      "afterKey": "8,9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I15",
+      "beforeKey": "8,14",
+      "afterKey": "8,10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I16",
+      "beforeKey": "8,15",
+      "afterKey": "8,11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "I17",
+      "beforeKey": "8,16",
+      "afterKey": "8,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "I18",
+      "beforeKey": "8,17",
+      "afterKey": "8,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "I19",
+      "beforeKey": "8,18",
+      "afterKey": "8,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "I20",
+      "beforeKey": "8,19",
+      "afterKey": "8,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J1",
+      "beforeKey": "9,0.5",
+      "afterKey": "9,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J2",
+      "beforeKey": "9,1.5",
+      "afterKey": "9,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J3",
+      "beforeKey": "9,2.5",
+      "afterKey": "9,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J4",
+      "beforeKey": "9,3.5",
+      "afterKey": "9,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J5",
+      "beforeKey": "9,4.5",
+      "afterKey": "9,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J6",
+      "beforeKey": "9,5.5",
+      "afterKey": "9,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J7",
+      "beforeKey": "9,6.5",
+      "afterKey": "9,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J8",
+      "beforeKey": "9,7.5",
+      "afterKey": "9,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J9",
+      "beforeKey": "9,8.5",
+      "afterKey": "9,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J10",
+      "beforeKey": "9,9.5",
+      "afterKey": "9,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J11",
+      "beforeKey": "9,10.5",
+      "afterKey": "9,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J12",
+      "beforeKey": "9,11.5",
+      "afterKey": "9,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J13",
+      "beforeKey": "9,12.5",
+      "afterKey": "9,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J14",
+      "beforeKey": "9,13.5",
+      "afterKey": "9,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J15",
+      "beforeKey": "9,14.5",
+      "afterKey": "9,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J16",
+      "beforeKey": "9,15.5",
+      "afterKey": "9,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J17",
+      "beforeKey": "9,16.5",
+      "afterKey": "9,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J18",
+      "beforeKey": "9,17.5",
+      "afterKey": "9,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J19",
+      "beforeKey": "9,18.5",
+      "afterKey": "9,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "J20",
+      "beforeKey": "9,19.5",
+      "afterKey": "9,15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "K1",
+      "beforeKey": "10,0",
+      "afterKey": "10,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K2",
+      "beforeKey": "10,1",
+      "afterKey": "10,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K3",
+      "beforeKey": "10,2",
+      "afterKey": "10,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K4",
+      "beforeKey": "10,3",
+      "afterKey": "10,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K5",
+      "beforeKey": "10,4",
+      "afterKey": "10,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K6",
+      "beforeKey": "10,5",
+      "afterKey": "10,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K7",
+      "beforeKey": "10,6",
+      "afterKey": "10,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K8",
+      "beforeKey": "10,7",
+      "afterKey": "10,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K9",
+      "beforeKey": "10,8",
+      "afterKey": "10,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K10",
+      "beforeKey": "10,9",
+      "afterKey": "10,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K11",
+      "beforeKey": "10,10",
+      "afterKey": "10,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K12",
+      "beforeKey": "10,11",
+      "afterKey": "10,6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K13",
+      "beforeKey": "10,12",
+      "afterKey": "10,7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K14",
+      "beforeKey": "10,13",
+      "afterKey": "10,8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K15",
+      "beforeKey": "10,14",
+      "afterKey": "10,9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "K16",
+      "beforeKey": "10,15",
+      "afterKey": "10,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "K17",
+      "beforeKey": "10,16",
+      "afterKey": "10,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "K18",
+      "beforeKey": "10,17",
+      "afterKey": "10,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "K19",
+      "beforeKey": "10,18",
+      "afterKey": "10,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "K20",
+      "beforeKey": "10,19",
+      "afterKey": "10,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L1",
+      "beforeKey": "11,0.5",
+      "afterKey": "11,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L2",
+      "beforeKey": "11,1.5",
+      "afterKey": "11,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L3",
+      "beforeKey": "11,2.5",
+      "afterKey": "11,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L4",
+      "beforeKey": "11,3.5",
+      "afterKey": "11,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L5",
+      "beforeKey": "11,4.5",
+      "afterKey": "11,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L6",
+      "beforeKey": "11,5.5",
+      "afterKey": "11,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L7",
+      "beforeKey": "11,6.5",
+      "afterKey": "11,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L8",
+      "beforeKey": "11,7.5",
+      "afterKey": "11,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L9",
+      "beforeKey": "11,8.5",
+      "afterKey": "11,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L10",
+      "beforeKey": "11,9.5",
+      "afterKey": "11,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L11",
+      "beforeKey": "11,10.5",
+      "afterKey": "11,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L12",
+      "beforeKey": "11,11.5",
+      "afterKey": "11,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L13",
+      "beforeKey": "11,12.5",
+      "afterKey": "11,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L14",
+      "beforeKey": "11,13.5",
+      "afterKey": "11,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L15",
+      "beforeKey": "11,14.5",
+      "afterKey": "11,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L16",
+      "beforeKey": "11,15.5",
+      "afterKey": "11,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L17",
+      "beforeKey": "11,16.5",
+      "afterKey": "11,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L18",
+      "beforeKey": "11,17.5",
+      "afterKey": "11,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L19",
+      "beforeKey": "11,18.5",
+      "afterKey": "11,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "L20",
+      "beforeKey": "11,19.5",
+      "afterKey": "11,14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "M1",
+      "beforeKey": "12,0",
+      "afterKey": "12,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M2",
+      "beforeKey": "12,1",
+      "afterKey": "12,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M3",
+      "beforeKey": "12,2",
+      "afterKey": "12,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M4",
+      "beforeKey": "12,3",
+      "afterKey": "12,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M5",
+      "beforeKey": "12,4",
+      "afterKey": "12,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M6",
+      "beforeKey": "12,5",
+      "afterKey": "12,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M7",
+      "beforeKey": "12,6",
+      "afterKey": "12,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M8",
+      "beforeKey": "12,7",
+      "afterKey": "12,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M9",
+      "beforeKey": "12,8",
+      "afterKey": "12,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M10",
+      "beforeKey": "12,9",
+      "afterKey": "12,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M11",
+      "beforeKey": "12,10",
+      "afterKey": "12,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M12",
+      "beforeKey": "12,11",
+      "afterKey": "12,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M13",
+      "beforeKey": "12,12",
+      "afterKey": "12,6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M14",
+      "beforeKey": "12,13",
+      "afterKey": "12,7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "M15",
+      "beforeKey": "12,14",
+      "afterKey": "12,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "M16",
+      "beforeKey": "12,15",
+      "afterKey": "12,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "M17",
+      "beforeKey": "12,16",
+      "afterKey": "12,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "M18",
+      "beforeKey": "12,17",
+      "afterKey": "12,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "M19",
+      "beforeKey": "12,18",
+      "afterKey": "12,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "M20",
+      "beforeKey": "12,19",
+      "afterKey": "12,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N1",
+      "beforeKey": "13,0.5",
+      "afterKey": "13,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N2",
+      "beforeKey": "13,1.5",
+      "afterKey": "13,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N3",
+      "beforeKey": "13,2.5",
+      "afterKey": "13,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N4",
+      "beforeKey": "13,3.5",
+      "afterKey": "13,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N5",
+      "beforeKey": "13,4.5",
+      "afterKey": "13,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N6",
+      "beforeKey": "13,5.5",
+      "afterKey": "13,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N7",
+      "beforeKey": "13,6.5",
+      "afterKey": "13,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N8",
+      "beforeKey": "13,7.5",
+      "afterKey": "13,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N9",
+      "beforeKey": "13,8.5",
+      "afterKey": "13,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N10",
+      "beforeKey": "13,9.5",
+      "afterKey": "13,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N11",
+      "beforeKey": "13,10.5",
+      "afterKey": "13,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N12",
+      "beforeKey": "13,11.5",
+      "afterKey": "13,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N13",
+      "beforeKey": "13,12.5",
+      "afterKey": "13,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N14",
+      "beforeKey": "13,13.5",
+      "afterKey": "13,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N15",
+      "beforeKey": "13,14.5",
+      "afterKey": "13,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N16",
+      "beforeKey": "13,15.5",
+      "afterKey": "13,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N17",
+      "beforeKey": "13,16.5",
+      "afterKey": "13,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N18",
+      "beforeKey": "13,17.5",
+      "afterKey": "13,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N19",
+      "beforeKey": "13,18.5",
+      "afterKey": "13,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "N20",
+      "beforeKey": "13,19.5",
+      "afterKey": "13,13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O1",
+      "beforeKey": "14,0",
+      "afterKey": "14,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O2",
+      "beforeKey": "14,1",
+      "afterKey": "14,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O3",
+      "beforeKey": "14,2",
+      "afterKey": "14,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O4",
+      "beforeKey": "14,3",
+      "afterKey": "14,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O5",
+      "beforeKey": "14,4",
+      "afterKey": "14,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O6",
+      "beforeKey": "14,5",
+      "afterKey": "14,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O7",
+      "beforeKey": "14,6",
+      "afterKey": "14,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O8",
+      "beforeKey": "14,7",
+      "afterKey": "14,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O9",
+      "beforeKey": "14,8",
+      "afterKey": "14,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O10",
+      "beforeKey": "14,9",
+      "afterKey": "14,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O11",
+      "beforeKey": "14,10",
+      "afterKey": "14,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O12",
+      "beforeKey": "14,11",
+      "afterKey": "14,4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O13",
+      "beforeKey": "14,12",
+      "afterKey": "14,5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "O14",
+      "beforeKey": "14,13",
+      "afterKey": "14,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O15",
+      "beforeKey": "14,14",
+      "afterKey": "14,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O16",
+      "beforeKey": "14,15",
+      "afterKey": "14,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O17",
+      "beforeKey": "14,16",
+      "afterKey": "14,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O18",
+      "beforeKey": "14,17",
+      "afterKey": "14,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O19",
+      "beforeKey": "14,18",
+      "afterKey": "14,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "O20",
+      "beforeKey": "14,19",
+      "afterKey": "14,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P1",
+      "beforeKey": "15,0.5",
+      "afterKey": "15,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P2",
+      "beforeKey": "15,1.5",
+      "afterKey": "15,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P3",
+      "beforeKey": "15,2.5",
+      "afterKey": "15,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P4",
+      "beforeKey": "15,3.5",
+      "afterKey": "15,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P5",
+      "beforeKey": "15,4.5",
+      "afterKey": "15,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P6",
+      "beforeKey": "15,5.5",
+      "afterKey": "15,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P7",
+      "beforeKey": "15,6.5",
+      "afterKey": "15,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P8",
+      "beforeKey": "15,7.5",
+      "afterKey": "15,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P9",
+      "beforeKey": "15,8.5",
+      "afterKey": "15,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P10",
+      "beforeKey": "15,9.5",
+      "afterKey": "15,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P11",
+      "beforeKey": "15,10.5",
+      "afterKey": "15,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P12",
+      "beforeKey": "15,11.5",
+      "afterKey": "15,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P13",
+      "beforeKey": "15,12.5",
+      "afterKey": "15,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P14",
+      "beforeKey": "15,13.5",
+      "afterKey": "15,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P15",
+      "beforeKey": "15,14.5",
+      "afterKey": "15,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P16",
+      "beforeKey": "15,15.5",
+      "afterKey": "15,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P17",
+      "beforeKey": "15,16.5",
+      "afterKey": "15,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P18",
+      "beforeKey": "15,17.5",
+      "afterKey": "15,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P19",
+      "beforeKey": "15,18.5",
+      "afterKey": "15,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "P20",
+      "beforeKey": "15,19.5",
+      "afterKey": "15,12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q1",
+      "beforeKey": "16,0",
+      "afterKey": "16,-8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q2",
+      "beforeKey": "16,1",
+      "afterKey": "16,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q3",
+      "beforeKey": "16,2",
+      "afterKey": "16,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q4",
+      "beforeKey": "16,3",
+      "afterKey": "16,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q5",
+      "beforeKey": "16,4",
+      "afterKey": "16,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q6",
+      "beforeKey": "16,5",
+      "afterKey": "16,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q7",
+      "beforeKey": "16,6",
+      "afterKey": "16,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q8",
+      "beforeKey": "16,7",
+      "afterKey": "16,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q9",
+      "beforeKey": "16,8",
+      "afterKey": "16,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q10",
+      "beforeKey": "16,9",
+      "afterKey": "16,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q11",
+      "beforeKey": "16,10",
+      "afterKey": "16,2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q12",
+      "beforeKey": "16,11",
+      "afterKey": "16,3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Q13",
+      "beforeKey": "16,12",
+      "afterKey": "16,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q14",
+      "beforeKey": "16,13",
+      "afterKey": "16,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q15",
+      "beforeKey": "16,14",
+      "afterKey": "16,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q16",
+      "beforeKey": "16,15",
+      "afterKey": "16,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q17",
+      "beforeKey": "16,16",
+      "afterKey": "16,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q18",
+      "beforeKey": "16,17",
+      "afterKey": "16,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q19",
+      "beforeKey": "16,18",
+      "afterKey": "16,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Q20",
+      "beforeKey": "16,19",
+      "afterKey": "16,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R1",
+      "beforeKey": "17,0.5",
+      "afterKey": "17,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R2",
+      "beforeKey": "17,1.5",
+      "afterKey": "17,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R3",
+      "beforeKey": "17,2.5",
+      "afterKey": "17,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R4",
+      "beforeKey": "17,3.5",
+      "afterKey": "17,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R5",
+      "beforeKey": "17,4.5",
+      "afterKey": "17,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R6",
+      "beforeKey": "17,5.5",
+      "afterKey": "17,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R7",
+      "beforeKey": "17,6.5",
+      "afterKey": "17,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R8",
+      "beforeKey": "17,7.5",
+      "afterKey": "17,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R9",
+      "beforeKey": "17,8.5",
+      "afterKey": "17,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R10",
+      "beforeKey": "17,9.5",
+      "afterKey": "17,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R11",
+      "beforeKey": "17,10.5",
+      "afterKey": "17,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R12",
+      "beforeKey": "17,11.5",
+      "afterKey": "17,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R13",
+      "beforeKey": "17,12.5",
+      "afterKey": "17,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R14",
+      "beforeKey": "17,13.5",
+      "afterKey": "17,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R15",
+      "beforeKey": "17,14.5",
+      "afterKey": "17,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R16",
+      "beforeKey": "17,15.5",
+      "afterKey": "17,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R17",
+      "beforeKey": "17,16.5",
+      "afterKey": "17,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R18",
+      "beforeKey": "17,17.5",
+      "afterKey": "17,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R19",
+      "beforeKey": "17,18.5",
+      "afterKey": "17,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "R20",
+      "beforeKey": "17,19.5",
+      "afterKey": "17,11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S1",
+      "beforeKey": "18,0",
+      "afterKey": "18,-9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S2",
+      "beforeKey": "18,1",
+      "afterKey": "18,-8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S3",
+      "beforeKey": "18,2",
+      "afterKey": "18,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S4",
+      "beforeKey": "18,3",
+      "afterKey": "18,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S5",
+      "beforeKey": "18,4",
+      "afterKey": "18,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S6",
+      "beforeKey": "18,5",
+      "afterKey": "18,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S7",
+      "beforeKey": "18,6",
+      "afterKey": "18,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S8",
+      "beforeKey": "18,7",
+      "afterKey": "18,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S9",
+      "beforeKey": "18,8",
+      "afterKey": "18,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S10",
+      "beforeKey": "18,9",
+      "afterKey": "18,0",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S11",
+      "beforeKey": "18,10",
+      "afterKey": "18,1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "S12",
+      "beforeKey": "18,11",
+      "afterKey": "18,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S13",
+      "beforeKey": "18,12",
+      "afterKey": "18,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S14",
+      "beforeKey": "18,13",
+      "afterKey": "18,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S15",
+      "beforeKey": "18,14",
+      "afterKey": "18,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S16",
+      "beforeKey": "18,15",
+      "afterKey": "18,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S17",
+      "beforeKey": "18,16",
+      "afterKey": "18,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S18",
+      "beforeKey": "18,17",
+      "afterKey": "18,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S19",
+      "beforeKey": "18,18",
+      "afterKey": "18,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "S20",
+      "beforeKey": "18,19",
+      "afterKey": "18,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T1",
+      "beforeKey": "19,0.5",
+      "afterKey": "19,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T2",
+      "beforeKey": "19,1.5",
+      "afterKey": "19,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T3",
+      "beforeKey": "19,2.5",
+      "afterKey": "19,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T4",
+      "beforeKey": "19,3.5",
+      "afterKey": "19,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T5",
+      "beforeKey": "19,4.5",
+      "afterKey": "19,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T6",
+      "beforeKey": "19,5.5",
+      "afterKey": "19,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T7",
+      "beforeKey": "19,6.5",
+      "afterKey": "19,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T8",
+      "beforeKey": "19,7.5",
+      "afterKey": "19,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T9",
+      "beforeKey": "19,8.5",
+      "afterKey": "19,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T10",
+      "beforeKey": "19,9.5",
+      "afterKey": "19,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T11",
+      "beforeKey": "19,10.5",
+      "afterKey": "19,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T12",
+      "beforeKey": "19,11.5",
+      "afterKey": "19,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T13",
+      "beforeKey": "19,12.5",
+      "afterKey": "19,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T14",
+      "beforeKey": "19,13.5",
+      "afterKey": "19,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T15",
+      "beforeKey": "19,14.5",
+      "afterKey": "19,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T16",
+      "beforeKey": "19,15.5",
+      "afterKey": "19,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T17",
+      "beforeKey": "19,16.5",
+      "afterKey": "19,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T18",
+      "beforeKey": "19,17.5",
+      "afterKey": "19,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T19",
+      "beforeKey": "19,18.5",
+      "afterKey": "19,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "T20",
+      "beforeKey": "19,19.5",
+      "afterKey": "19,10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U1",
+      "beforeKey": "20,0",
+      "afterKey": "20,-10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U2",
+      "beforeKey": "20,1",
+      "afterKey": "20,-9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U3",
+      "beforeKey": "20,2",
+      "afterKey": "20,-8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U4",
+      "beforeKey": "20,3",
+      "afterKey": "20,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U5",
+      "beforeKey": "20,4",
+      "afterKey": "20,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U6",
+      "beforeKey": "20,5",
+      "afterKey": "20,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U7",
+      "beforeKey": "20,6",
+      "afterKey": "20,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U8",
+      "beforeKey": "20,7",
+      "afterKey": "20,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U9",
+      "beforeKey": "20,8",
+      "afterKey": "20,-2",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U10",
+      "beforeKey": "20,9",
+      "afterKey": "20,-1",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "U11",
+      "beforeKey": "20,10",
+      "afterKey": "20,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U12",
+      "beforeKey": "20,11",
+      "afterKey": "20,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U13",
+      "beforeKey": "20,12",
+      "afterKey": "20,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U14",
+      "beforeKey": "20,13",
+      "afterKey": "20,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U15",
+      "beforeKey": "20,14",
+      "afterKey": "20,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U16",
+      "beforeKey": "20,15",
+      "afterKey": "20,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U17",
+      "beforeKey": "20,16",
+      "afterKey": "20,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U18",
+      "beforeKey": "20,17",
+      "afterKey": "20,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U19",
+      "beforeKey": "20,18",
+      "afterKey": "20,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "U20",
+      "beforeKey": "20,19",
+      "afterKey": "20,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V1",
+      "beforeKey": "21,0.5",
+      "afterKey": "21,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V2",
+      "beforeKey": "21,1.5",
+      "afterKey": "21,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V3",
+      "beforeKey": "21,2.5",
+      "afterKey": "21,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V4",
+      "beforeKey": "21,3.5",
+      "afterKey": "21,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V5",
+      "beforeKey": "21,4.5",
+      "afterKey": "21,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V6",
+      "beforeKey": "21,5.5",
+      "afterKey": "21,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V7",
+      "beforeKey": "21,6.5",
+      "afterKey": "21,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V8",
+      "beforeKey": "21,7.5",
+      "afterKey": "21,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V9",
+      "beforeKey": "21,8.5",
+      "afterKey": "21,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V10",
+      "beforeKey": "21,9.5",
+      "afterKey": "21,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V11",
+      "beforeKey": "21,10.5",
+      "afterKey": "21,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V12",
+      "beforeKey": "21,11.5",
+      "afterKey": "21,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V13",
+      "beforeKey": "21,12.5",
+      "afterKey": "21,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V14",
+      "beforeKey": "21,13.5",
+      "afterKey": "21,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V15",
+      "beforeKey": "21,14.5",
+      "afterKey": "21,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V16",
+      "beforeKey": "21,15.5",
+      "afterKey": "21,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V17",
+      "beforeKey": "21,16.5",
+      "afterKey": "21,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V18",
+      "beforeKey": "21,17.5",
+      "afterKey": "21,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V19",
+      "beforeKey": "21,18.5",
+      "afterKey": "21,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "V20",
+      "beforeKey": "21,19.5",
+      "afterKey": "21,9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W1",
+      "beforeKey": "22,0",
+      "afterKey": "22,-11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W2",
+      "beforeKey": "22,1",
+      "afterKey": "22,-10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W3",
+      "beforeKey": "22,2",
+      "afterKey": "22,-9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W4",
+      "beforeKey": "22,3",
+      "afterKey": "22,-8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W5",
+      "beforeKey": "22,4",
+      "afterKey": "22,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W6",
+      "beforeKey": "22,5",
+      "afterKey": "22,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W7",
+      "beforeKey": "22,6",
+      "afterKey": "22,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W8",
+      "beforeKey": "22,7",
+      "afterKey": "22,-4",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W9",
+      "beforeKey": "22,8",
+      "afterKey": "22,-3",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "W10",
+      "beforeKey": "22,9",
+      "afterKey": "22,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W11",
+      "beforeKey": "22,10",
+      "afterKey": "22,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W12",
+      "beforeKey": "22,11",
+      "afterKey": "22,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W13",
+      "beforeKey": "22,12",
+      "afterKey": "22,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W14",
+      "beforeKey": "22,13",
+      "afterKey": "22,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W15",
+      "beforeKey": "22,14",
+      "afterKey": "22,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W16",
+      "beforeKey": "22,15",
+      "afterKey": "22,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W17",
+      "beforeKey": "22,16",
+      "afterKey": "22,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W18",
+      "beforeKey": "22,17",
+      "afterKey": "22,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W19",
+      "beforeKey": "22,18",
+      "afterKey": "22,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "W20",
+      "beforeKey": "22,19",
+      "afterKey": "22,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X1",
+      "beforeKey": "23,0.5",
+      "afterKey": "23,-11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X2",
+      "beforeKey": "23,1.5",
+      "afterKey": "23,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X3",
+      "beforeKey": "23,2.5",
+      "afterKey": "23,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X4",
+      "beforeKey": "23,3.5",
+      "afterKey": "23,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X5",
+      "beforeKey": "23,4.5",
+      "afterKey": "23,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X6",
+      "beforeKey": "23,5.5",
+      "afterKey": "23,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X7",
+      "beforeKey": "23,6.5",
+      "afterKey": "23,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X8",
+      "beforeKey": "23,7.5",
+      "afterKey": "23,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X9",
+      "beforeKey": "23,8.5",
+      "afterKey": "23,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X10",
+      "beforeKey": "23,9.5",
+      "afterKey": "23,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X11",
+      "beforeKey": "23,10.5",
+      "afterKey": "23,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X12",
+      "beforeKey": "23,11.5",
+      "afterKey": "23,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X13",
+      "beforeKey": "23,12.5",
+      "afterKey": "23,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X14",
+      "beforeKey": "23,13.5",
+      "afterKey": "23,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X15",
+      "beforeKey": "23,14.5",
+      "afterKey": "23,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X16",
+      "beforeKey": "23,15.5",
+      "afterKey": "23,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X17",
+      "beforeKey": "23,16.5",
+      "afterKey": "23,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X18",
+      "beforeKey": "23,17.5",
+      "afterKey": "23,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X19",
+      "beforeKey": "23,18.5",
+      "afterKey": "23,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "X20",
+      "beforeKey": "23,19.5",
+      "afterKey": "23,8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y1",
+      "beforeKey": "24,0",
+      "afterKey": "24,-12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y2",
+      "beforeKey": "24,1",
+      "afterKey": "24,-11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y3",
+      "beforeKey": "24,2",
+      "afterKey": "24,-10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y4",
+      "beforeKey": "24,3",
+      "afterKey": "24,-9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y5",
+      "beforeKey": "24,4",
+      "afterKey": "24,-8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y6",
+      "beforeKey": "24,5",
+      "afterKey": "24,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y7",
+      "beforeKey": "24,6",
+      "afterKey": "24,-6",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y8",
+      "beforeKey": "24,7",
+      "afterKey": "24,-5",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "Y9",
+      "beforeKey": "24,8",
+      "afterKey": "24,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y10",
+      "beforeKey": "24,9",
+      "afterKey": "24,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y11",
+      "beforeKey": "24,10",
+      "afterKey": "24,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y12",
+      "beforeKey": "24,11",
+      "afterKey": "24,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y13",
+      "beforeKey": "24,12",
+      "afterKey": "24,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y14",
+      "beforeKey": "24,13",
+      "afterKey": "24,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y15",
+      "beforeKey": "24,14",
+      "afterKey": "24,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y16",
+      "beforeKey": "24,15",
+      "afterKey": "24,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y17",
+      "beforeKey": "24,16",
+      "afterKey": "24,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y18",
+      "beforeKey": "24,17",
+      "afterKey": "24,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y19",
+      "beforeKey": "24,18",
+      "afterKey": "24,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Y20",
+      "beforeKey": "24,19",
+      "afterKey": "24,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z1",
+      "beforeKey": "25,0.5",
+      "afterKey": "25,-12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z2",
+      "beforeKey": "25,1.5",
+      "afterKey": "25,-11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z3",
+      "beforeKey": "25,2.5",
+      "afterKey": "25,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z4",
+      "beforeKey": "25,3.5",
+      "afterKey": "25,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z5",
+      "beforeKey": "25,4.5",
+      "afterKey": "25,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z6",
+      "beforeKey": "25,5.5",
+      "afterKey": "25,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z7",
+      "beforeKey": "25,6.5",
+      "afterKey": "25,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z8",
+      "beforeKey": "25,7.5",
+      "afterKey": "25,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z9",
+      "beforeKey": "25,8.5",
+      "afterKey": "25,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z10",
+      "beforeKey": "25,9.5",
+      "afterKey": "25,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z11",
+      "beforeKey": "25,10.5",
+      "afterKey": "25,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z12",
+      "beforeKey": "25,11.5",
+      "afterKey": "25,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z13",
+      "beforeKey": "25,12.5",
+      "afterKey": "25,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z14",
+      "beforeKey": "25,13.5",
+      "afterKey": "25,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z15",
+      "beforeKey": "25,14.5",
+      "afterKey": "25,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z16",
+      "beforeKey": "25,15.5",
+      "afterKey": "25,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z17",
+      "beforeKey": "25,16.5",
+      "afterKey": "25,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z18",
+      "beforeKey": "25,17.5",
+      "afterKey": "25,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z19",
+      "beforeKey": "25,18.5",
+      "afterKey": "25,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "Z20",
+      "beforeKey": "25,19.5",
+      "afterKey": "25,7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA1",
+      "beforeKey": "26,0",
+      "afterKey": "26,-13",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA2",
+      "beforeKey": "26,1",
+      "afterKey": "26,-12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA3",
+      "beforeKey": "26,2",
+      "afterKey": "26,-11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA4",
+      "beforeKey": "26,3",
+      "afterKey": "26,-10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA5",
+      "beforeKey": "26,4",
+      "afterKey": "26,-9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA6",
+      "beforeKey": "26,5",
+      "afterKey": "26,-8",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA7",
+      "beforeKey": "26,6",
+      "afterKey": "26,-7",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AA8",
+      "beforeKey": "26,7",
+      "afterKey": "26,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA9",
+      "beforeKey": "26,8",
+      "afterKey": "26,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA10",
+      "beforeKey": "26,9",
+      "afterKey": "26,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA11",
+      "beforeKey": "26,10",
+      "afterKey": "26,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA12",
+      "beforeKey": "26,11",
+      "afterKey": "26,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA13",
+      "beforeKey": "26,12",
+      "afterKey": "26,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA14",
+      "beforeKey": "26,13",
+      "afterKey": "26,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA15",
+      "beforeKey": "26,14",
+      "afterKey": "26,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA16",
+      "beforeKey": "26,15",
+      "afterKey": "26,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA17",
+      "beforeKey": "26,16",
+      "afterKey": "26,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA18",
+      "beforeKey": "26,17",
+      "afterKey": "26,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA19",
+      "beforeKey": "26,18",
+      "afterKey": "26,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AA20",
+      "beforeKey": "26,19",
+      "afterKey": "26,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB1",
+      "beforeKey": "27,0.5",
+      "afterKey": "27,-13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB2",
+      "beforeKey": "27,1.5",
+      "afterKey": "27,-12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB3",
+      "beforeKey": "27,2.5",
+      "afterKey": "27,-11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB4",
+      "beforeKey": "27,3.5",
+      "afterKey": "27,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB5",
+      "beforeKey": "27,4.5",
+      "afterKey": "27,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB6",
+      "beforeKey": "27,5.5",
+      "afterKey": "27,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB7",
+      "beforeKey": "27,6.5",
+      "afterKey": "27,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB8",
+      "beforeKey": "27,7.5",
+      "afterKey": "27,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB9",
+      "beforeKey": "27,8.5",
+      "afterKey": "27,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB10",
+      "beforeKey": "27,9.5",
+      "afterKey": "27,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB11",
+      "beforeKey": "27,10.5",
+      "afterKey": "27,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB12",
+      "beforeKey": "27,11.5",
+      "afterKey": "27,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB13",
+      "beforeKey": "27,12.5",
+      "afterKey": "27,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB14",
+      "beforeKey": "27,13.5",
+      "afterKey": "27,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB15",
+      "beforeKey": "27,14.5",
+      "afterKey": "27,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB16",
+      "beforeKey": "27,15.5",
+      "afterKey": "27,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB17",
+      "beforeKey": "27,16.5",
+      "afterKey": "27,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB18",
+      "beforeKey": "27,17.5",
+      "afterKey": "27,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB19",
+      "beforeKey": "27,18.5",
+      "afterKey": "27,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AB20",
+      "beforeKey": "27,19.5",
+      "afterKey": "27,6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC1",
+      "beforeKey": "28,0",
+      "afterKey": "28,-14",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AC2",
+      "beforeKey": "28,1",
+      "afterKey": "28,-13",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AC3",
+      "beforeKey": "28,2",
+      "afterKey": "28,-12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AC4",
+      "beforeKey": "28,3",
+      "afterKey": "28,-11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AC5",
+      "beforeKey": "28,4",
+      "afterKey": "28,-10",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AC6",
+      "beforeKey": "28,5",
+      "afterKey": "28,-9",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AC7",
+      "beforeKey": "28,6",
+      "afterKey": "28,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC8",
+      "beforeKey": "28,7",
+      "afterKey": "28,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC9",
+      "beforeKey": "28,8",
+      "afterKey": "28,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC10",
+      "beforeKey": "28,9",
+      "afterKey": "28,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC11",
+      "beforeKey": "28,10",
+      "afterKey": "28,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC12",
+      "beforeKey": "28,11",
+      "afterKey": "28,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC13",
+      "beforeKey": "28,12",
+      "afterKey": "28,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC14",
+      "beforeKey": "28,13",
+      "afterKey": "28,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC15",
+      "beforeKey": "28,14",
+      "afterKey": "28,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC16",
+      "beforeKey": "28,15",
+      "afterKey": "28,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC17",
+      "beforeKey": "28,16",
+      "afterKey": "28,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC18",
+      "beforeKey": "28,17",
+      "afterKey": "28,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC19",
+      "beforeKey": "28,18",
+      "afterKey": "28,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AC20",
+      "beforeKey": "28,19",
+      "afterKey": "28,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD1",
+      "beforeKey": "29,0.5",
+      "afterKey": "29,-14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD2",
+      "beforeKey": "29,1.5",
+      "afterKey": "29,-13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD3",
+      "beforeKey": "29,2.5",
+      "afterKey": "29,-12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD4",
+      "beforeKey": "29,3.5",
+      "afterKey": "29,-11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD5",
+      "beforeKey": "29,4.5",
+      "afterKey": "29,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD6",
+      "beforeKey": "29,5.5",
+      "afterKey": "29,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD7",
+      "beforeKey": "29,6.5",
+      "afterKey": "29,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD8",
+      "beforeKey": "29,7.5",
+      "afterKey": "29,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD9",
+      "beforeKey": "29,8.5",
+      "afterKey": "29,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD10",
+      "beforeKey": "29,9.5",
+      "afterKey": "29,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD11",
+      "beforeKey": "29,10.5",
+      "afterKey": "29,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD12",
+      "beforeKey": "29,11.5",
+      "afterKey": "29,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD13",
+      "beforeKey": "29,12.5",
+      "afterKey": "29,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD14",
+      "beforeKey": "29,13.5",
+      "afterKey": "29,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD15",
+      "beforeKey": "29,14.5",
+      "afterKey": "29,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD16",
+      "beforeKey": "29,15.5",
+      "afterKey": "29,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD17",
+      "beforeKey": "29,16.5",
+      "afterKey": "29,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD18",
+      "beforeKey": "29,17.5",
+      "afterKey": "29,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD19",
+      "beforeKey": "29,18.5",
+      "afterKey": "29,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AD20",
+      "beforeKey": "29,19.5",
+      "afterKey": "29,5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE1",
+      "beforeKey": "30,0",
+      "afterKey": "30,-15",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AE2",
+      "beforeKey": "30,1",
+      "afterKey": "30,-14",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AE3",
+      "beforeKey": "30,2",
+      "afterKey": "30,-13",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AE4",
+      "beforeKey": "30,3",
+      "afterKey": "30,-12",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AE5",
+      "beforeKey": "30,4",
+      "afterKey": "30,-11",
+      "oldKeyExistsInCore": true
+    },
+    {
+      "nodeId": "AE6",
+      "beforeKey": "30,5",
+      "afterKey": "30,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE7",
+      "beforeKey": "30,6",
+      "afterKey": "30,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE8",
+      "beforeKey": "30,7",
+      "afterKey": "30,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE9",
+      "beforeKey": "30,8",
+      "afterKey": "30,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE10",
+      "beforeKey": "30,9",
+      "afterKey": "30,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE11",
+      "beforeKey": "30,10",
+      "afterKey": "30,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE12",
+      "beforeKey": "30,11",
+      "afterKey": "30,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE13",
+      "beforeKey": "30,12",
+      "afterKey": "30,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE14",
+      "beforeKey": "30,13",
+      "afterKey": "30,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE15",
+      "beforeKey": "30,14",
+      "afterKey": "30,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE16",
+      "beforeKey": "30,15",
+      "afterKey": "30,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE17",
+      "beforeKey": "30,16",
+      "afterKey": "30,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE18",
+      "beforeKey": "30,17",
+      "afterKey": "30,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE19",
+      "beforeKey": "30,18",
+      "afterKey": "30,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AE20",
+      "beforeKey": "30,19",
+      "afterKey": "30,4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF1",
+      "beforeKey": "31,0.5",
+      "afterKey": "31,-15",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF2",
+      "beforeKey": "31,1.5",
+      "afterKey": "31,-14",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF3",
+      "beforeKey": "31,2.5",
+      "afterKey": "31,-13",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF4",
+      "beforeKey": "31,3.5",
+      "afterKey": "31,-12",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF5",
+      "beforeKey": "31,4.5",
+      "afterKey": "31,-11",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF6",
+      "beforeKey": "31,5.5",
+      "afterKey": "31,-10",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF7",
+      "beforeKey": "31,6.5",
+      "afterKey": "31,-9",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF8",
+      "beforeKey": "31,7.5",
+      "afterKey": "31,-8",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF9",
+      "beforeKey": "31,8.5",
+      "afterKey": "31,-7",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF10",
+      "beforeKey": "31,9.5",
+      "afterKey": "31,-6",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF11",
+      "beforeKey": "31,10.5",
+      "afterKey": "31,-5",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF12",
+      "beforeKey": "31,11.5",
+      "afterKey": "31,-4",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF13",
+      "beforeKey": "31,12.5",
+      "afterKey": "31,-3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF14",
+      "beforeKey": "31,13.5",
+      "afterKey": "31,-2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF15",
+      "beforeKey": "31,14.5",
+      "afterKey": "31,-1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF16",
+      "beforeKey": "31,15.5",
+      "afterKey": "31,0",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF17",
+      "beforeKey": "31,16.5",
+      "afterKey": "31,1",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF18",
+      "beforeKey": "31,17.5",
+      "afterKey": "31,2",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF19",
+      "beforeKey": "31,18.5",
+      "afterKey": "31,3",
+      "oldKeyExistsInCore": false
+    },
+    {
+      "nodeId": "AF20",
+      "beforeKey": "31,19.5",
+      "afterKey": "31,4",
+      "oldKeyExistsInCore": false
+    }
+  ],
+  "hashes": {
+    "inputs/MAP_NODES.json": "3598aa9eaa2a725ac6c05edd684b0edad71e2164a98f63b5c60fc1bfd698f5ca",
+    "r1/CORE_AUTHORITY.json": "51e277ea2383477ca48fbd7c7a857e561ca6681684c94b668775cf234f3aa7e4",
+    "generate_map.mjs": "d4eade1da206930d5436cdafc8d15fcf2cb3701b4438d6a31d20135e16ee836f",
+    "validate.py": "b47be9120657d681bca48b680c1cda6c67eb8043c08f15871b8509f156956d9f",
+    "map_validation.py": "9f94fd9dbc022cb14e6a689a4fb31f73fed53591a21ee98f0c4832d6181b90f6",
+    "check_map_r1.py": "2c823c651ffa85225a02f64d752cf0d0f26f484521a98cc666f2e59ef0f7043e",
+    "r1/BASELINE_MAP_NODES.json": "6388808f43c22fca1ee1faddd7a2b5ec55c275f6ad720fc38b83d4f94dfd6b5c",
+    "r1/BASELINE_VALIDATION.json": "5adf9f5166be6c54f30750acd30c4e7fb58977b120fd3b4864643fa87716c5a7",
+    "r1/BASELINE_SOURCES.json": "f557635a5426352de35aad661f57d7df614090f4057c91d679229ab38557ac25"
+  },
+  "notProven": [
+    "current path usability",
+    "actual entry/repair legality",
+    "runtime authorization",
+    "campaign balance"
+  ]
+}

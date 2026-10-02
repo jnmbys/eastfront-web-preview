@@ -1,5 +1,7 @@
 # RULE-CAMPAIGN-003｜真实地图最小接入候选
 
+> **R1修正（2026-10-02）**：原提交0670565的MAP_NODES有620/640个错误Core key，旧校验错误放行，不能作为坐标有效证据。现已全量重建并增强语义校验，见[r1/REPORT.md](r1/REPORT.md)及[r1/RESULT.json](r1/RESULT.json)。旧结果原样保留于r1/BASELINE_*。候选配置数值与原35项运行阻塞不变；仍未批准运行。
+
 2026-10-02。**交付实现评审配置及拒绝式离线校验器，不是已可加载的场景。** 分支`rule-campaign-003`从规则R1建立，只新增本目录。CAMPAIGN-004、工业004、R1均固定引用，未合并其研究代码、未重跑实验，也未修改Core、地图、运行默认或部署。
 
 配置：[candidate.json](candidate.json)；校验：[validate.py](validate.py)；实际检查结果：[VALIDATION.json](VALIDATION.json)；来源及哈希：[SOURCES.json](SOURCES.json)。`null`表示未决，运行门禁必须拒绝，不能转成0、空权限或默认允许。
