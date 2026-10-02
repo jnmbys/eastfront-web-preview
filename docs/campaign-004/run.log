@@ -1,0 +1,134 @@
+deploy_S-ART-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-ART-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-ART-03 True 1 SOVIET_DEPLOYMENT
+deploy_S-AT-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-AT-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-AT-03 True 1 SOVIET_DEPLOYMENT
+deploy_S-EL-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-EL-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-ENG-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-ENG-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-HV-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-03 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-04 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-05 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-06 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-07 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-08 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-09 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-10 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-11 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-12 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-13 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-14 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-15 True 1 SOVIET_DEPLOYMENT
+deploy_S-I-16 True 1 SOVIET_DEPLOYMENT
+deploy_S-MOT-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-MOT-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-TK-01 True 1 SOVIET_DEPLOYMENT
+deploy_S-TK-02 True 1 SOVIET_DEPLOYMENT
+deploy_S-TK-03 True 1 SOVIET_DEPLOYMENT
+ready_S True 1 GERMAN_DEPLOYMENT
+deploy_G-ART-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-ART-02 True 1 GERMAN_DEPLOYMENT
+deploy_G-ENG-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-ENG-02 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-02 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-03 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-04 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-05 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-06 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-07 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-08 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-09 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-10 True 1 GERMAN_DEPLOYMENT
+deploy_G-I-11 True 1 GERMAN_DEPLOYMENT
+deploy_G-J-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-J-02 True 1 GERMAN_DEPLOYMENT
+deploy_G-MOT-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-MOT-02 True 1 GERMAN_DEPLOYMENT
+deploy_G-MOT-03 True 1 GERMAN_DEPLOYMENT
+deploy_G-PZ-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-PZ-02 True 1 GERMAN_DEPLOYMENT
+deploy_G-PZ-03 True 1 GERMAN_DEPLOYMENT
+deploy_G-PZ-04 True 1 GERMAN_DEPLOYMENT
+deploy_G-REC-01 True 1 GERMAN_DEPLOYMENT
+deploy_G-REC-02 True 1 GERMAN_DEPLOYMENT
+ready_G True 1 GERMAN_SUPPLY_RAIL
+industrial_order_unsupported False 1 GERMAN_SUPPLY_RAIL unsupported surface
+industrial_entry_unsupported False 1 GERMAN_SUPPLY_RAIL unsupported surface
+german_new_unit_via_initial_rejected False 1 GERMAN_SUPPLY_RAIL Error: [{"code":"WRONG_PHASE","message":"Initial deployment placement is only legal during deployment phases."}]
+german_new_unit_via_reinforcement_rejected False 1 GERMAN_SUPPLY_RAIL Error: [{"code":"WRONG_PHASE","message":"Soviet reinforcements may only deploy during SOVIET_REINFORCEMENT_SUPPLY."}]
+repair_wrong_phase False 1 GERMAN_SUPPLY_RAIL Error: [{"code":"WRONG_PHASE","message":"GERMAN units may recover only during GERMAN_RECOVERY.","unitId":"G-I-01"},{"code":"INVALID_SUPPORT","message":"Full-strength units cannot recover.","details":{"reason":"UNIT_NOT_DAMAGED","unitId":"G-I-01"}},{"code":"INVALID_SUPPORT","message":"A unit adjacent to any living enemy unit cannot recover.","details":{"reason":"ENEMY_ADJACENT","unitId":"G-I-01"}},{"code":"INVALID_SUPPORT","message":"Unit is outside Recovery Base range.","details":{"reason":"RECOVERY_BASE_TOO_FAR","unitId":"G-I-01","maxDistance":2,"minimumDistance":null,"recoveryBaseHexKeys":[]}}]
+reach_first_combat True 1 GERMAN_MOVEMENT
+reach_first_combat True 1 GERMAN_COMBAT
+real_infantry_attack True 1 GERMAN_COMBAT
+advance_GERMAN_COMBAT True 1 GERMAN_RECOVERY
+advance_GERMAN_RECOVERY True 1 GERMAN_ENTRENCHMENT
+advance_GERMAN_ENTRENCHMENT True 1 SOVIET_REINFORCEMENT_SUPPLY
+advance_SOVIET_REINFORCEMENT_SUPPLY True 1 SOVIET_MOVEMENT
+soviet_move_away True 1 SOVIET_MOVEMENT
+advance_SOVIET_MOVEMENT True 1 SOVIET_COMBAT
+advance_SOVIET_COMBAT True 1 SOVIET_RECOVERY
+advance_SOVIET_RECOVERY True 1 SOVIET_ENTRENCHMENT
+advance_SOVIET_ENTRENCHMENT True 2 GERMAN_SUPPLY_RAIL
+advance_GERMAN_SUPPLY_RAIL True 2 GERMAN_MOVEMENT
+advance_GERMAN_MOVEMENT True 2 GERMAN_COMBAT
+advance_GERMAN_COMBAT True 2 GERMAN_RECOVERY
+damaged_supplied_without_base_rejected False 2 GERMAN_RECOVERY Error: [{"code":"INVALID_SUPPORT","message":"Unit is outside Recovery Base range.","details":{"reason":"RECOVERY_BASE_TOO_FAR","unitId":"G-I-01","maxDistance":2,"minimumDistance":null,"recoveryBaseHexKeys":[]}}]
+advance_GERMAN_RECOVERY True 2 GERMAN_ENTRENCHMENT
+advance_GERMAN_ENTRENCHMENT True 2 SOVIET_REINFORCEMENT_SUPPLY
+advance_SOVIET_REINFORCEMENT_SUPPLY True 2 SOVIET_MOVEMENT
+advance_SOVIET_MOVEMENT True 2 SOVIET_COMBAT
+advance_SOVIET_COMBAT True 2 SOVIET_RECOVERY
+advance_SOVIET_RECOVERY True 2 SOVIET_ENTRENCHMENT
+advance_SOVIET_ENTRENCHMENT True 3 GERMAN_SUPPLY_RAIL
+advance_GERMAN_SUPPLY_RAIL True 3 GERMAN_MOVEMENT
+advance_GERMAN_MOVEMENT True 3 GERMAN_COMBAT
+advance_GERMAN_COMBAT True 3 GERMAN_RECOVERY
+advance_GERMAN_RECOVERY True 3 GERMAN_ENTRENCHMENT
+advance_GERMAN_ENTRENCHMENT True 3 SOVIET_REINFORCEMENT_SUPPLY
+advance_SOVIET_REINFORCEMENT_SUPPLY True 3 SOVIET_MOVEMENT
+advance_SOVIET_MOVEMENT True 3 SOVIET_COMBAT
+advance_SOVIET_COMBAT True 3 SOVIET_RECOVERY
+advance_SOVIET_RECOVERY True 3 SOVIET_ENTRENCHMENT
+advance_SOVIET_ENTRENCHMENT True 4 GERMAN_SUPPLY_RAIL
+advance_GERMAN_SUPPLY_RAIL True 4 GERMAN_MOVEMENT
+advance_GERMAN_MOVEMENT True 4 GERMAN_COMBAT
+advance_GERMAN_COMBAT True 4 GERMAN_RECOVERY
+advance_GERMAN_RECOVERY True 4 GERMAN_ENTRENCHMENT
+advance_GERMAN_ENTRENCHMENT True 4 SOVIET_REINFORCEMENT_SUPPLY
+unknown_industrial_slot_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"Unknown Soviet reinforcement slot.","details":{"reason":"REINFORCEMENT_SLOT_UNKNOWN","reinforcementId":"S-IND-NEW"}}]
+non_entry_J7_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"Soviet reinforcement deployment must use a configured East Rail Exit.","hex":{"q":9,"r":2},"details":{"reason":"REINFORCEMENT_ENTRY_NOT_EAST_EXIT","entryHexKey":"9,2"}}]
+non_entry_M14_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"Soviet reinforcement deployment must use a configured East Rail Exit.","hex":{"q":12,"r":7},"details":{"reason":"REINFORCEMENT_ENTRY_NOT_EAST_EXIT","entryHexKey":"12,7"}}]
+non_entry_R9_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"Soviet reinforcement deployment must use a configured East Rail Exit.","hex":{"q":17,"r":0},"details":{"reason":"REINFORCEMENT_ENTRY_NOT_EAST_EXIT","entryHexKey":"17,0"}}]
+non_entry_AD9_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"Soviet reinforcement deployment must use a configured East Rail Exit.","hex":{"q":29,"r":-6},"details":{"reason":"REINFORCEMENT_ENTRY_NOT_EAST_EXIT","entryHexKey":"29,-6"}}]
+non_entry_AC10_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"Soviet reinforcement deployment must use a configured East Rail Exit.","hex":{"q":28,"r":-5},"details":{"reason":"REINFORCEMENT_ENTRY_NOT_EAST_EXIT","entryHexKey":"28,-5"}}]
+existing_soviet_entry True 4 SOVIET_REINFORCEMENT_SUPPLY
+existing_soviet_entry True 4 SOVIET_REINFORCEMENT_SUPPLY
+existing_slot_duplicate_rejected False 4 SOVIET_REINFORCEMENT_SUPPLY Error: [{"code":"INVALID_SUPPORT","message":"This Soviet reinforcement slot has already been deployed.","details":{"reason":"REINFORCEMENT_ALREADY_DEPLOYED","reinforcementId":"S-R-T04-G01-U01"}}]
+advance_SOVIET_REINFORCEMENT_SUPPLY True 4 SOVIET_MOVEMENT
+existing_reinforcement_same_turn_move True 4 SOVIET_MOVEMENT
+advance_SOVIET_MOVEMENT True 4 SOVIET_COMBAT
+advance_SOVIET_COMBAT True 4 SOVIET_RECOVERY
+advance_SOVIET_RECOVERY True 4 SOVIET_ENTRENCHMENT
+advance_SOVIET_ENTRENCHMENT True 5 GERMAN_SUPPLY_RAIL
+open_actual_rail_A10_C10 True 5 GERMAN_SUPPLY_RAIL
+advance_GERMAN_SUPPLY_RAIL True 5 GERMAN_MOVEMENT
+advance_GERMAN_MOVEMENT True 5 GERMAN_COMBAT
+advance_GERMAN_COMBAT True 5 GERMAN_RECOVERY
+actual_RP_repair True 5 GERMAN_RECOVERY
+duplicate_repair_rejected False 5 GERMAN_RECOVERY Error: [{"code":"INVALID_SUPPORT","message":"Full-strength units cannot recover.","details":{"reason":"UNIT_NOT_DAMAGED","unitId":"G-I-01"}},{"code":"INVALID_SUPPORT","message":"A unit may recover only once in its Recovery phase.","details":{"reason":"UNIT_ALREADY_RECOVERED_THIS_TURN","unitId":"G-I-01"}},{"code":"INVALID_SUPPORT","message":"Side-wide Recovery unit limit has been reached for this turn.","details":{"reason":"RECOVERY_UNIT_LIMIT_REACHED","side":"GERMAN","turn":5,"recoveredUnits":1,"limit":1}}]
+advance_GERMAN_RECOVERY True 5 GERMAN_ENTRENCHMENT
+advance_GERMAN_ENTRENCHMENT True 5 SOVIET_REINFORCEMENT_SUPPLY
+advance_SOVIET_REINFORCEMENT_SUPPLY True 5 SOVIET_MOVEMENT
+advance_SOVIET_MOVEMENT True 5 SOVIET_COMBAT
+advance_SOVIET_COMBAT True 5 SOVIET_RECOVERY
+advance_SOVIET_RECOVERY True 5 SOVIET_ENTRENCHMENT
+advance_SOVIET_ENTRENCHMENT True 6 GERMAN_SUPPLY_RAIL
+advance_GERMAN_SUPPLY_RAIL True 6 GERMAN_MOVEMENT
+repaired_unit_subsequent_move True 6 GERMAN_MOVEMENT
+{"status": "COMPLETE_WITH_INTERFACE_BLOCKERS", "actual_repair_unit": "G-I-01", "subsequent_move": true, "existing_soviet_entry": true, "accepted": 119, "rejected": 14, "settlements": 5}

@@ -1,0 +1,35 @@
+{
+  "scope": "Initial fixture preflight, same seed/profile and legal full-roster chain, before adding an explicit existing RAIL_REPAIR action. No supply/base parameter change.",
+  "status": {
+    "status": "COMPLETE_WITH_INTERFACE_BLOCKERS",
+    "actual_repair_unit": null,
+    "subsequent_move": false,
+    "existing_soviet_entry": true,
+    "accepted": 99,
+    "rejected": 7,
+    "settlements": 3
+  },
+  "german_recovery_T2": {
+    "bases": [],
+    "unit": {
+      "id": "G-I-01",
+      "hex": "C10",
+      "step": 1,
+      "supplyState": "SUPPLIED",
+      "repairIssues": [
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "Unit is outside Recovery Base range.",
+          "details": {
+            "reason": "RECOVERY_BASE_TOO_FAR",
+            "unitId": "G-I-01",
+            "maxDistance": 2,
+            "minimumDistance": null,
+            "recoveryBaseHexKeys": []
+          }
+        }
+      ],
+      "moves": []
+    }
+  }
+}

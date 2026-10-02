@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "tests": 8,
+  "failures": [
+    [
+      "test_03_real_damage_delivery_repair_and_later_action (__main__.Seams.test_03_real_damage_delivery_repair_and_later_action)",
+      "Traceback (most recent call last):\n  File \"C:\\Users\\jinyibo\\eastfront\\campaign-004\\docs\\campaign-004\\test_seams.py\", line 60, in test_03_real_damage_delivery_repair_and_later_action\n    self.assertEqual(repair['before']['stock'],repair['after']['stock'])\nAssertionError: Lists differ: [{'id[3042 chars]th': 2}, {'id': 'G-I-02', 'node': 'A6', 'B': 4[1857 chars]: 3}] != [{'id[3042 chars]th': 3}, {'id': 'G-I-02', 'node': 'A6', 'B': 4[1857 chars]: 3}]\n\nFirst differing element 36:\n{'id': 'G-I-01', 'node': 'C10', 'B': 4, 'stock': 12, 'debt': '0', 'strength': 2}\n{'id': 'G-I-01', 'node': 'C10', 'B': 4, 'stock': 12, 'debt': '0', 'strength': 3}\n\nDiff is 6233 characters long. Set self.maxDiff to None to see it.\n"
+    ]
+  ],
+  "errors": [],
+  "scope": "Local immutable source, real Core/solver calls and saved receipts; no HTTP, concurrency, deployment or balance certification"
+}
