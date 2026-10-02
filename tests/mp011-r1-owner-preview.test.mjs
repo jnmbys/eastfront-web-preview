@@ -35,6 +35,9 @@ test('MP011R1 diagnostics preserve authentication, denial, credential stripping 
     assert(events.some(e=>e.reason==='credential-mismatch'&&e.status===403));
     const login=await http('/__mp010_login',formHeaders,'password='+password);assert.equal(login.status,303);
     const setCookie=login.headers['set-cookie'][0];assert.match(setCookie,/Secure; HttpOnly; SameSite=Strict/);const cookie=setCookie.split(';')[0];
+    for(const headers of [{host:'owner-preview.test',origin:'https://foreign.test',cookie},{host:'owner-preview.test',origin:'null',cookie},{host:'foreign.test',origin,cookie}]){
+      await new Promise((resolve,reject)=>{const ws=new WebSocket(`ws://127.0.0.1:${port}/ws/deployment/real`,{headers});ws.on('unexpected-response',(_req,res)=>{assert.equal(res.statusCode,403);assert.equal(res.headers['content-length'],'0');res.resume();res.on('end',resolve);});ws.on('open',()=>{ws.terminate();reject(Error('Foreign request accepted with valid cookie'));});ws.on('error',reject);});
+    }
     assert.equal((await http('/',{cookie,authorization:'must-not-reach-game'})).text,'fixed test build');
     assert.equal(received[0].cookie,undefined);assert.equal(received[0].authorization,undefined);
     await new Promise((resolve,reject)=>{const ws=new WebSocket(`ws://127.0.0.1:${port}/ws`,{headers:{host:'owner-preview.test',origin,cookie}});ws.on('open',()=>ws.send('test-metadata'));ws.on('message',data=>{assert.equal(data.toString(),'test-metadata');ws.close();});ws.on('close',resolve);ws.on('error',reject);});
