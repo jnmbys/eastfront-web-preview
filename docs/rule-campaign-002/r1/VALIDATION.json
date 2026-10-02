@@ -1,0 +1,84 @@
+{
+  "status": "PASS_OFFLINE_ONLY",
+  "decisionRef": "LEADER-RULE-CAMPAIGN-002-20261002",
+  "baseCommit": "9ed3f4f16450c2ff936de242b328c7ba30059dc5",
+  "command": "python docs/rule-campaign-002/r1/verify.py --self-test",
+  "pythonVersion": "3.12.10",
+  "primaryCases": 9,
+  "existingSubcases": 2,
+  "eventCount": 66,
+  "negativeControlCount": 15,
+  "standardAndOptimizedOutputIdentical": true,
+  "inputDirectoryHashesUnchangedByVerifier": true,
+  "standardLibraryImports": [
+    "argparse",
+    "copy",
+    "fractions",
+    "hashlib",
+    "json",
+    "pathlib",
+    "sys"
+  ],
+  "preservedEvidence": [
+    {
+      "path": "docs/rule-campaign-002/BOUNDARY_CASES.md",
+      "sha256": "06ffdaf39bd44349e714fdad055350c6d23976e2157c3111fd15f24d25d1cb6e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/rule-campaign-002/CHECKS.json",
+      "sha256": "a6a1f3781a1fe2da92cbb115a17ed624a9759f878255e49bae3cc6b2a5fd7492",
+      "unchanged": true
+    },
+    {
+      "path": "docs/rule-campaign-002/CONTRACT.md",
+      "sha256": "0b6cb3586ed5815d8564d180d184a7eef782e66916891122da5453074c0f049e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/rule-campaign-002/CROSSCHECK.md",
+      "sha256": "3321a635d66931aab1e133893eb7061aa3d13613516b7c9977ee50611131a90b",
+      "unchanged": true
+    },
+    {
+      "path": "docs/rule-campaign-002/FIELDS.md",
+      "sha256": "e9d096fabf499ad15f905f9f473da661e460e2885679e45dbacf4d494e30619f",
+      "unchanged": true
+    },
+    {
+      "path": "docs/rule-campaign-002/VALIDATION_HANDOFF.md",
+      "sha256": "94c9ef7735ff88daae3651419589a373cfb304ff2ea9c6a02e26f48d8b65b73d",
+      "unchanged": true
+    },
+    {
+      "path": "docs/rule-campaign-002/fixtures.json",
+      "sha256": "27cca590c103157a9b395b56f0beffe9d90b90c7128934002d1c483581965ffc",
+      "unchanged": true
+    }
+  ],
+  "runtimeImportsOrChanges": false,
+  "sourceFixtureLimits": [
+    "C03 no-op is conditional, not transaction idempotency proof",
+    "C09 local unit ledger and given damage, not a legal battle",
+    "received is given; no path/allocation solve",
+    "No D>=3 attrition, survival or balance simulation"
+  ],
+  "reviewArtifactsSha256": {
+    "DECISION.json": "8028f17f396ee3d14f5273782901d9a9cd61f0ff048f11160a2ca6095e141d89",
+    "fixtures.json": "09badb6563cc167db0f242f56f06ddace71876c88fe22fd7d10aba0357876858",
+    "layout-review.json": "378e0a0ba5be91cabbaf787f147a06ca8e81d68d611bbb03ea8fad321c0617e3",
+    "layout-source.json": "95864a2c216aaf21fee455dfcec4722d956420d64fbd4932bb081902f6d4ece0",
+    "LAYOUT_REVIEW.md": "3319c2ff3d8cd620058621f9442f65e55db1e75d0e48e2f69a559062e2353c40",
+    "RESULTS.json": "11723b2a480e0a4f7d9770726a54a27907ac319dba5d110e68e2863de007721c",
+    "REVIEW.md": "ba1d097244fe61906317fcfe8236553c5731cd77621a4fa1d51184ec7e9a0688",
+    "verify.py": "d9f5c682f63e7a4df72d0f1028b9c6259e103cb6c38d8cc32c89a1300fa18063"
+  },
+  "cliRejectsCorruptedExpectedAfter": {
+    "exitCode": 1,
+    "diagnostic": {
+      "status": "FAIL",
+      "error": "final expectedAfter differs: C08"
+    }
+  },
+  "localDocumentLinksValid": true
+}

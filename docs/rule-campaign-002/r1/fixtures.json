@@ -1,0 +1,4797 @@
+{
+  "schema": "RULE-CAMPAIGN-002-R1-fixtures-v1",
+  "contractVersion": "CAMPAIGN-SETTLEMENT-002-candidate.1",
+  "decisionRef": "LEADER-RULE-CAMPAIGN-002-20261002",
+  "scope": "Offline conditional arithmetic only; no runtime approval",
+  "units": {
+    "SP": "integer q; 4q=1SP",
+    "equipment": "integer E2; 2E2=1E",
+    "personnel": "P"
+  },
+  "clock": "full dt=1; these cases never reach attrition threshold",
+  "eventAtRank": {
+    "10": "own entry before movement",
+    "40": "German recovery",
+    "70": "Soviet combat",
+    "80": "Soviet recovery",
+    "100": "E00",
+    "110": "E10 rear",
+    "111": "E11 formation",
+    "113": "E13 prior arrivals",
+    "114": "E14 dispatch",
+    "115": "E15 immediate arrivals",
+    "120": "E20 front",
+    "150": "committed-epoch replay expectation"
+  },
+  "caseCount": 9,
+  "subcaseCount": 2,
+  "cases": [
+    {
+      "id": "C01",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 6,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 12,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "DRAFT",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 0,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": null,
+        "order.O1.completedEpoch": null,
+        "order.O1.eligibleTurn": null,
+        "order.O1.lastPaidEpoch": null,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3
+      },
+      "events": [
+        {
+          "id": "C01-01",
+          "kind": "accept",
+          "at": [
+            2,
+            40
+          ],
+          "input": {
+            "orderId": "O1",
+            "legalGiven": true
+          },
+          "expectedDelta": {
+            "acct.G.E2.available": {
+              "before": 12,
+              "delta": -6,
+              "after": 6
+            },
+            "acct.G.E2.escrow": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.P.available": {
+              "before": 6,
+              "delta": -3,
+              "after": 3
+            },
+            "acct.G.P.escrow": {
+              "before": 0,
+              "delta": 3,
+              "after": 3
+            },
+            "order.O1.acceptedTurn": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "order.O1.status": {
+              "before": "DRAFT",
+              "delta": null,
+              "after": "ASSEMBLING"
+            }
+          }
+        },
+        {
+          "id": "C01-02",
+          "kind": "open_epoch",
+          "at": [
+            2,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 40
+            }
+          },
+          "expectedDelta": {
+            "source.G.E2.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            },
+            "source.G.E2.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E2.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E2.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            }
+          }
+        },
+        {
+          "id": "C01-03",
+          "kind": "rear",
+          "at": [
+            2,
+            110
+          ],
+          "input": {
+            "orderId": "O1"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E2.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E2.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E2.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E2.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O1.lastPaidEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "source.G.E2.rearPaid_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E2.unused_q": {
+              "before": 40,
+              "delta": -4,
+              "after": 36
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C01-04",
+          "kind": "advance",
+          "at": [
+            2,
+            111
+          ],
+          "input": {
+            "orderId": "O1"
+          },
+          "expectedDelta": {
+            "acct.G.E2.embodied": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.E2.escrow": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "acct.G.P.embodied": {
+              "before": 0,
+              "delta": 3,
+              "after": 3
+            },
+            "acct.G.P.escrow": {
+              "before": 3,
+              "delta": -3,
+              "after": 0
+            },
+            "order.O1.completedEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "order.O1.eligibleTurn": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "order.O1.status": {
+              "before": "ASSEMBLING",
+              "delta": null,
+              "after": "WAITING_ENTRY"
+            },
+            "order.O1.workDone": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            }
+          }
+        },
+        {
+          "id": "C01-05",
+          "kind": "front",
+          "at": [
+            2,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E2.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E2.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E2.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E2.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E2.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E2.unused_q": {
+              "before": 36,
+              "delta": -4,
+              "after": 32
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            }
+          }
+        },
+        {
+          "id": "C01-06",
+          "kind": "entry",
+          "at": [
+            3,
+            10
+          ],
+          "input": {
+            "orderId": "O1",
+            "legalGiven": true
+          },
+          "expectedDelta": {
+            "R.G": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "order.O1.enteredTurn": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "order.O1.firstActionTurn": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "order.O1.status": {
+              "before": "WAITING_ENTRY",
+              "delta": null,
+              "after": "DEPLOYED"
+            },
+            "unit.G1.B_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "unit.G1.D": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G1.maxStep": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "unit.G1.side": {
+              "before": null,
+              "delta": null,
+              "after": "G"
+            },
+            "unit.G1.step": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G1.stock_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G1.weight": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C01-07",
+          "kind": "open_epoch",
+          "at": [
+            3,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 40
+            }
+          },
+          "expectedDelta": {
+            "source.G.E3.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E3.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E3.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            }
+          }
+        },
+        {
+          "id": "C01-08",
+          "kind": "front",
+          "at": [
+            3,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E3.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E3.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E3.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E3.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E3.unused_q": {
+              "before": 40,
+              "delta": -4,
+              "after": 36
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "tally.G.issued_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            }
+          }
+        },
+        {
+          "id": "C01-09",
+          "kind": "front",
+          "at": [
+            3,
+            120
+          ],
+          "input": {
+            "unitId": "G1",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G1.E3.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E3.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G1.E3.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E3.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "source.G.E3.unused_q": {
+              "before": 36,
+              "delta": -4,
+              "after": 32
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "tally.G.issued_q": {
+              "before": 12,
+              "delta": 4,
+              "after": 16
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 6,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 16,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 12,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 8,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "DEPLOYED",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 2,
+        "order.O1.enteredTurn": 3,
+        "order.O1.firstActionTurn": 3,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E2.cap_q": 40,
+        "source.G.E2.unused_q": 32,
+        "source.G.E2.rearPaid_q": 4,
+        "source.G.E2.frontIssued_q": 4,
+        "maintenance.G1.E2.owner": "REAR",
+        "maintenance.G1.E2.due_q": 4,
+        "maintenance.G1.E2.paidCurrent_q": 4,
+        "maintenance.G1.E2.paidArrears_q": 0,
+        "maintenance.G0.E2.owner": "FRONT",
+        "maintenance.G0.E2.due_q": 4,
+        "maintenance.G0.E2.paidCurrent_q": 4,
+        "maintenance.G0.E2.paidArrears_q": 0,
+        "unit.G1.side": "G",
+        "unit.G1.stock_q": 0,
+        "unit.G1.D": 0,
+        "unit.G1.step": 0,
+        "unit.G1.maxStep": 3,
+        "unit.G1.weight": 4,
+        "unit.G1.B_q": 4,
+        "source.G.E3.cap_q": 40,
+        "source.G.E3.unused_q": 32,
+        "source.G.E3.rearPaid_q": 0,
+        "source.G.E3.frontIssued_q": 8,
+        "maintenance.G0.E3.owner": "FRONT",
+        "maintenance.G0.E3.due_q": 4,
+        "maintenance.G0.E3.paidCurrent_q": 4,
+        "maintenance.G0.E3.paidArrears_q": 0,
+        "maintenance.G1.E3.owner": "FRONT",
+        "maintenance.G1.E3.due_q": 4,
+        "maintenance.G1.E3.paidCurrent_q": 4,
+        "maintenance.G1.E3.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 8,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C02",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 6,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 8,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 2,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E2.cap_q": 40,
+        "source.G.E2.unused_q": 32,
+        "source.G.E2.rearPaid_q": 4,
+        "source.G.E2.frontIssued_q": 4,
+        "maintenance.G1.E2.owner": "REAR",
+        "maintenance.G1.E2.due_q": 4,
+        "maintenance.G1.E2.paidCurrent_q": 4,
+        "maintenance.G1.E2.paidArrears_q": 0,
+        "maintenance.G0.E2.owner": "FRONT",
+        "maintenance.G0.E2.due_q": 4,
+        "maintenance.G0.E2.paidCurrent_q": 4,
+        "maintenance.G0.E2.paidArrears_q": 0
+      },
+      "events": [
+        {
+          "id": "C02-01",
+          "kind": "entry",
+          "at": [
+            3,
+            10
+          ],
+          "input": {
+            "orderId": "O1",
+            "legalGiven": false
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C02-02",
+          "kind": "open_epoch",
+          "at": [
+            3,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 40
+            }
+          },
+          "expectedDelta": {
+            "source.G.E3.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E3.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E3.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            }
+          }
+        },
+        {
+          "id": "C02-03",
+          "kind": "rear",
+          "at": [
+            3,
+            110
+          ],
+          "input": {
+            "orderId": "O1"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E3.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E3.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E3.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E3.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O1.lastPaidEpoch": {
+              "before": 2,
+              "delta": 1,
+              "after": 3
+            },
+            "source.G.E3.rearPaid_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E3.unused_q": {
+              "before": 40,
+              "delta": -4,
+              "after": 36
+            },
+            "tally.G.issued_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            }
+          }
+        },
+        {
+          "id": "C02-04",
+          "kind": "front",
+          "at": [
+            3,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E3.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E3.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E3.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E3.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E3.unused_q": {
+              "before": 36,
+              "delta": -4,
+              "after": 32
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "tally.G.issued_q": {
+              "before": 12,
+              "delta": 4,
+              "after": 16
+            }
+          }
+        },
+        {
+          "id": "C02-05",
+          "kind": "entry",
+          "at": [
+            4,
+            10
+          ],
+          "input": {
+            "orderId": "O1",
+            "legalGiven": false
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C02-06",
+          "kind": "open_epoch",
+          "at": [
+            4,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 40
+            }
+          },
+          "expectedDelta": {
+            "source.G.E4.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            },
+            "source.G.E4.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E4.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E4.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            }
+          }
+        },
+        {
+          "id": "C02-07",
+          "kind": "rear",
+          "at": [
+            4,
+            110
+          ],
+          "input": {
+            "orderId": "O1"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E4.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E4.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E4.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E4.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O1.lastPaidEpoch": {
+              "before": 3,
+              "delta": 1,
+              "after": 4
+            },
+            "source.G.E4.rearPaid_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E4.unused_q": {
+              "before": 40,
+              "delta": -4,
+              "after": 36
+            },
+            "tally.G.issued_q": {
+              "before": 16,
+              "delta": 4,
+              "after": 20
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            }
+          }
+        },
+        {
+          "id": "C02-08",
+          "kind": "front",
+          "at": [
+            4,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E4.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E4.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E4.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E4.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E4.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E4.unused_q": {
+              "before": 36,
+              "delta": -4,
+              "after": 32
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "tally.G.issued_q": {
+              "before": 20,
+              "delta": 4,
+              "after": 24
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 6,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 24,
+        "tally.G.rearConsumed_q": 12,
+        "tally.G.frontConsumed_q": 12,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 4,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E2.cap_q": 40,
+        "source.G.E2.unused_q": 32,
+        "source.G.E2.rearPaid_q": 4,
+        "source.G.E2.frontIssued_q": 4,
+        "maintenance.G1.E2.owner": "REAR",
+        "maintenance.G1.E2.due_q": 4,
+        "maintenance.G1.E2.paidCurrent_q": 4,
+        "maintenance.G1.E2.paidArrears_q": 0,
+        "maintenance.G0.E2.owner": "FRONT",
+        "maintenance.G0.E2.due_q": 4,
+        "maintenance.G0.E2.paidCurrent_q": 4,
+        "maintenance.G0.E2.paidArrears_q": 0,
+        "source.G.E3.cap_q": 40,
+        "source.G.E3.unused_q": 32,
+        "source.G.E3.rearPaid_q": 4,
+        "source.G.E3.frontIssued_q": 4,
+        "maintenance.G1.E3.owner": "REAR",
+        "maintenance.G1.E3.due_q": 4,
+        "maintenance.G1.E3.paidCurrent_q": 4,
+        "maintenance.G1.E3.paidArrears_q": 0,
+        "maintenance.G0.E3.owner": "FRONT",
+        "maintenance.G0.E3.due_q": 4,
+        "maintenance.G0.E3.paidCurrent_q": 4,
+        "maintenance.G0.E3.paidArrears_q": 0,
+        "source.G.E4.cap_q": 40,
+        "source.G.E4.unused_q": 32,
+        "source.G.E4.rearPaid_q": 4,
+        "source.G.E4.frontIssued_q": 4,
+        "maintenance.G1.E4.owner": "REAR",
+        "maintenance.G1.E4.due_q": 4,
+        "maintenance.G1.E4.paidCurrent_q": 4,
+        "maintenance.G1.E4.paidArrears_q": 0,
+        "maintenance.G0.E4.owner": "FRONT",
+        "maintenance.G0.E4.due_q": 4,
+        "maintenance.G0.E4.paidCurrent_q": 4,
+        "maintenance.G0.E4.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C03",
+      "scope": "Conditional zero-effect replay/conflict expectations only; NOT server idempotency evidence",
+      "before": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 6,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 8,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 2,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E2.cap_q": 40,
+        "source.G.E2.unused_q": 32,
+        "source.G.E2.rearPaid_q": 4,
+        "source.G.E2.frontIssued_q": 4,
+        "maintenance.G1.E2.owner": "REAR",
+        "maintenance.G1.E2.due_q": 4,
+        "maintenance.G1.E2.paidCurrent_q": 4,
+        "maintenance.G1.E2.paidArrears_q": 0,
+        "maintenance.G0.E2.owner": "FRONT",
+        "maintenance.G0.E2.due_q": 4,
+        "maintenance.G0.E2.paidCurrent_q": 4,
+        "maintenance.G0.E2.paidArrears_q": 0
+      },
+      "events": [
+        {
+          "id": "C03-01",
+          "kind": "entry",
+          "at": [
+            3,
+            10
+          ],
+          "input": {
+            "orderId": "O1",
+            "legalGiven": true
+          },
+          "expectedDelta": {
+            "R.G": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "order.O1.enteredTurn": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "order.O1.firstActionTurn": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "order.O1.status": {
+              "before": "WAITING_ENTRY",
+              "delta": null,
+              "after": "DEPLOYED"
+            },
+            "unit.G1.B_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "unit.G1.D": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G1.maxStep": {
+              "before": null,
+              "delta": null,
+              "after": 3
+            },
+            "unit.G1.side": {
+              "before": null,
+              "delta": null,
+              "after": "G"
+            },
+            "unit.G1.step": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G1.stock_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G1.weight": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C03-02",
+          "kind": "assumed_noop",
+          "at": [
+            3,
+            10
+          ],
+          "input": {
+            "reason": "SAME_ACTION_REPLAY"
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C03-03",
+          "kind": "assumed_noop",
+          "at": [
+            3,
+            10
+          ],
+          "input": {
+            "reason": "PAYLOAD_CONFLICT_REJECTED"
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C03-04",
+          "kind": "open_epoch",
+          "at": [
+            3,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 40
+            }
+          },
+          "expectedDelta": {
+            "source.G.E3.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E3.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E3.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 40
+            }
+          }
+        },
+        {
+          "id": "C03-05",
+          "kind": "front",
+          "at": [
+            3,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E3.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E3.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E3.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E3.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E3.unused_q": {
+              "before": 40,
+              "delta": -4,
+              "after": 36
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "tally.G.issued_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            }
+          }
+        },
+        {
+          "id": "C03-06",
+          "kind": "front",
+          "at": [
+            3,
+            120
+          ],
+          "input": {
+            "unitId": "G1",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G1.E3.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E3.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G1.E3.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E3.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E3.frontIssued_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "source.G.E3.unused_q": {
+              "before": 36,
+              "delta": -4,
+              "after": 32
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "tally.G.issued_q": {
+              "before": 12,
+              "delta": 4,
+              "after": 16
+            }
+          }
+        },
+        {
+          "id": "C03-07",
+          "kind": "assumed_noop",
+          "at": [
+            3,
+            150
+          ],
+          "input": {
+            "reason": "SAME_EPOCH_REPLAY"
+          },
+          "expectedDelta": {}
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 6,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 16,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 12,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 8,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "DEPLOYED",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 2,
+        "order.O1.enteredTurn": 3,
+        "order.O1.firstActionTurn": 3,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E2.cap_q": 40,
+        "source.G.E2.unused_q": 32,
+        "source.G.E2.rearPaid_q": 4,
+        "source.G.E2.frontIssued_q": 4,
+        "maintenance.G1.E2.owner": "REAR",
+        "maintenance.G1.E2.due_q": 4,
+        "maintenance.G1.E2.paidCurrent_q": 4,
+        "maintenance.G1.E2.paidArrears_q": 0,
+        "maintenance.G0.E2.owner": "FRONT",
+        "maintenance.G0.E2.due_q": 4,
+        "maintenance.G0.E2.paidCurrent_q": 4,
+        "maintenance.G0.E2.paidArrears_q": 0,
+        "unit.G1.side": "G",
+        "unit.G1.stock_q": 0,
+        "unit.G1.D": 0,
+        "unit.G1.step": 0,
+        "unit.G1.maxStep": 3,
+        "unit.G1.weight": 4,
+        "unit.G1.B_q": 4,
+        "source.G.E3.cap_q": 40,
+        "source.G.E3.unused_q": 32,
+        "source.G.E3.rearPaid_q": 0,
+        "source.G.E3.frontIssued_q": 8,
+        "maintenance.G0.E3.owner": "FRONT",
+        "maintenance.G0.E3.due_q": 4,
+        "maintenance.G0.E3.paidCurrent_q": 4,
+        "maintenance.G0.E3.paidArrears_q": 0,
+        "maintenance.G1.E3.owner": "FRONT",
+        "maintenance.G1.E3.due_q": 4,
+        "maintenance.G1.E3.paidCurrent_q": 4,
+        "maintenance.G1.E3.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 8,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C04",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 6,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 12,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "unit.G2.side": "G",
+        "unit.G2.stock_q": 0,
+        "unit.G2.D": 0,
+        "unit.G2.step": 0,
+        "unit.G2.maxStep": 3,
+        "unit.G2.weight": 4,
+        "unit.G2.B_q": 4,
+        "unit.G3.side": "G",
+        "unit.G3.stock_q": 0,
+        "unit.G3.D": 0,
+        "unit.G3.step": 0,
+        "unit.G3.maxStep": 3,
+        "unit.G3.weight": 4,
+        "unit.G3.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 2,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3
+      },
+      "events": [
+        {
+          "id": "C04-01",
+          "kind": "open_epoch",
+          "at": [
+            5,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 32
+            },
+            "transportCaps_q": {
+              "G": 24
+            }
+          },
+          "expectedDelta": {
+            "source.G.E5.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 32
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E5.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E5.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 32
+            },
+            "transport.G.E5.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 24
+            },
+            "transport.G.E5.equipmentUsed_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            }
+          }
+        },
+        {
+          "id": "C04-02",
+          "kind": "rear",
+          "at": [
+            5,
+            110
+          ],
+          "input": {
+            "orderId": "O1"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O1.lastPaidEpoch": {
+              "before": 2,
+              "delta": 3,
+              "after": 5
+            },
+            "source.G.E5.rearPaid_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E5.unused_q": {
+              "before": 32,
+              "delta": -4,
+              "after": 28
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C04-03",
+          "kind": "dispatch",
+          "at": [
+            5,
+            114
+          ],
+          "input": {
+            "side": "G",
+            "batchId": "B4",
+            "quantityE2": 6,
+            "L": 1,
+            "loadPerE2_q": 2,
+            "givenDestinationSpaceE2": 6
+          },
+          "expectedDelta": {
+            "acct.G.E2.rear": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "acct.G.E2.transit": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "shipment.B4.L": {
+              "before": null,
+              "delta": null,
+              "after": 1
+            },
+            "shipment.B4.availableTurn": {
+              "before": null,
+              "delta": null,
+              "after": null
+            },
+            "shipment.B4.dispatchEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 5
+            },
+            "shipment.B4.dueEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 5
+            },
+            "shipment.B4.qtyE2": {
+              "before": null,
+              "delta": null,
+              "after": 6
+            },
+            "shipment.B4.receivedEpoch": {
+              "before": null,
+              "delta": null,
+              "after": null
+            },
+            "shipment.B4.side": {
+              "before": null,
+              "delta": null,
+              "after": "G"
+            },
+            "shipment.B4.status": {
+              "before": null,
+              "delta": null,
+              "after": "IN_TRANSIT"
+            },
+            "transport.G.E5.equipmentUsed_q": {
+              "before": 0,
+              "delta": 12,
+              "after": 12
+            }
+          }
+        },
+        {
+          "id": "C04-04",
+          "kind": "arrival",
+          "at": [
+            5,
+            115
+          ],
+          "input": {
+            "batchId": "B4",
+            "unloadingLegalGiven": true
+          },
+          "expectedDelta": {
+            "acct.G.E2.deliveredLocked": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.E2.transit": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "shipment.B4.availableTurn": {
+              "before": null,
+              "delta": null,
+              "after": 6
+            },
+            "shipment.B4.receivedEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 5
+            },
+            "shipment.B4.status": {
+              "before": "IN_TRANSIT",
+              "delta": null,
+              "after": "RECEIVED"
+            }
+          }
+        },
+        {
+          "id": "C04-05",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E5.unused_q": {
+              "before": 28,
+              "delta": -4,
+              "after": 24
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C04-06",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G2",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G2.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G2.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G2.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G2.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "source.G.E5.unused_q": {
+              "before": 24,
+              "delta": -4,
+              "after": 20
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "tally.G.issued_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            }
+          }
+        },
+        {
+          "id": "C04-07",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G3",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G3.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G3.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G3.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G3.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "source.G.E5.unused_q": {
+              "before": 20,
+              "delta": -4,
+              "after": 16
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "tally.G.issued_q": {
+              "before": 12,
+              "delta": 4,
+              "after": 16
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 6,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 16,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 12,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 12,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "unit.G2.side": "G",
+        "unit.G2.stock_q": 0,
+        "unit.G2.D": 0,
+        "unit.G2.step": 0,
+        "unit.G2.maxStep": 3,
+        "unit.G2.weight": 4,
+        "unit.G2.B_q": 4,
+        "unit.G3.side": "G",
+        "unit.G3.stock_q": 0,
+        "unit.G3.D": 0,
+        "unit.G3.step": 0,
+        "unit.G3.maxStep": 3,
+        "unit.G3.weight": 4,
+        "unit.G3.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 5,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E5.cap_q": 32,
+        "source.G.E5.unused_q": 16,
+        "source.G.E5.rearPaid_q": 4,
+        "source.G.E5.frontIssued_q": 12,
+        "transport.G.E5.cap_q": 24,
+        "transport.G.E5.equipmentUsed_q": 12,
+        "transport.G.E5.frontUsed_q": 12,
+        "maintenance.G1.E5.owner": "REAR",
+        "maintenance.G1.E5.due_q": 4,
+        "maintenance.G1.E5.paidCurrent_q": 4,
+        "maintenance.G1.E5.paidArrears_q": 0,
+        "shipment.B4.side": "G",
+        "shipment.B4.qtyE2": 6,
+        "shipment.B4.dispatchEpoch": 5,
+        "shipment.B4.L": 1,
+        "shipment.B4.dueEpoch": 5,
+        "shipment.B4.status": "RECEIVED",
+        "shipment.B4.receivedEpoch": 5,
+        "shipment.B4.availableTurn": 6,
+        "maintenance.G0.E5.owner": "FRONT",
+        "maintenance.G0.E5.due_q": 4,
+        "maintenance.G0.E5.paidCurrent_q": 4,
+        "maintenance.G0.E5.paidArrears_q": 0,
+        "maintenance.G2.E5.owner": "FRONT",
+        "maintenance.G2.E5.due_q": 4,
+        "maintenance.G2.E5.paidCurrent_q": 4,
+        "maintenance.G2.E5.paidArrears_q": 0,
+        "maintenance.G3.E5.owner": "FRONT",
+        "maintenance.G3.E5.due_q": 4,
+        "maintenance.G3.E5.paidCurrent_q": 4,
+        "maintenance.G3.E5.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 12,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C04-without-freight",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 6,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 12,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "unit.G2.side": "G",
+        "unit.G2.stock_q": 0,
+        "unit.G2.D": 0,
+        "unit.G2.step": 0,
+        "unit.G2.maxStep": 3,
+        "unit.G2.weight": 4,
+        "unit.G2.B_q": 4,
+        "unit.G3.side": "G",
+        "unit.G3.stock_q": 0,
+        "unit.G3.D": 0,
+        "unit.G3.step": 0,
+        "unit.G3.maxStep": 3,
+        "unit.G3.weight": 4,
+        "unit.G3.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 2,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3
+      },
+      "events": [
+        {
+          "id": "C04-without-freight-01",
+          "kind": "open_epoch",
+          "at": [
+            5,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 32
+            },
+            "transportCaps_q": {
+              "G": 24
+            }
+          },
+          "expectedDelta": {
+            "source.G.E5.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 32
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E5.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E5.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 32
+            },
+            "transport.G.E5.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 24
+            },
+            "transport.G.E5.equipmentUsed_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            }
+          }
+        },
+        {
+          "id": "C04-without-freight-02",
+          "kind": "rear",
+          "at": [
+            5,
+            110
+          ],
+          "input": {
+            "orderId": "O1"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O1.lastPaidEpoch": {
+              "before": 2,
+              "delta": 3,
+              "after": 5
+            },
+            "source.G.E5.rearPaid_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E5.unused_q": {
+              "before": 32,
+              "delta": -4,
+              "after": 28
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C04-without-freight-03",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 8
+          },
+          "expectedDelta": {
+            "maintenance.G0.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": 0,
+              "delta": 8,
+              "after": 8
+            },
+            "source.G.E5.unused_q": {
+              "before": 28,
+              "delta": -8,
+              "after": 20
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 4,
+              "delta": 8,
+              "after": 12
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": 0,
+              "delta": 8,
+              "after": 8
+            },
+            "unit.G0.stock_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C04-without-freight-04",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G2",
+            "received_q": 8
+          },
+          "expectedDelta": {
+            "maintenance.G2.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G2.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G2.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G2.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": 8,
+              "delta": 8,
+              "after": 16
+            },
+            "source.G.E5.unused_q": {
+              "before": 20,
+              "delta": -8,
+              "after": 12
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            },
+            "tally.G.issued_q": {
+              "before": 12,
+              "delta": 8,
+              "after": 20
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": 8,
+              "delta": 8,
+              "after": 16
+            },
+            "unit.G2.stock_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C04-without-freight-05",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G3",
+            "received_q": 8
+          },
+          "expectedDelta": {
+            "maintenance.G3.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G3.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G3.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G3.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": 16,
+              "delta": 8,
+              "after": 24
+            },
+            "source.G.E5.unused_q": {
+              "before": 12,
+              "delta": -8,
+              "after": 4
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 8,
+              "delta": 4,
+              "after": 12
+            },
+            "tally.G.issued_q": {
+              "before": 20,
+              "delta": 8,
+              "after": 28
+            },
+            "transport.G.E5.frontUsed_q": {
+              "before": 16,
+              "delta": 8,
+              "after": 24
+            },
+            "unit.G3.stock_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 6,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 28,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 12,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 12,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 4,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "unit.G2.side": "G",
+        "unit.G2.stock_q": 4,
+        "unit.G2.D": 0,
+        "unit.G2.step": 0,
+        "unit.G2.maxStep": 3,
+        "unit.G2.weight": 4,
+        "unit.G2.B_q": 4,
+        "unit.G3.side": "G",
+        "unit.G3.stock_q": 4,
+        "unit.G3.D": 0,
+        "unit.G3.step": 0,
+        "unit.G3.maxStep": 3,
+        "unit.G3.weight": 4,
+        "unit.G3.B_q": 4,
+        "order.O1.side": "G",
+        "order.O1.plannedId": "G1",
+        "order.O1.status": "WAITING_ENTRY",
+        "order.O1.B_q": 4,
+        "order.O1.recipeP": 3,
+        "order.O1.recipeE2": 6,
+        "order.O1.workNeeded": 1,
+        "order.O1.workDone": 1,
+        "order.O1.arrears_q": 0,
+        "order.O1.acceptedTurn": 2,
+        "order.O1.completedEpoch": 2,
+        "order.O1.eligibleTurn": 3,
+        "order.O1.lastPaidEpoch": 5,
+        "order.O1.enteredTurn": null,
+        "order.O1.firstActionTurn": null,
+        "order.O1.weight": 4,
+        "order.O1.maxStep": 3,
+        "source.G.E5.cap_q": 32,
+        "source.G.E5.unused_q": 4,
+        "source.G.E5.rearPaid_q": 4,
+        "source.G.E5.frontIssued_q": 24,
+        "transport.G.E5.cap_q": 24,
+        "transport.G.E5.equipmentUsed_q": 0,
+        "transport.G.E5.frontUsed_q": 24,
+        "maintenance.G1.E5.owner": "REAR",
+        "maintenance.G1.E5.due_q": 4,
+        "maintenance.G1.E5.paidCurrent_q": 4,
+        "maintenance.G1.E5.paidArrears_q": 0,
+        "maintenance.G0.E5.owner": "FRONT",
+        "maintenance.G0.E5.due_q": 4,
+        "maintenance.G0.E5.paidCurrent_q": 4,
+        "maintenance.G0.E5.paidArrears_q": 0,
+        "maintenance.G2.E5.owner": "FRONT",
+        "maintenance.G2.E5.due_q": 4,
+        "maintenance.G2.E5.paidCurrent_q": 4,
+        "maintenance.G2.E5.paidArrears_q": 0,
+        "maintenance.G3.E5.owner": "FRONT",
+        "maintenance.G3.E5.due_q": 4,
+        "maintenance.G3.E5.paidCurrent_q": 4,
+        "maintenance.G3.E5.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 12,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C05",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 1,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 2,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 1,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4
+      },
+      "events": [
+        {
+          "id": "C05-01",
+          "kind": "repair",
+          "at": [
+            24,
+            40
+          ],
+          "input": {
+            "unitId": "G0",
+            "legalGiven": true,
+            "costP": 1,
+            "costE2": 2
+          },
+          "expectedDelta": {
+            "acct.G.E2.available": {
+              "before": 2,
+              "delta": -2,
+              "after": 0
+            },
+            "acct.G.E2.repairConsumed": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "acct.G.P.available": {
+              "before": 1,
+              "delta": -1,
+              "after": 0
+            },
+            "acct.G.P.repairConsumed": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            },
+            "unit.G0.step": {
+              "before": 1,
+              "delta": -1,
+              "after": 0
+            }
+          }
+        },
+        {
+          "id": "C05-02",
+          "kind": "open_epoch",
+          "at": [
+            24,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 4
+            }
+          },
+          "expectedDelta": {
+            "source.G.E24.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C05-03",
+          "kind": "front",
+          "at": [
+            24,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E24.unused_q": {
+              "before": 4,
+              "delta": -4,
+              "after": 0
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 1,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 2,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 4,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "source.G.E24.cap_q": 4,
+        "source.G.E24.unused_q": 0,
+        "source.G.E24.rearPaid_q": 0,
+        "source.G.E24.frontIssued_q": 4,
+        "maintenance.G0.E24.owner": "FRONT",
+        "maintenance.G0.E24.due_q": 4,
+        "maintenance.G0.E24.paidCurrent_q": 4,
+        "maintenance.G0.E24.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C06",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 6,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "shipment.B6.side": "G",
+        "shipment.B6.qtyE2": 6,
+        "shipment.B6.dispatchEpoch": 22,
+        "shipment.B6.L": 3,
+        "shipment.B6.dueEpoch": 24,
+        "shipment.B6.status": "IN_TRANSIT",
+        "shipment.B6.receivedEpoch": null,
+        "shipment.B6.availableTurn": null,
+        "provenance.B6.transport": "GIVEN_PRIOR_E22_CHARGE_AMOUNT_UNKNOWN"
+      },
+      "events": [
+        {
+          "id": "C06-01",
+          "kind": "attempt_future_use",
+          "at": [
+            24,
+            40
+          ],
+          "input": {
+            "batchId": "B6",
+            "neededE2": 6
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C06-02",
+          "kind": "open_epoch",
+          "at": [
+            24,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 4
+            }
+          },
+          "expectedDelta": {
+            "source.G.E24.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C06-03",
+          "kind": "arrival",
+          "at": [
+            24,
+            113
+          ],
+          "input": {
+            "batchId": "B6",
+            "unloadingLegalGiven": true
+          },
+          "expectedDelta": {
+            "acct.G.E2.deliveredLocked": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.E2.transit": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "shipment.B6.availableTurn": {
+              "before": null,
+              "delta": null,
+              "after": 25
+            },
+            "shipment.B6.receivedEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 24
+            },
+            "shipment.B6.status": {
+              "before": "IN_TRANSIT",
+              "delta": null,
+              "after": "RECEIVED"
+            }
+          }
+        },
+        {
+          "id": "C06-04",
+          "kind": "front",
+          "at": [
+            24,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E24.unused_q": {
+              "before": 4,
+              "delta": -4,
+              "after": 0
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 6,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 4,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "shipment.B6.side": "G",
+        "shipment.B6.qtyE2": 6,
+        "shipment.B6.dispatchEpoch": 22,
+        "shipment.B6.L": 3,
+        "shipment.B6.dueEpoch": 24,
+        "shipment.B6.status": "RECEIVED",
+        "shipment.B6.receivedEpoch": 24,
+        "shipment.B6.availableTurn": 25,
+        "source.G.E24.cap_q": 4,
+        "source.G.E24.unused_q": 0,
+        "source.G.E24.rearPaid_q": 0,
+        "source.G.E24.frontIssued_q": 4,
+        "maintenance.G0.E24.owner": "FRONT",
+        "maintenance.G0.E24.due_q": 4,
+        "maintenance.G0.E24.paidCurrent_q": 4,
+        "maintenance.G0.E24.paidArrears_q": 0,
+        "provenance.B6.transport": "GIVEN_PRIOR_E22_CHARGE_AMOUNT_UNKNOWN"
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C06-unloading-blocked",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 6,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "shipment.B6.side": "G",
+        "shipment.B6.qtyE2": 6,
+        "shipment.B6.dispatchEpoch": 22,
+        "shipment.B6.L": 3,
+        "shipment.B6.dueEpoch": 24,
+        "shipment.B6.status": "IN_TRANSIT",
+        "shipment.B6.receivedEpoch": null,
+        "shipment.B6.availableTurn": null,
+        "provenance.B6.transport": "GIVEN_PRIOR_E22_CHARGE_AMOUNT_UNKNOWN"
+      },
+      "events": [
+        {
+          "id": "C06-unloading-blocked-01",
+          "kind": "attempt_future_use",
+          "at": [
+            24,
+            40
+          ],
+          "input": {
+            "batchId": "B6",
+            "neededE2": 6
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C06-unloading-blocked-02",
+          "kind": "open_epoch",
+          "at": [
+            24,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 4
+            }
+          },
+          "expectedDelta": {
+            "source.G.E24.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C06-unloading-blocked-03",
+          "kind": "arrival",
+          "at": [
+            24,
+            113
+          ],
+          "input": {
+            "batchId": "B6",
+            "unloadingLegalGiven": false
+          },
+          "expectedDelta": {
+            "shipment.B6.status": {
+              "before": "IN_TRANSIT",
+              "delta": null,
+              "after": "HELD"
+            }
+          }
+        },
+        {
+          "id": "C06-unloading-blocked-04",
+          "kind": "front",
+          "at": [
+            24,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E24.unused_q": {
+              "before": 4,
+              "delta": -4,
+              "after": 0
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 6,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 4,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "shipment.B6.side": "G",
+        "shipment.B6.qtyE2": 6,
+        "shipment.B6.dispatchEpoch": 22,
+        "shipment.B6.L": 3,
+        "shipment.B6.dueEpoch": 24,
+        "shipment.B6.status": "HELD",
+        "shipment.B6.receivedEpoch": null,
+        "shipment.B6.availableTurn": null,
+        "source.G.E24.cap_q": 4,
+        "source.G.E24.unused_q": 0,
+        "source.G.E24.rearPaid_q": 0,
+        "source.G.E24.frontIssued_q": 4,
+        "maintenance.G0.E24.owner": "FRONT",
+        "maintenance.G0.E24.due_q": 4,
+        "maintenance.G0.E24.paidCurrent_q": 4,
+        "maintenance.G0.E24.paidArrears_q": 0,
+        "provenance.B6.transport": "GIVEN_PRIOR_E22_CHARGE_AMOUNT_UNKNOWN"
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C07",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 3,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 6,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O2.side": "G",
+        "order.O2.plannedId": "G1",
+        "order.O2.status": "DRAFT",
+        "order.O2.B_q": 4,
+        "order.O2.recipeP": 3,
+        "order.O2.recipeE2": 6,
+        "order.O2.workNeeded": 1,
+        "order.O2.workDone": 0,
+        "order.O2.arrears_q": 0,
+        "order.O2.acceptedTurn": null,
+        "order.O2.completedEpoch": null,
+        "order.O2.eligibleTurn": null,
+        "order.O2.lastPaidEpoch": null,
+        "order.O2.enteredTurn": null,
+        "order.O2.firstActionTurn": null,
+        "order.O2.weight": 4,
+        "order.O2.maxStep": 3
+      },
+      "events": [
+        {
+          "id": "C07-01",
+          "kind": "accept",
+          "at": [
+            24,
+            40
+          ],
+          "input": {
+            "orderId": "O2",
+            "legalGiven": true
+          },
+          "expectedDelta": {
+            "acct.G.E2.available": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "acct.G.E2.escrow": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.P.available": {
+              "before": 3,
+              "delta": -3,
+              "after": 0
+            },
+            "acct.G.P.escrow": {
+              "before": 0,
+              "delta": 3,
+              "after": 3
+            },
+            "order.O2.acceptedTurn": {
+              "before": null,
+              "delta": null,
+              "after": 24
+            },
+            "order.O2.status": {
+              "before": "DRAFT",
+              "delta": null,
+              "after": "ASSEMBLING"
+            }
+          }
+        },
+        {
+          "id": "C07-02",
+          "kind": "open_epoch",
+          "at": [
+            24,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 8
+            }
+          },
+          "expectedDelta": {
+            "source.G.E24.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 8
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 8
+            }
+          }
+        },
+        {
+          "id": "C07-03",
+          "kind": "rear",
+          "at": [
+            24,
+            110
+          ],
+          "input": {
+            "orderId": "O2"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O2.lastPaidEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 24
+            },
+            "source.G.E24.rearPaid_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E24.unused_q": {
+              "before": 8,
+              "delta": -4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C07-04",
+          "kind": "advance",
+          "at": [
+            24,
+            111
+          ],
+          "input": {
+            "orderId": "O2"
+          },
+          "expectedDelta": {
+            "acct.G.E2.embodied": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.E2.escrow": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "acct.G.P.embodied": {
+              "before": 0,
+              "delta": 3,
+              "after": 3
+            },
+            "acct.G.P.escrow": {
+              "before": 3,
+              "delta": -3,
+              "after": 0
+            },
+            "order.O2.completedEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 24
+            },
+            "order.O2.eligibleTurn": {
+              "before": null,
+              "delta": null,
+              "after": 25
+            },
+            "order.O2.status": {
+              "before": "ASSEMBLING",
+              "delta": null,
+              "after": "WAITING_ENTRY"
+            },
+            "order.O2.workDone": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            }
+          }
+        },
+        {
+          "id": "C07-05",
+          "kind": "front",
+          "at": [
+            24,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E24.unused_q": {
+              "before": 4,
+              "delta": -4,
+              "after": 0
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 4,
+              "delta": 4,
+              "after": 8
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 8,
+        "tally.G.rearConsumed_q": 4,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O2.side": "G",
+        "order.O2.plannedId": "G1",
+        "order.O2.status": "WAITING_ENTRY",
+        "order.O2.B_q": 4,
+        "order.O2.recipeP": 3,
+        "order.O2.recipeE2": 6,
+        "order.O2.workNeeded": 1,
+        "order.O2.workDone": 1,
+        "order.O2.arrears_q": 0,
+        "order.O2.acceptedTurn": 24,
+        "order.O2.completedEpoch": 24,
+        "order.O2.eligibleTurn": 25,
+        "order.O2.lastPaidEpoch": 24,
+        "order.O2.enteredTurn": null,
+        "order.O2.firstActionTurn": null,
+        "order.O2.weight": 4,
+        "order.O2.maxStep": 3,
+        "source.G.E24.cap_q": 8,
+        "source.G.E24.unused_q": 0,
+        "source.G.E24.rearPaid_q": 4,
+        "source.G.E24.frontIssued_q": 4,
+        "maintenance.G1.E24.owner": "REAR",
+        "maintenance.G1.E24.due_q": 4,
+        "maintenance.G1.E24.paidCurrent_q": 4,
+        "maintenance.G1.E24.paidArrears_q": 0,
+        "maintenance.G0.E24.owner": "FRONT",
+        "maintenance.G0.E24.due_q": 4,
+        "maintenance.G0.E24.paidCurrent_q": 4,
+        "maintenance.G0.E24.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C08",
+      "scope": "Conditional closed resource ledger; not Core gameplay",
+      "before": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 3,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 6,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O3.side": "G",
+        "order.O3.plannedId": "G1",
+        "order.O3.status": "ASSEMBLING",
+        "order.O3.B_q": 4,
+        "order.O3.recipeP": 3,
+        "order.O3.recipeE2": 6,
+        "order.O3.workNeeded": 1,
+        "order.O3.workDone": 0,
+        "order.O3.arrears_q": 0,
+        "order.O3.acceptedTurn": 5,
+        "order.O3.completedEpoch": null,
+        "order.O3.eligibleTurn": null,
+        "order.O3.lastPaidEpoch": null,
+        "order.O3.enteredTurn": null,
+        "order.O3.firstActionTurn": null,
+        "order.O3.weight": 4,
+        "order.O3.maxStep": 3
+      },
+      "events": [
+        {
+          "id": "C08-01",
+          "kind": "open_epoch",
+          "at": [
+            5,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 2
+            }
+          },
+          "expectedDelta": {
+            "source.G.E5.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "source.G.E5.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E5.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E5.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            }
+          }
+        },
+        {
+          "id": "C08-02",
+          "kind": "rear",
+          "at": [
+            5,
+            110
+          ],
+          "input": {
+            "orderId": "O3"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G1.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "order.O3.arrears_q": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "source.G.E5.rearPaid_q": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "source.G.E5.unused_q": {
+              "before": 2,
+              "delta": -2,
+              "after": 0
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            }
+          }
+        },
+        {
+          "id": "C08-03",
+          "kind": "advance",
+          "at": [
+            5,
+            111
+          ],
+          "input": {
+            "orderId": "O3"
+          },
+          "expectedDelta": {}
+        },
+        {
+          "id": "C08-04",
+          "kind": "front",
+          "at": [
+            5,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 0
+          },
+          "expectedDelta": {
+            "maintenance.G0.E5.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E5.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E5.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E5.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "unit.G0.D": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            }
+          }
+        },
+        {
+          "id": "C08-05",
+          "kind": "open_epoch",
+          "at": [
+            6,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 8
+            }
+          },
+          "expectedDelta": {
+            "source.G.E6.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 8
+            },
+            "source.G.E6.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E6.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E6.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 8
+            }
+          }
+        },
+        {
+          "id": "C08-06",
+          "kind": "rear",
+          "at": [
+            6,
+            110
+          ],
+          "input": {
+            "orderId": "O3"
+          },
+          "expectedDelta": {
+            "maintenance.G1.E6.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G1.E6.owner": {
+              "before": null,
+              "delta": null,
+              "after": "REAR"
+            },
+            "maintenance.G1.E6.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "maintenance.G1.E6.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "order.O3.arrears_q": {
+              "before": 2,
+              "delta": -2,
+              "after": 0
+            },
+            "order.O3.lastPaidEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 6
+            },
+            "source.G.E6.rearPaid_q": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "source.G.E6.unused_q": {
+              "before": 8,
+              "delta": -6,
+              "after": 2
+            },
+            "tally.G.issued_q": {
+              "before": 2,
+              "delta": 6,
+              "after": 8
+            },
+            "tally.G.rearConsumed_q": {
+              "before": 2,
+              "delta": 6,
+              "after": 8
+            }
+          }
+        },
+        {
+          "id": "C08-07",
+          "kind": "advance",
+          "at": [
+            6,
+            111
+          ],
+          "input": {
+            "orderId": "O3"
+          },
+          "expectedDelta": {
+            "acct.G.E2.embodied": {
+              "before": 0,
+              "delta": 6,
+              "after": 6
+            },
+            "acct.G.E2.escrow": {
+              "before": 6,
+              "delta": -6,
+              "after": 0
+            },
+            "acct.G.P.embodied": {
+              "before": 0,
+              "delta": 3,
+              "after": 3
+            },
+            "acct.G.P.escrow": {
+              "before": 3,
+              "delta": -3,
+              "after": 0
+            },
+            "order.O3.completedEpoch": {
+              "before": null,
+              "delta": null,
+              "after": 6
+            },
+            "order.O3.eligibleTurn": {
+              "before": null,
+              "delta": null,
+              "after": 7
+            },
+            "order.O3.status": {
+              "before": "ASSEMBLING",
+              "delta": null,
+              "after": "WAITING_ENTRY"
+            },
+            "order.O3.workDone": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            }
+          }
+        },
+        {
+          "id": "C08-08",
+          "kind": "front",
+          "at": [
+            6,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 2
+          },
+          "expectedDelta": {
+            "maintenance.G0.E6.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E6.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E6.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E6.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 2
+            },
+            "source.G.E6.frontIssued_q": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "source.G.E6.unused_q": {
+              "before": 2,
+              "delta": -2,
+              "after": 0
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "tally.G.issued_q": {
+              "before": 8,
+              "delta": 2,
+              "after": 10
+            },
+            "unit.G0.D": {
+              "before": 1,
+              "delta": "1/2",
+              "after": "3/2"
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 3,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 6,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 10,
+        "tally.G.rearConsumed_q": 8,
+        "tally.G.frontConsumed_q": 2,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 0,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": "3/2",
+        "unit.G0.step": 0,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "order.O3.side": "G",
+        "order.O3.plannedId": "G1",
+        "order.O3.status": "WAITING_ENTRY",
+        "order.O3.B_q": 4,
+        "order.O3.recipeP": 3,
+        "order.O3.recipeE2": 6,
+        "order.O3.workNeeded": 1,
+        "order.O3.workDone": 1,
+        "order.O3.arrears_q": 0,
+        "order.O3.acceptedTurn": 5,
+        "order.O3.completedEpoch": 6,
+        "order.O3.eligibleTurn": 7,
+        "order.O3.lastPaidEpoch": 6,
+        "order.O3.enteredTurn": null,
+        "order.O3.firstActionTurn": null,
+        "order.O3.weight": 4,
+        "order.O3.maxStep": 3,
+        "source.G.E5.cap_q": 2,
+        "source.G.E5.unused_q": 0,
+        "source.G.E5.rearPaid_q": 2,
+        "source.G.E5.frontIssued_q": 0,
+        "maintenance.G1.E5.owner": "REAR",
+        "maintenance.G1.E5.due_q": 4,
+        "maintenance.G1.E5.paidCurrent_q": 2,
+        "maintenance.G1.E5.paidArrears_q": 0,
+        "maintenance.G0.E5.owner": "FRONT",
+        "maintenance.G0.E5.due_q": 4,
+        "maintenance.G0.E5.paidCurrent_q": 0,
+        "maintenance.G0.E5.paidArrears_q": 0,
+        "source.G.E6.cap_q": 8,
+        "source.G.E6.unused_q": 0,
+        "source.G.E6.rearPaid_q": 6,
+        "source.G.E6.frontIssued_q": 2,
+        "maintenance.G1.E6.owner": "REAR",
+        "maintenance.G1.E6.due_q": 4,
+        "maintenance.G1.E6.paidCurrent_q": 4,
+        "maintenance.G1.E6.paidArrears_q": 2,
+        "maintenance.G0.E6.owner": "FRONT",
+        "maintenance.G0.E6.due_q": 4,
+        "maintenance.G0.E6.paidCurrent_q": 2,
+        "maintenance.G0.E6.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        },
+        "S": {
+          "R": 0,
+          "L": 0,
+          "F": null
+        }
+      }
+    },
+    {
+      "id": "C09",
+      "scope": "Tracked units only: enemy attack receipt is conditional; no full-army source/attack/F claim",
+      "before": {
+        "acct.G.P.available": 1,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 0,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 2,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 0,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 1,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 0,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 2,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 0,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 0,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 0,
+        "tally.S.issued_q": 0,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 0,
+        "R.G": 4,
+        "R.S": 4,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 1,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "unit.S0.side": "S",
+        "unit.S0.stock_q": 0,
+        "unit.S0.D": 0,
+        "unit.S0.step": 1,
+        "unit.S0.maxStep": 3,
+        "unit.S0.weight": 4,
+        "unit.S0.B_q": 4
+      },
+      "events": [
+        {
+          "id": "C09-01",
+          "kind": "repair",
+          "at": [
+            24,
+            40
+          ],
+          "input": {
+            "unitId": "G0",
+            "legalGiven": true,
+            "costP": 1,
+            "costE2": 2
+          },
+          "expectedDelta": {
+            "acct.G.E2.available": {
+              "before": 2,
+              "delta": -2,
+              "after": 0
+            },
+            "acct.G.E2.repairConsumed": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "acct.G.P.available": {
+              "before": 1,
+              "delta": -1,
+              "after": 0
+            },
+            "acct.G.P.repairConsumed": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            },
+            "unit.G0.step": {
+              "before": 1,
+              "delta": -1,
+              "after": 0
+            }
+          }
+        },
+        {
+          "id": "C09-02",
+          "kind": "given_damage",
+          "at": [
+            24,
+            70
+          ],
+          "input": {
+            "unitId": "G0",
+            "steps": 1,
+            "externalConditionalReceipt": true
+          },
+          "expectedDelta": {
+            "unit.G0.step": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            }
+          }
+        },
+        {
+          "id": "C09-03",
+          "kind": "repair",
+          "at": [
+            24,
+            80
+          ],
+          "input": {
+            "unitId": "S0",
+            "legalGiven": true,
+            "costP": 1,
+            "costE2": 2
+          },
+          "expectedDelta": {
+            "acct.S.E2.available": {
+              "before": 2,
+              "delta": -2,
+              "after": 0
+            },
+            "acct.S.E2.repairConsumed": {
+              "before": 0,
+              "delta": 2,
+              "after": 2
+            },
+            "acct.S.P.available": {
+              "before": 1,
+              "delta": -1,
+              "after": 0
+            },
+            "acct.S.P.repairConsumed": {
+              "before": 0,
+              "delta": 1,
+              "after": 1
+            },
+            "unit.S0.step": {
+              "before": 1,
+              "delta": -1,
+              "after": 0
+            }
+          }
+        },
+        {
+          "id": "C09-04",
+          "kind": "open_epoch",
+          "at": [
+            24,
+            100
+          ],
+          "input": {
+            "caps_q": {
+              "G": 4,
+              "S": 4
+            }
+          },
+          "expectedDelta": {
+            "source.G.E24.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.G.E24.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.S.E24.cap_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.S.E24.frontIssued_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.S.E24.rearPaid_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "source.S.E24.unused_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C09-05",
+          "kind": "front",
+          "at": [
+            24,
+            120
+          ],
+          "input": {
+            "unitId": "G0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.G0.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.G0.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.G0.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.G0.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.G.E24.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.G.E24.unused_q": {
+              "before": 4,
+              "delta": -4,
+              "after": 0
+            },
+            "tally.G.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.G.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        },
+        {
+          "id": "C09-06",
+          "kind": "front",
+          "at": [
+            24,
+            120
+          ],
+          "input": {
+            "unitId": "S0",
+            "received_q": 4
+          },
+          "expectedDelta": {
+            "maintenance.S0.E24.due_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "maintenance.S0.E24.owner": {
+              "before": null,
+              "delta": null,
+              "after": "FRONT"
+            },
+            "maintenance.S0.E24.paidArrears_q": {
+              "before": null,
+              "delta": null,
+              "after": 0
+            },
+            "maintenance.S0.E24.paidCurrent_q": {
+              "before": null,
+              "delta": null,
+              "after": 4
+            },
+            "source.S.E24.frontIssued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "source.S.E24.unused_q": {
+              "before": 4,
+              "delta": -4,
+              "after": 0
+            },
+            "tally.S.frontConsumed_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            },
+            "tally.S.issued_q": {
+              "before": 0,
+              "delta": 4,
+              "after": 4
+            }
+          }
+        }
+      ],
+      "expectedAfter": {
+        "acct.G.P.available": 0,
+        "acct.G.P.escrow": 0,
+        "acct.G.P.embodied": 0,
+        "acct.G.P.repairConsumed": 1,
+        "acct.G.P.rear": 0,
+        "acct.G.P.transit": 0,
+        "acct.G.P.deliveredLocked": 0,
+        "acct.G.E2.available": 0,
+        "acct.G.E2.escrow": 0,
+        "acct.G.E2.embodied": 0,
+        "acct.G.E2.repairConsumed": 2,
+        "acct.G.E2.rear": 0,
+        "acct.G.E2.transit": 0,
+        "acct.G.E2.deliveredLocked": 0,
+        "acct.S.P.available": 0,
+        "acct.S.P.escrow": 0,
+        "acct.S.P.embodied": 0,
+        "acct.S.P.repairConsumed": 1,
+        "acct.S.P.rear": 0,
+        "acct.S.P.transit": 0,
+        "acct.S.P.deliveredLocked": 0,
+        "acct.S.E2.available": 0,
+        "acct.S.E2.escrow": 0,
+        "acct.S.E2.embodied": 0,
+        "acct.S.E2.repairConsumed": 2,
+        "acct.S.E2.rear": 0,
+        "acct.S.E2.transit": 0,
+        "acct.S.E2.deliveredLocked": 0,
+        "tally.G.issued_q": 4,
+        "tally.G.rearConsumed_q": 0,
+        "tally.G.frontConsumed_q": 4,
+        "tally.S.issued_q": 4,
+        "tally.S.rearConsumed_q": 0,
+        "tally.S.frontConsumed_q": 4,
+        "R.G": 4,
+        "R.S": 4,
+        "unit.G0.side": "G",
+        "unit.G0.stock_q": 0,
+        "unit.G0.D": 0,
+        "unit.G0.step": 1,
+        "unit.G0.maxStep": 3,
+        "unit.G0.weight": 4,
+        "unit.G0.B_q": 4,
+        "unit.S0.side": "S",
+        "unit.S0.stock_q": 0,
+        "unit.S0.D": 0,
+        "unit.S0.step": 0,
+        "unit.S0.maxStep": 3,
+        "unit.S0.weight": 4,
+        "unit.S0.B_q": 4,
+        "source.G.E24.cap_q": 4,
+        "source.G.E24.unused_q": 0,
+        "source.G.E24.rearPaid_q": 0,
+        "source.G.E24.frontIssued_q": 4,
+        "source.S.E24.cap_q": 4,
+        "source.S.E24.unused_q": 0,
+        "source.S.E24.rearPaid_q": 0,
+        "source.S.E24.frontIssued_q": 4,
+        "maintenance.G0.E24.owner": "FRONT",
+        "maintenance.G0.E24.due_q": 4,
+        "maintenance.G0.E24.paidCurrent_q": 4,
+        "maintenance.G0.E24.paidArrears_q": 0,
+        "maintenance.S0.E24.owner": "FRONT",
+        "maintenance.S0.E24.due_q": 4,
+        "maintenance.S0.E24.paidCurrent_q": 4,
+        "maintenance.S0.E24.paidArrears_q": 0
+      },
+      "expectedMetrics": {
+        "G": {
+          "R": 4,
+          "L": "4/3",
+          "F": "40/3"
+        },
+        "S": {
+          "R": 4,
+          "L": 0,
+          "F": 0
+        }
+      }
+    }
+  ]
+}
