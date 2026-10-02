@@ -1,0 +1,327 @@
+{
+  "reviewStatus": "VALID_CANDIDATE_ONLY",
+  "runtimeDecision": "REJECT",
+  "staticCapacity": [
+    {
+      "id": "rail:A10~B10",
+      "cap": 40,
+      "SP": 32,
+      "candidateCargo": 8,
+      "remainingAfterProposedCargo": 0
+    },
+    {
+      "id": "rail:B10~C10",
+      "cap": 40,
+      "SP": 32,
+      "candidateCargo": 8,
+      "remainingAfterProposedCargo": 0
+    },
+    {
+      "id": "T",
+      "cap": 2200,
+      "SP": 108,
+      "candidateCargo": 16,
+      "remainingAfterProposedCargo": 2076
+    },
+    {
+      "id": "W:GH2",
+      "cap": 96,
+      "SP": 96,
+      "candidateCargo": 8,
+      "remainingAfterProposedCargo": -8
+    }
+  ],
+  "railWork": 64,
+  "localRailWork": 44,
+  "GH2": {
+    "openingStock": 0,
+    "unloaded": 32,
+    "outgoingQ": 26,
+    "endingStock": 6,
+    "stockCap": 32,
+    "lastMileWork": 96
+  },
+  "009ProofRecomputed": {
+    "requiredUnits": [
+      {
+        "unit": "G-ART-01",
+        "net": 3,
+        "GH2MinimumCost": 6
+      },
+      {
+        "unit": "G-I-08",
+        "net": 3,
+        "GH2MinimumCost": 4
+      },
+      {
+        "unit": "G-I-09",
+        "net": 3,
+        "GH2MinimumCost": 4
+      },
+      {
+        "unit": "G-I-10",
+        "net": 3,
+        "GH2MinimumCost": null
+      },
+      {
+        "unit": "G-I-11",
+        "net": 3,
+        "GH2MinimumCost": null
+      },
+      {
+        "unit": "G-J-01",
+        "net": 3,
+        "GH2MinimumCost": 4
+      },
+      {
+        "unit": "G-J-02",
+        "net": 3,
+        "GH2MinimumCost": 4
+      },
+      {
+        "unit": "G-MOT-01",
+        "net": 5,
+        "GH2MinimumCost": 5
+      },
+      {
+        "unit": "G-MOT-02",
+        "net": 5,
+        "GH2MinimumCost": 5
+      },
+      {
+        "unit": "G-MOT-03",
+        "net": 5,
+        "GH2MinimumCost": null
+      },
+      {
+        "unit": "G-PZ-02",
+        "net": 5,
+        "GH2MinimumCost": null
+      },
+      {
+        "unit": "G-PZ-03",
+        "net": 6,
+        "GH2MinimumCost": 3
+      },
+      {
+        "unit": "G-PZ-04",
+        "net": 5,
+        "GH2MinimumCost": 3
+      },
+      {
+        "unit": "G-REC-01",
+        "net": 3,
+        "GH2MinimumCost": 6
+      },
+      {
+        "unit": "G-REC-02",
+        "net": 3,
+        "GH2MinimumCost": 6
+      }
+    ],
+    "requiredNet": 58,
+    "GH1Maximum": 32.0,
+    "GH2MinimumDelivery": 26.0,
+    "discountUpperBound": 34,
+    "GH2WorkLowerBound": 96.0,
+    "GH2SPCapWithCargo": 88.0,
+    "contradiction": 8.0
+  },
+  "sameConstraintsAs005": true,
+  "actualNewTransportExecuted": false,
+  "unchangedE5Verdict": "ZERO_CARGO; preserved-maintenance model also infeasible for +8W",
+  "counterfactualRemove8W": {
+    "selectedRowsArithmeticFits": true,
+    "rows": [
+      {
+        "id": "rail:A10~B10",
+        "remaining": 0
+      },
+      {
+        "id": "rail:B10~C10",
+        "remaining": 0
+      },
+      {
+        "id": "T",
+        "remaining": 2076
+      },
+      {
+        "id": "W:GH2",
+        "remaining": 0
+      }
+    ],
+    "WExtra": 0,
+    "newHDefined": false,
+    "permission": "REJECT_UNDEFINED_TERMINAL_SERVICE; arithmetic is not transport success"
+  },
+  "originalGlobalBlockers": [
+    "RUNTIME_NOT_APPROVED",
+    "MISSING_RUNTIME_DECISION",
+    "MISSING_SERVICE_GRANT:DEP-G-A10",
+    "MISSING_SERVICE_GRANT:DEP-S-AF10",
+    "MISSING_SERVICE_GRANT:REC-G-C10",
+    "MISSING_SERVICE_GRANT:REC-S-AC10",
+    "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+    "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+    "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+    "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+    "UNRESOLVED:authorization.approvedNullControlPolicy",
+    "UNRESOLVED:authorization.nullControlApprovalRef",
+    "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+    "UNRESOLVED:recovery.recipeApprovalRef",
+    "UNRESOLVED:recovery.integrationHookApprovalRef",
+    "UNRESOLVED:budget.policyApprovalRef",
+    "UNRESOLVED:transport.approvedEquipmentVectorRule",
+    "UNRESOLVED:transport.approvedPersonnelTransportRule",
+    "UNRESOLVED:transport.vectorRuleApprovalRef",
+    "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+    "UNRESOLVED:transport.initialMaterialManifest"
+  ],
+  "closed": 0,
+  "baselineGapsSP": {
+    "G": 9,
+    "S": 14
+  },
+  "checks": [
+    {
+      "name": "conditional prepaid pickup, no debit executed",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "conditionalOnly": true,
+        "executable": false,
+        "newW": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "name": "no receipt is not free pickup",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "NO_PAID_TERMINAL_SERVICE_RECEIPT"
+      }
+    },
+    {
+      "name": "paidW invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "SERVICE_RECEIPT_SCOPE:paidW"
+      }
+    },
+    {
+      "name": "paidEpoch invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "SERVICE_RECEIPT_SCOPE:paidEpoch"
+      }
+    },
+    {
+      "name": "committed invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "UNCOMMITTED_OR_SPENT_RECEIPT"
+      }
+    },
+    {
+      "name": "spent invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "UNCOMMITTED_OR_SPENT_RECEIPT"
+      }
+    },
+    {
+      "name": "node invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "CROSS_HEX_OR_RETARGET_NOT_AUTHORIZED"
+      }
+    },
+    {
+      "name": "unit invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "CROSS_HEX_OR_RETARGET_NOT_AUTHORIZED"
+      }
+    },
+    {
+      "name": "turn invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "NOT_T6_RECOVERY"
+      }
+    },
+    {
+      "name": "lots invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "WRONG_LOTS_OR_SHIPMENT"
+      }
+    },
+    {
+      "name": "extraW invalid",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "DOUBLE_CHARGE_PREPAID_TERMINAL_SERVICE"
+      }
+    },
+    {
+      "name": "actual Core qualification not waived",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "CORE_ELIGIBILITY_STILL_REQUIRED"
+      }
+    },
+    {
+      "name": "unload-only bypass",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "NO_FREE_OR_UNBOUNDED_UNLOAD"
+      }
+    },
+    {
+      "name": "invent H to fit cargo",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "NO_INVENTED_STATION_CAPACITY"
+      }
+    },
+    {
+      "name": "waive material W",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "NO_RATE_OR_CAPACITY_CHANGE"
+      }
+    },
+    {
+      "name": "matrix bound corruption rejected",
+      "basis": "SYNTHETIC_STATIC_NEGATIVE_OR_GIVEN_RECEIPT; not a real service grant",
+      "result": {
+        "rejected": "GH1_NO_OTHER_RAIL_INPUT_NOT_PROVEN"
+      }
+    }
+  ],
+  "candidateSha256": "4fe43573896d7e7d3a4e5b0c320f822fe7ea7517fa283584408d56d71dca2eed",
+  "validatorSha256": "f40df43622877da9c2615215a8f2cf215287f8073d7ae7f7e6a7b623ef0bb912",
+  "noSolverExecuted": true,
+  "noGameExecuted": true,
+  "noOldEvidenceWritten": true,
+  "notProven": [
+    "physical station throughput",
+    "new paid-service receipt implementation",
+    "transport under an alternative H model",
+    "new runtime authorization or actual successful shipment"
+  ]
+}

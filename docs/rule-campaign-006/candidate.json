@@ -1,0 +1,178 @@
+{
+  "schema": "RULE-CAMPAIGN-006.capacity-semantics.candidate.1",
+  "status": "LEADER_REVIEW_REQUIRED",
+  "refs": {
+    "rule005": "e0c7fed6bfb2053b865f242fd4cf783a040eeb7f",
+    "industry008": "96bf1d7307063ecb6331fc44b28a832bb2aceac6",
+    "industry009": "b5bc3e6f4400c6a91152d9170e420aa31dc51dcb",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554",
+    "ruleR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f"
+  },
+  "runtimeEnabled": false,
+  "approval": {
+    "decisionRef": null,
+    "inherits005or008": false
+  },
+  "recommendation": "RETAIN_SHARED_W_AS_BUNDLED_SAME_HEX_TERMINAL_SERVICE",
+  "reason": "last-mile resources remain scarce even for colocated handoff; one finite aggregate service instead of inventing free or unlimited station throughput",
+  "scope": {
+    "source": "A10",
+    "sourceCoreKey": "0,9",
+    "receiver": "C10",
+    "receiverCoreKey": "2,8",
+    "hub": "GH2",
+    "targetUnit": "G-I-01",
+    "side": "G",
+    "dispatchBoundary": "E5",
+    "availableTurn": 6,
+    "recoveryPhase": "GERMAN_RECOVERY",
+    "completeKitOnly": true,
+    "capacityScope": "PER_SIDE_PER_EPOCH_UNCHANGED"
+  },
+  "existingMechanics": {
+    "rail": "sum bidirectional rail/depart q on each real edge <= edge.cap",
+    "T": "sum all rail q*cost including same-node localrail cost1; excludes last-mile work",
+    "W": "sum hub last-mile q*max(1,pathCost); not a separate inbound unload constraint",
+    "hubInventory": "opening+unload-outgoing=closing within hub.cap; stock capacity is not hourly/epoch unloading throughput",
+    "unloadVariableBound": "solver big-M, not an approved physical station throughput parameter"
+  },
+  "charges": {
+    "ratesLQ": {
+      "P": 4,
+      "E2:L": 2
+    },
+    "kit": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "rows": [
+      {
+        "id": "rail:A10~B10",
+        "capAtT5": 40,
+        "perKit": 8
+      },
+      {
+        "id": "rail:B10~C10",
+        "capAtT5": 40,
+        "perKit": 8
+      },
+      {
+        "id": "T",
+        "capAtT5": 2200,
+        "perKit": 16
+      },
+      {
+        "id": "W:GH2",
+        "capAtT5": 96,
+        "perKit": 8
+      }
+    ],
+    "rearDispatchToStation": {
+      "charge": "actual rail rows + T at E5",
+      "separateSourceHandling": "no independently callable operation; existing linehaul dispatch abstraction only"
+    },
+    "terminalBundle": {
+      "kind": "RECEIVE_STORE_AND_PREPARE_FOR_ONE_SAME_HEX_TARGET",
+      "chargeConstraint": "W:GH2",
+      "costPerLQ": 1,
+      "feePerKit": 8,
+      "chargeEpoch": "E5",
+      "separateUnloadFee": null,
+      "independentUnloadOnlyAllowed": false,
+      "separateStationCapacityH": null,
+      "parameterStatus": "005 experimental material service coefficient retained; not original SP unload rule"
+    },
+    "sameHexPickupRecovery": {
+      "extraW": 0,
+      "why": "requires unique already-paid E5 terminal-service receipt for identical lots, target, side and hex; not a free default",
+      "receiptRequired": true,
+      "originalCoreEligibilityRequired": true,
+      "price": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "sharedRPPERecoveryCount": true,
+      "noRPRefund": true,
+      "failedEligibility": "do not consume materials; no refund of committed E5 work; quarantine at original scope expiry"
+    },
+    "differentHexDelivery": {
+      "allowed": false,
+      "path": null,
+      "cost": null,
+      "budgetEpoch": null,
+      "reason": "needs its own route, last-mile work, bridge/range rules, receiver and authorization; same-hex receipt cannot be retargeted"
+    }
+  },
+  "terminalReceipt": {
+    "newCapability": "explicit, single-use terminal service accounting receipt; no change to Core qualification",
+    "fields": [
+      "serviceReceiptId",
+      "shipmentId",
+      "manifestDigest",
+      "lotIdsAndQuantities",
+      "targetUnit",
+      "side",
+      "nodeId",
+      "coreKey",
+      "paidEpoch",
+      "WConstraintId",
+      "paidW",
+      "materialRevision",
+      "jointSnapshotHash",
+      "requestFingerprint"
+    ],
+    "minimumBinding": {
+      "paidEpoch": 5,
+      "availableFromTurn": 6,
+      "WConstraintId": "W:GH2",
+      "paidW": 8,
+      "targetUnit": "G-I-01",
+      "side": "G",
+      "nodeId": "C10",
+      "coreKey": "2,8"
+    },
+    "commit": "same root as shipment/material/capacity/SP epoch; never synthesize for 008 zero-shipment evidence",
+    "retry": "same ID+fingerprint returns receipt only; conflict rejects; never debit W twice or replenish cargo",
+    "afterFailedRecovery": "receipt stays bound; cannot grant another unit/hex/epoch a free service"
+  },
+  "admission": {
+    "SPPolicy": "005 freeze full same-boundary SP witness; 009 alternative is evidence only, not a runtime policy switch",
+    "equation": "spUsed+otherHolds+committedCargo+newCargo<=same original cap in each row",
+    "onNoCapacity": "zero cargo, original SP settlement only",
+    "unknownOrTimeout": "rollback boundary; not an infeasibility proof",
+    "deadlineSeconds": 3,
+    "noCapacityIncrease": true,
+    "noFeeDiscountToFitE5": true
+  },
+  "unchanged": {
+    "globalBlockerCount": 35,
+    "globalBlockersClosed": 0,
+    "baselineGermanGapSP": 9,
+    "baselineSovietGapSP": 14,
+    "industrial22SPAdded": false,
+    "mapControlChanged": false,
+    "homeSideGranted": false,
+    "productionOrRecruitmentAdded": false,
+    "005BlockerListRef": "docs/rule-campaign-005/candidate.json#/blockerReview",
+    "E5E6Timing": "arrival E5 / available T6; no E4 backdate"
+  },
+  "alternativeNotSelected": {
+    "model": "SEPARATE_FINITE_STATION_HANDLING_H_FROM_LAST_MILE_W",
+    "approved": false,
+    "H": null,
+    "unresolved": [
+      "which SP and material loading/unloading/pickup operations share H",
+      "finite station capacities and evidence-based calibration",
+      "P/E handling rates and source-end charges",
+      "epoch and reservation ownership for T6 pickup",
+      "SP same-hex min1 versus material pickup consistency",
+      "coupled admission cannot reduce original feasible maintenance"
+    ],
+    "requiredDecision": "separate rule/parameter review; cannot set H=8 or W=104 merely to pass this E5; no standalone unloading with null H"
+  },
+  "nextImplementationOnlyIfApproved": [
+    "label existing 8W as one bundled terminal operation, not a factual SP unloading tariff",
+    "add exact target-bound paid-service receipt and reject pickup without it/retarget/double charging",
+    "keep zero-shipment actual result; no new capacity parameter or independent station service"
+  ]
+}
