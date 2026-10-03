@@ -1,0 +1,766 @@
+{
+  "note": "25 small ledger examples; positive admission assumes an abstract feasible service with zero other use ONLY for arithmetic. NOT actual E8, not 015 cost evidence, not Core qualification execution.",
+  "base": {
+    "kind": "SYNTHETIC_NOT_015_EVIDENCE",
+    "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+    "equipmentBatchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+    "events": [
+      {
+        "id": "extend",
+        "kind": "EXTEND",
+        "turn": 8,
+        "stage": 1,
+        "phase": "GERMAN_RECOVERY",
+        "approvedUseTransfer": true,
+        "sourceAccount": "industry.budget.freeI"
+      },
+      {
+        "id": "ship",
+        "kind": "SHIP",
+        "turn": 8,
+        "stage": 14,
+        "routeEligible": true,
+        "target": "G-I-01",
+        "approvedCapacityPolicyWitness": true,
+        "otherUsage": {
+          "rail:A10~B10": 0,
+          "rail:B10~C10": 0,
+          "T": 0,
+          "W:GH2": 0
+        },
+        "receiverFreeP": 1,
+        "receiverFreeE": 2
+      },
+      {
+        "id": "receive",
+        "kind": "RECEIVE",
+        "turn": 8,
+        "stage": 15,
+        "eligible": true,
+        "target": "G-I-01",
+        "hex": "C10",
+        "freeP": 1,
+        "freeE": 2
+      },
+      {
+        "id": "recover",
+        "kind": "RECOVER",
+        "turn": 9,
+        "stage": 1,
+        "phase": "GERMAN_RECOVERY",
+        "target": "G-I-01",
+        "hex": "C10",
+        "controller": "G-HUMAN-1",
+        "mode": "PE",
+        "rpDebit": 0,
+        "extraW": 0,
+        "commonEligible": true
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "normal",
+      "edits": [],
+      "expect": "PASS",
+      "after": {
+        "freeI": 4,
+        "careSpentI": 1,
+        "transferOutI": 1,
+        "usedP": 1,
+        "usedE": 2,
+        "sourceE2Resident": 0,
+        "rp": 8,
+        "step": 0,
+        "commonCount": 1,
+        "W": 8,
+        "oldOffmapUsedLQ": 4
+      }
+    },
+    {
+      "name": "repeat_fee_and_receipt_same_id",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "ship",
+              "kind": "SHIP",
+              "turn": 8,
+              "stage": 14,
+              "routeEligible": true,
+              "target": "G-I-01",
+              "approvedCapacityPolicyWitness": true,
+              "otherUsage": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              },
+              "receiverFreeP": 1,
+              "receiverFreeE": 2
+            },
+            {
+              "id": "receive",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": true,
+              "target": "G-I-01",
+              "hex": "C10",
+              "freeP": 1,
+              "freeE": 2
+            },
+            {
+              "id": "receive",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": true,
+              "target": "G-I-01",
+              "hex": "C10",
+              "freeP": 1,
+              "freeE": 2
+            },
+            {
+              "id": "recover",
+              "kind": "RECOVER",
+              "turn": 9,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "target": "G-I-01",
+              "hex": "C10",
+              "controller": "G-HUMAN-1",
+              "mode": "PE",
+              "rpDebit": 0,
+              "extraW": 0,
+              "commonEligible": true
+            },
+            {
+              "id": "recover",
+              "kind": "RECOVER",
+              "turn": 9,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "target": "G-I-01",
+              "hex": "C10",
+              "controller": "G-HUMAN-1",
+              "mode": "PE",
+              "rpDebit": 0,
+              "extraW": 0,
+              "commonEligible": true
+            }
+          ]
+        ]
+      ],
+      "expect": "PASS",
+      "after": {
+        "freeI": 4,
+        "careSpentI": 1,
+        "usedP": 1,
+        "usedE": 2,
+        "W": 8,
+        "commonCount": 1
+      }
+    },
+    {
+      "name": "new_id_cannot_charge_again",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "new-request",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            }
+          ]
+        ]
+      ],
+      "expect": "ALREADY_PAID"
+    },
+    {
+      "name": "same_id_payload_conflict",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "personnel.account"
+            }
+          ]
+        ]
+      ],
+      "expect": "ID_PAYLOAD_CONFLICT"
+    },
+    {
+      "name": "012_repurpose_not_approved",
+      "edits": [
+        [
+          "events.0.approvedUseTransfer",
+          false
+        ]
+      ],
+      "expect": "BUDGET_USE_NOT_APPROVED"
+    },
+    {
+      "name": "spent_personnel_2I_not_reusable",
+      "edits": [
+        [
+          "events.0.sourceAccount",
+          "personnel.account"
+        ]
+      ],
+      "expect": "BUDGET_USE_NOT_APPROVED"
+    },
+    {
+      "name": "quarantined_P_not_revived",
+      "edits": [
+        [
+          "beforeOverride",
+          {
+            "expired": true,
+            "ownerStatus": "QUARANTINED_A10"
+          }
+        ]
+      ],
+      "expect": "LATE_OR_ISOLATED"
+    },
+    {
+      "name": "late_extension",
+      "edits": [
+        [
+          "events.0.turn",
+          9
+        ]
+      ],
+      "expect": "LATE_OR_ISOLATED"
+    },
+    {
+      "name": "old011_lot_rejected",
+      "edits": [
+        [
+          "packageId",
+          "011-INITIAL-P"
+        ]
+      ],
+      "expect": "WRONG_LOTS"
+    },
+    {
+      "name": "no015_policy_approval",
+      "edits": [
+        [
+          "events.1.approvedCapacityPolicyWitness",
+          false
+        ]
+      ],
+      "expect": "015_APPROVAL_OR_WITNESS_MISSING"
+    },
+    {
+      "name": "014_frozen_W_blocks",
+      "edits": [
+        [
+          "events.1.otherUsage.W:GH2",
+          96
+        ]
+      ],
+      "expect": "CAPACITY:W:GH2"
+    },
+    {
+      "name": "C10_not_SP_cap",
+      "edits": [
+        [
+          "events.1.receiverFreeP",
+          0
+        ]
+      ],
+      "expect": "MATERIAL_CAPACITY"
+    },
+    {
+      "name": "target_moved_before_receipt",
+      "edits": [
+        [
+          "events.2.hex",
+          "B10"
+        ]
+      ],
+      "expect": "RECEIVER_ELIGIBILITY"
+    },
+    {
+      "name": "refused_then_expired",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "ship",
+              "kind": "SHIP",
+              "turn": 8,
+              "stage": 14,
+              "routeEligible": true,
+              "target": "G-I-01",
+              "approvedCapacityPolicyWitness": true,
+              "otherUsage": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              },
+              "receiverFreeP": 1,
+              "receiverFreeE": 2
+            },
+            {
+              "id": "refuse",
+              "kind": "REFUSE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": false
+            },
+            {
+              "id": "close",
+              "kind": "CLOSE",
+              "turn": 9,
+              "stage": 50,
+              "earlyGameOver": false
+            }
+          ]
+        ]
+      ],
+      "expect": "PASS",
+      "after": {
+        "tP": 1,
+        "tE": 2,
+        "cP": 0,
+        "cE": 0,
+        "incomingP": 0,
+        "incomingE": 0,
+        "W": 8,
+        "careSpentI": 1,
+        "ownerStatus": "QUARANTINED_TRANSIT"
+      }
+    },
+    {
+      "name": "E9_new_receipt_rejected",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "ship",
+              "kind": "SHIP",
+              "turn": 8,
+              "stage": 14,
+              "routeEligible": true,
+              "target": "G-I-01",
+              "approvedCapacityPolicyWitness": true,
+              "otherUsage": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              },
+              "receiverFreeP": 1,
+              "receiverFreeE": 2
+            },
+            {
+              "id": "refuse",
+              "kind": "REFUSE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": false
+            },
+            {
+              "id": "receive",
+              "kind": "RECEIVE",
+              "turn": 9,
+              "stage": 13,
+              "eligible": true,
+              "target": "G-I-01",
+              "hex": "C10",
+              "freeP": 1,
+              "freeE": 2
+            }
+          ]
+        ]
+      ],
+      "expect": "LATE_RECEIPT"
+    },
+    {
+      "name": "unsent_paid_care_no_refund",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "close",
+              "kind": "CLOSE",
+              "turn": 9,
+              "stage": 50,
+              "earlyGameOver": false
+            }
+          ]
+        ]
+      ],
+      "expect": "PASS",
+      "after": {
+        "aP": 1,
+        "aE": 2,
+        "W": 0,
+        "freeI": 4,
+        "careSpentI": 1,
+        "ownerStatus": "QUARANTINED_A10"
+      }
+    },
+    {
+      "name": "arrived_unused_expiry",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "ship",
+              "kind": "SHIP",
+              "turn": 8,
+              "stage": 14,
+              "routeEligible": true,
+              "target": "G-I-01",
+              "approvedCapacityPolicyWitness": true,
+              "otherUsage": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              },
+              "receiverFreeP": 1,
+              "receiverFreeE": 2
+            },
+            {
+              "id": "receive",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": true,
+              "target": "G-I-01",
+              "hex": "C10",
+              "freeP": 1,
+              "freeE": 2
+            },
+            {
+              "id": "close",
+              "kind": "CLOSE",
+              "turn": 9,
+              "stage": 50,
+              "earlyGameOver": false
+            }
+          ]
+        ]
+      ],
+      "expect": "PASS",
+      "after": {
+        "cP": 1,
+        "cE": 2,
+        "freeI": 4,
+        "careSpentI": 1,
+        "W": 8,
+        "ownerStatus": "QUARANTINED_C10"
+      }
+    },
+    {
+      "name": "early_gameover_no_refund",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "ship",
+              "kind": "SHIP",
+              "turn": 8,
+              "stage": 14,
+              "routeEligible": true,
+              "target": "G-I-01",
+              "approvedCapacityPolicyWitness": true,
+              "otherUsage": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              },
+              "receiverFreeP": 1,
+              "receiverFreeE": 2
+            },
+            {
+              "id": "refuse",
+              "kind": "REFUSE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": false
+            },
+            {
+              "id": "close",
+              "kind": "CLOSE",
+              "turn": 8,
+              "stage": 50,
+              "earlyGameOver": true
+            }
+          ]
+        ]
+      ],
+      "expect": "PASS",
+      "after": {
+        "tP": 1,
+        "careSpentI": 1,
+        "W": 8,
+        "expired": true
+      }
+    },
+    {
+      "name": "RP_PE_double_charge",
+      "edits": [
+        [
+          "events.3.rpDebit",
+          1
+        ]
+      ],
+      "expect": "DOUBLE_PAYMENT"
+    },
+    {
+      "name": "no_second_8W",
+      "edits": [
+        [
+          "events.3.extraW",
+          8
+        ]
+      ],
+      "expect": "DOUBLE_PAYMENT"
+    },
+    {
+      "name": "prior_RP_shared_limit_blocks_PE",
+      "edits": [
+        [
+          "beforeOverride",
+          {
+            "commonCount": 1
+          }
+        ]
+      ],
+      "expect": "CORE_COMMON_ELIGIBILITY"
+    },
+    {
+      "name": "other_Core_qualification_kept",
+      "edits": [
+        [
+          "events.3.commonEligible",
+          false
+        ]
+      ],
+      "expect": "CORE_COMMON_ELIGIBILITY"
+    },
+    {
+      "name": "no_double_custody",
+      "edits": [
+        [
+          "beforeOverride",
+          {
+            "cP": 1
+          }
+        ]
+      ],
+      "expect": "DOUBLE_CUSTODY"
+    },
+    {
+      "name": "failed_E8_before_equals_after_then_retry",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "failed-boundary",
+              "kind": "FAILURE_RECORD",
+              "turn": 8,
+              "stage": 14,
+              "beforeHash": "c04140cabf49da7a82855090c42afa438acfcfb90fff34a1908bc3dfa8b06898",
+              "afterHash": "c04140cabf49da7a82855090c42afa438acfcfb90fff34a1908bc3dfa8b06898"
+            },
+            {
+              "id": "ship",
+              "kind": "SHIP",
+              "turn": 8,
+              "stage": 14,
+              "routeEligible": true,
+              "target": "G-I-01",
+              "approvedCapacityPolicyWitness": true,
+              "otherUsage": {
+                "rail:A10~B10": 0,
+                "rail:B10~C10": 0,
+                "T": 0,
+                "W:GH2": 0
+              },
+              "receiverFreeP": 1,
+              "receiverFreeE": 2
+            },
+            {
+              "id": "receive",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "eligible": true,
+              "target": "G-I-01",
+              "hex": "C10",
+              "freeP": 1,
+              "freeE": 2
+            },
+            {
+              "id": "recover",
+              "kind": "RECOVER",
+              "turn": 9,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "target": "G-I-01",
+              "hex": "C10",
+              "controller": "G-HUMAN-1",
+              "mode": "PE",
+              "rpDebit": 0,
+              "extraW": 0,
+              "commonEligible": true
+            }
+          ]
+        ]
+      ],
+      "expect": "PASS",
+      "after": {
+        "freeI": 4,
+        "careSpentI": 1,
+        "W": 8,
+        "usedP": 1
+      }
+    },
+    {
+      "name": "partial_rollback_rejected",
+      "edits": [
+        [
+          "events",
+          [
+            {
+              "id": "extend",
+              "kind": "EXTEND",
+              "turn": 8,
+              "stage": 1,
+              "phase": "GERMAN_RECOVERY",
+              "approvedUseTransfer": true,
+              "sourceAccount": "industry.budget.freeI"
+            },
+            {
+              "id": "failed-boundary",
+              "kind": "FAILURE_RECORD",
+              "turn": 8,
+              "stage": 14,
+              "beforeHash": "c04140cabf49da7a82855090c42afa438acfcfb90fff34a1908bc3dfa8b06898",
+              "afterHash": "partially-charged"
+            }
+          ]
+        ]
+      ],
+      "expect": "PARTIAL_ROLLBACK"
+    }
+  ]
+}

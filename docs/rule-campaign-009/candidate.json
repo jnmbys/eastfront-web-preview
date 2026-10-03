@@ -1,0 +1,349 @@
+{
+  "schema": "RULE-CAMPAIGN-009.forward-care-recovery.candidate.1",
+  "status": "LEADER_REVIEW_REQUIRED",
+  "runtimeEnabled": false,
+  "refs": {
+    "rule008": "b3c18fa6daf0cf7409e0821918e7ffdd1dac4a51",
+    "industry013": "2d04264a3f4ba6d38f76a99ae76821cc0a55abdb",
+    "industry014": "9dcad639239ed7ed4081a473d78e9512cd212197",
+    "rule006": "f09911e4792bd1da33185807f03c68b2cd9565fe",
+    "mapR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554"
+  },
+  "approval": {
+    "decisionRef": null,
+    "budgetRepurposeApprovalRef": null,
+    "E8TransportAndNullControlApprovalRef": null,
+    "C10ReceiverApprovalRef": null,
+    "T9PERecoveryApprovalRef": null,
+    "industry015EvidenceCommit": null,
+    "maintenanceTradeoffPolicyApprovalRef": null,
+    "inherits011013Or014Authorization": false
+  },
+  "start": {
+    "commit": "2d04264a3f4ba6d38f76a99ae76821cc0a55abdb",
+    "path": "experiments/industry-integrate-013/TRACE.json.gz",
+    "selector": "T8",
+    "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+    "rootHashAlgorithm": "sha256(json.dumps(sort_keys=True,separators=(comma,colon),ensure_ascii=False))",
+    "rootRevision": 37,
+    "gameRevision": 142,
+    "turn": 8,
+    "phase": "GERMAN_RECOVERY",
+    "receiptsCount": 37,
+    "receiptsHash": "98cecbf73757dd34c9675d64bdd7cb7c292a2801fa14b4eb93b461775586d500",
+    "matchId": "EASTFRONT-012-ISOLATED",
+    "continuation": "clone ENTIRE root incl bundleJSON, all game/SP/RNG, industry, personnel, grants, warehouseRegistry and all 37 receipts; no reconstruction from VIEWS",
+    "newMaterialOrGrantImportsAllowed": false
+  },
+  "materials": {
+    "personnelPackage": {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+      "quantityP": 1,
+      "owner": "RC007-REAR-G-A10",
+      "custody": "REAR_AVAILABLE",
+      "receivedEpoch": 7,
+      "availableFromTurn": 8,
+      "dispatchEpoch": 7,
+      "dueEpoch": 7
+    },
+    "personnelOriginIds": {
+      "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+      "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+      "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+      "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+      "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+      "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+      "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+    },
+    "equipmentBatch": {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+      "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+      "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+      "quantityE2": 2,
+      "materialType": "E2:L",
+      "custody": "REAR_AVAILABLE",
+      "owner": "RC007-REAR-G-A10",
+      "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+      "receivedEpoch": 6,
+      "availableFromTurn": 7,
+      "dispatchEpoch": 6,
+      "dueEpoch": 6
+    },
+    "equipmentGrantId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/budget/0001",
+    "PAuthority": "personnel.package",
+    "E2Authority": "industry.batch plus industry.warehouse.resident",
+    "legacy012PField": "historical zero excluded from current P stock",
+    "sourceWarehouse": "RC007-REAR-G-A10",
+    "sourceCapacity": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "sourceEquipmentResident": 2,
+    "bundleQuantity": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "splitOrSubstituteAllowed": false
+  },
+  "scope": {
+    "side": "G",
+    "controllerId": "G-HUMAN-1",
+    "targetUnit": "G-I-01",
+    "targetKey": "2,8",
+    "maxShipments": 1,
+    "maxRecoveries": 1,
+    "dispatchEpoch": 8,
+    "receiptEpoch": 8,
+    "availableFromTurn": 9,
+    "recoveryTurn": 9,
+    "recoveryPhase": "GERMAN_RECOVERY",
+    "careThroughEndEpoch": 9,
+    "onwardOrOtherTargetAllowed": false
+  },
+  "route": {
+    "nodes": [
+      {
+        "node": "A10",
+        "key": "0,9"
+      },
+      {
+        "node": "B10",
+        "key": "1,9"
+      },
+      {
+        "node": "C10",
+        "key": "2,8"
+      }
+    ],
+    "coreEdges": [
+      "0,9|1,9",
+      "1,9|2,8"
+    ],
+    "requires": "current original Core integrity, intact railway repairedBy GERMAN, no forbidden enemy control/occupancy/ZOC, current SP route/bridge/hub eligibility; reject missing data",
+    "nullPolicy": "new scoped G materials grant at exactly A10/B10/C10; null alone not permission; never mutate control/homeSide",
+    "recheck": "E00/E14 dispatch and E15 receiver plus T9 recovery; stale 014 projection not authority"
+  },
+  "capacity": {
+    "ratesLQ": {
+      "P": 4,
+      "E2:L": 2
+    },
+    "rows": [
+      {
+        "id": "rail:A10~B10",
+        "capReference": 40,
+        "perBundle": 8
+      },
+      {
+        "id": "rail:B10~C10",
+        "capReference": 40,
+        "perBundle": 8
+      },
+      {
+        "id": "T",
+        "capReference": 2200,
+        "perBundle": 16
+      },
+      {
+        "id": "W:GH2",
+        "capReference": 96,
+        "perBundle": 8
+      }
+    ],
+    "capPolicy": "existing current caps only; revalidate, never set cap to fit demand",
+    "chargeTime": "E8.14 reserve all rows and destination capacity; once E8 root commits holds become used. E8.15 receipt activates target terminal receipt. Reject arrival after committed departure keeps booked usage spent; no additional 8W at recovery",
+    "bundleService": "same one 8W receives/stores/prepares SAME two permanent lots for SAME G-I-01 at C10; no standalone unload or free retarget",
+    "jointConstraint": "SP used + other committed material + other holds + this bundle <= cap for EVERY real row; no old total-flow-as-free-capacity",
+    "admission": "unchanged per-unit maintenance is default and 014 proves this E8 infeasible; changed-priority admission requires fixed 015 evidence and separate Leader approval, same current input hash, complete feasible SP witness incl actual per-unit consequences",
+    "noWitness": "reject shipment or zero material if proven infeasible; timeout/unknown rolls back whole transaction, not zero-success",
+    "oldOffmapLQ": {
+      "cap": 4,
+      "used": 4,
+      "remaining": 0,
+      "usableForThisShipment": false
+    },
+    "old012ExternalRowsReusable": false,
+    "additionalTransportI": "no new I tariff for existing map rail/T/W operations; their payment unit is actual capacity, not I. Only new cash quote here is care1I, which cannot buy missing W"
+  },
+  "care": {
+    "feeI": 1,
+    "parameterStatus": "NEW_EXPERIMENT_HYPOTHESIS_NOT_BALANCE_VALIDATED",
+    "basis": "one additional complete T of custody for existing 1P; minimal positive I tariff, anchored to 013 one-I finite care unit, not measured historical cost",
+    "paymentWindow": "T8 GERMAN_RECOVERY before any forward dispatch and before E8 expiry; original package REAR_AVAILABLE, not isolated/expired/consumed; continuation expectedRevision/hash must match",
+    "sourceAccountRef": "industry.budget.freeI",
+    "sourceGrantId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/budget/0001",
+    "beforeSourceFreeI": 5,
+    "afterSourceFreeI": 4,
+    "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+    "targetAccountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+    "extensionId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+    "atomicPayment": "source freeI -1; source cumulative careTransferOutI +1; new restricted care account receivedI +1 and spentI +1 in SAME root; available balance0; no new grantedI",
+    "sourceEquation": "10 = freeI + productionSpent3 + handoffSpent2 + escrow0 + careTransferOutI1",
+    "targetEquation": "receivedI1 = availableI0 + spentI1; transfer is internal, not additional income; combined10 = 4+3+2+1",
+    "personnelAccountImmutable": {
+      "id": "RC008-G-PERSONNEL-SERVICE-I",
+      "grantedI": 2,
+      "availableI": 0,
+      "acceptanceCareSpentI": 1,
+      "escrowI": 0,
+      "carriageSpentI": 1
+    },
+    "oldCareEndsEpoch": 8,
+    "newCareEndsEpoch": 9,
+    "covers": [
+      "existing A10 custody if no dispatch",
+      "E8 in-transit/HELD",
+      "C10 receipt and custody through T9 and E9 closure"
+    ],
+    "noDoubleE8Fee": "fee buys only the additional T9 window; continuity through E8 is not a second base-care charge",
+    "activation": "paid extension receipt recorded BEFORE original 013 housekeeping deadline; scoped resolver consults it across source/transit/front custody, preserves old historical receivedEpoch=7 and care evidence; no reload of 013 initializer",
+    "refund": "failed activation transaction restores all entries/deadline. Once activation commits fee nonrefundable, even no shipment, rejection, unused kit, failed recovery or early game end; finite care/reservation has already been purchased",
+    "lateActivation": "reject; no automatic revival of QUARANTINED P",
+    "noFreeBudget": true
+  },
+  "receiver": {
+    "id": "RC009-G-C10-GI01",
+    "node": "C10",
+    "coreKey": "2,8",
+    "side": "G",
+    "hub": "GH2",
+    "capacity": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "initialStock": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "materialCapacityBasis": "new target-scoped one-bundle material ledger limit, NOT SP hub.cap32",
+    "capacityRule": "resident including quarantined + all incoming reservations <= per-material cap; move this hold to resident once",
+    "grantRef": null,
+    "eligibility": "original integrity, exact target alive G-I-01 still C10, no enemy control/occupancy/ZOC, scoped null grant; unknown rejects",
+    "reservationOwner": "shipmentId; physical quantities remain in authoritative package/batch, warehouse views derived not separate duplicated stocks",
+    "captureOrMovedTarget": "no automatic capture or retarget; freeze at last actual owner, deny receipt/use, quarantine at deadline; no implicit return"
+  },
+  "custody": {
+    "flow": "A10 -> single forward shipment -> C10 -> repair-consumed; packageId and equipmentBatchId NEVER change",
+    "onDispatch": "both A10 authoritative holdings reduced together; incoming C10 capacity reserved but NOT counted as material",
+    "onRefusal": "HELD in same shipment, zero C10 stock, reservation retained to closure; no valid terminal receipt",
+    "onUnsent": "remain A10 through paid E9 deadline; no E9 dispatch retry authorized; E9 isolate P, freeze kit association, existing equipment remains at A10 under its prior validity with no automatic new operation",
+    "onLateArrival": "after E8 no NEW receipt authorized (would only be usable T10); return rejection, preserve HELD and spent rows to E9 quarantine",
+    "onArrivedUnused": "C10 resident till E9 closure then quarantine remaining kit, still occupies material capacity",
+    "onT9End": "after BOTH real T9 sides and E9 legitimate maintenance/attrition, before root publication, terminalize extension and quarantine unconsumed at actual owner; consumed stays consumed",
+    "onEarlyEnd": "same closure immediately, no refunds or material creation; remaining in-transit freezes and releases C10 incoming reservation, resident keeps capacity",
+    "onNoExtension": "original 013 E8 expiry applies unchanged",
+    "noRNGOrSPConversion": true
+  },
+  "recovery": {
+    "mode": "PE_ONLY_FOR_THIS_COMMAND",
+    "price": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "window": "T9 GERMAN_RECOVERY only",
+    "maxSuccessfulUses": 1,
+    "target": "G-I-01",
+    "commonQualification": "retain every current original Core integrity, side/controller, phase, pending, damage, supply and shared count eligibility; separate ONLY precise INSUFFICIENT_RP into RP payment quote",
+    "paymentChoice": "RP or PE once under same root guard; no automatic fallback, no RP-first refund, PE debits RP0. An independent prior RP recovery uses the SAME Core allowance and blocks this PE if exhausted",
+    "commit": "consume bound lots and unused terminal receipt, apply original one-step recovery, increment ORIGINAL shared recovery count once, update revisions in one root; do not invent step0 if actual step changed",
+    "supply": "no exempt maintenance or extra stock/debt reset, no source/threshold changes; recovered unit still faces Soviet T9 actions and original E9 settlement",
+    "failure": "keep materials/current Core/count/receipt/RP unchanged on failed attempt; already committed careI and E8 freight usage remain spent"
+  },
+  "identity": {
+    "forwardShipmentId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+    "receiptId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/receipt-0001",
+    "terminalReceiptId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/terminal-GI01-0001",
+    "recoveryId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/recovery-0001",
+    "receiptBindings": [
+      "full inputRootHash",
+      "candidateHash",
+      "approvalHashes",
+      "permanent P packageId and E2 batchId with quantities",
+      "shipmentId",
+      "G/G-HUMAN-1/G-I-01",
+      "C10/2,8",
+      "E8 and T9",
+      "paid8W plus both rail8/T16",
+      "jointSPinputHash and capacityWitnessHash",
+      "careExtensionId and E9 deadline",
+      "materialRevision",
+      "requestFingerprint"
+    ],
+    "retry": "same permanent operation ID + same fingerprint returns historical result before revision guard; changed payload rejects. New request IDs cannot evade per-package extension/one-shipment/one-recovery registry; old historical receipt is never current authority after expiry",
+    "receipts37Retained": true,
+    "old011KitOrTerminalReceiptAllowed": false
+  },
+  "atomicity": {
+    "deadlineSeconds": 3,
+    "owner": "single whole-root transaction; future durable persistence not proven",
+    "rootIncludes": [
+      "original Core/SP/RNG",
+      "012 budgets and equipment",
+      "013 personnel/quota",
+      "new transfer/care",
+      "capacities/reservations",
+      "all permanent receipts and revisions"
+    ],
+    "failure": "restore entire tentative root, incl once-keys and receipts; previous committed actions retained; E8 whole-boundary failure also restores shipment and capacities"
+  },
+  "preserved": {
+    "globalBlockers": 35,
+    "globalClosed": 0,
+    "GermanGapSP": 9,
+    "SovietGapSP": 14,
+    "extra22SP": false,
+    "newIOrMaterialGrants": false,
+    "originalMapCoreDefaultsChanged": false
+  },
+  "globalBlockersRetained": [
+    "RUNTIME_NOT_APPROVED",
+    "MISSING_RUNTIME_DECISION",
+    "MISSING_SERVICE_GRANT:DEP-G-A10",
+    "MISSING_SERVICE_GRANT:DEP-S-AF10",
+    "MISSING_SERVICE_GRANT:REC-G-C10",
+    "MISSING_SERVICE_GRANT:REC-S-AC10",
+    "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+    "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+    "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+    "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+    "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+    "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+    "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+    "UNRESOLVED:authorization.approvedNullControlPolicy",
+    "UNRESOLVED:authorization.nullControlApprovalRef",
+    "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+    "UNRESOLVED:recovery.recipeApprovalRef",
+    "UNRESOLVED:recovery.integrationHookApprovalRef",
+    "UNRESOLVED:budget.policyApprovalRef",
+    "UNRESOLVED:transport.approvedEquipmentVectorRule",
+    "UNRESOLVED:transport.approvedPersonnelTransportRule",
+    "UNRESOLVED:transport.vectorRuleApprovalRef",
+    "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+    "UNRESOLVED:transport.initialMaterialManifest"
+  ],
+  "pending": [
+    "Leader contract and 012-budget-use/transfer approval",
+    "015 fixed cost evidence and separately approved priority policy plus live feasible capacity witness",
+    "new route/null/C10 receipt and T9 recovery approvals",
+    "implementation of whole-root scope-aware expiry, authoritative E2 source decrement and shared RP/PE seam",
+    "durability and broader balance remain unproven"
+  ],
+  "notPerformed": [
+    "no 015 solving or old campaign replay",
+    "no actual extension/payment/forwarding/recovery",
+    "no new imports/grants/production",
+    "no edit to old evidence/runtime/map/defaults"
+  ]
+}
