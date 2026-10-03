@@ -1,0 +1,7997 @@
+{
+  "task": "INDUSTRY-INTEGRATE-016",
+  "traceSha256": "019077a06ad80dd865bbe84bc46bb8eae46d47bc65412fc489de1e3868c72461",
+  "qPerSP": 4,
+  "checkpoints": [
+    {
+      "checkpoint": "T8_START",
+      "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "materialRevision": 0,
+      "legacyEquipmentRevision": 4,
+      "legacyPersonnelRevision": 3,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": null,
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_AVAILABLE",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 2,
+        "materialType": "E2:L",
+        "custody": "REAR_AVAILABLE",
+        "owner": "RC007-REAR-G-A10",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 1,
+      "expired": false
+    },
+    {
+      "checkpoint": "T8_CARE_PAID",
+      "rootHash": "6ae2409f2ef1a5cdbbc1ebd1ee38428b5199a1162e980f0f78832ff2eca9ff5f",
+      "rootRevision": 38,
+      "gameRevision": 142,
+      "materialRevision": 0,
+      "legacyEquipmentRevision": 5,
+      "legacyPersonnelRevision": 3,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_AVAILABLE",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 2,
+        "materialType": "E2:L",
+        "custody": "REAR_AVAILABLE",
+        "owner": "RC007-REAR-G-A10",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 1,
+      "expired": false
+    },
+    {
+      "checkpoint": "E8_ARRIVED_T9_BEGIN",
+      "rootHash": "58537492272b01b3c6ff241288eb447f8bbf592039e91b8a202015fe8dc26fca",
+      "rootRevision": 45,
+      "gameRevision": 149,
+      "materialRevision": 1,
+      "legacyEquipmentRevision": 6,
+      "legacyPersonnelRevision": 4,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC009-G-C10-GI01",
+        "custody": "FRONT_AVAILABLE",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 2,
+        "materialType": "E2:L",
+        "custody": "FRONT_AVAILABLE",
+        "owner": "RC009-G-C10-GI01",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6
+      },
+      "frontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "availableFrontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 1,
+      "expired": false
+    },
+    {
+      "checkpoint": "T9_RECOVERY_BEFORE",
+      "rootHash": "00f2fa816eaaf2580e457df867357c9ef005019c99770789f6c83dbabef0ef4d",
+      "rootRevision": 48,
+      "gameRevision": 152,
+      "materialRevision": 1,
+      "legacyEquipmentRevision": 6,
+      "legacyPersonnelRevision": 4,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC009-G-C10-GI01",
+        "custody": "FRONT_AVAILABLE",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 2,
+        "materialType": "E2:L",
+        "custody": "FRONT_AVAILABLE",
+        "owner": "RC009-G-C10-GI01",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6
+      },
+      "frontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "availableFrontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 1,
+      "expired": false
+    },
+    {
+      "checkpoint": "T9_RECOVERY_AFTER",
+      "rootHash": "44f00dbd079df823ad866652565b279c655334ea3994f7aa2cc46d3757655103",
+      "rootRevision": 49,
+      "gameRevision": 153,
+      "materialRevision": 2,
+      "legacyEquipmentRevision": 7,
+      "legacyPersonnelRevision": 5,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 0,
+        "owner": "RC009-G-C10-GI01",
+        "custody": "CONSUMED",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7,
+        "consumedP016": 1
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 0,
+        "materialType": "E2:L",
+        "custody": "CONSUMED",
+        "owner": "RC009-G-C10-GI01",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6,
+        "consumedE2016": 2
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 0,
+      "expired": false
+    },
+    {
+      "checkpoint": "NO_OPERATION_END_E8",
+      "rootHash": "a83662f3aeb26c723d29cceccbbdbe041030636030abaa63fef22a79eb25af9a",
+      "rootRevision": 47,
+      "gameRevision": 152,
+      "materialRevision": 1,
+      "legacyEquipmentRevision": 4,
+      "legacyPersonnelRevision": 4,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": null,
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_QUARANTINED",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 2,
+        "materialType": "E2:L",
+        "custody": "REAR_AVAILABLE",
+        "owner": "RC007-REAR-G-A10",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 1,
+      "expired": true
+    },
+    {
+      "checkpoint": "UNUSED_END_E9",
+      "rootHash": "c3c8b860ca077b6c8e634b7d956aaf8fd27a81c71d8ebfd8f4ac178714163fef",
+      "rootRevision": 55,
+      "gameRevision": 159,
+      "materialRevision": 2,
+      "legacyEquipmentRevision": 7,
+      "legacyPersonnelRevision": 5,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "EXPIRED_PAID_NO_REFUND"
+      },
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC009-G-C10-GI01",
+        "custody": "FRONT_QUARANTINED",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      },
+      "E2": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+        "quantityE2": 2,
+        "materialType": "E2:L",
+        "custody": "FRONT_QUARANTINED",
+        "owner": "RC009-G-C10-GI01",
+        "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "dispatchEpoch": 6,
+        "dueEpoch": 6
+      },
+      "frontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "step": 1,
+      "expired": true
+    }
+  ],
+  "capacity": [
+    {
+      "id": "rail:A10~B10",
+      "originalCap": 40,
+      "spUsed": 32,
+      "cargo": 8,
+      "remaining": 0,
+      "reservation": 0,
+      "freight": 8
+    },
+    {
+      "id": "rail:B10~C10",
+      "originalCap": 40,
+      "spUsed": 32,
+      "cargo": 8,
+      "remaining": 0,
+      "reservation": 0,
+      "freight": 8
+    },
+    {
+      "id": "T",
+      "originalCap": 2200,
+      "spUsed": 108,
+      "cargo": 16,
+      "remaining": 2076,
+      "reservation": 0,
+      "freight": 16
+    },
+    {
+      "id": "W:GH2",
+      "originalCap": 96,
+      "spUsed": 88,
+      "cargo": 8,
+      "remaining": 0,
+      "reservation": 0,
+      "freight": 8
+    }
+  ],
+  "unitComparison": [
+    {
+      "id": "S-ART-01",
+      "side": "S",
+      "reference": {
+        "id": "S-ART-01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-ART-01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-ART-02",
+      "side": "S",
+      "reference": {
+        "id": "S-ART-02",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-ART-02",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-ART-03",
+      "side": "S",
+      "reference": {
+        "id": "S-ART-03",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-ART-03",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-AT-01",
+      "side": "S",
+      "reference": {
+        "id": "S-AT-01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-AT-01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-AT-02",
+      "side": "S",
+      "reference": {
+        "id": "S-AT-02",
+        "before": 4,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-AT-02",
+        "before": 4,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-AT-03",
+      "side": "S",
+      "reference": {
+        "id": "S-AT-03",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-AT-03",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-EL-01",
+      "side": "S",
+      "reference": {
+        "id": "S-EL-01",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-EL-01",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-EL-02",
+      "side": "S",
+      "reference": {
+        "id": "S-EL-02",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-EL-02",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-ENG-01",
+      "side": "S",
+      "reference": {
+        "id": "S-ENG-01",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-ENG-01",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-ENG-02",
+      "side": "S",
+      "reference": {
+        "id": "S-ENG-02",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-ENG-02",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-HV-01",
+      "side": "S",
+      "reference": {
+        "id": "S-HV-01",
+        "before": 16,
+        "received": 0,
+        "due": 8,
+        "maintenance": 8,
+        "net": 0,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-HV-01",
+        "before": 16,
+        "received": 0,
+        "due": 8,
+        "maintenance": 8,
+        "net": 0,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-01",
+      "side": "S",
+      "reference": {
+        "id": "S-I-01",
+        "before": 0,
+        "received": 0,
+        "due": 4,
+        "maintenance": 0,
+        "net": 0,
+        "after": 0,
+        "debt": "3",
+        "loss": 1,
+        "attrition": "0",
+        "strength": 0
+      },
+      "alternative": {
+        "id": "S-I-01",
+        "before": 0,
+        "received": 0,
+        "due": 4,
+        "maintenance": 0,
+        "net": 0,
+        "after": 0,
+        "debt": "3",
+        "loss": 1,
+        "attrition": "0",
+        "strength": 0
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": false,
+        "step": 2,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "S-I-02",
+      "side": "S",
+      "reference": {
+        "id": "S-I-02",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-02",
+        "before": 8,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 4,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-03",
+      "side": "S",
+      "reference": {
+        "id": "S-I-03",
+        "before": 4,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-03",
+        "before": 4,
+        "received": 0,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 0,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-04",
+      "side": "S",
+      "reference": {
+        "id": "S-I-04",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-04",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-05",
+      "side": "S",
+      "reference": {
+        "id": "S-I-05",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-05",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-06",
+      "side": "S",
+      "reference": {
+        "id": "S-I-06",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-06",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-07",
+      "side": "S",
+      "reference": {
+        "id": "S-I-07",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-07",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-08",
+      "side": "S",
+      "reference": {
+        "id": "S-I-08",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-08",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-09",
+      "side": "S",
+      "reference": {
+        "id": "S-I-09",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-09",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-10",
+      "side": "S",
+      "reference": {
+        "id": "S-I-10",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-10",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-11",
+      "side": "S",
+      "reference": {
+        "id": "S-I-11",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-11",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-12",
+      "side": "S",
+      "reference": {
+        "id": "S-I-12",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-12",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-13",
+      "side": "S",
+      "reference": {
+        "id": "S-I-13",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-13",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-14",
+      "side": "S",
+      "reference": {
+        "id": "S-I-14",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-14",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-15",
+      "side": "S",
+      "reference": {
+        "id": "S-I-15",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-15",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-I-16",
+      "side": "S",
+      "reference": {
+        "id": "S-I-16",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-I-16",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-MOT-01",
+      "side": "S",
+      "reference": {
+        "id": "S-MOT-01",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-MOT-01",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-MOT-02",
+      "side": "S",
+      "reference": {
+        "id": "S-MOT-02",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-MOT-02",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-TK-01",
+      "side": "S",
+      "reference": {
+        "id": "S-TK-01",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-TK-01",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-TK-02",
+      "side": "S",
+      "reference": {
+        "id": "S-TK-02",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-TK-02",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-TK-03",
+      "side": "S",
+      "reference": {
+        "id": "S-TK-03",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-TK-03",
+        "before": 0,
+        "received": 6,
+        "due": 8,
+        "maintenance": 6,
+        "net": 6,
+        "after": 0,
+        "debt": "1/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-ART-01",
+      "side": "G",
+      "reference": {
+        "id": "G-ART-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "7/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-ART-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "7/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "5/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-ART-02",
+      "side": "G",
+      "reference": {
+        "id": "G-ART-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "3/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-ART-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "3/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-ENG-01",
+      "side": "G",
+      "reference": {
+        "id": "G-ENG-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-ENG-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-ENG-02",
+      "side": "G",
+      "reference": {
+        "id": "G-ENG-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-ENG-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-01",
+      "side": "G",
+      "reference": {
+        "id": "G-I-01",
+        "before": 8,
+        "received": 4,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 2
+      },
+      "alternative": {
+        "id": "G-I-01",
+        "before": 8,
+        "received": 8,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 2
+      },
+      "deliveryDeltaQ": 4,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 4,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 1,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-02",
+      "side": "G",
+      "reference": {
+        "id": "G-I-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-03",
+      "side": "G",
+      "reference": {
+        "id": "G-I-03",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-03",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-04",
+      "side": "G",
+      "reference": {
+        "id": "G-I-04",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-04",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-05",
+      "side": "G",
+      "reference": {
+        "id": "G-I-05",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-05",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-06",
+      "side": "G",
+      "reference": {
+        "id": "G-I-06",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-06",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "1",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-07",
+      "side": "G",
+      "reference": {
+        "id": "G-I-07",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "5/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-07",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "5/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/4",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        1
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-08",
+      "side": "G",
+      "reference": {
+        "id": "G-I-08",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "3/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-08",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "3/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-09",
+      "side": "G",
+      "reference": {
+        "id": "G-I-09",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "3/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-09",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "3/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "1",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 0.75,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-I-10",
+      "side": "G",
+      "reference": {
+        "id": "G-I-10",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-10",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-I-11",
+      "side": "G",
+      "reference": {
+        "id": "G-I-11",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-I-11",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-J-01",
+      "side": "G",
+      "reference": {
+        "id": "G-J-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-J-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-J-02",
+      "side": "G",
+      "reference": {
+        "id": "G-J-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-J-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-MOT-01",
+      "side": "G",
+      "reference": {
+        "id": "G-MOT-01",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "21/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-MOT-01",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "21/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-MOT-02",
+      "side": "G",
+      "reference": {
+        "id": "G-MOT-02",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "21/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-MOT-02",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "21/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-MOT-03",
+      "side": "G",
+      "reference": {
+        "id": "G-MOT-03",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "11/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-MOT-03",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "11/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "17/8",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-PZ-01",
+      "side": "G",
+      "reference": {
+        "id": "G-PZ-01",
+        "before": 24,
+        "received": 8,
+        "due": 8,
+        "maintenance": 8,
+        "net": 0,
+        "after": 24,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-PZ-01",
+        "before": 24,
+        "received": 6,
+        "due": 8,
+        "maintenance": 8,
+        "net": 0,
+        "after": 22,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": -2,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": -2,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "G-PZ-02",
+      "side": "G",
+      "reference": {
+        "id": "G-PZ-02",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "11/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-PZ-02",
+        "before": 0,
+        "received": 3,
+        "due": 8,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "11/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "17/8",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-PZ-03",
+      "side": "G",
+      "reference": {
+        "id": "G-PZ-03",
+        "before": 0,
+        "received": 4,
+        "due": 8,
+        "maintenance": 4,
+        "net": 4,
+        "after": 0,
+        "debt": "17/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-PZ-03",
+        "before": 0,
+        "received": 4,
+        "due": 8,
+        "maintenance": 4,
+        "net": 4,
+        "after": 0,
+        "debt": "17/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "13/8",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-PZ-04",
+      "side": "G",
+      "reference": {
+        "id": "G-PZ-04",
+        "before": 0,
+        "received": 4,
+        "due": 8,
+        "maintenance": 4,
+        "net": 4,
+        "after": 0,
+        "debt": "19/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-PZ-04",
+        "before": 0,
+        "received": 4,
+        "due": 8,
+        "maintenance": 4,
+        "net": 4,
+        "after": 0,
+        "debt": "19/8",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "15/8",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-REC-01",
+      "side": "G",
+      "reference": {
+        "id": "G-REC-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-REC-01",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "G-REC-02",
+      "side": "G",
+      "reference": {
+        "id": "G-REC-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-REC-02",
+        "before": 0,
+        "received": 0,
+        "due": 4,
+        "maintenance": 0,
+        "net": 0,
+        "after": 0,
+        "debt": "5/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": -2,
+      "maintenanceDeltaQ": -2,
+      "reductionQ": 2,
+      "reductionSP": "1/2",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "OUT_OF_SUPPLY",
+        "expSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        }
+      }
+    },
+    {
+      "id": "S-R-T04-G01-U01",
+      "side": "S",
+      "reference": {
+        "id": "S-R-T04-G01-U01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-R-T04-G01-U01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-R-T04-G01-U02",
+      "side": "S",
+      "reference": {
+        "id": "S-R-T04-G01-U02",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-R-T04-G01-U02",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-R-T07-G02-U01",
+      "side": "S",
+      "reference": {
+        "id": "S-R-T07-G02-U01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-R-T07-G02-U01",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-R-T07-G02-U02",
+      "side": "S",
+      "reference": {
+        "id": "S-R-T07-G02-U02",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-R-T07-G02-U02",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    },
+    {
+      "id": "S-R-T07-G02-U03",
+      "side": "S",
+      "reference": {
+        "id": "S-R-T07-G02-U03",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "S-R-T07-G02-U03",
+        "before": 0,
+        "received": 3,
+        "due": 4,
+        "maintenance": 3,
+        "net": 3,
+        "after": 0,
+        "debt": "1/4",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": 0,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 0,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "actualCore": {
+        "alive": true,
+        "step": 0,
+        "supplyState": "SUPPLIED",
+        "expSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        }
+      }
+    }
+  ],
+  "sourceComparison": [
+    {
+      "id": "G-A5",
+      "reference": 32,
+      "alternative": 32,
+      "deltaQ": 0
+    },
+    {
+      "id": "G-A10",
+      "reference": 32,
+      "alternative": 32,
+      "deltaQ": 0
+    },
+    {
+      "id": "G-A16",
+      "reference": 12,
+      "alternative": 12,
+      "deltaQ": 0
+    }
+  ],
+  "hubComparison": [
+    {
+      "id": "GH1",
+      "reference": 0,
+      "alternative": 0,
+      "deltaQ": 0
+    },
+    {
+      "id": "GH2",
+      "reference": 28,
+      "alternative": 28,
+      "deltaQ": 0
+    },
+    {
+      "id": "GH3",
+      "reference": 32,
+      "alternative": 32,
+      "deltaQ": 0
+    }
+  ],
+  "conservation": {
+    "G": {
+      "reference": {
+        "openingQ": 84,
+        "sourceQ": 76,
+        "maintenanceQ": 68,
+        "closingQ": 92,
+        "balanced": true
+      },
+      "alternative": {
+        "openingQ": 84,
+        "sourceQ": 76,
+        "maintenanceQ": 66,
+        "closingQ": 94,
+        "balanced": true
+      }
+    },
+    "S": {
+      "reference": {
+        "openingQ": 72,
+        "sourceQ": 96,
+        "maintenanceQ": 136,
+        "closingQ": 32,
+        "balanced": true
+      },
+      "alternative": {
+        "openingQ": 72,
+        "sourceQ": 96,
+        "maintenanceQ": 136,
+        "closingQ": 32,
+        "balanced": true
+      }
+    }
+  },
+  "actualE9UnusedMaintenance": [
+    {
+      "side": "G",
+      "deliveries": {
+        "G-ART-01": 2,
+        "G-ART-02": 2,
+        "G-ENG-01": 2,
+        "G-ENG-02": 2,
+        "G-I-01": 2,
+        "G-I-02": 2,
+        "G-I-03": 2,
+        "G-I-04": 2,
+        "G-I-05": 2,
+        "G-I-06": 2,
+        "G-I-07": 2,
+        "G-I-08": 2,
+        "G-I-09": 2,
+        "G-I-10": 2,
+        "G-I-11": 2,
+        "G-J-01": 2,
+        "G-J-02": 2,
+        "G-MOT-01": 3,
+        "G-MOT-02": 3,
+        "G-MOT-03": 3,
+        "G-PZ-01": 10,
+        "G-PZ-02": 3,
+        "G-PZ-03": 4,
+        "G-PZ-04": 4,
+        "G-REC-01": 2,
+        "G-REC-02": 2
+      },
+      "hubs": {
+        "GH1": 0,
+        "GH2": 32,
+        "GH3": 32
+      },
+      "flows": [
+        {
+          "kind": "rail",
+          "edges": [
+            "B10~C10"
+          ],
+          "source": "B10",
+          "hub": "C10",
+          "cost": 1,
+          "q": 28
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "A10~B10"
+          ],
+          "source": "A10",
+          "hub": "B10",
+          "cost": 1,
+          "q": 28
+        },
+        {
+          "kind": "rail",
+          "edges": [],
+          "source": "G-A5",
+          "hub": "GH1",
+          "cost": 1,
+          "q": 32
+        },
+        {
+          "kind": "rail",
+          "edges": [],
+          "source": "G-A16",
+          "hub": "GH3",
+          "cost": 1,
+          "q": 12
+        },
+        {
+          "kind": "last",
+          "edges": [],
+          "hub": "GH1",
+          "unit": "G-ART-01",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [],
+          "hub": "GH1",
+          "unit": "G-ART-02",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A4~A5"
+          ],
+          "hub": "GH1",
+          "unit": "G-ENG-01",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A4~A5"
+          ],
+          "hub": "GH1",
+          "unit": "G-ENG-02",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~A6"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-02",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~B5"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-04",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~B5"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-05",
+          "cost": 1,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~B4"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-06",
+          "cost": 2,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~B4"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-07",
+          "cost": 2,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A4~A5",
+            "A3~A4"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-10",
+          "cost": 3,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A4~A5",
+            "A3~A4"
+          ],
+          "hub": "GH1",
+          "unit": "G-I-11",
+          "cost": 3,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A4~A5",
+            "A4~B3"
+          ],
+          "hub": "GH1",
+          "unit": "G-MOT-03",
+          "cost": 3,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A4~A5",
+            "A4~B3"
+          ],
+          "hub": "GH1",
+          "unit": "G-PZ-02",
+          "cost": 3,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~B5",
+            "B5~C5"
+          ],
+          "hub": "GH1",
+          "unit": "G-REC-01",
+          "cost": 2,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A5~B5",
+            "B5~C5"
+          ],
+          "hub": "GH1",
+          "unit": "G-REC-02",
+          "cost": 2,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "A9~B9",
+            "A8~A9",
+            "A7~A8",
+            "A6~A7"
+          ],
+          "hub": "GH2",
+          "unit": "G-I-03",
+          "cost": 5,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "B8~B9",
+            "B7~B8",
+            "B6~B7"
+          ],
+          "hub": "GH2",
+          "unit": "G-I-08",
+          "cost": 4,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "B8~B9",
+            "B7~B8",
+            "B6~B7"
+          ],
+          "hub": "GH2",
+          "unit": "G-I-09",
+          "cost": 4,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "A9~B9",
+            "A8~A9",
+            "A7~A8"
+          ],
+          "hub": "GH2",
+          "unit": "G-J-01",
+          "cost": 4,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "A9~B9",
+            "A8~A9",
+            "A7~A8"
+          ],
+          "hub": "GH2",
+          "unit": "G-J-02",
+          "cost": 4,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "C10~C9",
+            "C8~C9",
+            "C7~C8",
+            "C6~C7"
+          ],
+          "hub": "GH2",
+          "unit": "G-MOT-01",
+          "cost": 5,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "C10~C9",
+            "C8~C9",
+            "C7~C8",
+            "C6~C7"
+          ],
+          "hub": "GH2",
+          "unit": "G-MOT-02",
+          "cost": 5,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "B8~B9",
+            "B7~B8"
+          ],
+          "hub": "GH2",
+          "unit": "G-PZ-03",
+          "cost": 3,
+          "delivery": true,
+          "q": 4
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "B9~C10",
+            "B8~B9",
+            "B7~B8"
+          ],
+          "hub": "GH2",
+          "unit": "G-PZ-04",
+          "cost": 3,
+          "delivery": true,
+          "q": 4
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A15~A16",
+            "A14~A15",
+            "A13~A14",
+            "A12~A13",
+            "A11~A12",
+            "A11~B10",
+            "B10~C10"
+          ],
+          "hub": "GH3",
+          "unit": "G-I-01",
+          "cost": 8,
+          "delivery": true,
+          "q": 2
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "A15~A16",
+            "A14~A15",
+            "A13~A14",
+            "A12~A13",
+            "A11~A12",
+            "A11~B10",
+            "B10~C10"
+          ],
+          "hub": "GH3",
+          "unit": "G-PZ-01",
+          "cost": 8,
+          "delivery": true,
+          "q": 10
+        }
+      ],
+      "source_used": {
+        "G-A5": 32,
+        "G-A10": 28,
+        "G-A16": 12
+      },
+      "hub_unload": {
+        "GH1": 32,
+        "GH2": 28,
+        "GH3": 12
+      },
+      "constraints": [
+        {
+          "id": "source:G-A5",
+          "used": 32,
+          "cap": 32,
+          "saturated": true
+        },
+        {
+          "id": "source:G-A10",
+          "used": 28,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "source:G-A16",
+          "used": 12,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "rail:A10~B10",
+          "used": 28,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:B10~C10",
+          "used": 28,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "T",
+          "used": 100,
+          "cap": 2200,
+          "saturated": false
+        },
+        {
+          "id": "W:GH1",
+          "used": 60,
+          "cap": 96,
+          "saturated": false
+        },
+        {
+          "id": "W:GH2",
+          "used": 96,
+          "cap": 96,
+          "saturated": true
+        },
+        {
+          "id": "W:GH3",
+          "used": 96,
+          "cap": 96,
+          "saturated": true
+        },
+        {
+          "id": "unit:G-ART-01",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-ART-02",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-ENG-01",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-ENG-02",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-01",
+          "used": 2,
+          "cap": 4,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-02",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-03",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-04",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-05",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-06",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-07",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-08",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-09",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-10",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-I-11",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-J-01",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-J-02",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-MOT-01",
+          "used": 3,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-MOT-02",
+          "used": 3,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-MOT-03",
+          "used": 3,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-PZ-01",
+          "used": 10,
+          "cap": 10,
+          "saturated": true
+        },
+        {
+          "id": "unit:G-PZ-02",
+          "used": 3,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-PZ-03",
+          "used": 4,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-PZ-04",
+          "used": 4,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-REC-01",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:G-REC-02",
+          "used": 2,
+          "cap": 16,
+          "saturated": false
+        }
+      ],
+      "objectives": [
+        [
+          "leximin_at_1/8",
+          26.0
+        ],
+        [
+          "leximin_at_1/4",
+          26.0
+        ],
+        [
+          "leximin_at_3/8",
+          26.0
+        ],
+        [
+          "leximin_at_1/2",
+          22.0
+        ],
+        [
+          "leximin_at_5/8",
+          2.0
+        ],
+        [
+          "leximin_at_3/4",
+          2.0
+        ],
+        [
+          "leximin_at_7/8",
+          2.0
+        ],
+        [
+          "leximin_at_1",
+          2.0
+        ],
+        [
+          "maintenance_rotation",
+          901.0
+        ],
+        [
+          "priority_delivery",
+          68.0
+        ],
+        [
+          "remaining_hub_stock",
+          4.0
+        ],
+        [
+          "rotating_remainder",
+          921.0
+        ],
+        [
+          "transport_work",
+          352.0
+        ],
+        [
+          "canonical_hub:GH1",
+          0.0
+        ],
+        [
+          "canonical_hub:GH2",
+          4.0
+        ],
+        [
+          "canonical_hub:GH3",
+          0.0
+        ]
+      ],
+      "paths": null,
+      "variables": 285,
+      "rows": 504,
+      "exact": true,
+      "solver": "exact-signature",
+      "conditional": false,
+      "solver_retries": [],
+      "units": [
+        {
+          "id": "G-ART-01",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "9/4",
+          "loss": 0
+        },
+        {
+          "id": "G-ART-02",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "2",
+          "loss": 0
+        },
+        {
+          "id": "G-ENG-01",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-ENG-02",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-01",
+          "before": 12,
+          "received": 2,
+          "maintenance": 4,
+          "due": 4,
+          "after": 10,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "G-I-02",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-03",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-04",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-05",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-06",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-07",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "7/4",
+          "loss": 0
+        },
+        {
+          "id": "G-I-08",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-09",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-10",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0
+        },
+        {
+          "id": "G-I-11",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0
+        },
+        {
+          "id": "G-J-01",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0
+        },
+        {
+          "id": "G-J-02",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0
+        },
+        {
+          "id": "G-MOT-01",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 8,
+          "after": 0,
+          "debt": "3",
+          "loss": 1
+        },
+        {
+          "id": "G-MOT-02",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 8,
+          "after": 0,
+          "debt": "3",
+          "loss": 1
+        },
+        {
+          "id": "G-MOT-03",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 8,
+          "after": 0,
+          "debt": "3",
+          "loss": 1
+        },
+        {
+          "id": "G-PZ-01",
+          "before": 22,
+          "received": 10,
+          "maintenance": 8,
+          "due": 8,
+          "after": 24,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "G-PZ-02",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 8,
+          "after": 0,
+          "debt": "3",
+          "loss": 1
+        },
+        {
+          "id": "G-PZ-03",
+          "before": 0,
+          "received": 4,
+          "maintenance": 4,
+          "due": 8,
+          "after": 0,
+          "debt": "21/8",
+          "loss": 0
+        },
+        {
+          "id": "G-PZ-04",
+          "before": 0,
+          "received": 4,
+          "maintenance": 4,
+          "due": 8,
+          "after": 0,
+          "debt": "23/8",
+          "loss": 0
+        },
+        {
+          "id": "G-REC-01",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0
+        },
+        {
+          "id": "G-REC-02",
+          "before": 0,
+          "received": 2,
+          "maintenance": 2,
+          "due": 4,
+          "after": 0,
+          "debt": "3",
+          "loss": 1
+        }
+      ]
+    },
+    {
+      "side": "S",
+      "deliveries": {
+        "S-ART-01": 3,
+        "S-ART-02": 3,
+        "S-ART-03": 3,
+        "S-AT-01": 3,
+        "S-AT-02": 3,
+        "S-AT-03": 0,
+        "S-EL-01": 0,
+        "S-EL-02": 0,
+        "S-ENG-01": 0,
+        "S-ENG-02": 0,
+        "S-HV-01": 0,
+        "S-I-02": 0,
+        "S-I-03": 3,
+        "S-I-04": 3,
+        "S-I-05": 3,
+        "S-I-06": 3,
+        "S-I-07": 3,
+        "S-I-08": 3,
+        "S-I-09": 3,
+        "S-I-10": 3,
+        "S-I-11": 3,
+        "S-I-12": 3,
+        "S-I-13": 3,
+        "S-I-14": 3,
+        "S-I-15": 3,
+        "S-I-16": 3,
+        "S-MOT-01": 5,
+        "S-MOT-02": 5,
+        "S-R-T04-G01-U01": 3,
+        "S-R-T04-G01-U02": 3,
+        "S-R-T07-G02-U01": 3,
+        "S-R-T07-G02-U02": 3,
+        "S-R-T07-G02-U03": 3,
+        "S-TK-01": 5,
+        "S-TK-02": 5,
+        "S-TK-03": 4
+      },
+      "hubs": {
+        "SH1": 0,
+        "SH2": 0,
+        "SH3": 0
+      },
+      "flows": [
+        {
+          "kind": "rail",
+          "edges": [
+            "V5~W6"
+          ],
+          "source": "V5",
+          "hub": "W6",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "V5~W5"
+          ],
+          "source": "W5",
+          "hub": "V5",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "W6~W7"
+          ],
+          "source": "W6",
+          "hub": "W7",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "W7~X7"
+          ],
+          "source": "W7",
+          "hub": "X7",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "W5~X4"
+          ],
+          "source": "X4",
+          "hub": "W5",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "X7~X8"
+          ],
+          "source": "X7",
+          "hub": "X8",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "X8~Y9"
+          ],
+          "source": "X8",
+          "hub": "Y9",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "X14~Y14"
+          ],
+          "source": "X14",
+          "hub": "Y14",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "X4~Y4"
+          ],
+          "source": "Y4",
+          "hub": "X4",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "Y9~Z9"
+          ],
+          "source": "Y9",
+          "hub": "Z9",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "Y14~Z13"
+          ],
+          "source": "Y14",
+          "hub": "Z13",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "X14~Y15"
+          ],
+          "source": "Y15",
+          "hub": "X14",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "Y4~Z3"
+          ],
+          "source": "Z3",
+          "hub": "Y4",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA10~Z9"
+          ],
+          "source": "Z9",
+          "hub": "AA10",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA13~Z13"
+          ],
+          "source": "Z13",
+          "hub": "AA13",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "Y15~Z15"
+          ],
+          "source": "Z15",
+          "hub": "Y15",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA4~Z3"
+          ],
+          "source": "AA4",
+          "hub": "Z3",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA10~AB9"
+          ],
+          "source": "AA10",
+          "hub": "AB9",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA13~AB12"
+          ],
+          "source": "AA13",
+          "hub": "AB12",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA16~Z15"
+          ],
+          "source": "AA16",
+          "hub": "Z15",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA4~AB4"
+          ],
+          "source": "AB4",
+          "hub": "AA4",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AB9~AC10"
+          ],
+          "source": "AB9",
+          "hub": "AC10",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AB11~AC11"
+          ],
+          "source": "AB11",
+          "hub": "AC11",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AB11~AB12"
+          ],
+          "source": "AB12",
+          "hub": "AB11",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AA16~AB16"
+          ],
+          "source": "AB16",
+          "hub": "AA16",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AB4~AC5"
+          ],
+          "source": "AC5",
+          "hub": "AB4",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AB16~AC16"
+          ],
+          "source": "AC16",
+          "hub": "AB16",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AC5~AD4"
+          ],
+          "source": "AD4",
+          "hub": "AC5",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AC16~AD16"
+          ],
+          "source": "AD16",
+          "hub": "AC16",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AD4~AE4"
+          ],
+          "source": "AE4",
+          "hub": "AD4",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AD16~AE17"
+          ],
+          "source": "AE17",
+          "hub": "AD16",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AC10~AC11"
+          ],
+          "source": "AC11",
+          "hub": "AC10",
+          "cost": 1,
+          "q": 10
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AE17~AF16"
+          ],
+          "source": "AF16",
+          "hub": "AE17",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [
+            "AE4~AF4"
+          ],
+          "source": "AF4",
+          "hub": "AE4",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [],
+          "source": "S-AF10",
+          "hub": "SH3",
+          "cost": 1,
+          "q": 24
+        },
+        {
+          "kind": "rail",
+          "edges": [],
+          "source": "S-AC10",
+          "hub": "SH1",
+          "cost": 1,
+          "q": 16
+        },
+        {
+          "kind": "rail",
+          "edges": [],
+          "source": "S-AC11",
+          "hub": "SH2",
+          "cost": 1,
+          "q": 6
+        },
+        {
+          "kind": "last",
+          "edges": [],
+          "hub": "SH1",
+          "unit": "S-ART-01",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [],
+          "hub": "SH1",
+          "unit": "S-ART-02",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10"
+          ],
+          "hub": "SH1",
+          "unit": "S-ART-03",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10"
+          ],
+          "hub": "SH1",
+          "unit": "S-AT-01",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC10~AC9"
+          ],
+          "hub": "SH1",
+          "unit": "S-AT-02",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB10~AC10"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-04",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC10~AD9"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-05",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC10~AD9"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-06",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10",
+            "AA9~AB9"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-09",
+          "cost": 2,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10",
+            "AA9~AB9"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-10",
+          "cost": 2,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC10~AC9",
+            "AC8~AC9"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-11",
+          "cost": 3,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC10~AC9",
+            "AC8~AC9"
+          ],
+          "hub": "SH1",
+          "unit": "S-I-12",
+          "cost": 3,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10",
+            "AA9~AB9",
+            "AA8~AA9"
+          ],
+          "hub": "SH1",
+          "unit": "S-MOT-01",
+          "cost": 3,
+          "delivery": true,
+          "q": 5
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10",
+            "AA9~AB9",
+            "AA8~AA9"
+          ],
+          "hub": "SH1",
+          "unit": "S-MOT-02",
+          "cost": 3,
+          "delivery": true,
+          "q": 5
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB9~AC10",
+            "AB8~AB9",
+            "AB7~AB8"
+          ],
+          "hub": "SH1",
+          "unit": "S-TK-03",
+          "cost": 3,
+          "delivery": true,
+          "q": 4
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB10~AC11"
+          ],
+          "hub": "SH2",
+          "unit": "S-I-03",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC11~AD11"
+          ],
+          "hub": "SH2",
+          "unit": "S-I-07",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC11~AC12"
+          ],
+          "hub": "SH2",
+          "unit": "S-I-13",
+          "cost": 2,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AC11~AC12"
+          ],
+          "hub": "SH2",
+          "unit": "S-I-14",
+          "cost": 2,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB10~AC11",
+            "AA10~AB10"
+          ],
+          "hub": "SH2",
+          "unit": "S-TK-01",
+          "cost": 2,
+          "delivery": true,
+          "q": 5
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AB10~AC11",
+            "AA10~AB10"
+          ],
+          "hub": "SH2",
+          "unit": "S-TK-02",
+          "cost": 2,
+          "delivery": true,
+          "q": 5
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AE11~AF10",
+            "AD11~AE11"
+          ],
+          "hub": "SH3",
+          "unit": "S-I-08",
+          "cost": 2,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AE11~AF10"
+          ],
+          "hub": "SH3",
+          "unit": "S-I-15",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AE11~AF10"
+          ],
+          "hub": "SH3",
+          "unit": "S-I-16",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AF10~AF9",
+            "AF8~AF9",
+            "AF7~AF8",
+            "AF6~AF7",
+            "AE6~AF6",
+            "AE5~AE6",
+            "AE4~AE5",
+            "AE4~AF3"
+          ],
+          "hub": "SH3",
+          "unit": "S-R-T04-G01-U01",
+          "cost": 8,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AF10~AF9",
+            "AF8~AF9",
+            "AF7~AF8",
+            "AF6~AF7",
+            "AE6~AF6",
+            "AE5~AE6",
+            "AE5~AF4"
+          ],
+          "hub": "SH3",
+          "unit": "S-R-T04-G01-U02",
+          "cost": 7,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [
+            "AF10~AF9",
+            "AF8~AF9",
+            "AF7~AF8",
+            "AF6~AF7",
+            "AE6~AF6",
+            "AE5~AE6",
+            "AE5~AF4"
+          ],
+          "hub": "SH3",
+          "unit": "S-R-T07-G02-U01",
+          "cost": 7,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [],
+          "hub": "SH3",
+          "unit": "S-R-T07-G02-U02",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        },
+        {
+          "kind": "last",
+          "edges": [],
+          "hub": "SH3",
+          "unit": "S-R-T07-G02-U03",
+          "cost": 1,
+          "delivery": true,
+          "q": 3
+        }
+      ],
+      "source_used": {
+        "S-AF4": 24,
+        "S-AF10": 24,
+        "S-AF16": 16,
+        "S-AC10": 16,
+        "S-AC11": 16
+      },
+      "hub_unload": {
+        "SH1": 50,
+        "SH2": 22,
+        "SH3": 24
+      },
+      "constraints": [
+        {
+          "id": "source:S-AF4",
+          "used": 24,
+          "cap": 24,
+          "saturated": true
+        },
+        {
+          "id": "source:S-AF10",
+          "used": 24,
+          "cap": 24,
+          "saturated": true
+        },
+        {
+          "id": "source:S-AF16",
+          "used": 16,
+          "cap": 16,
+          "saturated": true
+        },
+        {
+          "id": "source:S-AC10",
+          "used": 16,
+          "cap": 16,
+          "saturated": true
+        },
+        {
+          "id": "source:S-AC11",
+          "used": 16,
+          "cap": 16,
+          "saturated": true
+        },
+        {
+          "id": "rail:A10~B10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:A16~B16",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:B16~C16",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:C16~D15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:D5~E5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:D10~E10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:D15~E15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:E5~F5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:E10~F9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:E15~F15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:F5~G6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:F9~G10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:F15~G16",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:G6~H6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:G10~H9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:G16~H15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:H6~I6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:H9~I10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:H15~I15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:I6~J6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:I10~J10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:I15~J14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:J6~K6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:J6~K7",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:J10~K10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:J14~K15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:K6~L5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:K7~L7",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:K10~L10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:K15~L15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:L5~M5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:L7~M8",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:L10~M11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:L15~M15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:M5~N5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:M8~N8",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:M11~N10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:M15~N14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:M15~N15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:N5~O6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:N8~O9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:N10~O11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:N14~O14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:N15~O15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:O6~P5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:O9~P9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:O11~P11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:O14~P13",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:O15~P14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:P5~Q5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:P9~Q10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:P11~Q11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:P12~P13",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:P12~Q12",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:P14~Q15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Q5~R5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Q10~R10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Q11~Q12",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Q11~R10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Q15~R14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:R5~S6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:R10~S10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:R10~S11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:R14~S15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:S6~T6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:S10~S9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:S9~T8",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:S10~T9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:S11~T11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:S15~T15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:T6~U6",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:T8~U8",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:T9~U10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:T11~U12",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:T15~U15",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:U6~U7",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:U6~V5",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:U7~U8",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:U10~V10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:U12~V12",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:U15~V14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:V5~W5",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:V5~W6",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:V10~W10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:V12~W13",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:V14~W14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:W5~X4",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:W6~W7",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:W7~X7",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:W10~X9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:W13~X13",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:W14~X14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X4~Y4",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X7~X8",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X8~Y9",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X9~Y10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X13~X14",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X14~Y14",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:X14~Y15",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Y4~Z3",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Y9~Z9",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Y10~Z9",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Y14~Z13",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:Y15~Z15",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA4~Z3",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA10~Z9",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA13~Z13",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA16~Z15",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA4~AB4",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA10~AB9",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA13~AB12",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AA16~AB16",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AB4~AC5",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AB9~AC10",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AB11~AB12",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AB11~AC11",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AB16~AC16",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AC5~AD4",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AC10~AC11",
+          "used": 10,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AC10~AD10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AC16~AD16",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AD4~AE4",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AD10~AE11",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AD16~AE17",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AE4~AF4",
+          "used": 24,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AE11~AF10",
+          "used": 0,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "rail:AE17~AF16",
+          "used": 16,
+          "cap": 40,
+          "saturated": false
+        },
+        {
+          "id": "T",
+          "used": 736,
+          "cap": 2200,
+          "saturated": false
+        },
+        {
+          "id": "W:SH1",
+          "used": 96,
+          "cap": 96,
+          "saturated": true
+        },
+        {
+          "id": "W:SH2",
+          "used": 38,
+          "cap": 96,
+          "saturated": false
+        },
+        {
+          "id": "W:SH3",
+          "used": 84,
+          "cap": 96,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-ART-01",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-ART-02",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-ART-03",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-AT-01",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-AT-02",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-AT-03",
+          "used": 0,
+          "cap": 12,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-EL-01",
+          "used": 0,
+          "cap": 12,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-EL-02",
+          "used": 0,
+          "cap": 12,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-ENG-01",
+          "used": 0,
+          "cap": 12,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-ENG-02",
+          "used": 0,
+          "cap": 12,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-HV-01",
+          "used": 0,
+          "cap": 24,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-02",
+          "used": 0,
+          "cap": 12,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-03",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-04",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-05",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-06",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-07",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-08",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-09",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-10",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-11",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-12",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-13",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-14",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-15",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-I-16",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-MOT-01",
+          "used": 5,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-MOT-02",
+          "used": 5,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-R-T04-G01-U01",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-R-T04-G01-U02",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-R-T07-G02-U01",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-R-T07-G02-U02",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-R-T07-G02-U03",
+          "used": 3,
+          "cap": 16,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-TK-01",
+          "used": 5,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-TK-02",
+          "used": 5,
+          "cap": 32,
+          "saturated": false
+        },
+        {
+          "id": "unit:S-TK-03",
+          "used": 4,
+          "cap": 32,
+          "saturated": false
+        }
+      ],
+      "objectives": [
+        [
+          "leximin_at_1/8",
+          36.0
+        ],
+        [
+          "leximin_at_1/4",
+          36.0
+        ],
+        [
+          "leximin_at_3/8",
+          36.0
+        ],
+        [
+          "leximin_at_1/2",
+          36.0
+        ],
+        [
+          "leximin_at_5/8",
+          35.0
+        ],
+        [
+          "leximin_at_3/4",
+          31.0
+        ],
+        [
+          "leximin_at_7/8",
+          7.0
+        ],
+        [
+          "leximin_at_1",
+          7.0
+        ],
+        [
+          "maintenance_rotation",
+          2399.0
+        ],
+        [
+          "priority_delivery",
+          96.0
+        ],
+        [
+          "remaining_hub_stock",
+          0.0
+        ],
+        [
+          "rotating_remainder",
+          1687.0
+        ],
+        [
+          "transport_work",
+          954.0
+        ],
+        [
+          "canonical_hub:SH1",
+          0.0
+        ],
+        [
+          "canonical_hub:SH2",
+          0.0
+        ],
+        [
+          "canonical_hub:SH3",
+          0.0
+        ]
+      ],
+      "paths": null,
+      "variables": 649,
+      "rows": 865,
+      "exact": true,
+      "solver": "exact-signature",
+      "conditional": false,
+      "solver_retries": [],
+      "units": [
+        {
+          "id": "S-ART-01",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-ART-02",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "3/4",
+          "loss": 0
+        },
+        {
+          "id": "S-ART-03",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "3/4",
+          "loss": 0
+        },
+        {
+          "id": "S-AT-01",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-AT-02",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/4",
+          "loss": 0
+        },
+        {
+          "id": "S-AT-03",
+          "before": 4,
+          "received": 0,
+          "maintenance": 4,
+          "due": 4,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-EL-01",
+          "before": 4,
+          "received": 0,
+          "maintenance": 4,
+          "due": 4,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-EL-02",
+          "before": 4,
+          "received": 0,
+          "maintenance": 4,
+          "due": 4,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-ENG-01",
+          "before": 4,
+          "received": 0,
+          "maintenance": 4,
+          "due": 4,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-ENG-02",
+          "before": 4,
+          "received": 0,
+          "maintenance": 4,
+          "due": 4,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-HV-01",
+          "before": 8,
+          "received": 0,
+          "maintenance": 8,
+          "due": 8,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-I-02",
+          "before": 4,
+          "received": 0,
+          "maintenance": 4,
+          "due": 4,
+          "after": 0,
+          "debt": "0",
+          "loss": 0
+        },
+        {
+          "id": "S-I-03",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/4",
+          "loss": 0
+        },
+        {
+          "id": "S-I-04",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-05",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-06",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-07",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-08",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-09",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-10",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-11",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-12",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-13",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-14",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-15",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-I-16",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-MOT-01",
+          "before": 0,
+          "received": 5,
+          "maintenance": 5,
+          "due": 8,
+          "after": 0,
+          "debt": "7/8",
+          "loss": 0
+        },
+        {
+          "id": "S-MOT-02",
+          "before": 0,
+          "received": 5,
+          "maintenance": 5,
+          "due": 8,
+          "after": 0,
+          "debt": "7/8",
+          "loss": 0
+        },
+        {
+          "id": "S-TK-01",
+          "before": 0,
+          "received": 5,
+          "maintenance": 5,
+          "due": 8,
+          "after": 0,
+          "debt": "7/8",
+          "loss": 0
+        },
+        {
+          "id": "S-TK-02",
+          "before": 0,
+          "received": 5,
+          "maintenance": 5,
+          "due": 8,
+          "after": 0,
+          "debt": "7/8",
+          "loss": 0
+        },
+        {
+          "id": "S-TK-03",
+          "before": 0,
+          "received": 4,
+          "maintenance": 4,
+          "due": 8,
+          "after": 0,
+          "debt": "1",
+          "loss": 0
+        },
+        {
+          "id": "S-R-T04-G01-U01",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-R-T04-G01-U02",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-R-T07-G02-U01",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-R-T07-G02-U02",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        },
+        {
+          "id": "S-R-T07-G02-U03",
+          "before": 0,
+          "received": 3,
+          "maintenance": 3,
+          "due": 4,
+          "after": 0,
+          "debt": "1/2",
+          "loss": 0
+        }
+      ]
+    }
+  ],
+  "E9Interpretation": "Actual normal E9 attrition in the unused branch. No matched E9 no-freight counterfactual; not an attribution of all losses to the material shipment.",
+  "recovery": {
+    "before": 1,
+    "after": 2,
+    "result": {
+      "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/recovery-0001",
+      "requestId": "016-repair",
+      "unitId": "G-I-01",
+      "payment": {
+        "P": 1,
+        "E2:L": 2,
+        "RP": 0,
+        "extraW": 0
+      },
+      "beforeStep": 1,
+      "afterStep": 0,
+      "beforeGameRevision": 152,
+      "afterGameRevision": 153,
+      "commonBefore": {
+        "commonEligible": true,
+        "commonIssues": [],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": true,
+          "issues": []
+        },
+        "integrityIssues": [],
+        "recoveryIssues": [],
+        "rpIssues": [],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 1,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 152,
+          "snapshotHash": "10d26609365cbd9e512a95f7c7ee6df358ea3dcebfddf6f653485c5cae7b2a13",
+          "turn": 9,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 0,
+          "recoveryLimit": 1
+        }
+      }
+    },
+    "CoreBefore": {
+      "commonEligible": true,
+      "commonIssues": [],
+      "requestIssues": [],
+      "envelopeIssues": [],
+      "enginePreconditions": {
+        "passed": true,
+        "issues": []
+      },
+      "integrityIssues": [],
+      "recoveryIssues": [],
+      "rpIssues": [],
+      "target": {
+        "id": "G-I-01",
+        "side": "GERMAN",
+        "templateId": "G-INF",
+        "step": 1,
+        "nodeId": "C10",
+        "supplyState": "SUPPLIED"
+      },
+      "context": {
+        "revision": 152,
+        "snapshotHash": "10d26609365cbd9e512a95f7c7ee6df358ea3dcebfddf6f653485c5cae7b2a13",
+        "turn": 9,
+        "phase": "GERMAN_RECOVERY",
+        "recoveryCount": 0,
+        "recoveryLimit": 1
+      }
+    },
+    "CoreAfter": {
+      "commonEligible": false,
+      "commonIssues": [
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "Full-strength units cannot recover.",
+          "details": {
+            "reason": "UNIT_NOT_DAMAGED",
+            "unitId": "G-I-01"
+          }
+        },
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "A unit may recover only once in its Recovery phase.",
+          "details": {
+            "reason": "UNIT_ALREADY_RECOVERED_THIS_TURN",
+            "unitId": "G-I-01"
+          }
+        },
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "Side-wide Recovery unit limit has been reached for this turn.",
+          "details": {
+            "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+            "side": "GERMAN",
+            "turn": 9,
+            "recoveredUnits": 1,
+            "limit": 1
+          }
+        }
+      ],
+      "requestIssues": [],
+      "envelopeIssues": [],
+      "enginePreconditions": {
+        "passed": true,
+        "issues": []
+      },
+      "integrityIssues": [],
+      "recoveryIssues": [
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "Full-strength units cannot recover.",
+          "details": {
+            "reason": "UNIT_NOT_DAMAGED",
+            "unitId": "G-I-01"
+          }
+        },
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "A unit may recover only once in its Recovery phase.",
+          "details": {
+            "reason": "UNIT_ALREADY_RECOVERED_THIS_TURN",
+            "unitId": "G-I-01"
+          }
+        },
+        {
+          "code": "INVALID_SUPPORT",
+          "message": "Side-wide Recovery unit limit has been reached for this turn.",
+          "details": {
+            "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+            "side": "GERMAN",
+            "turn": 9,
+            "recoveredUnits": 1,
+            "limit": 1
+          }
+        }
+      ],
+      "rpIssues": [],
+      "target": {
+        "id": "G-I-01",
+        "side": "GERMAN",
+        "templateId": "G-INF",
+        "step": 0,
+        "nodeId": "C10",
+        "supplyState": "SUPPLIED"
+      },
+      "context": {
+        "revision": 153,
+        "snapshotHash": "74544152483c5d614449bbbefaf3160ca1938496a43d45325b12eb271e9682cb",
+        "turn": 9,
+        "phase": "GERMAN_RECOVERY",
+        "recoveryCount": 1,
+        "recoveryLimit": 1
+      }
+    }
+  },
+  "pendingGlobal": {
+    "blockersRetained": 35,
+    "blockersClosed": 0,
+    "sourceGapSP": {
+      "G": 9,
+      "S": 14
+    }
+  },
+  "scope": "LOCAL_SINGLE_PROCESS_CHAIN_ONLY_NO_LONG_TERM_BENEFIT_OR_BALANCE_CLAIM"
+}

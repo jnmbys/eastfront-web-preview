@@ -1,0 +1,724 @@
+{
+  "careFailed": {
+    "origin": "SYNTHETIC_FAULT_ON_REAL_CHECKPOINT",
+    "error": {
+      "ok": false,
+      "error": "REJECTED_UNCHANGED",
+      "detail": "SYNTHETIC_PRECOMMIT:before_commit"
+    },
+    "view": {
+      "schema": "industry-016-view.v1",
+      "readOnly": true,
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "materialRevision": 0,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": null,
+      "transport": null,
+      "shipment": null,
+      "terminal": null,
+      "materials": {
+        "P": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "RC007-REAR-G-A10",
+          "custody": "REAR_AVAILABLE",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "E2:L": {
+          "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+          "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+          "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+          "quantityE2": 2,
+          "materialType": "E2:L",
+          "custody": "REAR_AVAILABLE",
+          "owner": "RC007-REAR-G-A10",
+          "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+          "receivedEpoch": 6,
+          "availableFromTurn": 7,
+          "dispatchEpoch": 6,
+          "dueEpoch": 6
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "receiver": null,
+      "recovery": null,
+      "expired": false,
+      "historicalOffmapPersonnelLQ": {
+        "used": 4,
+        "remaining": 0,
+        "reusable": false
+      },
+      "blockers": [
+        "CARE_NOT_PAID"
+      ],
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "runtimeDefaultEnabled": false
+    }
+  },
+  "E8Failed": {
+    "origin": "SYNTHETIC_FAULT_ON_REAL_CHECKPOINT",
+    "error": {
+      "ok": false,
+      "error": "REJECTED_UNCHANGED",
+      "detail": "SYNTHETIC_PRECOMMIT:before_commit"
+    },
+    "view": {
+      "schema": "industry-016-view.v1",
+      "readOnly": true,
+      "rootRevision": 44,
+      "gameRevision": 148,
+      "turn": 8,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "materialRevision": 0,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "transport": null,
+      "shipment": null,
+      "terminal": null,
+      "materials": {
+        "P": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "RC007-REAR-G-A10",
+          "custody": "REAR_AVAILABLE",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "E2:L": {
+          "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+          "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+          "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+          "quantityE2": 2,
+          "materialType": "E2:L",
+          "custody": "REAR_AVAILABLE",
+          "owner": "RC007-REAR-G-A10",
+          "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+          "receivedEpoch": 6,
+          "availableFromTurn": 7,
+          "dispatchEpoch": 6,
+          "dueEpoch": 6
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "receiver": {
+        "id": "RC009-G-C10-GI01",
+        "capacity": {
+          "P": 1,
+          "E2:L": 2
+        },
+        "incoming": {}
+      },
+      "recovery": null,
+      "expired": false,
+      "historicalOffmapPersonnelLQ": {
+        "used": 4,
+        "remaining": 0,
+        "reusable": false
+      },
+      "blockers": [
+        "AWAIT_E8_SHIPMENT"
+      ],
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "runtimeDefaultEnabled": false
+    }
+  },
+  "recoveryFailed": {
+    "origin": "SYNTHETIC_FAULT_ON_REAL_CHECKPOINT",
+    "error": {
+      "ok": false,
+      "error": "REJECTED_UNCHANGED",
+      "detail": "SYNTHETIC_PRECOMMIT:before_commit"
+    },
+    "view": {
+      "schema": "industry-016-view.v1",
+      "readOnly": true,
+      "rootRevision": 48,
+      "gameRevision": 152,
+      "turn": 9,
+      "phase": "GERMAN_RECOVERY",
+      "materialRevision": 1,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "transport": [
+        {
+          "id": "rail:A10~B10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "rail:B10~C10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "T",
+          "originalCap": 2200,
+          "spUsed": 108,
+          "cargo": 16,
+          "remaining": 2076,
+          "reservation": 0,
+          "freight": 16
+        },
+        {
+          "id": "W:GH2",
+          "originalCap": 96,
+          "spUsed": 88,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        }
+      ],
+      "shipment": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "dispatchEpoch": 8,
+        "arrivalEpoch": 8,
+        "availableFromTurn": 9,
+        "inputHash": "c4e6c61b65d1f5254d35d153e65e1c3a51f95ae6f0f44c618f812006bedf6297",
+        "candidateHash": "50c31db0bb29330b4a581e5c3bdec26190f6fd0d9d25f2918f9342ef58c5ac25",
+        "capacityWitnessHash": "c1bc5365e6471501d988e942d0c796c757e6a18933751514a2da0d97da75339f",
+        "careExtensionId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "status": "RECEIVED",
+        "inputRootHash": "9af98995240bf54466fd421e92b21a258c47490b3ab08bbb03453d5669f3e587",
+        "requestId": "016-phase-148",
+        "requestFingerprint": "a6be2b72e7a15c34aa336acd05525b39802dd8c1a1ae7f3b45d2c8a3575badf6",
+        "inputMaterialRevision": 0,
+        "receiptId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/receipt-0001"
+      },
+      "terminal": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/terminal-GI01-0001",
+        "status": "PAID",
+        "unitId": "G-I-01",
+        "controllerId": "G-HUMAN-1",
+        "side": "G",
+        "node": "C10",
+        "key": "2,8",
+        "paidW": 8,
+        "extraRecoveryW": 0,
+        "shipmentId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "arrivalEpoch": 8,
+        "availableFromTurn": 9,
+        "approvalHash": "239a479dcfba305b89eeacbc12ec6acfeea3610fa3c7e80be1ce91a76cfacd27",
+        "candidateHash": "8f433f64818bd2b294b9a9626b6c9969cc6cd821e643405cc33f7e38058255ab",
+        "fixedCandidateHash": "50c31db0bb29330b4a581e5c3bdec26190f6fd0d9d25f2918f9342ef58c5ac25",
+        "inputHash": "c4e6c61b65d1f5254d35d153e65e1c3a51f95ae6f0f44c618f812006bedf6297",
+        "capacityWitnessHash": "c1bc5365e6471501d988e942d0c796c757e6a18933751514a2da0d97da75339f",
+        "careExtensionId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "expiresAfterEpoch": 9,
+        "inputRootHash": "9af98995240bf54466fd421e92b21a258c47490b3ab08bbb03453d5669f3e587",
+        "requestFingerprint": "a6be2b72e7a15c34aa336acd05525b39802dd8c1a1ae7f3b45d2c8a3575badf6",
+        "materialRevision": 1
+      },
+      "materials": {
+        "P": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "RC009-G-C10-GI01",
+          "custody": "FRONT_AVAILABLE",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "E2:L": {
+          "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+          "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+          "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+          "quantityE2": 2,
+          "materialType": "E2:L",
+          "custody": "FRONT_AVAILABLE",
+          "owner": "RC009-G-C10-GI01",
+          "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+          "receivedEpoch": 6,
+          "availableFromTurn": 7,
+          "dispatchEpoch": 6,
+          "dueEpoch": 6
+        }
+      },
+      "frontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "availableFrontInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "rearInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "receiver": {
+        "id": "RC009-G-C10-GI01",
+        "capacity": {
+          "P": 1,
+          "E2:L": 2
+        },
+        "incoming": {}
+      },
+      "recovery": null,
+      "expired": false,
+      "historicalOffmapPersonnelLQ": {
+        "used": 4,
+        "remaining": 0,
+        "reusable": false
+      },
+      "blockers": [
+        "AWAIT_T9_CORE_QUALIFICATION"
+      ],
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "runtimeDefaultEnabled": false
+    }
+  },
+  "held": {
+    "origin": "SYNTHETIC_RECEIVER_REFUSAL_ON_REAL_BOUNDARY",
+    "view": {
+      "schema": "industry-016-view.v1",
+      "readOnly": true,
+      "rootRevision": 45,
+      "gameRevision": 149,
+      "turn": 9,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "materialRevision": 1,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "transport": [
+        {
+          "id": "rail:A10~B10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "rail:B10~C10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "T",
+          "originalCap": 2200,
+          "spUsed": 108,
+          "cargo": 16,
+          "remaining": 2076,
+          "reservation": 0,
+          "freight": 16
+        },
+        {
+          "id": "W:GH2",
+          "originalCap": 96,
+          "spUsed": 88,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        }
+      ],
+      "shipment": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "dispatchEpoch": 8,
+        "arrivalEpoch": null,
+        "availableFromTurn": 9,
+        "inputHash": "c4e6c61b65d1f5254d35d153e65e1c3a51f95ae6f0f44c618f812006bedf6297",
+        "candidateHash": "50c31db0bb29330b4a581e5c3bdec26190f6fd0d9d25f2918f9342ef58c5ac25",
+        "capacityWitnessHash": "c1bc5365e6471501d988e942d0c796c757e6a18933751514a2da0d97da75339f",
+        "careExtensionId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "status": "HELD",
+        "inputRootHash": "9af98995240bf54466fd421e92b21a258c47490b3ab08bbb03453d5669f3e587",
+        "requestId": "refusal",
+        "requestFingerprint": "497fa521ea7895d0fee67ef8fbf5f947a70e5c8bc676528f0d3a8df04f947970",
+        "inputMaterialRevision": 0,
+        "refusal": "SYNTHETIC_RECEIVER_REFUSAL"
+      },
+      "terminal": null,
+      "materials": {
+        "P": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+          "custody": "HELD",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "E2:L": {
+          "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+          "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+          "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+          "quantityE2": 2,
+          "materialType": "E2:L",
+          "custody": "HELD",
+          "owner": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+          "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+          "receivedEpoch": 6,
+          "availableFromTurn": 7,
+          "dispatchEpoch": 6,
+          "dueEpoch": 6
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "receiver": {
+        "id": "RC009-G-C10-GI01",
+        "capacity": {
+          "P": 1,
+          "E2:L": 2
+        },
+        "incoming": {
+          "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001": {
+            "P": 1,
+            "E2:L": 2
+          }
+        }
+      },
+      "recovery": null,
+      "expired": false,
+      "historicalOffmapPersonnelLQ": {
+        "used": 4,
+        "remaining": 0,
+        "reusable": false
+      },
+      "blockers": [
+        "MATERIAL_HELD"
+      ],
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "runtimeDefaultEnabled": false
+    }
+  },
+  "heldExpired": {
+    "origin": "SYNTHETIC_REFUSAL_FOLLOWED_BY_LEGAL_E9_CONTINUATION",
+    "view": {
+      "schema": "industry-016-view.v1",
+      "readOnly": true,
+      "rootRevision": 55,
+      "gameRevision": 159,
+      "turn": 10,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "materialRevision": 2,
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "EXPIRED_PAID_NO_REFUND"
+      },
+      "transport": [
+        {
+          "id": "rail:A10~B10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "rail:B10~C10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "T",
+          "originalCap": 2200,
+          "spUsed": 108,
+          "cargo": 16,
+          "remaining": 2076,
+          "reservation": 0,
+          "freight": 16
+        },
+        {
+          "id": "W:GH2",
+          "originalCap": 96,
+          "spUsed": 88,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        }
+      ],
+      "shipment": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "dispatchEpoch": 8,
+        "arrivalEpoch": null,
+        "availableFromTurn": 9,
+        "inputHash": "c4e6c61b65d1f5254d35d153e65e1c3a51f95ae6f0f44c618f812006bedf6297",
+        "candidateHash": "50c31db0bb29330b4a581e5c3bdec26190f6fd0d9d25f2918f9342ef58c5ac25",
+        "capacityWitnessHash": "c1bc5365e6471501d988e942d0c796c757e6a18933751514a2da0d97da75339f",
+        "careExtensionId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "status": "HELD",
+        "inputRootHash": "9af98995240bf54466fd421e92b21a258c47490b3ab08bbb03453d5669f3e587",
+        "requestId": "refusal",
+        "requestFingerprint": "497fa521ea7895d0fee67ef8fbf5f947a70e5c8bc676528f0d3a8df04f947970",
+        "inputMaterialRevision": 0,
+        "refusal": "SYNTHETIC_RECEIVER_REFUSAL"
+      },
+      "terminal": null,
+      "materials": {
+        "P": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+          "custody": "TRANSIT_QUARANTINED",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "E2:L": {
+          "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+          "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+          "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+          "quantityE2": 2,
+          "materialType": "E2:L",
+          "custody": "TRANSIT_QUARANTINED",
+          "owner": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/shipment-0001",
+          "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+          "receivedEpoch": 6,
+          "availableFromTurn": 7,
+          "dispatchEpoch": 6,
+          "dueEpoch": 6
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "receiver": {
+        "id": "RC009-G-C10-GI01",
+        "capacity": {
+          "P": 1,
+          "E2:L": 2
+        },
+        "incoming": {}
+      },
+      "recovery": null,
+      "expired": true,
+      "historicalOffmapPersonnelLQ": {
+        "used": 4,
+        "remaining": 0,
+        "reusable": false
+      },
+      "blockers": [
+        "SCOPE_EXPIRED"
+      ],
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "runtimeDefaultEnabled": false
+    }
+  }
+}

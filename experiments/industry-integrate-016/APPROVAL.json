@@ -1,0 +1,47 @@
+{
+  "task": "INDUSTRY-INTEGRATE-016",
+  "authority": "Explicit Leader approval in user task; trusted local startup only",
+  "scope": "ONE_SINGLE_PROCESS_INSTANCE_T8_CARE_E8_FIXED015_FREIGHT_T9_PE_E9_CLOSURE",
+  "ruleCommit": "4a351226741457f57629963bfba99736807456b1",
+  "fixed015Commit": "fef6d57f8169fe981d3d13b16774b2503eb6dd9e",
+  "base013Commit": "2d04264a3f4ba6d38f76a99ae76821cc0a55abdb",
+  "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+  "candidateSha256": "8f433f64818bd2b294b9a9626b6c9969cc6cd821e643405cc33f7e38058255ab",
+  "permanentP": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+  "permanentE2": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+  "careI": 1,
+  "careDeadlineEndEpoch": 9,
+  "route": [
+    "A10",
+    "B10",
+    "C10"
+  ],
+  "nullControlExceptionKeys": [
+    "0,9",
+    "1,9",
+    "2,8"
+  ],
+  "cargo": {
+    "rail:A10~B10": 8,
+    "rail:B10~C10": 8,
+    "T": 16,
+    "W:GH2": 8
+  },
+  "target": "G-I-01",
+  "controller": "G-HUMAN-1",
+  "dispatchE": 8,
+  "receiveE": 8,
+  "availableT": 9,
+  "recoveryT": 9,
+  "maxShipments": 1,
+  "maxRecoveries": 1,
+  "noNewGrant": true,
+  "globalBlockersRetained": 35,
+  "globalBlockersClosed": 0,
+  "sourceGapSP": {
+    "G": 9,
+    "S": 14
+  },
+  "HTTP": false,
+  "crashDurability": false
+}
