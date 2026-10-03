@@ -1,0 +1,88 @@
+{
+  "stage": "desktop",
+  "sourceFile": "mp017-8013924d-14ac-4d9e-a1d5-d77781307b36-control.json",
+  "sourceSha256": "46b930fa3c5e1bb9be2c3ca8f4b36df180317f18cc4fb51a91ab2ca1cff0d208",
+  "version": "control",
+  "sourceSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+  "pairId": "8013924d-14ac-4d9e-a1d5-d77781307b36",
+  "purpose": "warmup",
+  "order": 1,
+  "device": "windows/chrome",
+  "classification": "warmup",
+  "reasons": [],
+  "textBackupMatches": null,
+  "textBackupSha256": null,
+  "scenario": "move",
+  "mode": "real",
+  "milestones": {
+    "authorityAppliedMs": 504.2,
+    "canSelectMs": 505,
+    "legalOptionsReadyMs": 1475.7,
+    "canSubmitMs": 1475.7
+  },
+  "originalSampler": {
+    "schema": "MP010-v1",
+    "requestId": "f976ecde-d768-4f72-b378-fe067e243067",
+    "snapshotFormat": "snapshot-v3-map-table",
+    "compression": "none",
+    "baseRevision": 0,
+    "acceptedRevision": 1,
+    "appliedSequence": 10,
+    "appliedRevision": 1,
+    "interactiveRevision": 1,
+    "sendMs": 0.4,
+    "ackMs": 405.1,
+    "authorizedAppliedMs": 505,
+    "interactiveMs": 1480.4,
+    "feedbackFrameOpportunityMs": 5.9,
+    "feedbackProxyKind": "pending-marker",
+    "visibleFeedbackMs": null,
+    "visibleFeedbackMethod": "unreviewed-video",
+    "rejected": false,
+    "resyncCount": 0,
+    "queryCount": 1,
+    "confirmClicks": 1,
+    "submitCount": 1,
+    "flags": []
+  },
+  "queries": [
+    {
+      "requestId": "963508e9-a39c-4e08-a143-d14d5b1e38f5",
+      "revision": 1,
+      "sendAt": 88527.5,
+      "receiveAt": 89465.29999999702,
+      "handledAt": 89471.5,
+      "applyToSendMs": 32.3,
+      "sendToReceiveMs": 937.8,
+      "receiveToCanSubmitMs": 1.4,
+      "synchronousViewOverlapMs": 0
+    }
+  ],
+  "renders": [
+    {
+      "revision": 1,
+      "sequence": 10,
+      "kind": "view",
+      "startAt": 88496,
+      "endAt": 88518.29999999702,
+      "durationMs": 22.3
+    },
+    {
+      "revision": 1,
+      "sequence": 11,
+      "kind": "query",
+      "startAt": 89466.69999999553,
+      "endAt": 89471.29999999702,
+      "durationMs": 4.6
+    }
+  ],
+  "missing": [
+    "feedbackOpportunityAt"
+  ],
+  "limitations": [
+    "Browser login/map/target/text backup require actual user evidence; classification alone is not full acceptance.",
+    "Same iframe monotonic clock only. Render is synchronous subscriber work, not paint.",
+    "Query interval includes unknown transport/server/event-loop wait; overlap is observed intersection, not causal speedup.",
+    "One measured pair is exploratory; no stable P95 or network improvement claim."
+  ]
+}
