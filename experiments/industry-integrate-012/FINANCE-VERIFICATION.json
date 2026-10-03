@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "origin": "SYNTHETIC_TARGETED_TRANSACTION_TEST",
+  "checks": [
+    "duplicate_permanent_grant_no_new_credit",
+    "late_duplicate_envelope_returns_committed_receipt",
+    "production_payment_and_escrow_precommit_failure_rollback",
+    "payment_retry_once"
+  ],
+  "failure": {
+    "ok": false,
+    "error": "REJECTED_NO_DOMAIN_COMMIT",
+    "detail": "SYNTHETIC_PAYMENT_FAULT"
+  },
+  "after": {
+    "schema": "industry-012-view.v1",
+    "origin": "SYNTHETIC_TEST",
+    "readOnly": true,
+    "rootRevision": 2,
+    "gameRevision": 109,
+    "industryRevision": 2,
+    "turn": 5,
+    "phase": "GERMAN_RECOVERY",
+    "budget": {
+      "availableI": 5,
+      "escrowI": 2,
+      "productionPaidI": 3,
+      "handoffPaidI": 0,
+      "grantedI": 10
+    },
+    "order": {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-test-payment/G/production/0001",
+      "status": "WORKING",
+      "workCompleted": 0,
+      "workRequired": 2,
+      "workEpochs": [],
+      "expectedCompletionEpoch": 6,
+      "expectedCompletionIsConditional": true,
+      "completedEpoch": null
+    },
+    "equipment": {
+      "materialType": "E2:L",
+      "producedE2": 0,
+      "productionStoreE2": 0,
+      "inTransitOrHeldE2": 0,
+      "rearE2": 0,
+      "availableRearE2": 0,
+      "P": 0,
+      "productionReservedE2": 2,
+      "incomingReservedE2": 0,
+      "custody": "NOT_CREATED"
+    },
+    "arrival": null,
+    "externalCapacity": [],
+    "blockingReasons": [],
+    "lastRequestError": null,
+    "globalBlockersRetained": 35,
+    "globalBlockersClosed": 0
+  }
+}

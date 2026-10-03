@@ -1,0 +1,60 @@
+{
+  "decisionRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003",
+  "ruleCommit": "90758efccda736e3524348d8876b892be3d7938f",
+  "candidateSha256": "41b0443a602599c8da167d4e36e840e77daffad6a5996fe05b219055031a327d",
+  "industry011": "1e7fba5fe234b2bd33f50237401868a314dfd0ea",
+  "core": "813b4072568352e95d0726fe5fe04060c889c554",
+  "startSnapshotSha256": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+  "startCheckpoint": "german_recovery_T5",
+  "startRevision": 109,
+  "instanceId": "012-main",
+  "matchId": "EASTFRONT-012-ISOLATED",
+  "parameters": {
+    "initialI": 10,
+    "productionI": 3,
+    "handoffI": 2,
+    "outputE2": 2,
+    "P": 0,
+    "workBoundaries": 2,
+    "productionBufferE2": 2,
+    "warehouseE2": 2,
+    "producerOperationalFromE": 5,
+    "latencyE": 1,
+    "external": {
+      "resourceId": "EXTERNAL_G_A10",
+      "unit": "workPoint",
+      "side": "G",
+      "epochs": [
+        5,
+        6
+      ],
+      "cap": 4,
+      "perE2": 2,
+      "carry": false,
+      "sharing": "INDEPENDENT_OF_SP_RAIL_T_W",
+      "operations": [
+        "factory_load",
+        "offmap_carriage",
+        "A10_receipt"
+      ]
+    },
+    "receiver": {
+      "side": "G",
+      "node": "A10",
+      "coreKey": "0,9",
+      "allowNullControl": true,
+      "epochs": [
+        5,
+        6
+      ]
+    },
+    "stop": {
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY"
+    }
+  },
+  "parameterHash": "dde6b93ab6866448444c8c536c8f1a6770e29f854a25b6b5c7d81385a32f52e4",
+  "globalBlockersClosed": 0,
+  "productionRuntimeApproval": false,
+  "crashPersistence": false
+}

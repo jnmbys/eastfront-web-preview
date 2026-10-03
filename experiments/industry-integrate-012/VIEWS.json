@@ -1,0 +1,1034 @@
+[
+  {
+    "label": "accepted_waiting_E5",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "REAL",
+      "readOnly": true,
+      "rootRevision": 2,
+      "gameRevision": 109,
+      "industryRevision": 2,
+      "turn": 5,
+      "phase": "GERMAN_RECOVERY",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WORKING",
+        "workCompleted": 0,
+        "workRequired": 2,
+        "workEpochs": [],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": null
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 0,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 2,
+        "incomingReservedE2": 0,
+        "custody": "NOT_CREATED"
+      },
+      "arrival": null,
+      "externalCapacity": [],
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "E5_one_of_two_waiting",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "REAL",
+      "readOnly": true,
+      "rootRevision": 9,
+      "gameRevision": 116,
+      "industryRevision": 3,
+      "turn": 6,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WORKING",
+        "workCompleted": 1,
+        "workRequired": 2,
+        "workEpochs": [
+          5
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": null
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 0,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 2,
+        "incomingReservedE2": 0,
+        "custody": "NOT_CREATED"
+      },
+      "arrival": null,
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "E6_received_T7_available",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "REAL",
+      "readOnly": true,
+      "rootRevision": 19,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 0,
+        "productionPaidI": 3,
+        "handoffPaidI": 2,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "AVAILABLE",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 2,
+        "availableRearE2": 2,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 0,
+        "custody": "REAR_AVAILABLE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received"
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 4,
+          "reserved": 0,
+          "remaining": 0,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "T7_German_recovery_success",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "REAL",
+      "readOnly": true,
+      "rootRevision": 22,
+      "gameRevision": 129,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 0,
+        "productionPaidI": 3,
+        "handoffPaidI": 2,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "AVAILABLE",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 2,
+        "availableRearE2": 2,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 0,
+        "custody": "REAR_AVAILABLE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": 6,
+        "availableFromTurn": 7,
+        "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received"
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 4,
+          "reserved": 0,
+          "remaining": 0,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "blocked_used_capacity",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FIXTURE",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WAITING_HANDOFF",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 0,
+        "custody": "PRODUCTION_STORE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": null,
+        "availableFromTurn": null,
+        "receiptId": null
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 1,
+          "reserved": 0,
+          "remaining": 3,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [
+        "EXTERNAL_CAPACITY_INSUFFICIENT",
+        "SERVICE_WINDOW_EXPIRED_NO_AUTOMATIC_RETRY"
+      ],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "blocked_reserved_capacity",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FIXTURE",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WAITING_HANDOFF",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 0,
+        "custody": "PRODUCTION_STORE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": null,
+        "availableFromTurn": null,
+        "receiptId": null
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 1,
+          "remaining": 3,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [
+        "EXTERNAL_CAPACITY_INSUFFICIENT",
+        "SERVICE_WINDOW_EXPIRED_NO_AUTOMATIC_RETRY"
+      ],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "blocked_both_capacity",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FIXTURE",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WAITING_HANDOFF",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 0,
+        "custody": "PRODUCTION_STORE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": null,
+        "availableFromTurn": null,
+        "receiptId": null
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 1,
+          "reserved": 1,
+          "remaining": 2,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [
+        "EXTERNAL_CAPACITY_INSUFFICIENT",
+        "SERVICE_WINDOW_EXPIRED_NO_AUTOMATIC_RETRY"
+      ],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "blocked_warehouse_hold",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FIXTURE",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WAITING_HANDOFF",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 1,
+        "custody": "PRODUCTION_STORE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": null,
+        "availableFromTurn": null,
+        "receiptId": null
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [
+        "WAREHOUSE_CAPACITY_INSUFFICIENT",
+        "SERVICE_WINDOW_EXPIRED_NO_AUTOMATIC_RETRY"
+      ],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "blocked_dispatch",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FIXTURE",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "WAITING_HANDOFF",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 0,
+        "custody": "PRODUCTION_STORE"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": null,
+        "availableFromTurn": null,
+        "receiptId": null
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [
+        "SYNTHETIC_RECEIVER_BLOCK",
+        "SERVICE_WINDOW_EXPIRED_NO_AUTOMATIC_RETRY"
+      ],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "blocked_receipt",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FIXTURE",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 126,
+      "industryRevision": 4,
+      "turn": 7,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 0,
+        "productionPaidI": 3,
+        "handoffPaidI": 2,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "status": "HELD",
+        "workCompleted": 2,
+        "workRequired": 2,
+        "workEpochs": [
+          5,
+          6
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": 6
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 2,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 2,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 0,
+        "incomingReservedE2": 2,
+        "custody": "HELD"
+      },
+      "arrival": {
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+        "receivedEpoch": null,
+        "availableFromTurn": null,
+        "receiptId": null
+      },
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        },
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 6,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 4,
+          "reserved": 0,
+          "remaining": 0,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [
+        "SYNTHETIC_RECEIVER_BLOCK",
+        "SERVICE_WINDOW_EXPIRED_NO_AUTOMATIC_RETRY"
+      ],
+      "lastRequestError": null,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_after_output",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 125,
+      "industryRevision": 3,
+      "turn": 6,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-test-3/G/production/0001",
+        "status": "WORKING",
+        "workCompleted": 1,
+        "workRequired": 2,
+        "workEpochs": [
+          5
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": null
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 0,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 2,
+        "incomingReservedE2": 0,
+        "custody": "NOT_CREATED"
+      },
+      "arrival": null,
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:after_output"
+      },
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_after_dispatch",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 125,
+      "industryRevision": 3,
+      "turn": 6,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-test-4/G/production/0001",
+        "status": "WORKING",
+        "workCompleted": 1,
+        "workRequired": 2,
+        "workEpochs": [
+          5
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": null
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 0,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 2,
+        "incomingReservedE2": 0,
+        "custody": "NOT_CREATED"
+      },
+      "arrival": null,
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:after_dispatch"
+      },
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_after_receipt",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 125,
+      "industryRevision": 3,
+      "turn": 6,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-test-5/G/production/0001",
+        "status": "WORKING",
+        "workCompleted": 1,
+        "workRequired": 2,
+        "workEpochs": [
+          5
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": null
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 0,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 2,
+        "incomingReservedE2": 0,
+        "custody": "NOT_CREATED"
+      },
+      "arrival": null,
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:after_receipt"
+      },
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_before_commit",
+    "view": {
+      "schema": "industry-012-view.v1",
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "readOnly": true,
+      "rootRevision": 18,
+      "gameRevision": 125,
+      "industryRevision": 3,
+      "turn": 6,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "budget": {
+        "availableI": 5,
+        "escrowI": 2,
+        "productionPaidI": 3,
+        "handoffPaidI": 0,
+        "grantedI": 10
+      },
+      "order": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-test-6/G/production/0001",
+        "status": "WORKING",
+        "workCompleted": 1,
+        "workRequired": 2,
+        "workEpochs": [
+          5
+        ],
+        "expectedCompletionEpoch": 6,
+        "expectedCompletionIsConditional": true,
+        "completedEpoch": null
+      },
+      "equipment": {
+        "materialType": "E2:L",
+        "producedE2": 0,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "availableRearE2": 0,
+        "P": 0,
+        "productionReservedE2": 2,
+        "incomingReservedE2": 0,
+        "custody": "NOT_CREATED"
+      },
+      "arrival": null,
+      "externalCapacity": [
+        {
+          "resourceId": "EXTERNAL_G_A10",
+          "epoch": 5,
+          "cap": 4,
+          "usedByAllCommittedTraffic": 0,
+          "reserved": 0,
+          "remaining": 4,
+          "epochClosed": true,
+          "carryForward": false,
+          "independentOfSP": true
+        }
+      ],
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:before_commit"
+      },
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  }
+]

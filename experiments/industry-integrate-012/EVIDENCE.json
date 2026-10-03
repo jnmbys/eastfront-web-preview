@@ -1,0 +1,791 @@
+{
+  "task": "INDUSTRY-INTEGRATE-012",
+  "status": "PASS_REAL_PRODUCTION_TO_A10_T7_AVAILABLE",
+  "cases": [
+    {
+      "name": "fixed_real_T5_grant_and_paid_order_no_game_change",
+      "origin": "REAL_T5_T7",
+      "passed": true,
+      "detail": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 0,
+        "escrow": 2
+      }
+    },
+    {
+      "name": "real_E5_one_work_no_output",
+      "origin": "REAL_T5_T7",
+      "passed": true,
+      "detail": {
+        "command": {
+          "id": "012-phase-115",
+          "action": {
+            "type": "END_PHASE",
+            "controllerId": "S-AI-1"
+          },
+          "revision": 8,
+          "gameRevision": 115,
+          "gameHash": "9826cb798b94cf3c078849e9da9754c4334ee66c38cb44f5b4012c191ff3def3",
+          "industryHash": "19171cd09f4fedfd615ea574db6088a91b88628c16fef6a62e602bd40b748032",
+          "contractHash": "5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65",
+          "approvalHash": "01ece191edac247c5d1b2c1fb74ae85f5c78780748d4f0cb99effd621e98af44"
+        },
+        "seconds": 0.5418731000008847,
+        "gameHash": "c382edcbe902943ed7209fab0056f2379abc85de9595d629bbec5b95ac0e9a81",
+        "controlGameHash": "c382edcbe902943ed7209fab0056f2379abc85de9595d629bbec5b95ac0e9a81",
+        "view": {
+          "schema": "industry-012-view.v1",
+          "origin": "REAL",
+          "readOnly": true,
+          "rootRevision": 9,
+          "gameRevision": 116,
+          "industryRevision": 3,
+          "turn": 6,
+          "phase": "GERMAN_SUPPLY_RAIL",
+          "budget": {
+            "availableI": 5,
+            "escrowI": 2,
+            "productionPaidI": 3,
+            "handoffPaidI": 0,
+            "grantedI": 10
+          },
+          "order": {
+            "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+            "status": "WORKING",
+            "workCompleted": 1,
+            "workRequired": 2,
+            "workEpochs": [
+              5
+            ],
+            "expectedCompletionEpoch": 6,
+            "expectedCompletionIsConditional": true,
+            "completedEpoch": null
+          },
+          "equipment": {
+            "materialType": "E2:L",
+            "producedE2": 0,
+            "productionStoreE2": 0,
+            "inTransitOrHeldE2": 0,
+            "rearE2": 0,
+            "availableRearE2": 0,
+            "P": 0,
+            "productionReservedE2": 2,
+            "incomingReservedE2": 0,
+            "custody": "NOT_CREATED"
+          },
+          "arrival": null,
+          "externalCapacity": [
+            {
+              "resourceId": "EXTERNAL_G_A10",
+              "epoch": 5,
+              "cap": 4,
+              "usedByAllCommittedTraffic": 0,
+              "reserved": 0,
+              "remaining": 4,
+              "epochClosed": true,
+              "carryForward": false,
+              "independentOfSP": true
+            }
+          ],
+          "blockingReasons": [],
+          "lastRequestError": null,
+          "globalBlockersRetained": 35,
+          "globalBlockersClosed": 0
+        }
+      }
+    },
+    {
+      "name": "real_E6_unique_output_external_handoff_and_receipt",
+      "origin": "REAL_T5_T7",
+      "passed": true,
+      "detail": {
+        "command": {
+          "id": "012-phase-125",
+          "action": {
+            "type": "END_PHASE",
+            "controllerId": "S-AI-1"
+          },
+          "revision": 18,
+          "gameRevision": 125,
+          "gameHash": "b87a520826c8e000fee8a92cea91978bedd3ca59b079148d49fc5d02613dc4f9",
+          "industryHash": "220b9fd83d29af960b7f771b4752d89475ffdc25f426b2d9f4f9992b4ee14366",
+          "contractHash": "5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65",
+          "approvalHash": "01ece191edac247c5d1b2c1fb74ae85f5c78780748d4f0cb99effd621e98af44"
+        },
+        "seconds": 0.799175699999978,
+        "gameHash": "2e5d95ac9ff9c35828724a279713c8f9294ef4347b49c507e80cec0f443142b6",
+        "controlGameHash": "2e5d95ac9ff9c35828724a279713c8f9294ef4347b49c507e80cec0f443142b6",
+        "view": {
+          "schema": "industry-012-view.v1",
+          "origin": "REAL",
+          "readOnly": true,
+          "rootRevision": 19,
+          "gameRevision": 126,
+          "industryRevision": 4,
+          "turn": 7,
+          "phase": "GERMAN_SUPPLY_RAIL",
+          "budget": {
+            "availableI": 5,
+            "escrowI": 0,
+            "productionPaidI": 3,
+            "handoffPaidI": 2,
+            "grantedI": 10
+          },
+          "order": {
+            "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+            "status": "AVAILABLE",
+            "workCompleted": 2,
+            "workRequired": 2,
+            "workEpochs": [
+              5,
+              6
+            ],
+            "expectedCompletionEpoch": 6,
+            "expectedCompletionIsConditional": true,
+            "completedEpoch": 6
+          },
+          "equipment": {
+            "materialType": "E2:L",
+            "producedE2": 2,
+            "productionStoreE2": 0,
+            "inTransitOrHeldE2": 0,
+            "rearE2": 2,
+            "availableRearE2": 2,
+            "P": 0,
+            "productionReservedE2": 0,
+            "incomingReservedE2": 0,
+            "custody": "REAR_AVAILABLE"
+          },
+          "arrival": {
+            "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+            "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+            "receivedEpoch": 6,
+            "availableFromTurn": 7,
+            "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received"
+          },
+          "externalCapacity": [
+            {
+              "resourceId": "EXTERNAL_G_A10",
+              "epoch": 5,
+              "cap": 4,
+              "usedByAllCommittedTraffic": 0,
+              "reserved": 0,
+              "remaining": 4,
+              "epochClosed": true,
+              "carryForward": false,
+              "independentOfSP": true
+            },
+            {
+              "resourceId": "EXTERNAL_G_A10",
+              "epoch": 6,
+              "cap": 4,
+              "usedByAllCommittedTraffic": 4,
+              "reserved": 0,
+              "remaining": 0,
+              "epochClosed": true,
+              "carryForward": false,
+              "independentOfSP": true
+            }
+          ],
+          "blockingReasons": [],
+          "lastRequestError": null,
+          "globalBlockersRetained": 35,
+          "globalBlockersClosed": 0
+        }
+      }
+    },
+    {
+      "name": "all_commands_full_game_SP_RNG_equal_no_order_control",
+      "origin": "REAL_T5_T7",
+      "passed": true,
+      "detail": {
+        "commands": 20,
+        "startRevision": 109,
+        "finalRevision": 129,
+        "E5gameRevision": 116,
+        "E6gameRevision": 126,
+        "allGameBytesEqual": true,
+        "RNGUnchanged": true,
+        "budget": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 2,
+          "escrow": 0
+        },
+        "conservation": {
+          "producedE2": 2,
+          "productionStoreE2": 0,
+          "inTransitOrHeldE2": 0,
+          "rearE2": 2,
+          "P": 0,
+          "I": {
+            "granted": 10,
+            "freeI": 5,
+            "productionSpent": 3,
+            "handoffSpent": 2,
+            "escrow": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "late_grant_order_retries_no_new_I_equipment_or_rollback",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "capacity_counts_used_capacity",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "P": 0,
+        "I": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 0,
+          "escrow": 2
+        }
+      }
+    },
+    {
+      "name": "capacity_counts_reserved_capacity",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "P": 0,
+        "I": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 0,
+          "escrow": 2
+        }
+      }
+    },
+    {
+      "name": "capacity_counts_both_capacity",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "P": 0,
+        "I": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 0,
+          "escrow": 2
+        }
+      }
+    },
+    {
+      "name": "incoming_warehouse_hold_counts_without_double_stock",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blocked_dispatch_correct_owner_escrow_capacity",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "producedE2": 2,
+        "productionStoreE2": 2,
+        "inTransitOrHeldE2": 0,
+        "rearE2": 0,
+        "P": 0,
+        "I": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 0,
+          "escrow": 2
+        }
+      }
+    },
+    {
+      "name": "blocked_receipt_correct_owner_escrow_capacity",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "producedE2": 2,
+        "productionStoreE2": 0,
+        "inTransitOrHeldE2": 2,
+        "rearE2": 0,
+        "P": 0,
+        "I": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 2,
+          "escrow": 0
+        }
+      }
+    },
+    {
+      "name": "Core_receiver_enemy_control_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "ENEMY_OR_UNKNOWN_CONTROL"
+        ],
+        "integrity": [],
+        "control": "SOVIET",
+        "occupants": [],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 7,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "gameHash": "ae97a5f989a6b87913d10be14c6b2e5ec4029d0ed01d19ce72528b66f0a3e808",
+        "epoch": 6
+      }
+    },
+    {
+      "name": "Core_receiver_enemy_occupation_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "ENEMY_OCCUPATION"
+        ],
+        "integrity": [],
+        "control": null,
+        "occupants": [
+          {
+            "id": "S-I-01",
+            "side": "SOVIET"
+          }
+        ],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 7,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "gameHash": "92443c0b35a98477077f77b7749c667867d94d48fe0670c681537e243e9c921a",
+        "epoch": 6
+      }
+    },
+    {
+      "name": "Core_receiver_enemy_zoc_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "ENEMY_ZOC"
+        ],
+        "integrity": [],
+        "control": null,
+        "occupants": [],
+        "enemyZoc": true,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 7,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "gameHash": "032840e5b30a5cbf726c34db080a764067a16c5e69e6ec0fb8306e4b1214f68f",
+        "epoch": 6
+      }
+    },
+    {
+      "name": "Core_receiver_unknown_control_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "UNKNOWN_RECEIVER"
+        ],
+        "integrity": [],
+        "occupants": [],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 7,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "gameHash": "d69d0bb248ec739aeaca005ad15519e0c89a4254927709f16a5bff773261210b",
+        "epoch": 6
+      }
+    },
+    {
+      "name": "E6_all_root_rollback_after_output",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:after_output"
+      }
+    },
+    {
+      "name": "E6_all_root_rollback_after_dispatch",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:after_dispatch"
+      }
+    },
+    {
+      "name": "E6_all_root_rollback_after_receipt",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:after_receipt"
+      }
+    },
+    {
+      "name": "E6_all_root_rollback_before_commit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_NO_DOMAIN_COMMIT",
+        "detail": "SYNTHETIC:before_commit"
+      }
+    },
+    {
+      "name": "same_version_order_competition_and_single_order_limit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "commits": 1
+      }
+    },
+    {
+      "name": "same_version_E6_competition_one_output_receipt",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "commits": 1
+      }
+    },
+    {
+      "name": "lost_E6_ack_late_retry_no_restock_or_rollback",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "revision": 129
+      }
+    },
+    {
+      "name": "no_approval_startup_reject",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "parameter_tamper_startup_reject",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "candidate_tamper_startup_reject",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "final": {
+    "schema": "industry-012-view.v1",
+    "origin": "REAL",
+    "readOnly": true,
+    "rootRevision": 22,
+    "gameRevision": 129,
+    "industryRevision": 4,
+    "turn": 7,
+    "phase": "GERMAN_RECOVERY",
+    "budget": {
+      "availableI": 5,
+      "escrowI": 0,
+      "productionPaidI": 3,
+      "handoffPaidI": 2,
+      "grantedI": 10
+    },
+    "order": {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+      "status": "AVAILABLE",
+      "workCompleted": 2,
+      "workRequired": 2,
+      "workEpochs": [
+        5,
+        6
+      ],
+      "expectedCompletionEpoch": 6,
+      "expectedCompletionIsConditional": true,
+      "completedEpoch": 6
+    },
+    "equipment": {
+      "materialType": "E2:L",
+      "producedE2": 2,
+      "productionStoreE2": 0,
+      "inTransitOrHeldE2": 0,
+      "rearE2": 2,
+      "availableRearE2": 2,
+      "P": 0,
+      "productionReservedE2": 0,
+      "incomingReservedE2": 0,
+      "custody": "REAR_AVAILABLE"
+    },
+    "arrival": {
+      "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+      "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+      "receivedEpoch": 6,
+      "availableFromTurn": 7,
+      "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received"
+    },
+    "externalCapacity": [
+      {
+        "resourceId": "EXTERNAL_G_A10",
+        "epoch": 5,
+        "cap": 4,
+        "usedByAllCommittedTraffic": 0,
+        "reserved": 0,
+        "remaining": 4,
+        "epochClosed": true,
+        "carryForward": false,
+        "independentOfSP": true
+      },
+      {
+        "resourceId": "EXTERNAL_G_A10",
+        "epoch": 6,
+        "cap": 4,
+        "usedByAllCommittedTraffic": 4,
+        "reserved": 0,
+        "remaining": 0,
+        "epochClosed": true,
+        "carryForward": false,
+        "independentOfSP": true
+      }
+    ],
+    "blockingReasons": [],
+    "lastRequestError": null,
+    "globalBlockersRetained": 35,
+    "globalBlockersClosed": 0
+  },
+  "ledger": [
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/budget/ONE_TIME_I_GRANT/T5",
+      "kind": "ONE_TIME_I_GRANT",
+      "epoch": "T5",
+      "grantReceipt": {
+        "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/budget/0001",
+        "side": "G",
+        "amountI": 10,
+        "openingBalanceI": 0,
+        "contractHash": "5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65",
+        "grantHash": "01ece191edac247c5d1b2c1fb74ae85f5c78780748d4f0cb99effd621e98af44"
+      }
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/order/ORDER_ACCEPTED_AND_PAID/T5",
+      "kind": "ORDER_ACCEPTED_AND_PAID",
+      "epoch": "T5",
+      "fingerprint": {
+        "side": "G",
+        "orderId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+        "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+        "recipeHash": "d291ee3d7eb6a62f49f08dc69ffa311f141b13e699f26cffac18e43595e1d977",
+        "outputE2": 2,
+        "productionCostI": 3,
+        "handoffFeeI": 2,
+        "workBoundaries": 2,
+        "warehouseId": "RC007-REAR-G-A10",
+        "nodeId": "A10",
+        "coreKey": "0,9",
+        "grantHashes": [
+          "01ece191edac247c5d1b2c1fb74ae85f5c78780748d4f0cb99effd621e98af44"
+        ],
+        "startSnapshotHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+        "contractHash": "5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65"
+      },
+      "inputSnapshotHash": "db9f91bb6394928bc670a812107310b53b2626c01d5e2371731dd069ae87a980",
+      "productionPaidI": 3,
+      "feeEscrowI": 2
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/boundary/E00_OPEN/5",
+      "kind": "E00_OPEN",
+      "epoch": 5,
+      "inputSnapshotHash": "9826cb798b94cf3c078849e9da9754c4334ee66c38cb44f5b4012c191ff3def3",
+      "providerOperational": true,
+      "row": {
+        "resourceId": "EXTERNAL_G_A10",
+        "unit": "workPoint",
+        "side": "G",
+        "epoch": 5,
+        "finiteCap": 4,
+        "perE2Work": 2,
+        "used": {},
+        "holds": {},
+        "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+        "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+      }
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/order/E11_WORK/5",
+      "kind": "E11_WORK",
+      "epoch": 5,
+      "orderId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+      "workEpochs": [
+        5
+      ]
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/boundary/E00_OPEN/6",
+      "kind": "E00_OPEN",
+      "epoch": 6,
+      "inputSnapshotHash": "b87a520826c8e000fee8a92cea91978bedd3ca59b079148d49fc5d02613dc4f9",
+      "providerOperational": true,
+      "row": {
+        "resourceId": "EXTERNAL_G_A10",
+        "unit": "workPoint",
+        "side": "G",
+        "epoch": 6,
+        "finiteCap": 4,
+        "perE2Work": 2,
+        "used": {},
+        "holds": {},
+        "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+        "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+      }
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/order/E11_WORK/6",
+      "kind": "E11_WORK",
+      "epoch": 6,
+      "orderId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+      "workEpochs": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+      "kind": "E12_INDUSTRIAL_OUTPUT",
+      "epoch": 6,
+      "orderId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+      "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+      "side": "G",
+      "materialType": "E2:L",
+      "quantityE2": 2,
+      "recipeHash": "d291ee3d7eb6a62f49f08dc69ffa311f141b13e699f26cffac18e43595e1d977",
+      "paidProductionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/order/ORDER_ACCEPTED_AND_PAID/T5",
+      "completedEpoch": 6,
+      "workEpochs": [
+        5,
+        6
+      ],
+      "producerGrantHash": "01ece191edac247c5d1b2c1fb74ae85f5c78780748d4f0cb99effd621e98af44",
+      "inputSnapshotHash": "b87a520826c8e000fee8a92cea91978bedd3ca59b079148d49fc5d02613dc4f9",
+      "contractHash": "5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65"
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/shipment/E14_DISPATCH/6",
+      "kind": "E14_DISPATCH",
+      "epoch": 6,
+      "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+      "feeSpentI": 2,
+      "work": 4,
+      "row": {
+        "resourceId": "EXTERNAL_G_A10",
+        "unit": "workPoint",
+        "side": "G",
+        "epoch": 6,
+        "finiteCap": 4,
+        "perE2Work": 2,
+        "used": {
+          "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001": 4
+        },
+        "holds": {},
+        "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+        "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+      },
+      "eligibility": {
+        "eligible": true,
+        "issues": [],
+        "integrity": [],
+        "control": null,
+        "occupants": [],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 7,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "gameHash": "2e5d95ac9ff9c35828724a279713c8f9294ef4347b49c507e80cec0f443142b6",
+        "epoch": 6
+      }
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/shipment/E15_RECEIVED/6",
+      "kind": "E15_RECEIVED",
+      "epoch": 6,
+      "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+      "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+      "quantityE2": 2,
+      "availableFromTurn": 7,
+      "eligibility": {
+        "eligible": true,
+        "issues": [],
+        "integrity": [],
+        "control": null,
+        "occupants": [],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 7,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "gameHash": "2e5d95ac9ff9c35828724a279713c8f9294ef4347b49c507e80cec0f443142b6",
+        "epoch": 6
+      }
+    },
+    {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/NEXT_T_AVAILABLE/6",
+      "kind": "NEXT_T_AVAILABLE",
+      "epoch": 6,
+      "turn": 7,
+      "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+      "noForwardDispatch": true
+    }
+  ],
+  "globalBlockersRetained": 35,
+  "globalBlockersClosed": 0,
+  "traceSha256": "82b74d72717a15e477777900670e4d49a23526f1d653fe2d36b6ce8a34825acc",
+  "viewsSha256": "37d924128978a70f07edd850d0769d8989b8cd55c602a65b2c962fb1d9b46434",
+  "onlySingleProcessGuarantee": true
+}
