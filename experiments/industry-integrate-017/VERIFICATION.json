@@ -1,0 +1,485 @@
+{
+  "task": "INDUSTRY-INTEGRATE-017",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "loopback_Host_Origin_credential_cross_site_guards_reject_without_mutation",
+      "origin": "REAL_HTTP",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "closed_intent_schema_no_root_import_reset_arbitrary_command_or_file_endpoint",
+      "origin": "REAL_HTTP",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "occupied_port_reports_without_killing_existing_owner",
+      "origin": "REAL_HTTP",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "real_browser_HTTP_main_exact_016_Core_budgets_materials_capacity_63_units_RNG",
+      "origin": "REAL_HTTP",
+      "passed": true,
+      "details": {
+        "gameHash": "bd153859ea67f0f1a34fc3f8c271ef02f845a6d1f3bb36338bac84c6158afa1e",
+        "expectedGameHash": "bd153859ea67f0f1a34fc3f8c271ef02f845a6d1f3bb36338bac84c6158afa1e",
+        "rootRevision": 49,
+        "gameRevision": 153,
+        "rootDifferences": [
+          "/forward/events/2/shipment/inputRootHash",
+          "/forward/events/2/shipment/requestFingerprint",
+          "/forward/events/2/shipment/requestId",
+          "/forward/events/2/terminal/inputRootHash",
+          "/forward/events/2/terminal/requestFingerprint",
+          "/forward/events/3/details/requestId",
+          "/forward/recovery/requestId",
+          "/forward/shipment/inputRootHash",
+          "/forward/shipment/requestFingerprint",
+          "/forward/shipment/requestId",
+          "/forward/terminal/inputRootHash",
+          "/forward/terminal/requestFingerprint",
+          "/receipts/016-care",
+          "/receipts/016-phase-142",
+          "/receipts/016-phase-143",
+          "/receipts/016-phase-144",
+          "/receipts/016-phase-145",
+          "/receipts/016-phase-146",
+          "/receipts/016-phase-147",
+          "/receipts/016-phase-148",
+          "/receipts/016-phase-149",
+          "/receipts/016-phase-150",
+          "/receipts/016-phase-151",
+          "/receipts/016-repair",
+          "/receipts/017-09e4c4a5-f3fb-470e-8134-e51b36a8a7f0",
+          "/receipts/017-0cbdc2fc-2166-4957-9897-60b25aab44ae",
+          "/receipts/017-1d989f96-ac44-44ff-b851-70cf8d363952",
+          "/receipts/017-34fe2965-1b29-42fc-98ab-96957ecd13aa",
+          "/receipts/017-630e7dc3-fa9d-418e-9e2c-a269417b36e2",
+          "/receipts/017-7eae8e2a-72c5-4808-adc3-5afbfc7fc018",
+          "/receipts/017-86e065e8-27d2-4986-9ac1-0c90890a04c0",
+          "/receipts/017-89111eba-ba35-4f9f-9718-5f89f92ecbb2",
+          "/receipts/017-b64b612b-4a98-48a7-93e7-573f056e0636",
+          "/receipts/017-ba0ec4f3-480c-46f8-b69d-eb9d671fffe5",
+          "/receipts/017-c7390fa4-0e36-4231-9474-84b0d382d893",
+          "/receipts/017-edb2f463-8ae2-407e-9e61-d9e126b2d1b1"
+        ],
+        "explanation": "Only 017 request IDs, request fingerprints, ancestor root hashes and their permanent receipts differ. Session/token/HTTP registry remain outside authority root."
+      }
+    },
+    {
+      "name": "precommit_failure_no_domain_mutation_same_ID_preserves_original_binding_and_rejection",
+      "origin": "SYNTHETIC_HTTP_OR_FAULT_TEST",
+      "passed": true,
+      "details": {
+        "requestId": "67ee9aec-132f-4a3e-b27d-096ebbe81e6d",
+        "instanceId": "e3c94191-ab4e-43c0-bd7b-cf7f718523b6",
+        "operation": "CARE",
+        "expectedVersion": 37,
+        "status": "REJECTED",
+        "code": "CORE_OR_TRANSACTION_REJECTED",
+        "resultVersion": 37,
+        "gameRevision": 142
+      }
+    },
+    {
+      "name": "two_same_version_HTTP_requests_only_one_commit",
+      "origin": "SYNTHETIC_HTTP_OR_FAULT_TEST",
+      "passed": true,
+      "details": [
+        {
+          "requestId": "148aba10-7d42-4275-ab82-7a9780677939",
+          "instanceId": "e3c94191-ab4e-43c0-bd7b-cf7f718523b6",
+          "operation": "CARE",
+          "expectedVersion": 37,
+          "status": "COMMITTED",
+          "code": "COMMITTED",
+          "resultVersion": 38,
+          "gameRevision": 142
+        },
+        {
+          "requestId": "63220fe1-8f5d-4281-9f81-ee7eb9776ad1",
+          "instanceId": "e3c94191-ab4e-43c0-bd7b-cf7f718523b6",
+          "operation": "CARE",
+          "expectedVersion": 37,
+          "status": "REJECTED",
+          "code": "CORE_OR_TRANSACTION_REJECTED",
+          "resultVersion": 38,
+          "gameRevision": 142
+        }
+      ]
+    },
+    {
+      "name": "old_version_and_same_ID_changed_content_rejected_without_rebinding",
+      "origin": "SYNTHETIC_HTTP_OR_FAULT_TEST",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "after_commit_exception_real_receipt_recovered_late_retry_does_not_revert_or_rebind",
+      "origin": "SYNTHETIC_HTTP_OR_FAULT_TEST",
+      "passed": true,
+      "details": {
+        "requestId": "5c305c72-3d7a-41b3-a43a-babae434ba8a",
+        "instanceId": "e3c94191-ab4e-43c0-bd7b-cf7f718523b6",
+        "operation": "NEXT",
+        "expectedVersion": 38,
+        "status": "COMMITTED",
+        "code": "COMMITTED",
+        "resultVersion": 39,
+        "gameRevision": 143
+      }
+    },
+    {
+      "name": "necessary_views_only_and_foreign_instance_replay_rejected",
+      "origin": "SYNTHETIC_HTTP_OR_FAULT_TEST",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "browser": {
+    "origin": "REAL_BROWSER_AND_HTTP_WITH_LABELLED_SYNTHETIC_NETWORK_FAULTS",
+    "checks": [
+      {
+        "name": "initial_real_T8_same_full_owner",
+        "passed": true
+      },
+      {
+        "name": "double_click_single_request_and_no_optimistic_success",
+        "passed": true,
+        "synthetic": "Delayed request dispatch"
+      },
+      {
+        "name": "refresh_preserves_instance_no_grant_reset",
+        "passed": true
+      },
+      {
+        "name": "E8_committed_response_lost_refresh_reconciles_same_request_without_POST",
+        "passed": true,
+        "synthetic": "Drop committed POST response and receipt query",
+        "requestId": "89111eba-ba35-4f9f-9718-5f89f92ecbb2"
+      },
+      {
+        "name": "all_12_buttons_call_real_HTTP_and_recover_T9",
+        "passed": true
+      },
+      {
+        "name": "late_care_retry_does_not_repay_or_revert_T9",
+        "passed": true
+      },
+      {
+        "name": "live_page_layout_1400",
+        "passed": true,
+        "horizontalOverflow": false
+      },
+      {
+        "name": "live_page_layout_820",
+        "passed": true,
+        "horizontalOverflow": false
+      },
+      {
+        "name": "live_page_layout_390",
+        "passed": true,
+        "horizontalOverflow": false
+      },
+      {
+        "name": "completed_refresh_stays_same_instance_and_consumed_stock",
+        "passed": true
+      }
+    ],
+    "writes": [
+      {
+        "requestId": "ba0ec4f3-480c-46f8-b69d-eb9d671fffe5",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 37,
+        "operation": "CARE"
+      },
+      {
+        "requestId": "7eae8e2a-72c5-4808-adc3-5afbfc7fc018",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 38,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "09e4c4a5-f3fb-470e-8134-e51b36a8a7f0",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 39,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "34fe2965-1b29-42fc-98ab-96957ecd13aa",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 40,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "c7390fa4-0e36-4231-9474-84b0d382d893",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 41,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "0cbdc2fc-2166-4957-9897-60b25aab44ae",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 42,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "630e7dc3-fa9d-418e-9e2c-a269417b36e2",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 43,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "89111eba-ba35-4f9f-9718-5f89f92ecbb2",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 44,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "1d989f96-ac44-44ff-b851-70cf8d363952",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 45,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "edb2f463-8ae2-407e-9e61-d9e126b2d1b1",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 46,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "86e065e8-27d2-4986-9ac1-0c90890a04c0",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 47,
+        "operation": "NEXT"
+      },
+      {
+        "requestId": "b64b612b-4a98-48a7-93e7-573f056e0636",
+        "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+        "expectedVersion": 48,
+        "operation": "RECOVER"
+      }
+    ],
+    "pageErrors": [],
+    "externalRequests": [],
+    "finalState": {
+      "schema": "industry-017-state.v1",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "version": 49,
+      "gameRevision": 153,
+      "materialRevision": 2,
+      "turn": 9,
+      "phase": "GERMAN_RECOVERY",
+      "phaseLabel": "德军恢复",
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": {
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "PAID_ACTIVE"
+      },
+      "materials": {
+        "P": {
+          "owner": "RC009-G-C10-GI01",
+          "custody": "CONSUMED",
+          "quantity": 0,
+          "consumed": 1
+        },
+        "E2:L": {
+          "owner": "RC009-G-C10-GI01",
+          "custody": "CONSUMED",
+          "quantity": 0,
+          "consumed": 2
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "transport": [
+        {
+          "id": "rail:A10~B10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "rail:B10~C10",
+          "originalCap": 40,
+          "spUsed": 32,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        },
+        {
+          "id": "T",
+          "originalCap": 2200,
+          "spUsed": 108,
+          "cargo": 16,
+          "remaining": 2076,
+          "reservation": 0,
+          "freight": 16
+        },
+        {
+          "id": "W:GH2",
+          "originalCap": 96,
+          "spUsed": 88,
+          "cargo": 8,
+          "remaining": 0,
+          "reservation": 0,
+          "freight": 8
+        }
+      ],
+      "shipment": {
+        "status": "RECEIVED",
+        "dispatchEpoch": 8,
+        "arrivalEpoch": 8,
+        "availableFromTurn": 9
+      },
+      "terminal": {
+        "status": "CONSUMED",
+        "paidW": 8,
+        "extraRecoveryW": 0
+      },
+      "recovery": {
+        "unitId": "G-I-01",
+        "payment": {
+          "P": 1,
+          "E2:L": 2,
+          "RP": 0,
+          "extraW": 0
+        },
+        "beforeStep": 1,
+        "afterStep": 0,
+        "beforeGameRevision": 152,
+        "afterGameRevision": 153
+      },
+      "target": {
+        "id": "G-I-01",
+        "step": 0,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "recoveryCount": 1,
+        "recoveryLimit": 1
+      },
+      "expired": false,
+      "impact": [
+        {
+          "unit": "G-I-01",
+          "referencePaidSP": 1,
+          "actualPaidSP": 1,
+          "referenceStockSP": 2,
+          "actualStockSP": 3,
+          "referenceD": "0",
+          "actualD": "0",
+          "actualLoss": 0,
+          "CoreSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          },
+          "supplyState": "SUPPLIED"
+        },
+        {
+          "unit": "G-PZ-01",
+          "referencePaidSP": 2,
+          "actualPaidSP": 2,
+          "referenceStockSP": 6,
+          "actualStockSP": 5.5,
+          "referenceD": "0",
+          "actualD": "0",
+          "actualLoss": 0,
+          "CoreSupply": {
+            "attackFactor": 1,
+            "movementCap": null
+          },
+          "supplyState": "SUPPLIED"
+        },
+        {
+          "unit": "G-REC-02",
+          "referencePaidSP": 0.5,
+          "actualPaidSP": 0,
+          "referenceStockSP": 0,
+          "actualStockSP": 0,
+          "referenceD": "2",
+          "actualD": "5/2",
+          "actualLoss": 0,
+          "CoreSupply": {
+            "attackFactor": 0.5,
+            "movementCap": 1
+          },
+          "supplyState": "OUT_OF_SUPPLY"
+        }
+      ],
+      "blockers": [],
+      "operations": {
+        "CARE": {
+          "enabled": false,
+          "label": "支付1I照管至E9结束"
+        },
+        "NEXT": {
+          "enabled": false,
+          "label": "本轮已完成，停在T9恢复后。"
+        },
+        "RECOVER": {
+          "enabled": false,
+          "label": "T9恢复G-I-01：支付1P＋2 E2，RP不扣"
+        }
+      },
+      "restrictions": {
+        "singleProcess": true,
+        "persistent": false,
+        "globalBlockersRetained": 35,
+        "globalBlockersClosed": 0,
+        "sourceGapSP": {
+          "G": 9,
+          "S": 14
+        },
+        "formalRuntimeApproved": false
+      }
+    },
+    "browser": "154.0.4258.53"
+  },
+  "traceSha256": "eea4a55f83adb145f0eb573e0293750af511da398fbd41c58b7f84aa44fbbfb8",
+  "globalBlockersRetained": 35,
+  "sourceGapSP": {
+    "G": 9,
+    "S": 14
+  },
+  "validationListenersClosed": true,
+  "solverWorkerClosed": true
+}

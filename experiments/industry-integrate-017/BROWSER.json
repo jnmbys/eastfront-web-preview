@@ -1,0 +1,334 @@
+{
+  "origin": "REAL_BROWSER_AND_HTTP_WITH_LABELLED_SYNTHETIC_NETWORK_FAULTS",
+  "checks": [
+    {
+      "name": "initial_real_T8_same_full_owner",
+      "passed": true
+    },
+    {
+      "name": "double_click_single_request_and_no_optimistic_success",
+      "passed": true,
+      "synthetic": "Delayed request dispatch"
+    },
+    {
+      "name": "refresh_preserves_instance_no_grant_reset",
+      "passed": true
+    },
+    {
+      "name": "E8_committed_response_lost_refresh_reconciles_same_request_without_POST",
+      "passed": true,
+      "synthetic": "Drop committed POST response and receipt query",
+      "requestId": "89111eba-ba35-4f9f-9718-5f89f92ecbb2"
+    },
+    {
+      "name": "all_12_buttons_call_real_HTTP_and_recover_T9",
+      "passed": true
+    },
+    {
+      "name": "late_care_retry_does_not_repay_or_revert_T9",
+      "passed": true
+    },
+    {
+      "name": "live_page_layout_1400",
+      "passed": true,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "live_page_layout_820",
+      "passed": true,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "live_page_layout_390",
+      "passed": true,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "completed_refresh_stays_same_instance_and_consumed_stock",
+      "passed": true
+    }
+  ],
+  "writes": [
+    {
+      "requestId": "ba0ec4f3-480c-46f8-b69d-eb9d671fffe5",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 37,
+      "operation": "CARE"
+    },
+    {
+      "requestId": "7eae8e2a-72c5-4808-adc3-5afbfc7fc018",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 38,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "09e4c4a5-f3fb-470e-8134-e51b36a8a7f0",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 39,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "34fe2965-1b29-42fc-98ab-96957ecd13aa",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 40,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "c7390fa4-0e36-4231-9474-84b0d382d893",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 41,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "0cbdc2fc-2166-4957-9897-60b25aab44ae",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 42,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "630e7dc3-fa9d-418e-9e2c-a269417b36e2",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 43,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "89111eba-ba35-4f9f-9718-5f89f92ecbb2",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 44,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "1d989f96-ac44-44ff-b851-70cf8d363952",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 45,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "edb2f463-8ae2-407e-9e61-d9e126b2d1b1",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 46,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "86e065e8-27d2-4986-9ac1-0c90890a04c0",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 47,
+      "operation": "NEXT"
+    },
+    {
+      "requestId": "b64b612b-4a98-48a7-93e7-573f056e0636",
+      "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+      "expectedVersion": 48,
+      "operation": "RECOVER"
+    }
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "finalState": {
+    "schema": "industry-017-state.v1",
+    "instanceId": "1ef87924-6fa9-42e9-a6a5-7bd2ffa86c2f",
+    "version": 49,
+    "gameRevision": 153,
+    "materialRevision": 2,
+    "turn": 9,
+    "phase": "GERMAN_RECOVERY",
+    "phaseLabel": "德军恢复",
+    "equipmentBudget": {
+      "granted": 10,
+      "freeI": 4,
+      "productionSpent": 3,
+      "handoffSpent": 2,
+      "escrow": 0,
+      "careTransferOutI": 1
+    },
+    "personnelBudget": {
+      "id": "RC008-G-PERSONNEL-SERVICE-I",
+      "grantedI": 2,
+      "availableI": 0,
+      "acceptanceCareSpentI": 1,
+      "escrowI": 0,
+      "carriageSpentI": 1
+    },
+    "care": {
+      "receivedI": 1,
+      "spentI": 1,
+      "availableI": 0,
+      "endEpoch": 9,
+      "nonrefundable": true,
+      "status": "PAID_ACTIVE"
+    },
+    "materials": {
+      "P": {
+        "owner": "RC009-G-C10-GI01",
+        "custody": "CONSUMED",
+        "quantity": 0,
+        "consumed": 1
+      },
+      "E2:L": {
+        "owner": "RC009-G-C10-GI01",
+        "custody": "CONSUMED",
+        "quantity": 0,
+        "consumed": 2
+      }
+    },
+    "frontInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "availableFrontInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "rearInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "transport": [
+      {
+        "id": "rail:A10~B10",
+        "originalCap": 40,
+        "spUsed": 32,
+        "cargo": 8,
+        "remaining": 0,
+        "reservation": 0,
+        "freight": 8
+      },
+      {
+        "id": "rail:B10~C10",
+        "originalCap": 40,
+        "spUsed": 32,
+        "cargo": 8,
+        "remaining": 0,
+        "reservation": 0,
+        "freight": 8
+      },
+      {
+        "id": "T",
+        "originalCap": 2200,
+        "spUsed": 108,
+        "cargo": 16,
+        "remaining": 2076,
+        "reservation": 0,
+        "freight": 16
+      },
+      {
+        "id": "W:GH2",
+        "originalCap": 96,
+        "spUsed": 88,
+        "cargo": 8,
+        "remaining": 0,
+        "reservation": 0,
+        "freight": 8
+      }
+    ],
+    "shipment": {
+      "status": "RECEIVED",
+      "dispatchEpoch": 8,
+      "arrivalEpoch": 8,
+      "availableFromTurn": 9
+    },
+    "terminal": {
+      "status": "CONSUMED",
+      "paidW": 8,
+      "extraRecoveryW": 0
+    },
+    "recovery": {
+      "unitId": "G-I-01",
+      "payment": {
+        "P": 1,
+        "E2:L": 2,
+        "RP": 0,
+        "extraW": 0
+      },
+      "beforeStep": 1,
+      "afterStep": 0,
+      "beforeGameRevision": 152,
+      "afterGameRevision": 153
+    },
+    "target": {
+      "id": "G-I-01",
+      "step": 0,
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "recoveryCount": 1,
+      "recoveryLimit": 1
+    },
+    "expired": false,
+    "impact": [
+      {
+        "unit": "G-I-01",
+        "referencePaidSP": 1,
+        "actualPaidSP": 1,
+        "referenceStockSP": 2,
+        "actualStockSP": 3,
+        "referenceD": "0",
+        "actualD": "0",
+        "actualLoss": 0,
+        "CoreSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        },
+        "supplyState": "SUPPLIED"
+      },
+      {
+        "unit": "G-PZ-01",
+        "referencePaidSP": 2,
+        "actualPaidSP": 2,
+        "referenceStockSP": 6,
+        "actualStockSP": 5.5,
+        "referenceD": "0",
+        "actualD": "0",
+        "actualLoss": 0,
+        "CoreSupply": {
+          "attackFactor": 1,
+          "movementCap": null
+        },
+        "supplyState": "SUPPLIED"
+      },
+      {
+        "unit": "G-REC-02",
+        "referencePaidSP": 0.5,
+        "actualPaidSP": 0,
+        "referenceStockSP": 0,
+        "actualStockSP": 0,
+        "referenceD": "2",
+        "actualD": "5/2",
+        "actualLoss": 0,
+        "CoreSupply": {
+          "attackFactor": 0.5,
+          "movementCap": 1
+        },
+        "supplyState": "OUT_OF_SUPPLY"
+      }
+    ],
+    "blockers": [],
+    "operations": {
+      "CARE": {
+        "enabled": false,
+        "label": "支付1I照管至E9结束"
+      },
+      "NEXT": {
+        "enabled": false,
+        "label": "本轮已完成，停在T9恢复后。"
+      },
+      "RECOVER": {
+        "enabled": false,
+        "label": "T9恢复G-I-01：支付1P＋2 E2，RP不扣"
+      }
+    },
+    "restrictions": {
+      "singleProcess": true,
+      "persistent": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "formalRuntimeApproved": false
+    }
+  },
+  "browser": "154.0.4258.53"
+}

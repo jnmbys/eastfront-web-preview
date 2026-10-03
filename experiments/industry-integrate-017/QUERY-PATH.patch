@@ -1,0 +1,14 @@
+--- a/query.mjs
++++ b/query.mjs
+@@ -1,8 +1,8 @@
+ // Original Core and 005 read-only guards. No application of a recovery action.
+ import fs from 'node:fs';
+-import * as c from './.runtime/base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
+-import {queryRecoveryEligibility,planRecoveryPayment} from './.runtime/base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/service.mjs';
+-import {snapshotHash,mapData} from './.runtime/base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/inputs.mjs';
++import * as c from '../base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
++import {queryRecoveryEligibility,planRecoveryPayment} from '../base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/service.mjs';
++import {snapshotHash,mapData} from '../base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/inputs.mjs';
+ const {bundle,unitId='G-I-01',controllerId='G-HUMAN-1'}=JSON.parse(fs.readFileSync(0,'utf8')),before=JSON.stringify(bundle),state=bundle.core;
+ const request={unitId,controllerId,expectedRevision:bundle.revision,snapshotHash:snapshotHash(bundle),paymentMode:'PE'};
+ const common=queryRecoveryEligibility(bundle,request),rp=planRecoveryPayment(bundle,{...request,paymentMode:'RP'});
