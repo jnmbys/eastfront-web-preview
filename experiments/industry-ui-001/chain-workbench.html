@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EASTFRONT · 完整工业工作台</title><link rel="stylesheet" href="/local-style.css"><link rel="stylesheet" href="/chain-style.css"></head>
+<body><main>
+<header><div><p class="eyebrow">EASTFRONT / INDUSTRY-UI-006</p><h1>工业工作台</h1><p class="subtitle">下单 → 生产 → 人员接驳 → 前送 → 恢复</p></div><span class="badge">本机操作 · 真实事务</span></header>
+<section class="workbench-mode"><label>工作台模式<select id="workbench-mode"><option value="local" selected>本机操作 · 018完整工业链</option><option value="demo">可点击演示（模拟）</option><option value="records">012实验记录（只读）</option><option value="personnel">013人员与装备（只读）</option><option value="forward">016前送与恢复（只读）</option></select></label><p>历史记录与演示独立。切换或刷新不会重置本机实例，也不会清除待核对请求。</p></section>
+<aside class="notice">固定场景、同一实例、仅本机。每项业务须由你点击；不会自动下单、申请、照管或恢复。关闭服务后进度不保存。</aside>
+<section class="statusbar"><div><small>当前回合</small><h2 id="phase">读取本机账本…</h2></div><div><small>当前工作</small><h2 id="chain-summary">等待确认</h2></div><div><small>装备预算可用</small><p class="large" id="freeI">未提供</p></div></section>
+<section class="request-box" aria-live="polite"><strong id="live-status" role="status">读取本机账本…</strong><p>处理期间正式数值保持上次确认值；确认提交但账本待刷新时，只恢复读取。</p><div class="tools"><button id="check">读取账本 / 核对原请求</button><button id="retry" hidden>按原请求重试</button><button id="forget" hidden>旧请求不可跳过</button></div></section>
+<section class="panel"><h2>当前可做事项</h2><p id="eligible">等待后端资格。</p><p id="next-hint" class="footnote">每次只推进一步；预计结果不代表已到账。</p></section>
+<section class="chain-actions" aria-label="本机业务操作">
+<article id="card-allocate"><h3>领取原拨款</h3><p>原一次性10I装备预算，没有追加收入。</p><button id="allocate" disabled>领取装备拨款</button></article>
+<article id="card-order"><h3>下单生产</h3><p>固定订单2 E2，支付3I、托管2I；2个生产结算。按T5下单主线预计E6到账、T7可用。</p><button id="order" disabled>下单2 E2</button></article>
+<article id="card-activate"><h3>启用后备池</h3><p>T7启用场景假定后备池1P和独立2I账户；没有实际训练回执。</p><button id="activate" disabled>启用后备池与人员账户</button></article>
+<article id="card-apply"><h3>人员接驳</h3><p>支付1I、托管1I。主线预计E7到账、T8可用。</p><button id="apply" disabled>申请1P接驳</button></article>
+<article id="card-care"><h3>照管人员</h3><p>装备账户支付1I，原人员账户不扣；期限至E9结束，已付不退。</p><button id="care" disabled>支付1I照管</button></article>
+<article id="card-next"><h3>推进阶段</h3><p id="next-label">等待后端说明下一步。</p><button id="next" disabled>推进下一步</button></article>
+<article id="card-recover"><h3>恢复部队</h3><p>T9复核资格，G-I-01消耗1P＋2 E2，RP不扣，共用恢复次数。</p><button id="recover" disabled>恢复G-I-01</button></article>
+</section>
+<div class="grid"><section class="panel"><h2>生产与装备交接</h2><p id="chain-order">未提供</p><progress id="production-progress" max="2" value="0" aria-label="生产结算进度"></progress><p id="equipment-arrival">未提供</p><p id="production-space" class="footnote"></p></section>
+<section class="panel"><h2>人员来源与期限</h2><p class="caption">实验假定已训练后备池；本链路没有执行训练。</p><p id="chain-personnel">未提供</p><p id="personnel-arrival"></p><p id="personnel-expiry" class="footnote"></p></section></div>
+<section class="panel"><h2>两套独立预算</h2><p class="caption">装备与人员账户各自记账，不能自由互用；照管从装备账户内部划拨，不计新增收入。</p><div class="table-wrap"><table><thead><tr><th>账户</th><th>启用状态</th><th>累计拨款</th><th>可用</th><th>托管</th><th>实际支出</th></tr></thead><tbody id="finance"></tbody></table></div></section>
+<section class="panel"><h2>物资、归属与可用量</h2><p class="caption">预留不算实物；隔离是实物子集，仍占仓容。已消费与永久记录不再计入实物。</p><div class="table-wrap"><table><thead><tr><th>物资</th><th>归属</th><th>实物</th><th>可用</th><th>隔离</th><th>已消费</th><th>状态</th></tr></thead><tbody id="materials"></tbody></table></div><p id="arrival" class="footnote"></p></section>
+<section class="panel"><h2>接驳与运输能力</h2><p id="equipment-capacity"></p><p id="personnel-capacity"></p><p class="caption">A10 → B10 → C10。以下为E8前送实际账；独立工作点、地图外4LQ不能转成SP铁路/T/W。</p><div class="table-wrap"><table><thead><tr><th>资源</th><th>上限</th><th>SP占用</th><th>预留</th><th>材料已用</th><th>剩余</th></tr></thead><tbody id="capacity"></tbody></table></div><p id="terminal" class="footnote"></p></section>
+<section class="panel"><h2>维护代价与恢复结果</h2><p id="impact-note" class="caption"></p><div class="table-wrap"><table><thead><tr><th>单位</th><th>维护SP：参照 → 实际</th><th>库存SP：参照 → 实际</th><th>D：参照 → 实际</th></tr></thead><tbody id="impact"></tbody></table></div><p id="recovery" class="result">未提供</p><p id="target" class="footnote"></p></section>
+<details class="panel diagnostics" id="diagnostics"><summary>诊断 · 来源、请求与版本</summary><p>固定后端018：0f31196d998fb9be8e27e2183161fb4cec0f01e1</p><p id="version"></p><p id="instance"></p><p id="request-id"></p><p id="message">等待本机服务。</p><p id="chain-transfers"></p><pre id="raw-state"></pre></details>
+<footer>保留35项全局阻塞；德9 / 苏14 SP来源缺口不变。仅本次本机工业链，不代表正式运行或长期收益。</footer>
+</main><script type="module" src="/chain-client.mjs"></script><script type="module" src="/chain-nav.mjs"></script></body></html>

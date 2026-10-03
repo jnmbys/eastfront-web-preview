@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>工业与人员记录 · INDUSTRY-UI-005</title>
+  <title>工业与人员记录 · INDUSTRY-UI-006</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="demo-banner"><span class="signal"></span><strong id="mode-banner">演示数据，尚未连接真实工业接口</strong><span id="mode-banner-note">本机隔离演练 · 所有结果均为模拟</span></div>
-  <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-005</span><span>本机静态预览</span></div></header>
+  <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-006</span><span>本机静态预览</span></div></header>
   <main>
     <section class="panel mode-panel" aria-label="展示模式">
-      <label>展示模式<select id="mode"><option value="local">本机操作 · 017-R1真实事务</option><option value="demo" selected>可点击演示</option><option value="records">012实验记录（只读）</option><option value="personnel">013人员与装备（只读）</option><option value="forward">016前送与恢复（只读）</option></select></label>
+      <label>展示模式<select id="mode"><option value="local">本机操作 · 当前本机服务</option><option value="demo" selected>可点击演示</option><option value="records">012实验记录（只读）</option><option value="personnel">013人员与装备（只读）</option><option value="forward">016前送与恢复（只读）</option></select></label>
       <label id="personnel-checkpoint-control" hidden>013检查点 / 原始样例<select id="personnel-checkpoint"></select></label>
       <label id="checkpoint-control" hidden>检查点 / 合成样例<select id="checkpoint"></select></label>
       <p id="mode-description" class="subtle">演示数据与012、013记录分离，切换模式不会改动任何实验账本。</p>
