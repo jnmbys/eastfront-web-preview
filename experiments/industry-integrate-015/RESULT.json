@@ -1,0 +1,906 @@
+{
+  "status": "OPTIMAL_LEXICOGRAPHIC_CANDIDATE",
+  "primaryMinimumProven": true,
+  "provedLowerBoundQ": 2,
+  "candidateReductionQ": 2,
+  "candidateReductionSP": "1/2",
+  "changedUnits": [
+    {
+      "id": "G-I-01",
+      "side": "G",
+      "reference": {
+        "id": "G-I-01",
+        "before": 8,
+        "received": 4,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 8,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 2
+      },
+      "alternative": {
+        "id": "G-I-01",
+        "before": 8,
+        "received": 8,
+        "due": 4,
+        "maintenance": 4,
+        "net": 0,
+        "after": 12,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 2
+      },
+      "deliveryDeltaQ": 4,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": 4,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      }
+    },
+    {
+      "id": "G-PZ-01",
+      "side": "G",
+      "reference": {
+        "id": "G-PZ-01",
+        "before": 24,
+        "received": 8,
+        "due": 8,
+        "maintenance": 8,
+        "net": 0,
+        "after": 24,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-PZ-01",
+        "before": 24,
+        "received": 6,
+        "due": 8,
+        "maintenance": 8,
+        "net": 0,
+        "after": 22,
+        "debt": "0",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": -2,
+      "maintenanceDeltaQ": 0,
+      "reductionQ": 0,
+      "reductionSP": "0",
+      "stockDeltaQ": -2,
+      "openingDebt": "0",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 1,
+        "cap": null,
+        "exhausted": false
+      }
+    },
+    {
+      "id": "G-REC-02",
+      "side": "G",
+      "reference": {
+        "id": "G-REC-02",
+        "before": 0,
+        "received": 2,
+        "due": 4,
+        "maintenance": 2,
+        "net": 2,
+        "after": 0,
+        "debt": "2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "alternative": {
+        "id": "G-REC-02",
+        "before": 0,
+        "received": 0,
+        "due": 4,
+        "maintenance": 0,
+        "net": 0,
+        "after": 0,
+        "debt": "5/2",
+        "loss": 0,
+        "attrition": "0",
+        "strength": 3
+      },
+      "deliveryDeltaQ": -2,
+      "maintenanceDeltaQ": -2,
+      "reductionQ": 2,
+      "reductionSP": "1/2",
+      "stockDeltaQ": 0,
+      "openingDebt": "3/2",
+      "additionalStepLoss": 0,
+      "crossedThresholds": [
+        2
+      ],
+      "newlyWorsenedThresholds": [],
+      "openingCoreSupplyEffects": {
+        "factor": 0.75,
+        "cap": null,
+        "exhausted": false
+      },
+      "referenceCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      },
+      "alternativeCoreSupplyEffects": {
+        "factor": 0.5,
+        "cap": 1,
+        "exhausted": true
+      }
+    }
+  ],
+  "capacity": [
+    {
+      "id": "rail:A10~B10",
+      "originalCap": 40,
+      "spUsed": 32,
+      "cargo": 8,
+      "remaining": 0
+    },
+    {
+      "id": "rail:B10~C10",
+      "originalCap": 40,
+      "spUsed": 32,
+      "cargo": 8,
+      "remaining": 0
+    },
+    {
+      "id": "T",
+      "originalCap": 2200,
+      "spUsed": 108,
+      "cargo": 16,
+      "remaining": 2076
+    },
+    {
+      "id": "W:GH2",
+      "originalCap": 96,
+      "spUsed": 88,
+      "cargo": 8,
+      "remaining": 0
+    }
+  ],
+  "allCapacityRows": [
+    {
+      "id": "source:G-A5",
+      "originalCap": 32,
+      "spUsed": 32.0,
+      "cargo": 0,
+      "remaining": 0.0
+    },
+    {
+      "id": "source:G-A10",
+      "originalCap": 32,
+      "spUsed": 32.0,
+      "cargo": 0,
+      "remaining": 0.0
+    },
+    {
+      "id": "source:G-A16",
+      "originalCap": 32,
+      "spUsed": 12.0,
+      "cargo": 0,
+      "remaining": 20.0
+    },
+    {
+      "id": "rail:A10~B10",
+      "originalCap": 40,
+      "spUsed": 32,
+      "cargo": 8,
+      "remaining": 0
+    },
+    {
+      "id": "rail:B10~C10",
+      "originalCap": 40,
+      "spUsed": 32,
+      "cargo": 8,
+      "remaining": 0
+    },
+    {
+      "id": "T",
+      "originalCap": 2200,
+      "spUsed": 108,
+      "cargo": 16,
+      "remaining": 2076
+    },
+    {
+      "id": "W:GH1",
+      "originalCap": 96,
+      "spUsed": 58,
+      "cargo": 0,
+      "remaining": 38
+    },
+    {
+      "id": "W:GH2",
+      "originalCap": 96,
+      "spUsed": 88,
+      "cargo": 8,
+      "remaining": 0
+    },
+    {
+      "id": "W:GH3",
+      "originalCap": 96,
+      "spUsed": 96,
+      "cargo": 0,
+      "remaining": 0
+    },
+    {
+      "id": "unit:G-ART-01",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-ART-02",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-ENG-01",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-ENG-02",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-01",
+      "originalCap": 8,
+      "spUsed": 8,
+      "cargo": 0,
+      "remaining": 0
+    },
+    {
+      "id": "unit:G-I-02",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-03",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-04",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-05",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-06",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-07",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-08",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-09",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-10",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-I-11",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-J-01",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-J-02",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-MOT-01",
+      "originalCap": 32,
+      "spUsed": 3,
+      "cargo": 0,
+      "remaining": 29
+    },
+    {
+      "id": "unit:G-MOT-02",
+      "originalCap": 32,
+      "spUsed": 3,
+      "cargo": 0,
+      "remaining": 29
+    },
+    {
+      "id": "unit:G-MOT-03",
+      "originalCap": 32,
+      "spUsed": 3,
+      "cargo": 0,
+      "remaining": 29
+    },
+    {
+      "id": "unit:G-PZ-01",
+      "originalCap": 8,
+      "spUsed": 6,
+      "cargo": 0,
+      "remaining": 2
+    },
+    {
+      "id": "unit:G-PZ-02",
+      "originalCap": 32,
+      "spUsed": 3,
+      "cargo": 0,
+      "remaining": 29
+    },
+    {
+      "id": "unit:G-PZ-03",
+      "originalCap": 32,
+      "spUsed": 4,
+      "cargo": 0,
+      "remaining": 28
+    },
+    {
+      "id": "unit:G-PZ-04",
+      "originalCap": 32,
+      "spUsed": 4,
+      "cargo": 0,
+      "remaining": 28
+    },
+    {
+      "id": "unit:G-REC-01",
+      "originalCap": 16,
+      "spUsed": 2,
+      "cargo": 0,
+      "remaining": 14
+    },
+    {
+      "id": "unit:G-REC-02",
+      "originalCap": 16,
+      "spUsed": 0,
+      "cargo": 0,
+      "remaining": 16
+    }
+  ],
+  "sourceComparison": [
+    {
+      "id": "G-A5",
+      "reference": 32,
+      "alternative": 32,
+      "deltaQ": 0
+    },
+    {
+      "id": "G-A10",
+      "reference": 32,
+      "alternative": 32,
+      "deltaQ": 0
+    },
+    {
+      "id": "G-A16",
+      "reference": 12,
+      "alternative": 12,
+      "deltaQ": 0
+    }
+  ],
+  "hubComparison": [
+    {
+      "id": "GH1",
+      "reference": 0,
+      "alternative": 0,
+      "deltaQ": 0
+    },
+    {
+      "id": "GH2",
+      "reference": 28,
+      "alternative": 28,
+      "deltaQ": 0
+    },
+    {
+      "id": "GH3",
+      "reference": 32,
+      "alternative": 32,
+      "deltaQ": 0
+    }
+  ],
+  "conservation": {
+    "G": {
+      "reference": {
+        "openingQ": 84,
+        "sourceQ": 76,
+        "maintenanceQ": 68,
+        "closingQ": 92,
+        "balanced": true
+      },
+      "alternative": {
+        "openingQ": 84,
+        "sourceQ": 76,
+        "maintenanceQ": 66,
+        "closingQ": 94,
+        "balanced": true
+      }
+    },
+    "S": {
+      "reference": {
+        "openingQ": 72,
+        "sourceQ": 96,
+        "maintenanceQ": 136,
+        "closingQ": 32,
+        "balanced": true
+      },
+      "alternative": {
+        "openingQ": 72,
+        "sourceQ": 96,
+        "maintenanceQ": 136,
+        "closingQ": 32,
+        "balanced": true
+      }
+    }
+  },
+  "sovietHash": "4bdc6eb8db4a30aa9439df008d75677143bb3af737337008e0b7021189d6b57b",
+  "oneQInSP": "1/4",
+  "effectsMeaning": "Verbatim original live.effects output; no Core apply, battle or recovery executed.",
+  "completedBeforeDeadline": true,
+  "inputUnchanged": true,
+  "published": false,
+  "seconds": 0.4445331000024453,
+  "budgetSeconds": 3,
+  "solverBudgetSeconds": 2.8,
+  "startupExcluded": "module import only",
+  "independentLowerBound": {
+    "source014Proof": {
+      "kind": "EXACT_ROW_ALGEBRA_NO_ADDITIONAL_SOLVE",
+      "requiredNetDelivery": 56.0,
+      "GH1MaximumDelivery": 32.0,
+      "GH1ProofRows": [
+        "rail balance:A5",
+        "hub:GH1",
+        "source:G-A5"
+      ],
+      "GH2MinimumRequiredDelivery": 24.0,
+      "multiplier": 5,
+      "cheapDestinationUpperBounds": [
+        {
+          "unit": "G-I-08",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-08",
+          "routeVariables": [
+            "route:GH1:G-I-08:0",
+            "route:GH2:G-I-08:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-I-09",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-09",
+          "routeVariables": [
+            "route:GH1:G-I-09:0",
+            "route:GH2:G-I-09:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-J-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-01",
+          "routeVariables": [
+            "route:GH1:G-J-01:0",
+            "route:GH2:G-J-01:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-J-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-02",
+          "routeVariables": [
+            "route:GH1:G-J-02:0",
+            "route:GH2:G-J-02:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-PZ-03",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-03",
+          "routeVariables": [
+            "route:GH1:G-PZ-03:0",
+            "route:GH2:G-PZ-03:0"
+          ],
+          "GH2MinimumCost": 3
+        },
+        {
+          "unit": "G-PZ-04",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-04",
+          "routeVariables": [
+            "route:GH1:G-PZ-04:0",
+            "route:GH2:G-PZ-04:0"
+          ],
+          "GH2MinimumCost": 3
+        }
+      ],
+      "discountUpperBound": 24.0,
+      "GH2WorkLowerBound": 96.0,
+      "GH2SPWorkCap": 88.0,
+      "contradiction": 8.0,
+      "requiredUnits": [
+        {
+          "unit": "G-ART-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ART-01",
+          "routeVariables": [
+            "route:GH1:G-ART-01:0",
+            "route:GH2:G-ART-01:0"
+          ],
+          "GH2MinimumCost": 6
+        },
+        {
+          "unit": "G-ART-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ART-02",
+          "routeVariables": [
+            "route:GH1:G-ART-02:0",
+            "route:GH2:G-ART-02:0"
+          ],
+          "GH2MinimumCost": 6
+        },
+        {
+          "unit": "G-ENG-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ENG-01",
+          "routeVariables": [
+            "route:GH1:G-ENG-01:0",
+            "route:GH2:G-ENG-01:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-ENG-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ENG-02",
+          "routeVariables": [
+            "route:GH1:G-ENG-02:0",
+            "route:GH2:G-ENG-02:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-I-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-02",
+          "routeVariables": [
+            "route:GH1:G-I-02:0",
+            "route:GH2:G-I-02:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-03",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-03",
+          "routeVariables": [
+            "route:GH1:G-I-03:0",
+            "route:GH2:G-I-03:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-04",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-04",
+          "routeVariables": [
+            "route:GH1:G-I-04:0",
+            "route:GH2:G-I-04:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-05",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-05",
+          "routeVariables": [
+            "route:GH1:G-I-05:0",
+            "route:GH2:G-I-05:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-06",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-06",
+          "routeVariables": [
+            "route:GH1:G-I-06:0",
+            "route:GH2:G-I-06:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-I-07",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-07",
+          "routeVariables": [
+            "route:GH1:G-I-07:0",
+            "route:GH2:G-I-07:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-I-08",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-08",
+          "routeVariables": [
+            "route:GH1:G-I-08:0",
+            "route:GH2:G-I-08:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-I-09",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-09",
+          "routeVariables": [
+            "route:GH1:G-I-09:0",
+            "route:GH2:G-I-09:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-I-10",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-10",
+          "routeVariables": [
+            "route:GH1:G-I-10:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-I-11",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-11",
+          "routeVariables": [
+            "route:GH1:G-I-11:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-J-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-01",
+          "routeVariables": [
+            "route:GH1:G-J-01:0",
+            "route:GH2:G-J-01:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-J-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-02",
+          "routeVariables": [
+            "route:GH1:G-J-02:0",
+            "route:GH2:G-J-02:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-MOT-01",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-MOT-01",
+          "routeVariables": [
+            "route:GH1:G-MOT-01:0",
+            "route:GH2:G-MOT-01:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-MOT-02",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-MOT-02",
+          "routeVariables": [
+            "route:GH1:G-MOT-02:0",
+            "route:GH2:G-MOT-02:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-MOT-03",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-MOT-03",
+          "routeVariables": [
+            "route:GH1:G-MOT-03:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-PZ-02",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-PZ-02",
+          "routeVariables": [
+            "route:GH1:G-PZ-02:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-PZ-03",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-03",
+          "routeVariables": [
+            "route:GH1:G-PZ-03:0",
+            "route:GH2:G-PZ-03:0"
+          ],
+          "GH2MinimumCost": 3
+        },
+        {
+          "unit": "G-PZ-04",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-04",
+          "routeVariables": [
+            "route:GH1:G-PZ-04:0",
+            "route:GH2:G-PZ-04:0"
+          ],
+          "GH2MinimumCost": 3
+        },
+        {
+          "unit": "G-REC-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-REC-01",
+          "routeVariables": [
+            "route:GH1:G-REC-01:0",
+            "route:GH2:G-REC-01:0"
+          ],
+          "GH2MinimumCost": 6
+        },
+        {
+          "unit": "G-REC-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-REC-02",
+          "routeVariables": [
+            "route:GH1:G-REC-02:0",
+            "route:GH2:G-REC-02:0"
+          ],
+          "GH2MinimumCost": 6
+        }
+      ],
+      "formula": "5*(56.0-32.0)-24.0=96.0>88.0",
+      "validForContinuousRelaxationToo": true
+    },
+    "formula": "W >= 5*(56-R-32)-24 = 96-5R; W <= 88; integer R >= 2",
+    "lowerBoundQ": 2,
+    "meaning": "R is gross per-unit maintenance reduction, not netting against increases; extra delivery has nonnegative work."
+  },
+  "task": "INDUSTRY-INTEGRATE-015",
+  "base014": "9dcad639239ed7ed4081a473d78e9512cd212197",
+  "rootUnchanged": true,
+  "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+  "inputHash": "c4e6c61b65d1f5254d35d153e65e1c3a51f95ae6f0f44c618f812006bedf6297",
+  "plan014Sha256": "65c52080f016e065e40ed707c61704ee119f7b01539b2759b0a6b486ec78d31c",
+  "cargo": {
+    "rail:A10~B10": 8,
+    "rail:B10~C10": 8,
+    "T": 16,
+    "W:GH2": 8
+  },
+  "actualTransactions": {
+    "settlements": 0,
+    "shipments": 0,
+    "materialDebits": 0,
+    "payments": 0,
+    "recoveries": 0,
+    "oldOffmapCapacityRefreshed": 0
+  },
+  "independentBlockers": [
+    "PERSONNEL_CARE_EXPIRES_END_E8",
+    "TRANSIT_AND_FRONT_CARE_FEES_UNAPPROVED",
+    "NEW_E8_TRANSPORT_AND_C10_TARGET_SERVICE_UNAUTHORIZED",
+    "T9_PE_RECOVERY_SCOPE_UNAUTHORIZED"
+  ],
+  "globalBlockersRetained": 35,
+  "globalBlockersClosed": 0,
+  "objectives": [
+    {
+      "name": "minimum_total_maintenance_reduction_q",
+      "value": 2,
+      "optimal": true,
+      "solverStatus": 0
+    },
+    {
+      "name": "minimum_additional_step_losses",
+      "value": 0,
+      "optimal": true,
+      "solverStatus": 0
+    },
+    {
+      "name": "minimum_penalty_crossing_units",
+      "value": 16,
+      "optimal": true,
+      "solverStatus": 0
+    }
+  ],
+  "fullResultSha256": "f9af1d98b9ef07163a67a00e5e96d7d96f163260798fffb3c9940c782e18c3af"
+}

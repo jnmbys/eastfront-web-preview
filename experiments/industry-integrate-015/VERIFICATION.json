@@ -1,0 +1,206 @@
+{
+  "task": "INDUSTRY-INTEGRATE-015",
+  "cases": [
+    {
+      "name": "minimum_2q_proved_by_MILP_and_independent_new_E8_row_lower_bound",
+      "origin": "SAVED_REAL_E8_OFFLINE",
+      "passed": true,
+      "details": [
+        {
+          "name": "minimum_total_maintenance_reduction_q",
+          "value": 2,
+          "optimal": true,
+          "solverStatus": 0
+        },
+        {
+          "name": "minimum_additional_step_losses",
+          "value": 0,
+          "optimal": true,
+          "solverStatus": 0
+        },
+        {
+          "name": "minimum_penalty_crossing_units",
+          "value": 16,
+          "optimal": true,
+          "solverStatus": 0
+        }
+      ]
+    },
+    {
+      "name": "all_original_network_capacity_flow_source_warehouse_bounds_and_integrality",
+      "origin": "SAVED_REAL_E8_OFFLINE",
+      "passed": true,
+      "details": {
+        "columns": 239,
+        "rows": 303,
+        "shared": [
+          {
+            "id": "rail:A10~B10",
+            "originalCap": 40,
+            "spUsed": 32,
+            "cargo": 8,
+            "remaining": 0
+          },
+          {
+            "id": "rail:B10~C10",
+            "originalCap": 40,
+            "spUsed": 32,
+            "cargo": 8,
+            "remaining": 0
+          },
+          {
+            "id": "T",
+            "originalCap": 2200,
+            "spUsed": 108,
+            "cargo": 16,
+            "remaining": 2076
+          },
+          {
+            "id": "W:GH2",
+            "originalCap": 96,
+            "spUsed": 88,
+            "cargo": 8,
+            "remaining": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "both_sides_SP_conservation_and_complete_Soviet_result_frozen",
+      "origin": "SAVED_REAL_E8_OFFLINE",
+      "passed": true,
+      "details": {
+        "G": {
+          "reference": {
+            "openingQ": 84,
+            "sourceQ": 76,
+            "maintenanceQ": 68,
+            "closingQ": 92,
+            "balanced": true
+          },
+          "alternative": {
+            "openingQ": 84,
+            "sourceQ": 76,
+            "maintenanceQ": 66,
+            "closingQ": 94,
+            "balanced": true
+          }
+        },
+        "S": {
+          "reference": {
+            "openingQ": 72,
+            "sourceQ": 96,
+            "maintenanceQ": 136,
+            "closingQ": 32,
+            "balanced": true
+          },
+          "alternative": {
+            "openingQ": 72,
+            "sourceQ": 96,
+            "maintenanceQ": 136,
+            "closingQ": 32,
+            "balanced": true
+          }
+        }
+      }
+    },
+    {
+      "name": "actual_min_payment_projection_and_unique_selected_cost",
+      "origin": "SAVED_REAL_E8_OFFLINE",
+      "passed": true,
+      "details": [
+        {
+          "id": "G-REC-02",
+          "side": "G",
+          "reference": {
+            "id": "G-REC-02",
+            "before": 0,
+            "received": 2,
+            "due": 4,
+            "maintenance": 2,
+            "net": 2,
+            "after": 0,
+            "debt": "2",
+            "loss": 0,
+            "attrition": "0",
+            "strength": 3
+          },
+          "alternative": {
+            "id": "G-REC-02",
+            "before": 0,
+            "received": 0,
+            "due": 4,
+            "maintenance": 0,
+            "net": 0,
+            "after": 0,
+            "debt": "5/2",
+            "loss": 0,
+            "attrition": "0",
+            "strength": 3
+          },
+          "deliveryDeltaQ": -2,
+          "maintenanceDeltaQ": -2,
+          "reductionQ": 2,
+          "reductionSP": "1/2",
+          "stockDeltaQ": 0,
+          "openingDebt": "3/2",
+          "additionalStepLoss": 0,
+          "crossedThresholds": [
+            2
+          ],
+          "newlyWorsenedThresholds": [],
+          "openingCoreSupplyEffects": {
+            "factor": 0.75,
+            "cap": null,
+            "exhausted": false
+          },
+          "referenceCoreSupplyEffects": {
+            "factor": 0.5,
+            "cap": 1,
+            "exhausted": true
+          },
+          "alternativeCoreSupplyEffects": {
+            "factor": 0.5,
+            "cap": 1,
+            "exhausted": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "exact_actual_payment_envelope_not_only_y_objective",
+      "origin": "SYNTHETIC_UNIT_TEST",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "loss_threshold_and_gross_reduction_coefficients",
+      "origin": "SYNTHETIC_UNIT_TEST",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "interrupted_tie_break_retains_only_proved_minimum_and_valid_candidate",
+      "origin": "SYNTHETIC_UNIT_TEST",
+      "passed": true,
+      "details": {
+        "status": "FEASIBLE_PARTIAL_TIEBREAK_UNPROVEN",
+        "lower": 2
+      }
+    },
+    {
+      "name": "independent_repeat_same_unique_unit_and_arc_candidate",
+      "origin": "SAVED_REAL_E8_OFFLINE",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "full_root_materials_budget_receipts_revision_RNG_unchanged_no_transactions",
+      "origin": "SAVED_REAL_E8_OFFLINE",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "resultSha256": "f9af1d98b9ef07163a67a00e5e96d7d96f163260798fffb3c9940c782e18c3af",
+  "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a"
+}

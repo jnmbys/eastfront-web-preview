@@ -1,0 +1,26 @@
+--- a/014-signature_model.py
++++ b/015-signature_model.py
+@@ -57,21 +57,8 @@
+  ys={};lam=p.var('maintenance_min_ratio',1,False)
+  for u in units:
+   d=delivery[u['id']];row(d,max(0,min(u['cap'],u['target'])-u['stock']),'unit:'+u['id']);b=budget(u['B'],s);y=p.var('maintenance:'+u['id'],b);ys[u['id']]=y;p.lo[y]=min(b,u['stock']);p.hi[y]=min(b,u['stock']) if not d else b;p.row({y:1,**{i:-v for i,v in d.items()}},hi=u['stock']);p.row({lam:b,y:-1},hi=0)
+- # Exact actual maintenance, not just an objective score or y lower bound.
+- assert set(reference)=={u['id'] for u in units}
+- for u in units:
+-  ref=reference[u['id']];b=budget(u['B'],s);paid=ref['maintenance']
+-  assert paid==min(b,u['stock']+ref['received']) and ref['before']==u['stock'] and ref['due']==b
+-  net=max(0,paid-min(b,u['stock']))
+-  p.row({ys[u['id']]:1},paid,paid,'fixed maintenance:'+u['id'])
+-  # A deficient unit cannot receive additional SP without changing actual payment.
+-  p.row(delivery[u['id']],net,net if paid<b else float('inf'),'fixed net maintenance:'+u['id'])
+- p.stage_name='one_candidate_min_transport_work'
+- from solver_audit import capture,register
+- register(p)
+- x,value=p.solve(work|lastwork,False,False)
+- objectives=[['transport_work',value]]
+- certificate=capture(p,x)
++ from optimize import optimize
++ x,objectives,certificate=optimize(p,s,units,reference,ys,delivery,work,lastwork,hub_end,arcs)
+  # Report actual arc flows, not invented source-specific commodity paths.
+  flows=[{k:v for k,v in a.items() if k!='i'}|{'q':int(x[a['i']]),'variable':p.names[a['i']]} for a in arcs if x[a['i']]>0]
+  r=dict(side=side,deliveries={u['id']:int(sum(x[i] for i in delivery[u['id']])) for u in units},hubs={h['id']:int((h['stock'] if s['variant']=='A' else 0)+sum(x[i]*v for i,v in hub_end[h['id']].items())) for h in hubs},flows=flows,source_used={a['id']:int(sum(x[i] for i in injections[a['id']])) for a in sources},hub_unload={h['id']:int(x[draw[h['id']]]+sum(x[i] for i in local[h['id']])) for h in hubs},constraints=[dict(id=n,used=int(sum(x[i]*v for i,v in a.items())),cap=cap,saturated=bool(a) and int(sum(x[i]*v for i,v in a.items()))==cap) for n,(a,cap) in groups.items()],objectives=objectives,paths=None,variables=len(p.names),rows=len(p.rows),exact=True,solver='exact-signature',conditional=s.get('view')=='player' and any(not n.get('known',True) for n in s['nodes']),ms=round((time.perf_counter()-began)*1000,3))
