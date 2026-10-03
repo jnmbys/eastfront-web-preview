@@ -1,0 +1,28 @@
+✔ MP009R1 newer unrelated snapshot cannot be attributed before a matching receipt (29.1142ms)
+✔ MP009R1 late ACK emits once using first actual snapshot application time and sequence (22.0421ms)
+✔ MP009R1 ACK before snapshot completes exactly once at application, never at ACK (18.2933ms)
+✔ MP009R1 wrong result revision is excluded even after a matching request receipt (19.2877ms)
+✔ MP009R1 recovery may correlate an acknowledged exact revision after UI intent cleanup (16.0974ms)
+✔ MP009R1 a different authorized viewer cannot complete the request (17.0661ms)
+✔ MP009R1 recovery trace fifo (30.8574ms)
+✔ MP009R1 recovery trace second-snapshot-after-resync (11.2172ms)
+✔ MP010R1 a completed RESYNC is abnormal and cannot raise normal count or normal median (0.9909ms)
+✔ MP010R1 missing ACK, exact application, and recovered interactivity remain incomplete (0.7972ms)
+✔ MP010R1 a failed recovery keeps both abnormal and incomplete reasons without double counting (0.1118ms)
+✔ MP010R1 null, undefined, nonfinite and numeric strings never become zero or valid samples (0.1016ms)
+✔ MP010R1 warmup and checks keep metrics but never consume normal quota or sample alternation (0.2017ms)
+✔ MP010R1 old evidence without enforced foreground wait and exact revision fields stays incomplete (0.4391ms)
+✔ MP010R1 both versions enforce a full five seconds, resetting on hidden or unready intervals (0.1347ms)
+✔ MP012 snapshot before ACK retains first apply, excludes wrong revision/scope, completes once (0.6925ms)
+✔ MP012 decomposes artificial delays and queries without crossing clocks (0.4602ms)
+✔ MP012 missing receive/ACK/readiness stay missing, never zero (0.5366ms)
+✔ MP012 metadata is bounded and excludes internal scope and raw error content (0.6973ms)
+✔ MP012 terrain-relative asset names resolve only against a unique known inventory entry (0.1852ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 259.0022
