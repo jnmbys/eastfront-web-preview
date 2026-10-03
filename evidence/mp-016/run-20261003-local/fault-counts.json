@@ -1,0 +1,57 @@
+{
+  "faultCounts": [
+    {
+      "scenario": "rapid-selection",
+      "baseline": {
+        "QUERY_MATCH": 2,
+        "RESYNC_MATCH": 0,
+        "SUBMIT_ACTION": 1
+      },
+      "candidate": {
+        "QUERY_MATCH": 2,
+        "RESYNC_MATCH": 0,
+        "SUBMIT_ACTION": 1
+      }
+    },
+    {
+      "scenario": "sequence-gap",
+      "baseline": {
+        "QUERY_MATCH": 4,
+        "RESYNC_MATCH": 4,
+        "SUBMIT_ACTION": 1
+      },
+      "candidate": {
+        "QUERY_MATCH": 4,
+        "RESYNC_MATCH": 4,
+        "SUBMIT_ACTION": 1
+      }
+    },
+    {
+      "scenario": "rejection",
+      "baseline": {
+        "QUERY_MATCH": 1,
+        "RESYNC_MATCH": 0,
+        "SUBMIT_ACTION": 1
+      },
+      "candidate": {
+        "QUERY_MATCH": 1,
+        "RESYNC_MATCH": 0,
+        "SUBMIT_ACTION": 1
+      }
+    },
+    {
+      "scenario": "disconnect",
+      "baseline": {
+        "QUERY_MATCH": 1,
+        "RESYNC_MATCH": 0,
+        "SUBMIT_ACTION": 1
+      },
+      "candidate": {
+        "QUERY_MATCH": 1,
+        "RESYNC_MATCH": 0,
+        "SUBMIT_ACTION": 1
+      }
+    }
+  ],
+  "limits": "sequence-gap bounded observation: four recoveries; convergent FIFO and old-snapshot recovery independently verified."
+}

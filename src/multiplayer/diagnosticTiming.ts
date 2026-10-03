@@ -9,9 +9,10 @@ export function publishReceiveTiming(timing:ReceiveTiming):void {
   if(transportTimingEnabled&&typeof window!=='undefined')window.dispatchEvent(new CustomEvent('eastfront-transport-timing',{detail:timing}));
 }
 export interface ActionTiming {
-  stage:'submit'|'send'|'ui'|'feedback-frame'|'ack'|'snapshot-applied';at:number;requestId:string|null;
+  stage:'submit'|'send'|'ui'|'feedback-frame'|'ack'|'snapshot-applied'|'interaction-gates';at:number;requestId:string|null;
   revision?:number;sequence?:number;type?:string;
   ready?:boolean;interactive?:boolean;syncing?:boolean;
+  canSelect?:boolean;legalOptionsReady?:boolean;canSubmit?:boolean;queryQueued?:boolean;queryInFlight?:boolean;
 }
 /** Independent event keeps the MP-005C receive contract unchanged. */
 export function publishActionTiming(timing:ActionTiming):void {

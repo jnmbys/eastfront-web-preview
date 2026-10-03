@@ -22,6 +22,7 @@ export class NetworkPlayerSession {
   private unsubscribe:()=>void;private modelKey='';private failedKey='';private queued:ProjectionRequest|null=null;private flight:ProjectionRequest|null=null;private forced:NetworkAction|null=null;
   private snapshotDeadline:ReturnType<typeof setTimeout>|null=null;
   private submitting=false;private timer:ReturnType<typeof setTimeout>|null=null;private queryTimer:ReturnType<typeof setTimeout>|null=null;
+  private snapshotProjectionWindow=false;
   private onChange:(kind:'view'|'query'|'status'|'resync')=>void;
   constructor(readonly client:PlayerTransport,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange']){
     const snapshot=client.state.snapshot;if(!snapshot)throw new Error('Missing authorized snapshot');
@@ -34,6 +35,13 @@ export class NetworkPlayerSession {
   /** Local selection may change while a read-only query is in flight. */
   get canSelect(){return this.client.state.connection==='CONNECTED'&&this.client.state.synced&&!this.syncing&&!this.submitting&&this.canAct&&this.status==='ACTIVE';}
   get interactive(){return this.ready&&this.canAct&&this.status==='ACTIVE';}
+  /** Diagnostic distinction only; does not relax the existing selection/action gates. */
+  get legalOptionsReady(){return !this.needsProjection()||this.modelKey===this.key(queryDraft(this.presentation));}
+  private publishInteractionTiming(type:string,requestId:string|null=null):void {
+    if(transportTimingEnabled)publishActionTiming({stage:'interaction-gates',at:performance.now(),requestId,type,revision:this.matchRevision,sequence:this.serverSequence,
+      canSelect:this.canSelect,legalOptionsReady:this.legalOptionsReady,canSubmit:this.interactive,interactive:this.interactive,ready:this.ready,syncing:this.syncing,
+      queryQueued:!!this.queued,queryInFlight:!!this.flight});
+  }
   get statusText():string {
     if(this.pendingFeedback.text)return mt(this.pendingFeedback.text);
     if(this.client.statusText)return this.client.statusText;
@@ -70,19 +78,26 @@ export class NetworkPlayerSession {
     const draft=queryDraft(p),key=this.key(draft);
     // Always replace the unsent intent, including A -> B -> A while A is pending.
     this.queued=key===this.modelKey||key===this.failedKey||key===this.flight?.key?null:{draft,key,revision:this.matchRevision,requestId:null};
-    this.flush();
+    this.flush(this.snapshotProjectionWindow);
+    this.publishInteractionTiming('projection-request');
   }
-  private flush():void {
-    if(this.queryTimer!==null||this.flight||this.submitting||this.syncing||!this.queued||!this.client.canMutate||!this.needsProjection())return;
+  private flush(beforeSnapshotRender=false):void {
+    if(this.flight||this.submitting||this.syncing||!this.queued||!this.client.canMutate||!this.needsProjection())return;
     // Collapse same-turn input/render notifications into one latest query. Never
     // queue Actions here, and never start another query before this one's reply.
-    this.queryTimer=setTimeout(()=>{
+    const send=()=>{
       this.queryTimer=null;
       if(this.flight||this.submitting||this.syncing||!this.queued||!this.client.canMutate||!this.needsProjection())return;
       const request=this.queued;this.queued=null;this.flight=request;
       const id=this.client.send('QUERY_MATCH',{matchId:this.client.state.snapshot!.matchId,expectedRevision:request.revision,draft:request.draft});
       if(id===null){this.flight=null;this.queued=request;}else request.requestId=id;
-    },0);
+    };
+    // A restored ordinary-move draft has already been chosen. The renderer asks
+    // for this same required query before doing synchronous DOM work; overlap the
+    // reply wait with that work instead of leaving the send behind a zero timer.
+    // All other input (including rapid selection changes) retains coalescing.
+    if(beforeSnapshotRender){if(this.queryTimer!==null)clearTimeout(this.queryTimer);send();}
+    else if(this.queryTimer===null)this.queryTimer=setTimeout(send,0);
   }
   submit(action:NetworkAction):void {
     const inputAt=transportTimingEnabled?performance.now():0;
@@ -102,6 +117,7 @@ export class NetworkPlayerSession {
     if(supported)this.actionCompletion?.submitted(id,this.client.state.snapshot!.matchId,this.model.viewerControllerId,this.matchRevision,this.serverSequence);
     this.onChange('status');
     if(transportTimingEnabled)publishActionTiming({stage:'submit',at:inputAt,requestId:id,revision:this.matchRevision});
+    this.publishInteractionTiming('submit',id);
   }
   resync():void {
     this.pendingFeedback.uncertain();
@@ -109,6 +125,7 @@ export class NetworkPlayerSession {
     if(this.queryTimer!==null)clearTimeout(this.queryTimer);this.queryTimer=null;
     this.client.resyncMatch(this.client.state.snapshot!.matchId);
     this.onChange('status');
+    this.publishInteractionTiming('resync');
   }
   private restoreDrafts(next:MatchSnapshot):void {
     clearActionDrafts(this.presentation);this.presentation.selectedBattleId=next.view.pendingDecision?.battleId??next.model.combat?.battle?.battleId??null;
@@ -116,7 +133,7 @@ export class NetworkPlayerSession {
     if(next.model.deployment)this.presentation.selectedDeploymentUnitId=next.model.deployment.roster.find(u=>!u.placed)?.id??null;
   }
   private receive(m:ServerMessage|null):void {
-    if(!m){if(this.client.state.connection!=='CONNECTED'){this.pendingFeedback.uncertain();this.flight=null;this.queued=null;this.submitting=false;this.syncing=true;this.forced=null;}this.onChange('status');this.flush();this.scheduleForced();return;}
+    if(!m){if(this.client.state.connection!=='CONNECTED'){this.pendingFeedback.uncertain();this.flight=null;this.queued=null;this.submitting=false;this.syncing=true;this.forced=null;}this.publishInteractionTiming('transport-status');this.onChange('status');this.flush();this.scheduleForced();return;}
     if(m.messageType==='ROOM_ERROR'){
       this.actionCompletion?.rejected(m.requestId);
       if(this.flight?.requestId===m.requestId){this.failedKey=this.flight.key;this.flight=null;}
@@ -155,7 +172,9 @@ export class NetworkPlayerSession {
       if(resync||m.requestId===this.flight?.requestId)this.flight=null;
       if(changed||resync){this.restoreDrafts(next);this.queued=null;}
       if(!resync)publishAuthorizedEvents(this,next.events);
-      this.onChange(resync?'resync':'view');
+      this.snapshotProjectionWindow=(changed||resync)&&!next.view.pendingDecision&&!next.forcedAction&&
+        (next.view.phase==='GERMAN_MOVEMENT'||next.view.phase==='SOVIET_MOVEMENT');
+      try{this.onChange(resync?'resync':'view');}finally{this.snapshotProjectionWindow=false;}
     }else if(m.messageType==='MATCH_QUERY'){
       const request=this.flight;
       if(order.matchRevision>this.matchRevision){this.resync();return;}
@@ -163,7 +182,7 @@ export class NetworkPlayerSession {
         this.flight=null;
         if(order.matchRevision===this.matchRevision&&request.key===this.key(queryDraft(this.presentation))){
           this.model={...m.payload.model,playerView:this.playerView,hexes:this.playerView.hexes,edges:this.playerView.edges};
-          this.modelKey=request.key;this.forced=m.payload.forcedAction;this.notice=null;this.queued=null;this.onChange('query');
+          this.modelKey=request.key;this.forced=m.payload.forcedAction;this.notice=null;this.queued=null;this.publishInteractionTiming('query-applied',m.requestId);this.onChange('query');
         }else{this.requestProjection();this.onChange('status');}
       }
     }else if(m.messageType==='ACTION_ACCEPTED'){
@@ -187,6 +206,7 @@ export class NetworkPlayerSession {
       if(m.payload.code==='STALE_REVISION'){this.resync();return;}this.onChange('query');
     }
     this.flush();this.scheduleForced();
+    this.publishInteractionTiming(m.messageType,m.requestId);
     if(transportTimingEnabled)publishActionTiming({stage:'ui',at:performance.now(),requestId:m.requestId,type:m.messageType,revision:this.matchRevision,sequence:this.serverSequence,ready:this.ready,interactive:this.interactive,syncing:this.syncing});
   }
   private scheduleForced():void {

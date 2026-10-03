@@ -1,0 +1,73 @@
+{
+  "clock": "same client virtual monotonic clock, ms from submitted input",
+  "labels": "Action completion keeps original actual apply time even if late ACK publishes later. Selection, options and submit gates remain separate. Zero means observed zero; unobserved is null.",
+  "measurements": [
+    {
+      "label": "baseline",
+      "fixture": "render-0",
+      "actionCompletedMs": 400,
+      "canSelectMs": 400,
+      "legalOptionsReadyMs": 1100,
+      "canSubmitMs": 1100,
+      "querySentMs": 400,
+      "queryCount": 1,
+      "resyncCount": 0
+    },
+    {
+      "label": "baseline",
+      "fixture": "render-120",
+      "actionCompletedMs": 400,
+      "canSelectMs": 400,
+      "legalOptionsReadyMs": 1220,
+      "canSubmitMs": 1220,
+      "querySentMs": 520,
+      "queryCount": 1,
+      "resyncCount": 0
+    },
+    {
+      "label": "baseline",
+      "fixture": "snapshot-first",
+      "actionCompletedMs": 400,
+      "canSelectMs": 600,
+      "legalOptionsReadyMs": 1300,
+      "canSubmitMs": 1300,
+      "querySentMs": 600,
+      "queryCount": 1,
+      "resyncCount": 0
+    },
+    {
+      "label": "candidate",
+      "fixture": "render-0",
+      "actionCompletedMs": 400,
+      "canSelectMs": 400,
+      "legalOptionsReadyMs": 1100,
+      "canSubmitMs": 1100,
+      "querySentMs": 400,
+      "queryCount": 1,
+      "resyncCount": 0
+    },
+    {
+      "label": "candidate",
+      "fixture": "render-120",
+      "actionCompletedMs": 400,
+      "canSelectMs": 400,
+      "legalOptionsReadyMs": 1100,
+      "canSubmitMs": 1100,
+      "querySentMs": 400,
+      "queryCount": 1,
+      "resyncCount": 0
+    },
+    {
+      "label": "candidate",
+      "fixture": "snapshot-first",
+      "actionCompletedMs": 400,
+      "canSelectMs": 600,
+      "legalOptionsReadyMs": 1300,
+      "canSubmitMs": 1300,
+      "querySentMs": 600,
+      "queryCount": 1,
+      "resyncCount": 0
+    }
+  ],
+  "limits": "Fixed-delay and CPU-busy fixture only; no real device speedup or network reduction claimed."
+}
