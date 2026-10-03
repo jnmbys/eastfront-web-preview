@@ -7,9 +7,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="demo-banner"><span class="signal"></span><strong>演示数据，尚未连接真实工业接口</strong><span>本机隔离演练 · 所有结果均为模拟</span></div>
+  <div class="demo-banner"><span class="signal"></span><strong id="mode-banner">演示数据，尚未连接真实工业接口</strong><span id="mode-banner-note">本机隔离演练 · 所有结果均为模拟</span></div>
   <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-001</span><span>仅本地演示</span></div></header>
   <main>
+    <section class="panel mode-panel" aria-label="展示模式">
+      <label>展示模式<select id="mode"><option value="demo">可点击演示</option><option value="records">012实验记录（只读）</option></select></label>
+      <label id="checkpoint-control" hidden>检查点 / 合成样例<select id="checkpoint"></select></label>
+      <p id="mode-description" class="subtle">演示数据与012记录分离，切换模式不会改动任何实验账本。</p>
+    </section>
+    <div id="demo-content">
     <section class="page-title"><div><div class="eyebrow">OPERATIONS / INDUSTRY</div><h1>工业订单台<span>01</span></h1><p>从一笔订单，到一批可用装备。每一步都有去向。</p></div><div class="clock"><span>演示时点</span><strong id="clock">—</strong><small>按回合 / 结算推进</small></div></section>
     <section class="budget" aria-label="演示预算账本"><div><span>初始独立预算</span><strong id="initial-budget">—</strong><p>一次性演示拨款</p></div><div><span>可用预算</span><strong id="free">—</strong><p>尚可用于订单</p></div><div><span>费用托管</span><strong id="escrow">—</strong><p>交接确认后转为支出</p></div><div><span>实际支出 <em>演示账本</em></span><strong id="spent">—</strong><p id="spent-breakdown">—</p></div></section>
     <div class="workspace">
@@ -37,7 +43,41 @@
       </section>
       <section class="panel journal"><div class="panel-heading"><div><span class="eyebrow">AUDIT / DEMO EVENTS</span><h2>演示事件记录</h2></div><span class="subtle">最新在前</span></div><ol id="journal"></ol></section>
     </div>
-    <footer><span>规则参考 007 · 90758efc</span><span>工业012待交付 · 接口字段仅为候选 · 不代表实际生产成功</span></footer>
+    <footer><span>规则参考 007 · 90758efc</span><span>可点击演示 · 非012实验记录 · 不代表实际生产成功</span></footer>
+    </div>
+    <section id="records-content" hidden aria-label="012实验记录">
+      <div class="page-title"><div><div class="eyebrow">ARCHIVE / INDUSTRY-UI-002</div><h1>012实验记录</h1><p>已完成的隔离实验 · 静态快照 · 只读查看</p></div><span class="tag">无写入操作</span></div>
+      <div id="record-error" class="notice error" role="alert" hidden></div>
+      <div id="record-data">
+        <section class="panel record-provenance"><div class="panel-heading"><h2>记录来源</h2><span id="record-origin" class="status"></span></div>
+          <p id="record-origin-note"></p><dl class="record-facts"><div><dt>来源提交</dt><dd><code id="record-source"></code></dd></div><div><dt>导出版本</dt><dd id="record-schema"></dd></div><div><dt>检查点 / 样例</dt><dd id="record-label"></dd></div><div><dt>实际回合</dt><dd id="record-turn"></dd></div><div><dt>实际阶段</dt><dd id="record-phase"></dd></div><div><dt>版本</dt><dd id="record-revisions"></dd></div></dl>
+          <div class="notice" id="record-boundary-note" role="status" aria-live="polite"></div>
+        </section>
+        <section class="budget" aria-label="012记录预算"><div><span>累计拨款</span><strong id="record-granted"></strong><p>选中记录的 grantedI</p></div><div><span>可用预算</span><strong id="record-free"></strong><p>不包含托管余额</p></div><div><span>费用托管</span><strong id="record-escrow"></strong><p>该检查点的已确认值</p></div><div><span>实际支出 · 记录</span><strong id="record-spent"></strong><p id="record-paid-detail"></p></div></section>
+        <div class="workspace record-workspace">
+          <section class="panel"><div class="panel-heading"><h2>生产与到账</h2><span id="record-status" class="status"></span></div>
+            <dl class="record-facts"><div><dt>订单ID</dt><dd><code id="record-order-id"></code></dd></div><div><dt>生产进度</dt><dd id="record-progress"></dd></div><div><dt>已提交生产结算</dt><dd id="record-work-epochs"></dd></div><div><dt>预计完成</dt><dd id="record-completion"></dd></div><div><dt>实际产出E</dt><dd id="record-completed"></dd></div><div><dt>累计已产出</dt><dd id="record-produced"></dd></div><div><dt>到账信息</dt><dd id="record-arrival"></dd></div><div><dt>收货回执</dt><dd><code id="record-receipt"></code></dd></div></dl>
+          </section>
+          <section class="panel"><div class="panel-heading"><h2>装备归属与占位</h2><span class="tag">预留 ≠ 实物</span></div>
+            <p id="record-custody"></p><div class="stock-grid"><div><span>生产暂存</span><strong id="record-buffer"></strong></div><div><span>在途 / HELD</span><strong id="record-transit"></strong></div><div><span>A10 实际库存</span><strong id="record-rear"></strong></div></div>
+            <dl class="record-facts"><div><dt>A10 可用数量</dt><dd id="record-available"></dd></div><div><dt>生产暂存预留</dt><dd id="record-production-hold"></dd></div><div><dt>A10 来货占位</dt><dd id="record-incoming-hold"></dd></div><div><dt>人员</dt><dd id="record-personnel"></dd></div></dl>
+            <p class="subtle">三处实物合计等于累计产出。预留只占用空间，可用数量是实际库存的子集。</p>
+          </section>
+          <section class="panel warehouse"><div class="panel-heading"><h2>外部容量 · 历史结算行</h2><span class="tag">独立于 SP · 不结转</span></div>
+            <p class="subtle">算术剩余不是当前可支配运力；已关闭的E即使剩余大于0，也不能继续使用。</p>
+            <div class="table-scroll"><table><thead><tr><th>结算</th><th>资源</th><th>上限</th><th>所有已用</th><th>所有预留</th><th>算术剩余</th><th>可用性</th></tr></thead><tbody id="record-capacity"></tbody></table></div>
+            <p id="record-capacity-empty" class="subtle">该检查点未导出容量行；不推定存在可用运力。</p>
+          </section>
+          <section class="panel"><div class="panel-heading"><h2>阻塞与请求结果</h2></div><ul id="record-blockers" class="record-reasons"></ul><div class="notice" id="record-error-detail"></div><p id="record-global" class="subtle"></p></section>
+          <section class="panel"><div class="panel-heading"><h2>未导出信息与操作边界</h2></div>
+            <dl class="record-facts" id="record-unprovided"><div><dt>生产 / 交接报价及总报价</dt><dd>未提供</dd></div><div><dt>计划产量报价</dt><dd>未提供</dd></div><div><dt>生产仓 / A10 仓容上限</dt><dd>未提供</dd></div><div><dt>下单、运输、恢复权限</dt><dd>未提供</dd></div></dl>
+            <p class="subtle">已付费用不自动等于报价；不套用演示参数。只读导出没有业务授权。</p>
+          </section>
+        </div>
+      </div>
+      <div class="readonly-actions" aria-label="只读模式写入操作"><button disabled>下单（只读禁用）</button><button disabled>推进结算（只读禁用）</button><button disabled>重试写入（只读禁用）</button></div>
+      <footer><span>industry-012-view.v1 · 只读映射</span><span>REAL仅指已完成的隔离实验记录，不表示实时连接；SYNTHETIC为合成验证样例。</span></footer>
+    </section>
   </main>
   <script type="module" src="app.mjs"></script>
 </body></html>

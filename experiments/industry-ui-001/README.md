@@ -1,6 +1,37 @@
-# INDUSTRY-UI-001 · 隔离工业订单台
+# INDUSTRY-UI-001 / 002 · 隔离工业订单台
 
-**演示数据，尚未连接真实工业接口。所有接受、产出、交接、到账与可用结果均为内存模拟，不代表实际生产成功。**
+**可点击演示使用内存模拟；012实验记录模式只读离线导出。均未实时连接真实工业接口。REAL仅指已完成的隔离实验记录，SYNTHETIC保留原合成样例标识。**
+
+## UI-002 只读实验记录
+
+UI-R1固定基线：`00a97635d882509675fe4d5f6e789cdbc791fdc0`（独立分支 `industry-ui-001-r1`）；本轮分支 `industry-ui-002`。012数据固定提交：`e64c0e11fb16b05cfe725240193e8590b4eefd88`，消费已有 **industry-012-view.v1**。仍只修改本UI目录，不修改012源文件。
+
+顶部可切换“可点击演示”和“012实验记录（只读）”。演示保留R1终局约束；记录模式提供6个REAL检查点（initial、funded、accepted、E5、E6、T7）及10个原样合成验证样例。切换仅浏览静态快照，没有下单、结算推进或重试写入接口。切回演示保留其独立内存状态。
+
+- E5标签是已完成E5结算的记录，实际已进入T6。E5剩余4工作点显示为历史算术剩余，窗口已关闭，可用0且不结转。
+- E6标签的实际回合是T7、阶段为GERMAN_SUPPLY_RAIL，2 E2已经可用。没有添加真实“E6到账未可用”快照。
+- 容量、仓位阻塞和HELD保留SYNTHETIC标记；失败样例显示各自提交失败前账本，生产进度1/2、产出0、交接托管2I，不采用重试成功结果。
+- 未导出的报价、计划产量报价、生产仓/A10容量上限与权限显示“未提供”。预留独立显示，不计入实物。未知schema、必需字段缺失、守恒不符均拒绝展示，不填演示默认值。
+
+### 离线提取与核验
+
+`records-012.mjs`是必要静态数据，包含来源完整SHA、9个源文件Git blob/SHA256、012证据摘要和16份未改动的v1视图。`extract-012.py`先核对固定Git blob，再调用012原`export_view.py`的6次`--checkpoint`及10次`--sample`只读入口；原入口核对TRACE/VIEWS证据摘要，提取器再比对重复检查点与最终证据。以`-B`禁止写入源目录pycache；不导入生产适配器，不运行prepare/verify，不启动Core或求解器。
+
+```sh
+python experiments/industry-ui-001/extract-012.py --source /path/to/pinned/experiments/industry-integrate-012 --check
+```
+
+去掉`--check`可在本UI目录重新生成静态模块。页面通过ES模块加载此文件，服务器仅增加静态资源白名单，CSP仍为`connect-src 'none'`；没有fetch、业务HTTP、WebSocket、存储写入或公网部署。
+
+### UI-002 验证
+
+```sh
+node --test experiments/industry-ui-001/tests/adapter.test.mjs experiments/industry-ui-001/tests/records.test.mjs
+node experiments/industry-ui-001/tests/browser.mjs
+node experiments/industry-ui-001/tests/records-browser.mjs
+```
+
+Node测试26/26通过（原10 + R1终局5 + 只读映射11）。浏览器脚本需本机静态服务器和既有Playwright/Edge；支持下面说明的`PLAYWRIGHT_MODULE`。1440×1100、820×1180、1024×768复查原演示与R1终局，以及全部16条记录、关闭容量、失败账本、未知schema、缺字段和模式隔离。记录结果见`UI002-VALIDATION.json`，演示回归见`VALIDATION.json`。隐藏模式中的控件不参与可见点击目标尺寸检查。`RECORD_SCREENSHOT_DIR`可保存桌面E6/T7和平板视口HELD截图。本轮已检查截图，无横向溢出；仅视口测试，不是真机验收。
 
 ## R1 补修（2026-10-03）
 
@@ -15,7 +46,7 @@
 
 浏览器测试默认不覆盖基线截图；显式设置 `UPDATE_SCREENSHOTS=1` 才更新。设置 `R1_SCREENSHOT_DIR` 可另存两张E24终局截图。本轮另存并查看桌面终局到账、平板终局HELD截图；这些仍是浏览器视口检查，不是真机验收。
 
-仅新增 `experiments/industry-ui-001/`。基线与规则参考为完整提交 `90758efccda736e3524348d8876b892be3d7938f`（RULE-CAMPAIGN-007）。此提交中的金额/工期仍为待批准候选；本页面的 10I、3I、2I、2 个结算边界和 T5/E5/E6/T7 仅来自本次 UI 演示任务，不构成正式参数批准，也不解除规则007阻塞。
+初版仅新增 `experiments/industry-ui-001/`，初版基线与规则参考为完整提交 `90758efccda736e3524348d8876b892be3d7938f`（RULE-CAMPAIGN-007）。演示模式的10I、3I、2I、2个结算边界和T5/E5/E6/T7来自UI演示任务，不构成正式参数批准，也不解除规则007阻塞；012模式读取其独立隔离实验的已验收导出。
 
 ## 启动与操作
 
@@ -25,7 +56,7 @@
 node experiments/industry-ui-001/serve.mjs
 ```
 
-访问 http://127.0.0.1:4173 。或者在本目录运行 `npm start`。服务器固定绑定 `127.0.0.1`，仅允许读取五个页面资源，CSP 禁止连接接口。Ctrl+C 停止。无公网、隧道、部署配置或付费资源。
+访问 http://127.0.0.1:4173 。或者在本目录运行 `npm start`。服务器固定绑定 `127.0.0.1`，仅允许读取白名单内的页面静态资源，CSP 禁止连接接口。Ctrl+C 停止。无公网、隧道、部署配置或付费资源。
 
 1. 核对 2 E2:L 产量、5I 总费用、2 个结算边界、无阻塞时 T7 可用。
 2. 点击提交，观察等待状态；700ms 仅模拟响应延迟，期间没有账务或库存变化，不是生产倒计时。
@@ -54,10 +85,11 @@ node experiments/industry-ui-001/serve.mjs
 - `demo-adapter.mjs`：独立、易替换的内存演示状态机和候选视图模型；重复成功提交/回执不会重复扣费或加料。
 - `app.mjs`：绑定视图和演示适配器，无生产服务选择开关。
 - `serve.mjs`：仅本机静态服务，不读取主体客户端资源。
-- `INTERFACE-DEPENDENCIES.md`：工业012交付后的候选字段需求与适配边界。
+- `INTERFACE-DEPENDENCIES.md`：012已验收只读契约的映射及演示边界。
+- `record-adapter.mjs`、`record-view.mjs`、`records-012.mjs`：只读校验映射、展示与固定来源静态记录。
 - `tests/`、`VALIDATION.json`、`screenshots/`：可复跑的测试及少量证据。
 
-无Core、FOW或其他Worker的导入/修改；无真实预算、生产服务、浏览器存储、外部字体、CDN或网络接口调用。内存状态机不证明工业012的原子事务、真实容量、授权、持久幂等、跨进程恢复、真实账本或实际阶段合法性。
+页面无Core、FOW或其他Worker运行代码的导入/修改；无真实预算写入、生产服务、浏览器存储、外部字体、CDN或网络接口调用。演示内存状态机不证明工业012的原子事务、真实容量、授权、持久幂等、跨进程恢复、真实账本或实际阶段合法性；只读模式展示012已有证据，不重新执行其验证。
 
 ## 验证
 

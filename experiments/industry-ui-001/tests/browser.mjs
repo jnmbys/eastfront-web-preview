@@ -92,7 +92,7 @@ async function suite(width,height) {
   assert.equal(await text('production-payment-note'),'快照支付时机'); assert.equal(await text('handoff-payment-note'),'快照托管时机');
   assert.equal(await text('expected'),'快照预计时间');
   await noOverflow();
-  const targets=await page.locator('button,select').evaluateAll(nodes=>nodes.map(n=>({height:n.getBoundingClientRect().height,tag:n.tagName}))); assert(targets.every(n=>n.height>=44));
+  const targets=await page.locator('button,select').evaluateAll(nodes=>nodes.filter(n=>n.getClientRects().length>0).map(n=>({height:n.getBoundingClientRect().height,tag:n.tagName}))); assert(targets.every(n=>n.height>=44));
   results.push({viewport:`${width}x${height}`,normal:'PASS',pending:'PASS',rejectionRetry:'PASS',unknownRetry:'PASS',dispatchRetry:'PASS',heldRetry:'PASS',terminalReceipt:'PASS',terminalHeld:'PASS',terminalBufferEscrow:'PASS',snapshotFields:'PASS',horizontalOverflow:false,minTargetHeight:44});
   await context.close();
 }

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "node serve.mjs",
-    "test": "node --test tests/adapter.test.mjs",
-    "test:browser": "node tests/browser.mjs"
+    "test": "node --test tests/adapter.test.mjs tests/records.test.mjs",
+    "test:browser": "node tests/browser.mjs && node tests/records-browser.mjs"
   }
 }
