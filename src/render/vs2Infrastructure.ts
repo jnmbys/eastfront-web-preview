@@ -3,7 +3,8 @@ import { HEX_SIZE, SQRT3, hexToPixel, sharedHexEdge, type Point } from '../geome
 import type { BrowserRenderModel } from './coreModel.js';
 import type { TerrainLod } from './terrainAssets.js';
 import { vs2AssetCatalog, type VS2AssetCatalog } from './vs2Assets.js';
-import { loadTerrainImage, terrainSurfaceCapabilities } from './terrainSurface.js';
+import { TerrainImageReuse, terrainImagePipelineEnabled, vs2ImageLoader } from './terrainImagePipeline.js';
+import type { TerrainWorkControl } from './terrainWork.js';
 import { VS2_PRESENTATION } from './vs2Presentation.js';
 
 export interface VS2PathSegment { readonly key: string; readonly a: Point; readonly b: Point; readonly offset: number; readonly length: number; }
@@ -49,8 +50,9 @@ export function planVS2Infrastructure(model: BrowserRenderModel) {
   return { chains: [...chainVS2Edges(river, 'river'), ...chainVS2Edges(road, 'road'), ...chainVS2Edges(rail, 'rail')], bridges };
 }
 
-export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog) {
-  const plan = planVS2Infrastructure(model), style = VS2_PRESENTATION[lod], capabilities = terrainSurfaceCapabilities();
+export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl) {
+  const plan = planVS2Infrastructure(model), style = VS2_PRESENTATION[lod], load = vs2ImageLoader(assets, control?.signal);
+  const reuse = terrainImagePipelineEnabled() ? new TerrainImageReuse(load) : undefined;
   // Draw calls depend on actual path/bridge branches; no invented total.
   reportTerrainLoad({ kind: 'assets', total: null });
   let imageDraws = 0; const used = new Set<string>();
@@ -61,9 +63,11 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
     const range = entry.recommendedWorldScale.width;
     const H = SQRT3 * HEX_SIZE;
     if (width < range[0]! * H || width > range[1]! * H || opacity < entry.opacityRange[0]! || opacity > entry.opacityRange[1]!) throw new Error(`VS2 path presentation outside manifest: ${id}`);
-    const image = await loadTerrainImage({ id, family: entry.family, file: entry.file, sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities, new URL(assets.url(entry), document.baseURI).href);
+    await control?.checkpoint();
+    const image = await (reuse ? reuse.get(id) : load(id));
     used.add(id);
     try {
+      await control?.checkpoint();
       // Preserve source aspect ratio and phase through every edge of each chain.
       const repeat = width * entry.sourceSize[0]! / entry.sourceSize[1]!;
       for (const chain of chains) for (const segment of chain.segments) {
@@ -79,7 +83,7 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
           }
         } finally { ctx.restore(); }
       }
-    } finally { image.release?.(); }
+    } finally { if (!reuse) image.release?.(); }
   };
   const paths = (kind: VS2PathChain['kind']) => plan.chains.filter(c => c.kind === kind);
   // Continuous round joins underneath the textures close bends and graph junctions.
@@ -91,6 +95,7 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
       ctx.stroke();
     } finally { ctx.restore(); }
   };
+  try {
   const rivers = paths('river'), roads = paths('road'), rails = paths('rail');
   // Keep major/minor semantic widths while sharing chain arc-length phase.
   const major = new Set(model.edges.filter(e => e.river === 'MAJOR').map(e => e.key));
@@ -134,4 +139,5 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
   }
   reportTerrainLoad({ kind: 'building' });
   return { imageDraws, uniqueAssets: used.size };
+  } finally { reuse?.dispose(); }
 }

@@ -1,3 +1,4 @@
+import {withStartup003TerrainReview} from './startup003-reviewed-hashes.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -37,5 +38,5 @@ test('MP001 room codes never consume gameplay RNG; fresh matches retain new seed
 test('MP001 unauthenticated and message-rate gates fail safely',()=>{const h=harness({config:{messagesPerWindow:3}}),a=h.peer(null);a.send('CREATE_ROOM');error(a,'NOT_IDENTIFIED');for(let i=0;i<4;i++)a.send('CREATE_ROOM');error(a,'RATE_LIMIT');assert.equal(h.authority.counts().rooms,0);});
 test('MP001 snapshot cannot be requested for an unassigned controller',()=>{let match;const h=harness({factory:(...args)=>match=createMatchSession(...args)}),{a,b}=pair(h);start(a,b);assert.throws(()=>playerSnapshot(match,'OBSERVER'));assert.throws(()=>playerSnapshot(match,'someone-else'));});
 test('MP001 single-player uses unchanged factory and runs independently of server',()=>{const raw=JSON.parse(readFileSync('vendor/eastfront-digital-core/reference/strategic-reset-f-map.json'));const session=createFreshProductionSession(raw);assert.equal(session.integrityIssues.length,0);assert.equal(session.state.phase,'SOVIET_DEPLOYMENT');assert(session.state.random.seed);});
-test('MP001 FOW semantics and Performance Pass 1 frozen files unchanged',()=>{const frozen=JSON.parse(readFileSync('tests/fixtures/performance-frozen-sha256.json'));for(const [file,hash] of Object.entries(frozen))assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),hash,file);});
+test('MP001 FOW semantics and Performance Pass 1 frozen files unchanged',()=>{const frozen=withStartup003TerrainReview(JSON.parse(readFileSync('tests/fixtures/performance-frozen-sha256.json')));for(const [file,hash] of Object.entries(frozen))assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),hash,file);});
 test('MP001 both catalogs complete; default/English texts available',()=>{assert.deepEqual(Object.keys(multiplayerCatalogs['zh-CN']).sort(),Object.keys(multiplayerCatalogs['en-US']).sort());setLocale('zh-CN');assert.equal(mt('title'),'多人游戏');setLocale('en-US');assert.equal(mt('title'),'Multiplayer');setLocale('zh-CN');});

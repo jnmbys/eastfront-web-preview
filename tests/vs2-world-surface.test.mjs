@@ -134,7 +134,7 @@ test('VS2 production cache invokes one world pass and preserves existing infrast
   } finally { globalThis.document = oldDocument; globalThis.Image = oldImage; }
 });
 
-test('VS2 world pass loads exactly the selected namespace materials sequentially and releases scratch canvases', async () => {
+test('VS2 world pass loads exactly the selected namespace materials with two-job lookahead and releases scratch canvases', async () => {
   const oldDocument = globalThis.document, oldImage = globalThis.Image, urls = [], canvases = [];
   let active = 0, peak = 0, draws = 0;
   class FakeImage {
@@ -154,7 +154,7 @@ test('VS2 world pass loads exactly the selected namespace materials sequentially
     assert.equal(hooks.renderAvailable, true);
     assert.equal(hooks.lookupAsset('unknown'), undefined);
     const result = await hooks.worldBase.paint(new Proxy({ drawImage() { draws++; } }, { get: (o, k) => o[k] ?? (() => {}) }), { hexes: [hex(0, 0, 'PLAIN')], edges: [] }, 17);
-    assert.equal(result.uniqueAssets, 9); assert.equal(draws, 1); assert.equal(peak, 1);
+    assert.equal(result.uniqueAssets, 9); assert.equal(draws, 1); assert.equal(peak, 2);
     assert.equal(urls.length, VS2_WORLD_MATERIAL_IDS.length);
     assert(urls.every(url => url.startsWith('https://example.test/game/assets/terrain/vs2-002/assets/')));
     assert(canvases.every(c => c.width === 0 && c.height === 0));

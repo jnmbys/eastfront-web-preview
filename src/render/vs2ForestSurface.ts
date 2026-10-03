@@ -4,7 +4,7 @@ import type { VS2TerrainProjection } from './vs2Projection.js';
 import { vs2SegmentDistance } from './vs2Projection.js';
 import { VS2_WORLD_H, vs2VisualValue } from './vs2WorldField.js';
 import { vs2AssetCatalog, type VS2AssetCatalog } from './vs2Assets.js';
-import { loadTerrainImage, terrainSurfaceCapabilities } from './terrainSurface.js';
+import { consumeTerrainImages, vs2ImageLoader } from './terrainImagePipeline.js';
 import type { TerrainLod } from './terrainAssets.js';
 
 export function planVS2Forest(projection: VS2TerrainProjection, seed: number, assets: VS2AssetCatalog = vs2AssetCatalog) {
@@ -50,18 +50,15 @@ export async function paintVS2Forest(ctx: CanvasRenderingContext2D, projection: 
   const bounds = projection.rasterBounds, pixel = projection.pixelSize, layer = document.createElement('canvas');
   layer.width = bounds.width / pixel; layer.height = bounds.height / pixel;
   const target = layer.getContext('2d', { willReadFrequently: true });
-  if (!target) throw new Error('VS2 canopy Canvas 2D unavailable');
-  const ids = [...new Set(plan.map(p => p.assetId))].sort(), capabilities = terrainSurfaceCapabilities();
+  if (!target) { layer.width = 0; layer.height = 0; throw new Error('VS2 canopy Canvas 2D unavailable'); }
+  const ids = [...new Set(plan.map(p => p.assetId))].sort(), load = vs2ImageLoader(assets);
   reportTerrainLoad({ kind: 'assets', total: ids.length });
   try {
-    for (const id of ids) {
+    await consumeTerrainImages(ids, load, (id, image) => {
       const entry = assets.byId(id)!;
       if (!entry.LOD.includes(lod) || !entry.rotationAllowed.degrees?.includes(0)) throw new Error(`VS2 canopy transform/LOD mismatch: ${id}`);
-      const image = await loadTerrainImage({ id, family: entry.family, file: entry.file, sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities, new URL(assets.url(entry), document.baseURI).href);
-      try {
-        for (const p of plan.filter(p => p.assetId === id)) target.drawImage(image.source, (p.x - p.width * entry.anchor[0]! - bounds.minX) / pixel, (p.y - p.height * entry.anchor[1]! - bounds.minY) / pixel, p.width / pixel, p.height / pixel);
-      } finally { image.release?.(); }
-    }
+      for (const p of plan.filter(p => p.assetId === id)) target.drawImage(image.source, (p.x - p.width * entry.anchor[0]! - bounds.minX) / pixel, (p.y - p.height * entry.anchor[1]! - bounds.minY) / pixel, p.width / pixel, p.height / pixel);
+    }, control);
     reportTerrainLoad({ kind: 'building' });
     const coverage = createVS2ForestCoverage(projection);
     await runTerrainWork('forest-coverage-canvas', (function* () {

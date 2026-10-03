@@ -1,0 +1,68 @@
+{
+  "typecheck": "PASS",
+  "fullSuite": {
+    "tests": 694,
+    "passed": 685,
+    "failed": 9,
+    "log": "full-tests.log.gz",
+    "note": "Before scoped candidate byte-checkpoint overlays. No later full-suite pass claimed."
+  },
+  "baselineRecheck": {
+    "tests": 12,
+    "passed": 8,
+    "failed": 4,
+    "log": "baseline-failed-checks.log.gz",
+    "failures": [
+      "UA002 frozen src/main.ts",
+      "UA003 frozen src/main.ts",
+      "UA003R1 frozen src/main.ts",
+      "MP013 missing .mp010-build/artifacts/manifest.json"
+    ],
+    "note": "Isolated exact 4db081bcfcd89c584fe7f53015b2a6ade63d87bf checkout; no historical fixture/package rewritten."
+  },
+  "reviewedGates": {
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "log": "reviewed-gates.log.gz",
+    "note": "Five newly affected freeze gates now use explicit STARTUP003 raw hashes for reviewed terrain paths only; two additional selected checks pass. All old manifests retained."
+  },
+  "targeted": {
+    "tests": 87,
+    "passed": 87,
+    "failed": 0,
+    "log": "final-targeted.log.gz"
+  },
+  "desktop": {
+    "pixelEquality": true,
+    "cancelRebuild": true,
+    "lodLifecycle": true
+  },
+  "webkit": {
+    "nativeColdPixelGate": "FAIL / unresolved; baseline itself also changes between cold and warm",
+    "nativeWarmPixelEquality": true,
+    "forcedOnloadCanvasPixelEquality": true,
+    "concurrency": 1,
+    "cancelRebuild": true,
+    "nativeInitialLog": "webkit.log.gz"
+  },
+  "huawei": "NOT_RUN",
+  "rootCauseOfOldStartupError": "NOT_ESTABLISHED",
+  "deployment": "NOT_MERGED_NOT_DEPLOYED_NO_PUBLIC_TUNNEL",
+  "finalDecoderCapTests": {
+    "tests": 30,
+    "passed": 30,
+    "failed": 0,
+    "log": "decoder-cap-tests.log.gz"
+  },
+  "finalGates": {
+    "tests": 8,
+    "passed": 8,
+    "failed": 0,
+    "log": "final-gates.log.gz"
+  },
+  "finalBrowsers": {
+    "desktop": true,
+    "webkitForcedCanvas": true
+  }
+}

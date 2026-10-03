@@ -1,3 +1,4 @@
+import {withStartup003TerrainReview} from './startup003-reviewed-hashes.mjs';
 import {combatDom} from './helpers/combat-dom.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -34,7 +35,7 @@ test('UA003R3 animation and toggle do not rebuild the authorized fog mask',()=>{
 test('UA003R3 bilingual controls persist a presentation preference without remounting',()=>{const h=harness();let callback;const root={querySelector:()=>({addEventListener:(_,cb)=>{callback=cb;}})};bindModelControls(root,h.runtime);const before=json(h.s.state),dom=h.dom();callback({currentTarget:{value:'off'}});assert.equal(h.runtime.modelDisplay,'off');assert.equal(h.dom(),dom);for(const locale of ['zh-CN','en-US']){setLocale(locale);const markup=modelControls(h.runtime);assert(markup.includes(catalogs[locale]['models.label']));assert(markup.includes(catalogs[locale]['models.auto']));assert(markup.includes(catalogs[locale]['models.off']));}assert.equal(json(h.s.state),before);setLocale('zh-CN');h.runtime.dispose();});
 test('UA003R3 preference safely defaults to AUTO without storage',()=>{assert(['auto','off'].includes(readModelDisplay()));assert.doesNotThrow(()=>saveModelDisplay('auto'));});
 test('UA003R3 no R2 flattening; no new frame scheduler or terrain/fog imports',()=>{assert(!readFileSync('src/presentation/unitPresenceSvg.ts','utf8').includes('scale(1 .65)'));const text=readFileSync('src/presentation/unitPresence.ts','utf8');assert(!/requestAnimationFrame|setTimeout|rasterizeFog|buildCachedTerrainSurface/.test(text));});
-test('UA003R3 freezes Core, Camera, FOW projection/material, VS2, startup and UA timing',()=>{for(const [p,hash]of Object.entries(JSON.parse(readFileSync('tests/fixtures/ua003r3-frozen-sha256.json'))))assert.equal(createHash('sha256').update(readFileSync(p)).digest('hex'),hash,p);});
+test('UA003R3 freezes Core, Camera, FOW projection/material, VS2, startup and UA timing',()=>{for(const [p,hash]of Object.entries(withStartup003TerrainReview(JSON.parse(readFileSync('tests/fixtures/ua003r3-frozen-sha256.json')))))assert.equal(createHash('sha256').update(readFileSync(p)).digest('hex'),hash,p);});
 
 test('UA003R3 both model proxy identities execute the actual application selection binding',()=>{
  const f=movementFixture([unit('a','G-INF','GERMAN','INFANTRY',{q:0,r:0}),unit('b','G-PANZER','GERMAN','PANZER',{q:0,r:0})]),root=mapDom(f.s,f.p),ui=combatDom(f.s,f.p),state=json(f.s.state);

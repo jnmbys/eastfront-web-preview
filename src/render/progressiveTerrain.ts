@@ -6,6 +6,8 @@ const lods: readonly TerrainLod[] = ['far', 'medium', 'close'];
  * Pausing retains partial detached work. Disposal rejects it at the next safe batch.
  * The caller alone decides whether a completed surface belongs in the current UI. */
 export class ProgressiveTerrain<T> implements TerrainWorkControl {
+  private readonly cancellation = new AbortController();
+  readonly signal = this.cancellation.signal;
   readonly ready = new Map<TerrainLod, T>();
   readonly failures = new Map<TerrainLod, unknown>();
   private wanted: TerrainLod[] = [];
@@ -45,6 +47,7 @@ export class ProgressiveTerrain<T> implements TerrainWorkControl {
     return this.ready.get(lod) ?? [...lods].sort((a, b) => Math.abs(lods.indexOf(a) - lods.indexOf(lod)) - Math.abs(lods.indexOf(b) - lods.indexOf(lod))).map(item => this.ready.get(item)).find(Boolean);
   }
   dispose(): void {
+    this.cancellation.abort();
     this.disposed = true; this.wanted = []; this.wake.splice(0).forEach(wake => wake());
     for (const list of this.waiters.values()) for (const item of list) item.reject(new Error('Terrain cache disposed'));
     this.waiters.clear(); for (const surface of this.ready.values()) this.release(surface); this.ready.clear();

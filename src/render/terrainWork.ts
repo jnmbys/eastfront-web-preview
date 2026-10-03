@@ -1,7 +1,15 @@
 /** Cooperative terrain work. A timer is a real task boundary (unlike Promise.resolve).
  * Only detached static surfaces use this scheduler; it never observes game state. */
 export interface TerrainWorkControl {
+  readonly signal?: AbortSignal;
   checkpoint(): Promise<void>;
+}
+// Older engines may support AbortController without reason/throwIfAborted.
+export function terrainAbortReason(signal?: AbortSignal): unknown {
+  return signal?.reason ?? new DOMException('Terrain build disposed', 'AbortError');
+}
+export function checkTerrainAbort(signal?: AbortSignal): void {
+  if (signal?.aborted) throw terrainAbortReason(signal);
 }
 export interface TerrainBuildTiming { readonly stage: string; readonly elapsedMs: number; readonly workMs: number; readonly maxSliceMs: number; readonly yields: number; }
 const observers = new Set<(timing: TerrainBuildTiming) => void>();
