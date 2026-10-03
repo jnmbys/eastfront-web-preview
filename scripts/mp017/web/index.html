@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MP-017 本人 A/B 验收准备</title>
+<style>body{margin:0;font:16px system-ui;background:#eef2f5;color:#152330}header,section{padding:16px}button,input,select{font:inherit;padding:9px;margin:4px}iframe{width:100%;height:76vh;border:0}textarea{width:95%;height:150px}small{display:block;overflow-wrap:anywhere}#status{font-weight:bold}</style>
+<header><h1>移动等待 · 同设备 A/B 对照</h1><p>先暖机 A/B 各一次。每次等目标就绪并连续前台五秒，再确认移动一次；恢复操作后导出。失败立即导出并停止，不重复试。</p>
+<label>型号／系统／浏览器 <input id="device" maxlength="120"></label>
+<label>用途 <select id="purpose"><option value="warmup">暖机（不计正常样本）</option><option value="measured">成对观察</option></select></label>
+<label>本次版本 <select id="version-choice"><option value="control">A · MP-009-R1 对照</option><option value="candidate">B · MP-016 候选</option></select></label>
+<button id="start" disabled>开始本版本</button><button id="export" disabled>导出本次并结束</button><button id="new-pair" disabled>新一对</button>
+<p id="status" role="status">核对配置中</p><small id="pair"></small><small id="version"></small><small>固定缓存条件：两版 HTTP no-store，每次新 iframe；操作系统、DNS、TLS 连接缓存无法完全控制。后续成对观察交替 A→B、B→A。</small></header>
+<iframe id="game" title="本版本游戏" src="about:blank"></iframe>
+<section id="result" hidden><p>请保留两版文件；文本备份与下载内容相同。未操作的版本不产生记录。</p><textarea id="fallback" readonly></textarea></section>
+<script type="module" src="/controller.mjs"></script></html>

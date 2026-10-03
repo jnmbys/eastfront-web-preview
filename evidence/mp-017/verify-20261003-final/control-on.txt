@@ -1,0 +1,16 @@
+✔ MP016 required query overlaps 0ms snapshot rendering without changing gates (32.3183ms)
+✔ MP016 required query overlaps 120ms snapshot rendering without changing gates (9.7581ms)
+✔ MP016 rapid selection while post-snapshot query runs discards old options and coalesces latest intent (10.9925ms)
+✔ MP016 snapshot-first legal sequence retains actual apply time and cannot release before late ACK (8.4413ms)
+✔ MP016 genuine frame disorder retains recovery rather than treating an old query as current (14.0903ms)
+✔ MP016 refusal preserves authority and does not auto-resubmit (6.9142ms)
+✔ MP016 disconnect in query wait keeps canonical snapshot but prevents selection/submission (7.6281ms)
+✔ MP016 forced-decision scheduling waits for correlated current query (synthetic authorized frames) (4.1168ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 280.8649

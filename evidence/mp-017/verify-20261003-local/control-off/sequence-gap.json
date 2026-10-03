@@ -1,0 +1,706 @@
+{
+  "root": "C:\\Users\\jinyibo\\eastfront\\mp-007\\.mp010-build\\mp017\\artifacts\\control\\app",
+  "fast": false,
+  "mode": "sequence-gap",
+  "epoch": 700,
+  "renderMs": 120,
+  "ackDelay": 200,
+  "snapshotDelay": 400,
+  "queryDelay": 700,
+  "clock": "same virtual client monotonic clock; CPU busy does not service timers",
+  "transport": "serialized adapter, real LobbyClient/RoomAuthority/Core/codec; fixture only; not browser or device results",
+  "trace": [
+    {
+      "at": 700,
+      "type": "SUBMIT_ACTION",
+      "requestId": "654b1bea-821b-40a6-9639-c5d2685ddb2d",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 0,
+      "action": "MOVE",
+      "stage": "send"
+    },
+    {
+      "at": 700,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "654b1bea-821b-40a6-9639-c5d2685ddb2d",
+      "revision": 1,
+      "sequence": 3,
+      "due": 1300,
+      "stage": "scheduled"
+    },
+    {
+      "at": 700,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 1,
+      "sequence": 4,
+      "due": 1100,
+      "stage": "scheduled"
+    },
+    {
+      "at": 700,
+      "stage": "timing",
+      "requestId": "654b1bea-821b-40a6-9639-c5d2685ddb2d",
+      "type": "SUBMIT_ACTION",
+      "clientTimestamp": 1791033755852.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 700,
+      "stage": "timing",
+      "requestId": "654b1bea-821b-40a6-9639-c5d2685ddb2d",
+      "revision": 0,
+      "clientTimestamp": 1791033755852.659,
+      "timingStage": "submit"
+    },
+    {
+      "at": 1100,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": null,
+      "revision": 1,
+      "sequence": 4,
+      "stage": "receive"
+    },
+    {
+      "at": 1100,
+      "receiving": "PLAYER_VIEW_SNAPSHOT",
+      "expectedSequence": 3,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 1100,
+      "type": "RESYNC_MATCH",
+      "requestId": "ba0ac8af-beba-486f-9005-e30d1901f449",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 1100,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "ba0ac8af-beba-486f-9005-e30d1901f449",
+      "revision": 1,
+      "sequence": 5,
+      "due": 1100,
+      "stage": "scheduled"
+    },
+    {
+      "at": 1100,
+      "stage": "timing",
+      "requestId": "ba0ac8af-beba-486f-9005-e30d1901f449",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1791033756252.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 1100,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 1100,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 1100,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 1100,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "ba0ac8af-beba-486f-9005-e30d1901f449",
+      "revision": 1,
+      "sequence": 5,
+      "stage": "receive"
+    },
+    {
+      "at": 1100,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "before-render"
+    },
+    {
+      "at": 1100,
+      "stage": "render-start"
+    },
+    {
+      "at": 1220,
+      "stage": "render-end"
+    },
+    {
+      "at": 1220,
+      "stage": "timing",
+      "requestId": "ba0ac8af-beba-486f-9005-e30d1901f449",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 1,
+      "sequence": 5,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1791033756372.659,
+      "timingStage": "ui"
+    },
+    {
+      "at": 1220,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 1220,
+      "type": "QUERY_MATCH",
+      "requestId": "acb79174-36e5-4bdd-98c5-f6b77bc8532f",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 1,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 1220,
+      "type": "MATCH_QUERY",
+      "requestId": "acb79174-36e5-4bdd-98c5-f6b77bc8532f",
+      "revision": 1,
+      "sequence": 6,
+      "due": 1920,
+      "stage": "scheduled"
+    },
+    {
+      "at": 1220,
+      "stage": "timing",
+      "requestId": "acb79174-36e5-4bdd-98c5-f6b77bc8532f",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1791033756372.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 1220,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": true,
+      "stage": "status"
+    },
+    {
+      "at": 1300,
+      "type": "ACTION_ACCEPTED",
+      "requestId": "654b1bea-821b-40a6-9639-c5d2685ddb2d",
+      "revision": 1,
+      "sequence": 3,
+      "stage": "receive"
+    },
+    {
+      "at": 1300,
+      "receiving": "ACTION_ACCEPTED",
+      "expectedSequence": 6,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 1300,
+      "type": "RESYNC_MATCH",
+      "requestId": "36a071da-4e4a-4777-a93c-5c800ac1e883",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 1300,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "36a071da-4e4a-4777-a93c-5c800ac1e883",
+      "revision": 1,
+      "sequence": 7,
+      "due": 1300,
+      "stage": "scheduled"
+    },
+    {
+      "at": 1300,
+      "stage": "timing",
+      "requestId": "36a071da-4e4a-4777-a93c-5c800ac1e883",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1791033756452.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 1300,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 1300,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 1300,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 1300,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "36a071da-4e4a-4777-a93c-5c800ac1e883",
+      "revision": 1,
+      "sequence": 7,
+      "stage": "receive"
+    },
+    {
+      "at": 1300,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "before-render"
+    },
+    {
+      "at": 1300,
+      "stage": "render-start"
+    },
+    {
+      "at": 1420,
+      "stage": "render-end"
+    },
+    {
+      "at": 1420,
+      "stage": "timing",
+      "requestId": "36a071da-4e4a-4777-a93c-5c800ac1e883",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 1,
+      "sequence": 7,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1791033756572.659,
+      "timingStage": "ui"
+    },
+    {
+      "at": 1420,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 1420,
+      "type": "QUERY_MATCH",
+      "requestId": "32a75cee-c0b4-4029-b226-5b5f6f3dfdc4",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 1,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 1420,
+      "type": "MATCH_QUERY",
+      "requestId": "32a75cee-c0b4-4029-b226-5b5f6f3dfdc4",
+      "revision": 1,
+      "sequence": 8,
+      "due": 2120,
+      "stage": "scheduled"
+    },
+    {
+      "at": 1420,
+      "stage": "timing",
+      "requestId": "32a75cee-c0b4-4029-b226-5b5f6f3dfdc4",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1791033756572.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 1420,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": true,
+      "stage": "status"
+    },
+    {
+      "at": 1920,
+      "type": "MATCH_QUERY",
+      "requestId": "acb79174-36e5-4bdd-98c5-f6b77bc8532f",
+      "revision": 1,
+      "sequence": 6,
+      "stage": "receive"
+    },
+    {
+      "at": 1920,
+      "receiving": "MATCH_QUERY",
+      "expectedSequence": 8,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 1920,
+      "type": "RESYNC_MATCH",
+      "requestId": "f0faab15-4be4-4060-9f26-1a58c720ae84",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 1920,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "f0faab15-4be4-4060-9f26-1a58c720ae84",
+      "revision": 1,
+      "sequence": 9,
+      "due": 1920,
+      "stage": "scheduled"
+    },
+    {
+      "at": 1920,
+      "stage": "timing",
+      "requestId": "f0faab15-4be4-4060-9f26-1a58c720ae84",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1791033757072.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 1920,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 1920,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 1920,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 1920,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "f0faab15-4be4-4060-9f26-1a58c720ae84",
+      "revision": 1,
+      "sequence": 9,
+      "stage": "receive"
+    },
+    {
+      "at": 1920,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "before-render"
+    },
+    {
+      "at": 1920,
+      "stage": "render-start"
+    },
+    {
+      "at": 2040,
+      "stage": "render-end"
+    },
+    {
+      "at": 2040,
+      "stage": "timing",
+      "requestId": "f0faab15-4be4-4060-9f26-1a58c720ae84",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 1,
+      "sequence": 9,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1791033757192.659,
+      "timingStage": "ui"
+    },
+    {
+      "at": 2040,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 2040,
+      "type": "QUERY_MATCH",
+      "requestId": "ed990003-0e8c-46b4-b4dc-f784de76d30f",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 1,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 2040,
+      "type": "MATCH_QUERY",
+      "requestId": "ed990003-0e8c-46b4-b4dc-f784de76d30f",
+      "revision": 1,
+      "sequence": 10,
+      "due": 2740,
+      "stage": "scheduled"
+    },
+    {
+      "at": 2040,
+      "stage": "timing",
+      "requestId": "ed990003-0e8c-46b4-b4dc-f784de76d30f",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1791033757192.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 2040,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": true,
+      "stage": "status"
+    },
+    {
+      "at": 2120,
+      "type": "MATCH_QUERY",
+      "requestId": "32a75cee-c0b4-4029-b226-5b5f6f3dfdc4",
+      "revision": 1,
+      "sequence": 8,
+      "stage": "receive"
+    },
+    {
+      "at": 2120,
+      "receiving": "MATCH_QUERY",
+      "expectedSequence": 10,
+      "stage": "resync-trigger"
+    },
+    {
+      "at": 2120,
+      "type": "RESYNC_MATCH",
+      "requestId": "a459c02a-9284-45ef-8141-87e69d083dd4",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": null,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 2120,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "a459c02a-9284-45ef-8141-87e69d083dd4",
+      "revision": 1,
+      "sequence": 11,
+      "due": 2120,
+      "stage": "scheduled"
+    },
+    {
+      "at": 2120,
+      "stage": "timing",
+      "requestId": "a459c02a-9284-45ef-8141-87e69d083dd4",
+      "type": "RESYNC_MATCH",
+      "clientTimestamp": 1791033757272.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 2120,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 2120,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 2120,
+      "revision": 1,
+      "canSelect": false,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 2120,
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "requestId": "a459c02a-9284-45ef-8141-87e69d083dd4",
+      "revision": 1,
+      "sequence": 11,
+      "stage": "receive"
+    },
+    {
+      "at": 2120,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "before-render"
+    },
+    {
+      "at": 2120,
+      "stage": "render-start"
+    },
+    {
+      "at": 2240,
+      "stage": "render-end"
+    },
+    {
+      "at": 2240,
+      "stage": "timing",
+      "requestId": "a459c02a-9284-45ef-8141-87e69d083dd4",
+      "type": "PLAYER_VIEW_SNAPSHOT",
+      "revision": 1,
+      "sequence": 11,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1791033757392.659,
+      "timingStage": "ui"
+    },
+    {
+      "at": 2240,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 2240,
+      "type": "QUERY_MATCH",
+      "requestId": "8b5eb9f9-072d-4198-bff1-fbd6d9798b6f",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 1,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 2240,
+      "type": "MATCH_QUERY",
+      "requestId": "8b5eb9f9-072d-4198-bff1-fbd6d9798b6f",
+      "revision": 1,
+      "sequence": 12,
+      "due": 2940,
+      "stage": "scheduled"
+    },
+    {
+      "at": 2240,
+      "stage": "timing",
+      "requestId": "8b5eb9f9-072d-4198-bff1-fbd6d9798b6f",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1791033757392.659,
+      "timingStage": "send"
+    },
+    {
+      "at": 2240,
+      "revision": 1,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": true,
+      "stage": "status"
+    }
+  ]
+}

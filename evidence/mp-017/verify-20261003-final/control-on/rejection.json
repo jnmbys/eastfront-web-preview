@@ -1,0 +1,188 @@
+{
+  "root": "C:\\Users\\jinyibo\\eastfront\\mp-007\\.mp010-build\\mp017\\artifacts\\control\\app",
+  "fast": false,
+  "mode": "fifo",
+  "epoch": 700,
+  "renderMs": 120,
+  "ackDelay": 200,
+  "snapshotDelay": 400,
+  "queryDelay": 700,
+  "clock": "same virtual client monotonic clock; CPU busy does not service timers",
+  "transport": "serialized adapter, real LobbyClient/RoomAuthority/Core/codec; fixture only; not browser or device results",
+  "trace": [
+    {
+      "at": 700,
+      "type": "SUBMIT_ACTION",
+      "requestId": "6868ce84-246d-4245-a561-9720fa297c58",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 0,
+      "action": "MOVE",
+      "stage": "send"
+    },
+    {
+      "at": 700,
+      "type": "ACTION_REJECTED",
+      "requestId": "6868ce84-246d-4245-a561-9720fa297c58",
+      "revision": 0,
+      "sequence": 3,
+      "due": 700,
+      "stage": "scheduled"
+    },
+    {
+      "at": 700,
+      "stage": "timing",
+      "requestId": "6868ce84-246d-4245-a561-9720fa297c58",
+      "type": "SUBMIT_ACTION",
+      "clientTimestamp": 1791033940479.04,
+      "timingStage": "send"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": false,
+      "legalOptionsReady": true,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "status"
+    },
+    {
+      "at": 700,
+      "stage": "timing",
+      "requestId": "6868ce84-246d-4245-a561-9720fa297c58",
+      "revision": 0,
+      "clientTimestamp": 1791033940479.04,
+      "timingStage": "submit"
+    },
+    {
+      "at": 700,
+      "type": "ACTION_REJECTED",
+      "requestId": "6868ce84-246d-4245-a561-9720fa297c58",
+      "revision": 0,
+      "sequence": 3,
+      "stage": "receive"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "before-render"
+    },
+    {
+      "at": 700,
+      "stage": "timing",
+      "requestId": "6868ce84-246d-4245-a561-9720fa297c58",
+      "type": "ACTION_REJECTED",
+      "revision": 0,
+      "sequence": 3,
+      "ready": false,
+      "interactive": false,
+      "syncing": false,
+      "clientTimestamp": 1791033940479.04,
+      "timingStage": "ui"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": true,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    },
+    {
+      "at": 700,
+      "type": "QUERY_MATCH",
+      "requestId": "3e13ef34-9fa2-4d43-906f-7e879aa50d92",
+      "revision": null,
+      "sequence": null,
+      "expectedRevision": 0,
+      "action": null,
+      "stage": "send"
+    },
+    {
+      "at": 700,
+      "type": "MATCH_QUERY",
+      "requestId": "3e13ef34-9fa2-4d43-906f-7e879aa50d92",
+      "revision": 0,
+      "sequence": 4,
+      "due": 1400,
+      "stage": "scheduled"
+    },
+    {
+      "at": 700,
+      "stage": "timing",
+      "requestId": "3e13ef34-9fa2-4d43-906f-7e879aa50d92",
+      "type": "QUERY_MATCH",
+      "clientTimestamp": 1791033940479.04,
+      "timingStage": "send"
+    },
+    {
+      "at": 700,
+      "revision": 0,
+      "canSelect": true,
+      "legalOptionsReady": false,
+      "canSubmit": false,
+      "queryQueued": false,
+      "queryInFlight": true,
+      "stage": "status"
+    },
+    {
+      "at": 1400,
+      "type": "MATCH_QUERY",
+      "requestId": "3e13ef34-9fa2-4d43-906f-7e879aa50d92",
+      "revision": 0,
+      "sequence": 4,
+      "stage": "receive"
+    },
+    {
+      "at": 1400,
+      "revision": 0,
+      "canSelect": true,
+      "legalOptionsReady": true,
+      "canSubmit": true,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "before-render"
+    },
+    {
+      "at": 1400,
+      "stage": "timing",
+      "requestId": "3e13ef34-9fa2-4d43-906f-7e879aa50d92",
+      "type": "MATCH_QUERY",
+      "revision": 0,
+      "sequence": 4,
+      "ready": true,
+      "interactive": true,
+      "syncing": false,
+      "clientTimestamp": 1791033941179.04,
+      "timingStage": "ui"
+    },
+    {
+      "at": 1400,
+      "revision": 0,
+      "canSelect": true,
+      "legalOptionsReady": true,
+      "canSubmit": true,
+      "queryQueued": false,
+      "queryInFlight": false,
+      "stage": "after-receive"
+    }
+  ]
+}
