@@ -1,0 +1,1586 @@
+[
+  {
+    "label": "T7_pool_assumption_imported",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "REAL",
+      "rootRevision": 23,
+      "gameRevision": 129,
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 2,
+        "acceptanceCareSpentI": 0,
+        "escrowI": 0,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "NOT_APPLIED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_AVAILABLE",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "T7_accepted_waiting",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "REAL",
+      "rootRevision": 24,
+      "gameRevision": 129,
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "E7_received_T8_available",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "REAL",
+      "rootRevision": 34,
+      "gameRevision": 139,
+      "turn": 8,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "AVAILABLE",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 0,
+        "rearP": 1,
+        "availableRearP": 1,
+        "quarantinedP": 0,
+        "state": "REAR_AVAILABLE",
+        "owner": "RC007-REAR-G-A10"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 1,
+        "availableP": 1,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": 7,
+      "availableFromTurn": 8,
+      "careEndsAfterEpoch": 8,
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "T8_German_recovery_success",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "REAL",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "AVAILABLE",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 0,
+        "rearP": 1,
+        "availableRearP": 1,
+        "quarantinedP": 0,
+        "state": "REAR_AVAILABLE",
+        "owner": "RC007-REAR-G-A10"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 1,
+        "availableP": 1,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": 7,
+      "availableFromTurn": 8,
+      "careEndsAfterEpoch": 8,
+      "blockingReasons": [],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "quota_blocked_used",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_FIXTURE",
+      "rootRevision": 33,
+      "gameRevision": 139,
+      "turn": 8,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 1,
+        "heldLQ": 0,
+        "remainingLQ": 3,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "TOTAL_PERSONNEL_QUOTA_EXHAUSTED"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "quota_blocked_held",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_FIXTURE",
+      "rootRevision": 33,
+      "gameRevision": 139,
+      "turn": 8,
+      "phase": "GERMAN_SUPPLY_RAIL",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 1,
+        "remainingLQ": 3,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "TOTAL_PERSONNEL_QUOTA_EXHAUSTED"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "rejected_receipt_held",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_REFUSAL_ON_REAL_REPLAY",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "HELD",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 1,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "HELD",
+        "owner": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 1,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "SYNTHETIC_REFUSAL"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "E9_transit_expired",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_BOUNDARY_E9",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "EXPIRED",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 1,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "TRANSIT_QUARANTINED",
+        "owner": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "E8_unsent_expired",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_BOUNDARY_E8",
+      "rootRevision": 24,
+      "gameRevision": 129,
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 1,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "EXPIRED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "SOURCE_QUARANTINED",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "E8_unaccepted_pool_expired",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_BOUNDARY_E8",
+      "rootRevision": 23,
+      "gameRevision": 129,
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 2,
+        "acceptanceCareSpentI": 0,
+        "escrowI": 0,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "NOT_APPLIED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "SOURCE_QUARANTINED",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "end_T8_rear_care_expired",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_BOUNDARY_E8",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "EXPIRED",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 0,
+        "rearP": 1,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "REAR_QUARANTINED",
+        "owner": "RC007-REAR-G-A10"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 1,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 1,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": 7,
+      "availableFromTurn": 8,
+      "careEndsAfterEpoch": 8,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "early_terminal_source",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_EARLY_GAME_OVER",
+      "rootRevision": 24,
+      "gameRevision": 129,
+      "turn": 7,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 1,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "EXPIRED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "SOURCE_QUARANTINED",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "early_terminal_transit",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_EARLY_GAME_OVER",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "EXPIRED",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 1,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "TRANSIT_QUARANTINED",
+        "owner": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-5/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "early_terminal_rear",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_EARLY_GAME_OVER",
+      "rootRevision": 37,
+      "gameRevision": 142,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "EXPIRED",
+      "custody": {
+        "sourceP": 0,
+        "transitP": 0,
+        "rearP": 1,
+        "availableRearP": 0,
+        "quarantinedP": 1,
+        "state": "TERMINAL_QUARANTINED",
+        "owner": "RC007-REAR-G-A10"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 1,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 1,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 4,
+        "heldLQ": 0,
+        "remainingLQ": 0,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": 7,
+      "availableFromTurn": 8,
+      "careEndsAfterEpoch": 8,
+      "blockingReasons": [
+        "SCOPE_EXPIRED_NO_REACTIVATION"
+      ],
+      "lastRequestError": null,
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_after_reserve",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "rootRevision": 33,
+      "gameRevision": 138,
+      "turn": 7,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-6/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_reserve"
+      },
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_after_dispatch",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "rootRevision": 33,
+      "gameRevision": 138,
+      "turn": 7,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-7/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_dispatch"
+      },
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_after_receipt",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "rootRevision": 33,
+      "gameRevision": 138,
+      "turn": 7,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-8/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_receipt"
+      },
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  },
+  {
+    "label": "failure_before_commit",
+    "view": {
+      "schema": "industry-013-personnel-view.v1",
+      "readOnly": true,
+      "origin": "SYNTHETIC_FAULT_ON_REAL_REPLAY",
+      "rootRevision": 33,
+      "gameRevision": 138,
+      "turn": 7,
+      "phase": "SOVIET_ENTRENCHMENT",
+      "source": {
+        "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null,
+        "imported": true,
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/SYNTHETIC-NONMERGEABLE/013-test-9/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        }
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 1,
+        "carriageSpentI": 0
+      },
+      "equipment012Budget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "applicationStatus": "ACCEPTED",
+      "custody": {
+        "sourceP": 1,
+        "transitP": 0,
+        "rearP": 0,
+        "availableRearP": 0,
+        "quarantinedP": 0,
+        "state": "SOURCE_ESCROW",
+        "owner": "RC008-G-TRAINED-RESERVE"
+      },
+      "warehouse": {
+        "id": "RC007-REAR-G-A10",
+        "node": "A10",
+        "coreKey": "0,9",
+        "capacityP": 1,
+        "residentP": 0,
+        "availableP": 0,
+        "incomingHeldP": 0,
+        "quarantinedResidentP": 0,
+        "capacityE2": 2,
+        "residentE2": 2,
+        "personnelAuthority": "personnel.package",
+        "historical012PIsNotCurrentStock": true
+      },
+      "service": {
+        "quotaLQ": 4,
+        "usedLQ": 0,
+        "heldLQ": 0,
+        "remainingLQ": 4,
+        "renews": false,
+        "independentOfSPAnd012": true,
+        "dispatchEpochs": [
+          7,
+          8
+        ],
+        "lastReceiveEpoch": 9
+      },
+      "receivedEpoch": null,
+      "availableFromTurn": null,
+      "careEndsAfterEpoch": null,
+      "blockingReasons": [],
+      "lastRequestError": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:before_commit"
+      },
+      "forwardTransportRecoveryFormationAllowed": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0
+    }
+  }
+]

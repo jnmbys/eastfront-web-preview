@@ -1,0 +1,758 @@
+{
+  "task": "INDUSTRY-INTEGRATE-013",
+  "status": "PASS_REAL_E7_PERSONNEL_RECEIVED_T8_AVAILABLE",
+  "cases": [
+    {
+      "name": "full_012_T7_root_and_receipts_restored_new_source_assumption_separate_accounts",
+      "origin": "REAL_T7_T8",
+      "passed": true,
+      "detail": {
+        "baseRootHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+        "baseRevision": 22,
+        "gameRevision": 129,
+        "originalReceipts": 22,
+        "equipmentBudget": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 2,
+          "escrow": 0
+        },
+        "equipmentE2": 2,
+        "personnel": {
+          "custody": {
+            "sourceP": 1,
+            "transitP": 0,
+            "rearP": 0,
+            "availableRearP": 0,
+            "quarantinedP": 0,
+            "state": "SOURCE_ESCROW"
+          },
+          "budget": {
+            "id": "RC008-G-PERSONNEL-SERVICE-I",
+            "grantedI": 2,
+            "availableI": 0,
+            "acceptanceCareSpentI": 1,
+            "escrowI": 1,
+            "carriageSpentI": 0
+          },
+          "quotaUsedLQ": 0,
+          "quotaHeldLQ": 0
+        }
+      }
+    },
+    {
+      "name": "actual_E7_dispatch_receive_single_4LQ_quota",
+      "origin": "REAL_T7_T8",
+      "passed": true,
+      "detail": {
+        "seconds": 0.9785273999987112,
+        "audit": {
+          "custody": {
+            "sourceP": 0,
+            "transitP": 0,
+            "rearP": 1,
+            "availableRearP": 1,
+            "quarantinedP": 0,
+            "state": "REAR_AVAILABLE"
+          },
+          "budget": {
+            "id": "RC008-G-PERSONNEL-SERVICE-I",
+            "grantedI": 2,
+            "availableI": 0,
+            "acceptanceCareSpentI": 1,
+            "escrowI": 0,
+            "carriageSpentI": 1
+          },
+          "quotaUsedLQ": 4,
+          "quotaHeldLQ": 0
+        }
+      }
+    },
+    {
+      "name": "legal_commands_full_game_SP_RNG_equal_no_application_control_012_frozen",
+      "origin": "REAL_T7_T8",
+      "passed": true,
+      "detail": {
+        "commands": 13,
+        "gameRevision": 142,
+        "scheduledReinforcements": [
+          {
+            "type": "DEPLOY_REINFORCEMENT",
+            "controllerId": "S-AI-1",
+            "reinforcementId": "S-R-T07-G02-U01",
+            "entryHex": {
+              "q": 31,
+              "r": -12
+            }
+          },
+          {
+            "type": "DEPLOY_REINFORCEMENT",
+            "controllerId": "S-AI-1",
+            "reinforcementId": "S-R-T07-G02-U02",
+            "entryHex": {
+              "q": 31,
+              "r": -6
+            }
+          },
+          {
+            "type": "DEPLOY_REINFORCEMENT",
+            "controllerId": "S-AI-1",
+            "reinforcementId": "S-R-T07-G02-U03",
+            "entryHex": {
+              "q": 31,
+              "r": -6
+            }
+          }
+        ],
+        "fullGameHash": "75247ecc571406c3907e6617d7dd79b74ddf6b185b0e1be131ecb71d592bc0cd",
+        "equipmentLedgerHash": "5c8395be0ca705c5b258ed1502d3cc85f07a5a93a03eac8c25e9c63879e051e0",
+        "onlyOneCanonicalWarehouse": 1
+      }
+    },
+    {
+      "name": "same_match_registry_blocks_instance_rename_duplicates_old_grants_and_forward_actions",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "registry_payment_receipts_rollback_ACTIVATE_PERSONNEL",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_personnel_payment"
+      }
+    },
+    {
+      "name": "registry_payment_receipts_rollback_APPLY_PERSONNEL",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_personnel_payment"
+      }
+    },
+    {
+      "name": "actual_Core_service_query_rejects_enemy_control",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "ENEMY_OR_UNKNOWN_CONTROL"
+        ],
+        "integrity": [],
+        "control": "SOVIET",
+        "occupants": [],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 8,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "epoch": 7,
+        "stage": "dispatch",
+        "gameHash": "6bfb0340db9a1ba6b38365cf58a2832363420cc3f07592eef2cf0f90370d0d8e"
+      }
+    },
+    {
+      "name": "actual_Core_service_query_rejects_enemy_occupation",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "ENEMY_OCCUPATION"
+        ],
+        "integrity": [],
+        "control": null,
+        "occupants": [
+          {
+            "id": "S-I-01",
+            "side": "SOVIET"
+          }
+        ],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 8,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "epoch": 7,
+        "stage": "dispatch",
+        "gameHash": "775c54bced38b289eb527965debaf148f056b7362afd6d3b74e01af310f95a29"
+      }
+    },
+    {
+      "name": "actual_Core_service_query_rejects_enemy_zoc",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "ENEMY_ZOC"
+        ],
+        "integrity": [],
+        "control": null,
+        "occupants": [],
+        "enemyZoc": true,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 8,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "epoch": 7,
+        "stage": "dispatch",
+        "gameHash": "b692977919246c2d976cd3f55b42952c4d8bf3bf304527c00a25ef541f97183f"
+      }
+    },
+    {
+      "name": "actual_Core_service_query_rejects_unknown_control",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "eligible": false,
+        "issues": [
+          "UNKNOWN_RECEIVER"
+        ],
+        "integrity": [],
+        "occupants": [],
+        "enemyZoc": false,
+        "node": "A10",
+        "coreKey": "0,9",
+        "side": "G",
+        "turn": 8,
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "authoritative": true,
+        "epoch": 7,
+        "stage": "dispatch",
+        "gameHash": "f8d6a14305a953963287d4c6d701c94401e620f74dc8b6028c102f5d6d1dab5d"
+      }
+    },
+    {
+      "name": "total_quota_counts_other_used",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 1,
+          "transitP": 0,
+          "rearP": 0,
+          "availableRearP": 0,
+          "quarantinedP": 0,
+          "state": "SOURCE_ESCROW"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 0,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 1,
+          "carriageSpentI": 0
+        },
+        "quotaUsedLQ": 1,
+        "quotaHeldLQ": 0
+      }
+    },
+    {
+      "name": "total_quota_counts_other_held",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 1,
+          "transitP": 0,
+          "rearP": 0,
+          "availableRearP": 0,
+          "quarantinedP": 0,
+          "state": "SOURCE_ESCROW"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 0,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 1,
+          "carriageSpentI": 0
+        },
+        "quotaUsedLQ": 0,
+        "quotaHeldLQ": 1
+      }
+    },
+    {
+      "name": "receipt_refusal_retains_transit_owner_hold_fees_and_used_quota",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 0,
+          "transitP": 1,
+          "rearP": 0,
+          "availableRearP": 0,
+          "quarantinedP": 0,
+          "state": "HELD"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 0,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 0,
+          "carriageSpentI": 1
+        },
+        "quotaUsedLQ": 4,
+        "quotaHeldLQ": 0
+      }
+    },
+    {
+      "name": "E9_transit_expiry_no_refund_hold_released",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 0,
+          "transitP": 1,
+          "rearP": 0,
+          "availableRearP": 0,
+          "quarantinedP": 1,
+          "state": "TRANSIT_QUARANTINED"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 0,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 0,
+          "carriageSpentI": 1
+        },
+        "quotaUsedLQ": 4,
+        "quotaHeldLQ": 0
+      }
+    },
+    {
+      "name": "E8_unsent_only_unspent_escrow_refunded_same_account",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 1,
+          "transitP": 0,
+          "rearP": 0,
+          "availableRearP": 0,
+          "quarantinedP": 1,
+          "state": "SOURCE_QUARANTINED"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 1,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 0,
+          "carriageSpentI": 0
+        },
+        "quotaUsedLQ": 0,
+        "quotaHeldLQ": 0
+      }
+    },
+    {
+      "name": "unaccepted_pool_expires_without_spending_budget",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rear_first_usable_turn_end_quarantine_still_occupies_P_capacity",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 0,
+          "transitP": 0,
+          "rearP": 1,
+          "availableRearP": 0,
+          "quarantinedP": 1,
+          "state": "REAR_QUARANTINED"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 0,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 0,
+          "carriageSpentI": 1
+        },
+        "quotaUsedLQ": 4,
+        "quotaHeldLQ": 0
+      }
+    },
+    {
+      "name": "early_terminal_source_keeps_personnel_not_false_death",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "early_terminal_transit_keeps_personnel_not_false_death",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "early_terminal_rear_keeps_personnel_not_false_death",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "synthetic_E24_never_exposes_usable_T25",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "custody": {
+          "sourceP": 0,
+          "transitP": 0,
+          "rearP": 1,
+          "availableRearP": 0,
+          "quarantinedP": 1,
+          "state": "TERMINAL_QUARANTINED"
+        },
+        "budget": {
+          "id": "RC008-G-PERSONNEL-SERVICE-I",
+          "grantedI": 2,
+          "availableI": 0,
+          "acceptanceCareSpentI": 1,
+          "escrowI": 0,
+          "carriageSpentI": 1
+        },
+        "quotaUsedLQ": 4,
+        "quotaHeldLQ": 0
+      }
+    },
+    {
+      "name": "E7_all_state_and_receipts_rollback_after_reserve",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_reserve"
+      }
+    },
+    {
+      "name": "E7_all_state_and_receipts_rollback_after_dispatch",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_dispatch"
+      }
+    },
+    {
+      "name": "E7_all_state_and_receipts_rollback_after_receipt",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:after_receipt"
+      }
+    },
+    {
+      "name": "E7_all_state_and_receipts_rollback_before_commit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "SYNTHETIC:before_commit"
+      }
+    },
+    {
+      "name": "concurrent_permanent_grant_and_application_one_commit_each",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_version_E7_only_one_commit",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lost_ack_and_late_retry_no_personnel_refill_or_older_root_restore",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stale_full_root_and_request_self_authorization_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "three_second_total_budget_rolls_back_grant_and_receipt",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": {
+        "ok": false,
+        "error": "REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED",
+        "detail": "TOTAL_3_SECOND_BUDGET"
+      }
+    },
+    {
+      "name": "approval_missing_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "profile_changed_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "candidate_changed_rejected",
+      "origin": "SYNTHETIC_TEST",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "final": {
+    "schema": "industry-013-personnel-view.v1",
+    "readOnly": true,
+    "origin": "REAL",
+    "rootRevision": 37,
+    "gameRevision": 142,
+    "turn": 8,
+    "phase": "GERMAN_RECOVERY",
+    "source": {
+      "kind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+      "actualTrainingReceipt": null,
+      "imported": true,
+      "ids": {
+        "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+        "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+        "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+        "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+        "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+      }
+    },
+    "personnelBudget": {
+      "id": "RC008-G-PERSONNEL-SERVICE-I",
+      "grantedI": 2,
+      "availableI": 0,
+      "acceptanceCareSpentI": 1,
+      "escrowI": 0,
+      "carriageSpentI": 1
+    },
+    "equipment012Budget": {
+      "granted": 10,
+      "freeI": 5,
+      "productionSpent": 3,
+      "handoffSpent": 2,
+      "escrow": 0
+    },
+    "applicationStatus": "AVAILABLE",
+    "custody": {
+      "sourceP": 0,
+      "transitP": 0,
+      "rearP": 1,
+      "availableRearP": 1,
+      "quarantinedP": 0,
+      "state": "REAR_AVAILABLE",
+      "owner": "RC007-REAR-G-A10"
+    },
+    "warehouse": {
+      "id": "RC007-REAR-G-A10",
+      "node": "A10",
+      "coreKey": "0,9",
+      "capacityP": 1,
+      "residentP": 1,
+      "availableP": 1,
+      "incomingHeldP": 0,
+      "quarantinedResidentP": 0,
+      "capacityE2": 2,
+      "residentE2": 2,
+      "personnelAuthority": "personnel.package",
+      "historical012PIsNotCurrentStock": true
+    },
+    "service": {
+      "quotaLQ": 4,
+      "usedLQ": 4,
+      "heldLQ": 0,
+      "remainingLQ": 0,
+      "renews": false,
+      "independentOfSPAnd012": true,
+      "dispatchEpochs": [
+        7,
+        8
+      ],
+      "lastReceiveEpoch": 9
+    },
+    "receivedEpoch": 7,
+    "availableFromTurn": 8,
+    "careEndsAfterEpoch": 8,
+    "blockingReasons": [],
+    "lastRequestError": null,
+    "forwardTransportRecoveryFormationAllowed": false,
+    "globalBlockersRetained": 35,
+    "globalBlockersClosed": 0
+  },
+  "personnelLedger": [
+    {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/SOURCE_AND_BUDGET_ACTIVATED/T7",
+      "kind": "SOURCE_AND_BUDGET_ACTIVATED",
+      "epoch": "T7",
+      "details": {
+        "ids": {
+          "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+          "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+          "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+          "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+          "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+        },
+        "matchId": "EASTFRONT-012-ISOLATED",
+        "side": "G",
+        "P": 1,
+        "personnelI": 2,
+        "accountId": "RC008-G-PERSONNEL-SERVICE-I",
+        "contractHash": "e9dab8431d49fb70fadd03ab5b5e56e9565aec29370d579f00c2f093b6e431c6",
+        "approvalHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7",
+        "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+        "sourceKind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+        "actualTrainingReceipt": null
+      }
+    },
+    {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/ACCEPTED_CARE_PAID_AND_ESCROW/T7",
+      "kind": "ACCEPTED_CARE_PAID_AND_ESCROW",
+      "epoch": "T7",
+      "details": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+        "fingerprint": {
+          "side": "G",
+          "quantityP": 1,
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "poolId": "RC008-G-TRAINED-RESERVE",
+          "warehouseId": "RC007-REAR-G-A10",
+          "nodeId": "A10",
+          "coreKey": "0,9",
+          "budgetAccountId": "RC008-G-PERSONNEL-SERVICE-I",
+          "feeI": 2,
+          "loadLQ": 4,
+          "quotaId": "RC008-OFFMAP-RESERVE-TO-A10",
+          "window": {
+            "acceptT": 7,
+            "dispatchE": [
+              7,
+              8
+            ],
+            "lastReceiveE": 9
+          },
+          "profileHash": "c33b8a7220ca8647c8112570a8071a9bd34ae62de89d8f960553bdcc93731caf",
+          "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+          "trainingAssumptionGrantHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7"
+        },
+        "fingerprintHash": "5eb32fd407db4276f7497230a035970aa73bf6a2e0d9f11667a124eca6613414",
+        "status": "ACCEPTED",
+        "acceptedTurn": 7
+      }
+    },
+    {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/BOUNDARY_OBSERVED/7",
+      "kind": "BOUNDARY_OBSERVED",
+      "epoch": 7,
+      "details": {
+        "gameRevision": 139
+      }
+    },
+    {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E14_DISPATCHED/7",
+      "kind": "E14_DISPATCHED",
+      "epoch": 7,
+      "details": {
+        "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+        "quotaUsedLQ": 4,
+        "carriageSpentI": 1,
+        "eligibility": {
+          "eligible": true,
+          "issues": [],
+          "integrity": [],
+          "control": null,
+          "occupants": [],
+          "enemyZoc": false,
+          "node": "A10",
+          "coreKey": "0,9",
+          "side": "G",
+          "turn": 8,
+          "phase": "GERMAN_SUPPLY_RAIL",
+          "authoritative": true,
+          "epoch": 7,
+          "stage": "dispatch",
+          "gameHash": "5d914b4c551d8e75242476169455578f4cbcdda50a444e36635a4403d56ed08f"
+        }
+      }
+    },
+    {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E15_RECEIVED/7",
+      "kind": "E15_RECEIVED",
+      "epoch": 7,
+      "details": {
+        "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received",
+        "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+        "quantityP": 1,
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "eligibility": {
+          "eligible": true,
+          "issues": [],
+          "integrity": [],
+          "control": null,
+          "occupants": [],
+          "enemyZoc": false,
+          "node": "A10",
+          "coreKey": "0,9",
+          "side": "G",
+          "turn": 8,
+          "phase": "GERMAN_SUPPLY_RAIL",
+          "authoritative": true,
+          "epoch": 7,
+          "stage": "receipt",
+          "gameHash": "5d914b4c551d8e75242476169455578f4cbcdda50a444e36635a4403d56ed08f"
+        },
+        "paidCarriageI": 1
+      }
+    },
+    {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/NEXT_T_AVAILABLE/7",
+      "kind": "NEXT_T_AVAILABLE",
+      "epoch": 7,
+      "details": {
+        "availableFromTurn": 8,
+        "onwardAuthority": false
+      }
+    }
+  ],
+  "baseRootHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+  "traceSha256": "3e6098f73f89615832314d0a54b821ab2db1af4ee7ea6ab0d36b2114746f1d23",
+  "viewsSha256": "68d345452e21aad1c78ad1b58cd9f0a97bceb056531f673006c6dff2c8af800b",
+  "globalBlockersRetained": 35,
+  "globalBlockersClosed": 0,
+  "singleProcessOnly": true,
+  "crashPersistence": false
+}
