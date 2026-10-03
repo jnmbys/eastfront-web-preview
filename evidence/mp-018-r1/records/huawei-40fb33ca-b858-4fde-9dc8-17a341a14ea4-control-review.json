@@ -1,0 +1,88 @@
+{
+  "stage": "huawei",
+  "sourceFile": "mp017-40fb33ca-b858-4fde-9dc8-17a341a14ea4-control.json",
+  "sourceSha256": "bdf16ea0162bc034a43d6cdc55d0609bbb201a1d99bda1994935c85ac0a4a80b",
+  "version": "control",
+  "sourceSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+  "pairId": "40fb33ca-b858-4fde-9dc8-17a341a14ea4",
+  "purpose": "warmup",
+  "order": 1,
+  "device": "华为hormony/默认浏览器",
+  "classification": "warmup",
+  "reasons": [],
+  "textBackupMatches": null,
+  "textBackupSha256": null,
+  "scenario": "move",
+  "mode": "real",
+  "milestones": {
+    "authorityAppliedMs": 655.1,
+    "canSelectMs": 657.4,
+    "legalOptionsReadyMs": 1669.9,
+    "canSubmitMs": 1669.9
+  },
+  "originalSampler": {
+    "schema": "MP010-v1",
+    "requestId": "a45d23b4-9d13-4eaf-9390-34b4122906ea",
+    "snapshotFormat": "snapshot-v3-map-table",
+    "compression": "none",
+    "baseRevision": 0,
+    "acceptedRevision": 1,
+    "appliedSequence": 10,
+    "appliedRevision": 1,
+    "interactiveRevision": 1,
+    "sendMs": 2,
+    "ackMs": 423.3,
+    "authorizedAppliedMs": 657.1,
+    "interactiveMs": 1719.4,
+    "feedbackFrameOpportunityMs": 36,
+    "feedbackProxyKind": "pending-marker",
+    "visibleFeedbackMs": null,
+    "visibleFeedbackMethod": "unreviewed-video",
+    "rejected": false,
+    "resyncCount": 0,
+    "queryCount": 1,
+    "confirmClicks": 1,
+    "submitCount": 1,
+    "flags": []
+  },
+  "queries": [
+    {
+      "requestId": "32e12934-5783-4a9b-96c6-6e67ec722b3b",
+      "revision": 1,
+      "sendAt": 92350.60000000149,
+      "receiveAt": 93215.19999999925,
+      "handledAt": 93278.10000000149,
+      "applyToSendMs": 137.5,
+      "sendToReceiveMs": 864.6,
+      "receiveToCanSubmitMs": 12.7,
+      "synchronousViewOverlapMs": 0
+    }
+  ],
+  "renders": [
+    {
+      "revision": 1,
+      "sequence": 10,
+      "kind": "view",
+      "startAt": 92215.39999999851,
+      "endAt": 92312,
+      "durationMs": 96.6
+    },
+    {
+      "revision": 1,
+      "sequence": 11,
+      "kind": "query",
+      "startAt": 93227.89999999851,
+      "endAt": 93277,
+      "durationMs": 49.1
+    }
+  ],
+  "missing": [
+    "feedbackOpportunityAt"
+  ],
+  "limitations": [
+    "Browser login/map/target/text backup require actual user evidence; classification alone is not full acceptance.",
+    "Same iframe monotonic clock only. Render is synchronous subscriber work, not paint.",
+    "Query interval includes unknown transport/server/event-loop wait; overlap is observed intersection, not causal speedup.",
+    "One measured pair is exploratory; no stable P95 or network improvement claim."
+  ]
+}

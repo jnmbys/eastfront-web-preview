@@ -1,0 +1,107 @@
+{
+  "stage": "huawei",
+  "sourceFile": "mp017-33cf7fde-9442-403c-a014-d705e0bc6368-control.json",
+  "sourceSha256": "3bae2629aff48836bd28052c830908a88d6deb44c617e5e34de1f0c803646463",
+  "version": "control",
+  "sourceSha": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+  "pairId": "33cf7fde-9442-403c-a014-d705e0bc6368",
+  "purpose": "warmup",
+  "order": 2,
+  "device": "华为hormony/默认浏览器",
+  "classification": "warmup",
+  "reasons": [],
+  "textBackupMatches": null,
+  "textBackupSha256": null,
+  "scenario": "move",
+  "mode": "real",
+  "milestones": {
+    "authorityAppliedMs": 618.4,
+    "canSelectMs": 622.9,
+    "legalOptionsReadyMs": 1744.1,
+    "canSubmitMs": 1744.1
+  },
+  "originalSampler": {
+    "schema": "MP010-v1",
+    "requestId": "1f17bd56-df49-42ac-bc61-eaebb1793bac",
+    "snapshotFormat": "snapshot-v3-map-table",
+    "compression": "none",
+    "baseRevision": 0,
+    "acceptedRevision": 1,
+    "appliedSequence": 7,
+    "appliedRevision": 1,
+    "interactiveRevision": 1,
+    "sendMs": 2.2,
+    "ackMs": 363.3,
+    "authorizedAppliedMs": 623.2,
+    "interactiveMs": 1781.1,
+    "feedbackFrameOpportunityMs": 45.5,
+    "feedbackProxyKind": "pending-marker",
+    "visibleFeedbackMs": null,
+    "visibleFeedbackMethod": "unreviewed-video",
+    "rejected": false,
+    "resyncCount": 0,
+    "queryCount": 2,
+    "confirmClicks": 1,
+    "submitCount": 1,
+    "flags": []
+  },
+  "queries": [
+    {
+      "requestId": "2c643d19-27d6-4fd8-aa67-9e61db5506ca",
+      "revision": 1,
+      "sendAt": 104240.10000000149,
+      "receiveAt": 105196.19999999925,
+      "handledAt": 105244.69999999925,
+      "applyToSendMs": 158.5,
+      "sendToReceiveMs": 956.1,
+      "receiveToCanSubmitMs": 11.1,
+      "synchronousViewOverlapMs": 0
+    },
+    {
+      "requestId": "11cc085c-5401-4f2d-85ce-cecb9db46b06",
+      "revision": 1,
+      "sendAt": 108778.19999999925,
+      "receiveAt": 109609.60000000149,
+      "handledAt": 109671.5,
+      "applyToSendMs": 4696.6,
+      "sendToReceiveMs": 831.4,
+      "receiveToCanSubmitMs": -4402.3,
+      "synchronousViewOverlapMs": 0
+    }
+  ],
+  "renders": [
+    {
+      "revision": 1,
+      "sequence": 7,
+      "kind": "view",
+      "startAt": 104086.10000000149,
+      "endAt": 104204.90000000224,
+      "durationMs": 118.8
+    },
+    {
+      "revision": 1,
+      "sequence": 8,
+      "kind": "query",
+      "startAt": 105207.30000000075,
+      "endAt": 105243.69999999925,
+      "durationMs": 36.4
+    },
+    {
+      "revision": 1,
+      "sequence": 9,
+      "kind": "query",
+      "startAt": 109622.60000000149,
+      "endAt": 109670.5,
+      "durationMs": 47.9
+    }
+  ],
+  "missing": [
+    "feedbackOpportunityAt"
+  ],
+  "limitations": [
+    "Browser login/map/target/text backup require actual user evidence; classification alone is not full acceptance.",
+    "Same iframe monotonic clock only. Render is synchronous subscriber work, not paint.",
+    "Query interval includes unknown transport/server/event-loop wait; overlap is observed intersection, not causal speedup.",
+    "One measured pair is exploratory; no stable P95 or network improvement claim."
+  ]
+}

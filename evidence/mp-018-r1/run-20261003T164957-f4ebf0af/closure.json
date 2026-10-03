@@ -1,0 +1,42 @@
+{
+  "localListeners": {
+    "count": 0,
+    "ports": [],
+    "outcome": "CLOSED"
+  },
+  "at": "2026-10-03T17:08:33.2244922Z",
+  "processExitVerified": true,
+  "publicProbe": {
+    "unavailableObserved": true,
+    "elapsedMs": 3104.4556,
+    "exitCode": 0,
+    "reason": "HTTP_RESPONSE",
+    "outcome": "HTTP_UNAVAILABLE",
+    "httpStatus": 502
+  },
+  "publicOpened": true,
+  "processes": [
+    {
+      "pid": 27324,
+      "outcome": "EXITED",
+      "name": "tunnel"
+    },
+    {
+      "pid": 33520,
+      "outcome": "EXITED",
+      "name": "stack"
+    },
+    {
+      "pid": 17168,
+      "outcome": "ALREADY_EXITED",
+      "name": "fixture"
+    }
+  ],
+  "overall": "VERIFIED_AT_PROBE",
+  "publicUnavailableVerified": true,
+  "localClosureVerified": true,
+  "failedValidation": false,
+  "resultsSaved": true,
+  "schema": "MP014-closure-v1",
+  "limits": "HTTP_UNAVAILABLE means an HTTP 5xx response at this probe only, not permanent DNS removal; UNKNOWN never verifies public closure."
+}
