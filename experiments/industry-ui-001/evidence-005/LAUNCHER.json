@@ -1,0 +1,17 @@
+{
+  "task": "INDUSTRY-UI-005",
+  "status": "PASS",
+  "command": "start-local.ps1 -BackendPath <pinned017-R1> -Port 8817; default Python discovery",
+  "loopbackOnly": true,
+  "operateHTTPStatus": 200,
+  "servedWorkbench": true,
+  "stop": "Ctrl+C in launch terminal",
+  "closeMessageObserved": true,
+  "PTYExitCode": 1,
+  "stopNote": "Original multiprocessing worker receives Ctrl+C and may print KeyboardInterrupt; unchanged upstream shutdown. Listener, owner and child all confirmed closed. No backend code modified.",
+  "trackedOwnerPID": 19496,
+  "trackedWorkerPID": 42024,
+  "trackedProcessesRemaining": 0,
+  "validationListenersRemaining": 0,
+  "credentialsIncluded": false
+}

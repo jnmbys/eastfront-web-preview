@@ -1,0 +1,196 @@
+{
+  "case": "committed",
+  "origin": "REAL_HTTP_AND_FRONTEND_WITH_SYNTHETIC_READ_FAULTS",
+  "checks": [
+    {
+      "name": "terminal_receipt_persisted_before_failed_state_read",
+      "passed": true,
+      "view": {
+        "message": "后端已确认提交（版本38）；账本尚未刷新，显示值可能过期，业务操作已锁定。仅恢复读取，不再提交。",
+        "balance": "5 I",
+        "version": "根 37 / 游戏 142 / 材料 0",
+        "pending": {
+          "requestId": "f65b2038-8914-4035-aebe-1dae6ae973bf",
+          "instanceId": "2c2a8017-db6c-4a89-aa90-006d22e493c4",
+          "expectedVersion": 37,
+          "operation": "CARE",
+          "confirmation": {
+            "status": "COMMITTED",
+            "code": "COMMITTED",
+            "minVersion": 38,
+            "resultVersion": 38
+          }
+        },
+        "floor": {
+          "instanceId": "2c2a8017-db6c-4a89-aa90-006d22e493c4",
+          "version": 38
+        },
+        "locked": true
+      },
+      "backendVersion": 38,
+      "backendFreeI": 4
+    },
+    {
+      "name": "consecutive_read_failures_and_forced_clicks_cannot_submit",
+      "passed": true
+    },
+    {
+      "name": "reload_preserves_terminal_receipt_and_business_lock",
+      "passed": true
+    },
+    {
+      "name": "mode_navigation_does_not_bypass_confirmed_pending_lock",
+      "passed": true
+    },
+    {
+      "name": "below_receipt_version_does_not_unlock_or_clear",
+      "passed": true
+    },
+    {
+      "name": "foreign_instance_cannot_replace_confirmed_ledger",
+      "passed": true
+    },
+    {
+      "name": "new_instance_launch_fragment_cannot_clear_pending_receipt",
+      "passed": true,
+      "synthetic": "Foreign state and replacement credential; no new backend policy"
+    },
+    {
+      "name": "only_valid_ledger_clears_marker_and_releases_appropriate_buttons",
+      "passed": true
+    },
+    {
+      "name": "late_old_read_cannot_overwrite_new_ledger_after_marker_cleanup",
+      "passed": true
+    },
+    {
+      "name": "persisted_version_floor_survives_reload_after_cleanup",
+      "passed": true
+    }
+  ],
+  "writes": [
+    {
+      "requestId": "f65b2038-8914-4035-aebe-1dae6ae973bf",
+      "instanceId": "2c2a8017-db6c-4a89-aa90-006d22e493c4",
+      "expectedVersion": 37,
+      "operation": "CARE"
+    }
+  ],
+  "pageErrors": [],
+  "finalView": {
+    "message": "已读取后端正式状态，未提交操作。",
+    "balance": "4 I",
+    "version": "根 38 / 游戏 142 / 材料 0",
+    "pending": null,
+    "floor": {
+      "instanceId": "2c2a8017-db6c-4a89-aa90-006d22e493c4",
+      "version": 38
+    },
+    "locked": false
+  },
+  "actualFinal": {
+    "schema": "industry-017-state.v1",
+    "instanceId": "2c2a8017-db6c-4a89-aa90-006d22e493c4",
+    "version": 38,
+    "gameRevision": 142,
+    "materialRevision": 0,
+    "turn": 8,
+    "phase": "GERMAN_RECOVERY",
+    "phaseLabel": "德军恢复",
+    "equipmentBudget": {
+      "granted": 10,
+      "freeI": 4,
+      "productionSpent": 3,
+      "handoffSpent": 2,
+      "escrow": 0,
+      "careTransferOutI": 1
+    },
+    "personnelBudget": {
+      "id": "RC008-G-PERSONNEL-SERVICE-I",
+      "grantedI": 2,
+      "availableI": 0,
+      "acceptanceCareSpentI": 1,
+      "escrowI": 0,
+      "carriageSpentI": 1
+    },
+    "care": {
+      "receivedI": 1,
+      "spentI": 1,
+      "availableI": 0,
+      "endEpoch": 9,
+      "nonrefundable": true,
+      "status": "PAID_ACTIVE"
+    },
+    "materials": {
+      "P": {
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_AVAILABLE",
+        "quantity": 1,
+        "consumed": 0
+      },
+      "E2:L": {
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_AVAILABLE",
+        "quantity": 2,
+        "consumed": 0
+      }
+    },
+    "frontInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "availableFrontInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "rearInventory": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "transport": null,
+    "shipment": null,
+    "terminal": null,
+    "recovery": null,
+    "target": {
+      "id": "G-I-01",
+      "step": 1,
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "recoveryCount": 0,
+      "recoveryLimit": 1
+    },
+    "expired": false,
+    "impact": null,
+    "blockers": [
+      "AWAIT_E8_SHIPMENT"
+    ],
+    "operations": {
+      "CARE": {
+        "enabled": false,
+        "label": "支付1I照管至E9结束"
+      },
+      "NEXT": {
+        "enabled": true,
+        "label": "结束当前德军恢复阶段"
+      },
+      "RECOVER": {
+        "enabled": false,
+        "label": "T9恢复G-I-01：支付1P＋2 E2，RP不扣"
+      }
+    },
+    "restrictions": {
+      "singleProcess": true,
+      "persistent": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "formalRuntimeApproved": false
+    }
+  },
+  "readFaultsAreSynthetic": true
+}

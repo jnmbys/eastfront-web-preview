@@ -1,0 +1,129 @@
+{
+  "origin": "REAL_TRANSACTION_WITH_SYNTHETIC_LOST_RESPONSE",
+  "checks": [
+    "unknown_result_keeps_preconfirmation_display",
+    "refresh_keeps_pending_without_POST",
+    "retry_sends_identical_four_fields",
+    "committed_retry_charges_once",
+    "tablet_landscape_no_overflow"
+  ],
+  "writes": [
+    {
+      "requestId": "d1544e2e-7273-4390-b183-404fccf62e4f",
+      "instanceId": "52fbbb8b-901a-4ed1-b114-61ba60e56d76",
+      "expectedVersion": 37,
+      "operation": "CARE"
+    },
+    {
+      "requestId": "d1544e2e-7273-4390-b183-404fccf62e4f",
+      "instanceId": "52fbbb8b-901a-4ed1-b114-61ba60e56d76",
+      "expectedVersion": 37,
+      "operation": "CARE"
+    }
+  ],
+  "pageErrors": [],
+  "finalState": {
+    "schema": "industry-017-state.v1",
+    "instanceId": "52fbbb8b-901a-4ed1-b114-61ba60e56d76",
+    "version": 38,
+    "gameRevision": 142,
+    "materialRevision": 0,
+    "turn": 8,
+    "phase": "GERMAN_RECOVERY",
+    "phaseLabel": "德军恢复",
+    "equipmentBudget": {
+      "granted": 10,
+      "freeI": 4,
+      "productionSpent": 3,
+      "handoffSpent": 2,
+      "escrow": 0,
+      "careTransferOutI": 1
+    },
+    "personnelBudget": {
+      "id": "RC008-G-PERSONNEL-SERVICE-I",
+      "grantedI": 2,
+      "availableI": 0,
+      "acceptanceCareSpentI": 1,
+      "escrowI": 0,
+      "carriageSpentI": 1
+    },
+    "care": {
+      "receivedI": 1,
+      "spentI": 1,
+      "availableI": 0,
+      "endEpoch": 9,
+      "nonrefundable": true,
+      "status": "PAID_ACTIVE"
+    },
+    "materials": {
+      "P": {
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_AVAILABLE",
+        "quantity": 1,
+        "consumed": 0
+      },
+      "E2:L": {
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_AVAILABLE",
+        "quantity": 2,
+        "consumed": 0
+      }
+    },
+    "frontInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "availableFrontInventory": {
+      "P": 0,
+      "E2:L": 0
+    },
+    "rearInventory": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "transport": null,
+    "shipment": null,
+    "terminal": null,
+    "recovery": null,
+    "target": {
+      "id": "G-I-01",
+      "step": 1,
+      "RP": {
+        "GERMAN": 8,
+        "SOVIET": 12
+      },
+      "recoveryCount": 0,
+      "recoveryLimit": 1
+    },
+    "expired": false,
+    "impact": null,
+    "blockers": [
+      "AWAIT_E8_SHIPMENT"
+    ],
+    "operations": {
+      "CARE": {
+        "enabled": false,
+        "label": "支付1I照管至E9结束"
+      },
+      "NEXT": {
+        "enabled": true,
+        "label": "结束当前德军恢复阶段"
+      },
+      "RECOVER": {
+        "enabled": false,
+        "label": "T9恢复G-I-01：支付1P＋2 E2，RP不扣"
+      }
+    },
+    "restrictions": {
+      "singleProcess": true,
+      "persistent": false,
+      "globalBlockersRetained": 35,
+      "globalBlockersClosed": 0,
+      "sourceGapSP": {
+        "G": 9,
+        "S": 14
+      },
+      "formalRuntimeApproved": false
+    }
+  }
+}

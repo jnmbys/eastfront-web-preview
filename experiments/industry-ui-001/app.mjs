@@ -48,6 +48,7 @@ forwardCheckpoint.addEventListener('change',()=>{selectedForward[forwardBranch.v
 selectForwardBranch();
 document.getElementById('mode').addEventListener('change',event=>{
   mode=event.target.value;
+  if(mode==='local'){location.assign('/operate/');return;}
   const records=mode==='records';
   const personnel=mode==='personnel';
   const forward=mode==='forward';
@@ -65,3 +66,12 @@ document.getElementById('mode').addEventListener('change',event=>{
   if(personnel)displayPersonnel();
   if(forward)displayForward();
 });
+// A launch credential only routes to the original R1 client; archives never consume it or call APIs.
+const launchFragment=new URLSearchParams(location.hash.slice(1));
+if(launchFragment.has('session')){
+  const fragment=location.hash;history.replaceState(null,'',location.pathname);location.replace('/operate/'+fragment);
+}else if(['demo','records','personnel','forward'].includes(launchFragment.get('mode'))){
+  document.getElementById('mode').value=launchFragment.get('mode');
+  document.getElementById('mode').dispatchEvent(new Event('change'));
+  history.replaceState(null,'',location.pathname);
+}
