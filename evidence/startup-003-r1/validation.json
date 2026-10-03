@@ -58,5 +58,15 @@
   },
   "fullSuite": "NOT_RERUN; retain prior report unchanged",
   "huawei": "NOT_TESTED",
-  "notes": "Native cold/warm and slow data use true native decode. Only blob-fallback fixture rejects bitmap. No production timeout or pixel tolerance altered."
+  "notes": "Native cold/warm and slow data use true native decode. Only blob-fallback fixture rejects bitmap. No production timeout or pixel tolerance altered.",
+  "unmodifiedNative": {
+    "command": "node scripts/startup003r1/native-smoke.mjs evidence/startup-003-r1/webkit-unmodified.json",
+    "result": "PASS",
+    "rows": 4,
+    "reference": "original native warm",
+    "instrumentation": false
+  },
+  "historicalLODReference": "PASS: R1 far/close/medium equal archived original warm LOD hashes",
+  "packageVerification": "PASS: CRC, 380 file hashes, source SHA, tested modules (build SHA replacement only)",
+  "assetBuildEquality": "PASS: all 202 terrain PNG/WebP bytes equal in original, pipeline, R1 builds"
 }

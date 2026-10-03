@@ -37,7 +37,7 @@ WebKit 与桌面分别记录，不能互相替代或替代华为。WebKit 未注
 |桌面原基线/旧候选/R1/串行|`chromium-slow.json`：冷、暖、禁缓存慢响应的 RGBA 全部一致（软件 Canvas 固定渲染条件）|
 |定向自动测试|95/95 通过；另外受影响的冻结边界检查 7/7 通过，两端 typecheck、server build 通过。历史 SHA 清单不变，R1 只给 terrainSurface 增加独立、明确的复核检查值|
 
-本轮没有重新运行无关的全量测试，STARTUP-003 旧报告中的全量失败记录保持原状。原生无插桩最终候选检查另由 `native-smoke.mjs` 生成，最终结果见 `delivery.json` 和 `webkit-unmodified.json`。
+本轮没有重新运行无关的全量测试，STARTUP-003 旧报告中的全量失败记录保持原状。最终候选源码为 `b9927e072d30fac8b732b815c0d817ce490d7d6e`；原生无插桩检查 `webkit-unmodified.json` 的默认/serial 冷暖共 4 项全部零像素差。连同前面的插桩检查，两种模式各有 5 个独立冷缓存上下文通过；最终 far/close/medium 哈希也与原证据中的基线暖缓存 LOD 相同。详见 `delivery.json`、`candidate-manifest.json`；验证进程已关闭，见 `process-cleanup.json`。
 
 桌面在每个请求固定延迟 250ms、禁止缓存时的单次本地对照：
 

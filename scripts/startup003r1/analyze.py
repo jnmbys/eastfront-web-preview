@@ -94,7 +94,7 @@ for path in sorted(Path('public/assets/terrain').rglob('*')):
                        'maxStripeRGBABytes': img.width * min(32, img.height) * 4})
 
 def save(name, value):
-    (root / name).write_text(json.dumps(value, indent=2) + '\n', encoding='utf8')
+    (root / name).write_text(json.dumps(value, indent=2) + '\n', encoding='utf8', newline='\n')
 
 save('pixel-differences.json', pairs)
 save('asset-visibility.json', {'scope': 'All checked-in public terrain PNG/WebP assets', 'assets': assets,
