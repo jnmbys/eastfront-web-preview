@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MP-013 本人单次诊断</title>
+<style>body{margin:0;font:16px system-ui;background:#eef2f5;color:#152330}header,section{padding:16px}button,input{font:inherit;padding:10px;margin:4px}button{cursor:pointer}iframe{width:100%;height:76vh;border:0;background:#152330}textarea{width:95%;height:130px}#status{font-weight:600}small{display:block;overflow-wrap:anywhere}</style>
+<header><h1>华为对照版 · 单次诊断</h1><p>仅启动一次。加载失败：直接导出并停止。加载成功：等五秒提示后确认移动一次，恢复操作后导出。本次不收十次样本。</p>
+<label>型号／系统／浏览器 <input id="device" maxlength="120" placeholder="填写实际设备信息"></label>
+<button id="start" disabled>开始对照诊断</button><button id="export" disabled>导出诊断并结束</button>
+<p id="status" role="status">正在核对入口配置</p><small id="version"></small></header>
+<iframe id="game" title="对照版诊断游戏" src="about:blank"></iframe>
+<section id="result" hidden><p>诊断已生成，请保存文件。无需再次启动；下载失败时可复制下方内容保存为 JSON。</p><textarea id="fallback" readonly></textarea></section>
+<script type="module" src="/mp013/controller.mjs"></script></html>
