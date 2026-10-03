@@ -10,26 +10,26 @@
   <div class="demo-banner"><span class="signal"></span><strong>演示数据，尚未连接真实工业接口</strong><span>本机隔离演练 · 所有结果均为模拟</span></div>
   <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-001</span><span>仅本地演示</span></div></header>
   <main>
-    <section class="page-title"><div><div class="eyebrow">OPERATIONS / INDUSTRY</div><h1>工业订单台<span>01</span></h1><p>从一笔订单，到一批可用装备。每一步都有去向。</p></div><div class="clock"><span>演示时点</span><strong id="clock">T5</strong><small>按回合 / 结算推进</small></div></section>
-    <section class="budget" aria-label="演示预算账本"><div><span>初始独立预算</span><strong>10 <small>I</small></strong><p>一次性演示拨款</p></div><div><span>可用预算</span><strong id="free">10 <small>I</small></strong><p>尚可用于订单</p></div><div><span>费用托管</span><strong id="escrow">0 <small>I</small></strong><p>交接确认后转为支出</p></div><div><span>实际支出 <em>演示账本</em></span><strong id="spent">0 <small>I</small></strong><p id="spent-breakdown">生产 0 I + 交接 0 I</p></div></section>
+    <section class="page-title"><div><div class="eyebrow">OPERATIONS / INDUSTRY</div><h1>工业订单台<span>01</span></h1><p>从一笔订单，到一批可用装备。每一步都有去向。</p></div><div class="clock"><span>演示时点</span><strong id="clock">—</strong><small>按回合 / 结算推进</small></div></section>
+    <section class="budget" aria-label="演示预算账本"><div><span>初始独立预算</span><strong id="initial-budget">—</strong><p>一次性演示拨款</p></div><div><span>可用预算</span><strong id="free">—</strong><p>尚可用于订单</p></div><div><span>费用托管</span><strong id="escrow">—</strong><p>交接确认后转为支出</p></div><div><span>实际支出 <em>演示账本</em></span><strong id="spent">—</strong><p id="spent-breakdown">—</p></div></section>
     <div class="workspace">
-      <section class="panel order-panel"><div class="panel-heading"><div><span class="eyebrow">01 / ORDER</span><h2>轻型装备订单</h2></div><span class="tag">单笔 · 单批</span></div>
-        <div class="product"><div class="crate" aria-hidden="true"><span>E2</span></div><div><h3>2 E2 <small>: L</small></h3><p>轻型装备 · 2 E2 = 1 E</p><span class="subtle">地图外生产 → A10 后方仓</span></div></div>
-        <dl class="quote"><div><dt>生产费用</dt><dd>3 I <small>接受订单时支付</small></dd></div><div><dt>交接费用</dt><dd>2 I <small>接受订单时托管</small></dd></div><div class="total"><dt>总费用</dt><dd>5 I</dd></div><div><dt>工期</dt><dd>2 个结算边界</dd></div><div><dt>预计可用</dt><dd id="expected">T7（无阻塞）</dd></div></dl>
-        <p class="quote-note">正常路径：E5 进度 1/2，E6 完成并交接到账，T7 可用。受阻后以实际到账结算为准。</p>
+      <section class="panel order-panel"><div class="panel-heading"><div><span class="eyebrow">01 / ORDER</span><h2 id="product-title">—</h2></div><span class="tag">单笔 · 单批</span></div>
+        <div class="product"><div class="crate" aria-hidden="true"><span id="material-unit">—</span></div><div><h3><span id="product-yield">—</span> <small id="material-type"></small></h3><p id="product-description"></p><span class="subtle" id="product-route"></span></div></div>
+        <dl class="quote"><div><dt>生产费用</dt><dd><span id="production-cost">—</span><small id="production-payment-note"></small></dd></div><div><dt>交接费用</dt><dd><span id="handoff-cost">—</span><small id="handoff-payment-note"></small></dd></div><div class="total"><dt>总费用</dt><dd id="total-cost">—</dd></div><div><dt>工期</dt><dd id="duration">—</dd></div><div><dt>预计可用</dt><dd id="expected">—</dd></div></dl>
+        <p class="quote-note" id="quote-note"></p>
         <div id="primary-slot"></div><p class="scope-note">本演示仅允许一单；刷新或重置会清空演示记录。</p>
       </section>
-      <section class="panel flow-panel"><div class="panel-heading"><div><span class="eyebrow">02 / FULFILLMENT</span><h2>订单履约</h2></div><span id="status" class="status">尚未下单</span></div>
-        <div class="order-id">订单 <code>DEMO-O-001</code><span>演示编号</span></div>
+      <section class="panel flow-panel"><div class="panel-heading"><div><span class="eyebrow">02 / FULFILLMENT</span><h2>订单履约</h2></div><span id="status" class="status">—</span></div>
+        <div class="order-id">订单 <code id="order-id">—</code><span>演示编号</span></div>
         <ol class="steps" id="steps"></ol>
-        <div class="progress-title"><span>生产进度</span><strong id="progress-count">0 / 2 结算边界</strong></div><progress id="progress" value="0" max="2" aria-label="生产结算进度"></progress>
-        <p class="subtle">仅由已模拟提交的结算推进；等待时间不会生产装备。</p>
+        <div class="progress-title"><span>生产进度</span><strong id="progress-count">—</strong></div><progress id="progress" value="0" max="1" aria-label="生产结算进度"></progress>
+        <p class="subtle" id="progress-note"></p>
         <div id="notice" class="notice" role="status" aria-live="polite" aria-atomic="true"></div>
-        <div class="custody"><div><span>生产暂存</span><strong id="buffer">0 <small>E2</small></strong><p id="buffer-hold">预留空间 0 E2 / 容量 2</p></div><span class="arrow" aria-hidden="true">→</span><div><span>在途 / 接收受阻</span><strong id="transit">0 <small>E2</small></strong><p>交接确认不等于入库</p></div><span class="arrow" aria-hidden="true">→</span><div><span>A10 实际库存</span><strong id="rear-mini">0 <small>E2</small></strong><p>接收确认后记账</p></div></div>
+        <div class="custody"><div><span>生产暂存</span><strong id="buffer">—</strong><p id="buffer-hold">—</p></div><span class="arrow" aria-hidden="true">→</span><div><span>在途 / 接收受阻</span><strong id="transit">—</strong><p>交接确认不等于入库</p></div><span class="arrow" aria-hidden="true">→</span><div><span id="rear-label">实际库存</span><strong id="rear-mini">—</strong><p>接收确认后记账</p></div></div>
       </section>
-      <section class="panel warehouse"><div class="panel-heading"><div><span class="eyebrow">03 / WAREHOUSE</span><h2>A10 后方仓</h2></div><span class="tag">演示容量 2 E2</span></div>
-        <div class="stock-grid"><div><span>实际库存</span><strong id="rear">0 <small>E2</small></strong><p>已确认到账的实物</p></div><div><span>预留空间</span><strong id="rear-hold">0 <small>E2</small></strong><p>占位，不是装备</p></div><div class="available"><span>可用数量</span><strong id="available">0 <small>E2</small></strong><p id="available-note">尚未到账</p></div></div>
-        <div class="warehouse-bottom"><span id="capacity">仓容占用 0 / 2 E2</span><span>人员 <b>0 P</b></span><span>无运输至 C10 或恢复部队权限</span></div>
+      <section class="panel warehouse"><div class="panel-heading"><div><span class="eyebrow">03 / WAREHOUSE</span><h2 id="warehouse-name">—</h2></div><span class="tag" id="capacity-label">—</span></div>
+        <div class="stock-grid"><div><span>实际库存</span><strong id="rear">—</strong><p>已确认到账的实物</p></div><div><span>预留空间</span><strong id="rear-hold">—</strong><p>占位，不是装备</p></div><div class="available"><span>可用数量</span><strong id="available">—</strong><p id="available-note">—</p></div></div>
+        <div class="warehouse-bottom"><span id="capacity">—</span><span>人员 <b id="personnel">—</b></span><span>无运输至 C10 或恢复部队权限</span></div>
       </section>
       <section class="panel controls"><div class="panel-heading"><div><span class="eyebrow">DEMO / CONTROLS</span><h2>演示控制台</h2></div><button id="reset" class="text-button">重置演示</button></div>
         <div class="control-grid"><label>下次提交响应<select id="response"><option value="success">模拟接受</option><option value="reject">模拟拒绝（一次）</option><option value="unknown">模拟响应丢失（一次）</option></select></label><label>交接异常注入<select id="handoff-fault"><option value="none">无异常</option><option value="dispatch">发运容量不足（一次）</option><option value="receipt">接收资格受阻（一次）</option></select></label></div>

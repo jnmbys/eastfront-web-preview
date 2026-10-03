@@ -57,3 +57,47 @@ test('illegal out-of-order commands cannot skip confirmation or settlement', asy
   const a=make(); for(const cmd of ['receive','dispatch','nextTurn','retryReceipt','advance']) await a.command(cmd);
   balances(a,[10,0,0,0,0,0,0,0,0]); await a.command('submit'); await a.command('receive'); await a.command('nextTurn'); assert.equal(a.snapshot().progress,0); assert.equal(a.snapshot().available,0);
 });
+
+async function holdUntil(a, fault, epoch) {
+  await completeProduction(a);
+  if (fault === 'receipt') await a.command('dispatch');
+  for (let e = 6; e <= epoch; e++) {
+    a.configure('handoffFault', fault);
+    await a.command(fault === 'dispatch' ? 'dispatch' : e === 6 ? 'receive' : 'retryReceipt');
+    assert.equal(a.snapshot().epoch, e);
+  }
+}
+async function assertTerminalFrozen(a) {
+  const before = a.snapshot();
+  assert.equal(before.terminal, true); assert.equal(before.action, null);
+  assert.match(before.statusLabel, /终局/); assert.doesNotMatch(before.availabilityNote, /起可用|已可用/);
+  for (const name of ['advance', 'dispatch', 'receive', 'retryReceipt', 'nextTurn', 'submit']) await a.command(name);
+  a.configure('handoffFault', 'none');
+  assert.deepEqual(a.snapshot(), before); assert.equal(before.clock, 'E24'); assert.equal(before.available, 0);
+}
+test('E24 receipt preserves real stock and ledger turn 25 but provides no T25/E25 command', async () => {
+  const a=make(); await holdUntil(a,'receipt',23); await a.command('retryReceipt');
+  assert.equal(a.snapshot().receivedEpoch,24); assert.equal(a.snapshot().availableFromTurn,25);
+  balances(a,[5,0,3,2,0,0,2,0,0]); await assertTerminalFrozen(a);
+});
+test('E24 HELD preserves transit and destination reservation without refund or E25', async () => {
+  const a=make(); await holdUntil(a,'receipt',24);
+  balances(a,[5,0,3,2,0,2,0,2,0]); assert.equal(a.snapshot().availableFromTurn,null);
+  await assertTerminalFrozen(a);
+});
+test('E24 failed dispatch preserves buffer and escrow; no further retry or automatic receipt', async () => {
+  const a=make(); await holdUntil(a,'dispatch',24);
+  balances(a,[5,2,3,0,2,0,0,0,0]); await assertTerminalFrozen(a);
+});
+test('E24 successful dispatch still permits same-E24 receipt before terminal lock', async () => {
+  const a=make(); await holdUntil(a,'dispatch',23); await a.command('dispatch');
+  assert.equal(a.snapshot().clock,'E24'); assert.equal(a.snapshot().terminal,false); assert.equal(a.snapshot().action.name,'receive');
+  balances(a,[5,0,3,2,0,2,0,2,0]); await a.command('receive');
+  balances(a,[5,0,3,2,0,0,2,0,0]); await assertTerminalFrozen(a);
+});
+test('unfinished E24 production retains progress, buffer reservation and escrow', async () => {
+  const a=createDemoAdapter({wait:()=>Promise.resolve(),fixtureStartTurn:24});
+  await a.command('submit'); await a.command('advance');
+  assert.equal(a.snapshot().progress,1); assert.equal(a.snapshot().bufferHold,2); assert.equal(a.snapshot().produced,0);
+  balances(a,[5,2,3,0,0,0,0,0,0]); await assertTerminalFrozen(a);
+});
