@@ -1,4 +1,46 @@
-# INDUSTRY-UI-001 / 002 / 003 · 隔离工业与人员记录
+# INDUSTRY-UI-001 / 002 / 003 / 004 · 隔离工业与人员记录
+
+## UI-004 016前送与恢复只读模式
+
+UI基线 `1519ab5138acbca7f5c3ee9f1e8f3e9ab84bc59d`，016证据 `15e4d13fa9423ddb474432719468a8a8409823e9`。
+独立分支 `industry-ui-004`。使用已验收的industry-016-view.v1及原TRACE、LEDGER、VIEWS与SYNTHETIC-VIEWS；没有重跑工业实验。
+
+顶部新增“016前送与恢复（只读）”。先选独立分支，再选择其中的检查点：
+主线五点（T8起点、照管付款、E8到账、T9恢复前、恢复后）；无操作E8到期、未恢复E9到期两个真实对照；原五条SYNTHETIC样例。真实与合成均保留原始来源标签，模式和分支不合并库存。
+
+重点展示A10→B10→C10、E8到账/T9可用、G-I-01步损1→0及1P＋2 E2消费历史；RP不变，照管1I来自装备账户内部划拨，人员原账户不变。E8运力账区分上限、SP占用、freight、预留、剩余及cargo规格；8W仅计一次。代价表显示G-REC-02少维护0.5SP、D2→2.5，以及G-I-01库存相对参照+1SP、G-PZ-01−0.5SP。
+
+未恢复E9分支显示C10隔离仍占仓容和真实维护损失，并显著注明无同期无货运对照，不能归因全部损失。人员来自实验假定后备池，没有实际训练回执。35项全局阻塞保留，无预算、前送、照管、恢复或续期业务按钮。
+
+### 启动和校验
+
+从仓库根目录启动（Node.js 20+，页面零安装依赖）：
+
+```sh
+node experiments/industry-ui-001/serve.mjs
+# http://127.0.0.1:4173/ ，Ctrl+C停止
+python experiments/industry-ui-001/extract-016.py --source /path/to/pinned/experiments/industry-integrate-016 --check
+```
+
+Python提取器先比对10个固定源文件Git blob，再复用原view.export_view，校验TRACE/账本/原视图/合成样例及前后源摘要。静态页面不依赖原工业目录。去掉--check只重建UI静态模块。完整映射与七检查点来源见 **FORWARD-DEPENDENCIES.md**。
+
+```sh
+cd experiments/industry-ui-001
+npm test
+# 另一个终端运行静态服务器，测试环境已有Playwright和Edge
+npm run test:browser
+```
+
+56项单元测试通过（原40＋新增16）。四模式在1440×1100、820×1180、1024×768复验，包括R1 E24终局到账/受阻约束。结果见UI004-VALIDATION.json及原三份回归报告；无脚本错误、外部请求、写请求或页面横向溢出。表格在更窄宽度保留内部横向滚动。
+
+截图输出环境变量：FORWARD_SCREENSHOT_DIR；浏览器模块可用PLAYWRIGHT_MODULE指定，默认msedge通道。三张交付截图为ui004-desktop-recovered.png、ui004-tablet-unused-e9.png、ui004-tablet-synthetic-held.png。**这是浏览器视口检查，非真机验收。**
+
+变更仅位于本UI目录。原demo/012/013模块及测试保持基线；016及旧工业证据原字节不变。提交带[CF-Pages-Skip]，不合并、不部署、不接写接口。
+
+## 历史UI-003及之前说明
+
+以下保留前轮基线和口径；本轮入口另增加016，只读记录仍彼此独立。
+
 
 **可点击演示使用内存模拟；012、013模式只读离线导出，均非实时连接。REAL仅指已完成的隔离实验记录；SYNTHETIC保留原样例来源，不代表真实推进。**
 

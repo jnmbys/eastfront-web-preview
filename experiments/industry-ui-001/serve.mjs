@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const files = new Set(['index.html', 'styles.css', 'app.mjs', 'view.mjs', 'demo-adapter.mjs', 'record-adapter.mjs', 'record-view.mjs', 'records-012.mjs', 'personnel-adapter.mjs', 'personnel-view.mjs', 'records-013.mjs']);
+const files = new Set(['index.html', 'styles.css', 'app.mjs', 'view.mjs', 'demo-adapter.mjs', 'record-adapter.mjs', 'record-view.mjs', 'records-012.mjs', 'personnel-adapter.mjs', 'personnel-view.mjs', 'records-013.mjs', 'forward-adapter.mjs', 'forward-view.mjs', 'records-016.mjs']);
 const types = { '.html': 'text/html', '.css': 'text/css', '.mjs': 'text/javascript' };
 http.createServer(async (req, res) => {
   const name = new URL(req.url, 'http://127.0.0.1').pathname.slice(1) || 'index.html';

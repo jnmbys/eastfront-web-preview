@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>工业与人员记录 · INDUSTRY-UI-003</title>
+  <title>工业与人员记录 · INDUSTRY-UI-004</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="demo-banner"><span class="signal"></span><strong id="mode-banner">演示数据，尚未连接真实工业接口</strong><span id="mode-banner-note">本机隔离演练 · 所有结果均为模拟</span></div>
-  <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-003</span><span>本机静态预览</span></div></header>
+  <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-004</span><span>本机静态预览</span></div></header>
   <main>
     <section class="panel mode-panel" aria-label="展示模式">
-      <label>展示模式<select id="mode"><option value="demo">可点击演示</option><option value="records">012实验记录（只读）</option><option value="personnel">013人员与装备（只读）</option></select></label>
+      <label>展示模式<select id="mode"><option value="demo">可点击演示</option><option value="records">012实验记录（只读）</option><option value="personnel">013人员与装备（只读）</option><option value="forward">016前送与恢复（只读）</option></select></label>
       <label id="personnel-checkpoint-control" hidden>013检查点 / 原始样例<select id="personnel-checkpoint"></select></label>
       <label id="checkpoint-control" hidden>检查点 / 合成样例<select id="checkpoint"></select></label>
       <p id="mode-description" class="subtle">演示数据与012、013记录分离，切换模式不会改动任何实验账本。</p>
@@ -133,6 +133,68 @@
         <details class="panel personnel-details personnel-evidence"><summary>离线提取与来源文件摘要</summary><p id="p013-evidence" class="subtle"></p><dl id="p013-hashes" class="record-facts"></dl></details>
       </div>
       <footer><span>industry-013-personnel-view.v1 · 仅静态只读</span><span>检查点切换只浏览记录；REAL不表示实时连接；合成样例不代表真实推进。</span></footer>
+    </section>
+
+    <section id="forward-content" hidden aria-label="016前送与恢复记录">
+      <div class="page-title"><div><div class="eyebrow">ARCHIVE / INDUSTRY-UI-004</div><h1>前送与恢复链路</h1><p>016已完成的隔离实验 · 只读证据 · 非实时连接</p></div><span class="tag">无写入操作</span></div>
+      <section class="panel mode-panel" aria-label="016记录选择">
+        <label>分支（彼此独立）<select id="forward-branch"></select></label>
+        <label>本分支检查点 / 样例<select id="forward-checkpoint"></select></label>
+      </section>
+      <div id="f016-error" class="notice error" role="alert" hidden></div>
+      <div id="f016-data">
+        <section class="panel record-provenance">
+          <div class="panel-heading"><h2 id="f016-branch"></h2><span class="status" id="f016-origin"></span></div>
+          <div class="notice" id="f016-branch-note" role="status" aria-live="polite"></div>
+          <dl class="record-facts"><div><dt>来源提交</dt><dd id="f016-source"></dd></div><div><dt>原始来源标识</dt><dd id="f016-source-origin"></dd></div><div><dt>实际时点 / 阶段</dt><dd id="f016-time"></dd></div><div><dt>原始检查点 / 来源路径</dt><dd id="f016-label"></dd></div><div><dt>游戏 / 根 / 材料版本</dt><dd id="f016-revision"></dd></div><div><dt>导出契约</dt><dd id="f016-schema"></dd></div></dl>
+        </section>
+        <div class="workspace record-workspace forward-workspace">
+          <section class="panel"><div class="panel-heading"><h2>材料从哪里来，运到哪里</h2></div>
+            <p id="f016-route" class="forward-route"></p>
+            <dl class="record-facts"><div><dt>本次发运 / 到账 / 可用</dt><dd id="f016-shipment"></dd></div><div><dt>当前运输状态</dt><dd id="f016-shipment-state"></dd></div><div><dt>人员来源</dt><dd id="f016-personnel-source"></dd></div><div><dt>装备来源</dt><dd id="f016-equipment-source"></dd></div><div><dt>照管有效期</dt><dd id="f016-expiry"></dd></div></dl>
+            <p class="subtle">原材料上的E6/E7到账和T7/T8可用是历史A10入库信息，不覆盖本次前送时点。永久ID与旧回执不产生新材料。</p>
+          </section>
+          <section class="panel"><div class="panel-heading"><h2>恢复了什么</h2><span class="status" id="f016-recovery-state"></span></div>
+            <dl class="record-facts"><div><dt>G-I-01当前步损</dt><dd id="f016-step"></dd></div><div><dt>实际恢复效果</dt><dd id="f016-recovery"></dd></div><div><dt>消耗 / 额外付款</dt><dd id="f016-payment"></dd></div><div><dt>当前RP</dt><dd id="f016-rp"></dd></div><div><dt>恢复前后RP</dt><dd id="f016-rp-change"></dd></div><div><dt>原地图外人员额度</dt><dd id="f016-old-lq"></dd></div></dl>
+            <div id="f016-request-error" class="notice"></div>
+          </section>
+          <section class="panel warehouse">
+            <div class="panel-heading"><h2>实物、可用、隔离与消费历史</h2><span class="tag">隔离是实物子集</span></div>
+            <div class="table-scroll"><table><thead><tr><th>材料</th><th>所在位置 / 状态</th><th>当前实物</th><th>其中可用</th><th>其中隔离</th><th>已消费历史</th></tr></thead><tbody id="f016-materials"></tbody></table></div>
+            <p id="f016-capacity" class="subtle"></p>
+            <p class="subtle">已消费历史不占当前库存；隔离实物仍占仓容。预留只是空间，不是实物；各模式及分支库存不相加。</p>
+            <details class="personnel-details"><summary>原材料永久ID与持有方</summary><dl class="record-facts" id="f016-ids"></dl></details>
+          </section>
+          <section class="panel warehouse">
+            <div class="panel-heading"><h2>资金代价 · 两套原账户与内部照管划拨</h2></div>
+            <div class="table-scroll"><table><thead><tr><th>账户</th><th>累计拨款 / 内部转入</th><th>可用</th><th>托管</th><th>支出 / 转出</th></tr></thead><tbody id="f016-finance"></tbody></table></div>
+            <div id="f016-finance-note" class="notice"></div>
+          </section>
+          <section class="panel warehouse">
+            <div class="panel-heading"><h2>运力账目 · E8</h2><span class="tag">历史账目，不是当前运力</span></div>
+            <p id="f016-transport-note" class="subtle"></p>
+            <div class="table-scroll"><table><thead><tr><th>资源</th><th>上限</th><th>SP占用</th><th>材料实际freight</th><th>预留</th><th>剩余</th><th>cargo规格（不加总）</th></tr></thead><tbody id="f016-transport"></tbody></table></div>
+            <p id="f016-terminal" class="subtle"></p>
+          </section>
+          <section class="panel warehouse" id="f016-impact-panel">
+            <div class="panel-heading"><h2>E8代价 · 相对015固定参照</h2><span class="tag">同一E8对比</span></div>
+            <div class="table-scroll"><table><thead><tr><th>单位</th><th>维护SP 参照→实际</th><th>D 参照→实际</th><th>库存SP 参照→实际</th><th>库存差</th></tr></thead><tbody id="f016-impact"></tbody></table></div>
+            <p id="f016-impact-note" class="subtle"></p>
+          </section>
+          <section class="panel warehouse" id="f016-e9-panel">
+            <div class="panel-heading"><h2>未恢复分支 · 实际E9维护与损失</h2><span class="tag">REAL 独立分支</span></div>
+            <div class="notice error">没有同期E9无货运对照，不能把以下全部损失归因于本次运输。</div>
+            <p id="f016-e9-maintenance"></p><ul id="f016-e9-losses" class="record-reasons"></ul>
+            <p class="subtle">这是该未恢复分支的实际结算结果；与已恢复主线、无操作E8对照分别保存。</p>
+          </section>
+          <section class="panel warehouse"><div class="panel-heading"><h2>阻塞与只读边界</h2></div>
+            <ul id="f016-blockers" class="record-reasons"></ul><p id="f016-global" class="subtle"></p>
+            <p class="subtle">这里只能切换保存的记录，没有预算、照管、前送、恢复或续期写入操作。单次链路结果不证明训练系统已完成、长期收益或全局平衡。未导出的信息显示未提供。</p>
+          </section>
+        </div>
+        <details class="panel personnel-details"><summary>固定来源文件摘要及48项既有检查</summary><p id="f016-evidence" class="subtle"></p><dl id="f016-hashes" class="record-facts"></dl></details>
+      </div>
+      <footer><span>industry-016-view.v1 · 静态记录</span><span>REAL仅指已完成的隔离实验；SYNTHETIC不作为真实库存。</span></footer>
     </section>
   </main>
   <script type="module" src="app.mjs"></script>
