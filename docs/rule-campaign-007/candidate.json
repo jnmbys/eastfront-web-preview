@@ -1,0 +1,451 @@
+{
+  "schema": "RULE-CAMPAIGN-007.production-to-rear.candidate.1",
+  "status": "LEADER_REVIEW_REQUIRED",
+  "runtimeEnabled": false,
+  "refs": {
+    "rule006": "f09911e4792bd1da33185807f03c68b2cd9565fe",
+    "industry011": "1e7fba5fe234b2bd33f50237401868a314dfd0ea",
+    "campaign005": "5dca81b174b9423e02f9f68598a7eccce33a1b79",
+    "industryR1": "46529bef14a331b07947cb9bb5e352825af6640b",
+    "settlementR1": "1fe5a2f342928fe9da0cd9f0aaaf825b993483e1",
+    "mapR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554",
+    "campaign004": "268ea7bd3d139936c4c6e52579cd4a84470e2611"
+  },
+  "approval": {
+    "decisionRef": null,
+    "inheritsPriorSliceApproval": false,
+    "parameterStatus": "ALL_NEW_VALUES_AND_SEMANTICS_AWAIT_REVIEW"
+  },
+  "scope": {
+    "side": "G",
+    "maxOrders": 1,
+    "maxBatches": 1,
+    "materialType": "E2:L",
+    "requestedOutputE2": 2,
+    "equipmentUnit": "2 E2 = 1 E; L/H/V not interchangeable",
+    "factoryId": "RC007-OFFMAP-G",
+    "warehouseId": "RC007-REAR-G-A10",
+    "startSnapshotHash": null,
+    "startTurn": null,
+    "startPhase": "GERMAN_RECOVERY",
+    "scopeExpiresAfterEpoch": 24,
+    "newCampaignRun": false,
+    "grantsRecoveryOrFreightToC10": false
+  },
+  "budget": {
+    "unit": "I",
+    "sourceKind": "PROPOSED_ONE_TIME_ISOLATED_EXPERIMENT_I_ALLOCATION",
+    "sourceAccountId": "RC007-G-PRODUCTION-BUDGET",
+    "sourceGrantRef": null,
+    "initialAmountI": null,
+    "productionCostI": null,
+    "handoffFeeI": null,
+    "additionalIncomeAllowed": false,
+    "conversionFrom": [
+      "NONE"
+    ],
+    "old003Investment12Inherited": false,
+    "sourceExplanation": "new finite experiment funding, not national income, existing city production or an SP/RP conversion; extending construction I to a production purchase requires approval",
+    "payment": "accept: free -= cost+fee; productionSpent += cost; feeEscrow += fee. dispatch: feeEscrow -= fee; handoffSpent += fee. completion/receipt: no second debit",
+    "cancelRefundAllowed": false,
+    "sourceGrantRule": "Import only once per immutable budgetGrantId bound to match/instance/contract/side, ledger opening balance and approved allocation amount; duplicate returns receipt, changed amount rejects. No old I balance import."
+  },
+  "production": {
+    "recipeId": "RC007-E2L-ONE-ORDER",
+    "recipeApprovalRef": null,
+    "outputE2": 2,
+    "personnelOutputAllowed": false,
+    "workBoundaries": null,
+    "progressRule": "one step at E11 for each distinct committed eligible epoch starting acceptedTurn; complete at E_c where c=acceptedTurn+workBoundaries-1 if no interruption",
+    "outputEvent": "E_c.12 IndustrialOutputRecorded after final work step; exactly one finite batch",
+    "firstEpochOperationalRequirement": "off-map provider capacity must be explicitly authorized and operational in E00; not a facility built at E11 of same E",
+    "capacityApprovalRef": null,
+    "offmapBufferCapacityE2": 2,
+    "bufferReservation": "reserve full batch at acceptance; count existing plus reserved capacity; no partial output or extra catch-up production",
+    "zeroOrNullCostOrDurationAllowed": false,
+    "P_SP_RP_InputAllowed": false,
+    "equipmentOrderIsFormation": false
+  },
+  "warehouse": {
+    "id": "RC007-REAR-G-A10",
+    "nodeId": "A10",
+    "coreKey": "0,9",
+    "observedControl": null,
+    "homeSideGranted": false,
+    "capacityE2": 2,
+    "capacityStatus": "PROPOSED_FINITE_SLICE_ACCOUNT; NOT hub.cap OR PHYSICAL_CITY_CAPACITY",
+    "initialEquipmentE2": 0,
+    "initialP": 0,
+    "serviceGrantRef": null,
+    "nullControlPolicy": "REQUIRE_EXPLICIT_SCOPED_G_SERVICE_GRANT_AND_CURRENT_ELIGIBILITY; null IS_NOT friendly",
+    "nullControlApprovalRef": null,
+    "eligibility": "verify side, A10/key, current snapshot, no enemy occupation/forbidden control and approved null-control policy at dispatch and receipt; unknown refuses",
+    "capacityRule": "all resident + all incoming holds <= approved capacity; same batch hold converts to resident, not added twice",
+    "oldGiftLotsAllowed": false
+  },
+  "handoff": {
+    "id": "RC007-OFFMAP-TO-A10",
+    "approvalRef": null,
+    "kind": "PROPOSED_SINGLE_BUNDLED_EXTERNAL_LINEHAUL_LOAD_AND_A10_RECEIPT",
+    "latencyEpochs": null,
+    "feeCoveredOperations": [
+      "factory release/loading",
+      "off-map carriage",
+      "A10 unloading and custody acceptance"
+    ],
+    "capacityVector": null,
+    "resourceSharingWithSP": null,
+    "capacityRule": "finite per-side per-epoch rows required, units/caps/perE2/other holds/used specified; null rejects; no implicit unlimited handling or free external leg",
+    "chargeOwner": "single shipmentId in dispatch epoch E14; reserve then convert to used exactly once in same root transaction",
+    "receiptEvent": "E13 if previously dispatched and due; E15 only if dispatched this E and latency=1",
+    "dueRule": "dispatchEpoch + latencyEpochs - 1",
+    "blockedArrival": "HELD at shipment custody, preserve destination hold and same IDs; no arrival stock or refund of already committed transport work",
+    "failedDispatch": "rollback request holds and tentative fee spend; restore fee escrow and production-store batch; no delivery; retry same ID later",
+    "sameEpochSecondHopAllowed": false,
+    "is006FrontTerminalReceipt": false,
+    "relationTo006": "NEW unresolved exception for off-map -> A10 rear receipt, not a free standalone unloading permission under 006; cannot reuse C10 8W receipt or silently borrow/relabel rail/T/W slots",
+    "capacityRowRequiredFields": [
+      "resourceId",
+      "unit",
+      "side",
+      "epoch",
+      "finiteCap",
+      "usedByAllCommittedTraffic",
+      "holdsByOtherRequests",
+      "perE2Work",
+      "sharingPolicyRef",
+      "authorityRef"
+    ],
+    "newCapacityReview": "Any proposed external handling/linehaul budget is a NEW capability/parameter, never current SP capacity. Leader must decide finite quota and whether each row is shared or separate; omission rejects."
+  },
+  "availability": {
+    "playerUseFromTurn": "actualReceivedEpoch + 1",
+    "forwardDispatchFromEpoch": "actualReceivedEpoch + 1",
+    "E24Receipt": "availableFromTurn=25 and shipEligibleEpoch=25; TERMINAL_STOCK, no T25, no VP or R gain",
+    "E5Required": false,
+    "productionSameEpochFirstDispatch": "allowed E14 after E12 if request bound in prior T, all capacity/authority checks pass",
+    "freightRequestAtAcceptance": "one contingent request bound to this order/batch; not a reservation of nonexistent cargo or a guarantee of dispatch"
+  },
+  "identity": {
+    "namespace": "matchId + contractHash + isolatedInstanceId",
+    "orderId": "namespace/G/production/0001",
+    "batchId": "orderId/E2L/0001",
+    "shipmentId": "batchId/to-A10/0001",
+    "receiptId": "shipmentId/received",
+    "budgetGrantId": "namespace/G/budget/0001",
+    "fingerprintFields": [
+      "side",
+      "orderId",
+      "batchId",
+      "recipeHash",
+      "outputE2",
+      "productionCostI",
+      "handoffFeeI",
+      "workBoundaries",
+      "warehouseId",
+      "nodeId",
+      "coreKey",
+      "grantHashes",
+      "startSnapshotHash",
+      "contractHash"
+    ],
+    "retry": "lookup successful permanent ID before revision check; identical fingerprint returns stored receipt only, conflict rejects. New request ID cannot bypass maxOrders or recreate same batch",
+    "sameEpochEvents": "eventId=(namespace,entityId,eventKind,epoch); stage/epoch advance once",
+    "retention": "keep spent/received IDs and receipts after stock consumption; no ID recycling",
+    "productionReceiptFields": [
+      "orderId",
+      "batchId",
+      "side",
+      "materialType",
+      "quantityE2",
+      "recipeHash",
+      "paidProductionReceiptId",
+      "completedEpoch",
+      "workEpochs",
+      "producerGrantHash",
+      "inputSnapshotHash",
+      "contractHash"
+    ]
+  },
+  "custody": {
+    "states": [
+      "NOT_CREATED",
+      "PRODUCTION_STORE",
+      "IN_TRANSIT",
+      "HELD",
+      "REAR_UNAVAILABLE",
+      "REAR_AVAILABLE",
+      "TERMINAL_STOCK"
+    ],
+    "uniqueOwner": "batch quantity at exactly one owner; warehouse incoming reservation is a capacity claim, not a second material balance",
+    "allowedImports": [
+      "validated production completion receipt tied to paid order; NOT client claim or old manifest"
+    ],
+    "conservation": "producedE2 = productionStoreE2 + inTransitOrHeldE2 + rearE2 in this slice; initialE2=0",
+    "PSource": {
+      "kind": "SEPARATE_TRAINED_PERSONNEL_ALLOCATION_NOT_EQUIPMENT_OUTPUT",
+      "grantRef": null,
+      "quantityP": null,
+      "inScope": false,
+      "note": "old 011/CAMPAIGN-005 gift receipt is not new P authority; no P import or complete repair kit here"
+    }
+  },
+  "atomicity": {
+    "root": [
+      "budget",
+      "orders",
+      "work counters",
+      "production receipts",
+      "batch custody",
+      "capacity holds and usage",
+      "warehouse reservations",
+      "event receipts",
+      "revision/idempotency index"
+    ],
+    "guard": "expectedRevision + fixed snapshot/contract/grant hashes + serialized single owner",
+    "failure": "restore all tentative writes to before; error receipts do not mark success; committed prior epochs remain intact",
+    "deadlineSeconds": 3,
+    "noRNGAdvance": true,
+    "persistentIdempotency": "durable journal/atomic snapshot recovery REQUIRED before claiming cross-process or crash safety; not established by 011 in-memory owner or this validator",
+    "noRuntimeAdapterHere": true
+  },
+  "preserved": {
+    "globalBlockerCount": 35,
+    "globalBlockersClosed": 0,
+    "GermanSourceGapSP": 9,
+    "SovietSourceGapSP": 14,
+    "extra22SP": false,
+    "changesCoreMapControlHomeSideVP": false,
+    "011KitFirstApprovalInherited": false
+  },
+  "blockerReview": [
+    {
+      "blocker": "RUNTIME_NOT_APPROVED",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "approval",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_RUNTIME_DECISION",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "approval",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:DEP-G-A10",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "warehouse.serviceGrantRef",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:DEP-S-AF10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:REC-G-C10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:REC-S-AC10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "warehouse.capacityE2",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "identity + productionReceipt; no initial equipment grant",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:authorization.approvedNullControlPolicy",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "warehouse.nullControlPolicy",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:authorization.nullControlApprovalRef",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "warehouse.nullControlApprovalRef",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:recovery.recipeApprovalRef",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:recovery.integrationHookApprovalRef",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:budget.policyApprovalRef",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.approvedEquipmentVectorRule",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "handoff.capacityVector",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.approvedPersonnelTransportRule",
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "field": null,
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.vectorRuleApprovalRef",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "handoff.approvalRef",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "handoff",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.initialMaterialManifest",
+      "scope": "LOCAL_CANDIDATE_STILL_UNAPPROVED",
+      "field": "initialEquipmentE2=0; production provenance replaces grant only in this namespace",
+      "globalResolved": false
+    }
+  ],
+  "newUnresolved": [
+    "production I allocation amount and provenance approval",
+    "production recipe price and lead time",
+    "off-map producer operational/capacity authority",
+    "external handoff fee, latency, finite resource vector and sharing with SP",
+    "A10 service, null-control policy and slice capacity approval",
+    "exact isolated instance snapshot, start turn and parameter hashes",
+    "durable atomic ledger and recovery after process failure"
+  ],
+  "notProven": [
+    "actual production or transport",
+    "Core eligibility",
+    "route or SP feasibility",
+    "runtime atomicity/retry/crash safety",
+    "prices, capacity, campaign balance",
+    "P availability or restoration capability"
+  ]
+}

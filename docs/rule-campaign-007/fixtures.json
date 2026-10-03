@@ -1,0 +1,1048 @@
+{
+  "description": "All numeric quote values and service claims are synthetic arithmetic premises, NOT candidate recommendations or runtime authority. No Core/solver/transport execution.",
+  "base": {
+    "kind": "SYNTHETIC_ARITHMETIC_ONLY",
+    "before": {
+      "freeI": 10,
+      "escrow": 0,
+      "productionSpent": 0,
+      "handoffSpent": 0,
+      "store": 0,
+      "transit": 0,
+      "rear": 0,
+      "produced": 0,
+      "P": 0,
+      "workUsed": 0,
+      "incomingHold": 0,
+      "availableFromTurn": null,
+      "shipEligibleEpoch": null,
+      "terminal": false
+    },
+    "quote": {
+      "costI": 3,
+      "feeI": 2,
+      "duration": 2,
+      "latency": 1,
+      "yieldE2": 2,
+      "workPerE2": 2,
+      "workCap": 6,
+      "otherWork": 2,
+      "bufferCap": 2,
+      "rearCap": 2,
+      "otherIncoming": 0,
+      "authority": "SYNTHETIC_ONLY",
+      "side": "G",
+      "hex": "A10",
+      "key": "0,9",
+      "nullPolicyApproved": true,
+      "enemyOccupied": false,
+      "POutput": 0
+    },
+    "events": [
+      {
+        "id": "O1/accept",
+        "kind": "ACCEPT",
+        "turn": 7,
+        "stage": 0,
+        "phase": "GERMAN_RECOVERY"
+      },
+      {
+        "id": "O1/progress/E7",
+        "kind": "PROGRESS",
+        "turn": 7,
+        "stage": 11
+      },
+      {
+        "id": "O1/progress/E8",
+        "kind": "PROGRESS",
+        "turn": 8,
+        "stage": 11
+      },
+      {
+        "id": "B1/output",
+        "kind": "OUTPUT",
+        "turn": 8,
+        "stage": 12
+      },
+      {
+        "id": "S1/dispatch",
+        "kind": "DISPATCH",
+        "turn": 8,
+        "stage": 14
+      },
+      {
+        "id": "S1/receipt",
+        "kind": "RECEIVE",
+        "turn": 8,
+        "stage": 15,
+        "serviceEligible": true
+      },
+      {
+        "id": "query/T9",
+        "kind": "CHECK_AVAILABLE",
+        "turn": 9,
+        "stage": 0
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "B01_normal_paid_order",
+      "changes": [],
+      "expected": "PASS",
+      "expectedAfter": {
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "produced": 2,
+        "rear": 2,
+        "transit": 0,
+        "store": 0,
+        "workUsed": 4,
+        "incomingHold": 0,
+        "availableFromTurn": 9,
+        "shipEligibleEpoch": 9,
+        "P": 0
+      }
+    },
+    {
+      "id": "B02_retry_accept",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 0,
+      "expectedAfter": {
+        "freeI": 5,
+        "rear": 2,
+        "produced": 2,
+        "workUsed": 4
+      }
+    },
+    {
+      "id": "B03_retry_output",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 3,
+      "expectedAfter": {
+        "freeI": 5,
+        "rear": 2,
+        "produced": 2,
+        "workUsed": 4
+      }
+    },
+    {
+      "id": "B04_retry_dispatch",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 4,
+      "expectedAfter": {
+        "freeI": 5,
+        "rear": 2,
+        "produced": 2,
+        "workUsed": 4
+      }
+    },
+    {
+      "id": "B05_retry_receipt",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 5,
+      "expectedAfter": {
+        "freeI": 5,
+        "rear": 2,
+        "produced": 2,
+        "workUsed": 4
+      }
+    },
+    {
+      "id": "B06_unknown_price",
+      "changes": [
+        [
+          "quote.costI",
+          null
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:costI"
+    },
+    {
+      "id": "B07_zero_price",
+      "changes": [
+        [
+          "quote.costI",
+          0
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:costI"
+    },
+    {
+      "id": "B08_unknown_handoff_fee",
+      "changes": [
+        [
+          "quote.feeI",
+          null
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:feeI"
+    },
+    {
+      "id": "B09_zero_duration",
+      "changes": [
+        [
+          "quote.duration",
+          0
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:duration"
+    },
+    {
+      "id": "B10_no_authority",
+      "changes": [
+        [
+          "quote.authority",
+          null
+        ]
+      ],
+      "expected": "MISSING_AUTHORITY"
+    },
+    {
+      "id": "B11_wrong_side",
+      "changes": [
+        [
+          "quote.side",
+          "S"
+        ]
+      ],
+      "expected": "WRONG_SERVICE"
+    },
+    {
+      "id": "B12_wrong_hex",
+      "changes": [
+        [
+          "quote.hex",
+          "B10"
+        ]
+      ],
+      "expected": "WRONG_SERVICE"
+    },
+    {
+      "id": "B13_render_key_misuse",
+      "changes": [
+        [
+          "quote.key",
+          "0,10"
+        ]
+      ],
+      "expected": "WRONG_SERVICE"
+    },
+    {
+      "id": "B14_null_not_friendly",
+      "changes": [
+        [
+          "quote.nullPolicyApproved",
+          false
+        ]
+      ],
+      "expected": "NULL_OR_HOSTILE_CONTROL"
+    },
+    {
+      "id": "B15_enemy_occupation",
+      "changes": [
+        [
+          "quote.enemyOccupied",
+          true
+        ]
+      ],
+      "expected": "NULL_OR_HOSTILE_CONTROL"
+    },
+    {
+      "id": "B16_factory_cannot_produce_P",
+      "changes": [
+        [
+          "quote.POutput",
+          1
+        ]
+      ],
+      "expected": "NOT_EQUIPMENT_ONLY"
+    },
+    {
+      "id": "B17_old_material_gift",
+      "changes": [
+        [
+          "before.rear",
+          2
+        ]
+      ],
+      "expected": "OLD_GIFT"
+    },
+    {
+      "id": "B18_budget_short",
+      "changes": [
+        [
+          "before.freeI",
+          4
+        ]
+      ],
+      "expected": "BUDGET_SHORT"
+    },
+    {
+      "id": "B19_unknown_capacity",
+      "changes": [
+        [
+          "quote.workCap",
+          null
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:workCap"
+    },
+    {
+      "id": "B20_shared_work_exhausted",
+      "changes": [
+        [
+          "quote.otherWork",
+          3
+        ]
+      ],
+      "expected": "HANDOFF_CAPACITY"
+    },
+    {
+      "id": "B21_incoming_holds_count",
+      "changes": [
+        [
+          "quote.otherIncoming",
+          1
+        ]
+      ],
+      "expected": "WAREHOUSE_CAPACITY"
+    },
+    {
+      "id": "B22_production_buffer_full",
+      "changes": [
+        [
+          "quote.bufferCap",
+          1
+        ]
+      ],
+      "expected": "PRODUCTION_STORAGE"
+    },
+    {
+      "id": "B23_wrong_order_window",
+      "changes": [
+        [
+          "events.0.phase",
+          "GERMAN_COMBAT"
+        ]
+      ],
+      "expected": "ORDER_PHASE"
+    },
+    {
+      "id": "B24_early_output",
+      "changes": [
+        [
+          "quote.duration",
+          3
+        ]
+      ],
+      "expected": "EARLY_OUTPUT"
+    },
+    {
+      "id": "B25_early_arrival",
+      "changes": [
+        [
+          "quote.latency",
+          2
+        ]
+      ],
+      "expected": "EARLY_ARRIVAL"
+    },
+    {
+      "id": "B26_same_E_forwarding",
+      "changes": [
+        [
+          "events.6.turn",
+          8
+        ],
+        [
+          "events.6.stage",
+          16
+        ],
+        [
+          "events.6.kind",
+          "CHECK_FORWARD"
+        ]
+      ],
+      "expected": "EARLY_REUSE"
+    },
+    {
+      "id": "B27_same_E_player_use",
+      "changes": [
+        [
+          "events.6.turn",
+          8
+        ],
+        [
+          "events.6.stage",
+          16
+        ]
+      ],
+      "expected": "EARLY_REUSE"
+    },
+    {
+      "id": "B28_receipt_no_service",
+      "changes": [
+        [
+          "events.5.serviceEligible",
+          false
+        ]
+      ],
+      "expected": "RECEIVER_INELIGIBLE"
+    },
+    {
+      "id": "B29_new_id_second_order",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/accept-new",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "SECOND_ORDER"
+    },
+    {
+      "id": "B30_new_id_double_progress",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E7-new",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "DOUBLE_PROGRESS"
+    },
+    {
+      "id": "B31_new_id_double_output",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "B1/output-new",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "DOUBLE_OUTPUT"
+    },
+    {
+      "id": "B32_new_id_double_receipt",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "S1/receipt-new",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "RECEIPT_CUSTODY"
+    },
+    {
+      "id": "B33_conflicting_retry",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": false
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "ID_PAYLOAD_CONFLICT"
+    },
+    {
+      "id": "B34_held_then_receive_once",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/held/E8",
+              "kind": "HOLD",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": false
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 9,
+              "stage": 13,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T10",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 10,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "rear": 2,
+        "transit": 0,
+        "handoffSpent": 2,
+        "workUsed": 4,
+        "availableFromTurn": 10,
+        "shipEligibleEpoch": 10
+      }
+    },
+    {
+      "id": "B35_latency2_later_E13",
+      "changes": [
+        [
+          "quote.latency",
+          2
+        ],
+        [
+          "events.5.turn",
+          9
+        ],
+        [
+          "events.5.stage",
+          13
+        ],
+        [
+          "events.6.turn",
+          10
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "rear": 2,
+        "availableFromTurn": 10
+      }
+    },
+    {
+      "id": "B36_E24_terminal_stock",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 23,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 23,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 24,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 24,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 24,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 24,
+              "stage": 15,
+              "serviceEligible": true
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "rear": 2,
+        "availableFromTurn": 25,
+        "shipEligibleEpoch": 25,
+        "terminal": true
+      }
+    },
+    {
+      "id": "B37_no_T25",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 23,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 23,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 24,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 24,
+              "stage": 12
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 24,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 24,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T25",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 25,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "NO_T25"
+    },
+    {
+      "id": "B38_failed_dispatch_unchanged_then_retry",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "failed-dispatch",
+              "kind": "FAILED_TRANSACTION",
+              "turn": 8,
+              "stage": 14,
+              "beforeHash": "76f0e81ee5475995a76f140c06630eefb1fa9a775a28fce28aeedd51da410cb1",
+              "afterHash": "76f0e81ee5475995a76f140c06630eefb1fa9a775a28fce28aeedd51da410cb1"
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "freeI": 5,
+        "escrow": 0,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "rear": 2,
+        "workUsed": 4
+      }
+    },
+    {
+      "id": "B39_partial_rollback_rejected",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "O1/accept",
+              "kind": "ACCEPT",
+              "turn": 7,
+              "stage": 0,
+              "phase": "GERMAN_RECOVERY"
+            },
+            {
+              "id": "O1/progress/E7",
+              "kind": "PROGRESS",
+              "turn": 7,
+              "stage": 11
+            },
+            {
+              "id": "O1/progress/E8",
+              "kind": "PROGRESS",
+              "turn": 8,
+              "stage": 11
+            },
+            {
+              "id": "B1/output",
+              "kind": "OUTPUT",
+              "turn": 8,
+              "stage": 12
+            },
+            {
+              "id": "failed-dispatch",
+              "kind": "FAILED_TRANSACTION",
+              "turn": 8,
+              "stage": 14,
+              "beforeHash": "76f0e81ee5475995a76f140c06630eefb1fa9a775a28fce28aeedd51da410cb1",
+              "afterHash": "partial-write"
+            },
+            {
+              "id": "S1/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14
+            },
+            {
+              "id": "S1/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "serviceEligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 0
+            }
+          ]
+        ]
+      ],
+      "expected": "PARTIAL_ROLLBACK"
+    }
+  ]
+}
