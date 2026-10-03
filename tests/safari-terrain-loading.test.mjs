@@ -10,7 +10,7 @@ const safari=terrainImageLoadPolicy('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_1
 const chrome=terrainImageLoadPolicy('Mozilla/5.0 AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36');
 const flush=async()=>{for(let i=0;i<20;i++)await Promise.resolve();};
 
-function environment(t,{src,decode,fetch,bitmap,draw}={}){
+function environment(t,{src,decode,fetch,bitmap,draw,pixels}={}){
   const previous=Object.fromEntries(['Image','document','fetch','createImageBitmap'].map(key=>[key,globalThis[key]]));
   const images=[],canvases=[],trace=[],events=[],revoked=[];
   class Image {
@@ -23,7 +23,10 @@ function environment(t,{src,decode,fetch,bitmap,draw}={}){
   globalThis.Image=Image;
   globalThis.document={baseURI:'https://example.test/eastfront/',createElement(tag){
     assert.equal(tag,'canvas');
-    const canvas={width:0,height:0,getContext(){return {drawImage(image){trace.push('canvas');assert(image.naturalWidth>0);draw?.(image);}};}};
+    const canvas={width:0,height:0,getContext(){return {
+      drawImage(image){trace.push('canvas');assert(image.naturalWidth>0);draw?.(image);},
+      getImageData(x,y,width,height){return {data:pixels?pixels({x,y,width,height}):new Uint8ClampedArray([0,0,0,255])};},
+    };}};
     canvases.push(canvas);return canvas;
   }};
   globalThis.fetch=async(...args)=>{trace.push('fetch');return fetch?fetch(...args):{ok:true,status:200,blob:async()=>new Blob(['pixels'])};};
@@ -114,6 +117,62 @@ test('Safari Canvas failure can still resolve through decode without blank textu
   const pending=imageFromUrl(url,entry,'direct-image-load',caps,200,true);
   await new Promise(resolve=>setTimeout(resolve,10));completeDecode();
   const image=await pending;assert.equal(image.source,env.images[0]);assert.equal(env.canvases[0].width,0);image.release();
+});
+
+test('R1 transparent onload copy cannot complete an asset or release an image with decode pending',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});let finishDecode,settled=false;
+  const env=environment(t,{pixels:()=>new Uint8ClampedArray(4),decode:()=>new Promise(resolve=>{finishDecode=resolve;})});
+  const pending=loadTerrainImage(entry,'p5',caps,url,safari).then(image=>{settled=true;return image;});
+  await flush();t.mock.timers.tick(0);await flush();loaded(env.images[0]);await flush();
+  assert.equal(settled,false);assert.equal(env.events.length,0);assert.equal(env.images[0].src,url);
+  assert.equal(env.canvases[0].width,0);assert.equal(env.canvases[0].height,0);
+  finishDecode();const image=await pending;assert.equal(image.source,env.images[0]);
+  assert.equal(env.events.filter(e=>e.kind==='asset-complete').length,1);
+  assert(!env.trace.includes('fetch'));image.release();assert.equal(env.images[0].src,'');
+  t.mock.timers.tick(60000);await flush();assert.equal(env.canvases.length,1);
+});
+
+test('R1 blank copy and hung decode reach the unchanged deadline and retain independent fetch recovery',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});let closed=0;
+  const env=environment(t,{pixels:()=>new Uint8ClampedArray(4),bitmap:async()=>({width:16,height:8,close(){closed++;}})});
+  const pending=loadTerrainImage(entry,'p5',caps,url,safari);
+  await flush();t.mock.timers.tick(0);await flush();loaded(env.images[0]);await flush();
+  t.mock.timers.tick(59999);await flush();assert(!env.trace.includes('fetch'));assert.equal(env.events.length,0);
+  t.mock.timers.tick(1);await flush();const image=await pending;
+  assert(env.trace.includes('fetch'));assert(env.trace.includes('bitmap'));assert.equal(env.images[0].src,'');
+  assert(env.canvases.every(c=>c.width===0&&c.height===0));
+  assert.equal(env.events.filter(e=>e.kind==='asset-complete').length,1);image.release();assert.equal(closed,1);
+});
+
+test('R1 empty pixels plus rejected decode fail explicitly without a false success',async t=>{
+  const env=environment(t,{pixels:()=>new Uint8ClampedArray(4),decode:()=>Promise.reject(new Error('EncodingError'))});
+  const pending=imageFromUrl(url,entry,'direct-image-load',caps,100,true);
+  const rejected=assert.rejects(pending,error=>error.details.stage==='direct-image-load'&&error.details.cause.includes('no visible pixels'));
+  await flush();loaded(env.images[0]);await rejected;
+  assert.equal(env.images[0].src,'');assert.equal(env.events.length,0);assert(env.canvases.every(c=>c.width===0));
+});
+
+test('R1 cancellation after an empty copy clears ownership and cannot adopt a late decode',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});let finishDecode;
+  const env=environment(t,{pixels:()=>new Uint8ClampedArray(4),decode:()=>new Promise(resolve=>{finishDecode=resolve;})});
+  const controller=new AbortController();
+  const pending=imageFromUrl(url,entry,'direct-image-load',caps,60,true,controller.signal);
+  const rejected=assert.rejects(pending,{name:'AbortError'});
+  await flush();loaded(env.images[0]);controller.abort();await rejected;
+  assert.equal(env.images[0].src,'');assert.equal(env.images[0].onload,null);assert.equal(env.images[0].onerror,null);
+  finishDecode();t.mock.timers.tick(60);await flush();
+  assert.equal(env.canvases.length,1);assert.equal(env.canvases[0].width,0);assert.equal(env.events.length,0);
+});
+
+test('R1 sparse transparent terrain is accepted, including a visible pixel in the last bounded stripe',async t=>{
+  const reads=[];
+  const env=environment(t,{src:image=>{ready(image);image.naturalWidth=64;image.naturalHeight=65;},pixels:area=>{
+    reads.push(area);const data=new Uint8ClampedArray(area.width*area.height*4);
+    if(area.y===64)data[data.length-1]=1;return data;
+  }});
+  const image=await imageFromUrl(url,entry,'direct-image-load',{...caps,htmlImageDecode:false},60,true);
+  assert.equal(image.source,env.canvases[0]);assert.deepEqual(reads.map(r=>[r.y,r.height]),[[0,32],[32,32],[64,1]]);
+  assert(reads.every(r=>r.width*r.height*4<=64*32*4));assert.equal(env.images[0].src,'');image.release();
 });
 
 test('bitmap rejection falls back to blob image decode and revokes URL after use',async t=>{

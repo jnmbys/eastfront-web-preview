@@ -1,0 +1,62 @@
+{
+  "targeted": {
+    "command": "node --test tests/safari-terrain-loading.test.mjs tests/startup003-pipeline.test.mjs tests/startup002-diagnostics.test.mjs tests/startup-progress.test.mjs tests/ui009r2d2-loader.test.mjs tests/ui009r2-startup-loader.test.mjs tests/ui009r2-terrain-surface.test.mjs tests/perf003-terrain.test.mjs tests/vs2-world-surface.test.mjs tests/vs2-surface-integration.test.mjs tests/vs2-infrastructure-lod.test.mjs",
+    "pass": 95,
+    "fail": 0,
+    "log": "targeted-tests.log.gz"
+  },
+  "boundary": {
+    "command": "npm run server:build && node --test --test-name-pattern='freezes|frozen|bytes unchanged|Core.*unchanged' tests/fow001-player-view.test.mjs tests/fow002-fog.test.mjs tests/mp001-authority.test.mjs tests/performance-pass1.test.mjs tests/ua003r3-model-first.test.mjs",
+    "pass": 7,
+    "fail": 0,
+    "log": "boundary-tests.log.gz"
+  },
+  "typecheck": {
+    "command": "npm run typecheck",
+    "result": "PASS",
+    "log": "typecheck.log.gz"
+  },
+  "browserDatasets": {
+    "webkit-matrix": {
+      "complete": true,
+      "pixelEquality": false,
+      "fixedPixelGate": true,
+      "rows": 10,
+      "reference": "same original warm hash independently verified by analyze.py; early repeat harness selected first warm row"
+    },
+    "webkit-repeat": {
+      "complete": true,
+      "pixelEquality": true,
+      "fixedPixelGate": true,
+      "rows": 8,
+      "reference": "same original warm hash independently verified by analyze.py; early repeat harness selected first warm row"
+    },
+    "webkit-lifecycle": {
+      "complete": true,
+      "pixelEquality": true,
+      "fixedPixelGate": true,
+      "rows": 13,
+      "reference": {
+        "label": "original",
+        "cache": "warm",
+        "rgbaSha256": "54b4a71c077ba852a1cc30244d00eda50072a9847e5bec371ca533fe7b331358",
+        "browserVersion": "26.5"
+      }
+    },
+    "chromium-slow": {
+      "complete": true,
+      "pixelEquality": true,
+      "fixedPixelGate": true,
+      "rows": 12,
+      "reference": {
+        "label": "original",
+        "cache": "warm",
+        "rgbaSha256": "60b5ab1d693d03593f25f33e55c75876564052fb7535515deb1cd2ce24450528",
+        "browserVersion": "154.0.4258.53"
+      }
+    }
+  },
+  "fullSuite": "NOT_RERUN; retain prior report unchanged",
+  "huawei": "NOT_TESTED",
+  "notes": "Native cold/warm and slow data use true native decode. Only blob-fallback fixture rejects bitmap. No production timeout or pixel tolerance altered."
+}

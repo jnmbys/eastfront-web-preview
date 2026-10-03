@@ -179,6 +179,7 @@ test('VS2 observer on/off produces identical draw trace, pixels, resource order 
 const baseline=JSON.parse(read('tests/fixtures/startup-baseline-sha256.json'));
 // STARTUP003 explicitly reviewed loader files; preserve the historical checkpoint.
 const startup003=JSON.parse(read('tests/fixtures/startup003-checkpoint-sha256.json'));
+const startup003r1=JSON.parse(read('tests/fixtures/startup003r1-checkpoint-sha256.json'));
 const mpBoundary=JSON.parse(read('tests/fixtures/performance-frozen-sha256.json'));
 function withoutObservation(source) {
   return source.replace(/^import \{ report(?:TerrainLoad|LoadedTerrainImage) \} from '\.\/terrainLoadProgress.js';\n/m,'')
@@ -188,7 +189,7 @@ function withoutObservation(source) {
     .replace('return reportLoadedTerrainImage({source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()});','return {source:bitmap,width:bitmap.width,height:bitmap.height,release:()=>bitmap.close()};');
 }
 test('recorded reviewed terrain startup checkpoint matches frozen source after removing observation',()=>{
-  for(const [path,expected] of Object.entries({...baseline,...startup003}).filter(([path])=>path.startsWith('src/render/'))) {
+  for(const [path,expected] of Object.entries({...baseline,...startup003,...startup003r1}).filter(([path])=>path.startsWith('src/render/'))) {
     assert.equal(createHash('sha256').update(withoutObservation(read(path))).digest('hex'),expected,path);
   }
 });

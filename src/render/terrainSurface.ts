@@ -102,6 +102,17 @@ export async function imageFromUrl(url:string,entry:TerrainAssetEntry,stage:'htm
         canvas=document.createElement('canvas');canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
         const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Terrain image Canvas 2D unavailable');
         ctx.drawImage(img,0,0);
+        // WebKit can deliver onload/dimensions while a concurrent decode() is
+        // still pending: drawImage then silently copies no pixels. Do not adopt
+        // that empty Canvas or clear the image before decode can finish.
+        // Terrain assets contain visible pixels; inspect bounded stripes so a
+        // rejected/hung/absent decode can still use a real onload Canvas copy.
+        let visible=false;
+        for(let row=0;row<canvas.height&&!visible;row+=32){
+          const pixels=ctx.getImageData(0,row,canvas.width,Math.min(32,canvas.height-row)).data;
+          for(let i=3;i<pixels.length;i+=4)if(pixels[i]!>0){visible=true;break;}
+        }
+        if(!visible)throw new Error('Terrain image Canvas copy has no visible pixels');
         const source=canvas;
         succeed({source,width:canvas.width,height:canvas.height,release:()=>{source.width=0;source.height=0;}});
         dispose();return true;
