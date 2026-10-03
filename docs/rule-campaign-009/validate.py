@@ -31,7 +31,8 @@ def digest(v):
 
 def evidence(c, sources):
     need(c['runtimeEnabled'] is False and all(v is None for k, v in c['approval'].items()
-         if k != 'inherits011013Or014Authorization'), 'PENDING_AUTHORITY_REQUIRED')
+         if k not in ('inherits011013Or014Authorization', 'industry015EvidenceCommit')), 'PENDING_AUTHORITY_REQUIRED')
+    need(c['approval']['industry015EvidenceCommit'] == c['refs']['industry015'], '015_REF')
     need(c['approval']['inherits011013Or014Authorization'] is False, 'OLD_AUTHORITY')
     need(c['refs'] == sources['refs'], 'REFS')
     blobs = {}
@@ -78,7 +79,45 @@ def evidence(c, sources):
         need(remaining == saved['remainingWithFrozenSP'], '014_ARITHMETIC')
         recalculated.append(dict(id=row['id'], referenceSP=saved['referenceSP'], cargo=row['perBundle'], remaining=remaining))
     need(plan['capacity']['status'] == 'INFEASIBLE' and recalculated[-1]['remaining'] == -8, '014_BLOCKER_LOST')
+    compressed = blobs['experiments/industry-integrate-015/RESULT.json.gz']
+    fullbytes = gzip.decompress(compressed)
+    full = json.loads(fullbytes)
+    summary = json.loads(blobs['experiments/industry-integrate-015/RESULT.json'])
+    check015(c, full, summary, sha(compressed), sha(fullbytes))
     return r, plan, len(blobs), recalculated
+
+
+def check015(c, full, summary, compressed_sha, full_sha):
+    m = c['maintenanceCandidate']
+    need(m['sourceCommit'] == c['refs']['industry015'] and m['compressedSha256'] == compressed_sha
+         and m['decompressedSha256'] == full_sha == summary['fullResultSha256'], '015_ARCHIVE_HASH')
+    need(m['rootHash'] == full['rootHash'] == c['start']['rootHash'] and
+         m['inputHash'] == full['inputHash'] and m['plan014Sha256'] == full['plan014Sha256'], '015_INPUT')
+    need(m['completeCandidateHash'] == digest(full['candidate']) and
+         m['unitComparisonHash'] == digest(full['unitComparison']) and
+         m['unitComparisonCount'] == len(full['unitComparison']) == 63 and
+         m['profileHash'] == digest(full['profile']) and m['sovietFrozenHash'] == full['sovietHash'], '015_COMPLETE_CANDIDATE')
+    need(m['changedUnits'] == full['changedUnits'] and m['capacity'] == full['capacity']
+         and m['conservation'] == full['conservation'], '015_PROJECTION_CHANGED')
+    german = [u for u in full['unitComparison'] if u['side'] == 'G']
+    reductions = {u['id']: max(0, u['reference']['maintenance'] - u['alternative']['maintenance']) for u in german}
+    reductions = {k: v for k, v in reductions.items() if v}
+    need(reductions == {'G-REC-02': 2} and m['selectedMaintenanceReductionUnit'] == 'G-REC-02'
+         and m['maintenanceReductionQ'] == sum(reductions.values()) == 2
+         and m['maintenanceReductionSP'] == '1/2', '015_SACRIFICE_CHANGED')
+    stock = {u['id']: u['alternative']['after'] - u['reference']['after'] for u in german
+             if u['alternative']['after'] != u['reference']['after']}
+    need(stock == {'G-I-01': 4, 'G-PZ-01': -2}, '015_STOCK_DELTAS')
+    need(sum(u['reference']['maintenance'] for u in german) == 68
+         and sum(u['alternative']['maintenance'] for u in german) == 66, '015_MAINTENANCE_TOTAL')
+    for row, expected in zip(full['capacity'], c['capacity']['rows']):
+        need(row['id'] == expected['id'] and row['cargo'] == expected['perBundle'] and
+             row['originalCap'] == expected['capReference'] and
+             row['originalCap'] - row['spUsed'] - row['cargo'] == row['remaining'] >= 0, '015_CAPACITY_ARITHMETIC')
+    need(all(v == 0 for v in full['actualTransactions'].values()) and not full['published']
+         and m['approvalStillRequired'] is True, '015_NOT_AUTHORIZATION')
+    need(m['costLedgers']['careI'] == c['care']['feeI'] == 1 and
+         m['costLedgers']['maintenanceQ'] == 2 and m['costLedgers']['maintenanceSP'] == '1/2', 'COST_LEDGERS_MIXED')
 
 
 def audit(c, f, start):
@@ -121,8 +160,11 @@ def audit(c, f, start):
             need(s['aP'] == 1 and s['aE'] == 2 and s['sourceE2Resident'] == 2, 'SOURCE_CUSTODY')
             need(e['routeEligible'] and e['target'] == 'G-I-01', 'ROUTE_OR_TARGET')
             need(e['approvedCapacityPolicyWitness'], '015_APPROVAL_OR_WITNESS_MISSING')
+            need(e['candidateHash'] == c['maintenanceCandidate']['completeCandidateHash'] and
+                 e['inputHash'] == c['maintenanceCandidate']['inputHash'], '015_CANDIDATE_BINDING')
             for row in c['capacity']['rows']:
                 need(e['otherUsage'][row['id']] + row['perBundle'] <= row['capReference'], 'CAPACITY:' + row['id'])
+            need(e['otherUsage'] == {r['id']: r['spUsed'] for r in c['maintenanceCandidate']['capacity']}, '015_CAPACITY_WITNESS')
             need(e['receiverFreeP'] >= 1 and e['receiverFreeE'] >= 2, 'MATERIAL_CAPACITY')
             s.update(aP=0, aE=0, sourceE2Resident=0, tP=1, tE=2, incomingP=1, incomingE=2,
                      railAB=8, railBC=8, T=16, W=8, ownerStatus='IN_TRANSIT', availableFromTurn=9)
@@ -205,8 +247,12 @@ def main():
         out = dict(status='VALID_CANDIDATE_ONLY', runtimeDecision='REJECT', sourcesVerified=n,
             rootHashVerified=digest(root), permanentReceiptsRetained=len(root['receipts']),
             known014Blockers=plan['blockers'], static014Rows=recalculated, checks=checks,
+            fixed015=dict(commit=c['refs']['industry015'], completeCandidateHash=c['maintenanceCandidate']['completeCandidateHash'],
+                unitRows=63, careI=1, separateMaintenanceReductionQ=2, separateMaintenanceReductionSP='1/2',
+                selectedUnit='G-REC-02', authorization=False),
             globalBlockers=c['globalBlockersRetained'], globalClosed=0, pending=c['pending'],
-            notProven=['015 costs or feasibility', 'Core/transport execution', 'runtime idempotency/rollback/crash safety'],
+            notProven=['feasibility after any change to the fixed E8 input; long-term maintenance consequences',
+                       'Core/transport execution or authorization', 'runtime idempotency/rollback/crash safety'],
             fileHashes={name: sha((HERE / name).read_bytes()) for name in
                         ('candidate.json', 'SOURCES.json', 'fixtures.json', 'validate.py', 'DIFF.md')})
         print(json.dumps(out, ensure_ascii=False, indent=2))

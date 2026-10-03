@@ -1,7 +1,7 @@
 {
   "status": "VALID_CANDIDATE_ONLY",
   "runtimeDecision": "REJECT",
-  "sourcesVerified": 10,
+  "sourcesVerified": 14,
   "rootHashVerified": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
   "permanentReceiptsRetained": 37,
   "known014Blockers": [
@@ -636,8 +636,33 @@
       "name": "partial_rollback_rejected",
       "outcome": "PASS",
       "reason": "PARTIAL_ROLLBACK"
+    },
+    {
+      "name": "changed015_candidate_rejected",
+      "outcome": "PASS",
+      "reason": "015_CANDIDATE_BINDING"
+    },
+    {
+      "name": "changed_E8_input_rejected",
+      "outcome": "PASS",
+      "reason": "015_CANDIDATE_BINDING"
+    },
+    {
+      "name": "different_capacity_witness_rejected",
+      "outcome": "PASS",
+      "reason": "015_CAPACITY_WITNESS"
     }
   ],
+  "fixed015": {
+    "commit": "fef6d57f8169fe981d3d13b16774b2503eb6dd9e",
+    "completeCandidateHash": "50c31db0bb29330b4a581e5c3bdec26190f6fd0d9d25f2918f9342ef58c5ac25",
+    "unitRows": 63,
+    "careI": 1,
+    "separateMaintenanceReductionQ": 2,
+    "separateMaintenanceReductionSP": "1/2",
+    "selectedUnit": "G-REC-02",
+    "authorization": false
+  },
   "globalBlockers": [
     "RUNTIME_NOT_APPROVED",
     "MISSING_RUNTIME_DECISION",
@@ -678,21 +703,21 @@
   "globalClosed": 0,
   "pending": [
     "Leader contract and 012-budget-use/transfer approval",
-    "015 fixed cost evidence and separately approved priority policy plus live feasible capacity witness",
+    "Separate approval for the bound 015 exact policy and transport; current E8 input must match saved inputHash and full candidate witness (no new solve or alternative unit)",
     "new route/null/C10 receipt and T9 recovery approvals",
     "implementation of whole-root scope-aware expiry, authoritative E2 source decrement and shared RP/PE seam",
     "durability and broader balance remain unproven"
   ],
   "notProven": [
-    "015 costs or feasibility",
-    "Core/transport execution",
+    "feasibility after any change to the fixed E8 input; long-term maintenance consequences",
+    "Core/transport execution or authorization",
     "runtime idempotency/rollback/crash safety"
   ],
   "fileHashes": {
-    "candidate.json": "842cc2f7294ff302ac46a68b48b974ee8707722d36a47a5c2ae166baca0f0af4",
-    "SOURCES.json": "d0390d0930e95ae3adfb12fc2055d0f1bf02c222063b86a68ac8ae560853a783",
-    "fixtures.json": "9bd4d79bb854260e69aa1448244eba55ca92b47e56c871f9836b840768926b9d",
-    "validate.py": "f33a49a27618897b9ae79145feaed09c759822abb1ed4ca55903024efed27cfd",
-    "DIFF.md": "ef6cf41cb593be24fc5bf96aa65cd8eb598e34eeb6db4bcd0f17793b6c571230"
+    "candidate.json": "8f433f64818bd2b294b9a9626b6c9969cc6cd821e643405cc33f7e38058255ab",
+    "SOURCES.json": "b826859a69345781088b44821e82d1393cb00c3556edbd81a5bdf48f2bdcd53b",
+    "fixtures.json": "3d3de2733f516c50f5c13b0ed79dace48c5597730aa5080c3caa0bb934c05d9f",
+    "validate.py": "ef172d2b556c7b6414540edea3426fbeb6c2f8e44d13029d86919a2776ae7493",
+    "DIFF.md": "a4f00b9a3901d43f26275e0ca0a617e21f010f6770d7e0bd62406bc26a339329"
   }
 }

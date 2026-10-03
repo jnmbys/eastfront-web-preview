@@ -1,5 +1,5 @@
 {
-  "schema": "RULE-CAMPAIGN-009.forward-care-recovery.candidate.1",
+  "schema": "RULE-CAMPAIGN-009.forward-care-recovery.candidate.2",
   "status": "LEADER_REVIEW_REQUIRED",
   "runtimeEnabled": false,
   "refs": {
@@ -8,7 +8,8 @@
     "industry014": "9dcad639239ed7ed4081a473d78e9512cd212197",
     "rule006": "f09911e4792bd1da33185807f03c68b2cd9565fe",
     "mapR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
-    "runtime": "813b4072568352e95d0726fe5fe04060c889c554"
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554",
+    "industry015": "fef6d57f8169fe981d3d13b16774b2503eb6dd9e"
   },
   "approval": {
     "decisionRef": null,
@@ -16,7 +17,7 @@
     "E8TransportAndNullControlApprovalRef": null,
     "C10ReceiverApprovalRef": null,
     "T9PERecoveryApprovalRef": null,
-    "industry015EvidenceCommit": null,
+    "industry015EvidenceCommit": "fef6d57f8169fe981d3d13b16774b2503eb6dd9e",
     "maintenanceTradeoffPolicyApprovalRef": null,
     "inherits011013Or014Authorization": false
   },
@@ -155,7 +156,7 @@
     "chargeTime": "E8.14 reserve all rows and destination capacity; once E8 root commits holds become used. E8.15 receipt activates target terminal receipt. Reject arrival after committed departure keeps booked usage spent; no additional 8W at recovery",
     "bundleService": "same one 8W receives/stores/prepares SAME two permanent lots for SAME G-I-01 at C10; no standalone unload or free retarget",
     "jointConstraint": "SP used + other committed material + other holds + this bundle <= cap for EVERY real row; no old total-flow-as-free-capacity",
-    "admission": "unchanged per-unit maintenance is default and 014 proves this E8 infeasible; changed-priority admission requires fixed 015 evidence and separate Leader approval, same current input hash, complete feasible SP witness incl actual per-unit consequences",
+    "admission": "Default unchanged-maintenance E8 remains infeasible under 014. Sole recommended alternative is maintenanceCandidate fixed 015 complete result; execution requires new Leader transport AND exact tradeoff-policy approval plus current E8 inputHash/feasible joint witness matching that complete candidate. No substitute sacrifice unit or re-solve.",
     "noWitness": "reject shipment or zero material if proven infeasible; timeout/unknown rolls back whole transaction, not zero-success",
     "oldOffmapLQ": {
       "cap": 4,
@@ -335,7 +336,7 @@
   ],
   "pending": [
     "Leader contract and 012-budget-use/transfer approval",
-    "015 fixed cost evidence and separately approved priority policy plus live feasible capacity witness",
+    "Separate approval for the bound 015 exact policy and transport; current E8 input must match saved inputHash and full candidate witness (no new solve or alternative unit)",
     "new route/null/C10 receipt and T9 recovery approvals",
     "implementation of whole-root scope-aware expiry, authoritative E2 source decrement and shared RP/PE seam",
     "durability and broader balance remain unproven"
@@ -345,5 +346,272 @@
     "no actual extension/payment/forwarding/recovery",
     "no new imports/grants/production",
     "no edit to old evidence/runtime/map/defaults"
-  ]
+  ],
+  "maintenanceCandidate": {
+    "status": "FIXED_RECOMMENDED_OFFLINE_CANDIDATE_NOT_TRANSPORT_AUTHORIZATION",
+    "sourceCommit": "fef6d57f8169fe981d3d13b16774b2503eb6dd9e",
+    "fullResultPath": "experiments/industry-integrate-015/RESULT.json.gz",
+    "compressedSha256": "ea930270a84a5dc1cb7d216797f739f6afed152901a8a2a095fb975c1ff2b73a",
+    "decompressedSha256": "f9af1d98b9ef07163a67a00e5e96d7d96f163260798fffb3c9940c782e18c3af",
+    "summaryFullResultSha256": "f9af1d98b9ef07163a67a00e5e96d7d96f163260798fffb3c9940c782e18c3af",
+    "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+    "inputHash": "c4e6c61b65d1f5254d35d153e65e1c3a51f95ae6f0f44c618f812006bedf6297",
+    "plan014Sha256": "65c52080f016e065e40ed707c61704ee119f7b01539b2759b0a6b486ec78d31c",
+    "completeCandidateHash": "50c31db0bb29330b4a581e5c3bdec26190f6fd0d9d25f2918f9342ef58c5ac25",
+    "unitComparisonHash": "2ab35f4a4b81e6cd079324a0889c430c9f540714f394c11a95d680b74b626d4c",
+    "unitComparisonCount": 63,
+    "profileHash": "761e1d28ff67084ddac4d1a3bc35b5a540fbf605c6732cccc3e09814a77a2c8c",
+    "sovietFrozenHash": "4bdc6eb8db4a30aa9439df008d75677143bb3af737337008e0b7021189d6b57b",
+    "selectedMaintenanceReductionUnit": "G-REC-02",
+    "maintenanceReductionQ": 2,
+    "maintenanceReductionSP": "1/2",
+    "changedUnits": [
+      {
+        "id": "G-I-01",
+        "side": "G",
+        "reference": {
+          "id": "G-I-01",
+          "before": 8,
+          "received": 4,
+          "due": 4,
+          "maintenance": 4,
+          "net": 0,
+          "after": 8,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 2
+        },
+        "alternative": {
+          "id": "G-I-01",
+          "before": 8,
+          "received": 8,
+          "due": 4,
+          "maintenance": 4,
+          "net": 0,
+          "after": 12,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 2
+        },
+        "deliveryDeltaQ": 4,
+        "maintenanceDeltaQ": 0,
+        "reductionQ": 0,
+        "reductionSP": "0",
+        "stockDeltaQ": 4,
+        "openingDebt": "0",
+        "additionalStepLoss": 0,
+        "crossedThresholds": [],
+        "newlyWorsenedThresholds": [],
+        "openingCoreSupplyEffects": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        },
+        "referenceCoreSupplyEffects": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        },
+        "alternativeCoreSupplyEffects": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        }
+      },
+      {
+        "id": "G-PZ-01",
+        "side": "G",
+        "reference": {
+          "id": "G-PZ-01",
+          "before": 24,
+          "received": 8,
+          "due": 8,
+          "maintenance": 8,
+          "net": 0,
+          "after": 24,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "alternative": {
+          "id": "G-PZ-01",
+          "before": 24,
+          "received": 6,
+          "due": 8,
+          "maintenance": 8,
+          "net": 0,
+          "after": 22,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "deliveryDeltaQ": -2,
+        "maintenanceDeltaQ": 0,
+        "reductionQ": 0,
+        "reductionSP": "0",
+        "stockDeltaQ": -2,
+        "openingDebt": "0",
+        "additionalStepLoss": 0,
+        "crossedThresholds": [],
+        "newlyWorsenedThresholds": [],
+        "openingCoreSupplyEffects": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        },
+        "referenceCoreSupplyEffects": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        },
+        "alternativeCoreSupplyEffects": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        }
+      },
+      {
+        "id": "G-REC-02",
+        "side": "G",
+        "reference": {
+          "id": "G-REC-02",
+          "before": 0,
+          "received": 2,
+          "due": 4,
+          "maintenance": 2,
+          "net": 2,
+          "after": 0,
+          "debt": "2",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "alternative": {
+          "id": "G-REC-02",
+          "before": 0,
+          "received": 0,
+          "due": 4,
+          "maintenance": 0,
+          "net": 0,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "deliveryDeltaQ": -2,
+        "maintenanceDeltaQ": -2,
+        "reductionQ": 2,
+        "reductionSP": "1/2",
+        "stockDeltaQ": 0,
+        "openingDebt": "3/2",
+        "additionalStepLoss": 0,
+        "crossedThresholds": [
+          2
+        ],
+        "newlyWorsenedThresholds": [],
+        "openingCoreSupplyEffects": {
+          "factor": 0.75,
+          "cap": null,
+          "exhausted": false
+        },
+        "referenceCoreSupplyEffects": {
+          "factor": 0.5,
+          "cap": 1,
+          "exhausted": true
+        },
+        "alternativeCoreSupplyEffects": {
+          "factor": 0.5,
+          "cap": 1,
+          "exhausted": true
+        }
+      }
+    ],
+    "capacity": [
+      {
+        "id": "rail:A10~B10",
+        "originalCap": 40,
+        "spUsed": 32,
+        "cargo": 8,
+        "remaining": 0
+      },
+      {
+        "id": "rail:B10~C10",
+        "originalCap": 40,
+        "spUsed": 32,
+        "cargo": 8,
+        "remaining": 0
+      },
+      {
+        "id": "T",
+        "originalCap": 2200,
+        "spUsed": 108,
+        "cargo": 16,
+        "remaining": 2076
+      },
+      {
+        "id": "W:GH2",
+        "originalCap": 96,
+        "spUsed": 88,
+        "cargo": 8,
+        "remaining": 0
+      }
+    ],
+    "conservation": {
+      "G": {
+        "reference": {
+          "openingQ": 84,
+          "sourceQ": 76,
+          "maintenanceQ": 68,
+          "closingQ": 92,
+          "balanced": true
+        },
+        "alternative": {
+          "openingQ": 84,
+          "sourceQ": 76,
+          "maintenanceQ": 66,
+          "closingQ": 94,
+          "balanced": true
+        }
+      },
+      "S": {
+        "reference": {
+          "openingQ": 72,
+          "sourceQ": 96,
+          "maintenanceQ": 136,
+          "closingQ": 32,
+          "balanced": true
+        },
+        "alternative": {
+          "openingQ": 72,
+          "sourceQ": 96,
+          "maintenanceQ": 136,
+          "closingQ": 32,
+          "balanced": true
+        }
+      }
+    },
+    "selectionRule": "Use exactly saved complete candidate including all 63 unit rows, source/hub/flow/capacity/profile/certificate data; do not replace sacrifice unit, retie or optimize again. Match current E8 SP inputHash before use; mismatched state rejects and needs separate review.",
+    "allOtherUnits": "same as reference per complete saved comparison; no hidden authority to choose another equal-cost outcome",
+    "approvalStillRequired": true,
+    "costLedgers": {
+      "careI": 1,
+      "funding": "012 freeI5 ->4 via newly approved transfer",
+      "maintenanceQ": 2,
+      "maintenanceSP": "1/2",
+      "units": "4q=1SP; I and consumable SP separate; neither offsets, purchases or refunds the other"
+    },
+    "actualTransactions": {
+      "settlements": 0,
+      "shipments": 0,
+      "materialDebits": 0,
+      "payments": 0,
+      "recoveries": 0,
+      "oldOffmapCapacityRefreshed": 0
+    }
+  }
 }
