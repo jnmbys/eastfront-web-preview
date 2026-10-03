@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EASTFRONT · 生产、接驳与恢复实验</title><link rel="stylesheet" href="/styles.css"></head>
+<body><main>
+<header><div><p class="eyebrow">EASTFRONT / INDUSTRY 018</p><h1>生产、接驳与恢复</h1><p class="subtitle">从一笔真实订单走到前线恢复。</p></div><span class="badge">127.0.0.1 · 本机实验</span></header>
+<aside class="notice">固定场景、单进程。刷新连接同一实例，不重置或补仓；关闭服务后本次进度不持久保存。此入口不代表正式运行接入获批。</aside>
+<section class="statusbar"><div><small>当前阶段</small><h2 id="phase">连接本地服务…</h2></div><div><small>已提交版本</small><p id="version">—</p></div><div><small>装备预算可用</small><p class="large" id="freeI">—</p></div></section>
+<section class="panel"><h2 id="chain-summary">读取同一实例…</h2><p id="chain-order"></p><p id="chain-personnel"></p><p id="chain-transfers"></p></section>
+<section class="actions" aria-label="订单与人员申请">
+<article><h3>一次性装备拨款</h3><p>仅原10I预算，无追加收入。</p><button id="allocate" disabled>领取10I</button></article>
+<article><h3>一笔真实订单</h3><p>2 E2；付3I、托管2I；工期2个合法E。</p><button id="order" disabled>下单2 E2</button></article>
+<article><h3>T7启用后备池</h3><p>原场景假设1P及独立2I，不是训练系统。</p><button id="activate" disabled>启用后备池</button></article>
+<article><h3>T7人员申请</h3><p>付1I、托管1I，E7接驳，T8可用。</p><button id="apply" disabled>申请1P接驳</button></article>
+</section><section class="actions" aria-label="阶段与前送恢复">
+ <article><span class="step">01 / 照管</span><h3>保留这批后备人员</h3><p>从装备余额支付1I，照管至E9结束。人员原2I账户不动，已付费用不退。</p><button id="care" disabled>支付1I照管</button></article>
+ <article><span class="step">02 / 前送</span><h3>按真实阶段推进</h3><p id="next-label">等待后端给出下一合法操作。</p><button id="next" disabled>推进下一合法阶段</button></article>
+ <article><span class="step">03 / 恢复</span><h3>恢复G-I-01</h3><p>T9德军恢复阶段复核资格，支付1P＋2 E2。RP不扣，共用恢复次数。</p><button id="recover" disabled>恢复G-I-01</button></article>
+</section>
+<section class="request-box" aria-live="polite"><p id="message">仅显示服务端确认的结果。</p><p id="request-id" class="mono"></p><div class="tools"><button id="check">读取状态 / 查询原回执</button><button id="retry" hidden>用原ID重试同一请求</button><button id="forget" hidden>确认服务已重启，放弃旧请求</button></div></section>
+<div class="grid"><section class="panel"><h2>物资与归属</h2><p class="caption">012自产装备＋013场景初始受训后备；没有新增赠料或训练回执。</p><div class="table-wrap"><table><thead><tr><th>物资</th><th>位置</th><th>实物</th><th>已消费</th><th>状态</th></tr></thead><tbody id="materials"></tbody></table></div><p id="arrival" class="footnote">尚未取得本次到账结果。</p></section>
+<section class="panel"><h2>费用账</h2><dl id="finance"></dl><p class="footnote">照管是原装备预算的内部转账，不重复加总为两笔支出。</p></section></div>
+<section class="panel"><h2>共享运输能力</h2><p class="caption">A10 → B10 → C10。E8运输由阶段事务触发；没有独立“运送”或额外扣费按钮。</p><div class="table-wrap"><table><thead><tr><th>资源</th><th>上限</th><th>SP占用</th><th>预留</th><th>货运已用</th><th>剩余</th></tr></thead><tbody id="capacity"></tbody></table></div><p id="terminal" class="footnote">尚未提交本次运力使用。已用的地图外4LQ不能再使用。</p></section>
+<section class="panel"><h2>维护代价与恢复结果</h2><p id="impact-note" class="caption">固定政策预告：G-REC-02少付0.5SP维护，另有库存重分配。以下实际账仅在E8提交后出现。</p><div class="table-wrap"><table><thead><tr><th>单位</th><th>维护SP：参照 → 实际</th><th>库存SP：参照 → 实际</th><th>D：参照 → 实际</th></tr></thead><tbody id="impact"></tbody></table></div><p id="recovery" class="result">尚未执行恢复。</p><p id="target" class="footnote"></p></section>
+<footer><p>保留35项全局阻塞；德9 / 苏14 SP来源缺口不变。仅验证本次隔离链路，不宣称长期收益或全局平衡。</p><p id="instance" class="mono"></p></footer>
+</main><script type="module" src="/app.mjs"></script></body></html>

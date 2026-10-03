@@ -1,0 +1,820 @@
+{
+  "task": "INDUSTRY-INTEGRATE-018",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "same_instance_T5_to_T9_exact_roots_and_full_016_domain_result",
+      "origin": "REAL_HTTP_BROWSER_CHAIN",
+      "passed": true,
+      "details": {
+        "handoffs": [
+          {
+            "fromStage": "012",
+            "toStage": "013",
+            "inputRootHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+            "expectedRootHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+            "outputRootHash": "c0e3014f8ca9378c4600036007bc50b0cfa25962198b63da3540556652477dd7",
+            "gameRevision": 129,
+            "retainedReceipts": 22,
+            "retainedEquipmentBudget": {
+              "granted": 10,
+              "freeI": 5,
+              "productionSpent": 3,
+              "handoffSpent": 2,
+              "escrow": 0
+            },
+            "source": "CURRENT_TRANSACTION_PRIVATE_ROOT"
+          },
+          {
+            "fromStage": "013",
+            "toStage": "016",
+            "inputRootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+            "expectedRootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+            "outputRootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+            "gameRevision": 142,
+            "retainedReceipts": 37,
+            "retainedEquipmentBudget": {
+              "granted": 10,
+              "freeI": 5,
+              "productionSpent": 3,
+              "handoffSpent": 2,
+              "escrow": 0
+            },
+            "source": "CURRENT_TRANSACTION_PRIVATE_ROOT"
+          }
+        ],
+        "rootDifferences": [
+          "/forward/events/2/shipment/inputRootHash",
+          "/forward/events/2/shipment/requestFingerprint",
+          "/forward/events/2/shipment/requestId",
+          "/forward/events/2/terminal/inputRootHash",
+          "/forward/events/2/terminal/requestFingerprint",
+          "/forward/events/3/details/requestId",
+          "/forward/recovery/requestId",
+          "/forward/shipment/inputRootHash",
+          "/forward/shipment/requestFingerprint",
+          "/forward/shipment/requestId",
+          "/forward/terminal/inputRootHash",
+          "/forward/terminal/requestFingerprint",
+          "/receipts/016-care",
+          "/receipts/016-phase-142",
+          "/receipts/016-phase-143",
+          "/receipts/016-phase-144",
+          "/receipts/016-phase-145",
+          "/receipts/016-phase-146",
+          "/receipts/016-phase-147",
+          "/receipts/016-phase-148",
+          "/receipts/016-phase-149",
+          "/receipts/016-phase-150",
+          "/receipts/016-phase-151",
+          "/receipts/016-repair",
+          "/receipts/018-1c5ebecb-53c2-4f3b-9eb0-6888f2a73aa1",
+          "/receipts/018-2d1a794d-0de2-400d-a4ae-5d56f75f4140",
+          "/receipts/018-307e68f1-f04a-4b87-96aa-ece04285f3a7",
+          "/receipts/018-3608c1b4-9752-4ffc-b706-f89da3e5d741",
+          "/receipts/018-545592fd-aef7-4b22-a24f-e9186346a6cb",
+          "/receipts/018-5d75a678-3d67-4d21-94f9-c434da2a5cc2",
+          "/receipts/018-91c3def5-d2b8-49aa-b99b-101b973bdf61",
+          "/receipts/018-b0efb60e-22f3-434b-a574-219493f61216",
+          "/receipts/018-bfba98b9-23f4-4b7f-88a2-d54974079a7c",
+          "/receipts/018-c6b3fd9e-611a-4c3b-97b9-cc7bf66aa25b",
+          "/receipts/018-ca212140-9be1-49e4-8e67-f19e77a07f52",
+          "/receipts/018-fad94fc0-b858-47c0-b205-171c5365bcaf"
+        ],
+        "gameHash": "bd153859ea67f0f1a34fc3f8c271ef02f845a6d1f3bb36338bac84c6158afa1e",
+        "referenceGameHash": "bd153859ea67f0f1a34fc3f8c271ef02f845a6d1f3bb36338bac84c6158afa1e",
+        "transactions": 49,
+        "domainReceipts": 49,
+        "newHTTPMetadata": "49 first bindings, instance/session IDs and outer receipts are separate; canonical 012/013 domain IDs unchanged; 12 new 016 envelope IDs differ."
+      }
+    },
+    {
+      "name": "nine_targeted_rollbacks_and_explicit_new_attempts_preserve_once_only",
+      "origin": "SYNTHETIC_PRIVATE_FORK",
+      "passed": true,
+      "details": [
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "delegate:after_payment",
+          "beforeHash": "a2ad18dfad1c5206a28fe52f9bc81a72da1c025d1827fedab05d5dd82cb208b3",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "{'ok': False, 'error': 'REJECTED_NO_DOMAIN_COMMIT', 'detail': 'SYNTHETIC_delegate:after_payment'}",
+            "version": 1
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "034943d0222cb551cdbcf7ee6fd5ceb5e3df3ad5480c99e4bd7dba7e1b94a829",
+            "operation": "PLACE_ORDER",
+            "beforeVersion": 1,
+            "afterVersion": 2,
+            "innerId": "012-order",
+            "stage": "012",
+            "gameRevision": 109,
+            "domainRootHash": "63dac36f24fac96af1f8979acc347d20cfd1c7e33974edfa5922003e751e624e",
+            "handoff": null
+          },
+          "afterHash": "38b7f69f3d12927cddfe38e6bac1dd9c9e5d1f6cfce93c825aa7714b9a0a3d7f"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "delegate:after_output",
+          "beforeHash": "c60e4dd4b63f9d26af67a5a4906d4200c593a4fc57b5243ab6ada1f83ea3dbf5",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "{'ok': False, 'error': 'REJECTED_NO_DOMAIN_COMMIT', 'detail': 'SYNTHETIC_delegate:after_output'}",
+            "version": 18
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "83d31a18ad781a8a3b32d927927f0a93dd2155ecb60b26484bc4e511eeac3ba7",
+            "operation": "NEXT",
+            "beforeVersion": 18,
+            "afterVersion": 19,
+            "innerId": "012-phase-125",
+            "stage": "012",
+            "gameRevision": 126,
+            "domainRootHash": "01b571a78214b649eaf6837dabec016806e7d016d3c6028fde44f51fa98ec822",
+            "handoff": null
+          },
+          "afterHash": "341bafdd49fed7b93872ef5c2984e67e5c685139ca1a147f88cfab9e6f466692"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "after_handoff_013",
+          "beforeHash": "08a05a860dcb79ef40036295f6b3be22b49b0e768d285afdbb6224190a7b1ac5",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "SYNTHETIC_after_handoff_013",
+            "version": 21
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "0796e44bbc309bb96fccba9fdbfa5c01244794aa7b3924fe8fcaa497e82b8546",
+            "operation": "NEXT",
+            "beforeVersion": 21,
+            "afterVersion": 22,
+            "innerId": "012-phase-128",
+            "stage": "012",
+            "gameRevision": 129,
+            "domainRootHash": "c0e3014f8ca9378c4600036007bc50b0cfa25962198b63da3540556652477dd7",
+            "handoff": "013"
+          },
+          "afterHash": "4aba3df00d2df527f167dbe0d929422b05dc4f46e9149e501f2f67a18658cc14"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "delegate:after_personnel_payment",
+          "beforeHash": "43e4ce055fc2c9b2e7c143adb1d5943e9b19dbc0ed5e4d96a40c68ceefde9fab",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "{'ok': False, 'error': 'REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED', 'detail': 'SYNTHETIC_delegate:after_personnel_payment'}",
+            "version": 23
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "2839ba04ce69f3319fedc4ab6578afe50c712d0eaed4ee613be9772cb467a2dd",
+            "operation": "APPLY_PERSONNEL",
+            "beforeVersion": 23,
+            "afterVersion": 24,
+            "innerId": "013-apply",
+            "stage": "013",
+            "gameRevision": 129,
+            "domainRootHash": "2cd1bc0b8efca2c4d908c3392e4de20d29ea3684ba3cbd7f31c01f2875c774cb",
+            "handoff": null
+          },
+          "afterHash": "7f0eb346c83a264cbdbf78b3b07846947870fb446713954ced2fa1f9e96ed7b9"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "delegate:after_dispatch",
+          "beforeHash": "3cbcb8f11cb499d5733731afb0f481c52dca40459ceb3c4ba0eb97da8f9aba56",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "{'ok': False, 'error': 'REJECTED_ALL_STATE_AND_RECEIPTS_UNCHANGED', 'detail': 'SYNTHETIC_delegate:after_dispatch'}",
+            "version": 33
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "128b83f52149946d140c50e167b25dd98ad18892adbeae438baff84cda9b685b",
+            "operation": "NEXT",
+            "beforeVersion": 33,
+            "afterVersion": 34,
+            "innerId": "013-phase-138",
+            "stage": "013",
+            "gameRevision": 139,
+            "domainRootHash": "92e844331ab86c99d1324873f8cdcda0cde417dafa81a1b0f2e469fc0e127bc6",
+            "handoff": null
+          },
+          "afterHash": "79465d8bc3860effbb3af5b2daeb6974d6f206d9f79530f1b88d55c0dce4ace8"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "after_handoff_016",
+          "beforeHash": "b7680a7cf56ab6fa65cf8cbaf550a7ab290a1ce081dedeab8d165cc8006c7c30",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "SYNTHETIC_after_handoff_016",
+            "version": 36
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "a2358416e96803a6e177e9aa7b55f3e1321388d17890f4dc61d78cd124a85bef",
+            "operation": "NEXT",
+            "beforeVersion": 36,
+            "afterVersion": 37,
+            "innerId": "013-phase-141",
+            "stage": "013",
+            "gameRevision": 142,
+            "domainRootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+            "handoff": "016"
+          },
+          "afterHash": "194910cf786a6f1ccd71511869ddbdc4f8e3d6fb8d9e2ba77db682921c70f02d"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "before_commit",
+          "beforeHash": "31e4f043557d71f9a186ccd03afd16c82b8e510ea5b433c71b134e234ae91c58",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "SYNTHETIC_before_commit",
+            "version": 37
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "279828c21ecce5d98e56c8b9466753f766ef85904ec3e7c88464fd3416b771a5",
+            "operation": "CARE",
+            "beforeVersion": 37,
+            "afterVersion": 38,
+            "innerId": "018-new-reviewed-retry-42272aa7-0b77-4440-8678-a1cbaebff39a",
+            "stage": "016",
+            "gameRevision": 142,
+            "domainRootHash": "c10143b448838e0f09e222a16c8cbe51b8b0561e4b52163d90649ddaac40cbad",
+            "handoff": null
+          },
+          "afterHash": "89e46b2de8d4d9a8fcec371fb095f9a0c04d03e3ce13384f5ef429e34dc96080"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "delegate:after_transfer",
+          "beforeHash": "4fbc913b0d9f868f3b03be94da87a60164bd05d9518cc5e7dea750c2d8318e80",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "{'ok': False, 'error': 'REJECTED_UNCHANGED', 'detail': 'SYNTHETIC_delegate:after_transfer'}",
+            "version": 44
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "178753442023f4e6dc7465333b5d8577ed03bf818df6b4347f58e03d59748f18",
+            "operation": "NEXT",
+            "beforeVersion": 44,
+            "afterVersion": 45,
+            "innerId": "018-new-reviewed-retry-01319a4e-6637-4891-bb31-77f9ba434bcc",
+            "stage": "016",
+            "gameRevision": 149,
+            "domainRootHash": "c118d9e1005faa0a9e0c72f2baf2fab248912f32ac33b7c9365093ad3290b700",
+            "handoff": null
+          },
+          "afterHash": "2ad9e9567daec42b71e54aa0d8dc8dc65083cda10c891637a5a43a9100665d24"
+        },
+        {
+          "origin": "SYNTHETIC_PRIVATE_FORK",
+          "at": "delegate:after_material_payment",
+          "beforeHash": "eb9afbaa7b268e50e61d43897512cfa9ee753e8cf3a28223fe100d89ead28da8",
+          "failed": {
+            "ok": false,
+            "error": "REJECTED_UNCHANGED",
+            "detail": "{'ok': False, 'error': 'REJECTED_UNCHANGED', 'detail': 'SYNTHETIC_delegate:after_material_payment'}",
+            "version": 48
+          },
+          "retry": {
+            "status": "COMMITTED",
+            "fingerprint": "67857342aa4f35fcdfc1c499e1850f88aec9cb6fb4a97a04a192efdde5310cb3",
+            "operation": "RECOVER",
+            "beforeVersion": 48,
+            "afterVersion": 49,
+            "innerId": "018-new-reviewed-retry-eab5b4d3-5654-433b-80c8-abe471b46992",
+            "stage": "016",
+            "gameRevision": 153,
+            "domainRootHash": "e7efcc4d7865da86e99c102a0036a058e99fbd5108f256294010ca5b676ac622",
+            "handoff": null
+          },
+          "afterHash": "9bbc3bc803859927107ef1b74e3a74feec31ed0a8d8b976b55dc1cd9ed0b55f6"
+        }
+      ]
+    },
+    {
+      "name": "refused_personnel_retains_transit_ownership_and_blocks_unapproved_handoff",
+      "origin": "SYNTHETIC_PRIVATE_FORK",
+      "passed": true,
+      "details": {
+        "personnel": {
+          "revision": 3,
+          "matchId": "EASTFRONT-012-ISOLATED",
+          "ids": {
+            "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+            "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+            "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+            "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+            "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+            "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+            "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+          },
+          "importReceipt": {
+            "ids": {
+              "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+              "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+              "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+              "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+              "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+              "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+              "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+            },
+            "matchId": "EASTFRONT-012-ISOLATED",
+            "side": "G",
+            "P": 1,
+            "personnelI": 2,
+            "accountId": "RC008-G-PERSONNEL-SERVICE-I",
+            "contractHash": "e9dab8431d49fb70fadd03ab5b5e56e9565aec29370d579f00c2f093b6e431c6",
+            "approvalHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7",
+            "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+            "sourceKind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+            "actualTrainingReceipt": null
+          },
+          "application": {
+            "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+            "fingerprint": {
+              "side": "G",
+              "quantityP": 1,
+              "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+              "poolId": "RC008-G-TRAINED-RESERVE",
+              "warehouseId": "RC007-REAR-G-A10",
+              "nodeId": "A10",
+              "coreKey": "0,9",
+              "budgetAccountId": "RC008-G-PERSONNEL-SERVICE-I",
+              "feeI": 2,
+              "loadLQ": 4,
+              "quotaId": "RC008-OFFMAP-RESERVE-TO-A10",
+              "window": {
+                "acceptT": 7,
+                "dispatchE": [
+                  7,
+                  8
+                ],
+                "lastReceiveE": 9
+              },
+              "profileHash": "c33b8a7220ca8647c8112570a8071a9bd34ae62de89d8f960553bdcc93731caf",
+              "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+              "trainingAssumptionGrantHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7"
+            },
+            "fingerprintHash": "5eb32fd407db4276f7497230a035970aa73bf6a2e0d9f11667a124eca6613414",
+            "status": "HELD",
+            "acceptedTurn": 7
+          },
+          "applicationReceipt": {
+            "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+            "fingerprint": {
+              "side": "G",
+              "quantityP": 1,
+              "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+              "poolId": "RC008-G-TRAINED-RESERVE",
+              "warehouseId": "RC007-REAR-G-A10",
+              "nodeId": "A10",
+              "coreKey": "0,9",
+              "budgetAccountId": "RC008-G-PERSONNEL-SERVICE-I",
+              "feeI": 2,
+              "loadLQ": 4,
+              "quotaId": "RC008-OFFMAP-RESERVE-TO-A10",
+              "window": {
+                "acceptT": 7,
+                "dispatchE": [
+                  7,
+                  8
+                ],
+                "lastReceiveE": 9
+              },
+              "profileHash": "c33b8a7220ca8647c8112570a8071a9bd34ae62de89d8f960553bdcc93731caf",
+              "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+              "trainingAssumptionGrantHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7"
+            },
+            "fingerprintHash": "5eb32fd407db4276f7497230a035970aa73bf6a2e0d9f11667a124eca6613414",
+            "status": "ACCEPTED",
+            "acceptedTurn": 7
+          },
+          "package": {
+            "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+            "quantityP": 1,
+            "owner": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+            "custody": "HELD",
+            "receivedEpoch": null,
+            "availableFromTurn": null,
+            "dispatchEpoch": 7,
+            "dueEpoch": 7
+          },
+          "account": {
+            "id": "RC008-G-PERSONNEL-SERVICE-I",
+            "grantedI": 2,
+            "availableI": 0,
+            "acceptanceCareSpentI": 1,
+            "escrowI": 0,
+            "carriageSpentI": 1
+          },
+          "quota": {
+            "id": "RC008-OFFMAP-RESERVE-TO-A10",
+            "capLQ": 4,
+            "used": {
+              "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001": 4
+            },
+            "holds": {},
+            "renews": false
+          },
+          "incomingP": {
+            "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001": 1
+          },
+          "epochs": [
+            7
+          ],
+          "events": {
+            "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/SOURCE_AND_BUDGET_ACTIVATED/T7": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/SOURCE_AND_BUDGET_ACTIVATED/T7",
+              "kind": "SOURCE_AND_BUDGET_ACTIVATED",
+              "epoch": "T7",
+              "details": {
+                "ids": {
+                  "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+                  "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+                  "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+                  "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+                  "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+                  "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+                  "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+                },
+                "matchId": "EASTFRONT-012-ISOLATED",
+                "side": "G",
+                "P": 1,
+                "personnelI": 2,
+                "accountId": "RC008-G-PERSONNEL-SERVICE-I",
+                "contractHash": "e9dab8431d49fb70fadd03ab5b5e56e9565aec29370d579f00c2f093b6e431c6",
+                "approvalHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7",
+                "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+                "sourceKind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+                "actualTrainingReceipt": null
+              }
+            },
+            "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/ACCEPTED_CARE_PAID_AND_ESCROW/T7": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/ACCEPTED_CARE_PAID_AND_ESCROW/T7",
+              "kind": "ACCEPTED_CARE_PAID_AND_ESCROW",
+              "epoch": "T7",
+              "details": {
+                "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+                "fingerprint": {
+                  "side": "G",
+                  "quantityP": 1,
+                  "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+                  "poolId": "RC008-G-TRAINED-RESERVE",
+                  "warehouseId": "RC007-REAR-G-A10",
+                  "nodeId": "A10",
+                  "coreKey": "0,9",
+                  "budgetAccountId": "RC008-G-PERSONNEL-SERVICE-I",
+                  "feeI": 2,
+                  "loadLQ": 4,
+                  "quotaId": "RC008-OFFMAP-RESERVE-TO-A10",
+                  "window": {
+                    "acceptT": 7,
+                    "dispatchE": [
+                      7,
+                      8
+                    ],
+                    "lastReceiveE": 9
+                  },
+                  "profileHash": "c33b8a7220ca8647c8112570a8071a9bd34ae62de89d8f960553bdcc93731caf",
+                  "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+                  "trainingAssumptionGrantHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7"
+                },
+                "fingerprintHash": "5eb32fd407db4276f7497230a035970aa73bf6a2e0d9f11667a124eca6613414",
+                "status": "ACCEPTED",
+                "acceptedTurn": 7
+              }
+            },
+            "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/BOUNDARY_OBSERVED/7": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/BOUNDARY_OBSERVED/7",
+              "kind": "BOUNDARY_OBSERVED",
+              "epoch": 7,
+              "details": {
+                "gameRevision": 139
+              }
+            },
+            "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E14_DISPATCHED/7": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E14_DISPATCHED/7",
+              "kind": "E14_DISPATCHED",
+              "epoch": 7,
+              "details": {
+                "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+                "quotaUsedLQ": 4,
+                "carriageSpentI": 1,
+                "eligibility": {
+                  "eligible": true,
+                  "issues": [],
+                  "integrity": [],
+                  "control": null,
+                  "occupants": [],
+                  "enemyZoc": false,
+                  "node": "A10",
+                  "coreKey": "0,9",
+                  "side": "G",
+                  "turn": 8,
+                  "phase": "GERMAN_SUPPLY_RAIL",
+                  "authoritative": true,
+                  "epoch": 7,
+                  "stage": "dispatch",
+                  "gameHash": "5d914b4c551d8e75242476169455578f4cbcdda50a444e36635a4403d56ed08f"
+                }
+              }
+            },
+            "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E15_HELD/7": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E15_HELD/7",
+              "kind": "E15_HELD",
+              "epoch": 7,
+              "details": {
+                "eligible": false,
+                "issues": [
+                  "SYNTHETIC_REFUSAL"
+                ],
+                "integrity": [],
+                "control": null,
+                "occupants": [],
+                "enemyZoc": false,
+                "node": "A10",
+                "coreKey": "0,9",
+                "side": "G",
+                "turn": 8,
+                "phase": "GERMAN_SUPPLY_RAIL",
+                "authoritative": true,
+                "epoch": 7,
+                "stage": "receipt",
+                "gameHash": "5d914b4c551d8e75242476169455578f4cbcdda50a444e36635a4403d56ed08f"
+              }
+            }
+          },
+          "journal": [
+            {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/SOURCE_AND_BUDGET_ACTIVATED/T7",
+              "kind": "SOURCE_AND_BUDGET_ACTIVATED",
+              "epoch": "T7",
+              "details": {
+                "ids": {
+                  "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+                  "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+                  "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+                  "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+                  "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+                  "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+                  "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+                },
+                "matchId": "EASTFRONT-012-ISOLATED",
+                "side": "G",
+                "P": 1,
+                "personnelI": 2,
+                "accountId": "RC008-G-PERSONNEL-SERVICE-I",
+                "contractHash": "e9dab8431d49fb70fadd03ab5b5e56e9565aec29370d579f00c2f093b6e431c6",
+                "approvalHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7",
+                "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+                "sourceKind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+                "actualTrainingReceipt": null
+              }
+            },
+            {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/ACCEPTED_CARE_PAID_AND_ESCROW/T7",
+              "kind": "ACCEPTED_CARE_PAID_AND_ESCROW",
+              "epoch": "T7",
+              "details": {
+                "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+                "fingerprint": {
+                  "side": "G",
+                  "quantityP": 1,
+                  "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+                  "poolId": "RC008-G-TRAINED-RESERVE",
+                  "warehouseId": "RC007-REAR-G-A10",
+                  "nodeId": "A10",
+                  "coreKey": "0,9",
+                  "budgetAccountId": "RC008-G-PERSONNEL-SERVICE-I",
+                  "feeI": 2,
+                  "loadLQ": 4,
+                  "quotaId": "RC008-OFFMAP-RESERVE-TO-A10",
+                  "window": {
+                    "acceptT": 7,
+                    "dispatchE": [
+                      7,
+                      8
+                    ],
+                    "lastReceiveE": 9
+                  },
+                  "profileHash": "c33b8a7220ca8647c8112570a8071a9bd34ae62de89d8f960553bdcc93731caf",
+                  "sourceSnapshotHash": "d623bf42b187ca4529ea676fe3963b1016bc82d3c93a28a78a67cabcf8abd5c7",
+                  "trainingAssumptionGrantHash": "330e38a664dc2ea0924f1f0a110ce61557c2e44f97a53a2ef9deced7595ddbb7"
+                },
+                "fingerprintHash": "5eb32fd407db4276f7497230a035970aa73bf6a2e0d9f11667a124eca6613414",
+                "status": "ACCEPTED",
+                "acceptedTurn": 7
+              }
+            },
+            {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/BOUNDARY_OBSERVED/7",
+              "kind": "BOUNDARY_OBSERVED",
+              "epoch": 7,
+              "details": {
+                "gameRevision": 139
+              }
+            },
+            {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E14_DISPATCHED/7",
+              "kind": "E14_DISPATCHED",
+              "epoch": 7,
+              "details": {
+                "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+                "quotaUsedLQ": 4,
+                "carriageSpentI": 1,
+                "eligibility": {
+                  "eligible": true,
+                  "issues": [],
+                  "integrity": [],
+                  "control": null,
+                  "occupants": [],
+                  "enemyZoc": false,
+                  "node": "A10",
+                  "coreKey": "0,9",
+                  "side": "G",
+                  "turn": 8,
+                  "phase": "GERMAN_SUPPLY_RAIL",
+                  "authoritative": true,
+                  "epoch": 7,
+                  "stage": "dispatch",
+                  "gameHash": "5d914b4c551d8e75242476169455578f4cbcdda50a444e36635a4403d56ed08f"
+                }
+              }
+            },
+            {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001/E15_HELD/7",
+              "kind": "E15_HELD",
+              "epoch": 7,
+              "details": {
+                "eligible": false,
+                "issues": [
+                  "SYNTHETIC_REFUSAL"
+                ],
+                "integrity": [],
+                "control": null,
+                "occupants": [],
+                "enemyZoc": false,
+                "node": "A10",
+                "coreKey": "0,9",
+                "side": "G",
+                "turn": 8,
+                "phase": "GERMAN_SUPPLY_RAIL",
+                "authoritative": true,
+                "epoch": 7,
+                "stage": "receipt",
+                "gameHash": "5d914b4c551d8e75242476169455578f4cbcdda50a444e36635a4403d56ed08f"
+              }
+            }
+          ]
+        },
+        "blocked": {
+          "ok": false,
+          "error": "REJECTED_UNCHANGED",
+          "detail": "HANDOFF_FULL_ROOT_MISMATCH_016",
+          "version": 36
+        }
+      }
+    },
+    {
+      "name": "no_care_E8_expiry_no_recovery_no_refund_or_reimport",
+      "origin": "SYNTHETIC_PRIVATE_FORK",
+      "passed": true,
+      "details": {
+        "personnel": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "RC007-REAR-G-A10",
+          "custody": "REAR_QUARANTINED",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "budget": {
+          "granted": 10,
+          "freeI": 5,
+          "productionSpent": 3,
+          "handoffSpent": 2,
+          "escrow": 0
+        },
+        "rejected": {
+          "ok": false,
+          "error": "REJECTED_UNCHANGED",
+          "detail": "{'ok': False, 'error': 'REJECTED_UNCHANGED', 'detail': 'NO_ACTIVE_UNUSED_TERMINAL'}",
+          "version": 47
+        }
+      }
+    },
+    {
+      "name": "unused_E9_quarantine_original_normal_SP_continues",
+      "origin": "SYNTHETIC_PRIVATE_FORK",
+      "passed": true,
+      "details": {
+        "care": {
+          "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+          "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+          "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+          "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "receivedI": 1,
+          "spentI": 1,
+          "availableI": 0,
+          "oldEndEpoch": 8,
+          "endEpoch": 9,
+          "nonrefundable": true,
+          "status": "EXPIRED_PAID_NO_REFUND"
+        },
+        "P": {
+          "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+          "quantityP": 1,
+          "owner": "RC009-G-C10-GI01",
+          "custody": "FRONT_QUARANTINED",
+          "receivedEpoch": 7,
+          "availableFromTurn": 8,
+          "dispatchEpoch": 7,
+          "dueEpoch": 7
+        },
+        "E2": {
+          "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+          "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+          "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+          "quantityE2": 2,
+          "materialType": "E2:L",
+          "custody": "FRONT_QUARANTINED",
+          "owner": "RC009-G-C10-GI01",
+          "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+          "receivedEpoch": 6,
+          "availableFromTurn": 7,
+          "dispatchEpoch": 6,
+          "dueEpoch": 6
+        },
+        "receiver": {
+          "id": "RC009-G-C10-GI01",
+          "capacity": {
+            "P": 1,
+            "E2:L": 2
+          },
+          "incoming": {}
+        },
+        "gameRevision": 159
+      }
+    },
+    {
+      "name": "HTTP_same_version_competition_reply_loss_late_retry_and_closed_authority",
+      "origin": "SYNTHETIC_PRIVATE_FORK",
+      "passed": true,
+      "details": {
+        "results": [
+          {
+            "requestId": "8f35337a-2e34-4b05-ace1-471c7812a92d",
+            "instanceId": "f4e83bdb-4d29-475c-920b-9767cbdb8557",
+            "operation": "CARE",
+            "expectedVersion": 37,
+            "status": "REJECTED",
+            "code": "CORE_OR_TRANSACTION_REJECTED",
+            "resultVersion": 38,
+            "gameRevision": 142
+          },
+          {
+            "requestId": "a72c6d97-35d5-409d-a4b8-a3e9f38049ce",
+            "instanceId": "f4e83bdb-4d29-475c-920b-9767cbdb8557",
+            "operation": "CARE",
+            "expectedVersion": 37,
+            "status": "COMMITTED",
+            "code": "COMMITTED",
+            "resultVersion": 38,
+            "gameRevision": 142
+          }
+        ],
+        "laterHash": "930d7d54a844e6372d3228b2849658aece8b86cea76841523d379816edadfa01"
+      }
+    }
+  ],
+  "traceSha256": "15a104862a92e78ea79add91905f3e64c921343370c1aa5c0b1219cf05e2cf7b",
+  "newRulePermissions": [],
+  "globalBlockersRetained": 35,
+  "sourceGapSP": {
+    "G": 9,
+    "S": 14
+  },
+  "validationListenersAndWorkersClosed": true
+}
