@@ -1,0 +1,446 @@
+{
+  "schema": "RULE-CAMPAIGN-008.personnel-to-rear.candidate.1",
+  "status": "LEADER_REVIEW_REQUIRED",
+  "runtimeEnabled": false,
+  "refs": {
+    "base": "90758efccda736e3524348d8876b892be3d7938f",
+    "rule005": "e0c7fed6bfb2053b865f242fd4cf783a040eeb7f",
+    "rule006": "f09911e4792bd1da33185807f03c68b2cd9565fe",
+    "mapR1": "7a970e020dc6ac104d44ac72a4a18508b10b1d2f",
+    "settlementR1": "1fe5a2f342928fe9da0cd9f0aaaf825b993483e1",
+    "runtime": "813b4072568352e95d0726fe5fe04060c889c554"
+  },
+  "approval": {
+    "decisionRef": null,
+    "approver": "Leader approves exact profile hash, source/training assumption, additional budget, external service and snapshot/window; worker cannot self-authorize",
+    "inherits007or012Approval": false
+  },
+  "scope": {
+    "side": "G",
+    "quantityP": 1,
+    "maxApplications": 1,
+    "maxPackages": 1,
+    "warehouseCount": 1,
+    "startTurn": null,
+    "startSnapshotHash": null,
+    "acceptPhase": "GERMAN_RECOVERY",
+    "lastCampaignEpoch": 24,
+    "noActualTransfer": true,
+    "grantsForwardTransportRecoveryOrFormation": false
+  },
+  "pool": {
+    "id": "RC008-G-TRAINED-RESERVE",
+    "location": "OFFMAP_RESERVE_POOL",
+    "initialP": 1,
+    "initialConditionKind": "NEW_ISOLATED_EXPERIMENT_TRAINED_RESERVE_ASSUMPTION",
+    "sourceGrantRef": null,
+    "trainingEvidence": {
+      "kind": "PROPOSED_SCENARIO_ASSUMPTION_NOT_COMPLETED_TRAINING_RECEIPT",
+      "actualTrainingReceiptRef": null,
+      "assumptionApprovalRef": null,
+      "trainingCompleteBeforeActivation": true,
+      "why": "P means one already-trained abstract personnel package under R1, not one person; 1 is a finite minimal test endowment, not inferred from old P60 or from equipment manufacturing",
+      "ifNotApproved": "REJECT_UNTRAINED_OR_UNPROVEN_POOL"
+    },
+    "renewalAllowed": false,
+    "newTrainingOrRecruitment": false,
+    "conversionFromSP_RP_I_E2": false,
+    "initialFrontOrWarehouseP": 0,
+    "maintenance": "not a formation, no template B owner or field stock. Source holding, bounded transit and A10 care until the end of first usable T are included in proposed 2I service quote; actual prehistory training cost is NOT claimed paid. Longer care/extension unresolved; quarantine, not free operation."
+  },
+  "budget": {
+    "accountId": "RC008-G-PERSONNEL-SERVICE-I",
+    "currency": "I",
+    "initialI": 2,
+    "source": "NEW_SEPARATE_ONE_TIME_EXPERIMENT_SERVICE_ALLOCATION",
+    "grantRef": null,
+    "feeI": 2,
+    "feeBasis": "2I total = 1I source reservation/bounded care at acceptance + 1I external carriage/receipt at dispatch. Minimal positive integer test tariff per stage, not historical/calibrated pricing; training is initial assumption, not bought here.",
+    "equipment012I": 10,
+    "equipment012AccountId": null,
+    "separateRegistryBindingRef": null,
+    "sameGrantOrAccountAs012Allowed": false,
+    "combinedIfBothApprovedI": 12,
+    "additionalIncomeAllowed": false,
+    "onAccept": "availableI -= 2; acceptanceCareSpentI += 1; requestEscrowI += 1",
+    "onDispatch": "requestEscrowI -> carriageSpentI (1) atomically with capacity and custody",
+    "onUnsentExpiry": "unspent 1I escrow -> SAME original account; committed 1I care fee not refunded; no new grant/application",
+    "afterCommittedDispatchRefundAllowed": false,
+    "sourcePersonnelPurchaseCost": null,
+    "sourcePersonnelPurchaseCostMeaning": "not a purchase operation; physical initial 1P endowment explicitly separately approved, not free factory output. National training cost outside slice.",
+    "acceptanceCareFeeI": 1,
+    "carriageFeeI": 1
+  },
+  "warehouse": {
+    "canonicalId": "RC007-REAR-G-A10",
+    "personnelAccountId": "RC008-G-A10-P",
+    "mappingTo012WarehouseRef": null,
+    "nodeId": "A10",
+    "coreKey": "0,9",
+    "side": "G",
+    "observedInitialControl": null,
+    "capacityP": 1,
+    "initialP": 0,
+    "serviceGrantRef": null,
+    "nullControlPolicy": "explicit scoped G service authorization required; null is not friendly. Reject enemy occupancy/control or unknown live eligibility",
+    "nullControlApprovalRef": null,
+    "eligibilityFields": [
+      "currentSnapshotHash",
+      "side",
+      "nodeId",
+      "coreKey",
+      "serviceGrant",
+      "nullPolicyGrant",
+      "enemyOccupancy",
+      "control",
+      "residentP",
+      "allIncomingReservationsP"
+    ],
+    "capacityFormula": "residentP + allIncomingReservationsP <= 1; convert this shipment hold to resident atomically",
+    "equipmentCapacityAnd012ParametersUnchanged": true,
+    "homeSideOrCityRoleAuthority": false,
+    "quarantinedResidentStillUsesCapacity": true
+  },
+  "transport": {
+    "serviceId": "RC008-OFFMAP-RESERVE-TO-A10",
+    "serviceApprovalRef": null,
+    "kind": "PROPOSED_FINITE_EXTERNAL_TRANSFER_AND_REAR_CUSTODY_BUNDLE",
+    "loadPerP_LQ": 4,
+    "loadBasis": "005/006 proposed personnel rate 4 LQ/P; LQ is constraint load, not SP or historical tonnage",
+    "finiteQuotaLQ": 4,
+    "quotaScope": "ONE_APPROVED_SLICE_TOTAL, NOT renewable per epoch; committed usage remains spent",
+    "quotaBasis": "one-batch experiment ceiling, not measured station throughput; NEW capacity approval required",
+    "latencyEpochs": 1,
+    "latencyBasis": "R1 dispatch-window abstraction due=d+L-1; L=1 means E_d receipt earliest T_d+1 usable, not instant action or training",
+    "covers": [
+      "release/loading at off-map trained pool",
+      "external carriage to A10",
+      "A10 acceptance/unloading",
+      "bounded custody/care through first usable T"
+    ],
+    "sharingRecommendation": "dedicated finite off-map service ledger, no existing map rail/T/W rows charged or increased by this candidate",
+    "physicalResourceSeparationApprovalRef": null,
+    "concurrent012ServiceAllowed": false,
+    "concurrencyPolicy": "exclude simultaneous 012 transfer from this service window unless a later approved joint mapping debits shared resources once; distinct account names do not prove physical independence",
+    "capacityFormula": "committedLQ + otherHoldsLQ + requestLQ <= 4; reserve then commit once",
+    "failureBeforeCommit": "release tentative hold, preserve source request escrow and I escrow; retry same application within window",
+    "oldEquipmentOrC10ReceiptAllowed": false,
+    "A10ToFrontAllowed": false,
+    "forwardTransportRule": "requires new authorization, real route and paid capacity; A10 receipt is NOT a C10 terminal service receipt"
+  },
+  "timing": {
+    "accept": "T_a GERMAN_RECOVERY, no pending; 1<=a<=22, matching authorized snapshot",
+    "atAcceptance": "poolAvailableP -= 1; requestEscrowAtPoolP += 1; availableI -= 2; acceptanceCareSpentI += 1; escrowI += 1; no warehouse P, no capacity spent",
+    "dispatch": "E_a or E_a+1, step14; requestEscrowAtPoolP -> inTransitP; I escrow and quota commit atomically",
+    "arrival": "due=d+L-1; E15 for same E dispatch or E13 for prior E; actual arrival <= min(a+2,24)",
+    "arrivalRejected": "HELD remains transit owner; hold A10 capacity, no duplicate fee, retry same shipment in remaining window",
+    "arrivalAccepted": "inTransitP -> rearUnavailableP and destination hold -> resident; one receipt",
+    "availableFromTurn": "actualReceivedEpoch+1",
+    "shipEligibleEpoch": "actualReceivedEpoch+1, only with NEW onward transport authority",
+    "expiryEvent": "candidate slice housekeeping after E15 and before E20; does not reorder R1 industrial/SP phases",
+    "unsentDeadline": "end E_a+1: source escrow -> source QUARANTINED, restore only unspent 1I escrow to same account, keep care fee spent; cannot resubmit with a new ID",
+    "transitDeadline": "end E_min(a+2,24): unreconciled transit -> transit QUARANTINED, release destination hold, keep spent fees/quota; no free return or reactivation",
+    "rearScopeDeadline": "end E_(received+1), after first usable T: unconsumed resident -> rear QUARANTINED, still occupies P capacity; no upkeep/usage extension assumed",
+    "E24Arrival": "record availableFromTurn=25; immediately TERMINAL_QUARANTINED at E24, no T25, no VP or R",
+    "earlyGameOver": "terminate all active custody with same unsent/transit/rear rules, no deletion or false death",
+    "postExpiry": "no new receipt/import/use; query historical receipt allowed; new reviewed custody agreement required, not fresh 1P grant",
+    "unacceptedGrant": "initial manifest activated only in the approved T_a snapshot. If never accepted, at end E_a+1 pool remains source QUARANTINED; budget stays unused, grant expires; no permanent live service. Pre-accept holding is part of declared finite initial condition, not ongoing production or training."
+  },
+  "identity": {
+    "grantId": "approvedDecision/match/G/personnel/source-0001",
+    "budgetGrantId": "approvedDecision/match/G/personnel/budget-0001",
+    "personnelPackageId": "grantId/P-0001",
+    "applicationId": "grantId/application-0001",
+    "batchId": "applicationId/batch-0001",
+    "shipmentId": "batchId/to-A10-0001",
+    "receiptId": "shipmentId/received",
+    "idFields": [
+      "matchId",
+      "decisionHash",
+      "contractHash",
+      "sourceGrantId",
+      "budgetGrantId",
+      "packageId",
+      "applicationId",
+      "batchId",
+      "shipmentId",
+      "receiptId"
+    ],
+    "noRandomRNGIds": true,
+    "fingerprintFields": [
+      "side",
+      "quantityP",
+      "packageId",
+      "poolId",
+      "warehouseId",
+      "nodeId",
+      "coreKey",
+      "budgetAccountId",
+      "feeI",
+      "loadLQ",
+      "quotaId",
+      "window",
+      "profileHash",
+      "sourceSnapshotHash",
+      "trainingAssumptionGrantHash"
+    ],
+    "import": "one global-per-match grant registry; reloading same snapshot or changing instance/action ID cannot mint another P or I allocation; alternative offline branches cannot be merged as additional stock",
+    "retry": "same permanent ID and same payload returns previous receipt only before revision test; conflicting payload rejects; one application maximum includes expired/rejected-after-acceptance IDs; returned historical receipt never renews validity or bypasses current expiry/custody checks",
+    "retention": "keep terminal/consumed/expired IDs indefinitely with ledger; no recycle"
+  },
+  "atomicity": {
+    "root": [
+      "P custody",
+      "I accounts",
+      "application and status",
+      "capacity holds/usage",
+      "warehouse reservation",
+      "receipts/idempotency registry",
+      "revision"
+    ],
+    "expectedRevisionRequired": true,
+    "snapshotAndApprovalHashRequired": true,
+    "deadlineSeconds": 3,
+    "onError": "rollback ALL tentative changes to previous committed snapshot incl receipts; earlier successful transactions remain committed; never refund an earlier completed carriage on unload refusal",
+    "RNGAdvanceAllowed": false,
+    "durableRecovery": "needed for cross-process/crash guarantees; not established by arithmetic validator",
+    "noRuntimeCodeHere": true
+  },
+  "preserved": {
+    "globalBlockers": 35,
+    "globalClosed": 0,
+    "GermanGapSP": 9,
+    "SovietGapSP": 14,
+    "extra22SP": false,
+    "CoreMapControlHomeSideVPChanged": false,
+    "E2Granted": false,
+    "012Changed": false
+  },
+  "blockerReview": [
+    {
+      "blocker": "RUNTIME_NOT_APPROVED",
+      "field": "approval.decisionRef",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_RUNTIME_DECISION",
+      "field": "approval.decisionRef",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:DEP-G-A10",
+      "field": "warehouse.serviceGrantRef",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:DEP-S-AF10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:REC-G-C10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:REC-S-AC10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:ENTRY-G-A10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "MISSING_SERVICE_GRANT:ENTRY-S-AF10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:storageCapacityE2",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:personnelCapacityP",
+      "field": "warehouse.capacityP",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-G-A10:stockOriginManifest",
+      "field": "pool.sourceGrantRef/trainingEvidence",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:storageCapacityE2",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:personnelCapacityP",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "DEPOT_UNRESOLVED:DEP-S-AF10:stockOriginManifest",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:storageCapacityE2",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:personnelCapacityP",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:transferPermissionRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-G-C10:captureDisposition",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:storageCapacityE2",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:personnelCapacityP",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:transferPermissionRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "RECEIVER_UNRESOLVED:REC-S-AC10:captureDisposition",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-G-A10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "ENTRY_INITIALIZATION_UNAPPROVED:ENTRY-S-AF10",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:authorization.approvedNullControlPolicy",
+      "field": "warehouse.nullControlPolicy",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:authorization.nullControlApprovalRef",
+      "field": "warehouse.nullControlApprovalRef",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:assembly.recipeCatalogApprovalRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:recovery.recipeApprovalRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:recovery.integrationHookApprovalRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:budget.policyApprovalRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.approvedEquipmentVectorRule",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.approvedPersonnelTransportRule",
+      "field": "transport.loadPerP_LQ",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.vectorRuleApprovalRef",
+      "field": "transport.serviceApprovalRef",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.productionToDepotTransferApprovalRef",
+      "field": null,
+      "scope": "OUT_OF_SLICE_STILL_BLOCKED",
+      "globalResolved": false
+    },
+    {
+      "blocker": "UNRESOLVED:transport.initialMaterialManifest",
+      "field": "pool.initialP/unique grant and package identity",
+      "scope": "LOCAL_CANDIDATE_UNAPPROVED",
+      "globalResolved": false
+    }
+  ],
+  "newPending": [
+    "Leader approval of assumed pre-trained initial 1P and unique provenance",
+    "separate 2I allocation, tariff and distinct registered 012 account/grant identities",
+    "new finite external service, physical separation and exclusive scheduling",
+    "A10 personnel capacity/service/null-policy and canonical warehouse registry binding",
+    "fixed start snapshot/turn and exact validity window",
+    "durable transaction and grant registry; downstream transport/recovery/longer care remain outside scope"
+  ],
+  "notProven": [
+    "actual training or historical manpower balance",
+    "actual transfer, Core qualification or route feasibility",
+    "012 parameter/interface compatibility",
+    "runtime idempotency/atomicity/durability",
+    "balance or whole-army sustainability"
+  ]
+}

@@ -1,0 +1,1378 @@
+{
+  "note": "Synthetic premises only; numbers mirror unapproved candidate proposals, flags do not authorize runtime. No actual training, movement or game execution.",
+  "base": {
+    "kind": "SYNTHETIC_NOT_AUTHORIZATION",
+    "premises": {
+      "approved": true,
+      "trainedAssumptionApproved": true,
+      "trainingKind": "SCENARIO_ASSUMPTION",
+      "side": "G",
+      "hex": "A10",
+      "key": "0,9",
+      "nullPolicyApproved": true,
+      "enemyOccupied": false,
+      "budgetAccount": "RC008-I",
+      "equipmentAccount": "012-I",
+      "budgetGrant": "RC008-IG",
+      "equipmentGrant": "012-IG",
+      "serviceId": "RC008-EXTERNAL",
+      "physicalSeparationApproved": true,
+      "concurrent012": false,
+      "initialP": 1,
+      "initialI": 2,
+      "careFee": 1,
+      "carriageFee": 1,
+      "loadPerP": 4,
+      "quota": 4,
+      "capacityP": 1,
+      "startTurn": 8,
+      "otherHoldsLQ": 0,
+      "otherResidentP": 0
+    },
+    "before": {
+      "pool": 0,
+      "sourceEscrow": 0,
+      "transit": 0,
+      "rear": 0,
+      "quarantineSource": 0,
+      "quarantineTransit": 0,
+      "quarantineRear": 0,
+      "availableI": 0,
+      "escrowI": 0,
+      "careSpentI": 0,
+      "carriageSpentI": 0,
+      "usedLQ": 0,
+      "incomingP": 0,
+      "availableFromTurn": null,
+      "shipEligibleEpoch": null,
+      "equipmentI": 10,
+      "equipmentE2": 0
+    },
+    "events": [
+      {
+        "id": "grant/import",
+        "kind": "IMPORT",
+        "turn": 8,
+        "stage": 0,
+        "packageId": "SOURCE-G/P-1"
+      },
+      {
+        "id": "app/accept",
+        "kind": "ACCEPT",
+        "turn": 8,
+        "stage": 1,
+        "packageId": "SOURCE-G/P-1",
+        "phase": "GERMAN_RECOVERY",
+        "pending": false
+      },
+      {
+        "id": "ship/dispatch",
+        "kind": "DISPATCH",
+        "turn": 8,
+        "stage": 14,
+        "packageId": "SOURCE-G/P-1",
+        "eligible": true
+      },
+      {
+        "id": "ship/receipt",
+        "kind": "RECEIVE",
+        "turn": 8,
+        "stage": 15,
+        "packageId": "SOURCE-G/P-1",
+        "eligible": true
+      },
+      {
+        "id": "query/T9",
+        "kind": "CHECK_AVAILABLE",
+        "turn": 9,
+        "stage": 1,
+        "packageId": "SOURCE-G/P-1"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "id": "N01",
+      "title": "正常单笔付款、占运力、入库及次T可用",
+      "changes": [],
+      "expected": "PASS",
+      "expectedAfter": {
+        "pool": 0,
+        "sourceEscrow": 0,
+        "transit": 0,
+        "rear": 1,
+        "availableI": 0,
+        "escrowI": 0,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4,
+        "incomingP": 0,
+        "availableFromTurn": 9,
+        "equipmentI": 10,
+        "equipmentE2": 0
+      }
+    },
+    {
+      "id": "N02",
+      "title": "成功永久ID同载荷重试",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 0,
+      "expectedAfter": {
+        "rear": 1,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4
+      }
+    },
+    {
+      "id": "N03",
+      "title": "成功永久ID同载荷重试",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 1,
+      "expectedAfter": {
+        "rear": 1,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4
+      }
+    },
+    {
+      "id": "N04",
+      "title": "成功永久ID同载荷重试",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 2,
+      "expectedAfter": {
+        "rear": 1,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4
+      }
+    },
+    {
+      "id": "N05",
+      "title": "成功永久ID同载荷重试",
+      "changes": [],
+      "expected": "PASS",
+      "duplicateIndex": 3,
+      "expectedAfter": {
+        "rear": 1,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4
+      }
+    },
+    {
+      "id": "N06",
+      "title": "训练假设未获批",
+      "changes": [
+        [
+          "premises.trainedAssumptionApproved",
+          false
+        ]
+      ],
+      "expected": "MISSING_SOURCE_OR_TRAINING_APPROVAL"
+    },
+    {
+      "id": "N07",
+      "title": "伪称实际训练回执",
+      "changes": [
+        [
+          "premises.trainingKind",
+          "COMPLETED_TRAINING"
+        ]
+      ],
+      "expected": "FABRICATED_TRAINING_RECEIPT"
+    },
+    {
+      "id": "N08",
+      "title": "错侧",
+      "changes": [
+        [
+          "premises.side",
+          "S"
+        ]
+      ],
+      "expected": "WRONG_SERVICE"
+    },
+    {
+      "id": "N09",
+      "title": "错格",
+      "changes": [
+        [
+          "premises.hex",
+          "C10"
+        ]
+      ],
+      "expected": "WRONG_SERVICE"
+    },
+    {
+      "id": "N10",
+      "title": "渲染key误用",
+      "changes": [
+        [
+          "premises.key",
+          "0,10"
+        ]
+      ],
+      "expected": "WRONG_SERVICE"
+    },
+    {
+      "id": "N11",
+      "title": "null不等于己方",
+      "changes": [
+        [
+          "premises.nullPolicyApproved",
+          false
+        ]
+      ],
+      "expected": "CONTROL"
+    },
+    {
+      "id": "N12",
+      "title": "敌占",
+      "changes": [
+        [
+          "premises.enemyOccupied",
+          true
+        ]
+      ],
+      "expected": "CONTROL"
+    },
+    {
+      "id": "N13",
+      "title": "复用012账户",
+      "changes": [
+        [
+          "premises.budgetAccount",
+          "012-I"
+        ]
+      ],
+      "expected": "012_REUSED"
+    },
+    {
+      "id": "N14",
+      "title": "复用012拨款",
+      "changes": [
+        [
+          "premises.budgetGrant",
+          "012-IG"
+        ]
+      ],
+      "expected": "012_REUSED"
+    },
+    {
+      "id": "N15",
+      "title": "复用C10凭证",
+      "changes": [
+        [
+          "premises.serviceId",
+          "C10-8W"
+        ]
+      ],
+      "expected": "SERVICE_NOT_APPROVED"
+    },
+    {
+      "id": "N16",
+      "title": "物理分离未批准",
+      "changes": [
+        [
+          "premises.physicalSeparationApproved",
+          false
+        ]
+      ],
+      "expected": "SERVICE_NOT_APPROVED"
+    },
+    {
+      "id": "N17",
+      "title": "与012并发",
+      "changes": [
+        [
+          "premises.concurrent012",
+          true
+        ]
+      ],
+      "expected": "SHARED_PHYSICAL_SERVICE"
+    },
+    {
+      "id": "N18",
+      "title": "未知运费",
+      "changes": [
+        [
+          "premises.carriageFee",
+          null
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:carriageFee"
+    },
+    {
+      "id": "N19",
+      "title": "零运费",
+      "changes": [
+        [
+          "premises.carriageFee",
+          0
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:carriageFee"
+    },
+    {
+      "id": "N20",
+      "title": "零人员载荷",
+      "changes": [
+        [
+          "premises.loadPerP",
+          0
+        ]
+      ],
+      "expected": "UNKNOWN_OR_FREE:loadPerP"
+    },
+    {
+      "id": "N21",
+      "title": "来源不有限",
+      "changes": [
+        [
+          "premises.initialP",
+          2
+        ]
+      ],
+      "expected": "RECOMMENDED_SLICE_VALUES"
+    },
+    {
+      "id": "N22",
+      "title": "不导入旧仓P",
+      "changes": [
+        [
+          "before.rear",
+          1
+        ]
+      ],
+      "expected": "OLD_GIFT_OR_BUDGET"
+    },
+    {
+      "id": "N23",
+      "title": "运力已预约",
+      "changes": [
+        [
+          "premises.otherHoldsLQ",
+          1
+        ]
+      ],
+      "expected": "TRANSPORT_FULL"
+    },
+    {
+      "id": "N24",
+      "title": "仓容已占",
+      "changes": [
+        [
+          "premises.otherResidentP",
+          1
+        ]
+      ],
+      "expected": "WAREHOUSE_FULL"
+    },
+    {
+      "id": "N25",
+      "title": "非合法申请阶段",
+      "changes": [
+        [
+          "events.1.phase",
+          "GERMAN_COMBAT"
+        ]
+      ],
+      "expected": "ACCEPT_WINDOW"
+    },
+    {
+      "id": "N26",
+      "title": "存在待决",
+      "changes": [
+        [
+          "events.1.pending",
+          true
+        ]
+      ],
+      "expected": "ACCEPT_WINDOW"
+    },
+    {
+      "id": "N27",
+      "title": "发运资格失败",
+      "changes": [
+        [
+          "events.2.eligible",
+          false
+        ]
+      ],
+      "expected": "DISPATCH_INELIGIBLE"
+    },
+    {
+      "id": "N28",
+      "title": "收货资格失败",
+      "changes": [
+        [
+          "events.3.eligible",
+          false
+        ]
+      ],
+      "expected": "RECEIPT_INELIGIBLE"
+    },
+    {
+      "id": "N29",
+      "title": "错包",
+      "changes": [
+        [
+          "events.3.packageId",
+          "OTHER/P"
+        ]
+      ],
+      "expected": "PACKAGE_MISMATCH"
+    },
+    {
+      "id": "N30",
+      "title": "当天提前使用",
+      "changes": [
+        [
+          "events.4.turn",
+          8
+        ],
+        [
+          "events.4.stage",
+          16
+        ]
+      ],
+      "expected": "NOT_AVAILABLE"
+    },
+    {
+      "id": "N31",
+      "title": "不能借后方许可前送",
+      "changes": [
+        [
+          "events.4.kind",
+          "FORWARD"
+        ]
+      ],
+      "expected": "FORWARD_OUT_OF_SCOPE"
+    },
+    {
+      "id": "N32",
+      "title": "新请求ID不能重复创建永久资源",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "grant/importnew",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "DUPLICATE_GRANT"
+    },
+    {
+      "id": "N33",
+      "title": "新请求ID不能重复创建永久资源",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "app/acceptnew",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "SECOND_OR_EXPIRED_APPLICATION"
+    },
+    {
+      "id": "N34",
+      "title": "新请求ID不能重复创建永久资源",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receiptnew",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "RECEIPT_CUSTODY"
+    },
+    {
+      "id": "N35",
+      "title": "同ID不同载荷",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": false
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "ID_CONFLICT"
+    },
+    {
+      "id": "N36",
+      "title": "拒收后次E到账仅付一次",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "hold/E8",
+              "kind": "HOLD",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": false
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 9,
+              "stage": 13,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T10",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 10,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "rear": 1,
+        "transit": 0,
+        "usedLQ": 4,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "availableFromTurn": 10
+      }
+    },
+    {
+      "id": "N37",
+      "title": "未发运过期只退托管1I",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "expiry/unsent",
+              "kind": "EXPIRE",
+              "turn": 9,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "quarantineSource": 1,
+        "rear": 0,
+        "transit": 0,
+        "availableI": 1,
+        "careSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 0,
+        "usedLQ": 0
+      }
+    },
+    {
+      "id": "N38",
+      "title": "在途过期不退已耗费用容量",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "hold/E8",
+              "kind": "HOLD",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": false
+            },
+            {
+              "id": "expiry/transit",
+              "kind": "EXPIRE",
+              "turn": 10,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "quarantineTransit": 1,
+        "rear": 0,
+        "transit": 0,
+        "incomingP": 0,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4
+      }
+    },
+    {
+      "id": "N39",
+      "title": "已收过期保留仓容P",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "expiry/rear",
+              "kind": "EXPIRE",
+              "turn": 9,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "rear": 0,
+        "quarantineRear": 1,
+        "usedLQ": 4,
+        "availableI": 0
+      }
+    },
+    {
+      "id": "N40",
+      "title": "过期拒绝再入库",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "hold/E8",
+              "kind": "HOLD",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": false
+            },
+            {
+              "id": "expiry/transit",
+              "kind": "EXPIRE",
+              "turn": 10,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "late/receipt",
+              "kind": "RECEIVE",
+              "turn": 11,
+              "stage": 13,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            }
+          ]
+        ]
+      ],
+      "expected": "RECEIPT_CUSTODY"
+    },
+    {
+      "id": "N41",
+      "title": "过期不能换ID复活申请",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "expiry/unsent",
+              "kind": "EXPIRE",
+              "turn": 9,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "new/app",
+              "kind": "ACCEPT",
+              "turn": 10,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            }
+          ]
+        ]
+      ],
+      "expected": "SECOND_OR_EXPIRED_APPLICATION"
+    },
+    {
+      "id": "N42",
+      "title": "E24实收只留终局库存",
+      "changes": [
+        [
+          "premises.startTurn",
+          22
+        ],
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 22,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 22,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 23,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "hold/E23",
+              "kind": "HOLD",
+              "turn": 23,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": false
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 24,
+              "stage": 13,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "expiry/terminal",
+              "kind": "EXPIRE",
+              "turn": 24,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "quarantineRear": 1,
+        "rear": 0,
+        "availableFromTurn": 25,
+        "equipmentI": 10
+      }
+    },
+    {
+      "id": "N43",
+      "title": "无T25",
+      "changes": [
+        [
+          "premises.startTurn",
+          22
+        ],
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 22,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 22,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 23,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "hold/E23",
+              "kind": "HOLD",
+              "turn": 23,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": false
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 24,
+              "stage": 13,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "expiry/terminal",
+              "kind": "EXPIRE",
+              "turn": 24,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "query/T25",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 25,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "NO_T25"
+    },
+    {
+      "id": "N44",
+      "title": "失败记录完整回退再重试",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "failure",
+              "kind": "FAILURE_RECORD",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "beforeHash": "bde4d67f8d6b7438b491db82f83e09f11a5267031ad8fa3ec6c9071de6d95640",
+              "afterHash": "bde4d67f8d6b7438b491db82f83e09f11a5267031ad8fa3ec6c9071de6d95640"
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "rear": 1,
+        "careSpentI": 1,
+        "carriageSpentI": 1,
+        "usedLQ": 4
+      }
+    },
+    {
+      "id": "N45",
+      "title": "部分写入不是回滚",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "failure",
+              "kind": "FAILURE_RECORD",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "beforeHash": "bde4d67f8d6b7438b491db82f83e09f11a5267031ad8fa3ec6c9071de6d95640",
+              "afterHash": "partially-written"
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 8,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "ship/receipt",
+              "kind": "RECEIVE",
+              "turn": 8,
+              "stage": 15,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            },
+            {
+              "id": "query/T9",
+              "kind": "CHECK_AVAILABLE",
+              "turn": 9,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PARTIAL_ROLLBACK"
+    },
+    {
+      "id": "N46",
+      "title": "未接受清单过期无运行服务",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "expiry/unaccepted",
+              "kind": "EXPIRE",
+              "turn": 9,
+              "stage": 16,
+              "packageId": "SOURCE-G/P-1"
+            }
+          ]
+        ]
+      ],
+      "expected": "PASS",
+      "expectedAfter": {
+        "quarantineSource": 1,
+        "availableI": 2,
+        "careSpentI": 0,
+        "carriageSpentI": 0,
+        "usedLQ": 0
+      }
+    },
+    {
+      "id": "N47",
+      "title": "入库时再次核对仓容",
+      "changes": [
+        [
+          "events.3.otherResidentP",
+          1
+        ]
+      ],
+      "expected": "RECEIPT_CAPACITY"
+    },
+    {
+      "id": "N48",
+      "title": "不能超窗发送",
+      "changes": [
+        [
+          "events",
+          [
+            {
+              "id": "grant/import",
+              "kind": "IMPORT",
+              "turn": 8,
+              "stage": 0,
+              "packageId": "SOURCE-G/P-1"
+            },
+            {
+              "id": "app/accept",
+              "kind": "ACCEPT",
+              "turn": 8,
+              "stage": 1,
+              "packageId": "SOURCE-G/P-1",
+              "phase": "GERMAN_RECOVERY",
+              "pending": false
+            },
+            {
+              "id": "ship/dispatch",
+              "kind": "DISPATCH",
+              "turn": 10,
+              "stage": 14,
+              "packageId": "SOURCE-G/P-1",
+              "eligible": true
+            }
+          ]
+        ]
+      ],
+      "expected": "DISPATCH_WINDOW"
+    }
+  ]
+}
