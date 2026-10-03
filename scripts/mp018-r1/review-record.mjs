@@ -1,0 +1,22 @@
+// Offline review of actual user exports only. Never fabricates a browser/device pass.
+import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {basename,resolve,join} from 'node:path';
+import {hash,verifyArtifacts} from '../mp017/integrity.mjs';
+import {exportRecord} from '../mp017/web/export.mjs';
+const [stage,file,backup]=process.argv.slice(2);
+if(!['desktop','huawei'].includes(stage)||!file)throw Error('Usage: review-record.mjs desktop|huawei actual.json [actual-text-backup.txt]');
+const bytes=readFileSync(file);if(bytes.length>5*1024*1024)throw Error('Unexpected export size');
+const parse=b=>JSON.parse(b.toString('utf8').replace(/^\uFEFF/,''));const r=parse(bytes),m=verifyArtifacts();
+if(r.schema!=='MP017-paired-trial-v1'||!['control','candidate'].includes(r.version)||r.sourceSha!==m.versions[r.version]||r.serverSha!==m.serverSha||r.snapshotFormat!==m.snapshotFormat||r.diagnosticSha256!==m.diagnosticSha256)throw Error('Fixed export identity mismatch');
+if(!/^[a-f0-9-]{36}$/.test(r.pairId)||!['warmup','measured'].includes(r.purpose)||![1,2].includes(r.order))throw Error('Unexpected pairing metadata');
+const scan=o=>{if(!o||typeof o!=='object')return;for(const[k,v]of Object.entries(o)){if(/^(token|resumeToken|cookie|password|passwordSha256|authorization|payload|playerView)$/i.test(k))throw Error('Unexpected sensitive field; do not archive');scan(v);}};scan(r);
+const expected=exportRecord({config:{versions:m.versions,serverSha:m.serverSha,snapshotFormat:m.snapshotFormat,diagnosticSha256:m.diagnosticSha256,cachePolicy:m.cachePolicy},device:r.device,version:r.version,pairId:r.pairId,purpose:r.purpose,order:r.order,run:r.diagnostic?{source:'MP017-DIAG',...r.diagnostic}:null,sample:r.sample,attempt:r.parentAttempt,exportedAt:r.exportedAt});
+if(expected.classification!==r.classification||JSON.stringify(expected.reasons)!==JSON.stringify(r.reasons))throw Error('Classification mismatch; preserve source for separate investigation');
+const out=resolve('evidence/mp-018-r1/records');mkdirSync(out,{recursive:true});const name=`${stage}-${r.pairId}-${r.version}`;
+if(existsSync(join(out,name+'.json')))throw Error('Existing record cannot be overwritten');
+const a=r.diagnostic?.report?.actions?.find(a=>a.requestId===r.sample?.metrics?.requestId),delta=(x,y)=>Number.isFinite(x)&&Number.isFinite(y)?Math.round((x-y)*1000)/1000:null;
+const overlap=(start,end,intervals)=>{if(!Number.isFinite(start)||!Number.isFinite(end))return null;const ranges=intervals.filter(v=>Number.isFinite(v.startAt)&&Number.isFinite(v.endAt)).map(v=>[Math.max(start,v.startAt),Math.min(end,v.endAt)]).filter(([s,e])=>e>s).sort((a,b)=>a[0]-b[0]);let total=0,last=-Infinity;for(const[s,e]of ranges){total+=Math.max(0,e-Math.max(last,s));last=Math.max(last,e);}return Math.round(total*1000)/1000;};
+let backupMatches=null,backupSha256=null;if(backup){const b=readFileSync(backup);backupSha256=hash(b);backupMatches=JSON.stringify(parse(b))===JSON.stringify(r);writeFileSync(join(out,name+'-text-backup.txt'),b,{flag:'wx'});}
+writeFileSync(join(out,name+'.json'),bytes,{flag:'wx'});
+const report={stage,sourceFile:basename(file),sourceSha256:hash(bytes),version:r.version,sourceSha:r.sourceSha,pairId:r.pairId,purpose:r.purpose,order:r.order,device:r.device,classification:r.classification,reasons:r.reasons,textBackupMatches:backupMatches,textBackupSha256:backupSha256,scenario:r.diagnostic?.scenario??null,mode:r.diagnostic?.mode??null,milestones:a?.milestones??null,originalSampler:r.sample?.metrics??null,queries:a?.queries?.map(q=>({...q,applyToSendMs:delta(q.sendAt,a.times.appliedAt),sendToReceiveMs:delta(q.receiveAt,q.sendAt),receiveToCanSubmitMs:delta(a.times.canSubmitAt,q.receiveAt),synchronousViewOverlapMs:overlap(q.sendAt,q.receiveAt,(a.renders??[]).filter(v=>v.kind==='view'))}))??[],renders:a?.renders??[],missing:a?.missing??[],limitations:['Browser login/map/target/text backup require actual user evidence; classification alone is not full acceptance.','Same iframe monotonic clock only. Render is synchronous subscriber work, not paint.','Query interval includes unknown transport/server/event-loop wait; overlap is observed intersection, not causal speedup.','One measured pair is exploratory; no stable P95 or network improvement claim.']};
+writeFileSync(join(out,name+'-review.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(report,null,2));
