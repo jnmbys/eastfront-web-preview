@@ -1,0 +1,1017 @@
+{
+  "task": "INDUSTRY-INTEGRATE-014",
+  "cases": [
+    {
+      "name": "complete_root_permanent_receipts_unique_lot_ownership_and_spent_grants",
+      "origin": "REAL_PINNED_T8_READ_ONLY",
+      "passed": true,
+      "detail": {
+        "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+        "receipts": 37
+      }
+    },
+    {
+      "name": "repeat_queries_and_return_value_mutation_do_not_modify_any_authoritative_field",
+      "origin": "REAL_PINNED_T8_READ_ONLY",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "stale_start_hash_rejected_before_projection",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "current_Core_eligibility_corrected_route_RP_only_quote_and_no_PE_authorization",
+      "origin": "REAL_PINNED_T8_READ_ONLY",
+      "passed": true,
+      "detail": {
+        "commonEligible": true,
+        "commonIssues": [],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": true,
+          "issues": []
+        },
+        "integrityIssues": [],
+        "recoveryIssues": [],
+        "rpIssues": [],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 1,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 142,
+          "snapshotHash": "039c1f04e43d7eb69013b48c302b2f9f0f975b2fc37d3c4795edb132e95a4dce",
+          "turn": 8,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 0,
+          "recoveryLimit": 1
+        }
+      }
+    },
+    {
+      "name": "new_private_E8_reference_and_exact_maintenance_preserving_infeasibility",
+      "origin": "REAL_PINNED_T8_READ_ONLY",
+      "passed": true,
+      "detail": {
+        "rows": [
+          {
+            "id": "rail:A10~B10",
+            "cap": 40,
+            "referenceSP": 32,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": 0,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "rail:A10~B10",
+              "used": 32,
+              "cap": 40,
+              "saturated": false
+            }
+          },
+          {
+            "id": "rail:B10~C10",
+            "cap": 40,
+            "referenceSP": 32,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": 0,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "rail:B10~C10",
+              "used": 32,
+              "cap": 40,
+              "saturated": false
+            }
+          },
+          {
+            "id": "T",
+            "cap": 2200,
+            "referenceSP": 108,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 16,
+            "remainingWithFrozenSP": 2076,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "T",
+              "used": 108,
+              "cap": 2200,
+              "saturated": false
+            }
+          },
+          {
+            "id": "W:GH2",
+            "cap": 96,
+            "referenceSP": 96,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": -8,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "W:GH2",
+              "used": 96,
+              "cap": 96,
+              "saturated": true
+            }
+          }
+        ],
+        "proof": {
+          "kind": "EXACT_ROW_ALGEBRA_NO_ADDITIONAL_SOLVE",
+          "requiredNetDelivery": 56.0,
+          "GH1MaximumDelivery": 32.0,
+          "GH1ProofRows": [
+            "rail balance:A5",
+            "hub:GH1",
+            "source:G-A5"
+          ],
+          "GH2MinimumRequiredDelivery": 24.0,
+          "multiplier": 5,
+          "cheapDestinationUpperBounds": [
+            {
+              "unit": "G-I-08",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-08",
+              "routeVariables": [
+                "route:GH1:G-I-08:0",
+                "route:GH2:G-I-08:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-I-09",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-09",
+              "routeVariables": [
+                "route:GH1:G-I-09:0",
+                "route:GH2:G-I-09:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-J-01",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-J-01",
+              "routeVariables": [
+                "route:GH1:G-J-01:0",
+                "route:GH2:G-J-01:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-J-02",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-J-02",
+              "routeVariables": [
+                "route:GH1:G-J-02:0",
+                "route:GH2:G-J-02:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-PZ-03",
+              "net": 4.0,
+              "row": "fixed net maintenance:G-PZ-03",
+              "routeVariables": [
+                "route:GH1:G-PZ-03:0",
+                "route:GH2:G-PZ-03:0"
+              ],
+              "GH2MinimumCost": 3
+            },
+            {
+              "unit": "G-PZ-04",
+              "net": 4.0,
+              "row": "fixed net maintenance:G-PZ-04",
+              "routeVariables": [
+                "route:GH1:G-PZ-04:0",
+                "route:GH2:G-PZ-04:0"
+              ],
+              "GH2MinimumCost": 3
+            }
+          ],
+          "discountUpperBound": 24.0,
+          "GH2WorkLowerBound": 96.0,
+          "GH2SPWorkCap": 88.0,
+          "contradiction": 8.0,
+          "requiredUnits": [
+            {
+              "unit": "G-ART-01",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-ART-01",
+              "routeVariables": [
+                "route:GH1:G-ART-01:0",
+                "route:GH2:G-ART-01:0"
+              ],
+              "GH2MinimumCost": 6
+            },
+            {
+              "unit": "G-ART-02",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-ART-02",
+              "routeVariables": [
+                "route:GH1:G-ART-02:0",
+                "route:GH2:G-ART-02:0"
+              ],
+              "GH2MinimumCost": 6
+            },
+            {
+              "unit": "G-ENG-01",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-ENG-01",
+              "routeVariables": [
+                "route:GH1:G-ENG-01:0",
+                "route:GH2:G-ENG-01:0"
+              ],
+              "GH2MinimumCost": 7
+            },
+            {
+              "unit": "G-ENG-02",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-ENG-02",
+              "routeVariables": [
+                "route:GH1:G-ENG-02:0",
+                "route:GH2:G-ENG-02:0"
+              ],
+              "GH2MinimumCost": 7
+            },
+            {
+              "unit": "G-I-02",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-02",
+              "routeVariables": [
+                "route:GH1:G-I-02:0",
+                "route:GH2:G-I-02:0"
+              ],
+              "GH2MinimumCost": 5
+            },
+            {
+              "unit": "G-I-03",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-03",
+              "routeVariables": [
+                "route:GH1:G-I-03:0",
+                "route:GH2:G-I-03:0"
+              ],
+              "GH2MinimumCost": 5
+            },
+            {
+              "unit": "G-I-04",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-04",
+              "routeVariables": [
+                "route:GH1:G-I-04:0",
+                "route:GH2:G-I-04:0"
+              ],
+              "GH2MinimumCost": 5
+            },
+            {
+              "unit": "G-I-05",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-05",
+              "routeVariables": [
+                "route:GH1:G-I-05:0",
+                "route:GH2:G-I-05:0"
+              ],
+              "GH2MinimumCost": 5
+            },
+            {
+              "unit": "G-I-06",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-06",
+              "routeVariables": [
+                "route:GH1:G-I-06:0",
+                "route:GH2:G-I-06:0"
+              ],
+              "GH2MinimumCost": 7
+            },
+            {
+              "unit": "G-I-07",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-07",
+              "routeVariables": [
+                "route:GH1:G-I-07:0",
+                "route:GH2:G-I-07:0"
+              ],
+              "GH2MinimumCost": 7
+            },
+            {
+              "unit": "G-I-08",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-08",
+              "routeVariables": [
+                "route:GH1:G-I-08:0",
+                "route:GH2:G-I-08:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-I-09",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-09",
+              "routeVariables": [
+                "route:GH1:G-I-09:0",
+                "route:GH2:G-I-09:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-I-10",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-10",
+              "routeVariables": [
+                "route:GH1:G-I-10:0"
+              ],
+              "GH2MinimumCost": null
+            },
+            {
+              "unit": "G-I-11",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-I-11",
+              "routeVariables": [
+                "route:GH1:G-I-11:0"
+              ],
+              "GH2MinimumCost": null
+            },
+            {
+              "unit": "G-J-01",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-J-01",
+              "routeVariables": [
+                "route:GH1:G-J-01:0",
+                "route:GH2:G-J-01:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-J-02",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-J-02",
+              "routeVariables": [
+                "route:GH1:G-J-02:0",
+                "route:GH2:G-J-02:0"
+              ],
+              "GH2MinimumCost": 4
+            },
+            {
+              "unit": "G-MOT-01",
+              "net": 3.0,
+              "row": "fixed net maintenance:G-MOT-01",
+              "routeVariables": [
+                "route:GH1:G-MOT-01:0",
+                "route:GH2:G-MOT-01:0"
+              ],
+              "GH2MinimumCost": 5
+            },
+            {
+              "unit": "G-MOT-02",
+              "net": 3.0,
+              "row": "fixed net maintenance:G-MOT-02",
+              "routeVariables": [
+                "route:GH1:G-MOT-02:0",
+                "route:GH2:G-MOT-02:0"
+              ],
+              "GH2MinimumCost": 5
+            },
+            {
+              "unit": "G-MOT-03",
+              "net": 3.0,
+              "row": "fixed net maintenance:G-MOT-03",
+              "routeVariables": [
+                "route:GH1:G-MOT-03:0"
+              ],
+              "GH2MinimumCost": null
+            },
+            {
+              "unit": "G-PZ-02",
+              "net": 3.0,
+              "row": "fixed net maintenance:G-PZ-02",
+              "routeVariables": [
+                "route:GH1:G-PZ-02:0"
+              ],
+              "GH2MinimumCost": null
+            },
+            {
+              "unit": "G-PZ-03",
+              "net": 4.0,
+              "row": "fixed net maintenance:G-PZ-03",
+              "routeVariables": [
+                "route:GH1:G-PZ-03:0",
+                "route:GH2:G-PZ-03:0"
+              ],
+              "GH2MinimumCost": 3
+            },
+            {
+              "unit": "G-PZ-04",
+              "net": 4.0,
+              "row": "fixed net maintenance:G-PZ-04",
+              "routeVariables": [
+                "route:GH1:G-PZ-04:0",
+                "route:GH2:G-PZ-04:0"
+              ],
+              "GH2MinimumCost": 3
+            },
+            {
+              "unit": "G-REC-01",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-REC-01",
+              "routeVariables": [
+                "route:GH1:G-REC-01:0",
+                "route:GH2:G-REC-01:0"
+              ],
+              "GH2MinimumCost": 6
+            },
+            {
+              "unit": "G-REC-02",
+              "net": 2.0,
+              "row": "fixed net maintenance:G-REC-02",
+              "routeVariables": [
+                "route:GH1:G-REC-02:0",
+                "route:GH2:G-REC-02:0"
+              ],
+              "GH2MinimumCost": 6
+            }
+          ],
+          "formula": "5*(56.0-32.0)-24.0=96.0>88.0",
+          "validForContinuousRelaxationToo": true
+        },
+        "solverStatus": 2
+      }
+    },
+    {
+      "name": "care_expiry_old_offmap_quota_and_terminal_receipt_do_not_authorize_new_transport",
+      "origin": "REAL_PINNED_T8_READ_ONLY",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "material_shortage_P",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": [
+        "INSUFFICIENT_P"
+      ]
+    },
+    {
+      "name": "material_shortage_E2",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": [
+        "INSUFFICIENT_E2"
+      ]
+    },
+    {
+      "name": "forged_owner_not_an_alternative_stock",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "expired_personnel_not_reactivated_by_plan",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "care_expired_even_if_stale_available_flag_remains",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "broken_real_rail_edge_rejected",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": [
+        "PATH_NOT_LEGAL:A10~B10"
+      ]
+    },
+    {
+      "name": "target_moved_no_retarget_of_same_hex_service",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "hostile_route_control_rejected",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "only_exact_RP_insufficiency_excluded_from_common_eligibility",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": {
+        "commonEligible": true,
+        "commonIssues": [],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": true,
+          "issues": []
+        },
+        "integrityIssues": [],
+        "recoveryIssues": [
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Side-wide RP pool cannot pay this unit recovery cost.",
+            "details": {
+              "reason": "INSUFFICIENT_RP",
+              "unitId": "G-I-01",
+              "availableRP": 0,
+              "requiredRP": 1
+            }
+          }
+        ],
+        "rpIssues": [
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Side-wide RP pool cannot pay this unit recovery cost.",
+            "details": {
+              "reason": "INSUFFICIENT_RP",
+              "unitId": "G-I-01",
+              "availableRP": 0,
+              "requiredRP": 1
+            }
+          }
+        ],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 1,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 142,
+          "snapshotHash": "ad70b932fb5eecf07e66dc1dd3b8377a4141bb1bef7a544f22cc82d3709ac42c",
+          "turn": 8,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 0,
+          "recoveryLimit": 1
+        }
+      }
+    },
+    {
+      "name": "other_INVALID_SUPPORT_recovery_error_preserved",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": {
+        "commonEligible": false,
+        "commonIssues": [
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Full-strength units cannot recover.",
+            "details": {
+              "reason": "UNIT_NOT_DAMAGED",
+              "unitId": "G-I-01"
+            }
+          }
+        ],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": true,
+          "issues": []
+        },
+        "integrityIssues": [],
+        "recoveryIssues": [
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Full-strength units cannot recover.",
+            "details": {
+              "reason": "UNIT_NOT_DAMAGED",
+              "unitId": "G-I-01"
+            }
+          },
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Side-wide RP pool cannot pay this unit recovery cost.",
+            "details": {
+              "reason": "INSUFFICIENT_RP",
+              "unitId": "G-I-01",
+              "availableRP": 0,
+              "requiredRP": 1
+            }
+          }
+        ],
+        "rpIssues": [
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Side-wide RP pool cannot pay this unit recovery cost.",
+            "details": {
+              "reason": "INSUFFICIENT_RP",
+              "unitId": "G-I-01",
+              "availableRP": 0,
+              "requiredRP": 1
+            }
+          }
+        ],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 0,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 142,
+          "snapshotHash": "56ef23f2614062af66bae23e4862ede74e9994cb3832a19d2d0446e3a655145f",
+          "turn": 8,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 0,
+          "recoveryLimit": 1
+        }
+      }
+    },
+    {
+      "name": "original_shared_recovery_limit_preserved_synthetic_accepted_log_fixture",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": {
+        "commonEligible": false,
+        "commonIssues": [
+          {
+            "code": "DUPLICATE_ACTION_ID",
+            "message": "Action log contains duplicate action id.",
+            "details": {
+              "actionId": "A-000143"
+            }
+          },
+          {
+            "code": "ACTION_LOG_ID_MISMATCH",
+            "message": "Logged action payload id differs from log envelope id.",
+            "details": {
+              "actionId": "A-000143",
+              "payloadActionId": null
+            }
+          },
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Side-wide Recovery unit limit has been reached for this turn.",
+            "details": {
+              "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+              "side": "GERMAN",
+              "turn": 8,
+              "recoveredUnits": 1,
+              "limit": 1
+            }
+          }
+        ],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": true,
+          "issues": []
+        },
+        "integrityIssues": [
+          {
+            "code": "DUPLICATE_ACTION_ID",
+            "message": "Action log contains duplicate action id.",
+            "details": {
+              "actionId": "A-000143"
+            }
+          },
+          {
+            "code": "ACTION_LOG_ID_MISMATCH",
+            "message": "Logged action payload id differs from log envelope id.",
+            "details": {
+              "actionId": "A-000143",
+              "payloadActionId": null
+            }
+          }
+        ],
+        "recoveryIssues": [
+          {
+            "code": "INVALID_SUPPORT",
+            "message": "Side-wide Recovery unit limit has been reached for this turn.",
+            "details": {
+              "reason": "RECOVERY_UNIT_LIMIT_REACHED",
+              "side": "GERMAN",
+              "turn": 8,
+              "recoveredUnits": 1,
+              "limit": 1
+            }
+          }
+        ],
+        "rpIssues": [],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 1,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 142,
+          "snapshotHash": "fd7bfb2c68c499bb3b66f6b860a0e9daea97783a91c12596d0d2601d274d1e4d",
+          "turn": 8,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 1,
+          "recoveryLimit": 1
+        }
+      }
+    },
+    {
+      "name": "original_pending_decision_guard_preserved",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": {
+        "commonEligible": false,
+        "commonIssues": [
+          {
+            "code": "PENDING_DECISION_BLOCKS_ACTION",
+            "message": "Pending DEFENDER_REACTION decision must be resolved before REPAIR_UNIT.",
+            "details": {
+              "pendingKind": "DEFENDER_REACTION",
+              "battleId": "SYNTHETIC",
+              "allowedActionTypes": [
+                "COMBAT_REACTION",
+                "PASS_REACTION"
+              ]
+            }
+          },
+          {
+            "code": "PENDING_OWNER_SIDE_MISMATCH",
+            "message": "PendingDecision owner controller is on the wrong side.",
+            "details": {
+              "controllerId": "G-HUMAN-1"
+            }
+          },
+          {
+            "code": "PENDING_ELIGIBLE_SIDE_MISMATCH",
+            "message": "PendingDecision eligible controller is on wrong side.",
+            "details": {
+              "controllerId": "G-HUMAN-1"
+            }
+          },
+          {
+            "code": "PENDING_COMBAT_TRANSACTION_INVALID",
+            "message": "PendingDecision battleId does not reference an existing CombatTransaction.",
+            "details": {
+              "battleId": "SYNTHETIC"
+            }
+          },
+          {
+            "code": "PENDING_BATTLE_REFERENCE_INVALID",
+            "message": "PendingDecision battle id is not declared by an attack/commitment/transaction.",
+            "details": {
+              "battleId": "SYNTHETIC"
+            }
+          }
+        ],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": false,
+          "issues": [
+            {
+              "code": "PENDING_DECISION_BLOCKS_ACTION",
+              "message": "Pending DEFENDER_REACTION decision must be resolved before REPAIR_UNIT.",
+              "details": {
+                "pendingKind": "DEFENDER_REACTION",
+                "battleId": "SYNTHETIC",
+                "allowedActionTypes": [
+                  "COMBAT_REACTION",
+                  "PASS_REACTION"
+                ]
+              }
+            }
+          ]
+        },
+        "integrityIssues": [
+          {
+            "code": "PENDING_OWNER_SIDE_MISMATCH",
+            "message": "PendingDecision owner controller is on the wrong side.",
+            "details": {
+              "controllerId": "G-HUMAN-1"
+            }
+          },
+          {
+            "code": "PENDING_ELIGIBLE_SIDE_MISMATCH",
+            "message": "PendingDecision eligible controller is on wrong side.",
+            "details": {
+              "controllerId": "G-HUMAN-1"
+            }
+          },
+          {
+            "code": "PENDING_COMBAT_TRANSACTION_INVALID",
+            "message": "PendingDecision battleId does not reference an existing CombatTransaction.",
+            "details": {
+              "battleId": "SYNTHETIC"
+            }
+          },
+          {
+            "code": "PENDING_BATTLE_REFERENCE_INVALID",
+            "message": "PendingDecision battle id is not declared by an attack/commitment/transaction.",
+            "details": {
+              "battleId": "SYNTHETIC"
+            }
+          }
+        ],
+        "recoveryIssues": [],
+        "rpIssues": [],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 1,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 142,
+          "snapshotHash": "8592fb55780f08244c89bc170f2fd2312c0a14942487a8fa5934b95e771555c4",
+          "turn": 8,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 0,
+          "recoveryLimit": 1
+        }
+      }
+    },
+    {
+      "name": "wrong_controller_blocked",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "cargo_alone_exceeds_capacity_not_timeout",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": {
+        "status": "INFEASIBLE_CAPACITY_BOUND",
+        "rows": [
+          {
+            "id": "rail:A10~B10",
+            "cap": 40,
+            "referenceSP": 32,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": 0,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "rail:A10~B10",
+              "used": 32,
+              "cap": 40,
+              "saturated": false
+            }
+          },
+          {
+            "id": "rail:B10~C10",
+            "cap": 40,
+            "referenceSP": 32,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": 0,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "rail:B10~C10",
+              "used": 32,
+              "cap": 40,
+              "saturated": false
+            }
+          },
+          {
+            "id": "T",
+            "cap": 2200,
+            "referenceSP": 108,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 16,
+            "remainingWithFrozenSP": 2076,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "T",
+              "used": 108,
+              "cap": 2200,
+              "saturated": false
+            }
+          },
+          {
+            "id": "W:GH2",
+            "cap": 96,
+            "referenceSP": 96,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 97,
+            "remainingWithFrozenSP": -97,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "W:GH2",
+              "used": 96,
+              "cap": 96,
+              "saturated": true
+            }
+          }
+        ],
+        "candidateCount": 0,
+        "published": false,
+        "proof": "Cargo alone exceeds an unchanged capacity upper bound."
+      }
+    },
+    {
+      "name": "timeout_never_reported_as_infeasible",
+      "origin": "SYNTHETIC_COUNTEREXAMPLE",
+      "passed": true,
+      "detail": {
+        "status": "TIMEOUT",
+        "budgetSeconds": 3,
+        "published": false,
+        "rows": [
+          {
+            "id": "rail:A10~B10",
+            "cap": 40,
+            "referenceSP": 32,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": 0,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "rail:A10~B10",
+              "used": 32,
+              "cap": 40,
+              "saturated": false
+            }
+          },
+          {
+            "id": "rail:B10~C10",
+            "cap": 40,
+            "referenceSP": 32,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": 0,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "rail:B10~C10",
+              "used": 32,
+              "cap": 40,
+              "saturated": false
+            }
+          },
+          {
+            "id": "T",
+            "cap": 2200,
+            "referenceSP": 108,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 16,
+            "remainingWithFrozenSP": 2076,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "T",
+              "used": 108,
+              "cap": 2200,
+              "saturated": false
+            }
+          },
+          {
+            "id": "W:GH2",
+            "cap": 96,
+            "referenceSP": 96,
+            "existingMaterialReservations": 0,
+            "proposedCargo": 8,
+            "remainingWithFrozenSP": -8,
+            "publishedReservation": 0,
+            "publishedCargo": 0,
+            "referenceConstraint": {
+              "id": "W:GH2",
+              "used": 96,
+              "cap": 96,
+              "saturated": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "all_queries_leave_full_root_inventory_budget_receipts_revision_RNG_unchanged",
+      "origin": "REAL_PINNED_T8_READ_ONLY",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "rootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+  "rootUnchanged": true,
+  "planSha256": "65c52080f016e065e40ed707c61704ee119f7b01539b2759b0a6b486ec78d31c",
+  "globalBlockersRetained": 35,
+  "globalBlockersClosed": 0
+}

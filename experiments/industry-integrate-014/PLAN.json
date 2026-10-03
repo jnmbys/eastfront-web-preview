@@ -1,0 +1,1082 @@
+{
+  "schema": "industry-014-forward-plan.v1",
+  "origin": "REAL_PINNED_T8_WITH_UNCOMMITTED_PROJECTION",
+  "base013": "2d04264a3f4ba6d38f76a99ae76821cc0a55abdb",
+  "startRootHash": "759ac0d6510d7e0fad38be2c8464623c700d73afc172026faece84c6d6a3e09a",
+  "gameRevision": 142,
+  "rootRevision": 37,
+  "materials": {
+    "errors": [],
+    "personnelPackage": {
+      "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+      "quantityP": 1,
+      "owner": "RC007-REAR-G-A10",
+      "custody": "REAR_AVAILABLE",
+      "receivedEpoch": 7,
+      "availableFromTurn": 8,
+      "dispatchEpoch": 7,
+      "dueEpoch": 7
+    },
+    "equipmentBatch": {
+      "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+      "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+      "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+      "quantityE2": 2,
+      "materialType": "E2:L",
+      "custody": "REAR_AVAILABLE",
+      "owner": "RC007-REAR-G-A10",
+      "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+      "receivedEpoch": 6,
+      "availableFromTurn": 7,
+      "dispatchEpoch": 6,
+      "dueEpoch": 6
+    },
+    "personnelSource": "APPROVED_SCENARIO_TRAINED_RESERVE_ASSUMPTION_NO_ACTUAL_TRAINING_RECEIPT",
+    "equipmentSource": "012_PAID_PRODUCTION_UNIQUE_BATCH",
+    "canonicalWarehouse": "RC007-REAR-G-A10",
+    "personnelAuthority": "personnel.package",
+    "equipmentAuthority": "industry.batch plus reconciled industry.warehouse.resident",
+    "equipmentBudget": {
+      "granted": 10,
+      "freeI": 5,
+      "productionSpent": 3,
+      "handoffSpent": 2,
+      "escrow": 0
+    },
+    "personnelBudget": {
+      "id": "RC008-G-PERSONNEL-SERVICE-I",
+      "grantedI": 2,
+      "availableI": 0,
+      "acceptanceCareSpentI": 1,
+      "escrowI": 0,
+      "carriageSpentI": 1
+    },
+    "historicalOffmap": {
+      "personnelUsedLQ": 4,
+      "remainingLQ": 0,
+      "renewable": false,
+      "equipment012": {
+        "5": {
+          "resourceId": "EXTERNAL_G_A10",
+          "unit": "workPoint",
+          "side": "G",
+          "epoch": 5,
+          "finiteCap": 4,
+          "perE2Work": 2,
+          "used": {},
+          "holds": {},
+          "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+          "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+        },
+        "6": {
+          "resourceId": "EXTERNAL_G_A10",
+          "unit": "workPoint",
+          "side": "G",
+          "epoch": 6,
+          "finiteCap": 4,
+          "perE2Work": 2,
+          "used": {
+            "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001": 4
+          },
+          "holds": {},
+          "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+          "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+        }
+      },
+      "usableForThisPlan": false
+    },
+    "careDeadlineEndEpoch": 8,
+    "permanentReceipts": 37
+  },
+  "route": {
+    "errors": [],
+    "nodes": [
+      {
+        "label": "A10",
+        "key": "0,9",
+        "coord": {
+          "q": 0,
+          "r": 9
+        },
+        "correctedMappingPresent": true,
+        "exists": true,
+        "control": null,
+        "occupants": [],
+        "enemyZoc": false,
+        "issues": [],
+        "nullIsNotAuthority": true
+      },
+      {
+        "label": "B10",
+        "key": "1,9",
+        "coord": {
+          "q": 1,
+          "r": 9
+        },
+        "correctedMappingPresent": true,
+        "exists": true,
+        "control": null,
+        "occupants": [],
+        "enemyZoc": false,
+        "issues": [],
+        "nullIsNotAuthority": true
+      },
+      {
+        "label": "C10",
+        "key": "2,8",
+        "coord": {
+          "q": 2,
+          "r": 8
+        },
+        "correctedMappingPresent": true,
+        "exists": true,
+        "control": null,
+        "occupants": [
+          {
+            "id": "G-I-01",
+            "side": "GERMAN"
+          },
+          {
+            "id": "G-PZ-01",
+            "side": "GERMAN"
+          }
+        ],
+        "enemyZoc": false,
+        "issues": [],
+        "nullIsNotAuthority": true
+      }
+    ],
+    "segments": [
+      {
+        "from": "A10",
+        "to": "B10",
+        "coreKey": "0,9|1,9",
+        "distance": 1,
+        "coreEdge": {
+          "key": "0,9|1,9",
+          "a": {
+            "q": 0,
+            "r": 9
+          },
+          "b": {
+            "q": 1,
+            "r": 9
+          },
+          "road": false,
+          "railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "river": null,
+          "bridge": null
+        },
+        "spEdge": {
+          "id": "A10~B10",
+          "a": "A10",
+          "b": "B10",
+          "modes": [
+            "road",
+            "rail"
+          ],
+          "cost": 1,
+          "cost_ab": 1,
+          "cost_ba": 1,
+          "rail_cost": 1,
+          "cap": 40,
+          "bridge_cap": null,
+          "cut": false,
+          "physical_road": false,
+          "river": null,
+          "bridge": null,
+          "core_railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "rail_repair_overlay": null
+        },
+        "existingSPRailEligible": true,
+        "plannedLoadLQ": 8,
+        "plannedTWork": 8
+      },
+      {
+        "from": "B10",
+        "to": "C10",
+        "coreKey": "1,9|2,8",
+        "distance": 1,
+        "coreEdge": {
+          "key": "1,9|2,8",
+          "a": {
+            "q": 1,
+            "r": 9
+          },
+          "b": {
+            "q": 2,
+            "r": 8
+          },
+          "road": false,
+          "railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "river": null,
+          "bridge": null
+        },
+        "spEdge": {
+          "id": "B10~C10",
+          "a": "B10",
+          "b": "C10",
+          "modes": [
+            "road",
+            "rail"
+          ],
+          "cost": 1,
+          "cost_ab": 1,
+          "cost_ba": 1,
+          "rail_cost": 1,
+          "cap": 40,
+          "bridge_cap": null,
+          "cut": false,
+          "physical_road": false,
+          "river": null,
+          "bridge": null,
+          "core_railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "rail_repair_overlay": null
+        },
+        "existingSPRailEligible": true,
+        "plannedLoadLQ": 8,
+        "plannedTWork": 8
+      }
+    ],
+    "target": "G-I-01",
+    "receiver": "C10",
+    "hub": {
+      "id": "GH2",
+      "side": "G",
+      "node": "C10",
+      "range": 8,
+      "stock": 20,
+      "cap": 32,
+      "W": 96,
+      "quota": 40,
+      "floor": 4,
+      "inactive": false
+    },
+    "terminalOnly": {
+      "proposedW": 8,
+      "sourceRule006": true,
+      "notLinehaul": true,
+      "newTargetBoundReceiptRequired": true,
+      "receiptPresent": false
+    },
+    "materialReceiverCapacity": {
+      "P": null,
+      "E2:L": null
+    },
+    "SPWarehouseCapacityIsNotMaterialCapacity": true,
+    "mappingHash": "3598aa9eaa2a725ac6c05edd684b0edad71e2164a98f63b5c60fc1bfd698f5ca",
+    "materialTransportAuthorized": false
+  },
+  "currentRecovery": {
+    "commonEligible": true,
+    "commonIssues": [],
+    "requestIssues": [],
+    "envelopeIssues": [],
+    "enginePreconditions": {
+      "passed": true,
+      "issues": []
+    },
+    "integrityIssues": [],
+    "recoveryIssues": [],
+    "rpIssues": [],
+    "target": {
+      "id": "G-I-01",
+      "side": "GERMAN",
+      "templateId": "G-INF",
+      "step": 1,
+      "nodeId": "C10",
+      "supplyState": "SUPPLIED"
+    },
+    "context": {
+      "revision": 142,
+      "snapshotHash": "039c1f04e43d7eb69013b48c302b2f9f0f975b2fc37d3c4795edb132e95a4dce",
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "recoveryCount": 0,
+      "recoveryLimit": 1
+    }
+  },
+  "currentRPQuote": {
+    "mode": "RP",
+    "requirements": {
+      "RP": {
+        "side": "GERMAN",
+        "cost": 1,
+        "available": 8
+      }
+    },
+    "conditionsSatisfied": true,
+    "errors": [],
+    "plan": {
+      "mode": "RP",
+      "debits": [
+        {
+          "resource": "RP",
+          "side": "GERMAN",
+          "amount": 1
+        }
+      ]
+    },
+    "reservesNothing": true,
+    "automaticFallback": false
+  },
+  "payment": {
+    "exclusiveModes": [
+      "RP",
+      "PE"
+    ],
+    "automaticFallback": false,
+    "doubleCharge": false,
+    "sharedRecoveryCount": true,
+    "proposedPE": {
+      "P": 1,
+      "E2:L": 2
+    },
+    "actualDebits": [],
+    "rpQuoteIsSeparateCurrentAlternative": true
+  },
+  "timing": {
+    "earliestConditionalDispatchEpoch": 8,
+    "latencyAssumptionFromEarlierSlice": 1,
+    "earliestConditionalArrivalEpoch": 8,
+    "earliestConditionalAvailableTurn": 9,
+    "earliestConditionalRecovery": "T9 GERMAN_RECOVERY",
+    "personnelCareEndsAt": "END_E8",
+    "committedSchedule": null,
+    "warning": "Candidate timing only. Transfer does not extend P care; new transit/front care and dispatch/receipt scope required."
+  },
+  "rulesNeeded": [
+    "NEW_E8_MAP_TRANSPORT_GRANT_FOR_EXISTING_LOTS_AND_NULL_CONTROL_ROUTE",
+    "NEW_TRANSIT_AND_FRONT_PERSONNEL_CARE_THROUGH_T9_NO_AUTOMATIC_EXTENSION",
+    "NEW_C10_CAPACITY_CUSTODY_AND_TARGET_BOUND_TERMINAL_SERVICE",
+    "NEW_T9_PE_RECOVERY_SCOPE_USING_ORIGINAL_SHARED_CORE_LIMIT"
+  ],
+  "executable": false,
+  "published": false,
+  "actualMaterialDebits": 0,
+  "actualCapacityReservation": 0,
+  "globalBlockersRetained": 35,
+  "globalBlockersClosed": 0,
+  "projectedRoute": {
+    "errors": [],
+    "nodes": [
+      {
+        "label": "A10",
+        "key": "0,9",
+        "coord": {
+          "q": 0,
+          "r": 9
+        },
+        "correctedMappingPresent": true,
+        "exists": true,
+        "control": null,
+        "occupants": [],
+        "enemyZoc": false,
+        "issues": [],
+        "nullIsNotAuthority": true
+      },
+      {
+        "label": "B10",
+        "key": "1,9",
+        "coord": {
+          "q": 1,
+          "r": 9
+        },
+        "correctedMappingPresent": true,
+        "exists": true,
+        "control": null,
+        "occupants": [],
+        "enemyZoc": false,
+        "issues": [],
+        "nullIsNotAuthority": true
+      },
+      {
+        "label": "C10",
+        "key": "2,8",
+        "coord": {
+          "q": 2,
+          "r": 8
+        },
+        "correctedMappingPresent": true,
+        "exists": true,
+        "control": null,
+        "occupants": [
+          {
+            "id": "G-I-01",
+            "side": "GERMAN"
+          },
+          {
+            "id": "G-PZ-01",
+            "side": "GERMAN"
+          }
+        ],
+        "enemyZoc": false,
+        "issues": [],
+        "nullIsNotAuthority": true
+      }
+    ],
+    "segments": [
+      {
+        "from": "A10",
+        "to": "B10",
+        "coreKey": "0,9|1,9",
+        "distance": 1,
+        "coreEdge": {
+          "key": "0,9|1,9",
+          "a": {
+            "q": 0,
+            "r": 9
+          },
+          "b": {
+            "q": 1,
+            "r": 9
+          },
+          "road": false,
+          "railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "river": null,
+          "bridge": null
+        },
+        "spEdge": {
+          "id": "A10~B10",
+          "a": "A10",
+          "b": "B10",
+          "modes": [
+            "road",
+            "rail"
+          ],
+          "cost": 1,
+          "cost_ab": 1,
+          "cost_ba": 1,
+          "rail_cost": 1,
+          "cap": 40,
+          "bridge_cap": null,
+          "cut": false,
+          "physical_road": false,
+          "river": null,
+          "bridge": null,
+          "core_railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "rail_repair_overlay": null
+        },
+        "existingSPRailEligible": true,
+        "plannedLoadLQ": 8,
+        "plannedTWork": 8
+      },
+      {
+        "from": "B10",
+        "to": "C10",
+        "coreKey": "1,9|2,8",
+        "distance": 1,
+        "coreEdge": {
+          "key": "1,9|2,8",
+          "a": {
+            "q": 1,
+            "r": 9
+          },
+          "b": {
+            "q": 2,
+            "r": 8
+          },
+          "road": false,
+          "railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "river": null,
+          "bridge": null
+        },
+        "spEdge": {
+          "id": "B10~C10",
+          "a": "B10",
+          "b": "C10",
+          "modes": [
+            "road",
+            "rail"
+          ],
+          "cost": 1,
+          "cost_ab": 1,
+          "cost_ba": 1,
+          "rail_cost": 1,
+          "cap": 40,
+          "bridge_cap": null,
+          "cut": false,
+          "physical_road": false,
+          "river": null,
+          "bridge": null,
+          "core_railway": {
+            "present": true,
+            "repairedBy": "GERMAN",
+            "destroyed": false
+          },
+          "rail_repair_overlay": null
+        },
+        "existingSPRailEligible": true,
+        "plannedLoadLQ": 8,
+        "plannedTWork": 8
+      }
+    ],
+    "target": "G-I-01",
+    "receiver": "C10",
+    "hub": {
+      "id": "GH2",
+      "side": "G",
+      "node": "C10",
+      "range": 8,
+      "stock": 28,
+      "cap": 32,
+      "W": 96,
+      "quota": 40,
+      "floor": 4,
+      "inactive": false
+    },
+    "terminalOnly": {
+      "proposedW": 8,
+      "sourceRule006": true,
+      "notLinehaul": true,
+      "newTargetBoundReceiptRequired": true,
+      "receiptPresent": false
+    },
+    "materialReceiverCapacity": {
+      "P": null,
+      "E2:L": null
+    },
+    "SPWarehouseCapacityIsNotMaterialCapacity": true,
+    "mappingHash": "3598aa9eaa2a725ac6c05edd684b0edad71e2164a98f63b5c60fc1bfd698f5ca",
+    "materialTransportAuthorized": false
+  },
+  "proposedResourceLoad": {
+    "rail:A10~B10": 8,
+    "rail:B10~C10": 8,
+    "T": 16,
+    "W:GH2": 8
+  },
+  "maintenanceCost": {
+    "referenceGermanDue": 132,
+    "referenceGermanPaid": 68,
+    "alternativePaid": null,
+    "selectedMaintenanceReduction": 0,
+    "priorityTradeoffEvaluated": false,
+    "note": "No acceptable unchanged-maintenance plan if infeasible; 8 W shortfall is not 8 SP, casualties or VP. No reduced-maintenance policy evaluated."
+  },
+  "resourceLedger": {
+    "materials": [
+      {
+        "resource": "P",
+        "owner": "RC007-REAR-G-A10",
+        "available": 1,
+        "proposedForward": 1,
+        "actualDebited": 0
+      },
+      {
+        "resource": "E2:L",
+        "owner": "RC007-REAR-G-A10",
+        "available": 2,
+        "proposedForward": 2,
+        "actualDebited": 0
+      }
+    ],
+    "personnelI": {
+      "alreadySpent": 2,
+      "newDebit": 0,
+      "escrow": 0
+    },
+    "equipmentI": {
+      "freeI": 5,
+      "newDebit": 0
+    },
+    "newTransportIQuote": null,
+    "newTransportIQuoteStatus": "NO_NEW_SERVICE_PRICE_OR_GRANT_ASSUMED",
+    "oldOffmapLQ": {
+      "cap": 4,
+      "used": 4,
+      "remaining": 0,
+      "eligibleForLinehaul": false
+    },
+    "newLinehaulAndTerminal": {
+      "proposed": {
+        "rail:A10~B10": 8,
+        "rail:B10~C10": 8,
+        "T": 16,
+        "W:GH2": 8
+      },
+      "actualReserved": 0,
+      "actualUsed": 0
+    },
+    "referenceSPSourceRows": [
+      {
+        "id": "source:G-A5",
+        "used": 32,
+        "cap": 32,
+        "saturated": true
+      },
+      {
+        "id": "source:G-A10",
+        "used": 32,
+        "cap": 32,
+        "saturated": true
+      },
+      {
+        "id": "source:G-A16",
+        "used": 12,
+        "cap": 32,
+        "saturated": false
+      }
+    ],
+    "referenceSPHubClosing": {
+      "GH1": 0,
+      "GH2": 28,
+      "GH3": 32
+    }
+  },
+  "status": "BLOCKED_READ_ONLY_PLAN",
+  "blockers": [
+    "NO_MAINTENANCE_PRESERVING_CAPACITY_PROOF:INFEASIBLE",
+    "NEW_E8_MAP_TRANSPORT_GRANT_FOR_EXISTING_LOTS_AND_NULL_CONTROL_ROUTE",
+    "NEW_TRANSIT_AND_FRONT_PERSONNEL_CARE_THROUGH_T9_NO_AUTOMATIC_EXTENSION",
+    "NEW_C10_CAPACITY_CUSTODY_AND_TARGET_BOUND_TERMINAL_SERVICE",
+    "NEW_T9_PE_RECOVERY_SCOPE_USING_ORIGINAL_SHARED_CORE_LIMIT"
+  ],
+  "capacity": {
+    "status": "INFEASIBLE",
+    "infeasibilityProof": {
+      "kind": "EXACT_ROW_ALGEBRA_NO_ADDITIONAL_SOLVE",
+      "requiredNetDelivery": 56.0,
+      "GH1MaximumDelivery": 32.0,
+      "GH1ProofRows": [
+        "rail balance:A5",
+        "hub:GH1",
+        "source:G-A5"
+      ],
+      "GH2MinimumRequiredDelivery": 24.0,
+      "multiplier": 5,
+      "cheapDestinationUpperBounds": [
+        {
+          "unit": "G-I-08",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-08",
+          "routeVariables": [
+            "route:GH1:G-I-08:0",
+            "route:GH2:G-I-08:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-I-09",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-09",
+          "routeVariables": [
+            "route:GH1:G-I-09:0",
+            "route:GH2:G-I-09:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-J-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-01",
+          "routeVariables": [
+            "route:GH1:G-J-01:0",
+            "route:GH2:G-J-01:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-J-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-02",
+          "routeVariables": [
+            "route:GH1:G-J-02:0",
+            "route:GH2:G-J-02:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-PZ-03",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-03",
+          "routeVariables": [
+            "route:GH1:G-PZ-03:0",
+            "route:GH2:G-PZ-03:0"
+          ],
+          "GH2MinimumCost": 3
+        },
+        {
+          "unit": "G-PZ-04",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-04",
+          "routeVariables": [
+            "route:GH1:G-PZ-04:0",
+            "route:GH2:G-PZ-04:0"
+          ],
+          "GH2MinimumCost": 3
+        }
+      ],
+      "discountUpperBound": 24.0,
+      "GH2WorkLowerBound": 96.0,
+      "GH2SPWorkCap": 88.0,
+      "contradiction": 8.0,
+      "requiredUnits": [
+        {
+          "unit": "G-ART-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ART-01",
+          "routeVariables": [
+            "route:GH1:G-ART-01:0",
+            "route:GH2:G-ART-01:0"
+          ],
+          "GH2MinimumCost": 6
+        },
+        {
+          "unit": "G-ART-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ART-02",
+          "routeVariables": [
+            "route:GH1:G-ART-02:0",
+            "route:GH2:G-ART-02:0"
+          ],
+          "GH2MinimumCost": 6
+        },
+        {
+          "unit": "G-ENG-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ENG-01",
+          "routeVariables": [
+            "route:GH1:G-ENG-01:0",
+            "route:GH2:G-ENG-01:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-ENG-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-ENG-02",
+          "routeVariables": [
+            "route:GH1:G-ENG-02:0",
+            "route:GH2:G-ENG-02:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-I-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-02",
+          "routeVariables": [
+            "route:GH1:G-I-02:0",
+            "route:GH2:G-I-02:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-03",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-03",
+          "routeVariables": [
+            "route:GH1:G-I-03:0",
+            "route:GH2:G-I-03:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-04",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-04",
+          "routeVariables": [
+            "route:GH1:G-I-04:0",
+            "route:GH2:G-I-04:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-05",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-05",
+          "routeVariables": [
+            "route:GH1:G-I-05:0",
+            "route:GH2:G-I-05:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-I-06",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-06",
+          "routeVariables": [
+            "route:GH1:G-I-06:0",
+            "route:GH2:G-I-06:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-I-07",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-07",
+          "routeVariables": [
+            "route:GH1:G-I-07:0",
+            "route:GH2:G-I-07:0"
+          ],
+          "GH2MinimumCost": 7
+        },
+        {
+          "unit": "G-I-08",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-08",
+          "routeVariables": [
+            "route:GH1:G-I-08:0",
+            "route:GH2:G-I-08:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-I-09",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-09",
+          "routeVariables": [
+            "route:GH1:G-I-09:0",
+            "route:GH2:G-I-09:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-I-10",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-10",
+          "routeVariables": [
+            "route:GH1:G-I-10:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-I-11",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-I-11",
+          "routeVariables": [
+            "route:GH1:G-I-11:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-J-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-01",
+          "routeVariables": [
+            "route:GH1:G-J-01:0",
+            "route:GH2:G-J-01:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-J-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-J-02",
+          "routeVariables": [
+            "route:GH1:G-J-02:0",
+            "route:GH2:G-J-02:0"
+          ],
+          "GH2MinimumCost": 4
+        },
+        {
+          "unit": "G-MOT-01",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-MOT-01",
+          "routeVariables": [
+            "route:GH1:G-MOT-01:0",
+            "route:GH2:G-MOT-01:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-MOT-02",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-MOT-02",
+          "routeVariables": [
+            "route:GH1:G-MOT-02:0",
+            "route:GH2:G-MOT-02:0"
+          ],
+          "GH2MinimumCost": 5
+        },
+        {
+          "unit": "G-MOT-03",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-MOT-03",
+          "routeVariables": [
+            "route:GH1:G-MOT-03:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-PZ-02",
+          "net": 3.0,
+          "row": "fixed net maintenance:G-PZ-02",
+          "routeVariables": [
+            "route:GH1:G-PZ-02:0"
+          ],
+          "GH2MinimumCost": null
+        },
+        {
+          "unit": "G-PZ-03",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-03",
+          "routeVariables": [
+            "route:GH1:G-PZ-03:0",
+            "route:GH2:G-PZ-03:0"
+          ],
+          "GH2MinimumCost": 3
+        },
+        {
+          "unit": "G-PZ-04",
+          "net": 4.0,
+          "row": "fixed net maintenance:G-PZ-04",
+          "routeVariables": [
+            "route:GH1:G-PZ-04:0",
+            "route:GH2:G-PZ-04:0"
+          ],
+          "GH2MinimumCost": 3
+        },
+        {
+          "unit": "G-REC-01",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-REC-01",
+          "routeVariables": [
+            "route:GH1:G-REC-01:0",
+            "route:GH2:G-REC-01:0"
+          ],
+          "GH2MinimumCost": 6
+        },
+        {
+          "unit": "G-REC-02",
+          "net": 2.0,
+          "row": "fixed net maintenance:G-REC-02",
+          "routeVariables": [
+            "route:GH1:G-REC-02:0",
+            "route:GH2:G-REC-02:0"
+          ],
+          "GH2MinimumCost": 6
+        }
+      ],
+      "formula": "5*(56.0-32.0)-24.0=96.0>88.0",
+      "validForContinuousRelaxationToo": true
+    },
+    "maintenanceDelta": null,
+    "seconds": 0.0478953999991063,
+    "budgetSeconds": 3,
+    "rows": [
+      {
+        "id": "rail:A10~B10",
+        "cap": 40,
+        "referenceSP": 32,
+        "existingMaterialReservations": 0,
+        "proposedCargo": 8,
+        "remainingWithFrozenSP": 0,
+        "publishedReservation": 0,
+        "publishedCargo": 0,
+        "referenceConstraint": {
+          "id": "rail:A10~B10",
+          "used": 32,
+          "cap": 40,
+          "saturated": false
+        }
+      },
+      {
+        "id": "rail:B10~C10",
+        "cap": 40,
+        "referenceSP": 32,
+        "existingMaterialReservations": 0,
+        "proposedCargo": 8,
+        "remainingWithFrozenSP": 0,
+        "publishedReservation": 0,
+        "publishedCargo": 0,
+        "referenceConstraint": {
+          "id": "rail:B10~C10",
+          "used": 32,
+          "cap": 40,
+          "saturated": false
+        }
+      },
+      {
+        "id": "T",
+        "cap": 2200,
+        "referenceSP": 108,
+        "existingMaterialReservations": 0,
+        "proposedCargo": 16,
+        "remainingWithFrozenSP": 2076,
+        "publishedReservation": 0,
+        "publishedCargo": 0,
+        "referenceConstraint": {
+          "id": "T",
+          "used": 108,
+          "cap": 2200,
+          "saturated": false
+        }
+      },
+      {
+        "id": "W:GH2",
+        "cap": 96,
+        "referenceSP": 96,
+        "existingMaterialReservations": 0,
+        "proposedCargo": 8,
+        "remainingWithFrozenSP": -8,
+        "publishedReservation": 0,
+        "publishedCargo": 0,
+        "referenceConstraint": {
+          "id": "W:GH2",
+          "used": 96,
+          "cap": 96,
+          "saturated": true
+        }
+      }
+    ]
+  },
+  "projectedRecovery": {
+    "commonEligible": true,
+    "commonIssues": [],
+    "requestIssues": [],
+    "envelopeIssues": [],
+    "enginePreconditions": {
+      "passed": true,
+      "issues": []
+    },
+    "integrityIssues": [],
+    "recoveryIssues": [],
+    "rpIssues": [],
+    "target": {
+      "id": "G-I-01",
+      "side": "GERMAN",
+      "templateId": "G-INF",
+      "step": 1,
+      "nodeId": "C10",
+      "supplyState": "SUPPLIED"
+    },
+    "context": {
+      "revision": 152,
+      "snapshotHash": "95a14a032324343260cd8c5225f4688973f2ac79cacdb59308819e8ede7a28ba",
+      "turn": 9,
+      "phase": "GERMAN_RECOVERY",
+      "recoveryCount": 0,
+      "recoveryLimit": 1
+    }
+  }
+}
