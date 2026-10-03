@@ -1,0 +1,95 @@
+{
+  "reviewedAt": "2026-10-03T12:05:58.412Z",
+  "status": "DESKTOP_PASS_WITH_EARLY_CLICK_NOTE",
+  "device": "windows/chrome",
+  "exportedAt": "2026-10-03T12:00:34.460Z",
+  "sourceFileName": "mp013-owner-diagnostics.json",
+  "originalSha256": "9b73b485a3e92bd73a53630341bf66a5cf3f0f92f23e30ee41854e34594abdc9",
+  "checks": {
+    "schema": true,
+    "fixedControl": true,
+    "fixedServer": true,
+    "fixedDiagnostic": true,
+    "format": true,
+    "realMove": true,
+    "oneSubmittedAction": true,
+    "exactCorrelation": true,
+    "foregroundWait": true,
+    "completeTimes": true,
+    "interactive": true,
+    "noRecoveryOrRejection": true,
+    "mapObserved": true,
+    "noDiagnosticErrors": true,
+    "loginAccepted": true,
+    "authorizedHttp": true,
+    "authorizedWs": true,
+    "noBoundaryAnomaly": true
+  },
+  "sourceSha": "73d2dee2f2dab3bfb09d6466d54fa391d19d39fb",
+  "requestId": "9078cfb4-78f6-4aa1-9ae8-1ab25cff85f4",
+  "acceptedRevision": 1,
+  "appliedSequence": 10,
+  "continuousForegroundMs": 8634.5,
+  "originalSampling": {
+    "schema": "MP010-v1",
+    "requestId": "9078cfb4-78f6-4aa1-9ae8-1ab25cff85f4",
+    "snapshotFormat": "snapshot-v3-map-table",
+    "compression": "none",
+    "baseRevision": 0,
+    "acceptedRevision": 1,
+    "appliedSequence": 10,
+    "appliedRevision": 1,
+    "interactiveRevision": 1,
+    "sendMs": 0.3,
+    "ackMs": 379.7,
+    "authorizedAppliedMs": 406.4,
+    "interactiveMs": 873.2,
+    "feedbackFrameOpportunityMs": 8.4,
+    "feedbackProxyKind": "status-change",
+    "visibleFeedbackMs": null,
+    "visibleFeedbackMethod": "unreviewed-video",
+    "rejected": false,
+    "resyncCount": 0,
+    "queryCount": 1,
+    "confirmClicks": 1,
+    "submitCount": 1,
+    "flags": []
+  },
+  "diagnosticIntervals": {
+    "inputToSend": 0.4,
+    "sendToAck": 379.2,
+    "ackToSnapshotCallback": 22.4,
+    "parse": 0.4,
+    "decode": 3.2,
+    "decodedToApplied": 0.8,
+    "appliedToHandlerEnd": 23.5,
+    "appliedToInteractive": 466.8,
+    "inputToInteractive": 873.2
+  },
+  "query": {
+    "count": 1,
+    "sendToReceiveMs": 427.7,
+    "receiveToHandledMs": 6.1
+  },
+  "notes": {
+    "rawMoveInputEvents": 2,
+    "submittedActions": 1,
+    "unsubmittedEarlyInputs": [
+      {
+        "at": 92320.19999999925,
+        "actionKind": "move"
+      }
+    ],
+    "interpretation": "One earlier capture-phase click produced no send; consistent with original foreground gate. Actual submitted input satisfied 8634.5ms foreground wait. Sampling confirmClicks only counts after trial starts.",
+    "startupStage": "assets",
+    "startupStageLimitation": "The final stage label is assets while map-dom-ready and successful action prove map was usable; do not treat the stage label alone as startup failure.",
+    "download": "Actual JSON present in user-provided Downloads directory",
+    "textBackup": "Not independently operated/verified; JSON download succeeded"
+  },
+  "limits": [
+    "One Windows/Chrome control observation; not a Huawei result or latency improvement.",
+    "No mixed server/client clocks; rAF is frame opportunity, not visible paint.",
+    "Query wait follows snapshot application; it does not isolate network from server work.",
+    "Server compute/build and actual visible feedback remain missing."
+  ]
+}
