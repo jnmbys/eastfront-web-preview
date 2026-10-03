@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>工业订单台 · INDUSTRY-UI-001</title>
+  <title>工业与人员记录 · INDUSTRY-UI-003</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="demo-banner"><span class="signal"></span><strong id="mode-banner">演示数据，尚未连接真实工业接口</strong><span id="mode-banner-note">本机隔离演练 · 所有结果均为模拟</span></div>
-  <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-001</span><span>仅本地演示</span></div></header>
+  <header class="masthead"><a class="brand" href="#"><span class="brand-icon">EF</span><span>EASTFRONT<small>工业与后勤 / 隔离实验</small></span></a><div class="header-meta"><span class="tag">INDUSTRY-UI-003</span><span>本机静态预览</span></div></header>
   <main>
     <section class="panel mode-panel" aria-label="展示模式">
-      <label>展示模式<select id="mode"><option value="demo">可点击演示</option><option value="records">012实验记录（只读）</option></select></label>
+      <label>展示模式<select id="mode"><option value="demo">可点击演示</option><option value="records">012实验记录（只读）</option><option value="personnel">013人员与装备（只读）</option></select></label>
+      <label id="personnel-checkpoint-control" hidden>013检查点 / 原始样例<select id="personnel-checkpoint"></select></label>
       <label id="checkpoint-control" hidden>检查点 / 合成样例<select id="checkpoint"></select></label>
-      <p id="mode-description" class="subtle">演示数据与012记录分离，切换模式不会改动任何实验账本。</p>
+      <p id="mode-description" class="subtle">演示数据与012、013记录分离，切换模式不会改动任何实验账本。</p>
     </section>
     <div id="demo-content">
     <section class="page-title"><div><div class="eyebrow">OPERATIONS / INDUSTRY</div><h1>工业订单台<span>01</span></h1><p>从一笔订单，到一批可用装备。每一步都有去向。</p></div><div class="clock"><span>演示时点</span><strong id="clock">—</strong><small>按回合 / 结算推进</small></div></section>
@@ -60,7 +61,7 @@
           </section>
           <section class="panel"><div class="panel-heading"><h2>装备归属与占位</h2><span class="tag">预留 ≠ 实物</span></div>
             <p id="record-custody"></p><div class="stock-grid"><div><span>生产暂存</span><strong id="record-buffer"></strong></div><div><span>在途 / HELD</span><strong id="record-transit"></strong></div><div><span>A10 实际库存</span><strong id="record-rear"></strong></div></div>
-            <dl class="record-facts"><div><dt>A10 可用数量</dt><dd id="record-available"></dd></div><div><dt>生产暂存预留</dt><dd id="record-production-hold"></dd></div><div><dt>A10 来货占位</dt><dd id="record-incoming-hold"></dd></div><div><dt>人员</dt><dd id="record-personnel"></dd></div></dl>
+            <dl class="record-facts"><div><dt>A10 可用数量</dt><dd id="record-available"></dd></div><div><dt>生产暂存预留</dt><dd id="record-production-hold"></dd></div><div><dt>A10 来货占位</dt><dd id="record-incoming-hold"></dd></div><div><dt>012历史人员（不覆盖013）</dt><dd id="record-personnel"></dd></div></dl>
             <p class="subtle">三处实物合计等于累计产出。预留只占用空间，可用数量是实际库存的子集。</p>
           </section>
           <section class="panel warehouse"><div class="panel-heading"><h2>外部容量 · 历史结算行</h2><span class="tag">独立于 SP · 不结转</span></div>
@@ -77,6 +78,61 @@
       </div>
       <div class="readonly-actions" aria-label="只读模式写入操作"><button disabled>下单（只读禁用）</button><button disabled>推进结算（只读禁用）</button><button disabled>重试写入（只读禁用）</button></div>
       <footer><span>industry-012-view.v1 · 只读映射</span><span>REAL仅指已完成的隔离实验记录，不表示实时连接；SYNTHETIC为合成验证样例。</span></footer>
+    </section>
+
+    <section id="personnel-content" hidden aria-label="013人员与装备记录">
+      <div class="page-title"><div><div class="eyebrow">ARCHIVE / INDUSTRY-UI-003</div><h1>人员与装备同仓</h1><p>013隔离实验记录 · 单一 A10 仓 · 只读查看</p></div><span class="tag">无写入操作</span></div>
+      <div id="p013-error" class="notice error" role="alert" hidden></div>
+      <div id="p013-data">
+        <section class="panel record-provenance">
+          <div class="panel-heading"><h2>记录来源</h2><span id="p013-origin" class="status"></span></div>
+          <p id="p013-origin-note"></p>
+          <dl class="record-facts"><div><dt>来源提交</dt><dd id="p013-source"></dd></div><div><dt>导出版本</dt><dd id="p013-schema"></dd></div><div><dt>检查点 / 样例</dt><dd id="p013-label"></dd></div><div><dt>原始来源标签</dt><dd id="p013-source-label"></dd></div><div><dt>实际快照回合 / 阶段</dt><dd id="p013-phase"></dd></div><div><dt>版本</dt><dd id="p013-revisions"></dd></div></dl>
+          <div id="p013-boundary" class="notice" role="status" aria-live="polite"></div>
+        </section>
+        <div class="workspace record-workspace personnel-workspace">
+          <section class="panel warehouse">
+            <div class="panel-heading"><div><span class="eyebrow">ONE WAREHOUSE</span><h2 id="p013-warehouse"></h2></div><span id="p013-status" class="status"></span></div>
+            <div class="stock-grid personnel-stock">
+              <div><span>人员驻留实物</span><strong id="p013-resident"></strong></div><div><span>其中可用</span><strong id="p013-available"></strong></div><div><span>其中隔离</span><strong id="p013-quarantine"></strong></div><div><span>入库预留空间</span><strong id="p013-incoming"></strong></div><div><span>原012装备驻留</span><strong id="p013-equipment"></strong></div>
+            </div>
+            <div class="warehouse-bottom"><span id="p013-occupancy"></span><span id="p013-equipment-capacity"></span><span id="p013-authority"></span></div>
+            <p class="subtle">可用与隔离均为驻留子集，隔离仍占仓容；预留只占位，不是实物。013引用原012装备，只记一次；012历史P=0不覆盖本仓人员。</p>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h2>人员独立账户</h2><span class="tag">不可与装备互用</span></div>
+            <p id="p013-budget-id" class="subtle"></p>
+            <dl class="record-facts"><div><dt>累计拨款</dt><dd id="p013-p-granted"></dd></div><div><dt>可用余额</dt><dd id="p013-p-free"></dd></div><div><dt>费用托管</dt><dd id="p013-p-escrow"></dd></div><div><dt>实际支出</dt><dd id="p013-p-spent"></dd></div><div><dt>接受 / 照管费</dt><dd id="p013-care-paid"></dd></div><div><dt>运送费</dt><dd id="p013-carriage-paid"></dd></div></dl>
+            <p id="p013-p-conservation" class="subtle"></p>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h2>原012装备账户</h2><span class="tag">原账本保持独立</span></div>
+            <p class="subtle">来源：本条013记录的 equipment012Budget</p>
+            <dl class="record-facts"><div><dt>累计拨款</dt><dd id="p013-e-granted"></dd></div><div><dt>可用余额</dt><dd id="p013-e-free"></dd></div><div><dt>费用托管</dt><dd id="p013-e-escrow"></dd></div><div><dt>实际支出</dt><dd id="p013-e-spent"></dd></div><div><dt>生产费</dt><dd id="p013-production-paid"></dd></div><div><dt>交接费</dt><dd id="p013-handoff-paid"></dd></div></dl>
+            <p id="p013-e-conservation" class="subtle"></p>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h2>到账、有效期与独立运力</h2></div>
+            <dl class="record-facts"><div><dt>实际到账 / 账本可用起点</dt><dd id="p013-arrival"></dd></div><div><dt>照管期限</dt><dd id="p013-expiry"></dd></div><div><dt>服务总额度</dt><dd id="p013-quota"></dd></div><div><dt>已用 / 已预留 / 算术剩余</dt><dd id="p013-quota-detail"></dd></div><div><dt>服务窗口</dt><dd id="p013-window"></dd></div></dl>
+            <div id="p013-care-note" class="notice"></div>
+            <p class="subtle">LQ为一次性独立总额度，不按E刷新，不借用SP或012运力。算术剩余不代表允许重启已过期服务。</p>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h2>人员来源与归属</h2></div>
+            <dl class="record-facts"><div><dt>来源说明</dt><dd id="p013-source-kind"></dd></div><div><dt>导入状态</dt><dd id="p013-imported"></dd></div><div><dt>实际训练回执</dt><dd id="p013-training"></dd></div><div><dt>来源池 / 在途 / 后方</dt><dd id="p013-custody-counts"></dd></div><div><dt>实物合计 / 其中隔离</dt><dd id="p013-physical"></dd></div><div><dt>归属状态</dt><dd id="p013-custody-state"></dd></div><div><dt>持有方</dt><dd id="p013-owner"></dd></div></dl>
+            <details class="personnel-details"><summary>来源、预算、人员包及业务标识</summary><p class="subtle">标识可能预先分配；标识存在不等于已申请、发运或到账。</p><dl class="record-facts" id="p013-ids"></dl></details>
+          </section>
+          <section class="panel warehouse">
+            <div class="panel-heading"><h2>阻塞、失败账本与操作边界</h2></div>
+            <ul id="p013-blockers" class="record-reasons"></ul>
+            <div id="p013-failure" class="notice"></div>
+            <p id="p013-permissions"></p><p id="p013-global" class="subtle"></p>
+            <p class="subtle">未导出的申请报价、续期条件及后续操作接口：未提供。到账或“可用”不授予申请、前送、恢复、续期或新编权限。</p>
+          </section>
+        </div>
+        <details class="panel personnel-details personnel-evidence"><summary>离线提取与来源文件摘要</summary><p id="p013-evidence" class="subtle"></p><dl id="p013-hashes" class="record-facts"></dl></details>
+      </div>
+      <footer><span>industry-013-personnel-view.v1 · 仅静态只读</span><span>检查点切换只浏览记录；REAL不表示实时连接；合成样例不代表真实推进。</span></footer>
     </section>
   </main>
   <script type="module" src="app.mjs"></script>

@@ -1,6 +1,53 @@
-# INDUSTRY-UI-001 / 002 · 隔离工业订单台
+# INDUSTRY-UI-001 / 002 / 003 · 隔离工业与人员记录
 
-**可点击演示使用内存模拟；012实验记录模式只读离线导出。均未实时连接真实工业接口。REAL仅指已完成的隔离实验记录，SYNTHETIC保留原合成样例标识。**
+**可点击演示使用内存模拟；012、013模式只读离线导出，均非实时连接。REAL仅指已完成的隔离实验记录；SYNTHETIC保留原样例来源，不代表真实推进。**
+
+## UI-003 人员与装备同仓
+
+固定UI基线：`aeeceb9be390ec3a1c8d0f0711f4f63a66aa2f73`。独立分支：`industry-ui-003`。
+013来源固定为 `2d04264a3f4ba6d38f76a99ae76821cc0a55abdb`，只消费已验收的 **industry-013-personnel-view.v1**。
+
+新增“013人员与装备（只读）”模式，提供7个检查点及原VIEWS全部18条样例（含4条REAL重复观察点，未去重或改名）。默认T8；检查点/原标签、origin、实际回合/阶段、来源SHA同时展示。来源标识与9个文件的Git blob/SHA-256可展开查阅。未新增申请、前送、恢复、续期、新编或结算操作。
+
+- 单一A10仓读取013的warehouse：T8人员驻留1P、可用1P、隔离0P、入库预留0P；装备为原012驻留2 E2，不与012模式相加。012历史P=0不覆盖当前人员。
+- 人员账户累计拨款2I与装备账户累计拨款10I分别展示、分别守恒，不合并为可互用预算。initial尚未导入时人员拨款按原记录为0。
+- REAL E7结算后快照已进入T8/GERMAN_SUPPLY_RAIL，1P已可用；T8检查点则是GERMAN_RECOVERY。来源是初始受训预备池假设，actualTrainingReceipt=null，没有新完成训练的声明。
+- 4LQ总额度在成功记录中已全部使用，不按E刷新。主路径照管至E8结束，此后仍留后方会隔离；隔离属于实物子集且继续占仓容。合成过期及终局样例均保留SYNTHETIC与原始快照回合。
+- 四种提交失败显示各自失败前账本：照管支出1I、托管1I、运送支出0、驻留0P、已用0LQ。拒收HELD则保留在途1P、入库预留1P、已付运送费与已用额度。
+- 未导出信息显示“未提供”；未知schema、缺失必需字段或不一致账本隐藏整个数据视图并列明错误，不沿用上一条或演示默认值。
+
+### 本机启动与离线复现
+
+Node.js 20+；静态页面零安装依赖。从仓库根目录运行：
+
+```sh
+node experiments/industry-ui-001/serve.mjs
+# 访问 http://127.0.0.1:4173 ，Ctrl+C停止
+python experiments/industry-ui-001/extract-013.py --source /path/to/pinned/experiments/industry-integrate-013 --check
+python experiments/industry-ui-001/extract-012.py --source /path/to/pinned/experiments/industry-integrate-012 --check
+```
+
+提取需要Python 3。013源目录必须与指定提交的原始字节相符；9个文件摘要固定在提取器中。先验证源码与证据摘要，再以`python -B`调用原`export_view.py`共25次，核对所有原样例、对应检查点和最终EVIDENCE；随后复查源文件未变。去掉`--check`只重新生成本UI目录的`records-013.mjs`。没有运行013的prepare/verify、Core或生产事务。原013文件不改动。
+
+### 验证与截图
+
+```sh
+cd experiments/industry-ui-001
+npm test
+# 另一个终端已运行静态服务器；使用已有Playwright与Edge
+npm run test:browser
+```
+
+`PLAYWRIGHT_MODULE`可指定已有Playwright包，`BROWSER_CHANNEL`默认msedge。`PERSONNEL_SCREENSHOT_DIR`指定UI003截图输出位置。40项单元测试通过（原10 + R1终局5 + UI002映射11 + UI003映射14）。原测试文件原样保留。三种模式均在1440×1100、820×1180、1024×768视口复查，包括013全部25条记录、字段映射、账户守恒、隔离占位、有效期、失败账本、未知schema/缺字段、模式隔离；R1 E24到账/受阻/托管约束保留。无脚本错误、外部请求或写请求。
+
+`UI003-VALIDATION.json`记录新增检查，`UI002-VALIDATION.json`及`VALIDATION.json`记录回归。三张新增截图：`ui003-desktop-e7-t8.png`、`ui003-tablet-portrait-expiry.png`、`ui003-tablet-landscape-failure.png`，随交付证据提供；页面保留原视觉。**均为浏览器视口检查，非真机验收。**
+
+接口映射见 `PERSONNEL-DEPENDENCIES.md`；旧012映射与演示边界见 `INTERFACE-DEPENDENCIES.md`。仅本UI目录的展示、适配器、静态数据及测试/文档变更；不修改012/013原文件或主体客户端。保存分支的提交带`[CF-Pages-Skip]`，不合并、不部署。
+
+## 历史 UI-002 / R1 说明
+
+以下保留前两轮的基线、验证及演示口径；各模式互相独立。
+
 
 ## UI-002 只读实验记录
 
