@@ -1,0 +1,12 @@
+import {appendFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {startStack} from '../mp013/stack.mjs';
+import {verify} from './verify.mjs';
+verify();
+const passwordSha256=process.env.MP013_PASSWORD_SHA256;delete process.env.MP013_PASSWORD_SHA256;
+const origin=process.env.MP013_ORIGIN,dir=process.env.MP013_RUN_DIR;
+if(!dir)throw Error('Run directory required');mkdirSync(dir,{recursive:true});
+const stack=await startStack({origin,passwordSha256,onFixture:state=>writeFileSync(resolve(dir,'fixture.json'),JSON.stringify(state)),diagnostic:e=>appendFileSync(resolve(dir,'boundary.jsonl'),JSON.stringify(e)+'\n')});
+writeFileSync(resolve(dir,'stack.json'),JSON.stringify({pid:process.pid,fixturePid:stack.fixturePid,origin,ports:stack.ports,startedAt:new Date().toISOString()},null,2));
+console.log('MP014: unchanged owner boundary 4181 -> diagnostics 4180 -> pinned fixture 4184, all loopback');
+let closing=false;const stop=async()=>{if(closing)return;closing=true;await stack.close();process.exit();};process.on('SIGINT',stop);process.on('SIGTERM',stop);

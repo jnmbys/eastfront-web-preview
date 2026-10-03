@@ -1,0 +1,37 @@
+{
+  "report": {
+    "at": "2026-10-03T08:04:46.2730976Z",
+    "processes": [
+      {
+        "pid": 32468,
+        "outcome": "ALREADY_EXITED",
+        "name": "exited-test-child"
+      }
+    ],
+    "publicOpened": true,
+    "localListeners": {
+      "count": 0,
+      "outcome": "CLOSED",
+      "ports": []
+    },
+    "overall": "PUBLIC_NOT_VERIFIED",
+    "resultsSaved": false,
+    "publicUnavailableVerified": false,
+    "failedValidation": true,
+    "schema": "MP014-closure-v1",
+    "localClosureVerified": true,
+    "publicProbe": {
+      "exitCode": 28,
+      "unavailableObserved": false,
+      "httpStatus": null,
+      "outcome": "UNKNOWN",
+      "elapsedMs": 1.3725,
+      "reason": "TIMEOUT"
+    },
+    "processExitVerified": true,
+    "limits": "HTTP_UNAVAILABLE means an HTTP 5xx response at this probe only, not permanent DNS removal; UNKNOWN never verifies public closure."
+  },
+  "pass": true,
+  "kind": "Artificial timeout injected into real stop script; no public tunnel or probe occurred",
+  "stopReportedIncomplete": true
+}
