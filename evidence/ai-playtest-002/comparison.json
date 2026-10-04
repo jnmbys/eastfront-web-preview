@@ -1,0 +1,1294 @@
+{
+  "rows": [
+    {
+      "humanSide": "GERMAN",
+      "seed": 76231,
+      "baseline": {
+        "accepted": 374,
+        "rejected": 0,
+        "status": "GAME_OVER",
+        "turn": 16,
+        "actions": {
+          "GERMAN": {
+            "DEPLOY_INITIAL_UNIT": 26,
+            "READY_FOR_PHASE_END": 81,
+            "MOVE": 94,
+            "ATTACK": 5,
+            "PASS_ADVANCE": 3,
+            "ADVANCE_AFTER_COMBAT": 1,
+            "PASS_REACTION": 1
+          },
+          "SOVIET": {
+            "DEPLOY_INITIAL_UNIT": 32,
+            "READY_FOR_PHASE_END": 76,
+            "MOVE": 38,
+            "PASS_REACTION": 5,
+            "RETREAT": 3,
+            "DEPLOY_REINFORCEMENT": 6,
+            "ATTACK": 1,
+            "PASS_ADVANCE": 1,
+            "PASS_BREAKTHROUGH": 1
+          }
+        },
+        "metrics": {
+          "GERMAN": {
+            "alive": 25,
+            "destroyed": 1,
+            "currentDamageSteps": 2,
+            "rp": 8,
+            "entrenched": 0,
+            "capitalDistanceMean": 20.36,
+            "capitalDistanceMin": 16
+          },
+          "SOVIET": {
+            "alive": 37,
+            "destroyed": 1,
+            "currentDamageSteps": 3,
+            "rp": 12,
+            "entrenched": 0,
+            "capitalDistanceMean": 11.891891891891891,
+            "capitalDistanceMin": 3
+          }
+        }
+      },
+      "candidate": {
+        "accepted": 398,
+        "rejected": 0,
+        "status": "GAME_OVER",
+        "turn": 16,
+        "actions": {
+          "GERMAN": {
+            "DEPLOY_INITIAL_UNIT": 26,
+            "READY_FOR_PHASE_END": 81,
+            "MOVE": 94,
+            "ATTACK": 5,
+            "PASS_ADVANCE": 3,
+            "ADVANCE_AFTER_COMBAT": 1,
+            "PASS_REACTION": 1
+          },
+          "SOVIET": {
+            "DEPLOY_INITIAL_UNIT": 32,
+            "READY_FOR_PHASE_END": 76,
+            "MOVE": 38,
+            "PASS_REACTION": 5,
+            "ENTRENCH": 24,
+            "RETREAT": 3,
+            "DEPLOY_REINFORCEMENT": 6,
+            "ATTACK": 1,
+            "PASS_ADVANCE": 1,
+            "PASS_BREAKTHROUGH": 1
+          }
+        },
+        "metrics": {
+          "GERMAN": {
+            "alive": 25,
+            "destroyed": 1,
+            "currentDamageSteps": 2,
+            "rp": 8,
+            "entrenched": 0,
+            "capitalDistanceMean": 20.36,
+            "capitalDistanceMin": 16
+          },
+          "SOVIET": {
+            "alive": 37,
+            "destroyed": 1,
+            "currentDamageSteps": 3,
+            "rp": 12,
+            "entrenched": 23,
+            "capitalDistanceMean": 11.891891891891891,
+            "capitalDistanceMin": 3
+          }
+        },
+        "maxPhaseMs": 1831.6542999999997,
+        "maxActionMs": 93.8765000000003,
+        "elapsedMs": 16489.0841
+      },
+      "maintenance": [
+        {
+          "n": 165,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 166,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-02"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-02"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 167,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-03"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-03"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 168,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-04"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-04"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 169,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-05"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-05"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 170,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-06"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-06"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 171,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-07"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-07"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 172,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-08"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-08"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 173,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-09"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-09"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 174,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-10"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-10"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 175,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-11"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-11"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 176,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-12"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-12"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 177,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-13"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-13"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 178,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-14"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-14"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 179,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-15"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-15"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 180,
+          "turn": 2,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-I-16"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-I-16"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 223,
+          "turn": 3,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-EL-01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-EL-01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 224,
+          "turn": 3,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-EL-02"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-EL-02"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 267,
+          "turn": 4,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-R-T04-G01-U01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-R-T04-G01-U01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 268,
+          "turn": 4,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-R-T04-G01-U02"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-R-T04-G01-U02"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 294,
+          "turn": 6,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-EL-01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-EL-01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 308,
+          "turn": 7,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-R-T07-G02-U01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-R-T07-G02-U01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 309,
+          "turn": 7,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-R-T07-G02-U02"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-R-T07-G02-U02"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 341,
+          "turn": 10,
+          "side": "SOVIET",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "S-R-T10-G03-U01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 12,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 12
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "S-R-T10-G03-U01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        }
+      ],
+      "initialStateEqual": true,
+      "replayVerified": true
+    },
+    {
+      "humanSide": "SOVIET",
+      "seed": 76231,
+      "baseline": {
+        "accepted": 374,
+        "rejected": 0,
+        "status": "GAME_OVER",
+        "turn": 16,
+        "actions": {
+          "GERMAN": {
+            "DEPLOY_INITIAL_UNIT": 26,
+            "READY_FOR_PHASE_END": 81,
+            "MOVE": 94,
+            "ATTACK": 5,
+            "PASS_ADVANCE": 3,
+            "ADVANCE_AFTER_COMBAT": 1,
+            "PASS_REACTION": 1
+          },
+          "SOVIET": {
+            "DEPLOY_INITIAL_UNIT": 32,
+            "READY_FOR_PHASE_END": 76,
+            "MOVE": 38,
+            "PASS_REACTION": 5,
+            "RETREAT": 3,
+            "DEPLOY_REINFORCEMENT": 6,
+            "ATTACK": 1,
+            "PASS_ADVANCE": 1,
+            "PASS_BREAKTHROUGH": 1
+          }
+        },
+        "metrics": {
+          "GERMAN": {
+            "alive": 25,
+            "destroyed": 1,
+            "currentDamageSteps": 2,
+            "rp": 8,
+            "entrenched": 0,
+            "capitalDistanceMean": 20.36,
+            "capitalDistanceMin": 16
+          },
+          "SOVIET": {
+            "alive": 37,
+            "destroyed": 1,
+            "currentDamageSteps": 3,
+            "rp": 12,
+            "entrenched": 0,
+            "capitalDistanceMean": 11.891891891891891,
+            "capitalDistanceMin": 3
+          }
+        }
+      },
+      "candidate": {
+        "accepted": 387,
+        "rejected": 0,
+        "status": "GAME_OVER",
+        "turn": 16,
+        "actions": {
+          "GERMAN": {
+            "DEPLOY_INITIAL_UNIT": 26,
+            "READY_FOR_PHASE_END": 81,
+            "MOVE": 94,
+            "ATTACK": 5,
+            "PASS_ADVANCE": 3,
+            "ADVANCE_AFTER_COMBAT": 1,
+            "ENTRENCH": 13,
+            "PASS_REACTION": 1
+          },
+          "SOVIET": {
+            "DEPLOY_INITIAL_UNIT": 32,
+            "READY_FOR_PHASE_END": 76,
+            "MOVE": 38,
+            "PASS_REACTION": 5,
+            "RETREAT": 3,
+            "DEPLOY_REINFORCEMENT": 6,
+            "ATTACK": 1,
+            "PASS_ADVANCE": 1,
+            "PASS_BREAKTHROUGH": 1
+          }
+        },
+        "metrics": {
+          "GERMAN": {
+            "alive": 25,
+            "destroyed": 1,
+            "currentDamageSteps": 2,
+            "rp": 8,
+            "entrenched": 13,
+            "capitalDistanceMean": 20.36,
+            "capitalDistanceMin": 16
+          },
+          "SOVIET": {
+            "alive": 37,
+            "destroyed": 1,
+            "currentDamageSteps": 3,
+            "rp": 12,
+            "entrenched": 0,
+            "capitalDistanceMean": 11.891891891891891,
+            "capitalDistanceMin": 3
+          }
+        },
+        "maxPhaseMs": 1552.2824999999903,
+        "maxActionMs": 110.1974999999984,
+        "elapsedMs": 17118.551499999998
+      },
+      "maintenance": [
+        {
+          "n": 254,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 255,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-02"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-02"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 256,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-03"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-03"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 257,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-04"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-04"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 258,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-05"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-05"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 259,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-06"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-06"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 260,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-07"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-07"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 261,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-08"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-08"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 262,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-09"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-09"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 263,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-10"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-10"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 264,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-I-11"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-I-11"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 265,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-J-01"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-J-01"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        },
+        {
+          "n": 266,
+          "turn": 5,
+          "side": "GERMAN",
+          "intent": {
+            "type": "ENTRENCH",
+            "unitId": "G-J-02"
+          },
+          "before": {
+            "step": 0,
+            "entrenched": false,
+            "rp": 8,
+            "hasMoved": false
+          },
+          "after": {
+            "step": 0,
+            "entrenched": true,
+            "rp": 8
+          },
+          "reason": {
+            "intent": {
+              "type": "ENTRENCH",
+              "unitId": "G-J-02"
+            },
+            "reason": "OWN_UNMOVED_ELIGIBLE_NOT_ENTRENCHED",
+            "damage": 0,
+            "cost": 0
+          }
+        }
+      ],
+      "initialStateEqual": true,
+      "replayVerified": true
+    }
+  ],
+  "interpretation": "Two development flow checks; frozen 001 proxy; no general strength or same-dice claim. No natural repair actions occurred; directed fixtures verify repairs separately."
+}

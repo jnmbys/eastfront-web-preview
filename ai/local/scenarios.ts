@@ -25,7 +25,7 @@ export function prepareLocalScenario(options:LocalStart):{session:LocalGameSessi
  const state=session.state;
  const origin=Object.values(state.hexes).find(h=>h.coord.q>8&&h.coord.q<20&&[-1,0,1,2].every(d=>state.hexes[hexKey({q:h.coord.q+d,r:h.coord.r})]?.terrain==='PLAIN')&&!Object.values(state.edges).some(e=>e.river&&[e.a,e.b].some(c=>c.r===h.coord.r&&c.q>=h.coord.q-1&&c.q<=h.coord.q+2)))?.coord;
  if(!origin)throw new Error('Fixture plain corridor unavailable');
- const humanAttack=options.scenario==='human-attack';const attacker:Side=options.scenario==='breakthrough'?'GERMAN':humanAttack?options.humanSide:options.humanSide==='GERMAN'?'SOVIET':'GERMAN';
+ const humanAttack=options.scenario==='human-attack';const attacker:Side=options.scenario==='breakthrough'?'GERMAN':humanAttack||options.scenario==='stop'?options.humanSide:options.humanSide==='GERMAN'?'SOVIET':'GERMAN';
  const defender:Side=attacker==='GERMAN'?'SOVIET':'GERMAN';
  const controller=(side:Side)=>Object.values(state.controllers).find(c=>c.side===side)!.id;
  const unit=(id:string,side:Side,templateId:string,q:number,r:number):UnitState=>({id,side,templateId,type:defaultRules.unitTemplates[templateId]!.type,hex:{q,r},step:0,alive:true,supplyState:'SUPPLIED',entrenched:false,hasMoved:false,hasAttacked:false,controllerId:controller(side),temporarySupply:false,dedicatedRailRepair:false,reconZocIgnoreUsed:false,artillerySupportUsed:false,lastHQCommandTurn:null});
@@ -40,6 +40,14 @@ export function prepareLocalScenario(options:LocalStart):{session:LocalGameSessi
  // are reached only by accepted Actions; this is not a production campaign progress claim.
  session.state.phase=attacker==='GERMAN'?'GERMAN_COMBAT':'SOVIET_COMBAT';session.state.activeSide=attacker;
  for(const u of Object.values(session.state.units))u.supplyState='SUPPLIED';
+ if(options.scenario==='stop'){
+  // Existing stop fixture now retains a real pending reaction. Never manufacture
+  // a pending object; the original Core accepts the fixture's opening attack.
+  const result=session.engine.apply(session.state,{type:'ATTACK',controllerId:controller(attacker),attackerUnitIds:['attacker'],target:{q:origin.q,r:origin.r}});
+  if(!result.accepted||!result.state.pendingDecision)throw new Error('Stop fixture attack failed');
+  session.state=result.state;session.lastResult=result;
+  return {session,policy:()=>({kind:'STOP',reason:'NO_CANDIDATE'})};
+ }
  if(options.scenario==='breakthrough'){
   const host=new FairHost({matchId:'AI003-breakthrough-preparation',initialState:session.state,rules:session.rules,scenario,agentSeeds:{GERMAN:101,SOVIET:202}});
   for(let i=0;i<12;i++){
@@ -50,7 +58,6 @@ export function prepareLocalScenario(options:LocalStart):{session:LocalGameSessi
   throw new Error('Breakthrough fixture limit');
  }
  const scripted:FairAgent=input=>{
-  if(options.scenario==='stop')return {kind:'STOP',reason:'NO_CANDIDATE'};
   if(input.agentRandom.decisionIndex===0&&!input.view.pendingDecision){const attack=observationCandidates(input).find(a=>a.type==='ATTACK');if(attack)return {kind:'INTENT',intent:attack};}
   return minimalAgent(input);
  };

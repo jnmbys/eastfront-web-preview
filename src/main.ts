@@ -478,7 +478,7 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
 }
 
 function localAiHome():string {
- return `<main class="home-screen"><h1>EASTFRONT · 本地人机</h1><p>实验 AI：流程验证，策略尚弱</p><p>本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label><p>完整战役使用自主 AI；其余场景用于流程检查。AI 暂不主动恢复、筑垒、修铁路或使用 HQ／炮兵支援，突破通常放弃。工业与新补给实验未接入。</p><button id="ai-start" class="primary-action">开始本地人机</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
+ return `<main class="home-screen"><h1>EASTFRONT · 本地人机</h1><p>实验 AI：流程验证，策略尚弱</p><p>本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。工业与新补给实验未接入。</p><button id="ai-start" class="primary-action">开始本地人机</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
 }
 function bindLocalAiHome():void {
  document.querySelector('#ai-perf-report')?.addEventListener('click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
@@ -519,10 +519,21 @@ function updateLocalAiStatus():void {
    field.value=JSON.stringify({version:'AI-PERF-006',...client.meta,revision:client.state.snapshot?.matchRevision,...(perf006.enabled?{performance:perf006.report()}: {})},null,2);
    field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});
   });
-  bar.querySelector('#ai-takeover')!.addEventListener('click',async()=>{
-   if(!window.confirm(`切换到${side(client.meta.ownerSide)}的授权视角？接管后 AI 停止，后续切换座位仍需明确确认。`))return;
-   const generation=++localGeneration;if(isNetwork(session))session.dispose(false);session=null;appStatus='LOADING';render();
-   try{await client.takeover();if(generation!==localGeneration||localAi!==client)return;await enterNetworkMatch(client);}catch{if(generation===localGeneration)updateLocalAiStatus();}
+  bar.querySelector('#ai-takeover')!.addEventListener('click',()=>{
+   if(bar!.querySelector('#ai-takeover-confirm'))return;
+   const owner=client.meta.ownerSide,revision=client.state.snapshot?.matchRevision;
+   const prompt=document.createElement('span');prompt.id='ai-takeover-confirm';prompt.setAttribute('role','group');prompt.setAttribute('aria-label','确认人工接管');
+   const message=document.createElement('span');message.textContent=`切换到${side(owner)}的授权视角？接管后 AI 停止，后续切换座位仍需明确确认。`;
+   const confirm=document.createElement('button');confirm.id='ai-takeover-accept';confirm.className='mini-button';confirm.textContent='确认接管';
+   const cancel=document.createElement('button');cancel.id='ai-takeover-cancel';cancel.className='mini-button';cancel.textContent='取消';
+   cancel.addEventListener('click',()=>prompt.remove());
+   confirm.addEventListener('click',async()=>{
+    if(localAi!==client||client.meta.ownerSide!==owner||client.state.snapshot?.matchRevision!==revision){prompt.remove();return;}
+    confirm.disabled=true;cancel.disabled=true;
+    const generation=++localGeneration;if(isNetwork(session))session.dispose(false);session=null;appStatus='LOADING';render();
+    try{await client.takeover();if(generation!==localGeneration||localAi!==client)return;await enterNetworkMatch(client);}catch{if(generation===localGeneration)updateLocalAiStatus();}
+   });
+   prompt.append(message,confirm,cancel);bar!.append(prompt);confirm.focus();
   });
  }
  const setText=(selector:string,value:string)=>{const el=bar!.querySelector(selector)!;if(el.textContent!==value)el.textContent=value;};

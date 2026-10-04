@@ -1,0 +1,104 @@
+✖ refit: actual German and Soviet repair charges original RP and one step, then observes quota (14.6144ms)
+✖ refit: priority is damage, then cost, then ID; actual second read respects one-per-unit and phase receipts even from human action (5.3792ms)
+✔ refit: no repair for budget/phase/own eligibility failures; no resource grant (29.7664ms)
+✖ refit: hidden rail occupation and RNG give identical proposals; Core rejection stops phase probes with unchanged RP/state (12.0788ms)
+✖ refit: real entrenchment, already-entrenched avoidance, public capital/type/movement guards, phase completion (2.3564ms)
+✔ refit: fail closed on missing authorization, seat isolation, caps and replayed latest state (86.2013ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 2
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 378.439
+
+✖ failing tests:
+
+test at ai\tests\refit002.test.mjs:18:1
+✖ refit: actual German and Soviet repair charges original RP and one step, then observes quota (14.6144ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'INTEGRITY_FAILURE'
+  - 'ACCEPTED'
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-playtest-002-refit/ai/tests/refit002.test.mjs:20:79)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'INTEGRITY_FAILURE',
+    expected: 'ACCEPTED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ai\tests\refit002.test.mjs:24:1
+✖ refit: priority is damage, then cost, then ID; actual second read respects one-per-unit and phase receipts even from human action (5.3792ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-playtest-002-refit/ai/tests/refit002.test.mjs:28:124)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ai\tests\refit002.test.mjs:42:1
+✖ refit: hidden rail occupation and RNG give identical proposals; Core rejection stops phase probes with unchanged RP/state (12.0788ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'INTEGRITY_FAILURE'
+  - 'REJECTED'
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-playtest-002-refit/ai/tests/refit002.test.mjs:46:89)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'INTEGRITY_FAILURE',
+    expected: 'REJECTED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at ai\tests\refit002.test.mjs:50:1
+✖ refit: real entrenchment, already-entrenched avoidance, public capital/type/movement guards, phase completion (2.3564ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'INTEGRITY_FAILURE'
+  - 'ACCEPTED'
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-playtest-002-refit/ai/tests/refit002.test.mjs:51:161)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'INTEGRITY_FAILURE',
+    expected: 'ACCEPTED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

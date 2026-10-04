@@ -119,7 +119,7 @@ test('AI001 optional combat passes use only authorized pending decision, not hid
 test('AI001 old headless entry remains explicitly omniscient and separate from the fair runtime graph',()=>{
  const s=fixture();let called=false;runOmniscientEvaluation(s,defaultRules,microScenario,context=>{called=true;assert.deepEqual(context.state.random,s.random);assert(context.state.units['secret-enemy']);return null;});assert(called);
  assert.deepEqual(Object.keys(fairExports).sort(),['CANDIDATE_LIMIT','agentOrder','basicAgent','minimalAgent','observationCandidates','scoreIntent']);
- for(const file of readdirSync(new URL('../../.ai-dist/ai/fair/',import.meta.url)).filter(f=>f.endsWith('.js'))){const code=readFileSync(new URL('../../.ai-dist/ai/fair/'+file,import.meta.url),'utf8');for(const match of code.matchAll(/from ['"]([^'"]+)['"]/g))assert(['./candidates.js','./minimalAgent.js','./basicAgent.js','./routing.js','./advance.js','./parameters.js','./plan.js','../../vendor/eastfront-digital-core/dist/core/hex.js'].includes(match[1]),match[1]);}
+ for(const file of readdirSync(new URL('../../.ai-dist/ai/fair/',import.meta.url)).filter(f=>f.endsWith('.js'))){const code=readFileSync(new URL('../../.ai-dist/ai/fair/'+file,import.meta.url),'utf8');for(const match of code.matchAll(/from ['"]([^'"]+)['"]/g))assert(['./candidates.js','./minimalAgent.js','./basicAgent.js','./routing.js','./advance.js','./parameters.js','./plan.js','./refit.js','../../vendor/eastfront-digital-core/dist/core/hex.js'].includes(match[1]),match[1]);}
 });
 
  test('CORE-FIX-001 real breakthrough continues through fair host; corrupt positions still stop',()=>{

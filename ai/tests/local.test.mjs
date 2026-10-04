@@ -65,7 +65,8 @@ test('AI003 policy stop and rejection limit preserve state; takeover changes rec
   for(let i=0;i<9&&m.shouldThink;i++)m.think();assert(m.meta.paused);assert(m.meta.reason.startsWith(rejection?'REJECTION_LIMIT':'AGENT_STOP'));assert.deepEqual(m.audit(),before);
   assert.equal(m.snapshot().payload.view.viewer,'GERMAN');const changed=m.takeOver();assert(changed);assert.equal(changed.payload.view.viewer,'SOVIET');assert.equal(m.meta.manual,true);assert.equal(m.shouldThink,false);
   assert(!JSON.stringify(changed.payload).includes('authoritativeState'));assert(changed.payload.view.units.filter(u=>u.side==='GERMAN').every(u=>!('friendly' in u)));
-  assert(submit(m,{type:'READY_FOR_PHASE_END'}).some(r=>r.messageType==='ACTION_ACCEPTED'));capture(rejection?'limit-takeover':'stop-takeover',m);
+  assert.deepEqual(m.audit().pendingDecision,before.pendingDecision,'takeover must preserve the pending battle');
+  assert(submit(m,{type:'PASS_REACTION',battleId:m.audit().pendingDecision.battleId}).some(r=>r.messageType==='ACTION_ACCEPTED'));capture(rejection?'limit-takeover':'stop-takeover',m);
  }
 });
 test('AI003 duplicate, old revision, wrong owner and forged invisible target cannot mutate or reroll',()=>{

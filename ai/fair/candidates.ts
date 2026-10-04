@@ -1,5 +1,6 @@
 import {getNeighbors,hexKey} from '../../vendor/eastfront-digital-core/dist/core/hex.js';
 import {createMoveScorer} from './routing.js';
+import {refitOptions} from './refit.js';
 import type {DeepReadonly,FairInput,FairIntent} from './types.js';
 export const CANDIDATE_LIMIT=128;
 export const ATTACK_GROUP_LIMIT=4,ATTACK_COMBINATION_LIMIT=64;
@@ -57,6 +58,7 @@ export function observationCandidates(input:DeepReadonly<FairInput>,includeMoveP
     return [...(id?entries.slice(0,CANDIDATE_LIMIT-1).map(h=>({type:'DEPLOY_REINFORCEMENT' as const,reinforcementId:id,entryHex:{q:h.q,r:h.r}})):[]),{type:'READY_FOR_PHASE_END'}];
   }
   if(view.phase.endsWith('_COMBAT'))return attackCandidates(input);
+  if(view.phase.endsWith('_RECOVERY')||view.phase.endsWith('_ENTRENCHMENT'))return [...refitOptions(input).map(o=>o.intent),{type:'READY_FOR_PHASE_END'}];
   const actions:FairIntent[]=[{type:'READY_FOR_PHASE_END'}],board=new Set(view.hexes.map(h=>hexKey(h.coord)));
   if(view.phase.endsWith('_MOVEMENT'))for(const u of own){
     if(!('friendly' in u)||u.friendly.hasMoved)continue;

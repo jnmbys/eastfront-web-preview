@@ -1,0 +1,17 @@
+{
+  "task": "AI-PLAYTEST-002",
+  "sourceBase": "d34a8563c4379523a4a2f5f92f4f5b4d954bcf8a",
+  "seed": 76231,
+  "humanSides": [
+    "GERMAN",
+    "SOVIET"
+  ],
+  "maxDecisions": 2000,
+  "maxMs": 180000,
+  "driver": "Same LocalMatch / human SUBMIT_ACTION driver as 001",
+  "humanPolicy": "Frozen 001 basicAgent, exact rebuilt fair runtime hashes compared with 001",
+  "aiPolicy": "Current basicAgent, maintenance only",
+  "baseline": "Reused evidence/ai-playtest-001/{GERMAN,SOVIET}.record.json; no baseline rerun",
+  "interpretation": "Development flow comparison, not independent holdout or same dice after divergence",
+  "scope": "Exactly two candidate natural campaigns; no tuning or extra variants"
+}

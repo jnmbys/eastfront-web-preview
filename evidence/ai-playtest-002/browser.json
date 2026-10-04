@@ -1,0 +1,23 @@
+{
+  "url": "http://127.0.0.1:4182/",
+  "surface": "Codex real in-app browser, tab 3",
+  "kind": "Automated actual-browser interaction, not a human full campaign",
+  "scenario": "stop; initial pending battle produced by an accepted original Core ATTACK",
+  "originalProblem": "Native confirm opened; subsequent CDP control and handleJavaScriptDialog failed with Emulation.setFocusEmulationEnabled timeout. Replaced only this confirmation with inline confirm/cancel; closed blocked tab rather than retrying it.",
+  "steps": [
+    "Open stop scenario; AI pauses at actual defender reaction.",
+    "Open takeover confirmation then cancel: same owner/view and accepted count.",
+    "Confirm takeover: manual mode, Soviet authorized view; same B-000001 battle retained.",
+    "Existing human NetworkPlayerSession schedules the unique forced PASS_REACTION: accepted=1, RETREAT pending. This is not an AI policy call.",
+    "Observe stable manual state before human retreat.",
+    "Human retreat from 10,-2 to 11,-2: accepted=2; German advance pending.",
+    "Explicitly confirm German seat switch: accepted remains 2.",
+    "Human PASS_ADVANCE then PASS_BREAKTHROUGH: accepted=4, rejected=0; battle follow-up ends.",
+    "Later diagnostic remains manual=true, accepted=4, revision=4.",
+    "Exit to home: German/Soviet selector and updated capability text visible; browser retained at entry."
+  ],
+  "workerCrossCheck": "takeover-worker.json.gz: TAKEOVER response retains exact pending DEFENDER_REACTION and accepted=0; 240ms idle no actions; explicit human PASS then 240ms idle no actions",
+  "screenshots": ["browser-takeover-pending.png", "browser-takeover-complete.png"],
+  "accessibilityEvidence": "browser-final-state.txt is a diff, not a full page dump",
+  "remaining": "No claim that the user personally completed a campaign"
+}

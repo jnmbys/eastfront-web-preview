@@ -6,6 +6,10 @@ export type DeepReadonly<T> = T extends object ? {readonly [K in keyof T]:DeepRe
 export type FairView=Omit<PlayerViewState,'viewer'|'authoritativeState'> & {viewer:Side};
 /** Small explicit public rule subset. No scenario initialUnits, controllers or RNG. */
 export interface PublicRules {
+  /** Public maintenance constants only; no computed legal targets or active bases. */
+  refit?:{maxDistance:number;limits:{GERMAN:number;SOVIET:{fromTurn:number;maxUnits:number}[]};
+    germanWestEntries:HexCoord[];sovietEastExits:HexCoord[];sovietSources:HexCoord[];
+    templates:Record<string,{cost:number;canEntrench:boolean}>};
   rulesId:string;scenarioId:string;turnLimit:number;stackingLimit:number;
   /** Public scenario goals and risk factors only; no deployment or runtime state. */
   objectives:HexCoord[];
@@ -19,9 +23,11 @@ export interface PublicRules {
   entrenchmentShift:number;
   templates:Record<string,Pick<UnitTemplate,'id'|'side'|'maxDamageSteps'|'type'|'exertsZoc'>>;
 }
-export type FairIntent=Extract<NetworkAction,{type:'DEPLOY_REINFORCEMENT'|'RETREAT'|'ADVANCE_AFTER_COMBAT'|'BREAKTHROUGH'|'SCHWERPUNKT_ATTACK'|'DEPLOY_INITIAL_UNIT'|'READY_FOR_PHASE_END'|'MOVE'|'ATTACK'|'PASS_REACTION'|'ALLOCATE_LOSSES'|'PASS_ADVANCE'|'PASS_BREAKTHROUGH'|'PASS_SCHWERPUNKT'}>;
+export type FairIntent=Extract<NetworkAction,{type:'REPAIR_UNIT'|'ENTRENCH'|'DEPLOY_REINFORCEMENT'|'RETREAT'|'ADVANCE_AFTER_COMBAT'|'BREAKTHROUGH'|'SCHWERPUNKT_ATTACK'|'DEPLOY_INITIAL_UNIT'|'READY_FOR_PHASE_END'|'MOVE'|'ATTACK'|'PASS_REACTION'|'ALLOCATE_LOSSES'|'PASS_ADVANCE'|'PASS_BREAKTHROUGH'|'PASS_SCHWERPUNKT'}>;
 export interface OwnAttempt {observationKey:string;intent:FairIntent|null;outcome:'ACCEPTED'|'REJECTED';}
 export interface FairInput {
+  /** Own accepted recovery receipts and own generic rejection, current phase only. */
+  refit?:{recoveredUnitIds:string[];rejected:boolean};
   /** Optional headless-only shared plan; absent by default, preserving v1 observations. */
   plan?:import('./plan.js').FairPlanSnapshot;
   schema:'fair-player-view-v1';observationKey:string;scope:{matchId:string;controllerId:string;side:Side};

@@ -39,6 +39,10 @@ export function fairView(view:PlayerViewState,side:Side):FairView {
 }
 export function publicRules(rules:GameRules,scenario:ScenarioConfig):PublicRules {
   return {rulesId:rules.id,scenarioId:scenario.id,turnLimit:scenario.turnLimit,stackingLimit:rules.stackingLimit,
+    refit:{maxDistance:rules.recovery.maxDistanceFromBase,
+      limits:{GERMAN:rules.recovery.maxUnitsPerTurn.GERMAN,SOVIET:rules.recovery.maxUnitsPerTurn.SOVIET.map(b=>({fromTurn:b.fromTurn,maxUnits:b.maxUnits}))},
+      germanWestEntries:scenario.germanWestRailEntries.map(hex),sovietEastExits:scenario.sovietEastRailExits.map(hex),sovietSources:(scenario.sovietSupplySources??[]).map(hex),
+      templates:Object.fromEntries(Object.entries(rules.unitTemplates).map(([id,t])=>[id,{cost:t.recoveryCostPerStep,canEntrench:t.canEntrench}]))},
     objectives:scenario.capitalCoreHexes.map(hex),
     terrainAttackShift:Object.fromEntries(Object.entries(rules.terrain).map(([k,v])=>[k,v.attackShift])),
     terrainMovementCost:Object.fromEntries(Object.entries(rules.terrain).map(([k,v])=>[k,v.movementCost])),
