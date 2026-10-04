@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-10-03T17:44:49.203Z",
+  "run": {
+    "integrity": {
+      "sourceCommit": "b9927e072d30fac8b732b815c0d817ce490d7d6e",
+      "deliveryHead": "74868a0206808426f79578ca97adfe35aeb7c715",
+      "files": 380,
+      "zipSha256": "78c8169d8dd264d37fb93a07d33bb0810cd84a80111f723797466719df4d5d38"
+    },
+    "ports": {
+      "fixture": 4290,
+      "boundary": 4291,
+      "control": 4292
+    },
+    "pid": 52000,
+    "startedAt": "2026-10-03T17:17:52.684Z",
+    "tunnelPid": 40032,
+    "origin": "https://wed-ease-letters-pray.trycloudflare.com",
+    "tunnelStartedAt": "2026-10-03T17:28:05.680Z",
+    "publicOpenedAt": "2026-10-03T17:28:10.690Z",
+    "closingReason": "operator-complete",
+    "closedAt": "2026-10-03T17:44:42.869Z"
+  },
+  "stop": {
+    "status": 200,
+    "body": "{\"closing\":true}"
+  },
+  "local": {
+    "processes": [],
+    "listeners": []
+  },
+  "processesAbsent": true,
+  "listenersClosed": true,
+  "publicChecks": [
+    {
+      "path": "/",
+      "status": 502,
+      "tlsAuthorized": true,
+      "bodyBytes": 16,
+      "classification": "HTTP_5XX_UNAVAILABLE"
+    },
+    {
+      "path": "/r1/index.html",
+      "status": 530,
+      "tlsAuthorized": true,
+      "bodyBytes": 5993,
+      "classification": "HTTP_5XX_UNAVAILABLE"
+    }
+  ],
+  "publicUnavailableVerified": true,
+  "limitation": "DNS/TLS/timeout alone is UNKNOWN, not proof of public closure. HTTP 5xx corroborates origin unavailability at this check time."
+}

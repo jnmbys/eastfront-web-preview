@@ -1,0 +1,59 @@
+{
+  "before": {
+    "source": "Initial read-only process/listener observation in this task",
+    "processes": [
+      {
+        "pid": 27324,
+        "name": "cloudflared.exe",
+        "target": "http://127.0.0.1:4181"
+      },
+      {
+        "pid": 33520,
+        "name": "node.exe",
+        "script": "scripts/mp017/stack.mjs"
+      },
+      {
+        "pid": 17168,
+        "name": "node.exe",
+        "script": "scripts/mp017/serve.mjs"
+      }
+    ],
+    "ports": [
+      4180,
+      4181,
+      55134,
+      55135,
+      55136,
+      55137,
+      55138,
+      55139,
+      20241
+    ]
+  },
+  "readOnlyArtifactCheck": {
+    "verified": true,
+    "versions": {
+      "control": "6ea4983047757a4a32a707a23d61f4962bca36d3",
+      "candidate": "a7dfdd9c57400c6a856186a70d8fb71b118b02dc"
+    },
+    "server": "5aa86d98bfd0b2009253cccc828523e5e1e0a17f7529ba1082d427d93efe4616",
+    "builds": {
+      "control": "8398578badc8f92d2bb9b541881bc08550f41a3fde49f7863000813722c81e84",
+      "candidate": "e5e88b9d51489f02aaa12eebdf24c3afe0de4524b54fa7b22540a49ee366d8ca"
+    },
+    "diagnosticSha256": "eaeb6ea0447e05bdcdf7359b8f3f35b0b259be411c902701f794e3c0bf7608af"
+  },
+  "ourPorts": [
+    4290,
+    4291,
+    4292
+  ],
+  "ourStopCommandsAgainstMp018": false,
+  "laterObservation": {
+    "at": "2026-10-03T17:26:41.921Z",
+    "initialPidsNoLongerPresent": true,
+    "ports4180And4181NoLongerListening": true,
+    "cause": "Unknown; no stop command was sent by this task"
+  },
+  "ourArtifactDirectory": ".startup004/candidate"
+}

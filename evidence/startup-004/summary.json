@@ -1,0 +1,990 @@
+{
+  "task": "STARTUP-004",
+  "status": "INCOMPLETE_DEVICE_ACCEPTANCE",
+  "createdAt": "2026-10-04T03:18:45.028Z",
+  "candidate": {
+    "sourceCommit": "b9927e072d30fac8b732b815c0d817ce490d7d6e",
+    "deliveryHead": "74868a0206808426f79578ca97adfe35aeb7c715",
+    "files": 380,
+    "zipSha256": "78c8169d8dd264d37fb93a07d33bb0810cd84a80111f723797466719df4d5d38"
+  },
+  "harnessUnchanged": true,
+  "rows": [
+    {
+      "file": "evidence/startup-004/records/device-default-1791048958396-6ce97a37.json",
+      "receipt": {
+        "id": "device-default-1791048958396-6ce97a37",
+        "bytes": 123242,
+        "sha256": "53c80446be0d5219dc5285d55f83fb8189ebdba09190eab5540f0788582cd542",
+        "sourceCommit": "b9927e072d30fac8b732b815c0d817ce490d7d6e",
+        "kind": "device",
+        "mode": "default",
+        "receivedAt": "2026-10-03T17:35:58.397Z",
+        "outcome": "incomplete"
+      },
+      "completeAndHashVerified": true,
+      "screenshotReceiptsVerified": true,
+      "kind": "device",
+      "mode": "default",
+      "device": "华为鸿蒙 默认浏览器",
+      "userAgent": "Mozilla/5.0 (Tablet; OpenHarmony 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36  ArkWeb/6.1.0.120 HuaweiBrowser/6.1.8.301",
+      "viewport": {
+        "width": 1302,
+        "height": 607,
+        "dpr": 2.125
+      },
+      "network": "家庭wifi",
+      "cacheCondition": "新页面；未清理浏览器缓存，缓存状态未知",
+      "outcome": "incomplete",
+      "reasons": [
+        "not-observed-success",
+        "missing-mounted-lod",
+        "terrain-details-not-ready-at-export"
+      ],
+      "mounted": [
+        "far"
+      ],
+      "progress": {
+        "stage": "building",
+        "completedSteps": 3,
+        "totalSteps": 6,
+        "completedAssets": 28,
+        "batchCompleted": 9,
+        "batchTotal": null
+      },
+      "current": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "far",
+        "zoom": "2.50",
+        "transform": "transform: translate(332.219px, 10.2004px) scale(2.5); transform-origin: 50% 50%;"
+      },
+      "observations": {
+        "complete": true,
+        "drag": true,
+        "zoom": true,
+        "far": true,
+        "medium": true,
+        "close": true
+      },
+      "notes": "",
+      "screenshots": [],
+      "firstTerrainAfterStartMs": 26226.000000000004,
+      "allTerrainAfterStartMs": null,
+      "mapDomAfterStartMs": 26494.899999999998,
+      "controlsObservedAfterStartMs": 26495.000000000004,
+      "imageJobs": {
+        "active": 0,
+        "peak": 2,
+        "completed": 28,
+        "failed": 0
+      },
+      "terrainResources": 29,
+      "terrainResourcePaths": 20,
+      "loaderBudgetAndFallback": [
+        {
+          "asset": "VS2_ROAD_SURFACE_01",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 596,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 595,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RAIL_BALLAST",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 456,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 455,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_BRIDGE_DECK_MATERIAL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 866,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 865,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_GRASS",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 16,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 16,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_DRY_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 30,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 30,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_MOIST_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 19,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 19,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RELIEF_SLOPE_MATERIAL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 17,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 17,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_ROUGH_BROKEN_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 17,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 17,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_MARSH_WET_GROUND",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 16,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 16,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_CITY_SETTLEMENT_GROUND",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 18,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 18,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_MACRO_VALUE",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 17,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 17,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RELIEF_GENTLE_SHADE",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 15,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 15,
+              "outcome": "ok"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "One observation does not establish stable speedup.",
+        "Current timings begin at the STARTUP004 local-start request; do not compare directly with MP015 or the artificial slow-response benchmark.",
+        "DOM availability is not visible paint; actual appearance/interaction are user observations.",
+        "New page is not proof of cold cache; resource timing reports do not fully identify browser caching."
+      ],
+      "clientTimeOrigin": 1791048864341.9,
+      "exportedAt": "2026-10-03T17:35:49.556Z",
+      "elapsedAtExportMs": 57605.80009765625,
+      "eventKinds": {
+        "observer-attached": 1,
+        "local-start-request": 1,
+        "progress-stage": 10,
+        "terrain-complete": 1,
+        "map-dom-ready": 1,
+        "controls-available": 1,
+        "lod-mounted": 1,
+        "map-transform": 551,
+        "map-input": 24
+      },
+      "terrainMilestones": [
+        {
+          "lod": "far",
+          "afterStartMs": 26226.000000000004
+        }
+      ],
+      "visibilityEvents": [],
+      "lastCompletedBuildTiming": {
+        "stage": "projection",
+        "elapsedMs": 12.300000000745058,
+        "workMs": 11,
+        "maxSliceMs": 11,
+        "yields": 0,
+        "at": 54293.8
+      },
+      "resourceTiming": {
+        "entries": 29,
+        "uniquePaths": 20,
+        "repeatedPathEntries": 9,
+        "recoveryEntries": 0,
+        "zeroTransferEntries": 9,
+        "sumDurationMs": 16698.100000012666,
+        "reportedTransferBytes": 4159191
+      },
+      "screenshotCount": 0
+    },
+    {
+      "file": "evidence/startup-004/records/device-default-1791049149631-0154bc3c.json",
+      "receipt": {
+        "id": "device-default-1791049149631-0154bc3c",
+        "bytes": 147053,
+        "sha256": "e4f21b9faacaf1199c0a2b7cf51ea86ffe2ef4a682e1631b96cfdeb64d1fb8ad",
+        "sourceCommit": "b9927e072d30fac8b732b815c0d817ce490d7d6e",
+        "kind": "device",
+        "mode": "default",
+        "receivedAt": "2026-10-03T17:39:09.632Z",
+        "outcome": "incomplete"
+      },
+      "completeAndHashVerified": true,
+      "screenshotReceiptsVerified": true,
+      "kind": "device",
+      "mode": "default",
+      "device": "华为鸿蒙 默认浏览器",
+      "userAgent": "Mozilla/5.0 (Tablet; OpenHarmony 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36  ArkWeb/6.1.0.120 HuaweiBrowser/6.1.8.301",
+      "viewport": {
+        "width": 1302,
+        "height": 607,
+        "dpr": 2.125
+      },
+      "network": "家庭wifi",
+      "cacheCondition": "新页面；未清理浏览器缓存，缓存状态未知",
+      "outcome": "incomplete",
+      "reasons": [
+        "not-observed-success",
+        "missing-mounted-lod",
+        "terrain-details-not-ready-at-export"
+      ],
+      "mounted": [
+        "far",
+        "medium"
+      ],
+      "progress": {
+        "stage": "building",
+        "completedSteps": 4,
+        "totalSteps": 6,
+        "completedAssets": 60,
+        "batchCompleted": 9,
+        "batchTotal": null
+      },
+      "current": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "medium",
+        "zoom": "2.50",
+        "transform": "transform: translate(348.142px, -29.4522px) scale(2.5); transform-origin: 50% 50%;"
+      },
+      "observations": {
+        "complete": true,
+        "drag": true,
+        "zoom": true,
+        "far": true,
+        "medium": true,
+        "close": true
+      },
+      "notes": "",
+      "screenshots": [
+        {
+          "id": "device-terrain-1791049033383-c0edf632.png",
+          "bytes": 3217627,
+          "sha256": "10a91988924ecc3c84c4b2af4704750a82c7d1250423987e5543a77cf3592ac5",
+          "lod": "far",
+          "at": 65446
+        },
+        {
+          "id": "device-terrain-1791049037369-a80d2d9f.png",
+          "bytes": 3217627,
+          "sha256": "10a91988924ecc3c84c4b2af4704750a82c7d1250423987e5543a77cf3592ac5",
+          "lod": "far",
+          "at": 68618.8
+        },
+        {
+          "id": "device-terrain-1791049038246-fb659e22.png",
+          "bytes": 3217627,
+          "sha256": "10a91988924ecc3c84c4b2af4704750a82c7d1250423987e5543a77cf3592ac5",
+          "lod": "far",
+          "at": 71117.4
+        }
+      ],
+      "firstTerrainAfterStartMs": 26226.000000000004,
+      "allTerrainAfterStartMs": null,
+      "mapDomAfterStartMs": 26494.899999999998,
+      "controlsObservedAfterStartMs": 26495.000000000004,
+      "imageJobs": {
+        "active": 0,
+        "peak": 2,
+        "completed": 60,
+        "failed": 0
+      },
+      "terrainResources": 68,
+      "terrainResourcePaths": 32,
+      "loaderBudgetAndFallback": [
+        {
+          "asset": "VS2_RAIL_RAIL_PAIR",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 714,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 714,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_BRIDGE_DECK_MATERIAL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 35,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 35,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_ROAD_SURFACE_01",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 22,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 22,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_GRASS",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 21,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 21,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_DRY_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 37,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 36,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_MOIST_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 23,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 23,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RELIEF_SLOPE_MATERIAL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 22,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 22,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_ROUGH_BROKEN_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 23,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 23,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_MARSH_WET_GROUND",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 19,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 19,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_CITY_SETTLEMENT_GROUND",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 21,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 21,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_MACRO_VALUE",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 33,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 33,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RELIEF_GENTLE_SHADE",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 23,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 23,
+              "outcome": "ok"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "One observation does not establish stable speedup.",
+        "Current timings begin at the STARTUP004 local-start request; do not compare directly with MP015 or the artificial slow-response benchmark.",
+        "DOM availability is not visible paint; actual appearance/interaction are user observations.",
+        "New page is not proof of cold cache; resource timing reports do not fully identify browser caching."
+      ],
+      "clientTimeOrigin": 1791048864341.9,
+      "exportedAt": "2026-10-03T17:39:04.437Z",
+      "elapsedAtExportMs": 252486.80009765626,
+      "eventKinds": {
+        "observer-attached": 1,
+        "local-start-request": 1,
+        "progress-stage": 18,
+        "terrain-complete": 2,
+        "map-dom-ready": 1,
+        "controls-available": 1,
+        "lod-mounted": 2,
+        "map-transform": 608,
+        "map-input": 28,
+        "visibility": 2
+      },
+      "terrainMilestones": [
+        {
+          "lod": "far",
+          "afterStartMs": 26226.000000000004
+        },
+        {
+          "lod": "medium",
+          "afterStartMs": 148567.5
+        }
+      ],
+      "visibilityEvents": [
+        {
+          "kind": "visibility",
+          "at": 206860.5,
+          "state": "hidden"
+        },
+        {
+          "kind": "visibility",
+          "at": 215596.5,
+          "state": "visible"
+        }
+      ],
+      "lastCompletedBuildTiming": {
+        "stage": "projection",
+        "elapsedMs": 15.399999998509884,
+        "workMs": 13.899999998509884,
+        "maxSliceMs": 13.899999998509884,
+        "yields": 0,
+        "at": 176447
+      },
+      "resourceTiming": {
+        "entries": 68,
+        "uniquePaths": 32,
+        "repeatedPathEntries": 36,
+        "recoveryEntries": 8,
+        "zeroTransferEntries": 30,
+        "sumDurationMs": 176086.3000000082,
+        "reportedTransferBytes": 5103264
+      },
+      "screenshotCount": 3
+    },
+    {
+      "file": "evidence/startup-004/records/device-default-1791049432132-10107739.json",
+      "receipt": {
+        "id": "device-default-1791049432132-10107739",
+        "bytes": 147670,
+        "sha256": "45baa197c24e71f851bb9b32e8d1fa5db248efa5b4ed87fd36ffe30add7a7fc1",
+        "sourceCommit": "b9927e072d30fac8b732b815c0d817ce490d7d6e",
+        "kind": "device",
+        "mode": "default",
+        "receivedAt": "2026-10-03T17:43:52.133Z",
+        "outcome": "incomplete"
+      },
+      "completeAndHashVerified": true,
+      "screenshotReceiptsVerified": true,
+      "kind": "device",
+      "mode": "default",
+      "device": "华为鸿蒙 默认浏览器",
+      "userAgent": "Mozilla/5.0 (Tablet; OpenHarmony 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36  ArkWeb/6.1.0.120 HuaweiBrowser/6.1.8.301",
+      "viewport": {
+        "width": 1302,
+        "height": 607,
+        "dpr": 2.125
+      },
+      "network": "家庭wifi",
+      "cacheCondition": "新页面；未清理浏览器缓存，缓存状态未知",
+      "outcome": "incomplete",
+      "reasons": [
+        "not-observed-success",
+        "missing-mounted-lod",
+        "terrain-details-not-ready-at-export"
+      ],
+      "mounted": [
+        "far",
+        "medium"
+      ],
+      "progress": {
+        "stage": "building",
+        "completedSteps": 4,
+        "totalSteps": 6,
+        "completedAssets": 60,
+        "batchCompleted": 9,
+        "batchTotal": null
+      },
+      "current": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "medium",
+        "zoom": "2.50",
+        "transform": "transform: translate(348.142px, -29.4522px) scale(2.5); transform-origin: 50% 50%;"
+      },
+      "observations": {
+        "complete": true,
+        "drag": true,
+        "zoom": true,
+        "far": true,
+        "medium": true,
+        "close": true
+      },
+      "notes": "",
+      "screenshots": [
+        {
+          "id": "device-terrain-1791049033383-c0edf632.png",
+          "bytes": 3217627,
+          "sha256": "10a91988924ecc3c84c4b2af4704750a82c7d1250423987e5543a77cf3592ac5",
+          "lod": "far",
+          "at": 65446
+        },
+        {
+          "id": "device-terrain-1791049037369-a80d2d9f.png",
+          "bytes": 3217627,
+          "sha256": "10a91988924ecc3c84c4b2af4704750a82c7d1250423987e5543a77cf3592ac5",
+          "lod": "far",
+          "at": 68618.8
+        },
+        {
+          "id": "device-terrain-1791049038246-fb659e22.png",
+          "bytes": 3217627,
+          "sha256": "10a91988924ecc3c84c4b2af4704750a82c7d1250423987e5543a77cf3592ac5",
+          "lod": "far",
+          "at": 71117.4
+        },
+        {
+          "id": "device-terrain-1791049194389-e907ce3a.png",
+          "bytes": 4103086,
+          "sha256": "6c28ed44ba5e031c14a0861cd43c8743f7077c957addf030cca84e7297228ec8",
+          "lod": "medium",
+          "at": 242076.9
+        }
+      ],
+      "firstTerrainAfterStartMs": 26226.000000000004,
+      "allTerrainAfterStartMs": null,
+      "mapDomAfterStartMs": 26494.899999999998,
+      "controlsObservedAfterStartMs": 26495.000000000004,
+      "imageJobs": {
+        "active": 0,
+        "peak": 2,
+        "completed": 60,
+        "failed": 0
+      },
+      "terrainResources": 68,
+      "terrainResourcePaths": 32,
+      "loaderBudgetAndFallback": [
+        {
+          "asset": "VS2_RAIL_RAIL_PAIR",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 714,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 714,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_BRIDGE_DECK_MATERIAL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 35,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 35,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_ROAD_SURFACE_01",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 22,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 22,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_GRASS",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 21,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 21,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_DRY_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 37,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 36,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_MOIST_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 23,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 23,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RELIEF_SLOPE_MATERIAL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 22,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 22,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_ROUGH_BROKEN_SOIL",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 23,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 23,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_MARSH_WET_GROUND",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 19,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 19,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_CITY_SETTLEMENT_GROUND",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 21,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 21,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_GROUND_MACRO_VALUE",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 33,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 33,
+              "outcome": "ok"
+            }
+          ]
+        },
+        {
+          "asset": "VS2_RELIEF_GENTLE_SHADE",
+          "webkit": false,
+          "timeoutMs": 15000,
+          "elapsedMs": 23,
+          "outcome": "ok",
+          "attempts": [
+            {
+              "path": "image",
+              "elapsedMs": 23,
+              "outcome": "ok"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "One observation does not establish stable speedup.",
+        "Current timings begin at the STARTUP004 local-start request; do not compare directly with MP015 or the artificial slow-response benchmark.",
+        "DOM availability is not visible paint; actual appearance/interaction are user observations.",
+        "New page is not proof of cold cache; resource timing reports do not fully identify browser caching."
+      ],
+      "clientTimeOrigin": 1791048864341.9,
+      "exportedAt": "2026-10-03T17:43:47.889Z",
+      "elapsedAtExportMs": 535938.8000976562,
+      "eventKinds": {
+        "observer-attached": 1,
+        "local-start-request": 1,
+        "progress-stage": 18,
+        "terrain-complete": 2,
+        "map-dom-ready": 1,
+        "controls-available": 1,
+        "lod-mounted": 2,
+        "map-transform": 608,
+        "map-input": 30,
+        "visibility": 4
+      },
+      "terrainMilestones": [
+        {
+          "lod": "far",
+          "afterStartMs": 26226.000000000004
+        },
+        {
+          "lod": "medium",
+          "afterStartMs": 148567.5
+        }
+      ],
+      "visibilityEvents": [
+        {
+          "kind": "visibility",
+          "at": 206860.5,
+          "state": "hidden"
+        },
+        {
+          "kind": "visibility",
+          "at": 215596.5,
+          "state": "visible"
+        },
+        {
+          "kind": "visibility",
+          "at": 369161,
+          "state": "hidden"
+        },
+        {
+          "kind": "visibility",
+          "at": 383443.8,
+          "state": "visible"
+        }
+      ],
+      "lastCompletedBuildTiming": {
+        "stage": "projection",
+        "elapsedMs": 15.399999998509884,
+        "workMs": 13.899999998509884,
+        "maxSliceMs": 13.899999998509884,
+        "yields": 0,
+        "at": 176447
+      },
+      "resourceTiming": {
+        "entries": 68,
+        "uniquePaths": 32,
+        "repeatedPathEntries": 36,
+        "recoveryEntries": 8,
+        "zeroTransferEntries": 30,
+        "sumDurationMs": 176086.3000000082,
+        "reportedTransferBytes": 5103264
+      },
+      "screenshotCount": 4
+    }
+  ],
+  "deviceRuns": 1,
+  "deviceSerialRun": false,
+  "automaticRefreshOrRetry": false,
+  "remaining": [
+    "Close LOD had not completed in the final device export; cause not established.",
+    "At the recorded 1302 CSS-pixel viewport, maximum zoom cannot request close LOD; actual close appearance unobserved.",
+    "Serial device startup was not opened because default full acceptance remained incomplete.",
+    "No default-versus-serial speed comparison or stable speedup conclusion."
+  ],
+  "limitations": [
+    "Resource Timing repeated paths include cache entries and multiple LOD work, not necessarily repeated network downloads.",
+    "Native diagnostic history is bounded to the last 12 image jobs; full decode CPU and browser memory/residency peaks are not measured.",
+    "Last export elapsed uses the device clock/timeOrigin; individual event milestones use monotonic performance time.",
+    "User checked close as visually normal initially, but there was no close mount; retained raw observations do not override this missing coverage.",
+    "Two hidden/visible intervals and PNG uploads during later LOD work are retained as actual conditions.",
+    "A background close build missing from diagnostics is not a proven crash, deadlock or concurrency root cause."
+  ]
+}

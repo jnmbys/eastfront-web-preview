@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "b9927e072d30fac8b732b815c0d817ce490d7d6e",
+  "deviceCssWidth": 1302,
+  "dpr": 2.125,
+  "panel": "assume collapsed, the most favorable permitted state",
+  "maximumZoom": 2.5,
+  "usableWidth": 1278,
+  "canvasWidth": 2541,
+  "viewBoxWidthLowerBound": 2540,
+  "screenHexWidthUpperBound": 91.50547160144396,
+  "closeRequiresScreenHexWidthGreaterThan": 96,
+  "closeReachableAtThisWidth": false,
+  "codeReferences": [
+    "src/main.ts:213-220",
+    "src/render/terrainAssets.ts:20",
+    "src/render/terrainSurface.ts:312",
+    "src/geometry/hex.ts:5"
+  ],
+  "conclusion": "Current 1302 CSS-pixel viewport cannot request close LOD even at maximum zoom with the panel collapsed. Building close offscreen is not observing close. Do not count the checked close checkbox as actual close coverage."
+}

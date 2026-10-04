@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STARTUP-004 华为启动验收</title>
+<style>body{margin:0;font:16px system-ui;background:#eee;color:#17212c}header{padding:12px;background:white}h1{font-size:20px;margin:0 0 8px}button,input,select{font:inherit;padding:7px;margin:3px}label{display:inline-block;margin-right:10px}#status{white-space:pre-wrap;color:#183c60}iframe{width:100%;height:82vh;border:0;background:#ddd}details{padding:8px}textarea{width:96%;height:180px}#checks label{display:block}#start{background:#1a567c;color:white;border:0}#failure{color:#a10d0d}small{display:block}</style>
+<header><h1>STARTUP-004 · <span id="mode"></span></h1><p>仅单机地图启动，不连接联机服务。默认模式成功并保存后，才另开新页测串行。出现空白、缺图或报错：立即点“异常停止并保存”，不要刷新或重试。</p>
+<label>设备/浏览器 <input id="device" maxlength="200" placeholder="如：华为平板、系统浏览器"></label><label>网络 <input id="network" maxlength="200" placeholder="如：家庭 Wi-Fi"></label><label>实际缓存条件 <select id="cache"><option>新页面；未清理浏览器缓存，缓存状态未知</option><option>已按浏览器设置清理缓存；不保证底层完全冷缓存</option><option>已完成默认模式，复用同一浏览器缓存</option></select></label>
+<button id="start" disabled>开始本次单机启动（只点一次）</button><button id="shot" disabled>保存当前景别地形截图</button><button id="failure">异常停止并保存</button>
+<p id="status">正在准备固定包与只读观察器…</p>
+<details id="checks"><summary>地图出现后：检查与保存记录</summary><p>先观察无缺图、无空白，再拖动、缩放。当前景别在上方状态显示；远/中/近每个景别可各保存一张地形截图。</p>
+<label><input type="checkbox" id="complete">画面完整，无空白、缺图或明显错层</label><label><input type="checkbox" id="drag">实际拖动正常</label><label><input type="checkbox" id="zoom">实际缩放正常</label><label><input type="checkbox" id="far">远景正常</label><label><input type="checkbox" id="medium">中景正常</label><label><input type="checkbox" id="close">近景正常</label>
+<label>观察/异常说明 <input id="notes" maxlength="500" placeholder="按实际情况填写"></label><button id="save">保存本次 JSON 到本机并校验</button><button id="download" disabled>下载同一份 JSON</button><small>本机返回“已保存＋SHA256”即为可核验保存；文本备份不是必过门槛。</small></details>
+<details><summary>JSON 文本备份（可选）</summary><textarea id="backup" readonly></textarea></details>
+</header><iframe id="game" title="原字节 R1 单机地图" style="pointer-events:none"></iframe><script type="module" src="/s004/lab.mjs"></script></html>
