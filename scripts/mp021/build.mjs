@@ -1,0 +1,26 @@
+import {execFileSync} from 'node:child_process';
+import {readFileSync,writeFileSync,mkdirSync,cpSync,existsSync} from 'node:fs';
+import {join,resolve} from 'node:path';
+import {verifyArtifacts} from '../mp017/integrity.mjs';
+import {SOURCE,CLIENT,root,sha,inventory,verify} from './package.mjs';
+const git=args=>execFileSync('git',args,{maxBuffer:50*1024*1024});
+const old=verifyArtifacts();
+if(git(['diff','--name-only',SOURCE,'--','src','server','vendor','public','tsconfig.json','package.json','package-lock.json']).toString().trim())throw Error('Unreviewed source');
+if(git(['diff','--name-only',CLIENT,SOURCE,'--','src']).toString().trim())throw Error('Client gameplay source drift');
+if(existsSync(root)){verify();console.log('Existing package retained, verified.');process.exit();}
+mkdirSync(root,{recursive:true});cpSync('.mp010-build/mp017/artifacts/candidate',join(root,'client'),{recursive:true});
+const web=inventory('scripts/mp021/web'),diagnosticSha256=sha(JSON.stringify(web));
+cpSync('scripts/mp021/web',join(root,'client/mp021'),{recursive:true});
+const index=join(root,'client/index.html');writeFileSync(index,readFileSync(index,'utf8').replace('src="./mp017/entry.mjs"','src="./mp021/entry.mjs"'));
+execFileSync(process.execPath,['node_modules/typescript/bin/tsc','-p','server/tsconfig.json','--outDir',join(root,'server')],{stdio:'inherit'});
+for(const name of ['dist','reference'])cpSync('vendor/eastfront-digital-core/'+name,join(root,'server/vendor/eastfront-digital-core',name),{recursive:true});
+const files={client:inventory(join(root,'client')),server:inventory(join(root,'server'))};
+const changedClient=Object.keys(old.builds.candidate.hashes).filter(p=>old.builds.candidate.hashes[p]!==files.client[p]);
+if(JSON.stringify(changedClient)!==JSON.stringify(['index.html']))throw Error('Fixed gameplay bytes changed');
+const harnessPaths=Object.keys(inventory('scripts/mp021')).map(p=>'scripts/mp021/'+p).concat(['scripts/mp011-r1/owner-preview.mjs','scripts/mp011-r1/diagnostics.mjs','scripts/mp014/closure-policy.ps1','scripts/mp017/web/observer.mjs','scripts/mp017/web/timeline.mjs','scripts/mp017/web/foreground.mjs']);
+const harnessHashes=Object.fromEntries(harnessPaths.map(p=>[p,sha(readFileSync(p))]));
+const m={sourceSha:SOURCE,gameplayClientSha:CLIENT,originalDelivery:'ec057145188a7bbe38bae9664378946da27eefb0',snapshotFormat:'snapshot-v3-map-table',seed:17,node:process.version,typescript:JSON.parse(readFileSync('node_modules/typescript/package.json')).version,lockfileSha256:sha(readFileSync('package-lock.json')),diagnosticSha256,packageTreeSha256:sha(JSON.stringify(files)),harnessHashes,changedClient,files};
+writeFileSync(join(root,'manifest.json'),JSON.stringify(m,null,2)+'\n',{flag:'wx'});
+mkdirSync('evidence/mp-021',{recursive:true});writeFileSync('evidence/mp-021/package-manifest.json',JSON.stringify(m,null,2)+'\n',{flag:'wx'});
+execFileSync('tar',['-a','-cf',resolve('.mp010-build/mp021/mp021-package.zip'),'-C',root,'client','server','manifest.json']);
+writeFileSync('evidence/mp-021/package-checksum.json',JSON.stringify({file:'.mp010-build/mp021/mp021-package.zip',sha256:sha(readFileSync('.mp010-build/mp021/mp021-package.zip')),packageTreeSha256:m.packageTreeSha256},null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({sourceSha:SOURCE,diagnosticSha256,packageTreeSha256:m.packageTreeSha256}));

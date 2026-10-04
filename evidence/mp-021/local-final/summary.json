@@ -1,0 +1,66 @@
+{
+  "kind": "Local Node integration, NOT browser/device acceptance",
+  "publicOpened": false,
+  "tlsTested": false,
+  "browserCookieJarTested": false,
+  "anonymous": [
+    {
+      "path": "/",
+      "status": 303
+    },
+    {
+      "path": "/mp021/config.json",
+      "status": 303
+    },
+    {
+      "path": "/v/candidate/move/real/mp021/entry.mjs",
+      "status": 303
+    },
+    {
+      "path": "/v/candidate/move/real/app/main.js",
+      "status": 303
+    },
+    {
+      "path": "/ws/deployment/real",
+      "status": 403
+    },
+    {
+      "path": "/ws/deployment/delay",
+      "status": 403
+    },
+    {
+      "path": "/ws/deployment/timeout",
+      "status": 403
+    },
+    {
+      "path": "/ws/move/real",
+      "status": 403
+    },
+    {
+      "path": "/ws/move/delay",
+      "status": 403
+    },
+    {
+      "path": "/ws/move/timeout",
+      "status": 403
+    }
+  ],
+  "authorizedAssets": true,
+  "continuousSession": true,
+  "moves": 4,
+  "purposes": [
+    "warmup",
+    "normal",
+    "normal",
+    "normal"
+  ],
+  "recoveryQueryCounts": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "exactJoin": true,
+  "sourceSha": "f1544a2a04417dcf525fe4c4cab621f7f3571ce9",
+  "packageTreeSha256": "a917a6aa9191741278badc9c0ff50a853b00c41a552191ca3dfc9fe991aed2c7"
+}
