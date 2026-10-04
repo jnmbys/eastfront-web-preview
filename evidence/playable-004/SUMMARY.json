@@ -1,0 +1,253 @@
+{
+  "task": "PLAYABLE-004",
+  "baseline": "1ac7e6c00af55dfab9a33896f3cef892a20c6cd3",
+  "browser": {
+    "automated": true,
+    "userPlaytest": false,
+    "checkpointInjection": false,
+    "accepted": 59,
+    "rejected": 0,
+    "finalTurn": 10,
+    "finalPhase": "GERMAN_MOVEMENT",
+    "PZ01": {
+      "q": 3,
+      "r": 8
+    },
+    "I01": {
+      "q": 3,
+      "r": 8
+    },
+    "I01Step": 0,
+    "previewSeconds": 0.6292331999998169,
+    "selectedChoices": {
+      "reductions": {
+        "G-REC-01": 2
+      },
+      "priorities": {}
+    },
+    "unitChanges": [
+      {
+        "id": "G-I-01",
+        "reference": {
+          "id": "G-I-01",
+          "before": 8,
+          "received": 0,
+          "due": 4,
+          "maintenance": 4,
+          "net": 0,
+          "after": 4,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 2
+        },
+        "alternative": {
+          "id": "G-I-01",
+          "before": 8,
+          "received": 8,
+          "due": 4,
+          "maintenance": 4,
+          "net": 0,
+          "after": 12,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 2
+        },
+        "referenceCombat": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        },
+        "alternativeCombat": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        }
+      },
+      {
+        "id": "G-PZ-01",
+        "reference": {
+          "id": "G-PZ-01",
+          "before": 20,
+          "received": 12,
+          "due": 8,
+          "maintenance": 8,
+          "net": 0,
+          "after": 24,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "alternative": {
+          "id": "G-PZ-01",
+          "before": 20,
+          "received": 6,
+          "due": 8,
+          "maintenance": 8,
+          "net": 0,
+          "after": 18,
+          "debt": "0",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "referenceCombat": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        },
+        "alternativeCombat": {
+          "factor": 1,
+          "cap": null,
+          "exhausted": false
+        }
+      },
+      {
+        "id": "G-REC-01",
+        "reference": {
+          "id": "G-REC-01",
+          "before": 0,
+          "received": 2,
+          "due": 4,
+          "maintenance": 2,
+          "net": 2,
+          "after": 0,
+          "debt": "2",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "alternative": {
+          "id": "G-REC-01",
+          "before": 0,
+          "received": 0,
+          "due": 4,
+          "maintenance": 0,
+          "net": 0,
+          "after": 0,
+          "debt": "5/2",
+          "loss": 0,
+          "attrition": "0",
+          "strength": 3
+        },
+        "referenceCombat": {
+          "factor": 0.5,
+          "cap": 1,
+          "exhausted": true
+        },
+        "alternativeCombat": {
+          "factor": 0.5,
+          "cap": 1,
+          "exhausted": true
+        }
+      }
+    ],
+    "transport": [
+      {
+        "id": "rail:A10~B10",
+        "originalCap": 40,
+        "spUsed": 32,
+        "cargo": 8,
+        "remaining": 0,
+        "reservation": 0,
+        "freight": 8
+      },
+      {
+        "id": "rail:B10~C10",
+        "originalCap": 40,
+        "spUsed": 32,
+        "cargo": 8,
+        "remaining": 0,
+        "reservation": 0,
+        "freight": 8
+      },
+      {
+        "id": "T",
+        "originalCap": 2200,
+        "spUsed": 108,
+        "cargo": 16,
+        "remaining": 2076,
+        "reservation": 0,
+        "freight": 16
+      },
+      {
+        "id": "W:GH2",
+        "originalCap": 96,
+        "spUsed": 88,
+        "cargo": 8,
+        "remaining": 0,
+        "reservation": 0,
+        "freight": 8
+      }
+    ],
+    "recovery": {
+      "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/recovery-0001",
+      "requestId": "cee59770-bb96-42ad-8919-7996945bfcde",
+      "unitId": "G-I-01",
+      "payment": {
+        "P": 1,
+        "E2:L": 2,
+        "RP": 0,
+        "extraW": 0
+      },
+      "beforeStep": 1,
+      "afterStep": 0,
+      "beforeGameRevision": 153,
+      "afterGameRevision": 154,
+      "commonBefore": {
+        "commonEligible": true,
+        "commonIssues": [],
+        "requestIssues": [],
+        "envelopeIssues": [],
+        "enginePreconditions": {
+          "passed": true,
+          "issues": []
+        },
+        "integrityIssues": [],
+        "recoveryIssues": [],
+        "rpIssues": [],
+        "target": {
+          "id": "G-I-01",
+          "side": "GERMAN",
+          "templateId": "G-INF",
+          "step": 1,
+          "nodeId": "C10",
+          "supplyState": "SUPPLIED"
+        },
+        "context": {
+          "revision": 153,
+          "snapshotHash": "0eec82137488959bf6072ffcf3458abd568db86cc7a419ab042b2e7645d2840a",
+          "turn": 9,
+          "phase": "GERMAN_RECOVERY",
+          "recoveryCount": 0,
+          "recoveryLimit": 1
+        }
+      }
+    }
+  },
+  "offline": {
+    "checks": 8,
+    "accepted": 103,
+    "naturalTerminalTurn": 16
+  },
+  "optimalityClaim": false,
+  "logs": {
+    "browser-actions.jsonl.xz": {
+      "uncompressedSha256": "55001fb10b472a135f8daaa1960db54d0cbc9ce7c490c6f1d919982c75503ccf",
+      "bytes": 176670629,
+      "compressedBytes": 161644
+    },
+    "offline-actions.jsonl.xz": {
+      "uncompressedSha256": "b66ce15046066aace390262bc7eefae1ded19e13fc28b76002cb9e0a0f061246",
+      "bytes": 353890477,
+      "compressedBytes": 257376
+    },
+    "previews.jsonl.xz": {
+      "uncompressedSha256": "b7408cb6f927aeebddeb4f0bb0e3c589369b542438497184ec4a2c774c16be8d",
+      "bytes": 9344693,
+      "compressedBytes": 61284
+    }
+  }
+}
