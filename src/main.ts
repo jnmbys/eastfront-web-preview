@@ -141,7 +141,6 @@ function combatPanel(model:BrowserRenderModel):string{
 }
 
 function phasePanel(model:BrowserRenderModel):string{
-  if(logisticsPort&&(model.turn<9||model.turn>9))return `<p>018固定阶段链，请使用后勤区的阶段入口。T9开放地图行动，T10到达当前验证边界。</p>`;
   if(model.readOnly)return `<p>${isNetwork(session)?esc(session.statusText):t('fow.inspection')}</p>`;
   if(model.deployment)return '';
   const ready=`<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${flowEnabled(model)?(model.phase.endsWith('_RECOVERY')?'完成恢复，继续筑垒':model.phase.endsWith('_ENTRENCHMENT')?'完成整备':t('common.advancePhase')):t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
@@ -395,7 +394,6 @@ function chooseMoveTarget(hex:ReturnType<typeof parseHex>):void{
 function chooseUnitTarget(id:string):void{
   if(!session||presentation.privacyGate||isNetwork(session)&&!session.canSelect)return;
   const model=deriveBrowserRenderModel(session,presentation);
-  if(logisticsPort&&(model.turn<9||model.turn>9))return;
   if(model.readOnly)return;
   if(chooseCounterTarget(id))return;
   if(presentation.interactionMode==='MOVE_PATH'&&presentation.selectedUnitId&&model.phase.endsWith('_MOVEMENT')){
@@ -503,7 +501,7 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
 }
 
 function localAiHome():string {
- return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>PLAYABLE-002 · 主游戏补给工业候选</p><p>本地运行，不连接多人服务。暂不支持存档或加载，原规则刷新会结束对局；新模式刷新可重连当前本机实例，关闭服务才结束。</p><label>对局规则 <select id="play-mode"><option value="legacy">原规则 · T1完整战役 / AI</option><option value="industry018">新补给＋工业018 · 德军T5固定起点至T9</option></select></label><p>新模式复用018真实订单与运输。T5–T8固定阶段链，不能自由作战；T9开放行动与苏军AI单步作战，后勤由人类接管；T10停止。不是任意T1工业战役。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。原规则模式不使用新补给与工业；上方新模式提供018受支持的固定链路。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
+ return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>PLAYABLE-003 · 主游戏补给工业候选</p><p>本地运行，不连接多人服务。暂不支持存档或加载，原规则刷新会结束对局；新模式刷新可重连当前本机实例，关闭服务才结束。</p><label>对局规则 <select id="play-mode"><option value="legacy">原规则 · T1完整战役 / AI</option><option value="industry018">新补给＋工业018 · 德军T5连续战役</option></select></label><p>新模式复用018真实订单与运输。同一T5起点自由作战，持续至原规则终局；苏军AI单步作战，双方后勤由人类接管。工业服务仍限定原T5–T9窗口，错过不阻断战役。不是任意T1工业战役。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。原规则模式不使用新补给与工业；上方新模式提供018受支持的限定工业服务和连续战役。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
 }
 function bindLocalAiHome():void {
  document.querySelector('#ai-perf-report')?.addEventListener('click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});

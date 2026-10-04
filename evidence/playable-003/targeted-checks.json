@@ -1,0 +1,68 @@
+{
+  "source": "evidence/playable-003/browser-chain.jsonl.xz",
+  "offlineOnly": true,
+  "checks": [
+    {
+      "check": "actual_move_and_identical_retry",
+      "position": {
+        "q": 3,
+        "r": 8
+      },
+      "unchangedAfterRetry": true
+    },
+    {
+      "check": "moved_target_blocks_freight_not_turn",
+      "turn": 9,
+      "reason": "运输或服务位置受阻：TARGET_MOVED",
+      "budget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      }
+    },
+    {
+      "check": "skip_material_recovery_expiry_and_continue",
+      "turn": 10,
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "EXPIRED_PAID_NO_REFUND"
+      },
+      "P": {
+        "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "quantityP": 1,
+        "owner": "RC007-REAR-G-A10",
+        "custody": "REAR_QUARANTINED",
+        "receivedEpoch": 7,
+        "availableFromTurn": 8,
+        "dispatchEpoch": 7,
+        "dueEpoch": 7
+      }
+    },
+    {
+      "check": "deadline_preserves_root",
+      "result": {
+        "ok": false,
+        "error": "REJECTED_UNCHANGED",
+        "detail": "Command '['node', 'C:\\\\Users\\\\jinyibo\\\\eastfront\\\\playable-003-continuous-campaign\\\\experiments\\\\industry-integrate-018\\\\.runtime\\\\stage016\\\\query.mjs']' timed out after 0.001 seconds",
+        "version": 46
+      }
+    },
+    {
+      "check": "history_independent_current_capacity_guard",
+      "samePhysicalAccepted": true,
+      "changedCapacityRequiresUnapprovedReallocation": false
+    }
+  ]
+}

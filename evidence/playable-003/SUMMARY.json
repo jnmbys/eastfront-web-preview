@@ -1,0 +1,249 @@
+{
+  "baseline": "14d8350fb67e0c1aee3f788c774af34b7663fb25",
+  "branch": "playable-003-continuous-campaign",
+  "browser": "Codex in-app Chromium; real UI actions, no state injection",
+  "runs": [
+    {
+      "name": "browser-chain",
+      "trace": "browser-chain.jsonl.xz",
+      "rawSha256": "7c485044978ec4da6ae5a1340c4756c9e2ad2386975dc86fd0150cf26cebf84a",
+      "rows": 126,
+      "accepted": 124,
+      "rejected": 0,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "victory": {
+        "winner": "SOVIET",
+        "reason": "SOVIET_CAPITAL_DEFENDED_TO_TURN_LIMIT",
+        "turn": 16,
+        "checkedAtPhase": "GERMAN_ENTRENCHMENT"
+      },
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 4,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0,
+        "careTransferOutI": 1
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "epochs": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "moves": [
+        {
+          "id": "003-6065c619-1588-4c3a-a21c-61db557fcb04",
+          "action": {
+            "type": "MOVE",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "path": [
+              {
+                "q": 3,
+                "r": 8
+              }
+            ]
+          },
+          "events": [
+            {
+              "type": "UnitMoved",
+              "actionId": "A-000163",
+              "unitId": "G-I-01",
+              "from": {
+                "q": 2,
+                "r": 8
+              },
+              "to": {
+                "q": 3,
+                "r": 8
+              },
+              "spentMP": 1,
+              "maxMP": 3
+            }
+          ]
+        }
+      ],
+      "recovery": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/recovery-0001",
+        "requestId": "56e358d7-d7bc-4620-bb51-81c5ccdc246d",
+        "unitId": "G-I-01",
+        "payment": {
+          "P": 1,
+          "E2:L": 2,
+          "RP": 0,
+          "extraW": 0
+        },
+        "beforeStep": 1,
+        "afterStep": 0,
+        "beforeGameRevision": 152,
+        "afterGameRevision": 153,
+        "commonBefore": {
+          "commonEligible": true,
+          "commonIssues": [],
+          "requestIssues": [],
+          "envelopeIssues": [],
+          "enginePreconditions": {
+            "passed": true,
+            "issues": []
+          },
+          "integrityIssues": [],
+          "recoveryIssues": [],
+          "rpIssues": [],
+          "target": {
+            "id": "G-I-01",
+            "side": "GERMAN",
+            "templateId": "G-INF",
+            "step": 1,
+            "nodeId": "C10",
+            "supplyState": "SUPPLIED"
+          },
+          "context": {
+            "revision": 152,
+            "snapshotHash": "c4d532c0c78bd04922658939c3c141225f74a742129d170be0dddb9125913399",
+            "turn": 9,
+            "phase": "GERMAN_RECOVERY",
+            "recoveryCount": 0,
+            "recoveryLimit": 1
+          }
+        }
+      },
+      "care": {
+        "id": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/care-extension-0001",
+        "accountId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/CARE-I",
+        "transferId": "EASTFRONT-012-ISOLATED/RC009/E8-G-I-01/budget-transfer-0001",
+        "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+        "receivedI": 1,
+        "spentI": 1,
+        "availableI": 0,
+        "oldEndEpoch": 8,
+        "endEpoch": 9,
+        "nonrefundable": true,
+        "status": "EXPIRED_PAID_NO_REFUND"
+      },
+      "maxIndustryTransactionSeconds": 1.145953900000677,
+      "AIRequests": 1,
+      "AIExecutedHistory": []
+    },
+    {
+      "name": "browser-no-order",
+      "trace": "browser-no-order.jsonl.xz",
+      "rawSha256": "0a037e202451d3e7d68d27c544c45100dbdf54817d5123b5d3a02f39896357d0",
+      "rows": 119,
+      "accepted": 118,
+      "rejected": 0,
+      "turn": 16,
+      "phase": "GAME_OVER",
+      "victory": {
+        "winner": "SOVIET",
+        "reason": "SOVIET_CAPITAL_DEFENDED_TO_TURN_LIMIT",
+        "turn": 16,
+        "checkedAtPhase": "GERMAN_ENTRENCHMENT"
+      },
+      "equipmentBudget": {
+        "granted": 0,
+        "freeI": 0,
+        "productionSpent": 0,
+        "handoffSpent": 0,
+        "escrow": 0
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 0,
+        "availableI": 0,
+        "acceptanceCareSpentI": 0,
+        "escrowI": 0,
+        "carriageSpentI": 0
+      },
+      "epochs": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "moves": [
+        {
+          "id": "003-5a502d2f-386e-48ca-9e7b-22b088e27800",
+          "action": {
+            "type": "MOVE",
+            "controllerId": "G-HUMAN-1",
+            "unitId": "G-I-01",
+            "path": [
+              {
+                "q": 3,
+                "r": 8
+              }
+            ]
+          },
+          "events": [
+            {
+              "type": "UnitMoved",
+              "actionId": "A-000119",
+              "unitId": "G-I-01",
+              "from": {
+                "q": 2,
+                "r": 8
+              },
+              "to": {
+                "q": 3,
+                "r": 8
+              },
+              "spentMP": 1,
+              "maxMP": 3
+            },
+            {
+              "type": "EnteredEnemyZOC",
+              "actionId": "A-000119",
+              "unitId": "G-I-01",
+              "hex": {
+                "q": 3,
+                "r": 8
+              }
+            }
+          ]
+        }
+      ],
+      "recovery": null,
+      "care": null,
+      "maxIndustryTransactionSeconds": 1.0728491999998369,
+      "AIRequests": 0,
+      "AIExecutedHistory": []
+    }
+  ],
+  "checks": {
+    "targeted": "5 PASS; targeted-checks.json",
+    "typecheck": "PASS npm run typecheck",
+    "clientProtection": "PASS existing playable-002/client-check.mjs",
+    "coreFilesChanged": false
+  },
+  "limitations": [
+    "Industrial service window/target remain fixed",
+    "No generalized maintenance tradeoff approval",
+    "Browser AI requested phase end; no AI attack executed",
+    "Not user playtest or balance evidence",
+    "No T1 industry initialization"
+  ]
+}
