@@ -1,0 +1,400 @@
+{
+  "schema": "MP021-field-review-v1",
+  "provenance": "Four original files supplied by the user from the Huawei test; this is not browser automation or A/B performance evidence.",
+  "config": {
+    "instanceId": "9cd8ee87-473a-4904-b7de-fb0d1171f077",
+    "origin": "https://temporarily-switching-proprietary-skiing.trycloudflare.com",
+    "sourceSha": "f1544a2a04417dcf525fe4c4cab621f7f3571ce9",
+    "gameplayClientSha": "a7dfdd9c57400c6a856186a70d8fb71b118b02dc",
+    "packageTreeSha256": "e61329c37b41c11d173cf403e410499fa28bcfe70efbe1c1c3f496056957433d",
+    "diagnosticSha256": "31581bc3cd7642224953900c53afc57767839e36b56332ec5776d725e69b1d30",
+    "snapshotFormat": "snapshot-v3-map-table"
+  },
+  "samples": [
+    {
+      "index": 1,
+      "purpose": "warmup",
+      "classification": "warmup",
+      "device": "华为hormony 默认浏览器",
+      "clientFile": "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-1-warmup.json",
+      "actionRequestId": "9b28c5ca-0d3d-4521-b803-63ca65b43edf",
+      "queryRequestId": "918bd4b2-a39a-4bc1-82a1-3e70523f6ff1",
+      "revision": 1,
+      "foreground": {
+        "requiredVisibleMs": 5000,
+        "continuousVisibleMs": 5074.900000002235,
+        "satisfiedAtInput": true
+      },
+      "queryCounts": {
+        "preparation": 4,
+        "authority-recovery": 1
+      },
+      "actionMilestonesMs": {
+        "authorityAppliedMs": 1238.5,
+        "canSelectMs": 1245.3,
+        "legalOptionsReadyMs": 2702.8,
+        "canSubmitMs": 2702.8
+      },
+      "inputToInteractiveMs": 2756.1,
+      "appliedToQuerySendMs": 7.700000002980232,
+      "appliedToInteractiveMs": 1517.6000000014901,
+      "queryTiming": {
+        "requestId": "918bd4b2-a39a-4bc1-82a1-3e70523f6ff1",
+        "revision": 1,
+        "client": {
+          "sendAt": 88385.40000000224,
+          "receiveAt": 89824.60000000149,
+          "parsedAt": 89840.10000000149,
+          "legalOptionsAppliedAt": 89841,
+          "canSubmitAt": 89841,
+          "sendToReceiveMs": 1439.199999999255,
+          "parseMs": 15.5,
+          "receiveToLegalOptionsMs": 16.399999998509884,
+          "receiveToCanSubmitMs": 16.399999998509884
+        },
+        "server": {
+          "receivedAt": 441769.0387,
+          "startedAt": 441769.1222,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.08350000000791624,
+          "queryModelMs": 4.263500000000931,
+          "forcedMs": 0.005200000014156103,
+          "summaryMs": 0.011799999978393316,
+          "queryBuildMs": 4.297199999971781,
+          "serializationMs": 0.6808999999775551,
+          "handoffAt": 441774.1282,
+          "receiveToHandoffMs": 5.089500000001863,
+          "writeCallbackMs": 0.22640000004321337,
+          "serializedBytes": 171150,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 1434.110499999253,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      },
+      "viewRenderMs": 111,
+      "queryWaitOverlapsViewRenderMs": 110.09999999776483,
+      "queryRenderMs": 52.1,
+      "callbackToInteractiveMs": 70.69999999925494,
+      "queryAppliedToUiGateMs": 1,
+      "missing": [
+        "feedbackOpportunityAt"
+      ]
+    },
+    {
+      "index": 2,
+      "purpose": "normal",
+      "classification": "normal",
+      "device": "华为hormony 默认浏览器",
+      "clientFile": "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-2-normal.json",
+      "actionRequestId": "aa5ab45b-00b7-41a8-b876-09b6620160aa",
+      "queryRequestId": "7406cfa8-0692-4d25-bb51-95ab009622b4",
+      "revision": 2,
+      "foreground": {
+        "requiredVisibleMs": 5000,
+        "continuousVisibleMs": 6208.300000000745,
+        "satisfiedAtInput": true
+      },
+      "queryCounts": {
+        "preparation": 4,
+        "authority-recovery": 1
+      },
+      "actionMilestonesMs": {
+        "authorityAppliedMs": 751.4,
+        "canSelectMs": 752.2,
+        "legalOptionsReadyMs": 1857.3,
+        "canSubmitMs": 1857.3
+      },
+      "inputToInteractiveMs": 1880.8,
+      "appliedToQuerySendMs": 1.1000000014901161,
+      "appliedToInteractiveMs": 1129.4000000022352,
+      "queryTiming": {
+        "requestId": "7406cfa8-0692-4d25-bb51-95ab009622b4",
+        "revision": 2,
+        "client": {
+          "sendAt": 122043.60000000149,
+          "receiveAt": 123140.80000000075,
+          "parsedAt": 123147.10000000149,
+          "legalOptionsAppliedAt": 123147.69999999925,
+          "canSubmitAt": 123147.69999999925,
+          "sendToReceiveMs": 1097.199999999255,
+          "parseMs": 6.300000000745058,
+          "receiveToLegalOptionsMs": 6.899999998509884,
+          "receiveToCanSubmitMs": 6.899999998509884
+        },
+        "server": {
+          "receivedAt": 475626.0017,
+          "startedAt": 475626.1197,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.11799999995855615,
+          "queryModelMs": 3.4562999999616295,
+          "forcedMs": 0.005699999979697168,
+          "summaryMs": 0.004299999971408397,
+          "queryBuildMs": 3.473200000007637,
+          "serializationMs": 0.6015999999945052,
+          "handoffAt": 475630.2234,
+          "receiveToHandoffMs": 4.221699999994598,
+          "writeCallbackMs": 0.23410000000149012,
+          "serializedBytes": 171093,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 1092.9782999992603,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      },
+      "viewRenderMs": 99.1,
+      "queryWaitOverlapsViewRenderMs": 98.80000000074506,
+      "queryRenderMs": 23,
+      "callbackToInteractiveMs": 31.100000001490116,
+      "queryAppliedToUiGateMs": 0.7000000029802322,
+      "missing": [
+        "feedbackOpportunityAt"
+      ]
+    },
+    {
+      "index": 3,
+      "purpose": "normal",
+      "classification": "normal",
+      "device": "华为hormony 默认浏览器",
+      "clientFile": "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-3-normal.json",
+      "actionRequestId": "d9fa6529-7591-46cd-946e-3a13309cc14b",
+      "queryRequestId": "2ce8fac0-771b-4c4d-b525-1c04c05c5d5b",
+      "revision": 3,
+      "foreground": {
+        "requiredVisibleMs": 5000,
+        "continuousVisibleMs": 5924.10000000149,
+        "satisfiedAtInput": true
+      },
+      "queryCounts": {
+        "preparation": 4,
+        "authority-recovery": 1
+      },
+      "actionMilestonesMs": {
+        "authorityAppliedMs": 618.2,
+        "canSelectMs": 619,
+        "legalOptionsReadyMs": 1477,
+        "canSubmitMs": 1477
+      },
+      "inputToInteractiveMs": 1490.7,
+      "appliedToQuerySendMs": 1.0999999977648258,
+      "appliedToInteractiveMs": 872.5,
+      "queryTiming": {
+        "requestId": "2ce8fac0-771b-4c4d-b525-1c04c05c5d5b",
+        "revision": 3,
+        "client": {
+          "sendAt": 143241.69999999925,
+          "receiveAt": 144095.69999999925,
+          "parsedAt": 144098.90000000224,
+          "legalOptionsAppliedAt": 144099.1000000015,
+          "canSubmitAt": 144099.1000000015,
+          "sendToReceiveMs": 854,
+          "parseMs": 3.2000000029802322,
+          "receiveToLegalOptionsMs": 3.400000002235174,
+          "receiveToCanSubmitMs": 3.400000002235174
+        },
+        "server": {
+          "receivedAt": 496621.8729,
+          "startedAt": 496621.9595,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.08659999998053536,
+          "queryModelMs": 5.15470000001369,
+          "forcedMs": 0.0068999999784864485,
+          "summaryMs": 0.005899999989196658,
+          "queryBuildMs": 5.177799999946728,
+          "serializationMs": 0.9686999999685213,
+          "handoffAt": 496628.1342,
+          "receiveToHandoffMs": 6.261299999954645,
+          "writeCallbackMs": 0.29590000002644956,
+          "serializedBytes": 170661,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 847.7387000000454,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      },
+      "viewRenderMs": 109.5,
+      "queryWaitOverlapsViewRenderMs": 109.20000000298023,
+      "queryRenderMs": 13.3,
+      "callbackToInteractiveMs": 17.400000002235174,
+      "queryAppliedToUiGateMs": 0.30000000074505806,
+      "missing": [
+        "feedbackOpportunityAt"
+      ]
+    },
+    {
+      "index": 4,
+      "purpose": "normal",
+      "classification": "normal",
+      "device": "华为hormony 默认浏览器",
+      "clientFile": "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-4-normal.json",
+      "actionRequestId": "fa2284f8-05d2-45b5-af2c-59fe9b9e0b29",
+      "queryRequestId": "73d4b431-d1c4-4393-b025-0969b0369cdd",
+      "revision": 4,
+      "foreground": {
+        "requiredVisibleMs": 5000,
+        "continuousVisibleMs": 5581.5,
+        "satisfiedAtInput": true
+      },
+      "queryCounts": {
+        "preparation": 4,
+        "authority-recovery": 1
+      },
+      "actionMilestonesMs": {
+        "authorityAppliedMs": 478.2,
+        "canSelectMs": 479.4,
+        "legalOptionsReadyMs": 1417.9,
+        "canSubmitMs": 1417.9
+      },
+      "inputToInteractiveMs": 1470.3,
+      "appliedToQuerySendMs": 1.3999999985098839,
+      "appliedToInteractiveMs": 992.1000000014901,
+      "queryTiming": {
+        "requestId": "73d4b431-d1c4-4393-b025-0969b0369cdd",
+        "revision": 4,
+        "client": {
+          "sendAt": 163566.69999999925,
+          "receiveAt": 164489.40000000224,
+          "parsedAt": 164503,
+          "legalOptionsAppliedAt": 164503.80000000075,
+          "canSubmitAt": 164503.80000000075,
+          "sendToReceiveMs": 922.7000000029802,
+          "parseMs": 13.599999997764826,
+          "receiveToLegalOptionsMs": 14.399999998509884,
+          "receiveToCanSubmitMs": 14.399999998509884
+        },
+        "server": {
+          "receivedAt": 516946.8981,
+          "startedAt": 516946.9688,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.07069999998202547,
+          "queryModelMs": 5.378300000040326,
+          "forcedMs": 0.007099999987985939,
+          "summaryMs": 0.00990000000456348,
+          "queryBuildMs": 5.407100000011269,
+          "serializationMs": 0.8845999999903142,
+          "handoffAt": 516953.3062,
+          "receiveToHandoffMs": 6.408100000000559,
+          "writeCallbackMs": 0.3407000000006519,
+          "serializedBytes": 171175,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 916.2919000029797,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      },
+      "viewRenderMs": 209.4,
+      "queryWaitOverlapsViewRenderMs": 209.20000000298023,
+      "queryRenderMs": 51.1,
+      "callbackToInteractiveMs": 68,
+      "queryAppliedToUiGateMs": 1.199999999254942,
+      "missing": [
+        "feedbackOpportunityAt"
+      ]
+    }
+  ],
+  "log": {
+    "rows": 160,
+    "requests": 20,
+    "instanceId": "9cd8ee87-473a-4904-b7de-fb0d1171f077",
+    "persistedRows": 160,
+    "pendingRows": 0,
+    "dropped": 0,
+    "writeFailed": false
+  },
+  "access": {
+    "anonymousProbePassed": true,
+    "loginSuccess": 1,
+    "authorizedHttp200": 231,
+    "authorizedWs101": 1,
+    "upstream404": [
+      {
+        "path": "<other>",
+        "requestId": "mp011-e3f3aced-740c-495d-98ad-6e0ab10fd1f5",
+        "at": "2026-10-04T04:24:37.097Z"
+      },
+      {
+        "path": "<other>",
+        "requestId": "mp011-0806ae96-aa40-473c-9bd3-a2e08a7730fe",
+        "at": "2026-10-04T04:24:37.588Z"
+      }
+    ],
+    "http5xx": 0,
+    "connectionErrors": 0
+  },
+  "closure": {
+    "localClosureVerified": true,
+    "failedValidation": false,
+    "at": "2026-10-04T04:30:33.4839762Z",
+    "limits": "HTTP_UNAVAILABLE means an HTTP 5xx response at this probe only, not permanent DNS removal; UNKNOWN never verifies public closure.",
+    "overall": "VERIFIED_AT_PROBE",
+    "processExitVerified": true,
+    "localListeners": {
+      "count": 0,
+      "ports": [],
+      "outcome": "CLOSED"
+    },
+    "publicProbe": {
+      "httpStatus": 502,
+      "reason": "HTTP_RESPONSE",
+      "outcome": "HTTP_UNAVAILABLE",
+      "elapsedMs": 3947.3517,
+      "exitCode": 0,
+      "unavailableObserved": true
+    },
+    "schema": "MP014-closure-v1",
+    "publicOpened": true,
+    "publicUnavailableVerified": true,
+    "resultsSaved": true,
+    "processes": [
+      {
+        "name": "tunnel",
+        "pid": 23868,
+        "outcome": "EXITED"
+      },
+      {
+        "name": "stack",
+        "pid": 3528,
+        "outcome": "EXITED"
+      },
+      {
+        "name": "fixture",
+        "pid": 652,
+        "outcome": "ALREADY_EXITED"
+      }
+    ]
+  },
+  "limits": [
+    "Exact Huawei model/OS/browser versions were not provided; preserve entered device string.",
+    "Actual visible feedback and feedback frame opportunity are missing, never zero.",
+    "Warmup separate; three normal samples are localization observations, not stable improvement or P95.",
+    "Service is on the authorized Windows host behind the temporary tunnel, not production Render.",
+    "Serialized bytes are JSON bytes before WebSocket/link compression, not measured wire bytes.",
+    "No cross-clock subtraction. Residual is not pure network RTT; path direction and callback queues remain unknown.",
+    "Two upstream 404 paths were redacted as <other>; resource identity and impact cannot be inferred.",
+    "Text backup was not verified. Public 502 verifies unavailability at probe time, not permanent DNS removal."
+  ],
+  "evidenceHashes": {
+    "analyze-session.mjs": "92934402f275feedd52b74569594540cde6b6faf067c94cf0fbf6c08c4b71843",
+    "anonymous-probes.json": "caca71368b2ee88c6224d583603e43687da2cd55e313f20b02a5e03d6124091a",
+    "boundary-after-stop.jsonl": "9731434583af0470c3b8413ba95772dbd2d901c388450c08d5f727ad134e8042",
+    "boundary.jsonl": "9731434583af0470c3b8413ba95772dbd2d901c388450c08d5f727ad134e8042",
+    "closure.json": "78ce89406c28d4b12566d81cd59882a98f87322cde499c2015ca6e40434cee63",
+    "fixture-ready.json": "e032ba8288fcf3e37dd8f4962702074983f881575b07f395b341ad7c7e06bdc1",
+    "joined-1-warmup.json": "c0436769eefa3251e31eca24301bb3f4c149cc1d22b824044d2f3c1890edb2bd",
+    "joined-2-normal.json": "6c71ce50a4f6112a6079a449222e54fd07a05c2200c43cf686f970a4f824bf02",
+    "joined-3-normal.json": "23902a6805383e1d5d0bc0ec47d40b492f780ce46888086f87c9b51eddfbb697",
+    "joined-4-normal.json": "f1f547a8ac55d35a14ddab29ba198f31dc194a37daf3fc2750548a4582cdff28",
+    "log-status-before-stop.json": "f5742958b979eefb3f4b63893e48b25381fa64c4a2cdd2f5e4be3cf1cf307c92",
+    "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-1-warmup.json": "8c487887b1d0937a927cdbf8ce677f5707783415e1e7797caf8cf72897f893e1",
+    "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-2-normal.json": "19283c28123750defa96ba0303985e59064993b1f68fba3f368ed1894510251a",
+    "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-3-normal.json": "de7a7f5a21e84efe8e3f67ac127aa6e9f29ad966bc773f7acfd13425b7582a5a",
+    "mp021-9cd8ee87-473a-4904-b7de-fb0d1171f077-4-normal.json": "1dede99d49fbfaa5b2904d762086f3cdc2d268653ed1df05922da42b0ff0c497",
+    "processes.json": "7161bcdd3f0e9edafd527760b5f6529490acb795ef76b522f90d246a10f23434",
+    "server-query.jsonl": "0b8f28bbae5b0389a789fb8a8cac53c51d87c37444762947ab7fe5a741c61d48",
+    "stack.json": "f7e4ad04e5f7ea883cda5046d1be081c863577a1149492672095dae95df7580f"
+  }
+}
