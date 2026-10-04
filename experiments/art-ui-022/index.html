@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EASTFRONT · ART-UI-022 本地候选</title><link rel="stylesheet" href="./candidate.css"></head>
+<body>
+<header class="hud"><b class="brand">EASTFRONT</b><strong id="phase">连接账本…</strong><span class="budget"><img src="./icons/equipment.svg" alt="">装备 <b id="freeI">未确认</b></span><span class="budget"><img src="./icons/personnel.svg" alt="">人员 <b id="personnel-budget">未确认</b></span><button id="settings" class="quiet" aria-label="打开说明与模式">说明 / 模式</button></header>
+<section id="map-wrap" aria-label="真实地图：拖动平移，滚轮或双指缩放"><div id="loading" role="status">正在绘制既有地图素材…</div><div id="world"><canvas id="terrain" aria-hidden="true"></canvas><svg id="map-svg" xmlns="http://www.w3.org/2000/svg"><g id="hexes"></g><g id="labels" pointer-events="none"></g><g id="selection" pointer-events="none"></g><g id="units"></g></svg></div>
+<nav class="map-tools" aria-label="地图导航"><button id="focus">X14</button><button id="locate-rear">A10</button><button id="locate-target">G-I-01</button><button id="fit">全图</button><button id="grid" aria-pressed="true">格线</button><button id="zoom-out" aria-label="缩小地图">−</button><output id="zoom-value">100%</output><button id="zoom-in" aria-label="放大地图">＋</button></nav>
+<div class="map-note">018固定场景地形 · 015材质<br><span>仅显示接口恢复目标；非完整战局兵位</span></div>
+<aside id="map-inspector" hidden><button id="close-inspector" class="close" aria-label="关闭地图对象信息">×</button><strong id="cell-name"></strong><span id="terrain-name"></span><div id="unit-list"></div><details><summary>真实相邻交通</summary><ul id="edge-list"></ul></details></aside>
+</section>
+<section class="command-dock" aria-label="工业操作台">
+<div class="dock-heading"><div><strong id="object-name">后方接收 · A10</strong><span id="object-visibility">正在确定镜头</span><button id="locate-object" class="inline-action">定位</button></div><div class="dock-tabs"><button id="open-ledger" aria-haspopup="dialog">详细账本</button><button id="open-diagnostics" aria-haspopup="dialog">诊断</button></div></div>
+<div id="request-strip" aria-live="polite"><strong id="live-status" role="status">读取本机账本…</strong><p id="message">正在连接；未确认前不可操作。</p><button id="check">读取 / 核对</button><button id="retry" hidden>按原请求重试</button><button id="forget" hidden>旧请求不可跳过</button></div>
+<div class="dock-body">
+<section class="inventory"><div class="inventory-art"><img src="./icons/equipment.svg" alt="装备箱"><img id="personnel-icon" src="./icons/personnel.svg" alt="人员"></div><div><span class="kicker" id="chain-summary">等待确认</span><h1 id="stock-main">—</h1><p id="stock-location">未读取正式库存</p><p id="transit-summary">在途：未确认</p></div></section>
+<section class="schedule"><h2 id="plan-title">费用与时点</h2><div id="timeline" aria-label="到账和可用时点"></div><p id="cost-main"></p><p id="expiry-main"></p><p id="route-summary"></p><button id="cost-detail" class="text-action">查看运输代价及期限 →</button></section>
+<section class="commands" aria-label="七种原业务操作">
+<article id="card-allocate"><button id="allocate" disabled>领取装备拨款 10I</button></article>
+<article id="card-order"><button id="order" disabled>下单 2 E2</button></article>
+<article id="card-activate"><button id="activate" disabled>启用后备池与独立2I</button></article>
+<article id="card-apply"><button id="apply" disabled>申请 1P 接驳</button></article>
+<article id="card-care"><button id="care" disabled>支付 1I 照管</button></article>
+<article id="card-recover"><button id="recover" disabled>恢复 G-I-01</button></article>
+<p id="action-reason">操作资格等待确认。</p>
+<article id="card-next"><button id="next" disabled>推进下一步</button></article>
+<p id="next-hint"></p><p id="eligible" class="sr-only"></p><p id="next-label" class="sr-only"></p>
+</section></div>
+</section>
+<dialog id="ledger-dialog"><div class="sheet-heading"><h2>详细账本</h2><button data-close="ledger-dialog" aria-label="关闭详细账本">关闭 ×</button></div><div class="sheet-content" id="ledger-content"><div class="grid"><section class="panel"><h2>生产与装备交接</h2><p id="chain-order">未提供</p><progress id="production-progress" max="2" value="0" aria-label="生产结算进度"></progress><p id="equipment-arrival">未提供</p><p id="production-space" class="footnote"></p></section>
+<section class="panel"><h2>人员来源与期限</h2><p class="caption">实验假定已训练后备池；本链路没有执行训练。</p><p id="chain-personnel">未提供</p><p id="personnel-arrival"></p><p id="personnel-expiry" class="footnote"></p></section></div>
+<section class="panel"><h2>两套独立预算</h2><p class="caption">装备与人员账户各自记账，不能自由互用；照管从装备账户内部划拨，不计新增收入。</p><div class="table-wrap"><table><thead><tr><th>账户</th><th>启用状态</th><th>累计拨款</th><th>可用</th><th>托管</th><th>实际支出</th></tr></thead><tbody id="finance"></tbody></table></div></section>
+<section class="panel"><h2>物资、归属与可用量</h2><p class="caption">预留不算实物；隔离是实物子集，仍占仓容。已消费与永久记录不再计入实物。</p><div class="table-wrap"><table><thead><tr><th>物资</th><th>归属</th><th>实物</th><th>可用</th><th>隔离</th><th>已消费</th><th>状态</th></tr></thead><tbody id="materials"></tbody></table></div><p id="arrival" class="footnote"></p></section>
+<section class="panel"><h2>接驳与运输能力</h2><p id="equipment-capacity"></p><p id="personnel-capacity"></p><p class="caption">A10 → B10 → C10。以下为E8前送实际账；独立工作点、地图外4LQ不能转成SP铁路/T/W。</p><div class="table-wrap"><table><thead><tr><th>资源</th><th>上限</th><th>SP占用</th><th>预留</th><th>材料已用</th><th>剩余</th></tr></thead><tbody id="capacity"></tbody></table></div><p id="terminal" class="footnote"></p></section>
+<section class="panel"><h2>维护代价与恢复结果</h2><p id="impact-note" class="caption"></p><div class="table-wrap"><table><thead><tr><th>单位</th><th>维护SP：参照 → 实际</th><th>库存SP：参照 → 实际</th><th>D：参照 → 实际</th></tr></thead><tbody id="impact"></tbody></table></div><p id="recovery" class="result">未提供</p><p id="target" class="footnote"></p></section>
+</div></dialog>
+<dialog id="info-dialog"><div class="sheet-heading"><h2>本地候选与模式</h2><button data-close="info-dialog" aria-label="关闭说明">关闭 ×</button></div><div class="sheet-content"><p>本机018真实事务。关闭服务后进度不保存。刷新和切换界面不会重置实例，不会跳过待确认请求。</p><a href="/operate/" id="original-link">打开原 INDUSTRY-UI-006（同一实例）</a><p>从原页返回候选：浏览器后退，或访问 /candidate/。两页共用同标签页的会话凭证与请求锁。</p><label>历史模式<select id="workbench-mode"><option value="local">018真实操作</option><option value="demo">模拟演示</option><option value="records">012只读记录</option><option value="personnel">013只读记录</option><option value="forward">016只读记录</option></select></label><p>地图显示固定018真实地形和单一恢复目标G-I-01。没有完整PlayerView，不展示其他兵力、敌方隐藏信息或015测试单位。交通基线不等于战时通行验收。</p><p>保留35项全局阻塞、德9/苏14 SP来源缺口。本候选未部署，不代表启动、GPU或华为验收。</p><details id="diagnostics"><summary>诊断 · 来源、请求与版本</summary><p id="version"></p><p id="instance"></p><p id="request-id"></p><p id="chain-transfers"></p><pre id="raw-state"></pre></details></div></dialog>
+<script type="module" src="./shell.mjs"></script><script type="module" src="./chain-client.mjs"></script><script type="module" src="./map-controller.mjs"></script>
+</body></html>
