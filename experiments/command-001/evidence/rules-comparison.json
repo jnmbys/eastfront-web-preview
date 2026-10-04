@@ -1,0 +1,200 @@
+{
+  "frontendBaseline": "2be91365c0f65075ab20f5f77b9dd30855d96558",
+  "seed": 17001,
+  "mapHexes": 640,
+  "start": {
+    "turn": 9,
+    "phase": "GERMAN_MOVEMENT",
+    "acceptedReplayActions": 143,
+    "sha256": "df4d4a6a8b7753081b84347a8001ef656fa6427039338b607419e0dbf4abf0a6",
+    "reinforcementDeployments": 2
+  },
+  "business": {
+    "move": {
+      "q": 2,
+      "r": 4
+    },
+    "separateAttacks": [
+      "G-I-01",
+      "G-I-02"
+    ],
+    "target": {
+      "q": 3,
+      "r": 4
+    },
+    "retreats": [
+      {
+        "q": 2,
+        "r": 3
+      },
+      {
+        "q": 1,
+        "r": 5
+      }
+    ]
+  },
+  "results": [
+    {
+      "dice": {
+        "die1": 1,
+        "die2": 5,
+        "total": 6
+      },
+      "crtResult": "AR",
+      "attackerLossSteps": 0,
+      "defenderLossSteps": 0,
+      "attackerRetreatSteps": 1,
+      "defenderRetreatSteps": 0,
+      "retreatConvertedToLoss": false
+    },
+    {
+      "dice": {
+        "die1": 2,
+        "die2": 3,
+        "total": 5
+      },
+      "crtResult": "AR",
+      "attackerLossSteps": 0,
+      "defenderLossSteps": 0,
+      "attackerRetreatSteps": 1,
+      "defenderRetreatSteps": 0,
+      "retreatConvertedToLoss": false
+    }
+  ],
+  "fullStateEqual": true,
+  "finalStateSHA256": "ac07f8fb3e77a190645a2fdbea3a1b67dcce818ee103260da980e2e797032fcb",
+  "coreActions": [
+    {
+      "type": "MOVE",
+      "controllerId": "G-HUMAN-1",
+      "unitId": "G-I-01",
+      "path": [
+        {
+          "q": 2,
+          "r": 4
+        }
+      ],
+      "actionId": "A-000144"
+    },
+    {
+      "type": "READY_FOR_PHASE_END",
+      "controllerId": "G-HUMAN-1",
+      "actionId": "A-000145"
+    },
+    {
+      "type": "ATTACK",
+      "controllerId": "G-HUMAN-1",
+      "attackerUnitIds": [
+        "G-I-01"
+      ],
+      "target": {
+        "q": 3,
+        "r": 4
+      },
+      "actionId": "A-000146",
+      "battleId": "B-000001"
+    },
+    {
+      "controllerId": "S-AI-1",
+      "battleId": "B-000001",
+      "type": "PASS_REACTION",
+      "actionId": "A-000147"
+    },
+    {
+      "type": "RETREAT",
+      "controllerId": "G-HUMAN-1",
+      "battleId": "B-000001",
+      "retreats": [
+        {
+          "unitId": "G-I-01",
+          "path": [
+            {
+              "q": 2,
+              "r": 3
+            }
+          ]
+        }
+      ],
+      "actionId": "A-000148"
+    },
+    {
+      "type": "ATTACK",
+      "controllerId": "G-HUMAN-1",
+      "attackerUnitIds": [
+        "G-I-02"
+      ],
+      "target": {
+        "q": 3,
+        "r": 4
+      },
+      "actionId": "A-000149",
+      "battleId": "B-000002"
+    },
+    {
+      "controllerId": "S-AI-1",
+      "battleId": "B-000002",
+      "type": "PASS_REACTION",
+      "actionId": "A-000150"
+    },
+    {
+      "type": "RETREAT",
+      "controllerId": "G-HUMAN-1",
+      "battleId": "B-000002",
+      "retreats": [
+        {
+          "unitId": "G-I-02",
+          "path": [
+            {
+              "q": 1,
+              "r": 5
+            }
+          ]
+        }
+      ],
+      "actionId": "A-000151"
+    }
+  ],
+  "resources": {
+    "rp": {
+      "GERMAN": 8,
+      "SOVIET": 12
+    },
+    "cp": {
+      "GERMAN": 3,
+      "SOVIET": 3
+    }
+  },
+  "rng": {
+    "seed": 17001,
+    "state": 1894147123,
+    "draws": 4
+  },
+  "victory": {
+    "winner": null,
+    "reason": null,
+    "turn": null,
+    "checkedAtPhase": null
+  },
+  "checks": [
+    {
+      "name": "Enemy membership rejected; pending choices never interpreted as a plan command",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Plans isolated by controller and session; persist across phase/turn metadata changes",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Unknown control remains absent; missing enemy is not reported destroyed; UI never reads GameState",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Synthetic 4:1 combat: actual Core loss/retreat/advance events stay with the authorized viewer",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    }
+  ]
+}

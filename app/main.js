@@ -1,6 +1,9 @@
 import { combatResults } from './ui/combatResult.js';
 import * as flow from '../experiments/flow-001/flow.js';
 import { legalStart } from '../experiments/flow-001/fixture.mjs';
+import * as command from '../experiments/command-001/command.js';
+import { commandStart } from '../experiments/command-001/fixture.mjs';
+import { hexToPixel } from './geometry/hex.js';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import { NetworkPlayerSession } from './multiplayer/networkSession.js';
@@ -41,6 +44,11 @@ const root = rootElement;
 const query = new URLSearchParams(location.search);
 const flow001 = location.hostname === '127.0.0.1' && query.get('flow001') === '1';
 const flowFixture = location.hostname === '127.0.0.1' && query.get('flowFixture') === '1';
+const command001 = location.hostname === '127.0.0.1' && query.get('command001') === '1';
+const commandScene = location.hostname === '127.0.0.1' && query.get('commandScene') === '1';
+if (command001) {
+    const style = document.createElement('link'); style.rel = 'stylesheet'; style.href = './experiments/command-001/command.css'; document.head.append(style);
+}
 if (flow001) {
     const style = document.createElement('link'); style.rel = 'stylesheet'; style.href = './experiments/flow-001/flow.css'; document.head.append(style);
 }
@@ -78,6 +86,7 @@ function syncFogSurface() {
 function paintDeploymentFocus(model) {
     syncFogSurface();
     unitAnimations.sync(session, document.querySelector('#map-wrap'));
+    if (command001 && session && !isNetwork(session) && !presentation.privacyGate) paintCommandMap(model ?? deriveBrowserRenderModel(session, presentation));
     const svg = document.querySelector('#eastfront-map');
     if (!svg || !session)
         return;
@@ -230,7 +239,7 @@ function startNewGame() { terrainPipeline?.resume(); terrainPipeline?.continueAl
     fatalMessage = msg('game.noMap');
     render();
     return;
-} session = flowFixture ? legalStart(productionMap) : createFreshProductionSession(productionMap); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
+} session = commandScene ? commandStart(productionMap) : flowFixture ? legalStart(productionMap) : createFreshProductionSession(productionMap); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); if (commandScene) focusCommandHex({q:2,r:4}); }
 function restartGame() { if (isNetwork(session)) {
     session.client.send('LEAVE_ROOM', {});
     session.dispose();
@@ -410,6 +419,8 @@ function mountCachedTerrainSurface() {
 }
 function sidePanelMarkup(model, locations) {
     const results = session ? combatResults(session).html(model, typeof reducedMotion !== 'undefined' && reducedMotion.matches) : '';
+    if (command001 && session && !isNetwork(session) && !model.deployment && !model.readOnly)
+        return `<div class="command-panel-scroll">${command.panel(session, model)}${phasePanel(model)}${presentation.message ? `<section class="panel-block status-message"><p>${esc(formatMessage(presentation.message))}</p></section>` : ''}${results}<details class="panel-block"><summary>选中部队资料</summary>${selectedSummary(model)}</details>${flow001 ? `<details class="panel-block"><summary>独立 FLOW-001 开关</summary>${flow.controlsMarkup(session, presentation)}</details>` : ''}</div>`;
     return `<div class="command-panel-scroll">${flow001 ? flow.controlsMarkup(session, presentation) : ''}${results}${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model, locations)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 const dynamicMap = new DynamicMapRenderer();
@@ -472,6 +483,7 @@ function refreshDynamicView() {
     }
 }
 function render() {
+    document.body.classList.toggle('command-candidate', command001 && !isNetwork(session));
     if (isNetwork(session) && appStatus === 'PLAYING' && session.playerView.phase !== 'GAME_OVER' && !forceNetworkRender && document.querySelector('#map-dynamic-layer') && document.querySelector('#side-panel')) {
         const workspace = document.querySelector('.workspace');
         workspace?.classList.toggle('panel-collapsed', presentation.panelCollapsed);
@@ -497,11 +509,11 @@ function render() {
         return;
     if (appStatus === 'HOME') {
         if (!cachedTerrainSurface) {
-            root.innerHTML = homeMarkup(profile) + (flowFixture ? '<p style="position:fixed;bottom:16px;left:24px;color:#e4d4af">FLOW-001 对照起点 · 种子 17001 · 双方合法部署 · 点击新游戏开始</p>' : '');
+            root.innerHTML = homeMarkup(profile) + (commandScene ? '<p style="position:fixed;bottom:16px;left:24px;color:#e4d4af">COMMAND-001 · T9 西线片段 · 固定种子 17001 · 原 Core 合法推进 · 点击新游戏进入</p>' : '') + (flowFixture ? '<p style="position:fixed;bottom:16px;left:24px;color:#e4d4af">FLOW-001 对照起点 · 种子 17001 · 双方合法部署 · 点击新游戏开始</p>' : '');
             bind();
             return;
         }
-        const markup = homeMarkup(profile) + (flowFixture ? '<p class="flow-fixture-note" style="position:fixed;bottom:16px;left:24px;color:#e4d4af">FLOW-001 对照起点 · 固定种子 17001 · 双方合法部署 · 点击新游戏开始</p>' : '');
+        const markup = homeMarkup(profile) + (commandScene ? '<p style="position:fixed;bottom:16px;left:24px;color:#e4d4af">COMMAND-001 · T9 西线片段 · 固定种子 17001 · 原 Core 合法推进</p>' : '') + (flowFixture ? '<p class="flow-fixture-note" style="position:fixed;bottom:16px;left:24px;color:#e4d4af">FLOW-001 对照起点 · 固定种子 17001 · 双方合法部署 · 点击新游戏开始</p>' : '');
         root.innerHTML = markup;
         bind();
         return;
@@ -704,7 +716,7 @@ function bindUnitInputs() {
             return;
         boundUnitInputs.add(element);
         const action = () => chooseUnitTarget(id);
-        element.addEventListener('click', event => { event.stopPropagation(); action(); });
+        element.addEventListener('click', event => { event.stopPropagation(); if (command001 && !isNetwork(session) && !isSessionDeployment(session) && event.shiftKey) { const model = deriveBrowserRenderModel(session, presentation); command.toggleMember(command.scope(session, model.viewerControllerId), model, id); refreshDynamicView(); return; } action(); });
         if (element.dataset.unitId)
             bindKeyboardActivation(element, action);
     });
@@ -742,6 +754,7 @@ function bindDeploymentControls() {
     bindUnitInputs();
 }
 function bindDynamic(model) {
+    if (command001 && session && !isNetwork(session) && !presentation.privacyGate) bindCommand(model ?? deriveBrowserRenderModel(session, presentation));
     if (flow001 && session) {
         const captured = session, capturedPresentation = presentation;
         document.querySelector('#flow-auto')?.addEventListener('change', event => {
@@ -1036,4 +1049,53 @@ export async function loadVS2TerrainSurfaceHooks() {
 export function flowVerificationSnapshot() {
     if (!flowFixture || query.get('flowVerify') !== '1' || !session || isNetwork(session)) throw new Error('Verification entry only');
     return { state: structuredClone(session.state), privacyGate: presentation.privacyGate, selected: presentation.selectedUnitId };
+}
+
+// Candidate UI is a consumer of authorized render models and original intents only.
+function focusCommandHex(hex) {
+    const svg=document.querySelector('#eastfront-map'),wrap=document.querySelector('#map-wrap');
+    if(!svg||!wrap)return;
+    mapViewport=defaultMapViewport();applyMapViewport();
+    const point=hexToPixel(hex),m=svg.getScreenCTM(),r=wrap.getBoundingClientRect();
+    if(!m)return;const screen=new DOMPoint(point.x,point.y).matrixTransform(m);
+    mapViewport={zoom:2.5,panX:(r.left+r.width/2-screen.x)*2.5,panY:(r.top+r.height/2-screen.y)*2.5};applyMapViewport();
+}
+function paintCommandMap(model) {
+    const svg=document.querySelector('#eastfront-map'),wrap=document.querySelector('#map-wrap');
+    if(!svg||!wrap||model.deployment||model.readOnly)return;
+    const s=session;
+    command.observe(s,()=>({viewer:s.activeViewerControllerId,view:sessionPlayerView(s)}));
+    svg.querySelector('#command-overlay')?.remove();svg.querySelector('#command-picker')?.remove();
+    svg.insertAdjacentHTML('beforeend',command.overlay(s,model)+command.picker(s,model));
+    wrap.querySelector('#command-map-note')?.remove();wrap.insertAdjacentHTML('beforeend',command.summary(s,model));
+    svg.querySelectorAll('[data-command-hex]').forEach(el=>{
+        const mark=()=>{const now=deriveBrowserRenderModel(session,presentation);command.mark(command.scope(session,now.viewerControllerId),now,parseHex(el.dataset.commandHex));refreshDynamicView();};
+        el.addEventListener('click',e=>{e.stopPropagation();mark();});bindKeyboardActivation(el,mark);
+    });
+}
+function bindCommand(model) {
+    if(model.deployment||model.readOnly)return;
+    const p=command.scope(session,model.viewerControllerId);
+    if(p.phase&&p.phase!==model.phase)p.picking=null;p.phase=model.phase;
+    const button=(id,fn)=>document.querySelector(id)?.addEventListener('click',()=>{fn();refreshDynamicView();});
+    button('#command-member',()=>command.toggleMember(p,model,presentation.selectedUnitId));
+    button('#command-target',()=>{if(!model.combat?.pending)p.picking='target';});
+    button('#command-origin',()=>{if(!model.combat?.pending)p.picking='origin';});
+    button('#command-cancel-pick',()=>{p.picking=null;});
+    button('#command-clear',()=>{p.members=[];p.target=null;p.origin=null;p.picking=null;});
+    document.querySelectorAll('[data-command-remove]').forEach(el=>el.addEventListener('click',()=>{p.members=p.members.filter(id=>id!==el.dataset.commandRemove);refreshDynamicView();}));
+    document.querySelector('#command-focus')?.addEventListener('click',()=>{if(p.target)focusCommandHex(p.target);});
+    document.querySelectorAll('[data-command-unit],[data-command-locate]').forEach(el=>el.addEventListener('click',()=>{
+        const id=el.dataset.commandUnit??el.dataset.commandLocate;
+        const current=deriveBrowserRenderModel(session,presentation);
+        const u=current.playerView.units.find(u=>u.id===id&&u.side===current.viewerSide);
+        if(!u)return;
+        // A plan/location button must never choose a retreat destination or advance.
+        if(!current.combat?.pending){selectCounter(session,presentation,id);showCombatView();}
+        focusCommandHex(u.hex);
+    }));
+}
+export function commandVerificationSnapshot() {
+    if(!commandScene||query.get('commandVerify')!=='1'||!session||isNetwork(session))throw new Error('Local replay verification only');
+    return {state:structuredClone(session.state),viewer:session.activeViewerControllerId,selected:presentation.selectedUnitId,plan:structuredClone(command.scope(session,session.activeViewerControllerId))};
 }
