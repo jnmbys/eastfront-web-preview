@@ -1,0 +1,27 @@
+{
+  "source": "browser-transactions.jsonl.xz",
+  "browserVersions": 53,
+  "rail": {
+    "beforeVersion": 45,
+    "afterVersion": 46,
+    "engineer": "G-ENG-01",
+    "noRPOrCP": true
+  },
+  "recovery": {
+    "beforeVersion": 49,
+    "afterVersion": 50,
+    "step": [
+      1,
+      0
+    ],
+    "sameRP": true,
+    "sameMapUnit": true
+  },
+  "postRecoveryEntrench": true,
+  "postCommitReadFailureRemainsCommitted": true,
+  "threeSecondRollbackUnchanged": true,
+  "hiddenEnemyPairCount": 37,
+  "policyPairEqual": true,
+  "fixedChainMissingPrerequisiteGuard": true,
+  "oldReceiptReplayAfterScopeEnd": true
+}

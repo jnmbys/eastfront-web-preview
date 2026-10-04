@@ -1,0 +1,143 @@
+--- experiments/industry-integrate-012/adapter.py
++++ stage012/adapter.py
+@@ -4,2 +4,2 @@
+-from config import HERE,LIVE,start_json,serialized,sha,digest,load_launch,verify_runtime
+-import production
++from .config import HERE,LIVE,start_json,serialized,sha,digest,load_launch,verify_runtime
++from . import production
+@@ -40 +40 @@
+-        from view import export_view
++        from .view import export_view
+@@ -58 +58 @@
+-        began=time.perf_counter();deadline=began+3;r=self._root
++        began=time.perf_counter();deadline=min(began+3,getattr(self,'_outer_deadline',began+3));r=self._root
+
+--- experiments/industry-integrate-012/production.py
++++ stage012/production.py
+@@ -3 +3 @@
+-from config import digest
++from .config import digest
+
+--- experiments/industry-integrate-012/view.py
++++ stage012/view.py
+@@ -3 +3 @@
+-from config import digest
++from .config import digest
+
+--- experiments/industry-integrate-012/eligibility.mjs
++++ stage012/eligibility.mjs
+@@ -3 +3 @@
+-import * as c from './.runtime/base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
++import * as c from '../base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
+
+--- experiments/industry-integrate-013/adapter.py
++++ stage013/adapter.py
+@@ -4,2 +4,2 @@
+-from config import HERE,LIVE,serialized,sha,digest,start_root,load_launch,verify_runtime,START_SHA
+-import personnel
++from .config import HERE,LIVE,serialized,sha,digest,start_root,load_launch,verify_runtime,START_SHA
++from . import personnel
+@@ -28 +28 @@
+-    def __init__(self,instance_id='013-main',*,test_mode=False,test_fault=None,config_file=HERE/'launch.json'):
++    def __init__(self,current_root,instance_id='013-main',*,test_mode=False,test_fault=None,config_file=HERE/'launch.json'):
+@@ -30 +30 @@
+-            self.launch=load_launch(config_file);base=start_root();match=self.launch['profile']['matchId']
++            self.launch=load_launch(config_file);base=deepcopy(current_root);assert digest(base)==START_SHA;match=self.launch['profile']['matchId']
+@@ -33 +32,0 @@
+-            assert match not in _MATCH_OWNERS,'MATCH_ALREADY_HAS_OWNER_NO_REIMPORT_BY_INSTANCE_RENAME'
+@@ -47 +45,0 @@
+-            _MATCH_OWNERS[match]=self
+@@ -50 +48 @@
+-        from view import export_view
++        from .view import export_view
+@@ -66 +64 @@
+-        began=time.perf_counter();deadline=began+3;r=self._root
++        began=time.perf_counter();deadline=min(began+3,getattr(self,'_outer_deadline',began+3));r=self._root
+
+--- experiments/industry-integrate-013/personnel.py
++++ stage013/personnel.py
+@@ -3 +3 @@
+-from config import digest,START_SHA
++from .config import digest,START_SHA
+
+--- experiments/industry-integrate-013/view.py
++++ stage013/view.py
+@@ -3 +3 @@
+-from config import digest
++from .config import digest
+
+--- experiments/industry-integrate-013/eligibility.mjs
++++ stage013/eligibility.mjs
+@@ -3 +3 @@
+-import * as c from './.runtime/base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
++import * as c from '../base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
+
+--- experiments/industry-integrate-013/next-action.mjs
++++ stage013/next-action.mjs
+@@ -3 +3 @@
+-import * as c from './.runtime/base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
++import * as c from '../base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
+
+--- experiments/industry-integrate-016/adapter.py
++++ stage016/adapter.py
+@@ -4,2 +4,2 @@
+-from config import *
+-from audit import fixed_settlement,route_check
++from .config import *
++from .audit import fixed_settlement,route_check
+@@ -44 +44 @@
+-    def __init__(self,*,test_label=None):
++    def __init__(self,current_root,*,test_label=None):
+@@ -48 +48 @@
+-            self.config=deepcopy(VERIFIED);self.base=deepcopy(self.config['root'])
++            self.config=deepcopy(VERIFIED);self.base=deepcopy(current_root);assert digest(self.base)==START_SHA
+@@ -50,2 +50 @@
+-            assert key not in OWNERS,'SAME_MATCH_ALREADY_OWNED_NO_REIMPORT'
+-            OWNERS.add(key);self.test_label=test_label;self._fault=None;self._root=deepcopy(self.base)
++            self.test_label=test_label;self._fault=None;self._root=deepcopy(self.base)
+@@ -55 +54 @@
+-        from view import export_view
++        from .view import export_view
+@@ -76 +75 @@
+-        began=time.perf_counter();deadline=began+3;r=self._root
++        began=time.perf_counter();deadline=min(began+3,getattr(self,'_outer_deadline',began+3));r=self._root
+@@ -235,2 +234 @@
+-            import importlib.util
+-            spec=importlib.util.spec_from_file_location('old_personnel013',HERE.parent/'industry-integrate-013/personnel.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
++            from stage013 import personnel as mod
+
+--- experiments/industry-integrate-016/audit.py
++++ stage016/audit.py
+@@ -4 +4 @@
+-from config import OUT,CARGO,digest
++from .config import OUT,CARGO,digest
+
+--- experiments/industry-integrate-016/view.py
++++ stage016/view.py
+@@ -3 +3 @@
+-from config import digest,REAR,FRONT
++from .config import digest,REAR,FRONT
+
+--- experiments/industry-integrate-016/query.mjs
++++ stage016/query.mjs
+@@ -3,3 +3,3 @@
+-import * as c from './.runtime/base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
+-import {queryRecoveryEligibility,planRecoveryPayment} from './.runtime/base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/service.mjs';
+-import {snapshotHash,mapData} from './.runtime/base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/inputs.mjs';
++import * as c from '../base6/experiments/industry-integrate-006/.runtime/live/experiments/supply-exp-005/core/dist/index.js';
++import {queryRecoveryEligibility,planRecoveryPayment} from '../base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/service.mjs';
++import {snapshotHash,mapData} from '../base6/experiments/industry-integrate-006/.runtime/planner/experiments/industry-integrate-005/inputs.mjs';
+
+--- experiments/industry-integrate-017/bridge.py
++++ compat017/bridge.py
+@@ -4 +4 @@
+-from paths import load_adapter,digest
++from .paths import load_adapter,digest
+
+--- experiments/industry-integrate-017/local_http.py
++++ compat017/local_http.py
+@@ -5,2 +5,2 @@
+-from paths import HERE
+-from bridge import Session,ProtocolError
++from .paths import HERE
++from .bridge import Session,ProtocolError

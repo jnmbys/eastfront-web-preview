@@ -1,0 +1,499 @@
+- status: 人工接管模式 · 当前行动方：德军 · 你的视角：德军
+- generic: 接受 1 / 拒绝 0 · 暂不支持存档 / 加载
+- button "明确接管 德军（切换授权视角）"
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - strong: EASTFRONT
+  - generic: 战略重置 F
+  - strong: 补给／铁路
+  - generic: 回合
+  - strong: 第 9 回合
+  - generic: G
+  - strong: 德军
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - text: 指挥点
+  - strong: "3"
+  - text: 补充点
+  - strong: "8"
+  - button "退出战役"
+  - button "面板" [expanded]
+- main:
+  - strong: 战略重置 F · 作战地图
+  - generic: 德军视角 · 德军 · 补给／铁路
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - generic: 动画速度
+  - combobox "动画速度":
+    - option "正常" [selected]
+    - option "快速"
+    - option "即时"
+  - button "跳过动画"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 100%
+    - button "放大": +
+    - button "适应地图"
+  - status
+  - status: 人工接管模式
+  - generic "EASTFRONT 作战地图":
+    - img "战略重置 F 作战地图":
+      - button "铁路区段 0,4|1,4"
+      - button "铁路区段 0,9|1,9"
+      - button "铁路区段 0,15|1,15"
+      - button "铁路区段 1,4|2,3"
+      - button "铁路区段 1,9|2,8"
+      - button "铁路区段 1,15|2,14"
+      - button "铁路区段 2,3|3,3"
+      - button "铁路区段 2,8|3,8"
+      - button "铁路区段 2,14|3,13"
+      - button "铁路区段 3,3|4,2"
+      - button "铁路区段 3,8|4,7"
+      - button "铁路区段 3,13|4,12"
+      - button "铁路区段 4,2|5,2"
+      - button "铁路区段 4,7|5,6"
+      - button "铁路区段 4,12|5,12"
+      - button "铁路区段 5,2|6,2"
+      - button "铁路区段 5,6|6,6"
+      - button "铁路区段 5,12|6,12"
+      - button "铁路区段 6,2|7,2"
+      - button "铁路区段 6,6|7,5"
+      - button "铁路区段 6,12|7,11"
+      - button "铁路区段 7,2|8,1"
+      - button "铁路区段 7,5|8,5"
+      - button "铁路区段 7,11|8,10"
+      - button "铁路区段 8,1|9,1"
+      - button "铁路区段 8,5|9,5"
+      - button "铁路区段 8,10|9,9"
+      - button "铁路区段 10,1|9,1"
+      - button "铁路区段 10,0|9,1"
+      - button "铁路区段 10,4|9,5"
+      - button "铁路区段 10,9|9,9"
+      - button "铁路区段 10,0|11,-1"
+      - button "铁路区段 10,1|11,1"
+      - button "铁路区段 10,4|11,4"
+      - button "铁路区段 10,9|11,9"
+      - button "铁路区段 11,-1|12,-2"
+      - button "铁路区段 11,1|12,1"
+      - button "铁路区段 11,4|12,4"
+      - button "铁路区段 11,9|12,8"
+      - button "铁路区段 12,-2|13,-2"
+      - button "铁路区段 12,1|13,1"
+      - button "铁路区段 12,4|13,3"
+      - button "铁路区段 12,8|13,8"
+      - button "铁路区段 12,8|13,7"
+      - button "铁路区段 13,-2|14,-2"
+      - button "铁路区段 13,1|14,1"
+      - button "铁路区段 13,3|14,3"
+      - button "铁路区段 13,7|14,6"
+      - button "铁路区段 13,8|14,7"
+      - button "铁路区段 14,-2|15,-3"
+      - button "铁路区段 14,1|15,1"
+      - button "铁路区段 14,3|15,3"
+      - button "铁路区段 14,6|15,5"
+      - button "铁路区段 14,7|15,6"
+      - button "铁路区段 15,-3|16,-4"
+      - button "铁路区段 15,1|16,1"
+      - button "铁路区段 15,3|16,2"
+      - button "铁路区段 15,4|16,3"
+      - button "铁路区段 15,4|15,5"
+      - button "铁路区段 15,6|16,6"
+      - button "铁路区段 16,-4|17,-4"
+      - button "铁路区段 16,1|17,1"
+      - button "铁路区段 16,2|17,1"
+      - button "铁路区段 16,2|16,3"
+      - button "铁路区段 16,6|17,5"
+      - button "铁路区段 17,-4|18,-4"
+      - button "铁路区段 17,1|18,1"
+      - button "铁路区段 17,1|18,0"
+      - button "铁路区段 17,5|18,5"
+      - button "铁路区段 18,-4|19,-4"
+      - button "铁路区段 18,-1|19,-2"
+      - button "铁路区段 18,0|19,-1"
+      - button "铁路区段 18,-1|18,0"
+      - button "铁路区段 18,1|19,1"
+      - button "铁路区段 18,5|19,5"
+      - button "铁路区段 19,-4|20,-5"
+      - button "铁路区段 19,-2|20,-3"
+      - button "铁路区段 19,-1|20,-1"
+      - button "铁路区段 19,1|20,1"
+      - button "铁路区段 19,5|20,4"
+      - button "铁路区段 20,-5|21,-6"
+      - button "铁路区段 20,-4|20,-5"
+      - button "铁路区段 20,-3|20,-4"
+      - button "铁路区段 20,-1|21,-1"
+      - button "铁路区段 20,1|21,1"
+      - button "铁路区段 20,4|21,3"
+      - button "铁路区段 21,-6|22,-6"
+      - button "铁路区段 21,-6|22,-7"
+      - button "铁路区段 21,-1|22,-2"
+      - button "铁路区段 21,1|22,1"
+      - button "铁路区段 21,3|22,2"
+      - button "铁路区段 22,-7|23,-8"
+      - button "铁路区段 22,-5|22,-6"
+      - button "铁路区段 22,-5|23,-5"
+      - button "铁路区段 22,-2|23,-3"
+      - button "铁路区段 22,1|23,1"
+      - button "铁路区段 22,2|23,2"
+      - button "铁路区段 23,-8|24,-9"
+      - button "铁路区段 23,-4|23,-5"
+      - button "铁路区段 23,-4|24,-4"
+      - button "铁路区段 23,-3|24,-3"
+      - button "铁路区段 23,1|23,2"
+      - button "铁路区段 23,2|24,2"
+      - button "铁路区段 23,2|24,1"
+      - button "铁路区段 24,-9|25,-10"
+      - button "铁路区段 24,-4|25,-4"
+      - button "铁路区段 24,-3|25,-4"
+      - button "铁路区段 24,1|25,0"
+      - button "铁路区段 24,2|25,2"
+      - button "铁路区段 26,-10|27,-10"
+      - button "铁路区段 25,-10|26,-10"
+      - button "铁路区段 26,-4|27,-5"
+      - button "铁路区段 25,-4|26,-4"
+      - button "铁路区段 26,-1|27,-2"
+      - button "铁路区段 25,0|26,-1"
+      - button "铁路区段 26,2|27,2"
+      - button "铁路区段 25,2|26,2"
+      - button "铁路区段 27,-10|28,-10"
+      - button "铁路区段 27,-5|28,-5"
+      - button "铁路区段 27,-3|28,-4"
+      - button "铁路区段 27,-2|27,-3"
+      - button "铁路区段 27,2|28,1"
+      - button "铁路区段 28,-10|29,-11"
+      - button "铁路区段 28,-5|29,-5"
+      - button "铁路区段 28,-4|28,-5"
+      - button "铁路区段 28,1|29,1"
+      - button "铁路区段 29,-11|30,-12"
+      - button "铁路区段 29,-5|30,-5"
+      - button "铁路区段 29,1|30,1"
+      - button "铁路区段 30,-12|31,-12"
+      - button "铁路区段 30,-5|31,-6"
+      - button "铁路区段 30,1|31,0"
+      - button "德军 炮兵 G-ART-01；满编；攻击 0，防御 1，移动 2；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: ART-01
+        - generic: 0-1-2
+      - button "德军 炮兵 G-ART-02；满编；攻击 0，防御 1，移动 2；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: ART-02
+        - generic: 0-1-2
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 工兵 G-ENG-01；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: ENG-01
+        - generic: 3-3-3
+      - button "德军 工兵 G-ENG-02；满编；攻击 3，防御 3，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: ENG-02
+        - generic: 3-3-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 步兵 G-I-01；损伤等级 1；攻击 4，防御 4，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-01
+        - generic: 4-4-3
+        - generic: /
+      - button "德军 装甲部队 G-PZ-01；满编；攻击 8，防御 6，移动 6；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: PZ-01
+        - generic: 8-6-6
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 步兵 G-I-02；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-02
+        - generic: 4-5-3
+      - button "德军 步兵 G-I-03；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-03
+        - generic: 4-5-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 步兵 G-I-04；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-04
+        - generic: 4-5-3
+      - button "德军 步兵 G-I-05；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-05
+        - generic: 4-5-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 步兵 G-I-06；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-06
+        - generic: 4-5-3
+      - button "德军 步兵 G-I-07；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-07
+        - generic: 4-5-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 步兵 G-I-08；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-08
+        - generic: 4-5-3
+      - button "德军 步兵 G-I-09；满编；攻击 4，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE
+        - generic: I-09
+        - generic: 4-5-3
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 步兵 G-I-10；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: I-10
+        - generic: 3-5-1
+        - generic "补给中断"
+      - button "德军 步兵 G-I-11；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: I-11
+        - generic: 3-5-1
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 猎兵 G-J-01；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: J-01
+        - generic: J
+        - generic: 3-5-1
+        - generic "补给中断"
+      - button "德军 猎兵 G-J-02；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: J-02
+        - generic: J
+        - generic: 3-5-1
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 摩托化部队 G-MOT-01；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: MOT-01
+        - generic: 3-5-1
+        - generic "补给中断"
+      - button "德军 摩托化部队 G-MOT-02；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: MOT-02
+        - generic: 3-5-1
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 摩托化部队 G-MOT-03；满编；攻击 3，防御 5，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: MOT-03
+        - generic: 3-5-1
+        - generic "补给中断"
+      - button "德军 装甲部队 G-PZ-02；满编；攻击 4，防御 6，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: PZ-02
+        - generic: 4-6-1
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 装甲部队 G-PZ-03；满编；攻击 4，防御 6，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: PZ-03
+        - generic: 4-6-1
+        - generic "补给中断"
+      - button "德军 装甲部队 G-PZ-04；满编；攻击 4，防御 6，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: PZ-04
+        - generic: 4-6-1
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+      - button "德军 侦察 G-REC-01；满编；攻击 1，防御 2，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: REC-01
+        - generic: 1-2-1
+        - generic "补给中断"
+      - button "德军 侦察 G-REC-02；满编；攻击 1，防御 2，移动 1；补给中断；格内 2 个单位":
+        - generic: DE
+        - generic: REC-02
+        - generic: 1-2-1
+        - generic "补给中断"
+        - generic "本格共有 2 个单位":
+          - generic: "2"
+  - complementary:
+    - strong: 铁路推进 / 工兵支援
+    - button "在地图选择铁路"
+    - button "确认铁路计划（0段）" [disabled]
+    - paragraph: 普通推进不需要选兵：每回合最多4段；选择合格工兵可提高至5段。均须接入有效铁路网，每回合只接受一份计划。不消耗RP或CP；工兵支援后本回合专用于修路。
+    - button "普通推进 · 不使用工兵"
+    - button "工兵 G-ENG-01"
+    - button "工兵 G-ENG-02"
+    - paragraph: 本回合铁路计划已使用。
+    - generic "按区段选择（地图不易点选时）"
+    - combobox "铁路区段":
+      - option "0,15|1,15" [selected]
+      - option "0,4|1,4 · 已通车"
+      - option "0,9|1,9 · 已通车"
+      - option "1,15|2,14"
+      - option "1,4|2,3"
+      - option "1,9|2,8 · 已通车"
+      - option "10,0|11,-1"
+      - option "10,0|9,1"
+      - option "10,1|11,1"
+      - option "10,1|9,1"
+      - option "10,4|11,4"
+      - option "10,4|9,5"
+      - option "10,9|11,9"
+      - option "10,9|9,9"
+      - option "11,-1|12,-2"
+      - option "11,1|12,1"
+      - option "11,4|12,4"
+      - option "11,9|12,8"
+      - option "12,-2|13,-2"
+      - option "12,1|13,1"
+      - option "12,4|13,3"
+      - option "12,8|13,7"
+      - option "12,8|13,8"
+      - option "13,-2|14,-2"
+      - option "13,1|14,1"
+      - option "13,3|14,3"
+      - option "13,7|14,6"
+      - option "13,8|14,7"
+      - option "14,-2|15,-3"
+      - option "14,1|15,1"
+      - option "14,3|15,3"
+      - option "14,6|15,5"
+      - option "14,7|15,6"
+      - option "15,-3|16,-4"
+      - option "15,1|16,1"
+      - option "15,3|16,2"
+      - option "15,4|15,5"
+      - option "15,4|16,3"
+      - option "15,6|16,6"
+      - option "16,-4|17,-4"
+      - option "16,1|17,1"
+      - option "16,2|16,3"
+      - option "16,2|17,1"
+      - option "16,6|17,5"
+      - option "17,-4|18,-4"
+      - option "17,1|18,0"
+      - option "17,1|18,1"
+      - option "17,5|18,5"
+      - option "18,-1|18,0"
+      - option "18,-1|19,-2"
+      - option "18,-4|19,-4"
+      - option "18,0|19,-1"
+      - option "18,1|19,1"
+      - option "18,5|19,5"
+      - option "19,-1|20,-1"
+      - option "19,-2|20,-3"
+      - option "19,-4|20,-5"
+      - option "19,1|20,1"
+      - option "19,5|20,4"
+      - option "2,14|3,13"
+      - option "2,3|3,3"
+      - option "2,8|3,8"
+      - option "20,-1|21,-1"
+      - option "20,-3|20,-4"
+      - option "20,-4|20,-5"
+      - option "20,-5|21,-6"
+      - option "20,1|21,1"
+      - option "20,4|21,3"
+      - option "21,-1|22,-2"
+      - option "21,-6|22,-6"
+      - option "21,-6|22,-7"
+      - option "21,1|22,1"
+      - option "21,3|22,2"
+      - option "22,-2|23,-3"
+      - option "22,-5|22,-6"
+      - option "22,-5|23,-5"
+      - option "22,-7|23,-8"
+      - option "22,1|23,1"
+      - option "22,2|23,2"
+      - option "23,-3|24,-3"
+      - option "23,-4|23,-5"
+      - option "23,-4|24,-4"
+      - option "23,-8|24,-9"
+      - option "23,1|23,2"
+      - option "23,2|24,1"
+      - option "23,2|24,2"
+      - option "24,-3|25,-4"
+      - option "24,-4|25,-4"
+      - option "24,-9|25,-10"
+      - option "24,1|25,0"
+      - option "24,2|25,2"
+      - option "25,-10|26,-10"
+      - option "25,-4|26,-4"
+      - option "25,0|26,-1"
+      - option "25,2|26,2"
+      - option "26,-10|27,-10"
+      - option "26,-1|27,-2"
+      - option "26,-4|27,-5"
+      - option "26,2|27,2"
+      - option "27,-10|28,-10"
+      - option "27,-2|27,-3"
+      - option "27,-3|28,-4"
+      - option "27,-5|28,-5"
+      - option "27,2|28,1"
+      - option "28,-10|29,-11"
+      - option "28,-4|28,-5"
+      - option "28,-5|29,-5"
+      - option "28,1|29,1"
+      - option "29,-11|30,-12"
+      - option "29,-5|30,-5"
+      - option "29,1|30,1"
+      - option "3,13|4,12"
+      - option "3,3|4,2"
+      - option "3,8|4,7"
+      - option "30,-12|31,-12"
+      - option "30,-5|31,-6"
+      - option "30,1|31,0"
+      - option "4,12|5,12"
+      - option "4,2|5,2"
+      - option "4,7|5,6"
+      - option "5,12|6,12"
+      - option "5,2|6,2"
+      - option "5,6|6,6"
+      - option "6,12|7,11"
+      - option "6,2|7,2"
+      - option "6,6|7,5"
+      - option "7,11|8,10"
+      - option "7,2|8,1"
+      - option "7,5|8,5"
+      - option "8,10|9,9"
+      - option "8,1|9,1"
+      - option "8,5|9,5"
+    - button "切换该区段"
+    - button "清空计划"
+    - button "德军 · 补给／铁路 结束阶段":
+      - generic: 德军 · 补给／铁路
+      - text: 结束阶段
+      - generic: ›
+    - generic: 当前部队
+    - generic: ◇
+    - paragraph: 选择单位，查看战力、补给和移动信息。
+    - strong: 新补给＋工业 · T9
+    - paragraph: T5–T8 固定018阶段链；T9开放原Core行动；T10停止。AI仅T9苏军移动/战斗，后勤由人类接管。
+    - status: 同一次提交的地图、库存及工业账本已读取。
+    - button "恢复读取"
+    - paragraph: 装备I：4；生产已付3；交接已付2；托管0。人员I：0。
+    - paragraph: 生产 2/2；前线可用P 1 / E2 2；G-I-01步损 1。
+    - button "支付1I照管至E9结束" [disabled]
+    - button "结束当前德军铁路补给阶段"
+    - button "T9恢复G-I-01：支付1P＋2 E2，RP不扣" [disabled]
+    - button "领取本实例一次性10I装备拨款" [disabled]
+    - button "下单2 E2：付3I，托管2I" [disabled]
+    - button "启用原后备池1P及独立2I" [disabled]
+    - button "申请1P接驳：付1I，托管1I" [disabled]
+    - button "让AI执行一个苏军作战动作"
+    - generic "已结算补给与运力"
+    - text: 后备人员为原场景已训练池，不是新训练；模式创建后固定。T5普通新局初始化未授权。
+    - strong: 可选辅助 · 己方 26
+    - checkbox "FLOW · 空恢复自动准备"
+    - text: FLOW · 空恢复自动准备
+    - checkbox "COMMAND · 计划与行动记录"
+    - text: COMMAND · 计划与行动记录
+    - status: 默认关闭；只自动准备本人的空恢复。
+    - text: 两项独立；默认关闭。关闭不撤销已执行动作。
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥

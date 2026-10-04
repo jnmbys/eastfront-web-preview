@@ -1,3 +1,5 @@
+import {LogisticsPort,logisticsMarkup,bindLogistics} from './playable/logistics.js';
+let logisticsPort:LogisticsPort|null=null;
 import * as playFlow from './playable/flow.js';
 import * as plan from './playable/command.js';
 import {perf006} from './local-ai/performance.js';
@@ -139,6 +141,7 @@ function combatPanel(model:BrowserRenderModel):string{
 }
 
 function phasePanel(model:BrowserRenderModel):string{
+  if(logisticsPort&&(model.turn<9||model.turn>9))return `<p>018固定阶段链，请使用后勤区的阶段入口。T9开放地图行动，T10到达当前验证边界。</p>`;
   if(model.readOnly)return `<p>${isNetwork(session)?esc(session.statusText):t('fow.inspection')}</p>`;
   if(model.deployment)return '';
   const ready=`<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${flowEnabled(model)?(model.phase.endsWith('_RECOVERY')?'完成恢复，继续筑垒':model.phase.endsWith('_ENTRENCHMENT')?'完成整备':t('common.advancePhase')):t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
@@ -146,7 +149,7 @@ function phasePanel(model:BrowserRenderModel):string{
     const r=model.railRepair;
     if(!r)return `<section class="panel-block"><strong>铁路操作</strong><p role="status">正在读取本阶段资格；请稍候，尚未结束阶段。</p></section>`;
     const unavailable=r.alreadyUsed||!r.selectedEdgeKeys.length||r.issues.length>0;
-    return `<section class="panel-block phase-actions"><strong>铁路推进 / 工兵支援</strong><div class="rail-primary"><button id="rail-mode" class="secondary-action">在地图选择铁路</button><button id="rail-commit" class="primary-action" ${unavailable?'disabled':''}>确认铁路计划（${r.selectedEdgeKeys.length}段）</button></div><p>普通推进不需要选兵：每回合最多4段；选择合格工兵可提高至5段。均须接入有效铁路网，每回合只接受一份计划。不消耗RP或CP；工兵支援后本回合专用于修路。</p><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId?'active':''}">普通推进 · 不使用工兵</button>${r.engineers.map(eng=>`<button class="mini-button ${eng.selected?'active':''}" data-rail-engineer="${esc(eng.id)}">工兵 ${esc(eng.id)}</button>`).join('')}</div><p>${r.alreadyUsed?'本回合铁路计划已使用。':r.selectedEdgeKeys.length?esc(r.selectedEdgeKeys.join('、')):'请从地图或下方列表选择区段；选中猎兵不影响普通推进。'}</p>${r.selectedEdgeKeys.length?issueHtml(r.issues):''}<details><summary>按区段选择（地图不易点选时）</summary><select id="rail-edge-choice" aria-label="铁路区段">${r.railwayEdgeKeys.map(key=>`<option value="${esc(key)}">${esc(key)}${r.activeEdgeKeys.includes(key)?' · 已通车':''}${r.selectedEdgeKeys.includes(key)?' · 已选':''}</option>`).join('')}</select><button id="rail-edge-add" class="mini-button">切换该区段</button></details><button id="rail-clear" class="secondary-action">清空计划</button>${ready}</section>`;
+    return `<section class="panel-block phase-actions"><strong>铁路推进 / 工兵支援</strong><div class="rail-primary"><button id="rail-mode" class="secondary-action">在地图选择铁路</button><button id="rail-commit" class="primary-action" ${unavailable?'disabled':''}>确认铁路计划（${r.selectedEdgeKeys.length}段）</button></div><p>普通推进不需要选兵：每回合最多4段；选择存活、补给正常且未被专用的本方工兵可提高至5段。均须接入有效铁路网，每回合只接受一份计划。不消耗RP或CP；工兵支援后本回合专用于修路。</p><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId?'active':''}">普通推进 · 不使用工兵</button>${r.engineers.map(eng=>`<button class="mini-button ${eng.selected?'active':''}" data-rail-engineer="${esc(eng.id)}">工兵 ${esc(eng.id)}</button>`).join('')}</div><p>${r.alreadyUsed?'本回合铁路计划已使用。':r.selectedEdgeKeys.length?esc(r.selectedEdgeKeys.join('、')):'请从地图或下方列表选择区段；选中猎兵不影响普通推进。'}</p>${r.selectedEdgeKeys.length?issueHtml(r.issues):''}<details><summary>按区段选择（地图不易点选时）</summary><select id="rail-edge-choice" aria-label="铁路区段">${r.railwayEdgeKeys.map(key=>`<option value="${esc(key)}">${esc(key)}${r.activeEdgeKeys.includes(key)?' · 已通车':''}${r.selectedEdgeKeys.includes(key)?' · 已选':''}</option>`).join('')}</select><button id="rail-edge-add" class="mini-button">切换该区段</button></details><button id="rail-clear" class="secondary-action">清空计划</button>${ready}</section>`;
   }
   if(model.phase==='GERMAN_MOVEMENT'||model.phase==='SOVIET_MOVEMENT'){
     const m=model.movement,choosing=presentation.interactionMode==='MOVE_PATH';
@@ -236,10 +239,10 @@ function mountCachedTerrainSurface():void{
 function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
   if(LOCAL_AI_ENABLED&&localAi&&session){
    const c=playFlow.controls(session,model.viewerControllerId),planning=commandEnabled.has(session);
-   const options=`<section class="panel-block playable-options"><strong><img src="./assets/playable/personnel.svg" alt="">可选辅助 · 己方 ${model.playerView.units.filter(u=>u.side===model.viewerSide).length}</strong><label><input id="flow-auto" type="checkbox" ${c.enabled?'checked':''}> FLOW · 空恢复自动准备</label><label><input id="command-enable" type="checkbox" ${planning?'checked':''}> COMMAND · 计划与行动记录</label><p role="status">${esc(c.notice)}</p><small>两项独立；默认关闭。关闭不撤销已执行动作。</small></section>`;
+   const options=`<section class="panel-block playable-options"><strong><img src="./assets/playable/personnel.svg" alt="">可选辅助 · 己方 ${model.playerView.units.filter(u=>u.side===model.viewerSide).length}</strong><label><input id="flow-auto" type="checkbox" ${c.enabled?'checked':''} ${logisticsPort?'disabled':''}> FLOW · 空恢复自动准备</label><label><input id="command-enable" type="checkbox" ${planning?'checked':''}> COMMAND · 计划与行动记录</label><p role="status">${logisticsPort?'新模式后勤由人类确认，FLOW自动准备停用。':esc(c.notice)}</p><small>两项独立；默认关闭。关闭不撤销已执行动作。</small></section>`;
    const command=planning&&!model.deployment?plan.panel(session,model):'';
    const results=combatResults(session).html(model,reducedMotion.matches);
-   return `<div class="command-panel-scroll playable-dock"><div class="playable-actions">${deploymentPanel(model,locations)}${phasePanel(model)}${presentation.message?`<section class="panel-block status-message"><p>${esc(formatMessage(presentation.message))}</p></section>`:''}${results}</div><div class="playable-inspect"><section class="panel-block selection-block"><span class="eyebrow">当前部队</span>${selectedSummary(model)}</section></div><div class="playable-tools">${options}${command}</div></div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
+   return `<div class="command-panel-scroll playable-dock"><div class="playable-actions">${deploymentPanel(model,locations)}${phasePanel(model)}${presentation.message?`<section class="panel-block status-message"><p>${esc(formatMessage(presentation.message))}</p></section>`:''}${results}</div><div class="playable-inspect"><section class="panel-block selection-block"><span class="eyebrow">当前部队</span>${selectedSummary(model)}</section></div><div class="playable-tools">${logisticsPort?logisticsMarkup(logisticsPort):''}${options}${command}</div></div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
   }
   const results=session?combatResults(session).html(model,typeof reducedMotion!=='undefined'&&reducedMotion.matches):'';
   return `<div class="command-panel-scroll">${results}${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
@@ -392,6 +395,7 @@ function chooseMoveTarget(hex:ReturnType<typeof parseHex>):void{
 function chooseUnitTarget(id:string):void{
   if(!session||presentation.privacyGate||isNetwork(session)&&!session.canSelect)return;
   const model=deriveBrowserRenderModel(session,presentation);
+  if(logisticsPort&&(model.turn<9||model.turn>9))return;
   if(model.readOnly)return;
   if(chooseCounterTarget(id))return;
   if(presentation.interactionMode==='MOVE_PATH'&&presentation.selectedUnitId&&model.phase.endsWith('_MOVEMENT')){
@@ -473,7 +477,8 @@ function updateNetworkStatus():void {
   const network=session;
   document.querySelectorAll<HTMLButtonElement>('#side-panel button').forEach(button=>{
     if(button.matches('#result-close, [data-result-history]'))return;
-    const blocked=!network.canSelect||(!network.interactive&&!button.matches(selectionControls));
+    if(button.closest('.logistics-panel'))return;
+    const blocked=!!logisticsPort?.locked||!network.canSelect||(!network.interactive&&!button.matches(selectionControls));
     if(blocked&&!button.disabled){button.dataset.networkDisabled='true';button.disabled=true;}
     else if(!blocked&&button.dataset.networkDisabled){delete button.dataset.networkDisabled;button.disabled=false;}
   });
@@ -498,21 +503,23 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
 }
 
 function localAiHome():string {
- return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>PLAYABLE-001 · 主游戏整合候选</p><p>本地运行，不连接多人服务。暂不支持存档或加载，刷新会结束当前对局。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。工业与新补给实验未接入。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
+ return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>PLAYABLE-002 · 主游戏补给工业候选</p><p>本地运行，不连接多人服务。暂不支持存档或加载，原规则刷新会结束对局；新模式刷新可重连当前本机实例，关闭服务才结束。</p><label>对局规则 <select id="play-mode"><option value="legacy">原规则 · T1完整战役 / AI</option><option value="industry018">新补给＋工业018 · 德军T5固定起点至T9</option></select></label><p>新模式复用018真实订单与运输。T5–T8固定阶段链，不能自由作战；T9开放行动与苏军AI单步作战，后勤由人类接管；T10停止。不是任意T1工业战役。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。原规则模式不使用新补给与工业；上方新模式提供018受支持的固定链路。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
 }
 function bindLocalAiHome():void {
  document.querySelector('#ai-perf-report')?.addEventListener('click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
  document.querySelector('#ai-start')?.addEventListener('click',()=>{
  const side=(document.querySelector<HTMLSelectElement>('#ai-side')?.value??'GERMAN') as 'GERMAN'|'SOVIET';
  const scenario=(document.querySelector<HTMLSelectElement>('#ai-scenario')?.value??'campaign') as LocalScenario;
+ if(document.querySelector<HTMLSelectElement>('#play-mode')?.value==='industry018'&&side!=='GERMAN'){alert('工业018受支持起点仅德军T5；请选择德军。');return;}
  void startLocalAi(side,scenario);
 });}
 function leaveLocalAi():void {
  perf006.measure('exitHandler',()=>{
- localGeneration++;if(isNetwork(session))session.dispose();else localAi?.dispose();localAi=null;session=null;appStatus='HOME';terrainPipeline?.pause();render();
+ localGeneration++;if(isNetwork(session))session.dispose();else localAi?.dispose();localAi=null;logisticsPort=null;session=null;appStatus='HOME';terrainPipeline?.pause();render();
  });perf006.stop();
 }
 async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):Promise<void>{
+ const integrated=document.querySelector<HTMLSelectElement>('#play-mode')?.value==='industry018';
  const generation=++localGeneration;
  if(isNetwork(session))session.dispose();else localAi?.dispose();session=null;localAi=null;
  if(!productionMap||!cachedTerrainSurface){await boot();if(generation!==localGeneration||!productionMap||!cachedTerrainSurface)return;}
@@ -520,10 +527,10 @@ async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):
  const fixedSeed=query.get('aiSeed');
  const seed=perf006.enabled&&fixedSeed!==null&&/^\d+$/.test(fixedSeed)&&Number(fixedSeed)<=0xffffffff?Number(fixedSeed):crypto.getRandomValues(new Uint32Array(1))[0]!;
  const options={humanSide,scenario,seed,map:productionMap,performance:perf006.enabled};
- const port=createLocalAiWorker();
+ const port=integrated?new LogisticsPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):createLocalAiWorker();logisticsPort=integrated?port as LogisticsPort:null;
  const client=new LocalAiClient(port,options,()=>{if(localAi===client)updateLocalAiStatus();});localAi=client;appStatus='LOADING';render();
  try{await client.start(options);if(generation!==localGeneration){client.dispose();return;}await enterNetworkMatch(client);}
- catch(error){if(generation!==localGeneration)return;client.dispose();localAi=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent='本地 AI 启动失败：'+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
+ catch(error){if(generation!==localGeneration)return;client.dispose();localAi=null;logisticsPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent='本地 AI 启动失败：'+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
 }
 function updateLocalAiStatus():void {
  if(!localAi||appStatus==='HOME')return;
@@ -560,7 +567,7 @@ function updateLocalAiStatus():void {
  setText('#ai-status-text',status+' · 当前行动方：'+side(m.ownerSide)+' · 你的视角：'+side(m.humanSide));
  setText('#ai-status-count',`接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载`);
  const takeover=bar.querySelector<HTMLButtonElement>('#ai-takeover')!;
- takeover.hidden=!(m.manual||/^(AGENT_STOP|AGENT_ERROR|REJECTION_LIMIT)/.test(m.reason??''));
+ takeover.hidden=!!logisticsPort||!(m.manual||/^(AGENT_STOP|AGENT_ERROR|REJECTION_LIMIT)/.test(m.reason??''));
  setText('#ai-takeover',`明确接管 ${side(m.ownerSide)}（切换授权视角）`);
  const statusEl=document.querySelector('#network-match-status');if(statusEl&&statusEl.textContent!==status)statusEl.textContent=status;
 }
@@ -631,11 +638,12 @@ const commandEnabled=new WeakSet<object>();
 function flowEnabled(model:BrowserRenderModel):boolean{return !!session&&LOCAL_AI_ENABLED&&!!localAi&&playFlow.controls(session,model.viewerControllerId).enabled;}
 function playableContext(s:PlayerSession):playFlow.FlowContext{return {model:deriveBrowserRenderModel(s,presentation),revision:isNetwork(s)?s.matchRevision:-1,ready:isNetwork(s)&&s.interactive,privacy:!!presentation.privacyGate,local:LOCAL_AI_ENABLED&&!!localAi&&isNetwork(s)&&s.client===localAi,rejected:isNetwork(s)&&['actionRejected','outdated'].includes(s.notice??'')};}
 function bindPlayable(model:BrowserRenderModel):void{
+ if(logisticsPort)bindLogistics(logisticsPort);
  if(!session)return;const captured=session,pp=presentation;
  const ctx=playableContext(captured);if(ctx.rejected)playFlow.stopOnRejection(captured,model.viewerControllerId);
  document.querySelector<HTMLInputElement>('#flow-auto')?.addEventListener('change',e=>{playFlow.setEnabled(captured,model.viewerControllerId,(e.target as HTMLInputElement).checked);refreshDynamicView();});
  document.querySelector<HTMLInputElement>('#command-enable')?.addEventListener('change',e=>{if((e.target as HTMLInputElement).checked)commandEnabled.add(captured);else{commandEnabled.delete(captured);plan.scope(captured,model.viewerControllerId).picking=null;}refreshDynamicView();});
- const ticket=playFlow.autoTicket(captured,ctx);
+ const ticket=logisticsPort?null:playFlow.autoTicket(captured,ctx);
  if(ticket)setTimeout(()=>{if(session===captured&&presentation===pp&&playFlow.runAuto(captured,playableContext(captured),ticket,()=>readyForPhase(captured,pp)))refreshDynamicView();},600);
  if(!commandEnabled.has(captured)||model.deployment)return;
  const p=plan.scope(captured,model.viewerControllerId);

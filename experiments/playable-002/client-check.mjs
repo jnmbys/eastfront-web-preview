@@ -1,0 +1,17 @@
+import{issueMessage}from'../../.ai003-preview/src/localization/issues.js';
+import assert from 'node:assert/strict';import fs from 'node:fs';
+import{LogisticsPort}from'../../.ai003-preview/src/playable/logistics.js';
+const mem=new Map();globalThis.sessionStorage={getItem:k=>mem.get(k)??null,setItem:(k,v)=>mem.set(k,v),removeItem:k=>mem.delete(k)};
+const state=v=>({instanceId:'test-instance',version:v,operations:{CARE:{enabled:true}},game:{message:{payload:{matchRevision:v}},meta:{}}});
+const port=new LogisticsPort(()=>{});port.data=state(2);let posts=0,bodies=[],reads=0;
+globalThis.fetch=async(path,o)=>{if(o.method==='POST'){posts++;bodies.push(JSON.parse(o.body));return{ok:true,json:async()=>({...bodies.at(-1),status:'COMMITTED',resultVersion:3})};}reads++;throw Error('SYNTHETIC_READ_FAILURE');};
+await port.operate('CARE');assert.equal(posts,1);assert.equal(port.locked,true);assert.ok(mem.has('playable002.pending.v1'));
+const pending=JSON.parse(mem.get('playable002.pending.v1'));assert.equal(pending.confirmation.minVersion,3);
+globalThis.fetch=async()=>({ok:true,json:async()=>state(2)});await port.recover();assert.equal(port.locked,true,'stale read must remain locked');
+globalThis.fetch=async()=>({ok:true,json:async()=>state(3)});await port.recover();assert.equal(port.locked,false);assert.equal(posts,1);assert.equal(mem.has('playable002.pending.v1'),false);
+port.confirmedGame({ok:true,version:4});globalThis.fetch=async()=>({ok:true,json:async()=>state(3)});assert.equal(await port.refresh(),false);assert.equal(port.locked,true);
+globalThis.fetch=async()=>({ok:true,json:async()=>({...state(4),instanceId:'other'})});assert.equal(await port.refresh(),false);assert.equal(port.locked,true);
+const p2=new LogisticsPort(()=>{});p2.data=state(8);globalThis.fetch=async(path,o)=>{if(o.method==='POST'){bodies.push(JSON.parse(o.body));throw Error('SYNTHETIC_REPLY_LOST');}throw Error('UNEXPECTED_GET');};
+await p2.operate('CARE');await p2.retry();assert.deepEqual(bodies.at(-1),bodies.at(-2));assert.equal(p2.locked,true);
+assert.equal(issueMessage({code:'INVALID_RAIL_ENGINEER'}).key,'error.reason.INVALID_RAIL_ENGINEER');
+const result={railReasonLocalized:true,confirmedReadFailureLocked:true,staleReadLocked:true,foreignInstanceLocked:true,confirmedRecoveryNoRepost:true,unknownRetrySameFourFields:true,coreActionVersionFloor:true};fs.writeFileSync('evidence/playable-002/client-check.json',JSON.stringify(result,null,2)+'\n');console.log(result);

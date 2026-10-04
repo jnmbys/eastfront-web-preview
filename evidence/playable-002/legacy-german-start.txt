@@ -1,0 +1,622 @@
+- status: 等待你的操作 · 当前行动方：德军 · 你的视角：德军
+- generic: 接受 33 / 拒绝 0 · 暂不支持存档 / 加载
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - strong: EASTFRONT
+  - generic: 战略重置 F
+  - strong: 部署
+  - generic: 回合
+  - strong: 第 1 回合
+  - generic: G
+  - strong: 德军
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - text: 指挥点
+  - strong: "1"
+  - text: 补充点
+  - strong: "8"
+  - button "退出战役"
+  - button "面板" [expanded]
+- main:
+  - strong: 战略重置 F · 作战地图
+  - generic: 德军视角 · 德军 · 部署
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - generic: 动画速度
+  - combobox "动画速度":
+    - option "正常" [selected]
+    - option "快速"
+    - option "即时"
+  - button "跳过动画"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 100%
+    - button "放大": +
+    - button "适应地图"
+  - status: 地图已就绪 · 地形细节 2/3
+  - status: 等待你的操作
+  - generic "EASTFRONT 作战地图":
+    - img "战略重置 F 作战地图":
+      - button "部署位置 0,0"
+      - button "部署位置 0,1"
+      - button "部署位置 0,10"
+      - button "部署位置 0,11"
+      - button "部署位置 0,12"
+      - button "部署位置 0,13"
+      - button "部署位置 0,14"
+      - button "部署位置 0,15"
+      - button "部署位置 0,16"
+      - button "部署位置 0,17"
+      - button "部署位置 0,18"
+      - button "部署位置 0,19"
+      - button "部署位置 0,2"
+      - button "部署位置 0,3"
+      - button "部署位置 0,4"
+      - button "部署位置 0,5"
+      - button "部署位置 0,6"
+      - button "部署位置 0,7"
+      - button "部署位置 0,8"
+      - button "部署位置 0,9"
+      - button "部署位置 1,0"
+      - button "部署位置 1,1"
+      - button "部署位置 1,10"
+      - button "部署位置 1,11"
+      - button "部署位置 1,12"
+      - button "部署位置 1,13"
+      - button "部署位置 1,14"
+      - button "部署位置 1,15"
+      - button "部署位置 1,16"
+      - button "部署位置 1,17"
+      - button "部署位置 1,18"
+      - button "部署位置 1,19"
+      - button "部署位置 1,2"
+      - button "部署位置 1,3"
+      - button "部署位置 1,4"
+      - button "部署位置 1,5"
+      - button "部署位置 1,6"
+      - button "部署位置 1,7"
+      - button "部署位置 1,8"
+      - button "部署位置 1,9"
+      - button "部署位置 2,-1"
+      - button "部署位置 2,0"
+      - button "部署位置 2,1"
+      - button "部署位置 2,10"
+      - button "部署位置 2,11"
+      - button "部署位置 2,12"
+      - button "部署位置 2,13"
+      - button "部署位置 2,14"
+      - button "部署位置 2,15"
+      - button "部署位置 2,16"
+      - button "部署位置 2,17"
+      - button "部署位置 2,18"
+      - button "部署位置 2,2"
+      - button "部署位置 2,3"
+      - button "部署位置 2,4"
+      - button "部署位置 2,5"
+      - button "部署位置 2,6"
+      - button "部署位置 2,7"
+      - button "部署位置 2,8"
+      - button "部署位置 2,9"
+  - complementary:
+    - generic: 德军部署
+    - strong: 0/26
+    - generic: 部署全部单位
+    - list:
+      - listitem: 选择单位
+      - listitem: 选择位置
+      - listitem: 部署
+    - status: 已选择：G-I-01。请选择地形卡片或点击地图，然后确认部署。
+    - button "步兵 G-I-01 · 步兵编队 攻 5 · 防 5 · 移 3 预备队" [pressed]:
+      - generic: 步兵
+      - text: G-I-01 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-02 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-02 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-03 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-03 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-04 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-04 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-05 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-05 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-06 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-06 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-07 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-07 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-08 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-08 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-09 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-09 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-10 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-10 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "步兵 G-I-11 · 步兵编队 攻 5 · 防 5 · 移 3 预备队":
+      - generic: 步兵
+      - text: G-I-11 · 步兵编队
+      - text: 攻 5 · 防 5 · 移 3
+      - generic: 预备队
+    - button "猎兵 G-J-01 · 轻步兵编队 攻 5 · 防 5 · 移 4 预备队":
+      - generic: 猎兵
+      - text: G-J-01 · 轻步兵编队
+      - text: 攻 5 · 防 5 · 移 4
+      - generic: 预备队
+    - button "猎兵 G-J-02 · 轻步兵编队 攻 5 · 防 5 · 移 4 预备队":
+      - generic: 猎兵
+      - text: G-J-02 · 轻步兵编队
+      - text: 攻 5 · 防 5 · 移 4
+      - generic: 预备队
+    - button "装甲部队 G-PZ-01 · 装甲编队 攻 8 · 防 6 · 移 6 预备队":
+      - generic: 装甲部队
+      - text: G-PZ-01 · 装甲编队
+      - text: 攻 8 · 防 6 · 移 6
+      - generic: 预备队
+    - button "装甲部队 G-PZ-02 · 装甲编队 攻 8 · 防 6 · 移 6 预备队":
+      - generic: 装甲部队
+      - text: G-PZ-02 · 装甲编队
+      - text: 攻 8 · 防 6 · 移 6
+      - generic: 预备队
+    - button "装甲部队 G-PZ-03 · 装甲编队 攻 8 · 防 6 · 移 6 预备队":
+      - generic: 装甲部队
+      - text: G-PZ-03 · 装甲编队
+      - text: 攻 8 · 防 6 · 移 6
+      - generic: 预备队
+    - button "装甲部队 G-PZ-04 · 装甲编队 攻 8 · 防 6 · 移 6 预备队":
+      - generic: 装甲部队
+      - text: G-PZ-04 · 装甲编队
+      - text: 攻 8 · 防 6 · 移 6
+      - generic: 预备队
+    - button "摩托化部队 G-MOT-01 · 摩托化编队 攻 6 · 防 5 · 移 5 预备队":
+      - generic: 摩托化部队
+      - text: G-MOT-01 · 摩托化编队
+      - text: 攻 6 · 防 5 · 移 5
+      - generic: 预备队
+    - button "摩托化部队 G-MOT-02 · 摩托化编队 攻 6 · 防 5 · 移 5 预备队":
+      - generic: 摩托化部队
+      - text: G-MOT-02 · 摩托化编队
+      - text: 攻 6 · 防 5 · 移 5
+      - generic: 预备队
+    - button "摩托化部队 G-MOT-03 · 摩托化编队 攻 6 · 防 5 · 移 5 预备队":
+      - generic: 摩托化部队
+      - text: G-MOT-03 · 摩托化编队
+      - text: 攻 6 · 防 5 · 移 5
+      - generic: 预备队
+    - button "炮兵 G-ART-01 · 炮兵支援 攻 0 · 防 1 · 移 2 预备队":
+      - generic: 炮兵
+      - text: G-ART-01 · 炮兵支援
+      - text: 攻 0 · 防 1 · 移 2
+      - generic: 预备队
+    - button "炮兵 G-ART-02 · 炮兵支援 攻 0 · 防 1 · 移 2 预备队":
+      - generic: 炮兵
+      - text: G-ART-02 · 炮兵支援
+      - text: 攻 0 · 防 1 · 移 2
+      - generic: 预备队
+    - button "工兵 G-ENG-01 · 工兵支援 攻 3 · 防 3 · 移 3 预备队":
+      - generic: 工兵
+      - text: G-ENG-01 · 工兵支援
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 预备队
+    - button "工兵 G-ENG-02 · 工兵支援 攻 3 · 防 3 · 移 3 预备队":
+      - generic: 工兵
+      - text: G-ENG-02 · 工兵支援
+      - text: 攻 3 · 防 3 · 移 3
+      - generic: 预备队
+    - button "侦察 G-REC-01 · 侦察编队 攻 2 · 防 2 · 移 6 预备队":
+      - generic: 侦察
+      - text: G-REC-01 · 侦察编队
+      - text: 攻 2 · 防 2 · 移 6
+      - generic: 预备队
+    - button "侦察 G-REC-02 · 侦察编队 攻 2 · 防 2 · 移 6 预备队":
+      - generic: 侦察
+      - text: G-REC-02 · 侦察编队
+      - text: 攻 2 · 防 2 · 移 6
+      - generic: 预备队
+    - strong: 选择部署地形
+    - generic: 共 60 个区域位置 · 选择卡片以在地图上标记
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 0,0":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,0
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,1":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,1
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,10":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,10
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,11":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,11
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,12":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,12
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,13":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,13
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,14":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,14
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,15":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,15
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,16":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,16
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,17":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,17
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,18":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,18
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,19":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,19
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 0,2":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,2
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,3":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,3
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,4":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,4
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,5":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,5
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,6":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,6
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,7":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,7
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,8":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,8
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 0,9":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 0,9
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 1,0":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,0
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,1":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,1
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,10":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,10
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,11":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,11
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,12":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,12
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,13":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,13
+    - button "步兵部署 沼泽 地形 · 沼泽 占用 · 无可见单位 位置 1,14":
+      - generic: 步兵部署
+      - strong: 沼泽
+      - generic: 地形 · 沼泽
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,14
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,15":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,15
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,16":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,16
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 1,17":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,17
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,18":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,18
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,19":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,19
+    - button "步兵部署 丘陵 地形 · 丘陵 占用 · 无可见单位 位置 1,2":
+      - generic: 步兵部署
+      - strong: 丘陵
+      - generic: 地形 · 丘陵
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,2
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 1,3":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,3
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,4":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,4
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,5":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,5
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,6":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,6
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,7":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,7
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,8":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,8
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 1,9":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 1,9
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,-1":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,-1
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 2,0":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,0
+    - button "步兵部署 丘陵 地形 · 丘陵 占用 · 无可见单位 位置 2,1":
+      - generic: 步兵部署
+      - strong: 丘陵
+      - generic: 地形 · 丘陵
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,1
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,10":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,10
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,11":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,11
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,12":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,12
+    - button "步兵部署 沼泽 地形 · 沼泽 占用 · 无可见单位 位置 2,13":
+      - generic: 步兵部署
+      - strong: 沼泽
+      - generic: 地形 · 沼泽
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,13
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,14":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,14
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,15":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,15
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,16":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,16
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,17":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,17
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,18":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,18
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,2":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,2
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,3":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,3
+    - button "步兵部署 森林 地形 · 森林 占用 · 无可见单位 位置 2,4":
+      - generic: 步兵部署
+      - strong: 森林
+      - generic: 地形 · 森林
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,4
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,5":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,5
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,6":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,6
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,7":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,7
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,8":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,8
+    - button "步兵部署 平原 地形 · 平原 占用 · 无可见单位 位置 2,9":
+      - generic: 步兵部署
+      - strong: 平原
+      - generic: 地形 · 平原
+      - generic: 占用 · 无可见单位
+      - generic: 位置 2,9
+    - button "完成部署阶段":
+      - generic: 完成部署阶段
+      - generic: ›
+    - generic: 当前部队
+    - generic: ◇
+    - paragraph: 选择单位，查看战力、补给和移动信息。
+    - strong: 可选辅助 · 己方 0
+    - checkbox "FLOW · 空恢复自动准备"
+    - text: FLOW · 空恢复自动准备
+    - checkbox "COMMAND · 计划与行动记录"
+    - text: COMMAND · 计划与行动记录
+    - status: 默认关闭；只自动准备本人的空恢复。
+    - text: 两项独立；默认关闭。关闭不撤销已执行动作。
+    - paragraph: 步兵 · 选择部署位置
+    - button "确认部署" [disabled]
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥

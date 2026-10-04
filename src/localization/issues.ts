@@ -91,7 +91,7 @@ const specificKeys:Readonly<Record<string,MessageKey>> = {
 };
 export function issueMessage(issue:PlayerIssue):Message {
  const reason=typeof issue.details?.reason==='string'?issue.details.reason:'';
- const key=(reasonKeys as Readonly<Record<string,MessageKey>>)[reason]??specificKeys[issue.message??'']??(issueKeys as Readonly<Record<string,MessageKey>>)[issue.code]??'error.unknown';
+ const key=(reasonKeys as Readonly<Record<string,MessageKey>>)[reason]??(reasonKeys as Readonly<Record<string,MessageKey>>)[issue.code]??specificKeys[issue.message??'']??(issueKeys as Readonly<Record<string,MessageKey>>)[issue.code]??'error.unknown';
  return {key,params:{code:issue.code},...(issue.message?{english:issue.message}:{})};
 }
 export const issueText=(issue:PlayerIssue):string=>formatMessage(issueMessage(issue));
