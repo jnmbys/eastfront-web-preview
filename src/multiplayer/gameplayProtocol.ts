@@ -30,6 +30,7 @@ export const id:Check=v=>typeof v==='string'&&/^[A-Za-z0-9_:.,-]{1,96}$/.test(v)
 export const revision:Check=v=>Number.isSafeInteger(v)&&Number(v)>=0;
 export const hex:Check=v=>record(v)&&Object.keys(v).length===2&&['q','r'].every(k=>Number.isSafeInteger(v[k])&&Math.abs(Number(v[k]))<=10000);
 const list=(check:Check,max=128):Check=>v=>Array.isArray(v)&&v.length<=max&&v.every(check);
+const railKeys=list(v=>typeof v==='string'&&/^-?\d{1,5},-?\d{1,5}\|-?\d{1,5},-?\d{1,5}$/.test(v),128);
 const ids=list(id),path=list(hex,64),nullable=(check:Check):Check=>v=>v===null||check(v);
 const oneOf=(...values:string[]):Check=>v=>values.includes(v as string);
 export function shape(v:unknown,required:Record<string,Check>,optional:Record<string,Check>={}):boolean {
@@ -41,7 +42,7 @@ const schema:Record<RemoteAction['type'],{required:Record<string,Check>;optional
   MOVE:{required:{unitId:id,path}},ATTACK:{required:{attackerUnitIds:ids,target:hex},optional:{support}},
   READY_FOR_PHASE_END:{required:{}},END_PHASE:{required:{}},END_TURN:{required:{}},
   USE_HQ_COMMAND:{required:{hqUnitId:id,command:hq},optional:{target:hex,unitIds:ids,battleId:id}},
-  ENTRENCH:{required:{unitId:id}},REPAIR_UNIT:{required:{unitId:id}},RAIL_REPAIR:{required:{edgeKeys:ids},optional:{engineerUnitId:id}},
+  ENTRENCH:{required:{unitId:id}},REPAIR_UNIT:{required:{unitId:id}},RAIL_REPAIR:{required:{edgeKeys:railKeys},optional:{engineerUnitId:id}},
   DEPLOY_REINFORCEMENT:{required:{reinforcementId:id,entryHex:hex}},DEPLOY_INITIAL_UNIT:{required:{deploymentUnitId:id,hex}},
   BREAKTHROUGH:{required:{battleId:id,unitId:id,path}},PASS_BREAKTHROUGH:{required:{battleId:id}},
   ALLOCATE_LOSSES:{required:{battleId:id,unitIdsByStep:ids}},
@@ -58,7 +59,7 @@ export function isNetworkAction(v:unknown):v is NetworkAction {
 export function isQueryDraft(v:unknown):v is QueryDraft {
   const checks:Record<typeof DRAFT_KEYS[number],Check>={
     selectedUnitId:nullable(id),selectedDeploymentUnitId:nullable(id),interactionMode:oneOf('SELECT','MOVE_PATH','RAIL_REPAIR','REINFORCEMENT','RECOVERY','ENTRENCH','ATTACK','LOSS_ALLOCATION','RETREAT','BREAKTHROUGH','SCHWERPUNKT'),
-    pathDraft:path,railRepairEdgeKeys:ids,selectedEngineerUnitId:nullable(id),selectedReinforcementId:nullable(id),attackUnitIds:ids,primaryAttackerId:nullable(id),attackTarget:nullable(hex),attackerArtilleryUnitId:nullable(id),selectedBattleId:nullable(id),lossDraft:ids,retreatOrder:ids,
+    pathDraft:path,railRepairEdgeKeys:railKeys,selectedEngineerUnitId:nullable(id),selectedReinforcementId:nullable(id),attackUnitIds:ids,primaryAttackerId:nullable(id),attackTarget:nullable(hex),attackerArtilleryUnitId:nullable(id),selectedBattleId:nullable(id),lossDraft:ids,retreatOrder:ids,
     retreatDrafts:x=>record(x)&&Object.keys(x).length<=64&&Object.entries(x).every(([k,p])=>id(k)&&k!=='__proto__'&&path(p)),
     activeRetreaterId:nullable(id),advanceUnitId:nullable(id),breakthroughUnitId:nullable(id),breakthroughPath:path,schwerpunktTarget:nullable(hex),
   };return shape(v,checks);

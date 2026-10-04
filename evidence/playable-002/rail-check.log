@@ -1,0 +1,17 @@
+[
+  {
+    code: 'INVALID_SUPPORT',
+    message: 'Selected rail-repair support unit is not an engineer.',
+    details: { reason: 'INVALID_RAIL_ENGINEER', unitId: 'G-ART-01' }
+  },
+  {
+    code: 'INVALID_SUPPORT',
+    message: 'Rail-repair engineer must have normal SUPPLIED status.',
+    details: {
+      reason: 'INVALID_RAIL_ENGINEER',
+      unitId: 'G-ART-01',
+      supplyState: 'OUT_OF_SUPPLY'
+    }
+  }
+]
+Rail Core action, free RP/CP, once guard, invalid hunter and existing engineer checked null

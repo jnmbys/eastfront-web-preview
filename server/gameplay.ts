@@ -51,7 +51,7 @@ export function queryModel(match:MatchSession,controllerId:string,draft?:QueryDr
   }
   // Validation diagnostics are not a data channel. Keep localizable codes only.
   const scrub=(value:unknown):void=>{if(!value||typeof value!=='object')return;
-    if('code' in value&&'message' in value){for(const key of Object.keys(value))if(key!=='code')delete (value as Record<string,unknown>)[key];(value as {message:string}).message='';return;}
+    if('code' in value&&'message' in value){const issue=value as {details?:{reason?:string};code:string};if(['INVALID_RAIL_ENGINEER','RAIL_REPAIR_ALREADY_USED','EMPTY_RAIL_REPAIR_PLAN','RAIL_REPAIR_LIMIT_EXCEEDED','UNKNOWN_RAIL_EDGE','EDGE_HAS_NO_RAILWAY','EDGE_ALREADY_GERMAN_REPAIRED','RAIL_PLAN_DISCONNECTED'].includes(issue.details?.reason??''))issue.code=issue.details!.reason!;for(const key of Object.keys(value))if(key!=='code')delete (value as Record<string,unknown>)[key];(value as {message:string}).message='';return;}
     for(const child of Object.values(value))scrub(child);
   };
   for(const field of ['movement','moveOptions','railRepair','recovery','entrench','combat'] as const)scrub(model[field]);

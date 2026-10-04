@@ -1,0 +1,67 @@
+{
+  "source": "AI002 existing legal replay; no modified state",
+  "ordinary": {
+    "action": {
+      "type": "RAIL_REPAIR",
+      "controllerId": "G-HUMAN-1",
+      "edgeKeys": [
+        "0,4|1,4"
+      ]
+    },
+    "before": {
+      "present": true,
+      "repairedBy": null,
+      "destroyed": false
+    },
+    "after": {
+      "present": true,
+      "repairedBy": "GERMAN",
+      "destroyed": false
+    },
+    "rp": {
+      "GERMAN": 8,
+      "SOVIET": 12
+    },
+    "cp": {
+      "GERMAN": 2,
+      "SOVIET": 1
+    },
+    "repeat": [
+      {
+        "code": "INVALID_SUPPORT",
+        "message": "The German side has already accepted its rail-repair plan this turn.",
+        "details": {
+          "reason": "RAIL_REPAIR_ALREADY_USED"
+        }
+      },
+      {
+        "code": "INVALID_SUPPORT",
+        "message": "Selected railway edge is already operational German track.",
+        "details": {
+          "reason": "EDGE_ALREADY_GERMAN_REPAIRED",
+          "edgeKey": "0,4|1,4"
+        }
+      }
+    ]
+  },
+  "hunter": [
+    {
+      "code": "INVALID_SUPPORT",
+      "message": "Selected rail-repair support unit is not an engineer.",
+      "details": {
+        "reason": "INVALID_RAIL_ENGINEER",
+        "unitId": "G-ART-01"
+      }
+    },
+    {
+      "code": "INVALID_SUPPORT",
+      "message": "Rail-repair engineer must have normal SUPPLIED status.",
+      "details": {
+        "reason": "INVALID_RAIL_ENGINEER",
+        "unitId": "G-ART-01",
+        "supplyState": "OUT_OF_SUPPLY"
+      }
+    }
+  ],
+  "engineer": null
+}
