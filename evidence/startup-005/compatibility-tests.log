@@ -1,0 +1,1266 @@
+✔ Safari/iPad/WebKit policy is bounded; desktop Chrome/Android keep their existing budget (0.8998ms)
+✔ Chrome success stays direct-image first: no decode/fetch/bitmap/Canvas fallback (1.358ms)
+✔ Safari decode can complete when no load event is delivered (2.457ms)
+✔ Safari reject decode still loads via onload/Canvas (28.6915ms)
+✔ Safari hang decode still loads via onload/Canvas (15.1735ms)
+✔ Safari absent decode still loads via onload/Canvas (30.454ms)
+✔ Safari cached complete image does not depend on another load event (0.4518ms)
+✔ Safari slow first decode can pass 15 seconds without being misclassified as timeout (0.7187ms)
+✔ Safari deadline recovers complete pixels when both load and decode signals stall (0.2605ms)
+✔ broken complete image is rejected, cancelled and cannot report a late success (0.5482ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:128:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:141:17)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 60000ms; canvas=Error: Terrain image Canvas copy has no visible pixels',
+    imageComplete: true,
+    width: 16,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ Safari Canvas failure can still resolve through decode without blank texture success (13.3053ms)
+✔ R1 transparent onload copy cannot complete an asset or release an image with decode pending (0.8728ms)
+✔ R1 blank copy and hung decode reach the unchanged deadline and retain independent fetch recovery (1.6993ms)
+✔ R1 empty pixels plus rejected decode fail explicitly without a false success (0.3168ms)
+✔ R1 cancellation after an empty copy clears ownership and cannot adopt a late decode (0.7918ms)
+✔ R1 sparse transparent terrain is accepted, including a visible pixel in the last bounded stripe (0.8062ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:179:112
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+✔ bitmap rejection falls back to blob image decode and revokes URL after use (2.7051ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:188:121
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png Error: createImageBitmap VS2_MARSH_WET_GROUND timed out after 5ms
+    at Timeout.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:234:76)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:197:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ slow bitmap times out to blob/Canvas; a late bitmap is closed and never counted twice (23.0871ms)
+✔ successful Chrome bitmap fallback preserves ownership and does not leave its deadline timer (0.7102ms)
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/bad.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/bad.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at Timeout._onTimeout (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:208:74)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/bad.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.decode/onload→Canvas2D',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?existing=keep TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png?existing=keep
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:128:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:236:31)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png?existing=keep',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 15000ms',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:128:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:257:31)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 15000ms',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image timeout: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:128:13
+    at MockTimers.tick (node:internal/test_runner/mock/mock_timers:705:7)
+    at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:260:31)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+  details: {
+    stage: 'timeout',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'Image VS2_MARSH_WET_GROUND timed out after 15000ms',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:268:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:280:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:a5873d2b-572c-4f50-8803-7ecdb124796a
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:a5873d2b-572c-4f50-8803-7ecdb124796a',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:8e78022a-8bb9-476f-a908-f99d9f5ecd9f
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:8e78022a-8bb9-476f-a908-f99d9f5ecd9f',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:c2117129-cf50-460a-8478-457af2e71841
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:c2117129-cf50-460a-8478-457af2e71841',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:c1c24d34-67b5-4c68-a92a-12116751c9ca
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:c1c24d34-67b5-4c68-a92a-12116751c9ca',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:bfe00bed-8320-4dd8-980e-c0313496a991
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:bfe00bed-8320-4dd8-980e-c0313496a991',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:b9e77cb0-d2bc-435f-ae19-5c11dd938ca5
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:b9e77cb0-d2bc-435f-ae19-5c11dd938ca5',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:aa9bea24-40a2-45b7-95d4-9f8b6671ffbb
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:aa9bea24-40a2-45b7-95d4-9f8b6671ffbb',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:4dd9cdd0-87c3-41a1-a507-bd7beb6705f7
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:4dd9cdd0-87c3-41a1-a507-bd7beb6705f7',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:dbb140e5-ff8a-4071-999f-f70106fb209b
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:dbb140e5-ff8a-4071-999f-f70106fb209b',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:31cb5cae-d5fd-4795-b55b-bb2a47525e33
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:31cb5cae-d5fd-4795-b55b-bb2a47525e33',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:a30a4d98-c714-4420-888a-8f6fb4a66a17
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:a30a4d98-c714-4420-888a-8f6fb4a66a17',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:2ac01e48-fbc5-44a7-b6ac-4e106afde2d8
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:2ac01e48-fbc5-44a7-b6ac-4e106afde2d8',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:af47a24f-8674-4575-af1e-93de295f9370
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:af47a24f-8674-4575-af1e-93de295f9370',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT Error: bitmap unavailable
+    at globalThis.createImageBitmap (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:33:110)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:235:90
+EASTFRONT terrain blob HTMLImage fallback failed VS2_MARSH_WET_GROUND https://example.test/eastfront/marsh.png?secret=DO_NOT_EXPORT TerrainSurfaceResourceError: Terrain image failed: blob:nodedata:54f8d6fb-7ab8-49db-b324-ee0f93d9a779
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/safari-terrain-loading.test.mjs:292:73
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'html-image-load',
+    url: 'blob:nodedata:54f8d6fb-7ab8-49db-b324-ee0f93d9a779',
+    assetId: 'VS2_MARSH_WET_GROUND',
+    family: 'marsh',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: false,
+    width: 0,
+    height: 0,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: true,
+      canvas2d: true
+    }
+  }
+}
+✔ Safari simultaneous preload requests run one at a time and failure does not poison queue (93.4726ms)
+✔ Safari queued request budget begins after prior load, not at enqueue time (0.9961ms)
+✔ timed-out direct transfer gets one fresh same-origin fetch and a slow-network recovery budget (1.0298ms)
+✔ both network paths timing out aborts once, preserves diagnostics and allows a subsequent attempt (1.2437ms)
+✔ STARTUP002 ignored abort cannot hang startup, late headers are discarded, next image job succeeds (0.6651ms)
+✔ STARTUP002 stalled body ends at deadline even if fetch ignores abort and diagnostics retain HTTP headers (12.5809ms)
+✔ STARTUP002 transfer success and decode failure are distinct and bounded diagnostic records exclude query secrets (4.9827ms)
+✔ STARTUP003 cancellation accepts older AbortSignals without reason or throwIfAborted (0.7565ms)
+✔ STARTUP003 slow head bounds started and resident images; consumption stays ordered (46.288ms)
+✔ STARTUP003 rejected lookahead is handled and all completed images released on draw failure (15.168ms)
+✔ STARTUP003 pause, cancellation, fresh rebuild and LOD switches release owned images (187.4897ms)
+✔ STARTUP003 infrastructure reuse evicts before loading and never retains a failure (0.3371ms)
+✔ STARTUP003 abort during direct image clears handlers/src and does not start recovery (1.1461ms)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:55:98
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: undefined,
+    height: undefined,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ STARTUP003 abort during ignored-abort fetch discards late headers/body (13.8593ms)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:61:143
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ STARTUP003 abort during bitmap decode closes late bitmap without blob fallback (31.4035ms)
+EASTFRONT terrain createImageBitmap fallback a https://example.test/a.webp Error: createImageBitmap a timed out after 2ms
+    at Timeout.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:234:76)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:61:143
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback a https://example.test/a.webp Error: createImageBitmap a timed out after 2ms
+    at Timeout.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:234:76)
+    at listOnTimeout (node:internal/timers:635:17)
+    at process.processTimers (node:internal/timers:571:7)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:61:143
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback a https://example.test/a.webp Error: Terrain bitmap decode slots occupied; use blob-image fallback
+    at bitmapFromBlob (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:226:15)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:311:58
+    at attempt (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:274:33)
+    at loadTerrainImageNow (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:311:34)
+    at async file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:257:28
+    at async TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:64:35)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:61:143
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback a https://example.test/a.webp Error: Terrain bitmap decode slots occupied; use blob-image fallback
+    at bitmapFromBlob (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:226:15)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:311:58
+    at attempt (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:274:33)
+    at loadTerrainImageNow (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:311:34)
+    at async file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:257:28
+    at async TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:64:35)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:61:143
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain createImageBitmap fallback a https://example.test/a.webp Error: Terrain bitmap decode slots occupied; use blob-image fallback
+    at bitmapFromBlob (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:226:15)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:311:58
+    at attempt (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:274:33)
+    at loadTerrainImageNow (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:311:34)
+    at async file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:257:28
+    at async TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:64:35)
+    at async Test.run (node:internal/test_runner/test:1389:7)
+    at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+EASTFRONT terrain direct image fallback a https://example.test/a.webp TerrainSurfaceResourceError: Terrain image failed: https://example.test/a.webp
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup003-pipeline.test.mjs:61:143
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://example.test/a.webp',
+    assetId: 'a',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ STARTUP003 timed-out native bitmaps keep their slots; blob fallback remains usable and late results close (47.7439ms)
+✔ UI009R1 pointerdown alone remains TAP candidate and does not start drag (0.825ms)
+✔ UI009R1 movement at or below 6 CSS px remains TAP (0.0894ms)
+✔ UI009R1 movement above threshold becomes DRAG and suppresses tap (0.0525ms)
+✔ UI009R1 pointercancel semantics never convert a drag into a click suppression leak (0.0486ms)
+✔ UI009R1 zoom=1 still allows pan when rendered map content is larger than viewport (0.4551ms)
+✔ UI009R1 map smaller than viewport stays centered on that axis (0.0622ms)
+✔ UI009R1 zoom recomputes pan range from rendered content bounds (0.0556ms)
+✔ UI009R1 resize recomputes pan clamp rather than retaining stale zoom-only bounds (0.0952ms)
+✔ UI009R1 pan arithmetic is presentation-only and cannot mutate authoritative GameState (10.2655ms)
+✔ UI009R1 unit selection changes dynamic layer but leaves static production terrain markup byte-identical (38.1168ms)
+✔ UI009R1 accepted deployment changes dynamic map only while static terrain remains byte-identical (45.7513ms)
+✔ UI009R1 deployment continues through formal DEPLOY_INITIAL_UNIT Core Action (11.7042ms)
+✔ UI009R1 hidden Soviet deployment remains zero-leak after handoff (278.7183ms)
+✔ UI009R1 drag suppression is map-local and map touch-action does not disable the whole page (0.2075ms)
+✔ UI009R1 frozen Core, Geometry and P5R1 remain exact (5.1106ms)
+ℹ tests 50
+ℹ suites 0
+ℹ pass 50
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 496.3395

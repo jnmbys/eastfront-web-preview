@@ -1,0 +1,118 @@
+✔ remount and dynamic refresh preserve x/y/zoom and align surface with SVG (2.0718ms)
+✔ mouse and single touch pan preserve tap arbitration; next tap is not swallowed (1.3085ms)
+✔ pinch keeps its world focus beneath moving midpoint, suppresses counter click, and resumes pan (0.6008ms)
+✔ wheel zoom anchors at cursor without remount; zoom limits never reset translation (0.5149ms)
+✔ pinch cancellation and third finger removal leave no stale pointer or tap suppression (0.4831ms)
+✔ off-centre pinch math preserves anchor at clamped zoom and handles coincident fingers (0.0952ms)
+✔ PERF003 duplicate requests and reprioritization keep one builder and one complete surface per LOD (18.3882ms)
+✔ PERF003 paused background work resumes without duplicate work; disposal prevents stale completion (76.7432ms)
+✔ PERF003 failure remains explicit and bounded until deliberate retry; completed fallback retained (46.762ms)
+✔ PERF003 CPU work gives real timer/input opportunities and preserves iterator order/finally (64.1232ms)
+✔ PERF003 chunked raster bytes match original baseline at every LOD and visual seed; no input mutation (344.9081ms)
+✔ PERF003 city order, visual seed, footprints and courts match the baseline after chunking and cached centrality (48.0121ms)
+✔ PERF003 decorative planning yields without touching the final Canvas; atomic replay exactly matches original draw stream and releases buffer (10.8782ms)
+✔ startup feedback exists in HTML before modules and before pending map/assets (5.453ms)
+✔ startup progress is monotonic across asset batches and LOD milestones (0.2602ms)
+✔ first usable LOD releases the loading gate but 100 percent requires every completed surface (42.6457ms)
+✔ startup failure retains fatal diagnostics and never emits success (31.3521ms)
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: false,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+EASTFRONT terrain direct image fallback fixture https://test.invalid/assets/terrain/p4r3/fixture.png TerrainSurfaceResourceError: Terrain image failed: https://test.invalid/assets/terrain/p4r3/fixture.png
+    at fail (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:79:20)
+    at img.onerror (file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/dist/app/render/terrainSurface.js:149:29)
+    at file:///C:/Users/jinyibo/eastfront/startup-005-close-diagnosis/tests/startup-progress.test.mjs:113:201
+    at node:internal/process/task_queues:151:7
+    at AsyncResource.runInAsyncScope (node:async_hooks:227:14)
+    at AsyncResource.runMicrotask (node:internal/process/task_queues:148:8) {
+  details: {
+    stage: 'direct-image-load',
+    url: 'https://test.invalid/assets/terrain/p4r3/fixture.png',
+    assetId: 'fixture',
+    family: 'ground',
+    preferredApi: 'HTMLImageElement.onload',
+    cause: 'image error event',
+    imageComplete: undefined,
+    width: 8,
+    height: 8,
+    capabilities: {
+      createImageBitmap: true,
+      offscreenCanvas: false,
+      htmlImageDecode: false,
+      canvas2d: true
+    }
+  }
+}
+✔ startup retains resource concurrency, current LOD priority, fixed seed and observer cleanup (61.5775ms)
+✔ Huawei direct-image path is still first and observer exceptions cannot trigger fallback (0.9987ms)
+✔ fetch/blob fallback success counts exactly once after the original path succeeds (1.4448ms)
+✔ failed image does not increment completion or change resource error semantics (0.6771ms)
+✔ bitmap fallback completion preserves release and skips the blob-image branch (0.5058ms)
+✔ actual VS2 asset batch totals come from the selected material list and actual completions (137.2655ms)
+✔ VS2 observer on/off produces identical draw trace, pixels, resource order and stats (388.3605ms)
+✔ recorded reviewed terrain startup checkpoint matches frozen source after removing observation (2.3624ms)
+✔ UA-001 transition boundary and session adapter match recorded FOW integration (0.4343ms)
+✔ loading stages and counters are complete in zh-CN/en-US and language changes retain progress (0.3323ms)
+✔ unknown totals never imply an asset percentage, and updates touch only loading DOM nodes (0.2208ms)
+✔ loading interpolation never runs a timer and respects reduced motion (0.611ms)
+✔ STARTUP002 existing fatal page offers readable copyable safe diagnostics in both languages (2.4136ms)
+✔ STARTUP002 copy remains manually selectable if the device denies clipboard access (0.2846ms)
+✔ 004 dimensions: original cap cannot reach close, adaptive cap does without changing LOD thresholds (0.5665ms)
+✔ new cap preserves off-centre pinch focus; resource readiness is not an input to camera limits (0.1282ms)
+✔ live diagnostics distinguish paused checkpoint from progressing CPU and retain no unfinished completion (105.7272ms)
+✔ diagnostics remain bounded and cancellation records failure without holding a surface (310.8455ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 798.2234

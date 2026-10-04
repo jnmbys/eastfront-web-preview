@@ -3,7 +3,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const sha=b=>createHash('sha256').update(b).digest('hex');
-const input='evidence/startup-004',out='evidence/startup-005';mkdirSync(out,{recursive:true});
+const input='evidence/startup-004',out=process.argv[2]??'evidence/startup-005';mkdirSync(out,{recursive:true});
 const manifest=JSON.parse(readFileSync('evidence/startup-003-r1/candidate-manifest.json'));
 const zip='../startup-003-r1/.startup003/r1/startup-003-r1-candidate-b9927e072d30fac8b732b815c0d817ce490d7d6e.zip';
 assert.equal(sha(readFileSync(zip)),manifest.zipSha256);

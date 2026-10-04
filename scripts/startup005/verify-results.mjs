@@ -21,8 +21,8 @@ for(const engine of ['chromium','webkit']){
  }
  const lifecycle=read(`${root}/final-${engine}/lifecycle.json`);assert(lifecycle.browserClosed&&lifecycle.serverClosed);
 }
-const native=read(root+'/final-webkit-native.json');assert(native.complete&&native.rows.length===4);assert(native.rows.every(r=>r.hash===native.reference.hash));
+const native=read(root+'/final-webkit-native.json');assert(native.complete&&native.rows.length===4);assert(native.rows.every(r=>r.hash===native.reference));
 const downloads=read(root+'/final-diagnostic/result.json');assert(downloads.pass&&downloads.freshAtEachClick&&downloads.downloadAndTextareaEqual);
 for(let i=0;i<2;i++)assert.equal(read(`${root}/final-diagnostic/export-${i}.json`).build,manifest.sourceCommit);
 const result={sourceCommit:manifest.sourceCommit,servedFilesMatchPackage:true,actualDevice:false,results,nativeWebKit:native,diagnosticDownloads:downloads};
-writeFileSync(root+'/verified-results.json',JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({pass:true,sourceCommit:manifest.sourceCommit,exactClosePixelRows:results.length,nativeWebKitColdWarmRows:native.rows.length}));
+writeFileSync(process.argv[2]??root+'/verified-results.json',JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({pass:true,sourceCommit:manifest.sourceCommit,exactClosePixelRows:results.length,nativeWebKitColdWarmRows:native.rows.length}));
