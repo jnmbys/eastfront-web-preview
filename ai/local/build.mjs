@@ -16,3 +16,7 @@ writeFileSync('.ai003-preview/styles.css',readFileSync('styles.css','utf8')+'\n.
 console.log('AI003 isolated preview: .ai003-preview (no deployment)');
 
 writeFileSync('.ai003-preview/ai003-build.json',JSON.stringify({task:'AI-003',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),uncommittedChanges:!!execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim(),productionConnection:false,saveLoadSupported:false},null,2)+'\n');
+
+cpSync('playable.css','.ai003-preview/playable.css');
+writeFileSync('.ai003-preview/index.html',readFileSync('.ai003-preview/index.html','utf8').replace('</head>','<link rel="stylesheet" href="./playable.css"></head>'));
+cpSync('public/assets/playable','.ai003-preview/assets/playable',{recursive:true});

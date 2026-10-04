@@ -1,0 +1,88 @@
+body.command-candidate .workspace.panel-open { grid-template-columns:minmax(0,1fr) 332px; }
+body.command-candidate .map-wrap { position:relative; }
+body.command-candidate .map-card { grid-template-rows:auto minmax(0,1fr); }
+.command-brief h3 { margin:6px 0; color:#e8ce91; font-size:18px; }
+.command-brief p { line-height:1.55; margin:7px 0; }
+.command-problems { display:flex; flex-wrap:wrap; gap:8px; padding:8px 0; color:#d8c8a3; font-size:12px; }
+.command-plan-members { display:flex; flex-wrap:wrap; gap:5px; margin:10px 0; }
+.command-brief .button-row { display:flex; flex-wrap:wrap; gap:4px; margin:7px 0; }
+.command-brief small { display:block; font-size:11px; line-height:1.6; color:#aab8c0; }
+.command-unit-list { display:grid; gap:4px; max-height:160px; overflow:auto; }
+.command-brief summary { cursor:pointer; font-size:12px; }
+.command-next { border-left:2px solid #bfa268; padding-left:8px; }
+.command-picking { color:#efcf85!important; }
+.command-control-german { fill:#79b2d4;fill-opacity:.12;stroke:#79b2d4;stroke-opacity:.3;stroke-width:1; }
+.command-control-soviet { fill:#db8f7c;fill-opacity:.12;stroke:#db8f7c;stroke-opacity:.3;stroke-width:1; }
+.command-member-ring { stroke:#e6c87b;stroke-width:2;fill:none;stroke-dasharray:4 3; }
+.command-problem-mark { fill:#fff0bb;font-size:13px;paint-order:stroke;stroke:#353a37;stroke-width:4px; }
+.command-goal { fill:#e6c87b;fill-opacity:.08;stroke:#e6c87b;stroke-width:3;stroke-dasharray:5 4; }
+.command-plan-label { fill:#ffe3a3;font-size:12px;paint-order:stroke;stroke:#343a36;stroke-width:4px; }
+.command-plan-arrow { stroke:#e6c87b;stroke-width:2;stroke-dasharray:7 5; }
+.command-actual-path { fill:none;stroke:#90ccb2;stroke-width:3; }
+.command-loss-record { fill:none;stroke:#de927f;stroke-width:2; }
+#command-picker polygon { pointer-events:all;cursor:crosshair; }
+#command-picker polygon:hover { fill:#ebcb7244;stroke:#e5cf91;stroke-width:2; }
+#command-map-note { position:absolute;left:12px;bottom:12px;z-index:4;display:grid;gap:4px;max-width:min(500px,calc(100% - 24px));padding:10px 14px;background:#15212aea;border:1px solid #b4a16b66;pointer-events:none;color:#d7e0df;font-size:12px;line-height:1.4; }
+#command-map-note strong {color:#e8ce91;}
+#command-map-note span {display:block;}
+body.command-candidate .command-panel-scroll>.selection-block { padding-block:10px; }
+@media(min-width:901px) and (max-width:1100px){body.command-candidate .topbar{grid-template-columns:200px minmax(210px,1fr) auto;}body.command-candidate .brand strong{font-size:17px;letter-spacing:.1em;}body.command-candidate .map-toolbar{min-height:68px;}body.command-candidate .map-controls{flex-wrap:wrap;}}
+@media(max-width:1100px){body.command-candidate .workspace.panel-open{grid-template-columns:minmax(0,1fr) 304px;}#command-map-note{font-size:11px;max-width:380px;padding:8px;}}
+@media(max-width:760px){body.command-candidate .workspace.panel-open{grid-template-columns:minmax(0,1fr);}#command-map-note{max-width:200px;font-size:10px;}}
+
+.flow-controls { border-left: 3px solid #b4a170; }
+.flow-controls label { display: flex; align-items: center; gap: .5rem; font-size: 13px; line-height: 1.5; cursor: pointer; }
+.flow-controls input { width: 18px; height: 18px; flex-shrink: 0; accent-color: #c2ad79; }
+.flow-controls p, .flow-refit p { font-size: 12px; line-height: 1.5; margin: .5rem 0; }
+.flow-controls summary { cursor: pointer; font-size: 12px; }
+.flow-controls .eyebrow { margin-bottom: .6rem; display: block; }
+.flow-refit { border-bottom: 1px solid #776e514d; padding-bottom: .4rem; margin: .5rem 0 .8rem; }
+.flow-refit strong { color: #e2cc94; }
+@media (min-width: 901px) and (max-width: 1100px) {
+    .topbar { grid-template-columns: 200px minmax(210px, 1fr) auto; }
+    .brand strong { font-size: 17px; letter-spacing: .1em; }
+    .map-toolbar { min-height: 68px; }
+    .map-card { grid-template-rows: auto minmax(0, 1fr); }
+    .map-toolbar > div:first-child { min-width: 132px; }
+    .map-controls { flex-wrap: wrap; }
+}
+/* ART-UI-022 selective layout port: map-first, warm compact dock. Original map,
+   hit targets, assets and loading pipeline retained. No industry ledger/state. */
+body.playable-integrated{--panel:#26372f;--panel-deep:#26372f;--line:#647061;--muted:#bac1b3;background:#17221f;color:#e9e4d4}
+.playable-integrated #app:has(.workspace){height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.playable-integrated .topbar{flex:0 0 52px;height:52px;padding:0 16px;background:#17221f;grid-template-columns:1fr 1.2fr auto;gap:10px}
+.playable-integrated .brand span{display:none}.playable-integrated .brand strong{font:22px Georgia;letter-spacing:2px}
+.playable-integrated .workspace,.playable-integrated .workspace.panel-open{flex:1;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(220px,1fr) minmax(200px,31vh);height:auto;min-height:0;gap:0;padding:0}
+.playable-integrated .workspace.panel-collapsed{grid-template-rows:minmax(0,1fr)}
+.playable-integrated .map-card{border:0;min-height:0;box-shadow:none;width:100%;grid-template-rows:auto minmax(0,1fr)}
+.playable-integrated .map-card.network-map-card{grid-template-rows:auto auto minmax(0,1fr)}
+.playable-integrated .map-toolbar{min-height:44px;padding:4px 12px;background:#26372f;gap:8px}.playable-integrated .map-controls{flex-wrap:wrap;gap:4px}.playable-integrated .map-controls button,.playable-integrated .map-controls select{min-height:36px}
+.playable-integrated .network-match-status{min-height:22px;font-size:12px;padding:3px 14px;background:#26372f;color:#e2ce9d}
+.playable-integrated .workspace.panel-open .side-panel{position:static;inset:auto;width:auto;max-height:none;min-height:0;border:0;border-top:3px double #8c927a;border-radius:0;box-shadow:0 -3px 14px #10201855;background:#e5dfd0;color:#252b27;overflow:hidden;display:flex}
+.playable-integrated .side-panel:before{display:none}
+.playable-integrated .playable-dock{display:grid;grid-template-columns:minmax(280px,1.35fr) minmax(200px,.8fr) minmax(250px,1fr);gap:14px;overflow:hidden;padding:10px 16px}
+.playable-dock>div{min-height:0;overflow:auto;overscroll-behavior:contain;padding-right:8px}
+.playable-integrated .side-panel .panel-block{background:transparent;border:0;border-bottom:1px solid #b2b9a5;padding:8px;color:#26362d}
+.playable-integrated .side-panel p,.playable-integrated .side-panel small,.playable-integrated .side-panel span,.playable-integrated .side-panel strong,.playable-integrated .side-panel h3,.playable-integrated .side-panel dd,.playable-integrated .side-panel dt{color:inherit}
+.playable-integrated .side-panel .eyebrow{color:#596450!important}
+.playable-integrated .side-panel button{background:#d7d8c6;border-color:#9ca78d;color:#26362d;min-height:40px}
+.playable-integrated .side-panel .primary-action{background:#56613e;color:#fff8df}.playable-integrated .side-panel button:disabled{opacity:.45}
+.playable-options label{display:flex;align-items:center;gap:8px;min-height:40px;font-size:13px;cursor:pointer}.playable-options input{width:19px;height:19px;accent-color:#56613e}
+.playable-integrated #command-map-note{position:static;max-width:none;pointer-events:auto;background:#d6d7c5;color:#26362d;border:0;font-size:11px;padding:8px}.playable-integrated #command-map-note strong{color:#26362d}
+.playable-integrated .local-ai-status{flex:0 0 auto;order:-1;min-height:38px;padding:3px 12px;background:#17221f;gap:10px;font-size:12px}.playable-integrated .local-ai-status>strong{display:none}.playable-integrated .local-ai-status button{min-height:32px}.playable-integrated .local-ai-status textarea{height:64px;max-width:240px}.playable-integrated footer{flex:0 0 22px;height:22px;background:#17221f;font-size:10px}
+.playable-integrated .deployment-confirm{max-height:105px;overflow:auto;padding:6px 16px!important;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#d4d6be!important;color:#26362d}.playable-integrated .deployment-confirm button{width:auto;min-width:160px}.playable-integrated .deployment-confirm p{color:#26362d}
+.playable-integrated .home-screen{height:100dvh;overflow:auto;padding:clamp(24px,6vw,80px);max-width:900px;margin:auto}.playable-integrated .home-screen h1{font:34px Georgia,serif;letter-spacing:2px}.playable-integrated .home-screen p{line-height:1.65;max-width:700px}.playable-integrated .home-screen label{display:block}.playable-test-scenes{margin:20px 0}.playable-test-scenes summary{cursor:pointer;min-height:44px}
+@media(max-width:1100px){.playable-integrated .playable-dock{grid-template-columns:minmax(240px,1.15fr) minmax(170px,.75fr) minmax(220px,1fr);gap:8px;padding:6px 10px}.playable-integrated .topbar{grid-template-columns:auto 1fr auto;padding:0 10px}.playable-integrated .brand strong{font-size:18px}.playable-integrated .map-toolbar>div:first-child{display:none}.playable-integrated .workspace.panel-open{grid-template-rows:minmax(200px,1fr) minmax(220px,36vh)}.playable-integrated .side-panel button{min-height:44px}}
+@media(max-width:850px){.playable-integrated .playable-dock{grid-template-columns:minmax(250px,1fr) minmax(220px,1fr)}.playable-inspect{display:none}.playable-integrated .resource-strip>span{display:none}.playable-integrated .brand{display:none}.playable-integrated .topbar{grid-template-columns:1fr auto}.playable-integrated .workspace.panel-open{grid-template-rows:minmax(200px,1fr) minmax(250px,37vh)}}
+@media(max-width:560px){.playable-integrated .playable-dock{grid-template-columns:minmax(0,1fr);overflow:auto}.playable-dock>div{overflow:visible}.playable-integrated .topbar{height:auto;flex-wrap:wrap}.playable-integrated .workspace.panel-open{grid-template-rows:minmax(160px,1fr) minmax(200px,40vh)}}
+/* Keep inherited dark-skin values legible in the ART paper dock. */
+.playable-integrated .side-panel .phase-metric,.playable-integrated .side-panel .command-problems,.playable-integrated .side-panel .issue-list,.playable-integrated .side-panel .flow-refit,.playable-integrated .side-panel .button-row,.playable-integrated .side-panel .roster-row small,.playable-integrated .side-panel .roster-row b{color:#46523d}
+.playable-integrated .side-panel .issue-list{color:#743a25}
+.playable-integrated .side-panel .roster-row{min-height:80px;height:auto;flex-shrink:0;grid-template-columns:44px minmax(0,1fr) auto;overflow:visible}
+.playable-integrated .side-panel .roster-list{grid-auto-rows:minmax(80px,auto);max-height:180px}
+.playable-integrated .side-panel .deployment-steps{margin:5px 0}.playable-integrated .side-panel .location-card{min-height:100px}
+.playable-integrated .side-panel .primary-action span{color:#fff8df}.playable-integrated .side-panel .roster-emblem{color:#e5dfd0}
+.playable-integrated .topbar{min-height:52px}.playable-integrated .map-card{gap:0}.playable-integrated .roster-emblem{width:36px;height:36px}.playable-integrated .playable-options strong{display:flex;align-items:center;gap:8px}.playable-options img{width:28px;height:28px}
+.playable-integrated .side-panel .attack-matchup,.playable-integrated .side-panel .combat-attacker-chip,.playable-integrated .side-panel .combat-grid>div,.playable-integrated .side-panel .dice-box,.playable-integrated .side-panel .die{background:#d4d6be;color:#26362d;border-color:#9ca78d}
+.playable-integrated .side-panel .combat-advanced summary,.playable-integrated .side-panel .combat-modifier-summary{color:#53613d}
+.playable-integrated .side-panel .combat-crt{background:#e5dfd0;color:#26362d}.playable-integrated .side-panel .combat-crt th,.playable-integrated .side-panel .combat-crt td{color:#26362d;border-color:#9ca78d}
