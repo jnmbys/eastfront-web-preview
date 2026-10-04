@@ -37,9 +37,10 @@ import { coreSvgDynamicMarkup, coreSvgMarkup, viewBoxForHexes, type CoreSvgOptio
 import { selectTerrainLod, type TerrainLod } from './render/terrainAssets.js';
 import { buildCachedTerrainSurface, formatTerrainSurfaceFailure, terrainSurfaceCapabilities, type CachedTerrainSurface } from './render/terrainSurface.js';
 import { HEX_SIZE } from './geometry/hex.js';
+import {recordTerrainCamera} from './render/terrainBuildDiagnostics.js';
 import { createPresentationState, type PresentationState } from './state/presentation.js';
 import { TERRAIN_VISUAL_SEED, createFreshProductionSession, defaultMapViewport, fatalMarkup, gameOverMarkup, homeMarkup, loadingMarkup, loadProductionRuntimeManifest, mobileAdvisoryMarkup, privacyHandoffMarkup, productionDeveloperUiAllowed, responsiveProfile, WEB_PREVIEW_VERSION, type MapViewport } from './web/preview.js';
-import { beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport, type MapGestureState, type MapPoint } from './web/mapInteraction.js';
+import { mapMaxZoom, beginMapGesture, dragSuppressesTap, gesturePanViewport, updateMapGesture, zoomMapAt, pinchMapViewport, type MapGestureState, type MapPoint } from './web/mapInteraction.js';
 
 const rootElement=document.querySelector<HTMLElement>('#app');if(!rootElement)throw new Error('#app missing');const root=rootElement;
 const query=new URLSearchParams(location.search);const developerUi=productionDeveloperUiAllowed(location.hostname,location.search);let presentation:PresentationState=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);let session:PlayerSession|null=null;let productionMap:LegacyMapData|null=null;let appStatus:'LOADING'|'HOME'|'MULTIPLAYER'|'PLAYING'|'FATAL'='LOADING';let fatalMessage:Message='';let mapViewport:MapViewport=defaultMapViewport();let cachedTerrainSurface:CachedTerrainSurface|null=null;const cachedTerrainSurfaces=new Map<TerrainLod,CachedTerrainSurface>();
@@ -157,6 +158,9 @@ function gameOver(model:BrowserRenderModel):string{return gameOverMarkup(model.v
 
 function startNewGame():void{terrainPipeline?.resume();terrainPipeline?.continueAll();deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
 function restartGame():void{if(isNetwork(session)&&session.client instanceof SupplyClient){const current=session;void session.client.close().then(closed=>{if(closed&&session===current){current.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();}});return;}if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
+function currentMapMaxZoom():number{
+  return cachedTerrainSurface?Math.max(mapViewport.zoom,mapMaxZoom(Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280)),cachedTerrainSurface.viewBox.width,Math.sqrt(3)*HEX_SIZE)):2.5;
+}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
   const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
@@ -191,7 +195,7 @@ function bindMapViewport():void{
   });
   wrap.addEventListener('pointermove',(event)=>{
     const e=event as PointerEvent;if(!points.has(e.pointerId))return;const p=local(e);points.set(e.pointerId,p);
-    if(pinch){const [a,b]=[...points.values()];mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a!,b!);applyMapViewport();e.preventDefault();return;}
+    if(pinch){const [a,b]=[...points.values()];mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a!,b!,currentMapMaxZoom());applyMapViewport();e.preventDefault();return;}
     if(!gesture)return;gesture=updateMapGesture(gesture,p.x,p.y);if(!gesture.dragging)return;
     capture(e.pointerId);queuePan(p.x,p.y);e.preventDefault();
   });
@@ -207,7 +211,7 @@ function bindMapViewport():void{
   wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true));
   wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);});
   wrap.addEventListener('click',(event)=>{if(!suppressNextClick)return;event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},true);
-  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e));applyMapViewport();rebase();},{passive:false});
+  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),currentMapMaxZoom());applyMapViewport();rebase();},{passive:false});
 }
 function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):CoreSvgOptions{
   const vb=viewBoxForHexes(model.hexes),usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));
@@ -218,6 +222,7 @@ function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):Core
 let terrainZoomObserver:MutationObserver|null=null;let terrainZoomWrap:HTMLElement|null=null;
 function mountCachedTerrainSurface():void{
   if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;const usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));const requested=selectTerrainLod(usableWidth*((Math.sqrt(3)*HEX_SIZE)/cachedTerrainSurface.viewBox.width)*mapViewport.zoom);terrainPipeline?.prioritize(requested);cachedTerrainSurface=terrainPipeline?.best(requested)??cachedTerrainSurfaces.get(requested)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.style.transform=svg.style.transform;canvas.style.transformOrigin='50% 50%';canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);
+  recordTerrainCamera({viewportWidth:window.innerWidth,viewportHeight:window.innerHeight,dpr:window.devicePixelRatio,minZoom:1,maxZoom:currentMapMaxZoom(),zoom:mapViewport.zoom,usableWidth,viewBoxWidth:cachedTerrainSurface.viewBox.width,screenHexWidth:usableWidth*Math.sqrt(3)*HEX_SIZE/cachedTerrainSurface.viewBox.width*mapViewport.zoom,requestedLod:requested,mountedLod:canvas.dataset.lod??null});
   if(terrainZoomWrap!==wrap&&typeof MutationObserver!=='undefined'){terrainZoomObserver?.disconnect();terrainZoomWrap=wrap;terrainZoomObserver=new MutationObserver(()=>mountCachedTerrainSurface());terrainZoomObserver.observe(wrap,{attributes:true,attributeFilter:['data-zoom']});}
   updateTerrainDetailStatus();
 }
@@ -307,7 +312,7 @@ function bind():void{
   }
   document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(!session)return;
-  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
+  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0},currentMapMaxZoom());applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0},currentMapMaxZoom());applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
 function showCombatView():void{
   const panel=document.querySelector<HTMLElement>('#side-panel');

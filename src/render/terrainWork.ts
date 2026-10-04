@@ -1,7 +1,10 @@
+import type {TerrainLod} from './terrainAssets.js';
+import {beginTerrainWorkDiagnostic,updateTerrainWorkDiagnostic,finishTerrainWorkDiagnostic} from './terrainBuildDiagnostics.js';
 /** Cooperative terrain work. A timer is a real task boundary (unlike Promise.resolve).
  * Only detached static surfaces use this scheduler; it never observes game state. */
 export interface TerrainWorkControl {
   readonly signal?: AbortSignal;
+  readonly diagnosticLod?: TerrainLod|null;
   checkpoint(): Promise<void>;
 }
 // Older engines may support AbortController without reason/throwIfAborted.
@@ -21,19 +24,24 @@ export function finishTerrainWork<T>(work: Generator<void, T, void>): T {
   let next = work.next(); while (!next.done) next = work.next(); return next.value;
 }
 export async function runTerrainWork<T>(stage: string, work: Generator<void, T, void>, control?: TerrainWorkControl): Promise<T> {
-  const start = performance.now(); let workMs = 0, maxSliceMs = 0, yields = 0;
+  const start = performance.now(); let workMs = 0, maxSliceMs = 0, yields = 0, steps = 0, success = false;
+  const diagnostic=beginTerrainWorkDiagnostic(stage,control?.diagnosticLod??null);
+  const record=(state:string)=>updateTerrainWorkDiagnostic(diagnostic,state,steps,yields,workMs,maxSliceMs);
   try {
     await yieldTerrainTask();
     while (true) {
+      record('checkpoint');
       await control?.checkpoint();
+      record('computing');
       const slice = performance.now(); let next;
-      do { next = work.next(); } while (!next.done && performance.now() - slice < 6);
+      do { next = work.next(); steps++; } while (!next.done && performance.now() - slice < 6);
       const duration = performance.now() - slice; workMs += duration; maxSliceMs = Math.max(maxSliceMs, duration);
-      if (next.done) return next.value;
-      yields++; await yieldTerrainTask();
+      if (next.done) {success=true;record('complete');return next.value;}
+      yields++; record('yielding');await yieldTerrainTask();
     }
   } finally {
     work.return(undefined as T); // run finally blocks on cancellation/failure
+    finishTerrainWorkDiagnostic(diagnostic,success);
     const timing = { stage, elapsedMs: performance.now() - start, workMs, maxSliceMs, yields };
     for (const observer of observers) { try { observer(timing); } catch { /* Diagnostics cannot stop a build. */ } }
   }

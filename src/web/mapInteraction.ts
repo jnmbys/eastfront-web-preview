@@ -2,6 +2,14 @@ import type { MapViewport } from './preview.js';
 
 export const MAP_DRAG_THRESHOLD_PX = 6;
 
+/** Keep the existing range on wide views; allow the existing close LOD threshold
+ * (>96 estimated CSS pixels per hex) to be reached on narrower views as well.
+ * This changes camera magnification only, never terrain resolution or allocation. */
+export function mapMaxZoom(usableWidth:number,viewBoxWidth:number,hexWidth:number):number {
+  if (![usableWidth,viewBoxWidth,hexWidth].every(v=>Number.isFinite(v)&&v>0)) return 2.5;
+  return Math.max(2.5,Math.ceil((97*viewBoxWidth/(usableWidth*hexWidth))*10)/10);
+}
+
 export interface MapContentMetrics {
   viewportWidth:number;
   viewportHeight:number;
@@ -69,17 +77,17 @@ export function dragSuppressesTap(gesture:MapGestureState,cancelled=false):boole
 export interface MapPoint {x:number;y:number;}
 
 /** Preserve the world point beneath the pointer; only FIT recentres the map. */
-export function zoomMapAt(view:MapViewport,requestedZoom:number,focus:MapPoint):MapViewport {
-  const zoom=Math.max(1,Math.min(2.5,requestedZoom));
+export function zoomMapAt(view:MapViewport,requestedZoom:number,focus:MapPoint,maxZoom=2.5):MapViewport {
+  const zoom=Math.max(1,Math.min(maxZoom,requestedZoom));
   const ratio=zoom/view.zoom;
   return {zoom,panX:focus.x-(focus.x-view.panX)*ratio,panY:focus.y-(focus.y-view.panY)*ratio};
 }
 
-export function pinchMapViewport(view:MapViewport,startA:MapPoint,startB:MapPoint,a:MapPoint,b:MapPoint):MapViewport {
+export function pinchMapViewport(view:MapViewport,startA:MapPoint,startB:MapPoint,a:MapPoint,b:MapPoint,maxZoom=2.5):MapViewport {
   const mid=(p:MapPoint,q:MapPoint):MapPoint=>({x:(p.x+q.x)/2,y:(p.y+q.y)/2});
   const from=mid(startA,startB),to=mid(a,b);
   const initialDistance=Math.hypot(startA.x-startB.x,startA.y-startB.y);
   const distance=Math.hypot(a.x-b.x,a.y-b.y);
-  const next=zoomMapAt(view,view.zoom*(initialDistance>0?distance/initialDistance:1),from);
+  const next=zoomMapAt(view,view.zoom*(initialDistance>0?distance/initialDistance:1),from,maxZoom);
   return {...next,panX:next.panX+to.x-from.x,panY:next.panY+to.y-from.y};
 }

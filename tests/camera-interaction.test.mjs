@@ -8,7 +8,7 @@ function harness(initial={zoom:1.5,panX:70,panY:-40}) {
  const handlers={},frames=new Map(),captures=new Set();let serial=0;
  const wrap={dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),addEventListener:(t,f)=>handlers[t]=f,setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)};
  const elements={'#map-wrap':wrap,'#eastfront-map':{style:{}},'#terrain-surface':{style:{}},'#zoom-readout':{}};
- const ctx=vm.createContext({...interaction,mapViewport:{...initial},document:{querySelector:s=>elements[s]},requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:id=>frames.delete(id)});
+ const ctx=vm.createContext({...interaction,currentMapMaxZoom:()=>2.5,mapViewport:{...initial},document:{querySelector:s=>elements[s]},requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:id=>frames.delete(id)});
  vm.runInContext(source.slice(source.indexOf('function applyMapViewport()'),source.indexOf('function mapRenderOptions(')),ctx);
  ctx.bindMapViewport();
  const fire=(type,x=100,y=100,id=1,extra={})=>{const e={clientX:x,clientY:y,pointerId:id,button:0,preventDefault(){this.prevented=true;},stopPropagation(){},stopImmediatePropagation(){this.stopped=true;},...extra};handlers[type](e);return e;};

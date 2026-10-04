@@ -1,0 +1,14 @@
+import {execFileSync} from 'node:child_process';import {readFileSync,writeFileSync,existsSync,mkdirSync,readdirSync,statSync} from 'node:fs';import {createHash} from 'node:crypto';import {resolve,dirname,join,relative} from 'node:path';import {fileURLToPath} from 'node:url';
+const workspace=resolve(dirname(fileURLToPath(import.meta.url)),'../..'),git=(...args)=>execFileSync('git',args,{cwd:workspace,encoding:'utf8'}).trim();
+const sourceCommit=git('rev-parse','HEAD');if(git('status','--porcelain','--untracked-files=no'))throw Error('Commit tracked source before packaging');
+const npmCli=process.env.npm_execpath??join(dirname(process.execPath),'node_modules/npm/bin/npm-cli.js');if(!existsSync(npmCli))throw Error('npm CLI unavailable');
+execFileSync(process.execPath,[npmCli,'run','build'],{cwd:workspace,stdio:'inherit',env:{...process.env,MULTIPLAYER_SERVER_URL:''}});
+const dist=join(workspace,'dist'),zip=join(workspace,`.startup005/startup-005-candidate-${sourceCommit}.zip`);if(existsSync(zip))throw Error('Archive already exists');mkdirSync(dirname(zip),{recursive:true});
+if(JSON.parse(readFileSync(join(dist,'diagnostics/transport/build.json'))).sourceCommit!==sourceCommit)throw Error('Build SHA mismatch');
+const hash=b=>createHash('sha256').update(b).digest('hex'),files=[];
+function walk(dir){for(const name of readdirSync(dir).sort()){const path=join(dir,name);if(statSync(path).isDirectory())walk(path);else{const bytes=readFileSync(path);files.push({path:relative(dist,path).replaceAll('\\','/'),bytes:bytes.length,sha256:hash(bytes)});}}}walk(dist);
+const previous=JSON.parse(readFileSync(join(workspace,'evidence/startup-003-r1/candidate-manifest.json'))),allowed=new Set(['app/main.js','app/render/progressiveTerrain.js','app/render/terrainWork.js','app/web/mapInteraction.js','app/web/startupDiagnostics.js','diagnostics/transport/build.json']);
+const changed=[];for(const f of previous.files){const next=files.find(n=>n.path===f.path);if(!next)throw Error('Missing original file '+f.path);if(next.sha256!==f.sha256){if(!allowed.has(f.path))throw Error('Unexpected byte change '+f.path);changed.push(f.path);}}
+execFileSync('tar.exe',['-a','-c','-f',zip,'-C',dist,'.'],{cwd:workspace,stdio:'inherit'});
+const manifest={sourceCommit,baselineSource:'b9927e072d30fac8b732b815c0d817ce490d7d6e',baselineEvidence:'07187cf9e1214aa8507c3c2b4da9ca1444992f0e',zip,zipSha256:hash(readFileSync(zip)),changedExistingFiles:changed,addedFiles:files.filter(f=>!previous.files.some(p=>p.path===f.path)).map(f=>f.path),rollbackQuery:'?terrainLoad=serial',diagnosticQuery:'?startupDiag=1',files};
+writeFileSync(zip+'.manifest.json',JSON.stringify(manifest,null,2)+'\n');writeFileSync(join(workspace,'evidence/startup-005/candidate-manifest.json'),JSON.stringify(manifest,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({sourceCommit,zip,zipSha256:manifest.zipSha256,files:files.length,changed,added:manifest.addedFiles}));
