@@ -1,0 +1,373 @@
+{
+  "uiCommit": "75183910f524c87d9a6db3fafee27f3a2e189691",
+  "backendCommit": "0f31196d998fb9be8e27e2183161fb4cec0f01e1",
+  "verification": "UI006 real browser views 0/37 match 018 ledger fields; instanceId omitted; no session credential saved",
+  "states": [
+    {
+      "schema": "industry-017-state.v1",
+      "version": 0,
+      "gameRevision": 109,
+      "materialRevision": 0,
+      "turn": 5,
+      "phase": "GERMAN_RECOVERY",
+      "phaseLabel": "德军恢复",
+      "equipmentBudget": {
+        "granted": 0,
+        "freeI": 0,
+        "productionSpent": 0,
+        "handoffSpent": 0,
+        "escrow": 0
+      },
+      "personnelBudget": {
+        "grantedI": 0,
+        "availableI": 0,
+        "acceptanceCareSpentI": 0,
+        "escrowI": 0,
+        "carriageSpentI": 0
+      },
+      "care": null,
+      "materials": {
+        "P": {
+          "owner": null,
+          "custody": "NOT_CREATED",
+          "quantity": 0,
+          "consumed": 0
+        },
+        "E2:L": {
+          "owner": null,
+          "custody": "NOT_CREATED",
+          "quantity": 0,
+          "consumed": 0
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "transport": null,
+      "shipment": null,
+      "terminal": null,
+      "recovery": null,
+      "expired": false,
+      "impact": null,
+      "target": {
+        "id": "G-I-01",
+        "step": 1,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "recoveryCount": 0,
+        "recoveryLimit": 1
+      },
+      "blockers": [
+        "AWAIT_PRODUCTION_AND_REAR_RECEIPT"
+      ],
+      "operations": {
+        "CARE": {
+          "enabled": false,
+          "label": "T8支付1I照管"
+        },
+        "RECOVER": {
+          "enabled": false,
+          "label": "T9恢复G-I-01"
+        },
+        "NEXT": {
+          "enabled": true,
+          "label": "结束当前德军恢复阶段"
+        },
+        "ALLOCATE_I": {
+          "enabled": true,
+          "label": "领取本实例一次性10I装备拨款"
+        },
+        "PLACE_ORDER": {
+          "enabled": false,
+          "label": "下单2 E2：付3I，托管2I"
+        },
+        "ACTIVATE_PERSONNEL": {
+          "enabled": false,
+          "label": "启用原后备池1P及独立2I"
+        },
+        "APPLY_PERSONNEL": {
+          "enabled": false,
+          "label": "申请1P接驳：付1I，托管1I"
+        }
+      },
+      "restrictions": {
+        "singleProcess": true,
+        "persistent": false,
+        "globalBlockersRetained": 35,
+        "globalBlockersClosed": 0,
+        "sourceGapSP": {
+          "G": 9,
+          "S": 14
+        },
+        "formalRuntimeApproved": false
+      },
+      "extensions": {
+        "industry018": {
+          "schema": "industry-018-chain.v1",
+          "stage": "012",
+          "matchId": "EASTFRONT-012-ISOLATED",
+          "order": null,
+          "production": {
+            "workRequired": 2,
+            "workCompleted": 0,
+            "bufferHoldE2": 0
+          },
+          "equipmentBatch": null,
+          "equipmentHandoffCapacity": {},
+          "personnel": null,
+          "handoffs": [],
+          "accountStatus": {
+            "equipment": "NOT_ALLOCATED",
+            "personnel": "NOT_ACTIVATED"
+          },
+          "baselineCompatibility": "017 state and request envelope retained; additional fixed intents and this extension only; UI005 remains unchanged"
+        }
+      }
+    },
+    {
+      "schema": "industry-017-state.v1",
+      "version": 37,
+      "gameRevision": 142,
+      "materialRevision": 0,
+      "turn": 8,
+      "phase": "GERMAN_RECOVERY",
+      "phaseLabel": "德军恢复",
+      "equipmentBudget": {
+        "granted": 10,
+        "freeI": 5,
+        "productionSpent": 3,
+        "handoffSpent": 2,
+        "escrow": 0
+      },
+      "personnelBudget": {
+        "id": "RC008-G-PERSONNEL-SERVICE-I",
+        "grantedI": 2,
+        "availableI": 0,
+        "acceptanceCareSpentI": 1,
+        "escrowI": 0,
+        "carriageSpentI": 1
+      },
+      "care": null,
+      "materials": {
+        "P": {
+          "owner": "RC007-REAR-G-A10",
+          "custody": "REAR_AVAILABLE",
+          "quantity": 1,
+          "consumed": 0
+        },
+        "E2:L": {
+          "owner": "RC007-REAR-G-A10",
+          "custody": "REAR_AVAILABLE",
+          "quantity": 2,
+          "consumed": 0
+        }
+      },
+      "frontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "availableFrontInventory": {
+        "P": 0,
+        "E2:L": 0
+      },
+      "rearInventory": {
+        "P": 1,
+        "E2:L": 2
+      },
+      "transport": null,
+      "shipment": null,
+      "terminal": null,
+      "recovery": null,
+      "target": {
+        "id": "G-I-01",
+        "step": 1,
+        "RP": {
+          "GERMAN": 8,
+          "SOVIET": 12
+        },
+        "recoveryCount": 0,
+        "recoveryLimit": 1
+      },
+      "expired": false,
+      "impact": null,
+      "blockers": [
+        "CARE_NOT_PAID"
+      ],
+      "operations": {
+        "CARE": {
+          "enabled": true,
+          "label": "支付1I照管至E9结束"
+        },
+        "NEXT": {
+          "enabled": true,
+          "label": "结束当前德军恢复阶段"
+        },
+        "RECOVER": {
+          "enabled": false,
+          "label": "T9恢复G-I-01：支付1P＋2 E2，RP不扣"
+        },
+        "ALLOCATE_I": {
+          "enabled": false,
+          "label": "领取本实例一次性10I装备拨款"
+        },
+        "PLACE_ORDER": {
+          "enabled": false,
+          "label": "下单2 E2：付3I，托管2I"
+        },
+        "ACTIVATE_PERSONNEL": {
+          "enabled": false,
+          "label": "启用原后备池1P及独立2I"
+        },
+        "APPLY_PERSONNEL": {
+          "enabled": false,
+          "label": "申请1P接驳：付1I，托管1I"
+        }
+      },
+      "restrictions": {
+        "singleProcess": true,
+        "persistent": false,
+        "globalBlockersRetained": 35,
+        "globalBlockersClosed": 0,
+        "sourceGapSP": {
+          "G": 9,
+          "S": 14
+        },
+        "formalRuntimeApproved": false
+      },
+      "extensions": {
+        "industry018": {
+          "schema": "industry-018-chain.v1",
+          "stage": "016",
+          "matchId": "EASTFRONT-012-ISOLATED",
+          "order": {
+            "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001",
+            "batchId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+            "status": "COMPLETED",
+            "acceptedTurn": 5,
+            "workEpochs": [
+              5,
+              6
+            ]
+          },
+          "production": {
+            "workRequired": 2,
+            "workCompleted": 2,
+            "bufferHoldE2": 0
+          },
+          "equipmentBatch": {
+            "id": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001",
+            "shipmentId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001",
+            "receiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001/received",
+            "quantityE2": 2,
+            "materialType": "E2:L",
+            "custody": "REAR_AVAILABLE",
+            "owner": "RC007-REAR-G-A10",
+            "productionReceiptId": "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/batch/E12_INDUSTRIAL_OUTPUT/6",
+            "receivedEpoch": 6,
+            "availableFromTurn": 7,
+            "dispatchEpoch": 6,
+            "dueEpoch": 6
+          },
+          "equipmentHandoffCapacity": {
+            "5": {
+              "resourceId": "EXTERNAL_G_A10",
+              "unit": "workPoint",
+              "side": "G",
+              "epoch": 5,
+              "finiteCap": 4,
+              "perE2Work": 2,
+              "used": {},
+              "holds": {},
+              "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+              "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+            },
+            "6": {
+              "resourceId": "EXTERNAL_G_A10",
+              "unit": "workPoint",
+              "side": "G",
+              "epoch": 6,
+              "finiteCap": 4,
+              "perE2Work": 2,
+              "used": {
+                "EASTFRONT-012-ISOLATED/5dbd9b473dc2480d227ec641a1381d4a382d498221f09795426b405d0b62cd65/012-main/G/production/0001/E2L/0001/to-A10/0001": 4
+              },
+              "holds": {},
+              "sharingPolicyRef": "INDEPENDENT_OF_SP_RAIL_T_W",
+              "authorityRef": "LEADER-INDUSTRY-INTEGRATE-012-20261003"
+            }
+          },
+          "personnel": {
+            "ids": {
+              "sourceGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001",
+              "budgetGrantId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/budget-0001",
+              "packageId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+              "applicationId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+              "batchId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001",
+              "shipmentId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001",
+              "receiptId": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001/received"
+            },
+            "sourceKind": "SCENARIO_INITIAL_TRAINED_RESERVE_ASSUMPTION",
+            "trainingReceipt": null,
+            "activated": true,
+            "application": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001",
+              "status": "AVAILABLE"
+            },
+            "package": {
+              "id": "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/P-0001",
+              "quantityP": 1,
+              "owner": "RC007-REAR-G-A10",
+              "custody": "REAR_AVAILABLE",
+              "receivedEpoch": 7,
+              "availableFromTurn": 8,
+              "dispatchEpoch": 7,
+              "dueEpoch": 7
+            },
+            "quota": {
+              "id": "RC008-OFFMAP-RESERVE-TO-A10",
+              "capLQ": 4,
+              "used": {
+                "LEADER-INDUSTRY-INTEGRATE-013-20261003/EASTFRONT-012-ISOLATED/G/personnel/source-0001/application-0001/batch-0001/to-A10-0001": 4
+              },
+              "holds": {},
+              "renews": false
+            },
+            "incomingP": {}
+          },
+          "handoffs": [
+            {
+              "fromStage": "012",
+              "toStage": "013",
+              "gameRevision": 129,
+              "retainedReceipts": 22,
+              "source": "CURRENT_TRANSACTION_PRIVATE_ROOT"
+            },
+            {
+              "fromStage": "013",
+              "toStage": "016",
+              "gameRevision": 142,
+              "retainedReceipts": 37,
+              "source": "CURRENT_TRANSACTION_PRIVATE_ROOT"
+            }
+          ],
+          "accountStatus": {
+            "equipment": "ACTIVE",
+            "personnel": "ACTIVE"
+          },
+          "baselineCompatibility": "017 state and request envelope retained; additional fixed intents and this extension only; UI005 remains unchanged"
+        }
+      }
+    }
+  ]
+}
