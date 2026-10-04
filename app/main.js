@@ -1,4 +1,6 @@
 import { combatResults } from './ui/combatResult.js';
+import * as flow from '../experiments/flow-001/flow.js';
+import { legalStart } from '../experiments/flow-001/fixture.mjs';
 import { bindStartupDiagnostics } from './web/startupDiagnostics.js';
 import { ProgressiveTerrain } from './render/progressiveTerrain.js';
 import { NetworkPlayerSession } from './multiplayer/networkSession.js';
@@ -37,6 +39,11 @@ if (!rootElement)
     throw new Error('#app missing');
 const root = rootElement;
 const query = new URLSearchParams(location.search);
+const flow001 = location.hostname === '127.0.0.1' && query.get('flow001') === '1';
+const flowFixture = location.hostname === '127.0.0.1' && query.get('flowFixture') === '1';
+if (flow001) {
+    const style = document.createElement('link'); style.rel = 'stylesheet'; style.href = './experiments/flow-001/flow.css'; document.head.append(style);
+}
 const developerUi = productionDeveloperUiAllowed(location.hostname, location.search);
 let presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches);
 let session = null;
@@ -180,7 +187,7 @@ function phasePanel(model) {
         return `<p>${isNetwork(session) ? esc(session.statusText) : t('fow.inspection')}</p>`;
     if (model.deployment)
         return '';
-    const ready = `<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
+    const ready = `<button id="ready-button" class="primary-action" type="button"><span class="advance-label"><small>${phaseLabel(model.phase)}</small>${flow001 && model.phase.endsWith('_RECOVERY') ? '完成恢复，继续筑垒' : flow001 && model.phase.endsWith('_ENTRENCHMENT') ? '完成整备' : t('common.advancePhase')}</span><span class="advance-arrow" aria-hidden="true">›</span></button>`;
     if (model.phase === 'GERMAN_SUPPLY_RAIL' && model.railRepair) {
         const r = model.railRepair;
         return `<section class="panel-block phase-actions"><span class="eyebrow">${t('rail.title')}</span><p>${t('rail.help')}</p><div class="phase-metric"><span>${t('rail.plan')}</span><strong>${t('rail.edges', { count: r.selectedEdgeKeys.length })}</strong></div><div class="phase-metric"><span>${t('rail.used')}</span><strong>${r.alreadyUsed ? t('common.yes') : t('common.no')}</strong></div><button id="rail-mode" class="secondary-action ${presentation.interactionMode === 'RAIL_REPAIR' ? 'active' : ''}">${t('rail.mode')}</button><div class="button-row"><button id="rail-no-engineer" class="mini-button ${!r.selectedEngineerUnitId ? 'active' : ''}">${t('rail.noEngineer')}</button>${r.engineers.map((eng) => `<button class="mini-button ${eng.selected ? 'active' : ''}" data-rail-engineer="${esc(eng.id)}">${esc(eng.id)}</button>`).join('')}</div>${issueHtml(r.issues)}<div class="button-row"><button id="rail-clear" class="secondary-action">${t('rail.clear')}</button><button id="rail-commit" class="secondary-action">${t('rail.commit')}</button></div>${ready}</section>`;
@@ -201,11 +208,11 @@ function phasePanel(model) {
     }
     if ((model.phase === 'GERMAN_RECOVERY' || model.phase === 'SOVIET_RECOVERY') && model.recovery) {
         const r = model.recovery;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span><div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.viewerSide] ?? '—'}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${r.selectedCost ?? '—'} ${t('resource.rp')}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">${t('recovery.commit')}</button>` : `<p>${t('recovery.help')}</p>`}${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span>${flow001 ? flow.refitMarkup(model) : ''}<div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.viewerSide] ?? '—'}</strong></div>${model.selectedCounter ? `<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${r.selectedCost ?? '—'} ${t('resource.rp')}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">${t('recovery.commit')}</button>` : `<p>${t('recovery.help')}</p>`}${ready}</section>`;
     }
     if ((model.phase === 'GERMAN_ENTRENCHMENT' || model.phase === 'SOVIET_ENTRENCHMENT') && model.entrench) {
         const e = model.entrench;
-        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('entrenchment.title')}</span>${model.selectedCounter ? `${issueHtml(e.selectedIssues)}<button id="entrench-unit" class="secondary-action">${t('entrenchment.commit')}</button>` : `<p>${t('entrenchment.help')}</p>`}${ready}</section>`;
+        return `<section class="panel-block phase-actions"><span class="eyebrow">${t('entrenchment.title')}</span>${flow001 ? flow.refitMarkup(model) : ''}${model.selectedCounter ? `${issueHtml(e.selectedIssues)}<button id="entrench-unit" class="secondary-action">${t('entrenchment.commit')}</button>` : `<p>${t('entrenchment.help')}</p>`}${ready}</section>`;
     }
     return `<section class="panel-block phase-actions"><span class="eyebrow">${t('common.phase')}</span><p>${phaseLabel(model.phase)}</p>${ready}</section>`;
 }
@@ -223,7 +230,7 @@ function startNewGame() { terrainPipeline?.resume(); terrainPipeline?.continueAl
     fatalMessage = msg('game.noMap');
     render();
     return;
-} session = createFreshProductionSession(productionMap); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
+} session = flowFixture ? legalStart(productionMap) : createFreshProductionSession(productionMap); presentation = createPresentationState(developerUi && query.get('debug') === '1', window.matchMedia('(max-width: 1100px)').matches); presentation.rendererMode = 'production'; presentation.productionAssetSet = 'p5'; appStatus = 'PLAYING'; fatalMessage = ''; render(); }
 function restartGame() { if (isNetwork(session)) {
     session.client.send('LEAVE_ROOM', {});
     session.dispose();
@@ -403,7 +410,7 @@ function mountCachedTerrainSurface() {
 }
 function sidePanelMarkup(model, locations) {
     const results = session ? combatResults(session).html(model, typeof reducedMotion !== 'undefined' && reducedMotion.matches) : '';
-    return `<div class="command-panel-scroll">${results}${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model, locations)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
+    return `<div class="command-panel-scroll">${flow001 ? flow.controlsMarkup(session, presentation) : ''}${results}${model.combat ? phasePanel(model) : ''}${model.combat ? `<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>` : ''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat ? '</details>' : ''}${presentation.message && !model.readOnly && (!model.deployment || developerUi || deploymentTouch.status === 'idle') ? `<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment && !developerUi ? esc(deploymentRejection(!isNetwork(session) ? session.lastResult?.issues ?? [] : [])) : esc(formatMessage(presentation.message))}</p></section>` : ''}${deploymentPanel(model, locations)}${model.combat ? '' : phasePanel(model)}${developerUi && !isNetwork(session) ? viewerSwitch(model) : ''}${developerUi && !isNetwork(session) && model.playerView.viewer === 'OBSERVER' ? lastActionPanel(session) : ''}</div>${deploymentConfirm(model, presentation.selectedDeploymentUnitId, deploymentTouch)}`;
 }
 const dynamicMap = new DynamicMapRenderer();
 const deploymentPanelRenderer = new DeploymentPanelRenderer();
@@ -490,11 +497,11 @@ function render() {
         return;
     if (appStatus === 'HOME') {
         if (!cachedTerrainSurface) {
-            root.innerHTML = homeMarkup(profile);
+            root.innerHTML = homeMarkup(profile) + (flowFixture ? '<p style="position:fixed;bottom:16px;left:24px;color:#e4d4af">FLOW-001 对照起点 · 种子 17001 · 双方合法部署 · 点击新游戏开始</p>' : '');
             bind();
             return;
         }
-        const markup = homeMarkup(profile);
+        const markup = homeMarkup(profile) + (flowFixture ? '<p class="flow-fixture-note" style="position:fixed;bottom:16px;left:24px;color:#e4d4af">FLOW-001 对照起点 · 固定种子 17001 · 双方合法部署 · 点击新游戏开始</p>' : '');
         root.innerHTML = markup;
         bind();
         return;
@@ -735,6 +742,16 @@ function bindDeploymentControls() {
     bindUnitInputs();
 }
 function bindDynamic(model) {
+    if (flow001 && session) {
+        const captured = session, capturedPresentation = presentation;
+        document.querySelector('#flow-auto')?.addEventListener('change', event => {
+            flow.setEnabled(captured, event.target.checked); render();
+        });
+        const ticket = flow.autoTicket(captured, capturedPresentation);
+        if (ticket) setTimeout(() => {
+            if (session === captured && presentation === capturedPresentation && flow.runAuto(captured, capturedPresentation, ticket, readyForPhase)) render();
+        }, 600);
+    }
     document.querySelectorAll('[data-view-side]').forEach(element => { const side = element.dataset.viewSide; if (!side)
         return; element.addEventListener('click', () => { switchViewerForDevelopment(session, presentation, side); render(); }); });
     // Result inspection is local UI and remains available to non-decision viewers.
@@ -773,7 +790,8 @@ function bindDynamic(model) {
     }));
     if (!session)
         return;
-    document.querySelector('#ready-button')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); readyForPhase(session, presentation); render(); });
+    const readyCommand = flow001 && !isNetwork(session) ? flow.commandTicket(session, presentation, readyForPhase) : () => readyForPhase(session, presentation);
+    document.querySelector('#ready-button')?.addEventListener('click', () => { deploymentTouch = createDeploymentTouch(); readyCommand(); render(); });
     document.querySelector('#rail-mode')?.addEventListener('click', () => { enterRailRepairMode(presentation); render(); });
     document.querySelector('#rail-clear')?.addEventListener('click', () => { cancelRailRepair(presentation); render(); });
     document.querySelector('#rail-commit')?.addEventListener('click', () => { commitRailRepair(session, presentation); render(); });
@@ -783,8 +801,10 @@ function bindDynamic(model) {
     document.querySelector('#move-undo')?.addEventListener('click', () => editMoveSelection(() => undoMoveDraft(presentation)));
     document.querySelector('#move-cancel')?.addEventListener('click', () => editMoveSelection(() => cancelMoveDraft(presentation)));
     document.querySelector('#move-commit')?.addEventListener('click', () => editMoveSelection(() => commitMoveDraft(session, presentation)));
-    document.querySelector('#recover-unit')?.addEventListener('click', () => { recoverSelectedUnit(session, presentation); render(); });
-    document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchSelectedUnit(session, presentation); render(); });
+    const repairCommand = flow001 && !isNetwork(session) ? flow.commandTicket(session, presentation, recoverSelectedUnit) : () => recoverSelectedUnit(session, presentation);
+    const entrenchCommand = flow001 && !isNetwork(session) ? flow.commandTicket(session, presentation, entrenchSelectedUnit) : () => entrenchSelectedUnit(session, presentation);
+    document.querySelector('#recover-unit')?.addEventListener('click', () => { repairCommand(); render(); });
+    document.querySelector('#entrench-unit')?.addEventListener('click', () => { entrenchCommand(); render(); });
     bindUnitInputs();
     document.querySelectorAll('[data-role="move-option"]').forEach((element) => { const key = element.dataset.hex; if (!key || boundMoveInputs.has(element))
         return; boundMoveInputs.add(element); const action = () => chooseMoveTarget(parseHex(key)); element.addEventListener('click', event => { event.stopPropagation(); action(); }); bindKeyboardActivation(element, action); });
@@ -1010,4 +1030,10 @@ render();
 export async function loadVS2TerrainSurfaceHooks() {
     const { createVS2TerrainSurfaceHooks } = await import('./render/vs2TerrainSurface.js');
     return { worldBaseFor: (control) => createVS2TerrainSurfaceHooks(undefined, control).worldBase };
+}
+// Read-only evidence access, explicitly limited to the loopback legal-fixture entry.
+// Never used by automatic-ready eligibility; no business action or state setter.
+export function flowVerificationSnapshot() {
+    if (!flowFixture || query.get('flowVerify') !== '1' || !session || isNetwork(session)) throw new Error('Verification entry only');
+    return { state: structuredClone(session.state), privacyGate: presentation.privacyGate, selected: presentation.selectedUnitId };
 }

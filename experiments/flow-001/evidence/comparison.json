@@ -1,0 +1,270 @@
+{
+  "baseline": "349369ad358b9b24fa0410735649de497a94b9ea",
+  "seed": 17001,
+  "mapHexes": 640,
+  "legalDeploymentUnits": 58,
+  "setupCoreActions": 60,
+  "startStateSHA256": "f4e846c62edee51a5fc11dd92b889a460cbd36cb2e578fcf0e13f0cbd7531232",
+  "original": {
+    "metrics": {
+      "humanEnds": 10,
+      "automaticEnds": 0,
+      "business": 4,
+      "handoffs": 2,
+      "coreActions": 14,
+      "businessNetworkRequests": 0
+    },
+    "trace": [
+      {
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "GERMAN_MOVEMENT"
+      },
+      {
+        "phase": "GERMAN_MOVEMENT",
+        "business": {
+          "type": "MOVE",
+          "controllerId": "G-HUMAN-1",
+          "unitId": "G-I-01",
+          "path": [
+            {
+              "q": 1,
+              "r": 0
+            }
+          ]
+        },
+        "ready": "manual",
+        "nextPhase": "GERMAN_COMBAT"
+      },
+      {
+        "phase": "GERMAN_COMBAT",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "GERMAN_RECOVERY"
+      },
+      {
+        "phase": "GERMAN_RECOVERY",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "GERMAN_ENTRENCHMENT"
+      },
+      {
+        "phase": "GERMAN_ENTRENCHMENT",
+        "business": {
+          "type": "ENTRENCH",
+          "controllerId": "G-HUMAN-1",
+          "unitId": "G-I-02"
+        },
+        "ready": "manual",
+        "nextPhase": "SOVIET_REINFORCEMENT_SUPPLY"
+      },
+      {
+        "phase": "SOVIET_REINFORCEMENT_SUPPLY",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "SOVIET_MOVEMENT"
+      },
+      {
+        "phase": "SOVIET_MOVEMENT",
+        "business": {
+          "type": "MOVE",
+          "controllerId": "S-AI-1",
+          "unitId": "S-I-01",
+          "path": [
+            {
+              "q": 30,
+              "r": -15
+            }
+          ]
+        },
+        "ready": "manual",
+        "nextPhase": "SOVIET_COMBAT"
+      },
+      {
+        "phase": "SOVIET_COMBAT",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "SOVIET_RECOVERY"
+      },
+      {
+        "phase": "SOVIET_RECOVERY",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "SOVIET_ENTRENCHMENT"
+      },
+      {
+        "phase": "SOVIET_ENTRENCHMENT",
+        "business": {
+          "type": "ENTRENCH",
+          "controllerId": "S-AI-1",
+          "unitId": "S-I-02"
+        },
+        "ready": "manual",
+        "nextPhase": "GERMAN_SUPPLY_RAIL"
+      }
+    ]
+  },
+  "streamlined": {
+    "metrics": {
+      "humanEnds": 8,
+      "automaticEnds": 2,
+      "business": 4,
+      "handoffs": 2,
+      "coreActions": 14,
+      "businessNetworkRequests": 0
+    },
+    "trace": [
+      {
+        "phase": "GERMAN_SUPPLY_RAIL",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "GERMAN_MOVEMENT"
+      },
+      {
+        "phase": "GERMAN_MOVEMENT",
+        "business": {
+          "type": "MOVE",
+          "controllerId": "G-HUMAN-1",
+          "unitId": "G-I-01",
+          "path": [
+            {
+              "q": 1,
+              "r": 0
+            }
+          ]
+        },
+        "ready": "manual",
+        "nextPhase": "GERMAN_COMBAT"
+      },
+      {
+        "phase": "GERMAN_COMBAT",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "GERMAN_RECOVERY"
+      },
+      {
+        "phase": "GERMAN_RECOVERY",
+        "business": null,
+        "ready": "automatic",
+        "nextPhase": "GERMAN_ENTRENCHMENT"
+      },
+      {
+        "phase": "GERMAN_ENTRENCHMENT",
+        "business": {
+          "type": "ENTRENCH",
+          "controllerId": "G-HUMAN-1",
+          "unitId": "G-I-02"
+        },
+        "ready": "manual",
+        "nextPhase": "SOVIET_REINFORCEMENT_SUPPLY"
+      },
+      {
+        "phase": "SOVIET_REINFORCEMENT_SUPPLY",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "SOVIET_MOVEMENT"
+      },
+      {
+        "phase": "SOVIET_MOVEMENT",
+        "business": {
+          "type": "MOVE",
+          "controllerId": "S-AI-1",
+          "unitId": "S-I-01",
+          "path": [
+            {
+              "q": 30,
+              "r": -15
+            }
+          ]
+        },
+        "ready": "manual",
+        "nextPhase": "SOVIET_COMBAT"
+      },
+      {
+        "phase": "SOVIET_COMBAT",
+        "business": null,
+        "ready": "manual",
+        "nextPhase": "SOVIET_RECOVERY"
+      },
+      {
+        "phase": "SOVIET_RECOVERY",
+        "business": null,
+        "ready": "automatic",
+        "nextPhase": "SOVIET_ENTRENCHMENT"
+      },
+      {
+        "phase": "SOVIET_ENTRENCHMENT",
+        "business": {
+          "type": "ENTRENCH",
+          "controllerId": "S-AI-1",
+          "unitId": "S-I-02"
+        },
+        "ready": "manual",
+        "nextPhase": "GERMAN_SUPPLY_RAIL"
+      }
+    ]
+  },
+  "equality": {
+    "fullStateIncludingActionLog": true,
+    "sha256": "0f1dc6a20a834913bf7f1d8af87ff038ad8f90baadab330f28126757d0c980c4",
+    "resources": {
+      "GERMAN": 8,
+      "SOVIET": 12
+    },
+    "cp": {
+      "GERMAN": 3,
+      "SOVIET": 2
+    },
+    "recoveries": 0,
+    "reinforcements": 0,
+    "victory": {
+      "winner": null,
+      "reason": null,
+      "turn": null,
+      "checkedAtPhase": null
+    },
+    "rng": {
+      "seed": 17001,
+      "state": 17001,
+      "draws": 0
+    }
+  },
+  "checks": [
+    {
+      "name": "Default off; stale auto ticket, off switch and duplicate dispatch stop",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Unknown industry and pending requests stop; no non-recovery phase auto passes",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Pending battle and privacy handoff stop",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Only current controller ready; unready teammate still blocks Core transition",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Legal recovery retained; recovery fee charged once; stale and repeated commands stopped",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    },
+    {
+      "name": "Hidden enemy changes do not affect empty-recovery verdict",
+      "kind": "SYNTHETIC",
+      "result": "PASS"
+    }
+  ],
+  "limits": [
+    "No combat business choices in the paired run; pending-battle guard tested synthetically.",
+    "No cross-phase plan: stale single-phase commands tested, not an atomic plan.",
+    "Local Core only; no live multiplayer or industry execution tested."
+  ]
+}
