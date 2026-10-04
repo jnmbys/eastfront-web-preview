@@ -1,0 +1,3842 @@
+{
+  "schema": "STARTUP006-device-v1",
+  "sourceCommit": "380047b5dccd9cc247ac50d4fb3d81a2336df394",
+  "deliveryHead": "a17478d2848235c0128d4875fc6d86725169d4a2",
+  "claimId": "215a1fb66868beda",
+  "mode": "default",
+  "device": "Desktop Edge local normal; NOT Huawei",
+  "network": "loopback; fresh context; no artificial resource delays",
+  "cacheCondition": "新页面；未清理浏览器缓存，缓存状态未知",
+  "exportedAt": "2026-10-04T04:41:48.661Z",
+  "outcome": "observed-success",
+  "final": true,
+  "stopReason": "user-finished",
+  "observations": {
+    "closeContentCorrect": true,
+    "notes": "Desktop automated fixture: close canvas and diagnostics verified; not a Huawei visual observation."
+  },
+  "assessmentHints": {
+    "A_reachedWhileCollapsed": true,
+    "B_readyMountedScreenshot": true,
+    "B_userConfirmed": true,
+    "notFinalAcceptance": true
+  },
+  "budget": {
+    "limitMs": 300000,
+    "outerElapsedMs": 25776.099999999627,
+    "foregroundObservedMs": 25776,
+    "continuedObservationAfterStop": false
+  },
+  "firstMap": {
+    "viewport": {
+      "width": 1302,
+      "height": 607,
+      "dpr": 2.125
+    },
+    "current": {
+      "canvas": true,
+      "width": 2541,
+      "height": 2294,
+      "lod": "far",
+      "zoom": "1.00",
+      "panelExpanded": "true",
+      "transform": "transform: translate(0px, 0px) scale(1); transform-origin: 50% 50%;"
+    },
+    "camera": {
+      "viewportWidth": 1302,
+      "viewportHeight": 607,
+      "dpr": 2.125,
+      "minZoom": 1,
+      "maxZoom": 3.4,
+      "zoom": 1,
+      "usableWidth": 1022,
+      "viewBoxWidth": 2540.568553208356,
+      "screenHexWidth": 29.26374443633807,
+      "requestedLod": "far",
+      "mountedLod": "far"
+    },
+    "at": 1946.5
+  },
+  "samples": [
+    {
+      "reason": "interval",
+      "elapsedMs": 15007.7,
+      "outerElapsedMs": 15115.599999999627,
+      "visibility": "visible",
+      "at": 15155.6,
+      "camera": {
+        "viewportWidth": 1302,
+        "viewportHeight": 607,
+        "dpr": 2.125,
+        "minZoom": 1,
+        "maxZoom": 2.7,
+        "zoom": 2.7,
+        "usableWidth": 1278,
+        "viewBoxWidth": 2540.568553208356,
+        "screenHexWidth": 98.80379310374572,
+        "requestedLod": "close",
+        "mountedLod": "medium"
+      },
+      "current": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "medium",
+        "zoom": "2.70",
+        "panelExpanded": "false",
+        "transform": "transform: translate(0px, 0px) scale(2.7); transform-origin: 50% 50%;"
+      },
+      "pipeline": {
+        "running": "close",
+        "queued": [],
+        "active": true,
+        "disposed": false,
+        "ready": [
+          "far",
+          "medium"
+        ],
+        "failed": [],
+        "id": 1,
+        "lods": {
+          "far": {
+            "status": "complete",
+            "queuedAt": 176.70000000018626,
+            "selectedAt": 176.90000000037253,
+            "startedAt": 177.70000000018626,
+            "finishedAt": 1886.1000000005588
+          },
+          "medium": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 1887.5,
+            "startedAt": 1947.300000000745,
+            "finishedAt": 7137.5
+          },
+          "close": {
+            "status": "building",
+            "queuedAt": 1887.5,
+            "selectedAt": 7137.5,
+            "startedAt": 7138.600000000559
+          }
+        },
+        "updatedAt": 7138.600000000559
+      },
+      "active": [
+        {
+          "id": 22,
+          "lod": "close",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "yielding",
+          "startedAt": 7195.300000000745,
+          "updatedAt": 15155.5,
+          "lastAdvancedAt": 15155.5,
+          "steps": 973870,
+          "yields": 746,
+          "workMs": 4477.9000000003725,
+          "maxSliceMs": 6.2000000001862645
+        }
+      ],
+      "recent": [
+        {
+          "id": 10,
+          "lod": "far",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 1851.9000000003725,
+          "updatedAt": 1868.800000000745,
+          "lastAdvancedAt": 1868.800000000745,
+          "steps": 102,
+          "yields": 1,
+          "workMs": 7.7000000001862645,
+          "maxSliceMs": 6.099999999627471
+        },
+        {
+          "id": 11,
+          "lod": "medium",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 2036.5,
+          "updatedAt": 2042.300000000745,
+          "lastAdvancedAt": 2042.300000000745,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 5,
+          "maxSliceMs": 5
+        },
+        {
+          "id": 12,
+          "lod": "medium",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "complete",
+          "startedAt": 2042.4000000003725,
+          "updatedAt": 6412.5,
+          "lastAdvancedAt": 6412.5,
+          "steps": 501587,
+          "yields": 394,
+          "workMs": 2365.7999999998137,
+          "maxSliceMs": 6.1000000005587935
+        },
+        {
+          "id": 13,
+          "lod": "medium",
+          "stage": "raster-canvas-write",
+          "state": "complete",
+          "startedAt": 6412.600000000559,
+          "updatedAt": 6419.600000000559,
+          "lastAdvancedAt": 6419.600000000559,
+          "steps": 37,
+          "yields": 0,
+          "workMs": 2.2000000001862645,
+          "maxSliceMs": 2.2000000001862645
+        },
+        {
+          "id": 14,
+          "lod": "medium",
+          "stage": "terrain-details-plan",
+          "state": "complete",
+          "startedAt": 6419.600000000559,
+          "updatedAt": 6468.800000000745,
+          "lastAdvancedAt": 6468.800000000745,
+          "steps": 613,
+          "yields": 4,
+          "workMs": 26.5,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 15,
+          "lod": "medium",
+          "stage": "raster-canvas-compose",
+          "state": "complete",
+          "startedAt": 6468.800000000745,
+          "updatedAt": 6475.200000000186,
+          "lastAdvancedAt": 6475.200000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 1.3999999994412065,
+          "maxSliceMs": 1.3999999994412065
+        },
+        {
+          "id": 16,
+          "lod": "medium",
+          "stage": "forest-coverage-canvas",
+          "state": "complete",
+          "startedAt": 6525.600000000559,
+          "updatedAt": 6714.700000000186,
+          "lastAdvancedAt": 6714.700000000186,
+          "steps": 22997,
+          "yields": 19,
+          "workMs": 117.29999999981374,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 17,
+          "lod": "medium",
+          "stage": "forest-canvas-compose",
+          "state": "complete",
+          "startedAt": 6714.700000000186,
+          "updatedAt": 6719.200000000186,
+          "lastAdvancedAt": 6719.200000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 0.09999999962747097,
+          "maxSliceMs": 0.09999999962747097
+        },
+        {
+          "id": 18,
+          "lod": "medium",
+          "stage": "planVS2CityClusters",
+          "state": "complete",
+          "startedAt": 6719.300000000745,
+          "updatedAt": 7001.600000000559,
+          "lastAdvancedAt": 7001.600000000559,
+          "steps": 327,
+          "yields": 22,
+          "workMs": 146.40000000130385,
+          "maxSliceMs": 7.400000000372529
+        },
+        {
+          "id": 19,
+          "lod": "medium",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 7001.600000000559,
+          "updatedAt": 7082.600000000559,
+          "lastAdvancedAt": 7082.600000000559,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 48.90000000037253,
+          "maxSliceMs": 7.2999999998137355
+        },
+        {
+          "id": 20,
+          "lod": "medium",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 7082.600000000559,
+          "updatedAt": 7093.100000000559,
+          "lastAdvancedAt": 7093.100000000559,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.6000000005587935,
+          "maxSliceMs": 5.6000000005587935
+        },
+        {
+          "id": 21,
+          "lod": "close",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 7189.300000000745,
+          "updatedAt": 7195.200000000186,
+          "lastAdvancedAt": 7195.200000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 5.2000000001862645,
+          "maxSliceMs": 5.2000000001862645
+        }
+      ],
+      "withinBudget": true
+    },
+    {
+      "reason": "first-real-close-canvas",
+      "elapsedMs": 24891.5,
+      "outerElapsedMs": 25431.5,
+      "visibility": "visible",
+      "at": 25039.4,
+      "camera": {
+        "viewportWidth": 1302,
+        "viewportHeight": 607,
+        "dpr": 2.125,
+        "minZoom": 1,
+        "maxZoom": 2.7,
+        "zoom": 2.7,
+        "usableWidth": 1278,
+        "viewBoxWidth": 2540.568553208356,
+        "screenHexWidth": 98.80379310374572,
+        "requestedLod": "close",
+        "mountedLod": "close"
+      },
+      "current": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "close",
+        "zoom": "2.70",
+        "panelExpanded": "false",
+        "transform": "transform: translate(0px, 0px) scale(2.7); transform-origin: 50% 50%;"
+      },
+      "pipeline": {
+        "running": null,
+        "queued": [],
+        "active": true,
+        "disposed": false,
+        "ready": [
+          "far",
+          "medium",
+          "close"
+        ],
+        "failed": [],
+        "id": 1,
+        "lods": {
+          "far": {
+            "status": "complete",
+            "queuedAt": 176.70000000018626,
+            "selectedAt": 176.90000000037253,
+            "startedAt": 177.70000000018626,
+            "finishedAt": 1886.1000000005588
+          },
+          "medium": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 1887.5,
+            "startedAt": 1947.300000000745,
+            "finishedAt": 7137.5
+          },
+          "close": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 7137.5,
+            "startedAt": 7138.600000000559,
+            "finishedAt": 24963
+          }
+        },
+        "updatedAt": 24963
+      },
+      "active": [],
+      "recent": [
+        {
+          "id": 19,
+          "lod": "medium",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 7001.600000000559,
+          "updatedAt": 7082.600000000559,
+          "lastAdvancedAt": 7082.600000000559,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 48.90000000037253,
+          "maxSliceMs": 7.2999999998137355
+        },
+        {
+          "id": 20,
+          "lod": "medium",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 7082.600000000559,
+          "updatedAt": 7093.100000000559,
+          "lastAdvancedAt": 7093.100000000559,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.6000000005587935,
+          "maxSliceMs": 5.6000000005587935
+        },
+        {
+          "id": 21,
+          "lod": "close",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 7189.300000000745,
+          "updatedAt": 7195.200000000186,
+          "lastAdvancedAt": 7195.200000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 5.2000000001862645,
+          "maxSliceMs": 5.2000000001862645
+        },
+        {
+          "id": 22,
+          "lod": "close",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "complete",
+          "startedAt": 7195.300000000745,
+          "updatedAt": 23672.900000000373,
+          "lastAdvancedAt": 23672.900000000373,
+          "steps": 2003774,
+          "yields": 1543,
+          "workMs": 9264.900000000373,
+          "maxSliceMs": 6.2000000001862645
+        },
+        {
+          "id": 23,
+          "lod": "close",
+          "stage": "raster-canvas-write",
+          "state": "complete",
+          "startedAt": 23673,
+          "updatedAt": 23690,
+          "lastAdvancedAt": 23690,
+          "steps": 73,
+          "yields": 1,
+          "workMs": 7.699999999254942,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 24,
+          "lod": "close",
+          "stage": "terrain-details-plan",
+          "state": "complete",
+          "startedAt": 23690,
+          "updatedAt": 23740.300000000745,
+          "lastAdvancedAt": 23740.300000000745,
+          "steps": 613,
+          "yields": 4,
+          "workMs": 24.700000000186265,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 25,
+          "lod": "close",
+          "stage": "raster-canvas-compose",
+          "state": "complete",
+          "startedAt": 23740.300000000745,
+          "updatedAt": 23746.10000000056,
+          "lastAdvancedAt": 23746.10000000056,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 1.5,
+          "maxSliceMs": 1.5
+        },
+        {
+          "id": 26,
+          "lod": "close",
+          "stage": "forest-coverage-canvas",
+          "state": "complete",
+          "startedAt": 23786.700000000186,
+          "updatedAt": 24557.900000000373,
+          "lastAdvancedAt": 24557.900000000373,
+          "steps": 91833,
+          "yields": 73,
+          "workMs": 443.40000000037253,
+          "maxSliceMs": 6.1000000005587935
+        },
+        {
+          "id": 27,
+          "lod": "close",
+          "stage": "forest-canvas-compose",
+          "state": "complete",
+          "startedAt": 24557.900000000373,
+          "updatedAt": 24563.700000000186,
+          "lastAdvancedAt": 24563.700000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 0,
+          "maxSliceMs": 0
+        },
+        {
+          "id": 28,
+          "lod": "close",
+          "stage": "planVS2CityClusters",
+          "state": "complete",
+          "startedAt": 24563.800000000745,
+          "updatedAt": 24836.200000000186,
+          "lastAdvancedAt": 24836.200000000186,
+          "steps": 327,
+          "yields": 22,
+          "workMs": 145.40000000223517,
+          "maxSliceMs": 7.7999999998137355
+        },
+        {
+          "id": 29,
+          "lod": "close",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 24836.200000000186,
+          "updatedAt": 24920,
+          "lastAdvancedAt": 24920,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 49.200000000186265,
+          "maxSliceMs": 8.299999999813735
+        },
+        {
+          "id": 30,
+          "lod": "close",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 24920,
+          "updatedAt": 24929.800000000745,
+          "lastAdvancedAt": 24929.800000000745,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.1000000005587935,
+          "maxSliceMs": 5.1000000005587935
+        }
+      ],
+      "withinBudget": true
+    },
+    {
+      "reason": "user-finished",
+      "elapsedMs": 25566.6,
+      "outerElapsedMs": 25776,
+      "visibility": "visible",
+      "at": 25714.5,
+      "camera": {
+        "viewportWidth": 1302,
+        "viewportHeight": 607,
+        "dpr": 2.125,
+        "minZoom": 1,
+        "maxZoom": 2.7,
+        "zoom": 2.7,
+        "usableWidth": 1278,
+        "viewBoxWidth": 2540.568553208356,
+        "screenHexWidth": 98.80379310374572,
+        "requestedLod": "close",
+        "mountedLod": "close"
+      },
+      "current": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "close",
+        "zoom": "2.70",
+        "panelExpanded": "false",
+        "transform": "transform: translate(0px, 0px) scale(2.7); transform-origin: 50% 50%;"
+      },
+      "pipeline": {
+        "running": null,
+        "queued": [],
+        "active": true,
+        "disposed": false,
+        "ready": [
+          "far",
+          "medium",
+          "close"
+        ],
+        "failed": [],
+        "id": 1,
+        "lods": {
+          "far": {
+            "status": "complete",
+            "queuedAt": 176.70000000018626,
+            "selectedAt": 176.90000000037253,
+            "startedAt": 177.70000000018626,
+            "finishedAt": 1886.1000000005588
+          },
+          "medium": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 1887.5,
+            "startedAt": 1947.300000000745,
+            "finishedAt": 7137.5
+          },
+          "close": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 7137.5,
+            "startedAt": 7138.600000000559,
+            "finishedAt": 24963
+          }
+        },
+        "updatedAt": 24963
+      },
+      "active": [],
+      "recent": [
+        {
+          "id": 19,
+          "lod": "medium",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 7001.600000000559,
+          "updatedAt": 7082.600000000559,
+          "lastAdvancedAt": 7082.600000000559,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 48.90000000037253,
+          "maxSliceMs": 7.2999999998137355
+        },
+        {
+          "id": 20,
+          "lod": "medium",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 7082.600000000559,
+          "updatedAt": 7093.100000000559,
+          "lastAdvancedAt": 7093.100000000559,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.6000000005587935,
+          "maxSliceMs": 5.6000000005587935
+        },
+        {
+          "id": 21,
+          "lod": "close",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 7189.300000000745,
+          "updatedAt": 7195.200000000186,
+          "lastAdvancedAt": 7195.200000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 5.2000000001862645,
+          "maxSliceMs": 5.2000000001862645
+        },
+        {
+          "id": 22,
+          "lod": "close",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "complete",
+          "startedAt": 7195.300000000745,
+          "updatedAt": 23672.900000000373,
+          "lastAdvancedAt": 23672.900000000373,
+          "steps": 2003774,
+          "yields": 1543,
+          "workMs": 9264.900000000373,
+          "maxSliceMs": 6.2000000001862645
+        },
+        {
+          "id": 23,
+          "lod": "close",
+          "stage": "raster-canvas-write",
+          "state": "complete",
+          "startedAt": 23673,
+          "updatedAt": 23690,
+          "lastAdvancedAt": 23690,
+          "steps": 73,
+          "yields": 1,
+          "workMs": 7.699999999254942,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 24,
+          "lod": "close",
+          "stage": "terrain-details-plan",
+          "state": "complete",
+          "startedAt": 23690,
+          "updatedAt": 23740.300000000745,
+          "lastAdvancedAt": 23740.300000000745,
+          "steps": 613,
+          "yields": 4,
+          "workMs": 24.700000000186265,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 25,
+          "lod": "close",
+          "stage": "raster-canvas-compose",
+          "state": "complete",
+          "startedAt": 23740.300000000745,
+          "updatedAt": 23746.10000000056,
+          "lastAdvancedAt": 23746.10000000056,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 1.5,
+          "maxSliceMs": 1.5
+        },
+        {
+          "id": 26,
+          "lod": "close",
+          "stage": "forest-coverage-canvas",
+          "state": "complete",
+          "startedAt": 23786.700000000186,
+          "updatedAt": 24557.900000000373,
+          "lastAdvancedAt": 24557.900000000373,
+          "steps": 91833,
+          "yields": 73,
+          "workMs": 443.40000000037253,
+          "maxSliceMs": 6.1000000005587935
+        },
+        {
+          "id": 27,
+          "lod": "close",
+          "stage": "forest-canvas-compose",
+          "state": "complete",
+          "startedAt": 24557.900000000373,
+          "updatedAt": 24563.700000000186,
+          "lastAdvancedAt": 24563.700000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 0,
+          "maxSliceMs": 0
+        },
+        {
+          "id": 28,
+          "lod": "close",
+          "stage": "planVS2CityClusters",
+          "state": "complete",
+          "startedAt": 24563.800000000745,
+          "updatedAt": 24836.200000000186,
+          "lastAdvancedAt": 24836.200000000186,
+          "steps": 327,
+          "yields": 22,
+          "workMs": 145.40000000223517,
+          "maxSliceMs": 7.7999999998137355
+        },
+        {
+          "id": 29,
+          "lod": "close",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 24836.200000000186,
+          "updatedAt": 24920,
+          "lastAdvancedAt": 24920,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 49.200000000186265,
+          "maxSliceMs": 8.299999999813735
+        },
+        {
+          "id": 30,
+          "lod": "close",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 24920,
+          "updatedAt": 24929.800000000745,
+          "lastAdvancedAt": 24929.800000000745,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.1000000005587935,
+          "maxSliceMs": 5.1000000005587935
+        }
+      ],
+      "withinBudget": true
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "desktop-terrain-1791088907940-ff5fe6f5.png",
+      "bytes": 5000273,
+      "sha256": "bbccf868c237b8b1ccdb715d820d2c6f8d19867968d4aa09faee24f7af0d981b",
+      "at": 24973.6,
+      "lod": "close",
+      "width": 2541,
+      "height": 2294,
+      "elapsedMs": 24825.699999999997,
+      "withinBudget": true,
+      "readyClose": true,
+      "camera": {
+        "viewportWidth": 1302,
+        "viewportHeight": 607,
+        "dpr": 2.125,
+        "minZoom": 1,
+        "maxZoom": 2.7,
+        "zoom": 2.7,
+        "usableWidth": 1278,
+        "viewBoxWidth": 2540.568553208356,
+        "screenHexWidth": 98.80379310374572,
+        "requestedLod": "close",
+        "mountedLod": "close"
+      },
+      "progress": {
+        "stage": "ready",
+        "completedSteps": 6,
+        "totalSteps": 6,
+        "completedAssets": 83,
+        "batchCompleted": 8,
+        "batchTotal": null
+      }
+    },
+    {
+      "id": "desktop-terrain-1791088908638-f30c37dc.png",
+      "bytes": 5000273,
+      "sha256": "bbccf868c237b8b1ccdb715d820d2c6f8d19867968d4aa09faee24f7af0d981b",
+      "at": 25799.7,
+      "lod": "close",
+      "width": 2541,
+      "height": 2294,
+      "elapsedMs": 25651.8,
+      "withinBudget": true,
+      "readyClose": true,
+      "camera": {
+        "viewportWidth": 1302,
+        "viewportHeight": 607,
+        "dpr": 2.125,
+        "minZoom": 1,
+        "maxZoom": 2.7,
+        "zoom": 2.7,
+        "usableWidth": 1278,
+        "viewBoxWidth": 2540.568553208356,
+        "screenHexWidth": 98.80379310374572,
+        "requestedLod": "close",
+        "mountedLod": "close"
+      },
+      "progress": {
+        "stage": "ready",
+        "completedSteps": 6,
+        "totalSteps": 6,
+        "completedAssets": 83,
+        "batchCompleted": 8,
+        "batchTotal": null
+      }
+    }
+  ],
+  "clientTimeOrigin": 1791088882738,
+  "snapshotAt": 25714.5,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+  "viewport": {
+    "width": 1302,
+    "height": 607,
+    "dpr": 2.125
+  },
+  "visibility": "visible",
+  "marks": {
+    "startAt": 147.9,
+    "mapDomReadyAt": 1944.5,
+    "controlsAvailableAt": 1944.5
+  },
+  "events": [
+    {
+      "kind": "observer-attached",
+      "at": 87.3
+    },
+    {
+      "kind": "local-start-request",
+      "at": 147.9
+    },
+    {
+      "kind": "progress-stage",
+      "at": 153.2,
+      "stage": "initializing",
+      "completedSteps": 1
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 153.2,
+      "lod": "resources"
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 175.3,
+      "lod": "model"
+    },
+    {
+      "kind": "progress-stage",
+      "at": 175.4,
+      "stage": "building",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 182.4,
+      "stage": "assets",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 237.7,
+      "stage": "building",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1388.7,
+      "stage": "assets",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1439.5,
+      "stage": "building",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1870.8,
+      "stage": "assets",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1886,
+      "stage": "building",
+      "completedSteps": 2
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 1886.2,
+      "lod": "far"
+    },
+    {
+      "kind": "map-dom-ready",
+      "at": 1944.5,
+      "initial": {
+        "canvas": true,
+        "width": 2541,
+        "height": 2294,
+        "lod": "far",
+        "zoom": "1.00",
+        "panelExpanded": "true",
+        "transform": "transform: translate(0px, 0px) scale(1); transform-origin: 50% 50%;"
+      }
+    },
+    {
+      "kind": "controls-available",
+      "at": 1944.5
+    },
+    {
+      "kind": "lod-mounted",
+      "at": 1944.5,
+      "lod": "far"
+    },
+    {
+      "kind": "map-transform",
+      "at": 1944.5,
+      "zoom": "1.00",
+      "lod": "far",
+      "panelExpanded": "true"
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1962,
+      "stage": "assets",
+      "completedSteps": 3
+    },
+    {
+      "kind": "progress-stage",
+      "at": 2036.5,
+      "stage": "building",
+      "completedSteps": 3
+    },
+    {
+      "kind": "map-transform",
+      "at": 2228.5,
+      "zoom": "1.20",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2276.7,
+      "zoom": "1.40",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2326.7,
+      "zoom": "1.60",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2390.7,
+      "zoom": "1.80",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2429.4,
+      "zoom": "2.00",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2477.2,
+      "zoom": "2.20",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2527,
+      "zoom": "2.40",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2577,
+      "zoom": "2.60",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "map-transform",
+      "at": 2635.7,
+      "zoom": "2.70",
+      "lod": "far",
+      "panelExpanded": "false"
+    },
+    {
+      "kind": "progress-stage",
+      "at": 6476.8,
+      "stage": "assets",
+      "completedSteps": 3
+    },
+    {
+      "kind": "progress-stage",
+      "at": 6525.4,
+      "stage": "building",
+      "completedSteps": 3
+    },
+    {
+      "kind": "progress-stage",
+      "at": 7093.2,
+      "stage": "assets",
+      "completedSteps": 3
+    },
+    {
+      "kind": "progress-stage",
+      "at": 7107.8,
+      "stage": "building",
+      "completedSteps": 3
+    },
+    {
+      "kind": "progress-stage",
+      "at": 7109,
+      "stage": "assets",
+      "completedSteps": 3
+    },
+    {
+      "kind": "progress-stage",
+      "at": 7137.4,
+      "stage": "building",
+      "completedSteps": 3
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 7137.5,
+      "lod": "medium"
+    },
+    {
+      "kind": "lod-mounted",
+      "at": 7137.6,
+      "lod": "medium"
+    },
+    {
+      "kind": "progress-stage",
+      "at": 7145.7,
+      "stage": "assets",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 7189.3,
+      "stage": "building",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 23747.7,
+      "stage": "assets",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 23786.6,
+      "stage": "building",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 24929.9,
+      "stage": "assets",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 24936.2,
+      "stage": "building",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 24937.5,
+      "stage": "assets",
+      "completedSteps": 4
+    },
+    {
+      "kind": "progress-stage",
+      "at": 24963,
+      "stage": "building",
+      "completedSteps": 4
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 24963,
+      "lod": "close"
+    },
+    {
+      "kind": "progress-stage",
+      "at": 24963.1,
+      "stage": "ready",
+      "completedSteps": 6
+    },
+    {
+      "kind": "lod-mounted",
+      "at": 24963.2,
+      "lod": "close"
+    }
+  ],
+  "failed": false,
+  "progress": {
+    "stage": "ready",
+    "completedSteps": 6,
+    "totalSteps": 6,
+    "completedAssets": 83,
+    "batchCompleted": 8,
+    "batchTotal": null
+  },
+  "diagnostics": {
+    "version": "STARTUP-002",
+    "build": "380047b5dccd9cc247ac50d4fb3d81a2336df394",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+    "online": true,
+    "visibility": "visible",
+    "imageJobs": {
+      "active": 0,
+      "peak": 2,
+      "completed": 83,
+      "failed": 0
+    },
+    "recent": [
+      {
+        "asset": "VS2_CITY_LOCAL_BUILDING_06",
+        "file": "assets/city/reuse_BC06.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 1,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 1,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_CITY_LOCAL_BUILDING_07",
+        "file": "assets/city/reuse_BC07.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 1,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 1,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_CITY_LOCAL_BUILDING_08",
+        "file": "assets/city/reuse_BC08.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_CITY_PERIPHERAL_HOUSES",
+        "file": "assets/city/peripheral_houses.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_RIVER_WET_BANK",
+        "file": "assets/river/reuse_bank_01.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 3,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 3,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_RIVER_WATER",
+        "file": "assets/river/reuse_water_01.webp",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_ROAD_SURFACE_01",
+        "file": "assets/road/reuse_ROAD_01.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 9,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 9,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_RAIL_BALLAST",
+        "file": "assets/rail/reuse_BALLAST_01.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 3,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 3,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_RAIL_SLEEPERS",
+        "file": "assets/rail/reuse_sleeper_motif.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_RAIL_RAIL_PAIR",
+        "file": "assets/rail/reuse_rail_pair.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_BRIDGE_DECK_MATERIAL",
+        "file": "assets/bridge/deck_material.webp",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_ROAD_SURFACE_01",
+        "file": "assets/road/reuse_ROAD_01.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 2,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 2,
+            "outcome": "ok"
+          }
+        ]
+      }
+    ],
+    "terrainBuild": {
+      "version": "STARTUP-005",
+      "timeOrigin": 1791088882738,
+      "sampledAt": 25714.5,
+      "pipeline": {
+        "running": null,
+        "queued": [],
+        "active": true,
+        "disposed": false,
+        "ready": [
+          "far",
+          "medium",
+          "close"
+        ],
+        "failed": [],
+        "id": 1,
+        "lods": {
+          "far": {
+            "status": "complete",
+            "queuedAt": 176.70000000018626,
+            "selectedAt": 176.90000000037253,
+            "startedAt": 177.70000000018626,
+            "finishedAt": 1886.1000000005588
+          },
+          "medium": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 1887.5,
+            "startedAt": 1947.300000000745,
+            "finishedAt": 7137.5
+          },
+          "close": {
+            "status": "complete",
+            "queuedAt": 1887.5,
+            "selectedAt": 7137.5,
+            "startedAt": 7138.600000000559,
+            "finishedAt": 24963
+          }
+        },
+        "updatedAt": 24963
+      },
+      "camera": {
+        "viewportWidth": 1302,
+        "viewportHeight": 607,
+        "dpr": 2.125,
+        "minZoom": 1,
+        "maxZoom": 2.7,
+        "zoom": 2.7,
+        "usableWidth": 1278,
+        "viewBoxWidth": 2540.568553208356,
+        "screenHexWidth": 98.80379310374572,
+        "requestedLod": "close",
+        "mountedLod": "close"
+      },
+      "active": [],
+      "recent": [
+        {
+          "id": 19,
+          "lod": "medium",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 7001.600000000559,
+          "updatedAt": 7082.600000000559,
+          "lastAdvancedAt": 7082.600000000559,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 48.90000000037253,
+          "maxSliceMs": 7.2999999998137355
+        },
+        {
+          "id": 20,
+          "lod": "medium",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 7082.600000000559,
+          "updatedAt": 7093.100000000559,
+          "lastAdvancedAt": 7093.100000000559,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.6000000005587935,
+          "maxSliceMs": 5.6000000005587935
+        },
+        {
+          "id": 21,
+          "lod": "close",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 7189.300000000745,
+          "updatedAt": 7195.200000000186,
+          "lastAdvancedAt": 7195.200000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 5.2000000001862645,
+          "maxSliceMs": 5.2000000001862645
+        },
+        {
+          "id": 22,
+          "lod": "close",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "complete",
+          "startedAt": 7195.300000000745,
+          "updatedAt": 23672.900000000373,
+          "lastAdvancedAt": 23672.900000000373,
+          "steps": 2003774,
+          "yields": 1543,
+          "workMs": 9264.900000000373,
+          "maxSliceMs": 6.2000000001862645
+        },
+        {
+          "id": 23,
+          "lod": "close",
+          "stage": "raster-canvas-write",
+          "state": "complete",
+          "startedAt": 23673,
+          "updatedAt": 23690,
+          "lastAdvancedAt": 23690,
+          "steps": 73,
+          "yields": 1,
+          "workMs": 7.699999999254942,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 24,
+          "lod": "close",
+          "stage": "terrain-details-plan",
+          "state": "complete",
+          "startedAt": 23690,
+          "updatedAt": 23740.300000000745,
+          "lastAdvancedAt": 23740.300000000745,
+          "steps": 613,
+          "yields": 4,
+          "workMs": 24.700000000186265,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 25,
+          "lod": "close",
+          "stage": "raster-canvas-compose",
+          "state": "complete",
+          "startedAt": 23740.300000000745,
+          "updatedAt": 23746.10000000056,
+          "lastAdvancedAt": 23746.10000000056,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 1.5,
+          "maxSliceMs": 1.5
+        },
+        {
+          "id": 26,
+          "lod": "close",
+          "stage": "forest-coverage-canvas",
+          "state": "complete",
+          "startedAt": 23786.700000000186,
+          "updatedAt": 24557.900000000373,
+          "lastAdvancedAt": 24557.900000000373,
+          "steps": 91833,
+          "yields": 73,
+          "workMs": 443.40000000037253,
+          "maxSliceMs": 6.1000000005587935
+        },
+        {
+          "id": 27,
+          "lod": "close",
+          "stage": "forest-canvas-compose",
+          "state": "complete",
+          "startedAt": 24557.900000000373,
+          "updatedAt": 24563.700000000186,
+          "lastAdvancedAt": 24563.700000000186,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 0,
+          "maxSliceMs": 0
+        },
+        {
+          "id": 28,
+          "lod": "close",
+          "stage": "planVS2CityClusters",
+          "state": "complete",
+          "startedAt": 24563.800000000745,
+          "updatedAt": 24836.200000000186,
+          "lastAdvancedAt": 24836.200000000186,
+          "steps": 327,
+          "yields": 22,
+          "workMs": 145.40000000223517,
+          "maxSliceMs": 7.7999999998137355
+        },
+        {
+          "id": 29,
+          "lod": "close",
+          "stage": "planVS2CityBlocks",
+          "state": "complete",
+          "startedAt": 24836.200000000186,
+          "updatedAt": 24920,
+          "lastAdvancedAt": 24920,
+          "steps": 30,
+          "yields": 6,
+          "workMs": 49.200000000186265,
+          "maxSliceMs": 8.299999999813735
+        },
+        {
+          "id": 30,
+          "lod": "close",
+          "stage": "planVS2CityCourts",
+          "state": "complete",
+          "startedAt": 24920,
+          "updatedAt": 24929.800000000745,
+          "lastAdvancedAt": 24929.800000000745,
+          "steps": 102,
+          "yields": 0,
+          "workMs": 5.1000000005587935,
+          "maxSliceMs": 5.1000000005587935
+        }
+      ],
+      "limits": {
+        "pipelines": 1,
+        "activeWorkRecords": 4,
+        "completedWorkRecords": 12
+      },
+      "meaning": "steps count generator resumptions, not pixels; sampledAt versus lastAdvancedAt distinguishes observed advancement. A stalled JS thread cannot export a live report. Pipeline.active=false means paused; yielding includes browser scheduling delay."
+    },
+    "boundaries": [
+      "online is a browser hint, not proof of resource reachability",
+      "imageJobs tracks loader jobs, not browser network connections",
+      "abortRequested does not prove the network stack cancelled the transfer",
+      "image events include transfer and decode; fetch headers/body and decoder attempts are recorded separately",
+      "no room, token, full URL, game state or private device storage is exported"
+    ]
+  },
+  "current": {
+    "canvas": true,
+    "width": 2541,
+    "height": 2294,
+    "lod": "close",
+    "zoom": "2.70",
+    "panelExpanded": "false",
+    "transform": "transform: translate(0px, 0px) scale(2.7); transform-origin: 50% 50%;"
+  },
+  "buildTimings": [
+    {
+      "stage": "projection",
+      "elapsedMs": 8.199999999254942,
+      "workMs": 6.7999999998137355,
+      "maxSliceMs": 6.7999999998137355,
+      "yields": 0,
+      "at": 246
+    },
+    {
+      "stage": "rasterizeVS2WorldSurface",
+      "elapsedMs": 1075.5999999996275,
+      "workMs": 612.6999999992549,
+      "maxSliceMs": 6.099999999627471,
+      "yields": 102,
+      "at": 1321.7
+    },
+    {
+      "stage": "raster-canvas-write",
+      "elapsedMs": 6.2000000001862645,
+      "workMs": 0.7000000001862645,
+      "maxSliceMs": 0.7000000001862645,
+      "yields": 0,
+      "at": 1327.9
+    },
+    {
+      "stage": "terrain-details-plan",
+      "elapsedMs": 52.700000000186265,
+      "workMs": 27,
+      "maxSliceMs": 6.099999999627471,
+      "yields": 4,
+      "at": 1380.8
+    },
+    {
+      "stage": "raster-canvas-compose",
+      "elapsedMs": 6.199999999254942,
+      "workMs": 1.8999999994412065,
+      "maxSliceMs": 1.8999999994412065,
+      "yields": 0,
+      "at": 1387
+    },
+    {
+      "stage": "forest-coverage-canvas",
+      "elapsedMs": 36.799999999813735,
+      "workMs": 34.299999999813735,
+      "maxSliceMs": 6,
+      "yields": 5,
+      "at": 1476.7
+    },
+    {
+      "stage": "forest-canvas-compose",
+      "elapsedMs": 5,
+      "workMs": 0,
+      "maxSliceMs": 0,
+      "yields": 0,
+      "at": 1481.7
+    },
+    {
+      "stage": "planVS2CityClusters",
+      "elapsedMs": 289.30000000074506,
+      "workMs": 146.50000000093132,
+      "maxSliceMs": 7.099999999627471,
+      "yields": 23,
+      "at": 1771.3
+    },
+    {
+      "stage": "planVS2CityBlocks",
+      "elapsedMs": 80.20000000018626,
+      "workMs": 49.40000000130385,
+      "maxSliceMs": 7.900000000372529,
+      "yields": 6,
+      "at": 1851.8
+    },
+    {
+      "stage": "planVS2CityCourts",
+      "elapsedMs": 16.90000000037253,
+      "workMs": 7.7000000001862645,
+      "maxSliceMs": 6.099999999627471,
+      "yields": 1,
+      "at": 1868.8
+    },
+    {
+      "stage": "projection",
+      "elapsedMs": 5.800000000745058,
+      "workMs": 5,
+      "maxSliceMs": 5,
+      "yields": 0,
+      "at": 2042.3
+    },
+    {
+      "stage": "rasterizeVS2WorldSurface",
+      "elapsedMs": 4370.0999999996275,
+      "workMs": 2365.7999999998137,
+      "maxSliceMs": 6.1000000005587935,
+      "yields": 394,
+      "at": 6412.5
+    },
+    {
+      "stage": "raster-canvas-write",
+      "elapsedMs": 7,
+      "workMs": 2.2000000001862645,
+      "maxSliceMs": 2.2000000001862645,
+      "yields": 0,
+      "at": 6419.6
+    },
+    {
+      "stage": "terrain-details-plan",
+      "elapsedMs": 49.200000000186265,
+      "workMs": 26.5,
+      "maxSliceMs": 6,
+      "yields": 4,
+      "at": 6468.8
+    },
+    {
+      "stage": "raster-canvas-compose",
+      "elapsedMs": 6.3999999994412065,
+      "workMs": 1.3999999994412065,
+      "maxSliceMs": 1.3999999994412065,
+      "yields": 0,
+      "at": 6475.2
+    },
+    {
+      "stage": "forest-coverage-canvas",
+      "elapsedMs": 189.09999999962747,
+      "workMs": 117.29999999981374,
+      "maxSliceMs": 6,
+      "yields": 19,
+      "at": 6714.7
+    },
+    {
+      "stage": "forest-canvas-compose",
+      "elapsedMs": 4.5,
+      "workMs": 0.09999999962747097,
+      "maxSliceMs": 0.09999999962747097,
+      "yields": 0,
+      "at": 6719.2
+    },
+    {
+      "stage": "planVS2CityClusters",
+      "elapsedMs": 282.29999999981374,
+      "workMs": 146.40000000130385,
+      "maxSliceMs": 7.400000000372529,
+      "yields": 22,
+      "at": 7001.6
+    },
+    {
+      "stage": "planVS2CityBlocks",
+      "elapsedMs": 81,
+      "workMs": 48.90000000037253,
+      "maxSliceMs": 7.2999999998137355,
+      "yields": 6,
+      "at": 7082.6
+    },
+    {
+      "stage": "planVS2CityCourts",
+      "elapsedMs": 10.5,
+      "workMs": 5.6000000005587935,
+      "maxSliceMs": 5.6000000005587935,
+      "yields": 0,
+      "at": 7093.1
+    },
+    {
+      "stage": "projection",
+      "elapsedMs": 6,
+      "workMs": 5.2000000001862645,
+      "maxSliceMs": 5.2000000001862645,
+      "yields": 0,
+      "at": 7195.3
+    },
+    {
+      "stage": "rasterizeVS2WorldSurface",
+      "elapsedMs": 16477.599999999627,
+      "workMs": 9264.900000000373,
+      "maxSliceMs": 6.2000000001862645,
+      "yields": 1543,
+      "at": 23672.9
+    },
+    {
+      "stage": "raster-canvas-write",
+      "elapsedMs": 17,
+      "workMs": 7.699999999254942,
+      "maxSliceMs": 6,
+      "yields": 1,
+      "at": 23690
+    },
+    {
+      "stage": "terrain-details-plan",
+      "elapsedMs": 50.30000000074506,
+      "workMs": 24.700000000186265,
+      "maxSliceMs": 6,
+      "yields": 4,
+      "at": 23740.3
+    },
+    {
+      "stage": "raster-canvas-compose",
+      "elapsedMs": 5.7999999998137355,
+      "workMs": 1.5,
+      "maxSliceMs": 1.5,
+      "yields": 0,
+      "at": 23746.1
+    },
+    {
+      "stage": "forest-coverage-canvas",
+      "elapsedMs": 771.2000000001863,
+      "workMs": 443.40000000037253,
+      "maxSliceMs": 6.1000000005587935,
+      "yields": 73,
+      "at": 24557.9
+    },
+    {
+      "stage": "forest-canvas-compose",
+      "elapsedMs": 5.7999999998137355,
+      "workMs": 0,
+      "maxSliceMs": 0,
+      "yields": 0,
+      "at": 24563.7
+    },
+    {
+      "stage": "planVS2CityClusters",
+      "elapsedMs": 272.3999999994412,
+      "workMs": 145.40000000223517,
+      "maxSliceMs": 7.7999999998137355,
+      "yields": 22,
+      "at": 24836.2
+    },
+    {
+      "stage": "planVS2CityBlocks",
+      "elapsedMs": 83.79999999981374,
+      "workMs": 49.200000000186265,
+      "maxSliceMs": 8.299999999813735,
+      "yields": 6,
+      "at": 24920
+    },
+    {
+      "stage": "planVS2CityCourts",
+      "elapsedMs": 9.900000000372529,
+      "workMs": 5.1000000005587935,
+      "maxSliceMs": 5.1000000005587935,
+      "yields": 0,
+      "at": 24929.9
+    }
+  ],
+  "resources": [
+    {
+      "path": "/r1/styles.css",
+      "recovery": false,
+      "start": 9.5,
+      "responseEnd": 11.200000000186265,
+      "duration": 1.7000000001862645,
+      "transferSize": 58193,
+      "encodedBodySize": 57893,
+      "decodedBodySize": 57893
+    },
+    {
+      "path": "/r1/app/web/startupShell.js",
+      "recovery": false,
+      "start": 9.5,
+      "responseEnd": 12.100000000558794,
+      "duration": 2.6000000005587935,
+      "transferSize": 1068,
+      "encodedBodySize": 768,
+      "decodedBodySize": 768
+    },
+    {
+      "path": "/r1/app/main.js",
+      "recovery": false,
+      "start": 9.600000000558794,
+      "responseEnd": 12.300000000745058,
+      "duration": 2.7000000001862645,
+      "transferSize": 78781,
+      "encodedBodySize": 78481,
+      "decodedBodySize": 78481
+    },
+    {
+      "path": "/r1/app/localization/languageControl.js",
+      "recovery": false,
+      "start": 19.40000000037253,
+      "responseEnd": 20.700000000186265,
+      "duration": 1.2999999998137355,
+      "transferSize": 1829,
+      "encodedBodySize": 1529,
+      "decodedBodySize": 1529
+    },
+    {
+      "path": "/r1/app/web/startupView.js",
+      "recovery": false,
+      "start": 19.5,
+      "responseEnd": 21.600000000558794,
+      "duration": 2.1000000005587935,
+      "transferSize": 2964,
+      "encodedBodySize": 2664,
+      "decodedBodySize": 2664
+    },
+    {
+      "path": "/r1/app/web/startupProgress.js",
+      "recovery": false,
+      "start": 19.5,
+      "responseEnd": 21.5,
+      "duration": 2,
+      "transferSize": 2383,
+      "encodedBodySize": 2083,
+      "decodedBodySize": 2083
+    },
+    {
+      "path": "/r1/app/ui/combatResult.js",
+      "recovery": false,
+      "start": 19.5,
+      "responseEnd": 22.200000000186265,
+      "duration": 2.7000000001862645,
+      "transferSize": 9442,
+      "encodedBodySize": 9142,
+      "decodedBodySize": 9142
+    },
+    {
+      "path": "/r1/app/experimental/supplyClient.js",
+      "recovery": false,
+      "start": 19.5,
+      "responseEnd": 21.800000000745058,
+      "duration": 2.300000000745058,
+      "transferSize": 8353,
+      "encodedBodySize": 8053,
+      "decodedBodySize": 8053
+    },
+    {
+      "path": "/r1/app/web/startupDiagnostics.js",
+      "recovery": false,
+      "start": 19.5,
+      "responseEnd": 22.300000000745058,
+      "duration": 2.800000000745058,
+      "transferSize": 5316,
+      "encodedBodySize": 5016,
+      "decodedBodySize": 5016
+    },
+    {
+      "path": "/r1/app/render/progressiveTerrain.js",
+      "recovery": false,
+      "start": 19.600000000558794,
+      "responseEnd": 22.800000000745058,
+      "duration": 3.2000000001862645,
+      "transferSize": 5351,
+      "encodedBodySize": 5051,
+      "decodedBodySize": 5051
+    },
+    {
+      "path": "/r1/app/multiplayer/networkSession.js",
+      "recovery": false,
+      "start": 19.600000000558794,
+      "responseEnd": 23.200000000186265,
+      "duration": 3.599999999627471,
+      "transferSize": 19077,
+      "encodedBodySize": 18777,
+      "decodedBodySize": 18777
+    },
+    {
+      "path": "/r1/app/multiplayer/pendingFeedback.js",
+      "recovery": false,
+      "start": 19.700000000186265,
+      "responseEnd": 23.5,
+      "duration": 3.7999999998137355,
+      "transferSize": 2769,
+      "encodedBodySize": 2469,
+      "decodedBodySize": 2469
+    },
+    {
+      "path": "/r1/app/multiplayer/playerSession.js",
+      "recovery": false,
+      "start": 19.700000000186265,
+      "responseEnd": 24,
+      "duration": 4.2999999998137355,
+      "transferSize": 6507,
+      "encodedBodySize": 6207,
+      "decodedBodySize": 6207
+    },
+    {
+      "path": "/r1/app/multiplayer/catalog.js",
+      "recovery": false,
+      "start": 19.700000000186265,
+      "responseEnd": 23.600000000558794,
+      "duration": 3.900000000372529,
+      "transferSize": 7630,
+      "encodedBodySize": 7330,
+      "decodedBodySize": 7330
+    },
+    {
+      "path": "/r1/app/multiplayer/lobby.js",
+      "recovery": false,
+      "start": 19.800000000745058,
+      "responseEnd": 24.300000000745058,
+      "duration": 4.5,
+      "transferSize": 9043,
+      "encodedBodySize": 8743,
+      "decodedBodySize": 8743
+    },
+    {
+      "path": "/r1/app/render/dynamicMap.js",
+      "recovery": false,
+      "start": 19.800000000745058,
+      "responseEnd": 24.700000000186265,
+      "duration": 4.8999999994412065,
+      "transferSize": 7575,
+      "encodedBodySize": 7275,
+      "decodedBodySize": 7275
+    },
+    {
+      "path": "/r1/app/ui/deploymentPanelRenderer.js",
+      "recovery": false,
+      "start": 19.800000000745058,
+      "responseEnd": 24.800000000745058,
+      "duration": 5,
+      "transferSize": 6379,
+      "encodedBodySize": 6079,
+      "decodedBodySize": 6079
+    },
+    {
+      "path": "/r1/app/ui/modelControls.js",
+      "recovery": false,
+      "start": 19.90000000037253,
+      "responseEnd": 25.100000000558794,
+      "duration": 5.2000000001862645,
+      "transferSize": 1017,
+      "encodedBodySize": 717,
+      "decodedBodySize": 717
+    },
+    {
+      "path": "/r1/app/fog/runtime.js",
+      "recovery": false,
+      "start": 19.90000000037253,
+      "responseEnd": 26.800000000745058,
+      "duration": 6.900000000372529,
+      "transferSize": 4784,
+      "encodedBodySize": 4484,
+      "decodedBodySize": 4484
+    },
+    {
+      "path": "/r1/app/render/terrainLoadProgress.js",
+      "recovery": false,
+      "start": 19.90000000037253,
+      "responseEnd": 26.700000000186265,
+      "duration": 6.7999999998137355,
+      "transferSize": 788,
+      "encodedBodySize": 488,
+      "decodedBodySize": 488
+    },
+    {
+      "path": "/r1/app/ui/animationControls.js",
+      "recovery": false,
+      "start": 19.90000000037253,
+      "responseEnd": 27.200000000186265,
+      "duration": 7.2999999998137355,
+      "transferSize": 1191,
+      "encodedBodySize": 891,
+      "decodedBodySize": 891
+    },
+    {
+      "path": "/r1/app/presentation/runtime.js",
+      "recovery": false,
+      "start": 19.90000000037253,
+      "responseEnd": 27,
+      "duration": 7.099999999627471,
+      "transferSize": 3225,
+      "encodedBodySize": 2925,
+      "decodedBodySize": 2925
+    },
+    {
+      "path": "/r1/app/localization/issues.js",
+      "recovery": false,
+      "start": 20,
+      "responseEnd": 27.40000000037253,
+      "duration": 7.400000000372529,
+      "transferSize": 6321,
+      "encodedBodySize": 6021,
+      "decodedBodySize": 6021
+    },
+    {
+      "path": "/r1/app/ui/combatAttackPanel.js",
+      "recovery": false,
+      "start": 20,
+      "responseEnd": 28.200000000186265,
+      "duration": 8.200000000186265,
+      "transferSize": 6019,
+      "encodedBodySize": 5719,
+      "decodedBodySize": 5719
+    },
+    {
+      "path": "/r1/app/localization/index.js",
+      "recovery": false,
+      "start": 20,
+      "responseEnd": 27.800000000745058,
+      "duration": 7.800000000745058,
+      "transferSize": 3036,
+      "encodedBodySize": 2736,
+      "decodedBodySize": 2736
+    },
+    {
+      "path": "/r1/app/ui/deploymentPolish.js",
+      "recovery": false,
+      "start": 20.100000000558794,
+      "responseEnd": 28.300000000745058,
+      "duration": 8.200000000186265,
+      "transferSize": 1673,
+      "encodedBodySize": 1373,
+      "decodedBodySize": 1373
+    },
+    {
+      "path": "/r1/app/ui/deploymentTouch.js",
+      "recovery": false,
+      "start": 20.100000000558794,
+      "responseEnd": 28.600000000558794,
+      "duration": 8.5,
+      "transferSize": 1711,
+      "encodedBodySize": 1411,
+      "decodedBodySize": 1411
+    },
+    {
+      "path": "/r1/app/ui/commandPresentation.js",
+      "recovery": false,
+      "start": 20.100000000558794,
+      "responseEnd": 29.100000000558794,
+      "duration": 9,
+      "transferSize": 4570,
+      "encodedBodySize": 4270,
+      "decodedBodySize": 4270
+    },
+    {
+      "path": "/r1/app/core-adapter/core.js",
+      "recovery": false,
+      "start": 20.100000000558794,
+      "responseEnd": 29.40000000037253,
+      "duration": 9.299999999813735,
+      "transferSize": 1584,
+      "encodedBodySize": 1284,
+      "decodedBodySize": 1284
+    },
+    {
+      "path": "/r1/app/core-adapter/session.js",
+      "recovery": false,
+      "start": 20.100000000558794,
+      "responseEnd": 29.600000000558794,
+      "duration": 9.5,
+      "transferSize": 6056,
+      "encodedBodySize": 5756,
+      "decodedBodySize": 5756
+    },
+    {
+      "path": "/r1/app/render/coreModel.js",
+      "recovery": false,
+      "start": 20.200000000186265,
+      "responseEnd": 29.90000000037253,
+      "duration": 9.700000000186265,
+      "transferSize": 524,
+      "encodedBodySize": 224,
+      "decodedBodySize": 224
+    },
+    {
+      "path": "/r1/app/render/terrainAssets.js",
+      "recovery": false,
+      "start": 20.200000000186265,
+      "responseEnd": 30.5,
+      "duration": 10.299999999813735,
+      "transferSize": 2115,
+      "encodedBodySize": 1815,
+      "decodedBodySize": 1815
+    },
+    {
+      "path": "/r1/app/render/coreSvg.js",
+      "recovery": false,
+      "start": 20.200000000186265,
+      "responseEnd": 30.200000000186265,
+      "duration": 10,
+      "transferSize": 24040,
+      "encodedBodySize": 23740,
+      "decodedBodySize": 23740
+    },
+    {
+      "path": "/r1/app/geometry/hex.js",
+      "recovery": false,
+      "start": 20.200000000186265,
+      "responseEnd": 31,
+      "duration": 10.799999999813735,
+      "transferSize": 3761,
+      "encodedBodySize": 3461,
+      "decodedBodySize": 3461
+    },
+    {
+      "path": "/r1/app/render/terrainSurface.js",
+      "recovery": false,
+      "start": 20.200000000186265,
+      "responseEnd": 30.700000000186265,
+      "duration": 10.5,
+      "transferSize": 43856,
+      "encodedBodySize": 43556,
+      "decodedBodySize": 43556
+    },
+    {
+      "path": "/r1/app/render/terrainBuildDiagnostics.js",
+      "recovery": false,
+      "start": 20.300000000745058,
+      "responseEnd": 31.200000000186265,
+      "duration": 10.899999999441206,
+      "transferSize": 2989,
+      "encodedBodySize": 2689,
+      "decodedBodySize": 2689
+    },
+    {
+      "path": "/r1/app/state/presentation.js",
+      "recovery": false,
+      "start": 20.40000000037253,
+      "responseEnd": 31.800000000745058,
+      "duration": 11.400000000372529,
+      "transferSize": 1883,
+      "encodedBodySize": 1583,
+      "decodedBodySize": 1583
+    },
+    {
+      "path": "/r1/app/web/preview.js",
+      "recovery": false,
+      "start": 20.40000000037253,
+      "responseEnd": 32,
+      "duration": 11.599999999627471,
+      "transferSize": 7289,
+      "encodedBodySize": 6989,
+      "decodedBodySize": 6989
+    },
+    {
+      "path": "/r1/app/web/mapInteraction.js",
+      "recovery": false,
+      "start": 20.40000000037253,
+      "responseEnd": 32.200000000186265,
+      "duration": 11.799999999813735,
+      "transferSize": 3398,
+      "encodedBodySize": 3098,
+      "decodedBodySize": 3098
+    },
+    {
+      "path": "/r1/app/multiplayer/battleSummary.js",
+      "recovery": false,
+      "start": 37.80000000074506,
+      "responseEnd": 38.90000000037253,
+      "duration": 1.099999999627471,
+      "transferSize": 2247,
+      "encodedBodySize": 1947,
+      "decodedBodySize": 1947
+    },
+    {
+      "path": "/r1/app/presentation/transitionBus.js",
+      "recovery": false,
+      "start": 37.80000000074506,
+      "responseEnd": 39.200000000186265,
+      "duration": 1.3999999994412065,
+      "transferSize": 1810,
+      "encodedBodySize": 1510,
+      "decodedBodySize": 1510
+    },
+    {
+      "path": "/r1/app/multiplayer/protocol.js",
+      "recovery": false,
+      "start": 37.80000000074506,
+      "responseEnd": 39.700000000186265,
+      "duration": 1.8999999994412065,
+      "transferSize": 3522,
+      "encodedBodySize": 3222,
+      "decodedBodySize": 3222
+    },
+    {
+      "path": "/r1/app/multiplayer/config.js",
+      "recovery": false,
+      "start": 37.90000000037253,
+      "responseEnd": 39.90000000037253,
+      "duration": 2,
+      "transferSize": 1172,
+      "encodedBodySize": 872,
+      "decodedBodySize": 872
+    },
+    {
+      "path": "/r1/app/render/terrainWork.js",
+      "recovery": false,
+      "start": 37.90000000037253,
+      "responseEnd": 39.80000000074506,
+      "duration": 1.900000000372529,
+      "transferSize": 2748,
+      "encodedBodySize": 2448,
+      "decodedBodySize": 2448
+    },
+    {
+      "path": "/r1/app/multiplayer/actionCompletion.js",
+      "recovery": false,
+      "start": 37.90000000037253,
+      "responseEnd": 40.40000000037253,
+      "duration": 2.5,
+      "transferSize": 2914,
+      "encodedBodySize": 2614,
+      "decodedBodySize": 2614
+    },
+    {
+      "path": "/r1/app/multiplayer/pendingAction.js",
+      "recovery": false,
+      "start": 37.90000000037253,
+      "responseEnd": 40.200000000186265,
+      "duration": 2.2999999998137355,
+      "transferSize": 2587,
+      "encodedBodySize": 2287,
+      "decodedBodySize": 2287
+    },
+    {
+      "path": "/r1/app/multiplayer/diagnosticTiming.js",
+      "recovery": false,
+      "start": 37.90000000037253,
+      "responseEnd": 40.60000000055879,
+      "duration": 2.7000000001862645,
+      "transferSize": 1165,
+      "encodedBodySize": 865,
+      "decodedBodySize": 865
+    },
+    {
+      "path": "/r1/app/multiplayer/gameplayProtocol.js",
+      "recovery": false,
+      "start": 38,
+      "responseEnd": 40.90000000037253,
+      "duration": 2.900000000372529,
+      "transferSize": 5042,
+      "encodedBodySize": 4742,
+      "decodedBodySize": 4742
+    },
+    {
+      "path": "/r1/app/interaction/combatFlow.js",
+      "recovery": false,
+      "start": 38.10000000055879,
+      "responseEnd": 41.80000000074506,
+      "duration": 3.7000000001862645,
+      "transferSize": 13175,
+      "encodedBodySize": 12875,
+      "decodedBodySize": 12875
+    },
+    {
+      "path": "/r1/app/interaction/intents.js",
+      "recovery": false,
+      "start": 38.10000000055879,
+      "responseEnd": 41.30000000074506,
+      "duration": 3.2000000001862645,
+      "transferSize": 31537,
+      "encodedBodySize": 31237,
+      "decodedBodySize": 31237
+    },
+    {
+      "path": "/r1/app/multiplayer/networkIntents.js",
+      "recovery": false,
+      "start": 38.10000000055879,
+      "responseEnd": 41.90000000037253,
+      "duration": 3.7999999998137355,
+      "transferSize": 9386,
+      "encodedBodySize": 9086,
+      "decodedBodySize": 9086
+    },
+    {
+      "path": "/r1/app/presentation/modelDisplay.js",
+      "recovery": false,
+      "start": 38.10000000055879,
+      "responseEnd": 42.5,
+      "duration": 4.3999999994412065,
+      "transferSize": 654,
+      "encodedBodySize": 354,
+      "decodedBodySize": 354
+    },
+    {
+      "path": "/r1/app/core-adapter/browserProjection.js",
+      "recovery": false,
+      "start": 38.10000000055879,
+      "responseEnd": 42,
+      "duration": 3.8999999994412065,
+      "transferSize": 18877,
+      "encodedBodySize": 18577,
+      "decodedBodySize": 18577
+    },
+    {
+      "path": "/r1/app/multiplayer/client.js",
+      "recovery": false,
+      "start": 38.10000000055879,
+      "responseEnd": 42.200000000186265,
+      "duration": 4.099999999627471,
+      "transferSize": 16169,
+      "encodedBodySize": 15869,
+      "decodedBodySize": 15869
+    },
+    {
+      "path": "/r1/app/fog/surface.js",
+      "recovery": false,
+      "start": 38.200000000186265,
+      "responseEnd": 42.60000000055879,
+      "duration": 4.400000000372529,
+      "transferSize": 7529,
+      "encodedBodySize": 7229,
+      "decodedBodySize": 7229
+    },
+    {
+      "path": "/r1/app/presentation/coordinator.js",
+      "recovery": false,
+      "start": 38.200000000186265,
+      "responseEnd": 42.80000000074506,
+      "duration": 4.6000000005587935,
+      "transferSize": 10172,
+      "encodedBodySize": 9872,
+      "decodedBodySize": 9872
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/index.js",
+      "recovery": false,
+      "start": 38.30000000074506,
+      "responseEnd": 44.5,
+      "duration": 6.199999999254942,
+      "transferSize": 1655,
+      "encodedBodySize": 1355,
+      "decodedBodySize": 1355
+    },
+    {
+      "path": "/r1/app/presentation/svgUnits.js",
+      "recovery": false,
+      "start": 38.30000000074506,
+      "responseEnd": 43.200000000186265,
+      "duration": 4.8999999994412065,
+      "transferSize": 15626,
+      "encodedBodySize": 15326,
+      "decodedBodySize": 15326
+    },
+    {
+      "path": "/r1/app/localization/enumKeys.js",
+      "recovery": false,
+      "start": 38.30000000074506,
+      "responseEnd": 44.200000000186265,
+      "duration": 5.8999999994412065,
+      "transferSize": 2954,
+      "encodedBodySize": 2654,
+      "decodedBodySize": 2654
+    },
+    {
+      "path": "/r1/app/localization/en-US.js",
+      "recovery": false,
+      "start": 38.30000000074506,
+      "responseEnd": 43.40000000037253,
+      "duration": 5.099999999627471,
+      "transferSize": 32989,
+      "encodedBodySize": 32689,
+      "decodedBodySize": 32689
+    },
+    {
+      "path": "/r1/app/localization/zh-CN.js",
+      "recovery": false,
+      "start": 38.30000000074506,
+      "responseEnd": 44,
+      "duration": 5.699999999254942,
+      "transferSize": 31805,
+      "encodedBodySize": 31505,
+      "decodedBodySize": 31505
+    },
+    {
+      "path": "/r1/app/player-view/playerView.js",
+      "recovery": false,
+      "start": 38.40000000037253,
+      "responseEnd": 44.700000000186265,
+      "duration": 6.2999999998137355,
+      "transferSize": 6060,
+      "encodedBodySize": 5760,
+      "decodedBodySize": 5760
+    },
+    {
+      "path": "/r1/app/player-view/presentationVisibility.js",
+      "recovery": false,
+      "start": 38.40000000037253,
+      "responseEnd": 44.90000000037253,
+      "duration": 6.5,
+      "transferSize": 1714,
+      "encodedBodySize": 1414,
+      "decodedBodySize": 1414
+    },
+    {
+      "path": "/r1/app/assets/p4r3-manifest.json",
+      "recovery": false,
+      "start": 38.5,
+      "responseEnd": 46.40000000037253,
+      "duration": 7.900000000372529,
+      "transferSize": 67945,
+      "encodedBodySize": 67645,
+      "decodedBodySize": 67645
+    },
+    {
+      "path": "/r1/app/render/compactUnitPlate.js",
+      "recovery": false,
+      "start": 38.5,
+      "responseEnd": 46.30000000074506,
+      "duration": 7.800000000745058,
+      "transferSize": 2257,
+      "encodedBodySize": 1957,
+      "decodedBodySize": 1957
+    },
+    {
+      "path": "/r1/app/render/contactMarkers.js",
+      "recovery": false,
+      "start": 38.60000000055879,
+      "responseEnd": 46.60000000055879,
+      "duration": 8,
+      "transferSize": 1895,
+      "encodedBodySize": 1595,
+      "decodedBodySize": 1595
+    },
+    {
+      "path": "/r1/app/render/derive.js",
+      "recovery": false,
+      "start": 38.60000000055879,
+      "responseEnd": 46.80000000074506,
+      "duration": 8.200000000186265,
+      "transferSize": 3177,
+      "encodedBodySize": 2877,
+      "decodedBodySize": 2877
+    },
+    {
+      "path": "/r1/app/render/productionTerrain.js",
+      "recovery": false,
+      "start": 38.60000000055879,
+      "responseEnd": 47,
+      "duration": 8.399999999441206,
+      "transferSize": 19620,
+      "encodedBodySize": 19320,
+      "decodedBodySize": 19320
+    },
+    {
+      "path": "/r1/app/presentation/events.js",
+      "recovery": false,
+      "start": 49.700000000186265,
+      "responseEnd": 50.60000000055879,
+      "duration": 0.900000000372529,
+      "transferSize": 6648,
+      "encodedBodySize": 6348,
+      "decodedBodySize": 6348
+    },
+    {
+      "path": "/r1/app/multiplayer/snapshotCodec.js",
+      "recovery": false,
+      "start": 50.30000000074506,
+      "responseEnd": 51.200000000186265,
+      "duration": 0.8999999994412065,
+      "transferSize": 12529,
+      "encodedBodySize": 12229,
+      "decodedBodySize": 12229
+    },
+    {
+      "path": "/r1/app/interaction/attackGroup.js",
+      "recovery": false,
+      "start": 51.30000000074506,
+      "responseEnd": 52.30000000074506,
+      "duration": 1,
+      "transferSize": 1983,
+      "encodedBodySize": 1683,
+      "decodedBodySize": 1683
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/config.js",
+      "recovery": false,
+      "start": 51.40000000037253,
+      "responseEnd": 53.10000000055879,
+      "duration": 1.7000000001862645,
+      "transferSize": 311,
+      "encodedBodySize": 11,
+      "decodedBodySize": 11
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/types.js",
+      "recovery": false,
+      "start": 51.40000000037253,
+      "responseEnd": 52.90000000037253,
+      "duration": 1.5,
+      "transferSize": 311,
+      "encodedBodySize": 11,
+      "decodedBodySize": 11
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/edge.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 53.200000000186265,
+      "duration": 1.7000000001862645,
+      "transferSize": 968,
+      "encodedBodySize": 668,
+      "decodedBodySize": 668
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/hex.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 53.10000000055879,
+      "duration": 1.6000000005587935,
+      "transferSize": 2553,
+      "encodedBodySize": 2253,
+      "decodedBodySize": 2253
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/collections.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 53.5,
+      "duration": 2,
+      "transferSize": 562,
+      "encodedBodySize": 262,
+      "decodedBodySize": 262
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/ownership.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 53.80000000074506,
+      "duration": 2.300000000745058,
+      "transferSize": 659,
+      "encodedBodySize": 359,
+      "decodedBodySize": 359
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/scenario/defaultScenario.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 54.60000000055879,
+      "duration": 3.1000000005587935,
+      "transferSize": 2968,
+      "encodedBodySize": 2668,
+      "decodedBodySize": 2668
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/random/SeededRNG.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 54.10000000055879,
+      "duration": 2.6000000005587935,
+      "transferSize": 1463,
+      "encodedBodySize": 1163,
+      "decodedBodySize": 1163
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/scenario/defaultRules.js",
+      "recovery": false,
+      "start": 51.5,
+      "responseEnd": 54.60000000055879,
+      "duration": 3.1000000005587935,
+      "transferSize": 8145,
+      "encodedBodySize": 7845,
+      "decodedBodySize": 7845
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/stacking.js",
+      "recovery": false,
+      "start": 51.60000000055879,
+      "responseEnd": 55.30000000074506,
+      "duration": 3.7000000001862645,
+      "transferSize": 1467,
+      "encodedBodySize": 1167,
+      "decodedBodySize": 1167
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/unit.js",
+      "recovery": false,
+      "start": 51.60000000055879,
+      "responseEnd": 54.90000000037253,
+      "duration": 3.2999999998137355,
+      "transferSize": 635,
+      "encodedBodySize": 335,
+      "decodedBodySize": 335
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/scenario/importLegacyFMap.js",
+      "recovery": false,
+      "start": 51.60000000055879,
+      "responseEnd": 54.80000000074506,
+      "duration": 3.2000000001862645,
+      "transferSize": 2662,
+      "encodedBodySize": 2362,
+      "decodedBodySize": 2362
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/zoc.js",
+      "recovery": false,
+      "start": 51.60000000055879,
+      "responseEnd": 55.60000000055879,
+      "duration": 4,
+      "transferSize": 1059,
+      "encodedBodySize": 759,
+      "decodedBodySize": 759
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/crt.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 56.200000000186265,
+      "duration": 4.5,
+      "transferSize": 2752,
+      "encodedBodySize": 2452,
+      "decodedBodySize": 2452
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/rail.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 57.40000000037253,
+      "duration": 5.7000000001862645,
+      "transferSize": 15723,
+      "encodedBodySize": 15423,
+      "decodedBodySize": 15423
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/combat.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 56.30000000074506,
+      "duration": 4.6000000005587935,
+      "transferSize": 13329,
+      "encodedBodySize": 13029,
+      "decodedBodySize": 13029
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/entrenchment.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 58.10000000055879,
+      "duration": 6.400000000372529,
+      "transferSize": 2030,
+      "encodedBodySize": 1730,
+      "decodedBodySize": 1730
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/movement.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 56,
+      "duration": 4.2999999998137355,
+      "transferSize": 8146,
+      "encodedBodySize": 7846,
+      "decodedBodySize": 7846
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/combatLoss.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 56.60000000055879,
+      "duration": 4.900000000372529,
+      "transferSize": 6208,
+      "encodedBodySize": 5908,
+      "decodedBodySize": 5908
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/supply.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 57.60000000055879,
+      "duration": 5.900000000372529,
+      "transferSize": 6818,
+      "encodedBodySize": 6518,
+      "decodedBodySize": 6518
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/turn.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 56.90000000037253,
+      "duration": 5.2000000001862645,
+      "transferSize": 4391,
+      "encodedBodySize": 4091,
+      "decodedBodySize": 4091
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/breakthrough.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 58.40000000037253,
+      "duration": 6.7000000001862645,
+      "transferSize": 7511,
+      "encodedBodySize": 7211,
+      "decodedBodySize": 7211
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/commitment.js",
+      "recovery": false,
+      "start": 51.700000000186265,
+      "responseEnd": 57.10000000055879,
+      "duration": 5.400000000372529,
+      "transferSize": 2400,
+      "encodedBodySize": 2100,
+      "decodedBodySize": 2100
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/recovery.js",
+      "recovery": false,
+      "start": 51.80000000074506,
+      "responseEnd": 58.700000000186265,
+      "duration": 6.8999999994412065,
+      "transferSize": 9300,
+      "encodedBodySize": 9000,
+      "decodedBodySize": 9000
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/hq.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 59.80000000074506,
+      "duration": 7.900000000372529,
+      "transferSize": 820,
+      "encodedBodySize": 520,
+      "decodedBodySize": 520
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/victory.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 59,
+      "duration": 7.099999999627471,
+      "transferSize": 5160,
+      "encodedBodySize": 4860,
+      "decodedBodySize": 4860
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/deployment.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 59.30000000074506,
+      "duration": 7.400000000372529,
+      "transferSize": 8677,
+      "encodedBodySize": 8377,
+      "decodedBodySize": 8377
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/reinforcement.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 59.30000000074506,
+      "duration": 7.400000000372529,
+      "transferSize": 10638,
+      "encodedBodySize": 10338,
+      "decodedBodySize": 10338
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/retreat.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 59.700000000186265,
+      "duration": 7.7999999998137355,
+      "transferSize": 4040,
+      "encodedBodySize": 3740,
+      "decodedBodySize": 3740
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/state.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 60,
+      "duration": 8.099999999627471,
+      "transferSize": 4567,
+      "encodedBodySize": 4267,
+      "decodedBodySize": 4267
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/identity.js",
+      "recovery": false,
+      "start": 51.90000000037253,
+      "responseEnd": 60.60000000055879,
+      "duration": 8.700000000186265,
+      "transferSize": 4361,
+      "encodedBodySize": 4061,
+      "decodedBodySize": 4061
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/transactionGuard.js",
+      "recovery": false,
+      "start": 52,
+      "responseEnd": 61,
+      "duration": 9,
+      "transferSize": 2257,
+      "encodedBodySize": 1957,
+      "decodedBodySize": 1957
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/integrity.js",
+      "recovery": false,
+      "start": 52,
+      "responseEnd": 61,
+      "duration": 9,
+      "transferSize": 50714,
+      "encodedBodySize": 50414,
+      "decodedBodySize": 50414
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/headless.js",
+      "recovery": false,
+      "start": 52,
+      "responseEnd": 61.80000000074506,
+      "duration": 9.800000000745058,
+      "transferSize": 6256,
+      "encodedBodySize": 5956,
+      "decodedBodySize": 5956
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/RulesEngine.js",
+      "recovery": false,
+      "start": 52,
+      "responseEnd": 61.700000000186265,
+      "duration": 9.700000000186265,
+      "transferSize": 23760,
+      "encodedBodySize": 23460,
+      "decodedBodySize": 23460
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/combatTransaction.js",
+      "recovery": false,
+      "start": 52,
+      "responseEnd": 62.60000000055879,
+      "duration": 10.600000000558794,
+      "transferSize": 45095,
+      "encodedBodySize": 44795,
+      "decodedBodySize": 44795
+    },
+    {
+      "path": "/r1/app/presentation/timing.js",
+      "recovery": false,
+      "start": 52.200000000186265,
+      "responseEnd": 62.90000000037253,
+      "duration": 10.700000000186265,
+      "transferSize": 658,
+      "encodedBodySize": 358,
+      "decodedBodySize": 358
+    },
+    {
+      "path": "/r1/app/presentation/motion.js",
+      "recovery": false,
+      "start": 52.200000000186265,
+      "responseEnd": 63,
+      "duration": 10.799999999813735,
+      "transferSize": 3065,
+      "encodedBodySize": 2765,
+      "decodedBodySize": 2765
+    },
+    {
+      "path": "/r1/app/presentation/unitPresence.js",
+      "recovery": false,
+      "start": 52.200000000186265,
+      "responseEnd": 63.30000000074506,
+      "duration": 11.100000000558794,
+      "transferSize": 12597,
+      "encodedBodySize": 12297,
+      "decodedBodySize": 12297
+    },
+    {
+      "path": "/r1/app/presentation/unitPresenceTypes.js",
+      "recovery": false,
+      "start": 52.30000000074506,
+      "responseEnd": 63.5,
+      "duration": 11.199999999254942,
+      "transferSize": 3003,
+      "encodedBodySize": 2703,
+      "decodedBodySize": 2703
+    },
+    {
+      "path": "/r1/app/multiplayer/mapEncoding.js",
+      "recovery": false,
+      "start": 54.60000000055879,
+      "responseEnd": 64,
+      "duration": 9.399999999441206,
+      "transferSize": 2050,
+      "encodedBodySize": 1750,
+      "decodedBodySize": 1750
+    },
+    {
+      "path": "/r1/app/presentation/unitPresenceSvg.js",
+      "recovery": false,
+      "start": 70.70000000018626,
+      "responseEnd": 72,
+      "duration": 1.2999999998137355,
+      "transferSize": 4876,
+      "encodedBodySize": 4576,
+      "decodedBodySize": 4576
+    },
+    {
+      "path": "/r1/multiplayer.css",
+      "recovery": false,
+      "start": 75.70000000018626,
+      "responseEnd": 77.5,
+      "duration": 1.7999999998137355,
+      "transferSize": 4392,
+      "encodedBodySize": 4092,
+      "decodedBodySize": 4092
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/reference/strategic-reset-f-map.json",
+      "recovery": false,
+      "start": 148.70000000018626,
+      "responseEnd": 151.20000000018626,
+      "duration": 2.5,
+      "transferSize": 50064,
+      "encodedBodySize": 49764,
+      "decodedBodySize": 49764
+    },
+    {
+      "path": "/r1/assets/terrain/p4r3/manifest.json",
+      "recovery": false,
+      "start": 148.80000000074506,
+      "responseEnd": 152.40000000037253,
+      "duration": 3.599999999627471,
+      "transferSize": 52093,
+      "encodedBodySize": 51793,
+      "decodedBodySize": 51793
+    },
+    {
+      "path": "/r1/app/render/vs2TerrainSurface.js",
+      "recovery": false,
+      "start": 165.40000000037253,
+      "responseEnd": 166.5,
+      "duration": 1.099999999627471,
+      "transferSize": 7014,
+      "encodedBodySize": 6714,
+      "decodedBodySize": 6714
+    },
+    {
+      "path": "/r1/app/render/terrainImagePipeline.js",
+      "recovery": false,
+      "start": 167.20000000018626,
+      "responseEnd": 168.90000000037253,
+      "duration": 1.7000000001862645,
+      "transferSize": 4516,
+      "encodedBodySize": 4216,
+      "decodedBodySize": 4216
+    },
+    {
+      "path": "/r1/app/render/vs2Infrastructure.js",
+      "recovery": false,
+      "start": 167.30000000074506,
+      "responseEnd": 169.70000000018626,
+      "duration": 2.3999999994412065,
+      "transferSize": 10306,
+      "encodedBodySize": 10006,
+      "decodedBodySize": 10006
+    },
+    {
+      "path": "/r1/app/render/vs2PlainTraces.js",
+      "recovery": false,
+      "start": 167.30000000074506,
+      "responseEnd": 169.80000000074506,
+      "duration": 2.5,
+      "transferSize": 9803,
+      "encodedBodySize": 9503,
+      "decodedBodySize": 9503
+    },
+    {
+      "path": "/r1/app/render/vs2ForestSurface.js",
+      "recovery": false,
+      "start": 167.30000000074506,
+      "responseEnd": 170.20000000018626,
+      "duration": 2.8999999994412065,
+      "transferSize": 6539,
+      "encodedBodySize": 6239,
+      "decodedBodySize": 6239
+    },
+    {
+      "path": "/r1/app/render/vs2Presentation.js",
+      "recovery": false,
+      "start": 167.30000000074506,
+      "responseEnd": 171.90000000037253,
+      "duration": 4.599999999627471,
+      "transferSize": 723,
+      "encodedBodySize": 423,
+      "decodedBodySize": 423
+    },
+    {
+      "path": "/r1/app/render/vs2WorldRaster.js",
+      "recovery": false,
+      "start": 167.40000000037253,
+      "responseEnd": 171.30000000074506,
+      "duration": 3.900000000372529,
+      "transferSize": 7717,
+      "encodedBodySize": 7417,
+      "decodedBodySize": 7417
+    },
+    {
+      "path": "/r1/app/render/vs2Projection.js",
+      "recovery": false,
+      "start": 167.40000000037253,
+      "responseEnd": 171,
+      "duration": 3.599999999627471,
+      "transferSize": 4990,
+      "encodedBodySize": 4690,
+      "decodedBodySize": 4690
+    },
+    {
+      "path": "/r1/app/render/vs2Assets.js",
+      "recovery": false,
+      "start": 167.40000000037253,
+      "responseEnd": 171.6000000005588,
+      "duration": 4.2000000001862645,
+      "transferSize": 1094,
+      "encodedBodySize": 794,
+      "decodedBodySize": 794
+    },
+    {
+      "path": "/r1/app/render/vs2CityClusters.js",
+      "recovery": false,
+      "start": 167.40000000037253,
+      "responseEnd": 172.30000000074506,
+      "duration": 4.900000000372529,
+      "transferSize": 15839,
+      "encodedBodySize": 15539,
+      "decodedBodySize": 15539
+    },
+    {
+      "path": "/r1/app/render/terrainDrawCommands.js",
+      "recovery": false,
+      "start": 172,
+      "responseEnd": 172.70000000018626,
+      "duration": 0.7000000001862645,
+      "transferSize": 1865,
+      "encodedBodySize": 1565,
+      "decodedBodySize": 1565
+    },
+    {
+      "path": "/r1/app/render/vs2TerrainDetail.js",
+      "recovery": false,
+      "start": 172,
+      "responseEnd": 172.90000000037253,
+      "duration": 0.900000000372529,
+      "transferSize": 2700,
+      "encodedBodySize": 2400,
+      "decodedBodySize": 2400
+    },
+    {
+      "path": "/r1/app/render/vs2WorldField.js",
+      "recovery": false,
+      "start": 172,
+      "responseEnd": 173.1000000005588,
+      "duration": 1.1000000005587935,
+      "transferSize": 6131,
+      "encodedBodySize": 5831,
+      "decodedBodySize": 5831
+    },
+    {
+      "path": "/r1/app/assets/VS2_ASSET_MANIFEST.json",
+      "recovery": false,
+      "start": 172.6000000005588,
+      "responseEnd": 174.5,
+      "duration": 1.8999999994412065,
+      "transferSize": 110781,
+      "encodedBodySize": 110481,
+      "decodedBodySize": 110481
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/grass.webp",
+      "recovery": false,
+      "start": 183,
+      "responseEnd": 186.30000000074506,
+      "duration": 3.300000000745058,
+      "transferSize": 450590,
+      "encodedBodySize": 450290,
+      "decodedBodySize": 450290
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/dry_soil.webp",
+      "recovery": false,
+      "start": 183,
+      "responseEnd": 187.30000000074506,
+      "duration": 4.300000000745058,
+      "transferSize": 443524,
+      "encodedBodySize": 443224,
+      "decodedBodySize": 443224
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/moist_soil.webp",
+      "recovery": false,
+      "start": 194.20000000018626,
+      "responseEnd": 196.6000000005588,
+      "duration": 2.400000000372529,
+      "transferSize": 460314,
+      "encodedBodySize": 460014,
+      "decodedBodySize": 460014
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/relief/slope_material.webp",
+      "recovery": false,
+      "start": 199.1000000005588,
+      "responseEnd": 201.90000000037253,
+      "duration": 2.7999999998137355,
+      "transferSize": 430502,
+      "encodedBodySize": 430202,
+      "decodedBodySize": 430202
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rough/broken_soil.webp",
+      "recovery": false,
+      "start": 206.1000000005588,
+      "responseEnd": 208.30000000074506,
+      "duration": 2.2000000001862645,
+      "transferSize": 463528,
+      "encodedBodySize": 463228,
+      "decodedBodySize": 463228
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/marsh/wet_ground.webp",
+      "recovery": false,
+      "start": 212.20000000018626,
+      "responseEnd": 215.1000000005588,
+      "duration": 2.900000000372529,
+      "transferSize": 563590,
+      "encodedBodySize": 563290,
+      "decodedBodySize": 563290
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/settlement_ground.webp",
+      "recovery": false,
+      "start": 218.80000000074506,
+      "responseEnd": 221.20000000018626,
+      "duration": 2.3999999994412065,
+      "transferSize": 442934,
+      "encodedBodySize": 442634,
+      "decodedBodySize": 442634
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/macro_value.png",
+      "recovery": false,
+      "start": 227.70000000018626,
+      "responseEnd": 229.30000000074506,
+      "duration": 1.6000000005587935,
+      "transferSize": 9915,
+      "encodedBodySize": 9615,
+      "decodedBodySize": 9615
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/gentle_shade.png",
+      "recovery": false,
+      "start": 234.30000000074506,
+      "responseEnd": 235.90000000037253,
+      "duration": 1.599999999627471,
+      "transferSize": 1031,
+      "encodedBodySize": 731,
+      "decodedBodySize": 731
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_branch.png",
+      "recovery": false,
+      "start": 1388.9000000003725,
+      "responseEnd": 1392.1000000005588,
+      "duration": 3.2000000001862645,
+      "transferSize": 129232,
+      "encodedBodySize": 128932,
+      "decodedBodySize": 128932
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_long.png",
+      "recovery": false,
+      "start": 1389,
+      "responseEnd": 1393,
+      "duration": 4,
+      "transferSize": 128492,
+      "encodedBodySize": 128192,
+      "decodedBodySize": 128192
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_fork.png",
+      "recovery": false,
+      "start": 1429.5,
+      "responseEnd": 1431.7000000001863,
+      "duration": 2.2000000001862645,
+      "transferSize": 140370,
+      "encodedBodySize": 140070,
+      "decodedBodySize": 140070
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_open.png",
+      "recovery": false,
+      "start": 1431.5,
+      "responseEnd": 1433.6000000005588,
+      "duration": 2.1000000005587935,
+      "transferSize": 148310,
+      "encodedBodySize": 148010,
+      "decodedBodySize": 148010
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_fragment.png",
+      "recovery": false,
+      "start": 1434.6000000005588,
+      "responseEnd": 1436,
+      "duration": 1.3999999994412065,
+      "transferSize": 112228,
+      "encodedBodySize": 111928,
+      "decodedBodySize": 111928
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_scatter.png",
+      "recovery": false,
+      "start": 1436,
+      "responseEnd": 1437.2000000001863,
+      "duration": 1.2000000001862645,
+      "transferSize": 104422,
+      "encodedBodySize": 104122,
+      "decodedBodySize": 104122
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/river/reuse_water_01.webp",
+      "recovery": false,
+      "start": 1871.2000000001863,
+      "responseEnd": 1873.9000000003725,
+      "duration": 2.7000000001862645,
+      "transferSize": 5006,
+      "encodedBodySize": 4706,
+      "decodedBodySize": 4706
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/road/reuse_ROAD_01.png",
+      "recovery": false,
+      "start": 1874.9000000003725,
+      "responseEnd": 1876.4000000003725,
+      "duration": 1.5,
+      "transferSize": 22227,
+      "encodedBodySize": 21927,
+      "decodedBodySize": 21927
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_BALLAST_01.png",
+      "recovery": false,
+      "start": 1880.300000000745,
+      "responseEnd": 1881.6000000005588,
+      "duration": 1.2999999998137355,
+      "transferSize": 22404,
+      "encodedBodySize": 22104,
+      "decodedBodySize": 22104
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/bridge/deck_material.webp",
+      "recovery": false,
+      "start": 1883.7000000001863,
+      "responseEnd": 1884.9000000003725,
+      "duration": 1.2000000001862645,
+      "transferSize": 77668,
+      "encodedBodySize": 77368,
+      "decodedBodySize": 77368
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/moist_soil.webp",
+      "recovery": false,
+      "start": 1986.4000000003725,
+      "responseEnd": 1987.1000000005588,
+      "duration": 0.7000000001862645,
+      "transferSize": 0,
+      "encodedBodySize": 460014,
+      "decodedBodySize": 460014
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/relief/slope_material.webp",
+      "recovery": false,
+      "start": 1987.1000000005588,
+      "responseEnd": 1987.6000000005588,
+      "duration": 0.5,
+      "transferSize": 0,
+      "encodedBodySize": 430202,
+      "decodedBodySize": 430202
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rough/broken_soil.webp",
+      "recovery": false,
+      "start": 2001.4000000003725,
+      "responseEnd": 2002.1000000005588,
+      "duration": 0.7000000001862645,
+      "transferSize": 0,
+      "encodedBodySize": 463228,
+      "decodedBodySize": 463228
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/marsh/wet_ground.webp",
+      "recovery": false,
+      "start": 2006.300000000745,
+      "responseEnd": 2007.2000000001863,
+      "duration": 0.8999999994412065,
+      "transferSize": 0,
+      "encodedBodySize": 563290,
+      "decodedBodySize": 563290
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/settlement_ground.webp",
+      "recovery": false,
+      "start": 2019.6000000005588,
+      "responseEnd": 2020.1000000005588,
+      "duration": 0.5,
+      "transferSize": 0,
+      "encodedBodySize": 442634,
+      "decodedBodySize": 442634
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/macro_value.png",
+      "recovery": false,
+      "start": 2025.4000000003725,
+      "responseEnd": 2025.800000000745,
+      "duration": 0.40000000037252903,
+      "transferSize": 0,
+      "encodedBodySize": 9615,
+      "decodedBodySize": 9615
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/gentle_shade.png",
+      "recovery": false,
+      "start": 2032.7000000001863,
+      "responseEnd": 2033,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 731,
+      "decodedBodySize": 731
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_branch.png",
+      "recovery": false,
+      "start": 6477.100000000559,
+      "responseEnd": 6477.9000000003725,
+      "duration": 0.7999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 128932,
+      "decodedBodySize": 128932
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_long.png",
+      "recovery": false,
+      "start": 6477.100000000559,
+      "responseEnd": 6478.200000000186,
+      "duration": 1.099999999627471,
+      "transferSize": 0,
+      "encodedBodySize": 128192,
+      "decodedBodySize": 128192
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_fork.png",
+      "recovery": false,
+      "start": 6514.100000000559,
+      "responseEnd": 6514.700000000186,
+      "duration": 0.599999999627471,
+      "transferSize": 0,
+      "encodedBodySize": 140070,
+      "decodedBodySize": 140070
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_open.png",
+      "recovery": false,
+      "start": 6516.800000000745,
+      "responseEnd": 6517.300000000745,
+      "duration": 0.5,
+      "transferSize": 0,
+      "encodedBodySize": 148010,
+      "decodedBodySize": 148010
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_fragment.png",
+      "recovery": false,
+      "start": 6518.600000000559,
+      "responseEnd": 6519,
+      "duration": 0.39999999944120646,
+      "transferSize": 0,
+      "encodedBodySize": 111928,
+      "decodedBodySize": 111928
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_scatter.png",
+      "recovery": false,
+      "start": 6522.300000000745,
+      "responseEnd": 6522.600000000559,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 104122,
+      "decodedBodySize": 104122
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC01.png",
+      "recovery": false,
+      "start": 7093.5,
+      "responseEnd": 7096.700000000186,
+      "duration": 3.2000000001862645,
+      "transferSize": 8826,
+      "encodedBodySize": 8526,
+      "decodedBodySize": 8526
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC02.png",
+      "recovery": false,
+      "start": 7093.5,
+      "responseEnd": 7097.700000000186,
+      "duration": 4.2000000001862645,
+      "transferSize": 8523,
+      "encodedBodySize": 8223,
+      "decodedBodySize": 8223
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC03.png",
+      "recovery": false,
+      "start": 7097.600000000559,
+      "responseEnd": 7098.9000000003725,
+      "duration": 1.2999999998137355,
+      "transferSize": 9347,
+      "encodedBodySize": 9047,
+      "decodedBodySize": 9047
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC04.png",
+      "recovery": false,
+      "start": 7099.5,
+      "responseEnd": 7101,
+      "duration": 1.5,
+      "transferSize": 11375,
+      "encodedBodySize": 11075,
+      "decodedBodySize": 11075
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC05.png",
+      "recovery": false,
+      "start": 7099.800000000745,
+      "responseEnd": 7101.700000000186,
+      "duration": 1.8999999994412065,
+      "transferSize": 7510,
+      "encodedBodySize": 7210,
+      "decodedBodySize": 7210
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC06.png",
+      "recovery": false,
+      "start": 7101.4000000003725,
+      "responseEnd": 7102.800000000745,
+      "duration": 1.400000000372529,
+      "transferSize": 12877,
+      "encodedBodySize": 12577,
+      "decodedBodySize": 12577
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC07.png",
+      "recovery": false,
+      "start": 7102.700000000186,
+      "responseEnd": 7104.300000000745,
+      "duration": 1.6000000005587935,
+      "transferSize": 11115,
+      "encodedBodySize": 10815,
+      "decodedBodySize": 10815
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC08.png",
+      "recovery": false,
+      "start": 7103.9000000003725,
+      "responseEnd": 7105.9000000003725,
+      "duration": 2,
+      "transferSize": 10622,
+      "encodedBodySize": 10322,
+      "decodedBodySize": 10322
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/peripheral_houses.png",
+      "recovery": false,
+      "start": 7105.4000000003725,
+      "responseEnd": 7107,
+      "duration": 1.599999999627471,
+      "transferSize": 79132,
+      "encodedBodySize": 78832,
+      "decodedBodySize": 78832
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/river/reuse_bank_01.png",
+      "recovery": false,
+      "start": 7109.200000000186,
+      "responseEnd": 7110.800000000745,
+      "duration": 1.6000000005587935,
+      "transferSize": 20417,
+      "encodedBodySize": 20117,
+      "decodedBodySize": 20117
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/river/reuse_water_01.webp",
+      "recovery": false,
+      "start": 7112,
+      "responseEnd": 7112.4000000003725,
+      "duration": 0.40000000037252903,
+      "transferSize": 0,
+      "encodedBodySize": 4706,
+      "decodedBodySize": 4706
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/road/reuse_ROAD_01.png",
+      "recovery": false,
+      "start": 7114,
+      "responseEnd": 7114.300000000745,
+      "duration": 0.30000000074505806,
+      "transferSize": 0,
+      "encodedBodySize": 21927,
+      "decodedBodySize": 21927
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_BALLAST_01.png",
+      "recovery": false,
+      "start": 7122.9000000003725,
+      "responseEnd": 7123.5,
+      "duration": 0.599999999627471,
+      "transferSize": 0,
+      "encodedBodySize": 22104,
+      "decodedBodySize": 22104
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_sleeper_motif.png",
+      "recovery": false,
+      "start": 7126.100000000559,
+      "responseEnd": 7128.200000000186,
+      "duration": 2.099999999627471,
+      "transferSize": 702,
+      "encodedBodySize": 402,
+      "decodedBodySize": 402
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_rail_pair.png",
+      "recovery": false,
+      "start": 7129.5,
+      "responseEnd": 7131.300000000745,
+      "duration": 1.800000000745058,
+      "transferSize": 573,
+      "encodedBodySize": 273,
+      "decodedBodySize": 273
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/bridge/deck_material.webp",
+      "recovery": false,
+      "start": 7133.800000000745,
+      "responseEnd": 7134.200000000186,
+      "duration": 0.39999999944120646,
+      "transferSize": 0,
+      "encodedBodySize": 77368,
+      "decodedBodySize": 77368
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/settlement_ground.webp",
+      "recovery": false,
+      "start": 7166.9000000003725,
+      "responseEnd": 7167.800000000745,
+      "duration": 0.900000000372529,
+      "transferSize": 0,
+      "encodedBodySize": 442634,
+      "decodedBodySize": 442634
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/macro_value.png",
+      "recovery": false,
+      "start": 7167.800000000745,
+      "responseEnd": 7168.300000000745,
+      "duration": 0.5,
+      "transferSize": 0,
+      "encodedBodySize": 9615,
+      "decodedBodySize": 9615
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/gentle_shade.png",
+      "recovery": false,
+      "start": 7180.9000000003725,
+      "responseEnd": 7181.4000000003725,
+      "duration": 0.5,
+      "transferSize": 0,
+      "encodedBodySize": 731,
+      "decodedBodySize": 731
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_branch.png",
+      "recovery": false,
+      "start": 23747.900000000373,
+      "responseEnd": 23748.5,
+      "duration": 0.599999999627471,
+      "transferSize": 0,
+      "encodedBodySize": 128932,
+      "decodedBodySize": 128932
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_long.png",
+      "recovery": false,
+      "start": 23747.900000000373,
+      "responseEnd": 23748.900000000373,
+      "duration": 1,
+      "transferSize": 0,
+      "encodedBodySize": 128192,
+      "decodedBodySize": 128192
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_fork.png",
+      "recovery": false,
+      "start": 23771.200000000186,
+      "responseEnd": 23772.10000000056,
+      "duration": 0.900000000372529,
+      "transferSize": 0,
+      "encodedBodySize": 140070,
+      "decodedBodySize": 140070
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_open.png",
+      "recovery": false,
+      "start": 23774.60000000056,
+      "responseEnd": 23774.900000000373,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 148010,
+      "decodedBodySize": 148010
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_fragment.png",
+      "recovery": false,
+      "start": 23776.700000000186,
+      "responseEnd": 23777.200000000186,
+      "duration": 0.5,
+      "transferSize": 0,
+      "encodedBodySize": 111928,
+      "decodedBodySize": 111928
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_scatter.png",
+      "recovery": false,
+      "start": 23780,
+      "responseEnd": 23780.300000000745,
+      "duration": 0.30000000074505806,
+      "transferSize": 0,
+      "encodedBodySize": 104122,
+      "decodedBodySize": 104122
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC01.png",
+      "recovery": false,
+      "start": 24930.10000000056,
+      "responseEnd": 24930.800000000745,
+      "duration": 0.7000000001862645,
+      "transferSize": 0,
+      "encodedBodySize": 8526,
+      "decodedBodySize": 8526
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC02.png",
+      "recovery": false,
+      "start": 24930.200000000186,
+      "responseEnd": 24931,
+      "duration": 0.7999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 8223,
+      "decodedBodySize": 8223
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC03.png",
+      "recovery": false,
+      "start": 24931.800000000745,
+      "responseEnd": 24932.200000000186,
+      "duration": 0.39999999944120646,
+      "transferSize": 0,
+      "encodedBodySize": 9047,
+      "decodedBodySize": 9047
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC04.png",
+      "recovery": false,
+      "start": 24932.300000000745,
+      "responseEnd": 24932.60000000056,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 11075,
+      "decodedBodySize": 11075
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC05.png",
+      "recovery": false,
+      "start": 24932.700000000186,
+      "responseEnd": 24933.10000000056,
+      "duration": 0.40000000037252903,
+      "transferSize": 0,
+      "encodedBodySize": 7210,
+      "decodedBodySize": 7210
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC06.png",
+      "recovery": false,
+      "start": 24933.10000000056,
+      "responseEnd": 24933.300000000745,
+      "duration": 0.20000000018626451,
+      "transferSize": 0,
+      "encodedBodySize": 12577,
+      "decodedBodySize": 12577
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC07.png",
+      "recovery": false,
+      "start": 24933.5,
+      "responseEnd": 24933.700000000186,
+      "duration": 0.20000000018626451,
+      "transferSize": 0,
+      "encodedBodySize": 10815,
+      "decodedBodySize": 10815
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/reuse_BC08.png",
+      "recovery": false,
+      "start": 24933.800000000745,
+      "responseEnd": 24934,
+      "duration": 0.19999999925494194,
+      "transferSize": 0,
+      "encodedBodySize": 10322,
+      "decodedBodySize": 10322
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/peripheral_houses.png",
+      "recovery": false,
+      "start": 24934.10000000056,
+      "responseEnd": 24934.400000000373,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 78832,
+      "decodedBodySize": 78832
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/river/reuse_bank_01.png",
+      "recovery": false,
+      "start": 24937.60000000056,
+      "responseEnd": 24937.900000000373,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 20117,
+      "decodedBodySize": 20117
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/river/reuse_water_01.webp",
+      "recovery": false,
+      "start": 24940.400000000373,
+      "responseEnd": 24940.60000000056,
+      "duration": 0.20000000018626451,
+      "transferSize": 0,
+      "encodedBodySize": 4706,
+      "decodedBodySize": 4706
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/road/reuse_ROAD_01.png",
+      "recovery": false,
+      "start": 24942.400000000373,
+      "responseEnd": 24942.700000000186,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 21927,
+      "decodedBodySize": 21927
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_BALLAST_01.png",
+      "recovery": false,
+      "start": 24951.400000000373,
+      "responseEnd": 24951.800000000745,
+      "duration": 0.40000000037252903,
+      "transferSize": 0,
+      "encodedBodySize": 22104,
+      "decodedBodySize": 22104
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_sleeper_motif.png",
+      "recovery": false,
+      "start": 24954.60000000056,
+      "responseEnd": 24955,
+      "duration": 0.39999999944120646,
+      "transferSize": 0,
+      "encodedBodySize": 402,
+      "decodedBodySize": 402
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rail/reuse_rail_pair.png",
+      "recovery": false,
+      "start": 24956.900000000373,
+      "responseEnd": 24957.200000000186,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 273,
+      "decodedBodySize": 273
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/bridge/deck_material.webp",
+      "recovery": false,
+      "start": 24958.900000000373,
+      "responseEnd": 24959.200000000186,
+      "duration": 0.2999999998137355,
+      "transferSize": 0,
+      "encodedBodySize": 77368,
+      "decodedBodySize": 77368
+    }
+  ],
+  "limitations": [
+    "DOM available, requested LOD, completed LOD and mounted canvas are separate observations.",
+    "Steps count generator resumptions, not pixels. A JS thread blocked at export cannot supply a live snapshot.",
+    "Resource timing is not independent decoding CPU or proof of a cold cache.",
+    "Snapshot polling adds overhead; this is a functional observation, not a performance benchmark.",
+    "No cookies, authentication values, game state or full URLs are exported."
+  ]
+}

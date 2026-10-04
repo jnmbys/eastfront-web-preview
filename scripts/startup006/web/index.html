@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STARTUP-006 华为近景复验</title>
+<style>body{margin:0;font:16px system-ui;background:#eee;color:#17212c}header{padding:12px;background:white}h1{font-size:20px;margin:0 0 8px}button,input,select{font:inherit;padding:7px;margin:3px}label{display:inline-block}#status,#receipt{white-space:pre-wrap}#status{color:#183c60}iframe{width:100%;height:82vh;border:0;background:#ddd}textarea{width:96%;height:140px}#start{background:#1a567c;color:white}#failure{color:#a10d0d}#receipt{font-size:13px;overflow-wrap:anywhere}</style>
+<header><h1>STARTUP-006 · 仅默认模式一次</h1><p>开始后最多观察5分钟，到时自动留证并停止。这是采样预算，不是合格加载时间。地图可操作后收起面板，逐步按游戏“＋”；出现空白、缺图或报错请立即停止，不刷新或重试。</p>
+<label>设备/浏览器 <input id="device" maxlength="200"></label><label>网络 <input id="network" maxlength="200"></label><label>实际缓存 <select id="cache"><option>新页面；未清理浏览器缓存，缓存状态未知</option><option>已通过浏览器清理缓存；底层缓存状态未知</option></select></label>
+<button id="start" disabled>开始这一次测试</button><button id="shot" disabled>保存当前地形截图</button><button id="failure" disabled>异常停止并保存</button>
+<p id="status">正在准备固定005包…</p><p id="receipt"></p>
+<details id="checks"><summary>近景出现后确认并结束</summary><p>达到阈值、构建完成和近景画面正确是三件事。确认真实画面后再勾选。</p><label><input type="checkbox" id="visual">当前近景内容完整，无空白、缺图或明显错层</label><label>观察说明 <input id="notes" maxlength="500"></label><button id="save" disabled>结束观察并保存 JSON</button><button id="download" disabled>下载已保存 JSON</button></details>
+<details><summary>JSON 文本备份（可选）</summary><textarea id="backup" readonly></textarea></details>
+</header><iframe id="game" title="固定005候选原字节地图" style="pointer-events:none"></iframe><script type="module" src="/s006/lab.mjs"></script></html>

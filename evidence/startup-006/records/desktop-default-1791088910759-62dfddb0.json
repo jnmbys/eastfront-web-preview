@@ -1,0 +1,2135 @@
+{
+  "schema": "STARTUP006-device-v1",
+  "sourceCommit": "380047b5dccd9cc247ac50d4fb3d81a2336df394",
+  "deliveryHead": "a17478d2848235c0128d4875fc6d86725169d4a2",
+  "claimId": "1cd7a92aa4795d66",
+  "mode": "default",
+  "device": "Desktop Edge local deadline-fixture; NOT Huawei",
+  "network": "loopback; fresh context; no artificial resource delays",
+  "cacheCondition": "新页面；未清理浏览器缓存，缓存状态未知",
+  "exportedAt": "2026-10-04T04:41:50.756Z",
+  "outcome": "incomplete",
+  "final": true,
+  "stopReason": "budget-expired",
+  "observations": {
+    "closeContentCorrect": false,
+    "notes": ""
+  },
+  "assessmentHints": {
+    "A_reachedWhileCollapsed": false,
+    "B_readyMountedScreenshot": false,
+    "B_userConfirmed": false,
+    "notFinalAcceptance": true
+  },
+  "budget": {
+    "limitMs": 1500,
+    "outerElapsedMs": 1620.5,
+    "foregroundObservedMs": 1619.8999999994412,
+    "continuedObservationAfterStop": false
+  },
+  "firstMap": null,
+  "samples": [
+    {
+      "reason": "budget-expired",
+      "elapsedMs": 1509.9,
+      "outerElapsedMs": 1620.2999999998137,
+      "visibility": "visible",
+      "at": 1622.7,
+      "camera": null,
+      "current": {
+        "canvas": false,
+        "width": 0,
+        "height": 0,
+        "lod": null,
+        "zoom": null,
+        "panelExpanded": null,
+        "transform": null
+      },
+      "pipeline": {
+        "running": "far",
+        "queued": [],
+        "active": true,
+        "disposed": false,
+        "ready": [],
+        "failed": [],
+        "id": 1,
+        "lods": {
+          "far": {
+            "status": "building",
+            "queuedAt": 139.70000000018626,
+            "selectedAt": 139.80000000074506,
+            "startedAt": 140.6000000005588
+          },
+          "medium": {
+            "status": "not-queued"
+          },
+          "close": {
+            "status": "not-queued"
+          }
+        },
+        "updatedAt": 140.6000000005588
+      },
+      "active": [
+        {
+          "id": 8,
+          "lod": "far",
+          "stage": "planVS2CityClusters",
+          "state": "yielding",
+          "startedAt": 1437.4000000003725,
+          "updatedAt": 1622.4000000003725,
+          "lastAdvancedAt": 1622.4000000003725,
+          "steps": 95,
+          "yields": 14,
+          "workMs": 90.50000000093132,
+          "maxSliceMs": 7.400000000372529
+        }
+      ],
+      "recent": [
+        {
+          "id": 1,
+          "lod": "far",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 202,
+          "updatedAt": 209.6000000005588,
+          "lastAdvancedAt": 209.5,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 6.5,
+          "maxSliceMs": 6.5
+        },
+        {
+          "id": 2,
+          "lod": "far",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "complete",
+          "startedAt": 209.80000000074506,
+          "updatedAt": 1282.1000000005588,
+          "lastAdvancedAt": 1282.1000000005588,
+          "steps": 125719,
+          "yields": 101,
+          "workMs": 609,
+          "maxSliceMs": 6.1000000005587935
+        },
+        {
+          "id": 3,
+          "lod": "far",
+          "stage": "raster-canvas-write",
+          "state": "complete",
+          "startedAt": 1282.2000000001863,
+          "updatedAt": 1286.9000000003725,
+          "lastAdvancedAt": 1286.9000000003725,
+          "steps": 19,
+          "yields": 0,
+          "workMs": 0.599999999627471,
+          "maxSliceMs": 0.599999999627471
+        },
+        {
+          "id": 4,
+          "lod": "far",
+          "stage": "terrain-details-plan",
+          "state": "complete",
+          "startedAt": 1287,
+          "updatedAt": 1337.5,
+          "lastAdvancedAt": 1337.5,
+          "steps": 613,
+          "yields": 4,
+          "workMs": 26.999999999068677,
+          "maxSliceMs": 6.099999999627471
+        },
+        {
+          "id": 5,
+          "lod": "far",
+          "stage": "raster-canvas-compose",
+          "state": "complete",
+          "startedAt": 1337.5,
+          "updatedAt": 1343.4000000003725,
+          "lastAdvancedAt": 1343.4000000003725,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 1.7000000001862645,
+          "maxSliceMs": 1.7000000001862645
+        },
+        {
+          "id": 6,
+          "lod": "far",
+          "stage": "forest-coverage-canvas",
+          "state": "complete",
+          "startedAt": 1395.5,
+          "updatedAt": 1432.4000000003725,
+          "lastAdvancedAt": 1432.4000000003725,
+          "steps": 5769,
+          "yields": 5,
+          "workMs": 33.90000000037253,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 7,
+          "lod": "far",
+          "stage": "forest-canvas-compose",
+          "state": "complete",
+          "startedAt": 1432.4000000003725,
+          "updatedAt": 1436.9000000003725,
+          "lastAdvancedAt": 1436.9000000003725,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 0,
+          "maxSliceMs": 0
+        }
+      ],
+      "withinBudget": false
+    }
+  ],
+  "screenshots": [],
+  "clientTimeOrigin": 1791088909023.5,
+  "snapshotAt": 1622.7,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+  "viewport": {
+    "width": 1302,
+    "height": 607,
+    "dpr": 2.125
+  },
+  "visibility": "visible",
+  "marks": {
+    "startAt": 112.8,
+    "mapDomReadyAt": null,
+    "controlsAvailableAt": null
+  },
+  "events": [
+    {
+      "kind": "observer-attached",
+      "at": 83.7
+    },
+    {
+      "kind": "local-start-request",
+      "at": 112.8
+    },
+    {
+      "kind": "progress-stage",
+      "at": 118,
+      "stage": "initializing",
+      "completedSteps": 1
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 118,
+      "lod": "resources"
+    },
+    {
+      "kind": "terrain-complete",
+      "at": 138.4,
+      "lod": "model"
+    },
+    {
+      "kind": "progress-stage",
+      "at": 138.4,
+      "stage": "building",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 146,
+      "stage": "assets",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 201.9,
+      "stage": "building",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1345.8,
+      "stage": "assets",
+      "completedSteps": 2
+    },
+    {
+      "kind": "progress-stage",
+      "at": 1395.2,
+      "stage": "building",
+      "completedSteps": 2
+    }
+  ],
+  "failed": false,
+  "progress": {
+    "stage": "building",
+    "completedSteps": 2,
+    "totalSteps": 6,
+    "completedAssets": 15,
+    "batchCompleted": 6,
+    "batchTotal": null
+  },
+  "diagnostics": {
+    "version": "STARTUP-002",
+    "build": "380047b5dccd9cc247ac50d4fb3d81a2336df394",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0",
+    "online": true,
+    "visibility": "visible",
+    "imageJobs": {
+      "active": 0,
+      "peak": 2,
+      "completed": 15,
+      "failed": 0
+    },
+    "recent": [
+      {
+        "asset": "VS2_RELIEF_SLOPE_MATERIAL",
+        "file": "assets/relief/slope_material.webp",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 9,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 9,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_ROUGH_BROKEN_SOIL",
+        "file": "assets/rough/broken_soil.webp",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 9,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 9,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_MARSH_WET_GROUND",
+        "file": "assets/marsh/wet_ground.webp",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 10,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 10,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_CITY_SETTLEMENT_GROUND",
+        "file": "assets/city/settlement_ground.webp",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 9,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 9,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_GROUND_MACRO_VALUE",
+        "file": "assets/masks/macro_value.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 8,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 8,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_RELIEF_GENTLE_SHADE",
+        "file": "assets/masks/gentle_shade.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 3,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 3,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_FOREST_DENSE_BRANCH",
+        "file": "assets/forest/dense_branch.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 38,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 38,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_FOREST_DENSE_LONG",
+        "file": "assets/forest/dense_long.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 41,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 41,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_FOREST_MEDIUM_FORK",
+        "file": "assets/forest/medium_fork.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 6,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 6,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_FOREST_MEDIUM_OPEN",
+        "file": "assets/forest/medium_open.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 5,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 5,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_FOREST_SPARSE_FRAGMENT",
+        "file": "assets/forest/sparse_fragment.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 4,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 4,
+            "outcome": "ok"
+          }
+        ]
+      },
+      {
+        "asset": "VS2_FOREST_SPARSE_SCATTER",
+        "file": "assets/forest/sparse_scatter.png",
+        "webkitFallback": false,
+        "timeoutMs": 15000,
+        "elapsedMs": 3,
+        "outcome": "ok",
+        "attempts": [
+          {
+            "path": "image",
+            "elapsedMs": 3,
+            "outcome": "ok"
+          }
+        ]
+      }
+    ],
+    "terrainBuild": {
+      "version": "STARTUP-005",
+      "timeOrigin": 1791088909023.5,
+      "sampledAt": 1623.2000000001863,
+      "pipeline": {
+        "running": "far",
+        "queued": [],
+        "active": true,
+        "disposed": false,
+        "ready": [],
+        "failed": [],
+        "id": 1,
+        "lods": {
+          "far": {
+            "status": "building",
+            "queuedAt": 139.70000000018626,
+            "selectedAt": 139.80000000074506,
+            "startedAt": 140.6000000005588
+          },
+          "medium": {
+            "status": "not-queued"
+          },
+          "close": {
+            "status": "not-queued"
+          }
+        },
+        "updatedAt": 140.6000000005588
+      },
+      "camera": null,
+      "active": [
+        {
+          "id": 8,
+          "lod": "far",
+          "stage": "planVS2CityClusters",
+          "state": "yielding",
+          "startedAt": 1437.4000000003725,
+          "updatedAt": 1622.4000000003725,
+          "lastAdvancedAt": 1622.4000000003725,
+          "steps": 95,
+          "yields": 14,
+          "workMs": 90.50000000093132,
+          "maxSliceMs": 7.400000000372529
+        }
+      ],
+      "recent": [
+        {
+          "id": 1,
+          "lod": "far",
+          "stage": "projection",
+          "state": "complete",
+          "startedAt": 202,
+          "updatedAt": 209.6000000005588,
+          "lastAdvancedAt": 209.5,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 6.5,
+          "maxSliceMs": 6.5
+        },
+        {
+          "id": 2,
+          "lod": "far",
+          "stage": "rasterizeVS2WorldSurface",
+          "state": "complete",
+          "startedAt": 209.80000000074506,
+          "updatedAt": 1282.1000000005588,
+          "lastAdvancedAt": 1282.1000000005588,
+          "steps": 125719,
+          "yields": 101,
+          "workMs": 609,
+          "maxSliceMs": 6.1000000005587935
+        },
+        {
+          "id": 3,
+          "lod": "far",
+          "stage": "raster-canvas-write",
+          "state": "complete",
+          "startedAt": 1282.2000000001863,
+          "updatedAt": 1286.9000000003725,
+          "lastAdvancedAt": 1286.9000000003725,
+          "steps": 19,
+          "yields": 0,
+          "workMs": 0.599999999627471,
+          "maxSliceMs": 0.599999999627471
+        },
+        {
+          "id": 4,
+          "lod": "far",
+          "stage": "terrain-details-plan",
+          "state": "complete",
+          "startedAt": 1287,
+          "updatedAt": 1337.5,
+          "lastAdvancedAt": 1337.5,
+          "steps": 613,
+          "yields": 4,
+          "workMs": 26.999999999068677,
+          "maxSliceMs": 6.099999999627471
+        },
+        {
+          "id": 5,
+          "lod": "far",
+          "stage": "raster-canvas-compose",
+          "state": "complete",
+          "startedAt": 1337.5,
+          "updatedAt": 1343.4000000003725,
+          "lastAdvancedAt": 1343.4000000003725,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 1.7000000001862645,
+          "maxSliceMs": 1.7000000001862645
+        },
+        {
+          "id": 6,
+          "lod": "far",
+          "stage": "forest-coverage-canvas",
+          "state": "complete",
+          "startedAt": 1395.5,
+          "updatedAt": 1432.4000000003725,
+          "lastAdvancedAt": 1432.4000000003725,
+          "steps": 5769,
+          "yields": 5,
+          "workMs": 33.90000000037253,
+          "maxSliceMs": 6
+        },
+        {
+          "id": 7,
+          "lod": "far",
+          "stage": "forest-canvas-compose",
+          "state": "complete",
+          "startedAt": 1432.4000000003725,
+          "updatedAt": 1436.9000000003725,
+          "lastAdvancedAt": 1436.9000000003725,
+          "steps": 1,
+          "yields": 0,
+          "workMs": 0,
+          "maxSliceMs": 0
+        }
+      ],
+      "limits": {
+        "pipelines": 1,
+        "activeWorkRecords": 4,
+        "completedWorkRecords": 12
+      },
+      "meaning": "steps count generator resumptions, not pixels; sampledAt versus lastAdvancedAt distinguishes observed advancement. A stalled JS thread cannot export a live report. Pipeline.active=false means paused; yielding includes browser scheduling delay."
+    },
+    "boundaries": [
+      "online is a browser hint, not proof of resource reachability",
+      "imageJobs tracks loader jobs, not browser network connections",
+      "abortRequested does not prove the network stack cancelled the transfer",
+      "image events include transfer and decode; fetch headers/body and decoder attempts are recorded separately",
+      "no room, token, full URL, game state or private device storage is exported"
+    ]
+  },
+  "current": {
+    "canvas": false,
+    "width": 0,
+    "height": 0,
+    "lod": null,
+    "zoom": null,
+    "panelExpanded": null,
+    "transform": null
+  },
+  "buildTimings": [
+    {
+      "stage": "projection",
+      "elapsedMs": 7.6000000005587935,
+      "workMs": 6.5,
+      "maxSliceMs": 6.5,
+      "yields": 0,
+      "at": 209.6
+    },
+    {
+      "stage": "rasterizeVS2WorldSurface",
+      "elapsedMs": 1072.2999999998137,
+      "workMs": 609,
+      "maxSliceMs": 6.1000000005587935,
+      "yields": 101,
+      "at": 1282.1
+    },
+    {
+      "stage": "raster-canvas-write",
+      "elapsedMs": 4.7999999998137355,
+      "workMs": 0.599999999627471,
+      "maxSliceMs": 0.599999999627471,
+      "yields": 0,
+      "at": 1286.9
+    },
+    {
+      "stage": "terrain-details-plan",
+      "elapsedMs": 50.5,
+      "workMs": 26.999999999068677,
+      "maxSliceMs": 6.099999999627471,
+      "yields": 4,
+      "at": 1337.5
+    },
+    {
+      "stage": "raster-canvas-compose",
+      "elapsedMs": 5.900000000372529,
+      "workMs": 1.7000000001862645,
+      "maxSliceMs": 1.7000000001862645,
+      "yields": 0,
+      "at": 1343.4
+    },
+    {
+      "stage": "forest-coverage-canvas",
+      "elapsedMs": 36.90000000037253,
+      "workMs": 33.90000000037253,
+      "maxSliceMs": 6,
+      "yields": 5,
+      "at": 1432.4
+    },
+    {
+      "stage": "forest-canvas-compose",
+      "elapsedMs": 4.5,
+      "workMs": 0,
+      "maxSliceMs": 0,
+      "yields": 0,
+      "at": 1436.9
+    }
+  ],
+  "resources": [
+    {
+      "path": "/r1/styles.css",
+      "recovery": false,
+      "start": 9,
+      "responseEnd": 10.600000000558794,
+      "duration": 1.6000000005587935,
+      "transferSize": 58193,
+      "encodedBodySize": 57893,
+      "decodedBodySize": 57893
+    },
+    {
+      "path": "/r1/app/web/startupShell.js",
+      "recovery": false,
+      "start": 9.200000000186265,
+      "responseEnd": 11.100000000558794,
+      "duration": 1.900000000372529,
+      "transferSize": 1068,
+      "encodedBodySize": 768,
+      "decodedBodySize": 768
+    },
+    {
+      "path": "/r1/app/main.js",
+      "recovery": false,
+      "start": 9.200000000186265,
+      "responseEnd": 11.400000000372529,
+      "duration": 2.2000000001862645,
+      "transferSize": 78781,
+      "encodedBodySize": 78481,
+      "decodedBodySize": 78481
+    },
+    {
+      "path": "/r1/app/localization/languageControl.js",
+      "recovery": false,
+      "start": 17.600000000558794,
+      "responseEnd": 19.200000000186265,
+      "duration": 1.599999999627471,
+      "transferSize": 1829,
+      "encodedBodySize": 1529,
+      "decodedBodySize": 1529
+    },
+    {
+      "path": "/r1/app/web/startupProgress.js",
+      "recovery": false,
+      "start": 17.700000000186265,
+      "responseEnd": 19.40000000037253,
+      "duration": 1.7000000001862645,
+      "transferSize": 2383,
+      "encodedBodySize": 2083,
+      "decodedBodySize": 2083
+    },
+    {
+      "path": "/r1/app/web/startupView.js",
+      "recovery": false,
+      "start": 17.700000000186265,
+      "responseEnd": 20.300000000745058,
+      "duration": 2.6000000005587935,
+      "transferSize": 2964,
+      "encodedBodySize": 2664,
+      "decodedBodySize": 2664
+    },
+    {
+      "path": "/r1/app/experimental/supplyClient.js",
+      "recovery": false,
+      "start": 17.90000000037253,
+      "responseEnd": 20.40000000037253,
+      "duration": 2.5,
+      "transferSize": 8353,
+      "encodedBodySize": 8053,
+      "decodedBodySize": 8053
+    },
+    {
+      "path": "/r1/app/ui/combatResult.js",
+      "recovery": false,
+      "start": 18,
+      "responseEnd": 20.40000000037253,
+      "duration": 2.400000000372529,
+      "transferSize": 9442,
+      "encodedBodySize": 9142,
+      "decodedBodySize": 9142
+    },
+    {
+      "path": "/r1/app/web/startupDiagnostics.js",
+      "recovery": false,
+      "start": 18,
+      "responseEnd": 20.600000000558794,
+      "duration": 2.6000000005587935,
+      "transferSize": 5316,
+      "encodedBodySize": 5016,
+      "decodedBodySize": 5016
+    },
+    {
+      "path": "/r1/app/render/progressiveTerrain.js",
+      "recovery": false,
+      "start": 18,
+      "responseEnd": 20.90000000037253,
+      "duration": 2.900000000372529,
+      "transferSize": 5351,
+      "encodedBodySize": 5051,
+      "decodedBodySize": 5051
+    },
+    {
+      "path": "/r1/app/multiplayer/networkSession.js",
+      "recovery": false,
+      "start": 18,
+      "responseEnd": 21.600000000558794,
+      "duration": 3.6000000005587935,
+      "transferSize": 19077,
+      "encodedBodySize": 18777,
+      "decodedBodySize": 18777
+    },
+    {
+      "path": "/r1/app/render/dynamicMap.js",
+      "recovery": false,
+      "start": 18.100000000558794,
+      "responseEnd": 22.90000000037253,
+      "duration": 4.7999999998137355,
+      "transferSize": 7575,
+      "encodedBodySize": 7275,
+      "decodedBodySize": 7275
+    },
+    {
+      "path": "/r1/app/multiplayer/pendingFeedback.js",
+      "recovery": false,
+      "start": 18.100000000558794,
+      "responseEnd": 21.90000000037253,
+      "duration": 3.7999999998137355,
+      "transferSize": 2769,
+      "encodedBodySize": 2469,
+      "decodedBodySize": 2469
+    },
+    {
+      "path": "/r1/app/ui/deploymentPanelRenderer.js",
+      "recovery": false,
+      "start": 18.100000000558794,
+      "responseEnd": 23.300000000745058,
+      "duration": 5.2000000001862645,
+      "transferSize": 6379,
+      "encodedBodySize": 6079,
+      "decodedBodySize": 6079
+    },
+    {
+      "path": "/r1/app/multiplayer/lobby.js",
+      "recovery": false,
+      "start": 18.100000000558794,
+      "responseEnd": 22.800000000745058,
+      "duration": 4.7000000001862645,
+      "transferSize": 9043,
+      "encodedBodySize": 8743,
+      "decodedBodySize": 8743
+    },
+    {
+      "path": "/r1/app/multiplayer/catalog.js",
+      "recovery": false,
+      "start": 18.100000000558794,
+      "responseEnd": 22.100000000558794,
+      "duration": 4,
+      "transferSize": 7630,
+      "encodedBodySize": 7330,
+      "decodedBodySize": 7330
+    },
+    {
+      "path": "/r1/app/multiplayer/playerSession.js",
+      "recovery": false,
+      "start": 18.100000000558794,
+      "responseEnd": 22.5,
+      "duration": 4.3999999994412065,
+      "transferSize": 6507,
+      "encodedBodySize": 6207,
+      "decodedBodySize": 6207
+    },
+    {
+      "path": "/r1/app/fog/runtime.js",
+      "recovery": false,
+      "start": 18.200000000186265,
+      "responseEnd": 23.800000000745058,
+      "duration": 5.6000000005587935,
+      "transferSize": 4784,
+      "encodedBodySize": 4484,
+      "decodedBodySize": 4484
+    },
+    {
+      "path": "/r1/app/render/terrainLoadProgress.js",
+      "recovery": false,
+      "start": 18.200000000186265,
+      "responseEnd": 23.800000000745058,
+      "duration": 5.6000000005587935,
+      "transferSize": 788,
+      "encodedBodySize": 488,
+      "decodedBodySize": 488
+    },
+    {
+      "path": "/r1/app/ui/modelControls.js",
+      "recovery": false,
+      "start": 18.200000000186265,
+      "responseEnd": 23.300000000745058,
+      "duration": 5.1000000005587935,
+      "transferSize": 1017,
+      "encodedBodySize": 717,
+      "decodedBodySize": 717
+    },
+    {
+      "path": "/r1/app/presentation/runtime.js",
+      "recovery": false,
+      "start": 18.300000000745058,
+      "responseEnd": 24,
+      "duration": 5.699999999254942,
+      "transferSize": 3225,
+      "encodedBodySize": 2925,
+      "decodedBodySize": 2925
+    },
+    {
+      "path": "/r1/app/ui/animationControls.js",
+      "recovery": false,
+      "start": 18.300000000745058,
+      "responseEnd": 24.5,
+      "duration": 6.199999999254942,
+      "transferSize": 1191,
+      "encodedBodySize": 891,
+      "decodedBodySize": 891
+    },
+    {
+      "path": "/r1/app/localization/issues.js",
+      "recovery": false,
+      "start": 18.300000000745058,
+      "responseEnd": 25.100000000558794,
+      "duration": 6.7999999998137355,
+      "transferSize": 6321,
+      "encodedBodySize": 6021,
+      "decodedBodySize": 6021
+    },
+    {
+      "path": "/r1/app/localization/index.js",
+      "recovery": false,
+      "start": 18.300000000745058,
+      "responseEnd": 25,
+      "duration": 6.699999999254942,
+      "transferSize": 3036,
+      "encodedBodySize": 2736,
+      "decodedBodySize": 2736
+    },
+    {
+      "path": "/r1/app/ui/deploymentPolish.js",
+      "recovery": false,
+      "start": 18.40000000037253,
+      "responseEnd": 25.5,
+      "duration": 7.099999999627471,
+      "transferSize": 1673,
+      "encodedBodySize": 1373,
+      "decodedBodySize": 1373
+    },
+    {
+      "path": "/r1/app/ui/combatAttackPanel.js",
+      "recovery": false,
+      "start": 18.40000000037253,
+      "responseEnd": 25.300000000745058,
+      "duration": 6.900000000372529,
+      "transferSize": 6019,
+      "encodedBodySize": 5719,
+      "decodedBodySize": 5719
+    },
+    {
+      "path": "/r1/app/ui/deploymentTouch.js",
+      "recovery": false,
+      "start": 18.40000000037253,
+      "responseEnd": 25.700000000186265,
+      "duration": 7.2999999998137355,
+      "transferSize": 1711,
+      "encodedBodySize": 1411,
+      "decodedBodySize": 1411
+    },
+    {
+      "path": "/r1/app/ui/commandPresentation.js",
+      "recovery": false,
+      "start": 18.40000000037253,
+      "responseEnd": 26,
+      "duration": 7.599999999627471,
+      "transferSize": 4570,
+      "encodedBodySize": 4270,
+      "decodedBodySize": 4270
+    },
+    {
+      "path": "/r1/app/core-adapter/core.js",
+      "recovery": false,
+      "start": 18.40000000037253,
+      "responseEnd": 26.40000000037253,
+      "duration": 8,
+      "transferSize": 1584,
+      "encodedBodySize": 1284,
+      "decodedBodySize": 1284
+    },
+    {
+      "path": "/r1/app/core-adapter/session.js",
+      "recovery": false,
+      "start": 18.40000000037253,
+      "responseEnd": 26.600000000558794,
+      "duration": 8.200000000186265,
+      "transferSize": 6056,
+      "encodedBodySize": 5756,
+      "decodedBodySize": 5756
+    },
+    {
+      "path": "/r1/app/render/coreModel.js",
+      "recovery": false,
+      "start": 18.5,
+      "responseEnd": 26.90000000037253,
+      "duration": 8.400000000372529,
+      "transferSize": 524,
+      "encodedBodySize": 224,
+      "decodedBodySize": 224
+    },
+    {
+      "path": "/r1/app/render/terrainAssets.js",
+      "recovery": false,
+      "start": 18.5,
+      "responseEnd": 27.40000000037253,
+      "duration": 8.900000000372529,
+      "transferSize": 2115,
+      "encodedBodySize": 1815,
+      "decodedBodySize": 1815
+    },
+    {
+      "path": "/r1/app/render/coreSvg.js",
+      "recovery": false,
+      "start": 18.5,
+      "responseEnd": 27.100000000558794,
+      "duration": 8.600000000558794,
+      "transferSize": 24040,
+      "encodedBodySize": 23740,
+      "decodedBodySize": 23740
+    },
+    {
+      "path": "/r1/app/render/terrainSurface.js",
+      "recovery": false,
+      "start": 18.5,
+      "responseEnd": 27.90000000037253,
+      "duration": 9.400000000372529,
+      "transferSize": 43856,
+      "encodedBodySize": 43556,
+      "decodedBodySize": 43556
+    },
+    {
+      "path": "/r1/app/geometry/hex.js",
+      "recovery": false,
+      "start": 18.600000000558794,
+      "responseEnd": 28,
+      "duration": 9.399999999441206,
+      "transferSize": 3761,
+      "encodedBodySize": 3461,
+      "decodedBodySize": 3461
+    },
+    {
+      "path": "/r1/app/state/presentation.js",
+      "recovery": false,
+      "start": 18.600000000558794,
+      "responseEnd": 28.5,
+      "duration": 9.899999999441206,
+      "transferSize": 1883,
+      "encodedBodySize": 1583,
+      "decodedBodySize": 1583
+    },
+    {
+      "path": "/r1/app/render/terrainBuildDiagnostics.js",
+      "recovery": false,
+      "start": 18.600000000558794,
+      "responseEnd": 28.300000000745058,
+      "duration": 9.700000000186265,
+      "transferSize": 2989,
+      "encodedBodySize": 2689,
+      "decodedBodySize": 2689
+    },
+    {
+      "path": "/r1/app/web/preview.js",
+      "recovery": false,
+      "start": 18.600000000558794,
+      "responseEnd": 28.90000000037253,
+      "duration": 10.299999999813735,
+      "transferSize": 7289,
+      "encodedBodySize": 6989,
+      "decodedBodySize": 6989
+    },
+    {
+      "path": "/r1/app/web/mapInteraction.js",
+      "recovery": false,
+      "start": 18.700000000186265,
+      "responseEnd": 29.600000000558794,
+      "duration": 10.900000000372529,
+      "transferSize": 3398,
+      "encodedBodySize": 3098,
+      "decodedBodySize": 3098
+    },
+    {
+      "path": "/r1/app/multiplayer/battleSummary.js",
+      "recovery": false,
+      "start": 35.700000000186265,
+      "responseEnd": 36.90000000037253,
+      "duration": 1.2000000001862645,
+      "transferSize": 2247,
+      "encodedBodySize": 1947,
+      "decodedBodySize": 1947
+    },
+    {
+      "path": "/r1/app/multiplayer/protocol.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 37.5,
+      "duration": 1.699999999254942,
+      "transferSize": 3522,
+      "encodedBodySize": 3222,
+      "decodedBodySize": 3222
+    },
+    {
+      "path": "/r1/app/presentation/transitionBus.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 37.10000000055879,
+      "duration": 1.2999999998137355,
+      "transferSize": 1810,
+      "encodedBodySize": 1510,
+      "decodedBodySize": 1510
+    },
+    {
+      "path": "/r1/app/multiplayer/pendingAction.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 38.40000000037253,
+      "duration": 2.599999999627471,
+      "transferSize": 2587,
+      "encodedBodySize": 2287,
+      "decodedBodySize": 2287
+    },
+    {
+      "path": "/r1/app/multiplayer/config.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 38,
+      "duration": 2.199999999254942,
+      "transferSize": 1172,
+      "encodedBodySize": 872,
+      "decodedBodySize": 872
+    },
+    {
+      "path": "/r1/app/render/terrainWork.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 37.700000000186265,
+      "duration": 1.8999999994412065,
+      "transferSize": 2748,
+      "encodedBodySize": 2448,
+      "decodedBodySize": 2448
+    },
+    {
+      "path": "/r1/app/multiplayer/diagnosticTiming.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 38.80000000074506,
+      "duration": 3,
+      "transferSize": 1165,
+      "encodedBodySize": 865,
+      "decodedBodySize": 865
+    },
+    {
+      "path": "/r1/app/multiplayer/actionCompletion.js",
+      "recovery": false,
+      "start": 35.80000000074506,
+      "responseEnd": 38.700000000186265,
+      "duration": 2.8999999994412065,
+      "transferSize": 2914,
+      "encodedBodySize": 2614,
+      "decodedBodySize": 2614
+    },
+    {
+      "path": "/r1/app/multiplayer/client.js",
+      "recovery": false,
+      "start": 35.90000000037253,
+      "responseEnd": 39.90000000037253,
+      "duration": 4,
+      "transferSize": 16169,
+      "encodedBodySize": 15869,
+      "decodedBodySize": 15869
+    },
+    {
+      "path": "/r1/app/multiplayer/gameplayProtocol.js",
+      "recovery": false,
+      "start": 35.90000000037253,
+      "responseEnd": 39.200000000186265,
+      "duration": 3.2999999998137355,
+      "transferSize": 5042,
+      "encodedBodySize": 4742,
+      "decodedBodySize": 4742
+    },
+    {
+      "path": "/r1/app/fog/surface.js",
+      "recovery": false,
+      "start": 35.90000000037253,
+      "responseEnd": 39.5,
+      "duration": 3.599999999627471,
+      "transferSize": 7529,
+      "encodedBodySize": 7229,
+      "decodedBodySize": 7229
+    },
+    {
+      "path": "/r1/app/interaction/combatFlow.js",
+      "recovery": false,
+      "start": 36.10000000055879,
+      "responseEnd": 40.60000000055879,
+      "duration": 4.5,
+      "transferSize": 13175,
+      "encodedBodySize": 12875,
+      "decodedBodySize": 12875
+    },
+    {
+      "path": "/r1/app/presentation/modelDisplay.js",
+      "recovery": false,
+      "start": 36.10000000055879,
+      "responseEnd": 40.200000000186265,
+      "duration": 4.099999999627471,
+      "transferSize": 654,
+      "encodedBodySize": 354,
+      "decodedBodySize": 354
+    },
+    {
+      "path": "/r1/app/multiplayer/networkIntents.js",
+      "recovery": false,
+      "start": 36.10000000055879,
+      "responseEnd": 40.700000000186265,
+      "duration": 4.599999999627471,
+      "transferSize": 9386,
+      "encodedBodySize": 9086,
+      "decodedBodySize": 9086
+    },
+    {
+      "path": "/r1/app/interaction/intents.js",
+      "recovery": false,
+      "start": 36.10000000055879,
+      "responseEnd": 40.30000000074506,
+      "duration": 4.2000000001862645,
+      "transferSize": 31537,
+      "encodedBodySize": 31237,
+      "decodedBodySize": 31237
+    },
+    {
+      "path": "/r1/app/core-adapter/browserProjection.js",
+      "recovery": false,
+      "start": 36.10000000055879,
+      "responseEnd": 41,
+      "duration": 4.8999999994412065,
+      "transferSize": 18877,
+      "encodedBodySize": 18577,
+      "decodedBodySize": 18577
+    },
+    {
+      "path": "/r1/app/presentation/svgUnits.js",
+      "recovery": false,
+      "start": 36.200000000186265,
+      "responseEnd": 41.60000000055879,
+      "duration": 5.400000000372529,
+      "transferSize": 15626,
+      "encodedBodySize": 15326,
+      "decodedBodySize": 15326
+    },
+    {
+      "path": "/r1/app/presentation/coordinator.js",
+      "recovery": false,
+      "start": 36.200000000186265,
+      "responseEnd": 41.60000000055879,
+      "duration": 5.400000000372529,
+      "transferSize": 10172,
+      "encodedBodySize": 9872,
+      "decodedBodySize": 9872
+    },
+    {
+      "path": "/r1/app/localization/enumKeys.js",
+      "recovery": false,
+      "start": 36.30000000074506,
+      "responseEnd": 42.5,
+      "duration": 6.199999999254942,
+      "transferSize": 2954,
+      "encodedBodySize": 2654,
+      "decodedBodySize": 2654
+    },
+    {
+      "path": "/r1/app/localization/en-US.js",
+      "recovery": false,
+      "start": 36.30000000074506,
+      "responseEnd": 42,
+      "duration": 5.699999999254942,
+      "transferSize": 32989,
+      "encodedBodySize": 32689,
+      "decodedBodySize": 32689
+    },
+    {
+      "path": "/r1/app/localization/zh-CN.js",
+      "recovery": false,
+      "start": 36.30000000074506,
+      "responseEnd": 42.10000000055879,
+      "duration": 5.7999999998137355,
+      "transferSize": 31805,
+      "encodedBodySize": 31505,
+      "decodedBodySize": 31505
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/index.js",
+      "recovery": false,
+      "start": 36.40000000037253,
+      "responseEnd": 42.60000000055879,
+      "duration": 6.2000000001862645,
+      "transferSize": 1655,
+      "encodedBodySize": 1355,
+      "decodedBodySize": 1355
+    },
+    {
+      "path": "/r1/app/player-view/playerView.js",
+      "recovery": false,
+      "start": 36.40000000037253,
+      "responseEnd": 42.80000000074506,
+      "duration": 6.400000000372529,
+      "transferSize": 6060,
+      "encodedBodySize": 5760,
+      "decodedBodySize": 5760
+    },
+    {
+      "path": "/r1/app/assets/p4r3-manifest.json",
+      "recovery": false,
+      "start": 36.5,
+      "responseEnd": 44.700000000186265,
+      "duration": 8.200000000186265,
+      "transferSize": 67945,
+      "encodedBodySize": 67645,
+      "decodedBodySize": 67645
+    },
+    {
+      "path": "/r1/app/player-view/presentationVisibility.js",
+      "recovery": false,
+      "start": 36.5,
+      "responseEnd": 43.30000000074506,
+      "duration": 6.800000000745058,
+      "transferSize": 1714,
+      "encodedBodySize": 1414,
+      "decodedBodySize": 1414
+    },
+    {
+      "path": "/r1/app/render/compactUnitPlate.js",
+      "recovery": false,
+      "start": 36.5,
+      "responseEnd": 44.60000000055879,
+      "duration": 8.100000000558794,
+      "transferSize": 2257,
+      "encodedBodySize": 1957,
+      "decodedBodySize": 1957
+    },
+    {
+      "path": "/r1/app/render/contactMarkers.js",
+      "recovery": false,
+      "start": 36.60000000055879,
+      "responseEnd": 44.80000000074506,
+      "duration": 8.200000000186265,
+      "transferSize": 1895,
+      "encodedBodySize": 1595,
+      "decodedBodySize": 1595
+    },
+    {
+      "path": "/r1/app/render/derive.js",
+      "recovery": false,
+      "start": 36.60000000055879,
+      "responseEnd": 44.90000000037253,
+      "duration": 8.299999999813735,
+      "transferSize": 3177,
+      "encodedBodySize": 2877,
+      "decodedBodySize": 2877
+    },
+    {
+      "path": "/r1/app/render/productionTerrain.js",
+      "recovery": false,
+      "start": 36.60000000055879,
+      "responseEnd": 45,
+      "duration": 8.399999999441206,
+      "transferSize": 19620,
+      "encodedBodySize": 19320,
+      "decodedBodySize": 19320
+    },
+    {
+      "path": "/r1/app/multiplayer/snapshotCodec.js",
+      "recovery": false,
+      "start": 47.40000000037253,
+      "responseEnd": 48.30000000074506,
+      "duration": 0.900000000372529,
+      "transferSize": 12529,
+      "encodedBodySize": 12229,
+      "decodedBodySize": 12229
+    },
+    {
+      "path": "/r1/app/presentation/events.js",
+      "recovery": false,
+      "start": 47.5,
+      "responseEnd": 48.40000000037253,
+      "duration": 0.900000000372529,
+      "transferSize": 6648,
+      "encodedBodySize": 6348,
+      "decodedBodySize": 6348
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/types.js",
+      "recovery": false,
+      "start": 48.90000000037253,
+      "responseEnd": 49.60000000055879,
+      "duration": 0.7000000001862645,
+      "transferSize": 311,
+      "encodedBodySize": 11,
+      "decodedBodySize": 11
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/config.js",
+      "recovery": false,
+      "start": 49,
+      "responseEnd": 49.90000000037253,
+      "duration": 0.900000000372529,
+      "transferSize": 311,
+      "encodedBodySize": 11,
+      "decodedBodySize": 11
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/edge.js",
+      "recovery": false,
+      "start": 49,
+      "responseEnd": 50.60000000055879,
+      "duration": 1.6000000005587935,
+      "transferSize": 968,
+      "encodedBodySize": 668,
+      "decodedBodySize": 668
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/collections.js",
+      "recovery": false,
+      "start": 49,
+      "responseEnd": 50.700000000186265,
+      "duration": 1.7000000001862645,
+      "transferSize": 562,
+      "encodedBodySize": 262,
+      "decodedBodySize": 262
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/hex.js",
+      "recovery": false,
+      "start": 49,
+      "responseEnd": 50.30000000074506,
+      "duration": 1.300000000745058,
+      "transferSize": 2553,
+      "encodedBodySize": 2253,
+      "decodedBodySize": 2253
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/core/ownership.js",
+      "recovery": false,
+      "start": 49,
+      "responseEnd": 50.90000000037253,
+      "duration": 1.900000000372529,
+      "transferSize": 659,
+      "encodedBodySize": 359,
+      "decodedBodySize": 359
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/random/SeededRNG.js",
+      "recovery": false,
+      "start": 49.10000000055879,
+      "responseEnd": 51.30000000074506,
+      "duration": 2.2000000001862645,
+      "transferSize": 1463,
+      "encodedBodySize": 1163,
+      "decodedBodySize": 1163
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/scenario/defaultScenario.js",
+      "recovery": false,
+      "start": 49.10000000055879,
+      "responseEnd": 51.80000000074506,
+      "duration": 2.7000000001862645,
+      "transferSize": 2968,
+      "encodedBodySize": 2668,
+      "decodedBodySize": 2668
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/scenario/defaultRules.js",
+      "recovery": false,
+      "start": 49.10000000055879,
+      "responseEnd": 51.40000000037253,
+      "duration": 2.2999999998137355,
+      "transferSize": 8145,
+      "encodedBodySize": 7845,
+      "decodedBodySize": 7845
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/stacking.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 52.5,
+      "duration": 3.2999999998137355,
+      "transferSize": 1467,
+      "encodedBodySize": 1167,
+      "decodedBodySize": 1167
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/combatLoss.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 53.60000000055879,
+      "duration": 4.400000000372529,
+      "transferSize": 6208,
+      "encodedBodySize": 5908,
+      "decodedBodySize": 5908
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/unit.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 52.200000000186265,
+      "duration": 3,
+      "transferSize": 635,
+      "encodedBodySize": 335,
+      "decodedBodySize": 335
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/zoc.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 52.60000000055879,
+      "duration": 3.400000000372529,
+      "transferSize": 1059,
+      "encodedBodySize": 759,
+      "decodedBodySize": 759
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/movement.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 52.90000000037253,
+      "duration": 3.7000000001862645,
+      "transferSize": 8146,
+      "encodedBodySize": 7846,
+      "decodedBodySize": 7846
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/crt.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 53,
+      "duration": 3.7999999998137355,
+      "transferSize": 2752,
+      "encodedBodySize": 2452,
+      "decodedBodySize": 2452
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/scenario/importLegacyFMap.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 51.80000000074506,
+      "duration": 2.6000000005587935,
+      "transferSize": 2662,
+      "encodedBodySize": 2362,
+      "decodedBodySize": 2362
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/rail.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 54.40000000037253,
+      "duration": 5.2000000001862645,
+      "transferSize": 15723,
+      "encodedBodySize": 15423,
+      "decodedBodySize": 15423
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/combat.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 53.30000000074506,
+      "duration": 4.1000000005587935,
+      "transferSize": 13329,
+      "encodedBodySize": 13029,
+      "decodedBodySize": 13029
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/turn.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 54.10000000055879,
+      "duration": 4.900000000372529,
+      "transferSize": 4391,
+      "encodedBodySize": 4091,
+      "decodedBodySize": 4091
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/supply.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 54.700000000186265,
+      "duration": 5.5,
+      "transferSize": 6818,
+      "encodedBodySize": 6518,
+      "decodedBodySize": 6518
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/commitment.js",
+      "recovery": false,
+      "start": 49.200000000186265,
+      "responseEnd": 54.10000000055879,
+      "duration": 4.900000000372529,
+      "transferSize": 2400,
+      "encodedBodySize": 2100,
+      "decodedBodySize": 2100
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/breakthrough.js",
+      "recovery": false,
+      "start": 49.30000000074506,
+      "responseEnd": 55.30000000074506,
+      "duration": 6,
+      "transferSize": 7511,
+      "encodedBodySize": 7211,
+      "decodedBodySize": 7211
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/victory.js",
+      "recovery": false,
+      "start": 49.30000000074506,
+      "responseEnd": 56,
+      "duration": 6.699999999254942,
+      "transferSize": 5160,
+      "encodedBodySize": 4860,
+      "decodedBodySize": 4860
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/deployment.js",
+      "recovery": false,
+      "start": 49.30000000074506,
+      "responseEnd": 56.40000000037253,
+      "duration": 7.099999999627471,
+      "transferSize": 8677,
+      "encodedBodySize": 8377,
+      "decodedBodySize": 8377
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/entrenchment.js",
+      "recovery": false,
+      "start": 49.30000000074506,
+      "responseEnd": 54.90000000037253,
+      "duration": 5.599999999627471,
+      "transferSize": 2030,
+      "encodedBodySize": 1730,
+      "decodedBodySize": 1730
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/reinforcement.js",
+      "recovery": false,
+      "start": 49.30000000074506,
+      "responseEnd": 56.10000000055879,
+      "duration": 6.7999999998137355,
+      "transferSize": 10638,
+      "encodedBodySize": 10338,
+      "decodedBodySize": 10338
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/recovery.js",
+      "recovery": false,
+      "start": 49.30000000074506,
+      "responseEnd": 55.60000000055879,
+      "duration": 6.2999999998137355,
+      "transferSize": 9300,
+      "encodedBodySize": 9000,
+      "decodedBodySize": 9000
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/hq.js",
+      "recovery": false,
+      "start": 49.40000000037253,
+      "responseEnd": 56.90000000037253,
+      "duration": 7.5,
+      "transferSize": 820,
+      "encodedBodySize": 520,
+      "decodedBodySize": 520
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/retreat.js",
+      "recovery": false,
+      "start": 49.40000000037253,
+      "responseEnd": 56.700000000186265,
+      "duration": 7.2999999998137355,
+      "transferSize": 4040,
+      "encodedBodySize": 3740,
+      "decodedBodySize": 3740
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/state.js",
+      "recovery": false,
+      "start": 49.40000000037253,
+      "responseEnd": 57.40000000037253,
+      "duration": 8,
+      "transferSize": 4567,
+      "encodedBodySize": 4267,
+      "decodedBodySize": 4267
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/identity.js",
+      "recovery": false,
+      "start": 49.40000000037253,
+      "responseEnd": 57.5,
+      "duration": 8.099999999627471,
+      "transferSize": 4361,
+      "encodedBodySize": 4061,
+      "decodedBodySize": 4061
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/integrity.js",
+      "recovery": false,
+      "start": 49.40000000037253,
+      "responseEnd": 57.80000000074506,
+      "duration": 8.400000000372529,
+      "transferSize": 50714,
+      "encodedBodySize": 50414,
+      "decodedBodySize": 50414
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/transactionGuard.js",
+      "recovery": false,
+      "start": 49.5,
+      "responseEnd": 57.90000000037253,
+      "duration": 8.400000000372529,
+      "transferSize": 2257,
+      "encodedBodySize": 1957,
+      "decodedBodySize": 1957
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/headless.js",
+      "recovery": false,
+      "start": 49.5,
+      "responseEnd": 58.700000000186265,
+      "duration": 9.200000000186265,
+      "transferSize": 6256,
+      "encodedBodySize": 5956,
+      "decodedBodySize": 5956
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/engine/RulesEngine.js",
+      "recovery": false,
+      "start": 49.5,
+      "responseEnd": 58.40000000037253,
+      "duration": 8.900000000372529,
+      "transferSize": 23760,
+      "encodedBodySize": 23460,
+      "decodedBodySize": 23460
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/dist/rules/combatTransaction.js",
+      "recovery": false,
+      "start": 49.60000000055879,
+      "responseEnd": 59,
+      "duration": 9.399999999441206,
+      "transferSize": 45095,
+      "encodedBodySize": 44795,
+      "decodedBodySize": 44795
+    },
+    {
+      "path": "/r1/app/interaction/attackGroup.js",
+      "recovery": false,
+      "start": 49.700000000186265,
+      "responseEnd": 59.200000000186265,
+      "duration": 9.5,
+      "transferSize": 1983,
+      "encodedBodySize": 1683,
+      "decodedBodySize": 1683
+    },
+    {
+      "path": "/r1/app/presentation/unitPresenceTypes.js",
+      "recovery": false,
+      "start": 49.700000000186265,
+      "responseEnd": 59.80000000074506,
+      "duration": 10.100000000558794,
+      "transferSize": 3003,
+      "encodedBodySize": 2703,
+      "decodedBodySize": 2703
+    },
+    {
+      "path": "/r1/app/presentation/motion.js",
+      "recovery": false,
+      "start": 49.700000000186265,
+      "responseEnd": 59.90000000037253,
+      "duration": 10.200000000186265,
+      "transferSize": 3065,
+      "encodedBodySize": 2765,
+      "decodedBodySize": 2765
+    },
+    {
+      "path": "/r1/app/presentation/unitPresence.js",
+      "recovery": false,
+      "start": 49.700000000186265,
+      "responseEnd": 60.10000000055879,
+      "duration": 10.400000000372529,
+      "transferSize": 12597,
+      "encodedBodySize": 12297,
+      "decodedBodySize": 12297
+    },
+    {
+      "path": "/r1/app/presentation/timing.js",
+      "recovery": false,
+      "start": 51.60000000055879,
+      "responseEnd": 60.700000000186265,
+      "duration": 9.099999999627471,
+      "transferSize": 658,
+      "encodedBodySize": 358,
+      "decodedBodySize": 358
+    },
+    {
+      "path": "/r1/app/multiplayer/mapEncoding.js",
+      "recovery": false,
+      "start": 52.5,
+      "responseEnd": 60.80000000074506,
+      "duration": 8.300000000745058,
+      "transferSize": 2050,
+      "encodedBodySize": 1750,
+      "decodedBodySize": 1750
+    },
+    {
+      "path": "/r1/app/presentation/unitPresenceSvg.js",
+      "recovery": false,
+      "start": 67.30000000074506,
+      "responseEnd": 68.30000000074506,
+      "duration": 1,
+      "transferSize": 4876,
+      "encodedBodySize": 4576,
+      "decodedBodySize": 4576
+    },
+    {
+      "path": "/r1/multiplayer.css",
+      "recovery": false,
+      "start": 72,
+      "responseEnd": 73.80000000074506,
+      "duration": 1.800000000745058,
+      "transferSize": 4392,
+      "encodedBodySize": 4092,
+      "decodedBodySize": 4092
+    },
+    {
+      "path": "/r1/vendor/eastfront-digital-core/reference/strategic-reset-f-map.json",
+      "recovery": false,
+      "start": 113.6000000005588,
+      "responseEnd": 116.30000000074506,
+      "duration": 2.7000000001862645,
+      "transferSize": 50064,
+      "encodedBodySize": 49764,
+      "decodedBodySize": 49764
+    },
+    {
+      "path": "/r1/assets/terrain/p4r3/manifest.json",
+      "recovery": false,
+      "start": 113.6000000005588,
+      "responseEnd": 117.20000000018626,
+      "duration": 3.599999999627471,
+      "transferSize": 52093,
+      "encodedBodySize": 51793,
+      "decodedBodySize": 51793
+    },
+    {
+      "path": "/r1/app/render/vs2TerrainSurface.js",
+      "recovery": false,
+      "start": 128.80000000074506,
+      "responseEnd": 129.70000000018626,
+      "duration": 0.8999999994412065,
+      "transferSize": 7014,
+      "encodedBodySize": 6714,
+      "decodedBodySize": 6714
+    },
+    {
+      "path": "/r1/app/render/terrainImagePipeline.js",
+      "recovery": false,
+      "start": 130.6000000005588,
+      "responseEnd": 131.6000000005588,
+      "duration": 1,
+      "transferSize": 4516,
+      "encodedBodySize": 4216,
+      "decodedBodySize": 4216
+    },
+    {
+      "path": "/r1/app/render/vs2Infrastructure.js",
+      "recovery": false,
+      "start": 130.6000000005588,
+      "responseEnd": 131.70000000018626,
+      "duration": 1.099999999627471,
+      "transferSize": 10306,
+      "encodedBodySize": 10006,
+      "decodedBodySize": 10006
+    },
+    {
+      "path": "/r1/app/render/vs2PlainTraces.js",
+      "recovery": false,
+      "start": 130.6000000005588,
+      "responseEnd": 132.30000000074506,
+      "duration": 1.7000000001862645,
+      "transferSize": 9803,
+      "encodedBodySize": 9503,
+      "decodedBodySize": 9503
+    },
+    {
+      "path": "/r1/app/render/vs2ForestSurface.js",
+      "recovery": false,
+      "start": 130.6000000005588,
+      "responseEnd": 132.30000000074506,
+      "duration": 1.7000000001862645,
+      "transferSize": 6539,
+      "encodedBodySize": 6239,
+      "decodedBodySize": 6239
+    },
+    {
+      "path": "/r1/app/render/vs2Presentation.js",
+      "recovery": false,
+      "start": 130.6000000005588,
+      "responseEnd": 132.5,
+      "duration": 1.8999999994412065,
+      "transferSize": 723,
+      "encodedBodySize": 423,
+      "decodedBodySize": 423
+    },
+    {
+      "path": "/r1/app/render/vs2Projection.js",
+      "recovery": false,
+      "start": 130.70000000018626,
+      "responseEnd": 132.80000000074506,
+      "duration": 2.1000000005587935,
+      "transferSize": 4990,
+      "encodedBodySize": 4690,
+      "decodedBodySize": 4690
+    },
+    {
+      "path": "/r1/app/render/vs2Assets.js",
+      "recovery": false,
+      "start": 130.70000000018626,
+      "responseEnd": 133.6000000005588,
+      "duration": 2.900000000372529,
+      "transferSize": 1094,
+      "encodedBodySize": 794,
+      "decodedBodySize": 794
+    },
+    {
+      "path": "/r1/app/render/vs2WorldRaster.js",
+      "recovery": false,
+      "start": 130.70000000018626,
+      "responseEnd": 133.30000000074506,
+      "duration": 2.6000000005587935,
+      "transferSize": 7717,
+      "encodedBodySize": 7417,
+      "decodedBodySize": 7417
+    },
+    {
+      "path": "/r1/app/render/vs2CityClusters.js",
+      "recovery": false,
+      "start": 130.70000000018626,
+      "responseEnd": 133,
+      "duration": 2.2999999998137355,
+      "transferSize": 15839,
+      "encodedBodySize": 15539,
+      "decodedBodySize": 15539
+    },
+    {
+      "path": "/r1/app/render/vs2WorldField.js",
+      "recovery": false,
+      "start": 135.20000000018626,
+      "responseEnd": 135.90000000037253,
+      "duration": 0.7000000001862645,
+      "transferSize": 6131,
+      "encodedBodySize": 5831,
+      "decodedBodySize": 5831
+    },
+    {
+      "path": "/r1/app/render/terrainDrawCommands.js",
+      "recovery": false,
+      "start": 135.40000000037253,
+      "responseEnd": 136.20000000018626,
+      "duration": 0.7999999998137355,
+      "transferSize": 1865,
+      "encodedBodySize": 1565,
+      "decodedBodySize": 1565
+    },
+    {
+      "path": "/r1/app/render/vs2TerrainDetail.js",
+      "recovery": false,
+      "start": 135.40000000037253,
+      "responseEnd": 136.40000000037253,
+      "duration": 1,
+      "transferSize": 2700,
+      "encodedBodySize": 2400,
+      "decodedBodySize": 2400
+    },
+    {
+      "path": "/r1/app/assets/VS2_ASSET_MANIFEST.json",
+      "recovery": false,
+      "start": 135.40000000037253,
+      "responseEnd": 137.6000000005588,
+      "duration": 2.2000000001862645,
+      "transferSize": 110781,
+      "encodedBodySize": 110481,
+      "decodedBodySize": 110481
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/grass.webp",
+      "recovery": false,
+      "start": 146.90000000037253,
+      "responseEnd": 149.80000000074506,
+      "duration": 2.900000000372529,
+      "transferSize": 450590,
+      "encodedBodySize": 450290,
+      "decodedBodySize": 450290
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/dry_soil.webp",
+      "recovery": false,
+      "start": 147,
+      "responseEnd": 150.70000000018626,
+      "duration": 3.7000000001862645,
+      "transferSize": 443524,
+      "encodedBodySize": 443224,
+      "decodedBodySize": 443224
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/ground/moist_soil.webp",
+      "recovery": false,
+      "start": 157.5,
+      "responseEnd": 160.20000000018626,
+      "duration": 2.7000000001862645,
+      "transferSize": 460314,
+      "encodedBodySize": 460014,
+      "decodedBodySize": 460014
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/relief/slope_material.webp",
+      "recovery": false,
+      "start": 163,
+      "responseEnd": 165.20000000018626,
+      "duration": 2.2000000001862645,
+      "transferSize": 430502,
+      "encodedBodySize": 430202,
+      "decodedBodySize": 430202
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/rough/broken_soil.webp",
+      "recovery": false,
+      "start": 170.20000000018626,
+      "responseEnd": 172.30000000074506,
+      "duration": 2.1000000005587935,
+      "transferSize": 463528,
+      "encodedBodySize": 463228,
+      "decodedBodySize": 463228
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/marsh/wet_ground.webp",
+      "recovery": false,
+      "start": 177,
+      "responseEnd": 179.40000000037253,
+      "duration": 2.400000000372529,
+      "transferSize": 563590,
+      "encodedBodySize": 563290,
+      "decodedBodySize": 563290
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/city/settlement_ground.webp",
+      "recovery": false,
+      "start": 184.6000000005588,
+      "responseEnd": 187,
+      "duration": 2.3999999994412065,
+      "transferSize": 442934,
+      "encodedBodySize": 442634,
+      "decodedBodySize": 442634
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/macro_value.png",
+      "recovery": false,
+      "start": 192.40000000037253,
+      "responseEnd": 193.90000000037253,
+      "duration": 1.5,
+      "transferSize": 9915,
+      "encodedBodySize": 9615,
+      "decodedBodySize": 9615
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/masks/gentle_shade.png",
+      "recovery": false,
+      "start": 198.80000000074506,
+      "responseEnd": 200.6000000005588,
+      "duration": 1.7999999998137355,
+      "transferSize": 1031,
+      "encodedBodySize": 731,
+      "decodedBodySize": 731
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_branch.png",
+      "recovery": false,
+      "start": 1346.1000000005588,
+      "responseEnd": 1348.7000000001863,
+      "duration": 2.599999999627471,
+      "transferSize": 129232,
+      "encodedBodySize": 128932,
+      "decodedBodySize": 128932
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/dense_long.png",
+      "recovery": false,
+      "start": 1346.1000000005588,
+      "responseEnd": 1349.6000000005588,
+      "duration": 3.5,
+      "transferSize": 128492,
+      "encodedBodySize": 128192,
+      "decodedBodySize": 128192
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_fork.png",
+      "recovery": false,
+      "start": 1384.5,
+      "responseEnd": 1386.4000000003725,
+      "duration": 1.900000000372529,
+      "transferSize": 140370,
+      "encodedBodySize": 140070,
+      "decodedBodySize": 140070
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/medium_open.png",
+      "recovery": false,
+      "start": 1386.800000000745,
+      "responseEnd": 1388.4000000003725,
+      "duration": 1.599999999627471,
+      "transferSize": 148310,
+      "encodedBodySize": 148010,
+      "decodedBodySize": 148010
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_fragment.png",
+      "recovery": false,
+      "start": 1390.2000000001863,
+      "responseEnd": 1391.800000000745,
+      "duration": 1.6000000005587935,
+      "transferSize": 112228,
+      "encodedBodySize": 111928,
+      "decodedBodySize": 111928
+    },
+    {
+      "path": "/r1/assets/terrain/vs2-002/assets/forest/sparse_scatter.png",
+      "recovery": false,
+      "start": 1391.800000000745,
+      "responseEnd": 1393.1000000005588,
+      "duration": 1.2999999998137355,
+      "transferSize": 104422,
+      "encodedBodySize": 104122,
+      "decodedBodySize": 104122
+    }
+  ],
+  "limitations": [
+    "DOM available, requested LOD, completed LOD and mounted canvas are separate observations.",
+    "Steps count generator resumptions, not pixels. A JS thread blocked at export cannot supply a live snapshot.",
+    "Resource timing is not independent decoding CPU or proof of a cold cache.",
+    "Snapshot polling adds overhead; this is a functional observation, not a performance benchmark.",
+    "No cookies, authentication values, game state or full URLs are exported."
+  ]
+}
