@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-04",
+  "generation": {
+    "tool": "built-in image_gen",
+    "calls": 2,
+    "postprocessing": "none; original generated PNGs copied",
+    "prompts": [
+      "prompt-t5.txt",
+      "prompt-t8.txt"
+    ]
+  },
+  "checkpointSource": "../verified-checkpoints.json",
+  "checkpointSha256": "6428a8ec50fa8b396e9fd78f0a661a9b66ef7d0d129075dafc335d21a6e51c57",
+  "files": [
+    {
+      "path": "t5-before-order.png",
+      "bytes": 3236033,
+      "sha256": "995ae81b1c678d6b83d4b020a304c4bfefe8a979aa3f34da6928c62b35a7cbc0",
+      "width": 1536,
+      "height": 1024,
+      "use": "generated concept, not game screenshot",
+      "visuallyInspected": true
+    },
+    {
+      "path": "t8-before-care.png",
+      "bytes": 2965206,
+      "sha256": "5aa788822b0f3578ea1cbf73287d6663e1b2b15ed2c11338ecb0f8c60fd3f3eb",
+      "width": 1536,
+      "height": 1024,
+      "use": "generated concept, not game screenshot",
+      "visuallyInspected": true
+    },
+    {
+      "path": "references/civ7-map.jpg",
+      "bytes": 954662,
+      "sha256": "537f78b4a1cd20a6cf8a57d6aa07cea51a6bec8bb064d0c09541228214ac9157",
+      "source": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295660/ss_8c1226a5c58447773b03b6c967e9d561d3315fd7.1920x1080.jpg?t=1789481137",
+      "use": "third-party research reference only, not runtime asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "references/civ7-official.jpg",
+      "bytes": 341352,
+      "sha256": "81ff238f971a99fc4e7425d7a3cdfdb5925303ec9e9217a9b222c01aedd64072",
+      "source": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1295660/6461e684c0ddb02f3058ea0a4d3d7a7eb3167759/ss_6461e684c0ddb02f3058ea0a4d3d7a7eb3167759.1920x1080.jpg?t=1789481137",
+      "use": "third-party research reference only, not runtime asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "references/vic3-buildings.webp",
+      "bytes": 305616,
+      "sha256": "680a4b8dcbd2209a9a8741ca29b51bef8b6f741275564262407b7d155ea654c6",
+      "source": "https://images.ctfassets.net/u73tyf0fa8v1/4FX7EDGhKBmZWVWs79C283/1a61a2c25ff3ff8e987a13223f270b03/3.jpg?fm=webp&q=75&w=1920",
+      "use": "third-party research reference only, not runtime asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "references/vic3-outliner.webp",
+      "bytes": 302082,
+      "sha256": "6c082f8e90f43566391fadbd6c88576c4c8a1d8b962b7d43e030c5c4b9946fec",
+      "source": "https://images.ctfassets.net/u73tyf0fa8v1/4qki64uD5NgmoGAd4qXt2M/e4f127bf065606387ab1c70f719d0fb6/4.jpg?fm=webp&q=75&w=1920",
+      "use": "third-party research reference only, not runtime asset",
+      "visuallyInspected": true
+    },
+    {
+      "path": "references/hoi4-supply.png",
+      "bytes": 2017791,
+      "sha256": "06770966f94caacbba884c6b65289cdc49fd669b526ff65916a0c2bbe784cdd4",
+      "source": "https://clan.fastly.steamstatic.com/images/9948323/c0dec3125bd2ecb337e3271c0e4d9072f2cf22a7.png",
+      "use": "third-party research reference only, not runtime asset",
+      "visuallyInspected": true
+    }
+  ],
+  "proposalPngBytes": 6201239,
+  "runtimeDelta": {
+    "bytes": 0,
+    "canvas": 0,
+    "dom": 0
+  },
+  "review": {
+    "keyStateText": "manually inspected against archived T5 v0 / T8 v37",
+    "maps": "same composition, generated detail drift; not semantic verification",
+    "interactiveTesting": "not run, no runtime modifications",
+    "performance": "unverified",
+    "acceptance": "pending user direction confirmation"
+  }
+}
