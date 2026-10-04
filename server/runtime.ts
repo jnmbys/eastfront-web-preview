@@ -2,16 +2,20 @@ import {PROTOCOL_VERSION} from '../src/multiplayer/protocol.js';
 import {createServer} from 'node:http';
 import {WebSocketServer,WebSocket} from 'ws';
 import {TransportDiagnostics} from './transportDiagnostics.js';
-import {beginSpan,endSpan} from './latencyDiagnostics.js';
+import {beginSpan,endSpan,recordSpan,type LatencySink} from './latencyDiagnostics.js';
 import {RoomAuthority} from './authority.js';
 import {configFromEnv,type ServerConfig} from './config.js';
 
-export function createMultiplayerServer(config:ServerConfig=configFromEnv(),authority=new RoomAuthority(config)) {
+export function createMultiplayerServer(config:ServerConfig=configFromEnv(),authority=new RoomAuthority(config),localDiagnostics?:LatencySink) {
   // Render supplies this for the running deployment; health alone is not proof
   // of a version. Never expose arbitrary environment values or match data.
   const sourceCommit=/^[0-9a-f]{40}$/i.test(process.env.RENDER_GIT_COMMIT??'')?(process.env.RENDER_GIT_COMMIT??null):null;
   const diagnostics=new TransportDiagnostics(config.allowedOrigins,sourceCommit);
-  authority.setDiagnostics?.(diagnostics);
+  // Optional in-process metadata sink. No new endpoint, wire field or auth path.
+  // An observer failure must not affect the authority or the existing observer.
+  const timing:LatencySink={active(id){let local=false;try{local=localDiagnostics?.active(id)===true;}catch{}return diagnostics.active(id)||local;},
+    latency(id,row){diagnostics.latency(id,row);try{if(localDiagnostics?.active(id))localDiagnostics.latency(id,row);}catch{}}};
+  authority.setDiagnostics?.(timing);
   const acceptedExtensions=new WeakMap<object,string>();
   const http=createServer((request,response)=>{
     response.setHeader('Content-Type','application/json');response.setHeader('Cache-Control','no-store');
@@ -40,18 +44,24 @@ export function createMultiplayerServer(config:ServerConfig=configFromEnv(),auth
       if(ws.bufferedAmount>config.maxBufferedBytes){ws.terminate();return;}
       // ACK/rejection/identity messages bypass compression. ws preserves each
       // socket's send order while large-message compression runs off-thread.
-      const observed=diagnostics.active(id),start=observed?performance.now():0;
+      const observed=diagnostics.active(id),queryStart=message.messageType==='MATCH_QUERY'?beginSpan(timing,id):undefined,start=observed?performance.now():0;
       const json=JSON.stringify(message),compress=message.messageType==='PLAYER_VIEW_SNAPSHOT'||message.messageType==='MATCH_QUERY';
       const sentAt=observed?performance.now():0;
       const done=observed?diagnostics.record(id,message,Buffer.byteLength(json),sentAt-start,compress,ws.bufferedAmount,sentAt):undefined;
-      ws.send(json,{compress},error=>{done?.(error);if(error)ws.terminate();});
+      const queryMeta=message.messageType==='MATCH_QUERY'?{requestId:message.requestId,revision:message.payload.matchRevision,sequence:message.payload.serverSequence}:{};
+      endSpan(timing,id,queryStart,'query-serialize',queryMeta);
+      const handoff=queryStart===undefined?undefined:performance.now();
+      if(handoff!==undefined)recordSpan(timing,id,{stage:'query-send',startAt:handoff,endAt:handoff,serverTimestamp:performance.timeOrigin+handoff,...queryMeta,bytes:Buffer.byteLength(json),bufferedBytes:ws.bufferedAmount});
+      ws.send(json,{compress},error=>{done?.(error);
+        if(handoff!==undefined)recordSpan(timing,id,{stage:'query-write',startAt:handoff,endAt:performance.now(),serverTimestamp:performance.timeOrigin+handoff,...queryMeta,bufferedBytes:ws.bufferedAmount,writeError:!!error});
+        if(error)ws.terminate();});
     });
     diagnostics.add(id,ws,request.headers['sec-websocket-extensions'],acceptedExtensions.get(request)??'');
     peers.set(ws,{id,alive:true,openedAt:Date.now()});
     ws.on('pong',()=>{const peer=peers.get(ws);if(peer)peer.alive=true;});
     ws.on('message',(data,binary)=>{if(binary){ws.close(1003,'Text JSON required');return;}
-      const start=beginSpan(diagnostics,id);
-      try{authority.receive(id,data.toString());}finally{endSpan(diagnostics,id,start,'receive');}
+      const start=beginSpan(timing,id);
+      try{authority.receive(id,data.toString(),start);}finally{endSpan(timing,id,start,'receive');}
     });
     ws.on('error',()=>ws.terminate());
     ws.on('close',()=>{peers.delete(ws);diagnostics.remove(id);authority.disconnect(id);});

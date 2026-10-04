@@ -1,8 +1,9 @@
 /** Metadata only, per live connection, opt-in. No gameplay values or payloads. */
 export interface LatencyRow {
-  stage:'receive'|'request'|'validate'|'apply-intent'|'core-apply'|'snapshot-build'|'snapshot-encode'|'query-build';
+  stage:'receive'|'request'|'validate'|'apply-intent'|'core-apply'|'snapshot-build'|'snapshot-encode'|'query-build'|'query-dispatch'|'query-model'|'query-forced'|'query-summary'|'query-serialize'|'query-send'|'query-write';
   startAt:number;endAt:number;serverTimestamp:number;
   requestId?:string|null;revision?:number;sequence?:number;type?:string;
+  bytes?:number;bufferedBytes?:number;writeError?:boolean;
 }
 export interface LatencySink {
   active(id:string):boolean;

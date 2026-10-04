@@ -45,7 +45,7 @@ export class RoomAuthority {
       }else c.send(message);
     }catch{/* close/heartbeat drives disconnect */}
   }
-  receive(connectionId:string,raw:string):void {
+  receive(connectionId:string,raw:string,receivedAt?:number):void {
     const started=beginSpan(this.diagnostics,connectionId);
     const c=this.#connections.get(connectionId);if(!c)return;
     const now=this.now();if(now-c.windowAt>=this.config.rateWindowMs){c.windowAt=now;c.messages=0;}
@@ -56,6 +56,9 @@ export class RoomAuthority {
     const m=result.message;
     if(m.messageType!=='SUBMIT_ACTION'&&c.requests.has(m.requestId)){this.emit(connectionId,'ROOM_ERROR',{code:'BAD_MESSAGE'},m.requestId);return;}
     c.requests.add(m.requestId);if(c.requests.size>128)c.requests.delete(c.requests.values().next().value!);
+    // Synchronous dispatch: this interval is conversion/parse/validation, not an
+    // application queue. Time before the WS callback (event loop/kernel) is unknown.
+    if(m.messageType==='QUERY_MATCH')endSpan(this.diagnostics,connectionId,receivedAt??started,'query-dispatch',{requestId:m.requestId,revision:m.payload.expectedRevision});
     try{this.handle(connectionId,c,m);}catch(error){this.emit(connectionId,'ROOM_ERROR',{code:error instanceof Rejection?error.code:'MATCH_FAILED'},m.requestId);}
     finally{if(['SUBMIT_ACTION','QUERY_MATCH','RESYNC_MATCH'].includes(m.messageType))endSpan(this.diagnostics,connectionId,started,'request',{requestId:m.requestId,type:m.messageType});}
   }
@@ -111,8 +114,15 @@ export class RoomAuthority {
       if(m.messageType==='QUERY_MATCH'){
         if(m.payload.expectedRevision!==match.matchRevision){this.snapshot(connectionId,identity.controllerId,match,true,[],m.requestId);return;}
         const queryStart=beginSpan(this.diagnostics,connectionId);
-        const model=queryModel(match,identity.controllerId,m.payload.draft),forced=forcedAction(match,identity.controllerId,m.payload.draft);
+        const modelStart=beginSpan(this.diagnostics,connectionId);
+        const model=queryModel(match,identity.controllerId,m.payload.draft);
+        endSpan(this.diagnostics,connectionId,modelStart,'query-model',{requestId:m.requestId,revision:match.matchRevision});
+        const forcedStart=beginSpan(this.diagnostics,connectionId);
+        const forced=forcedAction(match,identity.controllerId,m.payload.draft);
+        endSpan(this.diagnostics,connectionId,forcedStart,'query-forced',{requestId:m.requestId,revision:match.matchRevision});
+        const summaryStart=beginSpan(this.diagnostics,connectionId);
         if(c.battleSummary)model.battleSummaries=battleSummaries(match,identity.controllerId);
+        endSpan(this.diagnostics,connectionId,summaryStart,'query-summary',{requestId:m.requestId,revision:match.matchRevision});
         endSpan(this.diagnostics,connectionId,queryStart,'query-build',{requestId:m.requestId,revision:match.matchRevision});
         this.emit(connectionId,'MATCH_QUERY',{...this.order(match,identity.controllerId),model,forcedAction:forced},m.requestId);return;
       }

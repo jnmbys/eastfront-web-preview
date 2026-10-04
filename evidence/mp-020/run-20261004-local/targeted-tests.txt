@@ -1,0 +1,43 @@
+✔ MP003 real clients: lobby handoff consumes initial snapshot once, deployments send no queries, both revisions agree (290.9261ms)
+✔ MP003 real clients: dropped observer snapshot triggers one resync, privacy holds and play continues (200.2962ms)
+✔ MP003 real clients: token reconnect restores current private view and continues once without automatic decision (943.8594ms)
+✔ MP003 real clients: replayed deployment request is idempotent and legal ACK/snapshot interleaving does not resync (158.499ms)
+✔ MP003 deployment unit/destination selection is local, sends no query and changes no canonical placement (35.2836ms)
+✔ MP003 same-turn selections send only the latest query; selected counter feedback is immediate (18.5375ms)
+✔ MP003 one in-flight plus latest unsent query; obsolete result consumes sequence without overwriting selection (46.1976ms)
+✔ MP003 A-B-A clears the unsent B instead of applying it after A (31.5956ms)
+✔ MP003 snapshot while query is in flight does not free its transport slot or send duplicate queries (47.2983ms)
+✔ MP003 genuine sequence gap still requests exactly one resync and applies a current private snapshot (16.4179ms)
+✔ MP003 future query revision still forces recovery; version validation is retained (15.2034ms)
+✔ MP003 unrelated correlated response consumes order but cannot complete the current query (16.0748ms)
+✔ MP003 Action ACK does not adopt state; one deployment click/reclick executes once and creates no follow-up query (45.4247ms)
+✔ MP003 query rejection does not retry itself or expose the previous selection options (47.0123ms)
+✔ MP003 ordered pending-resync frames cannot produce repeated recovery requests or roll back state (18.3061ms)
+✔ MP003 disconnect clears queued input and reconnect restores current state before accepting another action (44.5539ms)
+✔ MP003 network UI keeps selection buttons live while guarding Actions and Core-disabled controls (2.7557ms)
+✔ MP009R1 newer unrelated snapshot cannot be attributed before a matching receipt (30.3389ms)
+✔ MP009R1 late ACK emits once using first actual snapshot application time and sequence (23.0977ms)
+✔ MP009R1 ACK before snapshot completes exactly once at application, never at ACK (18.5327ms)
+✔ MP009R1 wrong result revision is excluded even after a matching request receipt (18.2069ms)
+✔ MP009R1 recovery may correlate an acknowledged exact revision after UI intent cleanup (16.9385ms)
+✔ MP009R1 a different authorized viewer cannot complete the request (19.4454ms)
+✔ MP009R1 recovery trace fifo (31.2689ms)
+✔ MP009R1 recovery trace second-snapshot-after-resync (16.6863ms)
+✔ MP016 required query overlaps 0ms snapshot rendering without changing gates (28.4605ms)
+✔ MP016 required query overlaps 120ms snapshot rendering without changing gates (9.5289ms)
+✔ MP016 rapid selection while post-snapshot query runs discards old options and coalesces latest intent (9.3108ms)
+✔ MP016 snapshot-first legal sequence retains actual apply time and cannot release before late ACK (8.161ms)
+✔ MP016 genuine frame disorder retains recovery rather than treating an old query as current (12.9837ms)
+✔ MP016 refusal preserves authority and does not auto-resubmit (6.9421ms)
+✔ MP016 disconnect in query wait keeps canonical snapshot but prevents selection/submission (7.5726ms)
+✔ MP016 forced-decision scheduling waits for correlated current query (synthetic authorized frames) (3.8128ms)
+✔ MP020 duration decomposition never aligns server/client epochs; missing remains null (0.6136ms)
+✔ MP020 diagnostics are inert when disabled or broken; query result and authorized gates unchanged (19.7351ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1729.776

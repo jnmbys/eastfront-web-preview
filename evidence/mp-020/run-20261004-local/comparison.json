@@ -1,0 +1,124 @@
+{
+  "allAuthorizedResultDigestsEqual": true,
+  "groups": {
+    "baseline-local": {
+      "count": 5,
+      "queryCountPerMove": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "resyncCount": 0,
+      "clientWaitMs": {
+        "min": 5.142800000000079,
+        "max": 6.883199999999988,
+        "median": 5.45239999999967
+      },
+      "serverMs": null,
+      "wireBytes": [
+        15654,
+        15656,
+        15655,
+        15659,
+        15656
+      ],
+      "compressed": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "diagnostic-local": {
+      "count": 5,
+      "queryCountPerMove": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "resyncCount": 0,
+      "clientWaitMs": {
+        "min": 5.025699999999915,
+        "max": 7.130499999999984,
+        "median": 5.73910000000069
+      },
+      "serverMs": {
+        "min": 3.4881000000000313,
+        "max": 4.221499999999651,
+        "median": 4.03650000000016
+      },
+      "wireBytes": [
+        15655,
+        15658,
+        15656,
+        15660,
+        15657
+      ],
+      "compressed": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "diagnostic-delayed": {
+      "count": 2,
+      "queryCountPerMove": [
+        1,
+        1
+      ],
+      "resyncCount": 0,
+      "clientWaitMs": {
+        "min": 709.2768000000005,
+        "max": 712.8539999999994,
+        "median": 712.8539999999994
+      },
+      "serverMs": {
+        "min": 3.837600000002567,
+        "max": 4.945700000000215,
+        "median": 4.945700000000215
+      },
+      "wireBytes": [
+        15655,
+        15655
+      ],
+      "compressed": [
+        true,
+        true
+      ]
+    },
+    "diagnostic-render": {
+      "count": 2,
+      "queryCountPerMove": [
+        1,
+        1
+      ],
+      "resyncCount": 0,
+      "clientWaitMs": {
+        "min": 124.92720000000008,
+        "max": 127.05910000000006,
+        "median": 127.05910000000006
+      },
+      "serverMs": {
+        "min": 3.6864000000000487,
+        "max": 4.477899999999977,
+        "median": 4.477899999999977
+      },
+      "wireBytes": [
+        15657,
+        15656
+      ],
+      "compressed": [
+        true,
+        true
+      ]
+    }
+  },
+  "interpretation": "Diagnostic-only control, not a speedup experiment. Local run variation is not improvement. Artificial receive delay / synchronous render recorded separately; not device evidence."
+}

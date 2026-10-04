@@ -1,0 +1,293 @@
+{
+  "codeBaseline": "a7dfdd9c57400c6a856186a70d8fb71b118b02dc",
+  "evidenceBaseline": "2a1b784ce11963380605e20d3aff57cd87fb8685",
+  "serverRoot": ".server-dist",
+  "diagnostics": "on",
+  "clock": "two independent process monotonic clocks; only same-process differences",
+  "delay": 0,
+  "renderMs": 0,
+  "count": 5,
+  "scenario": "exact MP017 move scenario, seed 17; Node real WS + real client/session/authority/Core, NOT browser/device",
+  "serverSourceSha256": {
+    "runtime": "16b58c96772e40d4653f3970585e59addb9be90c60c6071f11a70cfb8f2be086",
+    "authority": "0c16915285e74ab2382068315b4a30ba12f015ac104932f4aa23f08debfed883",
+    "latencyDiagnostics": "c9a90e3fb1e5649585141770a53bc55d1fa54e82ed59ba2511f4a23db2c3705d"
+  },
+  "samples": [
+    {
+      "sample": 1,
+      "kind": "local-loopback",
+      "queryRequestId": "42e465c4-3a9c-4296-b5ee-b0771f191f21",
+      "actionAppliedAt": 1017.4065,
+      "authorizedResultSha256": "c3fbcf8266aacaf61df83941f3f7f086e78706403bb6496823dc854e6ddd2898",
+      "queryCount": 1,
+      "actionCount": 1,
+      "resyncCount": 0,
+      "recovered": true,
+      "opponentReadOnly": true,
+      "wire": {
+        "event": "wire",
+        "requestId": "42e465c4-3a9c-4296-b5ee-b0771f191f21",
+        "at": 1024.7143,
+        "bytes": 15655,
+        "rsv1": true,
+        "frames": 1
+      },
+      "timing": {
+        "requestId": "42e465c4-3a9c-4296-b5ee-b0771f191f21",
+        "revision": 1,
+        "client": {
+          "sendAt": 1017.5906,
+          "receiveAt": 1024.7211,
+          "parsedAt": 1025.2605,
+          "legalOptionsAppliedAt": 1025.3151,
+          "canSubmitAt": 1025.3151,
+          "sendToReceiveMs": 7.130499999999984,
+          "parseMs": 0.5394000000001142,
+          "receiveToLegalOptionsMs": 0.5940000000000509,
+          "receiveToCanSubmitMs": 0.5940000000000509
+        },
+        "server": {
+          "receivedAt": 948.101,
+          "startedAt": 948.1556,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.054600000000050386,
+          "queryModelMs": 3.527400000000057,
+          "forcedMs": 0.0030000000000427463,
+          "summaryMs": 0.006300000000010186,
+          "queryBuildMs": 3.542100000000005,
+          "serializationMs": 0.5926000000000613,
+          "handoffAt": 952.308,
+          "receiveToHandoffMs": 4.206999999999994,
+          "writeCallbackMs": 0.8351999999999862,
+          "serializedBytes": 171150,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 2.92349999999999,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      }
+    },
+    {
+      "sample": 2,
+      "kind": "local-loopback",
+      "queryRequestId": "e92d0760-00fb-4cd2-8d4b-1ef98d9edc6f",
+      "actionAppliedAt": 1829.0693,
+      "authorizedResultSha256": "c3fbcf8266aacaf61df83941f3f7f086e78706403bb6496823dc854e6ddd2898",
+      "queryCount": 1,
+      "actionCount": 1,
+      "resyncCount": 0,
+      "recovered": true,
+      "opponentReadOnly": true,
+      "wire": {
+        "event": "wire",
+        "requestId": "e92d0760-00fb-4cd2-8d4b-1ef98d9edc6f",
+        "at": 1834.1877,
+        "bytes": 15658,
+        "rsv1": true,
+        "frames": 1
+      },
+      "timing": {
+        "requestId": "e92d0760-00fb-4cd2-8d4b-1ef98d9edc6f",
+        "revision": 1,
+        "client": {
+          "sendAt": 1829.1628,
+          "receiveAt": 1834.1885,
+          "parsedAt": 1834.7175,
+          "legalOptionsAppliedAt": 1834.7539,
+          "canSubmitAt": 1834.7539,
+          "sendToReceiveMs": 5.025699999999915,
+          "parseMs": 0.5289999999999964,
+          "receiveToLegalOptionsMs": 0.5653999999999542,
+          "receiveToCanSubmitMs": 0.5653999999999542
+        },
+        "server": {
+          "receivedAt": 1759.6437,
+          "startedAt": 1759.6848,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.04109999999991487,
+          "queryModelMs": 2.8660999999999603,
+          "forcedMs": 0.002200000000129876,
+          "summaryMs": 0.015999999999849024,
+          "queryBuildMs": 2.888099999999895,
+          "serializationMs": 0.5488000000000284,
+          "handoffAt": 1763.1318,
+          "receiveToHandoffMs": 3.4881000000000313,
+          "writeCallbackMs": 0.5929999999998472,
+          "serializedBytes": 171150,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 1.537599999999884,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      }
+    },
+    {
+      "sample": 3,
+      "kind": "local-loopback",
+      "queryRequestId": "21613fcb-8ef1-4110-af67-5f03c6f722ff",
+      "actionAppliedAt": 2613.9285,
+      "authorizedResultSha256": "c3fbcf8266aacaf61df83941f3f7f086e78706403bb6496823dc854e6ddd2898",
+      "queryCount": 1,
+      "actionCount": 1,
+      "resyncCount": 0,
+      "recovered": true,
+      "opponentReadOnly": true,
+      "wire": {
+        "event": "wire",
+        "requestId": "21613fcb-8ef1-4110-af67-5f03c6f722ff",
+        "at": 2619.7043,
+        "bytes": 15656,
+        "rsv1": true,
+        "frames": 1
+      },
+      "timing": {
+        "requestId": "21613fcb-8ef1-4110-af67-5f03c6f722ff",
+        "revision": 1,
+        "client": {
+          "sendAt": 2614.013,
+          "receiveAt": 2619.7052,
+          "parsedAt": 2620.2855,
+          "legalOptionsAppliedAt": 2620.3209,
+          "canSubmitAt": 2620.3209,
+          "sendToReceiveMs": 5.692199999999957,
+          "parseMs": 0.5803000000000793,
+          "receiveToLegalOptionsMs": 0.6157000000002881,
+          "receiveToCanSubmitMs": 0.6157000000002881
+        },
+        "server": {
+          "receivedAt": 2544.5514,
+          "startedAt": 2544.6572,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.10580000000027212,
+          "queryModelMs": 3.2721999999998843,
+          "forcedMs": 0.001900000000205182,
+          "summaryMs": 0.0025000000000545697,
+          "queryBuildMs": 3.2815999999997985,
+          "serializationMs": 0.6307999999999083,
+          "handoffAt": 2548.5879,
+          "receiveToHandoffMs": 4.03650000000016,
+          "writeCallbackMs": 0.6286000000000058,
+          "serializedBytes": 171150,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 1.655699999999797,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      }
+    },
+    {
+      "sample": 4,
+      "kind": "local-loopback",
+      "queryRequestId": "bbc5e79a-dc6b-4fdd-8518-f578381dab7f",
+      "actionAppliedAt": 3409.8475,
+      "authorizedResultSha256": "c3fbcf8266aacaf61df83941f3f7f086e78706403bb6496823dc854e6ddd2898",
+      "queryCount": 1,
+      "actionCount": 1,
+      "resyncCount": 0,
+      "recovered": true,
+      "opponentReadOnly": true,
+      "wire": {
+        "event": "wire",
+        "requestId": "bbc5e79a-dc6b-4fdd-8518-f578381dab7f",
+        "at": 3415.7067,
+        "bytes": 15660,
+        "rsv1": true,
+        "frames": 1
+      },
+      "timing": {
+        "requestId": "bbc5e79a-dc6b-4fdd-8518-f578381dab7f",
+        "revision": 1,
+        "client": {
+          "sendAt": 3409.9187,
+          "receiveAt": 3415.7076,
+          "parsedAt": 3416.2503,
+          "legalOptionsAppliedAt": 3416.2854,
+          "canSubmitAt": 3416.2854,
+          "sendToReceiveMs": 5.788900000000012,
+          "parseMs": 0.542699999999968,
+          "receiveToLegalOptionsMs": 0.5778000000000247,
+          "receiveToCanSubmitMs": 0.5778000000000247
+        },
+        "server": {
+          "receivedAt": 3340.4567,
+          "startedAt": 3340.5403,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.08359999999993306,
+          "queryModelMs": 3.484799999999723,
+          "forcedMs": 0.0018000000000029104,
+          "summaryMs": 0.0028999999999541615,
+          "queryBuildMs": 3.5340000000001055,
+          "serializationMs": 0.5864999999998872,
+          "handoffAt": 3344.6782,
+          "receiveToHandoffMs": 4.221499999999651,
+          "writeCallbackMs": 0.5811000000003332,
+          "serializedBytes": 171150,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 1.5674000000003616,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      }
+    },
+    {
+      "sample": 5,
+      "kind": "local-loopback",
+      "queryRequestId": "3655f5cc-f7ab-4e53-9959-ddf2facf8855",
+      "actionAppliedAt": 4175.0415,
+      "authorizedResultSha256": "c3fbcf8266aacaf61df83941f3f7f086e78706403bb6496823dc854e6ddd2898",
+      "queryCount": 1,
+      "actionCount": 1,
+      "resyncCount": 0,
+      "recovered": true,
+      "opponentReadOnly": true,
+      "wire": {
+        "event": "wire",
+        "requestId": "3655f5cc-f7ab-4e53-9959-ddf2facf8855",
+        "at": 4180.8769,
+        "bytes": 15657,
+        "rsv1": true,
+        "frames": 1
+      },
+      "timing": {
+        "requestId": "3655f5cc-f7ab-4e53-9959-ddf2facf8855",
+        "revision": 1,
+        "client": {
+          "sendAt": 4175.1388,
+          "receiveAt": 4180.8779,
+          "parsedAt": 4181.443,
+          "legalOptionsAppliedAt": 4181.4758,
+          "canSubmitAt": 4181.4758,
+          "sendToReceiveMs": 5.73910000000069,
+          "parseMs": 0.5650999999998021,
+          "receiveToLegalOptionsMs": 0.5978999999997541,
+          "receiveToCanSubmitMs": 0.5978999999997541
+        },
+        "server": {
+          "receivedAt": 4105.7285,
+          "startedAt": 4105.8025,
+          "queuedAt": null,
+          "applicationQueue": "none (synchronous dispatch); pre-callback queue unknown",
+          "dispatchMs": 0.07399999999961437,
+          "queryModelMs": 3.1207000000003973,
+          "forcedMs": 0.0018000000000029104,
+          "summaryMs": 0.0024999999995998223,
+          "queryBuildMs": 3.1282000000001062,
+          "serializationMs": 0.6860000000006039,
+          "handoffAt": 4109.6349,
+          "receiveToHandoffMs": 3.9063999999998487,
+          "writeCallbackMs": 0.6966000000002168,
+          "serializedBytes": 171150,
+          "bufferedBefore": 0,
+          "writeError": false
+        },
+        "unknownResidualMs": 1.832700000000841,
+        "residualMeaning": "client interval minus server-local receive-to-handoff duration; includes both transports, pre-callback queues, compression/write wait, client scheduling and fixture delay if present; NOT network RTT"
+      }
+    }
+  ]
+}
