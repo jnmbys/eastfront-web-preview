@@ -1,0 +1,82 @@
+✔ AI001 hidden deployment paired states have identical input, candidates and pre-execution choice (126.0367ms)
+✔ AI001 hidden force composition, support, resources and future RNG do not affect fair policy (7.208ms)
+✔ AI001 CONTACT stack/type anonymity and actual host Last Known retention match existing permission (10.5985ms)
+✔ AI001 identified enemy fields and clearing stale observations are unchanged (0.9898ms)
+✖ AI001 full-state legality is a real hidden-ZOC oracle, absent from fair candidate generation (6.3807ms)
+✔ AI001 rejection details are constant, state/RNG unchanged, bounded recovery can continue (10.6464ms)
+✔ AI001 even an admitted candidate uses real engine validation and returns no raw error (5.6467ms)
+✔ AI001 no forged controller, hidden target, support source, preallocated IDs or mutable authority capabilities (14.3894ms)
+✔ AI001 retries stop after fixed limit; terminal/exception paths never keep calling the policy (11.0282ms)
+✔ AI001 decision memory/seed partitions never cross seats or matches, including same controller IDs (8.9386ms)
+✔ AI001 agent tie breaking is repeatable, separate from combat RNG, and input-only (48.4682ms)
+✔ AI001 explicit output allowlist strips unexpected view/rules fields rather than copying them (0.7844ms)
+✔ AI001 production deployment, reinforcement and alternating phases reach the unchanged terminal checkpoint (4844.6903ms)
+✔ AI001 terminal production checkpoint remains final German turn; terminal state never asks policy again (5.4389ms)
+✔ AI001 actual battle submits via RulesEngine and routes reaction/loss to the correct side (16.284ms)
+✔ AI001 optional combat passes use only authorized pending decision, not hidden previews (5.4436ms)
+✖ AI001 old headless entry remains explicitly omniscient and separate from the fair runtime graph (1.5681ms)
+✔ CORE-FIX-001 real breakthrough continues through fair host; corrupt positions still stop (17.6857ms)
+✔ AI001 accepted hidden artillery selection never enters the opposing policy packet (6.1227ms)
+✔ AI001 identical submitted combat intents preserve exact Core dice/state across different agent seeds (14.1575ms)
+✔ AI001 policy receives exactly one data argument and no implicit host or other-seat receiver (4.1403ms)
+✔ AI003 browser-portable observation hashes remain exactly SHA256 (9.5515ms)
+✔ AI003 both human sides attack, AI owns reaction/retreat despite human active turn (208.3162ms)
+✔ AI003 scripted AI attack yields to human reaction and loss, then resumes required owner only (309.0901ms)
+✔ AI003 advance and breakthrough continue through the normal human Action path (139.6763ms)
+✔ AI003 real turn-four reinforcement scenario and terminal scenario use replayed campaign Actions (6863.1413ms)
+✔ AI003 policy stop and rejection limit preserve state; takeover changes recipient explicitly (181.9266ms)
+✔ AI003 duplicate, old revision, wrong owner and forged invisible target cannot mutate or reroll (50.737ms)
+✔ AI003 Worker channel carries authorized DTOs only; stale epochs ignored and cancellation terminates old work (199.0513ms)
+✔ AI003 actual client/session bridge enforces single-flight submission and clears seat caches on takeover (69.0791ms)
+✔ AI003 late worker replies after exit or worker failure never replace the visible snapshot (34.75ms)
+✔ AI003 cold entry awaits existing terrain boot and cancelled starts cannot create a Worker (260.054ms)
+✔ playtest status distinguishes active owner, finished game, recoverable policy and terminated Worker (0.4508ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 31
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8463.6162
+
+✖ failing tests:
+
+test at ai\tests\boundary.test.mjs:43:1
+✖ AI001 full-state legality is a real hidden-ZOC oracle, absent from fair candidate generation (6.3807ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(observationCandidates(input).filter(c=>c.type==='MOVE').every(c=>c.path.length===1))
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-playtest-001/ai/tests/boundary.test.mjs:47:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at ai\tests\boundary.test.mjs:114:1
+✖ AI001 old headless entry remains explicitly omniscient and separate from the fair runtime graph (1.5681ms)
+  AssertionError [ERR_ASSERTION]: ./advance.js
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/ai-playtest-001/ai/tests/boundary.test.mjs:117:261)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

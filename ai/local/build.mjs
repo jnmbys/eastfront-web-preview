@@ -1,7 +1,10 @@
 import {execFileSync} from 'node:child_process';
 import {cpSync,mkdirSync,readFileSync,writeFileSync,rmSync} from 'node:fs';
 for(const output of ['.ai003-dist','.ai003-preview'])rmSync(output,{recursive:true,force:true});
-execFileSync('npm',['run','build'],{stdio:'inherit',env:{...process.env,MULTIPLAYER_SERVER_URL:''}});
+// The package build is three Node programs; invoke them directly so Windows does
+// not need to execute npm.cmd as a binary or enable a command shell.
+for(const args of [['scripts/clean-dist.mjs'],['node_modules/typescript/bin/tsc'],['scripts/copy-static.mjs']])
+ execFileSync(process.execPath,args,{stdio:'inherit',env:{...process.env,MULTIPLAYER_SERVER_URL:''}});
 execFileSync(process.execPath,['node_modules/typescript/bin/tsc','-p','ai/local/tsconfig.json'],{stdio:'inherit'});
 mkdirSync('.ai003-preview',{recursive:true});cpSync('dist','.ai003-preview',{recursive:true});
 for(const dir of ['src','ai','server'])cpSync('.ai003-dist/'+dir,'.ai003-preview/'+dir,{recursive:true});

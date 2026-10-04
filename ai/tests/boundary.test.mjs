@@ -44,7 +44,12 @@ test('AI001 full-state legality is a real hidden-ZOC oracle, absent from fair ca
  const a=fixture(),b=structuredClone(a);a.units['secret-enemy'].hex={q:2,r:0};b.units['secret-enemy'].hex={q:5,r:5};
  const input=equalBefore(host(a),host(b));const action={type:'MOVE',controllerId:G,unitId:'g',path:[{q:1,r:0},{q:1,r:1}]};
  assert.notDeepEqual(validateMoveAction(a,defaultRules,action),validateMoveAction(b,defaultRules,action),'fixture must demonstrate the oracle, not merely assert a field is absent');
- forbid(input,['ENEMY_ZOC_STOP','ENEMY_ZOC_TO_ZOC','legalActions','preview','issues']);assert(observationCandidates(input).filter(c=>c.type==='MOVE').every(c=>c.path.length===1));
+ forbid(input,['ENEMY_ZOC_STOP','ENEMY_ZOC_TO_ZOC','legalActions','preview','issues']);
+ // The original single-hop menu remains; AI005+ also admits bounded public-view
+ // prefixes. Retain the hidden-oracle proof above and compare the full menu.
+ assert(observationCandidates(input,false).filter(c=>c.type==='MOVE').every(c=>c.path.length===1));
+ assert(observationCandidates(input).filter(c=>c.type==='MOVE').every(c=>c.path.length<=16));
+ assert.deepEqual(observationCandidates(input),observationCandidates(host(b).observe(G)));
 });
 test('AI001 rejection details are constant, state/RNG unchanged, bounded recovery can continue',()=>{
  const a=fixture(),b=structuredClone(a);a.units['secret-enemy'].hex={q:2,r:0};b.units['secret-enemy'].hex={q:5,r:5};
@@ -114,7 +119,7 @@ test('AI001 optional combat passes use only authorized pending decision, not hid
 test('AI001 old headless entry remains explicitly omniscient and separate from the fair runtime graph',()=>{
  const s=fixture();let called=false;runOmniscientEvaluation(s,defaultRules,microScenario,context=>{called=true;assert.deepEqual(context.state.random,s.random);assert(context.state.units['secret-enemy']);return null;});assert(called);
  assert.deepEqual(Object.keys(fairExports).sort(),['CANDIDATE_LIMIT','agentOrder','basicAgent','minimalAgent','observationCandidates','scoreIntent']);
- for(const file of readdirSync(new URL('../../.ai-dist/ai/fair/',import.meta.url)).filter(f=>f.endsWith('.js'))){const code=readFileSync(new URL('../../.ai-dist/ai/fair/'+file,import.meta.url),'utf8');for(const match of code.matchAll(/from ['"]([^'"]+)['"]/g))assert(['./candidates.js','./minimalAgent.js','./basicAgent.js','./routing.js','../../vendor/eastfront-digital-core/dist/core/hex.js'].includes(match[1]),match[1]);}
+ for(const file of readdirSync(new URL('../../.ai-dist/ai/fair/',import.meta.url)).filter(f=>f.endsWith('.js'))){const code=readFileSync(new URL('../../.ai-dist/ai/fair/'+file,import.meta.url),'utf8');for(const match of code.matchAll(/from ['"]([^'"]+)['"]/g))assert(['./candidates.js','./minimalAgent.js','./basicAgent.js','./routing.js','./advance.js','./parameters.js','./plan.js','../../vendor/eastfront-digital-core/dist/core/hex.js'].includes(match[1]),match[1]);}
 });
 
  test('CORE-FIX-001 real breakthrough continues through fair host; corrupt positions still stop',()=>{

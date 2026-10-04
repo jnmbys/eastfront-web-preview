@@ -1,0 +1,18 @@
+{
+  "entry":"http://127.0.0.1:4181/",
+  "browser":"Codex In-app Browser, actual main-game map and Web Worker",
+  "realHumanFullCampaign":false,
+  "actualBrowserOperations":[
+    "German human-attack fixture: select attacker and defender, submit ATTACK; actual dice 4+6, D2R, AI handles own consequences",
+    "German advance 8,-2 to 9,-2, PASS_BREAKTHROUGH, transaction closed and human ownership returned",
+    "Advance phases naturally to T2 German MOVEMENT; select path 9,-2 to 10,-2, Core accepted, receipt15/reject0; exit to home",
+    "Reload built candidate: Soviet ai-attack fixture, scripted German first attack; current owner explicitly Soviet despite German combat phase",
+    "Soviet PASS_REACTION, actual D2R result; select retreat 10,-2 then 11,-2; AI resumes and returns Soviet reinforcement/supply at accepted8/reject0",
+    "Stop fixture: Chinese AGENT_STOP:NO_CANDIDATE and current Soviet owner displayed, explicit takeover button present"
+  ],
+  "screenshots":["browser-combat.png","browser-move.png","browser-soviet.png"],
+  "remaining":["Takeover browser completion: click led to Input.dispatchMouseEvent timeout, dialog unavailable, subsequent focus observation timed out; no repeated reconnect","Final home capability text after last rebuild not visually rechecked","Real human complete campaign","Real device and long-session responsiveness"],
+  "initialChannelFailure":"Edge inventory returned nodeRepl.fetch failure; separate in-app browser succeeded. No Edge reconnection loop.",
+  "fixtures":"Existing isolated micro scenarios; not evidence of campaign start or strategic quality",
+  "screenshotTiming":"German screenshots before presentation-only current-owner patch reload; Soviet screenshot after patch reload. No policy or executor changes between them."
+}

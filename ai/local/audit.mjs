@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync,writeFileSync} from 'node:fs';
-import {resolve,dirname,relative} from 'node:path';
+import {resolve,dirname,relative,sep} from 'node:path';
 const root=resolve('.ai003-preview'),seen=new Set();
 function visit(file){
  if(seen.has(file))return;seen.add(file);assert(existsSync(file),'Missing module: '+relative(root,file));
  const source=readFileSync(file,'utf8');
  for(const m of source.matchAll(/(?:\bfrom\s*|\bimport\s*\(|\bimport\s*)['"]([^'"]+)['"]/g)){
   const spec=m[1];assert(spec.startsWith('.'),'Non-browser import: '+spec+' in '+relative(root,file));
-  const target=resolve(dirname(file),spec);assert(target.startsWith(root+'/'));if(target.endsWith('.js'))visit(target);else assert(existsSync(target));
+  const target=resolve(dirname(file),spec);assert(target.startsWith(root+sep));if(target.endsWith('.js'))visit(target);else assert(existsSync(target));
  }
  assert(!/\bnew WebSocket\s*\(/.test(source),'Worker must not open a production socket');
 }
