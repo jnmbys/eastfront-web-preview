@@ -1,0 +1,58 @@
+{
+  "scenario": "normal 1280 map/120 units; offline hidden-pair mutation only, not browser game",
+  "members": 60,
+  "hiddenPairEqual": true,
+  "result": {
+    "ok": true,
+    "receipt": {
+      "ok": true,
+      "version": 2,
+      "ms": 18.866300000000024
+    },
+    "action": {
+      "type": "MOVE",
+      "unitId": "G-007",
+      "path": [
+        {
+          "q": 15,
+          "r": -1
+        },
+        {
+          "q": 16,
+          "r": -1
+        }
+      ]
+    },
+    "ms": 142.21939999999995
+  },
+  "reports": [
+    {
+      "officer": "埃里克·林德",
+      "turn": 1,
+      "phase": "GERMAN_MOVEMENT",
+      "action": {
+        "type": "MOVE",
+        "unitId": "G-007",
+        "path": [
+          {
+            "q": 15,
+            "r": -1
+          },
+          {
+            "q": 16,
+            "r": -1
+          }
+        ]
+      },
+      "accepted": true,
+      "reason": "执行向命令目标推进；靠拢同组部队",
+      "metrics": {
+        "expanded": 15784,
+        "searches": 22,
+        "exhausted": true
+      },
+      "ms": 142.1993,
+      "policyMs": 61.3184
+    }
+  ]
+}

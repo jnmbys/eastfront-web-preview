@@ -1,0 +1,39 @@
+{
+  "status": "candidate ready; no deployment",
+  "sourceParents": {
+    "grand": "59609befff9900366786ab1d1661330870b5efa9",
+    "officer": "f9089d0919b896c6a7a7bee74ccd17e57b9db7f6"
+  },
+  "branch": "officer-002-grand-integration",
+  "checks": {
+    "build": "passed",
+    "integrationGroups": 8,
+    "clientPauseAndTakeover": "passed",
+    "hiddenPairAndBudget": "passed",
+    "sameCoreEconomyRngActions": 27,
+    "realBrowser": {
+      "firstGameAccepted": 25,
+      "firstGameOfficerRejected": 1,
+      "secondSovietStartAccepted": 7,
+      "secondGameRejected": 0,
+      "screenshotsSaved": 4,
+      "latestSovietAndRefresh": "DOM text and action log; screenshot channel timeout"
+    },
+    "startStopScripts": "verified with process-local ExecutionPolicy Bypass; no system policy changed"
+  },
+  "unchanged": [
+    "Core",
+    "RNG",
+    "scenario configuration",
+    "1280 map data",
+    "economy and shared transport settlement",
+    "three officer dispositions"
+  ],
+  "limitations": [
+    "grand baseline retains manual opposite-side/global-stage control, no new full enemy AI",
+    "no cross-process saved game",
+    "T2 one fair move rejected, stopped without retry",
+    "browser screenshot channel timeouts after four captures; no true-device performance pass",
+    "no new full 24-turn regression; prior grand evidence reused"
+  ]
+}

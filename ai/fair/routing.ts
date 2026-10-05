@@ -10,7 +10,7 @@ const edgeKey=(a:Hex,b:Hex)=>[hexKey(a),hexKey(b)].sort().join('|');
 /** Decision-local indexes and lazy per-unit reverse Dijkstra. No retained match state,
  * callbacks, authoritative validators or inferred hidden obstacles. A route is an estimate
  * across future turns: submit one budgeted path prefix per MOVE, then replan from the next view. */
-export function createMoveScorer(input:Input){
+export function createMoveScorer(input:Input,orderedGoals?:readonly Hex[]){
   const {view,rules}=input;
   const board=new Map(view.hexes.map(h=>[hexKey(h.coord),h]));
   const edges=new Map(view.edges.map(e=>[edgeKey(e.a,e.b),e]));
@@ -68,7 +68,7 @@ export function createMoveScorer(input:Input){
     const start=hexKey(u.hex),safe=new Set([...board.keys()].filter(k=>safeCell(u,k)));
     const distance=new Map<string,number>(),out={distance,safe};plans.set(u.id,out);metrics.searches++;
     if(u.stats.movement<=0)return out;
-    const sharedGoals=planGoals(input,u.id);
+    const sharedGoals=orderedGoals??planGoals(input,u.id);
     const goals=sharedGoals?sharedGoals.map(hexKey).filter(k=>safe.has(k)):enemies.length?[...safe].filter(k=>enemies.some(e=>hexDistance(board.get(k)!.coord,e.hex)===1)):rules.objectives.map(hexKey).filter(k=>safe.has(k));
     // Heap order includes a coordinate tie breaker, independent of insertion/container order.
     type Node={k:string;d:number};const heap:Node[]=[];

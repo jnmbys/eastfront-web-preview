@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {pathToFileURL} from 'node:url';
+import {Campaign} from '../grand-campaign-001/authority.mjs';
+const baselinePath=process.argv[2];
+if(!baselinePath)throw Error('Pass the fixed grand baseline authority.mjs path');
+const {Campaign:Baseline}=await import(pathToFileURL(baselinePath));
+const baseline=new Baseline(),candidate=new Campaign();let actions=0;
+const same=()=>{assert.deepEqual(candidate.state,baseline.state);assert.deepEqual(candidate.econ,baseline.econ);};
+same();
+const submit=body=>{const request={id:`equivalence-${++actions}`,version:baseline.version,...body};for(const c of[baseline,candidate]){c.viewer=c.owner();c.transaction(request);}same();};
+for(const product of ['P','E2'])submit({operation:{type:'ORDER',product,warehouse:'GERMAN-industry-5'}});
+while(baseline.state.turn<2)submit({action:{type:'READY_FOR_PHASE_END'}});
+submit({operation:{type:'SHIP',from:'GERMAN-industry-5',to:'GERMAN-depot-5',P:1,E2:2}});
+while(baseline.state.turn<3||baseline.state.phase!=='GERMAN_RECOVERY')submit({action:{type:'READY_FOR_PHASE_END'}});
+submit({action:{type:'REPAIR_UNIT',unitId:'G-059'}});
+fs.writeFileSync('evidence/officer-002/equivalence.json',JSON.stringify({baseline:'59609befff9900366786ab1d1661330870b5efa9',actions,fullCoreStateEqual:true,economyEqual:true,randomEqual:true,scope:'normal T1 through production, transport and T3 material recovery; officers disabled'},null,2));
+console.log({actions,fullStateAndEconomyEqual:true});

@@ -1,0 +1,259 @@
+[
+  {
+    "side": "GERMAN",
+    "result": {
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "version": 2,
+        "ms": 21.718399999999974
+      },
+      "action": {
+        "type": "MOVE",
+        "unitId": "G-026",
+        "path": [
+          {
+            "q": 18,
+            "r": 8
+          },
+          {
+            "q": 19,
+            "r": 7
+          }
+        ]
+      },
+      "ms": 113.5521
+    },
+    "reports": [
+      {
+        "officer": "埃里克·林德",
+        "turn": 1,
+        "phase": "GERMAN_MOVEMENT",
+        "action": {
+          "type": "MOVE",
+          "unitId": "G-026",
+          "path": [
+            {
+              "q": 18,
+              "r": 8
+            },
+            {
+              "q": 19,
+              "r": 7
+            }
+          ]
+        },
+        "accepted": true,
+        "reason": "执行向命令目标推进；保持编组间距",
+        "metrics": {
+          "expanded": 9,
+          "searches": 1,
+          "exhausted": false
+        },
+        "ms": 113.53290000000004,
+        "policyMs": 6.113300000000095
+      }
+    ]
+  },
+  {
+    "side": "SOVIET",
+    "result": {
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "version": 7,
+        "ms": 18.069299999999885
+      },
+      "action": {
+        "type": "MOVE",
+        "unitId": "S-026",
+        "path": [
+          {
+            "q": 19,
+            "r": 7
+          }
+        ]
+      },
+      "ms": 92.51220000000012
+    },
+    "reports": [
+      {
+        "officer": "埃里克·林德",
+        "turn": 1,
+        "phase": "SOVIET_MOVEMENT",
+        "action": {
+          "type": "MOVE",
+          "unitId": "S-026",
+          "path": [
+            {
+              "q": 19,
+              "r": 7
+            }
+          ]
+        },
+        "accepted": true,
+        "reason": "执行向命令目标推进；保持编组间距",
+        "metrics": {
+          "expanded": 6,
+          "searches": 1,
+          "exhausted": false
+        },
+        "ms": 92.50890000000004,
+        "policyMs": 5.535500000000184
+      }
+    ]
+  },
+  {
+    "battle": {
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "version": 5,
+        "ms": 18.881700000000137
+      },
+      "action": {
+        "type": "ATTACK",
+        "attackerUnitIds": [
+          "G-025",
+          "G-026"
+        ],
+        "target": {
+          "q": 20,
+          "r": 6
+        }
+      },
+      "ms": 96.24060000000009
+    },
+    "pending": {
+      "kind": "DEFENDER_REACTION",
+      "battleId": "B-000001",
+      "side": "SOVIET",
+      "decisionOwnerControllerId": "SOVIET",
+      "eligibleControllerIds": [
+        "SOVIET"
+      ],
+      "eligibleHQUnitIds": [],
+      "eligibleArtilleryUnitIds": []
+    }
+  },
+  {
+    "name": "serialized_battle_followups_no_duplicate_commit",
+    "battleSequence": [
+      {
+        "type": "PASS_REACTION",
+        "battleId": "B-000001"
+      },
+      {
+        "type": "RETREAT",
+        "battleId": "B-000001",
+        "retreats": [
+          {
+            "unitId": "S-026",
+            "path": [
+              {
+                "q": 21,
+                "r": 6
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "PASS_ADVANCE",
+        "battleId": "B-000001"
+      }
+    ]
+  },
+  {
+    "name": "production_transport_material_repair_common_counter",
+    "repair": {
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "version": 27,
+        "ms": 16.19470000000001
+      },
+      "action": {
+        "type": "REPAIR_UNIT",
+        "unitId": "G-059"
+      },
+      "ms": 94.69830000000002
+    },
+    "uses": [
+      {
+        "id": "USE:596811b7-566f-4059-8b7b-9a774bc2bed7",
+        "side": "GERMAN",
+        "unitId": "G-059",
+        "warehouse": "GERMAN-depot-5",
+        "turn": 3,
+        "P": [
+          {
+            "id": "SHIP:378fc22e-3341-4ced-be56-12ccb98175c2:ORDER:a3426db8-15df-4efb-85a2-d27d82773173:output",
+            "type": "P",
+            "qty": 1,
+            "availableTurn": 3
+          }
+        ],
+        "E2": [
+          {
+            "id": "SHIP:378fc22e-3341-4ced-be56-12ccb98175c2:ORDER:ed15e701-1db1-4b91-a7bc-9ef5529ec6cd:output",
+            "type": "E2",
+            "qty": 2,
+            "availableTurn": 3
+          }
+        ],
+        "rp": 0
+      }
+    ],
+    "rp": {
+      "GERMAN": 0,
+      "SOVIET": 0
+    },
+    "recovered": 1
+  },
+  {
+    "name": "pause_during_search_discards_unsubmitted_decision",
+    "stopped": {
+      "ok": false,
+      "reason": "局面或授权已变化，丢弃尚未提交的决定",
+      "ms": 69.76780000000008
+    }
+  },
+  {
+    "name": "side_privacy_and_initial_direct",
+    "ok": true
+  },
+  {
+    "name": "authorization_invalid_target_single_rejection_does_not_stop_other_group",
+    "firstFailure": {
+      "ok": false,
+      "reason": "真实事务拒绝，已停止；由统帅处理，不重试探测",
+      "retryOthers": true,
+      "ms": 68.8768
+    },
+    "otherOfficer": {
+      "ok": true,
+      "receipt": {
+        "ok": true,
+        "version": 2,
+        "ms": 17.566799999999603
+      },
+      "action": {
+        "type": "MOVE",
+        "unitId": "G-026",
+        "path": [
+          {
+            "q": 18,
+            "r": 8
+          },
+          {
+            "q": 19,
+            "r": 7
+          }
+        ]
+      },
+      "ms": 95.83709999999974
+    },
+    "fault": "one injected transaction failure, no state alteration or fake battle"
+  }
+]

@@ -1,27 +1,37 @@
 import type {WorkerPort} from '../local-ai/client.js';import type {LocalRequest,LocalReply} from '../local-ai/types.js';
 export class GrandPort implements WorkerPort {
  onmessage:WorkerPort['onmessage']=null;onerror:WorkerPort['onerror']=null;data:any=null;notice='';locked=false;selections:Record<string,string>={};
+ officerUnit='';officerGroup='0';officerKind='ATTACK';officerTarget:{q:number;r:number}|null=null;officerNotice='';
+ private timer:ReturnType<typeof setTimeout>|null=null;private busy:Promise<void>|null=null;private configTail=Promise.resolve();private configs=0;private halted=false;private idle='';private generation=0;private preserve=false;
  private token='';private epoch=1;private dead=false;private tail=Promise.resolve();
  constructor(private update:()=>void){}
  private async api(path:string,body:unknown={}){const r=await fetch('/grand/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Grand-Session':this.token},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error);return d;}
  private emit(message:any,takeover=false){if(!this.dead)this.onmessage?.({data:{epoch:this.epoch,message,meta:this.data.game.meta,takeover}} as MessageEvent<LocalReply>);}
- private read(d:any,takeover=false){if(this.data&&d.instanceId===this.data.instanceId&&d.version<this.data.version)throw Error('STALE_REPLY');if(this.data?.viewer!==d.viewer)this.selections={};this.data=d;this.emit(d.game.message,takeover);this.update();}
- async operation(operation:any){if(this.locked)return;this.locked=true;this.update();try{this.read(await this.api('action',{id:crypto.randomUUID(),version:this.data.version,operation}));this.notice='已确认：库存、预算与地图为同一版本。';}catch(e){this.notice='未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();}}
+ private read(d:any,takeover=false){if(this.data&&d.instanceId===this.data.instanceId&&d.version<this.data.version)throw Error('STALE_REPLY');if(this.data?.viewer===d.viewer&&d.officers?.revision<this.data.officers?.revision)return;if(this.data?.viewer!==d.viewer){this.selections={};this.officerTarget=null;this.officerGroup='0';this.officerUnit='';this.halted=true;}this.data=d;this.emit(d.game.message,takeover);this.update();this.schedule();}
+ async operation(operation:any){if(this.locked)return;this.locked=true;this.update();try{this.read(await this.api('action',{id:crypto.randomUUID(),version:this.data.version,operation}));this.notice='已确认：库存、预算与地图为同一版本。';}catch(e){this.notice='未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();this.schedule();}}
  postMessage(m:LocalRequest){this.tail=this.tail.then(()=>this.handle(m)).catch(e=>{this.notice=String(e);this.onerror?.(new Event('error'));});}
- private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){const d=await this.api('create',{side:m.options.humanSide});this.token=d.token;this.read(d);return;}
-  if(m.kind==='TAKEOVER'){this.read(await this.api('takeover'),true);return;}
+ private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){this.token=sessionStorage.getItem('grand-officer-session')??'';const d=await this.api('create',{side:m.options.humanSide,resume:!!this.token});this.token=d.token;sessionStorage.setItem('grand-officer-session',this.token);this.read(d);return;}
+  if(m.kind==='TAKEOVER'){this.stopDispatch();await this.api('takeover');if(this.busy)await this.busy;this.read(await this.api('state'),true);return;}
   const p=m.payload as any;
   if(m.type==='QUERY_MATCH'){try{this.emit(await this.api('query',{id:m.requestId,version:p.expectedRevision,draft:p.draft}));}catch{this.read(await this.api('state'));}return;}
   if(m.type==='RESYNC_MATCH'){this.read(await this.api('state'));return;}
-  if(m.type==='SUBMIT_ACTION'){this.locked=true;try{this.read(await this.api('action',{id:m.requestId,version:p.expectedRevision,action:p.action}));this.notice='行动已由权威规则结算。';}catch(e){this.notice='行动未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();}}
+  if(m.type==='SUBMIT_ACTION'){this.locked=true;try{this.read(await this.api('action',{id:m.requestId,version:p.expectedRevision,action:p.action}));this.notice='行动已由权威规则结算。';}catch(e){this.notice='行动未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();this.schedule();}}
  }
- terminate(){if(!this.dead){void this.api('close').catch(()=>{});this.dead=true;}}
+ private stopDispatch(){this.generation++;this.halted=true;if(this.timer)clearTimeout(this.timer);this.timer=null;}
+ async officerBeginTarget(){this.stopDispatch();if(this.busy)await this.busy;}
+ preserveOnUnload(){this.preserve=true;}
+ officerChoose(g:string){this.officerGroup=g;this.update();}
+ officerOrderTarget(h:{q:number;r:number}){this.officerTarget={...h};this.update();}
+ officerConfig(command:any){this.stopDispatch();this.configs++;const work=this.configTail.then(async()=>{try{this.read(await this.api('officer-config',{revision:this.data.officers.revision,command}));if(this.busy)await this.busy;this.read(await this.api('state'));this.halted=false;this.idle='';this.officerNotice='授权已更新，已支付资源和待决完整保留。';}catch(e){this.officerNotice='授权未确认，已停止：'+e;}});this.configTail=work.catch(()=>{});return work.finally(()=>{this.configs--;this.update();this.schedule();});}
+ private schedule(){const d=this.data,o=d?.officers,key=`${d?.viewer}:${d?.version}:${o?.revision}`;if(this.dead||this.locked||this.halted||this.configs||this.timer||this.busy||key===this.idle||d?.owner!==d?.viewer||!o?.enabled||!o.groups.some((g:any)=>g.order&&!g.paused&&g.members.length))return;const generation=this.generation;this.timer=setTimeout(()=>{this.timer=null;if(generation!==this.generation||this.dead||this.locked)return;this.busy=this.tickOfficer().finally(()=>{this.busy=null;this.schedule();});},350);}
+ private async tickOfficer(){this.locked=true;this.officerNotice='军官处理中；可暂停，已提交动作等待结果。';this.update();try{const d=await this.api('officer-tick',{id:crypto.randomUUID(),version:this.data.version,revision:this.data.officers.revision});this.read(d);this.officerNotice=d.officerResult.ok?'军官行动已确认。':d.officerResult.reason;if(!d.officerResult.ok&&!d.officerResult.retryOthers)this.idle=`${d.viewer}:${d.version}:${d.officers.revision}`;this.locked=false;}catch(e){this.halted=true;this.officerNotice='结果待确认；自动提交停止：'+e;try{this.read(await this.api('state'));this.locked=false;}catch{this.locked=true;}}this.update();}
+ terminate(){if(!this.dead){this.stopDispatch();if(!this.preserve){void this.api('close').catch(()=>{});sessionStorage.removeItem('grand-officer-session');}this.dead=true;}}
 }
 const esc=(x:any)=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export function grandMarkup(p:GrandPort,selected:string|null):string{
  const d=p.data;if(!d)return '';const blocked=p.locked||d.viewer!==d.owner||!!d.game.message.payload.view.pendingDecision,off=blocked?'disabled':'',options=(role?:string)=>d.warehouses.filter((w:any)=>w.controlled&&(!role||w.role===role)).map((w:any)=>`<option value="${esc(w.id)}">${esc(w.label)} ${w.role==='industry'?'后方':'前线'} P${w.P}/E2 ${w.E2}</option>`).join('');
  const u=d.units.find((u:any)=>u.id===selected);
- return `<section class="panel-block grand-panel"><h3>大战略实验 · T${d.turn}/24 · E${d.epoch}</h3><p role="status">${esc(p.notice)} 本次提交${Number(d.ms).toFixed(1)}ms</p><p>双方人工轮流操作；新经济暂无AI。结束本方阶段后，在顶部明确接管另一方。</p><p><b>工业预算 ${d.account.I} I</b>；已训练后备 ${d.account.reserve} P。初始${d.account.initialI}＋收入${d.account.incomeI}−已付${d.account.spentI}。</p>
+ return `<section class="panel-block grand-panel"><h3>大战略实验 · T${d.turn}/24 · E${d.epoch}</h3><p role="status">${esc(p.notice)} 本次提交${Number(d.ms).toFixed(1)}ms</p><p>统帅待办：铁路、生产下单、共享运输、全军结束阶段。军官仅执行明确委托；经济选择仍人工确认。结束本方阶段后，在顶部明确接管另一方。</p><p><b>工业预算 ${d.account.I} I</b>；已训练后备 ${d.account.reserve} P。初始${d.account.initialI}＋收入${d.account.incomeI}−已付${d.account.spentI}。</p>
  <label>生产入库地点<select id="grand-factory">${options('industry')}</select></label><div class="button-row"><button data-grand-product="E2" ${off}>生产2 E2 · 3I · 1周期</button><button data-grand-product="P" ${off}>拨补1 P · 2I · 1周期</button></div><p>每方每T最多2笔。E末完成、下一T可用；仓内每4P每E照管1I，不足则隔离。</p>
  <label>货源<select id="grand-from">${options('industry')}</select></label><label>目的地<select id="grand-to">${options('depot')}</select></label><button id="grand-ship" ${off}>预约前送1P＋2E2 · 8运力</button><p>本E先保可行净维护，再铁路前送，后补储备。到账下一T可用；无余量等待，不扣两次运力。</p>
  ${u?`<p><b>${esc(u.id)} · ${esc(u.army)} · ${esc(u.label)}</b>：储备${u.stock/4}补给点，欠账${u.debt/4}点，维护${u.due/4}点。移动每格0.25点；攻击每次1点。空仓沿用缺供减效，连续3轮少维护损失一步。</p>`:''}

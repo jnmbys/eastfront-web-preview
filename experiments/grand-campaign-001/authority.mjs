@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import {Delegation} from './officers.mjs';
 import * as core from '../../vendor/eastfront-digital-core/dist/index.js';
 import {createScenario,config,sides} from './scenario.mjs';
 import {queryModel,forcedAction,validateIntent,recordAcceptedIntent} from '../../.ai003-preview/server/gameplay.js';
@@ -12,7 +13,7 @@ export class Campaign {
   this.seq=0;this.id=crypto.randomUUID();this.viewer='GERMAN';this.version=0;this.receipts=new Map();this.rules=rules;this.scenario=scenario;this.nodes=nodes;this.placements=placements;
   this.match={id:this.id,matchId:this.id,authoritative:{state,rules,scenario,engine,activeViewerControllerId:this.viewer,lastResult:null,integrityIssues:[]},controllerAssignments:sides.map(side=>({controllerId:side,coreControllerId:side,viewer:side,seat:side})),status:'ACTIVE',matchRevision:0,actionSequence:0,disclosedBattles:{GERMAN:new Set(),SOVIET:new Set()},battleSummaries:{GERMAN:{entries:new Map(),olderOmitted:false},SOVIET:{entries:new Map(),olderOmitted:false}}};
   this.econ={epoch:0,accounts:Object.fromEntries(sides.map(s=>[s,{initialI:config.economy.initialI,incomeI:0,spentI:0,I:config.economy.initialI,reserve:config.economy.trainedReservePerSide,personnelCommitted:0}])),warehouses:Object.fromEntries(nodes.filter(n=>['industry','depot'].includes(n.role)).map(n=>[n.id,{id:n.id,owner:n.side,node:n.hex,capacity:config.economy.warehouseCapacity,lots:[]}])),orders:[],shipments:[],uses:[],ledger:[],supply:Object.fromEntries(Object.values(state.units).map(u=>[u.id,{stock:config.supply.initialStockQ,debt:0,short:0}]))};
-  this.lastMs=0;this.syncSupply();
+  this.lastMs=0;this.syncSupply();this.delegation=new Delegation(this);
  }
  capture(action){
   // Explicit GRAND-only territorial occupation, absent from legacy Core movement.
@@ -78,14 +79,14 @@ export class Campaign {
   if(epoch===config.turns){const {GERMAN:g,SOVIET:s}=log.vp;this.state.turn=epoch;this.state.phase='GAME_OVER';this.state.victory={winner:g===s?null:g>s?'GERMAN':'SOVIET',reason:g===s?'GRAND_VP_DRAW':'GRAND_VP_FINAL',turn:epoch,checkedAtPhase:'SOVIET_ENTRENCHMENT'};this.match.status='FINISHED';}
   this.syncSupply();return log;
  }
- transaction(req){
+ transaction(req,delegated=false){
   if(typeof req.id!=='string'||req.id.length<8)fail('REQUEST_ID_REQUIRED');const signature=JSON.stringify({version:req.version,action:req.action,operation:req.operation});
   if(this.receipts.has(req.id)){const r=this.receipts.get(req.id);if(r.signature!==signature)fail('ID_REUSE_CONFLICT');return copy(r.result);}
   if(req.version!==this.version)fail('STALE_VERSION');if(this.match.status!=='ACTIVE')fail('GAME_OVER');
   const beforeState=this.state,beforeEcon=copy(this.econ),oldStatus=this.match.status,oldRevision=this.match.matchRevision,oldSequence=this.match.actionSequence,oldBattles=copy(this.match.battleSummaries),oldDisclosed=copy(this.match.disclosedBattles);const start=performance.now();let result;
   try{
    this.match.authoritative.state=copy(beforeState);
-   if(req.action){const a=req.action;if(!isNetworkAction(a)||validateIntent(this.match,this.viewer,a))fail('ACTION_NOT_AUTHORIZED');
+   if(req.action){const a=req.action;if(!delegated&&!this.delegation.manual(a))fail('UNIT_DELEGATED_PAUSE_FIRST');if(!isNetworkAction(a)||validateIntent(this.match,this.viewer,a))fail('ACTION_NOT_AUTHORIZED');
     const costs=this.costs(a),repair=a.type==='REPAIR_UNIT';let warehouse;
     if(repair){warehouse=Object.values(this.econ.warehouses).find(w=>w.owner===this.viewer&&w.node===kh(this.state.units[a.unitId].hex)&&this.state.hexes[w.node].control===this.viewer);if(!warehouse||this.available(warehouse,'P')<1||this.available(warehouse,'E2')<2)fail('SAME_HEX_USABLE_1P_2E2_REQUIRED');}
     const views=new Map(sides.map(s=>[s,playerSnapshot(this.match,s)]));
@@ -124,12 +125,13 @@ export class Campaign {
   const visible=new Set(view.units.map(u=>u.id));for(const[id,u]of Object.entries(safe.authoritative.state.units))if(u.side!==this.viewer&&!visible.has(id))delete safe.authoritative.state.units[id];
   const model=queryModel(safe,this.viewer,draft);model.playerView=view;model.hexes=view.hexes;model.edges=view.edges;
   if(model.recovery&&model.selectedCounter){const u=this.state.units[model.selectedCounter.id],w=Object.values(this.econ.warehouses).find(w=>w.owner===this.viewer&&w.node===kh(u.hex)&&this.state.hexes[w.node].control===this.viewer);if(!w||this.available(w,'P')<1||this.available(w,'E2')<2)model.recovery.selectedIssues.push({code:'INVALID_SUPPORT',message:'需要同格已可用1P＋2E2'});}
-  return {model,view,status:this.match.status,canAct:this.owner()===this.viewer,forcedAction:forcedAction(safe,this.viewer,draft),events:[]};
+  const automatic=forcedAction(safe,this.viewer,draft);
+  return {model,view,status:this.match.status,canAct:this.owner()===this.viewer,forcedAction:automatic&&this.delegation.manual(automatic)?automatic:null,events:[]};
  }
  snapshot(draft){
   const p=this.projection(draft),own=Object.values(this.state.units).filter(u=>u.side===this.viewer),warehouses=Object.values(this.econ.warehouses).filter(w=>w.owner===this.viewer).map(w=>({...copy(w),label:this.nodes.find(n=>n.id===w.id).label,role:this.nodes.find(n=>n.id===w.id).role,controlled:this.state.hexes[w.node].control===this.viewer,P:this.available(w,'P'),E2:this.available(w,'E2')}));
-  return {instanceId:this.id,version:this.version,turn:this.state.turn,phase:this.state.phase,viewer:this.viewer,owner:this.owner(),ms:this.lastMs,
-   game:{message:{messageType:'PLAYER_VIEW_SNAPSHOT',payload:{matchId:this.id,matchRevision:this.version,actionSequence:this.version,serverSequence:++this.seq,revision:this.version,format:'snapshot-v1',resync:true,...p}},meta:{humanSide:this.viewer,ownerSide:this.owner(),paused:false,manual:true,reason:'GRAND_MANUAL_LOGISTICS',accepted:this.version,rejected:0}},
+  return {officers:this.delegation.public(p.view),instanceId:this.id,version:this.version,turn:this.state.turn,phase:this.state.phase,viewer:this.viewer,owner:this.owner(),ms:this.lastMs,
+   game:{message:{messageType:'PLAYER_VIEW_SNAPSHOT',payload:{matchId:this.id,matchRevision:this.version,actionSequence:this.version,serverSequence:++this.seq,revision:this.version,format:'snapshot-v1',resync:true,...p}},meta:{humanSide:this.viewer,ownerSide:this.owner(),paused:false,manual:true,reason:'GRAND_MANUAL_LOGISTICS',accepted:this.version,rejected:this.delegation.seat().reports.filter(r=>!r.accepted).length}},
    account:copy(this.econ.accounts[this.viewer]),epoch:this.econ.epoch,warehouses,orders:copy(this.econ.orders.filter(o=>o.side===this.viewer)),shipments:copy(this.econ.shipments.filter(s=>s.side===this.viewer)),
    uses:copy(this.econ.uses.filter(u=>u.side===this.viewer)),units:own.map(u=>({id:u.id,hex:kh(u.hex),label:core.axialToPaper(u.hex).label,step:u.step,alive:u.alive,army:this.placements.find(p=>p.id===u.id).army,...this.econ.supply[u.id],due:this.due(u)})),
    objectives:this.nodes.map(n=>({id:n.id,hex:n.hex,label:n.label,vp:n.vp,incomeI:n.incomeI,sourceQ:n.sourceQ,control:p.view.hexes.find(h=>kh(h.coord)===n.hex)?.control??null})),
