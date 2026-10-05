@@ -1,0 +1,206 @@
+{
+  "scenario": "grand-campaign-003-terrain-naturalization",
+  "url": "http://127.0.0.1:4193/",
+  "actions": 11,
+  "allReceipts": [
+    {
+      "ok": true,
+      "version": 1,
+      "ms": 23.777399999991758
+    },
+    {
+      "ok": true,
+      "version": 2,
+      "ms": 25.98359999997774
+    },
+    {
+      "ok": true,
+      "version": 3,
+      "ms": 25.364200000010896
+    },
+    {
+      "ok": true,
+      "version": 4,
+      "ms": 20.71989999996731
+    },
+    {
+      "ok": true,
+      "version": 5,
+      "ms": 22.700799999991432
+    },
+    {
+      "ok": true,
+      "version": 6,
+      "ms": 19.459299999987707
+    },
+    {
+      "ok": true,
+      "version": 7,
+      "ms": 33.12630000000354
+    },
+    {
+      "ok": true,
+      "version": 8,
+      "ms": 25.650900000007823
+    },
+    {
+      "ok": true,
+      "version": 9,
+      "ms": 19.393400000000838
+    },
+    {
+      "ok": true,
+      "version": 10,
+      "ms": 22.868699999991804
+    },
+    {
+      "ok": true,
+      "version": 11,
+      "ms": 83.00030000001425
+    }
+  ],
+  "movement": {
+    "type": "MOVE",
+    "unitId": "G-003",
+    "path": [
+      {
+        "q": 22,
+        "r": -6
+      },
+      {
+        "q": 22,
+        "r": -5
+      }
+    ]
+  },
+  "epoch": 1,
+  "G003": {
+    "side": "GERMAN",
+    "id": "G-003",
+    "before": {
+      "stock": 14,
+      "debt": 0,
+      "short": 0
+    },
+    "due": 4,
+    "received": 0,
+    "paid": 4,
+    "loss": 0,
+    "after": {
+      "stock": 24,
+      "debt": 0,
+      "short": 0
+    },
+    "refill": 14
+  },
+  "deliveries": [
+    {
+      "unit": "G-003",
+      "source": "GERMAN-industry-1",
+      "warehouse": "GERMAN-depot-1",
+      "path": [
+        "5,2|6,1",
+        "6,1|7,0",
+        "7,0|8,-1",
+        "8,-1|9,-2",
+        "10,-3|9,-2",
+        "10,-3|11,-4",
+        "11,-4|11,-5",
+        "11,-5|12,-5",
+        "12,-5|13,-5",
+        "13,-5|14,-5",
+        "14,-5|15,-5",
+        "15,-5|16,-5",
+        "16,-5|17,-5",
+        "17,-5|18,-5",
+        "18,-5|19,-5",
+        "19,-5|20,-5",
+        "20,-5|21,-6"
+      ],
+      "lastMile": 2,
+      "qty": 14,
+      "kind": "REFILL"
+    }
+  ],
+  "all120Maintained": true,
+  "maxServiceRssMiB": 98.5625,
+  "screenshots": {
+    "002-forest-hill.jpg": {
+      "sha256": "3a7e4d93685d2d3d04eb4469774ba5b4eea7ddf1f5c0b2c7be2ce95d919a062f",
+      "bytes": 111142
+    },
+    "002-full.jpg": {
+      "sha256": "4050f0ccaa24844a845891a2817f8068330ac94a5289c458e3e2952719f4241f",
+      "bytes": 74563
+    },
+    "002-wetland.jpg": {
+      "sha256": "25a28446c5aa02480448d3da127f7c79e056df2d68977861353bfae9e7421f61",
+      "bytes": 88531
+    },
+    "003-E1-stock.jpg": {
+      "sha256": "7ec12940bcdadc337b4ad80cbe5d292274bc861d1dac8b7252e29861d54c3086",
+      "bytes": 141824
+    },
+    "003-E1-supply.jpg": {
+      "sha256": "ab5a8ce75abae51dde31f704b9c34b3ff396a1491e634460fc10e5a8a3a35e00",
+      "bytes": 141800
+    },
+    "003-forest-hill.jpg": {
+      "sha256": "ff918294a9cd3dc98ff611027bda84ca070a39f1b1f6eda540a0bfa5e5507249",
+      "bytes": 114077
+    },
+    "003-full.jpg": {
+      "sha256": "28d6da50c6a59eec15d3c51b0635eb64041e1aa8f43488568f5af94419297a14",
+      "bytes": 77353
+    },
+    "003-move-accepted.jpg": {
+      "sha256": "bf86afa00d65c3852237537fe328b7b6826ceaeba73d3b1cb495af71bd47dcdf",
+      "bytes": 131073
+    },
+    "003-move-preview.jpg": {
+      "sha256": "67c735aacee06e9fac4dbb83fe1004ae5c43679ff541126c32892fe90b7f156e",
+      "bytes": 132767
+    },
+    "003-wetland.jpg": {
+      "sha256": "ee2ed6a9cf79be217d85cb8e2c9e17e3dce462c8b12c829dd56cdbe9e6f052c1",
+      "bytes": 89834
+    }
+  },
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "comparison": {
+    "full": {
+      "zoom": 1,
+      "pan": [
+        0,
+        0
+      ]
+    },
+    "forest-hill": {
+      "zoom": 1.8,
+      "pan": [
+        185,
+        45
+      ]
+    },
+    "wetland": {
+      "zoom": 1.8,
+      "pan": [
+        -75,
+        -240
+      ]
+    },
+    "conditions": "Both T1 GERMAN_SUPPLY, German authorized view, no actions, collapsed panel, same viewport. No FOW override."
+  },
+  "sourceHashes": {
+    "experiments/grand-campaign-003/terrain.json": "b48fbe625d1a16ffdd1ff66c96cc51243e0bcf016df01b43b64a2ced6735b448",
+    "experiments/grand-campaign-003/scenario.mjs": "6c0afb4e61cfe8681df3031f458f3fc58ba0888c907f80e831d8a9bc77a0aea4",
+    "experiments/grand-campaign-002/scenario.mjs": "5fb6556d1be5cefb4e675c196cd609f8b5e4ba503e19c00b6f1145ae2158a8d2",
+    "experiments/grand-campaign-002/hydrology.json": "0d28e909933fb2962b82c0b63394e5342d47fbb2cc5a762cb651068cc02bb72e",
+    "experiments/grand-campaign-001/config.json": "5471519df169c6e58a91895602a5014a203cce941a29f4145fb38780af8f16ac",
+    "experiments/grand-campaign-001/authority.mjs": "cca8cd71424d1b6bfcc9f6b922ea3217259a4aa8dfabea2c80540f5b952114ff",
+    "vendor/eastfront-digital-core/dist/index.js": "82ebe9449566632eced4c084f805aa54ae6cd9729398695229e328de69f4451b"
+  }
+}

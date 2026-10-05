@@ -13,8 +13,8 @@ function shortest(start,end,neighbors,heuristic=()=>0){
  throw Error(`NO_PATH ${start} ${end}`);
 }
 let geometryCache;
-export function buildGeography(){
- if(geometryCache)return structuredClone(geometryCache);
+export function buildGeography({cache=true}={}){
+ if(cache&&geometryCache)return structuredClone(geometryCache);
  const raw={rows:32,cols:40,terrain:{},roads:[],rails:[],rivers:[]},cells=new Map(),vertices=new Map(),borders=new Map(),vertexAdj=new Map(),riverEdges=new Map(),riverTracks=[];
  for(let c=1;c<=40;c++)for(let r=1;r<=32;r++){
   const h=hex(c,r),id=core.hexKey(h),p=pixel(h);cells.set(id,{id,h,p,cell:[c,r]});let t='plain';
@@ -72,10 +72,11 @@ export function buildGeography(){
    const available=[...reachable.keys()].filter(k=>(counts.get(k)??0)<(n>=58?2:1));available.sort((a,b)=>core.hexDistance(cells.get(a).h,target)-core.hexDistance(cells.get(b).h,target)||reachable.get(a)-reachable.get(b)||a.localeCompare(b));if(!available.length)throw Error('DEPLOYMENT_NO_SERVICE_CELL');const k=available[0];counts.set(k,(counts.get(k)??0)+1);placements.push({id,side,hex:cells.get(k).h,army:`${side==='GERMAN'?'西':'东'}-${i+1}集团军`,step:n>=58?1:0});
   }
  });
- geometryCache={raw,nodes,placements,map,geography:{classification:layout.classification,extent:layout.referenceExtent,confluenceAdjustments,rivers:riverTracks,lakes:lakeCells,lines}};return structuredClone(geometryCache);
+ const geometry={raw,nodes,placements,map,geography:{classification:layout.classification,extent:layout.referenceExtent,confluenceAdjustments,rivers:riverTracks,lakes:lakeCells,lines}};if(cache)geometryCache=geometry;return structuredClone(geometry);
 }
-export function createScenario(){
- const rules=structuredClone(core.defaultRules),scenario=structuredClone(core.defaultScenario),g=buildGeography();rules.id='grand-001-experimental';rules.recovery.initialRP={GERMAN:0,SOVIET:0};rules.recovery.maxUnitsPerTurn={GERMAN:config.recovery.unitsPerSidePerTurn,SOVIET:[{fromTurn:1,maxUnits:config.recovery.unitsPerSidePerTurn}]};for(const t of Object.values(rules.unitTemplates))t.recoveryCostPerStep=0;
+export function createScenario(){return createScenarioFromGeography(buildGeography(),layout);}
+export function createScenarioFromGeography(g,layout){
+ const rules=structuredClone(core.defaultRules),scenario=structuredClone(core.defaultScenario);rules.id='grand-001-experimental';rules.recovery.initialRP={GERMAN:0,SOVIET:0};rules.recovery.maxUnitsPerTurn={GERMAN:config.recovery.unitsPerSidePerTurn,SOVIET:[{fromTurn:1,maxUnits:config.recovery.unitsPerSidePerTurn}]};for(const t of Object.values(rules.unitTemplates))t.recoveryCostPerStep=0;
  Object.assign(scenario,{id:layout.id,displayName:layout.label,board:{paperColumns:40,paperRows:32},rulesId:rules.id,turnLimit:config.turns,victoryMode:'HOST_FULL_TURN',initialUnits:[],reinforcements:[],capitalCoreHexes:[hex(...layout.sides.SOVIET.capital)],capitalOuterHexes:[],controllers:sides.map(side=>({id:side,side,controllerType:'HUMAN'})),germanWestRailEntries:layout.sides.GERMAN.industries.map(p=>hex(...p)),sovietEastRailExits:layout.sides.SOVIET.industries.map(p=>hex(...p)),sovietSupplySources:layout.sides.SOVIET.industries.map(p=>hex(...p))});
  const roster=g.placements.map((p,n)=>({id:p.id,side:p.side,templateId:(p.side==='GERMAN'?['G-INF','G-INF','G-INF','G-INF','G-PANZER','G-MOT','G-ARTY','G-ENG','G-RECON','G-INF','G-INF','G-INF']:['S-INF','S-INF','S-INF','S-INF','S-TANK','S-MOT','S-ARTY','S-ENG','S-AT','S-INF','S-INF','S-INF'])[n%12]}));
  scenario.deployment={sequence:['SOVIET','GERMAN'],hiddenUntilBothComplete:true,zones:Object.fromEntries(sides.map(side=>[side,{kind:'EXPLICIT_HEXES',hexes:g.map.hexes.filter(h=>h.control===side&&h.terrain!=='LAKE').map(h=>h.coord)}])),units:roster};
