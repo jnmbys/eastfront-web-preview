@@ -1,3 +1,5 @@
+import {GrandPort,grandMarkup,bindGrand} from './playable/grand.js';
+let grandPort:GrandPort|null=null;
 import {LogisticsPort,logisticsMarkup,bindLogistics} from './playable/logistics.js';
 let logisticsPort:LogisticsPort|null=null;
 import * as playFlow from './playable/flow.js';
@@ -73,6 +75,7 @@ function syncFogSurface():void{
 }
 function paintDeploymentFocus(model?:BrowserRenderModel):void{
  syncFogSurface();
+ if(grandPort){const svg=document.querySelector('#eastfront-map');svg?.setAttribute('aria-label','大战略实验1280格地图');svg?.querySelector('#grand-objectives')?.remove();svg?.insertAdjacentHTML('beforeend','<g id="grand-objectives" pointer-events="none">'+grandPort.data.objectives.map((n:any)=>{const pos=hexToPixel(parseHex(n.hex));return `<g transform="translate(${pos.x} ${pos.y})"><circle r="9" fill="none" stroke="#e4b95c" stroke-width="2"/><text y="-26" text-anchor="middle" fill="#302514" font-size="13">${esc(n.label)} · ${n.vp}VP</text></g>`;}).join('')+'</g>');const title=document.querySelector('.map-toolbar>div:first-child>strong');if(title)title.textContent='大战略实验 · 32×40格';const campaign=document.querySelector('.campaign-heading>.eyebrow');if(campaign)campaign.textContent='大战略实验';}
  unitAnimations.sync(session,document.querySelector('#map-wrap'));
  if(LOCAL_AI_ENABLED&&localAi&&session&&!presentation.privacyGate)paintPlanMap(model??deriveBrowserRenderModel(session,presentation));
  const svg=document.querySelector('#eastfront-map');if(!svg||!session)return;
@@ -160,20 +163,21 @@ function phasePanel(model:BrowserRenderModel):string{
   }
   if(model.phase==='GERMAN_COMBAT'||model.phase==='SOVIET_COMBAT')return combatPanel(model);
   if(model.phase==='SOVIET_REINFORCEMENT_SUPPLY'&&model.reinforcement){const r=model.reinforcement;return `<section class="panel-block phase-actions"><span class="eyebrow">${t('reinforcement.title')}</span><div class="phase-metric"><span>${t('common.available')}</span><strong>${r.available.length}</strong></div><div class="phase-metric"><span>${t('common.delayed')}</span><strong>${r.delayed.length}</strong></div>${r.deployable?`<p class="warning-note">${t('reinforcement.required')}</p>`:''}<div class="reinforcement-list">${r.available.map((row)=>`<button class="reinforcement-row ${r.selectedId===row.id?'selected':''}" data-reinforcement-id="${esc(row.id)}"><span>${esc(row.id)} · ${unitLabel(row.type)}</span><b>${t('game.turn',{turn:row.scheduledTurn})}</b><small>${row.delayed?t('reinforcement.delayedPrefix'):''}${row.stats?`${row.stats.attack}-${row.stats.defense}-${row.stats.movement}`:enumLabel(row.resolution)}</small></button>`).join('')||`<p>${t('reinforcement.none')}</p>`}</div><p>${r.selectedId?t('reinforcement.entryHelp'):t('reinforcement.selectHelp')}</p>${ready}</section>`;}
-  if((model.phase==='GERMAN_RECOVERY'||model.phase==='SOVIET_RECOVERY')&&model.recovery){const r=model.recovery;return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span>${flowEnabled(model)?playFlow.refitMarkup(model):''}<div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.viewerSide]??'—'}</strong></div>${model.selectedCounter?`<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${r.selectedCost??'—'} ${t('resource.rp')}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action">${t('recovery.commit')}</button>`:`<p>${t('recovery.help')}</p>`}${ready}</section>`;}
+  if((model.phase==='GERMAN_RECOVERY'||model.phase==='SOVIET_RECOVERY')&&model.recovery){const r=model.recovery;return `<section class="panel-block phase-actions"><span class="eyebrow">${t('recovery.title')}</span>${flowEnabled(model)?playFlow.refitMarkup(model):''}<div class="phase-metric"><span>${t('recovery.recovered')}</span><strong>${r.recoveredCount}/${r.limit}</strong></div><div class="phase-metric"><span>${t('recovery.rp')}</span><strong>${model.rp[model.viewerSide]??'—'}</strong></div>${model.selectedCounter?`<div class="phase-metric"><span>${t('recovery.cost')}</span><strong>${grandPort?'1P＋2E2（材料支付）':`${r.selectedCost??'—'} ${t('resource.rp')}`}</strong></div>${issueHtml(r.selectedIssues)}<button id="recover-unit" class="secondary-action" ${grandPort&&r.selectedIssues.length?'disabled':''}>${t('recovery.commit')}</button>`:`<p>${t('recovery.help')}</p>`}${ready}</section>`;}
   if((model.phase==='GERMAN_ENTRENCHMENT'||model.phase==='SOVIET_ENTRENCHMENT')&&model.entrench){const e=model.entrench;return `<section class="panel-block phase-actions"><span class="eyebrow">${t('entrenchment.title')}</span>${flowEnabled(model)?playFlow.refitMarkup(model):''}${model.selectedCounter?`${issueHtml(e.selectedIssues)}<button id="entrench-unit" class="secondary-action">${t('entrenchment.commit')}</button>`:`<p>${t('entrenchment.help')}</p>`}${ready}</section>`;}
   return `<section class="panel-block phase-actions"><span class="eyebrow">${t('common.phase')}</span><p>${phaseLabel(model.phase)}</p>${ready}</section>`;
 }
 function viewerSwitch(model:BrowserRenderModel):string{if(!presentation.debug)return '';return `<section class="panel-block"><span class="eyebrow">${t('fow.view')}</span><div class="viewer-buttons">${(['GERMAN','SOVIET','OBSERVER'] as const).map(side=>`<button data-view-side="${side}" class="mini-button ${model.playerView.viewer===side?'active':''}">${t(side==='GERMAN'?'fow.german':side==='SOVIET'?'fow.soviet':'fow.observer')}</button>`).join('')}</div></section>`;}
 
 function privacyGate():string{const gate=presentation.privacyGate;if(!gate)return '';if(gate==='COMBAT_DECISION'){const owner=(session?sessionPlayerView(session).pendingDecision:null)?.decisionOwnerControllerId??'';const side=owner&&session&&sessionPlayerView(session).pendingDecision?.side==='SOVIET'?'Soviet':'German';return privacyHandoffMarkup(gate,side);}return privacyHandoffMarkup(gate);}
-function gameOver(model:BrowserRenderModel):string{return gameOverMarkup(model.victory.winner,model.victory.reason,model.turn);}
+function gameOver(model:BrowserRenderModel):string{if(grandPort){const vp=grandPort.data.lastLedger?.vp;return `<div class="game-over-panel"><div class="game-over-card"><h1>${model.victory.winner?sideLabel(model.victory.winner)+'胜利':'双方平局'}</h1><p>大战略实验 · 双方T24行动、恢复及E24均已结算。</p><p>德军 ${vp?.GERMAN??0}VP / 苏军 ${vp?.SOVIET??0}VP</p><p>未用库存不折算VP。E24到账的材料不能追溯使用。</p><button id="new-game-button">返回主菜单</button></div></div>`;}return gameOverMarkup(model.victory.winner,model.victory.reason,model.turn);}
 
 function startNewGame():void{if(LOCAL_AI_ENABLED){leaveLocalAi();return;}terrainPipeline?.resume();terrainPipeline?.continueAll();deploymentTouch=createDeploymentTouch();if(!productionMap||!cachedTerrainSurface){appStatus='FATAL';fatalMessage=msg('game.noMap');render();return;}session=createFreshProductionSession(productionMap);presentation=createPresentationState(developerUi&&query.get('debug')==='1',window.matchMedia('(max-width: 1100px)').matches);presentation.rendererMode='production';presentation.productionAssetSet='p5';appStatus='PLAYING';fatalMessage='';render();}
 function restartGame():void{if(localAi){leaveLocalAi();return;}if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
   const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
+  wrap.classList.toggle('grand-far',!!grandPort&&mapViewport.zoom<1.7);
   const zoom=mapViewport.zoom.toFixed(2);if(wrap.dataset.zoom!==zoom){wrap.dataset.zoom=zoom;const readout=document.querySelector<HTMLElement>('#zoom-readout');if(readout)readout.textContent=`${Math.round(mapViewport.zoom*100)}%`;}
 }
 let releaseMapViewport=()=>{};
@@ -205,7 +209,7 @@ function bindMapViewport():void{
   });
   wrap.addEventListener('pointermove',(event)=>{
     const e=event as PointerEvent;if(!points.has(e.pointerId))return;const p=local(e);points.set(e.pointerId,p);
-    if(pinch){const [a,b]=[...points.values()];mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a!,b!);applyMapViewport();e.preventDefault();return;}
+    if(pinch){const [a,b]=[...points.values()];mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a!,b!,grandPort?12:2.5);applyMapViewport();e.preventDefault();return;}
     if(!gesture)return;gesture=updateMapGesture(gesture,p.x,p.y);if(!gesture.dragging)return;
     capture(e.pointerId);queuePan(p.x,p.y);e.preventDefault();
   });
@@ -221,9 +225,10 @@ function bindMapViewport():void{
   wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true));
   wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);});
   wrap.addEventListener('click',(event)=>{if(!suppressNextClick)return;event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},true);
-  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e));applyMapViewport();rebase();},{passive:false});
+  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();rebase();},{passive:false});
 }
 function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):CoreSvgOptions{
+  if(grandPort)return {debug:false,rendererMode:'prototype',lod:'far'};
   const vb=viewBoxForHexes(model.hexes),usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));
   const screenHexWidth=usableWidth*((Math.sqrt(3)*HEX_SIZE)/vb.width)*mapViewport.zoom;
   const lod=lodOverride??selectTerrainLod(screenHexWidth);
@@ -231,6 +236,7 @@ function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):Core
 }
 let terrainZoomObserver:MutationObserver|null=null;let terrainZoomWrap:HTMLElement|null=null;
 function mountCachedTerrainSurface():void{
+  if(grandPort)return;
   if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;const usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));const requested=selectTerrainLod(usableWidth*((Math.sqrt(3)*HEX_SIZE)/cachedTerrainSurface.viewBox.width)*mapViewport.zoom);terrainPipeline?.prioritize(requested);cachedTerrainSurface=terrainPipeline?.best(requested)??cachedTerrainSurfaces.get(requested)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.style.transform=svg.style.transform;canvas.style.transformOrigin='50% 50%';canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);
   if(terrainZoomWrap!==wrap&&typeof MutationObserver!=='undefined'){terrainZoomObserver?.disconnect();terrainZoomWrap=wrap;terrainZoomObserver=new MutationObserver(()=>mountCachedTerrainSurface());terrainZoomObserver.observe(wrap,{attributes:true,attributeFilter:['data-zoom']});}
   updateTerrainDetailStatus();
@@ -238,10 +244,10 @@ function mountCachedTerrainSurface():void{
 function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
   if(LOCAL_AI_ENABLED&&localAi&&session){
    const c=playFlow.controls(session,model.viewerControllerId),planning=commandEnabled.has(session);
-   const options=`<section class="panel-block playable-options"><strong><img src="./assets/playable/personnel.svg" alt="">可选辅助 · 己方 ${model.playerView.units.filter(u=>u.side===model.viewerSide).length}</strong><label><input id="flow-auto" type="checkbox" ${c.enabled?'checked':''} ${logisticsPort?'disabled':''}> FLOW · 空恢复自动准备</label><label><input id="command-enable" type="checkbox" ${planning?'checked':''}> COMMAND · 计划与行动记录</label><p role="status">${logisticsPort?'新模式后勤由人类确认，FLOW自动准备停用。':esc(c.notice)}</p><small>两项独立；默认关闭。关闭不撤销已执行动作。</small></section>`;
+   const options=`<section class="panel-block playable-options"><strong><img src="./assets/playable/personnel.svg" alt="">可选辅助 · 己方 ${model.playerView.units.filter(u=>u.side===model.viewerSide).length}</strong><label><input id="flow-auto" type="checkbox" ${c.enabled?'checked':''} ${logisticsPort||grandPort?'disabled':''}> FLOW · 空恢复自动准备</label><label><input id="command-enable" type="checkbox" ${planning?'checked':''}> COMMAND · 计划与行动记录</label><p role="status">${logisticsPort||grandPort?'新模式后勤由人类确认，FLOW自动准备停用。':esc(c.notice)}</p><small>两项独立；默认关闭。关闭不撤销已执行动作。</small></section>`;
    const command=planning&&!model.deployment?plan.panel(session,model):'';
    const results=combatResults(session).html(model,reducedMotion.matches);
-   return `<div class="command-panel-scroll playable-dock"><div class="playable-actions">${deploymentPanel(model,locations)}${phasePanel(model)}${presentation.message?`<section class="panel-block status-message"><p>${esc(formatMessage(presentation.message))}</p></section>`:''}${results}</div><div class="playable-inspect"><section class="panel-block selection-block"><span class="eyebrow">当前部队</span>${selectedSummary(model)}</section></div><div class="playable-tools">${logisticsPort?logisticsMarkup(logisticsPort):''}${options}${command}</div></div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
+   return `<div class="command-panel-scroll playable-dock"><div class="playable-actions">${deploymentPanel(model,locations)}${phasePanel(model)}${presentation.message?`<section class="panel-block status-message"><p>${esc(formatMessage(presentation.message))}</p></section>`:''}${results}</div><div class="playable-inspect"><section class="panel-block selection-block"><span class="eyebrow">当前部队</span>${selectedSummary(model)}</section></div><div class="playable-tools">${grandPort?grandMarkup(grandPort,presentation.selectedUnitId):''}${logisticsPort?logisticsMarkup(logisticsPort):''}${options}${command}</div></div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
   }
   const results=session?combatResults(session).html(model,typeof reducedMotion!=='undefined'&&reducedMotion.matches):'';
   return `<div class="command-panel-scroll">${results}${model.combat?phasePanel(model):''}${model.combat?`<details class="combat-advanced"><summary>${t('combat.flow.unitDetails')}</summary>`:''}<section class="panel-block selection-block"><span class="eyebrow command-title">${t('panel.title')}</span>${selectedSummary(model)}</section>${model.combat?'</details>':''}${presentation.message&&!model.readOnly&&(!model.deployment||developerUi||deploymentTouch.status==='idle')?`<section class="panel-block status-message"><span class="eyebrow">${t('panel.report')}</span><p>${model.deployment&&!developerUi?esc(deploymentRejection(!isNetwork(session!)?session!.lastResult?.issues??[]:[])):esc(formatMessage(presentation.message))}</p></section>`:''}${deploymentPanel(model,locations)}${model.combat?'':phasePanel(model)}${developerUi&&!isNetwork(session)?viewerSwitch(model):''}${developerUi&&!isNetwork(session)&&model.playerView.viewer==='OBSERVER'?lastActionPanel(session as LocalGameSession):''}</div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
@@ -279,7 +285,7 @@ function refreshDynamicViewNow():void{
   paintDeploymentFocus(model);
   applyMapViewport();
   updateNetworkStatus();
-  const hud=document.querySelector('.command-hud');if(hud)hud.innerHTML=commandHeader(model);
+  const hud=document.querySelector('.command-hud');if(hud){hud.innerHTML=commandHeader(model);if(grandPort){const title=hud.querySelector('.eyebrow');if(title)title.textContent='大战略实验';}}
   const mapLabel=document.querySelector('.map-toolbar>div:first-child>span');if(mapLabel)mapLabel.textContent=t('map.viewer',{side:sideLabel(model.viewerSide),phase:phaseLabel(model.phase)});
   if(isNetwork(session)){const resources=document.querySelectorAll('.resource-strip>span>strong');if(resources[0])resources[0].textContent=String(model.cp[model.viewerSide]??'—');if(resources[1])resources[1].textContent=String(model.rp[model.viewerSide]??'—');}
 }
@@ -322,10 +328,10 @@ function bind():void{
   bindLanguageControl(root,()=>{forceNetworkRender=true;render();});
   document.querySelector('#terrain-detail-retry')?.addEventListener('click',()=>{terrainPipeline?.retry();updateTerrainDetailStatus();});
   if(appStatus==='HOME'&&!LOCAL_AI_ENABLED)addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
-  document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
+  document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(grandPort){leaveLocalAi();return;}if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(grandPort){leaveLocalAi();return;}if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
   if(isNetwork(session) && session.client && 'meta' in session.client)updateLocalAiStatus();
   if(!session)return;
-  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0});applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
+  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0},grandPort?12:2.5);applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0},grandPort?12:2.5);applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
 function showCombatView():void{
   const panel=document.querySelector<HTMLElement>('#side-panel');
@@ -494,14 +500,14 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
   session=network;
   if(LOCAL_AI_ENABLED&&localAi)plan.observe(network,()=>({viewer:network.activeViewerControllerId,view:sessionPlayerView(network)}));
   terrainPipeline?.resume();
-  if(!cachedTerrainSurface)await boot(network.renderModel());
-  if(!cachedTerrainSurface){network.dispose();return;}
+  if(!grandPort&&!cachedTerrainSurface)await boot(network.renderModel());
+  if(!grandPort&&!cachedTerrainSurface){network.dispose();return;}
   if(session!==network){network.dispose();return;}
   session=network;appStatus='PLAYING';presentation.privacyGate=null;if(LOCAL_AI_ENABLED&&localAi)presentation.panelCollapsed=false;render();terrainPipeline?.continueAll();
 }
 
 function localAiHome():string {
- return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>PLAYABLE-004 · 动态运输与维护取舍候选</p><p>本地运行，不连接多人服务。暂不支持存档或加载，原规则刷新会结束对局；新模式刷新可重连当前本机实例，关闭服务才结束。</p><label>对局规则 <select id="play-mode"><option value="legacy">原规则 · T1完整战役 / AI</option><option value="industry018">新补给＋工业018 · 德军T5连续战役</option></select></label><p>新模式复用018真实订单与运输。E8可按当前状态预览运力与维护代价，明确确认后前送；默认不削减维护。同一T5起点自由作战，持续至原规则终局；苏军AI单步作战，双方后勤由人类接管。工业服务仍限定原T5–T9窗口，错过不阻断战役。不是任意T1工业战役。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。原规则模式不使用新补给与工业；上方新模式提供018受支持的限定工业服务和连续战役。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
+ return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>GRAND-CAMPAIGN-001 · 32×40格 · 24周候选战役</p><p>新战役从配置部署的真实T1开始；双方轮流人工行动。持续工业、补给与材料恢复已接入；参数为实验值，未验证平衡。</p><p>本地运行，不连接多人服务。暂不支持存档或加载，原规则刷新会结束对局；工业018刷新可重连；大战略模式刷新或退出会结束当前局，暂不支持存档。</p><label>对局规则 <select id="play-mode"><option value="grand">大战略实验战役 · 1280格 / 120单位 / T1</option><option value="legacy">原规则 · T1完整战役 / AI</option><option value="industry018">新补给＋工业018 · 德军T5连续战役</option></select></label><p>旧工业018选项复用018真实订单与运输。E8可按当前状态预览运力与维护代价，明确确认后前送；默认不削减维护。同一T5起点自由作战，持续至原规则终局；苏军AI单步作战，双方后勤由人类接管。工业服务仍限定原T5–T9窗口，错过不阻断战役。不是任意T1工业战役。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。原规则模式不使用新补给与工业；工业018选项提供018受支持的限定工业服务和连续战役。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
 }
 function bindLocalAiHome():void {
  document.querySelector('#ai-perf-report')?.addEventListener('click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
@@ -513,22 +519,24 @@ function bindLocalAiHome():void {
 });}
 function leaveLocalAi():void {
  perf006.measure('exitHandler',()=>{
- localGeneration++;if(isNetwork(session))session.dispose();else localAi?.dispose();localAi=null;logisticsPort=null;session=null;appStatus='HOME';terrainPipeline?.pause();render();
+ localGeneration++;if(isNetwork(session))session.dispose();else localAi?.dispose();localAi=null;logisticsPort=null;grandPort=null;session=null;appStatus='HOME';terrainPipeline?.pause();render();
  });perf006.stop();
 }
 async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):Promise<void>{
- const integrated=document.querySelector<HTMLSelectElement>('#play-mode')?.value==='industry018';
+ const mode=document.querySelector<HTMLSelectElement>('#play-mode')?.value,grand=mode==='grand',integrated=mode==='industry018';
+ grandPort=null;
+ if(grand){terrainPipeline?.dispose();terrainPipeline=null;for(const surface of cachedTerrainSurfaces.values()){surface.canvas.width=0;surface.canvas.height=0;}cachedTerrainSurfaces.clear();cachedTerrainSurface=null;productionMap=null;terrainZoomObserver?.disconnect();terrainZoomWrap=null;mapViewport=defaultMapViewport();}
  const generation=++localGeneration;
  if(isNetwork(session))session.dispose();else localAi?.dispose();session=null;localAi=null;
- if(!productionMap||!cachedTerrainSurface){await boot();if(generation!==localGeneration||!productionMap||!cachedTerrainSurface)return;}
+ if(!grand&&(!productionMap||!cachedTerrainSurface)){await boot();if(generation!==localGeneration||!productionMap||!cachedTerrainSurface)return;}
  perf006.start(query.get('aiPerf006')==='1');
  const fixedSeed=query.get('aiSeed');
  const seed=perf006.enabled&&fixedSeed!==null&&/^\d+$/.test(fixedSeed)&&Number(fixedSeed)<=0xffffffff?Number(fixedSeed):crypto.getRandomValues(new Uint32Array(1))[0]!;
- const options={humanSide,scenario,seed,map:productionMap,performance:perf006.enabled};
- const port=integrated?new LogisticsPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):createLocalAiWorker();logisticsPort=integrated?port as LogisticsPort:null;
+ const options={humanSide,scenario,seed,map:productionMap??{rows:32,cols:40,terrain:{},roads:[],rails:[],rivers:[]},performance:perf006.enabled};
+ const port=grand?new GrandPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):integrated?new LogisticsPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):createLocalAiWorker();logisticsPort=integrated?port as LogisticsPort:null;grandPort=grand?port as GrandPort:null;
  const client=new LocalAiClient(port,options,()=>{if(localAi===client)updateLocalAiStatus();});localAi=client;appStatus='LOADING';render();
  try{await client.start(options);if(generation!==localGeneration){client.dispose();return;}await enterNetworkMatch(client);}
- catch(error){if(generation!==localGeneration)return;client.dispose();localAi=null;logisticsPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent='本地 AI 启动失败：'+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
+ catch(error){if(generation!==localGeneration)return;client.dispose();localAi=null;logisticsPort=null;grandPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent='本地 AI 启动失败：'+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
 }
 function updateLocalAiStatus():void {
  if(!localAi||appStatus==='HOME')return;
@@ -561,6 +569,7 @@ function updateLocalAiStatus():void {
    prompt.append(message,confirm,cancel);bar!.append(prompt);confirm.focus();
   });
  }
+ if(grandPort){const title=bar.querySelector('strong');if(title)title.textContent='大战略实验 · 双方人工轮流';}
  const setText=(selector:string,value:string)=>{const el=bar!.querySelector(selector)!;if(el.textContent!==value)el.textContent=value;};
  setText('#ai-status-text',status+' · 当前行动方：'+side(m.ownerSide)+' · 你的视角：'+side(m.humanSide));
  setText('#ai-status-count',`接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载`);
@@ -636,12 +645,13 @@ const commandEnabled=new WeakSet<object>();
 function flowEnabled(model:BrowserRenderModel):boolean{return !!session&&LOCAL_AI_ENABLED&&!!localAi&&playFlow.controls(session,model.viewerControllerId).enabled;}
 function playableContext(s:PlayerSession):playFlow.FlowContext{return {model:deriveBrowserRenderModel(s,presentation),revision:isNetwork(s)?s.matchRevision:-1,ready:isNetwork(s)&&s.interactive,privacy:!!presentation.privacyGate,local:LOCAL_AI_ENABLED&&!!localAi&&isNetwork(s)&&s.client===localAi,rejected:isNetwork(s)&&['actionRejected','outdated'].includes(s.notice??'')};}
 function bindPlayable(model:BrowserRenderModel):void{
+ if(grandPort){bindGrand(grandPort);document.querySelector('#grand-focus')?.addEventListener('click',()=>{if(!session)return;const id=document.querySelector<HTMLSelectElement>('#grand-unit')?.value,u=sessionPlayerView(session).units.find(u=>u.id===id&&u.side===grandPort?.data.viewer);if(u){selectCounter(session,presentation,u.id);refreshDynamicView();focusGrandHex(u.hex);}});}
  if(logisticsPort)bindLogistics(logisticsPort);
  if(!session)return;const captured=session,pp=presentation;
  const ctx=playableContext(captured);if(ctx.rejected)playFlow.stopOnRejection(captured,model.viewerControllerId);
  document.querySelector<HTMLInputElement>('#flow-auto')?.addEventListener('change',e=>{playFlow.setEnabled(captured,model.viewerControllerId,(e.target as HTMLInputElement).checked);refreshDynamicView();});
  document.querySelector<HTMLInputElement>('#command-enable')?.addEventListener('change',e=>{if((e.target as HTMLInputElement).checked)commandEnabled.add(captured);else{commandEnabled.delete(captured);plan.scope(captured,model.viewerControllerId).picking=null;}refreshDynamicView();});
- const ticket=logisticsPort?null:playFlow.autoTicket(captured,ctx);
+ const ticket=logisticsPort||grandPort?null:playFlow.autoTicket(captured,ctx);
  if(ticket)setTimeout(()=>{if(session===captured&&presentation===pp&&playFlow.runAuto(captured,playableContext(captured),ticket,()=>readyForPhase(captured,pp)))refreshDynamicView();},600);
  if(!commandEnabled.has(captured)||model.deployment)return;
  const p=plan.scope(captured,model.viewerControllerId);
@@ -658,6 +668,13 @@ function bindPlayable(model:BrowserRenderModel):void{
   if(session!==captured)return;const current=deriveBrowserRenderModel(captured,presentation),id=el.dataset.commandUnit??el.dataset.commandLocate,u=current.playerView.units.find(u=>u.id===id&&u.side===current.viewerSide);if(!u)return;
   if(!current.combat?.pending&&!current.readOnly){selectCounter(captured,presentation,u.id);refreshDynamicView();}focusPlanHex(u.hex);
  }));
+}
+function focusGrandHex(hex:{q:number;r:number}):void{
+ const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),wrap=document.querySelector('#map-wrap');if(!svg||!wrap)return;
+ mapViewport=defaultMapViewport();applyMapViewport();const m=svg.getScreenCTM(),r=wrap.getBoundingClientRect();if(!m)return;
+ const point=hexToPixel(hex),screen=new DOMPoint(point.x,point.y).matrixTransform(m),rect=svg.querySelector('[aria-pressed="true"]')?.getBoundingClientRect();
+ const zoom=Math.min(12,Math.max(2.5,44/Math.max(1,rect?.width??12)));
+ mapViewport={zoom,panX:(r.left+r.width/2-screen.x)*zoom,panY:(r.top+r.height/2-screen.y)*zoom};applyMapViewport();
 }
 function focusPlanHex(hex:{q:number;r:number}):void{
  const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),wrap=document.querySelector('#map-wrap');if(!svg||!wrap)return;

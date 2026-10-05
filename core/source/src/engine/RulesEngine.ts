@@ -218,7 +218,7 @@ export class RulesEngine {
           // 002E-2: victory is checked exactly when a Player Turn's final side-wide Ready barrier
           // completes, while the final phase/turn facts still represent the checkpoint. A winner
           // short-circuits normal endPhase() so no next Player Turn/Game Turn or supply hook starts.
-          const checkpoint=victoryCheckpointForPhase(next.phase);
+          const checkpoint=this.scenario.victoryMode==='HOST_FULL_TURN'?null:victoryCheckpointForPhase(next.phase);
           if (checkpoint) {
             const victory=evaluateVictoryAtCheckpoint(next,this.rules,this.scenario,checkpoint);
             if (victory.winner!==null) {
@@ -232,6 +232,10 @@ export class RulesEngine {
             }
           }
 
+          // Opt-in host settlement retains the final Soviet phase facts and avoids a phantom T25 income/reset.
+          if(this.scenario.victoryMode==='HOST_FULL_TURN'&&next.turn>=this.scenario.turnLimit&&next.phase==='SOVIET_ENTRENCHMENT'){
+            endPlayerTurn(next,next.activeSide);beginPhase(next,'GAME_OVER');return accept();
+          }
           const transition=endPhase(next,this.rules);
           if (transition.nextPhase==='GERMAN_SUPPLY_RAIL') {
             refreshGermanSupplyState(next,this.rules,this.scenario);

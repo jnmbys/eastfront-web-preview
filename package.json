@@ -22,7 +22,9 @@
     "server": "npm run server:build && node .server-dist/server/index.js",
     "test:multiplayer": "npm run build && npm run server:build && node --test tests/mp001*.test.mjs",
     "test:mp002": "npm run build && npm run server:build && node --test tests/mp001-*.test.mjs tests/mp002-*.test.mjs",
-    "verify:mp002:browser": "npm run build && npm run server:build && node scripts/verify-mp002-browser.mjs"
+    "verify:mp002:browser": "npm run build && npm run server:build && node scripts/verify-mp002-browser.mjs",
+    "grand": "node ai/local/build.mjs && node experiments/grand-campaign-001/server.mjs",
+    "grand:check": "node ai/local/build.mjs && node experiments/grand-campaign-001/check.mjs"
   },
   "devDependencies": {
     "@types/node": "26.6.2",

@@ -1,0 +1,86 @@
+{
+  "id": "grand-campaign-001-1280",
+  "status": "EXPERIMENT_NOT_BALANCED",
+  "baseline": "b7f5644c619c461e2f2d2a3d642670b572913d65",
+  "board": {
+    "rows": 32,
+    "cols": 40,
+    "kmPerHex": 10
+  },
+  "turns": 24,
+  "weeksPerTurn": 1,
+  "unitsPerSide": 60,
+  "lanes": [
+    5,
+    11,
+    17,
+    23,
+    29
+  ],
+  "seed": 19410622,
+  "economy": {
+    "initialI": 12,
+    "industrialIncome": 4,
+    "ordersPerSidePerTurn": 2,
+    "warehouseCapacity": 96,
+    "trainedReservePerSide": 48,
+    "products": {
+      "P": {
+        "costI": 2,
+        "turns": 1,
+        "output": 1,
+        "reserveCost": 1
+      },
+      "E2": {
+        "costI": 3,
+        "turns": 1,
+        "output": 2,
+        "reserveCost": 0
+      }
+    },
+    "careIperFourPperEpoch": 1
+  },
+  "transport": {
+    "edgeQ": 192,
+    "workQ": 30000,
+    "warehouseW": 192,
+    "lastMileRadius": 3,
+    "materialLoad": {
+      "P": 4,
+      "E2": 2
+    }
+  },
+  "supply": {
+    "sourceQPerLane": 160,
+    "initialStockQ": 16,
+    "maxStockQ": 24,
+    "maintenanceQ": 4,
+    "armorMaintenanceQ": 8,
+    "moveQPerHex": 1,
+    "attackQ": 4,
+    "shortageLossEvery": 3,
+    "debtReliefOnFullMaintenance": "up to one current maintenance due, in q"
+  },
+  "recovery": {
+    "P": 1,
+    "E2": 2,
+    "unitsPerSidePerTurn": 6,
+    "initialUnderstrengthPerSide": 2
+  },
+  "victory": {
+    "method": "E24_CURRENT_CONTROL_VP",
+    "tie": "DRAW",
+    "capitalVP": 6,
+    "industryVP": 3,
+    "junctionVP": 2,
+    "corridorObjectiveVP": 4
+  },
+  "assumptions": [
+    "所有价格/产能/容量为独立实验参数，非历史精确或平衡结论。",
+    "人员来自明确初始化的48P已训练后备池；不自动新增人口。",
+    "装备产出消耗I；没有直接赠送恢复包。",
+    "同一完整回合仅E结算一次；到账物资从下一T使用。",
+    "本机双方人工轮流操作，AI不经营此经济。",
+    "RP支付在此模式禁用，Core共同恢复资格与次数仍有效。"
+  ]
+}

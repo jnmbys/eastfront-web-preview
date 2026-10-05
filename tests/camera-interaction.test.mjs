@@ -6,9 +6,9 @@ import * as interaction from '../dist/app/web/mapInteraction.js';
 const source=readFileSync(new URL('../dist/app/main.js',import.meta.url),'utf8');
 function harness(initial={zoom:1.5,panX:70,panY:-40}) {
  const handlers={},frames=new Map(),captures=new Set();let serial=0;
- const wrap={dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),addEventListener:(t,f)=>handlers[t]=f,setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)};
+ const wrap={classList:{toggle(){}},dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),addEventListener:(t,f)=>handlers[t]=f,setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)};
  const elements={'#map-wrap':wrap,'#eastfront-map':{style:{}},'#terrain-surface':{style:{}},'#zoom-readout':{}};
- const ctx=vm.createContext({...interaction,mapViewport:{...initial},document:{querySelector:s=>elements[s]},requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:id=>frames.delete(id)});
+ const ctx=vm.createContext({...interaction,grandPort:null,mapViewport:{...initial},document:{querySelector:s=>elements[s]},requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:id=>frames.delete(id)});
  vm.runInContext(source.slice(source.indexOf('function applyMapViewport()'),source.indexOf('function mapRenderOptions(')),ctx);
  ctx.bindMapViewport();
  const fire=(type,x=100,y=100,id=1,extra={})=>{const e={clientX:x,clientY:y,pointerId:id,button:0,preventDefault(){this.prevented=true;},stopPropagation(){},stopImmediatePropagation(){this.stopped=true;},...extra};handlers[type](e);return e;};
@@ -42,4 +42,15 @@ test('pinch cancellation and third finger removal leave no stale pointer or tap 
 test('off-centre pinch math preserves anchor at clamped zoom and handles coincident fingers',()=>{
  const v={zoom:2,panX:35,panY:-20},a={x:50,y:30},b={x:150,y:30};const next=interaction.pinchMapViewport(v,a,b,{x:20,y:60},{x:320,y:60});assert.equal(next.zoom,2.5);assert.equal((170-next.panX)/next.zoom,(100-v.panX)/v.zoom);assert.equal((60-next.panY)/next.zoom,(30-v.panY)/v.zoom);
  assert(Object.values(interaction.pinchMapViewport(v,a,a,a,a)).every(Number.isFinite));
+});
+
+
+test('GRAND opts into a larger near view while legacy keeps its existing cap and pointer anchor',()=>{
+ const v={zoom:2,panX:35,panY:-20},focus={x:90,y:40};
+ assert.equal(interaction.zoomMapAt(v,9,focus).zoom,2.5);
+ const near=interaction.zoomMapAt(v,9,focus,12);assert.equal(near.zoom,9);
+ assert.equal((focus.x-near.panX)/near.zoom,(focus.x-v.panX)/v.zoom);
+ assert.equal(interaction.zoomMapAt(v,99,focus,12).zoom,12);
+ const pinch=interaction.pinchMapViewport(v,{x:0,y:0},{x:10,y:0},{x:0,y:0},{x:40,y:0},12);
+ assert.equal(pinch.zoom,8);
 });

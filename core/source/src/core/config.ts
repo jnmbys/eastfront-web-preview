@@ -135,6 +135,8 @@ export interface ScenarioControllerSetup {
 }
 
 export interface ScenarioConfig {
+  /** Opt-in host-owned full-turn victory transaction; default retains capital rules. */
+  victoryMode?: "HOST_FULL_TURN";
   id: string;
   displayName: string;
   rulesId: string;

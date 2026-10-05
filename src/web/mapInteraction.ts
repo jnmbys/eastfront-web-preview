@@ -69,17 +69,17 @@ export function dragSuppressesTap(gesture:MapGestureState,cancelled=false):boole
 export interface MapPoint {x:number;y:number;}
 
 /** Preserve the world point beneath the pointer; only FIT recentres the map. */
-export function zoomMapAt(view:MapViewport,requestedZoom:number,focus:MapPoint):MapViewport {
-  const zoom=Math.max(1,Math.min(2.5,requestedZoom));
+export function zoomMapAt(view:MapViewport,requestedZoom:number,focus:MapPoint,maxZoom=2.5):MapViewport {
+  const zoom=Math.max(1,Math.min(maxZoom,requestedZoom));
   const ratio=zoom/view.zoom;
   return {zoom,panX:focus.x-(focus.x-view.panX)*ratio,panY:focus.y-(focus.y-view.panY)*ratio};
 }
 
-export function pinchMapViewport(view:MapViewport,startA:MapPoint,startB:MapPoint,a:MapPoint,b:MapPoint):MapViewport {
+export function pinchMapViewport(view:MapViewport,startA:MapPoint,startB:MapPoint,a:MapPoint,b:MapPoint,maxZoom=2.5):MapViewport {
   const mid=(p:MapPoint,q:MapPoint):MapPoint=>({x:(p.x+q.x)/2,y:(p.y+q.y)/2});
   const from=mid(startA,startB),to=mid(a,b);
   const initialDistance=Math.hypot(startA.x-startB.x,startA.y-startB.y);
   const distance=Math.hypot(a.x-b.x,a.y-b.y);
-  const next=zoomMapAt(view,view.zoom*(initialDistance>0?distance/initialDistance:1),from);
+  const next=zoomMapAt(view,view.zoom*(initialDistance>0?distance/initialDistance:1),from,maxZoom);
   return {...next,panX:next.panX+to.x-from.x,panY:next.panY+to.y-from.y};
 }

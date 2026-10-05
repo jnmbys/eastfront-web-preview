@@ -120,6 +120,7 @@ export interface ScenarioControllerSetup {
     displayName?: string;
 }
 export interface ScenarioConfig {
+    victoryMode?: "HOST_FULL_TURN";
     id: string;
     displayName: string;
     rulesId: string;
