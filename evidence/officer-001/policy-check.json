@@ -1,0 +1,342 @@
+{
+  "checks": [
+    {
+      "name": "ownership_goals_budget_determinism",
+      "decision": {
+        "intent": {
+          "type": "MOVE",
+          "unitId": "G-PZ-03",
+          "path": [
+            {
+              "q": 2,
+              "r": 6
+            },
+            {
+              "q": 3,
+              "r": 6
+            },
+            {
+              "q": 4,
+              "r": 6
+            },
+            {
+              "q": 5,
+              "r": 6
+            }
+          ]
+        },
+        "reason": "执行向命令目标推进；接受与同组部队拉开距离",
+        "metrics": {
+          "expanded": 106,
+          "searches": 2,
+          "exhausted": false
+        }
+      }
+    },
+    {
+      "name": "hidden_authority_pair",
+      "hiddenUnits": 37
+    },
+    {
+      "name": "logistics_personality_changes_candidate_same_authorized_view",
+      "decisions": [
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 2,
+                "r": 6
+              },
+              {
+                "q": 3,
+                "r": 6
+              },
+              {
+                "q": 4,
+                "r": 6
+              },
+              {
+                "q": 5,
+                "r": 6
+              }
+            ]
+          },
+          "reason": "执行向命令目标推进；接受与同组部队拉开距离，已计入缺供代价",
+          "metrics": {
+            "expanded": 106,
+            "searches": 2,
+            "exhausted": false
+          }
+        },
+        {
+          "intent": null,
+          "reason": "当前无符合命令与风险取舍的行动；不自动结束阶段",
+          "metrics": {
+            "expanded": 106,
+            "searches": 2,
+            "exhausted": false
+          }
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 2,
+                "r": 6
+              },
+              {
+                "q": 3,
+                "r": 6
+              },
+              {
+                "q": 4,
+                "r": 6
+              },
+              {
+                "q": 5,
+                "r": 6
+              }
+            ]
+          },
+          "reason": "执行向命令目标推进；接受与同组部队拉开距离，已计入缺供代价",
+          "metrics": {
+            "expanded": 106,
+            "searches": 2,
+            "exhausted": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "invalid_order_direct_pending_stop",
+      "ok": true
+    },
+    {
+      "name": "authored_public_road_scene_concentration_not_attack_threshold",
+      "sameClearRouteAcceptedByAll": true,
+      "scene": "synthetic authorized policy fixture, not a natural campaign",
+      "decisions": [
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              },
+              {
+                "q": 3,
+                "r": 0
+              },
+              {
+                "q": 4,
+                "r": 0
+              },
+              {
+                "q": 5,
+                "r": 0
+              },
+              {
+                "q": 6,
+                "r": 0
+              }
+            ]
+          },
+          "reason": "执行向命令目标推进；接受与同组部队拉开距离",
+          "metrics": {
+            "expanded": 11,
+            "searches": 1,
+            "exhausted": false
+          }
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              },
+              {
+                "q": 3,
+                "r": 0
+              },
+              {
+                "q": 4,
+                "r": 0
+              },
+              {
+                "q": 5,
+                "r": 0
+              },
+              {
+                "q": 6,
+                "r": 0
+              }
+            ]
+          },
+          "reason": "执行向命令目标推进；接受与同组部队拉开距离",
+          "metrics": {
+            "expanded": 11,
+            "searches": 1,
+            "exhausted": false
+          }
+        },
+        {
+          "intent": {
+            "type": "MOVE",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 1,
+                "r": 0
+              },
+              {
+                "q": 2,
+                "r": 0
+              },
+              {
+                "q": 3,
+                "r": 0
+              },
+              {
+                "q": 4,
+                "r": 0
+              },
+              {
+                "q": 5,
+                "r": 0
+              },
+              {
+                "q": 6,
+                "r": 0
+              }
+            ]
+          },
+          "reason": "执行向命令目标推进；接受与同组部队拉开距离",
+          "metrics": {
+            "expanded": 11,
+            "searches": 1,
+            "exhausted": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "fresh_untuned_scene_legal_attack_pending_takeover",
+      "decisions": [
+        {
+          "intent": {
+            "type": "ATTACK",
+            "attackerUnitIds": [
+              "attacker"
+            ],
+            "target": {
+              "q": 9,
+              "r": -2
+            }
+          },
+          "reason": "命令区域内可见目标；1支所属部队的公开攻防与地形估计达到出击标准，已计入损伤与集中程度",
+          "metrics": {
+            "expanded": 0,
+            "searches": 0,
+            "exhausted": false
+          }
+        },
+        {
+          "intent": null,
+          "reason": "当前无符合命令与风险取舍的行动；不自动结束阶段",
+          "metrics": {
+            "expanded": 0,
+            "searches": 0,
+            "exhausted": false
+          }
+        },
+        {
+          "intent": null,
+          "reason": "当前无符合命令与风险取舍的行动；不自动结束阶段",
+          "metrics": {
+            "expanded": 0,
+            "searches": 0,
+            "exhausted": false
+          }
+        }
+      ],
+      "initialPending": {
+        "kind": "DEFENDER_REACTION",
+        "battleId": "B-000001",
+        "side": "SOVIET",
+        "decisionOwnerControllerId": "S-AI-1",
+        "eligibleControllerIds": [
+          "S-AI-1"
+        ],
+        "eligibleHQUnitIds": [],
+        "eligibleArtilleryUnitIds": []
+      },
+      "actions": [
+        {
+          "type": "ATTACK",
+          "attackerUnitIds": [
+            "attacker"
+          ],
+          "target": {
+            "q": 9,
+            "r": -2
+          }
+        },
+        {
+          "type": "PASS_REACTION",
+          "battleId": "B-000001"
+        },
+        {
+          "type": "RETREAT",
+          "battleId": "B-000001",
+          "retreats": [
+            {
+              "unitId": "defender",
+              "path": [
+                {
+                  "q": 10,
+                  "r": -2
+                },
+                {
+                  "q": 11,
+                  "r": -2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "PASS_ADVANCE",
+          "battleId": "B-000001"
+        },
+        {
+          "type": "PASS_BREAKTHROUGH",
+          "battleId": "B-000001"
+        }
+      ],
+      "takenOver": true,
+      "finalRandom": {
+        "seed": 8246,
+        "state": 3645242001,
+        "draws": 2
+      },
+      "accepted": true
+    }
+  ]
+}

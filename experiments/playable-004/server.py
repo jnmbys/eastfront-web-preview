@@ -15,11 +15,12 @@ from continuous import Transactions
 from view import state as continuous_state
 from types import SimpleNamespace
 import queue,uuid
-OUT=ROOT/'evidence/playable-004';OUT.mkdir(exist_ok=True)
+from officers import Officers
+OUT=ROOT/'evidence/officer-001';OUT.mkdir(exist_ok=True)
 
 class Game(Session):
  def __init__(self):
-  self.sequence=0;self.accepted=0;self.rejected=0;self.history=[];self.ai_count=0;self.ai_stopped=False;self.trace=[];self.trace_key=None;self.trace_path=OUT/('integrated-'+str(time.time_ns())+'.jsonl.gz')
+  self.officers=Officers();self.sequence=0;self.accepted=0;self.rejected=0;self.history=[];self.ai_count=0;self.ai_stopped=False;self.trace=[];self.trace_key=None;self.trace_path=OUT/('integrated-'+str(time.time_ns())+'.jsonl.gz')
   self.tx=Transactions();self.adapter=SimpleNamespace(query=mods['016'].query,digest=digest,runtime=mods['016'].runtime)
   self.instance_id=str(uuid.uuid4());self.lock=threading.RLock();self.records={};self.queue=queue.Queue();self.closed=False
   self.public=self._state();self.worker=threading.Thread(target=self._worker,name='continuous-owner',daemon=True);self.worker.start()
@@ -29,9 +30,9 @@ class Game(Session):
   if p.returncode:raise RuntimeError(p.stderr[-1000:])
   return json.loads(p.stdout)
  def save_trace(self):
-  h=self.tx.head();key=(h['version'],self.accepted,self.rejected,self.ai_count)
+  h=self.tx.head();key=(h['version'],self.accepted,self.rejected,self.ai_count,self.officers.revision,len(self.officers.reports))
   if key==self.trace_key:return
-  record=dict(head=h,accepted=self.accepted,rejected=self.rejected,aiCount=self.ai_count,history=self.history,records=self.records)
+  record=dict(head=h,accepted=self.accepted,rejected=self.rejected,aiCount=self.ai_count,history=self.history,records=self.records,officers=dict(enabled=self.officers.enabled,groups=self.officers.groups,reports=self.officers.reports))
   with gzip.open(self.trace_path,'at',encoding='utf8')as f:f.write(json.dumps(record,ensure_ascii=False)+'\n')
   self.trace_key=key
  def _state(self):
@@ -49,6 +50,8 @@ class Game(Session):
    order=dict(matchId=self.instance_id,matchRevision=v['version'],serverSequence=self.sequence)
    payload=dict(**order,revision=v['version'],format='snapshot-v1',resync=True,**p)
    v['game']=dict(message=dict(messageType='PLAYER_VIEW_SNAPSHOT',payload=payload),meta=dict(humanSide='GERMAN',ownerSide=owner,paused=False,manual=True,reason=None,accepted=self.accepted+sum(x['status']=='COMMITTED' for x in self.records.values()),rejected=self.rejected+sum(x['status']=='REJECTED' for x in self.records.values())))
+   v['officers']=self.officers.public(p['view'])
+   if v['officers'] is not None:v['officers']['battleInProgress']=bool(c['pendingDecision']and self.officers.battles.get(c['pendingDecision']['battleId'])in [g['id']for g in self.officers.active()])
    v['supply']=dict(units=sp['units'],sources=sp['sources'],hubs=sp['hubs'],ledger=sp['ledger'][-1:],transition=sp['transition'],epoch=sp['epoch'])
    v['freightPlanning']=dict(enabled=(c['turn'],c['phase'])==(8,'SOVIET_ENTRENCHMENT')and not c['pendingDecision']and not r['forward']['shipment'], applied=r['forward'].get('dynamicPlan'))
    v['playableScope']='动态运输实验004。固定真实T5起点，可自由作战并持续至原规则终局。AI苏军作战单步运行；双方后勤由人类接管。工业仅一次T5订单、T7人员、T8照管、E8预览并确认前送、T9 C10的G-I-01材料恢复；可跳过。'
@@ -65,6 +68,8 @@ class Game(Session):
    try:
     assert body['version']==old['version'],'STALE_VERSION'
     assert a.get('type') not in ['END_PHASE','READY_FOR_PHASE_END','END_SIDE'],'USE_ORIGINAL_INDUSTRY_PHASE_OR_RECOVERY'
+    projected=self.project()
+    assert self.officers.manual(a,projected['view']),'UNIT_DELEGATED_PAUSE_OR_RECALL_FIRST'
     self.project(action=a)
     controller=next(c['id']for c in b['core']['controllers'].values()if c['side']=='GERMAN')
     reply=self.apply_game_action(old,dict(type=a['type'],controllerId=controller,**{k:v for k,v in a.items()if k!='type'}),body['id'],start)
@@ -156,6 +161,10 @@ class Handler(BaseHandler):
      assert set(body)=={'version','choices'},'INVALID_FIELDS'
      return self.send(200,g.tx.preview(body['version'],body['choices']))
    if self.path=='/play/ai':return self.send(200,g.tick_ai())
+   if self.path=='/play/officers/config':
+    with g.lock:return self.send(200,g.officers.config(body,g.project()['view']))
+   if self.path=='/play/officers/tick':
+    with g.lock:return self.send(200,g.officers.tick(g,body))
    if self.path=='/play/query':
     with g.lock:
      assert body['version']==g.tx.head()['version'],'STALE_VERSION'
@@ -167,8 +176,8 @@ class Handler(BaseHandler):
 
 if __name__=='__main__':
  port=int(sys.argv[1])if len(sys.argv)>1 else 4186;s=LocalServer(port,None);s.RequestHandlerClass=Handler;s.creation_lock=threading.RLock()
- (ROOT/'playable004-process.json').write_text(json.dumps(dict(pid=os.getpid(),port=port)),encoding='utf8')
- print('PLAYABLE-004 http://127.0.0.1:'+str(port)+' (loopback only)',flush=True)
+ (ROOT/'officer001-process.json').write_text(json.dumps(dict(pid=os.getpid(),port=port)),encoding='utf8')
+ print('OFFICER-001 http://127.0.0.1:'+str(port)+' (loopback only)',flush=True)
  try:s.serve_forever(poll_interval=.2)
  except KeyboardInterrupt:pass
  finally:

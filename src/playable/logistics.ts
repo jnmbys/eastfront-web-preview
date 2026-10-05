@@ -4,18 +4,20 @@ const KEY='playable002.pending.v1',FLOOR='playable002.floor.v1';
 export class LogisticsPort implements WorkerPort{
  onmessage:WorkerPort['onmessage']=null;onerror:WorkerPort['onerror']=null;data:any=null;notice='';locked=false;
  plan:any=null;baselinePlan:any=null;choices:{reductions:Record<string,number>;priorities:Record<string,number>}={reductions:{},priorities:{}};
+ officerGroup='0';officerKind='ATTACK';officerTarget:{q:number;r:number}|null=null;officerNotice='';
+ private officerTimer:ReturnType<typeof setTimeout>|null=null;private officerGeneration=0;private officerIdle='';private officerBusy:Promise<void>|null=null;private officerHalt=false;private officerConfigs=0;private officerConfigTail:Promise<void>=Promise.resolve();
  private token='';private epoch=1;private dead=false;private pending:any=null;private floor:any=null;
  constructor(private update:()=>void){}
  private async api(path:string,body?:unknown){const c=new AbortController(),timer=setTimeout(()=>c.abort(),10000);try{const r=await fetch(path,{method:body===undefined?'GET':'POST',cache:'no-store',headers:{'X-Local-Session':this.token,...(body===undefined?{}:{'Content-Type':'application/json'})},body:body===undefined?null:JSON.stringify(body),signal:c.signal});const d=await r.json();if(!r.ok)throw Error(d.error??'读取失败');return d;}finally{clearTimeout(timer);}}
  private emit(message:any){if(!this.dead)this.onmessage?.({data:{epoch:this.epoch,message,meta:this.data.game.meta}} as MessageEvent<LocalReply>);}
- private keep(p:any){this.pending=p;this.locked=!!p;if(p)sessionStorage.setItem(KEY,JSON.stringify(p));else sessionStorage.removeItem(KEY);this.update();}
- private read(d:any){const instance=this.pending?.instanceId??this.floor?.instanceId??this.data?.instanceId;const floor=Math.max(this.floor?.version??0,this.data?.version??0,this.pending?.confirmation?.minVersion??0);if(instance&&instance!==d.instanceId)throw Error('实例不符：未解除原请求锁定');if(!Number.isSafeInteger(d.version)||d.version<floor||d.game.message.payload.matchRevision!==d.version)throw Error('旧账本或地图版本不一致');this.floor={instanceId:d.instanceId,version:d.version};sessionStorage.setItem(FLOOR,JSON.stringify(this.floor));if(this.plan&&this.plan.version!==d.version)this.plan=null;this.data=d;this.emit(d.game.message);this.update();}
- async refresh(message?:string){try{this.read(await this.api('/api/state'));if(this.pending?.confirmation)this.keep(null);this.notice=message??'同一次提交的地图、库存及工业账本已读取。';this.update();return true;}catch(e){this.locked=true;this.notice='账本待刷新；操作保持锁定。'+String(e);this.update();return false;}}
+ private keep(p:any){this.pending=p;this.locked=!!p;if(p)sessionStorage.setItem(KEY,JSON.stringify(p));else sessionStorage.removeItem(KEY);this.update();this.queueOfficers();}
+ private read(d:any){const instance=this.pending?.instanceId??this.floor?.instanceId??this.data?.instanceId;const floor=Math.max(this.floor?.version??0,this.data?.version??0,this.pending?.confirmation?.minVersion??0);if(instance&&instance!==d.instanceId)throw Error('实例不符：未解除原请求锁定');if(!Number.isSafeInteger(d.version)||d.version<floor||d.game.message.payload.matchRevision!==d.version)throw Error('旧账本或地图版本不一致');this.floor={instanceId:d.instanceId,version:d.version};sessionStorage.setItem(FLOOR,JSON.stringify(this.floor));if(this.plan&&this.plan.version!==d.version)this.plan=null;this.data=d;this.emit(d.game.message);this.update();this.queueOfficers();}
+ async refresh(message?:string){try{this.read(await this.api('/api/state'));if(this.pending?.confirmation)this.keep(null);this.notice=message??'同一次提交的地图、库存及工业账本已读取。';this.update();this.queueOfficers();return true;}catch(e){this.locked=true;this.notice='账本待刷新；操作保持锁定。'+String(e);this.update();return false;}}
  private confirmedGame(r:any){if(!r.ok)return;if(!Number.isSafeInteger(r.version)||r.version<=this.data.version)throw Error('动作确认版本无效');this.floor={instanceId:this.data.instanceId,version:r.version};sessionStorage.setItem(FLOOR,JSON.stringify(this.floor));}
  private async reconcile(r:any){const p=this.pending;if(!p)return true;if(['requestId','instanceId','operation','expectedVersion'].some(k=>r[k]!==p[k]))throw Error('回执标识不符');if(!['COMMITTED','REJECTED'].includes(r.status))return false;const minVersion=Math.max(p.expectedVersion,r.resultVersion??0);if(r.status==='COMMITTED'&&minVersion<=p.expectedVersion)throw Error('确认版本无效');this.keep({...p,confirmation:{status:r.status,minVersion}});this.notice=r.status==='COMMITTED'?'已确认提交；同一版本地图与账本已读取。':'已拒绝：'+r.code;await this.refresh(this.notice);return true;}
- async recover(){if(this.pending?.confirmation||!this.pending){const ok=await this.refresh();if(ok&&!this.pending)this.locked=false;this.update();return;}try{await this.reconcile(await this.api('/api/requests/'+this.pending.requestId));}catch(e){this.notice='结果待确认，保留原请求。'+String(e);}this.update();}
+ async recover(){if(this.pending?.confirmation||!this.pending){const ok=await this.refresh();if(ok&&!this.pending)this.locked=false;this.update();return;}try{await this.reconcile(await this.api('/api/requests/'+this.pending.requestId));}catch(e){this.notice='结果待确认，保留原请求。'+String(e);}this.update();this.queueOfficers();}
  async operate(operation:string){if(this.locked||this.dead||!this.data?.operations[operation]?.enabled)return;this.keep({requestId:crypto.randomUUID(),instanceId:this.data.instanceId,expectedVersion:this.data.version,operation});await this.retry();}
- setChoice(id:string,kind:'reductions'|'priorities',n:number){if(this.locked)return;this.choices[kind][id]=n;this.plan=null;this.update();}
+ setChoice(id:string,kind:'reductions'|'priorities',n:number){if(this.locked)return;this.choices[kind][id]=n;this.plan=null;this.update();this.queueOfficers();}
  async previewFreight(reset=false){if(this.locked||!this.data.freightPlanning?.enabled)return;this.locked=true;this.update();try{
   if(reset)this.choices={reductions:{},priorities:{}};
   const version=this.data.version;
@@ -25,8 +27,8 @@ export class LogisticsPort implements WorkerPort{
  }catch(e){this.plan=null;this.notice='预览未完成：'+String(e);}finally{this.locked=false;this.update();}}
  async confirmFreight(){if(this.locked||this.plan?.status!=='FEASIBLE'||this.plan.version!==this.data.version)return;
   this.keep({requestId:crypto.randomUUID(),instanceId:this.data.instanceId,expectedVersion:this.data.version,operation:'FREIGHT_'+this.plan.planId});await this.retry();}
- async retry(){if(!this.pending)return;if(this.pending.confirmation){await this.refresh();return;}this.locked=true;const {requestId,instanceId,expectedVersion,operation}=this.pending;try{let r=await this.api('/api/operations',{requestId,instanceId,expectedVersion,operation});for(let i=0;i<10;i++){if(await this.reconcile(r))break;await new Promise(r=>setTimeout(r,400));r=await this.api('/api/requests/'+requestId);}}catch(e){this.notice='结果待确认，未自动换ID重试。'+String(e);}this.update();}
- async aiStep(){if(this.locked)return;this.locked=true;this.update();try{const r=await this.api('/play/ai',{});this.confirmedGame(r);this.notice=r.ok?'AI已执行一个真实作战动作。':'AI停步：'+r.error;this.locked=!(await this.refresh(this.notice));}catch(e){this.notice=String(e);}this.update();}
+ async retry(){if(!this.pending)return;if(this.pending.confirmation){await this.refresh();return;}this.locked=true;const {requestId,instanceId,expectedVersion,operation}=this.pending;try{let r=await this.api('/api/operations',{requestId,instanceId,expectedVersion,operation});for(let i=0;i<10;i++){if(await this.reconcile(r))break;await new Promise(r=>setTimeout(r,400));r=await this.api('/api/requests/'+requestId);}}catch(e){this.notice='结果待确认，未自动换ID重试。'+String(e);}this.update();this.queueOfficers();}
+ async aiStep(){if(this.locked)return;this.locked=true;this.update();try{const r=await this.api('/play/ai',{});this.confirmedGame(r);this.notice=r.ok?'AI已执行一个真实作战动作。':'AI停步：'+r.error;this.locked=!(await this.refresh(this.notice));}catch(e){this.notice=String(e);}this.update();this.queueOfficers();}
  postMessage(m:LocalRequest){void this.handle(m);}
  private async handle(m:LocalRequest){try{
   this.epoch=m.epoch;
@@ -44,10 +46,45 @@ export class LogisticsPort implements WorkerPort{
    if(m.type==='QUERY_MATCH'){const q=await this.api('/play/query',{id:m.requestId,version:p.expectedRevision,draft:p.draft});this.emit(q);return;}
    if(this.locked){await this.refresh();return;}
    if(['READY_FOR_PHASE_END','END_PHASE'].includes(p.action.type)){await this.operate('NEXT');return;}
-   this.locked=true;this.update();const r=await this.api('/play/action',{id:m.requestId,version:p.expectedRevision,action:p.action});this.confirmedGame(r);this.notice=r.ok?'原Core行动已提交。':'行动未提交：'+r.error;this.locked=!(await this.refresh(this.notice));this.update();
+   this.locked=true;this.update();const r=await this.api('/play/action',{id:m.requestId,version:p.expectedRevision,action:p.action});this.confirmedGame(r);this.notice=r.ok?'原Core行动已提交。':'行动未提交：'+r.error;this.locked=!(await this.refresh(this.notice));this.update();this.queueOfficers();
   }
  }catch(e){this.notice='连接或读取失败，保持锁定：'+String(e);this.locked=true;this.update();}}
- terminate(){this.dead=true;}
+ private queueOfficers(){
+  const d=this.data,o=d?.officers,key=`${d?.version}:${o?.revision}`;
+  if(this.dead||this.locked||this.officerConfigs>0||this.officerHalt||this.officerTimer||this.officerBusy||key===this.officerIdle||!o?.enabled||(d.game.meta.ownerSide!=='GERMAN'&&!o.battleInProgress)||!o.groups.some((g:any)=>g.order&&!g.paused&&g.members.length))return;
+  const generation=this.officerGeneration;
+  this.officerTimer=setTimeout(()=>{this.officerTimer=null;if(generation!==this.officerGeneration||this.locked||this.dead)return;
+   this.officerBusy=this.officerStep(generation).finally(()=>{this.officerBusy=null;this.queueOfficers();});
+  },180);
+ }
+ private async officerStep(generation:number){
+  this.locked=true;this.officerNotice='军官正在执行；可暂停，已提交动作会等待结果。';this.update();
+  try{const r=await this.api('/play/officers/tick',{id:crypto.randomUUID(),version:this.data.version,revision:this.data.officers.revision});
+   this.confirmedGame(r);this.officerNotice=r.ok?'军官行动已确认；重新评估当前局面。':r.error;
+   if(!r.ok)this.officerIdle=`${this.data.version}:${this.data.officers.revision}`;
+   this.locked=!(await this.refresh(this.officerNotice));
+  }catch(e){this.officerHalt=true;this.locked=true;this.officerNotice='自动提交已停止，结果待读取确认：'+String(e);}
+  this.update();
+ }
+ officerConfig(command:any){
+  this.officerGeneration++;this.officerHalt=true;this.officerConfigs++;if(this.officerTimer)clearTimeout(this.officerTimer);this.officerTimer=null;
+  const work=this.officerConfigTail.then(()=>this.applyOfficerConfig(command));
+  this.officerConfigTail=work.catch(()=>{});
+  return work.finally(()=>{this.officerConfigs--;this.queueOfficers();});
+ }
+ private async applyOfficerConfig(command:any){
+  // Stop dispatch immediately, before waiting for the currently submitted action.
+  this.officerGeneration++;this.officerHalt=true;if(this.officerTimer)clearTimeout(this.officerTimer);this.officerTimer=null;
+  if(this.officerBusy)await this.officerBusy;
+  try{await this.api('/play/officers/config',{revision:this.data.officers.revision,command});
+   if(await this.refresh()){this.officerHalt=false;this.officerIdle='';this.locked=!!this.pending;this.officerNotice='授权已更新；已生效动作与待决完整保留。';}
+  }catch(e){this.officerNotice='授权未确认，自动提交保持停止：'+String(e);}
+  this.update();this.queueOfficers();
+ }
+ officerChoose(group:string){this.officerGroup=group;this.update();this.queueOfficers();}
+ officerOrderTarget(target:{q:number;r:number}){this.officerTarget={...target};this.update();this.queueOfficers();}
+ terminate(){this.dead=true;this.officerGeneration++;if(this.officerTimer)clearTimeout(this.officerTimer);}
+
 }
 const esc=(x:unknown)=>String(x??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export function logisticsMarkup(p:LogisticsPort):string{const d=p.data;if(!d)return '<p>正在连接本机事务服务。</p>';const i=d.extensions.industry018,s=d.supply,target=s.units.find((u:any)=>u.id==='G-I-01');

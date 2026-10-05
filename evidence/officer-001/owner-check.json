@@ -1,0 +1,107 @@
+{
+  "checks": [
+    {
+      "name": "serial_moves_direct_ownership_duplicate_pause_reassign_privacy",
+      "reports": [
+        {
+          "officer": "埃里克·林德",
+          "turn": 8,
+          "phase": "GERMAN_MOVEMENT",
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-03",
+            "path": [
+              {
+                "q": 2,
+                "r": 6
+              },
+              {
+                "q": 3,
+                "r": 6
+              },
+              {
+                "q": 4,
+                "r": 6
+              },
+              {
+                "q": 5,
+                "r": 6
+              }
+            ]
+          },
+          "accepted": true,
+          "reason": "执行向命令目标推进；接受与同组部队拉开距离",
+          "metrics": {
+            "expanded": 106,
+            "searches": 2,
+            "exhausted": false
+          },
+          "seconds": 0.9624628000001394
+        },
+        {
+          "officer": "埃里克·林德",
+          "turn": 8,
+          "phase": "GERMAN_MOVEMENT",
+          "action": {
+            "type": "MOVE",
+            "unitId": "G-PZ-04",
+            "path": [
+              {
+                "q": 2,
+                "r": 6
+              },
+              {
+                "q": 3,
+                "r": 6
+              },
+              {
+                "q": 4,
+                "r": 6
+              },
+              {
+                "q": 5,
+                "r": 6
+              }
+            ]
+          },
+          "accepted": true,
+          "reason": "执行向命令目标推进；靠拢同组部队",
+          "metrics": {
+            "expanded": 53,
+            "searches": 1,
+            "exhausted": false
+          },
+          "seconds": 1.2609793999999965
+        }
+      ]
+    },
+    {
+      "name": "real_recovery_rp_and_limit",
+      "beforeRP": 8,
+      "afterRP": 7,
+      "report": {
+        "officer": "埃里克·林德",
+        "turn": 5,
+        "phase": "GERMAN_RECOVERY",
+        "action": {
+          "type": "REPAIR_UNIT",
+          "unitId": "G-I-01"
+        },
+        "accepted": true,
+        "reason": "恢复未动未攻的受损部队；按损伤、RP费用排序，使用本阶段实际剩余额度",
+        "metrics": {
+          "expanded": 0,
+          "searches": 0,
+          "exhausted": false
+        },
+        "seconds": 0.9207693000000745
+      }
+    },
+    {
+      "name": "officer_move_then_004_dynamic_transport_material_recovery_continue_T10",
+      "planId": "1419dd22579c4e1d8ed19522216c669f",
+      "phase": "GERMAN_SUPPLY_RAIL"
+    }
+  ],
+  "trace": "evidence/officer-001/owner-offline.jsonl.xz"
+}
