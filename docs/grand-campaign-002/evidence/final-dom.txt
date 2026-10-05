@@ -1,0 +1,884 @@
+- status: 人工接管模式 · 当前行动方：德军 · 你的视角：德军
+- generic: 接受 17 / 拒绝 0 · 暂不支持存档 / 加载
+- button "明确接管 德军（切换授权视角）"
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - strong: EASTFRONT
+  - generic: 大战略实验
+  - strong: 补给／铁路
+  - generic: 回合
+  - strong: 第 2 回合
+  - generic: G
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - text: 指挥点
+  - strong: "3"
+  - text: 补充点
+  - strong: "0"
+  - button "退出战役"
+  - button "面板" [expanded]
+- main:
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - combobox "动画速度":
+    - option "正常" [selected]
+    - option "快速"
+    - option "即时"
+  - button "跳过动画"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 740%
+    - button "放大": +
+    - button "适应地图"
+  - status
+  - status: 人工接管模式
+  - generic "EASTFRONT 作战地图":
+    - img "大战略实验1280格地图":
+      - button "铁路区段 5,2|6,1"
+      - button "铁路区段 6,1|7,0"
+      - button "铁路区段 7,0|8,-1"
+      - button "铁路区段 8,-1|9,-2"
+      - button "铁路区段 10,-3|9,-2"
+      - button "铁路区段 10,-3|11,-4"
+      - button "铁路区段 11,-4|11,-5"
+      - button "铁路区段 11,-5|12,-5"
+      - button "铁路区段 12,-5|13,-5"
+      - button "铁路区段 13,-5|14,-5"
+      - button "铁路区段 14,-5|15,-5"
+      - button "铁路区段 15,-5|16,-5"
+      - button "铁路区段 16,-5|17,-5"
+      - button "铁路区段 17,-5|18,-5"
+      - button "铁路区段 18,-5|19,-5"
+      - button "铁路区段 19,-5|20,-5"
+      - button "铁路区段 20,-5|21,-6"
+      - button "铁路区段 7,7|8,7"
+      - button "铁路区段 8,7|9,7"
+      - button "铁路区段 10,7|9,7"
+      - button "铁路区段 10,7|11,7"
+      - button "铁路区段 11,7|12,7"
+      - button "铁路区段 12,7|12,8"
+      - button "铁路区段 12,8|13,8"
+      - button "铁路区段 13,8|14,8"
+      - button "铁路区段 14,8|15,8"
+      - button "铁路区段 15,8|16,8"
+      - button "铁路区段 16,8|17,7"
+      - button "铁路区段 17,7|18,6"
+      - button "铁路区段 18,5|18,6"
+      - button "铁路区段 18,4|18,5"
+      - button "铁路区段 18,4|19,3"
+      - button "铁路区段 19,3|20,2"
+      - button "铁路区段 20,1|20,2"
+      - button "铁路区段 20,1|21,0"
+      - button "铁路区段 10,12|9,12"
+      - button "铁路区段 10,12|11,12"
+      - button "铁路区段 11,12|12,12"
+      - button "铁路区段 12,12|13,11"
+      - button "铁路区段 13,11|14,10"
+      - button "铁路区段 14,10|15,10"
+      - button "铁路区段 15,10|16,9"
+      - button "铁路区段 16,9|17,8"
+      - button "铁路区段 17,8|18,7"
+      - button "铁路区段 18,7|19,6"
+      - button "铁路区段 19,6|20,5"
+      - button "铁路区段 20,5|21,5"
+      - button "铁路区段 21,5|22,5"
+      - button "铁路区段 10,17|11,16"
+      - button "铁路区段 11,16|12,15"
+      - button "铁路区段 12,15|13,14"
+      - button "铁路区段 13,14|14,13"
+      - button "铁路区段 14,13|15,13"
+      - button "铁路区段 15,13|16,13"
+      - button "铁路区段 16,13|17,13"
+      - button "铁路区段 17,13|18,12"
+      - button "铁路区段 18,12|19,11"
+      - button "铁路区段 19,11|20,10"
+      - button "铁路区段 20,10|21,10"
+      - button "铁路区段 21,10|21,11"
+      - button "铁路区段 21,11|21,12"
+      - button "铁路区段 14,21|15,21"
+      - button "铁路区段 15,21|16,21"
+      - button "铁路区段 16,21|17,20"
+      - button "铁路区段 17,20|18,19"
+      - button "铁路区段 18,19|19,18"
+      - button "铁路区段 19,18|20,18"
+      - button "铁路区段 20,18|21,18"
+      - button "铁路区段 5,2|5,3"
+      - button "铁路区段 5,3|5,4"
+      - button "铁路区段 5,4|5,5"
+      - button "铁路区段 5,5|6,5"
+      - button "铁路区段 6,5|7,5"
+      - button "铁路区段 7,5|7,6"
+      - button "铁路区段 7,6|7,7"
+      - button "铁路区段 21,-5|21,-6"
+      - button "铁路区段 21,-4|21,-5"
+      - button "铁路区段 21,-3|21,-4"
+      - button "铁路区段 21,-2|21,-3"
+      - button "铁路区段 21,-1|21,-2"
+      - button "铁路区段 21,-1|21,0"
+      - button "铁路区段 7,7|7,8"
+      - button "铁路区段 7,8|7,9"
+      - button "铁路区段 7,10|7,9"
+      - button "铁路区段 7,10|7,11"
+      - button "铁路区段 7,11|7,12"
+      - button "铁路区段 7,12|8,12"
+      - button "铁路区段 8,12|9,12"
+      - button "铁路区段 21,0|21,1"
+      - button "铁路区段 21,1|21,2"
+      - button "铁路区段 21,2|21,3"
+      - button "铁路区段 21,3|21,4"
+      - button "铁路区段 21,4|21,5"
+      - button "铁路区段 10,12|10,13"
+      - button "铁路区段 10,13|10,14"
+      - button "铁路区段 10,14|10,15"
+      - button "铁路区段 10,15|10,16"
+      - button "铁路区段 10,16|10,17"
+      - button "铁路区段 21,6|22,5"
+      - button "铁路区段 21,6|21,7"
+      - button "铁路区段 21,7|21,8"
+      - button "铁路区段 21,8|21,9"
+      - button "铁路区段 21,10|21,9"
+      - button "铁路区段 11,16|12,16"
+      - button "铁路区段 12,16|13,16"
+      - button "铁路区段 13,16|14,16"
+      - button "铁路区段 14,16|14,17"
+      - button "铁路区段 14,17|14,18"
+      - button "铁路区段 14,18|14,19"
+      - button "铁路区段 14,19|14,20"
+      - button "铁路区段 14,20|14,21"
+      - button "铁路区段 21,12|22,12"
+      - button "铁路区段 22,12|23,12"
+      - button "铁路区段 23,12|23,13"
+      - button "铁路区段 23,13|23,14"
+      - button "铁路区段 23,14|24,14"
+      - button "铁路区段 24,14|24,15"
+      - button "铁路区段 23,16|24,15"
+      - button "铁路区段 22,17|23,16"
+      - button "铁路区段 21,18|22,17"
+      - button "铁路区段 34,-13|35,-14"
+      - button "铁路区段 33,-12|34,-13"
+      - button "铁路区段 32,-11|33,-12"
+      - button "铁路区段 31,-10|32,-11"
+      - button "铁路区段 30,-10|31,-10"
+      - button "铁路区段 29,-10|30,-10"
+      - button "铁路区段 28,-10|29,-10"
+      - button "铁路区段 36,-8|37,-9"
+      - button "铁路区段 35,-7|36,-8"
+      - button "铁路区段 34,-6|35,-7"
+      - button "铁路区段 33,-5|34,-6"
+      - button "铁路区段 32,-4|33,-5"
+      - button "铁路区段 31,-4|32,-4"
+      - button "铁路区段 30,-4|31,-4"
+      - button "铁路区段 29,-4|30,-4"
+      - button "铁路区段 28,-4|29,-4"
+      - button "铁路区段 34,0|35,0"
+      - button "铁路区段 33,0|34,0"
+      - button "铁路区段 32,0|33,0"
+      - button "铁路区段 31,0|32,0"
+      - button "铁路区段 30,0|31,0"
+      - button "铁路区段 29,1|30,0"
+      - button "铁路区段 28,2|29,1"
+      - button "铁路区段 36,5|37,5"
+      - button "铁路区段 35,5|36,5"
+      - button "铁路区段 34,5|35,5"
+      - button "铁路区段 33,5|34,5"
+      - button "铁路区段 32,6|33,5"
+      - button "铁路区段 31,7|32,6"
+      - button "铁路区段 30,8|31,7"
+      - button "铁路区段 29,8|30,8"
+      - button "铁路区段 28,8|29,8"
+      - button "铁路区段 33,13|34,12"
+      - button "铁路区段 33,13|33,14"
+      - button "铁路区段 33,14|33,15"
+      - button "铁路区段 32,15|33,15"
+      - button "铁路区段 31,15|32,15"
+      - button "铁路区段 30,15|31,15"
+      - button "铁路区段 29,15|30,15"
+      - button "铁路区段 28,15|29,15"
+      - button "铁路区段 27,15|28,15"
+      - button "铁路区段 35,-14|36,-14"
+      - button "铁路区段 36,-14|37,-14"
+      - button "铁路区段 37,-14|38,-14"
+      - button "铁路区段 38,-14|39,-14"
+      - button "铁路区段 39,-13|39,-14"
+      - button "铁路区段 39,-12|39,-13"
+      - button "铁路区段 39,-11|39,-12"
+      - button "铁路区段 38,-10|39,-11"
+      - button "铁路区段 37,-9|38,-10"
+      - button "铁路区段 27,-9|28,-10"
+      - button "铁路区段 26,-8|27,-9"
+      - button "铁路区段 26,-7|26,-8"
+      - button "铁路区段 26,-6|26,-7"
+      - button "铁路区段 26,-5|26,-6"
+      - button "铁路区段 26,-4|26,-5"
+      - button "铁路区段 26,-4|27,-4"
+      - button "铁路区段 27,-4|28,-4"
+      - button "铁路区段 37,-8|37,-9"
+      - button "铁路区段 37,-7|37,-8"
+      - button "铁路区段 37,-6|37,-7"
+      - button "铁路区段 36,-5|37,-6"
+      - button "铁路区段 35,-4|36,-5"
+      - button "铁路区段 35,-3|35,-4"
+      - button "铁路区段 35,-2|35,-3"
+      - button "铁路区段 35,-1|35,-2"
+      - button "铁路区段 35,-1|35,0"
+      - button "铁路区段 28,-3|28,-4"
+      - button "铁路区段 28,-2|28,-3"
+      - button "铁路区段 28,-1|28,-2"
+      - button "铁路区段 28,-1|28,0"
+      - button "铁路区段 28,0|28,1"
+      - button "铁路区段 28,1|28,2"
+      - button "铁路区段 35,0|36,0"
+      - button "铁路区段 36,0|37,0"
+      - button "铁路区段 37,0|37,1"
+      - button "铁路区段 37,1|37,2"
+      - button "铁路区段 37,2|37,3"
+      - button "铁路区段 37,3|37,4"
+      - button "铁路区段 37,4|37,5"
+      - button "铁路区段 28,2|28,3"
+      - button "铁路区段 28,3|28,4"
+      - button "铁路区段 28,4|28,5"
+      - button "铁路区段 28,5|28,6"
+      - button "铁路区段 28,6|28,7"
+      - button "铁路区段 28,7|28,8"
+      - button "铁路区段 36,6|37,5"
+      - button "铁路区段 35,7|36,6"
+      - button "铁路区段 34,8|35,7"
+      - button "铁路区段 34,8|34,9"
+      - button "铁路区段 34,10|34,9"
+      - button "铁路区段 34,10|34,11"
+      - button "铁路区段 34,11|34,12"
+      - button "铁路区段 29,8|29,9"
+      - button "铁路区段 29,10|29,9"
+      - button "铁路区段 29,10|29,11"
+      - button "铁路区段 29,11|29,12"
+      - button "铁路区段 29,12|29,13"
+      - button "铁路区段 28,14|29,13"
+      - button "铁路区段 27,15|28,14"
+      - button "铁路区段 21,0|22,-1"
+      - button "铁路区段 22,-1|22,-2"
+      - button "铁路区段 22,-2|23,-3"
+      - button "铁路区段 23,-3|24,-3"
+      - button "铁路区段 24,-3|25,-3"
+      - button "铁路区段 25,-3|26,-3"
+      - button "铁路区段 26,-3|27,-3"
+      - button "铁路区段 27,-3|28,-4"
+      - button "铁路区段 22,5|23,4"
+      - button "铁路区段 23,4|24,4"
+      - button "铁路区段 24,4|25,4"
+      - button "铁路区段 25,4|26,3"
+      - button "铁路区段 26,3|27,2"
+      - button "铁路区段 27,2|28,2"
+      - button "铁路区段 24,13|24,14"
+      - button "铁路区段 24,15|24,16"
+      - button "铁路区段 24,16|25,16"
+      - button "铁路区段 25,16|26,15"
+      - button "铁路区段 26,15|27,15"
+      - button "德军 步兵 G-001；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-002；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-003；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-004；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 装甲部队 G-005；满编；攻击 8，防御 6，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 装
+        - generic: 8-6-6
+      - button "德军 摩托化部队 G-006；满编；攻击 6，防御 5，移动 5；补给正常；格内 1 个单位":
+        - generic: DE · 摩
+        - generic: 6-5-5
+      - button "德军 炮兵 G-007；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: DE · 炮
+        - generic: 0-1-2
+      - button "德军 工兵 G-008；满编；攻击 3，防御 3，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 工
+        - generic: 3-3-3
+      - button "德军 侦察 G-009；满编；攻击 2，防御 2，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 侦
+        - generic: 2-2-6
+      - button "德军 步兵 G-010；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-011；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-012；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-013；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-014；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-015；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-016；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 装甲部队 G-017；满编；攻击 8，防御 6，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 装
+        - generic: 8-6-6
+      - button "德军 摩托化部队 G-018；满编；攻击 6，防御 5，移动 5；补给正常；格内 1 个单位":
+        - generic: DE · 摩
+        - generic: 6-5-5
+      - button "德军 炮兵 G-019；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: DE · 炮
+        - generic: 0-1-2
+      - button "德军 工兵 G-020；满编；攻击 3，防御 3，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 工
+        - generic: 3-3-3
+      - button "德军 侦察 G-021；满编；攻击 2，防御 2，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 侦
+        - generic: 2-2-6
+      - button "德军 步兵 G-022；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-023；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-024；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-025；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-026；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-027；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-028；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 装甲部队 G-029；满编；攻击 8，防御 6，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 装
+        - generic: 8-6-6
+      - button "德军 摩托化部队 G-030；满编；攻击 6，防御 5，移动 5；补给正常；格内 1 个单位":
+        - generic: DE · 摩
+        - generic: 6-5-5
+      - button "德军 炮兵 G-031；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: DE · 炮
+        - generic: 0-1-2
+      - button "德军 工兵 G-032；满编；攻击 3，防御 3，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 工
+        - generic: 3-3-3
+      - button "德军 侦察 G-033；满编；攻击 2，防御 2，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 侦
+        - generic: 2-2-6
+      - button "德军 步兵 G-034；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-035；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-036；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-037；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-038；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-039；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-040；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 装甲部队 G-041；满编；攻击 8，防御 6，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 装
+        - generic: 8-6-6
+      - button "德军 摩托化部队 G-042；满编；攻击 6，防御 5，移动 5；补给正常；格内 1 个单位":
+        - generic: DE · 摩
+        - generic: 6-5-5
+      - button "德军 炮兵 G-043；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: DE · 炮
+        - generic: 0-1-2
+      - button "德军 工兵 G-044；满编；攻击 3，防御 3，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 工
+        - generic: 3-3-3
+      - button "德军 侦察 G-045；满编；攻击 2，防御 2，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 侦
+        - generic: 2-2-6
+      - button "德军 步兵 G-046；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-047；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-048；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-049；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-050；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-051；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-052；满编；攻击 5，防御 5，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 装甲部队 G-053；满编；攻击 8，防御 6，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 装
+        - generic: 8-6-6
+      - button "德军 摩托化部队 G-054；满编；攻击 6，防御 5，移动 5；补给正常；格内 2 个单位":
+        - generic: DE · 摩
+        - generic: 6-5-5
+      - button "德军 步兵 G-059；损伤等级 1；攻击 4，防御 4，移动 3；补给正常；格内 2 个单位":
+        - generic: DE · 步
+        - generic: 4-4-3 /
+        - generic: ×2
+      - button "德军 炮兵 G-055；满编；攻击 0，防御 1，移动 2；补给正常；格内 1 个单位":
+        - generic: DE · 炮
+        - generic: 0-1-2
+      - button "德军 工兵 G-056；满编；攻击 3，防御 3，移动 3；补给正常；格内 1 个单位":
+        - generic: DE · 工
+        - generic: 3-3-3
+      - button "德军 侦察 G-057；满编；攻击 2，防御 2，移动 6；补给正常；格内 1 个单位":
+        - generic: DE · 侦
+        - generic: 2-2-6
+      - button "德军 步兵 G-058；满编；攻击 5，防御 5，移动 3；补给正常；格内 2 个单位":
+        - generic: DE · 步
+        - generic: 5-5-3
+      - button "德军 步兵 G-060；损伤等级 1；攻击 4，防御 4，移动 3；补给正常；格内 2 个单位":
+        - generic: DE · 步
+        - generic: 4-4-3 /
+        - generic: ×2
+      - button "苏军 步兵 S-027；满编；攻击 3，防御 3，移动 3；补给正常；格内 1 个单位":
+        - generic: SU · 步
+        - generic: 3-3-3
+      - generic: F5 工区 · 3VP
+      - generic: H11 工区 · 3VP
+      - generic: J17 工区 · 3VP
+      - generic: K23 工区 · 3VP
+      - generic: O29 工区 · 3VP
+      - generic: V5 站场 · 2VP
+      - generic: V11 站场 · 2VP
+      - generic: W17 站场 · 2VP
+      - generic: V23 站场 · 2VP
+      - generic: V29 站场 · 2VP
+      - generic: 西部战区总部 · 6VP
+      - generic: AJ4 工区 · 3VP
+      - generic: AL10 工区 · 3VP
+      - generic: AJ18 工区 · 3VP
+      - generic: AL24 工区 · 3VP
+      - generic: AI30 工区 · 3VP
+      - generic: AC5 站场 · 2VP
+      - generic: AC11 站场 · 2VP
+      - generic: AC17 站场 · 2VP
+      - generic: AC23 站场 · 2VP
+      - generic: AB29 站场 · 2VP
+      - generic: 东部战区总部 · 6VP
+      - generic: 分水岭转运站 · 4VP
+      - generic: 第聂伯西岸枢纽 · 4VP
+      - generic: 南部河谷渡口 · 4VP
+  - complementary:
+    - strong: 铁路推进 / 工兵支援
+    - button "在地图选择铁路"
+    - button "确认铁路计划（0段）" [disabled]
+    - paragraph: 普通推进不需要选兵：每回合最多4段；选择存活、补给正常且未被专用的本方工兵可提高至5段。均须接入有效铁路网，每回合只接受一份计划。不消耗RP或CP；工兵支援后本回合专用于修路。
+    - button "普通推进 · 不使用工兵"
+    - button "工兵 G-008"
+    - button "工兵 G-020"
+    - button "工兵 G-032"
+    - button "工兵 G-044"
+    - button "工兵 G-056"
+    - paragraph: 请从地图或下方列表选择区段；选中猎兵不影响普通推进。
+    - generic "按区段选择（地图不易点选时）"
+    - option "10,-3|11,-4 · 已通车" [selected]
+    - option "10,-3|9,-2 · 已通车"
+    - option "10,12|10,13 · 已通车"
+    - option "10,12|11,12 · 已通车"
+    - option "10,12|9,12 · 已通车"
+    - option "10,13|10,14 · 已通车"
+    - option "10,14|10,15 · 已通车"
+    - option "10,15|10,16 · 已通车"
+    - option "10,16|10,17 · 已通车"
+    - option "10,17|11,16 · 已通车"
+    - option "10,7|11,7 · 已通车"
+    - option "10,7|9,7 · 已通车"
+    - option "11,-4|11,-5 · 已通车"
+    - option "11,-5|12,-5 · 已通车"
+    - option "11,12|12,12 · 已通车"
+    - option "11,16|12,15 · 已通车"
+    - option "11,16|12,16 · 已通车"
+    - option "11,7|12,7 · 已通车"
+    - option "12,-5|13,-5 · 已通车"
+    - option "12,12|13,11 · 已通车"
+    - option "12,15|13,14 · 已通车"
+    - option "12,16|13,16 · 已通车"
+    - option "12,7|12,8 · 已通车"
+    - option "12,8|13,8 · 已通车"
+    - option "13,-5|14,-5 · 已通车"
+    - option "13,11|14,10 · 已通车"
+    - option "13,14|14,13 · 已通车"
+    - option "13,16|14,16 · 已通车"
+    - option "13,8|14,8 · 已通车"
+    - option "14,-5|15,-5 · 已通车"
+    - option "14,10|15,10 · 已通车"
+    - option "14,13|15,13 · 已通车"
+    - option "14,16|14,17 · 已通车"
+    - option "14,17|14,18 · 已通车"
+    - option "14,18|14,19 · 已通车"
+    - option "14,19|14,20 · 已通车"
+    - option "14,20|14,21 · 已通车"
+    - option "14,21|15,21 · 已通车"
+    - option "14,8|15,8 · 已通车"
+    - option "15,-5|16,-5 · 已通车"
+    - option "15,10|16,9 · 已通车"
+    - option "15,13|16,13 · 已通车"
+    - option "15,21|16,21 · 已通车"
+    - option "15,8|16,8 · 已通车"
+    - option "16,-5|17,-5 · 已通车"
+    - option "16,13|17,13 · 已通车"
+    - option "16,21|17,20 · 已通车"
+    - option "16,8|17,7 · 已通车"
+    - option "16,9|17,8 · 已通车"
+    - option "17,-5|18,-5 · 已通车"
+    - option "17,13|18,12 · 已通车"
+    - option "17,20|18,19 · 已通车"
+    - option "17,7|18,6 · 已通车"
+    - option "17,8|18,7 · 已通车"
+    - option "18,-5|19,-5 · 已通车"
+    - option "18,12|19,11 · 已通车"
+    - option "18,19|19,18 · 已通车"
+    - option "18,4|18,5 · 已通车"
+    - option "18,4|19,3 · 已通车"
+    - option "18,5|18,6 · 已通车"
+    - option "18,7|19,6 · 已通车"
+    - option "19,-5|20,-5 · 已通车"
+    - option "19,11|20,10 · 已通车"
+    - option "19,18|20,18 · 已通车"
+    - option "19,3|20,2 · 已通车"
+    - option "19,6|20,5 · 已通车"
+    - option "20,-5|21,-6 · 已通车"
+    - option "20,10|21,10 · 已通车"
+    - option "20,18|21,18 · 已通车"
+    - option "20,1|20,2 · 已通车"
+    - option "20,1|21,0 · 已通车"
+    - option "20,5|21,5 · 已通车"
+    - option "21,-1|21,-2 · 已通车"
+    - option "21,-1|21,0 · 已通车"
+    - option "21,-2|21,-3 · 已通车"
+    - option "21,-3|21,-4 · 已通车"
+    - option "21,-4|21,-5 · 已通车"
+    - option "21,-5|21,-6 · 已通车"
+    - option "21,0|21,1 · 已通车"
+    - option "21,0|22,-1 · 已通车"
+    - option "21,10|21,11 · 已通车"
+    - option "21,10|21,9 · 已通车"
+    - option "21,11|21,12 · 已通车"
+    - option "21,12|22,12 · 已通车"
+    - option "21,18|22,17 · 已通车"
+    - option "21,1|21,2 · 已通车"
+    - option "21,2|21,3 · 已通车"
+    - option "21,3|21,4 · 已通车"
+    - option "21,4|21,5 · 已通车"
+    - option "21,5|22,5 · 已通车"
+    - option "21,6|21,7 · 已通车"
+    - option "21,6|22,5 · 已通车"
+    - option "21,7|21,8 · 已通车"
+    - option "21,8|21,9 · 已通车"
+    - option "22,-1|22,-2 · 已通车"
+    - option "22,-2|23,-3 · 已通车"
+    - option "22,12|23,12 · 已通车"
+    - option "22,17|23,16 · 已通车"
+    - option "22,5|23,4 · 已通车"
+    - option "23,-3|24,-3 · 已通车"
+    - option "23,12|23,13 · 已通车"
+    - option "23,13|23,14 · 已通车"
+    - option "23,14|24,14 · 已通车"
+    - option "23,16|24,15 · 已通车"
+    - option "23,4|24,4 · 已通车"
+    - option "24,-3|25,-3"
+    - option "24,13|24,14"
+    - option "24,14|24,15 · 已通车"
+    - option "24,15|24,16 · 已通车"
+    - option "24,16|25,16"
+    - option "24,4|25,4"
+    - option "25,-3|26,-3"
+    - option "25,16|26,15"
+    - option "25,4|26,3"
+    - option "26,-3|27,-3"
+    - option "26,-4|26,-5"
+    - option "26,-4|27,-4"
+    - option "26,-5|26,-6"
+    - option "26,-6|26,-7"
+    - option "26,-7|26,-8"
+    - option "26,-8|27,-9"
+    - option "26,15|27,15"
+    - option "26,3|27,2"
+    - option "27,-3|28,-4"
+    - option "27,-4|28,-4"
+    - option "27,-9|28,-10"
+    - option "27,15|28,14"
+    - option "27,15|28,15"
+    - option "27,2|28,2"
+    - option "28,-10|29,-10"
+    - option "28,-1|28,-2"
+    - option "28,-1|28,0"
+    - option "28,-2|28,-3"
+    - option "28,-3|28,-4"
+    - option "28,-4|29,-4"
+    - option "28,0|28,1"
+    - option "28,14|29,13"
+    - option "28,15|29,15"
+    - option "28,1|28,2"
+    - option "28,2|28,3"
+    - option "28,2|29,1"
+    - option "28,3|28,4"
+    - option "28,4|28,5"
+    - option "28,5|28,6"
+    - option "28,6|28,7"
+    - option "28,7|28,8"
+    - option "28,8|29,8"
+    - option "29,-10|30,-10"
+    - option "29,-4|30,-4"
+    - option "29,10|29,11"
+    - option "29,10|29,9"
+    - option "29,11|29,12"
+    - option "29,12|29,13"
+    - option "29,15|30,15"
+    - option "29,1|30,0"
+    - option "29,8|29,9"
+    - option "29,8|30,8"
+    - option "30,-10|31,-10"
+    - option "30,-4|31,-4"
+    - option "30,0|31,0"
+    - option "30,15|31,15"
+    - option "30,8|31,7"
+    - option "31,-10|32,-11"
+    - option "31,-4|32,-4"
+    - option "31,0|32,0"
+    - option "31,15|32,15"
+    - option "31,7|32,6"
+    - option "32,-11|33,-12"
+    - option "32,-4|33,-5"
+    - option "32,0|33,0"
+    - option "32,15|33,15"
+    - option "32,6|33,5"
+    - option "33,-12|34,-13"
+    - option "33,-5|34,-6"
+    - option "33,0|34,0"
+    - option "33,13|33,14"
+    - option "33,13|34,12"
+    - option "33,14|33,15"
+    - option "33,5|34,5"
+    - option "34,-13|35,-14"
+    - option "34,-6|35,-7"
+    - option "34,0|35,0"
+    - option "34,10|34,11"
+    - option "34,10|34,9"
+    - option "34,11|34,12"
+    - option "34,5|35,5"
+    - option "34,8|34,9"
+    - option "34,8|35,7"
+    - option "35,-14|36,-14"
+    - option "35,-1|35,-2"
+    - option "35,-1|35,0"
+    - option "35,-2|35,-3"
+    - option "35,-3|35,-4"
+    - option "35,-4|36,-5"
+    - option "35,-7|36,-8"
+    - option "35,0|36,0"
+    - option "35,5|36,5"
+    - option "35,7|36,6"
+    - option "36,-14|37,-14"
+    - option "36,-5|37,-6"
+    - option "36,-8|37,-9"
+    - option "36,0|37,0"
+    - option "36,5|37,5"
+    - option "36,6|37,5"
+    - option "37,-14|38,-14"
+    - option "37,-6|37,-7"
+    - option "37,-7|37,-8"
+    - option "37,-8|37,-9"
+    - option "37,-9|38,-10"
+    - option "37,0|37,1"
+    - option "37,1|37,2"
+    - option "37,2|37,3"
+    - option "37,3|37,4"
+    - option "37,4|37,5"
+    - option "38,-10|39,-11"
+    - option "38,-14|39,-14"
+    - option "39,-11|39,-12"
+    - option "39,-12|39,-13"
+    - option "39,-13|39,-14"
+    - option "5,2|5,3 · 已通车"
+    - option "5,2|6,1 · 已通车"
+    - option "5,3|5,4 · 已通车"
+    - option "5,4|5,5 · 已通车"
+    - option "5,5|6,5 · 已通车"
+    - option "6,1|7,0 · 已通车"
+    - option "6,5|7,5 · 已通车"
+    - option "7,0|8,-1 · 已通车"
+    - option "7,10|7,11 · 已通车"
+    - option "7,10|7,9 · 已通车"
+    - option "7,11|7,12 · 已通车"
+    - option "7,12|8,12 · 已通车"
+    - option "7,5|7,6 · 已通车"
+    - option "7,6|7,7 · 已通车"
+    - option "7,7|7,8 · 已通车"
+    - option "7,7|8,7 · 已通车"
+    - option "7,8|7,9 · 已通车"
+    - option "8,-1|9,-2 · 已通车"
+    - option "8,12|9,12 · 已通车"
+    - option "8,7|9,7 · 已通车"
+    - button "清空计划"
+    - button "德军 · 补给／铁路 结束阶段":
+      - generic: 德军 · 补给／铁路
+      - text: 结束阶段
+      - generic: ›
+    - generic: 当前部队
+    - generic: ◇
+    - paragraph: 选择单位，查看战力、补给和移动信息。
+    - heading "地理战区002 · T2/24 · E1" [level=3]
+    - paragraph: 东欧地理启发的原创战区；非1941复原。北↖、东↗。北部林湖与分水岭、中部道路绕行、南部河谷渡口；公式和经济沿用001。
+    - status: 行动已由权威规则结算。 本次提交92.9ms
+    - paragraph: 双方人工轮流操作；新经济暂无AI。结束本方阶段后，在顶部明确接管另一方。
+    - paragraph: 工业预算 34 I；已训练后备 48 P。初始12＋收入22−已付0。
+    - text: 生产入库地点
+    - combobox "生产入库地点":
+      - option "F5 工区 后方 P0/E2 0" [selected]
+      - option "H11 工区 后方 P0/E2 0"
+      - option "J17 工区 后方 P0/E2 0"
+      - option "K23 工区 后方 P0/E2 0"
+      - option "O29 工区 后方 P0/E2 0"
+    - button "生产2 E2 · 3I · 1周期"
+    - button "拨补1 P · 2I · 1周期"
+    - paragraph: 每方每T最多2笔。E末完成、下一T可用；仓内每4P每E照管1I，不足则隔离。
+    - text: 货源
+    - combobox "货源":
+      - option "F5 工区 后方 P0/E2 0" [selected]
+      - option "H11 工区 后方 P0/E2 0"
+      - option "J17 工区 后方 P0/E2 0"
+      - option "K23 工区 后方 P0/E2 0"
+      - option "O29 工区 后方 P0/E2 0"
+    - text: 目的地
+    - combobox "目的地":
+      - option "V5 站场 前线 P0/E2 0" [selected]
+      - option "V11 站场 前线 P0/E2 0"
+      - option "W17 站场 前线 P0/E2 0"
+      - option "V23 站场 前线 P0/E2 0"
+      - option "V29 站场 前线 P0/E2 0"
+    - button "预约前送1P＋2E2 · 8运力"
+    - paragraph: 本E先保可行净维护，再铁路前送，后补储备。到账下一T可用；无余量等待，不扣两次运力。
+    - text: 本方部队定位
+    - combobox "本方部队定位":
+      - option "G-001 · X4 · 损伤0" [selected]
+      - option "G-002 · X5 · 损伤0"
+      - option "G-003 · X6 · 损伤0"
+      - option "G-004 · X7 · 损伤0"
+      - option "G-005 · V4 · 损伤0"
+      - option "G-006 · V5 · 损伤0"
+      - option "G-007 · V6 · 损伤0"
+      - option "G-008 · V7 · 损伤0"
+      - option "G-009 · U4 · 损伤0"
+      - option "G-010 · U5 · 损伤0"
+      - option "G-011 · U6 · 损伤0"
+      - option "G-012 · U7 · 损伤0"
+      - option "G-013 · X10 · 损伤0"
+      - option "G-014 · X11 · 损伤0"
+      - option "G-015 · X12 · 损伤0"
+      - option "G-016 · X13 · 损伤0"
+      - option "G-017 · V10 · 损伤0"
+      - option "G-018 · V11 · 损伤0"
+      - option "G-019 · V12 · 损伤0"
+      - option "G-020 · V13 · 损伤0"
+      - option "G-021 · U10 · 损伤0"
+      - option "G-022 · U11 · 损伤0"
+      - option "G-023 · U12 · 损伤0"
+      - option "G-024 · U13 · 损伤0"
+      - option "G-025 · Z14 · 损伤0"
+      - option "G-026 · Z17 · 损伤0"
+      - option "G-027 · Y18 · 损伤0"
+      - option "G-028 · Y19 · 损伤0"
+      - option "G-029 · W16 · 损伤0"
+      - option "G-030 · W17 · 损伤0"
+      - option "G-031 · W18 · 损伤0"
+      - option "G-032 · W19 · 损伤0"
+      - option "G-033 · V16 · 损伤0"
+      - option "G-034 · V17 · 损伤0"
+      - option "G-035 · V18 · 损伤0"
+      - option "G-036 · V19 · 损伤0"
+      - option "G-037 · X22 · 损伤0"
+      - option "G-038 · X23 · 损伤0"
+      - option "G-039 · X24 · 损伤0"
+      - option "G-040 · X25 · 损伤0"
+      - option "G-041 · V22 · 损伤0"
+      - option "G-042 · V23 · 损伤0"
+      - option "G-043 · V24 · 损伤0"
+      - option "G-044 · V25 · 损伤0"
+      - option "G-045 · U22 · 损伤0"
+      - option "G-046 · U23 · 损伤0"
+      - option "G-047 · U24 · 损伤0"
+      - option "G-048 · U25 · 损伤0"
+      - option "G-049 · X28 · 损伤0"
+      - option "G-050 · X29 · 损伤0"
+      - option "G-051 · X30 · 损伤0"
+      - option "G-052 · X31 · 损伤0"
+      - option "G-053 · V28 · 损伤0"
+      - option "G-054 · V29 · 损伤0"
+      - option "G-055 · V30 · 损伤0"
+      - option "G-056 · V31 · 损伤0"
+      - option "G-057 · U28 · 损伤0"
+      - option "G-058 · U29 · 损伤0"
+      - option "G-059 · V29 · 损伤1"
+      - option "G-060 · U29 · 损伤1"
+    - button "定位并选择部队"
+    - paragraph: 恢复须在己方材料仓同格且满足原Core恢复资格：1P＋2E2，RP不参与；每方每T至多6单位。
+    - generic "订单与货运回执"
+    - generic "仓储与下一T库存"
+    - generic "战略地点与最近结算" [active]
+    - paragraph: E24按当时控制计VP，平分和局。工业/交通收益每E仅一次，反复易手不即时发钱。
+    - paragraph: F5 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: H11 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: J17 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: K23 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: O29 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: V5 站场：2VP，0I/E；补给源0点/E · GERMAN
+    - paragraph: V11 站场：2VP，0I/E；补给源0点/E · GERMAN
+    - paragraph: W17 站场：2VP，0I/E；补给源0点/E · GERMAN
+    - paragraph: V23 站场：2VP，0I/E；补给源0点/E · GERMAN
+    - paragraph: V29 站场：2VP，0I/E；补给源0点/E · GERMAN
+    - paragraph: 西部战区总部：6VP，0I/E；补给源0点/E · 未确认
+    - paragraph: AJ4 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: AL10 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: AJ18 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: AL24 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: AI30 工区：3VP，4I/E；补给源40点/E · 未确认
+    - paragraph: AC5 站场：2VP，0I/E；补给源0点/E · 未确认
+    - paragraph: AC11 站场：2VP，0I/E；补给源0点/E · 未确认
+    - paragraph: AC17 站场：2VP，0I/E；补给源0点/E · 未确认
+    - paragraph: AC23 站场：2VP，0I/E；补给源0点/E · 未确认
+    - paragraph: AB29 站场：2VP，0I/E；补给源0点/E · 未确认
+    - paragraph: 东部战区总部：6VP，0I/E；补给源0点/E · 未确认
+    - paragraph: 分水岭转运站：4VP，2I/E；补给源0点/E · 未确认
+    - paragraph: 第聂伯西岸枢纽：4VP，2I/E；补给源0点/E · GERMAN
+    - paragraph: 南部河谷渡口：4VP，2I/E；补给源0点/E · 未确认
+    - generic: "{ \"epoch\": 1, \"income\": [ { \"node\": \"GERMAN-industry-1\", \"side\": \"GERMAN\", \"I\": 4 }, { \"node\": \"GERMAN-industry-2\", \"side\": \"GERMAN\", \"I\": 4 }, { \"node\": \"GERMAN-industry-3\", \"side\": \"GERMAN\", \"I\": 4 }, { \"node\": \"GERMAN-industry-4\", \"side\": \"GERMAN\", \"I\": 4 }, { \"node\": \"GERMAN-industry-5\", \"side\": \"GERMAN\", \"I\": 4 }, { \"node\": \"OBJECTIVE-17\", \"side\": \"GERMAN\", \"I\": 2 } ], \"production\": [], \"supply\": [ { \"side\": \"GERMAN\", \"id\": \"G-001\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-002\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-003\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-004\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-005\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 8, \"received\": 0, \"paid\": 8, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 16 }, { \"side\": \"GERMAN\", \"id\": \"G-006\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-007\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-008\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-009\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-010\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-011\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-012\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-013\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-014\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-015\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-016\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-017\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 8, \"received\": 0, \"paid\": 8, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 16 }, { \"side\": \"GERMAN\", \"id\": \"G-018\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-019\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-020\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-021\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-022\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-023\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-024\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-025\", \"before\": { \"stock\": 14, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 10, \"debt\": 0, \"short\": 0 }, \"refill\": 0 }, { \"side\": \"GERMAN\", \"id\": \"G-026\", \"before\": { \"stock\": 11, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 17 }, { \"side\": \"GERMAN\", \"id\": \"G-027\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-028\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-029\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 8, \"received\": 0, \"paid\": 8, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 16 }, { \"side\": \"GERMAN\", \"id\": \"G-030\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-031\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-032\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-033\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-034\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-035\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-036\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-037\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-038\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-039\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-040\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-041\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 8, \"received\": 0, \"paid\": 8, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 16 }, { \"side\": \"GERMAN\", \"id\": \"G-042\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-043\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-044\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-045\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-046\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-047\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-048\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-049\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-050\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-051\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-052\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 12 }, { \"side\": \"GERMAN\", \"id\": \"G-053\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 8, \"received\": 0, \"paid\": 8, \"loss\": 0, \"after\": { \"stock\": 24, \"debt\": 0, \"short\": 0 }, \"refill\": 16 }, { \"side\": \"GERMAN\", \"id\": \"G-054\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 23, \"debt\": 0, \"short\": 0 }, \"refill\": 11 }, { \"side\": \"GERMAN\", \"id\": \"G-055\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 12, \"debt\": 0, \"short\": 0 }, \"refill\": 0 }, { \"side\": \"GERMAN\", \"id\": \"G-056\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 12, \"debt\": 0, \"short\": 0 }, \"refill\": 0 }, { \"side\": \"GERMAN\", \"id\": \"G-057\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 12, \"debt\": 0, \"short\": 0 }, \"refill\": 0 }, { \"side\": \"GERMAN\", \"id\": \"G-058\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 12, \"debt\": 0, \"short\": 0 }, \"refill\": 0 }, { \"side\": \"GERMAN\", \"id\": \"G-059\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 12, \"debt\": 0, \"short\": 0 }, \"refill\": 0 }, { \"side\": \"GERMAN\", \"id\": \"G-060\", \"before\": { \"stock\": 16, \"debt\": 0, \"short\": 0 }, \"due\": 4, \"received\": 0, \"paid\": 4, \"loss\": 0, \"after\": { \"stock\": 12, \"debt\": 0, \"short\": 0 }, \"refill\": 0 } ], \"shipping\": [], \"care\": [], \"transport\": [ { \"side\": \"GERMAN\", \"deliveries\": [ { \"unit\": \"G-001\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-002\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-003\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-004\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-005\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 1, \"qty\": 16, \"kind\": \"REFILL\" }, { \"unit\": \"G-006\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 0, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-007\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-008\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-009\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-010\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-011\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-012\", \"source\": \"GERMAN-industry-1\", \"warehouse\": \"GERMAN-depot-1\", \"path\": [ \"5,2|6,1\", \"6,1|7,0\", \"7,0|8,-1\", \"8,-1|9,-2\", \"10,-3|9,-2\", \"10,-3|11,-4\", \"11,-4|11,-5\", \"11,-5|12,-5\", \"12,-5|13,-5\", \"13,-5|14,-5\", \"14,-5|15,-5\", \"15,-5|16,-5\", \"16,-5|17,-5\", \"17,-5|18,-5\", \"18,-5|19,-5\", \"19,-5|20,-5\", \"20,-5|21,-6\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-013\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-014\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-015\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-016\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-017\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 1, \"qty\": 16, \"kind\": \"REFILL\" }, { \"unit\": \"G-018\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 0, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-019\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-020\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-021\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-022\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-023\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-024\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-2\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,4|21,5\", \"21,3|21,4\", \"21,2|21,3\", \"21,1|21,2\", \"21,0|21,1\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-026\", \"source\": \"GERMAN-industry-3\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,12|9,12\", \"10,12|11,12\", \"11,12|12,12\", \"12,12|13,11\", \"13,11|14,10\", \"14,10|15,10\", \"15,10|16,9\", \"16,9|17,8\", \"17,8|18,7\", \"18,7|19,6\", \"19,6|20,5\", \"20,5|21,5\", \"21,5|22,5\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-026\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 3, \"qty\": 5, \"kind\": \"REFILL\" }, { \"unit\": \"G-027\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-028\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-029\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 1, \"qty\": 16, \"kind\": \"REFILL\" }, { \"unit\": \"G-030\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 0, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-031\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-032\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-033\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-034\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-035\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-036\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-3\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,9\", \"21,8|21,9\", \"21,7|21,8\", \"21,6|21,7\", \"21,6|22,5\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-037\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,11\", \"21,11|21,12\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-038\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,11\", \"21,11|21,12\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-039\", \"source\": \"GERMAN-industry-4\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"10,17|11,16\", \"11,16|12,15\", \"12,15|13,14\", \"13,14|14,13\", \"14,13|15,13\", \"15,13|16,13\", \"16,13|17,13\", \"17,13|18,12\", \"18,12|19,11\", \"19,11|20,10\", \"20,10|21,10\", \"21,10|21,11\", \"21,11|21,12\" ], \"lastMile\": 2, \"qty\": 7, \"kind\": \"REFILL\" }, { \"unit\": \"G-039\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 2, \"qty\": 5, \"kind\": \"REFILL\" }, { \"unit\": \"G-040\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-041\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 1, \"qty\": 16, \"kind\": \"REFILL\" }, { \"unit\": \"G-042\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 0, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-043\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-044\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-045\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-046\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-047\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 1, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-048\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-4\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\", \"21,18|22,17\", \"22,17|23,16\", \"23,16|24,15\", \"24,14|24,15\", \"23,14|24,14\", \"23,13|23,14\", \"23,12|23,13\", \"22,12|23,12\", \"21,12|22,12\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-049\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-050\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 2, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-051\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 3, \"qty\": 12, \"kind\": \"REFILL\" }, { \"unit\": \"G-052\", \"source\": \"GERMAN-industry-5\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 3, \"qty\": 7, \"kind\": \"REFILL\" }, { \"unit\": \"G-052\", \"source\": \"GERMAN-industry-2\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"7,7|7,8\", \"7,8|7,9\", \"7,10|7,9\", \"7,10|7,11\", \"7,11|7,12\", \"7,12|8,12\", \"8,12|9,12\", \"10,12|9,12\", \"10,12|10,13\", \"10,13|10,14\", \"10,14|10,15\", \"10,15|10,16\", \"10,16|10,17\", \"10,17|11,16\", \"11,16|12,16\", \"12,16|13,16\", \"13,16|14,16\", \"14,16|14,17\", \"14,17|14,18\", \"14,18|14,19\", \"14,19|14,20\", \"14,20|14,21\", \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 3, \"qty\": 5, \"kind\": \"REFILL\" }, { \"unit\": \"G-053\", \"source\": \"GERMAN-industry-2\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"7,7|7,8\", \"7,8|7,9\", \"7,10|7,9\", \"7,10|7,11\", \"7,11|7,12\", \"7,12|8,12\", \"8,12|9,12\", \"10,12|9,12\", \"10,12|10,13\", \"10,13|10,14\", \"10,14|10,15\", \"10,15|10,16\", \"10,16|10,17\", \"10,17|11,16\", \"11,16|12,16\", \"12,16|13,16\", \"13,16|14,16\", \"14,16|14,17\", \"14,17|14,18\", \"14,18|14,19\", \"14,19|14,20\", \"14,20|14,21\", \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 2, \"qty\": 16, \"kind\": \"REFILL\" }, { \"unit\": \"G-054\", \"source\": \"GERMAN-industry-2\", \"warehouse\": \"GERMAN-depot-5\", \"path\": [ \"7,7|7,8\", \"7,8|7,9\", \"7,10|7,9\", \"7,10|7,11\", \"7,11|7,12\", \"7,12|8,12\", \"8,12|9,12\", \"10,12|9,12\", \"10,12|10,13\", \"10,13|10,14\", \"10,14|10,15\", \"10,15|10,16\", \"10,16|10,17\", \"10,17|11,16\", \"11,16|12,16\", \"12,16|13,16\", \"13,16|14,16\", \"14,16|14,17\", \"14,17|14,18\", \"14,18|14,19\", \"14,19|14,20\", \"14,20|14,21\", \"14,21|15,21\", \"15,21|16,21\", \"16,21|17,20\", \"17,20|18,19\", \"18,19|19,18\", \"19,18|20,18\", \"20,18|21,18\" ], \"lastMile\": 0, \"qty\": 11, \"kind\": \"REFILL\" } ], \"source\": { \"GERMAN-industry-1\": 12, \"GERMAN-industry-2\": 128, \"GERMAN-industry-3\": 0, \"GERMAN-industry-4\": 0, \"GERMAN-industry-5\": 0 }, \"edges\": { \"5,2|6,1\": 148, \"6,1|7,0\": 148, \"7,0|8,-1\": 148, \"8,-1|9,-2\": 148, \"10,-3|9,-2\": 148, \"10,-3|11,-4\": 148, \"11,-4|11,-5\": 148, \"11,-5|12,-5\": 148, \"12,-5|13,-5\": 148, \"13,-5|14,-5\": 148, \"14,-5|15,-5\": 148, \"15,-5|16,-5\": 148, \"16,-5|17,-5\": 148, \"17,-5|18,-5\": 148, \"18,-5|19,-5\": 148, \"19,-5|20,-5\": 148, \"20,-5|21,-6\": 148, \"10,12|9,12\": 192, \"10,12|11,12\": 160, \"11,12|12,12\": 160, \"12,12|13,11\": 160, \"13,11|14,10\": 160, \"14,10|15,10\": 160, \"15,10|16,9\": 160, \"16,9|17,8\": 160, \"17,8|18,7\": 160, \"18,7|19,6\": 160, \"19,6|20,5\": 160, \"20,5|21,5\": 160, \"21,4|21,5\": 148, \"21,3|21,4\": 148, \"21,2|21,3\": 148, \"21,1|21,2\": 148, \"21,0|21,1\": 148, \"21,5|22,5\": 12, \"10,17|11,16\": 192, \"11,16|12,15\": 160, \"12,15|13,14\": 160, \"13,14|14,13\": 160, \"14,13|15,13\": 160, \"15,13|16,13\": 160, \"16,13|17,13\": 160, \"17,13|18,12\": 160, \"18,12|19,11\": 160, \"19,11|20,10\": 160, \"20,10|21,10\": 160, \"21,10|21,9\": 129, \"21,8|21,9\": 129, \"21,7|21,8\": 129, \"21,6|21,7\": 129, \"21,6|22,5\": 129, \"21,10|21,11\": 31, \"21,11|21,12\": 31, \"14,21|15,21\": 192, \"15,21|16,21\": 192, \"16,21|17,20\": 192, \"17,20|18,19\": 192, \"18,19|19,18\": 192, \"19,18|20,18\": 192, \"20,18|21,18\": 192, \"21,18|22,17\": 117, \"22,17|23,16\": 117, \"23,16|24,15\": 117, \"24,14|24,15\": 117, \"23,14|24,14\": 117, \"23,13|23,14\": 117, \"23,12|23,13\": 117, \"22,12|23,12\": 117, \"21,12|22,12\": 117, \"7,7|7,8\": 32, \"7,8|7,9\": 32, \"7,10|7,9\": 32, \"7,10|7,11\": 32, \"7,11|7,12\": 32, \"7,12|8,12\": 32, \"8,12|9,12\": 32, \"10,12|10,13\": 32, \"10,13|10,14\": 32, \"10,14|10,15\": 32, \"10,15|10,16\": 32, \"10,16|10,17\": 32, \"11,16|12,16\": 32, \"12,16|13,16\": 32, \"13,16|14,16\": 32, \"14,16|14,17\": 32, \"14,17|14,18\": 32, \"14,18|14,19\": 32, \"14,19|14,20\": 32, \"14,20|14,21\": 32 }, \"W\": { \"GERMAN-industry-1\": 192, \"GERMAN-industry-2\": 192, \"GERMAN-industry-3\": 192, \"GERMAN-industry-4\": 192, \"GERMAN-industry-5\": 192, \"GERMAN-depot-1\": 44, \"GERMAN-depot-2\": 44, \"GERMAN-depot-3\": 51, \"GERMAN-depot-4\": 44, \"GERMAN-depot-5\": 117 }, \"T\": 18149, \"edgeCapacity\": 192, \"workCapacity\": 30000 } ], \"vp\": { \"GERMAN\": 35, \"SOVIET\": 31 } }"
+    - strong: 可选辅助 · 己方 60
+    - checkbox "FLOW · 空恢复自动准备" [disabled]
+    - text: FLOW · 空恢复自动准备
+    - checkbox "COMMAND · 计划与行动记录"
+    - text: COMMAND · 计划与行动记录
+    - status: 新模式后勤由人类确认，FLOW自动准备停用。
+    - text: 两项独立；默认关闭。关闭不撤销已执行动作。
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥

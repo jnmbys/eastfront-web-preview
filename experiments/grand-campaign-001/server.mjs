@@ -1,3 +1,4 @@
+import {createScenario as geographyScenario} from '../grand-campaign-002/scenario.mjs';
 import http from 'node:http';import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';import {Campaign} from './authority.mjs';
 const root=path.resolve(fileURLToPath(new URL('../../.ai003-preview',import.meta.url))),port=Number(process.argv[2]??4190);
@@ -8,10 +9,10 @@ const server=http.createServer(async(req,res)=>{
   try{
    if(req.method!=='POST')throw Error('POST_ONLY');if(req.headers.origin&&!new Set([`http://127.0.0.1:${port}`,`http://localhost:${port}`]).has(req.headers.origin))throw Error('ORIGIN_DENIED');
    let body='';for await(const chunk of req){body+=chunk;if(body.length>65536)throw Error('BODY_TOO_LARGE');}const q=JSON.parse(body||'{}');
-   if(url.pathname==='/grand/create'){if(sessions.size>=4)throw Error('LOCAL_SESSION_LIMIT');const token=crypto.randomUUID(),c=new Campaign();c.viewer=q.side==='SOVIET'?'SOVIET':'GERMAN';sessions.set(token,c);reply(200,{token,...c.snapshot()});return;}
+   if(url.pathname==='/grand/create'){if(sessions.size>=4)throw Error('LOCAL_SESSION_LIMIT');const token=crypto.randomUUID(),c=new Campaign(q.scenario==='geography'?geographyScenario:undefined);c.viewer=q.side==='SOVIET'?'SOVIET':'GERMAN';sessions.set(token,c);reply(200,{token,...c.snapshot()});return;}
    const c=sessions.get(req.headers['x-grand-session']);if(!c)throw Error('SESSION_NOT_FOUND');
    if(url.pathname==='/grand/state')reply(200,c.snapshot());
-   else if(url.pathname==='/grand/action'){const previousEpoch=c.econ.epoch,receipt=c.transaction(q);if(process.env.GRAND_EVIDENCE==='1'){const out=new URL('../../docs/grand-campaign-001/evidence/browser-authority.jsonl',import.meta.url);fs.appendFileSync(out,JSON.stringify({instance:c.id,request:q,receipt,viewer:c.viewer,turn:c.state.turn,phase:c.state.phase,random:c.state.random,units:Object.values(c.state.units).filter(u=>u.side===c.viewer).map(u=>({id:u.id,hex:u.hex,step:u.step,alive:u.alive})),accounts:c.econ.accounts,orders:c.econ.orders,shipments:c.econ.shipments,...(previousEpoch!==c.econ.epoch?{ledger:c.econ.ledger.at(-1)}:{}),memory:process.memoryUsage()})+'\n');}reply(200,{receipt,...c.snapshot()});}
+   else if(url.pathname==='/grand/action'){const previousEpoch=c.econ.epoch,receipt=c.transaction(q);if(process.env.GRAND_EVIDENCE==='1'){const out=new URL(c.scenario.id==='grand-campaign-002-geography'?'../../docs/grand-campaign-002/evidence/browser-authority.jsonl':'../../docs/grand-campaign-001/evidence/browser-authority.jsonl',import.meta.url);fs.appendFileSync(out,JSON.stringify({instance:c.id,request:q,receipt,viewer:c.viewer,turn:c.state.turn,phase:c.state.phase,random:c.state.random,units:Object.values(c.state.units).filter(u=>u.side===c.viewer).map(u=>({id:u.id,hex:u.hex,step:u.step,alive:u.alive})),accounts:c.econ.accounts,orders:c.econ.orders,shipments:c.econ.shipments,...(previousEpoch!==c.econ.epoch?{ledger:c.econ.ledger.at(-1)}:{}),memory:process.memoryUsage()})+'\n');}reply(200,{receipt,...c.snapshot()});}
    else if(url.pathname==='/grand/query'){
     if(q.version!==c.version)throw Error('STALE_VERSION');const p=c.projection(q.draft);reply(200,{messageType:'MATCH_QUERY',requestId:q.id,payload:{matchId:c.id,matchRevision:c.version,serverSequence:++c.seq,...p}});
    }else if(url.pathname==='/grand/takeover'){c.viewer=c.owner();reply(200,c.snapshot());}

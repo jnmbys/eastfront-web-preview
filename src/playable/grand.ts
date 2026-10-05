@@ -2,13 +2,13 @@ import type {WorkerPort} from '../local-ai/client.js';import type {LocalRequest,
 export class GrandPort implements WorkerPort {
  onmessage:WorkerPort['onmessage']=null;onerror:WorkerPort['onerror']=null;data:any=null;notice='';locked=false;selections:Record<string,string>={};
  private token='';private epoch=1;private dead=false;private tail=Promise.resolve();
- constructor(private update:()=>void){}
+ constructor(private update:()=>void,private geography=false){}
  private async api(path:string,body:unknown={}){const r=await fetch('/grand/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Grand-Session':this.token},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error);return d;}
  private emit(message:any,takeover=false){if(!this.dead)this.onmessage?.({data:{epoch:this.epoch,message,meta:this.data.game.meta,takeover}} as MessageEvent<LocalReply>);}
  private read(d:any,takeover=false){if(this.data&&d.instanceId===this.data.instanceId&&d.version<this.data.version)throw Error('STALE_REPLY');if(this.data?.viewer!==d.viewer)this.selections={};this.data=d;this.emit(d.game.message,takeover);this.update();}
  async operation(operation:any){if(this.locked)return;this.locked=true;this.update();try{this.read(await this.api('action',{id:crypto.randomUUID(),version:this.data.version,operation}));this.notice='已确认：库存、预算与地图为同一版本。';}catch(e){this.notice='未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();}}
  postMessage(m:LocalRequest){this.tail=this.tail.then(()=>this.handle(m)).catch(e=>{this.notice=String(e);this.onerror?.(new Event('error'));});}
- private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){const d=await this.api('create',{side:m.options.humanSide});this.token=d.token;this.read(d);return;}
+ private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){const d=await this.api('create',{side:m.options.humanSide,scenario:this.geography?'geography':'original'});this.token=d.token;this.read(d);return;}
   if(m.kind==='TAKEOVER'){this.read(await this.api('takeover'),true);return;}
   const p=m.payload as any;
   if(m.type==='QUERY_MATCH'){try{this.emit(await this.api('query',{id:m.requestId,version:p.expectedRevision,draft:p.draft}));}catch{this.read(await this.api('state'));}return;}
@@ -21,7 +21,7 @@ const esc=(x:any)=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 export function grandMarkup(p:GrandPort,selected:string|null):string{
  const d=p.data;if(!d)return '';const blocked=p.locked||d.viewer!==d.owner||!!d.game.message.payload.view.pendingDecision,off=blocked?'disabled':'',options=(role?:string)=>d.warehouses.filter((w:any)=>w.controlled&&(!role||w.role===role)).map((w:any)=>`<option value="${esc(w.id)}">${esc(w.label)} ${w.role==='industry'?'后方':'前线'} P${w.P}/E2 ${w.E2}</option>`).join('');
  const u=d.units.find((u:any)=>u.id===selected);
- return `<section class="panel-block grand-panel"><h3>大战略实验 · T${d.turn}/24 · E${d.epoch}</h3><p role="status">${esc(p.notice)} 本次提交${Number(d.ms).toFixed(1)}ms</p><p>双方人工轮流操作；新经济暂无AI。结束本方阶段后，在顶部明确接管另一方。</p><p><b>工业预算 ${d.account.I} I</b>；已训练后备 ${d.account.reserve} P。初始${d.account.initialI}＋收入${d.account.incomeI}−已付${d.account.spentI}。</p>
+ return `<section class="panel-block grand-panel"><h3>${esc(d.scenarioLabel??'大战略实验')} · T${d.turn}/24 · E${d.epoch}</h3>${d.scenarioId==='grand-campaign-002-geography'?'<p>东欧地理启发的原创战区；非1941复原。北↖、东↗。北部林湖与分水岭、中部道路绕行、南部河谷渡口；公式和经济沿用001。</p>':''}<p role="status">${esc(p.notice)} 本次提交${Number(d.ms).toFixed(1)}ms</p><p>双方人工轮流操作；新经济暂无AI。结束本方阶段后，在顶部明确接管另一方。</p><p><b>工业预算 ${d.account.I} I</b>；已训练后备 ${d.account.reserve} P。初始${d.account.initialI}＋收入${d.account.incomeI}−已付${d.account.spentI}。</p>
  <label>生产入库地点<select id="grand-factory">${options('industry')}</select></label><div class="button-row"><button data-grand-product="E2" ${off}>生产2 E2 · 3I · 1周期</button><button data-grand-product="P" ${off}>拨补1 P · 2I · 1周期</button></div><p>每方每T最多2笔。E末完成、下一T可用；仓内每4P每E照管1I，不足则隔离。</p>
  <label>货源<select id="grand-from">${options('industry')}</select></label><label>目的地<select id="grand-to">${options('depot')}</select></label><button id="grand-ship" ${off}>预约前送1P＋2E2 · 8运力</button><p>本E先保可行净维护，再铁路前送，后补储备。到账下一T可用；无余量等待，不扣两次运力。</p>
  ${u?`<p><b>${esc(u.id)} · ${esc(u.army)} · ${esc(u.label)}</b>：储备${u.stock/4}补给点，欠账${u.debt/4}点，维护${u.due/4}点。移动每格0.25点；攻击每次1点。空仓沿用缺供减效，连续3轮少维护损失一步。</p>`:''}

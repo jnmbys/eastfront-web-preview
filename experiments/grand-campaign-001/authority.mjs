@@ -7,8 +7,8 @@ import {isNetworkAction,isQueryDraft} from '../../.ai003-preview/src/multiplayer
 const copy=structuredClone,kh=core.hexKey;
 function fail(code){throw Error(code);}
 export class Campaign {
- constructor(){
-  const {rules,scenario,state,engine,nodes,placements}=createScenario();
+ constructor(scenarioFactory=createScenario){
+  const {rules,scenario,state,engine,nodes,placements}=scenarioFactory();
   this.seq=0;this.id=crypto.randomUUID();this.viewer='GERMAN';this.version=0;this.receipts=new Map();this.rules=rules;this.scenario=scenario;this.nodes=nodes;this.placements=placements;
   this.match={id:this.id,matchId:this.id,authoritative:{state,rules,scenario,engine,activeViewerControllerId:this.viewer,lastResult:null,integrityIssues:[]},controllerAssignments:sides.map(side=>({controllerId:side,coreControllerId:side,viewer:side,seat:side})),status:'ACTIVE',matchRevision:0,actionSequence:0,disclosedBattles:{GERMAN:new Set(),SOVIET:new Set()},battleSummaries:{GERMAN:{entries:new Map(),olderOmitted:false},SOVIET:{entries:new Map(),olderOmitted:false}}};
   this.econ={epoch:0,accounts:Object.fromEntries(sides.map(s=>[s,{initialI:config.economy.initialI,incomeI:0,spentI:0,I:config.economy.initialI,reserve:config.economy.trainedReservePerSide,personnelCommitted:0}])),warehouses:Object.fromEntries(nodes.filter(n=>['industry','depot'].includes(n.role)).map(n=>[n.id,{id:n.id,owner:n.side,node:n.hex,capacity:config.economy.warehouseCapacity,lots:[]}])),orders:[],shipments:[],uses:[],ledger:[],supply:Object.fromEntries(Object.values(state.units).map(u=>[u.id,{stock:config.supply.initialStockQ,debt:0,short:0}]))};
@@ -128,7 +128,7 @@ export class Campaign {
  }
  snapshot(draft){
   const p=this.projection(draft),own=Object.values(this.state.units).filter(u=>u.side===this.viewer),warehouses=Object.values(this.econ.warehouses).filter(w=>w.owner===this.viewer).map(w=>({...copy(w),label:this.nodes.find(n=>n.id===w.id).label,role:this.nodes.find(n=>n.id===w.id).role,controlled:this.state.hexes[w.node].control===this.viewer,P:this.available(w,'P'),E2:this.available(w,'E2')}));
-  return {instanceId:this.id,version:this.version,turn:this.state.turn,phase:this.state.phase,viewer:this.viewer,owner:this.owner(),ms:this.lastMs,
+  return {scenarioId:this.scenario.id,scenarioLabel:this.scenario.displayName,instanceId:this.id,version:this.version,turn:this.state.turn,phase:this.state.phase,viewer:this.viewer,owner:this.owner(),ms:this.lastMs,
    game:{message:{messageType:'PLAYER_VIEW_SNAPSHOT',payload:{matchId:this.id,matchRevision:this.version,actionSequence:this.version,serverSequence:++this.seq,revision:this.version,format:'snapshot-v1',resync:true,...p}},meta:{humanSide:this.viewer,ownerSide:this.owner(),paused:false,manual:true,reason:'GRAND_MANUAL_LOGISTICS',accepted:this.version,rejected:0}},
    account:copy(this.econ.accounts[this.viewer]),epoch:this.econ.epoch,warehouses,orders:copy(this.econ.orders.filter(o=>o.side===this.viewer)),shipments:copy(this.econ.shipments.filter(s=>s.side===this.viewer)),
    uses:copy(this.econ.uses.filter(u=>u.side===this.viewer)),units:own.map(u=>({id:u.id,hex:kh(u.hex),label:core.axialToPaper(u.hex).label,step:u.step,alive:u.alive,army:this.placements.find(p=>p.id===u.id).army,...this.econ.supply[u.id],due:this.due(u)})),

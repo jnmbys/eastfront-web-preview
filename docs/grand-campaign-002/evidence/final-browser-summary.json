@@ -1,0 +1,117 @@
+{
+  "acceptedActions": 17,
+  "endingTurn": 2,
+  "endingPhase": "GERMAN_SUPPLY_RAIL",
+  "finalGeoRivers": 323,
+  "finalGeoBridges": 18,
+  "e1German": {
+    "initialI": 12,
+    "incomeI": 22,
+    "spentI": 0,
+    "I": 34,
+    "reserve": 48,
+    "personnelCommitted": 0
+  },
+  "actions": [
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "MOVE",
+      "unitId": "G-026",
+      "path": [
+        {
+          "q": 25,
+          "r": 4
+        }
+      ]
+    },
+    {
+      "type": "MOVE",
+      "unitId": "G-025",
+      "path": [
+        {
+          "q": 24,
+          "r": 2
+        },
+        {
+          "q": 25,
+          "r": 1
+        }
+      ]
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "ATTACK",
+      "attackerUnitIds": [
+        "G-026"
+      ],
+      "target": {
+        "q": 26,
+        "r": 3
+      }
+    },
+    {
+      "type": "PASS_REACTION",
+      "battleId": "B-000001"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "ATTACK",
+      "attackerUnitIds": [
+        "S-026"
+      ],
+      "target": {
+        "q": 25,
+        "r": 4
+      }
+    },
+    {
+      "battleId": "B-000002",
+      "type": "PASS_REACTION"
+    },
+    {
+      "type": "RETREAT",
+      "battleId": "B-000002",
+      "retreats": [
+        {
+          "unitId": "S-026",
+          "path": [
+            {
+              "q": 27,
+              "r": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    },
+    {
+      "type": "READY_FOR_PHASE_END"
+    }
+  ],
+  "maxTransactionMs": 92.87920000008307,
+  "maxServiceRssMiB": 109.15234375,
+  "screenshots": "10 initial geography screenshots retained; final post-hydrology-correction capture blocked by IAB Page.captureScreenshot timeout. Final actions evidenced by actual UI DOM and authoritative log, not API-only replay."
+}
