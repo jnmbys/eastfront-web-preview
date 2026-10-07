@@ -1,0 +1,19 @@
+import {createRequire} from 'node:module';import assert from 'node:assert/strict';import fs from 'node:fs';
+const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAYWRIGHT_PATH||'C:/Users/jinyibo/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const b=await chromium.launch({channel:'msedge',headless:true}),p=await b.newPage({viewport:{width:1500,height:1050}});const report={label:'Synthetic communication failures around real HTTP build transaction',businessPosts:0};
+try{
+ await p.goto('http://127.0.0.1:4198');await p.locator('#ai-start').click();await p.locator('.city-panel').waitFor();await p.locator('[data-city-district="CITY-WEST-WORKS:D2"]').click();
+ await p.route('**/grand/state',r=>r.abort('failed'));
+ await p.route('**/grand/action',async r=>{report.businessPosts++;await r.fetch();await r.abort('failed');});
+ await p.locator('[data-city-build]').click();await p.getByText('已确认提交，账本尚未刷新；业务操作已锁定，请核对账本。',{exact:true}).first().waitFor();assert(await p.locator('[data-city-build]').isDisabled());
+ await p.locator('#city-reconcile').click();assert(await p.locator('[data-city-build]').isDisabled());
+ await p.reload();await p.locator('#ai-start').click();await p.locator('.city-panel').waitFor();await p.locator('#city-reconcile').waitFor();assert(await p.locator('[data-city-build]').isDisabled());
+ await p.unroute('**/grand/state');await p.locator('#city-reconcile').click();await p.waitForFunction(()=>!document.querySelector('#city-reconcile'));assert.equal(report.businessPosts,1);
+ const state=await p.evaluate(async()=>{const r=await fetch('/grand/state',{method:'POST',headers:{'Content-Type':'application/json','X-Grand-Session':sessionStorage.getItem('grand-officer-session')},body:'{}'});return r.json();});assert.equal(state.account.I,6);assert.equal(state.ux.facilities.length,6);report.version=state.version;report.account=state.account;report.facilities=state.ux.facilities.length;
+ // Exact request binding: success retry is immutable; conflicting contents and competing version rejected.
+ const request={id:crypto.randomUUID(),version:state.version,operation:{type:'BUILD_FACTORY',district:'CITY-WEST-WORKS:D2'}};
+ await p.unroute('**/grand/action');
+ const outcomes=await p.evaluate(async(q)=>{const headers={'Content-Type':'application/json','X-Grand-Session':sessionStorage.getItem('grand-officer-session')},api=async(path,body)=>{const r=await fetch('/grand/'+path,{method:'POST',headers,body:JSON.stringify(body)});return {status:r.status,data:await r.json()};};const first=await api('action',q),repeat=await api('action',q),conflict=await api('action',{...q,operation:{...q.operation,district:'CITY-WEST-WORKS:D1'}}),stale=await api('action',{...q,id:crypto.randomUUID()}),current=await api('state',{});return {first,repeat,conflict,stale,current};},request);
+ assert.equal(outcomes.first.status,200);assert.deepEqual(outcomes.first.data.receipt,outcomes.repeat.data.receipt);assert.equal(outcomes.conflict.status,409);assert.equal(outcomes.stale.status,409);assert.equal(outcomes.current.data.account.I,0);assert.equal(outcomes.current.data.ux.facilities.length,7);
+ report.idempotency={first:outcomes.first.data.receipt,repeat:outcomes.repeat.data.receipt,conflict:outcomes.conflict.data,stale:outcomes.stale.data};fs.writeFileSync('evidence/city-001-r1/http-faults.json',JSON.stringify(report,null,2));console.log('PASS committed receipt + failed/repeated state reads + refresh + recovery; no second POST, no duplicate charge');
+}finally{await p.evaluate(async()=>{await fetch('/grand/close',{method:'POST',headers:{'Content-Type':'application/json','X-Grand-Session':sessionStorage.getItem('grand-officer-session')},body:'{}'});sessionStorage.removeItem('grand-officer-session');}).catch(()=>{});await b.close();}
