@@ -22,6 +22,7 @@ export class Campaign extends OriginalCampaign {
  recoveryReady(id){return !gear.repairPlan(this,id).missing.length;}
  payRecovery(id,request){gear.payRepair(this,id,request);}
  capture(action){const before=this._beforeAction;super.capture(action);if(before)gear.recordLoss(this,before);}
+ serviceAllowed(w,side){return true;}
  vehicleCount(side,type,turn=this.state.turn){return this.econ.ux.vehicles[side].filter(v=>v.type===type&&v.availableTurn<=turn).reduce((n,v)=>n+v.qty,0);}
  fair(side){const view=playerSnapshot(this.match,side),known={...this.econ.ux.known[side]};for(const h of view.hexes)if(h.control!==null&&h.control!==undefined)known[kh(h.coord)]=h.control;return {view,known};}
  transaction(req,delegated=false){
@@ -55,8 +56,8 @@ export class Campaign extends OriginalCampaign {
    log.factories.push({side,id:n.id,product:line.product,work,produced,remaining:line.progress[line.product]});
   }
   for(const side of sides){
-   const {view,known}=this.fair(side);this.econ.ux.known[side]=known;const net=routing(view,known,this.rules,config),ws=Object.values(this.econ.warehouses).filter(w=>w.owner===side&&(view.hexes.find(h=>kh(h.coord)===w.node)?.control??known[w.node])===side);
-   const sources=this.nodes.filter(n=>n.sourceQ&&(view.hexes.find(h=>kh(h.coord)===n.hex)?.control??known[n.hex])===side),stock=Object.fromEntries(sources.map(s=>[s.id,s.sourceQ]));
+   const {view,known}=this.fair(side);this.econ.ux.known[side]=known;const net=routing(view,known,this.rules,config),ws=Object.values(this.econ.warehouses).filter(w=>w.owner===side&&this.serviceAllowed(w,side)&&(view.hexes.find(h=>kh(h.coord)===w.node)?.control??known[w.node])===side);
+   const sources=this.nodes.filter(n=>n.sourceQ&&this.serviceAllowed({node:n.hex},side)&&(view.hexes.find(h=>kh(h.coord)===n.hex)?.control??known[n.hex])===side),stock=Object.fromEntries(sources.map(s=>[s.id,s.sourceQ]));
    const cap=createCapacity(config,this.vehicleCount(side,'TRAIN',epoch),this.vehicleCount(side,'TRUCK',epoch)),b=cap.b;
    const armies=this.econ.ux.armies[side],armyOf=u=>this.placements.find(p=>p.id===u.id)?.army,priority=u=>armies.find(a=>a.id===armyOf(u))?.priority??3;
    const units=view.units.filter(u=>u.side===side&&u.friendly?.alive).sort((a,b)=>priority(a)-priority(b)||a.id.localeCompare(b.id));
@@ -80,9 +81,9 @@ export class Campaign extends OriginalCampaign {
    for(const u of units.filter(u=>this.state.units[u.id].alive)){const s=this.econ.supply[u.id],got=deliver(u,old.supply.maxStockQ-s.stock,'RESERVE');s.stock+=got;const line=log.supply.find(x=>x.id===u.id);line.refill=got;line.after=copy(s);}
    log.transport.push({side,...b,sourceRemaining:stock,edgeCapacity:config.railEdgeQ,demand,metrics:net.metrics()});
   }
-  for(const w of Object.values(this.econ.warehouses)){const P=w.lots.filter(l=>l.type==='P').reduce((n,l)=>n+l.qty,0);if(!P)continue;const a=this.econ.accounts[w.owner],cost=Math.ceil(P/4)*old.economy.careIperFourPperEpoch;
+  for(const w of Object.values(this.econ.warehouses)){const P=w.lots.filter(l=>l.type==='P'&&l.availableTurn<Number.MAX_SAFE_INTEGER).reduce((n,l)=>n+l.qty,0);if(!P)continue;const a=this.econ.accounts[w.owner],cost=Math.ceil(P/4)*old.economy.careIperFourPperEpoch;
    if(a.I>=cost){a.I-=cost;a.spentI+=cost;log.care.push({warehouse:w.id,P,I:cost,status:'PAID'});}else{for(const l of w.lots)if(l.type==='P')l.availableTurn=Number.MAX_SAFE_INTEGER;log.care.push({warehouse:w.id,P,I:0,status:'QUARANTINED_NO_AUTO_REVIVAL'});}}
-  for(const [id,g] of Object.entries(this.econ.gear.units)){const P=g.staged.filter(l=>l.type==='P').reduce((n,l)=>n+l.qty,0);if(!P)continue;const side=this.state.units[id].side,a=this.econ.accounts[side],cost=Math.ceil(P/4)*old.economy.careIperFourPperEpoch;
+  for(const [id,g] of Object.entries(this.econ.gear.units)){const P=g.staged.filter(l=>l.type==='P'&&l.availableTurn<Number.MAX_SAFE_INTEGER).reduce((n,l)=>n+l.qty,0);if(!P)continue;const side=this.state.units[id].side,a=this.econ.accounts[side],cost=Math.ceil(P/4)*old.economy.careIperFourPperEpoch;
    const paid=a.I>=cost;if(paid){a.I-=cost;a.spentI+=cost;}else for(const l of g.staged)if(l.type==='P')l.availableTurn=Number.MAX_SAFE_INTEGER;
    log.care.push({unit:id,side,P,I:paid?cost:0,status:g.staged.some(l=>l.type==='P'&&l.availableTurn===Number.MAX_SAFE_INTEGER)?'QUARANTINED':'PAID'});
   }

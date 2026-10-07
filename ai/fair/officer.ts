@@ -22,7 +22,7 @@ export function pendingUnits(input:DeepReadonly<FairInput>):readonly string[]{
  const p=input.view.pendingDecision;if(!p)return[];
  return 'unitIds'in p?p.unitIds:'eligibleUnitIds'in p?p.eligibleUnitIds:[];
 }
-export function officerDecision(original:DeepReadonly<FairInput>,members:readonly string[],order:Order,profile:number,services?:{warehouses:{hex:string;P:number;E2:number;controlled:boolean}[]}){
+export function officerDecision(original:DeepReadonly<FairInput>,members:readonly string[],order:Order,profile:number,services?:{typedRecoveryReady?:string[];warehouses:{hex:string;P:number;E2:number;controlled:boolean}[]}){
  const stop=(reason:string)=>({intent:null as FairIntent|null,reason,metrics:{expanded:0,searches:0,exhausted:false}});
  const own=original.view.units.filter(u=>'friendly'in u&&u.friendly.controllerId===original.scope.controllerId);
  const ids=new Set(members.filter(id=>own.some(u=>u.id===id))),p=profiles[profile];
@@ -50,8 +50,8 @@ export function officerDecision(original:DeepReadonly<FairInput>,members:readonl
  const refused=new Set(input.history.filter(h=>h.outcome==='REJECTED').map(h=>JSON.stringify(h.intent)));
  if(input.history.filter(h=>h.observationKey===input.observationKey&&h.outcome==='REJECTED').length>=3)return stop('拒绝上限：请玩家检查');
  if(/_(RECOVERY|ENTRENCHMENT)$/.test(input.view.phase)){
-  const opts=refitOptions(input).filter(x=>!refused.has(JSON.stringify(x.intent))).filter(x=>{if(!services||x.intent.type!=='REPAIR_UNIT')return true;const a=x.intent,u=input.view.units.find(u=>u.id===a.unitId);return !!u&&services.warehouses.some(w=>w.controlled&&w.hex===hexKey(u.hex)&&w.P>=1&&w.E2>=2);});
-  const a=opts[0];return a?{intent:a.intent,reason:a.intent.type==='REPAIR_UNIT'?services?'恢复所属受损部队；同格已可用1P＋2E2，使用全军本回合剩余恢复次数':'恢复未动未攻的受损部队；按损伤、RP费用排序，使用本阶段实际剩余额度':'所属部队未移动且未筑垒，提交原筑垒动作',metrics:{expanded:0,searches:0,exhausted:false}}:stop('无可提出的恢复/筑垒；后勤需求请玩家确认');
+  const opts=refitOptions(input).filter(x=>!refused.has(JSON.stringify(x.intent))).filter(x=>{if(!services||x.intent.type!=='REPAIR_UNIT')return true;const a=x.intent;if(services.typedRecoveryReady)return services.typedRecoveryReady.includes(a.unitId);const u=input.view.units.find(u=>u.id===a.unitId);return !!u&&services.warehouses.some(w=>w.controlled&&w.hex===hexKey(u.hex)&&w.P>=1&&w.E2>=2);});
+  const a=opts[0];return a?{intent:a.intent,reason:a.intent.type==='REPAIR_UNIT'?services?.typedRecoveryReady?'恢复所属受损部队；已配送本兵种装备和人员，共用原恢复次数':services?'恢复所属受损部队；同格已可用1P＋2E2，使用全军本回合剩余恢复次数':'恢复未动未攻的受损部队；按损伤、RP费用排序，使用本阶段实际剩余额度':'所属部队未移动且未筑垒，提交原筑垒动作',metrics:{expanded:0,searches:0,exhausted:false}}:stop('无可提出的恢复/筑垒；后勤需求请玩家确认');
  }
  let goals=order.target?[order.target]:[];
  if(order.kind==='ATTACK'&&order.target&&[...enemies,...input.view.contacts].some(e=>hexKey(e.hex)===hexKey(order.target!))){goals=input.view.hexes.filter(h=>hexDistance(h.coord,order.target!)===1).map(h=>h.coord);}

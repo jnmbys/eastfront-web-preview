@@ -1,0 +1,32 @@
+{
+  "label": "Synthetic communication failures around real HTTP build transaction",
+  "businessPosts": 1,
+  "version": 1,
+  "account": {
+    "initialI": 12,
+    "incomeI": 0,
+    "spentI": 6,
+    "I": 6,
+    "reserve": 48,
+    "personnelCommitted": 0
+  },
+  "facilities": 6,
+  "idempotency": {
+    "first": {
+      "ok": true,
+      "version": 2,
+      "facility": "FACTORY:CITY-WEST-WORKS:D2:2"
+    },
+    "repeat": {
+      "ok": true,
+      "version": 2,
+      "facility": "FACTORY:CITY-WEST-WORKS:D2:2"
+    },
+    "conflict": {
+      "error": "ID_REUSE_CONFLICT"
+    },
+    "stale": {
+      "error": "STALE_VERSION"
+    }
+  }
+}

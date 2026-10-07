@@ -5,7 +5,7 @@ export const products={
  AT:{label:'反坦克炮',icon:'equipment',work:4,output:1,load:3,use:'反坦克部队攻击、防御'},
  TANK:{label:'中型装甲',icon:'equipment',work:8,output:1,load:6,use:'装甲攻击、防御、机动'},
  HEAVY:{label:'重型装甲',icon:'equipment',work:12,output:1,load:8,use:'重装甲攻击、防御、机动'},
- KIT:{label:'工兵与通信器材',icon:'equipment',work:3,output:1,load:2,use:'工兵/总部攻击、防御、支援资格'},
+ KIT:{label:'工兵与通信器材',icon:'equipment',work:3,output:1,load:2,use:'工兵攻击/防御、总部防御'},
  SCOUT:{label:'侦察器材',icon:'equipment',work:4,output:1,load:2,use:'侦察攻击、防御、机动'},
  TRUCK:{label:'卡车',icon:'truck',work:4,output:1,load:4,use:'摩托化机动；或独占后勤车队'},
  TRAIN:{label:'火车',icon:'train',work:8,output:1,load:8,use:'后勤铁路工作量'}

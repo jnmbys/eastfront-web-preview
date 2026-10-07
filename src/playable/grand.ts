@@ -9,14 +9,27 @@ export class GrandPort implements WorkerPort {
  private async api(path:string,body:unknown={}){const r=await fetch('/grand/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Grand-Session':this.token},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error);return d;}
  private emit(message:any,takeover=false){if(!this.dead)this.onmessage?.({data:{epoch:this.epoch,message,meta:this.data.game.meta,takeover}} as MessageEvent<LocalReply>);}
  private read(d:any,takeover=false){if(this.data&&d.instanceId===this.data.instanceId&&d.version<this.data.version)throw Error('STALE_REPLY');if(this.data?.viewer===d.viewer&&d.officers?.revision<this.data.officers?.revision)return;if(this.data?.viewer!==d.viewer){this.selections={};this.officerTarget=null;this.officerGroup='0';this.officerUnit='';this.halted=true;}this.data=d;this.emit(d.game.message,takeover);this.update();this.schedule();}
- async operation(operation:any){if(this.locked)return;this.locked=true;this.update();try{this.read(await this.api('action',{id:crypto.randomUUID(),version:this.data.version,operation}));this.notice='已确认：库存、预算与地图为同一版本。';}catch(e){this.notice='未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();this.schedule();}}
+ private pendingKey(){return 'grand-pending:'+this.token;}
+ async reconcile(){const raw=sessionStorage.getItem(this.pendingKey());if(!raw)return;const pending=JSON.parse(raw);this.locked=true;this.update();
+  try{const r=await this.api('receipt',{id:pending.request.id});if(r.instanceId!==pending.instanceId)throw Error('INSTANCE_CHANGED');if(!r.receipt&&r.status!=='REJECTED')throw Error('RESULT_UNKNOWN');pending.rejected=r.status==='REJECTED';sessionStorage.setItem(this.pendingKey(),JSON.stringify(pending));if(r.receipt){pending.confirmedVersion=r.receipt.version;sessionStorage.setItem(this.pendingKey(),JSON.stringify(pending));}
+   this.notice=pending.confirmedVersion!==undefined?'已确认提交；正在读取账本。':'正在核对请求与账本。';const d=await this.api('state');if(d.instanceId!==pending.instanceId||d.version<(pending.confirmedVersion??pending.request.version))throw Error('STALE_LEDGER');this.read(d);sessionStorage.removeItem(this.pendingKey());this.notice=r.receipt?'已提交，账本已更新。':'服务端确认未提交，账本已更新。';this.locked=false;
+  }catch(e){this.notice=pending.confirmedVersion!==undefined?'已确认提交，账本尚未刷新；业务操作已锁定，请核对账本。':pending.rejected?'已确认未提交，账本尚未刷新；业务操作已锁定。':'结果待确认，业务操作已锁定；按原请求核对，不重新下单。';}
+  this.update();this.schedule();
+ }
+ async retryPending(){const raw=sessionStorage.getItem(this.pendingKey());if(!raw)return;const p=JSON.parse(raw);if(p.confirmedVersion!==undefined||p.rejected){await this.reconcile();return;}this.locked=false;await this.submitBound(p.request);}
+ private async submitBound(request:any){if(this.locked)return;this.locked=true;const pending={instanceId:this.data.instanceId,request} as any;sessionStorage.setItem(this.pendingKey(),JSON.stringify(pending));this.update();
+  try{const d=await this.api('action',request);pending.confirmedVersion=d.receipt.version;sessionStorage.setItem(this.pendingKey(),JSON.stringify(pending));if(d.instanceId!==pending.instanceId||d.version<pending.confirmedVersion)throw Error('STALE_LEDGER');this.read(d);sessionStorage.removeItem(this.pendingKey());this.notice='已提交，账本已更新。';this.locked=false;
+  }catch{await this.reconcile();}this.update();this.schedule();
+ }
+ async operation(operation:any){await this.submitBound({id:crypto.randomUUID(),version:this.data.version,operation});}
+
  postMessage(m:LocalRequest){this.tail=this.tail.then(()=>this.handle(m)).catch(e=>{this.notice=String(e);this.onerror?.(new Event('error'));});}
- private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){this.token=sessionStorage.getItem('grand-officer-session')??'';const d=await this.api('create',{side:m.options.humanSide,resume:!!this.token});this.token=d.token;sessionStorage.setItem('grand-officer-session',this.token);this.read(d);return;}
+ private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){this.token=sessionStorage.getItem('grand-officer-session')??'';const d=await this.api('create',{side:m.options.humanSide,resume:!!this.token});this.token=d.token;sessionStorage.setItem('grand-officer-session',this.token);this.read(d);if(sessionStorage.getItem(this.pendingKey()))await this.reconcile();return;}
   if(m.kind==='TAKEOVER'){this.stopDispatch();await this.api('takeover');if(this.busy)await this.busy;this.read(await this.api('state'),true);return;}
   const p=m.payload as any;
   if(m.type==='QUERY_MATCH'){try{this.emit(await this.api('query',{id:m.requestId,version:p.expectedRevision,draft:p.draft}));}catch{this.read(await this.api('state'));}return;}
   if(m.type==='RESYNC_MATCH'){this.read(await this.api('state'));return;}
-  if(m.type==='SUBMIT_ACTION'){this.locked=true;try{this.read(await this.api('action',{id:m.requestId,version:p.expectedRevision,action:p.action}));this.notice='行动已由权威规则结算。';}catch(e){this.notice='行动未提交：'+String(e);this.read(await this.api('state'));}finally{this.locked=false;this.update();this.schedule();}}
+  if(m.type==='SUBMIT_ACTION')await this.submitBound({id:m.requestId,version:p.expectedRevision,action:p.action});
  }
  private stopDispatch(){this.generation++;this.halted=true;if(this.timer)clearTimeout(this.timer);this.timer=null;}
  async officerBeginTarget(){this.stopDispatch();if(this.busy)await this.busy;}
