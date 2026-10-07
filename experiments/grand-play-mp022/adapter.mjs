@@ -8,8 +8,8 @@ import {encodeView} from './view.mjs';
 export const BASELINE='0a7e670e911ffd08cc99419aa5159d422d9189a7';
 const copy=structuredClone,fail=s=>{throw Error(s);},hash=v=>createHash('sha256').update(canonical(v)).digest('hex');
 export class CampaignAdapter {
- constructor({saveFile=null,restore=true}={}) {
-  this.c=new Campaign();this.c.transport={next:{a:1,b:1},economyGeneration:0,worldGeneration:0};this.era=randomUUID();this.saveFile=saveFile;
+ constructor({saveFile=null,restore=true,CampaignClass=Campaign}={}) {
+  this.c=new CampaignClass();this.c.transport={next:{a:1,b:1},economyGeneration:0,worldGeneration:0};this.era=randomUUID();this.saveFile=saveFile;
   this.tail=Promise.resolve();this.depth=0;this.peakDepth=0;this.trace=[];this.operation=0;this.accumulated=0;
   for(const g of this.c.clock.corps){g.permanentId=`${this.c.id}:${g.id}`;g.commandGeneration=0;}
   for(const u of Object.values(this.c.clock.units))u.commandGeneration=0;

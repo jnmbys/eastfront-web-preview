@@ -115,3 +115,8 @@ body:has(.campaign-clock) .campaign-turn{font-size:13px;max-width:160px}
 
 body:has(.campaign-clock) .turn-strip,body:has(.campaign-clock) #grand-objectives,body:has(.campaign-clock) .map-toolbar>div:first-child>span{display:none}
 #campaign-hud{font-size:15px;color:#efdfb2;padding:10px;flex:1;text-align:center}
+
+/* GRAND-MAP: controls share the existing operation panel. */
+.battle-list{display:flex;flex-wrap:wrap;gap:4px}.battle-list button{font-size:12px}.battle-map-panel details{margin:8px 0}.map-legend{border-left:3px solid #d6b66b;padding-left:8px}.battle-bubble{cursor:pointer}.battle-bubble:focus rect{stroke:#fff;stroke-width:4}#battle-detail{border:1px solid #997c4a;padding:10px;background:#f0e7cc}#battle-detail p{line-height:1.45}#control-boundaries,#corps-fronts{pointer-events:none}
+
+#eastfront-map[data-map-strategy="yes"] .counter-stats,#eastfront-map[data-map-strategy="yes"] .compact-stats{opacity:0}#eastfront-map[data-map-planning="no"] .production-grid{opacity:.20}

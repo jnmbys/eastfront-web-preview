@@ -9,12 +9,12 @@ import path from 'node:path';
 import {OrderedLink,diff} from './sync.mjs';
 export const profiles={clean:{rtt:0},rtt100:{rtt:100},rtt300:{rtt:300},rtt1000:{rtt:1000},constrained:{rtt:300,jitter:90,bytesPerSecond:256*1024}};
 export const STATE_WINDOW=8;
-export async function start({port=4220,autoTick=true,saveFile=path.join(process.env.LOCALAPPDATA??process.cwd(),'EastfrontSaves/grand-play-mp022/campaign.json'),evidenceFile=null}={}){
- const adapter=new CampaignAdapter({saveFile}),sessions=new Map(),seats=new Map(),root=resolve(fileURLToPath(new URL('../../.ai003-preview/',import.meta.url)));let closing=false,ticking=false;
+export async function start({port=4220,autoTick=true,saveFile=path.join(process.env.LOCALAPPDATA??process.cwd(),'EastfrontSaves/grand-play-mp022/campaign.json'),evidenceFile=null,CampaignClass,cookiePrefix="grandplaymp_"}={}){
+ const adapter=new CampaignAdapter({saveFile,CampaignClass}),sessions=new Map(),seats=new Map(),root=resolve(fileURLToPath(new URL('../../.ai003-preview/',import.meta.url)));let closing=false,ticking=false;
  if(evidenceFile){mkdirSync(path.dirname(evidenceFile),{recursive:true});adapter.evidenceFile=evidenceFile;}
  const metrics={received:0,sent:0,receivedBytes:0,sentBytes:0,resyncs:0,coalesced:0,connections:0,errors:0,peakUpMessages:0,peakUpBytes:0,peakDownMessages:0,peakDownBytes:0};
  const origin=()=>`http://127.0.0.1:${server.address().port}`;
- function auth(req,seat){const cookie=req.headers.cookie?.split(';').map(s=>s.trim()).find(s=>s.startsWith(`grandplaymp_${seat}=`))?.split('=')[1];return sessions.get(cookie)?.seat===seat?sessions.get(cookie):null;}
+ function auth(req,seat){const cookie=req.headers.cookie?.split(';').map(s=>s.trim()).find(s=>s.startsWith(`${cookiePrefix}${seat}=`))?.split('=')[1];return sessions.get(cookie)?.seat===seat?sessions.get(cookie):null;}
  const server=http.createServer(async(req,res)=>{
   const reply=(code,x,headers={})=>{res.writeHead(code,{'Content-Type':'application/json','Cache-Control':'no-store',...headers});res.end(JSON.stringify(x));};
   if(req.headers.host!==origin().slice(7)){reply(403,{error:'HOST_DENIED'});return;}
@@ -23,7 +23,7 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
    if(req.headers.origin!==origin())return reply(403,{error:'ORIGIN_DENIED'});
    if(match?.[2]!=='session')return reply(404,{error:'NOT_FOUND'});
    let s=auth(req,seat);if(!s){if(seats.has(seat))return reply(409,{error:'SEAT_ALREADY_CLAIMED'});const token=randomBytes(32).toString('hex');s={seat,side:seat,token,epoch:0,connection:null};sessions.set(token,s);seats.set(seat,s);}
-   return reply(200,{instanceId:adapter.id,side:'GERMAN',seat:s.side,era:adapter.era,baseline:BASELINE,mode:'GRAND_PLAY_SHARED_CLOCK'}, {'Set-Cookie':`grandplaymp_${seat}=${s.token}; HttpOnly; SameSite=Strict; Path=/${seat}`});
+   return reply(200,{instanceId:adapter.id,side:'GERMAN',seat:s.side,era:adapter.era,baseline:BASELINE,mode:'GRAND_PLAY_SHARED_CLOCK'}, {'Set-Cookie':`${cookiePrefix}${seat}=${s.token}; HttpOnly; SameSite=Strict; Path=/${seat}`});
   }
   if(url.pathname==='/sync.mjs'||url.pathname==='/transport/view.mjs'||url.pathname==='/transport/client.mjs'){
    const file=url.pathname==='/sync.mjs'?'sync.mjs':url.pathname.endsWith('view.mjs')?'view.mjs':'web/client.mjs';res.writeHead(200,{'Content-Type':'text/javascript','Cache-Control':'no-store'});res.end(readFileSync(new URL(file,import.meta.url)));return;
