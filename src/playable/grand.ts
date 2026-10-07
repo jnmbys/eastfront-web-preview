@@ -7,8 +7,25 @@ export class GrandPort implements WorkerPort {
  private timer:ReturnType<typeof setTimeout>|null=null;private busy:Promise<void>|null=null;private configTail=Promise.resolve();private configs=0;private halted=false;private idle='';private generation=0;private preserve=false;
  private token='';private epoch=1;private dead=false;private tail=Promise.resolve();
  private poll:ReturnType<typeof setTimeout>|null=null;
+ private presentationSequence=0;private presentationOffset=0;private restoredView=false;wire:any=null;wireStatus='尚未连接';
+ private async startWire(){const source='/transport/client.mjs';const {Client}=await import(source);const seat=new URLSearchParams(location.search).get('client')==='b'?'b':'a';this.wire=new Client(seat);
+  this.wire.addEventListener('view',()=>{if(!this.dead){this.locked=false;const d=this.wire.document();if(this.restoredView){this.presentationOffset=Math.max(this.presentationOffset,(this.data?.game.message.payload.matchRevision??0)+1-d.version);this.data=null;this.restoredView=false;}d.game.message.payload.matchRevision=d.version+this.presentationOffset;d.game.message.payload.serverSequence=++this.presentationSequence;d.game.message.payload.resync=true;this.read(d);}});
+  this.wire.addEventListener('query',(e:any)=>{if(this.dead)return;this.emit({messageType:'MATCH_QUERY',requestId:e.detail.id,payload:{matchId:this.data.instanceId,matchRevision:e.detail.revision+this.presentationOffset,...e.detail.payload,serverSequence:++this.presentationSequence}});});
+  this.wire.addEventListener('completed',(e:any)=>{const row=this.wire.history.find((r:any)=>r.command.requestId===e.detail.requestId);this.notice=e.detail.status==='applied'?(row?.command.kind==='SAVE'?'已保存到本机磁盘，关闭服务后仍可加载。':'命令已确认，授权状态已更新。'):'命令未执行：'+(row?.result?.reason??'UNKNOWN');this.update();});
+  this.wire.addEventListener('error',(e:any)=>{this.notice='通信待核对：'+e.detail.reason;this.update();});
+  this.wire.addEventListener('instance-reset',()=>{this.restoredView=true;this.locked=true;this.notice='已恢复存档，世界暂停；旧会话意图已撤销，请重新规划。';});
+  this.wire.addEventListener('connected',()=>{this.wireStatus='已连接 · 德军协同端 '+seat.toUpperCase();this.update();});
+  this.wire.addEventListener('disconnected',()=>{if(this.dead)return;this.locked=true;this.wireStatus=this.wire.disposed?'本操作端已在另一页面连接；本页停止提交，请关闭本页或明确刷新接管。':'连接中断，正在恢复；已接受军令继续，未确认命令保留原ID';this.update();});
+  await this.wire.start();
+ }
+ private wireSubmit(kind:string,payload:any,keys:string[],dependencies:any={}){try{this.wire.submit(kind,payload,keys,dependencies);this.notice='命令待确认；可继续选择其他部队。';}catch(e){this.notice='未提交：'+e;}this.update();}
+ private wireOperation(operation:any){const op={...operation},g=this.data.continuous.corps.find((g:any)=>g.id===op.group),u=this.data.continuous.units[op.unit],t=this.data.transport;
+  if(g)op.groupId=g.permanentId;if(op.type==='ORDER'&&op.order.paused)op.type='PAUSE_GROUP';
+  const keys=op.unit?['unit:'+op.unit,...(g?['group:'+g.permanentId]:[])]:g?['group:'+g.permanentId]:['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY'].includes(op.type)?['economy']:['world'];
+  this.wireSubmit('OPERATION',op,keys,{commandGeneration:g?.commandGeneration,unitGeneration:u?.commandGeneration,economyGeneration:t.economyGeneration,worldGeneration:t.worldGeneration,account:t.accountStamp});
+ }
  constructor(private update:()=>void, public continuous=false){}
- async campaignFile(kind:'save'|'load'){if(this.locked)return;this.locked=true;this.update();try{const d=await this.api(kind);if(kind==='load'){this.data=null;this.read(d);}this.notice=kind==='save'?'已保存到本机磁盘，关闭服务后仍可加载。':'已加载，时间暂停。';}catch(e){this.notice='存档操作失败：'+e;}finally{this.locked=false;}this.update();}
+ async campaignFile(kind:'save'|'load'){if(this.continuous){this.wireSubmit(kind==='save'?'SAVE':'LOAD',{},['all']);return;}if(this.locked)return;this.locked=true;this.update();try{const d=await this.api(kind);if(kind==='load'){this.data=null;this.read(d);}this.notice=kind==='save'?'已保存到本机磁盘，关闭服务后仍可加载。':'已加载，时间暂停。';}catch(e){this.notice='存档操作失败：'+e;}finally{this.locked=false;}this.update();}
  private startPoll(){if(!this.continuous||this.dead)return;this.poll=setTimeout(async()=>{try{if(!this.locked){const d=await this.api('state');if(!this.data||d.version!==this.data.version)this.read(d);}}catch{this.notice='本机服务断开；已保存的战役可在重启后加载。';this.update();}this.startPoll();},1000);}
  private async api(path:string,body:unknown={}){const r=await fetch('/grand/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Grand-Session':this.token},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error);return d;}
  private emit(message:any,takeover=false){if(!this.dead)this.onmessage?.({data:{epoch:this.epoch,message,meta:this.data.game.meta,takeover}} as MessageEvent<LocalReply>);}
@@ -25,13 +42,15 @@ export class GrandPort implements WorkerPort {
   try{const d=await this.api('action',request);pending.confirmedVersion=d.receipt.version;sessionStorage.setItem(this.pendingKey(),JSON.stringify(pending));if(d.instanceId!==pending.instanceId||d.version<pending.confirmedVersion)throw Error('STALE_LEDGER');this.read(d);sessionStorage.removeItem(this.pendingKey());this.notice='已提交，账本已更新。';this.locked=false;
   }catch{await this.reconcile();}this.update();this.schedule();
  }
- async operation(operation:any){await this.submitBound({id:crypto.randomUUID(),version:this.data.version,operation});}
+ async operation(operation:any){if(this.continuous){this.wireOperation(operation);return;}await this.submitBound({id:crypto.randomUUID(),version:this.data.version,operation});}
 
  postMessage(m:LocalRequest){this.tail=this.tail.then(()=>this.handle(m)).catch(e=>{this.notice=String(e);this.onerror?.(new Event('error'));});}
- private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){this.token=sessionStorage.getItem((this.continuous?'grand-play-session':'grand-officer-session'))??'';const d=await this.api('create',{side:m.options.humanSide,resume:!!this.token,mode:this.continuous?'continuous':'legacy'});this.token=d.token;sessionStorage.setItem((this.continuous?'grand-play-session':'grand-officer-session'),this.token);this.read(d);this.startPoll();if(sessionStorage.getItem(this.pendingKey()))await this.reconcile();return;}
+ private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){if(this.continuous){await this.startWire();return;}this.token=sessionStorage.getItem((this.continuous?'grand-play-session':'grand-officer-session'))??'';const d=await this.api('create',{side:m.options.humanSide,resume:!!this.token,mode:this.continuous?'continuous':'legacy'});this.token=d.token;sessionStorage.setItem((this.continuous?'grand-play-session':'grand-officer-session'),this.token);this.read(d);this.startPoll();if(sessionStorage.getItem(this.pendingKey()))await this.reconcile();return;}
   if(m.kind==='TAKEOVER'){this.stopDispatch();await this.api('takeover');if(this.busy)await this.busy;this.read(await this.api('state'),true);return;}
   const p=m.payload as any;
+  if(m.type==='QUERY_MATCH'&&this.continuous){this.wire.send({type:'QUERY',id:m.requestId,draft:p.draft});return;}
   if(m.type==='QUERY_MATCH'){try{this.emit(await this.api('query',{id:m.requestId,version:p.expectedRevision,draft:p.draft}));}catch{this.read(await this.api('state'));}return;}
+  if(m.type==='RESYNC_MATCH'&&this.continuous){this.wire.resync();return;}
   if(m.type==='RESYNC_MATCH'){this.read(await this.api('state'));return;}
   if(m.type==='SUBMIT_ACTION')await this.submitBound({id:m.requestId,version:p.expectedRevision,action:p.action});
  }
@@ -43,7 +62,7 @@ export class GrandPort implements WorkerPort {
  officerConfig(command:any){this.stopDispatch();this.configs++;const work=this.configTail.then(async()=>{try{this.read(await this.api('officer-config',{revision:this.data.officers.revision,command}));if(this.busy)await this.busy;this.read(await this.api('state'));this.halted=false;this.idle='';this.officerNotice='授权已更新，已支付资源和待决完整保留。';}catch(e){this.officerNotice='授权未确认，已停止：'+e;}});this.configTail=work.catch(()=>{});return work.finally(()=>{this.configs--;this.update();this.schedule();});}
  private schedule(){if(this.continuous)return;const d=this.data,o=d?.officers,key=`${d?.viewer}:${d?.version}:${o?.revision}`;if(this.dead||this.locked||this.halted||this.configs||this.timer||this.busy||key===this.idle||d?.owner!==d?.viewer||!o?.enabled||!o.groups.some((g:any)=>g.order&&!g.paused&&g.members.length))return;const generation=this.generation;this.timer=setTimeout(()=>{this.timer=null;if(generation!==this.generation||this.dead||this.locked)return;this.busy=this.tickOfficer().finally(()=>{this.busy=null;this.schedule();});},350);}
  private async tickOfficer(){this.locked=true;this.officerNotice='军官处理中；可暂停，已提交动作等待结果。';this.update();try{const d=await this.api('officer-tick',{id:crypto.randomUUID(),version:this.data.version,revision:this.data.officers.revision});this.read(d);this.officerNotice=d.officerResult.ok?'军官行动已确认。':d.officerResult.reason;if(!d.officerResult.ok&&!d.officerResult.retryOthers)this.idle=`${d.viewer}:${d.version}:${d.officers.revision}`;this.locked=false;}catch(e){this.halted=true;this.officerNotice='结果待确认；自动提交停止：'+e;try{this.read(await this.api('state'));this.locked=false;}catch{this.locked=true;}}this.update();}
- terminate(){if(this.poll)clearTimeout(this.poll);if(!this.dead){this.stopDispatch();if(!this.preserve){void this.api('close').catch(()=>{});sessionStorage.removeItem((this.continuous?'grand-play-session':'grand-officer-session'));}this.dead=true;}}
+ terminate(){if(this.continuous){this.dead=true;this.wire?.dispose();return;}if(this.poll)clearTimeout(this.poll);if(!this.dead){this.stopDispatch();if(!this.preserve){void this.api('close').catch(()=>{});sessionStorage.removeItem((this.continuous?'grand-play-session':'grand-officer-session'));}this.dead=true;}}
 }
 const esc=(x:any)=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export function grandMarkup(p:GrandPort,selected:string|null):string{

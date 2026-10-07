@@ -281,7 +281,8 @@ function refreshDynamicViewNow():void{
   if(!svg||!dynamic||!panel){render();return;}
   const lod=(svg.dataset.lod as TerrainLod|undefined)??mapRenderOptions(model).lod;
   dynamicMap.update(dynamic,model,mapRenderOptions(model,lod));
-  const openDetails=Array.from(panel.querySelectorAll('details')).map(el=>el.open);
+  const detailKey=(el:HTMLDetailsElement)=>el.id||el.querySelector(':scope > summary')?.textContent||'';
+  const openDetails=new Map(Array.from(panel.querySelectorAll('details')).map(el=>[detailKey(el),el.open]));
   let panelScroll=0,rosterScroll=0,locationScroll=0;
   const retainedPanel=deploymentPanelRenderer.update(panel,session,model,presentation.selectedDeploymentUnitId,deploymentTouch,locations=>sidePanelMarkup(model,locations),()=>{
     // Retained scrollers keep their own offsets. Only a real replacement needs
@@ -290,7 +291,7 @@ function refreshDynamicViewNow():void{
     rosterScroll=panel.querySelector('.roster-list')?.scrollTop??0;
     locationScroll=panel.querySelector('.location-grid')?.scrollTop??0;
   });
-  panel.querySelectorAll('details').forEach((el,i)=>{el.open=openDetails[i]??false;});
+  panel.querySelectorAll('details').forEach(el=>{el.open=openDetails.get(detailKey(el))??el.open;});
   if(!retainedPanel){
     const scroll=panel.querySelector('.command-panel-scroll');if(scroll)scroll.scrollTop=panelScroll;
     const roster=panel.querySelector('.roster-list'),locations=panel.querySelector('.location-grid');
@@ -504,6 +505,7 @@ function updateNetworkStatus():void {
   const selectionControls='[data-deploy-unit-id],[data-deploy-destination],[data-remove-attacker],[data-attack-unit],#rail-mode,#rail-edge-add,#rail-clear,#rail-no-engineer,[data-rail-engineer],#move-undo,#move-cancel,[data-reinforcement-id],#attack-toggle-selected,#attack-clear,#attack-art-none,[data-attack-artillery],#loss-clear,[data-retreater],#retreat-undo,[data-breakthrough-unit],#breakthrough-undo';
   const network=session;
   document.querySelectorAll<HTMLButtonElement>('#side-panel button').forEach(button=>{
+    if(grandPort?.continuous)return;
     if(button.matches('#result-close, [data-result-history]'))return;
     if(button.closest('.logistics-panel'))return;
     const blocked=!!logisticsPort?.locked||!network.canSelect||(!network.interactive&&!button.matches(selectionControls));
@@ -532,7 +534,7 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
 }
 
 function localAiHome():string {
- return `<main class="home-screen"><h1>EASTFRONT · 单人战役</h1><p>GRAND-PLAY-001 · 第聂伯中央战线 · 1280格 / 36支战役部队</p><p>连续战役：你指挥德军三个军团，苏军由AI指挥。暂停下令、推进时间，争夺中央枢纽。使用真实地图与工业运输，参数为实验值，尚未真人趣味性验收。</p><p>本机试玩。连续战役支持磁盘保存、服务重启后加载；加载默认暂停。先开始战役，再点加载存档。旧兵棋规则与其原有存档限制保持不变。</p><label>对局规则 <select id="play-mode"><option value="continuous">连续战役 · 暂停时间 / 军团指挥 / 敌方AI / 磁盘存档</option><option value="grand-art">大战略 · 003-R1美术 / 城区与工厂</option><option value="grand">大战略 · 003原显示回退 / 同一规则</option><option value="legacy">原规则 · T1完整战役 / AI</option><option value="industry018">新补给＋工业018 · 德军T5连续战役</option></select></label><p>旧工业018选项复用018真实订单与运输。E8可按当前状态预览运力与维护代价，明确确认后前送；默认不削减维护。同一T5起点自由作战，持续至原规则终局；苏军AI单步作战，双方后勤由人类接管。工业服务仍限定原T5–T9窗口，错过不阻断战役。不是任意T1工业战役。</p><label>玩家阵营 <select id="ai-side"><option value="GERMAN">德军</option><option value="SOVIET">苏军</option></select></label><details class="playable-test-scenes"><summary>定向流程检查（可选）</summary><label>场景 <select id="ai-scenario"><option value="campaign">完整战役（从部署开始）</option><option value="human-attack">人类进攻 → AI 反应 / 撤退</option><option value="ai-attack">脚本 AI 进攻 → 人类反应</option><option value="reinforcement">第4回合增援</option><option value="breakthrough">实际战斗后的推进 / 突破</option><option value="terminal">现行终局检查前</option><option value="stop">停止与人工接管</option></select></label></details><p>完整战役使用自主 AI；其余场景用于流程检查。AI 已会按资格和RP主动恢复、为未移动的合格单位筑垒；仍不会主动修铁路或使用 HQ／炮兵支援，突破通常放弃。原规则模式不使用新补给与工业；工业018选项提供018受支持的限定工业服务和连续战役。</p><button id="ai-start" class="primary-action">开始战役</button>${perf006.enabled?'<button id="ai-perf-report">导出上局性能诊断</button><textarea id="ai-perf-output" aria-label="上局性能诊断" readonly hidden></textarea>':''}</main>`;
+ return `<main class="home-screen"><h1>EASTFRONT · 共同时间战役</h1><p>GRAND-PLAY / MP-022-R1 · 同一1280格地图、战役状态与工业账本</p><p>两个本机操作端共同指挥德军三个军团；苏军由AI控制。暂停下令、持续交战、生产配送和磁盘存档均由同一权威服务执行。</p><p><a href="/?client=a">指挥端 A</a> · <a href="/?client=b" target="_blank">打开协同端 B</a>。同一端只保留一个有效连接；另一端不受它的延迟影响。当前为 ${new URLSearchParams(location.search).get('client')==='b'?'B':'A'} 端。</p><label>对局规则<select id="play-mode"><option value="continuous">连续战役 · 共享时间与授权通信</option></select></label><label>玩家阵营<select id="ai-side"><option value="GERMAN">德军</option></select></label><p>首次进入暂停；已有实例继续保留进度。加载磁盘存档默认暂停，两端旧意图作废；保存只覆盖本候选存档槽。退出页面不会结束共同战役，离开前请暂停并保存。</p><button id="ai-start" class="primary-action">进入共同战役</button><p><a href="http://127.0.0.1:4200/">回到原4200候选</a>（其服务与进度保持原样）</p></main>`;
 }
 function bindLocalAiHome():void {
  const modeEl=document.querySelector<HTMLSelectElement>('#play-mode'),sideEl=document.querySelector<HTMLSelectElement>('#ai-side');const fixedSide=()=>{if(sideEl){sideEl.disabled=modeEl?.value==='continuous';if(sideEl.disabled)sideEl.value='GERMAN';}};modeEl?.addEventListener('change',fixedSide);fixedSide();
@@ -573,12 +575,13 @@ function updateLocalAiStatus():void {
  const status=appStatus==='LOADING'?'正在准备本地对局 / 切换授权视角':localStatus(m,client.state.snapshot?.status==='FINISHED');
  if(!bar.querySelector('#ai-exit')){
   bar.innerHTML='<strong>实验 AI：流程验证，策略尚弱</strong><span id="ai-status-text" role="status"></span><span id="ai-status-count"></span><button id="ai-takeover" class="mini-button" hidden></button><button id="ai-diagnostic" class="mini-button">复制诊断</button><button id="ai-exit" class="mini-button">退出 / 新局</button>';
+  if(grandPort?.continuous){bar.querySelector('#ai-exit')!.textContent='返回入口（保留进度）';bar.querySelector('#ai-diagnostic')!.textContent='查看诊断';}
   bar.querySelector('#ai-exit')!.addEventListener('click',leaveLocalAi);
   bar.querySelector('#ai-diagnostic')!.addEventListener('click',()=>{
    let field=bar!.querySelector<HTMLTextAreaElement>('#ai-diagnostic-text');
    if(!field){field=document.createElement('textarea');field.id='ai-diagnostic-text';field.readOnly=true;field.setAttribute('aria-label','安全 AI 诊断');bar!.append(field);}
-   field.value=JSON.stringify({version:'AI-PERF-006',...client.meta,revision:client.state.snapshot?.matchRevision,...(perf006.enabled?{performance:perf006.report()}: {})},null,2);
-   field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});
+   field.value=JSON.stringify({version:'AI-PERF-006',...client.meta,revision:client.state.snapshot?.matchRevision,...(grandPort?.continuous?{communication:grandPort.wire?.export()}:{}),...(perf006.enabled?{performance:perf006.report()}: {})},null,2);
+   field.select();if(!grandPort?.continuous)void navigator.clipboard?.writeText(field.value).catch(()=>{});
   });
   bar.querySelector('#ai-takeover')!.addEventListener('click',()=>{
    if(bar!.querySelector('#ai-takeover-confirm'))return;

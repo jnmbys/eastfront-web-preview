@@ -1,12 +1,12 @@
-# GRAND-PLAY-001 branch state
+# GRAND-PLAY communication integration branch state
 
-- Branch: `grand-play-001-paused-campaign`; this file's containing commit is the delivery identity.
-- Base: `e008340a69304529ebab2f336938dba993366f34`.
-- City presentation source: `003292992f24d4c82a8107ec3b6063b681d697dc`, selectively integrated; no wholesale main.ts replacement.
-- Candidate: common fixed-step continuous campaign, German player / Soviet AI, 3 corps per side, 36 active units on existing 1280-hex map. Existing economic settlement and city ownership retained, time-scaled once per 120 minutes.
-- Local service: `http://127.0.0.1:4200/`; start/stop in `experiments/grand-play-001/`. Keep running for user play. Protected 4197/4198 untouched.
-- Validation: build; 10 targeted simulation checks; 3 complete fixed-seed campaigns; equipment/personnel/budget conservation audit; takeover/assignment seams; actual browser orders, combat, withdrawal, production, save/restart/load/resume. Latest city integration checks complete authorized DTO, retained SVG, ground inspection, unit and command-target priority. No old recapture campaign rerun.
-- Results: both attack plans achieve German objective at tick150 with materially different losses; basic hold loses objective. Development examples, no balance or human enjoyment claim.
-- Limits: German player only, one local manual disk slot, heuristic AI, no active rail/bridge repair command in continuous UI. Old modes remain. No cloud saves, deployment, paid resources or production merge.
-- Evidence and operating guide: `evidence/grand-play-001/REPORT.md`, `experiments/grand-play-001/README.md`.
-- Follow-up: user play; no automatic new strategy variants or expansion. MP-022 owns network state/delta merge; this branch does not add a second network or city renderer.
+- Branch: `grand-play-001-mp022-integration`; containing commit identifies this delivery.
+- Gameplay base: `0a7e670e911ffd08cc99419aa5159d422d9189a7`.
+- Fixed communication: `e5863d48b37e5b0c62158c9d1229346b081900d8`.
+- Fixed city art: `003292992f24d4c82a8107ec3b6063b681d697dc` (already in base).
+- One shared Campaign authority, existing ledger and fixed-step simulation; no CITY phase driver, duplicate economy or renderer.
+- Two German co-command terminals, Soviet AI. Commands, pause, production and disk save use R1 WebSocket transport; full authorized view reconstructed before rendering.
+- Local entry: http://127.0.0.1:4220/?client=a . Keep running for user; original4197/4198/4200/4201/4210/4213 services untouched.
+- New targeted checks and real browser evidence: `evidence/grand-play-mp022/REPORT.md`.
+- Start/stop/scope: `experiments/grand-play-mp022/README.md`.
+- No gameplay retuning, deployment, merge, public exposure or paid resources. Existing simulation/CITY evidence reused.

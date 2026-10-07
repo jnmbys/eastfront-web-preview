@@ -1,0 +1,5 @@
+// Encode only already-authorized snapshots. Keying static/entity arrays avoids
+// resending the complete map when a unit or one control flag changes.
+const paths=[['units','id'],['warehouses','id'],['cities','items','id'],['game','message','payload','view','hexes','coord'],['game','message','payload','view','edges','key'],['game','message','payload','view','units','id'],['game','message','payload','model','hexes','coord'],['game','message','payload','model','edges','key'],['game','message','payload','model','units','id']];
+function convert(doc,encode){const d=structuredClone(doc);for(const spec of paths){const field=spec.at(-2),key=spec.at(-1);let p=d;for(const k of spec.slice(0,-2))p=p?.[k];if(!p||p[field]===undefined)continue;if(encode){if(!Array.isArray(p[field]))throw Error('EXPECTED_COMPLETE_AUTHORIZED_ARRAY');p[field]=Object.fromEntries(p[field].map(v=>[key==='coord'?`${v.coord.q},${v.coord.r}`:v[key],v]));}else p[field]=Object.values(p[field]);}return d;}
+export const encodeView=d=>convert(d,true),decodeView=d=>convert(d,false);

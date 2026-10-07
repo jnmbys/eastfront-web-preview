@@ -1,0 +1,32 @@
+{
+  "method": "Actual Codex in-app browser UI; no hidden state injected through browser",
+  "clients": [
+    "http://127.0.0.1:4220/?client=a",
+    "http://127.0.0.1:4220/?client=b"
+  ],
+  "steps": [
+    "Both clients entered same German command authority; Soviet AI retained.",
+    "A selected rtt1000, ordered first corps; B ordered second corps, selected speed4 and resumed.",
+    "First contact at00:35 auto-paused. A paused first corps; B selected G-029 and continued world.",
+    "A short disconnect/reconnect confirmed; B remained operational.",
+    "At04:15 world paused; J17 production changed GUN toTRUCK; confirmed actual receipt; saved.",
+    "Only4220 server stopped/restarted; both clients restored04:15 paused. Explicit UI load also tested.",
+    "Continued to06:10; third actual120min settlement: J17 completed1truck, K23 total3trucks; transport pool10; budget25I. Saved.",
+    "A requested full authorized resync. SVG and city static layer retained through updates.",
+    "Advanced to07:30 without saving; restarted only4220; both pages returned to saved06:10 paused; old intents discarded.",
+    "Actual map click atAB18 opened unconfirmed authorized industrial panel with unavailable construction; no hidden production shown.",
+    "Final fresh B page entered same06:10paused authority; diagnostic export1423characters after removing query DTOs from tracing."
+  ],
+  "domRetention": {
+    "svgBefore": 1654393,
+    "svgAfter": 1654393,
+    "cityStaticBefore": 1657816,
+    "cityStaticAfter": 1657816
+  },
+  "limitations": [
+    "Injected local RTT, no phone testing",
+    "No human enjoyment or multiplayer balance claim",
+    "Two co-command clients, not opposing human seats",
+    "Two initial diagnostic UI tabs became unresponsive during large export; bounded metadata-only trace fixed and fresh final page checked."
+  ]
+}
