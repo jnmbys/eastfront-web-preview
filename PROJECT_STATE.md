@@ -1,12 +1,10 @@
-# GRAND-MAP-001-R1 branch state
+# GRAND-MAP-001-R2 branch state
 
-- Branch: `grand-map-001-r1-action-arrows`; containing commit identifies delivery.
-- Base: `e1516641fd0f31610a47d43654085bc2518c74a1`.
-- Same authority, economy, fixed time, officers, MP-022-R1 and CITY/VS2/F3 rendering.
-- Compact stable engagement badges; green accepted march, red attack, blue real adjacent support, separate plan/front/control semantics.
-- Support costs use existing combat model; no automatic advance, no ranged/free damage; PlayerView qualification and authority generation checks.
-- Entry: http://127.0.0.1:4222/ . Dedicated Windows background service, final browser restored T47 paused.
-- Existing4220/4221 files and saves untouched. They had no listeners at final continuation; do not claim they are online.
-- Evidence and limitations: `evidence/grand-map-r1/VALIDATION.md`; reference comparison: `VISUAL-IMPLEMENTATION.md` in same directory.
-- Run/close/rollback: `experiments/grand-map-r1/README.md`; exact-process stop script only affects4222.
-- No merge, deployment, public bind, paid resources, historical artwork copying, or claim of user visual approval.
+- Branch: grand-map-001-r2-readability. Base: e4be8245d70a70031c0628c6be7c213ef04f6b56.
+- Presentation/interaction only: compact same-hex authorized stacks, crossed-sword battle badges, readable real action arrows, short clock bar and collapsible inspectors.
+- Authority, economy, AI, RNG, support rules and MP communication unchanged.
+- Independent running local entry: http://127.0.0.1:4223/ . Original4222 PID11592 retained.
+- Same R1 T10 save, 1560x1244, 460/740 percent comparisons and actual browser interactions: evidence/grand-map-r2/REPORT.md.
+- Existing logged replay37 steps8 commands matches R1 state/economy/RNG/engagements at each step.
+- Run/close/rollback: experiments/grand-map-r2/README.md. No merge, deployment, public binding or paid resources.
+- Visual acceptance belongs to user; no claim of HOI4-equivalent appearance.

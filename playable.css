@@ -125,3 +125,45 @@ body:has(.campaign-clock) .turn-strip,body:has(.campaign-clock) #grand-objective
 .battle-map-panel .action-legend{font-size:11px;line-height:1.6}.battle-map-panel .action-detail{border-left:3px solid #8aafba;padding-left:7px}.battle-medallion:focus{outline:none}.battle-medallion:focus circle:first-of-type{stroke:#fff3b0;stroke-width:3}.actual-action-arrow:focus{outline:none}.actual-action-arrow:focus{opacity:1!important}.battle-list{display:flex;flex-wrap:wrap;gap:4px}.battle-list button{font-size:11px;padding:4px 7px}.battle-map-panel #battle-detail{max-height:300px;overflow:auto;border-top:1px solid #78866b;padding-top:6px}
 
 .battle-roster{width:100%;border-collapse:collapse;font-size:11px}.battle-roster th,.battle-roster td{padding:3px 4px;border-bottom:1px solid #c3bda7;text-align:left}.battle-roster small{display:block;font-size:10px;font-weight:normal;color:#565f51}.battle-map-panel #battle-detail .button-row{gap:4px}.battle-map-panel #battle-detail button{padding:4px 6px;font-size:11px}
+
+/* R2: display-only map hierarchy. Legacy non-continuous layouts are unchanged. */
+body:has(.r2-dock) .workspace,body:has(.r2-dock) .workspace.panel-open{display:block;position:relative;min-height:0}
+body:has(.r2-dock) .map-card{height:100%}
+body:has(.r2-dock) .workspace.panel-open .side-panel{position:absolute;inset:44px 0 0;width:100%;border:0;background:none;box-shadow:none;pointer-events:none;overflow:visible;display:block}
+.r2-dock{pointer-events:none;font-size:12px}
+.r2-dock button,.r2-dock summary,.r2-dock input,.r2-dock select{pointer-events:auto}
+body:has(.r2-dock) #map-wrap{--campaign-fit:calc(69dvh - 157px)}
+body:has(.r2-dock) #eastfront-map,body:has(.r2-dock) #terrain-surface{position:absolute!important;width:100%!important;height:var(--campaign-fit)!important;top:calc((100% - var(--campaign-fit))/2)!important;left:0!important}
+body:has(.r2-dock) [data-unit-presence-layer],body:has(.r2-dock) #map-dynamic-layer [data-unit-id],body:has(.r2-dock) #map-dynamic-layer [data-hit-unit-id]{display:none!important;pointer-events:none!important}
+body:has(.r2-dock) .model-controls{display:none}
+.r2-dock header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+body:has(.r2-dock) .r2-dock .campaign-clock{position:absolute;top:8px;left:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:calc(100% - 360px);padding:6px 8px;border:1px solid #758077;background:#1f302df2;color:#e8e6d5;box-shadow:0 2px 7px #14221f88;pointer-events:auto}
+.r2-dock .campaign-clock>h2,.r2-dock .campaign-clock>p{display:none}
+.r2-dock .campaign-clock>strong{font-size:13px;white-space:nowrap;margin-right:6px}
+.r2-dock .campaign-clock>.button-row{display:contents}
+body:has(.r2-dock) .r2-dock button{min-height:30px;font-size:12px;padding:4px 7px;width:auto}
+body:has(.r2-dock) .campaign-clock button{background:#334842;border-color:#70847b;color:#f0eadd;min-width:32px}
+.r2-dock .campaign-clock>details{font-size:11px}
+.r2-dock .campaign-clock>details[open]{position:absolute;top:48px;left:0;background:#23352f;border:1px solid #7a8675;padding:12px;width:320px;max-height:420px;overflow:auto;z-index:3;box-shadow:0 5px 14px #10231faa}
+.r2-left{position:absolute;bottom:12px;left:12px;width:270px;max-height:65%;overflow:auto;pointer-events:auto}
+.r2-right{position:absolute;top:8px;right:12px;width:316px;max-height:calc(100% - 24px);overflow:auto;pointer-events:auto;scrollbar-width:thin}
+body:has(.r2-dock) .r2-dock .battle-map-panel{display:flex;flex-direction:column;gap:6px;max-height:none;padding:0;border:0;background:none}
+.r2-dock .r2-map-tools{order:4}.r2-dock .r2-battle-list{order:3}.r2-dock .battle-map-panel>details:last-child{order:5}
+.r2-dock .r2-right>details,.r2-dock .battle-map-panel>details,.r2-dock #battle-detail,.r2-dock .r2-stack,.r2-dock .r2-unit,.r2-dock .action-detail{background:#e3e0d1f5;border:1px solid #839184;padding:8px;color:#25382f;margin:0 0 6px;box-shadow:0 2px 7px #14221f55}
+.r2-dock summary{cursor:pointer;font-weight:600;min-height:24px}
+body:has(.r2-dock) .r2-dock #battle-detail{max-height:650px;overflow:auto;order:0}
+.r2-dock #battle-detail h3{font-size:15px;margin:0}.r2-dock #battle-detail>p{font-size:12px;line-height:1.45;margin:8px 0}
+.r2-dock #battle-detail>.button-row{display:flex;gap:4px;flex-wrap:wrap}.r2-dock #battle-detail .battle-roster{font-size:11px;width:100%}
+.r2-dock .battle-roster td,.r2-dock .battle-roster th{padding:4px 2px}.r2-dock .battle-roster small{font-size:9px}
+.r2-dock .r2-stack>button{display:block!important;width:100%!important;text-align:left;margin-top:4px}.r2-dock .r2-stack small{display:block;font-size:11px}
+.r2-dock .r2-unit h3{font-size:15px}.r2-dock .r2-unit p{font-size:12px;margin:8px 0}.r2-dock .r2-unit .button-row{display:flex;flex-wrap:wrap;gap:4px}
+.r2-dock .r2-orders .panel-block{padding:0;border:0}.r2-dock .r2-orders h3{display:none}
+.r2-dock .r2-logistics{margin-top:6px}
+@media(max-width:1000px){.r2-right{width:280px}.r2-left{width:230px}.r2-dock .campaign-clock{max-width:calc(100% - 310px)!important}}
+body:has(.r2-dock) .map-card.network-map-card{grid-template-rows:auto minmax(0,1fr)}
+
+body:has(.r2-dock) .workspace.panel-open .side-panel{z-index:2}
+
+body:has(.r2-dock) #eastfront-map[data-r2-focus="battle"][data-map-planning="no"] #interaction-overlays{display:none}
+
+.r2-dock .campaign-clock>p[role="status"]:not(:empty),.r2-dock .campaign-clock>p:has(b){display:block;flex-basis:100%;font-size:11px;margin:0}
