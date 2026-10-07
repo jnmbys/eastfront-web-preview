@@ -1,0 +1,123 @@
+{
+  "kind": "Real headless Edge, two isolated contexts, CITY authority, FIFO 500ms each direction on A only",
+  "browser": "154.0.4258.62",
+  "startRevision": 7,
+  "after": 10,
+  "pause": {
+    "command": {
+      "instanceId": "05cc3708-97e9-4915-848a-61f9c03d4547",
+      "requestId": "369c5878-fbf7-43c2-8779-7be94d1e74a6",
+      "commandSeq": 8,
+      "kind": "PAUSE",
+      "payload": {
+        "groupId": "05cc3708-97e9-4915-848a-61f9c03d4547:GERMAN:group:0"
+      },
+      "dependencies": {
+        "commandGeneration": 6,
+        "account": "a822301950686cf529b1a406",
+        "phase": "1:GERMAN_MOVEMENT"
+      }
+    },
+    "keys": [
+      "group:0"
+    ],
+    "status": "applied",
+    "inputAt": 3645.10000000149,
+    "feedbackAt": 3645.10000000149,
+    "sendAt": 3645.300000000745,
+    "result": {
+      "requestId": "369c5878-fbf7-43c2-8779-7be94d1e74a6",
+      "commandSeq": 8,
+      "instanceId": "05cc3708-97e9-4915-848a-61f9c03d4547",
+      "status": "APPLIED",
+      "reason": null,
+      "acceptedRevision": 10,
+      "operation": 11,
+      "simulationPoint": {
+        "mode": "CITY_PHASE",
+        "turn": 1,
+        "phase": "GERMAN_MOVEMENT"
+      },
+      "timing": {
+        "receivedAt": 5923.0531,
+        "startedAt": 5944.0839,
+        "acceptedAt": 5944.1838,
+        "appliedAt": 5956.9346,
+        "queueMs": 21.030799999999545,
+        "applyMs": 12.85069999999996
+      },
+      "beforeVersion": 9
+    },
+    "resultAt": 4691,
+    "viewAvailableAt": 4723.699999999255,
+    "completedAt": 4723.800000000745
+  },
+  "priorEnds": [
+    {
+      "type": "officer-end",
+      "at": 5474.8958,
+      "operation": 9,
+      "revision": 9
+    },
+    {
+      "type": "officer-end",
+      "at": 5944.0751,
+      "operation": 10,
+      "revision": 9
+    }
+  ],
+  "overlap": {
+    "type": "state-enqueued",
+    "at": 5647.2007,
+    "stream": 1,
+    "version": 17,
+    "baseViewVersion": 16,
+    "revision": 9,
+    "full": false,
+    "unacked": 2,
+    "acked": 15
+  },
+  "dispatchOverlap": {
+    "type": "state-dispatched",
+    "at": 6498.9685,
+    "stream": 1,
+    "version": 18,
+    "serverQueueMs": 503.1157999999996
+  },
+  "pingA": [
+    {
+      "type": "ping",
+      "at": 3031.900000002235,
+      "elapsedMs": 1016.4000000022352
+    }
+  ],
+  "pingB": [
+    {
+      "type": "ping",
+      "at": 3548,
+      "elapsedMs": 2.699999999254942
+    }
+  ],
+  "states": 4,
+  "deltaStates": 4,
+  "recovered": {
+    "revision": 10,
+    "stream": 2
+  },
+  "errors": [],
+  "checks": [
+    "real officer movement before pause applies",
+    "pause retry and reconnect do not re-execute",
+    "no officer starts after pause",
+    "delta dispatched before previous state ACK",
+    "missing baseline full recovery",
+    "old connection callback ignored",
+    "selection drag zoom while pending",
+    "other seat progresses"
+  ],
+  "limits": [
+    "Local injected latency; not public or device evidence",
+    "State age is a lower bound excluding transit; update interval uses client monotonic clock",
+    "Old CITY phases; no shared campaign clock or save acceptance"
+  ]
+}

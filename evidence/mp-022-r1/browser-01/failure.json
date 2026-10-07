@@ -1,0 +1,495 @@
+{
+  "error": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#order')\u001b[22m\n\u001b[2m    - locator resolved to <button disabled id=\"order\">委托军官推进</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    39 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at order (C:\\Users\\jinyibo\\eastfront\\mp-022-r1\\experiments\\mp-022\\r1-browser.mjs:10:388)\n    at async file:///C:/Users/jinyibo/eastfront/mp-022-r1/experiments/mp-022/r1-browser.mjs:14:83",
+  "errors": [],
+  "authority": [
+    {
+      "type": "command-complete",
+      "at": 2246.9287,
+      "operation": 1,
+      "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528",
+      "kind": "PHASE",
+      "status": "APPLIED",
+      "reason": null,
+      "beforeVersion": 0,
+      "revision": 1
+    }
+  ],
+  "connections": [
+    {
+      "seat": "a",
+      "trace": [
+        {
+          "type": "state-enqueued",
+          "at": 1965.5179,
+          "stream": 1,
+          "version": 1,
+          "baseViewVersion": null,
+          "revision": 0,
+          "full": true,
+          "unacked": 1,
+          "acked": 0
+        },
+        {
+          "type": "state-dispatched",
+          "at": 1966.9012,
+          "stream": 1,
+          "version": 1,
+          "serverQueueMs": 2.4467999999999392
+        },
+        {
+          "type": "state-enqueued",
+          "at": 2013.4351,
+          "stream": 1,
+          "version": 2,
+          "baseViewVersion": 1,
+          "revision": 0,
+          "full": false,
+          "unacked": 2,
+          "acked": 0
+        },
+        {
+          "type": "state-ack",
+          "at": 2014.5409,
+          "stream": 1,
+          "version": 1
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2014.5688,
+          "stream": 1,
+          "version": 2,
+          "serverQueueMs": 1.2358000000001539
+        },
+        {
+          "type": "state-ack",
+          "at": 2025.6499,
+          "stream": 1,
+          "version": 2
+        },
+        {
+          "type": "state-enqueued",
+          "at": 2282.9619,
+          "stream": 1,
+          "version": 3,
+          "baseViewVersion": 2,
+          "revision": 1,
+          "full": false,
+          "unacked": 1,
+          "acked": 2
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2315.3038,
+          "stream": 1,
+          "version": 3,
+          "serverQueueMs": 32.41959999999972
+        },
+        {
+          "type": "state-ack",
+          "at": 2322.1113,
+          "stream": 1,
+          "version": 3
+        },
+        {
+          "type": "state-enqueued",
+          "at": 2366.1278,
+          "stream": 1,
+          "version": 4,
+          "baseViewVersion": 3,
+          "revision": 1,
+          "full": false,
+          "unacked": 1,
+          "acked": 3
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2368.1783,
+          "stream": 1,
+          "version": 4,
+          "serverQueueMs": 2.1177999999999884
+        },
+        {
+          "type": "state-ack",
+          "at": 2371.3642,
+          "stream": 1,
+          "version": 4
+        },
+        {
+          "type": "state-enqueued",
+          "at": 2422.7219,
+          "stream": 1,
+          "version": 5,
+          "baseViewVersion": 4,
+          "revision": 1,
+          "full": false,
+          "unacked": 1,
+          "acked": 4
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2423.0255,
+          "stream": 1,
+          "version": 5,
+          "serverQueueMs": 0.36560000000008586
+        },
+        {
+          "type": "state-ack",
+          "at": 2425.9545,
+          "stream": 1,
+          "version": 5
+        }
+      ]
+    },
+    {
+      "seat": "b",
+      "trace": [
+        {
+          "type": "state-enqueued",
+          "at": 2140.3159,
+          "stream": 1,
+          "version": 1,
+          "baseViewVersion": null,
+          "revision": 0,
+          "full": true,
+          "unacked": 1,
+          "acked": 0
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2142.3953,
+          "stream": 1,
+          "version": 1,
+          "serverQueueMs": 4.177799999999934
+        },
+        {
+          "type": "state-enqueued",
+          "at": 2176.5469,
+          "stream": 1,
+          "version": 2,
+          "baseViewVersion": 1,
+          "revision": 0,
+          "full": false,
+          "unacked": 2,
+          "acked": 0
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2177.4274,
+          "stream": 1,
+          "version": 2,
+          "serverQueueMs": 0.9569000000001324
+        },
+        {
+          "type": "state-ack",
+          "at": 2177.5663,
+          "stream": 1,
+          "version": 1
+        },
+        {
+          "type": "state-ack",
+          "at": 2186.5195,
+          "stream": 1,
+          "version": 2
+        },
+        {
+          "type": "state-enqueued",
+          "at": 2314.9744,
+          "stream": 1,
+          "version": 3,
+          "baseViewVersion": 2,
+          "revision": 1,
+          "full": false,
+          "unacked": 1,
+          "acked": 2
+        },
+        {
+          "type": "state-dispatched",
+          "at": 2316.0763,
+          "stream": 1,
+          "version": 3,
+          "serverQueueMs": 1.1831999999999425
+        },
+        {
+          "type": "state-ack",
+          "at": 2321.6256,
+          "stream": 1,
+          "version": 3
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "schema": "MP022-browser-v1",
+      "mode": "CITY_REAL_INTERFACE",
+      "instanceId": "ed490c5c-9409-46fa-bcca-2f8837d2a89e",
+      "side": "GERMAN",
+      "profile": "clean",
+      "history": [
+        {
+          "command": {
+            "instanceId": "ed490c5c-9409-46fa-bcca-2f8837d2a89e",
+            "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528",
+            "commandSeq": 1,
+            "kind": "PHASE",
+            "payload": {},
+            "dependencies": {
+              "account": "a822301950686cf529b1a406",
+              "phase": "1:GERMAN_SUPPLY_RAIL"
+            }
+          },
+          "keys": [
+            "all"
+          ],
+          "status": "applied",
+          "inputAt": 350.5,
+          "feedbackAt": 350.5,
+          "sendAt": 350.69999999925494,
+          "result": {
+            "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528",
+            "commandSeq": 1,
+            "instanceId": "ed490c5c-9409-46fa-bcca-2f8837d2a89e",
+            "status": "APPLIED",
+            "reason": null,
+            "acceptedRevision": 1,
+            "operation": 1,
+            "simulationPoint": {
+              "mode": "CITY_PHASE",
+              "turn": 1,
+              "phase": "GERMAN_MOVEMENT"
+            },
+            "timing": {
+              "receivedAt": 2217.1456,
+              "startedAt": 2217.4099,
+              "acceptedAt": 2217.5575,
+              "appliedAt": 2246.8884,
+              "queueMs": 0.26430000000027576,
+              "applyMs": 29.478499999999713
+            },
+            "beforeVersion": 0
+          },
+          "resultAt": 456.79999999701977,
+          "viewAvailableAt": 462.19999999925494,
+          "completedAt": 462.29999999701977
+        }
+      ],
+      "pending": [],
+      "events": [
+        {
+          "type": "connected",
+          "at": 107.29999999701977
+        },
+        {
+          "type": "view",
+          "at": 114.09999999776483,
+          "revision": 0,
+          "stream": 1,
+          "viewVersion": 1,
+          "baseViewVersion": null,
+          "full": true,
+          "updateIntervalMs": null,
+          "serverQueueMs": 2.4467999999999392,
+          "bytes": 224222
+        },
+        {
+          "type": "selection",
+          "at": 114.59999999776483,
+          "unitId": "G-001"
+        },
+        {
+          "type": "ready",
+          "at": 117.5
+        },
+        {
+          "type": "view",
+          "at": 161.19999999925494,
+          "revision": 0,
+          "stream": 1,
+          "viewVersion": 2,
+          "baseViewVersion": 1,
+          "full": false,
+          "updateIntervalMs": 48.599999997764826,
+          "serverQueueMs": 1.2358000000001539,
+          "bytes": 301
+        },
+        {
+          "type": "ready",
+          "at": 161.39999999850988
+        },
+        {
+          "type": "feedback",
+          "at": 350.5,
+          "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528"
+        },
+        {
+          "type": "command-sent",
+          "at": 350.8999999985099,
+          "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528"
+        },
+        {
+          "type": "feedback-frame-opportunity",
+          "at": 354,
+          "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528"
+        },
+        {
+          "type": "result",
+          "at": 456.79999999701977,
+          "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528",
+          "status": "APPLIED",
+          "reason": null
+        },
+        {
+          "type": "view",
+          "at": 462.19999999925494,
+          "revision": 1,
+          "stream": 1,
+          "viewVersion": 3,
+          "baseViewVersion": 2,
+          "full": false,
+          "updateIntervalMs": 301.1000000014901,
+          "serverQueueMs": 32.41959999999972,
+          "bytes": 5110
+        },
+        {
+          "type": "result",
+          "at": 462.29999999701977,
+          "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528",
+          "status": "APPLIED",
+          "reason": null
+        },
+        {
+          "type": "completed",
+          "at": 462.29999999701977,
+          "requestId": "874474ab-b9ce-4770-abbb-3d333ef66528",
+          "status": "applied"
+        },
+        {
+          "type": "ready",
+          "at": 462.5
+        },
+        {
+          "type": "selection",
+          "at": 470,
+          "unitId": "G-026"
+        },
+        {
+          "type": "view",
+          "at": 511.0999999977648,
+          "revision": 1,
+          "stream": 1,
+          "viewVersion": 4,
+          "baseViewVersion": 3,
+          "full": false,
+          "updateIntervalMs": 48.899999998509884,
+          "serverQueueMs": 2.1177999999999884,
+          "bytes": 771
+        },
+        {
+          "type": "ready",
+          "at": 511.29999999701977
+        },
+        {
+          "type": "selection",
+          "at": 535.3999999985099,
+          "unitId": "G-027"
+        },
+        {
+          "type": "view",
+          "at": 566.5999999977648,
+          "revision": 1,
+          "stream": 1,
+          "viewVersion": 5,
+          "baseViewVersion": 4,
+          "full": false,
+          "updateIntervalMs": 55.5,
+          "serverQueueMs": 0.36560000000008586,
+          "bytes": 772
+        },
+        {
+          "type": "ready",
+          "at": 566.7999999970198
+        }
+      ],
+      "metrics": null,
+      "limits": [
+        "Client monotonic timestamps are not server timestamps.",
+        "feedbackAt measures local handler feedback; rAF is only a frame opportunity.",
+        "Injected local test, not Huawei or public performance evidence."
+      ]
+    },
+    {
+      "schema": "MP022-browser-v1",
+      "mode": "CITY_REAL_INTERFACE",
+      "instanceId": "ed490c5c-9409-46fa-bcca-2f8837d2a89e",
+      "side": "SOVIET",
+      "profile": "clean",
+      "history": [],
+      "pending": [],
+      "events": [
+        {
+          "type": "connected",
+          "at": 95.90000000223517
+        },
+        {
+          "type": "view",
+          "at": 103.10000000149012,
+          "revision": 0,
+          "stream": 1,
+          "viewVersion": 1,
+          "baseViewVersion": null,
+          "full": true,
+          "updateIntervalMs": null,
+          "serverQueueMs": 4.177799999999934,
+          "bytes": 224073
+        },
+        {
+          "type": "selection",
+          "at": 103.5,
+          "unitId": "S-001"
+        },
+        {
+          "type": "ready",
+          "at": 106.10000000149012
+        },
+        {
+          "type": "view",
+          "at": 137.5,
+          "revision": 0,
+          "stream": 1,
+          "viewVersion": 2,
+          "baseViewVersion": 1,
+          "full": false,
+          "updateIntervalMs": 35.80000000074506,
+          "serverQueueMs": 0.9569000000001324,
+          "bytes": 301
+        },
+        {
+          "type": "ready",
+          "at": 137.60000000149012
+        },
+        {
+          "type": "view",
+          "at": 273.6000000014901,
+          "revision": 1,
+          "stream": 1,
+          "viewVersion": 3,
+          "baseViewVersion": 2,
+          "full": false,
+          "updateIntervalMs": 136.10000000149012,
+          "serverQueueMs": 1.1831999999999425,
+          "bytes": 4111
+        },
+        {
+          "type": "ready",
+          "at": 273.80000000074506
+        }
+      ],
+      "metrics": null,
+      "limits": [
+        "Client monotonic timestamps are not server timestamps.",
+        "feedbackAt measures local handler feedback; rAF is only a frame opportunity.",
+        "Injected local test, not Huawei or public performance evidence."
+      ]
+    }
+  ]
+}

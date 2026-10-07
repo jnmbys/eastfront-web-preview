@@ -1,7 +1,7 @@
-param([int]$Port=4210)
+param([int]$Port=4213)
 $ErrorActionPreference='Stop'
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
-if ($Port -in @(4197,4198) -or $Port -lt 1024 -or $Port -gt 65535) { throw 'Reserved or invalid port' }
+if ($Port -in @(4197,4198,4199,4210) -or $Port -lt 1024 -or $Port -gt 65535) { throw 'Reserved or invalid port' }
 if (Get-NetTCPConnection -State Listen -LocalPort $Port -ErrorAction SilentlyContinue) {throw 'Port occupied; no process will be stopped'}
 if (-not (Test-Path -LiteralPath (Join-Path $repo '.ai003-preview/server/gameplay.js'))) {throw 'Build first: npm ci; node ai/local/build.mjs'}
 $script=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot 'server.mjs'))

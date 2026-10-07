@@ -1,0 +1,29 @@
+{
+  "scenario": "Same real CITY officer movement between pause preparation and authority receive",
+  "baseline": {
+    "before": {
+      "q": 24,
+      "r": 4
+    },
+    "after": {
+      "q": 25,
+      "r": 4
+    },
+    "status": "REJECTED",
+    "reason": "UNIT_DEPENDENCY_CHANGED",
+    "paused": false
+  },
+  "candidate": {
+    "before": {
+      "q": 24,
+      "r": 4
+    },
+    "after": {
+      "q": 25,
+      "r": 4
+    },
+    "status": "APPLIED",
+    "reason": null,
+    "paused": true
+  }
+}

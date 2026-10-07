@@ -1,0 +1,102 @@
+{
+  "basis": "All durations are differences within one monotonic clock; no client/server absolute subtraction",
+  "pingA_ms": 1016.4000000022352,
+  "pingB_ms": 2.699999999254942,
+  "pause": {
+    "feedbackHandler_ms": 0.0,
+    "acceptReceived_ms": 1045.8999999985099,
+    "authorizedView_ms": 1078.5999999977648,
+    "serverQueue_ms": 21.030799999999545,
+    "serverApply_ms": 12.85069999999996,
+    "authorityOperation": 11
+  },
+  "overlap": {
+    "sentVersion": 18,
+    "baseVersion": 17,
+    "actualSendBeforeBaseAck_ms": 171.07300000000032,
+    "unackedAtEnqueue": 3
+  },
+  "activeViews": [
+    {
+      "type": "view",
+      "at": 3756,
+      "revision": 8,
+      "stream": 1,
+      "viewVersion": 16,
+      "baseViewVersion": 15,
+      "full": false,
+      "updateIntervalMs": 2271.199999999255,
+      "serverQueueMs": 500.2989000000007,
+      "bytes": 1625
+    },
+    {
+      "type": "view",
+      "at": 4382.300000000745,
+      "revision": 9,
+      "stream": 1,
+      "viewVersion": 17,
+      "baseViewVersion": 16,
+      "full": false,
+      "updateIntervalMs": 626.3000000007451,
+      "serverQueueMs": 510.08470000000034,
+      "bytes": 1219
+    },
+    {
+      "type": "view",
+      "at": 4723.699999999255,
+      "revision": 10,
+      "stream": 1,
+      "viewVersion": 18,
+      "baseViewVersion": 17,
+      "full": false,
+      "updateIntervalMs": 341.3999999985099,
+      "serverQueueMs": 503.1157999999996,
+      "bytes": 1929
+    },
+    {
+      "type": "view",
+      "at": 4817.800000000745,
+      "revision": 10,
+      "stream": 1,
+      "viewVersion": 19,
+      "baseViewVersion": 18,
+      "full": false,
+      "updateIntervalMs": 94.10000000149012,
+      "serverQueueMs": 510.9872999999998,
+      "bytes": 1260
+    }
+  ],
+  "metrics": {
+    "received": 82,
+    "sent": 52,
+    "receivedBytes": 12784,
+    "sentBytes": 940370,
+    "resyncs": 1,
+    "coalesced": 0,
+    "connections": 3,
+    "errors": 0,
+    "peakUpMessages": 7,
+    "peakUpBytes": 1192,
+    "peakDownMessages": 4,
+    "peakDownBytes": 225623
+  },
+  "officerTransactions": [
+    [
+      8,
+      8
+    ],
+    [
+      9,
+      9
+    ],
+    [
+      10,
+      9
+    ]
+  ],
+  "limits": [
+    "No stable performance or public/device claim",
+    "State age lower bound = server queue duration + local held duration, excludes wire/browser dispatch/parse",
+    "First activity interval includes idle time; do not call it latency"
+  ]
+}

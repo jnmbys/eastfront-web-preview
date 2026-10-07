@@ -7,7 +7,8 @@ import {WebSocketServer} from 'ws';
 import {CityAdapter,BASELINE} from './adapter.mjs';
 import {OrderedLink,diff} from './sync.mjs';
 export const profiles={clean:{rtt:0},rtt100:{rtt:100},rtt300:{rtt:300},rtt1000:{rtt:1000},constrained:{rtt:300,jitter:90,bytesPerSecond:256*1024}};
-export async function start({port=4210,autoTick=true}={}){
+export const STATE_WINDOW=8;
+export async function start({port=4213,autoTick=true}={}){
  const adapter=new CityAdapter(),sessions=new Map(),seats=new Map(),root=fileURLToPath(new URL('./web/',import.meta.url));let closing=false,ticking=false;
  const metrics={received:0,sent:0,receivedBytes:0,sentBytes:0,resyncs:0,coalesced:0,connections:0,errors:0,peakUpMessages:0,peakUpBytes:0,peakDownMessages:0,peakDownBytes:0};
  const origin=()=>`http://127.0.0.1:${server.address().port}`;
@@ -34,17 +35,23 @@ export async function start({port=4210,autoTick=true}={}){
   wss.handleUpgrade(req,socket,head,ws=>connect(ws,s));
  });
  function connect(ws,s){s.connection?.close('REPLACED');s.epoch++;metrics.connections++;
-  const conn={epoch:s.epoch,selection:{},dirty:true,full:true,view:null,viewVersion:0,serial:0,inFlight:null,profile:'clean',closed:false,rendering:false,links:[],
+  const conn={epoch:s.epoch,selection:{},dirty:true,full:true,view:null,viewVersion:0,serial:0,outstanding:[],stream:1,acked:0,trace:[],profile:'clean',closed:false,rendering:false,links:[],
    close(reason){if(conn.closed)return;conn.closed=true;for(const link of conn.links)link.close();if(ws.readyState===1)ws.close(1013,reason);}};s.connection=conn;
-  const down=new OrderedLink(profiles.clean,text=>{if(ws.readyState===1){if(ws.bufferedAmount>2*1024*1024){conn.close('SOCKET_BACKPRESSURE');return;}ws.send(text);}},()=>conn.close('DOWN_QUEUE_FULL'));
+  const down=new OrderedLink(profiles.clean,text=>{if(ws.readyState===1){if(ws.bufferedAmount>2*1024*1024){conn.close('SOCKET_BACKPRESSURE');return;}const message=JSON.parse(text);if(message.type==='STATE'){message.serverQueueMs=performance.now()-message.enqueuedAt;delete message.enqueuedAt;trace('state-dispatched',{stream:message.stream,version:message.viewVersion,serverQueueMs:message.serverQueueMs});}ws.send(JSON.stringify(message));}},()=>conn.close('DOWN_QUEUE_FULL'));
   const up=new OrderedLink(profiles.clean,text=>void message(text).catch(()=>{metrics.errors++;conn.close('PROTOCOL_ERROR');}),()=>conn.close('UP_QUEUE_FULL'));conn.links=[up,down];
   const observe=(name,link)=>{metrics[`peak${name}Messages`]=Math.max(metrics[`peak${name}Messages`],link.jobs.length);metrics[`peak${name}Bytes`]=Math.max(metrics[`peak${name}Bytes`],link.bytes);};
   const send=data=>{if(conn.closed||s.connection!==conn)return;const text=JSON.stringify({...data,instanceId:adapter.id,connectionEpoch:conn.epoch});metrics.sent++;metrics.sentBytes+=Buffer.byteLength(text);const queued=down.send(text);observe('Down',down);return queued;};
-  async function push(){if(conn.closed||s.connection!==conn||conn.rendering)return;if(conn.inFlight){if(performance.now()-conn.inFlight.sentAt>15000)conn.close('VIEW_ACK_TIMEOUT');else if(conn.dirty)metrics.coalesced++;return;}if(!conn.dirty)return;conn.rendering=true;conn.dirty=false;
+  const trace=(type,detail={})=>{conn.trace.push({type,at:performance.now(),...detail});if(conn.trace.length>2048)conn.trace.shift();};
+  async function push(){if(conn.closed||s.connection!==conn||conn.rendering)return;if(conn.outstanding.length&&performance.now()-conn.outstanding[0].sentAt>15000){conn.close('VIEW_ACK_TIMEOUT');return;}if(conn.outstanding.length>=STATE_WINDOW){if(conn.dirty)metrics.coalesced++;return;}if(!conn.dirty)return;conn.rendering=true;conn.dirty=false;const stream=conn.stream;
    try{const view=await adapter.view(s.side,conn.selection);if(conn.closed||s.connection!==conn)return;const change=conn.view?diff(conn.view,view):null,results=adapter.pending(s.side);
-    if(!conn.full&&change&&!change.set.length&&!change.remove.length&&!results.length)return;
-    const next=++conn.serial,full=conn.full||!conn.view;conn.inFlight={version:next,view,sentAt:performance.now()};conn.full=false;
-    send({type:'STATE',baseViewVersion:full?null:conn.viewVersion,viewVersion:next,...(full?{full:view}:{change}),results});
+    if(stream!==conn.stream){conn.dirty=true;return;}
+    if(!conn.full&&change&&!change.set.length&&!change.remove.length)return;
+    const next=++conn.serial,full=conn.full||!conn.view,baseViewVersion=full?null:conn.viewVersion;
+    // Delta base is the last enqueued authorized view, not the last acknowledged view.
+    if(send({type:'STATE',enqueuedAt:performance.now(),stream,baseViewVersion,viewVersion:next,...(full?{full:view}:{change}),results})){
+     conn.outstanding.push({version:next,sentAt:performance.now()});conn.view=view;conn.viewVersion=next;conn.full=false;
+     trace('state-enqueued',{stream,version:next,baseViewVersion,revision:view.revision,full,unacked:conn.outstanding.length,acked:conn.acked});
+    }
    }finally{conn.rendering=false;}
   }
   conn.push=push;
@@ -53,15 +60,15 @@ export async function start({port=4210,autoTick=true}={}){
    if(m.instanceId!==adapter.id||m.connectionEpoch!==conn.epoch){send({type:'ERROR',reason:'SESSION_EPOCH_OR_INSTANCE_MISMATCH'});return;}
    if(m.type==='PING'){send({type:'PONG',id:m.id});return;}
    if(m.type==='PROFILE'){if(!Object.hasOwn(profiles,m.name))throw Error('PROFILE');conn.profile=m.name;up.profile=profiles[m.name];down.profile=profiles[m.name];send({type:'PROFILE',name:m.name,profile:profiles[m.name]});return;}
-   if(m.type==='VIEW_ACK'){if(conn.inFlight?.version===m.viewVersion){conn.view=conn.inFlight.view;conn.viewVersion=m.viewVersion;conn.inFlight=null;await push();}return;}
+   if(m.type==='VIEW_ACK'){if(m.stream===conn.stream&&conn.outstanding.some(x=>x.version===m.viewVersion)){conn.acked=m.viewVersion;conn.outstanding=conn.outstanding.filter(x=>x.version>m.viewVersion);trace('state-ack',{stream:conn.stream,version:m.viewVersion});await push();}return;}
    if(m.type==='RESULT_ACK'){if(Array.isArray(m.ids)&&m.ids.length<=128)for(const id of m.ids)adapter.ack(s.side,id);return;}
-   if(m.type==='RESYNC'){conn.inFlight=null;conn.view=null;conn.full=true;conn.dirty=true;metrics.resyncs++;await push();return;}
+   if(m.type==='RESYNC'){if(m.stream!==conn.stream)return;conn.stream++;conn.outstanding=[];conn.view=null;conn.full=true;conn.dirty=true;metrics.resyncs++;trace('resync',{stream:conn.stream});await push();return;}
    if(m.type==='SELECT'){if(typeof m.unitId!=='string'||m.unitId.length>96||!Number.isSafeInteger(m.id))throw Error('SELECT');const u=adapter.c.state.units[m.unitId];if(!u||u.side!==s.side){send({type:'ERROR',reason:'UNIT_NOT_AUTHORIZED'});return;}conn.selection={unitId:m.unitId,id:m.id};conn.dirty=true;await push();return;}
    if(m.type==='COMMAND'){
     try{const result=await adapter.submit(s.side,m.command);if(conn.closed||s.connection!==conn)return;
      for(const seat of seats.values())if(seat.connection)seat.connection.dirty=true;
-     // Combine result, authorized state and selected object's legal menu whenever no state is awaiting ACK.
-     if(conn.inFlight)send({type:'RESULT',result});await push();for(const seat of seats.values())if(seat!==s)void seat.connection?.push();
+     // Business results are independent of a saturated state window and retained in the authority ledger.
+     send({type:'RESULT',result});await push();for(const seat of seats.values())if(seat!==s)void seat.connection?.push();
     }catch(e){send({type:'ERROR',requestId:m.command?.requestId,reason:e.message});}return;
    }
    if(m.type==='METRICS'){send({type:'METRICS',metrics:{...metrics,peakAuthorityQueue:adapter.peakDepth,up:{...up.metrics,queued:up.jobs.length},down:{...down.metrics,queued:down.jobs.length},outstandingResults:adapter.pending(s.side).length,profile:conn.profile}});return;}
@@ -74,4 +81,4 @@ export async function start({port=4210,autoTick=true}={}){
  await new Promise((yes,no)=>{server.once('error',no);server.listen(port,'127.0.0.1',yes);});
  return {server,adapter,seats,metrics,url:origin(),enableTicks(){autoTick=true;},async close(){closing=true;clearInterval(tickTimer);clearInterval(pushTimer);for(const s of seats.values())s.connection?.close('SERVER_STOP');for(const ws of wss.clients)ws.terminate();await new Promise(r=>server.close(r));}};
 }
-if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const service=await start({port:Number(process.argv[2]??4210)});console.log(`MP022 ${service.url} | CITY real authority | local only`);process.on('SIGTERM',()=>void service.close());process.on('SIGINT',()=>void service.close());}
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const service=await start({port:Number(process.argv[2]??4213)});console.log(`MP022 ${service.url} | CITY real authority | local only`);process.on('SIGTERM',()=>void service.close());process.on('SIGINT',()=>void service.close());}

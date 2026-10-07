@@ -6,7 +6,10 @@ import {canonical} from './sync.mjs';
 const clone=structuredClone,hash=x=>createHash('sha256').update(canonical(x)).digest('hex').slice(0,24),fail=m=>{throw Error(m);};
 export const BASELINE='e008340a69304529ebab2f336938dba993366f34';
 export class CityAdapter{
- constructor(){this.c=new Campaign();this.c.transport={next:{GERMAN:1,SOVIET:1},tick:0};this.tail=Promise.resolve();this.depth=0;this.peakDepth=0;this.stopped=false;}
+ constructor(){this.c=new Campaign();this.c.transport={next:{GERMAN:1,SOVIET:1},tick:0};this.tail=Promise.resolve();this.depth=0;this.peakDepth=0;this.stopped=false;this.trace=[];this.operation=0;
+  for(const [side,s] of Object.entries(this.c.delegation.seats))for(const g of s.groups){g.permanentId=`${this.c.id}:${side}:group:${g.id}`;g.commandGeneration=0;}
+ }
+ record(type,detail={}){this.trace.push({type,at:performance.now(),...detail});if(this.trace.length>2048)this.trace.shift();}
  get id(){return this.c.id;}get revision(){return this.c.version;}
  async exclusive(fn){if(this.depth>=32)throw Error('AUTHORITY_QUEUE_FULL');this.depth++;this.peakDepth=Math.max(this.peakDepth,this.depth);const job=this.tail.then(fn);this.tail=job.catch(()=>{});try{return await job;}finally{this.depth--;}}
  as(side,fn){const previous=this.c.viewer;this.c.viewer=side;try{return fn();}finally{this.c.viewer=previous;}}
@@ -36,9 +39,14 @@ export class CityAdapter{
   if(e.commandSeq!==c.transport.next[side])fail('COMMAND_SEQUENCE_GAP');
   let status='REJECTED',reason=null,receipt=null,acceptedAt=null;const p=e.payload??{},beforeVersion=c.version;
   try{
-   if(['MOVE','OFFICER','PAUSE'].includes(e.kind)){
+   if(['MOVE','OFFICER'].includes(e.kind)){
     if(!c.state.units[p.unitId]||c.state.units[p.unitId].side!==side)fail('UNIT_NOT_AUTHORIZED');
     if(e.dependencies?.unit!==this.stamp(side,p.unitId))fail('UNIT_DEPENDENCY_CHANGED');
+   }
+   if(e.kind==='PAUSE'){
+    const g=c.delegation.seat().groups.find(g=>g.permanentId===p.groupId),control=c.match.controllerAssignments.find(x=>x.controllerId===side&&x.viewer===side&&x.seat===side);
+    if(!control||!g||!g.members.length||g.members.some(id=>c.state.units[id]?.side!==side||c.state.units[id]?.controllerId!==control.coreControllerId))fail('GROUP_NOT_AUTHORIZED');
+    if(!Number.isSafeInteger(e.dependencies?.commandGeneration)||e.dependencies.commandGeneration!==g.commandGeneration)fail('COMMAND_GENERATION_CHANGED');
    }
    if(e.kind==='BUILD'&&e.dependencies?.account!==this.accountStamp(side))fail('RESOURCE_DEPENDENCY_CHANGED');
    if(e.kind==='PHASE'&&e.dependencies?.phase!==`${c.state.turn}:${c.state.phase}`)fail('PHASE_DEPENDENCY_CHANGED');
@@ -50,19 +58,19 @@ export class CityAdapter{
     if(c.match.status!=='ACTIVE')fail('GAME_OVER');
     // Existing config validation and existing transaction receipt map; no parallel business ledger.
     const before=clone(c.delegation.seats);try{const s=c.delegation.seat(),config=command=>c.delegation.config({revision:s.revision,command});
-     if(e.kind==='OFFICER'){config({type:'ENABLE',enabled:true});config({type:'ASSIGN',group:String(p.group??0),unit:p.unitId,direct:false});config({type:'ORDER',group:String(p.group??0),order:p.order});}
-     else {const g=s.groups.find(g=>g.members.includes(p.unitId));if(!g)fail('NO_OFFICER_ORDER');config({type:'PAUSE',group:g.id});}
+     if(e.kind==='OFFICER'){const affected=s.groups.filter(g=>g.members.includes(p.unitId)||g.id===String(p.group??0));config({type:'ENABLE',enabled:true});config({type:'ASSIGN',group:String(p.group??0),unit:p.unitId,direct:false});config({type:'ORDER',group:String(p.group??0),order:p.order});for(const g of affected)g.commandGeneration++;}
+     else {const g=s.groups.find(g=>g.permanentId===p.groupId);if(!g.order)fail('NO_OFFICER_ORDER');config({type:'PAUSE',group:g.id});}
      c.version++;c.match.matchRevision=c.version;receipt={ok:true,version:c.version,orderAccepted:true};c.receipts.set(e.requestId,{signature, result:receipt});
     }catch(error){c.delegation.seats=before;throw error;}
    }else fail('UNKNOWN_COMMAND');status='APPLIED';
   }catch(error){reason=error.message;acceptedAt=null;}
-  const appliedAt=performance.now();const result={requestId:e.requestId,commandSeq:e.commandSeq,instanceId:c.id,status,reason,acceptedRevision:status==='APPLIED'?c.version:null,
+  const appliedAt=performance.now(),operation=++this.operation;this.record('command-complete',{operation,requestId:e.requestId,kind:e.kind,status,reason,beforeVersion,revision:c.version});const result={requestId:e.requestId,commandSeq:e.commandSeq,instanceId:c.id,status,reason,acceptedRevision:status==='APPLIED'?c.version:null,operation,
    simulationPoint:{mode:'CITY_PHASE',turn:c.state.turn,phase:c.state.phase},timing:{receivedAt,startedAt,acceptedAt,appliedAt,queueMs:startedAt-receivedAt,applyMs:appliedAt-startedAt},beforeVersion};
   const entry=c.receipts.get(e.requestId)??{signature,result:{ok:false,error:reason}};
   entry.transport={side,signature,result,acked:false};c.receipts.set(e.requestId,entry);c.transport.next[side]++;return clone(result);
  }));}
  async tick(){return this.exclusive(async()=>{
   const c=this.c;if(c.receipts.size>=4096||c.delegation.receipts.size>=4096){this.stopped=true;return;}
-  const side=c.owner(),previous=c.viewer;c.viewer=side;try{if(c.delegation.active().length)await c.delegation.tick({id:`mp022-officer-${++c.transport.tick}-${randomUUID()}`,version:c.version,revision:c.delegation.seat().revision});}finally{c.viewer=previous;}
+  const side=c.owner(),previous=c.viewer;c.viewer=side;try{if(c.delegation.active().length){const operation=++this.operation;this.record('officer-start',{operation,revision:c.version});try{await c.delegation.tick({id:`mp022-officer-${++c.transport.tick}-${randomUUID()}`,version:c.version,revision:c.delegation.seat().revision});}finally{this.record('officer-end',{operation,revision:c.version});}}}finally{c.viewer=previous;}
  });}
 }
