@@ -6,9 +6,10 @@ export class Campaign extends Base {
  constructor(){super();this.clock.map={version:1,serial:0,active:{},ended:[]};this.frontAssignments={};}
  validateOrder(o){super.validateOrder(o);validateFront(o.front,this.fair(this.viewer).view);}
  ownOrder(id){const order=super.ownOrder(id),target=this.frontAssignments?.[id];return target&&!this.clock.units[id].direct?{...order,target}:order;}
+ findBattle(id){return Object.values(this.clock.map.active).find(b=>b.id===id);}
  transaction(req){const op=req.operation;
   if(op?.battleId&&!this.receipts.has(req.id)){
-   const b=Object.values(this.clock.map.active).find(b=>b.id===op.battleId);
+   const b=this.findBattle(op.battleId);
    if(!b||!b.units.some(id=>this.state.units[id]?.side===this.viewer))throw Error('BATTLE_ENDED_REVIEW_CURRENT_STATE');
    if(op.type!=='DIRECT')throw Error('BATTLE_INTERVENTION_REQUIRES_OWN_UNIT');
   }

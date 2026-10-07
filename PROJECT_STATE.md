@@ -1,12 +1,12 @@
-# GRAND-PLAY communication integration branch state
+# GRAND-MAP-001-R1 branch state
 
-- Branch: `grand-play-001-mp022-integration`; containing commit identifies this delivery.
-- Gameplay base: `0a7e670e911ffd08cc99419aa5159d422d9189a7`.
-- Fixed communication: `e5863d48b37e5b0c62158c9d1229346b081900d8`.
-- Fixed city art: `003292992f24d4c82a8107ec3b6063b681d697dc` (already in base).
-- One shared Campaign authority, existing ledger and fixed-step simulation; no CITY phase driver, duplicate economy or renderer.
-- Two German co-command terminals, Soviet AI. Commands, pause, production and disk save use R1 WebSocket transport; full authorized view reconstructed before rendering.
-- Local entry: http://127.0.0.1:4220/?client=a . Keep running for user; original4197/4198/4200/4201/4210/4213 services untouched.
-- New targeted checks and real browser evidence: `evidence/grand-play-mp022/REPORT.md`.
-- Start/stop/scope: `experiments/grand-play-mp022/README.md`.
-- No gameplay retuning, deployment, merge, public exposure or paid resources. Existing simulation/CITY evidence reused.
+- Branch: `grand-map-001-r1-action-arrows`; containing commit identifies delivery.
+- Base: `e1516641fd0f31610a47d43654085bc2518c74a1`.
+- Same authority, economy, fixed time, officers, MP-022-R1 and CITY/VS2/F3 rendering.
+- Compact stable engagement badges; green accepted march, red attack, blue real adjacent support, separate plan/front/control semantics.
+- Support costs use existing combat model; no automatic advance, no ranged/free damage; PlayerView qualification and authority generation checks.
+- Entry: http://127.0.0.1:4222/ . Dedicated Windows background service, final browser restored T47 paused.
+- Existing4220/4221 files and saves untouched. They had no listeners at final continuation; do not claim they are online.
+- Evidence and limitations: `evidence/grand-map-r1/VALIDATION.md`; reference comparison: `VISUAL-IMPLEMENTATION.md` in same directory.
+- Run/close/rollback: `experiments/grand-map-r1/README.md`; exact-process stop script only affects4222.
+- No merge, deployment, public bind, paid resources, historical artwork copying, or claim of user visual approval.

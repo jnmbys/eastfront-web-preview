@@ -69,11 +69,13 @@ export class Campaign extends City {
  validateOrder(o){if(!o||!['HOLD','ADVANCE','RETREAT','REFIT'].includes(o.kind)||!['LOW','NORMAL','HIGH'].includes(o.risk)||typeof o.paused!=='boolean'||!o.target||!Number.isSafeInteger(o.target.q)||!Number.isSafeInteger(o.target.r)||!this.state.hexes[kh(o.target)])fail('INVALID_PUBLIC_ORDER');}
  random(){let x=this.clock.rng;x^=x<<13;x^=x>>>17;x^=x<<5;this.clock.rng=x>>>0;return this.clock.rng/4294967296;}
  tick(){if(this.clock.paused||this.clock.ended)return false;const t=performance.now(),backup=this.save();try{this.advance();this.clock.metrics.ticks++;const ms=performance.now()-t;this.clock.metrics.totalMs+=ms;this.clock.metrics.maxMs=Math.max(ms,this.clock.metrics.maxMs);return true;}catch(e){this.restore(backup,false);this.clock.paused=true;this.note(this.viewer,'模拟已安全暂停：'+e.message);throw e;}}
+ decideAction(...args){return decide(...args);}
+ combatTrace(){return {};}
  advance(){
   const clock=this.clock;clock.tick++;const views=Object.fromEntries(sides.map(s=>[s,this.fair(s).view]));this.enemyPlan(views.SOVIET);
   const units=Object.values(this.state.units).filter(u=>u.alive).sort((a,b)=>a.id.localeCompare(b.id)),caps=Object.fromEntries(units.map(u=>[u.id,this.capability(u.id)])),before=copy(this.state),intents={},arrivals=[];
   for(const u of units){const v=clock.units[u.id],g=clock.corps.find(g=>g.members.includes(u.id));v.engaged=0;
-   const own=views[u.side].units.find(x=>x.id===u.id),decision=decide(views[u.side],own,Object.fromEntries(Object.entries(caps).filter(([id])=>this.state.units[id].side===u.side)),this.ownOrder(u.id),profiles[g.profile]);intents[u.id]=decision;v.reason=decision.reason;clock.metrics.expanded+=decision.expanded??0;
+   const own=views[u.side].units.find(x=>x.id===u.id),decision=this.decideAction(views[u.side],own,Object.fromEntries(Object.entries(caps).filter(([id])=>this.state.units[id].side===u.side)),this.ownOrder(u.id),profiles[g.profile]);intents[u.id]=decision;v.reason=decision.reason;clock.metrics.expanded+=decision.expanded??0;
    if(v.march){if(--v.march.remaining<=0)arrivals.push({id:u.id,...v.march});}
    else if(decision.kind==='MARCH'){u.entrenched=false;v.march={to:decision.to,remaining:decision.duration,total:decision.duration};v.org=Math.max(0,v.org-.8);}
   }
@@ -95,7 +97,7 @@ export class Campaign extends City {
   }
   const damage={},orgDamage={},battles=[];
   for(const ids of [...pairs.values()].sort((a,b)=>a.join().localeCompare(b.join()))){const [a,b]=ids.map(id=>this.state.units[id]),ca=caps[a.id],cb=caps[b.id];
-   const old=clock.battles.find(x=>x.id===ids.join('|')),battle={id:ids.join('|'),units:ids,initiators:ids.filter(id=>intents[id]?.kind==='FIGHT'||arrivals.some(x=>x.id===id)),hex:copy(b.hex),since:old?.since??clock.tick,ticks:(old?.ticks??0)+1};battles.push(battle);
+   const old=clock.battles.find(x=>x.id===ids.join('|')),battle={id:ids.join('|'),units:ids,initiators:ids.filter(id=>intents[id]?.kind==='FIGHT'||arrivals.some(x=>x.id===id)),hex:copy(b.hex),since:old?.since??clock.tick,ticks:(old?.ticks??0)+1};Object.assign(battle,this.combatTrace(ids,intents,arrivals,before,old));battles.push(battle);
    for(const [u,e,c,ec]of[[a,b,ca,cb],[b,a,cb,ca]]){const risk=this.ownOrder(u.id)?.risk,pressure=risk==='HIGH'?1.3:risk==='LOW'?.75:1,terrain=this.state.hexes[kh(e.hex)].terrain,cover=terrain==='FOREST'||terrain==='CITY'?1.25:1;
     const hit=c.fire*pressure*(.8+.4*this.random())/(ec.protection*cover)*(1+c.antiArmor*ec.armor*.8);damage[e.id]=(damage[e.id]??0)+hit;orgDamage[e.id]=(orgDamage[e.id]??0)+3+hit*.3;clock.units[u.id].engaged++;this.spend(u.id,spec.combatQ);}
   }
