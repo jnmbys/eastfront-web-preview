@@ -49,7 +49,8 @@ export function planVS2Infrastructure(model: BrowserRenderModel) {
   return { chains: [...chainVS2Edges(river, 'river'), ...chainVS2Edges(road, 'road'), ...chainVS2Edges(rail, 'rail')], bridges };
 }
 
-export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog) {
+export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog, reuseImages=false) {
+  const retained=new Map<string,Awaited<ReturnType<typeof loadTerrainImage>>>();
   const plan = planVS2Infrastructure(model), style = VS2_PRESENTATION[lod], capabilities = terrainSurfaceCapabilities();
   // Draw calls depend on actual path/bridge branches; no invented total.
   reportTerrainLoad({ kind: 'assets', total: null });
@@ -61,7 +62,8 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
     const range = entry.recommendedWorldScale.width;
     const H = SQRT3 * HEX_SIZE;
     if (width < range[0]! * H || width > range[1]! * H || opacity < entry.opacityRange[0]! || opacity > entry.opacityRange[1]!) throw new Error(`VS2 path presentation outside manifest: ${id}`);
-    const image = await loadTerrainImage({ id, family: entry.family, file: entry.file, sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities, new URL(assets.url(entry), document.baseURI).href);
+    let image=retained.get(id);
+    if(!image){image=await loadTerrainImage({ id, family: entry.family, file: entry.file, sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities, new URL(assets.url(entry), document.baseURI).href);if(reuseImages)retained.set(id,image);}
     used.add(id);
     try {
       // Preserve source aspect ratio and phase through every edge of each chain.
@@ -79,8 +81,9 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
           }
         } finally { ctx.restore(); }
       }
-    } finally { image.release?.(); }
+    } finally { if(!reuseImages)image.release?.(); }
   };
+  try {
   const paths = (kind: VS2PathChain['kind']) => plan.chains.filter(c => c.kind === kind);
   // Continuous round joins underneath the textures close bends and graph junctions.
   const joins = (chains: readonly VS2PathChain[], width: number, color: string, opacity: number) => {
@@ -134,4 +137,5 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
   }
   reportTerrainLoad({ kind: 'building' });
   return { imageDraws, uniqueAssets: used.size };
+  } finally {for(const image of retained.values())image.release?.();retained.clear();}
 }

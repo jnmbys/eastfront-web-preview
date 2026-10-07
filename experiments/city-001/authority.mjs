@@ -1,3 +1,4 @@
+import * as assets from '../city-001-r1/assets.mjs';
 import {Campaign as Grand} from '../grand-ux-001/authority.mjs';
 import {layout,policy} from './config.mjs';import * as core from '../../vendor/eastfront-digital-core/dist/index.js';
 const copy=structuredClone,kh=core.hexKey,fail=x=>{throw Error(x);};
@@ -11,6 +12,7 @@ export class Campaign extends Grand{
   this.econ.cities={policy,items:cities,membership,events:[],constructionSpentI:{GERMAN:0,SOVIET:0}};
   for(const f of Object.values(this.econ.ux.facilities)){const w=this.econ.warehouses[f.warehouse];f.district=membership[w.node];f.hex=w.node;f.slot=0;}
  }
+ take(w,type,qty,turn=this.state.turn){assets.remember(this);return super.take(w,type,qty,turn);}
  district(hex){return this.econ.cities?.items.flatMap(c=>c.districts).find(d=>d.hex===hex);}
  cityFor(hex){return this.econ.cities?.items.find(c=>c.districts.some(d=>d.hex===hex));}
  canControl(hex,side){if(this.state.pendingDecision)return false;const h=this.state.hexes[hex];if(!h)return false;
@@ -20,14 +22,7 @@ export class Campaign extends Grand{
  serviceAllowed(w,side){const city=this.cityFor(w.node);if(!city)return true;const stations=city.districts.filter(d=>d.type==='STATION');if(!stations.length)return true;
   const net=this.network(side);return stations.some(d=>this.state.hexes[d.hex].control===side&&this.canControl(d.hex,side)&&this.nodes.some(n=>n.sourceQ&&this.state.hexes[n.hex].control===side&&net.path(n.hex,d.hex)!==null));
  }
- transferDistrict(d,side){const old=d.control;d.control=side;if(old===side)return;
-  const w=Object.values(this.econ.warehouses).find(w=>w.node===d.hex);
-  if(w){for(const l of w.lots)if(l.qty){l.seizedFrom=l.seizedFrom??old;l.availableTurn=Number.MAX_SAFE_INTEGER;}w.owner=side;
-   const line=this.econ.ux.lines[w.id];if(line){line.seizedWork??=[];line.seizedWork.push({side:line.side,progress:copy(line.progress),turn:this.state.turn});for(const k in line.progress)line.progress[k]=0;line.side=side;line.product='IDLE';line.factories=[];}
-  }
-  for(const f of Object.values(this.econ.ux.facilities).filter(f=>f.district===d.id)){if(f.status==='BUILDING'){f.status='SEIZED_CONSTRUCTION';f.seizedFrom=f.side;}f.side=side;}
-  this.econ.cities.events.push({kind:'CONTROL',district:d.id,from:old,to:side,turn:this.state.turn});
- }
+ transferDistrict(d,side){assets.transfer(this,d,side);}
  capture(action){super.capture(action);if(!this.econ.cities)return;
   for(const city of this.econ.cities.items){const side=this.state.hexes[city.main].control;if(side!==city.owner){city.owner=side;if(side)for(const d of city.districts)if(d.hex!==city.main&&this.canControl(d.hex,side))this.state.hexes[d.hex].control=side;}
    for(const d of city.districts)this.transferDistrict(d,this.state.hexes[d.hex].control);city.contested=city.districts.some(d=>d.control&&city.owner&&d.control!==city.owner);
@@ -48,11 +43,13 @@ export class Campaign extends Grand{
  }
  finishEpoch(epoch){if(this.econ.epoch>=epoch)fail('EPOCH_ALREADY_SETTLED');
   for(const f of Object.values(this.econ.ux.facilities))if(f.status==='BUILDING'&&this.state.hexes[f.hex].control===f.side&&this.canControl(f.hex,f.side)){f.progress++;if(f.progress>=policy.constructionEpochs){f.status='BUILT';this.econ.ux.lines[f.warehouse].factories.push(f.id);this.econ.cities.events.push({kind:'BUILT',facility:f.id,epoch});}}
-  return super.finishEpoch(epoch);
+  assets.beforeEpoch(this,epoch);const result=super.finishEpoch(epoch);assets.afterEpoch(this);return result;
  }
  snapshot(draft){const d=super.snapshot(draft),view=d.game.message.payload.view,known=this.econ.ux.known[this.viewer],control=hex=>view.hexes.find(h=>kh(h.coord)===hex)?.control??known[hex]??null;
   d.cities={policy,constructionSpentI:this.econ.cities.constructionSpentI[this.viewer],items:this.econ.cities.items.map(city=>({id:city.id,label:city.label,main:city.main,owner:control(city.main),vp:city.vp,
-   districts:city.districts.map(d=>{const owner=control(d.hex),own=owner===this.viewer,w=Object.values(this.econ.warehouses).find(w=>w.node===d.hex);return {...d,control:owner,slots:d.slots,facilities:own?Object.values(this.econ.ux.facilities).filter(f=>f.district===d.id).map(f=>({...copy(f),line:this.econ.ux.lines[f.warehouse]?.product})):[],service:own&&w?this.serviceAllowed(w,this.viewer):own&&d.type==='STATION'?this.serviceAllowed({node:d.hex},this.viewer):false,canBuild:own&&d.slots>Object.values(this.econ.ux.facilities).filter(f=>f.district===d.id).length&&this.canControl(d.hex,this.viewer),warehouse:own?w?.id:null,unconfirmed:owner===null};})})).map(c=>({...c,contested:c.districts.some(d=>d.control&&c.owner&&d.control!==c.owner),unconfirmed:c.districts.some(d=>d.unconfirmed)}))};
+   districts:city.districts.map(d=>{const owner=control(d.hex),own=owner===this.viewer,w=Object.values(this.econ.warehouses).find(w=>w.node===d.hex);return {...d,control:owner,slots:d.slots,facilities:own?Object.values(this.econ.ux.facilities).filter(f=>f.district===d.id).map(f=>({...copy(f),line:this.econ.ux.lines[f.warehouse]?.product})):[],service:own&&w?this.serviceAllowed(w,this.viewer):own&&d.type==='STATION'?this.serviceAllowed({node:d.hex},this.viewer):false,canBuild:own&&d.slots>Object.values(this.econ.ux.facilities).filter(f=>f.district===d.id).length&&this.canControl(d.hex,this.viewer),assets:assets.assetsView(this,w,this.viewer),waitingWork:(this.econ.ux.lines[w?.id]?.seizedWork??[]).filter(x=>x.side===this.viewer&&!x.restored).map(x=>({...copy(x),status:x.side===owner?'WAITING_ALLOCATION':'OCCUPATION'})),sealedConstruction:Object.values(this.econ.ux.facilities).filter(f=>f.district===d.id&&f.asset?.owner===this.viewer&&f.status==='SEIZED_CONSTRUCTION').map(f=>({id:f.id,progress:f.progress,paidI:f.paidI})),warehouse:own?w?.id:null,unconfirmed:owner===null};})})).map(c=>({...c,contested:c.districts.some(d=>d.control&&c.owner&&d.control!==c.owner),unconfirmed:c.districts.some(d=>d.unconfirmed)}))};
+  for(const w of d.warehouses)w.lots=w.lots.filter(l=>!l.asset||l.asset.owner===this.viewer);
+  for(const l of d.ux.lines){l.seizedWork=(l.seizedWork??[]).filter(w=>w.side===this.viewer);l.completed=Object.fromEntries(Object.keys(l.completed).map(type=>[type,this.econ.ledger.flatMap(e=>e.production).filter(p=>p.side===this.viewer&&p.origin===l.id&&p.type===type).reduce((n,p)=>n+p.qty,0)]));l.workAssigned=this.econ.ledger.flatMap(e=>e.factories??[]).filter(f=>f.side===this.viewer&&f.id===l.id).reduce((n,f)=>n+f.work,0);}
   return d;
  }
 }
