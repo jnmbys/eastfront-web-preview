@@ -1,3 +1,5 @@
+import type {CityArtView} from '../render/cityArtView.js';
+import {paintAuthorizedCities} from '../render/cityArtRuntime.js';
 import type {GrandPort} from './grand.js';
 import {hexToPixel,HEX_SIZE} from '../geometry/hex.js';
 const esc=(v:any)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
@@ -23,8 +25,14 @@ export function bindCities(p:GrandPort,update:()=>void){if(!p.data?.cities)retur
  document.querySelectorAll<HTMLElement>('[data-city-district]').forEach(b=>b.addEventListener('click',()=>{p.selections.district=b.dataset.cityDistrict!;update();}));
  document.querySelectorAll<HTMLElement>('[data-city-build]').forEach(b=>b.addEventListener('click',()=>void p.operation({type:'BUILD_FACTORY',district:b.dataset.cityBuild})));
 }
+/** Only complete, already-authorized snapshots enter the renderer; transport deltas belong upstream. */
+export function currentCityArtView(data:any):CityArtView {
+ const view=data?.game?.message?.payload?.view;
+ if(!Array.isArray(data?.cities?.items)||!Array.isArray(view?.edges)||!Array.isArray(view?.contactHexKeys))throw new Error('CITY_ART_REQUIRES_FULL_AUTHORIZED_SNAPSHOT');
+ return {revision:data.version,viewer:data.viewer,cities:data.cities.items.map((c:any)=>({id:c.id,label:c.label,districts:c.districts.map((d:any)=>({id:d.id,cityId:d.cityId,hex:d.hex,paper:d.paper,type:d.type,slots:d.slots,control:d.control,unconfirmed:d.unconfirmed,hidden:d.hidden,service:d.service,facilities:d.facilities.map((f:any)=>({id:f.id,slot:f.slot,status:f.status,progress:f.progress,paidI:f.paidI})),sealedConstruction:(d.sealedConstruction??[]).map((f:any)=>({id:f.id,progress:f.progress,paidI:f.paidI}))}))})),edges:view.edges,knownHexKeys:view.contactHexKeys};
+}
 const boundCityMaps=new WeakSet<Element>();
-export function paintCities(p:GrandPort,update:()=>void){const svg=document.querySelector('#eastfront-map');svg?.querySelector('#city-districts')?.remove();if(!svg||!p.data?.cities)return;
+export function paintCities(p:GrandPort,update:()=>void,enhanced=false,canInspect:()=>boolean=()=>true){if(enhanced){paintAuthorizedCities(currentCityArtView(p.data),(cityId,districtId)=>{p.selections.city=cityId;p.selections.district=districtId;update();const panel=document.querySelector('.city-panel');const details=panel?.closest('details');if(details)details.open=true;panel?.scrollIntoView({block:'nearest'});},{canInspect});return;}const svg=document.querySelector('#eastfront-map');svg?.querySelector('#city-districts')?.remove();if(!svg||!p.data?.cities)return;
  if(!boundCityMaps.has(svg)){boundCityMaps.add(svg);svg.addEventListener('click',event=>{const target=(event.target as Element).closest<SVGElement>('[data-hex]');if(!target)return;const city=p.data.cities?.items.find((c:any)=>c.districts.some((d:any)=>d.hex===target.dataset.hex));if(!city)return;p.selections.city=city.id;p.selections.district=city.districts.find((d:any)=>d.hex===target.dataset.hex).id;queueMicrotask(update);},{capture:true});}
  const color=(s:string)=>s==='GERMAN'?'#617d92':s==='SOVIET'?'#a16856':'#a39169';
  const markup=p.data.cities.items.flatMap((c:any)=>c.districts.map((d:any)=>{const[q,r]=d.hex.split(',').map(Number),pos=hexToPixel({q,r}),built=d.facilities.filter((f:any)=>f.status==='BUILT'),building=d.facilities.filter((f:any)=>f.status!=='BUILT');

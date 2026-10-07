@@ -1,3 +1,4 @@
+import type {TerrainWorkControl} from './terrainWork.js';
 import { reportTerrainLoad } from './terrainLoadProgress.js';
 import { HEX_SIZE, SQRT3, hexToPixel, sharedHexEdge, type Point } from '../geometry/hex.js';
 import type { BrowserRenderModel } from './coreModel.js';
@@ -49,13 +50,14 @@ export function planVS2Infrastructure(model: BrowserRenderModel) {
   return { chains: [...chainVS2Edges(river, 'river'), ...chainVS2Edges(road, 'road'), ...chainVS2Edges(rail, 'rail')], bridges };
 }
 
-export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog, reuseImages=false) {
+export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, lod: TerrainLod, assets: VS2AssetCatalog = vs2AssetCatalog, reuseImages=false, control?:TerrainWorkControl) {
   const retained=new Map<string,Awaited<ReturnType<typeof loadTerrainImage>>>();
   const plan = planVS2Infrastructure(model), style = VS2_PRESENTATION[lod], capabilities = terrainSurfaceCapabilities();
   // Draw calls depend on actual path/bridge branches; no invented total.
   reportTerrainLoad({ kind: 'assets', total: null });
   let imageDraws = 0; const used = new Set<string>();
   const draw = async (id: string, chains: readonly VS2PathChain[], width: number, opacity: number) => {
+    await control?.checkpoint();
     if (!chains.length) return;
     const entry = assets.byId(id);
     if (!entry || !entry.LOD.includes(lod) || entry.rotationAllowed.mode !== 'canonicalPathTangent') throw new Error(`Invalid VS2 path material/LOD: ${id}/${lod}`);

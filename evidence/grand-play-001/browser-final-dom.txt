@@ -1,0 +1,326 @@
+- status: 双方共享时钟 · 地图仅显示授权敌情
+- generic: 本机磁盘存档可跨服务重启
+- button "复制诊断"
+- button "退出 / 新局"
+- banner:
+  - strong: EASTFRONT
+  - strong: 共同时间 3:20 · 暂停 · 德军统帅 / 苏军AI
+  - combobox "语言":
+    - option "简体中文" [selected]
+    - option "English"
+  - button "退出战役"
+  - button "面板" [expanded]
+- main:
+  - strong: 大战略实验 · 32×40格
+  - text: 单位模型
+  - combobox "单位模型":
+    - option "自动" [selected]
+    - option "关闭"
+  - generic "地图缩放控制":
+    - button "缩小": −
+    - generic: 408%
+    - button "放大": +
+    - button "适应地图"
+  - status
+  - generic "EASTFRONT 作战地图":
+    - img "大战略实验1280格地图":
+      - button "可移动至 23,5"
+      - button "可移动至 23,4"
+      - button "可移动至 22,4"
+      - button "可移动至 21,5"
+      - button "可移动至 21,6"
+      - button "可移动至 22,6"
+      - button "G-013 己方；组织度39%；人员205；已到任务区域，守备与补充":
+        - generic: DE · 步
+        - generic: 39% · 205员
+      - button "G-014 己方；组织度100%；人员300；已到任务区域，守备与补充":
+        - generic: DE · 步
+        - generic: 100% · 300员
+      - button "G-019 己方；组织度100%；人员300；已到任务区域，守备与补充":
+        - generic: DE · 炮
+        - generic: 100% · 300员
+        - generic: ×2
+      - button "G-017 己方；组织度100%；人员300；已到任务区域，守备与补充" [pressed]:
+        - generic: DE · 装
+        - generic: 100% · 300员
+      - button "G-018 己方；组织度32%；人员202；按已知地形向命令目标推进":
+        - generic: DE · 摩
+        - generic: 32% · 202员
+      - button "G-025 己方；组织度100%；人员300；已到任务区域，守备与补充":
+        - generic: DE · 步
+        - generic: 100% · 300员
+      - button "G-030 己方；组织度100%；人员300；已到任务区域，守备与补充":
+        - generic: DE · 摩
+        - generic: 100% · 300员
+      - button "G-031 己方；组织度100%；人员300；已到任务区域，守备与补充":
+        - generic: DE · 炮
+        - generic: 100% · 300员
+        - generic: ×2
+      - button "G-026 己方；组织度57%；人员268；已识别相邻敌军；按现有火力与附近友军投入":
+        - generic: DE · 步
+        - generic: 57% · 268员
+      - button "G-029 己方；组织度43%；人员273；已识别相邻敌军；按现有火力与附近友军投入":
+        - generic: DE · 装
+        - generic: 43% · 273员
+      - button "G-032 己方；组织度45%；人员259；组织度不足，轮换休整":
+        - generic: DE · 工
+        - generic: 45% · 259员
+        - generic: ×2
+      - button "G-037 己方；组织度100%；人员300；直属或命令暂停":
+        - generic: DE · 步
+        - generic: 100% · 300员
+      - button "G-038 己方；组织度100%；人员300；直属或命令暂停":
+        - generic: DE · 步
+        - generic: 100% · 300员
+      - button "G-041 己方；组织度100%；人员300；直属或命令暂停":
+        - generic: DE · 装
+        - generic: 100% · 300员
+      - button "G-042 己方；组织度100%；人员300；直属或命令暂停":
+        - generic: DE · 摩
+        - generic: 100% · 300员
+      - button "G-043 己方；组织度100%；人员300；直属或命令暂停":
+        - generic: DE · 炮
+        - generic: 100% · 300员
+      - button "G-044 己方；组织度100%；人员300；直属或命令暂停":
+        - generic: DE · 工
+        - generic: 100% · 300员
+      - button "S-014 已识别敌军":
+        - generic: SU · 步
+        - generic: 已识别
+      - button "S-026 已识别敌军":
+        - generic: SU · 步
+        - generic: 已识别
+      - button "S-029 已识别敌军":
+        - generic: SU · 装
+        - generic: 已识别
+        - generic: ×2
+      - button "西方总部与近郊工业群 H16 主城区":
+        - generic: H16 主城区 ?
+      - button "西方总部与近郊工业群 I17 铁路站区":
+        - generic: I17 铁路站区 ?
+      - button "西方总部与近郊工业群 J17 工业区":
+        - generic: J17 工业区 ?
+      - button "西方总部与近郊工业群 H17 普通城区":
+        - generic: H17 普通城区 ?
+      - button "第聂伯枢纽与近郊 Z17 主城区":
+        - generic: Z17 主城区
+      - button "第聂伯枢纽与近郊 AC17 铁路站区":
+        - generic: AC17 铁路站区 ?
+      - button "第聂伯枢纽与近郊 AB18 工业区":
+        - generic: AB18 工业区 ?
+      - button "第聂伯枢纽与近郊 Z20 普通城区":
+        - generic: Z20 普通城区 ?
+      - button "南部河谷渡口 Y26 主城区":
+        - generic: Y26 主城区 ?
+      - button "F5 工区 F5 主城区":
+        - generic: F5 主城区 ?
+      - button "H11 工区 H11 主城区":
+        - generic: H11 主城区 ?
+      - button "K23 工区 K23 主城区":
+        - generic: K23 主城区 ?
+      - button "O29 工区 O29 主城区":
+        - generic: O29 主城区 ?
+      - button "V5 站场 V5 主城区":
+        - generic: V5 主城区 ?
+      - button "V11 站场 V11 主城区":
+        - generic: V11 主城区 ?
+      - button "W17 站场 W17 主城区":
+        - generic: W17 主城区
+      - button "V23 站场 V23 主城区":
+        - generic: V23 主城区 ?
+      - button "V29 站场 V29 主城区":
+        - generic: V29 主城区 ?
+      - button "AJ4 工区 AJ4 主城区":
+        - generic: AJ4 主城区 ?
+      - button "AL10 工区 AL10 主城区":
+        - generic: AL10 主城区 ?
+      - button "AJ18 工区 AJ18 主城区":
+        - generic: AJ18 主城区 ?
+      - button "AL24 工区 AL24 主城区":
+        - generic: AL24 主城区 ?
+      - button "AI30 工区 AI30 主城区":
+        - generic: AI30 主城区 ?
+      - button "AC5 站场 AC5 主城区":
+        - generic: AC5 主城区 ?
+      - button "AC11 站场 AC11 主城区":
+        - generic: AC11 主城区 ?
+      - button "AC23 站场 AC23 主城区":
+        - generic: AC23 主城区 ?
+      - button "AB29 站场 AB29 主城区":
+        - generic: AB29 主城区 ?
+      - button "东部战区总部 AM6 主城区":
+        - generic: AM6 主城区 ?
+      - button "分水岭转运站 Z6 主城区":
+        - generic: Z6 主城区 ?
+      - generic: 西岸集结线 W17
+      - generic: 中央枢纽 Z17
+      - generic: 东岸站区 AC17
+      - generic: 交战 25分
+      - generic: 交战 5分
+      - generic: 第一机动军团
+      - generic: 第二中央军团
+      - generic: 第三预备军团
+  - complementary:
+    - heading "第聂伯中央战线" [level=2]
+    - strong: 03:20 / 15:00 · 已暂停
+    - button "继续时间"
+    - button "1×"
+    - button "2×"
+    - button "4×" [pressed]
+    - paragraph: 双方同时行动。40分钟后结算生产与配送。普通配送不打断。
+    - button "保存战役"
+    - button "加载存档（暂停）"
+    - status: 已保存到本机磁盘，关闭服务后仍可加载。
+    - generic "目标与操作帮助"
+    - generic: 当前部队
+    - heading "G-017 · W17" [level=3]
+    - paragraph:
+      - text: 组织度 100% · 人员 300/300
+      - text: 库存 6.00 SP · 战役伤亡 0
+    - paragraph:
+      - text: 火力 14.0 · 装甲防护 2.6 · 机动 1.4
+      - text: 驻留 · 已到任务区域，守备与补充
+    - button "暂停该部队并调回直属"
+    - paragraph: 调回后仍承受正在发生的敌方攻击；不能撤销既有战果。
+    - heading "军团命令" [level=3]
+    - text: 军团
+    - combobox "军团":
+      - option "第一机动军团 · 雷纳·沃尔特" [selected]
+      - option "第二中央军团 · 米哈伊尔·罗文"
+      - option "第三预备军团 · 安东·维尔"
+    - paragraph: 向目标推进；5支部队
+    - button "G-013"
+    - button "G-014"
+    - button "G-017"
+    - button "G-018"
+    - button "G-019"
+    - text: 持续任务
+    - combobox "持续任务":
+      - option "守住防线"
+      - option "向目标推进"
+      - option "撤回防线" [selected]
+      - option "停止进攻，整顿补充"
+    - text: 目标
+    - combobox "目标":
+      - option "西岸集结线 W17 · 己方" [selected]
+      - option "中央枢纽 Z17 · 己方"
+      - option "东岸站区 AC17 · 未确认"
+      - option "北侧迂回 X14 · 己方"
+    - button "从地图指定目标"
+    - paragraph: 未指定地图目标，使用上方地点
+    - text: 允许风险
+    - combobox "允许风险":
+      - option "谨慎"
+      - option "通常" [selected]
+      - option "加大进攻力度"
+    - button "委托军团执行"
+    - button "暂停军团 / 取消行军"
+    - button "向选中直属部队下令"
+    - button "将选中部队委托给当前军团"
+    - paragraph: 普通地图计划不构成授权。命令跨时间保留；暂停军团不会停止全战线时钟。停止行军留在出发格，已付消耗不返还。
+    - generic "军官与战况报告"
+    - generic "城市与工厂"
+    - option "西方总部与近郊工业群" [selected]
+    - option "第聂伯枢纽与近郊"
+    - option "南部河谷渡口"
+    - option "F5 工区"
+    - option "H11 工区"
+    - option "K23 工区"
+    - option "O29 工区"
+    - option "V5 站场"
+    - option "V11 站场"
+    - option "W17 站场"
+    - option "V23 站场"
+    - option "V29 站场"
+    - option "AJ4 工区"
+    - option "AL10 工区"
+    - option "AJ18 工区"
+    - option "AL24 工区"
+    - option "AI30 工区"
+    - option "AC5 站场"
+    - option "AC11 站场"
+    - option "AC23 站场"
+    - option "AB29 站场"
+    - option "东部战区总部"
+    - option "分水岭转运站"
+    - generic "生产、运输与军队优先级"
+    - option "转行政预算"
+    - option "步兵装备 · 2工时/件" [selected]
+    - option "野战火炮 · 6工时/件"
+    - option "反坦克炮 · 4工时/件"
+    - option "中型装甲 · 8工时/件"
+    - option "重型装甲 · 12工时/件"
+    - option "工兵与通信器材 · 3工时/件"
+    - option "侦察器材 · 4工时/件"
+    - option "卡车 · 4工时/件"
+    - option "火车 · 8工时/件"
+    - option "转行政预算"
+    - option "步兵装备 · 2工时/件"
+    - option "野战火炮 · 6工时/件"
+    - option "反坦克炮 · 4工时/件"
+    - option "中型装甲 · 8工时/件" [selected]
+    - option "重型装甲 · 12工时/件"
+    - option "工兵与通信器材 · 3工时/件"
+    - option "侦察器材 · 4工时/件"
+    - option "卡车 · 4工时/件"
+    - option "火车 · 8工时/件"
+    - option "转行政预算"
+    - option "步兵装备 · 2工时/件"
+    - option "野战火炮 · 6工时/件" [selected]
+    - option "反坦克炮 · 4工时/件"
+    - option "中型装甲 · 8工时/件"
+    - option "重型装甲 · 12工时/件"
+    - option "工兵与通信器材 · 3工时/件"
+    - option "侦察器材 · 4工时/件"
+    - option "卡车 · 4工时/件"
+    - option "火车 · 8工时/件"
+    - option "转行政预算"
+    - option "步兵装备 · 2工时/件"
+    - option "野战火炮 · 6工时/件"
+    - option "反坦克炮 · 4工时/件"
+    - option "中型装甲 · 8工时/件"
+    - option "重型装甲 · 12工时/件"
+    - option "工兵与通信器材 · 3工时/件"
+    - option "侦察器材 · 4工时/件"
+    - option "卡车 · 4工时/件" [selected]
+    - option "火车 · 8工时/件"
+    - option "转行政预算" [selected]
+    - option "步兵装备 · 2工时/件"
+    - option "野战火炮 · 6工时/件"
+    - option "反坦克炮 · 4工时/件"
+    - option "中型装甲 · 8工时/件"
+    - option "重型装甲 · 12工时/件"
+    - option "工兵与通信器材 · 3工时/件"
+    - option "侦察器材 · 4工时/件"
+    - option "卡车 · 4工时/件"
+    - option "火车 · 8工时/件"
+    - option "1"
+    - option "2"
+    - option "3" [selected]
+    - option "4"
+    - option "5"
+    - option "0" [selected]
+    - option "1"
+    - option "2"
+    - option "3"
+    - option "1"
+    - option "2"
+    - option "3" [selected]
+    - option "4"
+    - option "5"
+    - option "0" [selected]
+    - option "1"
+    - option "2"
+    - option "3"
+    - option "1"
+    - option "2"
+    - option "3" [selected]
+    - option "4"
+    - option "5"
+    - option "0" [selected]
+    - option "1"
+    - option "2"
+    - option "3"
+- contentinfo:
+  - generic: 战略重置 F
+  - generic: EASTFRONT · 战役指挥

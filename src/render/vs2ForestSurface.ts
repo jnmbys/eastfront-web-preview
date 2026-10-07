@@ -55,6 +55,7 @@ export async function paintVS2Forest(ctx: CanvasRenderingContext2D, projection: 
   reportTerrainLoad({ kind: 'assets', total: ids.length });
   try {
     for (const id of ids) {
+      await control?.checkpoint();
       const entry = assets.byId(id)!;
       if (!entry.LOD.includes(lod) || !entry.rotationAllowed.degrees?.includes(0)) throw new Error(`VS2 canopy transform/LOD mismatch: ${id}`);
       const image = await loadTerrainImage({ id, family: entry.family, file: entry.file, sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities, new URL(assets.url(entry), document.baseURI).href);

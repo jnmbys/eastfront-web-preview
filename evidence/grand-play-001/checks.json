@@ -1,0 +1,203 @@
+{
+  "checks": [
+    "paused has no income, movement or RNG advancement",
+    "idempotent command, quota-free pause, stale and enemy commands rejected",
+    "production operation retry retains one receipt",
+    "fair policy ignores hidden enemies; limited to 400 search expansions",
+    "simultaneous combat unaffected by unit array insertion order",
+    "save during marching/combat, restart, load paused, identical continuation",
+    "speed selects wall cadence only, same tick sequence identical",
+    "direct takeover cancels only future movement, no refund",
+    "directed wounded-unit scenario: real production, shared delivery and unique material payment",
+    "opposed arrivals to same hex engage without first-array capture"
+  ],
+  "results": [
+    {
+      "plan": "集中机动抢枢纽",
+      "tick": 150,
+      "result": {
+        "winner": "GERMAN",
+        "reason": "保持枢纽及一侧站区两小时"
+      },
+      "battleTicks": 139,
+      "losses": 1442.4316661872613,
+      "living": 17,
+      "repairs": 3,
+      "production": 31,
+      "supply": 656.25,
+      "transport": [
+        {
+          "id": "INITIAL:GERMAN:TRAIN",
+          "type": "TRAIN",
+          "qty": 4,
+          "availableTurn": 1
+        },
+        {
+          "id": "INITIAL:GERMAN:TRUCK",
+          "type": "TRUCK",
+          "qty": 8,
+          "availableTurn": 1
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:1",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 3
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:3",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 5
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:5",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 7
+        }
+      ],
+      "metrics": {
+        "ticks": 150,
+        "maxMs": 670.337099999997,
+        "totalMs": 21512.052899999988,
+        "expanded": 81013
+      }
+    },
+    {
+      "plan": "先整补并增加运输",
+      "tick": 150,
+      "result": {
+        "winner": "GERMAN",
+        "reason": "保持枢纽及一侧站区两小时"
+      },
+      "battleTicks": 120,
+      "losses": 2169.574079398775,
+      "living": 17,
+      "repairs": 2,
+      "production": 32,
+      "supply": 723.75,
+      "transport": [
+        {
+          "id": "INITIAL:GERMAN:TRAIN",
+          "type": "TRAIN",
+          "qty": 4,
+          "availableTurn": 1
+        },
+        {
+          "id": "INITIAL:GERMAN:TRUCK",
+          "type": "TRUCK",
+          "qty": 8,
+          "availableTurn": 1
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-3:TRUCK:1",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 3
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRAIN:1",
+          "type": "TRAIN",
+          "qty": 1,
+          "availableTurn": 4
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-3:TRUCK:3",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 5
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-3:TRUCK:4",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 6
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRAIN:2",
+          "type": "TRAIN",
+          "qty": 1,
+          "availableTurn": 6
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-3:TRUCK:5",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 7
+        }
+      ],
+      "metrics": {
+        "ticks": 150,
+        "maxMs": 493.42170000000624,
+        "totalMs": 12963.39110000008,
+        "expanded": 43241
+      }
+    },
+    {
+      "plan": "基本守势",
+      "tick": 150,
+      "result": {
+        "winner": "SOVIET",
+        "reason": "保持枢纽及一侧站区两小时"
+      },
+      "battleTicks": 37,
+      "losses": 416.7018521814299,
+      "living": 17,
+      "repairs": 0,
+      "production": 25,
+      "supply": 647,
+      "transport": [
+        {
+          "id": "INITIAL:GERMAN:TRAIN",
+          "type": "TRAIN",
+          "qty": 4,
+          "availableTurn": 1
+        },
+        {
+          "id": "INITIAL:GERMAN:TRUCK",
+          "type": "TRUCK",
+          "qty": 8,
+          "availableTurn": 1
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:1",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 3
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:2",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 4
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:3",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 5
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:4",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 6
+        },
+        {
+          "id": "POOL:LINE:GERMAN-industry-4:TRUCK:5",
+          "type": "TRUCK",
+          "qty": 1,
+          "availableTurn": 7
+        }
+      ],
+      "metrics": {
+        "ticks": 150,
+        "maxMs": 329.20789999999397,
+        "totalMs": 5575.30240000003,
+        "expanded": 7943
+      }
+    }
+  ],
+  "scope": "Deterministic development simulations; no human fun or balance conclusion."
+}

@@ -101,3 +101,17 @@ body.playable-integrated{--panel:#26372f;--panel-deep:#26372f;--line:#647061;--m
 .city-panel{border-top:3px solid #ad884b;background:#e5dec9}.city-tabs{display:flex;gap:4px;flex-wrap:wrap}.city-tabs button[aria-pressed=true]{background:#465e61;color:white}.city-panel select{width:100%;min-height:34px}.city-panel button{min-height:34px}.city-near{display:block}.city-far{display:none}.grand-far .city-near{display:none}.grand-far .city-far{display:block}[data-city-map]{cursor:pointer}
 
 #city-districts~#grand-objectives circle{display:none}
+
+/* GRAND-PLAY-001: reuse the map, keep choices in the existing dock. */
+body:has(.campaign-clock) .phase-ribbon,body:has(.campaign-clock) #network-match-status{display:none}
+.campaign-clock h2{font-size:18px;margin:0 0 8px}.campaign-clock strong{font-size:16px}.campaign-orders select{width:100%}.campaign-orders button{min-height:36px}.campaign-clock button{min-height:40px}
+body:has(.campaign-clock) .playable-dock{grid-template-columns:minmax(240px,.95fr) minmax(210px,.75fr) minmax(300px,1.3fr)}
+body:has(.campaign-clock) .playable-tools>details{padding:10px;border-top:1px solid #7d897d}
+@media(max-width:1000px){body:has(.campaign-clock) .playable-dock{grid-template-columns:1fr 1fr}body:has(.campaign-clock) .playable-tools{grid-column:1/-1}}
+
+body:has(.campaign-clock) .resource-strip>span,body:has(.campaign-clock) .animation-controls{display:none}
+body:has(.campaign-clock) .hex-grid{opacity:.12}
+body:has(.campaign-clock) .campaign-turn{font-size:13px;max-width:160px}
+
+body:has(.campaign-clock) .turn-strip,body:has(.campaign-clock) #grand-objectives,body:has(.campaign-clock) .map-toolbar>div:first-child>span{display:none}
+#campaign-hud{font-size:15px;color:#efdfb2;padding:10px;flex:1;text-align:center}
