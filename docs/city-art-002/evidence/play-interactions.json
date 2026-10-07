@@ -1,0 +1,3040 @@
+{
+  "fullSnapshot": "play-interactions.json.gz",
+  "fullUncompressedSha256": "7ceb069ce7d8b82924dea7e6051a95e28b4ac63ce3ecc5b28c30339c82ed866b",
+  "records": {
+    "beforeOfficer": {
+      "version": 63,
+      "turn": 4,
+      "phase": "GERMAN_RECOVERY",
+      "viewer": "GERMAN",
+      "owner": "GERMAN",
+      "account": {
+        "initialI": 12,
+        "incomeI": 54,
+        "spentI": 15,
+        "I": 51,
+        "reserve": 46,
+        "personnelCommitted": 2
+      },
+      "epoch": 3,
+      "officers": {
+        "side": "GERMAN",
+        "enabled": false,
+        "revision": 6,
+        "cursor": 0,
+        "groups": [
+          {
+            "id": "0",
+            "name": "埃里克·林德",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "1",
+            "name": "玛拉·沃斯",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "2",
+            "name": "尤里·索科林",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          }
+        ],
+        "reports": []
+      },
+      "uses": [],
+      "shipments": [
+        {
+          "id": "AUTO:GERMAN:2:0",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-3",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "RIFLE",
+          "qty": 2,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        },
+        {
+          "id": "AUTO:GERMAN:2:1",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-1",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "P",
+          "qty": 1,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "5,2|5,3",
+            "5,3|5,4",
+            "5,4|5,5",
+            "5,5|6,5",
+            "6,5|7,5",
+            "7,5|7,6",
+            "7,6|7,7",
+            "7,7|7,8",
+            "7,8|7,9",
+            "7,10|7,9",
+            "7,10|7,11",
+            "7,11|7,12",
+            "7,12|8,12",
+            "8,12|9,12",
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        }
+      ],
+      "warehouses": [
+        {
+          "id": "GERMAN-industry-1",
+          "owner": "GERMAN",
+          "node": "5,2",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            },
+            {
+              "id": "RESERVE:GERMAN:1:1",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "F5 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-industry-3",
+          "owner": "GERMAN",
+          "node": "9,12",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:3",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:4",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "J17 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-depot-5",
+          "owner": "GERMAN",
+          "node": "21,18",
+          "capacity": 96,
+          "lots": [],
+          "label": "V29 站场",
+          "role": "depot",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        }
+      ],
+      "ux": {
+        "lines": [
+          {
+            "id": "GERMAN-industry-3",
+            "side": "GERMAN",
+            "product": "RIFLE",
+            "progress": {
+              "RIFLE": 0,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "completed": {
+              "RIFLE": 10,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "factories": [
+              "FACTORY:GERMAN-industry-3:1",
+              "FACTORY:CITY-WEST-WORKS:D2:1"
+            ],
+            "priority": 3,
+            "workAssigned": 20,
+            "label": "J17 工区",
+            "hex": "9,12",
+            "controlled": true,
+            "seizedWork": []
+          }
+        ],
+        "equipment": [
+          {
+            "id": "G-059",
+            "base": {
+              "id": "G-INF",
+              "side": "GERMAN",
+              "type": "INFANTRY",
+              "steps": [
+                {
+                  "attack": 5,
+                  "defense": 5,
+                  "movement": 3
+                },
+                {
+                  "attack": 4,
+                  "defense": 4,
+                  "movement": 3
+                },
+                {
+                  "attack": 3,
+                  "defense": 3,
+                  "movement": 2
+                }
+              ],
+              "maxDamageSteps": 3,
+              "exertsZoc": true,
+              "canEntrench": true,
+              "isArmor": false,
+              "infantryCoordination": true,
+              "isSupport": false,
+              "recoveryCostPerStep": 0
+            },
+            "recipe": {
+              "RIFLE": 2
+            },
+            "held": {
+              "RIFLE": 4
+            },
+            "staged": [
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+                "type": "RIFLE",
+                "qty": 1,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:1"
+              },
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+                "type": "RIFLE",
+                "qty": 1,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:2"
+              },
+              {
+                "id": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+                "type": "P",
+                "qty": 1,
+                "availableTurn": 3,
+                "origin": "RESERVE:GERMAN:1:0"
+              }
+            ],
+            "ratio": 1,
+            "required": {
+              "RIFLE": 4
+            },
+            "repair": {
+              "recipe": {
+                "P": 1,
+                "RIFLE": 2
+              },
+              "missing": []
+            },
+            "stats": {
+              "attack": 4,
+              "defense": 4,
+              "movement": 3
+            }
+          }
+        ]
+      },
+      "cities": {
+        "district": {
+          "id": "CITY-WEST-WORKS:D2",
+          "cityId": "CITY-WEST-WORKS",
+          "paper": "J17",
+          "hex": "9,12",
+          "type": "INDUSTRIAL",
+          "slots": 4,
+          "control": "GERMAN",
+          "facilities": [
+            {
+              "id": "FACTORY:GERMAN-industry-3:1",
+              "warehouse": "GERMAN-industry-3",
+              "side": "GERMAN",
+              "status": "BUILT",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "slot": 0,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 0,
+                "originalStatus": "BUILT"
+              },
+              "line": "RIFLE"
+            },
+            {
+              "id": "FACTORY:CITY-WEST-WORKS:D2:1",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "warehouse": "GERMAN-industry-3",
+              "slot": 1,
+              "side": "GERMAN",
+              "status": "BUILT",
+              "progress": 2,
+              "orderedEpoch": 0,
+              "paidI": 6,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 6,
+                "originalStatus": "BUILDING"
+              },
+              "line": "RIFLE"
+            }
+          ],
+          "service": true,
+          "canBuild": true,
+          "assets": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            }
+          ],
+          "waitingWork": [],
+          "sealedConstruction": [],
+          "warehouse": "GERMAN-industry-3",
+          "unconfirmed": true
+        }
+      },
+      "unit": {
+        "id": "G-059",
+        "hex": "21,18",
+        "label": "V29",
+        "step": 1,
+        "alive": true,
+        "army": "西-5集团军",
+        "stock": 24,
+        "debt": 0,
+        "short": 0,
+        "due": 4
+      },
+      "unitView": {
+        "visibility": "IDENTIFIED",
+        "id": "G-059",
+        "side": "GERMAN",
+        "type": "INFANTRY",
+        "step": 1,
+        "hex": {
+          "q": 21,
+          "r": 18
+        },
+        "stats": {
+          "attack": 4,
+          "defense": 4,
+          "movement": 3
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-059",
+          "templateId": "EQUIPPED:G-059",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 1,
+          "alive": true,
+          "hex": {
+            "q": 21,
+            "r": 18
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "GERMAN",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      }
+    },
+    "afterOfficer": {
+      "version": 64,
+      "turn": 4,
+      "phase": "GERMAN_RECOVERY",
+      "viewer": "GERMAN",
+      "owner": "GERMAN",
+      "account": {
+        "initialI": 12,
+        "incomeI": 54,
+        "spentI": 15,
+        "I": 51,
+        "reserve": 46,
+        "personnelCommitted": 2
+      },
+      "epoch": 3,
+      "officers": {
+        "side": "GERMAN",
+        "enabled": true,
+        "revision": 11,
+        "cursor": 1,
+        "groups": [
+          {
+            "id": "0",
+            "name": "埃里克·林德",
+            "members": [
+              "G-059"
+            ],
+            "order": {
+              "kind": "REFIT",
+              "target": null
+            },
+            "paused": false,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "无可提出的恢复/筑垒；后勤需求请玩家确认",
+            "needs": []
+          },
+          {
+            "id": "1",
+            "name": "玛拉·沃斯",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "2",
+            "name": "尤里·索科林",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          }
+        ],
+        "reports": [
+          {
+            "officer": "埃里克·林德",
+            "turn": 4,
+            "phase": "GERMAN_RECOVERY",
+            "action": {
+              "type": "REPAIR_UNIT",
+              "unitId": "G-059"
+            },
+            "accepted": true,
+            "reason": "恢复所属受损部队；已配送本兵种装备和人员，共用原恢复次数",
+            "metrics": {
+              "expanded": 0,
+              "searches": 0,
+              "exhausted": false
+            },
+            "ms": 116.8601000001654,
+            "policyMs": 3.7428999999538064
+          }
+        ]
+      },
+      "uses": [
+        {
+          "id": "USE:72144c29-481e-4ae8-9e77-38422da8178f",
+          "unitId": "G-059",
+          "side": "GERMAN",
+          "turn": 4,
+          "paid": [
+            {
+              "lot": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 1
+            },
+            {
+              "lot": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 1
+            },
+            {
+              "lot": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 1
+            }
+          ],
+          "rp": 0
+        }
+      ],
+      "shipments": [
+        {
+          "id": "AUTO:GERMAN:2:0",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-3",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "RIFLE",
+          "qty": 2,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        },
+        {
+          "id": "AUTO:GERMAN:2:1",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-1",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "P",
+          "qty": 1,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "5,2|5,3",
+            "5,3|5,4",
+            "5,4|5,5",
+            "5,5|6,5",
+            "6,5|7,5",
+            "7,5|7,6",
+            "7,6|7,7",
+            "7,7|7,8",
+            "7,8|7,9",
+            "7,10|7,9",
+            "7,10|7,11",
+            "7,11|7,12",
+            "7,12|8,12",
+            "8,12|9,12",
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        }
+      ],
+      "warehouses": [
+        {
+          "id": "GERMAN-industry-1",
+          "owner": "GERMAN",
+          "node": "5,2",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            },
+            {
+              "id": "RESERVE:GERMAN:1:1",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "F5 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-industry-3",
+          "owner": "GERMAN",
+          "node": "9,12",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:3",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:4",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "J17 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-depot-5",
+          "owner": "GERMAN",
+          "node": "21,18",
+          "capacity": 96,
+          "lots": [],
+          "label": "V29 站场",
+          "role": "depot",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        }
+      ],
+      "ux": {
+        "lines": [
+          {
+            "id": "GERMAN-industry-3",
+            "side": "GERMAN",
+            "product": "RIFLE",
+            "progress": {
+              "RIFLE": 0,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "completed": {
+              "RIFLE": 10,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "factories": [
+              "FACTORY:GERMAN-industry-3:1",
+              "FACTORY:CITY-WEST-WORKS:D2:1"
+            ],
+            "priority": 3,
+            "workAssigned": 20,
+            "label": "J17 工区",
+            "hex": "9,12",
+            "controlled": true,
+            "seizedWork": []
+          }
+        ],
+        "equipment": [
+          {
+            "id": "G-059",
+            "base": {
+              "id": "G-INF",
+              "side": "GERMAN",
+              "type": "INFANTRY",
+              "steps": [
+                {
+                  "attack": 5,
+                  "defense": 5,
+                  "movement": 3
+                },
+                {
+                  "attack": 4,
+                  "defense": 4,
+                  "movement": 3
+                },
+                {
+                  "attack": 3,
+                  "defense": 3,
+                  "movement": 2
+                }
+              ],
+              "maxDamageSteps": 3,
+              "exertsZoc": true,
+              "canEntrench": true,
+              "isArmor": false,
+              "infantryCoordination": true,
+              "isSupport": false,
+              "recoveryCostPerStep": 0
+            },
+            "recipe": {
+              "RIFLE": 2
+            },
+            "held": {
+              "RIFLE": 6
+            },
+            "staged": [
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+                "type": "RIFLE",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:1"
+              },
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+                "type": "RIFLE",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:2"
+              },
+              {
+                "id": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+                "type": "P",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "RESERVE:GERMAN:1:0"
+              }
+            ],
+            "ratio": 1,
+            "required": {
+              "RIFLE": 6
+            },
+            "repair": {
+              "recipe": {
+                "P": 1,
+                "RIFLE": 2
+              },
+              "missing": [
+                {
+                  "type": "P",
+                  "need": 1
+                },
+                {
+                  "type": "RIFLE",
+                  "need": 2
+                }
+              ]
+            },
+            "stats": {
+              "attack": 5,
+              "defense": 5,
+              "movement": 3
+            }
+          }
+        ]
+      },
+      "cities": {
+        "district": {
+          "id": "CITY-WEST-WORKS:D2",
+          "cityId": "CITY-WEST-WORKS",
+          "paper": "J17",
+          "hex": "9,12",
+          "type": "INDUSTRIAL",
+          "slots": 4,
+          "control": "GERMAN",
+          "facilities": [
+            {
+              "id": "FACTORY:GERMAN-industry-3:1",
+              "warehouse": "GERMAN-industry-3",
+              "side": "GERMAN",
+              "status": "BUILT",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "slot": 0,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 0,
+                "originalStatus": "BUILT"
+              },
+              "line": "RIFLE"
+            },
+            {
+              "id": "FACTORY:CITY-WEST-WORKS:D2:1",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "warehouse": "GERMAN-industry-3",
+              "slot": 1,
+              "side": "GERMAN",
+              "status": "BUILT",
+              "progress": 2,
+              "orderedEpoch": 0,
+              "paidI": 6,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 6,
+                "originalStatus": "BUILDING"
+              },
+              "line": "RIFLE"
+            }
+          ],
+          "service": true,
+          "canBuild": true,
+          "assets": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            }
+          ],
+          "waitingWork": [],
+          "sealedConstruction": [],
+          "warehouse": "GERMAN-industry-3",
+          "unconfirmed": true
+        }
+      },
+      "unit": {
+        "id": "G-059",
+        "hex": "21,18",
+        "label": "V29",
+        "step": 0,
+        "alive": true,
+        "army": "西-5集团军",
+        "stock": 24,
+        "debt": 0,
+        "short": 0,
+        "due": 4
+      },
+      "unitView": {
+        "visibility": "IDENTIFIED",
+        "id": "G-059",
+        "side": "GERMAN",
+        "type": "INFANTRY",
+        "step": 0,
+        "hex": {
+          "q": 21,
+          "r": 18
+        },
+        "stats": {
+          "attack": 5,
+          "defense": 5,
+          "movement": 3
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-059",
+          "templateId": "EQUIPPED:G-059",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 21,
+            "r": 18
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "GERMAN",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      }
+    },
+    "beforeMove": {
+      "version": 72,
+      "turn": 5,
+      "phase": "GERMAN_MOVEMENT",
+      "viewer": "GERMAN",
+      "owner": "GERMAN",
+      "account": {
+        "initialI": 12,
+        "incomeI": 72,
+        "spentI": 16,
+        "I": 68,
+        "reserve": 46,
+        "personnelCommitted": 2
+      },
+      "epoch": 4,
+      "officers": {
+        "side": "GERMAN",
+        "enabled": true,
+        "revision": 14,
+        "cursor": 1,
+        "groups": [
+          {
+            "id": "0",
+            "name": "埃里克·林德",
+            "members": [
+              "G-059"
+            ],
+            "order": {
+              "kind": "REFIT",
+              "target": null
+            },
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "1",
+            "name": "玛拉·沃斯",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "2",
+            "name": "尤里·索科林",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          }
+        ],
+        "reports": [
+          {
+            "officer": "埃里克·林德",
+            "turn": 4,
+            "phase": "GERMAN_RECOVERY",
+            "action": {
+              "type": "REPAIR_UNIT",
+              "unitId": "G-059"
+            },
+            "accepted": true,
+            "reason": "恢复所属受损部队；已配送本兵种装备和人员，共用原恢复次数",
+            "metrics": {
+              "expanded": 0,
+              "searches": 0,
+              "exhausted": false
+            },
+            "ms": 116.8601000001654,
+            "policyMs": 3.7428999999538064
+          }
+        ]
+      },
+      "uses": [
+        {
+          "id": "USE:72144c29-481e-4ae8-9e77-38422da8178f",
+          "unitId": "G-059",
+          "side": "GERMAN",
+          "turn": 4,
+          "paid": [
+            {
+              "lot": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 1
+            },
+            {
+              "lot": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 1
+            },
+            {
+              "lot": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 1
+            }
+          ],
+          "rp": 0
+        }
+      ],
+      "shipments": [
+        {
+          "id": "AUTO:GERMAN:2:0",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-3",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "RIFLE",
+          "qty": 2,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        },
+        {
+          "id": "AUTO:GERMAN:2:1",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-1",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "P",
+          "qty": 1,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "5,2|5,3",
+            "5,3|5,4",
+            "5,4|5,5",
+            "5,5|6,5",
+            "6,5|7,5",
+            "7,5|7,6",
+            "7,6|7,7",
+            "7,7|7,8",
+            "7,8|7,9",
+            "7,10|7,9",
+            "7,10|7,11",
+            "7,11|7,12",
+            "7,12|8,12",
+            "8,12|9,12",
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        }
+      ],
+      "warehouses": [
+        {
+          "id": "GERMAN-industry-1",
+          "owner": "GERMAN",
+          "node": "5,2",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            },
+            {
+              "id": "RESERVE:GERMAN:1:1",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "F5 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-industry-3",
+          "owner": "GERMAN",
+          "node": "9,12",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:3",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:4",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:11",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:12",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:13",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:14",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "J17 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-depot-5",
+          "owner": "GERMAN",
+          "node": "21,18",
+          "capacity": 96,
+          "lots": [],
+          "label": "V29 站场",
+          "role": "depot",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        }
+      ],
+      "ux": {
+        "lines": [
+          {
+            "id": "GERMAN-industry-3",
+            "side": "GERMAN",
+            "product": "RIFLE",
+            "progress": {
+              "RIFLE": 0,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "completed": {
+              "RIFLE": 14,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "factories": [
+              "FACTORY:GERMAN-industry-3:1",
+              "FACTORY:CITY-WEST-WORKS:D2:1"
+            ],
+            "priority": 3,
+            "workAssigned": 28,
+            "label": "J17 工区",
+            "hex": "9,12",
+            "controlled": true,
+            "seizedWork": []
+          }
+        ],
+        "equipment": [
+          {
+            "id": "G-059",
+            "base": {
+              "id": "G-INF",
+              "side": "GERMAN",
+              "type": "INFANTRY",
+              "steps": [
+                {
+                  "attack": 5,
+                  "defense": 5,
+                  "movement": 3
+                },
+                {
+                  "attack": 4,
+                  "defense": 4,
+                  "movement": 3
+                },
+                {
+                  "attack": 3,
+                  "defense": 3,
+                  "movement": 2
+                }
+              ],
+              "maxDamageSteps": 3,
+              "exertsZoc": true,
+              "canEntrench": true,
+              "isArmor": false,
+              "infantryCoordination": true,
+              "isSupport": false,
+              "recoveryCostPerStep": 0
+            },
+            "recipe": {
+              "RIFLE": 2
+            },
+            "held": {
+              "RIFLE": 6
+            },
+            "staged": [
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+                "type": "RIFLE",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:1"
+              },
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+                "type": "RIFLE",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:2"
+              },
+              {
+                "id": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+                "type": "P",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "RESERVE:GERMAN:1:0"
+              }
+            ],
+            "ratio": 1,
+            "required": {
+              "RIFLE": 6
+            },
+            "repair": {
+              "recipe": {
+                "P": 1,
+                "RIFLE": 2
+              },
+              "missing": [
+                {
+                  "type": "P",
+                  "need": 1
+                },
+                {
+                  "type": "RIFLE",
+                  "need": 2
+                }
+              ]
+            },
+            "stats": {
+              "attack": 5,
+              "defense": 5,
+              "movement": 3
+            }
+          }
+        ]
+      },
+      "cities": {
+        "district": {
+          "id": "CITY-WEST-WORKS:D2",
+          "cityId": "CITY-WEST-WORKS",
+          "paper": "J17",
+          "hex": "9,12",
+          "type": "INDUSTRIAL",
+          "slots": 4,
+          "control": "GERMAN",
+          "facilities": [
+            {
+              "id": "FACTORY:GERMAN-industry-3:1",
+              "warehouse": "GERMAN-industry-3",
+              "side": "GERMAN",
+              "status": "BUILT",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "slot": 0,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 0,
+                "originalStatus": "BUILT"
+              },
+              "line": "RIFLE"
+            },
+            {
+              "id": "FACTORY:CITY-WEST-WORKS:D2:1",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "warehouse": "GERMAN-industry-3",
+              "slot": 1,
+              "side": "GERMAN",
+              "status": "BUILT",
+              "progress": 2,
+              "orderedEpoch": 0,
+              "paidI": 6,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 6,
+                "originalStatus": "BUILDING"
+              },
+              "line": "RIFLE"
+            }
+          ],
+          "service": true,
+          "canBuild": true,
+          "assets": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:11",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:12",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:13",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:14",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            }
+          ],
+          "waitingWork": [],
+          "sealedConstruction": [],
+          "warehouse": "GERMAN-industry-3",
+          "unconfirmed": true
+        }
+      },
+      "unit": {
+        "id": "G-059",
+        "hex": "21,18",
+        "label": "V29",
+        "step": 0,
+        "alive": true,
+        "army": "西-5集团军",
+        "stock": 24,
+        "debt": 0,
+        "short": 0,
+        "due": 4
+      },
+      "unitView": {
+        "visibility": "IDENTIFIED",
+        "id": "G-059",
+        "side": "GERMAN",
+        "type": "INFANTRY",
+        "step": 0,
+        "hex": {
+          "q": 21,
+          "r": 18
+        },
+        "stats": {
+          "attack": 5,
+          "defense": 5,
+          "movement": 3
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-059",
+          "templateId": "EQUIPPED:G-059",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 21,
+            "r": 18
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": false,
+          "hasAttacked": false,
+          "controllerId": "GERMAN",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      }
+    },
+    "afterMove": {
+      "version": 73,
+      "turn": 5,
+      "phase": "GERMAN_MOVEMENT",
+      "viewer": "GERMAN",
+      "owner": "GERMAN",
+      "account": {
+        "initialI": 12,
+        "incomeI": 72,
+        "spentI": 16,
+        "I": 68,
+        "reserve": 46,
+        "personnelCommitted": 2
+      },
+      "epoch": 4,
+      "officers": {
+        "side": "GERMAN",
+        "enabled": true,
+        "revision": 16,
+        "cursor": 1,
+        "groups": [
+          {
+            "id": "0",
+            "name": "埃里克·林德",
+            "members": [
+              "G-059"
+            ],
+            "order": {
+              "kind": "REFIT",
+              "target": null
+            },
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "1",
+            "name": "玛拉·沃斯",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          },
+          {
+            "id": "2",
+            "name": "尤里·索科林",
+            "members": [],
+            "order": null,
+            "paused": true,
+            "rp": 0,
+            "spentRP": 0,
+            "status": "统帅接管，待决完整保留",
+            "needs": []
+          }
+        ],
+        "reports": [
+          {
+            "officer": "埃里克·林德",
+            "turn": 4,
+            "phase": "GERMAN_RECOVERY",
+            "action": {
+              "type": "REPAIR_UNIT",
+              "unitId": "G-059"
+            },
+            "accepted": true,
+            "reason": "恢复所属受损部队；已配送本兵种装备和人员，共用原恢复次数",
+            "metrics": {
+              "expanded": 0,
+              "searches": 0,
+              "exhausted": false
+            },
+            "ms": 116.8601000001654,
+            "policyMs": 3.7428999999538064
+          }
+        ]
+      },
+      "uses": [
+        {
+          "id": "USE:72144c29-481e-4ae8-9e77-38422da8178f",
+          "unitId": "G-059",
+          "side": "GERMAN",
+          "turn": 4,
+          "paid": [
+            {
+              "lot": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 1
+            },
+            {
+              "lot": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 1
+            },
+            {
+              "lot": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 1
+            }
+          ],
+          "rp": 0
+        }
+      ],
+      "shipments": [
+        {
+          "id": "AUTO:GERMAN:2:0",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-3",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "RIFLE",
+          "qty": 2,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        },
+        {
+          "id": "AUTO:GERMAN:2:1",
+          "side": "GERMAN",
+          "from": "GERMAN-industry-1",
+          "to": "GERMAN-depot-5",
+          "unit": "G-059",
+          "type": "P",
+          "qty": 1,
+          "status": "DELIVERED",
+          "arrivalEpoch": 2,
+          "availableTurn": 3,
+          "path": [
+            "5,2|5,3",
+            "5,3|5,4",
+            "5,4|5,5",
+            "5,5|6,5",
+            "6,5|7,5",
+            "7,5|7,6",
+            "7,6|7,7",
+            "7,7|7,8",
+            "7,8|7,9",
+            "7,10|7,9",
+            "7,10|7,11",
+            "7,11|7,12",
+            "7,12|8,12",
+            "8,12|9,12",
+            "10,12|9,12",
+            "10,12|10,13",
+            "10,13|10,14",
+            "10,14|10,15",
+            "10,15|10,16",
+            "10,16|10,17",
+            "10,17|11,16",
+            "11,16|12,16",
+            "12,16|13,16",
+            "13,16|14,16",
+            "14,16|14,17",
+            "14,17|14,18",
+            "14,18|14,19",
+            "14,19|14,20",
+            "14,20|14,21",
+            "14,21|15,21",
+            "15,21|16,21",
+            "16,21|17,20",
+            "17,20|18,19",
+            "18,19|19,18",
+            "19,18|20,18",
+            "20,18|21,18"
+          ],
+          "lastMile": {
+            "at": "21,18",
+            "cost": 0,
+            "steps": 0,
+            "path": [],
+            "hexes": [
+              "21,18"
+            ]
+          },
+          "load": 4,
+          "custody": [
+            "REAR",
+            "RESERVED",
+            "IN_TRANSIT",
+            "STATION",
+            "UNIT_STAGED"
+          ]
+        }
+      ],
+      "warehouses": [
+        {
+          "id": "GERMAN-industry-1",
+          "owner": "GERMAN",
+          "node": "5,2",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "RESERVE:GERMAN:1:0",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            },
+            {
+              "id": "RESERVE:GERMAN:1:1",
+              "type": "P",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "TRAINED_RESERVE",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "TRAINED_RESERVE",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "F5 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-industry-3",
+          "owner": "GERMAN",
+          "node": "9,12",
+          "capacity": 96,
+          "lots": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:1",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:2",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 2,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 2,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:3",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:4",
+              "type": "RIFLE",
+              "qty": 0,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 3,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 3,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 4,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 4,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:11",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:12",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:13",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:14",
+              "type": "RIFLE",
+              "qty": 1,
+              "availableTurn": 5,
+              "origin": "GERMAN-industry-3",
+              "asset": {
+                "owner": "GERMAN",
+                "originalQty": 1,
+                "availableTurn": 5,
+                "origin": "GERMAN-industry-3",
+                "reasons": []
+              }
+            }
+          ],
+          "label": "J17 工区",
+          "role": "industry",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        },
+        {
+          "id": "GERMAN-depot-5",
+          "owner": "GERMAN",
+          "node": "21,18",
+          "capacity": 96,
+          "lots": [],
+          "label": "V29 站场",
+          "role": "depot",
+          "controlled": true,
+          "P": 0,
+          "E2": 0
+        }
+      ],
+      "ux": {
+        "lines": [
+          {
+            "id": "GERMAN-industry-3",
+            "side": "GERMAN",
+            "product": "RIFLE",
+            "progress": {
+              "RIFLE": 0,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "completed": {
+              "RIFLE": 14,
+              "GUN": 0,
+              "AT": 0,
+              "TANK": 0,
+              "HEAVY": 0,
+              "KIT": 0,
+              "SCOUT": 0,
+              "TRUCK": 0,
+              "TRAIN": 0
+            },
+            "factories": [
+              "FACTORY:GERMAN-industry-3:1",
+              "FACTORY:CITY-WEST-WORKS:D2:1"
+            ],
+            "priority": 3,
+            "workAssigned": 28,
+            "label": "J17 工区",
+            "hex": "9,12",
+            "controlled": true,
+            "seizedWork": []
+          }
+        ],
+        "equipment": [
+          {
+            "id": "G-059",
+            "base": {
+              "id": "G-INF",
+              "side": "GERMAN",
+              "type": "INFANTRY",
+              "steps": [
+                {
+                  "attack": 5,
+                  "defense": 5,
+                  "movement": 3
+                },
+                {
+                  "attack": 4,
+                  "defense": 4,
+                  "movement": 3
+                },
+                {
+                  "attack": 3,
+                  "defense": 3,
+                  "movement": 2
+                }
+              ],
+              "maxDamageSteps": 3,
+              "exertsZoc": true,
+              "canEntrench": true,
+              "isArmor": false,
+              "infantryCoordination": true,
+              "isSupport": false,
+              "recoveryCostPerStep": 0
+            },
+            "recipe": {
+              "RIFLE": 2
+            },
+            "held": {
+              "RIFLE": 6
+            },
+            "staged": [
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:1",
+                "type": "RIFLE",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:1"
+              },
+              {
+                "id": "AUTO:GERMAN:2:0:LINE:GERMAN-industry-3:RIFLE:2",
+                "type": "RIFLE",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "LINE:GERMAN-industry-3:RIFLE:2"
+              },
+              {
+                "id": "AUTO:GERMAN:2:1:RESERVE:GERMAN:1:0",
+                "type": "P",
+                "qty": 0,
+                "availableTurn": 3,
+                "origin": "RESERVE:GERMAN:1:0"
+              }
+            ],
+            "ratio": 1,
+            "required": {
+              "RIFLE": 6
+            },
+            "repair": {
+              "recipe": {
+                "P": 1,
+                "RIFLE": 2
+              },
+              "missing": [
+                {
+                  "type": "P",
+                  "need": 1
+                },
+                {
+                  "type": "RIFLE",
+                  "need": 2
+                }
+              ]
+            },
+            "stats": {
+              "attack": 5,
+              "defense": 5,
+              "movement": 3
+            }
+          }
+        ]
+      },
+      "cities": {
+        "district": {
+          "id": "CITY-WEST-WORKS:D2",
+          "cityId": "CITY-WEST-WORKS",
+          "paper": "J17",
+          "hex": "9,12",
+          "type": "INDUSTRIAL",
+          "slots": 4,
+          "control": "GERMAN",
+          "facilities": [
+            {
+              "id": "FACTORY:GERMAN-industry-3:1",
+              "warehouse": "GERMAN-industry-3",
+              "side": "GERMAN",
+              "status": "BUILT",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "slot": 0,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 0,
+                "originalStatus": "BUILT"
+              },
+              "line": "RIFLE"
+            },
+            {
+              "id": "FACTORY:CITY-WEST-WORKS:D2:1",
+              "district": "CITY-WEST-WORKS:D2",
+              "hex": "9,12",
+              "warehouse": "GERMAN-industry-3",
+              "slot": 1,
+              "side": "GERMAN",
+              "status": "BUILT",
+              "progress": 2,
+              "orderedEpoch": 0,
+              "paidI": 6,
+              "asset": {
+                "owner": "GERMAN",
+                "paidI": 6,
+                "originalStatus": "BUILDING"
+              },
+              "line": "RIFLE"
+            }
+          ],
+          "service": true,
+          "canBuild": true,
+          "assets": [
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:5",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:6",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 3,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:7",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:8",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:9",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:10",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 4,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:11",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:12",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:13",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            },
+            {
+              "id": "LINE:GERMAN-industry-3:RIFLE:14",
+              "type": "RIFLE",
+              "qty": 1,
+              "originalQty": 1,
+              "owner": "GERMAN",
+              "availableTurn": 5,
+              "reasons": []
+            }
+          ],
+          "waitingWork": [],
+          "sealedConstruction": [],
+          "warehouse": "GERMAN-industry-3",
+          "unconfirmed": true
+        }
+      },
+      "unit": {
+        "id": "G-059",
+        "hex": "21,19",
+        "label": "V30",
+        "step": 0,
+        "alive": true,
+        "army": "西-5集团军",
+        "stock": 23,
+        "debt": 0,
+        "short": 0,
+        "due": 4
+      },
+      "unitView": {
+        "visibility": "IDENTIFIED",
+        "id": "G-059",
+        "side": "GERMAN",
+        "type": "INFANTRY",
+        "step": 0,
+        "hex": {
+          "q": 21,
+          "r": 19
+        },
+        "stats": {
+          "attack": 5,
+          "defense": 5,
+          "movement": 3
+        },
+        "supplyState": "SUPPLIED",
+        "entrenched": false,
+        "friendly": {
+          "id": "G-059",
+          "templateId": "EQUIPPED:G-059",
+          "side": "GERMAN",
+          "type": "INFANTRY",
+          "step": 0,
+          "alive": true,
+          "hex": {
+            "q": 21,
+            "r": 19
+          },
+          "supplyState": "SUPPLIED",
+          "entrenched": false,
+          "hasMoved": true,
+          "hasAttacked": false,
+          "controllerId": "GERMAN",
+          "temporarySupply": false,
+          "dedicatedRailRepair": false,
+          "reconZocIgnoreUsed": false,
+          "artillerySupportUsed": false,
+          "lastHQCommandTurn": null
+        }
+      }
+    }
+  }
+}

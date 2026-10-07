@@ -43,13 +43,14 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
   return {
     id: 'vs2-002-surface-integration',
     replacesCityMarkers: true,
-    paintInfrastructure: (ctx, model, lod) => paintVS2Infrastructure(ctx, model, lod, assets, reusePathImages),
+    paintInfrastructure: (ctx, model, lod) => paintVS2Infrastructure(ctx, model, lod, assets, reusePathImages, control),
     async paint(ctx, model, seed, lod = 'medium') {
       const textures = new Map<string, VS2Texture>(), capabilities = terrainSurfaceCapabilities();
       // Decode sequentially through the established direct-image/fetch fallback.
       // Retain only CPU texture pixels; release each decoded image immediately.
       reportTerrainLoad({ kind: 'assets', total: VS2_WORLD_MATERIAL_IDS.length });
       for (const id of VS2_WORLD_MATERIAL_IDS) {
+        await control?.checkpoint();
         const entry = assets.byId(id);
         if (!entry) throw new Error(`VS2 material missing from manifest: ${id}`);
         const image = await loadTerrainImage({ id, family: entry.family, file: entry.file,
@@ -101,6 +102,7 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
       const cityAssets = [...new Set(placements.map(p => p.assetId))].sort();
       reportTerrainLoad({ kind: 'assets', total: cityAssets.length });
       for (const id of cityAssets) {
+        await control?.checkpoint();
         const entry = assets.byId(id)!;
         const image = await loadTerrainImage({ id, family: entry.family, file: entry.file,
           sourceSize: [entry.sourceSize[0]!, entry.sourceSize[1]!] }, 'p5', capabilities,

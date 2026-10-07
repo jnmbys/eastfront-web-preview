@@ -1,5 +1,14 @@
 # EASTFRONT PROJECT STATE
 
+## Branch-scoped update · CITY-ART-002 · 2026-10-07
+
+- Branch: `city-art-002-district-visuals`; baseline `e008340a69304529ebab2f336938dba993366f34`. The commit containing this update is the delivery identity.
+- Same playable game on loopback 4199; original 4197/4198 processes retained. Four district compositions, modern low compound walls/fences/gates, authorized permanent-ID facilities, dynamic bridge state, static transport isolation and import/exit cleanup.
+- Phase/transport-independent `CityArtView`; future GRAND-PLAY-001 and MP-022 integration points documented in `docs/city-art-002/INTEGRATION.md`. No time/combat/network or rule changes.
+- Build, 38 targeted tests, 12 saved-evidence checks, 100 original recapture actions; real browser build/production/auto-delivery/officer/movement/recapture and desktop/tablet-size checks. Synthetic bridge cases explicitly labeled. Screenshots, assets and cost records in `docs/city-art-002`.
+- Limits: physical mobile devices not validated; full-map close terrain still has measurable build cost; no campaign/balance/global-blocker clearance. No merge or deployment.
+
+
 - Last Update: 2026-10-01 (Asia/Shanghai)
 - Current Branch: `ai-plan-023`
 - Current Commit: use `git rev-parse HEAD`; interface parent checkpoint `3553c3f982583ed32ddc83b5cd7ec2cefed2b007`. The commit containing this file is the handoff identity; do not embed a self-referencing SHA.

@@ -1,3 +1,4 @@
+import {ImageLeaseCache} from './imageLeaseCache.js';
 import { beginTerrainDiagnostic, finishTerrainDiagnostic, type TerrainAttempt } from '../web/startupDiagnostics.js';
 import { reportLoadedTerrainImage } from './terrainLoadProgress.js';
 import type { HexCoord, TerrainType } from '../core-adapter/core.js';
@@ -40,6 +41,10 @@ export class TerrainSurfaceResourceError extends Error {
 interface LoadedTerrainImage {source:CanvasImageSource;width:number;height:number;release?:()=>void;}
 interface ImageCache {get(entry:TerrainAssetEntry):Promise<LoadedTerrainImage>; urls:Set<string>; releaseAll():void;}
 let terrainSurfaceBuildCount=0;
+let sharedImages:ImageLeaseCache|null=null;
+export function startTerrainImageCache(version:string){sharedImages?.dispose();sharedImages=new ImageLeaseCache(version);}
+export function disposeTerrainImageCache(){sharedImages?.dispose();sharedImages=null;}
+export function terrainImageCacheStats(){return sharedImages?{...sharedImages.stats,maxBytes:sharedImages.maxBytes,maxEntries:sharedImages.maxEntries}:null;}
 const RESOURCE_TIMEOUT_MS=15000;
 const RECOVERY_TIMEOUT_MS=60000;
 let terrainRecoveryRequest=0;
@@ -172,12 +177,13 @@ async function bitmapFromBlob(blob:Blob,entry:TerrainAssetEntry,timeoutMs:number
   });
 }
 export function loadTerrainImage(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride?:string,policy=terrainImageLoadPolicy()):Promise<LoadedTerrainImage>{
-  return scheduleTerrainImage(async()=>{
+  const load=()=>scheduleTerrainImage(async()=>{
     const started=performance.now(),attempts:TerrainAttempt[]=[];beginTerrainDiagnostic();let outcome:'ok'|'failed'='failed';
     try{const result=await loadTerrainImageNow(entry,set,capabilities,urlOverride,policy,attempts);outcome='ok';return result;}
     finally{finishTerrainDiagnostic({asset:entry.id,file:entry.file,webkitFallback:policy.webkitFallback,timeoutMs:policy.resourceTimeoutMs,
       elapsedMs:Math.round(performance.now()-started),outcome,attempts});}
   },policy);
+  return sharedImages?sharedImages.acquire(urlOverride??absAssetUrl(entry,set),load):load();
 }
 async function loadTerrainImageNow(entry:TerrainAssetEntry,set:TerrainAssetSet,capabilities:TerrainSurfaceCapabilities,urlOverride:string|undefined,policy:TerrainImageLoadPolicy,attempts:TerrainAttempt[]):Promise<LoadedTerrainImage>{
   const url=urlOverride??absAssetUrl(entry,set);let directFailure:unknown,fetchFailure:unknown,bitmapFailure:unknown,blobImageFailure:unknown;let response:Response|undefined,blob:Blob|undefined;
