@@ -1,0 +1,37 @@
+✔ R1 retains all 1280 authoritative terrain centers at all sampling sizes (21.4376ms)
+✔ R1 rules, economy, scenario and source art blobs equal fixed 003 (2176.1499ms)
+✔ bounded surfaces retain world coordinates and original default resolution (10.7025ms)
+✔ D canonical chains cover every real-map infrastructure edge once with uninterrupted arc length (20.4954ms)
+✔ D chain extraction handles closed loops and branches deterministically (0.167ms)
+✔ D forest union remains continuous across same-terrain shared edges and clears all infrastructure (37.1371ms)
+✔ F1 marsh remains distinct from dry plain and forest while allowing earthy reed/mud colours (19.0352ms)
+✔ D all LODs render the complete 20×32 map with cities, canopy, canonical paths and an unchanged live SVG (44229.3928ms)
+✔ D rail dominance is reduced within manifest limits and bridge decks precede restored road/rail surfaces (11.5191ms)
+✖ D production mounts cached Far/Medium/Close surfaces without rebuilding on interaction (1.922ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44635.9318
+
+✖ failing tests:
+
+test at tests\vs2-infrastructure-lod.test.mjs:160:1
+✖ D production mounts cached Far/Medium/Close surfaces without rebuilding on interaction (1.922ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///C:/Users/jinyibo/eastfront/work/grand-campaign-003-art-r1/tests/vs2-infrastructure-lod.test.mjs:166:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

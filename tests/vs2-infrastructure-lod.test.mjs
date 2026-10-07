@@ -163,6 +163,10 @@ test('D production mounts cached Far/Medium/Close surfaces without rebuilding on
   assert(main.includes('cachedTerrainSurfaces.set(lod,surface)'));
   assert(main.includes('terrainPipeline?.best(requested)'));
   assert(main.includes('if(previous&&previous!==canvas)previous.remove()'));
-  assert.equal((main.match(/buildCachedTerrainSurface\(/g) ?? []).length, 1);
-  assert(!main.slice(main.indexOf('function applyMapViewport'), main.indexOf('async function boot')).includes('buildCachedTerrainSurface('));
+  assert.equal((main.match(/buildCachedTerrainSurface\(/g) ?? []).length, 2); // separate legacy and opt-in 1280 startup builders
+  const grandBoot=main.slice(main.indexOf('async function prepareGrandArt'),main.indexOf('async function boot'));
+  assert.equal((grandBoot.match(/buildCachedTerrainSurface\(/g)??[]).length,1);
+  assert(grandBoot.includes("pipeline.request('far')"));
+  assert(!grandBoot.includes('continueAll()'));
+  assert(!main.slice(main.indexOf('function applyMapViewport'), main.indexOf('async function prepareGrandArt')).includes('buildCachedTerrainSurface('));
 });
