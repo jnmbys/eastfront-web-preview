@@ -25,13 +25,13 @@ export interface VS2TerrainSurfaceHooks {
 }
 
 export function createVS2TerrainSurfaceHooks(
-  assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl,
+  assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl, minPixelSize=1, reusePathImages=false, decorativeIndustry=true,
 ): VS2TerrainSurfaceHooks {
   return {
     stage: 'production-world-surface',
     renderAvailable: true,
     assets,
-    worldBase: createVS2WorldBaseLayer(assets, control),
+    worldBase: createVS2WorldBaseLayer(assets, control, minPixelSize, reusePathImages, decorativeIndustry),
     lookupAsset(id) {
       const entry = assets.byId(id);
       return entry ? { entry, url: assets.url(entry) } : undefined;
@@ -39,11 +39,11 @@ export function createVS2TerrainSurfaceHooks(
   };
 }
 
-export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl): TerrainWorldBaseLayer {
+export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalog, control?: TerrainWorkControl, minPixelSize=1, reusePathImages=false, decorativeIndustry=true): TerrainWorldBaseLayer {
   return {
     id: 'vs2-002-surface-integration',
     replacesCityMarkers: true,
-    paintInfrastructure: (ctx, model, lod) => paintVS2Infrastructure(ctx, model, lod, assets),
+    paintInfrastructure: (ctx, model, lod) => paintVS2Infrastructure(ctx, model, lod, assets, reusePathImages),
     async paint(ctx, model, seed, lod = 'medium') {
       const textures = new Map<string, VS2Texture>(), capabilities = terrainSurfaceCapabilities();
       // Decode sequentially through the established direct-image/fetch fallback.
@@ -66,7 +66,7 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
         } finally { image.release?.(); scratch.width = 0; scratch.height = 0; }
       }
       reportTerrainLoad({ kind: 'building' });
-      const projection = await runTerrainWork('projection', (function* () { return projectVS2Terrain(model, VS2_PRESENTATION[lod].pixelSize); })(), control), bounds = projection.rasterBounds, pixelSize = projection.pixelSize;
+      const projection = await runTerrainWork('projection', (function* () { return projectVS2Terrain(model, Math.max(minPixelSize,VS2_PRESENTATION[lod].pixelSize)); })(), control), bounds = projection.rasterBounds, pixelSize = projection.pixelSize;
       const raster = await rasterizeVS2WorldSurfaceAsync(projection.field, textures, seed, bounds, pixelSize, control);
       const surface = document.createElement('canvas');
       try {
@@ -89,13 +89,15 @@ export function createVS2WorldBaseLayer(assets: VS2AssetCatalog = vs2AssetCatalo
       const forest = await paintVS2Forest(ctx, projection, seed, lod, assets, control);
       // Stable city layout at every LOD. Far uses silhouettes of cached footprints,
       // without loading component images whose manifest disallows Far.
-      const placements = await planVS2CityClustersAsync(projection, seed, 'medium', assets, control);
-      const blocks = await planVS2CityBlocksAsync(projection, seed, control);
+      // CITY draws real facility IDs from the current authorized view, never this cache.
+      const blocks = (await planVS2CityBlocksAsync(projection, seed, control)).filter(b=>decorativeIndustry||!b.industrial);
       paintVS2CityCourts(ctx, await planVS2CityCourtsAsync(projection, blocks, control));
       if (VS2_PRESENTATION[lod].citySummary) {
         paintVS2CityMassing(ctx, blocks);
         return { imageDraws: 1 + forest.imageDraws, uniqueAssets: VS2_WORLD_MATERIAL_IDS.length + forest.uniqueAssets };
       }
+      // Far only draws massing; defer component planning until it is actually visible.
+      const placements = await planVS2CityClustersAsync(projection, seed, 'medium', assets, control);
       const cityAssets = [...new Set(placements.map(p => p.assetId))].sort();
       reportTerrainLoad({ kind: 'assets', total: cityAssets.length });
       for (const id of cityAssets) {

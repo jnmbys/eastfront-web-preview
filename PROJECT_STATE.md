@@ -1,5 +1,14 @@
 # EASTFRONT PROJECT STATE
 
+## Branch handoff — CITY-001 art R1 integration (2026-10-07)
+
+Current branch: `city-001-district-control`; parent `37eae5148f8175574dba91e03c14346a1ea3a733`. The commit containing this update is the handoff identity. The AI notes below remain historical context, not this branch's current task.
+
+Pinned 003 art R1 `fff0a15702fc6a7dae13811170d75e60487ec281` selectively integrated into current CITY / GRAND-UX entry http://127.0.0.1:4197/ . Original 003 display fallback retained. Current multi-equipment economy, automatic logistics, officers, movement, scenario, Core and protocol unchanged. Static terrain excludes all dynamic control/facility/rail ownership fields; CITY real factories remain authorized dynamic SVG.
+
+Build and 32 targeted checks passed. Final unified browser evidence covers selection, actual officer repair, production/automatic delivery and subsequent movement. Full evidence/limits: [docs/city-001-art-r1/README.md](docs/city-001-art-r1/README.md). First detail load can process inputs; measured layer generation roughly 3.7/14.3/14.4s, canvas cache37.63MiB, cross-LOD source requests repeat. No mobile/long-campaign/balance acceptance. Existing35 global blockers remain. No merge, deployment or backend restart.
+
+
 - Last Update: 2026-10-01 (Asia/Shanghai)
 - Current Branch: `ai-plan-023`
 - Current Commit: use `git rev-parse HEAD`; interface parent checkpoint `3553c3f982583ed32ddc83b5cd7ec2cefed2b007`. The commit containing this file is the handoff identity; do not embed a self-referencing SHA.

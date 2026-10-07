@@ -278,9 +278,10 @@ export interface TerrainWorldBaseLayer {
   paint(ctx: CanvasRenderingContext2D, model: BrowserRenderModel, seed: number, lod?: TerrainLod): Promise<{ imageDraws: number; uniqueAssets: number }>;
 }
 
-export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:number,assetSet:TerrainAssetSet='p5',lod:TerrainLod='medium',worldBase?:TerrainWorldBaseLayer):Promise<CachedTerrainSurface>{
-  const viewBox=viewBoxForHexes(model.hexes),canvas=document.createElement('canvas');canvas.id='terrain-surface';canvas.className='terrain-surface';canvas.width=Math.ceil(viewBox.width);canvas.height=Math.ceil(viewBox.height);canvas.dataset.surface='cached-production';canvas.dataset.seed=String(seed);canvas.dataset.lod=lod;
-  const ctx=canvas.getContext('2d',{alpha:false});if(!ctx)throw new TerrainSurfaceResourceError('Canvas 2D is unavailable for production terrain surface.',{stage:'canvas-context',capabilities:terrainSurfaceCapabilities()});ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.fillStyle='#bbb393';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.translate(-viewBox.minX,-viewBox.minY);
+export async function buildCachedTerrainSurface(model:BrowserRenderModel,seed:number,assetSet:TerrainAssetSet='p5',lod:TerrainLod='medium',worldBase?:TerrainWorldBaseLayer,resolutionScale=1):Promise<CachedTerrainSurface>{
+  if(!Number.isFinite(resolutionScale)||resolutionScale<=0||resolutionScale>1)throw new RangeError('Terrain resolution scale must be in (0,1]');
+  const viewBox=viewBoxForHexes(model.hexes),canvas=document.createElement('canvas');canvas.id='terrain-surface';canvas.className='terrain-surface';canvas.width=Math.ceil(viewBox.width*resolutionScale);canvas.height=Math.ceil(viewBox.height*resolutionScale);canvas.dataset.surface='cached-production';canvas.dataset.seed=String(seed);canvas.dataset.lod=lod;
+  const ctx=canvas.getContext('2d',{alpha:false});if(!ctx)throw new TerrainSurfaceResourceError('Canvas 2D is unavailable for production terrain surface.',{stage:'canvas-context',capabilities:terrainSurfaceCapabilities()});ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.fillStyle='#bbb393';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.scale(resolutionScale,resolutionScale);ctx.translate(-viewBox.minX,-viewBox.minY);
   const cache=createImageCache(assetSet),planned=buildSurfacePlan(model,seed,lod),cats:Record<string,number>={};
   try{
     let imageDraws=0,worldAssets=0;
