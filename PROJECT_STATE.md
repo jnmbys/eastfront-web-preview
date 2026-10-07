@@ -1,5 +1,14 @@
 # EASTFRONT PROJECT STATE
 
+## Branch-scoped update · CITY-ART-002 live-update fix · 2026-10-07
+
+- Branch `city-art-002-live-update-fix`, baseline `50e1b27629cb95617dbeed05c690e997e3ab970d`; delivery is the commit containing this note.
+- Keyed city/individual facility/transport/visibility updates; unrelated revisions preserve static DOM. District ground taps with host action and gesture priority. Original art, layout, economy and rules unchanged.
+- Build plus 13 browser DOM/input contract cases and focused real UI selection/movement checks; no campaign/100-action recapture replay or new mobile sampling.
+- GRAND-PLAY-001 / MP-022 adapter contract in `docs/city-art-002-fix/INTEGRATION.md`. Full authorized snapshots, live canInspect callback, persistent SVG required.
+- Loopback comparison 4201; original 4197/4198/4199 retained. No merge/deploy/public exposure.
+
+
 ## Branch-scoped update · CITY-ART-002 · 2026-10-07
 
 - Branch: `city-art-002-district-visuals`; baseline `e008340a69304529ebab2f336938dba993366f34`. The commit containing this update is the delivery identity.

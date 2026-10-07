@@ -81,7 +81,7 @@ function syncFogSurface():void{
 }
 function paintDeploymentFocus(model?:BrowserRenderModel):void{
  syncFogSurface();
- if(grandPort)paintCities(grandPort,refreshDynamicView,grandArt);
+ if(grandPort)paintCities(grandPort,refreshDynamicView,grandArt,()=>!!session&&!presentation.privacyGate&&['SELECT','RECOVERY','ENTRENCH','RAIL_REPAIR'].includes(presentation.interactionMode)&&!sessionPlayerView(session).pendingDecision&&!(plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any).picking);
  if(grandPort){const svg=document.querySelector('#eastfront-map');svg?.setAttribute('aria-label','大战略实验1280格地图');svg?.querySelector('#grand-objectives')?.remove();svg?.insertAdjacentHTML('beforeend','<g id="grand-objectives" pointer-events="none">'+grandPort.data.objectives.filter((n:any)=>!grandPort?.data.cities||n.vp>0).map((n:any)=>{const pos=hexToPixel(parseHex(n.hex));return `<g transform="translate(${pos.x} ${pos.y})"><circle r="9" fill="none" stroke="#e4b95c" stroke-width="2"/><text y="-26" text-anchor="middle" fill="#302514" font-size="13">${esc(n.label)} · ${n.vp}VP</text></g>`;}).join('')+'</g>');const title=document.querySelector('.map-toolbar>div:first-child>strong');if(title)title.textContent='大战略实验 · 32×40格';const campaign=document.querySelector('.campaign-heading>.eyebrow');if(campaign)campaign.textContent='大战略实验';}
  unitAnimations.sync(session,document.querySelector('#map-wrap'));
  if(LOCAL_AI_ENABLED&&localAi&&session&&!presentation.privacyGate)paintPlanMap(model??deriveBrowserRenderModel(session,presentation));
