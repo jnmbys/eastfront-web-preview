@@ -1,0 +1,412 @@
+{
+  "schema": "MP022-browser-v1",
+  "mode": "CITY_REAL_INTERFACE",
+  "instanceId": "b39a4b95-25c1-48c6-bde0-4ff81fdfec85",
+  "side": "SOVIET",
+  "profile": "clean",
+  "history": [
+    {
+      "command": {
+        "instanceId": "b39a4b95-25c1-48c6-bde0-4ff81fdfec85",
+        "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490",
+        "commandSeq": 1,
+        "kind": "MOVE",
+        "payload": {
+          "unitId": "G-026",
+          "path": [
+            {
+              "q": 0,
+              "r": 0
+            }
+          ]
+        },
+        "dependencies": {
+          "account": "a822301950686cf529b1a406",
+          "phase": "1:GERMAN_MOVEMENT"
+        }
+      },
+      "keys": [
+        "unit:G-026"
+      ],
+      "status": "rejected",
+      "inputAt": 14347.400000002235,
+      "feedbackAt": 14347.400000002235,
+      "sendAt": 14347.699999999255,
+      "result": {
+        "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490",
+        "commandSeq": 1,
+        "instanceId": "b39a4b95-25c1-48c6-bde0-4ff81fdfec85",
+        "status": "REJECTED",
+        "reason": "UNIT_NOT_AUTHORIZED",
+        "acceptedRevision": null,
+        "simulationPoint": {
+          "mode": "CITY_PHASE",
+          "turn": 1,
+          "phase": "GERMAN_MOVEMENT"
+        },
+        "timing": {
+          "receivedAt": 16183.469,
+          "startedAt": 16183.4846,
+          "acceptedAt": null,
+          "appliedAt": 16183.5575,
+          "queueMs": 0.015600000000631553,
+          "applyMs": 0.07290000000102737
+        },
+        "beforeVersion": 6
+      },
+      "resultAt": 14396.900000002235,
+      "viewAvailableAt": 189.19999999925494,
+      "completedAt": 14397
+    },
+    {
+      "command": {
+        "instanceId": "b39a4b95-25c1-48c6-bde0-4ff81fdfec85",
+        "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4",
+        "commandSeq": 2,
+        "kind": "OFFICER",
+        "payload": {
+          "unitId": "S-001",
+          "group": 0,
+          "order": {
+            "kind": "ATTACK",
+            "target": {
+              "q": 27,
+              "r": -10
+            }
+          }
+        },
+        "dependencies": {
+          "unit": "15bf63eb5794167e73d1e3af",
+          "account": "a822301950686cf529b1a406",
+          "phase": "1:GERMAN_MOVEMENT"
+        }
+      },
+      "keys": [
+        "unit:S-001",
+        "group:0"
+      ],
+      "status": "applied",
+      "inputAt": 16920.400000002235,
+      "feedbackAt": 16920.400000002235,
+      "sendAt": 16920.60000000149,
+      "result": {
+        "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4",
+        "commandSeq": 2,
+        "instanceId": "b39a4b95-25c1-48c6-bde0-4ff81fdfec85",
+        "status": "APPLIED",
+        "reason": null,
+        "acceptedRevision": 7,
+        "simulationPoint": {
+          "mode": "CITY_PHASE",
+          "turn": 1,
+          "phase": "GERMAN_MOVEMENT"
+        },
+        "timing": {
+          "receivedAt": 18758.442,
+          "startedAt": 18758.4543,
+          "acceptedAt": 18758.5212,
+          "appliedAt": 18797.405,
+          "queueMs": 0.012300000002142042,
+          "applyMs": 38.950699999997596
+        },
+        "beforeVersion": 6
+      },
+      "resultAt": 16999.10000000149,
+      "viewAvailableAt": 16999,
+      "completedAt": 16999.199999999255
+    }
+  ],
+  "pending": [],
+  "events": [
+    {
+      "type": "connected",
+      "at": 185.80000000074506
+    },
+    {
+      "type": "view",
+      "at": 189.90000000223517,
+      "revision": 0,
+      "full": true,
+      "bytes": 223758
+    },
+    {
+      "type": "selection",
+      "at": 190.30000000074506,
+      "unitId": "S-001"
+    },
+    {
+      "type": "ready",
+      "at": 193.60000000149012
+    },
+    {
+      "type": "view",
+      "at": 233.60000000149012,
+      "revision": 0,
+      "full": false,
+      "bytes": 255
+    },
+    {
+      "type": "ready",
+      "at": 233.80000000074506
+    },
+    {
+      "type": "view",
+      "at": 343.9000000022352,
+      "revision": 1,
+      "full": false,
+      "bytes": 4065
+    },
+    {
+      "type": "ready",
+      "at": 344
+    },
+    {
+      "type": "view",
+      "at": 952.6000000014901,
+      "revision": 2,
+      "full": false,
+      "bytes": 12739
+    },
+    {
+      "type": "ready",
+      "at": 952.8000000007451
+    },
+    {
+      "type": "view",
+      "at": 2257.60000000149,
+      "revision": 3,
+      "full": false,
+      "bytes": 523
+    },
+    {
+      "type": "ready",
+      "at": 2257.900000002235
+    },
+    {
+      "type": "ping",
+      "at": 5386,
+      "elapsedMs": 1.5999999977648258
+    },
+    {
+      "type": "view",
+      "at": 5852,
+      "revision": 4,
+      "full": false,
+      "bytes": 240
+    },
+    {
+      "type": "ready",
+      "at": 5852.10000000149
+    },
+    {
+      "type": "view",
+      "at": 8455.5,
+      "revision": 5,
+      "full": false,
+      "bytes": 240
+    },
+    {
+      "type": "ready",
+      "at": 8455.699999999255
+    },
+    {
+      "type": "view",
+      "at": 10886.300000000745,
+      "revision": 6,
+      "full": false,
+      "bytes": 240
+    },
+    {
+      "type": "ready",
+      "at": 10886.5
+    },
+    {
+      "type": "feedback",
+      "at": 14347.400000002235,
+      "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490"
+    },
+    {
+      "type": "command-sent",
+      "at": 14347.800000000745,
+      "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490"
+    },
+    {
+      "type": "feedback-frame-opportunity",
+      "at": 14352.800000000745,
+      "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490"
+    },
+    {
+      "type": "view",
+      "at": 14396.60000000149,
+      "revision": 6,
+      "full": false,
+      "bytes": 652
+    },
+    {
+      "type": "result",
+      "at": 14396.900000002235,
+      "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490",
+      "status": "REJECTED",
+      "reason": "UNIT_NOT_AUTHORIZED"
+    },
+    {
+      "type": "completed",
+      "at": 14397,
+      "requestId": "d861fb6e-b2a4-4429-ba88-7db673cec490",
+      "status": "rejected"
+    },
+    {
+      "type": "ready",
+      "at": 14397.199999999255
+    },
+    {
+      "type": "selection",
+      "at": 16846.300000000745,
+      "unitId": "S-001"
+    },
+    {
+      "type": "view",
+      "at": 16882.199999999255,
+      "revision": 6,
+      "full": false,
+      "bytes": 212
+    },
+    {
+      "type": "ready",
+      "at": 16882.400000002235
+    },
+    {
+      "type": "feedback",
+      "at": 16920.400000002235,
+      "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4"
+    },
+    {
+      "type": "command-sent",
+      "at": 16920.699999999255,
+      "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4"
+    },
+    {
+      "type": "feedback-frame-opportunity",
+      "at": 16923,
+      "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4"
+    },
+    {
+      "type": "view",
+      "at": 16999,
+      "revision": 7,
+      "full": false,
+      "bytes": 1286
+    },
+    {
+      "type": "result",
+      "at": 16999.10000000149,
+      "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4",
+      "status": "APPLIED",
+      "reason": null
+    },
+    {
+      "type": "completed",
+      "at": 16999.199999999255,
+      "requestId": "9ca19349-cab1-4271-9c2f-b99cbb21d2f4",
+      "status": "applied"
+    },
+    {
+      "type": "ready",
+      "at": 16999.199999999255
+    },
+    {
+      "type": "view",
+      "at": 17321.60000000149,
+      "revision": 8,
+      "full": false,
+      "bytes": 242
+    },
+    {
+      "type": "ready",
+      "at": 17321.800000000745
+    },
+    {
+      "type": "view",
+      "at": 17400.199999999255,
+      "revision": 9,
+      "full": false,
+      "bytes": 242
+    },
+    {
+      "type": "ready",
+      "at": 17400.300000000745
+    },
+    {
+      "type": "view",
+      "at": 19145.60000000149,
+      "revision": 10,
+      "full": false,
+      "bytes": 244
+    },
+    {
+      "type": "ready",
+      "at": 19145.800000000745
+    },
+    {
+      "type": "metrics",
+      "at": 21121.10000000149,
+      "received": 90,
+      "sent": 56,
+      "receivedBytes": 13000,
+      "sentBytes": 1210973,
+      "resyncs": 1,
+      "coalesced": 45,
+      "connections": 4,
+      "errors": 0,
+      "peakAuthorityQueue": 1,
+      "up": {
+        "messages": 23,
+        "bytes": 3058,
+        "peakMessages": 2,
+        "peakBytes": 444,
+        "queued": 0
+      },
+      "down": {
+        "messages": 16,
+        "bytes": 245592,
+        "peakMessages": 2,
+        "peakBytes": 224082,
+        "queued": 0
+      },
+      "outstandingResults": 0,
+      "profile": "clean"
+    }
+  ],
+  "metrics": {
+    "received": 90,
+    "sent": 56,
+    "receivedBytes": 13000,
+    "sentBytes": 1210973,
+    "resyncs": 1,
+    "coalesced": 45,
+    "connections": 4,
+    "errors": 0,
+    "peakAuthorityQueue": 1,
+    "up": {
+      "messages": 23,
+      "bytes": 3058,
+      "peakMessages": 2,
+      "peakBytes": 444,
+      "queued": 0
+    },
+    "down": {
+      "messages": 16,
+      "bytes": 245592,
+      "peakMessages": 2,
+      "peakBytes": 224082,
+      "queued": 0
+    },
+    "outstandingResults": 0,
+    "profile": "clean"
+  },
+  "limits": [
+    "Client monotonic timestamps are not server timestamps.",
+    "feedbackAt measures local handler feedback; rAF is only a frame opportunity.",
+    "Injected local test, not Huawei or public performance evidence."
+  ]
+}

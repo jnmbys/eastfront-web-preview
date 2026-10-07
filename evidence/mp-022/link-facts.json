@@ -1,0 +1,67 @@
+{
+  "checkedOn": "2026-10-07",
+  "method": "Read-only Render connector, existing user-approved My Workspace",
+  "services": [
+    {
+      "id": "srv-dathekek1f9s7389ksvg",
+      "name": "eastfront-supply-sandbox",
+      "region": "singapore",
+      "url": "https://eastfront-supply-sandbox.onrender.com",
+      "branch": "supply-verify-016",
+      "autoDeploy": "no",
+      "plan": "0.5c-512mb",
+      "instances": 1,
+      "suspended": "not_suspended"
+    },
+    {
+      "id": "srv-daouf0lg1s2s738nnqbg",
+      "name": "eastfront-server",
+      "region": "singapore",
+      "url": "https://eastfront-server.onrender.com",
+      "branch": "source-main",
+      "autoDeploy": "yes",
+      "plan": "0.5c-512mb",
+      "instances": 1,
+      "suspended": "not_suspended"
+    }
+  ],
+  "logs": {
+    "resource": "srv-daouf0lg1s2s738nnqbg",
+    "query": "Latest one hour, application logs, limit20",
+    "returned": 0,
+    "meaning": "No request-correlated records obtained; not proof of no traffic or no faults."
+  },
+  "mp021": {
+    "evidenceSha": "1c3d4f6b413c076c92cc67ca435466928c193153",
+    "route": [
+      "Huawei browser WSS",
+      "Cloudflare temporary HTTPS/WS edge",
+      "cloudflared QUIC on LAPTOP-G2NEE96G",
+      "127.0.0.1:4181 original owner auth boundary",
+      "127.0.0.1:4180 isolated gateway",
+      "local multiplayer WS server"
+    ],
+    "unknown": [
+      "path direction latencies",
+      "edge/proxy queues",
+      "browser pre-callback scheduling",
+      "wire compressed size"
+    ],
+    "notProductionRender": true
+  },
+  "mp022": {
+    "route": [
+      "two desktop Edge browser contexts",
+      "local WS",
+      "FIFO injection before app dispatch / ws.send",
+      "CITY adapter and real transaction"
+    ],
+    "publicOpened": false,
+    "serviceMigrated": false,
+    "paidResourcesAdded": false
+  },
+  "limits": [
+    "Existing multiplayer already uses WebSocket; this candidate does not claim a transport switch improvement.",
+    "Region alone cannot explain historical timing; no cross-device absolute-time subtraction."
+  ]
+}

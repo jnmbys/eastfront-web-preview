@@ -1,0 +1,109 @@
+{
+  "schema": "MP022-local-timings-v1",
+  "kind": "Real headless desktop Edge, two isolated browser contexts, localhost injected FIFO delays",
+  "rows": [
+    {
+      "condition": "rtt100",
+      "requestId": "fb758dfe-9b91-4396-92c9-8df10f62bc28",
+      "smallMessageRoundTripMs": 123.90000000223517,
+      "localFeedbackHandlerMs": 0,
+      "feedbackFrameOpportunityMs": 4.400000002235174,
+      "commandResultKnownMs": 161,
+      "authorityQueueMs": 0.022699999999986176,
+      "authorityInternalApplyMs": 20.08199999999988,
+      "authorizedViewAvailableMs": 160.80000000074506,
+      "trafficIncludingSelectionAndProbes": {
+        "received": 8,
+        "sent": 5,
+        "receivedBytes": 1214,
+        "sentBytes": 28634
+      }
+    },
+    {
+      "condition": "rtt300",
+      "requestId": "2e15e1b1-0d3f-4645-8e0b-c0cc78779593",
+      "smallMessageRoundTripMs": 306.0999999977648,
+      "localFeedbackHandlerMs": 0.10000000149011612,
+      "feedbackFrameOpportunityMs": 3.400000002235174,
+      "commandResultKnownMs": 357.5,
+      "authorityQueueMs": 0.04030000000011569,
+      "authorityInternalApplyMs": 19.84960000000001,
+      "authorizedViewAvailableMs": 357.30000000074506,
+      "trafficIncludingSelectionAndProbes": {
+        "received": 8,
+        "sent": 5,
+        "receivedBytes": 1214,
+        "sentBytes": 3401
+      }
+    },
+    {
+      "condition": "rtt1000",
+      "requestId": "3e44cdf9-cd4b-46ae-83e8-c596fcbed2d9",
+      "smallMessageRoundTripMs": 1014,
+      "localFeedbackHandlerMs": 0,
+      "feedbackFrameOpportunityMs": 3.100000001490116,
+      "commandResultKnownMs": 1066.300000000745,
+      "authorityQueueMs": 0.023400000000037835,
+      "authorityInternalApplyMs": 19.38589999999931,
+      "authorizedViewAvailableMs": 1066.1000000014901,
+      "trafficIncludingSelectionAndProbes": {
+        "received": 10,
+        "sent": 6,
+        "receivedBytes": 1459,
+        "sentBytes": 15483
+      }
+    },
+    {
+      "condition": "constrained",
+      "requestId": "55584305-1395-4a17-bdb5-15a7d9e20145",
+      "smallMessageRoundTripMs": 280.1000000014901,
+      "localFeedbackHandlerMs": 0,
+      "feedbackFrameOpportunityMs": 3.300000000745058,
+      "commandResultKnownMs": 380,
+      "authorityQueueMs": 0.01329999999870779,
+      "authorityInternalApplyMs": 24.023000000001048,
+      "authorizedViewAvailableMs": 379.80000000074506,
+      "trafficIncludingSelectionAndProbes": {
+        "received": 9,
+        "sent": 6,
+        "receivedBytes": 1329,
+        "sentBytes": 3757
+      }
+    }
+  ],
+  "metrics": {
+    "received": 90,
+    "sent": 57,
+    "receivedBytes": 13000,
+    "sentBytes": 1211576,
+    "resyncs": 1,
+    "coalesced": 46,
+    "connections": 4,
+    "errors": 0,
+    "peakUpMessages": 4,
+    "peakUpBytes": 1066,
+    "peakDownMessages": 3,
+    "peakDownBytes": 225642,
+    "peakAuthorityQueue": 1
+  },
+  "concurrentCommands": [
+    {
+      "kind": "MOVE",
+      "sendAt": 16547.800000000745,
+      "resultAt": 17586.699999999255,
+      "status": "applied"
+    },
+    {
+      "kind": "OFFICER",
+      "sendAt": 16586.60000000149,
+      "resultAt": 17650.39999999851,
+      "status": "applied"
+    }
+  ],
+  "limits": [
+    "Local injected traffic only; one move per condition, no stable percentiles or public/Huawei improvement claim.",
+    "Client and server clocks are independent. Authority internal duration is not input-to-server-apply latency.",
+    "Feedback handler and rAF opportunity are not measured pixel presentation.",
+    "JSON traffic includes selection, probes, both seats, recovery; not compressed wire bytes."
+  ]
+}

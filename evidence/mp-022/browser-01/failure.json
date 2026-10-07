@@ -1,0 +1,199 @@
+{
+  "error": "locator.selectOption: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#profile')\u001b[22m\n\u001b[2m    - locator resolved to <select id=\"profile\">…</select>\u001b[22m\n\u001b[2m  - attempting select option action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying select option action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying select option action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    40 × waiting for element to be visible and enabled\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying select option action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+  "errors": [],
+  "body": "东线 · 通信试验\nA · 德军\n已连接\nT1 GERMAN_MOVEMENT · 授权版本 1\n连接席位\n结束当前旧阶段\n旧 CITY 真实权威接口验证 · 新版共同时间尚未接入。地图可自由查看；正式结果只由服务器更新。\n＋\n－\n所选部队\n指挥\n本方部队 \nG-001\nG-002\nG-003\nG-004\nG-005\nG-006\nG-007\nG-008\nG-009\nG-010\nG-011\nG-012\nG-013\nG-014\nG-015\nG-016\nG-017\nG-018\nG-019\nG-020\nG-021\nG-022\nG-023\nG-024\nG-025\nG-026\nG-027\nG-028\nG-029\nG-030\nG-031\nG-032\nG-033\nG-034\nG-035\nG-036\nG-037\nG-038\nG-039\nG-040\nG-041\nG-042\nG-043\nG-044\nG-045\nG-046\nG-047\nG-048\nG-049\nG-050\nG-051\nG-052\nG-053\nG-054\nG-055\nG-056\nG-057\nG-058\nG-059\nG-060\n\nG-001 · INFANTRY · 损伤 0 · SUPPLIED\n\n点击地图设定目标；规划线不是批准路线。\n\n提交移动委托军官推进暂停所选军官\n\n当前选择的授权选项已同步\n\n命令确认\nPHASE：已执行／授权状态已同步\n本方资源\n\n工业预算 12 · 已花费 0\n\n在可建城区建厂\n连接与诊断",
+  "clients": [
+    {
+      "schema": "MP022-browser-v1",
+      "mode": "CITY_REAL_INTERFACE",
+      "instanceId": "9180c9e0-ad0d-4240-8eae-7fe204d289fb",
+      "side": "GERMAN",
+      "profile": "clean",
+      "history": [
+        {
+          "command": {
+            "instanceId": "9180c9e0-ad0d-4240-8eae-7fe204d289fb",
+            "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48",
+            "commandSeq": 1,
+            "kind": "PHASE",
+            "payload": {},
+            "dependencies": {
+              "account": "a822301950686cf529b1a406",
+              "phase": "1:GERMAN_SUPPLY_RAIL"
+            }
+          },
+          "keys": [
+            "all"
+          ],
+          "status": "applied",
+          "inputAt": 284.7000000011176,
+          "feedbackAt": 284.80000000074506,
+          "sendAt": 285,
+          "result": {
+            "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48",
+            "commandSeq": 1,
+            "instanceId": "9180c9e0-ad0d-4240-8eae-7fe204d289fb",
+            "status": "APPLIED",
+            "reason": null,
+            "acceptedRevision": 1,
+            "simulationPoint": {
+              "mode": "CITY_PHASE",
+              "turn": 1,
+              "phase": "GERMAN_MOVEMENT"
+            },
+            "timing": {
+              "receivedAt": 2558.2432,
+              "startedAt": 2558.4143,
+              "acceptedAt": 2558.5126,
+              "appliedAt": 2580.5261,
+              "queueMs": 0.171100000000024,
+              "applyMs": 22.11180000000013
+            },
+            "beforeVersion": 0
+          },
+          "resultAt": 366.5,
+          "viewAvailableAt": 366.30000000074506,
+          "completedAt": 366.59999999962747
+        }
+      ],
+      "pending": [],
+      "events": [
+        {
+          "type": "connected",
+          "at": 152.59999999962747
+        },
+        {
+          "type": "view",
+          "at": 158,
+          "revision": 0,
+          "full": true,
+          "bytes": 223906
+        },
+        {
+          "type": "selection",
+          "at": 158.40000000037253,
+          "unitId": "G-001"
+        },
+        {
+          "type": "ready",
+          "at": 161.2000000011176
+        },
+        {
+          "type": "view",
+          "at": 203.59999999962747,
+          "revision": 0,
+          "full": false,
+          "bytes": 255
+        },
+        {
+          "type": "ready",
+          "at": 203.80000000074506
+        },
+        {
+          "type": "feedback",
+          "at": 284.80000000074506,
+          "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48"
+        },
+        {
+          "type": "command-sent",
+          "at": 285.09999999962747,
+          "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48"
+        },
+        {
+          "type": "feedback-frame-opportunity",
+          "at": 288.09999999962747,
+          "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48"
+        },
+        {
+          "type": "view",
+          "at": 366.40000000037253,
+          "revision": 1,
+          "full": false,
+          "bytes": 5048
+        },
+        {
+          "type": "result",
+          "at": 366.5,
+          "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48",
+          "status": "APPLIED",
+          "reason": null
+        },
+        {
+          "type": "completed",
+          "at": 366.59999999962747,
+          "requestId": "e91487ba-a6bb-4a27-8ab1-3e762370ec48",
+          "status": "applied"
+        },
+        {
+          "type": "ready",
+          "at": 366.7000000011176
+        }
+      ],
+      "metrics": null,
+      "limits": [
+        "Client monotonic timestamps are not server timestamps.",
+        "feedbackAt measures local handler feedback; rAF is only a frame opportunity.",
+        "Injected local test, not Huawei or public performance evidence."
+      ]
+    },
+    {
+      "schema": "MP022-browser-v1",
+      "mode": "CITY_REAL_INTERFACE",
+      "instanceId": "9180c9e0-ad0d-4240-8eae-7fe204d289fb",
+      "side": "SOVIET",
+      "profile": "clean",
+      "history": [],
+      "pending": [],
+      "events": [
+        {
+          "type": "connected",
+          "at": 171.60000000149012
+        },
+        {
+          "type": "view",
+          "at": 176,
+          "revision": 0,
+          "full": true,
+          "bytes": 223758
+        },
+        {
+          "type": "selection",
+          "at": 176.30000000074506,
+          "unitId": "S-001"
+        },
+        {
+          "type": "ready",
+          "at": 178.90000000037253
+        },
+        {
+          "type": "view",
+          "at": 215.60000000149012,
+          "revision": 0,
+          "full": false,
+          "bytes": 255
+        },
+        {
+          "type": "ready",
+          "at": 215.80000000074506
+        },
+        {
+          "type": "view",
+          "at": 313,
+          "revision": 1,
+          "full": false,
+          "bytes": 4065
+        },
+        {
+          "type": "ready",
+          "at": 313.1000000014901
+        }
+      ],
+      "metrics": null,
+      "limits": [
+        "Client monotonic timestamps are not server timestamps.",
+        "feedbackAt measures local handler feedback; rAF is only a frame opportunity.",
+        "Injected local test, not Huawei or public performance evidence."
+      ]
+    }
+  ]
+}
