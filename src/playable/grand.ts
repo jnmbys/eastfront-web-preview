@@ -1,3 +1,4 @@
+import {uxMarkup,bindUx} from './grandUx.js';
 import type {WorkerPort} from '../local-ai/client.js';import type {LocalRequest,LocalReply} from '../local-ai/types.js';
 export class GrandPort implements WorkerPort {
  onmessage:WorkerPort['onmessage']=null;onerror:WorkerPort['onerror']=null;data:any=null;notice='';locked=false;selections:Record<string,string>={};
@@ -29,7 +30,7 @@ export class GrandPort implements WorkerPort {
 }
 const esc=(x:any)=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export function grandMarkup(p:GrandPort,selected:string|null):string{
- const d=p.data;if(!d)return '';const blocked=p.locked||d.viewer!==d.owner||!!d.game.message.payload.view.pendingDecision,off=blocked?'disabled':'',options=(role?:string)=>d.warehouses.filter((w:any)=>w.controlled&&(!role||w.role===role)).map((w:any)=>`<option value="${esc(w.id)}">${esc(w.label)} ${w.role==='industry'?'后方':'前线'} P${w.P}/E2 ${w.E2}</option>`).join('');
+ const d=p.data;if(!d)return '';if(d.ux)return uxMarkup(p,selected);const blocked=p.locked||d.viewer!==d.owner||!!d.game.message.payload.view.pendingDecision,off=blocked?'disabled':'',options=(role?:string)=>d.warehouses.filter((w:any)=>w.controlled&&(!role||w.role===role)).map((w:any)=>`<option value="${esc(w.id)}">${esc(w.label)} ${w.role==='industry'?'后方':'前线'} P${w.P}/E2 ${w.E2}</option>`).join('');
  const u=d.units.find((u:any)=>u.id===selected);
  return `<section class="panel-block grand-panel"><h3>大战略实验 · T${d.turn}/24 · E${d.epoch}</h3><p role="status">${esc(p.notice)} 本次提交${Number(d.ms).toFixed(1)}ms</p><p>统帅待办：铁路、生产下单、共享运输、全军结束阶段。军官仅执行明确委托；经济选择仍人工确认。结束本方阶段后，在顶部明确接管另一方。</p><p><b>工业预算 ${d.account.I} I</b>；已训练后备 ${d.account.reserve} P。初始${d.account.initialI}＋收入${d.account.incomeI}−已付${d.account.spentI}。</p>
  <label>生产入库地点<select id="grand-factory">${options('industry')}</select></label><div class="button-row"><button data-grand-product="E2" ${off}>生产2 E2 · 3I · 1周期</button><button data-grand-product="P" ${off}>拨补1 P · 2I · 1周期</button></div><p>每方每T最多2笔。E末完成、下一T可用；仓内每4P每E照管1I，不足则隔离。</p>
@@ -40,7 +41,7 @@ export function grandMarkup(p:GrandPort,selected:string|null):string{
  <details><summary>仓储与下一T库存</summary>${d.warehouses.map((w:any)=>`<p>${esc(w.label)} ${w.controlled?'己方服务':'失去服务'}：可用${w.P}P＋${w.E2}E2；总占用${w.lots.reduce((n:number,l:any)=>n+l.qty,0)}/${w.capacity}</p>`).join('')}</details>
  <details><summary>战略地点与最近结算</summary><p>E24按当时控制计VP，平分和局。工业/交通收益每E仅一次，反复易手不即时发钱。</p>${d.objectives.map((n:any)=>`<p>${esc(n.label)}：${n.vp}VP，${n.incomeI}I/E；补给源${n.sourceQ/4}点/E · ${esc(n.control??'未确认')}</p>`).join('')}<pre>${esc(JSON.stringify(d.lastLedger,null,1))}</pre></details></section>`;
 }
-export function bindGrand(p:GrandPort){for(const id of ['grand-factory','grand-from','grand-to']){const el=document.querySelector<HTMLSelectElement>('#'+id);if(el){if(p.selections[id])el.value=p.selections[id]!;el.addEventListener('change',()=>{p.selections[id]=el.value;});}}const value=(id:string)=>(document.querySelector(id) as HTMLSelectElement)?.value;
+export function bindGrand(p:GrandPort){if(p.data?.ux){bindUx(p);return;}for(const id of ['grand-factory','grand-from','grand-to']){const el=document.querySelector<HTMLSelectElement>('#'+id);if(el){if(p.selections[id])el.value=p.selections[id]!;el.addEventListener('change',()=>{p.selections[id]=el.value;});}}const value=(id:string)=>(document.querySelector(id) as HTMLSelectElement)?.value;
  document.querySelectorAll<HTMLElement>('[data-grand-product]').forEach(b=>b.addEventListener('click',()=>void p.operation({type:'ORDER',product:b.dataset.grandProduct,warehouse:value('#grand-factory')})));
  document.querySelector('#grand-ship')?.addEventListener('click',()=>void p.operation({type:'SHIP',from:value('#grand-from'),to:value('#grand-to'),P:1,E2:2}));
  document.querySelectorAll<HTMLElement>('[data-grand-cancel]').forEach(b=>b.addEventListener('click',()=>void p.operation({type:'CANCEL_SHIPMENT',id:b.dataset.grandCancel})));

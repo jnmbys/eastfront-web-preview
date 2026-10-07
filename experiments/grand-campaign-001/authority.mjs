@@ -8,8 +8,8 @@ import {isNetworkAction,isQueryDraft} from '../../.ai003-preview/src/multiplayer
 const copy=structuredClone,kh=core.hexKey;
 function fail(code){throw Error(code);}
 export class Campaign {
- constructor(){
-  const {rules,scenario,state,engine,nodes,placements}=createScenario();
+ constructor(factory=createScenario){
+  const {rules,scenario,state,engine,nodes,placements}=factory();
   this.seq=0;this.id=crypto.randomUUID();this.viewer='GERMAN';this.version=0;this.receipts=new Map();this.rules=rules;this.scenario=scenario;this.nodes=nodes;this.placements=placements;
   this.match={id:this.id,matchId:this.id,authoritative:{state,rules,scenario,engine,activeViewerControllerId:this.viewer,lastResult:null,integrityIssues:[]},controllerAssignments:sides.map(side=>({controllerId:side,coreControllerId:side,viewer:side,seat:side})),status:'ACTIVE',matchRevision:0,actionSequence:0,disclosedBattles:{GERMAN:new Set(),SOVIET:new Set()},battleSummaries:{GERMAN:{entries:new Map(),olderOmitted:false},SOVIET:{entries:new Map(),olderOmitted:false}}};
   this.econ={epoch:0,accounts:Object.fromEntries(sides.map(s=>[s,{initialI:config.economy.initialI,incomeI:0,spentI:0,I:config.economy.initialI,reserve:config.economy.trainedReservePerSide,personnelCommitted:0}])),warehouses:Object.fromEntries(nodes.filter(n=>['industry','depot'].includes(n.role)).map(n=>[n.id,{id:n.id,owner:n.side,node:n.hex,capacity:config.economy.warehouseCapacity,lots:[]}])),orders:[],shipments:[],uses:[],ledger:[],supply:Object.fromEntries(Object.values(state.units).map(u=>[u.id,{stock:config.supply.initialStockQ,debt:0,short:0}]))};
@@ -21,6 +21,8 @@ export class Campaign {
   if(u?.alive&&['MOVE','BREAKTHROUGH'].includes(action.type))for(const h of action.path??[])this.state.hexes[kh(h)].control=u.side;
   for(const unit of Object.values(this.state.units).filter(u=>u.alive))this.state.hexes[kh(unit.hex)].control=unit.side;
  }
+ recoveryReady(id){const u=this.state.units[id],w=Object.values(this.econ.warehouses).find(w=>w.owner===this.viewer&&w.node===kh(u.hex)&&this.state.hexes[w.node].control===this.viewer);return !!w&&this.available(w,'P')>=1&&this.available(w,'E2')>=2;}
+ payRecovery(id,request){const w=Object.values(this.econ.warehouses).find(w=>w.owner===this.viewer&&w.node===kh(this.state.units[id].hex));this.econ.uses.push({id:`USE:${request}`,side:this.viewer,unitId:id,warehouse:w.id,turn:this.state.turn,P:this.take(w,'P',1),E2:this.take(w,'E2',2),rp:0});}
  get state(){return this.match.authoritative.state;}
  owner(){return this.state.pendingDecision?.side??this.state.activeSide;}
  available(w,type,turn=this.state.turn){return w.lots.filter(l=>l.type===type&&l.availableTurn<=turn).reduce((a,l)=>a+l.qty,0);}
@@ -88,12 +90,12 @@ export class Campaign {
    this.match.authoritative.state=copy(beforeState);
    if(req.action){const a=req.action;if(!delegated&&!this.delegation.manual(a))fail('UNIT_DELEGATED_PAUSE_FIRST');if(!isNetworkAction(a)||validateIntent(this.match,this.viewer,a))fail('ACTION_NOT_AUTHORIZED');
     const costs=this.costs(a),repair=a.type==='REPAIR_UNIT';let warehouse;
-    if(repair){warehouse=Object.values(this.econ.warehouses).find(w=>w.owner===this.viewer&&w.node===kh(this.state.units[a.unitId].hex)&&this.state.hexes[w.node].control===this.viewer);if(!warehouse||this.available(warehouse,'P')<1||this.available(warehouse,'E2')<2)fail('SAME_HEX_USABLE_1P_2E2_REQUIRED');}
+    if(repair&&!this.recoveryReady(a.unitId))fail('RECOVERY_MATERIALS_REQUIRED');
     const views=new Map(sides.map(s=>[s,playerSnapshot(this.match,s)]));
     result=this.match.authoritative.engine.apply(this.state,{...a,controllerId:this.viewer});if(!result.accepted)fail(result.issues.map(i=>i.details?.reason??i.code).join(','));
     this.match.authoritative.state=result.state;this.capture(a);
     for(const[id,cost]of Object.entries(costs)){const s=this.econ.supply[id],paid=Math.min(cost,s.stock);s.stock-=paid;s.debt+=cost-paid;}
-    if(repair){const P=this.take(warehouse,'P',1),E2=this.take(warehouse,'E2',2);this.econ.uses.push({id:`USE:${req.id}`,side:this.viewer,unitId:a.unitId,warehouse:warehouse.id,turn:this.state.turn,P,E2,rp:0});}
+    if(repair)this.payRecovery(a.unitId,req.id);
     if(beforeState.phase==='SOVIET_ENTRENCHMENT'&&result.state.phase!==beforeState.phase)this.finishEpoch(beforeState.turn);
     this.syncSupply();result.state=this.state;
     recordAcceptedIntent(this.match,beforeState,result,views);
@@ -124,7 +126,7 @@ export class Campaign {
   const view=playerSnapshot(this.match,this.viewer),safe={...this.match,authoritative:{...this.match.authoritative,state:copy(this.state)}};
   const visible=new Set(view.units.map(u=>u.id));for(const[id,u]of Object.entries(safe.authoritative.state.units))if(u.side!==this.viewer&&!visible.has(id))delete safe.authoritative.state.units[id];
   const model=queryModel(safe,this.viewer,draft);model.playerView=view;model.hexes=view.hexes;model.edges=view.edges;
-  if(model.recovery&&model.selectedCounter){const u=this.state.units[model.selectedCounter.id],w=Object.values(this.econ.warehouses).find(w=>w.owner===this.viewer&&w.node===kh(u.hex)&&this.state.hexes[w.node].control===this.viewer);if(!w||this.available(w,'P')<1||this.available(w,'E2')<2)model.recovery.selectedIssues.push({code:'INVALID_SUPPORT',message:'需要同格已可用1P＋2E2'});}
+  if(model.recovery&&model.selectedCounter&&!this.recoveryReady(model.selectedCounter.id))model.recovery.selectedIssues.push({code:'INVALID_SUPPORT',message:'缺少已配送的本兵种恢复材料'});
   const automatic=forcedAction(safe,this.viewer,draft);
   return {model,view,status:this.match.status,canAct:this.owner()===this.viewer,forcedAction:automatic&&this.delegation.manual(automatic)?automatic:null,events:[]};
  }
