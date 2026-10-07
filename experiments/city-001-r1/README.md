@@ -24,11 +24,13 @@
 |T6苏军夺回|原2，原T3约束|原4恢复|原1/2E恢复|
 |E6后|仍2，另产1重装甲T7可用|12完成后0|2/2E建成|
 
+另一个独立真实T1命令序列中，S-026于T3夺回Z17主城，G-026仍驻AC17站区；主城换旗、站区仍德控、苏军运输不可用均核验。延续T6资产序列的最初主城路线曾因原移动/补给条件受阻，未记为成功；记录见main-route-blocked.txt。没有为其修改规则或单位。
+
 两座厂总建设支出12I。失守期间不补进度；夺回时不发收入/VP。已付设施与未消费库存不复制。物流仍因敌控站场受阻。
 
 人员沿用GRAND的每4P每E照管1I，不引入013固定场景的期限：原方对占领封存人员继续照管，使用原当轮预算与同一费率，结算后不足永久隔离；不让封存免照管。若批次原有明确expiresAfterEpoch，E结束到期独立隔离；无此字段的现行GRAND人员仅按既有照管规则处理。已隔离人员不重新收费或复活。固定期限反例明确是合成测试。
 
-对手在制品、原库存和累计生产不通过本方城市面板泄漏；本方历史只读记录可见，敌兵详情仍走原FOW。共同恢复资格/次数、军官权限、请求绑定、版本保护沿用原事务。
+对手在制品、原库存和累计生产不通过本方城市面板泄漏；本方历史只读记录可见，敌兵详情仍走原FOW。未观测城区明确显示“最后确认／当前待侦察”，地图标签带问号，不把旧控制记录当成已确认现状；不会通过过时友方标记暴露敌方设施。共同恢复资格/次数、军官权限、请求绑定、版本保护沿用原事务。
 
 ## 定向验证和复跑
 
@@ -39,11 +41,14 @@ node ai/local/build.mjs
 node --test experiments/city-001-r1/art.test.mjs tests/safari-terrain-loading.test.mjs
 node experiments/city-001-r1/assets.test.mjs
 node experiments/city-001-r1/recapture.test.mjs
+node experiments/city-001-r1/guarded-main.test.mjs
 # 启动新端口；占用即拒绝，不杀其他进程
 pwsh -File experiments/city-001-r1/start.ps1
 node experiments/city-001-r1/browser-flow.mjs
 node experiments/city-001-r1/browser-recapture.mjs
+node experiments/city-001-r1/browser-guarded-main.mjs
 node experiments/city-001-r1/browser-art.mjs
+node experiments/city-001-r1/browser-faults.mjs
 # 仅关闭本入口；会丢失4198内存进度
 pwsh -File experiments/city-001-r1/stop.ps1
 ```
@@ -52,8 +57,8 @@ pwsh -File experiments/city-001-r1/stop.ps1
 
 真实证据：正常战役命令、浏览器建厂→生产→配送→恢复→继续移动，主城与敌守站区，苏军夺回库存/在制品/施工。合成边界：多次易手、过期与欠照管、分配冲突、提交前故障和版本竞争。真实夺回事务额外注入故障验证全根回滚，成功后旧请求重试不回滚较新状态。旧CITY针对性七项回归另存city-regression.json，未覆盖旧证据。
 
-加载修复与资源释放测试共26项通过（含模拟Safari加载回退，非Safari真机）。本桌面首次显示约4.5秒；远/中/近景分别854×826、1707×1651、2561×2476，三层RGBA合计39,458,788字节。一次三层观测83次请求、33个不同素材、约13.13MB传输；跨LOD重复解码是有意释放源图后的成本。近景约12秒后台生成，不声称无成本。普通重绘不重新加载或重建，退出三张画布均归零；旧显示回退无地貌画布。详细观测见art-performance.json、browser-art-officer.json。桌面Edge自动化真实页面截图，不冒称手机/iPad通过。
+加载修复与资源释放测试共26项通过（含模拟Safari加载回退，非Safari真机）。本桌面首次显示约4.5–6.6秒（最终两浏览器并行复验6.6秒）；远/中/近景分别854×826、1707×1651、2561×2476，三层RGBA合计39,458,788字节。一次三层观测83次请求、33个不同素材、约13.13MB传输；跨LOD重复解码是有意释放源图后的成本。近景约12秒后台生成，不声称无成本。普通重绘不重新加载或重建，退出三张画布均归零；旧显示回退无地貌画布。详细观测见art-performance.json、browser-art-officer.json。桌面Edge自动化真实页面截图，不冒称手机/iPad通过。
 
-浏览器检查中发现生产历史过滤误删界面依赖的completed字段，导致苏军重连失败；已改为从本方权威生产记录重建同结构字段，旧失败JSON/截图保留，最终重跑结果另存。
+浏览器检查中发现生产历史过滤误删界面依赖的completed字段，导致苏军重连失败；已改为从本方权威生产记录重建同结构字段，旧失败JSON/截图保留，最终重跑结果另存。另修复恢复资格查询未完成时按钮过早可点的问题；查询期间禁用恢复按钮，最终完整生产配送、恢复及继续移动已重新通过。
 
 最终截图与发布资源哈希见evidence/city-001-r1。35项全局未决保持；本轮只补显示与占领后恢复，不证明长期经济平衡、全局补给或运行门禁已关闭。不合并、不部署、不开放公网。

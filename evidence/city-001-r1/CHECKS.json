@@ -1,0 +1,52 @@
+{
+  "runtimeSourceCommit": "ccbd88ae6f8ccd59245ce4e1d2234e45e4537652",
+  "checks": {
+    "terrainAndDecode": {
+      "passed": 26,
+      "evidence": "terrain-tests.log"
+    },
+    "assetBoundaries": {
+      "passed": 5,
+      "synthetic": true,
+      "evidence": "asset-tests.json"
+    },
+    "realRecapture": {
+      "passed": true,
+      "evidence": "real-recapture.json"
+    },
+    "realGuardedMainRecapture": {
+      "passed": true,
+      "evidence": "guarded-main.json"
+    },
+    "browserBuildProductionDeliveryRecoveryMovement": {
+      "passed": true,
+      "evidence": "browser.json"
+    },
+    "browserRecapture": {
+      "passed": true,
+      "evidence": "browser-recapture.json"
+    },
+    "browserGuardedStation": {
+      "passed": true,
+      "evidence": "browser-guarded-main.json"
+    },
+    "browserLODOfficersReleaseFallback": {
+      "passed": true,
+      "evidence": "browser-art-officer.json"
+    },
+    "syntheticHTTPFailures": {
+      "passed": true,
+      "evidence": "http-faults.json"
+    }
+  },
+  "limits": [
+    "Desktop Edge only; not mobile-device certification",
+    "35 global unresolved items retained",
+    "No merge, deployment or public listener"
+  ],
+  "retainedFailedAttempts": [
+    "browser-recapture-failure.json: missing completed field, fixed and retested",
+    "main-route-blocked.txt: exploratory route blocked, replaced by independent legal T3 trace",
+    "Concurrent full-browser attempt missed recovery acknowledgement; serialized rerun with explicit qualification response and disabled pending button passed, no repeat action submitted"
+  ]
+}
