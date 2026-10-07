@@ -1,0 +1,8 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {Campaign} from '../city-001/authority.mjs';import {tx,until,h,moveEast} from '../city-001/check.mjs';import * as core from '../../vendor/eastfront-digital-core/dist/index.js';
+const c=new Campaign(),trace=[],advance=(t,p)=>until(c,t,p,trace),move=(id,p)=>trace.push(tx(c,{type:'MOVE',unitId:id,path:p.map(h)}));
+advance(1,'GERMAN_MOVEMENT');move('G-026',['Z17']);advance(1,'SOVIET_MOVEMENT');for(let i=25;i<=36;i++){if(i===26)move('S-026',['AA16']);else moveEast(c,'S-'+String(i).padStart(3,'0'),trace);}
+advance(2,'GERMAN_MOVEMENT');move('G-026',['AA17']);advance(2,'SOVIET_MOVEMENT');for(let i=25;i<=36;i++){if(i===26)move('S-026',['AA15']);else moveEast(c,'S-'+String(i).padStart(3,'0'),trace);}
+advance(3,'GERMAN_MOVEMENT');move('G-026',['AB16','AC17']);advance(3,'SOVIET_MOVEMENT');move('S-026',['AA16','AA17','Z17']);
+assert.equal(c.econ.cities.items[1].owner,'SOVIET');assert.equal(c.econ.cities.items[1].districts[1].control,'GERMAN');assert.equal(core.hexKey(c.state.units['G-026'].hex),core.hexKey(h('AC17')));assert(c.state.units['G-026'].alive);assert(!c.serviceAllowed({node:'27,4'},'SOVIET'));
+c.viewer='SOVIET';const publicStation=c.snapshot().cities.items[1].districts[1];assert.equal(publicStation.service,false);assert.deepEqual(publicStation.facilities,[]);if(publicStation.control==='SOVIET')assert(publicStation.unconfirmed);
+fs.writeFileSync('evidence/city-001-r1/guarded-main.json',JSON.stringify({kind:'real commands on original normal T1',trace,city:c.econ.cities.items[1],guard:{id:'G-026',hex:c.state.units['G-026'].hex}},null,2));console.log('PASS real main recapture with enemy unit still guarding station');
