@@ -8,11 +8,11 @@ export function travel(view,from,to,cap){
  const land={PLAIN:3,FOREST:5,HILL:5,MOUNTAIN:8,MARSH:7,CITY:4}[h.terrain]??4;
  return Math.max(2,Math.ceil(((e?.road?2:land)+(e?.river?3:0))/cap.mobility));
 }
-export function route(view,start,target,cap,radius=0){
+export function route(view,start,target,cap,radius=0,budget=rules.searchBudget){
  const hexes=new Map(view.hexes.map(h=>[hexKey(h.coord),h])),enemy=new Set(view.units.filter(u=>u.side!==view.viewer).map(u=>hexKey(u.hex)));
  const occupied=new Map();for(const u of view.units.filter(u=>u.side===view.viewer&&u.friendly?.alive))occupied.set(hexKey(u.hex),(occupied.get(hexKey(u.hex))??0)+1);
  const open=[{h:start,g:0}],seen=new Map([[hexKey(start),{g:0,prev:null,h:start}]]);let expanded=0;
- while(open.length&&expanded<rules.searchBudget){open.sort((a,b)=>a.g+hexDistance(a.h,target)*2-(b.g+hexDistance(b.h,target)*2)||hexKey(a.h).localeCompare(hexKey(b.h)));const n=open.shift();if(n.g!==seen.get(hexKey(n.h)).g)continue;expanded++;
+ while(open.length&&expanded<Math.min(rules.searchBudget,budget)){open.sort((a,b)=>a.g+hexDistance(a.h,target)*2-(b.g+hexDistance(b.h,target)*2)||hexKey(a.h).localeCompare(hexKey(b.h)));const n=open.shift();if(n.g!==seen.get(hexKey(n.h)).g)continue;expanded++;
   if(hexDistance(n.h,target)<=radius){const path=[];let p=seen.get(hexKey(n.h));while(p.prev){path.unshift(p.h);p=seen.get(p.prev);}return {path,expanded};}
   for(const h of getNeighbors(n.h)){const k=hexKey(h);if(!hexes.has(k)||(occupied.get(k)??0)>=rules.stack||enemy.has(k)&&k!==hexKey(target))continue;const g=n.g+travel(view,n.h,h,cap);if(!Number.isFinite(g)||g>=(seen.get(k)?.g??Infinity))continue;seen.set(k,{g,prev:hexKey(n.h),h});open.push({h,g});}
  }return {path:[],expanded,reason:open.length?'搜索预算到达，保留原位':'已知交通或友军满员占位阻挡通行'};

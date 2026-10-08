@@ -1,0 +1,4 @@
+import {start} from '../grand-play-mp022/server.mjs';import {Campaign} from './authority.mjs';import {fixture} from './fixtures.mjs';import path from 'node:path';
+class Demo extends Campaign {constructor(){super();this.restore(fixture().c.save());this.clock.scenario='DIRECTED_OBJECTIVE';for(const g of this.clock.corps.filter(g=>g.side==='GERMAN'))g.order.paused=true;}}
+const services=[];for(const [port,Class,slot]of [[4231,Campaign,'normal'],[4232,Demo,'objective-demo']]){services.push(await start({port,CampaignClass:Class,cookiePrefix:'grandofficer002_'+slot+'_',saveFile:path.join(process.env.LOCALAPPDATA,'EastfrontSaves/grand-officer-002',slot+'.json'),evidenceFile:path.resolve('evidence/grand-officer-002/'+slot+'-live.jsonl')}));console.log(`GRAND-OFFICER-002 ${slot}: http://127.0.0.1:${port}/ | local only`);}
+process.on('SIGTERM',()=>Promise.all(services.map(s=>s.close())));process.on('SIGINT',()=>Promise.all(services.map(s=>s.close())));
