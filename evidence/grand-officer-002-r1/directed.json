@@ -1,0 +1,4785 @@
+{
+  "results": [
+    "reproduced RESERVE conflict now has one tactical execution owner",
+    "both modes: real reserve release and timed relief/support, not permanent lock",
+    "tactical interruptions resume prior objective without identical reassignment",
+    "indexed routes equal original; cache invalidates authorized occupancy/terrain/mobility, budget bounded",
+    "global budget and rotating eligibility across both sides",
+    "same fair inputs ignore hidden exact enemy data, both sides",
+    "stale full relief released tactically; active reserve still protected",
+    "save/restart preserves scheduler, tasks, physical/economic continuation; takeover/pause/order wins"
+  ],
+  "log": [
+    {
+      "conservative": false,
+      "tick": 1,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿分配接近方向组织行动；按当前已知接触处理；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "S-013",
+          "kind": "ATTACK",
+          "target": "G-013",
+          "from": {
+            "q": 24,
+            "r": 4
+          },
+          "to": {
+            "q": 23,
+            "r": 4
+          },
+          "id": "engagement-1:S-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 24,
+              "r": 4
+            },
+            {
+              "q": 23,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 2,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿分配接近方向组织行动；按当前已知接触处理；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "S-013",
+          "kind": "ATTACK",
+          "target": "G-013",
+          "from": {
+            "q": 24,
+            "r": 4
+          },
+          "to": {
+            "q": 23,
+            "r": 4
+          },
+          "id": "engagement-1:S-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 24,
+              "r": 4
+            },
+            {
+              "q": 23,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 3,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿分配接近方向组织行动；按当前已知接触处理；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 4,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿分配接近方向组织行动；按当前已知接触处理；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 5,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿分配接近方向组织行动；按当前已知接触处理；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 6,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-017 接替，最多再等 2 个时间步；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿分配接近方向组织行动；按当前已知接触处理；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 7,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-017 接替，最多再等 1 个时间步；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 8,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 15 分钟"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 9,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 10 分钟"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 10,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 5 分钟"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-017",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-017:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 11,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-017",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-017:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 12,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-017",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-017:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 13,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-017",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-017:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 14,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-017",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-017:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": false,
+      "tick": 15,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 2 个时间步；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RELIEF",
+          "reason": "G-018 正在行军接替 G-014，到达前不计入支援；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 16,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RELIEF",
+          "reason": "G-018 正在行军接替 G-014，到达前不计入支援；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 17,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "目标当前可见且无已识别敌军，明确改任推进占领（不保证无遭遇）；沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "RELIEF",
+          "reason": "G-018 正在行军接替 G-014，到达前不计入支援；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 18,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "目标当前可见且无已识别敌军，明确改任推进占领（不保证无遭遇）；沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-018 正在行军接替 G-014，到达前不计入支援；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 19,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；接替已到达原防区，继续军团任务；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 20,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 21,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 22,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 23,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 24,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 25,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 26,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 27,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 28,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 29,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "没有可用于新推进的部队；当前撤出、整补与接触任务优先；整补条件达成，重新接受军团任务；直属或命令暂停"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 30,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "没有可用于新推进的部队；当前撤出、整补与接触任务优先；沿原军团任务行动；直属或命令暂停"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 31,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备目标周边，保留通路与接替空间；沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 32,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备目标周边，保留通路与接替空间；沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 33,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备目标周边，保留通路与接替空间；沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 34,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备目标周边，保留通路与接替空间；沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 35,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备目标周边，保留通路与接替空间；沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": false,
+      "tick": 36,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备目标周边，保留通路与接替空间；沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-018 接替，最多再等 1 个时间步；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "守备最终目标，保留一队；余部组织周边行动；沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 1,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "S-013",
+          "kind": "ATTACK",
+          "target": "G-013",
+          "from": {
+            "q": 24,
+            "r": 4
+          },
+          "to": {
+            "q": 23,
+            "r": 4
+          },
+          "id": "engagement-1:S-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 24,
+              "r": 4
+            },
+            {
+              "q": 23,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 2,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "S-013",
+          "kind": "ATTACK",
+          "target": "G-013",
+          "from": {
+            "q": 24,
+            "r": 4
+          },
+          "to": {
+            "q": 23,
+            "r": 4
+          },
+          "id": "engagement-1:S-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 24,
+              "r": 4
+            },
+            {
+              "q": 23,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 3,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 4,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 5,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 6,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-017 接替，最多再等 2 个时间步；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 7,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WAIT",
+          "reason": "等待 G-017 接替，最多再等 1 个时间步；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-013",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-013:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 8,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 15 分钟"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 9,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 10 分钟"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 10,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 5 分钟"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 11,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 12,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 13,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 14,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "SUPPORT",
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": [
+        {
+          "unit": "G-014",
+          "kind": "SUPPORT",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-014:SUPPORT",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        },
+        {
+          "unit": "G-018",
+          "kind": "ATTACK",
+          "target": "S-013",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 4
+          },
+          "id": "engagement-1:G-018:ATTACK",
+          "battleId": "engagement-1",
+          "status": "EXECUTING",
+          "path": [
+            {
+              "q": 23,
+              "r": 4
+            },
+            {
+              "q": 24,
+              "r": 4
+            }
+          ],
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "conservative": true,
+      "tick": 15,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "RELIEF",
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 16,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 15 分钟"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "接替已到达原防区，继续军团任务；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 17,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 10 分钟"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 18,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "WITHDRAW",
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 5 分钟"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 19,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 20,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 21,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 22,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 23,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 24,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 25,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 26,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 27,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 28,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 29,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "整补条件达成，重新接受军团任务；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 30,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 31,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 32,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "RECOVER",
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 33,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "整补条件达成，重新接受军团任务；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 34,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 35,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    },
+    {
+      "conservative": true,
+      "tick": 36,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "RESERVE",
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "role": "ACTIVE",
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充"
+        }
+      ],
+      "actions": []
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "config": {
+    "baseline": "f1b621a263dde0ddbd18b6e1228cc8bcd59287a6",
+    "seed": 219031,
+    "steps": 72,
+    "source": "evidence/grand-officer-001/comparison-start.json.gz",
+    "cases": [
+      {
+        "name": "central-reused",
+        "goalIndex": 1,
+        "development": true
+      },
+      {
+        "name": "east-precommitted",
+        "goalIndex": 2,
+        "development": false
+      }
+    ],
+    "note": "All German corps ADVANCE NORMAL. Enemy strategic planner unchanged. East result not inspected before code freeze; no seed search or outcome tuning.",
+    "versions": [
+      "coordinated-r1",
+      "conservative-r1"
+    ],
+    "selection": "Prefer conservative on 001 if coordinated central capture not earlier with own losses <=001*1.10 and east not improved. No parameter changes after results. Same two starts only."
+  },
+  "frozen": {
+    "experiments/grand-officer-002-r1/policy.mjs": "cf7e7d7bb6c3b9414e4d9617b0dd9ffb1d1ce3014b1271e44462e5c48b47a5cd",
+    "experiments/grand-officer-002-r1/authority.mjs": "183dc82f429c673325e81a49965354945e61b99f5fea6129f3c5004a1a19d3b0",
+    "experiments/grand-officer-002-r1/search.mjs": "54ddd0609f28b78c7b5219b21af61c4d348c09b649bd75493262dca4bf288c7c",
+    "experiments/grand-play-001/planner.mjs": "a1d9e76836190481e438121937f0621f1c88e60c513420a8be6b2a3978fa6b75"
+  }
+}

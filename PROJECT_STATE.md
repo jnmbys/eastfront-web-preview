@@ -1,20 +1,9 @@
-# GRAND-OFFICER-002 branch state
+# GRAND-OFFICER-002-R1 branch state
 
-- Independent grand-officer-002-objective-execution, baseline f1b621a263dde0ddbd18b6e1228cc8bcd59287a6.
-- Shared fair-view objective policy: persistent final goal, bounded approach allocation, explicit occupation/guard, conditional stale relief release. Explicit front orders/direct units/tactical recovery protected.
-- No changes to damage, economy, timed withdrawal, territorial vision, MP transaction semantics or map assets. Optional route search limit preserves default behavior.
-- GRAND-OFFICER-002 save marker; old saves rejected. Player order/generation overrides tasks; both sides use authorized information.
-- Fixed six-hour central/east comparison does NOT support adoption: central slower with higher own losses; east uncaptured with more supply waiting. No outcome tuning/expanded seed search.
-- Normal4231 / marked demo4232 local only. Browser occupation, manual redirect, actual service restart and continuation verified. Normal fresh paused start for delivery. Old4229/4230 untouched.
-- Report: evidence/grand-officer-002/REPORT.md. Operations/rollback: experiments/grand-officer-002/README.md. No merge/deploy/public access.
-
-## Previous baseline record
-
-- Independent `grand-officer-001-tactical-autonomy`, baseline `040a6418c927cc0f78dae3132548d887876bc810`.
-- Shared fair-view tactical policy for both factions: timed withdrawal, real reserve/relief, adjacent support, recovery hysteresis, takeover/generation cancellation.
-- Own-only task reasons in existing corps panel; no new AI economy decisions or damage/production parameter changes.
-- Explicit GRAND-OFFICER-001 save marker; in-flight tasks/blocked signatures survive paused restore; old saves rejected without silent conversion.
-- Fixed 72-step comparison: fewer losses and low-organization active attacks, same strategic objectives; full evidence and limits in evidence/grand-officer-001/REPORT.md.
-- Browser normal campaign delegation/takeover/economy and directed rotation/restart/continued play verified. Default normal 4229, separate marked demo4230. Preserve4228 unchanged.
-- Build and focused policy, permission, receipts, in-flight save/restore tests pass. No merge/deploy/public access.
-- Operations/rollback: experiments/grand-officer-001/README.md.
+- Baseline002 5d3ce285dba0f95460103992d537fd0a54fcceba; comparison001 f1b621a263dde0ddbd18b6e1228cc8bcd59287a6.
+- Reproduced real RESERVE override. Coordinated implementation now has one execution priority, resume memory, deterministic global400 node budget/rotation and authorized bounded persisted route cache.
+- Final playable service selects Conservative: 001 tactical policy plus bounded stale/full RELIEF release. 002 coordination DISABLED after fixed comparisons; sources/negative evidence retained.
+- No damage/withdrawal/economy/FOW changes. Same seed/directions/six-hour window; central conservative captures at30min, loss795.1 vs001901.5; east matches001. Congestion and short returns remain.
+- New local4233 normal /4234 directed demo. Browser delegation, reserve retention/release/real arrival, takeover, reconnect, actual process restart and continuation pass. Old4229-4232 untouched.
+- Save marker GRAND-OFFICER-002-R1, no silent old import. Frozen evidence, short report and operations in evidence/grand-officer-002-r1 and experiments/grand-officer-002-r1/README.md.
+- Independent branch grand-officer-002-r1; no merge/deploy/public exposure.
