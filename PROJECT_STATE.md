@@ -1,4 +1,12 @@
-# GRAND-ECONOMY-002-R1
+# GRAND-ART-001
+
+- Base 4d4abbe9b7e75accdf1a9f0034d02c26d44330fb; isolated grand-art-001-industry-logistics.
+- Display-only current authorized facility mapping, keyed logistics/works overlay, compact production and real construction progress. Existing art reused; no rule/economy/AI/transport changes.
+- Local4243 normal paused and4244 independent real mid paused; preserve4241/4242 and prior saves. Scope-only start/stop scripts under experiments/grand-art-001.
+- Evidence evidence/grand-art-001: three same-camera before/after pairs, real browser interaction/save/reconnect, tablet viewport, timings and24-step identical authority/economy/RNG replay.
+- Original display fallback in settings or industryArt=legacy. No merge/deploy/public; user visual acceptance pending.
+
+## Previous GRAND-ECONOMY-002-R1
 
 - Sole base 20207ca1711eefe9ae904a85381cd3dcb65d174d; independent grand-economy-002-r1-vehicle-demand.
 - Fix double national-stock deduction, preserve formation truck demand, share demand/committed/free/net accounting in manager and authorized UI; same-hour cargo train commitments reserved from refill.

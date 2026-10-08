@@ -100,9 +100,15 @@ export function facilityMarkup(d:any,edges:any[],lod:CityLod){const slots=facili
  const sealed=f.status==='SEIZED_CONSTRUCTION'||f.status==='SEIZED'||f.status==='SEALED'||f.status==='OCCUPATION'||(d.sealedConstruction??[]).some((s:any)=>s.id===f.id);const complete=f.status==='BUILT';
  let art=complete?building(p.x-7,p.y-5,14,9,lod,'factory'):rect(p.x-7,p.y-5,14,10,'#948e75','stroke="#c0aa7b" stroke-width=".8"');
  if(!complete){for(let x=p.x-6;x<p.x+6;x+=3)art+=line({x,y:p.y-4},{x,y:p.y+4},'#c7bda0',.7);art+=line({x:p.x-5,y:p.y+4},{x:p.x-5,y:p.y-10},'#866d4d',.7)+line({x:p.x-5,y:p.y-10},{x:p.x+6,y:p.y-10},'#b39a6b',.7)+rect(p.x+4,p.y+2,3,2,'#ad8060');}
- const reason=sealed?'占领封存':d.unconfirmed?'状态待确认':!d.service?'运输服务不可用':'';
+ const reason=sealed?'占领封存':d.unconfirmed?'状态待确认':f.kind?(({ACTIVE:'生产中',MISSING:'缺原料',IDLE:'未分配',DAMAGED:'厂房损坏',BUILDING:'施工中',QUEUED:'排队施工',OCCUPIED:'失守停工'} as any)[f.workState]??'')+(f.damage?' · 厂房损坏'+Math.round(f.damage*100)+'%':''):!d.service?'运输服务不可用':'';
  if(reason)art+=rect(p.x-5,p.y+5,10,1.2,sealed?'#94764c':'#797f6b')+(sealed?line({x:p.x-2,y:p.y+2},{x:p.x+2,y:p.y-2},'#d8bf8f',.65):'');
- out+=`<g class="${complete?'built-factory':'factory-site'}" data-facility-id="${esc(f.id)}" data-status="${esc(f.status)}" data-facility-reason="${reason}" pointer-events="none"><title>${esc(f.id)} · ${complete?'已建':'施工'}${reason?' · '+reason:''}</title>${art}</g>`;
+ if(f.kind){const colors:any={ACTIVE:'#6d9984',MISSING:'#c3a063',IDLE:'#7f8a83',DAMAGED:'#b77963',BUILDING:'#c1b38a',QUEUED:'#a6a991',OCCUPIED:'#a1766a'};const color=colors[f.workState]??'#899b8e';
+ art+=`<rect x="${p.x-6}" y="${p.y+3}" width="12" height="5" fill="#293c39" stroke="${color}" stroke-width=".5"/><text x="${p.x-4}" y="${p.y+7}" font-size="4" fill="#e2dfc4">${f.kind==='MIL'?'军':'民'}</text><path d="M${p.x+1} ${p.y+5.5}h4" stroke="${color}" stroke-width="1.5"/>`;
+ if(f.workState==='MISSING')art+=`<path d="M${p.x+7} ${p.y-8}l3 5h-6z" fill="#d5b077" stroke="#574e38" stroke-width=".5"/>`;
+ if(f.damage)art+=`<path d="M${p.x+1} ${p.y-8}l-3 4 4 1-2 4" fill="none" stroke="#423d34" stroke-width="1"/>`;
+ if(f.progressRatio!=null)art+=`<path d="M${p.x-6} ${p.y+9}h12" stroke="#39443b" stroke-width="1.5"/><path d="M${p.x-6} ${p.y+9}h${12*f.progressRatio}" stroke="${color}" stroke-width="1.5"/>`;
+ }
+ out+=`<g class="${complete?'built-factory':'factory-site'}" data-facility-id="${esc(f.id)}" data-status="${esc(f.status)}" data-facility-reason="${reason}" pointer-events="none"><title>${esc(f.id)} · ${complete?'已建':'施工'}${f.kind?' · '+(f.kind==='MIL'?'军厂':'民厂')+' '+(f.product??''):''}${reason?' · '+reason:''}</title>${art}</g>`;
  }return out;
 }
 /** Public geometry may be known while operational status is not. Never draw an intact unknown deck. */
