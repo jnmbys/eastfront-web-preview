@@ -1,0 +1,166 @@
+{
+  "kind": "Directed fixtures, not natural campaign outcomes",
+  "simple": {
+    "RIFLE": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "GUN": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "AT": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "TANK": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "HEAVY": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "KIT": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "SCOUT": {
+      "transport": 0,
+      "formation": 0,
+      "gross": 0,
+      "stock": 0,
+      "committed": 0,
+      "free": 0,
+      "net": 0
+    },
+    "TRUCK": {
+      "transport": 3,
+      "formation": 0,
+      "gross": 3,
+      "stock": 2,
+      "committed": 2,
+      "free": 0,
+      "net": 1
+    },
+    "TRAIN": {
+      "transport": 6,
+      "formation": 0,
+      "gross": 6,
+      "stock": 4,
+      "committed": 3,
+      "free": 1,
+      "net": 2
+    }
+  },
+  "combined": {
+    "transport": 3,
+    "formation": 1,
+    "gross": 4,
+    "stock": 2,
+    "committed": 2,
+    "free": 0,
+    "net": 2
+  },
+  "noFalseFactoryTransfer": true,
+  "cargoReserved": true,
+  "enemyQueueIsolation": true,
+  "productionBefore": {
+    "transport": 2,
+    "formation": 0,
+    "gross": 2,
+    "stock": 1,
+    "committed": 1,
+    "free": 0,
+    "net": 1
+  },
+  "production": {
+    "ticks": 870,
+    "gameHours": 72.5,
+    "factory": {
+      "id": "SOVIET:TRAIN",
+      "side": "SOVIET",
+      "product": "TRAIN",
+      "factories": [
+        "FACTORY:SOVIET-industry-3:1"
+      ],
+      "priority": 1,
+      "efficiency": 0.3416666666666574,
+      "progress": 0.00017361111096292348,
+      "completed": 1,
+      "resourceFactor": 1,
+      "workDay": 4.096666666666556,
+      "missing": [],
+      "lostWork": 0
+    },
+    "stock": 2,
+    "transportWorkBefore": 80,
+    "transportWorkAfter": 156.54000000000002,
+    "adjustmentTick": 73,
+    "events": [
+      {
+        "tick": 1,
+        "side": "SOVIET",
+        "kind": "MOTOR",
+        "target": "SOVIET-industry-3",
+        "reason": "已知缺供部队在近邻范围；使用现有空闲卡车"
+      },
+      {
+        "tick": 73,
+        "side": "SOVIET",
+        "kind": "PRODUCTION",
+        "target": "TRAIN",
+        "reason": "连续两次净缺额1.00（运输2.00＋补装0.00－国家库存1.00）；每天最多调拨一厂"
+      },
+      {
+        "tick": 73,
+        "side": "SOVIET",
+        "kind": "BUILD",
+        "target": "28,4",
+        "reason": "持续缺额，排入真实民厂队列：NEW_HUB"
+      }
+    ]
+  },
+  "restartDeterministic": true,
+  "motorBeforeRefill": {
+    "transport": 2,
+    "formation": 1,
+    "gross": 3,
+    "stock": 2,
+    "committed": 2,
+    "free": 0,
+    "net": 1
+  },
+  "truckCombinedPriorityAndCooldown": true,
+  "diskAndOldRequest": true
+}

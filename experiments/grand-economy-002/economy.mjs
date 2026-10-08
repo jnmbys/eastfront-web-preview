@@ -1,3 +1,4 @@
+import {occupiedVehicles} from './demand.mjs';
 import {cfg,products,sides,VERSION} from './config.mjs';
 import {fairUnits} from './planning.mjs';
 import {planNetwork} from './network.mjs';
@@ -66,7 +67,7 @@ function reinforcement(c){const e=c.econ.modern;const hour=Math.floor(c.clock.ti
   for(const u of units){const v=c.clock.units[u.id],g=c.econ.gear.units[u.id],daily=net.rows[u.id],routes=(daily?.routes??[]).map(route=>({route})).sort((a,b)=>capacity(b)-capacity(a)||a.route.hub.localeCompare(b.route.hub)),route=routes[0]??daily,access=route?.route?1:0,factor=access*(v.engaged?cfg.combatReinforcement:v.march?cfg.marchReinforcement:1),sent=Math.min(n.manpower,v.max-v.personnel,cfg.personnelDay/cfg.ticksPerDay*factor,capacity(route)*50),items={};
    v.refillStatus={personnel:sent,items:{},personnelRateDay:cfg.personnelDay*factor,equipmentRateDay:cfg.equipmentDay*factor,tick:c.clock.tick,capacity:capacity(route),route:route?.route??null,reason:!route?.route?'后方补充通路未接通':capacity(route)<=1e-9?'日常供给已占满运输能力':'可按速率部分补充'};
    if(sent>0){n.manpower-=sent;n.personnelSent+=sent;v.personnel+=sent;pay(route,sent/50);}
-   for(const[k,required]of Object.entries(e.establishment[u.id])){const logisticsReserve=k==='TRUCK'?net.trucksUsed:k==='TRAIN'?Math.ceil(net.trainUsed/cfg.trainWork):0,amount=Math.max(0,Math.min(n.stock[k]-logisticsReserve,required-g.held[k],cfg.equipmentDay/cfg.ticksPerDay*factor,capacity(route)/(1+products[k].cost/8)));if(amount>1e-9){n.stock[k]-=amount;g.held[k]+=amount;n.reinforced[k]+=amount;items[k]=amount;pay(route,amount*(1+products[k].cost/8));}}
+   for(const[k,required]of Object.entries(e.establishment[u.id])){const logisticsReserve=occupiedVehicles(e,side,c.clock.tick)[k]??0,amount=Math.max(0,Math.min(n.stock[k]-logisticsReserve,required-g.held[k],cfg.equipmentDay/cfg.ticksPerDay*factor,capacity(route)/(1+products[k].cost/8)));if(amount>1e-9){n.stock[k]-=amount;g.held[k]+=amount;n.reinforced[k]+=amount;items[k]=amount;pay(route,amount*(1+products[k].cost/8));}}
    v.refillStatus.items=items;
    if(sent>1e-9||Object.keys(items).length){e.ledger.push({kind:'REFILLED',tick:c.clock.tick,side,unit:u.id,personnel:sent,items,engaged:!!v.engaged,route:route.route});}
    u.step=Math.min(g.base.maxDamageSteps-1,Math.max(0,Math.floor((v.max-v.personnel)/100)));e.lastPersonnel[u.id]=v.personnel;
