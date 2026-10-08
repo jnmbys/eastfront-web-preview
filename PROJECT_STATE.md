@@ -1,7 +1,8 @@
-# GRAND-ECONOMY-001
+# GRAND-ECONOMY-002
 
-- Baseline c2fdc799ca4cdecf8b338e9e8d21c687a5046567; independent ECONOMY-1 save/rule version.
-- Civil/military factories, resource-constrained continuous efficiency production, nine equipment classes, rail/hub/trains/motorization, separate partial personnel/equipment reinforcement and civil construction/repair. Legacy I/P/E/SP settlement disabled for new class only.
-- Seven-day fixed-time scenario; five-day early objective victory. Current conservative officers unchanged. Same-sided fair input and MP protection retained.
-- Fixed A/B 120h natural results preserved, plus real browser continuation, own scoped process restart and normal paused entry4237 / mid4238. Old4235/4236 files and progress not touched.
-- Rules and startup: experiments/grand-economy-001. Evidence/report: evidence/grand-economy-001. No merge, deploy or public listener.
+- Sole base e36f46c86db7ec9196740217a8fcbe176338b90b; independent branch grand-economy-002-logistics-planning, rules/save GRAND-ECONOMY-2.
+- Authorized route/object diagnostics, map-select new rail and hub construction, deterministic same-priority rotation, bounded own-view enemy economic management. Same civilian work and transport capacities; no grants or parallel old settlement.
+- Preserved conservative officers, combat/equipment/production parameters, shared clock, city art, view/MP protections. Rule deltas explicit in experiments/grand-economy-002/RULES.md.
+- Fixed B/C natural120h comparisons retained alongside001 originals; targeted fixtures and actual browser construction/refill/direct movement/reconnect/restart evidence in evidence/grand-economy-002.
+- Local normal4239 paused, mid4240 saved at31h40m paused. Old4237/4238 untouched. Scope-only stop/start scripts in experiments/grand-economy-002.
+- No merge/deployment/public binding. README and REPORT document real costs, tradeoffs and limitations.

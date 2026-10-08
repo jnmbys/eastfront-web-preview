@@ -1,0 +1,103 @@
+{
+  "kind": "actual browser normal campaign; one corps ADVANCE, other two remain paused",
+  "tick": 1440,
+  "paused": true,
+  "personnelSent": 707.4647277940417,
+  "gearSent": {
+    "RIFLE": 14.00000000000002,
+    "GUN": 4.000000000000058,
+    "AT": 0,
+    "TANK": 0,
+    "HEAVY": 0,
+    "KIT": 0,
+    "SCOUT": 0,
+    "TRUCK": 2.301480545407934,
+    "TRAIN": 0
+  },
+  "projects": [
+    {
+      "id": "BUILD:1",
+      "serial": 1,
+      "side": "GERMAN",
+      "kind": "NEW_RAIL",
+      "target": "23,3",
+      "hex": "23,3",
+      "path": [
+        "22,5",
+        "23,4",
+        "23,3"
+      ],
+      "segments": [
+        {
+          "id": "23,3|23,4",
+          "a": "23,4",
+          "b": "23,3",
+          "cost": 8
+        }
+      ],
+      "cost": 8,
+      "progress": 8,
+      "priority": 3,
+      "status": "DONE"
+    },
+    {
+      "id": "BUILD:2",
+      "serial": 2,
+      "side": "GERMAN",
+      "kind": "NEW_HUB",
+      "target": "23,3",
+      "hex": "23,3",
+      "path": [
+        "23,3"
+      ],
+      "segments": [],
+      "cost": 24,
+      "progress": 24,
+      "priority": 3,
+      "status": "DONE"
+    }
+  ],
+  "unit": {
+    "id": "G-017",
+    "hex": {
+      "q": 23,
+      "r": 2
+    },
+    "personnel": 300,
+    "losses": 80.86628076989854,
+    "refill": {
+      "personnel": 0,
+      "items": {},
+      "personnelRateDay": 60,
+      "equipmentRateDay": 2,
+      "tick": 1440,
+      "capacity": 4.909235527028919,
+      "route": {
+        "hub": "GERMAN-depot-2",
+        "path": [
+          "7,7|8,7",
+          "8,7|9,7",
+          "10,7|9,7",
+          "10,7|11,7",
+          "11,7|12,7",
+          "12,7|12,8",
+          "12,8|13,8",
+          "13,8|14,8",
+          "14,8|15,8",
+          "15,8|16,8",
+          "16,8|17,7",
+          "17,7|18,6",
+          "18,5|18,6",
+          "18,4|18,5",
+          "18,4|19,3",
+          "19,3|20,2",
+          "20,1|20,2",
+          "20,1|21,0"
+        ],
+        "source": "GERMAN-industry-2"
+      },
+      "reason": "可按速率部分补充"
+    }
+  },
+  "newHubRefills": []
+}

@@ -1,0 +1,91 @@
+{
+  "kind": "directed; not natural battle evidence",
+  "readOnlyPreview": {
+    "version": 0,
+    "kind": "NEW_RAIL",
+    "start": "22,5",
+    "end": "23,3",
+    "valid": true,
+    "path": [
+      "22,5",
+      "23,4",
+      "23,3"
+    ],
+    "segments": [
+      {
+        "id": "23,3|23,4",
+        "a": "23,4",
+        "b": "23,3",
+        "cost": 8
+      }
+    ],
+    "cost": 8,
+    "expanded": 120,
+    "reason": "预览为民用工时；排队、损坏与失守会延长实际完成时间",
+    "at": "23,3",
+    "ms": 7.646400000000085
+  },
+  "duplicateStaleAndCrossHex": true,
+  "capturePauseRegain": true,
+  "isolatedHubNoSource": true,
+  "realTimedRailAndHub": {
+    "tick": 771,
+    "cost": 32,
+    "hub": {
+      "id": "HUB:BUILD:1",
+      "hex": "23,3",
+      "label": "新枢纽 23,3",
+      "level": 1,
+      "motor": 0
+    }
+  },
+  "partialRefillNewHub": 0.20833333333331439,
+  "unbridgedRiverExcluded": true,
+  "sameAuthorizedView": true,
+  "deterministicRotation": true,
+  "enemyPaidPlanning": {
+    "reviews": 2,
+    "lastProduct": 73,
+    "lastProject": 73,
+    "shortages": {
+      "RIFLE": 0,
+      "GUN": 0,
+      "AT": 0,
+      "TANK": 0,
+      "HEAVY": 0,
+      "KIT": 0,
+      "SCOUT": 0,
+      "TRUCK": 0,
+      "TRAIN": 2
+    },
+    "actions": [
+      {
+        "tick": 1,
+        "side": "SOVIET",
+        "kind": "MOTOR",
+        "target": "SOVIET-depot-2",
+        "reason": "已知缺供部队在近邻范围；使用现有空闲卡车"
+      },
+      {
+        "tick": 73,
+        "side": "SOVIET",
+        "kind": "PRODUCTION",
+        "target": "TRAIN",
+        "reason": "连续两次检查缺额；每天最多调拨一厂"
+      },
+      {
+        "tick": 73,
+        "side": "SOVIET",
+        "kind": "MOTOR",
+        "target": "SOVIET-depot-4",
+        "reason": "已知缺供部队在近邻范围；使用现有空闲卡车"
+      }
+    ],
+    "expanded": 0,
+    "ms": 0.5227000000013504,
+    "totalMs": 1.1048000000009779,
+    "maxMs": 0.5820999999996275
+  },
+  "versionedSave": true,
+  "privateDiagnostics": true
+}

@@ -1,0 +1,6 @@
+import fs from 'node:fs';import {gzipSync} from 'node:zlib';
+const source=process.env.LOCALAPPDATA+'/EastfrontSaves/grand-economy-002/browser-validation.json',envelope=JSON.parse(fs.readFileSync(source)),s=JSON.parse(envelope.payload).campaign,e=s.econ.modern;
+fs.writeFileSync('evidence/grand-economy-002/browser-final.json.gz',gzipSync(JSON.stringify(s)));
+const lines=fs.readFileSync('evidence/grand-economy-002/normal-live.jsonl','utf8').trim().split('\n').map(JSON.parse),commands=lines.filter(x=>x.requestId&&x.payload);
+fs.writeFileSync('evidence/grand-economy-002/browser-actions.json',JSON.stringify(commands,null,2));
+const result={kind:'actual browser normal campaign; one corps ADVANCE, other two remain paused',tick:s.clock.tick,paused:s.clock.paused,personnelSent:e.nations.GERMAN.personnelSent,gearSent:e.nations.GERMAN.reinforced,projects:e.queue.filter(q=>q.side==='GERMAN'),unit:{id:'G-017',hex:s.state.units['G-017'].hex,personnel:s.clock.units['G-017'].personnel,losses:s.clock.units['G-017'].losses,refill:s.clock.units['G-017'].refillStatus},newHubRefills:e.ledger.filter(x=>x.kind==='REFILLED'&&x.side==='GERMAN'&&x.route.hub.startsWith('HUB:')).slice(-5)};fs.writeFileSync('evidence/grand-economy-002/browser-result.json',JSON.stringify(result,null,2));console.log({tick:result.tick,personnel:result.personnelSent});
