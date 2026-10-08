@@ -1,0 +1,4 @@
+import fs from 'node:fs';import path from 'node:path';import {gunzipSync} from 'node:zlib';import {Campaign} from './authority.mjs';import {start} from '../grand-play-mp022/server.mjs';
+class Mid extends Campaign{constructor(){super();this.restore(JSON.parse(gunzipSync(fs.readFileSync(new URL('../../evidence/grand-economy-001/mid.json.gz',import.meta.url)))));}}
+const services=[];for(const[port,Class,slot]of[[4237,Campaign,'normal'],[4238,Mid,'mid']]){services.push(await start({port,CampaignClass:Class,cookiePrefix:'economy001_'+slot+'_',saveFile:path.join(process.env.LOCALAPPDATA,'EastfrontSaves/grand-economy-001',slot+'.json'),evidenceFile:path.resolve('evidence/grand-economy-001/'+slot+'-live.jsonl')}));console.log(`GRAND-ECONOMY-001 ${slot}: http://127.0.0.1:${port}/`);}
+process.on('SIGTERM',()=>Promise.all(services.map(s=>s.close())));process.on('SIGINT',()=>Promise.all(services.map(s=>s.close())));

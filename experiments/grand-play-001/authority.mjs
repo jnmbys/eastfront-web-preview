@@ -2,8 +2,9 @@ import crypto from 'node:crypto';
 import {Campaign as City} from '../city-001/authority.mjs';
 import * as core from '../../vendor/eastfront-digital-core/dist/index.js';
 import * as gear from '../grand-ux-001/equipment.mjs';
-import {rules as spec,sides,profiles,goals} from './rules.mjs';
+import {rules as defaultRules,sides,profiles,goals} from './rules.mjs';
 import {decide,travel} from './planner.mjs';
+const spec=defaultRules;
 const copy=structuredClone,kh=core.hexKey,dist=core.hexDistance;
 const paper=s=>{const m=/^([A-Z]+)(\d+)$/.exec(s);let col=0;for(const x of m[1])col=col*26+x.charCodeAt(0)-64;return {q:col-1,r:Number(m[2])-1-Math.floor((col-1)/2)};};
 const fail=s=>{throw Error(s);};
@@ -45,7 +46,7 @@ export class Campaign extends City {
    const threatened=enemies.filter(e=>dist(e.hex,paper('AC17'))<=3).sort((a,b)=>dist(a.hex,paper('AC17'))-dist(b.hex,paper('AC17'))||a.id.localeCompare(b.id));
    g.order={kind:org<38||stock<1?'RETREAT':g.profile===2&&!threatened.length?'HOLD':'ADVANCE',target:org<38?paper('AC17'):threatened[0]?.hex??paper(g.profile===2?'AC17':'Z17'),risk:org>65?'NORMAL':'LOW',paused:false};
   }
-  if(this.clock.tick%spec.epochTicks===1){const deficit={};for(const u of own){const g=this.econ.gear.units[u.id];for(const[k,n]of Object.entries(gear.capacity(this,u.id)))deficit[k]=(deficit[k]??0)+Math.max(0,n-g.held[k])+(u.step?g.recipe[k]:0);}
+  if(!this.economyV2&&this.clock.tick%spec.epochTicks===1){const deficit={};for(const u of own){const g=this.econ.gear.units[u.id];for(const[k,n]of Object.entries(gear.capacity(this,u.id)))deficit[k]=(deficit[k]??0)+Math.max(0,n-g.held[k])+(u.step?g.recipe[k]:0);}
    const shortages=this.econ.ledger.at(-1)?.transport.find(t=>t.side==='SOVIET')?.blocked??[];if(shortages.some(b=>b.reason==='TRAIN_SHORTAGE'))deficit.TRAIN=(deficit.TRAIN??0)+20;if(shortages.some(b=>b.reason==='TRUCK_SHORTAGE'))deficit.TRUCK=(deficit.TRUCK??0)+20;const products=Object.entries(deficit).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(x=>x[0]);const lines=Object.values(this.econ.ux.lines).filter(l=>l.side==='SOVIET');lines.forEach((l,i)=>{l.product=i===4?'IDLE':products[i%Math.max(1,products.length)]??'RIFLE';});
   }
  }
@@ -72,6 +73,7 @@ export class Campaign extends City {
  decideAction(...args){return decide(...args);}
  combatTrace(){return {};}
  advance(){
+  const spec=this.simRules??defaultRules;
   const clock=this.clock;clock.tick++;const views=Object.fromEntries(sides.map(s=>[s,this.fair(s).view]));this.enemyPlan(views.SOVIET);
   const units=Object.values(this.state.units).filter(u=>u.alive).sort((a,b)=>a.id.localeCompare(b.id)),caps=Object.fromEntries(units.map(u=>[u.id,this.capability(u.id)])),before=copy(this.state),intents={},arrivals=[];
   for(const u of units){const v=clock.units[u.id],g=clock.corps.find(g=>g.members.includes(u.id));v.engaged=0;
@@ -99,14 +101,14 @@ export class Campaign extends City {
   for(const ids of [...pairs.values()].sort((a,b)=>a.join().localeCompare(b.join()))){const [a,b]=ids.map(id=>this.state.units[id]),ca=caps[a.id],cb=caps[b.id];
    const old=clock.battles.find(x=>x.id===ids.join('|')),battle={id:ids.join('|'),units:ids,initiators:ids.filter(id=>intents[id]?.kind==='FIGHT'||arrivals.some(x=>x.id===id)),hex:copy(b.hex),since:old?.since??clock.tick,ticks:(old?.ticks??0)+1};Object.assign(battle,this.combatTrace(ids,intents,arrivals,before,old));battles.push(battle);
    for(const [u,e,c,ec]of[[a,b,ca,cb],[b,a,cb,ca]]){const risk=this.ownOrder(u.id)?.risk,pressure=risk==='HIGH'?1.3:risk==='LOW'?.75:1,terrain=this.state.hexes[kh(e.hex)].terrain,cover=terrain==='FOREST'||terrain==='CITY'?1.25:1;
-    const hit=c.fire*pressure*(.8+.4*this.random())/(ec.protection*cover)*(1+c.antiArmor*ec.armor*.8);damage[e.id]=(damage[e.id]??0)+hit;orgDamage[e.id]=(orgDamage[e.id]??0)+3+hit*.3;clock.units[u.id].engaged++;this.spend(u.id,spec.combatQ);}
+    const hit=c.fire*pressure*(.8+.4*this.random())/(ec.protection*cover)*(1+c.antiArmor*ec.armor*.8);damage[e.id]=(damage[e.id]??0)+hit*(spec.damageScale??1);orgDamage[e.id]=(orgDamage[e.id]??0)+(3+hit*.3)*(spec.orgDamageScale??1);clock.units[u.id].engaged++;this.spend(u.id,spec.combatQ);}
   }
   clock.battles=battles;
   if(battles.length&&!clock.contactSeen){clock.contactSeen=true;if(clock.autopause)clock.paused=true;this.note(this.viewer,'首次持续交战：可增援、改变力度，或下达撤回命令；时间已'+(clock.paused?'暂停':'继续'));}
   for(const u of units){const v=clock.units[u.id],d=damage[u.id]??0;v.personnel=Math.max(0,v.personnel-d);v.losses+=d;v.org=Math.max(0,v.org-(orgDamage[u.id]??0));u.step=Math.min(this.econ.gear.units[u.id].base.maxDamageSteps-1,Math.floor((v.max-v.personnel)/100));if(v.personnel<=0)u.alive=false;
-   if(v.engaged){v.rest=0;v.march=null;}else if(!v.march&&!this.isWithdrawalInProgress?.(u.id)){v.rest++;v.org=Math.min(100,v.org+(this.econ.supply[u.id].stock>0?2:.25));if(v.rest>=6)u.entrenched=true;}
+   if(v.engaged){v.rest=0;v.march=null;}else if(!v.march&&!this.isWithdrawalInProgress?.(u.id)){v.rest++;v.org=Math.min(100,v.org+(this.restOrgRate?this.restOrgRate(u.id):(this.econ.supply[u.id].stock>0?2:.25)));if(v.rest>=6)u.entrenched=true;}
   }
-  gear.recordLoss(this,before);
+  if(this.recordEquipmentLoss)this.recordEquipmentLoss(before);else gear.recordLoss(this,before);
   // Withdrawal is adjudicated simultaneously against the tick's occupied map.
   const beforeRetreat=copy(this.state),retreats=[];if(!this.resolveTimedWithdrawal?.(units,views,caps)){for(const u of units.filter(u=>u.alive)){const v=clock.units[u.id],order=this.ownOrder(u.id);if(v.org<spec.orgRetreat||v.engaged&&order?.kind==='RETREAT'){
    const known=views[u.side],enemies=known.units.filter(e=>e.side!==u.side),target=order?.kind==='RETREAT'?order.target:paper(u.side==='GERMAN'?'W17':'AC17');
@@ -114,20 +116,20 @@ export class Campaign extends City {
    const h=options[0];if(h&&!units.some(e=>e.alive&&e.side!==u.side&&kh(e.hex)===kh(h))&&units.filter(e=>e.alive&&kh(e.hex)===kh(h)).length<spec.stack)retreats.push({u,h});else{v.personnel=Math.max(0,v.personnel-12);v.losses+=12;v.reason='退路受阻，包围损失';if(!v.personnel)u.alive=false;}
   }}
   const retreatSlots=new Map();retreats.sort((a,b)=>crypto.createHash('sha256').update(clock.tick+':'+a.u.id).digest('hex').localeCompare(crypto.createHash('sha256').update(clock.tick+':'+b.u.id).digest('hex')));for(const {u,h}of retreats){if(retreats.some(r=>r.u.side!==u.side&&kh(r.h)===kh(h)))continue;const key=kh(h),used=retreatSlots.get(key)??units.filter(e=>e.alive&&kh(e.hex)===key).length;if(used>=spec.stack)continue;retreatSlots.set(key,used+1);u.hex=copy(h);const v=clock.units[u.id];v.org=Math.max(25,v.org);v.personnel=Math.max(0,v.personnel-4);v.losses+=4;v.march=null;v.retreat=true;v.reason='撤回与追击造成额外人员损失';this.note(u.side,v.reason,u.id);}}
-  for(const u of units){const v=clock.units[u.id];u.step=Math.min(this.econ.gear.units[u.id].base.maxDamageSteps-1,Math.floor((v.max-v.personnel)/100));if(v.personnel<=0)u.alive=false;}gear.recordLoss(this,beforeRetreat);this.capture({type:'CAMPAIGN_TICK'});
-  if(clock.tick%spec.epochTicks===0){const epoch=clock.tick/spec.epochTicks;const prior=copy(this.state);super.finishEpoch(epoch);for(const u of units){const lost=u.step-prior.units[u.id].step;if(lost>0||!u.alive&&prior.units[u.id].alive){const v=clock.units[u.id],loss=u.alive?Math.min(v.personnel,lost*100):v.personnel;v.personnel-=loss;v.losses+=loss;}}gear.recordLoss(this,prior);for(const side of sides)this.econ.ux.vehicles[side]=this.econ.ux.vehicles[side].filter(v=>v.qty>0);this.state.turn=epoch+1;this.note(this.viewer,'生产、维护与车辆配送已按同一周期结算；新批次现已到可用时点');}
-  for(const u of units.filter(u=>u.alive)){const v=clock.units[u.id];if(v.rest>=6&&u.step>0&&this.econ.supply[u.id].stock>0&&!gear.repairPlan(this,u.id).missing.length){const viewer=this.viewer;this.viewer=u.side;gear.payRepair(this,u.id,`CONT:${clock.tick}:${u.id}`);this.viewer=viewer;u.step--;v.personnel=Math.min(v.max,v.personnel+100);v.rest=0;this.note(u.side,'消耗已到货人员及对应装备，完成一组补充',u.id);}}
+  for(const u of units){const v=clock.units[u.id];u.step=Math.min(this.econ.gear.units[u.id].base.maxDamageSteps-1,Math.floor((v.max-v.personnel)/100));if(v.personnel<=0)u.alive=false;}if(this.recordEquipmentLoss)this.recordEquipmentLoss(beforeRetreat);else gear.recordLoss(this,beforeRetreat);this.capture({type:'CAMPAIGN_TICK'});
+  if(this.economyStep){this.economyStep();}else if(clock.tick%spec.epochTicks===0){const epoch=clock.tick/spec.epochTicks;const prior=copy(this.state);super.finishEpoch(epoch);for(const u of units){const lost=u.step-prior.units[u.id].step;if(lost>0||!u.alive&&prior.units[u.id].alive){const v=clock.units[u.id],loss=u.alive?Math.min(v.personnel,lost*100):v.personnel;v.personnel-=loss;v.losses+=loss;}}gear.recordLoss(this,prior);for(const side of sides)this.econ.ux.vehicles[side]=this.econ.ux.vehicles[side].filter(v=>v.qty>0);this.state.turn=epoch+1;this.note(this.viewer,'生产、维护与车辆配送已按同一周期结算；新批次现已到可用时点');}
+  for(const u of units.filter(u=>u.alive)){const v=clock.units[u.id];if(!this.economyV2&&v.rest>=6&&u.step>0&&this.econ.supply[u.id].stock>0&&!gear.repairPlan(this,u.id).missing.length){const viewer=this.viewer;this.viewer=u.side;gear.payRepair(this,u.id,`CONT:${clock.tick}:${u.id}`);this.viewer=viewer;u.step--;v.personnel=Math.min(v.max,v.personnel+100);v.rest=0;this.note(u.side,'消耗已到货人员及对应装备，完成一组补充',u.id);}}
   gear.sync(this);for(const u of units)u.supplyState=this.econ.supply[u.id].stock>0?'SUPPLIED':'OUT_OF_SUPPLY';
   const controls=clock.goals.slice(0,3).map(g=>this.state.hexes[kh(g.hex)].control);for(const side of sides)clock.hold[side]=controls[1]===side&&controls.filter(s=>s===side).length>=2?clock.hold[side]+1:0;
   const won=clock.tick>=spec.victoryFrom?sides.find(s=>clock.hold[s]>=spec.holdTicks):null,exhausted=sides.find(s=>!units.some(u=>u.alive&&u.side===s));
-  if(won||exhausted||clock.tick>=spec.duration){let winner=won??(exhausted?sides.find(s=>s!==exhausted):null);if(!winner){const score=sides.map(s=>controls.filter(x=>x===s).length);winner=score[0]===score[1]?null:score[0]>score[1]?'GERMAN':'SOVIET';}clock.ended={winner,reason:won?'保持枢纽及一侧站区两小时':exhausted?'战役兵力失去作战能力':'十五小时作战期限；按三个战略地点控制判定'};clock.paused=true;this.note(this.viewer,'战役结束：'+clock.ended.reason);}
+  if(won||exhausted||clock.tick>=spec.duration){let winner=won??(exhausted?sides.find(s=>s!==exhausted):null);if(!winner){const score=sides.map(s=>controls.filter(x=>x===s).length);winner=score[0]===score[1]?null:score[0]>score[1]?'GERMAN':'SOVIET';}clock.ended={winner,reason:won?(spec.holdText??'保持枢纽及一侧站区两小时'):exhausted?'战役兵力失去作战能力':(spec.deadlineText??'十五小时作战期限；按三个战略地点控制判定')};clock.paused=true;this.note(this.viewer,'战役结束：'+clock.ended.reason);}
   this.version++;this.match.matchRevision=this.version;clock.history.push({tick:clock.tick,controls,units:units.map(u=>({id:u.id,hex:kh(u.hex),personnel:clock.units[u.id].personnel,org:clock.units[u.id].org,stock:this.econ.supply[u.id].stock})),battles:clock.battles.length,epoch:this.econ.epoch});
  }
  spend(id,q){const s=this.econ.supply[id],paid=Math.min(q,s.stock);s.stock-=paid;s.debt+=q-paid;}
- save(){return {format:spec.version,version:spec.saveVersion,instanceId:this.id,revision:this.version,state:copy(this.state),econ:copy(this.econ),clock:copy(this.clock),nodes:copy(this.nodes),placements:copy(this.placements),archive:copy(this.archive),receipts:[...this.receipts],httpOutcomes:[...(this.httpOutcomes??new Map())]};}
- restore(s,pause=true){if(s?.format!==spec.version||s.version!==spec.saveVersion||!s.clock||!Number.isSafeInteger(s.clock.tick)||s.clock.tick<0||s.clock.tick>spec.duration)fail('UNSUPPORTED_OR_INVALID_SAVE');if(!s.state?.units||!s.econ?.gear||!Array.isArray(s.receipts))fail('INVALID_SAVE');
+ save(){const spec=this.simRules??defaultRules;return {format:spec.version,version:spec.saveVersion,instanceId:this.id,revision:this.version,state:copy(this.state),econ:copy(this.econ),clock:copy(this.clock),nodes:copy(this.nodes),placements:copy(this.placements),archive:copy(this.archive),receipts:[...this.receipts],httpOutcomes:[...(this.httpOutcomes??new Map())]};}
+ restore(s,pause=true){const spec=this.simRules??defaultRules;if(s?.format!==spec.version||s.version!==spec.saveVersion||!s.clock||!Number.isSafeInteger(s.clock.tick)||s.clock.tick<0||s.clock.tick>spec.duration)fail('UNSUPPORTED_OR_INVALID_SAVE');if(!s.state?.units||!s.econ?.gear||!Array.isArray(s.receipts))fail('INVALID_SAVE');
   this.id=s.instanceId;this.match.id=this.id;this.match.matchId=this.id;this.version=s.revision;this.match.matchRevision=this.version;this.match.authoritative.state=copy(s.state);this.econ=copy(s.econ);this.clock=copy(s.clock);if(pause)this.clock.paused=true;this.nodes=copy(s.nodes);this.placements=copy(s.placements);this.archive=copy(s.archive);this.receipts=new Map(s.receipts);this.httpOutcomes=new Map(s.httpOutcomes);gear.sync(this);
  }
- snapshot(draft){const d=super.snapshot(draft),visible=new Set(d.game.message.payload.view.units.map(u=>u.id));d.continuous={version:spec.version,tick:this.clock.tick,minutes:this.clock.tick*spec.minutes,paused:this.clock.paused,speed:this.clock.speed,ended:this.clock.ended,autopause:this.clock.autopause,nextEconomy:spec.epochTicks-this.clock.tick%spec.epochTicks,
+ snapshot(draft){const spec=this.simRules??defaultRules;const d=super.snapshot(draft),visible=new Set(d.game.message.payload.view.units.map(u=>u.id));d.continuous={version:spec.version,tick:this.clock.tick,minutes:this.clock.tick*spec.minutes,paused:this.clock.paused,speed:this.clock.speed,ended:this.clock.ended,autopause:this.clock.autopause,nextEconomy:spec.epochTicks-this.clock.tick%spec.epochTicks,
    goals:this.clock.goals.map(g=>({...g,control:d.game.message.payload.view.hexes.find(h=>kh(h.coord)===kh(g.hex))?.control??this.econ.ux.known[this.viewer][kh(g.hex)]??null})),corps:copy(this.clock.corps.filter(g=>g.side===this.viewer)).map(g=>{delete g.profile;return g;}),units:Object.fromEntries(Object.entries(this.clock.units).filter(([id])=>this.state.units[id].side===this.viewer).map(([id,u])=>[id,{...copy(u),...this.capability(id),hex:copy(this.state.units[id].hex),alive:this.state.units[id].alive}])),battles:copy(this.clock.battles.filter(b=>b.units.some(id=>this.state.units[id].side===this.viewer)||b.units.every(id=>visible.has(id)))),reports:copy(this.clock.reports.filter(r=>r.side===this.viewer).slice(-12))};return d;}
 }

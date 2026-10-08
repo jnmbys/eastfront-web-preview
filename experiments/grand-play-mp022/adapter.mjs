@@ -48,14 +48,14 @@ export class CampaignAdapter {
      if(p.type==='PAUSE_GROUP'){p.type='ORDER';p.order={...copy(g.order),paused:true};}
     }
     if(['DIRECT','ASSIGN'].includes(p.type)){this.control(seat,p.unit);const u=c.clock.units[p.unit];if(dep.unitGeneration!==u.commandGeneration)fail('UNIT_COMMAND_CHANGED');}
-    if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY'].includes(p.type)&&dep.economyGeneration!==c.transport.economyGeneration)fail('ECONOMY_CONFIGURATION_CHANGED');
+    if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type)&&dep.economyGeneration!==c.transport.economyGeneration)fail('ECONOMY_CONFIGURATION_CHANGED');
     if(p.type==='BUILD_FACTORY'&&dep.account!==this.accountStamp())fail('RESOURCE_DEPENDENCY_CHANGED');
     if(['CLOCK','AUTOPAUSE'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
     const affected=c.clock.corps.filter(g=>g.id===p.group||p.type==='ASSIGN'&&g.members.includes(p.unit));
     c.transaction({id:e.requestId,version:c.version,operation:p});
     if(['ORDER','ASSIGN'].includes(p.type))for(const g of affected)g.commandGeneration++;
     if(['DIRECT','ASSIGN'].includes(p.type))c.clock.units[p.unit].commandGeneration++;
-    if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY'].includes(p.type))c.transport.economyGeneration++;
+    if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type))c.transport.economyGeneration++;
     if(['CLOCK','AUTOPAUSE'].includes(p.type))c.transport.worldGeneration++;
    }else fail('UNKNOWN_COMMAND');
    status='APPLIED';
@@ -66,5 +66,5 @@ export class CampaignAdapter {
   this.record('command-complete',{kind:e.kind,type:p.type,requestId:e.requestId,tick:c.clock.tick,status:result.status,reason:result.reason,payload:p,epoch:c.econ.epoch,account:copy(c.econ.accounts.GERMAN),load});return copy(result);
  });}
  async step(){return this.exclusive(()=>{if(this.c.receipts.size>=4096){this.c.clock.paused=true;return;}this.record('step-start',{tick:this.c.clock.tick,groups:this.c.clock.corps.filter(g=>g.side==='GERMAN').map(g=>({id:g.permanentId,paused:g.order.paused,generation:g.commandGeneration}))});const changed=this.c.tick();this.record('step-end',{tick:this.c.clock.tick,changed});return changed;});}
- async tick(elapsed){if(this.c.clock.paused||this.c.clock.ended){this.accumulated=0;return;}this.accumulated+=Math.min(1000,elapsed)*this.c.clock.speed;if(this.accumulated>=rules.wallMs){this.accumulated-=rules.wallMs;return this.step();}}
+ async tick(elapsed){if(this.c.clock.paused||this.c.clock.ended){this.accumulated=0;return;}this.accumulated+=Math.min(1000,elapsed)*this.c.clock.speed;if(this.accumulated>=(this.c.simRules?.wallMs??rules.wallMs)){this.accumulated-=(this.c.simRules?.wallMs??rules.wallMs);return this.step();}}
 }

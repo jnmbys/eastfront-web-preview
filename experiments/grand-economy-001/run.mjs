@@ -1,0 +1,13 @@
+import fs from 'node:fs';import {gzipSync} from 'node:zlib';import {Campaign} from './authority.mjs';
+const dir='evidence/grand-economy-001/',variant=process.argv[2]??'A',c=new Campaign(),rows=[];let serial=0;const cmd=operation=>c.transaction({id:'fixed-run-'+(++serial),version:c.version,operation});
+for(const g of c.clock.corps.filter(g=>g.side==='GERMAN'))cmd({type:'ORDER',group:g.id,order:{kind:'ADVANCE',risk:'NORMAL',target:c.clock.goals[1].hex,paused:false}});
+c.clock.autopause=false;c.clock.paused=false;
+const start=performance.now();
+while(!c.clock.ended){if(c.clock.tick===144&&variant==='B'){const line=c.econ.modern.lines['GERMAN:AT'];cmd({type:'ECON_LINE',line:line.id,product:'RIFLE',factories:line.factories,priority:1});cmd({type:'ECON_HUB',hub:'GERMAN-depot-3',motor:1});const edge=c.econ.modern.net.GERMAN.hubs.find(h=>h.id==='GERMAN-depot-3').route?.path[0];if(edge)cmd({type:'ECON_BUILD',kind:'RAIL',target:edge});}
+ c.tick();if(c.clock.tick%12===0){const e=c.econ.modern;rows.push({tick:c.clock.tick,controls:c.clock.goals.slice(0,3).map(g=>c.state.hexes[g.hex.q+','+g.hex.r].control),nations:structuredClone(e.nations),units:Object.values(c.state.units).map(u=>({id:u.id,alive:u.alive,hex:u.hex,personnel:c.clock.units[u.id].personnel,org:c.clock.units[u.id].org,losses:c.clock.units[u.id].losses,supply:e.net[u.side].rows[u.id],gear:structuredClone(c.econ.gear.units[u.id].held),reason:c.clock.units[u.id].reason})),construction:structuredClone(e.queue)});}
+ if(variant==='B'&&c.clock.tick===288){const s=c.save();s.clock.paused=true;fs.writeFileSync(dir+'mid.json.gz',gzipSync(JSON.stringify(s)));}
+ if(c.clock.tick%288===0)console.log(variant+' day '+c.clock.tick/288+' personnel sent '+c.econ.modern.nations.GERMAN.personnelSent.toFixed(1),flush());
+}
+function flush(){return '';}
+const summary={variant,tick:c.clock.tick,end:c.clock.ended,elapsedMs:performance.now()-start,metrics:c.clock.metrics,nations:c.econ.modern.nations,losses:Object.fromEntries(['GERMAN','SOVIET'].map(side=>[side,Object.keys(c.clock.units).filter(id=>c.state.units[id].side===side).reduce((n,id)=>n+c.clock.units[id].losses,0)])),construction:c.econ.modern.queue};
+fs.writeFileSync(dir+variant+'-full.json.gz',gzipSync(JSON.stringify({rows,final:c.save()})));fs.writeFileSync(dir+variant+'-summary.json',JSON.stringify(summary,null,2));console.log(JSON.stringify({variant,end:summary.end,tick:summary.tick,ms:summary.elapsedMs}));
