@@ -1,0 +1,2 @@
+import {Campaign} from './authority.mjs';import {gunzipSync} from 'node:zlib';import fs from 'node:fs';
+const c=new Campaign(),s=JSON.parse(gunzipSync(fs.readFileSync('evidence/grand-play-002/original-full.json.gz'))).final;s.campaignLoop=1;c.restore(s);const d=c.snapshot();console.log(JSON.stringify(d.continuous.recovery,null,2));fs.writeFileSync('evidence/grand-play-002/final-diagnosis.json',JSON.stringify(d.continuous.recovery,null,2));

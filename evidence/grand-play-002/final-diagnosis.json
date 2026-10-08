@@ -1,0 +1,404 @@
+{
+  "version": 1,
+  "rows": [
+    {
+      "id": "G-013",
+      "hex": "23,3",
+      "group": "GERMAN:0",
+      "step": 0,
+      "personnel": 271.37039500016607,
+      "max": 300,
+      "reason": "人员损失未满100人编制组，现规则暂不补员",
+      "conditions": [
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-1集团军"
+    },
+    {
+      "id": "G-014",
+      "hex": "24,3",
+      "group": "GERMAN:0",
+      "step": 0,
+      "personnel": 250.25764069637364,
+      "max": 300,
+      "reason": "人员损失未满100人编制组，现规则暂不补员",
+      "conditions": [
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-1集团军"
+    },
+    {
+      "id": "G-017",
+      "hex": "24,4",
+      "group": "GERMAN:0",
+      "step": 1,
+      "personnel": 176.89786676469828,
+      "max": 300,
+      "reason": "待到货：中型装甲 2",
+      "conditions": [],
+      "items": [
+        {
+          "type": "TANK",
+          "label": "中型装甲",
+          "need": 2,
+          "ready": 0,
+          "pending": 0,
+          "short": 2,
+          "quarantined": 0,
+          "warehouse": 0,
+          "warehousePending": 0,
+          "reason": "尚未安排对应装备生产；上次可配送来源不足",
+          "lines": [],
+          "action": "查看生产线与配送优先级"
+        },
+        {
+          "type": "RIFLE",
+          "label": "步兵装备",
+          "need": 1,
+          "ready": 1,
+          "pending": 0,
+          "short": 0,
+          "quarantined": 0,
+          "warehouse": 14,
+          "warehousePending": 0,
+          "reason": "部队已收到，材料齐备",
+          "lines": [
+            "GERMAN-industry-1",
+            "GERMAN-industry-2"
+          ],
+          "action": "查看生产线与配送优先级"
+        },
+        {
+          "type": "P",
+          "label": "补充人员",
+          "need": 1,
+          "ready": 1,
+          "pending": 0,
+          "short": 0,
+          "quarantined": 0,
+          "warehouse": 1,
+          "warehousePending": 0,
+          "reason": "部队已收到，材料齐备",
+          "lines": [],
+          "action": "查看行政预算与人员来源"
+        }
+      ],
+      "attention": true,
+      "lastEpoch": 6,
+      "army": "西-1集团军"
+    },
+    {
+      "id": "G-018",
+      "hex": "24,3",
+      "group": "GERMAN:0",
+      "step": 0,
+      "personnel": 257.8827598281573,
+      "max": 300,
+      "reason": "正在交战，暂不能补充",
+      "conditions": [
+        "正在交战，暂不能补充",
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-1集团军"
+    },
+    {
+      "id": "G-019",
+      "hex": "25,4",
+      "group": "GERMAN:0",
+      "step": 0,
+      "personnel": 233.9072030517136,
+      "max": 300,
+      "reason": "驻留休整不足30分钟，已20分钟",
+      "conditions": [
+        "驻留休整不足30分钟，已20分钟",
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-1集团军"
+    },
+    {
+      "id": "G-025",
+      "hex": "24,4",
+      "group": "GERMAN:1",
+      "step": 1,
+      "personnel": 156.9629239066847,
+      "max": 300,
+      "reason": "待到货：补充人员 1",
+      "conditions": [],
+      "items": [
+        {
+          "type": "RIFLE",
+          "label": "步兵装备",
+          "need": 2,
+          "ready": 2,
+          "pending": 0,
+          "short": 0,
+          "quarantined": 0,
+          "warehouse": 14,
+          "warehousePending": 0,
+          "reason": "部队已收到，材料齐备",
+          "lines": [
+            "GERMAN-industry-1",
+            "GERMAN-industry-2"
+          ],
+          "action": "查看生产线与配送优先级"
+        },
+        {
+          "type": "P",
+          "label": "补充人员",
+          "need": 1,
+          "ready": 0,
+          "pending": 0,
+          "short": 1,
+          "quarantined": 0,
+          "warehouse": 1,
+          "warehousePending": 0,
+          "reason": "仓库有人，等待配送；上次可配送来源不足",
+          "lines": [],
+          "action": "查看行政预算与人员来源"
+        }
+      ],
+      "attention": true,
+      "lastEpoch": 6,
+      "army": "西-2集团军"
+    },
+    {
+      "id": "G-026",
+      "hex": "25,4",
+      "group": "GERMAN:1",
+      "step": 0,
+      "personnel": 228.2227138478626,
+      "max": 300,
+      "reason": "人员损失未满100人编制组，现规则暂不补员",
+      "conditions": [
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-2集团军"
+    },
+    {
+      "id": "G-029",
+      "hex": "25,5",
+      "group": "GERMAN:1",
+      "step": 0,
+      "personnel": 278.09014323907627,
+      "max": 300,
+      "reason": "人员损失未满100人编制组，现规则暂不补员",
+      "conditions": [
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-2集团军"
+    },
+    {
+      "id": "G-030",
+      "hex": "25,3",
+      "group": "GERMAN:1",
+      "step": 0,
+      "personnel": 228.02011937249773,
+      "max": 300,
+      "reason": "正在交战，暂不能补充",
+      "conditions": [
+        "正在交战，暂不能补充",
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-2集团军"
+    },
+    {
+      "id": "G-031",
+      "hex": "24,3",
+      "group": "GERMAN:1",
+      "step": 0,
+      "personnel": 238.8904032326499,
+      "max": 300,
+      "reason": "人员损失未满100人编制组，现规则暂不补员",
+      "conditions": [
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-2集团军"
+    },
+    {
+      "id": "G-032",
+      "hex": "26,3",
+      "group": "GERMAN:1",
+      "step": 1,
+      "personnel": 178.43504881212425,
+      "max": 300,
+      "reason": "正在交战，暂不能补充",
+      "conditions": [
+        "正在交战，暂不能补充"
+      ],
+      "items": [
+        {
+          "type": "RIFLE",
+          "label": "步兵装备",
+          "need": 1,
+          "ready": 0,
+          "pending": 0,
+          "short": 1,
+          "quarantined": 0,
+          "warehouse": 14,
+          "warehousePending": 0,
+          "reason": "仓库有货，尚未到部队",
+          "lines": [
+            "GERMAN-industry-1",
+            "GERMAN-industry-2"
+          ],
+          "action": "查看生产线与配送优先级"
+        },
+        {
+          "type": "KIT",
+          "label": "工兵与通信器材",
+          "need": 1,
+          "ready": 0,
+          "pending": 0,
+          "short": 1,
+          "quarantined": 0,
+          "warehouse": 0,
+          "warehousePending": 0,
+          "reason": "尚未安排对应装备生产",
+          "lines": [],
+          "action": "查看生产线与配送优先级"
+        },
+        {
+          "type": "P",
+          "label": "补充人员",
+          "need": 1,
+          "ready": 0,
+          "pending": 0,
+          "short": 1,
+          "quarantined": 0,
+          "warehouse": 1,
+          "warehousePending": 0,
+          "reason": "仓库有人，等待配送",
+          "lines": [],
+          "action": "查看行政预算与人员来源"
+        }
+      ],
+      "attention": true,
+      "lastEpoch": 6,
+      "army": "西-2集团军"
+    },
+    {
+      "id": "G-037",
+      "hex": "25,5",
+      "group": "GERMAN:2",
+      "step": 0,
+      "personnel": 272.268067464146,
+      "max": 300,
+      "reason": "驻留休整不足30分钟，已5分钟",
+      "conditions": [
+        "驻留休整不足30分钟，已5分钟",
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-3集团军"
+    },
+    {
+      "id": "G-038",
+      "hex": "24,5",
+      "group": "GERMAN:2",
+      "step": 0,
+      "personnel": 300,
+      "max": 300,
+      "reason": "编制完整",
+      "conditions": [],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-3集团军"
+    },
+    {
+      "id": "G-041",
+      "hex": "24,5",
+      "group": "GERMAN:2",
+      "step": 0,
+      "personnel": 285.9982220424307,
+      "max": 300,
+      "reason": "补给已耗尽，等待补给配送",
+      "conditions": [
+        "补给已耗尽，等待补给配送",
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-3集团军"
+    },
+    {
+      "id": "G-042",
+      "hex": "25,4",
+      "group": "GERMAN:2",
+      "step": 0,
+      "personnel": 300,
+      "max": 300,
+      "reason": "补给已耗尽，等待补给配送",
+      "conditions": [
+        "补给已耗尽，等待补给配送"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-3集团军"
+    },
+    {
+      "id": "G-043",
+      "hex": "26,4",
+      "group": "GERMAN:2",
+      "step": 0,
+      "personnel": 296,
+      "max": 300,
+      "reason": "补给已耗尽，等待补给配送",
+      "conditions": [
+        "补给已耗尽，等待补给配送",
+        "人员损失未满100人编制组，现规则暂不补员"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-3集团军"
+    },
+    {
+      "id": "G-044",
+      "hex": "24,5",
+      "group": "GERMAN:2",
+      "step": 0,
+      "personnel": 300,
+      "max": 300,
+      "reason": "补给已耗尽，等待补给配送",
+      "conditions": [
+        "补给已耗尽，等待补给配送"
+      ],
+      "items": [],
+      "attention": false,
+      "lastEpoch": 6,
+      "army": "西-3集团军"
+    }
+  ],
+  "waiting": 3,
+  "rule": "一个人员编制组100人；补充消耗1P及本兵种配套装备。",
+  "rail": "共同时间模式目前没有铁路修复命令；旧阶段控件不可用。线路中断时可改变路线附近的行动或转移至已有可服务地点，不能靠增加车辆跨越断线。"
+}

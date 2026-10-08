@@ -1,9 +1,9 @@
-# GRAND-OFFICER-002-R1 branch state
+# GRAND-PLAY-002 branch state
 
-- Baseline002 5d3ce285dba0f95460103992d537fd0a54fcceba; comparison001 f1b621a263dde0ddbd18b6e1228cc8bcd59287a6.
-- Reproduced real RESERVE override. Coordinated implementation now has one execution priority, resume memory, deterministic global400 node budget/rotation and authorized bounded persisted route cache.
-- Final playable service selects Conservative: 001 tactical policy plus bounded stale/full RELIEF release. 002 coordination DISABLED after fixed comparisons; sources/negative evidence retained.
-- No damage/withdrawal/economy/FOW changes. Same seed/directions/six-hour window; central conservative captures at30min, loss795.1 vs001901.5; east matches001. Congestion and short returns remain.
-- New local4233 normal /4234 directed demo. Browser delegation, reserve retention/release/real arrival, takeover, reconnect, actual process restart and continuation pass. Old4229-4232 untouched.
-- Save marker GRAND-OFFICER-002-R1, no silent old import. Frozen evidence, short report and operations in evidence/grand-officer-002-r1 and experiments/grand-officer-002-r1/README.md.
-- Independent branch grand-officer-002-r1; no merge/deploy/public exposure.
+- Baseline092a6bc545870d30426f916f901a82dd45b26cba, Conservative officer unchanged, objective coordination disabled.
+- Fixed normal seed219031, central targets and two economic operations at120min. Original and candidate both natural finish750min German hold victory, identical state/economy/RNG each step; no rule/balance changes.
+- Production-to-personnel loop already functions; fixed missing recovery demand alerts and misleading generic refit text. Authorized projection only, no AI or economy changes. Disabled misleading unused reserve-package UI.
+- Same real browser campaign: production/priority choices, saved process restart at580min, delivered stock,675min actual G014+100 personnel, takeover then timed move Y16→W17, natural end750min.
+- New local4235 normal paused /4236 real mid580min snapshot, independent saves. Old4233/4234 preserved.
+- Biggest constraints: shared truck capacity, equipment choice tradeoffs,100-person grouped replacement, long cadence; current shared-clock mode has no rail repair command. No fabricated repair support.
+- experiments/grand-play-002 and evidence/grand-play-002 contain configuration, full original/candidate logs, batch chain, conservation/receipt/restart tests and browser evidence.
