@@ -1,3 +1,13 @@
+# GRAND-UI-003
+
+- Base f281f5f129553bc3c883dba3d9f374714986343a; branch grand-ui-003-tablet-command.
+- Direct commands visible, authorized read-only route preview, numeric own-org battle badge, clearer unit/stack ownership, original stable portraits. Arrow/card selection priority fixed. No combat/economy/AI/save-format change.
+- Local4249 normal paused, isolated save directory; preserve previous services and progress. docs/grand-ui-003/README.md contains controls, rollback and evidence.
+- Fixed50-step authority comparison passed; actual browser move/attack/support/takeover/redelegate/save/reconnect/load exercised. Tablet1024x768 and44px targets checked. Native touch injection unavailable; existing gesture handler regression passed, not real-device acceptance.
+- No deployment/public access; user visual acceptance remains pending.
+
+## Prior branch records
+
 # GRAND-ART-001
 
 - Base 4d4abbe9b7e75accdf1a9f0034d02c26d44330fb; isolated grand-art-001-industry-logistics.

@@ -218,7 +218,7 @@ body:has(.command-ui) .command-ui button:hover{background:#46595d;border-color:#
 body:has(.command-ui) #fog-surface-layer{filter:grayscale(1)}
 body:has(.command-ui) #eastfront-map[data-map-planning=no] #interaction-overlays{display:none}
 @media(max-width:1200px){.command-ui .ui-brand{display:none}.command-ui .ui-top>button{padding:5px 8px;min-width:80px}.command-ui .ui-clock{padding:4px;gap:2px}.command-ui .ui-clock>span{display:none}.command-ui .ui-sidebar{width:330px}.command-ui .ui-sidebar[data-mode=battle]{width:410px}.command-ui .ui-corps-card>button:first-child{min-width:174px}.command-ui .ui-corps-card>button:not(:first-child){width:32px}.command-ui .ui-corps-bar{width:calc(100% - 20px)}.command-ui .ui-corps-card small{font-size:10px}.command-ui .ui-badge{width:26px}.command-ui .ui-map-legend span{display:none}}
-@media(pointer:coarse){body:has(.command-ui) .command-ui button{min-height:40px}.command-ui .ui-corps-bar{bottom:6px}}
+@media(pointer:coarse){body:has(.command-ui) .command-ui button{min-height:44px;min-width:44px}.command-ui .ui-corps-bar{bottom:6px}}
 
 .command-ui .ui-sidebar[data-mode=army] .r2-map-tools>summary,.command-ui .ui-sidebar[data-mode=army] .r2-map-tools>*:not(.front-editor){display:none}
 .command-ui .ui-sidebar[data-mode=army] .front-editor>summary{font-weight:bold}
@@ -241,3 +241,15 @@ body:has(.command-ui) #terrain-surface{filter:saturate(.68)}
 .ui-sidebar .ux-line summary b{color:#e5e1c9}.ui-sidebar .ux-line summary span{font-size:12px;color:#bfcbbd}.ui-sidebar .ux-line em{color:#d9b584;font-style:normal;font-size:12px}
 .industry-project,.industry-object{border:1px solid #758d7955;padding:10px;margin:8px 0;background:#25383055}.industry-project header{display:flex;justify-content:space-between;align-items:center;gap:8px}.industry-project progress{width:100%;height:8px;accent-color:#9dae86}.industry-project small{display:block;line-height:1.6;color:#b9c5b4}.industry-project label{display:flex;align-items:center;justify-content:space-between}.industry-project select{max-width:90px}
 #industry-logistics [role=button]{cursor:pointer}#industry-logistics [role=button]:focus{outline:none;filter:brightness(1.25)}
+
+/* GRAND-UI-003: direct commands remain visible and touch-sized. */
+.direct-command{border:1px solid #657975;padding:10px;background:#1c2d30;color:#ebeedf;position:sticky;bottom:0;z-index:2}
+.direct-command p,.direct-command small{font-size:12px;line-height:1.4;margin:5px 0;display:block}.direct-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.direct-command button,.direct-command select,.ui-corps-card>button,.ui-direct,.r2-stack button{min-height:44px;min-width:44px}.direct-actions button[aria-pressed=true]{outline:2px solid #bdd5b8;background:#405a4b}.direct-preview{padding:8px;border-left:3px solid #d8c89b;background:#2d403f}.direct-preview button{margin-right:5px}.command-ui .ui-content:has(.direct-command){padding-bottom:12px}.ui-corps-card.selected{box-shadow:inset 0 -4px var(--corps)}
+
+.officer-portrait{width:40px;height:50px;flex:none;object-fit:cover;border:1px solid var(--corps)}.ui-corps-card.selected .officer-portrait{outline:2px solid #f0df9e}.direct-command{position:relative;bottom:auto}.direct-command label{display:flex;gap:6px;align-items:center}.direct-command button:disabled{opacity:.55}
+
+.command-ui .direct-command button,.command-ui .direct-command select,.command-ui .ui-corps-card>button,.command-ui .ui-direct,.command-ui .r2-stack button{min-height:44px;min-width:44px}.command-ui .direct-actions button{padding:6px;font-size:13px}.command-ui .direct-command{padding:8px}.command-ui .ui-top button,.command-ui .ui-sidebar header button{min-height:44px;min-width:44px}
+
+.ui-corps-bar .ui-direct{order:-1;position:sticky;left:0;z-index:2;background:#273b3e;flex:none}.command-ui .r2-stack summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}.command-ui .r2-stack>p{font-size:12px}
+
+body:has(.command-ui) .command-ui button,body:has(.command-ui) .command-ui select{min-height:44px;min-width:44px}

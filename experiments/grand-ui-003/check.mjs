@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {gzipSync} from 'node:zlib';
+import {Campaign} from '../grand-release-001/territory.mjs';
+import {Campaign as Baseline} from '../../../grand-release-001-preview/experiments/grand-release-001/territory.mjs';
+import {directPreview} from './preview.mjs';
+import {battleReadout} from '../../.release-territory-preview/src/playable/battleReadout.js';
+const semantic=x=>JSON.parse(JSON.stringify(x,(k,v)=>['ms','maxMs','totalMs'].includes(k)?undefined:v));
+const dir='evidence/grand-ui-003';fs.mkdirSync(dir,{recursive:true});
+const a=new Baseline(),b=new Campaign();b.restore(a.save(),false);
+const start=a.save();fs.writeFileSync(dir+'/normal-start.json.gz',gzipSync(JSON.stringify(start)));
+const before=JSON.stringify(b.save());const d={unit:'G-013',kind:'ADVANCE',target:{q:21,r:3}},p=directPreview(b,d);
+assert.equal(p.reason,'');assert(p.path.length>1);assert.equal(JSON.stringify(b.save()),before);
+assert.match(directPreview(b,{...d,unit:'S-013'}).reason,/己方/);
+const fair=b.fair('GERMAN').view,cap=b.capability(d.unit),mock={fair:()=>({view:structuredClone(fair)}),capability:()=>structuredClone(cap),viewer:'GERMAN',version:b.version};
+const hiddenA=directPreview({...mock,state:{secretEnemy:1}},d),hiddenB=directPreview({...mock,state:{secretEnemy:999}},d);assert.deepEqual(hiddenA,hiddenB);
+const report={participants:[{id:'a',side:'GERMAN',org:80},{id:'b',side:'GERMAN',org:20},{id:'a',side:'GERMAN',org:80},{id:'e',side:'SOVIET',org:99}],role:'我方进攻'};
+assert.equal(battleReadout(report,'GERMAN').value,50);report.participants[3].org=0;assert.equal(battleReadout(report,'GERMAN').value,50);
+assert.equal(battleReadout({participants:[{id:'e',side:'SOVIET'}]},'GERMAN').value,null);
+let seq=0;const commands=[];function op(operation){const id='ui003-command-'+(++seq);for(const c of [a,b])c.transaction({id,version:c.version,operation});commands.push(operation);}
+op({type:'DIRECT',unit:d.unit,order:{kind:'ADVANCE',target:d.target,risk:'NORMAL',paused:false}});
+assert.equal(b.clock.tick,0);assert.equal(b.clock.units[d.unit].march,null);
+op({type:'AUTOPAUSE',enabled:false});op({type:'CLOCK',paused:false,speed:1});
+for(let i=0;i<10;i++){a.advance();b.advance();}assert.deepEqual(b.state.units[d.unit].hex,d.target);
+op({type:'DIRECT',unit:d.unit,order:{kind:'HOLD',target:d.target,risk:'LOW',paused:true}});
+op({type:'ASSIGN',unit:d.unit,group:'GERMAN:0'});assert.equal(b.clock.units[d.unit].direct,null);
+for(const g of b.clock.corps.filter(g=>g.side==='GERMAN'))op({type:'ORDER',group:g.id,order:{kind:'ADVANCE',target:{q:25,r:4},risk:'NORMAL',paused:false}});
+let saved=false;for(let i=0;i<40;i++){a.advance();b.advance();const bs=b.snapshot().continuous.map.battles;if(!saved&&bs.length&&bs.some(x=>x.supportEligible?.length)){fs.writeFileSync(dir+'/natural-contact.json.gz',gzipSync(JSON.stringify(b.save())));saved=true;}}
+assert.deepEqual(b.state,a.state);assert.deepEqual(semantic(b.econ),semantic(a.econ));assert.equal(b.clock.rng,a.clock.rng);
+assert.deepEqual(b.clock.units,a.clock.units);assert.deepEqual(b.clock.battles,a.clock.battles);
+const restored=new Campaign();restored.restore(b.save());assert(restored.clock.paused);assert.deepEqual(restored.state,b.state);assert.deepEqual(semantic(restored.econ),semantic(b.econ));
+const receipt=b.receipts.get('ui003-command-1');assert(receipt);const n=b.receipts.size;b.transaction({id:'ui003-command-1',version:0,operation:commands[0]});assert.equal(b.receipts.size,n);
+fs.writeFileSync(dir+'/check.json',JSON.stringify({baseline:'f281f5f129553bc3c883dba3d9f374714986343a',previewReadOnly:true,enemyQueryRefused:true,sameAuthorizedInputSamePreview:true,displayNoEnemyOrgInfluence:true,duplicateParticipantExcluded:true,pausedCommandDoesNotMove:true,realMovement:true,reassignment:true,authorityStateEconomyUnitsBattlesRngEqual:true,retryReceiptRetained:true,restorePaused:true,steps:50,commands,naturalContactSaved:saved,scope:'Fixed scripted normal start; automated comparison, not human play or balance validation.'},null,2));console.log('UI003 targeted checks passed; natural contact',saved);

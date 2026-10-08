@@ -1,0 +1,98 @@
+{
+  "baseline": "f281f5f129553bc3c883dba3d9f374714986343a",
+  "previewReadOnly": true,
+  "enemyQueryRefused": true,
+  "sameAuthorizedInputSamePreview": true,
+  "displayNoEnemyOrgInfluence": true,
+  "duplicateParticipantExcluded": true,
+  "pausedCommandDoesNotMove": true,
+  "realMovement": true,
+  "reassignment": true,
+  "authorityStateEconomyUnitsBattlesRngEqual": true,
+  "retryReceiptRetained": true,
+  "restorePaused": true,
+  "steps": 50,
+  "commands": [
+    {
+      "type": "DIRECT",
+      "unit": "G-013",
+      "order": {
+        "kind": "ADVANCE",
+        "target": {
+          "q": 21,
+          "r": 3
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    },
+    {
+      "type": "AUTOPAUSE",
+      "enabled": false
+    },
+    {
+      "type": "CLOCK",
+      "paused": false,
+      "speed": 1
+    },
+    {
+      "type": "DIRECT",
+      "unit": "G-013",
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 21,
+          "r": 3
+        },
+        "risk": "LOW",
+        "paused": true
+      }
+    },
+    {
+      "type": "ASSIGN",
+      "unit": "G-013",
+      "group": "GERMAN:0"
+    },
+    {
+      "type": "ORDER",
+      "group": "GERMAN:0",
+      "order": {
+        "kind": "ADVANCE",
+        "target": {
+          "q": 25,
+          "r": 4
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    },
+    {
+      "type": "ORDER",
+      "group": "GERMAN:1",
+      "order": {
+        "kind": "ADVANCE",
+        "target": {
+          "q": 25,
+          "r": 4
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    },
+    {
+      "type": "ORDER",
+      "group": "GERMAN:2",
+      "order": {
+        "kind": "ADVANCE",
+        "target": {
+          "q": 25,
+          "r": 4
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    }
+  ],
+  "naturalContactSaved": true,
+  "scope": "Fixed scripted normal start; automated comparison, not human play or balance validation."
+}

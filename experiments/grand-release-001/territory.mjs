@@ -1,3 +1,4 @@
+import {directPreview} from '../grand-ui-003/preview.mjs';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {Campaign as Economy} from '../grand-economy-002/authority.mjs';
@@ -9,6 +10,7 @@ const sides=['GERMAN','SOVIET'],other=s=>s==='GERMAN'?'SOVIET':'GERMAN',copy=str
 const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 export function score(config,state){return Object.fromEntries(sides.map(side=>{const rows=config.rows.filter(r=>r.side===side),total=rows.reduce((n,r)=>n+r.weight,0),lost=rows.reduce((n,r)=>n+(state.hexes[r.hex]?.control===other(side)?r.weight:0),0),lostRatio=lost/total;return [side,{total,lost,lostRatio,threshold:config.threshold,progress:Math.min(1,lostRatio/config.threshold)}];}));}
 export class Campaign extends Economy{
+ projection(draft){if(draft?.uiDirectPreview)return {directPreview:directPreview(this,draft)};return super.projection(draft);}
  constructor(){super();this.ruleOverride=RULES;this.simRules=RULES;this.clock.rules=RULES.version;this.clock.territory={config:copy(CONFIG),hash:digest(CONFIG),strategic:{}};}
  finish(surrendered,voluntary=false){if(this.clock.ended)return;this.clock.ended={winner:surrendered.length===2?null:other(surrendered[0]),surrendered,tick:this.clock.tick,type:voluntary?'VOLUNTARY':'TERRITORIAL',reason:surrendered.length===2?'双方在同一时间步达到投降阈值，战役共同终止':`${surrendered[0]==='GERMAN'?'德军':'苏军'}${voluntary?'主动投降':'核心战区失守权重达到投降阈值，正式投降'}`};this.clock.paused=true;this.note(this.viewer,this.clock.ended.reason);}
  evaluateSurrender(){if(this.clock.ended)return;const scores=score(this.clock.territory.config,this.state),losers=sides.filter(s=>scores[s].lostRatio>=scores[s].threshold);if(losers.length)this.finish(losers);}
