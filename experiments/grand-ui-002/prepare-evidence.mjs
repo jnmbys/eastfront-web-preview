@@ -1,0 +1,6 @@
+// Explicit evidence-only conversion: original normal battle save retained, only visibility memory initialized under the already-approved VISION rule.
+import fs from 'node:fs';import path from 'node:path';import {gunzipSync,gzipSync} from 'node:zlib';import {Campaign} from '../grand-vision-001/authority.mjs';import {CampaignAdapter} from '../grand-play-mp022/adapter.mjs';
+const source='evidence/grand-map-002/mid-march.save.json.gz',s=JSON.parse(JSON.parse(gunzipSync(fs.readFileSync(source))).payload).campaign;
+s.vision={version:'GRAND-VISION-001',sides:Object.fromEntries(['GERMAN','SOVIET'].map(side=>[side,{cells:{},knowledge:{viewer:side,sightings:[]}}]))};
+const saveFile=path.join(process.env.LOCALAPPDATA,'EastfrontSaves/grand-ui-002/campaign.json');if(fs.existsSync(saveFile))throw Error('Existing candidate save preserved; seed once only');
+const a=new CampaignAdapter({CampaignClass:Campaign,saveFile,restore:false});a.c.restore(s);a.c.observeVision();a.saveFileNow();fs.writeFileSync('evidence/grand-ui-002/comparison-start.save.json.gz',gzipSync(fs.readFileSync(saveFile)));const d=a.c.snapshot();console.log(JSON.stringify({source,tick:d.continuous.tick,battles:d.continuous.map.battles.length,units:d.game.message.payload.view.units.length,saveFile}));

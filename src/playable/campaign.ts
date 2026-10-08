@@ -24,7 +24,7 @@ export function bindCampaign(p:GrandPort,id:string|null,refresh:()=>void,focus:(
  bindCommandInterface(p,id,refresh,focus,locate);
  bindMapPanel(p,id,refresh);
  document.querySelectorAll<HTMLDetailsElement>('.r2-dock details').forEach(el=>{const key='disclosure:'+(el.id||el.querySelector('summary')?.textContent?.trim());if(key in p.selections)el.open=p.selections[key]==='1';el.ontoggle=()=>{if(el.isConnected)p.selections[key]=el.open?'1':'';};});
- document.getElementById('stack-close')?.addEventListener('click',()=>{delete p.selections.stack;refresh();});
+ document.getElementById('stack-close')?.addEventListener('click',()=>{delete p.selections.stack;delete p.selections['scale-members'];refresh();});
  document.querySelectorAll<HTMLElement>('[data-stack-unit],[data-battle-select]').forEach(el=>el.onclick=()=>focus(el.dataset.stackUnit??el.dataset.battleSelect!));
  document.getElementById('campaign-link')?.addEventListener('change',e=>p.wire?.setProfile((e.target as HTMLSelectElement).value));
  document.getElementById('campaign-disconnect')?.addEventListener('click',()=>p.wire?.disconnect());
