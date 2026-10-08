@@ -1,0 +1,3932 @@
+{
+  "checks": [
+    "both factions policy ignores hidden exact state and direct units",
+    "directed: timed withdrawal, real relief arrival, legal support, recovery hysteresis",
+    "directed: no known retreat and no reserve cannot claim success",
+    "directed: support target clears without automatic follow-through",
+    "takeover and pause discard tactical jobs without refund or restored control",
+    "save during withdrawal resumes once and rejects unversioned old saves",
+    "blocked arrival waits for an authorized change; retreat orders prefer their destination"
+  ],
+  "rotationLog": [
+    {
+      "tick": 1,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 31.611783875029268,
+          "personnel": 295.37261291676424,
+          "max": 300,
+          "losses": 4.62738708323578,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "等待 G-017 接替，最多再等 2 个时间步；已识别相邻敌军；按现有火力与附近友军投入",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "WAIT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "等待 G-017 接替，最多再等 2 个时间步"
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 88.0013476526741,
+          "personnel": 296.671158842247,
+          "max": 300,
+          "losses": 3.3288411577530206,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 91.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "org": 91.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "沿原军团任务行动"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 1,
+          "side": "GERMAN",
+          "unit": "G-017",
+          "text": "保留真实预备队，等待接替需求"
+        },
+        {
+          "tick": 1,
+          "side": "GERMAN",
+          "unit": "G-017",
+          "text": "G-017 正在行军接替 G-013，到达前不计入支援"
+        },
+        {
+          "tick": 1,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "等待 G-017 接替，最多再等 2 个时间步"
+        },
+        {
+          "tick": 1,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "承担本军团目标附近主攻"
+        },
+        {
+          "tick": 1,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "沿原军团任务行动"
+        },
+        {
+          "tick": 1,
+          "side": "SOVIET",
+          "unit": "S-013",
+          "text": "承担本军团目标附近主攻"
+        }
+      ]
+    },
+    {
+      "tick": 2,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 27.62820701895282,
+          "personnel": 292.09402339650944,
+          "max": 300,
+          "losses": 7.905976603490606,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "等待 G-017 接替，最多再等 1 个时间步；组织度不足，轮换休整",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "WAIT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "等待 G-017 接替，最多再等 1 个时间步"
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 84.15873063256626,
+          "personnel": 293.86243544188756,
+          "max": 300,
+          "losses": 6.13756455811248,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 91.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "org": 91.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "沿原军团任务行动"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 2,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "等待 G-017 接替，最多再等 1 个时间步"
+        }
+      ]
+    },
+    {
+      "tick": 3,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 27.62820701895282,
+          "personnel": 292.09402339650944,
+          "max": 300,
+          "losses": 7.905976603490606,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 15 分钟",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "WITHDRAW",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "G-013 撤出整补；紧急脱离，接替尚在途中，可能留下缺口",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 9
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 80.25851191665089,
+          "personnel": 290.86170638883635,
+          "max": 300,
+          "losses": 9.138293611163705,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 91.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "org": 91.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "沿原军团任务行动"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 3,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "G-013 撤出整补；紧急脱离，接替尚在途中，可能留下缺口"
+        },
+        {
+          "tick": 3,
+          "side": "SOVIET",
+          "unit": "S-013",
+          "text": "退路受阻：没有已知、未满员且脱离相邻敌军的后方格；停止主动攻击"
+        }
+      ]
+    },
+    {
+      "tick": 4,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 27.62820701895282,
+          "personnel": 292.09402339650944,
+          "max": 300,
+          "losses": 7.905976603490606,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 10 分钟",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "WITHDRAW",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "G-013 撤出整补；紧急脱离，接替尚在途中，可能留下缺口",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 9
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 76.4245971043738,
+          "personnel": 288.0819903479128,
+          "max": 300,
+          "losses": 11.918009652087306,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 93.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "友军拥堵，保留当前位置后重新规划",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 92,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "沿原军团任务行动"
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 5,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 27.62820701895282,
+          "personnel": 292.09402339650944,
+          "max": 300,
+          "losses": 7.905976603490606,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 5 分钟",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "WITHDRAW",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "G-013 撤出整补；紧急脱离，接替尚在途中，可能留下缺口",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 9
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 72.68327912351086,
+          "personnel": 285.61093041170295,
+          "max": 300,
+          "losses": 14.389069588297115,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 95.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 2,
+          "march": null,
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 94,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 2,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 5,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "保留真实预备队，等待接替需求"
+        }
+      ]
+    },
+    {
+      "tick": 6,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 27.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "已完成撤出路段，进入整补；仍须观察敌军追击",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 68.8849994544665,
+          "personnel": 282.9499981815551,
+          "max": 300,
+          "losses": 17.050001818444986,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 97.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 3,
+          "march": null,
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 96,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 3,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 6,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "WITHDRAWAL_ARRIVED",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 22,
+            "r": 4
+          }
+        }
+      ]
+    },
+    {
+      "tick": 7,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 29.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；组织度不足，轮换休整",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 65.2264209062047,
+          "personnel": 280.75473635401573,
+          "max": 300,
+          "losses": 19.245263645984316,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 96.4,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 3,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 98,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 4,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 7,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "撤出整补，尚未达到重新投入条件"
+        }
+      ]
+    },
+    {
+      "tick": 8,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 31.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 2,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；组织度不足，轮换休整",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 61.59156180770448,
+          "personnel": 278.638539359015,
+          "max": 300,
+          "losses": 21.361460640985026,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 96.4,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 3,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 5,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 9,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 33.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 3,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；组织度不足，轮换休整",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 58.075267781644754,
+          "personnel": 276.9175592721492,
+          "max": 300,
+          "losses": 23.08244072785078,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 96.4,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 3,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 6,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 10,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 35.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 4,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 54.616621839202324,
+          "personnel": 275.38873946400776,
+          "max": 300,
+          "losses": 24.611260535992223,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 97.2,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "G-017 正在行军接替 G-013，到达前不计入支援；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RELIEF",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 23,
+              "r": 4
+            },
+            "reason": "G-017 正在行军接替 G-013，到达前不计入支援"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 7,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 11,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 37.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 5,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 51.26956135461077,
+          "personnel": 274.2318711820359,
+          "max": 300,
+          "losses": 25.768128817964065,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 94.00246910166199,
+          "personnel": 299.3415636722066,
+          "max": 300,
+          "losses": 0.6584363277934069,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 8,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 11,
+          "side": "GERMAN",
+          "unit": "G-017",
+          "text": "接替已到达原防区，继续军团任务"
+        },
+        {
+          "tick": 11,
+          "side": "GERMAN",
+          "unit": "G-017",
+          "text": "承担本军团目标附近主攻"
+        },
+        {
+          "tick": 11,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "协同相邻支援；照常承担消耗与反击，胜后不跟进"
+        }
+      ]
+    },
+    {
+      "tick": 12,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 39.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 6,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 48.09144298963006,
+          "personnel": 273.63814329876686,
+          "max": 300,
+          "losses": 26.361856701233116,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 90.90650446688848,
+          "personnel": 299.0216815562949,
+          "max": 300,
+          "losses": 0.9783184437050941,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 9,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 13,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 41.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 7,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 44.893782464878015,
+          "personnel": 272.9792748829267,
+          "max": 300,
+          "losses": 27.02072511707327,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "协同相邻支援；照常承担消耗与反击，胜后不跟进"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 87.83285437164744,
+          "personnel": 298.7761812388248,
+          "max": 300,
+          "losses": 1.2238187611752096,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 10,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 14,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 43.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 8,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 41.72295550562678,
+          "personnel": 272.40985168542255,
+          "max": 300,
+          "losses": 27.59014831457738,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 84.76999005928415,
+          "personnel": 298.5666335309472,
+          "max": 300,
+          "losses": 1.433366469052842,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 300,
+          "max": 300,
+          "losses": 0,
+          "rest": 11,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求"
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 14,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "沿原军团任务行动"
+        }
+      ]
+    },
+    {
+      "tick": 15,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 45.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 9,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 41.72295550562678,
+          "personnel": 272.40985168542255,
+          "max": 300,
+          "losses": 27.59014831457738,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 15 分钟",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "WITHDRAW",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "G-014 撤出整补；接替已具备参战条件",
+            "until": 21
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 81.73353039755958,
+          "personnel": 298.4451013251986,
+          "max": 300,
+          "losses": 1.554898674801433,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 96.95282754419635,
+          "personnel": 299.84275848065454,
+          "max": 300,
+          "losses": 0.15724151934547634,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "G-018 接替 G-014，已在合法相邻位置投入支援；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "G-018 接替 G-014，已在合法相邻位置投入支援",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            }
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 15,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "G-018 接替 G-014，已在合法相邻位置投入支援"
+        },
+        {
+          "tick": 15,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "G-014 撤出整补；接替已具备参战条件"
+        }
+      ]
+    },
+    {
+      "tick": 16,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 47.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 10,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 41.72295550562678,
+          "personnel": 272.40985168542255,
+          "max": 300,
+          "losses": 27.59014831457738,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 10 分钟",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "WITHDRAW",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "G-014 撤出整补；接替已具备参战条件",
+            "until": 21
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 78.71195640774721,
+          "personnel": 298.37318802582405,
+          "max": 300,
+          "losses": 1.6268119741759777,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 93.90903659915834,
+          "personnel": 299.6967886638611,
+          "max": 300,
+          "losses": 0.3032113361388692,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "G-018 接替 G-014，已在合法相邻位置投入支援；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "G-018 接替 G-014，已在合法相邻位置投入支援",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            }
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 17,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 49.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 11,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 41.72295550562678,
+          "personnel": 272.40985168542255,
+          "max": 300,
+          "losses": 27.59014831457738,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "正在脱离交战，尚未安全；撤出路段还需 5 分钟",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "WITHDRAW",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "G-014 撤出整补；接替已具备参战条件",
+            "until": 21
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 75.70077156334817,
+          "personnel": 298.3359052111606,
+          "max": 300,
+          "losses": 1.6640947888394404,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 90.88781644909156,
+          "personnel": 299.62605483030524,
+          "max": 300,
+          "losses": 0.3739451696947857,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "G-018 接替 G-014，已在合法相邻位置投入支援；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "G-018 接替 G-014，已在合法相邻位置投入支援",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            }
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 18,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 51.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 12,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 41.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "已完成撤出路段，进入整补；仍须观察敌军追击",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 72.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "承担本军团目标附近主攻"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 87.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 0,
+          "march": null,
+          "direct": null,
+          "reason": "G-018 接替 G-014，已在合法相邻位置投入支援；相邻支援：照常付出战斗消耗与承受反击；结束留在原位",
+          "engaged": 1,
+          "retreat": false,
+          "tactical": {
+            "phase": "SUPPORT",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "G-018 接替 G-014，已在合法相邻位置投入支援",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            }
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 18,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "WITHDRAWAL_ARRIVED",
+          "from": {
+            "q": 23,
+            "r": 4
+          },
+          "to": {
+            "q": 22,
+            "r": 4
+          }
+        }
+      ]
+    },
+    {
+      "tick": 19,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 53.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 13,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 43.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 71.90065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 24,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 2
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 89.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "支援接触结束，原地整理；未自动跟进；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "支援接触结束，原地整理；未自动跟进",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 19,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "撤出整补，尚未达到重新投入条件"
+        },
+        {
+          "tick": 19,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "支援接触结束，原地整理；未自动跟进"
+        },
+        {
+          "tick": 19,
+          "side": "GERMAN",
+          "unit": "G-017",
+          "text": "沿原军团任务行动"
+        }
+      ]
+    },
+    {
+      "tick": 20,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 55.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 14,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 45.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 2,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 71.90065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 0,
+          "march": {
+            "to": {
+              "q": 24,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 2
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 91.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 2,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 20,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "撤出整补，尚未达到重新投入条件"
+        }
+      ]
+    },
+    {
+      "tick": 21,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 57.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 15,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 47.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 3,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 72.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 93.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 3,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 21,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "整补条件达成，重新接受军团任务"
+        },
+        {
+          "tick": 21,
+          "side": "GERMAN",
+          "unit": "G-018",
+          "text": "保留真实预备队，等待接替需求"
+        }
+      ]
+    },
+    {
+      "tick": 22,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 59.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 16,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 49.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 4,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 74.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 2,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 95.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 4,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 23,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 61.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 17,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 51.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 5,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 76.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 3,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 97.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 5,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 24,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 63.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 18,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 53.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 6,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 78.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 4,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 99.88765170783749,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 6,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 25,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 65.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 19,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 55.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 7,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 80.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 5,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 7,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 26,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 67.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 20,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 57.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 8,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 82.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 6,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 8,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 27,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 66.82820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 20,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "整补条件达成，重新接受军团任务；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "整补条件达成，重新接受军团任务",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 59.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 9,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 84.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 7,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 9,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 27,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "整补条件达成，重新接受军团任务"
+        }
+      ]
+    },
+    {
+      "tick": 28,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 66.82820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 20,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "沿原军团任务行动",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 61.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 10,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 86.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 8,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 10,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 28,
+          "side": "GERMAN",
+          "unit": "G-013",
+          "text": "沿原军团任务行动"
+        }
+      ]
+    },
+    {
+      "tick": 29,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 66.82820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 20,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 0,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "沿原军团任务行动",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 63.72295550562678,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 11,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 88.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 9,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 11,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 30,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 67.62820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 1,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "沿原军团任务行动",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 65.72295550562677,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 12,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 90.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 10,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 12,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 31,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 66.82820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 1,
+          "march": {
+            "to": {
+              "q": 24,
+              "r": 4
+            },
+            "remaining": 1,
+            "total": 2
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "沿原军团任务行动",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 67.72295550562677,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 13,
+          "march": null,
+          "direct": null,
+          "reason": "撤出整补，尚未达到重新投入条件；执行整补；等待人员和对应装备",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "RECOVER",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "撤出整补，尚未达到重新投入条件",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 92.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 11,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 13,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": []
+    },
+    {
+      "tick": 32,
+      "units": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 66.82820701895282,
+          "personnel": 288.09402339650944,
+          "max": 300,
+          "losses": 11.905976603490606,
+          "rest": 1,
+          "march": {
+            "to": {
+              "q": 24,
+              "r": 4
+            },
+            "remaining": 1,
+            "total": 2
+          },
+          "direct": null,
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "since": 1,
+            "reason": "沿原军团任务行动",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "until": 12
+          }
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "org": 66.92295550562677,
+          "personnel": 268.40985168542255,
+          "max": 300,
+          "losses": 31.59014831457738,
+          "rest": 13,
+          "march": {
+            "to": {
+              "q": 23,
+              "r": 4
+            },
+            "remaining": 3,
+            "total": 3
+          },
+          "direct": null,
+          "reason": "整补条件达成，重新接受军团任务；按已知地形向命令目标推进",
+          "engaged": 0,
+          "retreat": true,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "target": {
+              "q": 22,
+              "r": 4
+            },
+            "reason": "整补条件达成，重新接受军团任务",
+            "until": 24
+          }
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "org": 94.70065036191885,
+          "personnel": 298.3355012063962,
+          "max": 300,
+          "losses": 1.6644987936038493,
+          "rest": 12,
+          "march": null,
+          "direct": null,
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "ACTIVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "replacing": "G-013",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "reason": "沿原军团任务行动"
+          }
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "org": 100,
+          "personnel": 299.6255056927917,
+          "max": 300,
+          "losses": 0.37449430720833804,
+          "rest": 14,
+          "march": null,
+          "direct": null,
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "engaged": 0,
+          "retreat": false,
+          "tactical": {
+            "phase": "RESERVE",
+            "stamp": "{\"kind\":\"ADVANCE\",\"target\":{\"q\":24,\"r\":4},\"risk\":\"NORMAL\",\"paused\":false}",
+            "reason": "保留真实预备队，等待接替需求",
+            "replacing": "G-014",
+            "target": {
+              "q": 24,
+              "r": 4
+            },
+            "until": 21
+          }
+        }
+      ],
+      "events": [
+        {
+          "tick": 32,
+          "side": "GERMAN",
+          "unit": "G-014",
+          "text": "整补条件达成，重新接受军团任务"
+        }
+      ]
+    }
+  ]
+}

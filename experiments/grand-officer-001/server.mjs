@@ -1,0 +1,4 @@
+import {start} from '../grand-play-mp022/server.mjs';import {Campaign} from './authority.mjs';import {rotationFixture} from './fixtures.mjs';import path from 'node:path';
+class Demo extends Campaign {constructor(){super();this.restore(rotationFixture().c.save());this.clock.scenario='DIRECTED_ROTATION';for(const g of this.clock.corps.filter(g=>g.side==='GERMAN'))g.order.paused=true;}}
+const services=[];for(const [port,Class,slot]of [[4229,Campaign,'normal'],[4230,Demo,'rotation-demo']]){services.push(await start({port,CampaignClass:Class,cookiePrefix:'grandofficer001_'+slot+'_',saveFile:path.join(process.env.LOCALAPPDATA,'EastfrontSaves/grand-officer-001',slot+'.json'),evidenceFile:path.resolve('evidence/grand-officer-001/'+slot+'-live.jsonl')}));console.log(`GRAND-OFFICER-001 ${slot}: http://127.0.0.1:${port}/ | local only`);}
+process.on('SIGTERM',()=>Promise.all(services.map(s=>s.close())));process.on('SIGINT',()=>Promise.all(services.map(s=>s.close())));

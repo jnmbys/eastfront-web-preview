@@ -1,9 +1,10 @@
-# GRAND-UI-002 branch state
+# GRAND-OFFICER-001 branch state
 
-- Branch grand-ui-002-map-scale; baseline 81ee44e389b92d189f96f66a0b0d94e63b8c26cb.
-- View-only pixel-based far/middle/near grouping with hysteresis, bounded regional corps groups, direct separation, same-hex and cross-hex distinction, current authorized units only.
-- Same-save screenshot comparison: far 9→5 markers, 18→0 intersecting card pairs; middle 9→8; near 9→12 because corps are no longer mixed.
-- Browser real member selection/direct order/support/city panel/save/reconnect/load, desktop and 1024×768 checks. World paused at 01:05 in independent 4228 service/save. 4227 untouched.
-- Build and focused grouping/authorization/status checks plus 8-step authority/RNG/economy/vision equivalence passed.
-- Evidence evidence/grand-ui-002/REPORT.md; operations/start/stop/rollback experiments/grand-ui-002/README.md.
-- No rules, authoritative simulation, AI, economy, networking or save-format changes. No merge/deploy/public exposure.
+- Independent `grand-officer-001-tactical-autonomy`, baseline `040a6418c927cc0f78dae3132548d887876bc810`.
+- Shared fair-view tactical policy for both factions: timed withdrawal, real reserve/relief, adjacent support, recovery hysteresis, takeover/generation cancellation.
+- Own-only task reasons in existing corps panel; no new AI economy decisions or damage/production parameter changes.
+- Explicit GRAND-OFFICER-001 save marker; in-flight tasks/blocked signatures survive paused restore; old saves rejected without silent conversion.
+- Fixed 72-step comparison: fewer losses and low-organization active attacks, same strategic objectives; full evidence and limits in evidence/grand-officer-001/REPORT.md.
+- Browser normal campaign delegation/takeover/economy and directed rotation/restart/continued play verified. Default normal 4229, separate marked demo4230. Preserve4228 unchanged.
+- Build and focused policy, permission, receipts, in-flight save/restore tests pass. No merge/deploy/public access.
+- Operations/rollback: experiments/grand-officer-001/README.md.
