@@ -1,0 +1,179 @@
+{
+  "scope": "Directed security/save plus existing real mid checkpoint; no rule changes",
+  "checks": [
+    "Unauthenticated static denied",
+    "Unauthenticated seat denied",
+    "Health has no state",
+    "Wrong login rejected",
+    "Login Origin enforced",
+    "Owner authenticated",
+    "Cross-origin command denied",
+    "Unauthorized upgrade denied",
+    "Manual save acknowledged only after write",
+    "Duplicate save does not consume next command",
+    "Production operation accepted",
+    "Backup valid",
+    "Restart paused and tick exact",
+    "Restart inventory exact",
+    "Restart command sequence preserved",
+    "Old owner session revoked",
+    "Old-era command rejected",
+    "clean channel stays connected",
+    "rtt1000 channel stays connected",
+    "constrained channel stays connected",
+    "All disconnected pauses world",
+    "Offline no time progress",
+    "Save error visibly pauses, never successful",
+    "Corrupt/old save rejected, not overwritten"
+  ],
+  "profiles": [
+    {
+      "profile": "clean",
+      "seconds": 12.0338279,
+      "full": {
+        "count": 2,
+        "median": 988480,
+        "max": 988480
+      },
+      "delta": {
+        "count": 19,
+        "median": 32930,
+        "max": 97255
+      },
+      "bytesPerSecond": 63345.76215769215,
+      "receiptMs": 579.4906000000001,
+      "metrics": {
+        "received": 28,
+        "sent": 26,
+        "receivedBytes": 3721,
+        "sentBytes": 2778174,
+        "resyncs": 1,
+        "coalesced": 0,
+        "connections": 1,
+        "errors": 0,
+        "peakUpMessages": 2,
+        "peakUpBytes": 428,
+        "peakDownMessages": 3,
+        "peakDownBytes": 988639,
+        "peakAuthorityQueue": 1,
+        "up": {
+          "messages": 28,
+          "bytes": 3721,
+          "peakMessages": 2,
+          "peakBytes": 428,
+          "queued": 0
+        },
+        "down": {
+          "messages": 26,
+          "bytes": 2778174,
+          "peakMessages": 3,
+          "peakBytes": 988639,
+          "queued": 0
+        },
+        "outstandingResults": 2,
+        "profile": "clean"
+      },
+      "tick": 460,
+      "maxQueueMs": 322.33759999999984
+    },
+    {
+      "profile": "rtt1000",
+      "seconds": 12.0031427,
+      "full": {
+        "count": 3,
+        "median": 988479,
+        "max": 988480
+      },
+      "delta": {
+        "count": 18,
+        "median": 29377,
+        "max": 80097
+      },
+      "bytesPerSecond": 49585.43065558989,
+      "receiptMs": 1139.036600000003,
+      "metrics": {
+        "received": 54,
+        "sent": 49,
+        "receivedBytes": 7013,
+        "sentBytes": 4376900,
+        "resyncs": 2,
+        "coalesced": 0,
+        "connections": 1,
+        "errors": 0,
+        "peakUpMessages": 3,
+        "peakUpBytes": 492,
+        "peakDownMessages": 3,
+        "peakDownBytes": 988639,
+        "peakAuthorityQueue": 1,
+        "up": {
+          "messages": 54,
+          "bytes": 7013,
+          "peakMessages": 3,
+          "peakBytes": 492,
+          "queued": 1
+        },
+        "down": {
+          "messages": 49,
+          "bytes": 4376900,
+          "peakMessages": 3,
+          "peakBytes": 988639,
+          "queued": 0
+        },
+        "outstandingResults": 2,
+        "profile": "rtt1000"
+      },
+      "tick": 478,
+      "maxQueueMs": 799.6822000000029
+    },
+    {
+      "profile": "constrained",
+      "seconds": 12.056060699999994,
+      "full": {
+        "count": 4,
+        "median": 988479,
+        "max": 988480
+      },
+      "delta": {
+        "count": 18,
+        "median": 29446,
+        "max": 44516
+      },
+      "bytesPerSecond": 43370.966106698535,
+      "receiptMs": 573.9185999999972,
+      "metrics": {
+        "received": 78,
+        "sent": 72,
+        "receivedBytes": 10079,
+        "sentBytes": 5933467,
+        "resyncs": 3,
+        "coalesced": 0,
+        "connections": 1,
+        "errors": 0,
+        "peakUpMessages": 3,
+        "peakUpBytes": 492,
+        "peakDownMessages": 3,
+        "peakDownBytes": 988639,
+        "peakAuthorityQueue": 1,
+        "up": {
+          "messages": 78,
+          "bytes": 10079,
+          "peakMessages": 3,
+          "peakBytes": 492,
+          "queued": 0
+        },
+        "down": {
+          "messages": 72,
+          "bytes": 5933467,
+          "peakMessages": 3,
+          "peakBytes": 988639,
+          "queued": 1
+        },
+        "outstandingResults": 2,
+        "profile": "constrained"
+      },
+      "tick": 496,
+      "maxQueueMs": 763.5748999999996
+    }
+  ],
+  "peakRSS": 348938240
+}

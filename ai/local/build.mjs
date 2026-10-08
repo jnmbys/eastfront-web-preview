@@ -15,7 +15,7 @@ cpSync('src/assets/VS2_ASSET_MANIFEST.json','.ai003-preview/src/assets/VS2_ASSET
 writeFileSync('.ai003-preview/styles.css',readFileSync('styles.css','utf8')+'\n.local-ai-status{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px;background:#222d22;color:#fff;font-size:14px}.local-ai-status button{min-height:44px}.home-screen{padding:32px}.home-screen select{margin:12px;min-height:44px}');
 console.log('AI003 isolated preview: .ai003-preview (no deployment)');
 
-writeFileSync('.ai003-preview/ai003-build.json',JSON.stringify({task:'AI-003',sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),uncommittedChanges:!!execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim(),productionConnection:false,saveLoadSupported:false},null,2)+'\n');
+writeFileSync('.ai003-preview/ai003-build.json',JSON.stringify({task:'AI-003',sourceCommit:process.env.RELEASE_SOURCE_SHA||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),uncommittedChanges:process.env.RELEASE_SOURCE_SHA?false:!!execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim(),productionConnection:false,saveLoadSupported:false},null,2)+'\n');
 
 cpSync('playable.css','.ai003-preview/playable.css');
 writeFileSync('.ai003-preview/index.html',readFileSync('.ai003-preview/index.html','utf8').replace('</head>','<link rel="stylesheet" href="./playable.css"></head>'));

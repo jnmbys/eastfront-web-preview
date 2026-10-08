@@ -6,7 +6,7 @@ export class Client extends EventTarget{
  }
  event(type,detail={}){const {payload,...logDetail}=detail;this.events.push({...logDetail,type,at:performance.now()});if(this.events.length>3000)this.events.shift();this.dispatchEvent(new CustomEvent(type,{detail}));this.dispatchEvent(new Event('change'));}
  persist(){sessionStorage.setItem(`grand-play-wire:${this.seat}`,JSON.stringify({instanceId:this.instanceId,era:this.era,nextSeq:this.nextSeq,pending:[...this.pending.values()]}));}
- async start(){const r=await fetch(`/${this.seat}/session`,{method:'POST'});const d=await r.json();if(!r.ok)throw Error(d.error);this.side=d.side;this.instanceId=d.instanceId;const changed=this.era&&this.era!==d.era||this.savedEra&&this.savedEra!==d.era;this.era=d.era;
+ async start(){const r=await fetch(`/${this.seat}/session`,{method:'POST',headers:document.querySelector('meta[name=grand-release]')?{'X-Grand-Protocol':'GRAND-RELEASE-1'}:{}});const d=await r.json();if(!r.ok)throw Error(d.error);this.side=d.side;this.instanceId=d.instanceId;const changed=this.era&&this.era!==d.era||this.savedEra&&this.savedEra!==d.era;this.era=d.era;
   if(changed||this.savedInstance&&this.savedInstance!==d.instanceId){for(const row of this.pending.values())this.history.push({...row,status:'unknown',reason:'INSTANCE_CHANGED_NO_AUTOMATIC_REPLAY'});this.pending.clear();this.nextSeq=1;this.epoch=null;this.version=0;this.view=null;this.savedInstance=d.instanceId;this.savedEra=d.era;this.event('instance-reset');}this.connect();}
  connect(){clearTimeout(this.retryTimer);const socket=new WebSocket(`${location.origin.replace('http','ws')}/${this.seat}/ws`);this.socket=socket;this.connected=false;
   socket.onopen=()=>socket.send(JSON.stringify({type:'HELLO'}));
@@ -24,9 +24,9 @@ export class Client extends EventTarget{
    const stream=m.stream??1;if(stream<this.stream||this.resyncPending&&!m.full)return;if(stream>this.stream&&!m.full){this.resync();return;}
    if(m.viewVersion<=this.version)return;
    if(!m.full&&m.baseViewVersion!==this.version){this.event('resync',{reason:'BASE_MISMATCH'});this.resync();return;}
-   const next=m.full??patch(this.view,m.change);if(this.view&&next.revision<this.view.revision){this.event('resync',{reason:'REVISION_REGRESSION'});this.resync();return;}
+   const applyStart=performance.now();const next=m.full??patch(this.view,m.change);if(this.view&&next.revision<this.view.revision){this.event('resync',{reason:'REVISION_REGRESSION'});this.resync();return;}
    this.view=next;this.version=m.viewVersion;this.stream=stream;this.resyncPending=false;const at=performance.now();this.updateIntervalMs=this.lastViewAt===null?null:at-this.lastViewAt;this.lastViewAt=at;this.serverQueueMs=m.serverQueueMs??null;this.viewTimes.push({revision:next.revision,at});if(this.viewTimes.length>256)this.viewTimes.shift();
-   this.event('view',{revision:next.revision,stream,viewVersion:m.viewVersion,baseViewVersion:m.baseViewVersion,full:!!m.full,updateIntervalMs:this.updateIntervalMs,serverQueueMs:this.serverQueueMs,bytes:JSON.stringify(m).length});
+   this.event('view',{revision:next.revision,stream,viewVersion:m.viewVersion,baseViewVersion:m.baseViewVersion,full:!!m.full,updateIntervalMs:this.updateIntervalMs,serverQueueMs:this.serverQueueMs,applyMs:performance.now()-applyStart,bytes:new TextEncoder().encode(JSON.stringify(m)).length});
    for(const result of m.results??[])this.result(result);
    for(const row of [...this.pending.values()])this.complete(row);this.send({type:'VIEW_ACK',stream:this.stream,viewVersion:this.version});this.pump();this.persist();this.event('ready');return;
   }

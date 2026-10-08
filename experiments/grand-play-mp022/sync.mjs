@@ -1,14 +1,18 @@
-// Transport-neutral authorized document diff. Arrays are atomic; entities use stable object keys.
+// Authorized document diff. Default arrays are atomic; release mode also diffs equal-length array fields.
 export function canonical(x){if(Array.isArray(x))return '['+x.map(canonical).join(',')+']';if(x&&typeof x==='object')return '{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}';return JSON.stringify(x);}
 const object=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
-export function diff(before,after,path=[],out={set:[],remove:[]}){
+export function diff(before,after,path=[],out={set:[],remove:[]},arrays=false){
  if(canonical(before)===canonical(after))return out;
+ if(arrays&&Array.isArray(before)&&Array.isArray(after)&&before.length===after.length){
+  const small={set:[],remove:[]};for(let i=0;i<after.length;i++)diff(before[i],after[i],[...path,String(i)],small,true);
+  const whole={path,value:after};if(JSON.stringify(small).length<JSON.stringify(whole).length){out.set.push(...small.set);out.remove.push(...small.remove);}else out.set.push(whole);return out;
+ }
  if(object(before)&&object(after)){
   for(const k of Object.keys(before))if(!Object.hasOwn(after,k))out.remove.push([...path,k]);
-  for(const k of Object.keys(after))diff(before[k],after[k],[...path,k],out);
+  for(const k of Object.keys(after))diff(before[k],after[k],[...path,k],out,arrays);
  }else out.set.push({path,value:after});return out;
 }
-export function patch(before,change){let next=structuredClone(before);const locate=path=>{let p=next;for(const k of path){if(['__proto__','constructor','prototype'].includes(k))throw Error('UNSAFE_PATH');if(!object(p)||!Object.hasOwn(p,k))throw Error('PATCH_BASE_MISSING');p=p[k];}return p;};
+export function patch(before,change){let next=structuredClone(before);const locate=path=>{let p=next;for(const k of path){if(['__proto__','constructor','prototype'].includes(k))throw Error('UNSAFE_PATH');if(!(object(p)||Array.isArray(p)&&/^(0|[1-9]\d*)$/.test(k))||!Object.hasOwn(p,k))throw Error('PATCH_BASE_MISSING');p=p[k];}return p;};
  for(const path of change.remove){if(!path.length)throw Error('ROOT_DELETE');const p=locate(path.slice(0,-1));delete p[path.at(-1)];}
  for(const {path,value} of change.set){if(path.some(k=>['__proto__','constructor','prototype'].includes(k)))throw Error('UNSAFE_PATH');if(!path.length)next=structuredClone(value);else locate(path.slice(0,-1))[path.at(-1)]=structuredClone(value);}return next;
 }

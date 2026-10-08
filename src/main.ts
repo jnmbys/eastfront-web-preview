@@ -1,3 +1,4 @@
+import {releaseMode,releaseHome,bindReleaseHome} from './playable/release.js';
 import {refreshIndustryViewport} from './playable/industryArt.js';
 import {refreshBattleMapViewport} from './playable/battleMap.js';
 import {disposeCityArt,scheduleCityArt} from './render/cityArtRuntime.js';
@@ -537,9 +538,11 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
 }
 
 function localAiHome():string {
+ if(releaseMode())return releaseHome();
  return `<main class="home-screen"><h1>EASTFRONT · 共同时间战役</h1><p>GRAND-ART-001 · ${location.port==='4244'?'真实新规则战役中期（独立存档）':'七日陆战 · 民军工业、铁路枢纽与逐步补充'} · MP-022-R1</p><p>两个本机操作端共同指挥德军三个军团；苏军由AI控制。暂停下令、持续交战、生产配送和磁盘存档均由同一权威服务执行。</p><p><a href="/?client=a">指挥端 A</a> · <a href="/?client=b" target="_blank">打开协同端 B</a>。同一端只保留一个有效连接；另一端不受它的延迟影响。当前为 ${new URLSearchParams(location.search).get('client')==='b'?'B':'A'} 端。</p><label>对局规则<select id="play-mode"><option value="continuous">连续战役 · 共享时间与授权通信</option></select></label><label>玩家阵营<select id="ai-side"><option value="GERMAN">德军</option></select></label><p>首次进入暂停；已有实例继续保留进度。加载磁盘存档默认暂停，两端旧意图作废；保存只覆盖本候选存档槽。退出页面不会结束共同战役，离开前请暂停并保存。</p><button id="ai-start" class="primary-action">进入共同战役</button><p><a href="http://127.0.0.1:4241/">回到R1的4241候选</a>（其服务与进度保持原样）</p><p><a href="http://127.0.0.1:4244/">打开本轮真实中期存档</a>：真实正常进程中的中期检查点，独立存档。七日战役；工时、供给与补充均随同一时间推进。</p></main>`;
 }
 function bindLocalAiHome():void {
+ bindReleaseHome();
  const modeEl=document.querySelector<HTMLSelectElement>('#play-mode'),sideEl=document.querySelector<HTMLSelectElement>('#ai-side');const fixedSide=()=>{if(sideEl){sideEl.disabled=modeEl?.value==='continuous';if(sideEl.disabled)sideEl.value='GERMAN';}};modeEl?.addEventListener('change',fixedSide);fixedSide();
  document.querySelector('#ai-perf-report')?.addEventListener('click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
  document.querySelector('#ai-start')?.addEventListener('click',()=>{
@@ -606,7 +609,7 @@ function updateLocalAiStatus():void {
  if(grandPort){const title=bar.querySelector('strong');if(title)title.textContent=grandPort.continuous?'连续战役 · 德军统帅 / 苏军AI':'大战略实验 · 双方人工轮流';}
  const setText=(selector:string,value:string)=>{const el=bar!.querySelector(selector)!;if(el.textContent!==value)el.textContent=value;};
  setText('#ai-status-text',grandPort?.continuous?'双方共享时钟 · 地图仅显示授权敌情':status+' · 当前行动方：'+side(m.ownerSide)+' · 你的视角：'+side(m.humanSide));
- setText('#ai-status-count',grandPort?.continuous?'本机磁盘存档可跨服务重启':`接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载`);
+ setText('#ai-status-count',grandPort?.continuous?'战役存档可跨服务重启':`接受 ${m.accepted} / 拒绝 ${m.rejected} · 暂不支持存档 / 加载`);
  const takeover=bar.querySelector<HTMLButtonElement>('#ai-takeover')!;
  takeover.hidden=!!grandPort?.continuous||!!logisticsPort||!(m.manual||/^(AGENT_STOP|AGENT_ERROR|REJECTION_LIMIT)/.test(m.reason??''));
  setText('#ai-takeover',`明确接管 ${side(m.ownerSide)}（切换授权视角）`);
