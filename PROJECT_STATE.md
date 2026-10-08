@@ -1,9 +1,8 @@
-# GRAND-MAP-002 branch state
+# GRAND-UNIT-001 branch state
 
-- Branch: grand-map-002-progress-estimates. Baseline: d3905ea0ea933774bc817c26195fa4e2947054bb.
-- Full silhouette current-segment fill and display-only bounded contact trend estimates. No damage/economy/AI/RNG changes.
-- New localhost4224 service; original4223 PID24748 and save preserved.
-- Current acceptance session: T40 paused, saved; same actual battle fragment reconstructed from verified browser operations for sequential evidence. Original first-run T45 save preserved in evidence.
-- Source/tests/start-stop: experiments/grand-map-002. Actual browser screenshots, reference-access limitation and honest errors: evidence/grand-map-002/REPORT.md.
-- 37-step/8-operation existing replay preserves authoritative state, economy, RNG, engagement grouping and both fair views. Focused arrival/interruption/history/privacy checks pass.
-- No merge/deploy/public resources. User visual acceptance and prediction usefulness remain empirical; not claimed proven.
+- Branch: grand-unit-001-dual-status. Baseline: a9ed346a88f6b6308e2863af2f424b43fc37aaf4.
+- Own unit/stack green organization and gold personnel bars; exact authorized equipment shortages, battle roster and corps totals. Enemy unknown values never render bars.
+- Display adapter exports public org max 100 and existing retreat threshold 18; no simulation, AI, economy, RNG or action changes.
+- Original localhost4224 PID5024 preserved. Candidate localhost4225 PID19280, T15 paused and saved under LOCALAPPDATA/EastfrontSaves/grand-unit-001.
+- Focused checks and real T12–T15 browser evidence: evidence/grand-unit-001/REPORT.md. Existing directed replacement receipt reused for display mapping; no claim of natural personnel replenishment in this fragment.
+- Start/stop instructions: experiments/grand-unit-001/README.md. No merge/deploy/public access.
