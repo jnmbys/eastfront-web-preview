@@ -4,7 +4,7 @@ import type {MatchSession} from './match.js';
 export function playerSnapshot(match:MatchSession,controllerId:string):AuthorizedPlayerView {
   const assignment=match.controllerAssignments.find(a=>a.controllerId===controllerId);
   if(!assignment)throw new Error('Controller has no viewer assignment');
-  const derived=derivePlayerView(match.authoritative.state,assignment.viewer,match.authoritative.rules,match.authoritative.knowledge?.[assignment.viewer]);
+  const derived=derivePlayerView(match.authoritative.state,assignment.viewer,match.authoritative.rules,match.authoritative.knowledge?.[assignment.viewer],(match.authoritative as typeof match.authoritative & {visionRules?:string}).visionRules==='GRAND-VISION-001');
   // Explicit allowlist, even if the local projection later grows host/debug fields.
   return {viewer:assignment.viewer,turn:derived.turn,phase:derived.phase,activeSide:derived.activeSide,
     hexes:derived.hexes,edges:derived.edges,units:derived.units,contacts:derived.contacts,lastKnown:derived.lastKnown,

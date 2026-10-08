@@ -43,9 +43,10 @@ export function spottingHexes(state:Readonly<GameState>,viewer:Side):{identified
 }
 
 /** Pure, detached and JSON-safe. HIDDEN units have no object in this DTO. */
-export function derivePlayerView(state:Readonly<GameState>,viewer:Viewer,rules:LocalGameSession['rules'],knowledge?:Readonly<Knowledge>):PlayerViewState {
+export function derivePlayerView(state:Readonly<GameState>,viewer:Viewer,rules:LocalGameSession['rules'],knowledge?:Readonly<Knowledge>,controlledTerritory=false):PlayerViewState {
   const observer=viewer==='OBSERVER',deploying=isDeploymentPhase(state);
   const sight=observer?{identified:new Set(Object.keys(state.hexes)),contact:new Set(Object.keys(state.hexes))}:spottingHexes(state,viewer);
+  if(controlledTerritory&&!observer&&!deploying)for(const h of Object.values(state.hexes))if(h.control===viewer){sight.identified.add(key(h.coord));sight.contact.add(key(h.coord));}
   // Setup is private even where opposing deployment zones touch.
   if(deploying&&!observer){sight.identified.clear();sight.contact.clear();for(const u of Object.values(state.units))if(u.alive&&u.side===viewer){sight.identified.add(key(u.hex));sight.contact.add(key(u.hex));}}
   const participants=new Set<string>();

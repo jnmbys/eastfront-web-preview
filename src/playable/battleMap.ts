@@ -1,3 +1,4 @@
+import {paintTerritoryMemory} from './territoryVision.js';
 import {battleStatus,statusBars,gearSummary} from './unitStatus.js';
 import {paintCompactForces} from './compactForces.js';
 import type {GrandPort} from './grand.js';
@@ -46,6 +47,7 @@ export function paintBattleMap(p:GrandPort,point:(h:any)=>{x:number;y:number},re
  const paintStarted=performance.now();const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),c=p.data.continuous,m=c.map;if(!svg||!m)return;
  viewportPaint=()=>{if(svg.isConnected)paintBattleMap(p,point,refresh,canInspect,selectUnit);};
  const layer=(id:string,before=false)=>{let el=svg.querySelector<SVGGElement>('#'+id);if(!el){el=document.createElementNS(NS,'g');el.id=id;el.setAttribute('pointer-events','none');if(before)svg.insertBefore(el,svg.querySelector('#city-art-static')??svg.querySelector('#fog-surface-layer'));else svg.append(el);}return el;};
+ paintTerritoryMemory(layer('territory-memory'),p,point);
  const region=layer('control-regions',true),bounds=layer('control-boundaries'),fronts=layer('corps-fronts'),bubbles=layer('battle-bubbles');
 
  const view=p.data.game.message.payload.view,signature=JSON.stringify([view.viewer,view.identifiedHexKeys,view.hexes.map((h:any)=>h.control)]);
