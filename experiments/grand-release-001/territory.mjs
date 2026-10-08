@@ -1,0 +1,41 @@
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import {Campaign as Economy} from '../grand-economy-002/authority.mjs';
+import {rules as previous,cfg} from '../grand-economy-002/config.mjs';
+import {hexKey as key,hexDistance as distance} from '../../vendor/eastfront-digital-core/dist/index.js';
+export const CONFIG=JSON.parse(fs.readFileSync(new URL('./territory-config.json',import.meta.url)));
+export const RULES=Object.freeze({...previous,version:'GRAND-TERRITORY-1',saveVersion:1,duration:null,territorialSurrender:true});
+const sides=['GERMAN','SOVIET'],other=s=>s==='GERMAN'?'SOVIET':'GERMAN',copy=structuredClone;
+const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
+export function score(config,state){return Object.fromEntries(sides.map(side=>{const rows=config.rows.filter(r=>r.side===side),total=rows.reduce((n,r)=>n+r.weight,0),lost=rows.reduce((n,r)=>n+(state.hexes[r.hex]?.control===other(side)?r.weight:0),0),lostRatio=lost/total;return [side,{total,lost,lostRatio,threshold:config.threshold,progress:Math.min(1,lostRatio/config.threshold)}];}));}
+export class Campaign extends Economy{
+ constructor(){super();this.ruleOverride=RULES;this.simRules=RULES;this.clock.rules=RULES.version;this.clock.territory={config:copy(CONFIG),hash:digest(CONFIG),strategic:{}};}
+ finish(surrendered,voluntary=false){if(this.clock.ended)return;this.clock.ended={winner:surrendered.length===2?null:other(surrendered[0]),surrendered,tick:this.clock.tick,type:voluntary?'VOLUNTARY':'TERRITORIAL',reason:surrendered.length===2?'双方在同一时间步达到投降阈值，战役共同终止':`${surrendered[0]==='GERMAN'?'德军':'苏军'}${voluntary?'主动投降':'核心战区失守权重达到投降阈值，正式投降'}`};this.clock.paused=true;this.note(this.viewer,this.clock.ended.reason);}
+ evaluateSurrender(){if(this.clock.ended)return;const scores=score(this.clock.territory.config,this.state),losers=sides.filter(s=>scores[s].lostRatio>=scores[s].threshold);if(losers.length)this.finish(losers);}
+ advance(){if(this.clock.ended)return;if(!Number.isSafeInteger(this.clock.tick+1)||!Number.isFinite(new Date(Date.parse(cfg.date)+(this.clock.tick+1)*300000).getTime()))throw Error('CLOCK_RANGE_EXHAUSTED_SAVE_AND_STOP');super.advance();this.econ.cities.events=this.econ.cities.events.slice(-500);this.evaluateSurrender();}
+ transaction(req){if(req.operation?.type!=='SURRENDER')return super.transaction(req);const signature=JSON.stringify(req),prior=this.receipts.get(req.id);if(prior){if(prior.signature!==signature)throw Error('ID_REUSE_CONFLICT');return copy(prior.result);}
+  if(typeof req.id!=='string'||req.id.length<8)throw Error('REQUEST_ID_REQUIRED');if(this.clock.ended)throw Error('CAMPAIGN_FINISHED');if(req.version!==this.version)throw Error('STALE_VERSION');if(req.operation.confirmed!==true||req.operation.side!==this.viewer||!sides.includes(this.viewer))throw Error('SURRENDER_CONFIRM_OWNER_REQUIRED');
+  this.finish([this.viewer],true);this.version++;this.match.matchRevision=this.version;const result={ok:true,version:this.version};this.receipts.set(req.id,{signature,result});return result;
+ }
+ restore(s,pause=true){if(s?.format!==RULES.version||s.clock?.territory?.hash!==digest(CONFIG)||digest(s.clock.territory.config)!==digest(CONFIG))throw Error('TERRITORY_SAVE_VERSION_REQUIRES_NEW_GAME');this.ruleOverride=RULES;super.restore(s,pause);}
+ territoryStrategy(view){
+  // Only the supplied authorized view plus own formation condition and frozen public points.
+  const side='SOVIET',seen=new Map(view.hexes.map(h=>[key(h.coord),h])),own=view.units.filter(u=>u.side===side),enemies=view.units.filter(u=>u.side!==side),memory=this.clock.territory?.strategic;if(!memory)return;
+  const points=CONFIG.rows.filter(r=>r.weight>1),claimed=new Set();
+  for(const g of this.clock.corps.filter(g=>g.side===side)){
+   const us=own.filter(u=>g.members.includes(u.id));if(!us.length)continue;const origin=us[0].hex,old=memory[g.id],owned=r=>seen.get(r.hex)?.control===side;
+   const threats=points.filter(r=>r.side===side&&seen.has(r.hex)&&(!owned(r)||enemies.some(e=>distance(e.hex,seen.get(r.hex).coord)<=2)));
+   const invalid=old&&(old.defend?!threats.some(r=>r.hex===old.hex):seen.get(old.hex)?.control===side);
+   if(old&&!invalid&&this.clock.tick<old.next){claimed.add(old.hex);continue;}
+   const available=points.filter(r=>r.side!==side&&!owned(r)),pool=threats.length?threats:available;
+   const chosen=pool.map(r=>({r,h:this.stateCoordinate(r.hex)})).sort((a,b)=>(distance(origin,a.h)*10-a.r.weight+(claimed.has(a.r.hex)?100:0))-(distance(origin,b.h)*10-b.r.weight+(claimed.has(b.r.hex)?100:0))||a.r.hex.localeCompare(b.r.hex))[0];
+   if(!chosen)continue;claimed.add(chosen.r.hex);const org=us.reduce((n,u)=>n+this.clock.units[u.id].org,0)/us.length;
+   const kind=org<38?'REFIT':threats.length&&owned(chosen.r)?'HOLD':'ADVANCE';const target=kind==='REFIT'?origin:chosen.h;
+   g.order={...g.order,kind,target,risk:org>65?'NORMAL':'LOW',paused:false};memory[g.id]={hex:chosen.r.hex,defend:!!threats.length,next:this.clock.tick+72,reason:kind==='REFIT'?'组织不足，先整补':`${threats.length?'保护':'推进'}关键计分地区：${chosen.r.label}`};
+  }
+ }
+ stateCoordinate(hex){const[q,r]=hex.split(',').map(Number);return {q,r};}
+ snapshot(draft){const d=super.snapshot(draft);if(!this.clock.territory)return d;const known=new Map(d.game.message.payload.view.hexes.map(h=>[key(h.coord),h])),scores=score(this.clock.territory.config,this.state);d.continuous.calendar=new Date(Date.parse(cfg.date)+this.clock.tick*300000).toISOString().slice(0,16).replace('T',' ');d.continuous.victoryText='无战役时限；核心战区失守权重达到80%时投降。';
+  d.continuous.surrender={version:CONFIG.version,side:this.viewer,scores,own:CONFIG.rows.filter(r=>r.side===this.viewer).map(r=>({...r,control:known.has(r.hex)?known.get(r.hex).control:null,current:known.has(r.hex)})),ended:copy(this.clock.ended)};return d;
+ }
+}

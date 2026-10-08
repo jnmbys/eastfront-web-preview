@@ -35,9 +35,9 @@ export class CampaignAdapter {
  }
  async submit(seat,e){const receivedAt=performance.now();return this.exclusive(()=>{
   this.seat(seat);const c=this.c,startedAt=performance.now();if(e.instanceId!==c.id)fail('INSTANCE_MISMATCH');if(e.era!==this.era)fail('RESTORED_SESSION_REPLAN_REQUIRED');
-  if(typeof e.requestId!=='string'||!/^[-\w:]{8,96}$/.test(e.requestId)||!Number.isSafeInteger(e.commandSeq)||e.commandSeq<1)fail('INVALID_ENVELOPE');
+  if(typeof e.requestId!=='string'||!/^[-\w:]{8,96}$/.test(e.requestId)||!Number.isSafeInteger(e.commandSeq)||e.commandSeq<1||e.commandSeq>=Number.MAX_SAFE_INTEGER)fail('INVALID_ENVELOPE');
   const signature=canonical(e),prior=c.receipts.get(e.requestId);if(prior){if(prior.transport?.seat!==seat||prior.transport.signature!==signature)fail('ID_REUSE_CONFLICT');return copy(prior.transport.result);}
-  if(c.receipts.size>=4096)fail('RECEIPT_CAPACITY_REACHED');if(e.commandSeq!==c.transport.next[seat])fail('COMMAND_SEQUENCE_GAP');
+  if(c.receipts.size>=(this.receiptLimit??4096))fail('RECEIPT_CAPACITY_REACHED');if(e.commandSeq!==c.transport.next[seat])fail('COMMAND_SEQUENCE_GAP');
   const beforeVersion=c.version,p=copy(e.payload??{}),dep=e.dependencies??{};let reason=null,status='REJECTED',load=false;
   const before=e.kind==='LOAD'?{campaign:c.save(),transport:copy(c.transport),era:this.era}:null;
   try{
@@ -50,13 +50,13 @@ export class CampaignAdapter {
     if(['DIRECT','ASSIGN'].includes(p.type)){this.control(seat,p.unit);const u=c.clock.units[p.unit];if(dep.unitGeneration!==u.commandGeneration)fail('UNIT_COMMAND_CHANGED');}
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type)&&dep.economyGeneration!==c.transport.economyGeneration)fail('ECONOMY_CONFIGURATION_CHANGED');
     if(p.type==='BUILD_FACTORY'&&dep.account!==this.accountStamp())fail('RESOURCE_DEPENDENCY_CHANGED');
-    if(['CLOCK','AUTOPAUSE'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
+    if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
     const affected=c.clock.corps.filter(g=>g.id===p.group||p.type==='ASSIGN'&&g.members.includes(p.unit));
     c.transaction({id:e.requestId,version:c.version,operation:p});
     if(['ORDER','ASSIGN'].includes(p.type))for(const g of affected)g.commandGeneration++;
     if(['DIRECT','ASSIGN'].includes(p.type))c.clock.units[p.unit].commandGeneration++;
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type))c.transport.economyGeneration++;
-    if(['CLOCK','AUTOPAUSE'].includes(p.type))c.transport.worldGeneration++;
+    if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type))c.transport.worldGeneration++;
    }else fail('UNKNOWN_COMMAND');
    status='APPLIED';
   }catch(error){reason=error.message;if(before){c.restore(before.campaign,false);c.transport=before.transport;this.era=before.era;}}
@@ -65,6 +65,6 @@ export class CampaignAdapter {
   if(e.kind==='SAVE'&&status==='APPLIED'){try{this.saveFileNow();}catch(error){result.status='REJECTED';result.reason=error.message;result.acceptedRevision=null;}}
   this.record('command-complete',{kind:e.kind,type:p.type,requestId:e.requestId,tick:c.clock.tick,status:result.status,reason:result.reason,payload:p,epoch:c.econ.epoch,account:copy(c.econ.accounts.GERMAN),load});return copy(result);
  });}
- async step(){return this.exclusive(()=>{if(this.c.receipts.size>=4096){this.c.clock.paused=true;return;}this.record('step-start',{tick:this.c.clock.tick,groups:this.c.clock.corps.filter(g=>g.side==='GERMAN').map(g=>({id:g.permanentId,paused:g.order.paused,generation:g.commandGeneration}))});const changed=this.c.tick();this.record('step-end',{tick:this.c.clock.tick,changed});return changed;});}
+ async step(){return this.exclusive(()=>{if(this.c.receipts.size>=(this.receiptLimit??4096)){this.c.clock.paused=true;return;}this.record('step-start',{tick:this.c.clock.tick,groups:this.c.clock.corps.filter(g=>g.side==='GERMAN').map(g=>({id:g.permanentId,paused:g.order.paused,generation:g.commandGeneration}))});const changed=this.c.tick();this.record('step-end',{tick:this.c.clock.tick,changed});return changed;});}
  async tick(elapsed){if(this.c.clock.paused||this.c.clock.ended){this.accumulated=0;return;}this.accumulated+=Math.min(1000,elapsed)*this.c.clock.speed;if(this.accumulated>=(this.c.simRules?.wallMs??rules.wallMs)){this.accumulated-=(this.c.simRules?.wallMs??rules.wallMs);return this.step();}}
 }

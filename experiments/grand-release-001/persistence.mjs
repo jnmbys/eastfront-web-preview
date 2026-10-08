@@ -2,9 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 import {CampaignAdapter} from '../grand-play-mp022/adapter.mjs';
-import {Campaign} from '../grand-economy-002/authority.mjs';
+import {Campaign} from './territory.mjs';
 import {canonical} from '../grand-play-mp022/sync.mjs';
-export const SAVE_SCHEMA='GRAND-RELEASE-1';
+export const SAVE_SCHEMA='GRAND-RELEASE-TERRITORY-1';
 const hash=x=>createHash('sha256').update(canonical(x)).digest('hex');
 export function atomicWrite(file,bytes){
  fs.mkdirSync(path.dirname(file),{recursive:true});const tmp=file+'.tmp';const fd=fs.openSync(tmp,'w',0o600);
@@ -12,12 +12,12 @@ export function atomicWrite(file,bytes){
  fs.renameSync(tmp,file);
  if(process.platform!=='win32'){const dir=fs.openSync(path.dirname(file),'r');try{fs.fsyncSync(dir);}finally{fs.closeSync(dir);}}
 }
-export function readSave(file){const e=JSON.parse(fs.readFileSync(file,'utf8'));if(hash(e.payload)!==e.checksum)throw Error('SAVE_CHECKSUM_FAILED');const s=JSON.parse(e.payload);if(s.schema!==SAVE_SCHEMA||s.rules!=='GRAND-ECONOMY-2'||!s.transport?.next)throw Error('UNSUPPORTED_SAVE_VERSION');return s;}
+export function readSave(file){const e=JSON.parse(fs.readFileSync(file,'utf8'));if(hash(e.payload)!==e.checksum)throw Error('SAVE_CHECKSUM_FAILED');const s=JSON.parse(e.payload);if(s.schema!==SAVE_SCHEMA||s.rules!=='GRAND-TERRITORY-1'||!s.transport?.next)throw Error('UNSUPPORTED_SAVE_VERSION');return s;}
 export class ReleaseAdapter extends CampaignAdapter{
- constructor(options={}){super({...options,restore:false,CampaignClass:options.CampaignClass??Campaign});this.releaseClass=options.CampaignClass??Campaign;this.persistence={state:'unsaved',savedAt:null,tick:null,error:null,intervalSeconds:30};this.lastSaveAt=0;this.savedRevision=-1;if(this.saveFile&&fs.existsSync(this.saveFile))this.loadFile();}
+ constructor(options={}){super({...options,restore:false,CampaignClass:options.CampaignClass??Campaign});this.receiptLimit=Infinity;this.releaseClass=options.CampaignClass??Campaign;this.persistence={state:'unsaved',savedAt:null,tick:null,error:null,intervalSeconds:30};this.lastSaveAt=0;this.savedRevision=-1;if(this.saveFile&&fs.existsSync(this.saveFile))this.loadFile();}
  saveFileNow(){
   if(!this.saveFile)throw Error('SAVE_UNAVAILABLE');
-  try{const savedAt=new Date().toISOString(),payload=JSON.stringify({schema:SAVE_SCHEMA,rules:'GRAND-ECONOMY-2',savedAt,campaign:this.c.save(),transport:this.c.transport});
+  try{const savedAt=new Date().toISOString(),payload=JSON.stringify({schema:SAVE_SCHEMA,rules:'GRAND-TERRITORY-1',savedAt,campaign:this.c.save(),transport:this.c.transport});
    // Keep the last verified checkpoint; never rotate a corrupt current file over it.
    if(fs.existsSync(this.saveFile)){readSave(this.saveFile);atomicWrite(this.saveFile+'.bak',fs.readFileSync(this.saveFile));}
    atomicWrite(this.saveFile,JSON.stringify({checksum:hash(payload),payload}));

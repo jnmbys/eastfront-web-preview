@@ -11,8 +11,8 @@ import path from 'node:path';
 import {OrderedLink,diff} from './sync.mjs';
 export const profiles={clean:{rtt:0},rtt100:{rtt:100},rtt300:{rtt:300},rtt1000:{rtt:1000},constrained:{rtt:300,jitter:90,bytesPerSecond:256*1024}};
 export const STATE_WINDOW=8;
-export async function start({port=4220,autoTick=true,saveFile=path.join(process.env.LOCALAPPDATA??process.cwd(),'EastfrontSaves/grand-play-mp022/campaign.json'),evidenceFile=null,CampaignClass,cookiePrefix="grandplaymp_",host="127.0.0.1",publicOrigin=null,AdapterClass=CampaignAdapter,access=null,router=null,release=false}={}){
- const adapter=new AdapterClass({saveFile,CampaignClass}),sessions=new Map(),seats=new Map(),root=resolve(fileURLToPath(new URL('../../.ai003-preview/',import.meta.url)));let closing=false,ticking=false;
+export async function start({port=4220,autoTick=true,saveFile=path.join(process.env.LOCALAPPDATA??process.cwd(),'EastfrontSaves/grand-play-mp022/campaign.json'),evidenceFile=null,CampaignClass,cookiePrefix="grandplaymp_",host="127.0.0.1",publicOrigin=null,AdapterClass=CampaignAdapter,access=null,router=null,release=false,staticRoot=null,releaseProtocol='GRAND-RELEASE-1'}={}){
+ const adapter=new AdapterClass({saveFile,CampaignClass}),sessions=new Map(),seats=new Map(),root=resolve(staticRoot??fileURLToPath(new URL('../../.ai003-preview/',import.meta.url)));let closing=false,ticking=false;
  if(evidenceFile){mkdirSync(path.dirname(evidenceFile),{recursive:true});adapter.evidenceFile=evidenceFile;}
  const metrics={received:0,sent:0,receivedBytes:0,sentBytes:0,resyncs:0,coalesced:0,connections:0,errors:0,peakUpMessages:0,peakUpBytes:0,peakDownMessages:0,peakDownBytes:0};
  const origin=()=>publicOrigin??`http://127.0.0.1:${server.address().port}`;
@@ -27,7 +27,7 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
   const url=new URL(req.url,origin()),match=url.pathname.match(/^\/(a|b)(?:\/(.*))?$/),seat=match?.[1];
   if(req.method==='POST'){
    if(req.headers.origin!==origin())return reply(403,{error:'ORIGIN_DENIED'});
-   if(match?.[2]!=='session')return reply(404,{error:'NOT_FOUND'});if(release&&req.headers['x-grand-protocol']!=='GRAND-RELEASE-1')return reply(409,{error:'界面版本已更新，请刷新页面。'});
+   if(match?.[2]!=='session')return reply(404,{error:'NOT_FOUND'});if(release&&req.headers['x-grand-protocol']!==releaseProtocol)return reply(409,{error:'界面版本已更新，请刷新页面。'});
    let s=auth(req,seat);if(!s){if(seats.has(seat)){if(!release)return reply(409,{error:'SEAT_ALREADY_CLAIMED'});const old=seats.get(seat);old.connection?.close('REPLACED');sessions.delete(old.token);}const token=randomBytes(32).toString('hex');s={seat,side:seat,token,epoch:0,connection:null};sessions.set(token,s);seats.set(seat,s);}
    return reply(200,{instanceId:adapter.id,side:'GERMAN',seat:s.side,era:adapter.era,baseline:BASELINE,mode:'GRAND_PLAY_SHARED_CLOCK'}, {'Set-Cookie':`${cookiePrefix}${seat}=${s.token}; HttpOnly; SameSite=Strict; Path=/${seat}${origin().startsWith('https:')?'; Secure':''}`});
   }

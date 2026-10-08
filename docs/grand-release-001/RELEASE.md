@@ -1,14 +1,14 @@
 # GRAND-RELEASE-001 发布单（尚未上线）
 
-基线 `2a6580bccc86c8d14e75bff81847092c71066bfe`。分支 `grand-release-001-preview`。本单所属最终提交是候选源码；构建目录内 `release-build.json.source` 必须与发布选定的完整 SHA 一致，dirty 必须为 false。没有修改战斗、经济、军官或视野规则。最终干净提交构建产物另存本工作目录 `.release-artifact/web-assets.zip` 与 `CHECKSUMS.json`；Git 中 `build-files-precommit.json` 明确只是提交前诊断构建，不作为发布版本。
+基线 `2a6580bccc86c8d14e75bff81847092c71066bfe`。分支 `grand-release-001-preview`。本单所属最终提交是候选源码；构建目录内 `release-build.json.source` 必须与发布选定的完整 SHA 一致，dirty 必须为 false。追加领土投降规则：详见 TERRITORY.md；战斗与经济结算不变，敌方战略目标不再围绕旧限时三点。最终干净提交构建产物另存本工作目录 `.release-artifact/web-assets.zip` 与 `CHECKSUMS.json`；Git 中 `build-files-precommit.json` 明确只是提交前诊断构建，不作为发布版本。
 
 ## 本机试玩
 
-正常入口 http://127.0.0.1:4245/ ，真实中期入口 http://127.0.0.1:4246/ 。仅本机环回监听；两局隔离，进入默认暂停，德军对苏军 AI。同账号第二端也是共同指挥德军，不是双方真人对战。
+当前领土投降正常入口 http://127.0.0.1:4247/ 。旧七日候选 http://127.0.0.1:4245/ 与中期 http://127.0.0.1:4246/ 保留 。仅本机环回监听；两局隔离，进入默认暂停，德军对苏军 AI。同账号第二端也是共同指挥德军，不是双方真人对战。
 
 从本工作目录启动：`pwsh -File experiments/grand-release-001/start.ps1`（端口占用即拒绝，不替换其他服务）。关闭前点击暂停、保存，看到“已保存”后执行 `pwsh -File experiments/grand-release-001/stop.ps1`；仅核验并停止本候选进程。已启动时无需再运行启动脚本。
 
-存档在 `%USERPROFILE%/.eastfront/grand-release-001/4245`、`4246`。旧 4243/4244 与存档原样保留；回退直接使用旧入口，不将新格式文件复制到旧服务。地图细化仍可在设置中关闭。
+新存档在 `%USERPROFILE%/.eastfront/grand-release-territory-1/4247`，旧4245/4246存档目录不动。旧 4243/4244 与存档原样保留；回退直接使用旧入口，不将新格式文件复制到旧服务。地图细化仍可在设置中关闭。
 
 ## 五分钟操作卡（一次连贯试玩）
 
@@ -34,14 +34,14 @@
 
 1. 批准公网本人访问及上述新增费用后，在该工作区创建新的单实例服务和独立磁盘；不调用任何旧 Hook，不改旧服务。
 2. 固定本分支完整 SHA，关闭自动部署。构建 `npm ci --include=dev && node experiments/grand-release-001/build.mjs`；启动 `node experiments/grand-release-001/server.mjs`；健康检查 `/healthz`。Render TLS 终止后内部 HTTP，浏览器使用同域 HTTPS/WSS。
-3. 环境：NODE_VERSION=22、NODE_ENV=production、HOST=0.0.0.0；PORT 由平台提供；PUBLIC_ORIGIN=实际 HTTPS 根域（无末尾斜线）；SAVE_DIR=/var/data/grand-release-001。**禁止设置 RELEASE_LOCAL=1**。OWNER_PASSWORD_HASH 通过秘密环境变量设置，值为 scrypt salt:hash。用 `password-hash.mjs` 从标准输入生成，禁止将明文口令放命令行、Git、日志或报告。由本人保管唯一长访问口令。
+3. 环境：NODE_VERSION=22、NODE_ENV=production、HOST=0.0.0.0；PORT 由平台提供；PUBLIC_ORIGIN=实际 HTTPS 根域（无末尾斜线）；SAVE_DIR=/var/data/grand-release-territory-1。**禁止设置 RELEASE_LOCAL=1**。OWNER_PASSWORD_HASH 通过秘密环境变量设置，值为 scrypt salt:hash。用 `password-hash.mjs` 从标准输入生成，禁止将明文口令放命令行、Git、日志或报告。由本人保管唯一长访问口令。
 4. 入口静态页面、存档信息、席位和 WS 均经本人认证；仅健康检查公开且无状态。保留准确 Host/Origin、HttpOnly/SameSite/HTTPS Secure Cookie、12小时会话、席位与命令代次、8包状态窗口、独立回执。没有匿名席位、没有苏军真人入口。
 5. 检查构建 manifest 的源码/规则/存档版本和资源哈希；登录后进行操作卡一次连续试玩。确认 WSS、权限拒绝、持久盘重启、断线暂停、延迟与流量实际指标；公网与真机结论在此之前均未完成。
 6. 出现异常先暂停并保存，停新服务即可关闭试玩；导出存档与备份后再做版本回退。带磁盘是单实例有停机发布，不承诺零停机。不以删除磁盘或服务作为常规关闭方法。
 
 ## 存档、备份与恢复
 
-新存档包装 `GRAND-RELEASE-1`，游戏规则仍为 `GRAND-ECONOMY-2`。保存完整战役、RNG、经济/在途状态、命令与防重复账。旧格式明确拒绝，不静默迁移。保存采用校验和、临时文件写入/fsync/原子替换；Linux 同步目录；`.bak` 留上一个已验证检查点，`.before-new` 留创建新局前备份。
+新存档包装 `GRAND-RELEASE-TERRITORY-1`，游戏规则仍为 `GRAND-TERRITORY-1`。保存完整战役、RNG、经济/在途状态、命令与防重复账。旧格式明确拒绝，不静默迁移。保存采用校验和、临时文件写入/fsync/原子替换；Linux 同步目录；`.bak` 留上一个已验证检查点，`.before-new` 留创建新局前备份。
 
 自动保存为每30现实秒或12模拟步（1游戏小时）脏状态写入；手动保存及已接受配置命令立即写入。正常可写磁盘下，异常退出最多回到最近检查点，名义间隔不超过上述阈值（加一次进行中的写入）；不是承诺磁盘故障仍不丢数据。写入失败会显示错误并暂停，不伪报成功。显示的时间为已落盘时间。
 
