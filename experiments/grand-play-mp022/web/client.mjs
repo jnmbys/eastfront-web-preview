@@ -1,3 +1,4 @@
+import {canDecodeState,decodeStateEnvelope} from '/transport/stateCodec.mjs';
 import {decodeView} from '/transport/view.mjs';
 import {patch,canonical} from '/sync.mjs';
 export class Client extends EventTarget{
@@ -9,13 +10,13 @@ export class Client extends EventTarget{
  async start(){const r=await fetch(`/${this.seat}/session`,{method:'POST',headers:document.querySelector('meta[name=grand-release]')?{'X-Grand-Protocol':document.querySelector('meta[name=grand-release]').content==='territory-1'?'GRAND-RELEASE-TERRITORY-1':'GRAND-RELEASE-1'}:{}});const d=await r.json();if(!r.ok)throw Error(d.error);this.side=d.side;this.instanceId=d.instanceId;const changed=this.era&&this.era!==d.era||this.savedEra&&this.savedEra!==d.era;this.era=d.era;
   if(changed||this.savedInstance&&this.savedInstance!==d.instanceId){for(const row of this.pending.values())this.history.push({...row,status:'unknown',reason:'INSTANCE_CHANGED_NO_AUTOMATIC_REPLAY'});this.pending.clear();this.nextSeq=1;this.epoch=null;this.version=0;this.view=null;this.savedInstance=d.instanceId;this.savedEra=d.era;this.event('instance-reset');}this.connect();}
  connect(){clearTimeout(this.retryTimer);const socket=new WebSocket(`${location.origin.replace('http','ws')}/${this.seat}/ws`);this.socket=socket;this.connected=false;
-  socket.onopen=()=>socket.send(JSON.stringify({type:'HELLO'}));
-  socket.onmessage=e=>{if(socket!==this.socket)return;try{this.receive(JSON.parse(e.data));}catch(error){this.event('error',{reason:error.message});this.resync();}};
+  let stateTail=Promise.resolve(),stateQueued=0;socket.onopen=()=>socket.send(JSON.stringify({type:'HELLO',stateGzip:canDecodeState()}));
+  socket.onmessage=e=>{if(socket!==this.socket)return;try{const m=JSON.parse(e.data);if(m.type==='STATE'||m.type==='STATE_GZIP'){if(m.instanceId!==this.instanceId||m.connectionEpoch!==this.epoch)return;if(++stateQueued>8){socket.close(1013,'STATE_DECODE_BACKPRESSURE');return;}stateTail=stateTail.then(async()=>{if(socket!==this.socket)return;const d=await decodeStateEnvelope(m);if(socket===this.socket)this.receive(d.message,d);}).catch(error=>{if(socket===this.socket){this.event('error',{reason:error.message});this.resync();}}).finally(()=>stateQueued--);}else this.receive(m);}catch(error){this.event('error',{reason:error.message});this.resync();}};
   socket.onclose=event=>{if(socket!==this.socket)return;this.connected=false;if(event.reason==='REPLACED'){this.disposed=true;this.event('replaced');}this.event('disconnected');for(const row of this.pending.values())if(row.status==='pending')row.status='unknown';this.persist();if(!this.disposed)this.retryTimer=setTimeout(()=>void this.start().catch(error=>{this.event('error',{reason:error.message});if(!this.disposed)this.retryTimer=setTimeout(()=>this.connect(),1200);}),1200);};
  }
  send(data){if(this.socket?.readyState!==1)return false;this.socket.send(JSON.stringify({...data,instanceId:this.instanceId,connectionEpoch:this.epoch}));return true;}
- receive(m){if(m.instanceId!==this.instanceId)return;
-  if(m.type==='WELCOME'){if(this.epoch!==null&&m.connectionEpoch<=this.epoch)return;this.epoch=m.connectionEpoch;this.version=0;this.stream=0;this.resyncPending=false;this.connected=true;this.nextSeq=Math.max(this.nextSeq,m.nextCommandSeq);this.event('connected');
+ receive(m,transport={}){if(m.instanceId!==this.instanceId)return;
+  if(m.type==='WELCOME'){if(this.epoch!==null&&m.connectionEpoch<=this.epoch)return;this.epoch=m.connectionEpoch;this.version=0;this.stream=0;this.resyncPending=false;this.connected=true;this.stateEncoding=m.stateEncoding??'json';this.nextSeq=Math.max(this.nextSeq,m.nextCommandSeq);this.event('connected');
    if(this.profile!=='clean')this.send({type:'PROFILE',name:this.profile});if(this.selected)this.select(this.selected);
    for(const row of [...this.pending.values()].filter(r=>r.command.commandSeq!==null).sort((a,b)=>a.command.commandSeq-b.command.commandSeq)){this.send({type:'COMMAND',command:row.command});this.event('retry',{requestId:row.command.requestId});}return;
   }
@@ -26,7 +27,7 @@ export class Client extends EventTarget{
    if(!m.full&&m.baseViewVersion!==this.version){this.event('resync',{reason:'BASE_MISMATCH'});this.resync();return;}
    const applyStart=performance.now();const next=m.full??patch(this.view,m.change);if(this.view&&next.revision<this.view.revision){this.event('resync',{reason:'REVISION_REGRESSION'});this.resync();return;}
    this.view=next;this.version=m.viewVersion;this.stream=stream;this.resyncPending=false;const at=performance.now();this.updateIntervalMs=this.lastViewAt===null?null:at-this.lastViewAt;this.lastViewAt=at;this.serverQueueMs=m.serverQueueMs??null;this.viewTimes.push({revision:next.revision,at});if(this.viewTimes.length>256)this.viewTimes.shift();
-   this.event('view',{revision:next.revision,stream,viewVersion:m.viewVersion,baseViewVersion:m.baseViewVersion,full:!!m.full,updateIntervalMs:this.updateIntervalMs,serverQueueMs:this.serverQueueMs,applyMs:performance.now()-applyStart,bytes:new TextEncoder().encode(JSON.stringify(m)).length});
+   this.event('view',{revision:next.revision,stream,viewVersion:m.viewVersion,baseViewVersion:m.baseViewVersion,full:!!m.full,updateIntervalMs:this.updateIntervalMs,serverQueueMs:this.serverQueueMs,applyMs:performance.now()-applyStart,bytes:new TextEncoder().encode(JSON.stringify(m)).length,wireBytes:transport.wireBytes??null,decodeMs:transport.decodeMs??0});
    for(const result of m.results??[])this.result(result);
    for(const row of [...this.pending.values()])this.complete(row);this.send({type:'VIEW_ACK',stream:this.stream,viewVersion:this.version});this.pump();this.persist();this.event('ready');return;
   }
