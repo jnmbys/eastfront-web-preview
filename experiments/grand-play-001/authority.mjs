@@ -75,7 +75,7 @@ export class Campaign extends City {
  combatTrace(){return {};}
  advance(){
   const spec=this.simRules??defaultRules;
-  const clock=this.clock;clock.tick++;const views=Object.fromEntries(sides.map(s=>[s,this.fair(s).view]));this.enemyPlan(views.SOVIET);
+  const clock=this.clock;clock.tick++;const views=Object.fromEntries(sides.map(s=>[s,this.fair(s).view]));this.planningViews=views;try{this.enemyPlan(views.SOVIET);}finally{this.planningViews=null;}
   const units=Object.values(this.state.units).filter(u=>u.alive).sort((a,b)=>a.id.localeCompare(b.id)),caps=Object.fromEntries(units.map(u=>[u.id,this.capability(u.id)])),before=copy(this.state),intents={},arrivals=[];
   for(const u of units){const v=clock.units[u.id],g=clock.corps.find(g=>g.members.includes(u.id));v.engaged=0;
    const own=views[u.side].units.find(x=>x.id===u.id),decision=this.decideAction(views[u.side],own,Object.fromEntries(Object.entries(caps).filter(([id])=>this.state.units[id].side===u.side)),this.ownOrder(u.id),profiles[g.profile]);intents[u.id]=decision;v.reason=decision.reason;clock.metrics.expanded+=decision.expanded??0;

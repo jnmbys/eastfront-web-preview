@@ -70,7 +70,7 @@ export function derivePlayerView(state:Readonly<GameState>,viewer:Viewer,rules:L
   const resources:PlayerViewState['resources']={};
   for(const side of ['GERMAN','SOVIET'] as const)if(observer||side===viewer)resources[side]={rp:state.rp[side],cp:state.cp[side]};
   return {viewer,turn:state.turn,phase:state.phase,activeSide:state.activeSide,
-    hexes:Object.values(state.hexes).map(h=>({...structuredClone(h),control:observer||sight.identified.has(key(h.coord))?h.control:null})),
+    hexes:structuredClone(Object.values(state.hexes)).map(h=>{if(!observer&&!sight.identified.has(key(h.coord)))h.control=null;return h;}),
     edges:structuredClone(Object.values(state.edges)),units,contacts:[...contacts.values()],lastKnown,
     identifiedHexKeys:[...sight.identified].sort(),contactHexKeys:[...sight.contact].sort(),resources,
     pendingDecision:state.pendingDecision&&(observer||state.pendingDecision.side===viewer)?structuredClone(state.pendingDecision):null,

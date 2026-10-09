@@ -1,0 +1,9 @@
+{
+  "scope": "targeted offline persistence/delta tests",
+  "checks": [
+    "Ordered copy-on-write deltas equal full states and preserve prior version; unsafe/missing bases rejected",
+    "Accepted command is durable before response; exact duplicate does not save or execute twice",
+    "Durable backup/restart preserve stock and request sequence, pause world and reject old era",
+    "Corrupt current checkpoint is not rotated over valid backup; failure pauses and reports failed"
+  ]
+}

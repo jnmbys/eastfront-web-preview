@@ -25,7 +25,7 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
  // continues to rotate independently; neither identity nor current save changes.
  let backedUp=0;
  for(const id of fs.readdirSync(root).filter(id=>/^[a-f0-9]{64}$/.test(id))){
-  const file=path.join(root,id,'campaign.json'),backup=file+'.before-ux004-r2';
+  const file=path.join(root,id,'campaign.json'),backup=file+'.before-ux004-r3';
   if(fs.existsSync(file)&&!fs.existsSync(backup)){readSave(file);atomicWrite(backup,fs.readFileSync(file));backedUp++;}
  }
  console.log('UX004-R2 pre-update checkpoints: '+backedUp);

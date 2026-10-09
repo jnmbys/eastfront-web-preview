@@ -1,4 +1,5 @@
 import http from 'node:http';
+import {monitorEventLoopDelay} from 'node:perf_hooks';
 import {gzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import {readFileSync,mkdirSync} from 'node:fs';
@@ -52,7 +53,7 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
   const observe=(name,link)=>{metrics[`peak${name}Messages`]=Math.max(metrics[`peak${name}Messages`],link.jobs.length);metrics[`peak${name}Bytes`]=Math.max(metrics[`peak${name}Bytes`],link.bytes);};
   const send=data=>{if(conn.closed||s.connection!==conn)return;const text=JSON.stringify({...data,instanceId:adapter.id,connectionEpoch:conn.epoch});metrics.sent++;metrics.sentBytes+=Buffer.byteLength(text);const queued=down.send(text);observe('Down',down);return queued;};
   const trace=(type,detail={})=>{conn.trace.push({type,at:performance.now(),...detail});if(conn.trace.length>2048)conn.trace.shift();};
-  async function push(){if(!conn.handshaken)return;if(conn.closed||s.connection!==conn||conn.rendering)return;if(access&&!access.authorized(req)){conn.close('AUTH_EXPIRED');return;}if(conn.outstanding.length&&performance.now()-conn.outstanding[0].sentAt>15000){conn.close('VIEW_ACK_TIMEOUT');return;}if(conn.outstanding.length>=STATE_WINDOW){if(conn.dirty)metrics.coalesced++;return;}if(!conn.dirty)return;if(release&&(down.bytes>128*1024||ws.bufferedAmount>256*1024)){metrics.coalesced++;return;}conn.rendering=true;conn.dirty=false;const stream=conn.stream;
+  async function push(){if(!conn.handshaken)return;if(conn.closed||s.connection!==conn||conn.rendering)return;if(access&&!access.authorized(req)){conn.close('AUTH_EXPIRED');return;}if(conn.outstanding.length&&performance.now()-conn.outstanding[0].sentAt>15000){conn.close('VIEW_ACK_TIMEOUT');return;}if(conn.outstanding.length>=STATE_WINDOW){if(conn.dirty)metrics.coalesced++;return;}if(!conn.dirty)return;if(release&&(ticking||adapter.depth>0)){metrics.coalesced++;return;}if(release&&(down.bytes>128*1024||ws.bufferedAmount>256*1024)){metrics.coalesced++;return;}conn.rendering=true;conn.dirty=false;const stream=conn.stream;
    try{const view=await adapter.view(s.side,conn.selection);if(conn.closed||s.connection!==conn)return;const change=conn.view?diff(conn.view,view,[],undefined,release):null,results=adapter.pending(s.side);
     if(stream!==conn.stream){conn.dirty=true;return;}
     if(!conn.full&&change&&!change.set.length&&!change.remove.length)return;
@@ -82,16 +83,38 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
      send({type:'RESULT',result});if(oldEra!==adapter.era){for(const seat of seats.values())seat.connection?.close('SAVE_LOADED_RECONNECT');return;}await push();for(const seat of seats.values())if(seat!==s)void seat.connection?.push();
     }catch(e){send({type:'ERROR',requestId:m.command?.requestId,reason:e.message});}return;
    }
-   if(m.type==='METRICS'){send({type:'METRICS',metrics:{...metrics,peakAuthorityQueue:adapter.peakDepth,up:{...up.metrics,queued:up.jobs.length},down:{...down.metrics,queued:down.jobs.length},outstandingResults:adapter.pending(s.side).length,profile:conn.profile}});return;}
+   if(m.type==='METRICS'){send({type:'METRICS',metrics:{...metrics,peakAuthorityQueue:adapter.peakDepth,up:{...up.metrics,queued:up.jobs.length},down:{...down.metrics,queued:down.jobs.length},outstandingResults:adapter.pending(s.side).length,profile:conn.profile,runtime:adapter.runtime??null}});return;}
    throw Error('UNKNOWN_MESSAGE');
   }
   ws.on('message',data=>{if(conn.closed)return;metrics.received++;metrics.receivedBytes+=data.byteLength;up.send(data.toString());observe('Up',up);});ws.on('error',()=>conn.close('CONNECTION_ERROR'));ws.on('close',()=>conn.close('CLOSED'));
  }
  const heartbeat=release?setInterval(()=>{for(const ws of wss.clients){if(Date.now()-ws.lastPong>15000)ws.terminate();else if(ws.readyState===1)ws.ping();}},5000):null;
- let previousTime=performance.now();
- const tickTimer=setInterval(async()=>{if(closing||ticking||!autoTick)return;ticking=true;try{const now=performance.now(),elapsed=now-previousTime;previousTime=now;const before=adapter.revision;if(!release||[...seats.values()].some(s=>s.connection&&!s.connection.closed))await adapter.tick(elapsed);if(release)await adapter.autoSave();if(adapter.revision!==before)for(const s of seats.values()){if(s.connection)s.connection.dirty=true;}}catch{metrics.errors++;}finally{ticking=false;}},100);
+ const lag=monitorEventLoopDelay({resolution:20});lag.enable();let previousTime=performance.now(),tickTimer;
+ const samples=[];let cpu=process.cpuUsage(),sampleAt=performance.now(),lastTick=adapter.c.clock.tick;
+ adapter.runtime={observedSeconds:0,actualSpeed:null,limited:false,stepMs:0,saveMs:0,eventLoopMaxMs:0};
+ async function runTick(){
+  const cycle=performance.now();
+  if(!closing&&!ticking&&autoTick&&adapter.depth===0){
+   ticking=true;
+   try{const now=performance.now(),elapsed=now-previousTime;previousTime=now;const before=adapter.revision;
+    let t=performance.now();if(!release||[...seats.values()].some(s=>s.connection&&!s.connection.closed))await adapter.tick(elapsed);
+    const stepMs=performance.now()-t;t=performance.now();if(release)await adapter.autoSave();const saveMs=performance.now()-t;
+    const end=performance.now(),used=process.cpuUsage();if(end-sampleAt>=1000){
+     samples.push({ms:end-sampleAt,ticks:Math.max(0,adapter.c.clock.tick-lastTick)});while(samples.length>10)samples.shift();
+     const ms=samples.reduce((n,x)=>n+x.ms,0),ticks=samples.reduce((n,x)=>n+x.ticks,0),actual=ticks*(adapter.c.simRules?.wallMs??1000)/ms;
+     adapter.runtime={observedSeconds:ms/1000,actualSpeed:actual,limited:!adapter.c.clock.paused&&ms>=5000&&actual<adapter.c.clock.speed*.8,stepMs,saveMs,eventLoopMaxMs:lag.max/1e6,cpuCores:(used.user+used.system-cpu.user-cpu.system)/((end-sampleAt)*1000),rss:process.memoryUsage().rss};
+     cpu=used;sampleAt=end;lastTick=adapter.c.clock.tick;lag.reset();if(adapter.c.clock.paused)samples.length=0;
+    }
+    if(adapter.revision!==before)for(const s of seats.values())if(s.connection)s.connection.dirty=true;
+   }catch{metrics.errors++;}finally{ticking=false;}
+  }
+  // One atomic step, then a real I/O opportunity. Never chain catch-up steps in
+  // microtasks ahead of socket commands. Wall debt is retained by the adapter.
+  if(!closing)tickTimer=setTimeout(runTick,Math.max(20,100-(performance.now()-cycle)));
+ }
+ tickTimer=setTimeout(runTick,100);
  const pushTimer=setInterval(()=>{for(const s of seats.values())void s.connection?.push().catch(()=>{metrics.errors++;s.connection.close('VIEW_ERROR');});},150);
  await new Promise((yes,no)=>{server.once('error',no);server.listen(port,host,yes);});
- return {server,adapter,seats,metrics,url:origin(),enableTicks(){autoTick=true;},async close(){closing=true;if(release)await adapter.offline();clearInterval(tickTimer);clearInterval(pushTimer);if(heartbeat)clearInterval(heartbeat);for(const s of seats.values())s.connection?.close('SERVER_STOP');for(const ws of wss.clients)ws.terminate();await new Promise(r=>server.close(r));}};
+ return {server,adapter,seats,metrics,url:origin(),enableTicks(){autoTick=true;},async close(){closing=true;if(release)await adapter.offline();clearTimeout(tickTimer);lag.disable();clearInterval(pushTimer);if(heartbeat)clearInterval(heartbeat);for(const s of seats.values())s.connection?.close('SERVER_STOP');for(const ws of wss.clients)ws.terminate();await new Promise(r=>server.close(r));}};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){const service=await start({port:Number(process.argv[2]??4220),evidenceFile:fileURLToPath(new URL('../../evidence/grand-play-mp022/live.jsonl',import.meta.url))});console.log(`GRAND-PLAY MP022 ${service.url} | shared clock authority | local only`);process.on('SIGTERM',()=>void service.close());process.on('SIGINT',()=>void service.close());}

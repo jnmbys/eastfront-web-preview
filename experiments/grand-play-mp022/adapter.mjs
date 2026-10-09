@@ -4,7 +4,7 @@ import path from 'node:path';
 import {Campaign} from '../grand-play-001/authority.mjs';
 import {rules} from '../grand-play-001/rules.mjs';
 import {canonical} from './sync.mjs';
-import {encodeView} from './view.mjs';
+import {encodeOwnedView as encodeView} from './view.mjs';
 export const BASELINE='0a7e670e911ffd08cc99419aa5159d422d9189a7';
 const copy=structuredClone,fail=s=>{throw Error(s);},hash=v=>createHash('sha256').update(canonical(v)).digest('hex');
 export class CampaignAdapter {
@@ -33,7 +33,7 @@ export class CampaignAdapter {
   for(const [id,u]of Object.entries(this.c.clock.units))u.commandGeneration=Math.max(u.commandGeneration??0,old.units[id]?.commandGeneration??0)+1;
   this.c.transport.worldGeneration++;this.c.transport.economyGeneration++;this.era=randomUUID();this.accumulated=0;this.c.clock.paused=true;
  }
- async submit(seat,e){const receivedAt=performance.now();return this.exclusive(()=>{
+ async submit(seat,e){const receivedAt=performance.now();return this.exclusive(async()=>{
   this.seat(seat);const c=this.c,startedAt=performance.now();if(e.instanceId!==c.id)fail('INSTANCE_MISMATCH');if(e.era!==this.era)fail('RESTORED_SESSION_REPLAN_REQUIRED');
   if(typeof e.requestId!=='string'||!/^[-\w:]{8,96}$/.test(e.requestId)||!Number.isSafeInteger(e.commandSeq)||e.commandSeq<1||e.commandSeq>=Number.MAX_SAFE_INTEGER)fail('INVALID_ENVELOPE');
   const signature=canonical(e),prior=c.receipts.get(e.requestId);if(prior){if(prior.transport?.seat!==seat||prior.transport.signature!==signature)fail('ID_REUSE_CONFLICT');return copy(prior.transport.result);}
@@ -62,7 +62,7 @@ export class CampaignAdapter {
   }catch(error){reason=error.message;if(before){c.restore(before.campaign,false);c.transport=before.transport;this.era=before.era;}}
   const appliedAt=performance.now(),result={requestId:e.requestId,commandSeq:e.commandSeq,instanceId:c.id,status,reason,acceptedRevision:status==='APPLIED'?c.version:null,beforeVersion,operation:++this.operation,simulationPoint:{mode:'SHARED_CLOCK',tick:c.clock.tick},timing:{receivedAt,startedAt,appliedAt,queueMs:startedAt-receivedAt,applyMs:appliedAt-startedAt}};
   const entry=c.receipts.get(e.requestId)??{signature,result:{ok:status==='APPLIED',error:reason}};entry.transport={seat,signature,result,acked:false};c.receipts.set(e.requestId,entry);c.transport.next[seat]=Math.max(c.transport.next[seat],e.commandSeq+1);
-  if(e.kind==='SAVE'&&status==='APPLIED'){try{this.saveFileNow();}catch(error){result.status='REJECTED';result.reason=error.message;result.acceptedRevision=null;}}
+  if(e.kind==='SAVE'&&status==='APPLIED'){try{await this.saveFileNow();}catch(error){result.status='REJECTED';result.reason=error.message;result.acceptedRevision=null;}}
   this.record('command-complete',{kind:e.kind,type:p.type,requestId:e.requestId,tick:c.clock.tick,status:result.status,reason:result.reason,payload:p,epoch:c.econ.epoch,account:copy(c.econ.accounts.GERMAN),load});return copy(result);
  });}
  async step(){return this.exclusive(()=>{if(this.c.receipts.size>=(this.receiptLimit??4096)){this.c.clock.paused=true;return;}this.record('step-start',{tick:this.c.clock.tick,groups:this.c.clock.corps.filter(g=>g.side==='GERMAN').map(g=>({id:g.permanentId,paused:g.order.paused,generation:g.commandGeneration}))});const changed=this.c.tick();this.record('step-end',{tick:this.c.clock.tick,changed});return changed;});}

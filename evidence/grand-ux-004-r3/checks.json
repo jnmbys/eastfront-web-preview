@@ -1,0 +1,12 @@
+{
+  "scope": "offline targeted + deterministic replay; not real browser acceptance",
+  "checks": [
+    "No manual commands: 120 same accepted ticks preserve authority/economy/RNG",
+    "Real accepted travel completes, retains corps membership and resumes plan; corps change cannot steal manual move",
+    "STOP persists through 12 ticks; no officer restart",
+    "Manual source and persistent hold survive save/restart; unknown schema refused",
+    "Explicit resume validates generation and retains membership",
+    "Changing/stopping/resuming commands cannot cancel already accepted timed withdrawal",
+    "Enemy control remains rejected"
+  ]
+}

@@ -283,3 +283,6 @@ body:has(.command-ui) .command-ui button,body:has(.command-ui) .command-ui selec
 #map-joystick[hidden]{display:none}#map-joystick[data-hand=left]{right:auto;left:22px}
 .joystick-ring{pointer-events:none;font-size:23px;opacity:.65}.joystick-stick{position:absolute;width:44px;height:44px;border-radius:50%;background:#6d8879;border:2px solid #d2d7bd;pointer-events:none;opacity:.8}#map-joystick.active .joystick-stick{background:#93ad94}
 .joystick-settings{display:grid;gap:6px;border:1px solid #526759}.joystick-settings label{display:flex;justify-content:space-between;align-items:center;gap:12px}.joystick-settings select{min-height:44px}
+
+/* R3: allocation controls retain their equipment identity while scrolling. */
+.production-line-controls{position:sticky;top:0;z-index:2;background:#2b393c;padding:4px 0;border-bottom:1px solid #536764}.production-line-controls .factory-allocation{flex-wrap:wrap}.plan-primary{border:2px solid #93b49f!important;font-weight:700}.map-command-heading span{white-space:normal}.command-ui .animation-controls{display:flex;flex-wrap:wrap;gap:6px}.command-ui .animation-controls button,.command-ui .animation-controls select{min-height:44px}

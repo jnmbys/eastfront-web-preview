@@ -14,6 +14,7 @@ const sides=['GERMAN','SOVIET'],other=s=>s==='GERMAN'?'SOVIET':'GERMAN',copy=str
 const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 export function score(config,state){return Object.fromEntries(sides.map(side=>{const rows=config.rows.filter(r=>r.side===side),total=rows.reduce((n,r)=>n+r.weight,0),lost=rows.reduce((n,r)=>n+(state.hexes[r.hex]?.control===other(side)?r.weight:0),0),lostRatio=lost/total;return [side,{total,lost,lostRatio,threshold:config.threshold,progress:Math.min(1,lostRatio/config.threshold)}];}));}
 export class Campaign extends Economy{
+ fair(side){if(this.planningViews?.[side])return {view:this.planningViews[side],known:{...this.econ.ux.known[side]}};return super.fair(side);}
  validateOrder(o){super.validateOrder(o);if(o.planAdvance!==undefined&&(o.planAdvance!==true||o.kind!=='ADVANCE'||!o.front?.length))throw Error('INVALID_FRONT_ADVANCE_PLAN');}
  prepareMapPlan(){
   // Optional map plan: first approach assigned frontage, then the explicit final target.

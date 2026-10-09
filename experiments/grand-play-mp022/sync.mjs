@@ -21,9 +21,15 @@ export function diff(before,after,path=[],out={set:[],remove:[]},arrays=false){
   for(const k of Object.keys(after))diff(before[k],after[k],[...path,k],out,arrays);
  }else if(!equal(before,after))out.set.push({path,value:after});return out;
 }
-export function patch(before,change){let next=structuredClone(before);const locate=path=>{let p=next;for(const k of path){if(['__proto__','constructor','prototype'].includes(k))throw Error('UNSAFE_PATH');if(!(object(p)||Array.isArray(p)&&/^(0|[1-9]\d*)$/.test(k))||!Object.hasOwn(p,k))throw Error('PATCH_BASE_MISSING');p=p[k];}return p;};
- for(const path of change.remove){if(!path.length)throw Error('ROOT_DELETE');const p=locate(path.slice(0,-1));delete p[path.at(-1)];}
- for(const {path,value} of change.set){if(path.some(k=>['__proto__','constructor','prototype'].includes(k)))throw Error('UNSAFE_PATH');if(!path.length)next=structuredClone(value);else locate(path.slice(0,-1))[path.at(-1)]=structuredClone(value);}return next;
+export function patch(before,change){
+ // Copy only changed ancestors. Previous authorized versions remain immutable;
+ // all dependent deltas are applied in sequence, never dropped for rendering.
+ const clone=x=>Array.isArray(x)?x.slice():object(x)?{...x}:x;
+ let next=clone(before);const owned=new WeakSet();if(next&&typeof next==='object')owned.add(next);
+ const safe=k=>{if(['__proto__','constructor','prototype'].includes(k))throw Error('UNSAFE_PATH');};
+ const locate=path=>{let p=next;for(const k of path){safe(k);if(!(object(p)||Array.isArray(p)&&/^(0|[1-9]\d*)$/.test(k))||!Object.hasOwn(p,k))throw Error('PATCH_BASE_MISSING');let child=p[k];if(child&&typeof child==='object'&&!owned.has(child)){child=clone(child);p[k]=child;owned.add(child);}p=child;}return p;};
+ for(const path of change.remove){if(!path.length)throw Error('ROOT_DELETE');path.forEach(safe);const p=locate(path.slice(0,-1));delete p[path.at(-1)];}
+ for(const {path,value}of change.set){path.forEach(safe);if(!path.length){next=structuredClone(value);if(next&&typeof next==='object')owned.add(next);}else locate(path.slice(0,-1))[path.at(-1)]=structuredClone(value);}return next;
 }
 // One FIFO in each WS direction: latency is injected before app delivery / ws.send, never arbitrary reorder.
 export class OrderedLink{
