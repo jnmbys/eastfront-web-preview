@@ -21,14 +21,14 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
  if(!fs.existsSync(keyFile))fs.writeFileSync(keyFile,randomBytes(32),{flag:'wx',mode:0o600});
  const key=fs.readFileSync(keyFile);if(key.length!==32)throw Error('INVALID_VISITOR_KEY');
  const root=path.join(saveDir,'visitors');fs.mkdirSync(root,{recursive:true});
- // One non-rotating pre-OFFICER003 checkpoint per existing visitor. Ordinary .bak
+ // One non-rotating pre-PERF005 checkpoint per existing visitor. Ordinary .bak
  // continues to rotate independently; neither identity nor current save changes.
  let backedUp=0;
  for(const id of fs.readdirSync(root).filter(id=>/^[a-f0-9]{64}$/.test(id))){
-  const file=path.join(root,id,'campaign.json'),backup=file+'.before-officer003';
+  const file=path.join(root,id,'campaign.json'),backup=file+'.before-perf005';
   if(fs.existsSync(file)&&!fs.existsSync(backup)){readSave(file);atomicWrite(backup,fs.readFileSync(file));backedUp++;}
  }
- console.log('OFFICER003 pre-update checkpoints: '+backedUp);
+ console.log('PERF005 pre-update checkpoints: '+backedUp);
  const active=new Map();let chain=Promise.resolve(),closing=false,lastAdmission=0;
  const serial=fn=>{const next=chain.then(fn);chain=next.catch(()=>{});return next;};
  const signature=value=>createHmac('sha256',key).update(value).digest('hex');

@@ -1,3 +1,4 @@
+import {checkpoint} from '../grand-perf-005/checkpoint.mjs';
 import {initialize as initializeFronts,scheduleFronts,reportFront} from '../grand-officer-003/front.mjs';
 import {beforeManual,afterManual,resumeManual,completeManual} from '../grand-ux-004-r2/manual.mjs';
 import {refreshNetwork} from '../grand-economy-002/economy.mjs';
@@ -17,6 +18,7 @@ export function score(config,state){return Object.fromEntries(sides.map(side=>{c
 export class Campaign extends Economy{
  fair(side){if(this.planningViews?.[side])return {view:this.planningViews[side],known:{...this.econ.ux.known[side]}};return super.fair(side);}
  validateOrder(o){super.validateOrder(o);if(o.planAdvance!==undefined&&(o.planAdvance!==true||o.kind!=='ADVANCE'||!o.front?.length))throw Error('INVALID_FRONT_ADVANCE_PLAN');}
+ checkpoint(){return checkpoint(this);}
  prepareMapPlan(){this.frontAssignments={};}
  ownOrder(id){const base=super.ownOrder(id),v=this.clock.units[id],g=this.clock.corps.find(g=>g.members.includes(id));return v?.direct||g?.order.paused||this.clock.tactical?.withdrawals[id]?base:this.clock.frontDefense?.orders[id]??base;}
  enemyPlan(view){super.enemyPlan(view);scheduleFronts(this);}

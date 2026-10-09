@@ -6,3 +6,15 @@ export const encodeView=d=>convert(d,true),decodeView=d=>convert(d,false);
 
 // Only for a fresh detached authority snapshot; do not pass shared cached documents.
 export const encodeOwnedView=d=>convert(d,true,true);
+
+// Optional read-only decoder for immutable, ordered patch trees. Cache by object
+// identity AND schema position, never by revision/id/side alone. Revoked entries
+// disappear with the new dictionary; old snapshots are never amended in place.
+const schema={children:{},cache:new WeakMap()};
+for(const spec of paths){let n=schema;for(const k of spec.slice(0,-1))n=n.children[k]??={children:{},cache:new WeakMap()};n.keyed=true;}
+const plain={children:{},cache:new WeakMap()};
+function shared(x,n=plain){if(!x||typeof x!=='object')return x;const prior=n.cache.get(x);if(prior)return prior;
+ const result=n.keyed?Object.values(x).map(v=>shared(v)):Array.isArray(x)?x.map(v=>shared(v)):Object.fromEntries(Object.entries(x).map(([k,v])=>[k,shared(v,n.children[k]??plain)]));
+ Object.freeze(result);n.cache.set(x,result);return result;
+}
+export const decodeSharedView=d=>shared(d,schema);

@@ -70,13 +70,13 @@ export class Campaign extends City {
  }
  validateOrder(o){if(!o||!['HOLD','ADVANCE','RETREAT','REFIT'].includes(o.kind)||!['LOW','NORMAL','HIGH'].includes(o.risk)||typeof o.paused!=='boolean'||!o.target||!Number.isSafeInteger(o.target.q)||!Number.isSafeInteger(o.target.r)||!this.state.hexes[kh(o.target)])fail('INVALID_PUBLIC_ORDER');}
  random(){let x=this.clock.rng;x^=x<<13;x^=x>>>17;x^=x<<5;this.clock.rng=x>>>0;return this.clock.rng/4294967296;}
- tick(){if(this.clock.paused||this.clock.ended)return false;const t=performance.now(),backup=this.save();try{this.advance();this.clock.metrics.ticks++;const ms=performance.now()-t;this.clock.metrics.totalMs+=ms;this.clock.metrics.maxMs=Math.max(ms,this.clock.metrics.maxMs);return true;}catch(e){this.restore(backup,false);this.clock.paused=true;this.note(this.viewer,'模拟已安全暂停：'+e.message);throw e;}}
+ tick(){if(this.clock.paused||this.clock.ended)return false;const t=performance.now(),backup=this.checkpoint?this.checkpoint():this.save();try{this.advance();this.clock.metrics.ticks++;const ms=performance.now()-t;this.clock.metrics.totalMs+=ms;this.clock.metrics.maxMs=Math.max(ms,this.clock.metrics.maxMs);return true;}catch(e){this.restore(backup,false);this.clock.paused=true;this.note(this.viewer,'模拟已安全暂停：'+e.message);throw e;}}
  decideAction(...args){return decide(...args);}
  combatTrace(){return {};}
  advance(){
   const spec=this.simRules??defaultRules;
   const clock=this.clock;clock.tick++;const views=Object.fromEntries(sides.map(s=>[s,this.fair(s).view]));this.planningViews=views;try{this.enemyPlan(views.SOVIET);}finally{this.planningViews=null;}
-  const units=Object.values(this.state.units).filter(u=>u.alive).sort((a,b)=>a.id.localeCompare(b.id)),caps=Object.fromEntries(units.map(u=>[u.id,this.capability(u.id)])),before=copy(this.state),intents={},arrivals=[];
+  const units=Object.values(this.state.units).filter(u=>u.alive).sort((a,b)=>a.id.localeCompare(b.id)),caps=Object.fromEntries(units.map(u=>[u.id,this.capability(u.id)])),before=this.economyV2?{units:copy(this.state.units)}:copy(this.state),intents={},arrivals=[];
   for(const u of units){const v=clock.units[u.id],g=clock.corps.find(g=>g.members.includes(u.id));v.engaged=0;
    const own=views[u.side].units.find(x=>x.id===u.id),decision=this.decideAction(views[u.side],own,Object.fromEntries(Object.entries(caps).filter(([id])=>this.state.units[id].side===u.side)),this.ownOrder(u.id),profiles[g.profile]);intents[u.id]=decision;v.reason=decision.reason;clock.metrics.expanded+=decision.expanded??0;
    if(v.march){if(--v.march.remaining<=0)arrivals.push({id:u.id,...v.march});}
@@ -111,7 +111,7 @@ export class Campaign extends City {
   }
   if(this.recordEquipmentLoss)this.recordEquipmentLoss(before);else gear.recordLoss(this,before);
   // Withdrawal is adjudicated simultaneously against the tick's occupied map.
-  const beforeRetreat=copy(this.state),retreats=[];if(!this.resolveTimedWithdrawal?.(units,views,caps)){for(const u of units.filter(u=>u.alive)){const v=clock.units[u.id],order=this.ownOrder(u.id);if(v.org<spec.orgRetreat||v.engaged&&order?.kind==='RETREAT'){
+  const beforeRetreat=this.economyV2?{units:copy(this.state.units)}:copy(this.state),retreats=[];if(!this.resolveTimedWithdrawal?.(units,views,caps)){for(const u of units.filter(u=>u.alive)){const v=clock.units[u.id],order=this.ownOrder(u.id);if(v.org<spec.orgRetreat||v.engaged&&order?.kind==='RETREAT'){
    const known=views[u.side],enemies=known.units.filter(e=>e.side!==u.side),target=order?.kind==='RETREAT'?order.target:paper(u.side==='GERMAN'?'W17':'AC17');
    const options=core.getNeighbors(u.hex).filter(h=>Number.isFinite(travel(known,u.hex,h,caps[u.id]))&&!enemies.some(e=>dist(e.hex,h)===0)).sort((a,b)=>dist(a,target)-dist(b,target)||kh(a).localeCompare(kh(b)));
    const h=options[0];if(h&&!units.some(e=>e.alive&&e.side!==u.side&&kh(e.hex)===kh(h))&&units.filter(e=>e.alive&&kh(e.hex)===kh(h)).length<spec.stack)retreats.push({u,h});else{v.personnel=Math.max(0,v.personnel-12);v.losses+=12;v.reason='退路受阻，包围损失';if(!v.personnel)u.alive=false;}

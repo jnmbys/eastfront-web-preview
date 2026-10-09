@@ -1,5 +1,5 @@
 import {canDecodeState,decodeStateEnvelope} from '/transport/stateCodec.mjs';
-import {decodeView} from '/transport/view.mjs';
+import {decodeView,decodeSharedView} from '/transport/view.mjs';
 import {patch,canonical} from '/sync.mjs';
 export class Client extends EventTarget{
  constructor(seat){super();this.seat=seat;this.side=null;this.view=null;this.version=0;this.epoch=null;this.socket=null;this.connected=false;this.selectionId=0;this.selected=null;this.nextSeq=1;this.history=[];this.pings=new Map();this.pending=new Map();this.metrics=null;this.events=[];this.viewTimes=[];this.profile='clean';this.retryTimer=null;this.stream=0;this.resyncPending=false;this.lastViewAt=null;this.updateIntervalMs=null;this.serverQueueMs=null;
@@ -56,7 +56,7 @@ export class Client extends EventTarget{
  setProfile(name){this.profile=name;this.send({type:'PROFILE',name});}
  ping(){const id=crypto.randomUUID();this.pings.set(id,performance.now());this.send({type:'PING',id});}
  disconnect(){this.socket?.close(1000,'manual-test');}
- document(){return this.view?decodeView(this.view.document):null;}
+ document(shared=false){return this.view?(shared?decodeSharedView(this.view.document):decodeView(this.view.document)):null;}
  dispose(){this.disposed=true;clearTimeout(this.retryTimer);const socket=this.socket;this.socket=null;socket?.close();}
  export(){return {schema:'MP022-browser-v1',mode:'GRAND_PLAY_SHARED_CLOCK',instanceId:this.instanceId,side:this.side,profile:this.profile,history:this.history,pending:[...this.pending.values()],events:this.events,metrics:this.metrics,limits:['Client monotonic timestamps are not server timestamps.','feedbackAt measures local handler feedback; rAF is only a frame opportunity.','Injected local test, not Huawei or public performance evidence.']};}
 }
