@@ -1,3 +1,4 @@
+import {initialize as initializeFronts,scheduleFronts,reportFront} from '../grand-officer-003/front.mjs';
 import {beforeManual,afterManual,resumeManual,completeManual} from '../grand-ux-004-r2/manual.mjs';
 import {refreshNetwork} from '../grand-economy-002/economy.mjs';
 import {validateMapIntent} from '../grand-ui-003-r1/intent.mjs';
@@ -16,23 +17,16 @@ export function score(config,state){return Object.fromEntries(sides.map(side=>{c
 export class Campaign extends Economy{
  fair(side){if(this.planningViews?.[side])return {view:this.planningViews[side],known:{...this.econ.ux.known[side]}};return super.fair(side);}
  validateOrder(o){super.validateOrder(o);if(o.planAdvance!==undefined&&(o.planAdvance!==true||o.kind!=='ADVANCE'||!o.front?.length))throw Error('INVALID_FRONT_ADVANCE_PLAN');}
- prepareMapPlan(){
-  // Optional map plan: first approach assigned frontage, then the explicit final target.
-  // Tactical ownOrder remains above this base assignment and can reserve/withdraw units.
-  const active=this.clock.corps.filter(g=>g.order.planAdvance&&!g.order.paused);if(!active.length&&!this.clock.commandPlans)return;
-  const plans=this.clock.commandPlans??={};
-  for(const g of active){
-   const stamp=JSON.stringify([g.order.kind,g.order.front,g.order.target]);
-   for(const id of g.members){const u=this.state.units[id],front=this.frontAssignments[id];if(!u?.alive||this.clock.units[id].direct||!front)continue;
-    if(plans[id]?.stamp!==stamp)plans[id]={stamp,reached:false};
-    if(distance(u.hex,front)<=1)plans[id].reached=true;
-    if(plans[id].reached)delete this.frontAssignments[id];
-   }
-  }
-  for(const id of Object.keys(plans)){const g=this.clock.corps.find(g=>g.members.includes(id));if(!g?.order.planAdvance||this.clock.units[id]?.direct||!this.state.units[id]?.alive)delete plans[id];}
+ prepareMapPlan(){this.frontAssignments={};}
+ ownOrder(id){const base=super.ownOrder(id),v=this.clock.units[id],g=this.clock.corps.find(g=>g.members.includes(id));return v?.direct||g?.order.paused||this.clock.tactical?.withdrawals[id]?base:this.clock.frontDefense?.orders[id]??base;}
+ enemyPlan(view){super.enemyPlan(view);scheduleFronts(this);}
+ decideAction(view,u,own,order,profile){
+  const g=this.clock.corps.find(g=>g.members.includes(u.id));
+  if(!this.clock.units[u.id].direct&&!g?.order.paused&&order?.frontPost&&this.frontDecisions?.[u.id])return this.frontDecisions[u.id];
+  return super.decideAction(view,u,own,order,profile);
  }
  projection(draft){if(draft?.uiDirectPreview)return {directPreview:directPreview(this,draft)};return super.projection(draft);}
- constructor(){super();this.frontLimit=24;this.ruleOverride=RULES;this.simRules=RULES;this.clock.rules=RULES.version;this.clock.territory={config:copy(CONFIG),hash:digest(CONFIG),strategic:{}};
+ constructor(){super();this.persistentFrontEnabled=true;initializeFronts(this.clock);this.frontLimit=24;this.ruleOverride=RULES;this.simRules=RULES;this.clock.rules=RULES.version;this.clock.territory={config:copy(CONFIG),hash:digest(CONFIG),strategic:{}};
   // Initial layout only. Restore below replaces state/config/memory from the save,
   // and never reapplies this frontier to an existing campaign.
   for(const r of CONFIG.rows)this.state.hexes[r.hex].control=r.side;
@@ -50,7 +44,7 @@ export class Campaign extends Economy{
   if(typeof req.id!=='string'||req.id.length<8)throw Error('REQUEST_ID_REQUIRED');if(this.clock.ended)throw Error('CAMPAIGN_FINISHED');if(req.version!==this.version)throw Error('STALE_VERSION');if(req.operation.confirmed!==true||req.operation.side!==this.viewer||!sides.includes(this.viewer))throw Error('SURRENDER_CONFIRM_OWNER_REQUIRED');
   this.finish([this.viewer],true);this.version++;this.match.matchRevision=this.version;const result={ok:true,version:this.version};this.receipts.set(req.id,{signature,result});return result;
  }
- restore(s,pause=true){for(const u of Object.values(s.clock?.units??{}))if(u.manual&&u.manual.version!=='MANUAL-INTENT-1')throw Error('UNSUPPORTED_MANUAL_INTENT_VERSION');if(s?.format!==RULES.version||!s.clock?.territory?.config||![digest(CONFIG),digest(LEGACY_CONFIG)].includes(s.clock.territory.hash)||digest(s.clock.territory.config)!==s.clock.territory.hash)throw Error('TERRITORY_SAVE_VERSION_REQUIRES_NEW_GAME');this.ruleOverride=RULES;super.restore(s,pause);}
+ restore(s,pause=true){for(const u of Object.values(s.clock?.units??{}))if(u.manual&&u.manual.version!=='MANUAL-INTENT-1')throw Error('UNSUPPORTED_MANUAL_INTENT_VERSION');if(s?.format!==RULES.version||!s.clock?.territory?.config||![digest(CONFIG),digest(LEGACY_CONFIG)].includes(s.clock.territory.hash)||digest(s.clock.territory.config)!==s.clock.territory.hash)throw Error('TERRITORY_SAVE_VERSION_REQUIRES_NEW_GAME');this.ruleOverride=RULES;super.restore(s,pause);initializeFronts(this.clock);this.frontSearch=null;this.frontDecisions={};}
  territoryStrategy(view){
   // Only the supplied authorized view plus own formation condition and frozen public points.
   const side='SOVIET',seen=new Map(view.hexes.map(h=>[key(h.coord),h])),own=view.units.filter(u=>u.side===side),enemies=view.units.filter(u=>u.side!==side),memory=this.clock.territory?.strategic;if(!memory)return;
@@ -70,6 +64,8 @@ export class Campaign extends Economy{
  stateCoordinate(hex){const[q,r]=hex.split(',').map(Number);return {q,r};}
  snapshot(draft){const d=super.snapshot(draft);if(!this.clock.territory)return d;const config=this.clock.territory.config;const known=new Map(d.game.message.payload.view.hexes.map(h=>[key(h.coord),h])),scores=score(this.clock.territory.config,this.state);d.continuous.calendar=new Date(Date.parse(cfg.date)+this.clock.tick*300000).toISOString().slice(0,16).replace('T',' ');d.continuous.victoryText='无战役时限；核心战区失守权重达到80%时投降。';
   d.continuous.geography={version:config.version,layoutName:config.layoutName??'原战区（保留存档布局）',cells:config.rows.map(r=>({hex:r.hex,side:r.side})),labels:[{side:'GERMAN',name:'德军战区'},{side:'SOVIET',name:'苏军战区'}]};
+  d.continuous.frontDefense={version:this.clock.frontDefense.version};d.continuous.map.fronts=d.continuous.corps.map(g=>reportFront(d.game.message.payload.view,g,this.clock.units,this.clock.tactical.withdrawals,this.clock.frontDefense.groups[g.id],this.clock.tactical.states));
+  for(const [id,o]of Object.entries(this.clock.frontDefense.orders)){if(d.continuous.units[id]&&!d.continuous.units[id].direct&&!d.continuous.corps.find(g=>g.members.includes(id))?.order.paused)d.continuous.tactical.units[id]={phase:'FRONT',reason:d.continuous.units[id].reason};}
   d.continuous.surrender={version:config.version,layoutName:config.layoutName??'原战区（保留存档布局）',side:this.viewer,scores,own:config.rows.filter(r=>r.side===this.viewer).map(r=>({...r,control:known.has(r.hex)?known.get(r.hex).control:null,current:known.has(r.hex)})),ended:copy(this.clock.ended)};return d;
  }
 }

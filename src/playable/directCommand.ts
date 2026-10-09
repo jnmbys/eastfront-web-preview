@@ -9,9 +9,10 @@ export function directExecutionStatus(p:GrandPort,id:string){
  if(u.march){const m=u.march;return `行军至 ${m.to.q},${m.to.r} · 当前路段 ${Math.round(100*(m.total-m.remaining)/m.total)}% · 还需 ${m.remaining*5} 游戏分钟`;}
  if(u.direct?.paused)return '手动驻守；恢复军团计划后继续';
  if(u.direct)return !u.reason||u.reason==='直属或命令暂停'?'等待下一模拟步执行手动任务':u.reason;
+ const idle=p.data.continuous.corps.find((g:any)=>g.members.includes(id))?.order.paused?'军官暂停，可直接下令':'等待下一时间步恢复军团任务';
  const last=[...(p.wire?.history??[])].reverse().find((r:any)=>r.status==='applied'&&r.command?.payload?.mapIntent&&r.command.payload.unit===id);
- if(last){const target=last.command.payload.order.target,at=u.hex.q===target.q&&u.hex.r===target.r;return `${at?'手动任务已完成':u.commandGeneration>last.command.dependencies.unitGeneration+1?'旧手动命令已被替换':'已恢复军团计划'} · ${u.reason==='直属或命令暂停'?'军团计划暂停，可直接下令':u.reason??''}`;}
- return u.reason==='直属或命令暂停'?'军团计划暂停，可直接下令':u.reason??'等待军团计划';
+ if(last){const target=last.command.payload.order.target,at=u.hex.q===target.q&&u.hex.r===target.r;return `${at?'手动任务已完成':u.commandGeneration>last.command.dependencies.unitGeneration+1?'旧手动命令已被替换':'已恢复军团计划'} · ${u.reason==='直属或命令暂停'?idle:u.reason??''}`;}
+ return u.reason==='直属或命令暂停'?idle:u.reason??'等待军团计划';
 }
 const distance=(a:any,b:any)=>Math.max(Math.abs(a.q-b.q),Math.abs(a.r-b.r),Math.abs(a.q+a.r-b.q-b.r));
 export function makeDirectDraft(p:GrandPort,id:string,kind:string,target:any=null):DirectDraft{const c=p.data.continuous,u=c.units[id],g=c.corps.find((g:any)=>g.members.includes(id));return {unit:id,kind,target,generation:u.commandGeneration,instance:p.data.instanceId,revision:p.data.version,...(!u.direct&&g?{groupId:g.permanentId,groupGeneration:g.commandGeneration}:{})};}

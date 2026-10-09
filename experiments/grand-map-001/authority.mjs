@@ -16,7 +16,7 @@ export class Campaign extends Base {
   return super.transaction(req);
  }
  advance(){
-  this.frontAssignments={};for(const side of ['GERMAN','SOVIET']){const view=this.fair(side).view;for(const g of this.clock.corps.filter(g=>g.side===side&&g.order.front?.length&&!g.order.paused))Object.assign(this.frontAssignments,assignFront(view,g,this.clock.units).assigned);}
+  this.frontAssignments={};if(!this.persistentFrontEnabled)for(const side of ['GERMAN','SOVIET']){const view=this.fair(side).view;for(const g of this.clock.corps.filter(g=>g.side===side&&g.order.front?.length&&!g.order.paused))Object.assign(this.frontAssignments,assignFront(view,g,this.clock.units).assigned);}
   this.prepareMapPlan?.();
   const before=Object.fromEntries(Object.values(this.state.units).map(u=>[u.id,copy(u.hex)]));super.advance();
   const m=this.clock.map,t=this.clock.tick,live=new Set();

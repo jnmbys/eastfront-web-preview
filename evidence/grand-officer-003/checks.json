@@ -1,0 +1,43 @@
+{
+  "scope": "same normal initial campaign with fixed front orders; directed withdrawal case separately labeled",
+  "checks": [
+    "Normal 6/9 defense moves to exactly six posts, three genuine gaps; assignments stable over 60 ticks, no attack target",
+    "Posts persist; old paused corps remain paused; restart defaults world paused",
+    "c1c5 rollback reader accepts extended save and retains opaque post fields without replacing latest progress",
+    "Save/resume retains bounded path cache and produces matching subsequent authority/economy/RNG",
+    "Offensive authorization does not empty six sole defensive posts",
+    "Directed timed withdrawal actually leaves original tile; real spare arrives afterward; gap remains before arrival",
+    "Identical authorized input, different hidden enemy state: identical posts/intents"
+  ],
+  "comparison": [
+    {
+      "version": "c1c5 baseline",
+      "ticks": 72,
+      "gapTileMinutes": 2325,
+      "changes": 2,
+      "backtracks": 0,
+      "losses": 26.690310344906752,
+      "totalMs": 3348.3370000000014,
+      "exactOccupied": 3
+    },
+    {
+      "version": "candidate",
+      "ticks": 72,
+      "gapTileMinutes": 1920,
+      "changes": 0,
+      "backtracks": 0,
+      "losses": 0,
+      "totalMs": 2562.3577000000005,
+      "frontMs": {
+        "plans": 72,
+        "expanded": 49,
+        "maxExpanded": 23,
+        "totalMs": 45.87449999999808,
+        "maxMs": 1.5178999999989173,
+        "reassigned": 6,
+        "lastMs": 0.6507999999994354
+      },
+      "exactOccupied": 6
+    }
+  ]
+}

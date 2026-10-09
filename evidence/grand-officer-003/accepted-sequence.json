@@ -1,0 +1,55 @@
+{
+  "scope": "Same initial campaign, same accepted operations at fixed simulation ticks; offline, not human timing",
+  "operations": [
+    {
+      "at": 0,
+      "operation": {
+        "type": "DIRECT",
+        "unit": "G-013",
+        "order": {
+          "kind": "ADVANCE",
+          "target": {
+            "q": 20,
+            "r": 4
+          },
+          "risk": "NORMAL",
+          "paused": false
+        }
+      }
+    },
+    {
+      "at": 20,
+      "operation": {
+        "type": "DIRECT",
+        "unit": "G-013",
+        "order": {
+          "kind": "HOLD",
+          "target": {
+            "q": 20,
+            "r": 4
+          },
+          "risk": "LOW",
+          "paused": true
+        }
+      }
+    },
+    {
+      "at": 35,
+      "operation": {
+        "type": "RESUME_PLAN",
+        "unit": "G-013"
+      }
+    },
+    {
+      "at": 40,
+      "operation": {
+        "type": "ECON_LINE",
+        "line": "GERMAN:TRAIN",
+        "product": "TRAIN",
+        "priority": 8,
+        "factories": []
+      }
+    }
+  ],
+  "equalAuthorityEconomyUnitsRng": true
+}
