@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import WS from 'ws';
+const origin='https://eastfront-grand-preview.onrender.com',expected='41717e84152902b2dd8dbf9e5b8ef5e8ef1f0cfc',saved=JSON.parse(fs.readFileSync('.release-artifact/public-deploy/cloud-resume-private.json'));
+const cookies=new Map([saved.a.split('=')]),nativeFetch=globalThis.fetch,frames=[],out={at:new Date().toISOString(),scope:'Public HTTPS/WSS, actual transport Client with Node network adapters; existing isolated test visitor, not UI/tablet acceptance',checks:[]};let client;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+globalThis.fetch=async(p,o={})=>{const r=await nativeFetch(new URL(p,origin),{...o,headers:{...o.headers,origin,cookie:[...cookies].map(([k,v])=>k+'='+v).join('; ')},signal:AbortSignal.timeout(30000)});for(const c of r.headers.getSetCookie()){const [k,v]=c.split(';')[0].split('=');cookies.set(k,v);}return r;};
+globalThis.location={origin};globalThis.document={querySelector:()=>({content:'territory-1'})};globalThis.sessionStorage={getItem:()=>null,setItem:()=>{}};
+globalThis.WebSocket=class extends WS{constructor(url){super(url,{headers:{origin,cookie:[...cookies].map(([k,v])=>k+'='+v).join('; ')}});this.on('message',b=>{const m=JSON.parse(b);frames.push({type:m.type,epoch:m.connectionEpoch,version:m.viewVersion});});this.on('error',()=>{});}send(data){if(JSON.parse(data).type==='HELLO')setTimeout(()=>{if(this.readyState===1)super.send(data);},650);else super.send(data);}};
+
+
+const series=[];
+try{
+ const info=await(await fetch('/release/info')).json();assert.equal(info.build.source,expected);
+ const view=await(await fetch('/transport/view.mjs')).text(),sync=await(await fetch('/sync.mjs')).text(),module=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');const source=(await(await fetch('/transport/client.mjs')).text()).replace("'/transport/view.mjs'",JSON.stringify(module(view))).replace("'/sync.mjs'",JSON.stringify(module(sync)));
+ const {Client}=await import(module(source));client=new Client('a');await client.start();for(let i=0;i<600&&!client.view;i++)await wait(50);assert(client.view);
+ const d=client.document(),unit=Object.keys(d.continuous.units).find(id=>d.continuous.units[id].alive),u=d.continuous.units[unit];
+ const qid='actual-move-'+crypto.randomUUID();let preview;client.addEventListener('query',e=>{if(e.detail.id===qid)preview=e.detail.payload.directPreview;});client.send({type:'QUERY',id:qid,draft:{uiDirectPreview:true,unit,kind:'ADVANCE',target:{q:u.hex.q+1,r:u.hex.r}}});for(let i=0;i<600&&!preview;i++)await wait(50);assert(preview&&!preview.reason,JSON.stringify(preview));
+ const now=client.document(),v=now.continuous.units[unit],g=now.continuous.corps.find(g=>g.members.includes(unit));
+ const op={type:'DIRECT',unit,mapIntent:{version:1,unitGeneration:v.commandGeneration,...(!v.direct&&g?{groupId:g.permanentId,groupGeneration:g.commandGeneration}:{})},order:{kind:'ADVANCE',target:preview.target,risk:'NORMAL',paused:false}};
+ const id=client.submit('OPERATION',op,['unit:'+unit],{unitGeneration:v.commandGeneration});for(let i=0;i<600&&!client.history.some(r=>r.command.requestId===id);i++)await wait(50);const row=client.history.find(r=>r.command.requestId===id);assert.equal(row?.status,'applied',JSON.stringify(row?.result));series.push({type:'direct-move',receiptMs:Math.round(row.resultAt-row.sendAt),result:row.result.status});assert.deepEqual(client.document().continuous.units[unit].direct.target,preview.target);
+ const sid=client.submit('SAVE',{},['all']);for(let i=0;i<600&&!client.history.some(r=>r.command.requestId===sid);i++)await wait(50);assert.equal(client.history.find(r=>r.command.requestId===sid)?.status,'applied');
+ const epoch=client.epoch;client.disconnect();for(let i=0;i<600&&!(client.epoch>epoch&&client.version>0);i++)await wait(50);assert(client.epoch>epoch&&client.version>0);assert.deepEqual(client.document().continuous.units[unit].direct.target,preview.target);assert(client.document().continuous.paused);
+ out.status='PASS';out.series=series;out.checks=['Actual authorized route preview, explicit accepted DIRECT move intent','Durable SAVE acknowledged','Paused reconnect preserves intent, no new duplicate command'];
+}finally{client?.dispose();fs.writeFileSync('.release-artifact/latency/direct-after.json',JSON.stringify(out,null,2));console.log(JSON.stringify(out,null,2));}
