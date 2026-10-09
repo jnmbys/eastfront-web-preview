@@ -1,0 +1,48 @@
+{
+  "kind": "Deterministic event adapter; not browser FPS",
+  "baseline": {
+    "during": {
+      "city": 114,
+      "battle": 114,
+      "industry": 114,
+      "terrain": 0,
+      "statePaint": 0,
+      "commands": 0,
+      "transforms": 230,
+      "layoutReads": 0
+    },
+    "after": {
+      "city": 115,
+      "battle": 115,
+      "industry": 115,
+      "terrain": 0,
+      "statePaint": 0,
+      "commands": 0,
+      "transforms": 230,
+      "layoutReads": 0
+    }
+  },
+  "candidate": {
+    "during": {
+      "city": 0,
+      "battle": 0,
+      "industry": 0,
+      "terrain": 0,
+      "statePaint": 0,
+      "commands": 0,
+      "transforms": 230,
+      "layoutReads": 0
+    },
+    "after": {
+      "city": 1,
+      "battle": 0,
+      "industry": 1,
+      "terrain": 0,
+      "statePaint": 0,
+      "commands": 0,
+      "transforms": 230,
+      "layoutReads": 0
+    }
+  },
+  "checks": "pan, pinch coalescing, wheel idle, push coalescing, cancellation, click, dispose PASS"
+}

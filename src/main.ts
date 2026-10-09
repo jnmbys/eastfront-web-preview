@@ -2,7 +2,8 @@ import {chooseDirectTarget} from './playable/directCommand.js';
 import {releaseMode,releaseHome,bindReleaseHome} from './playable/release.js';
 import {refreshIndustryViewport} from './playable/industryArt.js';
 import {refreshBattleMapViewport} from './playable/battleMap.js';
-import {disposeCityArt,scheduleCityArt} from './render/cityArtRuntime.js';
+import {disposeCityArt,scheduleCityArt,setCityArtInteracting} from './render/cityArtRuntime.js';
+import {ViewportWork} from './interaction/viewportWork.js';
 import {startTerrainImageCache,disposeTerrainImageCache} from './render/terrainSurface.js';
 import {campaignDock,campaignTime,campaignOrders,campaignUnit,bindCampaign,paintCampaign} from './playable/campaign.js';
 import {cityMarkup,bindCities,paintCities} from './playable/cities.js';
@@ -86,7 +87,7 @@ function syncFogSurface():void{
 }
 function paintDeploymentFocus(model?:BrowserRenderModel):void{
  syncFogSurface();
- if(grandPort)paintCities(grandPort,refreshDynamicView,grandArt,()=>!!session&&!presentation.privacyGate&&['SELECT','RECOVERY','ENTRENCH','RAIL_REPAIR'].includes(presentation.interactionMode)&&!sessionPlayerView(session).pendingDecision&&!(plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any).picking);if(grandPort?.continuous){paintCampaign(grandPort,hexToPixel,refreshDynamicView,()=>!!session&&!presentation.privacyGate&&presentation.interactionMode==='SELECT'&&!(plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any).picking,presentation.selectedUnitId,id=>{selectPlayableCounter(id);refreshDynamicView();});const heading=document.querySelector('.campaign-heading strong');if(heading)heading.textContent='共同时间';const turn=document.querySelector('.campaign-turn');if(turn)turn.textContent='德军统帅 · 苏军AI';const sub=document.querySelector('.map-toolbar>div>span');if(sub)sub.textContent='第聂伯中央战线 · 授权视图';}
+ if(grandPort)paintCities(grandPort,refreshDynamicView,grandArt,()=>!!session&&!presentation.privacyGate&&['SELECT','RECOVERY','ENTRENCH','RAIL_REPAIR'].includes(presentation.interactionMode)&&!sessionPlayerView(session).pendingDecision&&!(plan.scope(session,session.activeViewerControllerId) as any).picking);if(grandPort?.continuous){paintCampaign(grandPort,hexToPixel,refreshDynamicView,()=>!!session&&!presentation.privacyGate&&presentation.interactionMode==='SELECT'&&!(plan.scope(session,session.activeViewerControllerId) as any).picking,presentation.selectedUnitId,id=>{selectPlayableCounter(id);refreshDynamicView();});const heading=document.querySelector('.campaign-heading strong');if(heading)heading.textContent='共同时间';const turn=document.querySelector('.campaign-turn');if(turn)turn.textContent='德军统帅 · 苏军AI';const sub=document.querySelector('.map-toolbar>div>span');if(sub)sub.textContent='第聂伯中央战线 · 授权视图';}
  if(grandPort){const svg=document.querySelector('#eastfront-map');svg?.setAttribute('aria-label','大战略实验1280格地图');svg?.querySelector('#grand-objectives')?.remove();svg?.insertAdjacentHTML('beforeend','<g id="grand-objectives" pointer-events="none">'+grandPort.data.objectives.filter((n:any)=>!grandPort?.data.cities||n.vp>0).map((n:any)=>{const pos=hexToPixel(parseHex(n.hex));return `<g transform="translate(${pos.x} ${pos.y})"><circle r="9" fill="none" stroke="#e4b95c" stroke-width="2"/><text y="-26" text-anchor="middle" fill="#302514" font-size="13">${esc(n.label)} · ${n.vp}VP</text></g>`;}).join('')+'</g>');const title=document.querySelector('.map-toolbar>div:first-child>strong');if(title)title.textContent='大战略实验 · 32×40格';const campaign=document.querySelector('.campaign-heading>.eyebrow');if(campaign)campaign.textContent='大战略实验';}
  unitAnimations.sync(session,document.querySelector('#map-wrap'));
  if(LOCAL_AI_ENABLED&&localAi&&session&&!presentation.privacyGate)paintPlanMap(model??deriveBrowserRenderModel(session,presentation));
@@ -191,14 +192,20 @@ function startNewGame():void{if(LOCAL_AI_ENABLED){leaveLocalAi();return;}terrain
 function restartGame():void{if(localAi){leaveLocalAi();return;}if(isNetwork(session)){session.client.send('LEAVE_ROOM',{});session.dispose();session=null;terrainPipeline?.pause();appStatus='HOME';render();return;}if(window.confirm(t('game.restartPrompt')))startNewGame();}
 function applyMapViewport():void{
   const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;
-  const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`;if(svg.style.transform!==transform){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
-  wrap.classList.toggle('grand-far',!!grandPort&&mapViewport.zoom<1.7);
-  wrap.style.setProperty('--map-zoom',String(mapViewport.zoom));
-  if(grandArt)requestCityViewport();
-  const zoom=mapViewport.zoom.toFixed(2);if(wrap.dataset.zoom!==zoom){wrap.dataset.zoom=zoom;const readout=document.querySelector<HTMLElement>('#zoom-readout');if(readout)readout.textContent=`${Math.round(mapViewport.zoom*100)}%`;}
+  const transform=`translate(${mapViewport.panX}px, ${mapViewport.panY}px) scale(${mapViewport.zoom})`,changed=svg.style.transform!==transform;
+  if(changed){svg.style.transform=transform;svg.style.transformOrigin='50% 50%';}const terrain=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(terrain&&terrain.style.transform!==transform){terrain.style.transform=transform;terrain.style.transformOrigin='50% 50%';}
+  const zoom=mapViewport.zoom.toFixed(2),scaleChanged=wrap.dataset.zoom!==zoom;
+  if(scaleChanged){wrap.classList.toggle('grand-far',!!grandPort&&mapViewport.zoom<1.7);wrap.style.setProperty('--map-zoom',String(mapViewport.zoom));wrap.dataset.zoom=zoom;const readout=document.querySelector<HTMLElement>('#zoom-readout');if(readout)readout.textContent=`${Math.round(mapViewport.zoom*100)}%`;}
+  // Translation changes no unit grouping, arrow width or battle geometry. Do not
+  // run those painters (or force layout with getScreenCTM) on every drag frame.
+  if(grandArt&&(changed||scaleChanged))viewportWork.request(scaleChanged);
 }
-let cityViewportFrame=0;
-function requestCityViewport(){if(!cityViewportFrame)cityViewportFrame=requestAnimationFrame(()=>{cityViewportFrame=0;if(grandArt)scheduleCityArt();if(grandPort?.data?.continuous?.map)refreshBattleMapViewport();refreshIndustryViewport();});}
+const viewportWork=new ViewportWork(scaleChanged=>{
+  setCityArtInteracting(false);
+  if(grandPort?.continuous&&grandPaintPending&&!grandPressedPointers.size){grandPaintPending=false;refreshDynamicView();}
+  else {if(grandArt)scheduleCityArt();if(scaleChanged&&grandPort?.data?.continuous?.map)refreshBattleMapViewport();refreshIndustryViewport();}
+  if(scaleChanged)mountCachedTerrainSurface();
+});
 let releaseMapViewport=()=>{};
 function bindMapViewport():void{
   releaseMapViewport();
@@ -208,12 +215,14 @@ function bindMapViewport():void{
   let pinch:{view:MapViewport;a:MapPoint;b:MapPoint}|null=null;
   let suppressNextClick=false;let panFrame:number|null=null;let latest:MapPoint|null=null;
   let bounds=wrap.getBoundingClientRect();
-  const resizeObserver=typeof ResizeObserver==='undefined'?null:new ResizeObserver(()=>{bounds=wrap.getBoundingClientRect();});resizeObserver?.observe(wrap);
+  const resizeObserver=typeof ResizeObserver==='undefined'?null:new ResizeObserver(()=>{bounds=wrap.getBoundingClientRect();if(grandArt)viewportWork.request(true);});resizeObserver?.observe(wrap);
   const local=(e:PointerEvent|WheelEvent):MapPoint=>{const r=bounds;return {x:e.clientX-r.left-r.width/2,y:e.clientY-r.top-r.height/2};};
   const capture=(id:number)=>{try{wrap.setPointerCapture?.(id);}catch{/* Capture may end during cancellation. */}};
   const cancelFrame=()=>{if(panFrame!==null)cancelAnimationFrame(panFrame);panFrame=null;};
-  releaseMapViewport=()=>{cancelFrame();resizeObserver?.disconnect();};
-  const flushPan=()=>{panFrame=null;if(!gesture?.dragging||!latest)return;mapViewport=gesturePanViewport(gesture,latest.x,latest.y,mapViewport.zoom);applyMapViewport();};
+  const abandonGesture=()=>{cancelFrame();points.clear();gesture=null;pinch=null;latest=null;suppressNextClick=true;viewportWork.request();viewportWork.release();};
+  window.addEventListener('blur',abandonGesture);
+  releaseMapViewport=()=>{cancelFrame();resizeObserver?.disconnect();window.removeEventListener('blur',abandonGesture);viewportWork.dispose();setCityArtInteracting(false);};
+  const flushPan=()=>{panFrame=null;if(pinch){const [a,b]=[...points.values()];if(a&&b){mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a,b,grandPort?12:2.5);applyMapViewport();}return;}if(!gesture?.dragging||!latest)return;mapViewport=gesturePanViewport(gesture,latest.x,latest.y,mapViewport.zoom);applyMapViewport();};
   const queuePan=(x:number,y:number)=>{latest={x,y};if(panFrame===null)panFrame=requestAnimationFrame(flushPan);};
   const rebase=()=>{
     const entries=[...points.entries()];pinch=null;gesture=null;latest=null;
@@ -222,21 +231,24 @@ function bindMapViewport():void{
   };
   wrap.addEventListener('pointerdown',(event)=>{
     const e=event as PointerEvent;if(e.button!==0)return;
+    viewportWork.hold();setCityArtInteracting(true);
     if(points.size===0)suppressNextClick=false;
     cancelFrame();flushPan();points.set(e.pointerId,local(e));rebase();
     if(points.size>=2){suppressNextClick=true;for(const id of points.keys())capture(id);e.preventDefault();}
   });
   wrap.addEventListener('pointermove',(event)=>{
     const e=event as PointerEvent;if(!points.has(e.pointerId))return;const p=local(e);points.set(e.pointerId,p);
-    if(pinch){const [a,b]=[...points.values()];mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a!,b!,grandPort?12:2.5);applyMapViewport();e.preventDefault();return;}
+    if(pinch){queuePan(p.x,p.y);e.preventDefault();return;}
     if(!gesture)return;gesture=updateMapGesture(gesture,p.x,p.y);if(!gesture.dragging)return;
     capture(e.pointerId);queuePan(p.x,p.y);e.preventDefault();
   });
   const finish=(event:PointerEvent,cancelled=false)=>{
     if(!points.has(event.pointerId))return;
     cancelFrame();
-    if(!pinch&&gesture){if(!cancelled)latest=local(event);flushPan();suppressNextClick= suppressNextClick||dragSuppressesTap(gesture,cancelled);}
+    if(pinch)flushPan();
+    if(!pinch&&gesture){if(!cancelled)latest=local(event);flushPan();suppressNextClick= cancelled||suppressNextClick||dragSuppressesTap(gesture,cancelled);}
     points.delete(event.pointerId);rebase();
+    if(!points.size){viewportWork.request();viewportWork.release();}
     if(wrap.hasPointerCapture?.(event.pointerId)){try{wrap.releasePointerCapture?.(event.pointerId);}catch{}}
   };
   wrap.addEventListener('pointerup',(e)=>finish(e as PointerEvent));
@@ -244,7 +256,7 @@ function bindMapViewport():void{
   wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true));
   wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);});
   wrap.addEventListener('click',(event)=>{if(!suppressNextClick){handleGrandMapCommand(event);return;}event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},true);
-  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();rebase();},{passive:false});
+  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();setCityArtInteracting(true);cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();viewportWork.request(true);rebase();},{passive:false});
 }
 function handleGrandMapCommand(event:Event):void{
  const p=grandPort;if(!p?.continuous)return;const id=presentation.selectedUnitId;if(!id||p.selections['map-command']!=='1'||presentation.privacyGate||!session)return;
@@ -268,7 +280,7 @@ let terrainZoomObserver:MutationObserver|null=null;let terrainZoomWrap:HTMLEleme
 function mountCachedTerrainSurface():void{
   if(grandPort&&!grandArt)return;
   if(!cachedTerrainSurface)return;const wrap=document.querySelector<HTMLElement>('#map-wrap'),svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!wrap||!svg)return;const usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));const fittedHex=Math.min(wrap.clientWidth/cachedTerrainSurface.viewBox.width,wrap.clientHeight/cachedTerrainSurface.viewBox.height)*Math.sqrt(3)*HEX_SIZE*mapViewport.zoom;const requested=grandArt?(fittedHex<24?'far':fittedHex<52?'medium':'close'):selectTerrainLod(usableWidth*((Math.sqrt(3)*HEX_SIZE)/cachedTerrainSurface.viewBox.width)*mapViewport.zoom);terrainPipeline?.prioritize(requested);cachedTerrainSurface=terrainPipeline?.best(requested)??cachedTerrainSurfaces.get(requested)??cachedTerrainSurface;const canvas=cachedTerrainSurface.canvas;const previous=document.querySelector<HTMLCanvasElement>('#terrain-surface');if(previous&&previous!==canvas)previous.remove();if(canvas.parentElement!==wrap)wrap.insertBefore(canvas,svg);canvas.style.transform=svg.style.transform;canvas.style.transformOrigin='50% 50%';canvas.dataset.imageDraws=String(cachedTerrainSurface.stats.imageDraws);canvas.dataset.uniqueAssets=String(cachedTerrainSurface.stats.uniqueAssets);wrap.classList.toggle('grand-art',grandArt);wrap.dataset.terrainLod=cachedTerrainSurface.lod;wrap.dataset.requestedTerrainLod=requested;canvas.dataset.cacheBytes=String([...cachedTerrainSurfaces.values()].reduce((n,s)=>n+s.canvas.width*s.canvas.height*4,0));
-  if(terrainZoomWrap!==wrap&&typeof MutationObserver!=='undefined'){terrainZoomObserver?.disconnect();terrainZoomWrap=wrap;terrainZoomObserver=new MutationObserver(()=>mountCachedTerrainSurface());terrainZoomObserver.observe(wrap,{attributes:true,attributeFilter:['data-zoom']});}
+  if(terrainZoomWrap!==wrap&&typeof MutationObserver!=='undefined'){terrainZoomObserver?.disconnect();terrainZoomWrap=wrap;terrainZoomObserver=new MutationObserver(()=>{if(grandArt)viewportWork.request(true);else mountCachedTerrainSurface();});terrainZoomObserver.observe(wrap,{attributes:true,attributeFilter:['data-zoom']});}
   updateTerrainDetailStatus();
 }
 function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
@@ -291,12 +303,12 @@ const grandPressedPointers=new Set<number>();let grandPaintPending=false;
 document.addEventListener('pointerdown',e=>{if(grandPort?.continuous)grandPressedPointers.add(e.pointerId);},true);
 const finishGrandPointer=(e:PointerEvent)=>{setTimeout(()=>{grandPressedPointers.delete(e.pointerId);if(!grandPressedPointers.size&&grandPaintPending){grandPaintPending=false;refreshDynamicView();}},0);};
 document.addEventListener('pointerup',finishGrandPointer,true);document.addEventListener('pointercancel',finishGrandPointer,true);document.addEventListener('lostpointercapture',finishGrandPointer,true);
-window.addEventListener('blur',()=>{grandPressedPointers.clear();if(grandPaintPending){grandPaintPending=false;refreshDynamicView();}});
+window.addEventListener('blur',()=>{grandPressedPointers.clear();viewportWork.release();setCityArtInteracting(false);if(grandPaintPending){grandPaintPending=false;refreshDynamicView();}});
 function refreshDynamicView():void{
   return perf006.measure('viewUpdate',refreshDynamicViewNow);
 }
 function refreshDynamicViewNow():void{
-  if(grandPort?.continuous&&grandPressedPointers.size){grandPaintPending=true;return;}
+  if(grandPort?.continuous&&(grandPressedPointers.size||viewportWork.busy)){grandPaintPending=true;return;}
   if(isNetwork(session))session.requestProjection(presentation);
   if(!session||presentation.privacyGate){render();return;}
   const model=deriveBrowserRenderModel(session,presentation);

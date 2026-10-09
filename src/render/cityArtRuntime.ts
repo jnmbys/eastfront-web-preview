@@ -10,6 +10,9 @@ const cache=new Map<string,string>();let bytes=0,timer:ReturnType<typeof setTime
 let svg:SVGSVGElement|null=null,wrap:Element|null=null,viewer:string|null=null,lastView:CityArtView|null=null,lastSelect:CityArtSelection=()=>{},interaction:CityArtInteraction={};
 let releaseInput=()=>{};
 const jobs=new Map<string,()=>void>();
+let interacting=false;
+/** Keep existing SVG/canvas layers during a gesture; resume detail work at its end. */
+export function setCityArtInteracting(active:boolean){interacting=active;if(active&&timer!==null){clearTimeout(timer);timer=null;}}
 const districtFacts=new Map<string,{stamp:string;ids:string[]}>();
 export const CITY_DETAIL_BUDGET={maxVisible:16,maxEntries:48,maxBytes:2*1024*1024,sliceMs:4};
 export function disposeCityArt(){if(timer!==null)clearTimeout(timer);timer=null;jobs.clear();districtFacts.clear();observer?.disconnect();observer=null;releaseInput();releaseInput=()=>{};for(const id of ['city-art-static','city-art-facilities','city-bridges','city-districts'])svg?.querySelector('#'+id)?.remove();document.querySelector('#city-detail-status')?.remove();svg=null;wrap=null;viewer=null;lastView=null;lastSelect=()=>{};interaction={};for(const rows of [scenes,walls,facilities,traffic,labels])rows.clear();cache.clear();bytes=0;}
@@ -25,8 +28,8 @@ function at(d:any){const[q,r]=d.hex.split(',').map(Number),p=hexToPixel({q,r});r
 function attr(el:Element,key:string,value:string){if(el.getAttribute(key)!==value)el.setAttribute(key,value);}
 function transform(r:Row,value:string){attr(r.el,'transform',value);}
 function status(){if(!svg)return;let node=document.querySelector<HTMLElement>('#city-detail-status');if(!node){node=document.createElement('span');node.id='city-detail-status';node.setAttribute('role','status');document.querySelector('.map-toolbar')?.appendChild(node);}const pending=jobs.size,text=pending?'城区细节加载中':svg.dataset.cityDetail==='far'?'':'城区细节已就绪';if(node.textContent!==text)node.textContent=text;node.dataset.pending=String(pending);svg.dataset.cityCacheBytes=String(bytes);svg.dataset.cityCacheEntries=String(cache.size);svg.dataset.cityImageCache=JSON.stringify(terrainImageCacheStats());}
-function flush(){timer=null;const start=performance.now();for(const[id,job]of jobs){jobs.delete(id);job();if(performance.now()-start>=CITY_DETAIL_BUDGET.sliceMs)break;}status();if(jobs.size)timer=setTimeout(flush,0);}
-export function scheduleCityArt(){if(lastView)paintAuthorizedCities(lastView,lastSelect,interaction);}
+function flush(){timer=null;if(interacting)return;const start=performance.now();for(const[id,job]of jobs){jobs.delete(id);job();if(performance.now()-start>=CITY_DETAIL_BUDGET.sliceMs)break;}status();if(jobs.size)timer=setTimeout(flush,0);}
+export function scheduleCityArt(){if(lastView&&!interacting)paintAuthorizedCities(lastView,lastSelect,interaction);}
 /** Full district footprint; no new overlay steals a counter/route hit. Existing map handlers run first. */
 function bindInput(target:SVGSVGElement){const pointers=new Map<number,{x:number;y:number}>();let suppress=false;
  const down=(e:PointerEvent)=>{if(!pointers.size)suppress=false;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size>1)suppress=true;};
@@ -68,5 +71,5 @@ export function paintAuthorizedCities(data:CityArtView,select:CityArtSelection,i
  const known=new Set(data.knownHexKeys);for(const e of edges){if(!e.bridge&&!e.railway?.present)continue;const markup=railStateMarkup([e],known)+bridgeStateMarkup([e],known);if(!markup)continue;edgeIds.add(e.key);patch(row(traffic,e.key,transportLayer,'data-transport-edge'),markup);}
  for(const id of districtFacts.keys())if(!sceneIds.has(id))districtFacts.delete(id);
  prune(scenes,sceneIds);prune(walls,wallIds);prune(facilities,facilityIds);prune(labels,labelIds);prune(traffic,edgeIds);
- target.dataset.cityVisible=String(visible.length);target.dataset.cityDetail=lod;status();if(jobs.size&&timer===null)timer=setTimeout(flush,0);
+ target.dataset.cityVisible=String(visible.length);target.dataset.cityDetail=lod;status();if(jobs.size&&timer===null&&!interacting)timer=setTimeout(flush,0);
 }

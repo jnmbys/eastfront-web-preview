@@ -3,12 +3,15 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import * as interaction from '../dist/app/web/mapInteraction.js';
+import {ViewportWork as Work} from '../dist/app/interaction/viewportWork.js';
 const source=readFileSync(new URL('../dist/app/main.js',import.meta.url),'utf8');
 function harness(initial={zoom:1.5,panX:70,panY:-40}) {
  const handlers={},frames=new Map(),captures=new Set();let serial=0;
- const wrap={classList:{toggle(){}},dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),addEventListener:(t,f)=>handlers[t]=f,setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)};
+ const wrap={style:{setProperty(){}},classList:{toggle(){}},dataset:{},getBoundingClientRect:()=>({left:0,top:0,width:800,height:600}),addEventListener:(t,f)=>handlers[t]=f,setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)};
  const elements={'#map-wrap':wrap,'#eastfront-map':{style:{}},'#terrain-surface':{style:{}},'#zoom-readout':{}};
- const ctx=vm.createContext({...interaction,grandPort:null,mapViewport:{...initial},document:{querySelector:s=>elements[s]},requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:id=>frames.delete(id)});
+ // Idle painters are covered by map-drag-check; this harness exercises geometry.
+ const ViewportWork=class extends Work {constructor(paint){super(paint,()=>++serial,()=>{});}};
+ const ctx=vm.createContext({...interaction,ViewportWork,window:{addEventListener(){},removeEventListener(){}},setCityArtInteracting(){},grandArt:false,grandPort:null,mapViewport:{...initial},document:{querySelector:s=>elements[s]},requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:id=>frames.delete(id)});
  vm.runInContext(source.slice(source.indexOf('function applyMapViewport()'),source.indexOf('function mapRenderOptions(')),ctx);
  ctx.bindMapViewport();
  const fire=(type,x=100,y=100,id=1,extra={})=>{const e={clientX:x,clientY:y,pointerId:id,button:0,preventDefault(){this.prevented=true;},stopPropagation(){},stopImmediatePropagation(){this.stopped=true;},...extra};handlers[type](e);return e;};
@@ -28,7 +31,7 @@ test('mouse and single touch pan preserve tap arbitration; next tap is not swall
 });
 test('pinch keeps its world focus beneath moving midpoint, suppresses counter click, and resumes pan',()=>{
  const h=harness({zoom:1,panX:0,panY:0});h.fire('pointerdown',400,300,1);h.fire('pointerdown',500,300,2);
- const move=h.fire('pointermove',600,300,2);assert.equal(move.prevented,true);assert.deepEqual(h.view(),{zoom:2,panX:0,panY:0});
+ const move=h.fire('pointermove',600,300,2);assert.equal(move.prevented,true);h.flush();assert.deepEqual(h.view(),{zoom:2,panX:0,panY:0});
  h.fire('pointerup',600,300,2);const before=h.view();h.fire('pointermove',420,310,1);h.flush();assert.equal(h.view().panX,before.panX+20);assert.equal(h.view().panY,before.panY+10);h.fire('pointerup',420,310,1);assert.equal(h.fire('click').stopped,true);
 });
 test('wheel zoom anchors at cursor without remount; zoom limits never reset translation',()=>{
