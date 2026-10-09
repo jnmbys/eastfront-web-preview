@@ -26,7 +26,7 @@ export class GrandPort implements WorkerPort {
  }
  private wireSubmit(kind:string,payload:any,keys:string[],dependencies:any={}){try{const request=this.wire.submit(kind,payload,keys,dependencies);this.notice='命令待确认；可继续选择其他部队。';this.update();return request;}catch(e){this.notice='未提交：'+e;}this.update();}
  private wireOperation(operation:any){const op={...operation},g=this.data.continuous.corps.find((g:any)=>g.id===op.group),u=this.data.continuous.units[op.unit],t=this.data.transport;
-  if(g)op.groupId=g.permanentId;if(op.type==='ORDER'&&op.order.paused)op.type='PAUSE_GROUP';
+  if(g)op.groupId=g.permanentId;if(op.type==='ORDER'&&op.order.paused&&!op.replacePausedOrder)op.type='PAUSE_GROUP';delete op.replacePausedOrder;
   const keys=op.unit?['unit:'+op.unit,...(g?['group:'+g.permanentId]:[])]:g?['group:'+g.permanentId]:['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(op.type)?['economy']:['world'];
   return this.wireSubmit('OPERATION',op,keys,{commandGeneration:g?.commandGeneration,unitGeneration:u?.commandGeneration,economyGeneration:t.economyGeneration,worldGeneration:t.worldGeneration,account:t.accountStamp});
  }
