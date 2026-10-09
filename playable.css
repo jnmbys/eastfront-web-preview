@@ -253,3 +253,17 @@ body:has(.command-ui) #terrain-surface{filter:saturate(.68)}
 .ui-corps-bar .ui-direct{order:-1;position:sticky;left:0;z-index:2;background:#273b3e;flex:none}.command-ui .r2-stack summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}.command-ui .r2-stack>p{font-size:12px}
 
 body:has(.command-ui) .command-ui button,body:has(.command-ui) .command-ui select{min-height:44px;min-width:44px}
+
+/* UI003-R1: one fixed short command strip, no scrolling command roster. */
+.command-ui .ui-corps-bar{left:10px;right:10px;bottom:6px;width:auto;display:flex;gap:5px;overflow:visible;padding:5px;max-height:70px}
+.command-ui .ui-corps-card{flex:1;min-width:0;max-width:220px}.command-ui .ui-corps-card>button:first-child{min-width:0;flex:1;padding:3px;gap:5px}.command-ui .ui-corps-card>button:not(:first-child){display:none}.command-ui .ui-corps-card small{font-size:12px}.command-ui .ui-corps-card b{font-size:12px}.command-ui .officer-portrait{width:34px;height:44px;filter:saturate(.55) contrast(.92)}
+.command-ui .ui-corps-bar>button{padding:4px;min-width:52px;max-width:66px;font-size:12px}.command-ui .ui-direct{order:-1;position:static}.command-ui .ui-corps-card.selected{border-color:var(--corps)}
+.map-command-strip{position:fixed;bottom:83px;left:12px;right:12px;z-index:6;pointer-events:auto;background:#213338f5;border:1px solid #748882;padding:6px 9px;box-shadow:0 3px 10px #0006;color:#e7e4cf}
+.map-command-heading{display:flex;gap:12px;align-items:center;font-size:13px;min-height:24px}.map-command-heading span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;color:#bed0c4}
+.map-command-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.map-command-actions strong{font-size:13px}.map-command-actions small{max-width:340px;font-size:12px}.map-command-actions button{padding:5px 12px}.map-command-actions>span{font-size:13px;margin-right:auto}
+.command-ui .ui-sidebar{bottom:197px;max-height:calc(100vh - 275px)}.command-ui .ui-map-legend{bottom:78px}.command-ui:has(.map-command-strip) .ui-map-legend{display:none}
+@media(max-width:1100px){.command-ui .ui-corps-card{max-width:176px}.command-ui .ui-corps-bar>button{min-width:48px;max-width:56px}.command-ui .ui-corps-card>button:first-child{min-width:0}.command-ui .ui-sidebar{width:320px}.map-command-actions button{padding:4px 9px}.command-ui .ui-clock>strong{font-size:17px}.command-ui .ui-top>button{min-width:64px}}
+
+.command-ui .ui-corps-bar{transform:none}.command-ui .ui-corps-card>button:first-child{height:54px}.command-ui .map-command-strip{bottom:86px}
+
+@media(max-width:1100px){.command-ui .ui-top{width:100%;left:0;right:0}.command-ui .ui-top>button{min-width:54px;padding:4px;flex:1 1 70px}.command-ui .ui-clock{flex:0 1 auto;min-width:0}.command-ui .ui-clock>strong{font-size:14px}.command-ui .ui-clock>button{padding:4px;font-size:12px}.command-ui .ui-clock>[role=status]{max-width:64px;white-space:normal;font-size:10px}}

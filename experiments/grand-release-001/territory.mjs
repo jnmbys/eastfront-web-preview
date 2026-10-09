@@ -1,3 +1,4 @@
+import {validateMapIntent} from '../grand-ui-003-r1/intent.mjs';
 import {directPreview} from '../grand-ui-003/preview.mjs';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -15,7 +16,7 @@ export class Campaign extends Economy{
  finish(surrendered,voluntary=false){if(this.clock.ended)return;this.clock.ended={winner:surrendered.length===2?null:other(surrendered[0]),surrendered,tick:this.clock.tick,type:voluntary?'VOLUNTARY':'TERRITORIAL',reason:surrendered.length===2?'双方在同一时间步达到投降阈值，战役共同终止':`${surrendered[0]==='GERMAN'?'德军':'苏军'}${voluntary?'主动投降':'核心战区失守权重达到投降阈值，正式投降'}`};this.clock.paused=true;this.note(this.viewer,this.clock.ended.reason);}
  evaluateSurrender(){if(this.clock.ended)return;const scores=score(this.clock.territory.config,this.state),losers=sides.filter(s=>scores[s].lostRatio>=scores[s].threshold);if(losers.length)this.finish(losers);}
  advance(){if(this.clock.ended)return;if(!Number.isSafeInteger(this.clock.tick+1)||!Number.isFinite(new Date(Date.parse(cfg.date)+(this.clock.tick+1)*300000).getTime()))throw Error('CLOCK_RANGE_EXHAUSTED_SAVE_AND_STOP');super.advance();this.econ.cities.events=this.econ.cities.events.slice(-500);this.evaluateSurrender();}
- transaction(req){if(req.operation?.type!=='SURRENDER')return super.transaction(req);const signature=JSON.stringify(req),prior=this.receipts.get(req.id);if(prior){if(prior.signature!==signature)throw Error('ID_REUSE_CONFLICT');return copy(prior.result);}
+ transaction(req){if(!this.receipts.has(req.id))validateMapIntent(this,req.operation??{});if(req.operation?.type!=='SURRENDER')return super.transaction(req);const signature=JSON.stringify(req),prior=this.receipts.get(req.id);if(prior){if(prior.signature!==signature)throw Error('ID_REUSE_CONFLICT');return copy(prior.result);}
   if(typeof req.id!=='string'||req.id.length<8)throw Error('REQUEST_ID_REQUIRED');if(this.clock.ended)throw Error('CAMPAIGN_FINISHED');if(req.version!==this.version)throw Error('STALE_VERSION');if(req.operation.confirmed!==true||req.operation.side!==this.viewer||!sides.includes(this.viewer))throw Error('SURRENDER_CONFIRM_OWNER_REQUIRED');
   this.finish([this.viewer],true);this.version++;this.match.matchRevision=this.version;const result={ok:true,version:this.version};this.receipts.set(req.id,{signature,result});return result;
  }

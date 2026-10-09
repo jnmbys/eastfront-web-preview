@@ -1,10 +1,10 @@
-import type {DirectDraft} from './directCommand.js';
+import {directLabels,type DirectDraft} from './directCommand.js';
 import {campaignEconomy} from './campaign.js';
 import {uxMarkup,bindUx} from './grandUx.js';
 import type {WorkerPort} from '../local-ai/client.js';import type {LocalRequest,LocalReply} from '../local-ai/types.js';
 export class GrandPort implements WorkerPort {
  onmessage:WorkerPort['onmessage']=null;onerror:WorkerPort['onerror']=null;data:any=null;notice='';locked=false;selections:Record<string,string>={};
- directDraft:DirectDraft|null=null;directPreview:any=null;private directQuery="";
+ directDraft:DirectDraft|null=null;directPreview:any=null;directFeedback:Record<string,string>={};private directQuery="";
  requestDirectPreview(){const d=this.directDraft;if(!d?.target)return;this.directPreview=null;this.directQuery=crypto.randomUUID();this.wire.send({type:"QUERY",id:this.directQuery,draft:{uiDirectPreview:true,unit:d.unit,kind:d.kind,target:d.target}});}
  constructionPreview:any=null;private constructionQuery='';
  officerUnit='';officerGroup='0';officerKind='ATTACK';officerTarget:{q:number;r:number}|null=null;officerNotice='';
@@ -17,19 +17,20 @@ export class GrandPort implements WorkerPort {
  private async startWire(){const source='/transport/client.mjs';const {Client}=await import(source);const seat=new URLSearchParams(location.search).get('client')==='b'?'b':'a';this.wire=new Client(seat);
   this.wire.addEventListener('view',()=>{if(!this.dead){this.locked=false;const d=this.wire.document();if(this.restoredView){this.presentationOffset=Math.max(this.presentationOffset,(this.data?.game.message.payload.matchRevision??0)+1-d.version);this.data=null;this.restoredView=false;}d.game.message.payload.matchRevision=d.version+this.presentationOffset;d.game.message.payload.serverSequence=++this.presentationSequence;d.game.message.payload.resync=true;this.read(d);if(this.pendingProjection&&this.pendingProjection.revision<=d.version)this.deliverProjection(this.pendingProjection);}});
   this.wire.addEventListener('query',(e:any)=>{if(this.dead)return;if(e.detail.payload?.directPreview){if(e.detail.id===this.directQuery&&this.directDraft&&this.directDraft.kind===e.detail.payload.directPreview.kind&&JSON.stringify(this.directDraft.target)===JSON.stringify(e.detail.payload.directPreview.target)){this.directPreview=e.detail.payload.directPreview;this.update();}return;}if(e.detail.payload?.economyPlan){if(e.detail.id===this.constructionQuery){this.constructionPreview=e.detail.payload.economyPlan;this.update();}return;}this.deliverProjection(e.detail);});
-  this.wire.addEventListener('completed',(e:any)=>{const row=this.wire.history.find((r:any)=>r.command.requestId===e.detail.requestId);this.notice=e.detail.status==='applied'?(row?.command.kind==='SAVE'?'已保存，服务重启后仍可继续。':'命令已确认，授权状态已更新。'):'命令未执行：'+(row?.result?.reason??'UNKNOWN');this.update();if(row)requestAnimationFrame(()=>{row.uiFrameAt=performance.now();});});
+  this.wire.addEventListener('completed',(e:any)=>{const row=this.wire.history.find((r:any)=>r.command.requestId===e.detail.requestId);if(row?.command.payload?.mapIntent){const op=row.command.payload,ok=e.detail.status==='applied';this.directFeedback[op.unit]=ok?'已接受 '+(directLabels[op.order.kind]??op.order.kind)+' → '+op.order.target.q+','+op.order.target.r:'未执行：'+(row.result?.reason??'请核对连接');if(this.directDraft?.requestId===e.detail.requestId){if(ok){this.directDraft=null;this.directPreview=null;}else{delete this.directDraft!.requestId;this.directDraft!.error=this.directFeedback[op.unit]??'命令未执行';}}}if(row?.command.payload?.unit&&!row.command.payload.mapIntent&&e.detail.status==='applied')delete this.directFeedback[row.command.payload.unit];this.notice=e.detail.status==='applied'?(row?.command.kind==='SAVE'?'已保存，服务重启后仍可继续。':'命令已确认，授权状态已更新。'):'命令未执行：'+(row?.result?.reason??'UNKNOWN');this.update();if(row)requestAnimationFrame(()=>{row.uiFrameAt=performance.now();});});
   this.wire.addEventListener('error',(e:any)=>{this.notice='通信待核对：'+e.detail.reason;this.update();});
   this.wire.addEventListener('instance-reset',()=>{this.directDraft=null;this.pendingProjection=null;this.restoredView=true;this.locked=true;this.notice='已恢复存档，世界暂停；旧会话意图已撤销，请重新规划。';});
   this.wire.addEventListener('connected',()=>{this.wireStatus='已连接 · 德军协同端 '+seat.toUpperCase();this.update();});
   this.wire.addEventListener('disconnected',()=>{if(this.dead)return;this.locked=true;this.wireStatus=this.wire.disposed?'本操作端已在另一页面连接；本页停止提交，请关闭本页或明确刷新接管。':'连接中断，正在恢复；未确认命令正在核对；全部操作端断线后世界暂停';this.update();});
   await this.wire.start();
  }
- private wireSubmit(kind:string,payload:any,keys:string[],dependencies:any={}){try{this.wire.submit(kind,payload,keys,dependencies);this.notice='命令待确认；可继续选择其他部队。';}catch(e){this.notice='未提交：'+e;}this.update();}
+ private wireSubmit(kind:string,payload:any,keys:string[],dependencies:any={}){try{const request=this.wire.submit(kind,payload,keys,dependencies);this.notice='命令待确认；可继续选择其他部队。';this.update();return request;}catch(e){this.notice='未提交：'+e;}this.update();}
  private wireOperation(operation:any){const op={...operation},g=this.data.continuous.corps.find((g:any)=>g.id===op.group),u=this.data.continuous.units[op.unit],t=this.data.transport;
   if(g)op.groupId=g.permanentId;if(op.type==='ORDER'&&op.order.paused)op.type='PAUSE_GROUP';
   const keys=op.unit?['unit:'+op.unit,...(g?['group:'+g.permanentId]:[])]:g?['group:'+g.permanentId]:['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(op.type)?['economy']:['world'];
-  this.wireSubmit('OPERATION',op,keys,{commandGeneration:g?.commandGeneration,unitGeneration:u?.commandGeneration,economyGeneration:t.economyGeneration,worldGeneration:t.worldGeneration,account:t.accountStamp});
+  return this.wireSubmit('OPERATION',op,keys,{commandGeneration:g?.commandGeneration,unitGeneration:u?.commandGeneration,economyGeneration:t.economyGeneration,worldGeneration:t.worldGeneration,account:t.accountStamp});
  }
+ submitDirectIntent(d:DirectDraft){const b=this.data.continuous.map.battles.find((b:any)=>b.hex.q===d.target?.q&&b.hex.r===d.target?.r&&b.status!=='ENDED');const request=this.wireOperation({type:'DIRECT',unit:d.unit,...(d.kind==='SUPPORT'?{battleId:b?.id}:{}),mapIntent:{version:1,unitGeneration:d.generation,groupId:d.groupId,groupGeneration:d.groupGeneration},order:{kind:d.kind,target:d.target,risk:'NORMAL',paused:false}});if(request){d.requestId=request;this.directFeedback[d.unit]='命令等待回执';}this.update();}
  constructor(private update:()=>void, public continuous=false){}
  async campaignFile(kind:'save'|'load'){if(this.continuous){this.wireSubmit(kind==='save'?'SAVE':'LOAD',{},['all']);return;}if(this.locked)return;this.locked=true;this.update();try{const d=await this.api(kind);if(kind==='load'){this.data=null;this.read(d);}this.notice=kind==='save'?'已保存，服务重启后仍可继续。':'已加载，时间暂停。';}catch(e){this.notice='存档操作失败：'+e;}finally{this.locked=false;}this.update();}
  private startPoll(){if(!this.continuous||this.dead)return;this.poll=setTimeout(async()=>{try{if(!this.locked){const d=await this.api('state');if(!this.data||d.version!==this.data.version)this.read(d);}}catch{this.notice='本机服务断开；已保存的战役可在重启后加载。';this.update();}this.startPoll();},1000);}

@@ -1,45 +1,55 @@
 import type {GrandPort} from './grand.js';
 import {escStatus as esc} from './unitStatus.js';
-
-export type DirectDraft={unit:string;kind:string;target:{q:number;r:number}|null;generation:number;instance:string;revision:number};
-const labels:Record<string,string>={ADVANCE:'移动',ATTACK:'攻击',SUPPORT:'支援',RETREAT:'撤回'};
+export type DirectDraft={unit:string;kind:string;target:{q:number;r:number}|null;generation:number;instance:string;revision:number;groupId?:string;groupGeneration?:number;requestId?:string;error?:string};
+export const directLabels:Record<string,string>={ADVANCE:'移动',ATTACK:'攻击',SUPPORT:'支援',RETREAT:'撤回'};
 const distance=(a:any,b:any)=>Math.max(Math.abs(a.q-b.q),Math.abs(a.r-b.r),Math.abs(a.q+a.r-b.q-b.r));
-/** Presentation checks use only the already-authorized document. The server remains the final arbiter. */
-export function directIssue(p:GrandPort,d:DirectDraft):string {
+export function makeDirectDraft(p:GrandPort,id:string,kind:string,target:any=null):DirectDraft{const c=p.data.continuous,u=c.units[id],g=c.corps.find((g:any)=>g.members.includes(id));return {unit:id,kind,target,generation:u.commandGeneration,instance:p.data.instanceId,revision:p.data.version,...(!u.direct&&g?{groupId:g.permanentId,groupGeneration:g.commandGeneration}:{})};}
+export function chooseDirectTarget(p:GrandPort,id:string,target:any){
+ const d=p.directDraft,view=p.data.game.message.payload.view,enemy=view.units.some((u:any)=>u.side!==view.viewer&&distance(u.hex,target)===0);
+ const kind=d?.unit===id&&['SUPPORT','RETREAT'].includes(d.kind)?d.kind:enemy?'ATTACK':'ADVANCE';
+ if(d?.requestId)return;
+ if(d?.unit===id&&!d.error&&d.generation===p.data.continuous.units[id].commandGeneration&&d.kind===kind&&d.target&&distance(d.target,target)===0)return;
+ p.directDraft=makeDirectDraft(p,id,kind,{...target});p.directPreview=null;p.requestDirectPreview();
+}
+export function directIssue(p:GrandPort,d:DirectDraft):string{
  const c=p.data.continuous,u=c.units[d.unit],view=p.data.game.message.payload.view;
  if(d.instance!==p.data.instanceId)return '战役已重新载入，请重新选择命令';
  if(!u?.alive)return '该部队已不可用';
- if(d.generation!==u.commandGeneration)return '部队控制或命令已改变，请重新选择命令';
- if(c.ended)return '战役已结束';
- if(p.locked)return '连接尚未恢复，等待授权状态';
- if(!d.target)return '点选地图目的地；拖动和缩放不会下令';
+ if(d.generation!==u.commandGeneration)return '部队控制或命令已改变，请重新选择';
+ if(d.groupId){const g=c.corps.find((g:any)=>g.permanentId===d.groupId);if(!g||g.commandGeneration!==d.groupGeneration||!g.members.includes(d.unit)||u.direct)return '军团命令或部队归属已改变，请重新选择';}
+ if(c.ended)return '战役已结束';if(p.locked)return '连接尚未恢复';if(d.requestId)return '命令等待确认';if(d.error)return d.error;
+ if(!d.target)return '点地图目标';
+ const enemy=view.units.some((e:any)=>e.side!==view.viewer&&distance(e.hex,d.target)===0);
+ if(d.kind==='ADVANCE'&&enemy)return '目的地出现已识别敌军，请重新点目标并明确确认攻击';
  if(['ATTACK','SUPPORT'].includes(d.kind)){
-  if(distance(u.hex,d.target)!==1)return '攻击和支援须与目标相邻';
-  if(!view.units.some((e:any)=>e.side!==view.viewer&&distance(e.hex,d.target)===0))return '目标没有当前已识别敌军';
+  if(distance(u.hex,d.target)!==1)return '攻击或支援须与目标相邻';if(!enemy)return '目标已无已识别敌军；原攻击意图保留，请重新选择';
   const b=c.map.battles.find((b:any)=>b.status!=='ENDED'&&distance(b.hex,d.target)===0);
-  if(d.kind==='SUPPORT'&&!b)return '支援须指向一场正在进行的战斗';
+  if(d.kind==='SUPPORT'&&!b)return '该处交战已经结束，不能继续支援';
   if(b?.eligibilityReasons?.[d.unit])return b.eligibilityReasons[d.unit];
  }
- if(!p.directPreview)return '正在读取授权路线预览';
- if(p.directPreview.version!==p.data.version)return '局势已更新，请刷新预览后确认';
- if(p.directPreview.reason)return p.directPreview.reason;
+ // A preview is advisory. Unrelated world revisions are not command dependencies.
+ // The server rechecks the current authorized route and combat conditions atomically.
+ if(!p.directPreview)return '正在预览';
+ if(p.directPreview.version===p.data.version&&p.directPreview.reason)return p.directPreview.reason;
  return '';
 }
 export function directCommand(p:GrandPort,id:string){
- const c=p.data.continuous,u=c.units[id];if(!u)return '';
+ const c=p.data.continuous,u=c.units[id];if(!u||!p.selections['map-command'])return '';
  const g=c.corps.find((g:any)=>g.members.includes(id)),direct=!!u.direct||!g,d=p.directDraft?.unit===id?p.directDraft:null;
- const busy=p.wire&&Array.from(p.wire.pending.values()).some((r:any)=>r.command?.payload?.operation?.unit===id||r.command?.payload?.unit===id);
- const issue=d?directIssue(p,d):'',disabled=p.locked||c.ended||busy;
- return `<section class="direct-command" aria-label="所选部队命令"><b>${esc(id)} · ${direct?'◇ 直属':'由 '+esc(g.name)+' 指挥'}</b><p>${c.paused?'世界暂停；合法命令将在继续时间后执行。':'命令确认后按真实时间执行。'}</p>${!direct?`<button id="direct-takeover" ${disabled?'disabled':''}>接管并停止主动命令</button>`:''}<div class="direct-actions">${Object.entries(labels).map(([k,v])=>`<button data-direct-kind="${k}" aria-pressed="${d?.kind===k}" ${disabled?'disabled':''}>${v}</button>`).join('')}<button id="direct-stop" ${disabled?'disabled':''}>停止／待命</button></div>${!direct?'<small>向本队确认命令会接管该队，军官不再覆盖它。</small>':''}${d?`<div class="direct-preview" role="status"><strong>${esc(labels[d.kind])}预览 · ${d.target?`${d.target.q},${d.target.r}`:'选择目的地'}</strong><p>${esc(issue|| (d.kind==='SUPPORT'?'参与相邻战斗，支援结束不自动跟进。':d.kind==='ATTACK'?'攻击已识别目标；实际投入由权威规则复核。':'方向预览；实际逐格路径由现有规划器决定，未知通路不保证安全。'))}</p>${p.directPreview?.path?.length?`<small>路径 ${p.directPreview.path.map((h:any)=>h.q+','+h.r).join(' → ')}<br>${esc(p.directPreview.label)}</small>`:''}<button id="direct-preview-refresh">重新预览</button><button id="direct-confirm" ${issue||disabled?'disabled':''}>确认${esc(labels[d.kind])}</button><button id="direct-cancel">取消点选</button></div>`:''}${busy?'<p role="status">本队命令待确认；仍可拖图和查看其他部队。</p>':''}<label>交给军官<select id="direct-corps">${c.corps.map((x:any)=>`<option value="${esc(x.id)}" ${x.id===g?.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></label><button id="direct-delegate" ${disabled?'disabled':''}>交回所选军官</button><small>停止主动命令不等于安全脱离；敌方攻击继续生效。</small></section>`;
+ const busy=Array.from(p.wire?.pending.values()??[]).some((r:any)=>r.command?.payload?.unit===id),issue=d?directIssue(p,d):'',disabled=p.locked||c.ended||busy;
+ const inspect=p.selections['map-command']==='inspect';
+ return `<section class="map-command-strip" aria-label="地图指挥"><div class="map-command-heading"><b>${esc(id)} · ${direct?'◇ 直属':esc(g.name)}</b><span>${esc(p.directFeedback[id]??u.reason??'')}${c.paused?' · 世界暂停':''}</span></div><div class="map-command-actions">${d?.target?`<strong>${esc(directLabels[d.kind])} → ${d.target.q},${d.target.r}${direct?'':' · 将接管本队'}</strong><button id="direct-confirm" ${issue||disabled?'disabled':''}>${d.requestId?'等待回执':'确认'+esc(directLabels[d.kind])}</button><button id="direct-cancel">取消</button><small role="status">${esc(issue||'按当前局势核验；虚线路径仅为参考')}</small>`:`<span>${inspect?'查看地物模式':'点地图目标预览'+(direct?'':' · 确认后接管本队')}</span><button data-direct-kind="SUPPORT" ${disabled?'disabled':''}>支援</button><button data-direct-kind="RETREAT" ${disabled?'disabled':''}>撤回</button><button id="direct-stop" ${disabled?'disabled':''}>停止</button>${d?`<b>${esc(directLabels[d.kind])}：点目标</b><button id="direct-cancel">取消</button>`:''}`}<button id="direct-details">部队详情</button><button id="direct-inspect">${inspect?'继续下令':'查看地物'}</button></div></section>`;
 }
-export function bindDirectCommand(p:GrandPort,id:string|null,refresh:()=>void,pick:(active?:boolean)=>void){
- if(!id||!p.data.continuous.units[id])return;
- const u=p.data.continuous.units[id],run=(op:any)=>void p.operation(op);
+export function directDetails(p:GrandPort,id:string){const c=p.data.continuous,g=c.corps.find((g:any)=>g.members.includes(id)),u=c.units[id];return `<p>点地图目标即可预览；停止命令不代表已经脱离战斗。</p><label>交给军官<select id="direct-corps">${c.corps.map((x:any)=>`<option value="${esc(x.id)}" ${x.id===g?.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></label><button id="direct-delegate">交回所选军官</button>${!u.direct?'<button id="direct-takeover">接管并停止主动命令</button>':''}<button id="direct-friendly-hex">以本队所在格为目标</button><p>此按钮可向有友军的格位下令：先选作为落点的友军，再在下方选择出发部队。</p><select id="direct-source" aria-label="出发部队">${Object.keys(c.units).filter(k=>c.units[k].alive&&k!==id).map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('')}</select>`;}
+export function bindDirectCommand(p:GrandPort,id:string|null,refresh:()=>void,pick:(active?:boolean)=>void,select?:(id:string)=>void){
+ if(!id||!p.data.continuous.units[id])return;const u=p.data.continuous.units[id];
  const cancel=()=>{p.directDraft=null;p.directPreview=null;pick(false);refresh();};
- document.querySelectorAll<HTMLElement>('[data-direct-kind]').forEach(el=>el.onclick=()=>{p.directDraft={unit:id,kind:el.dataset.directKind!,target:null,generation:u.commandGeneration,instance:p.data.instanceId,revision:p.data.version};pick();});
- document.getElementById('direct-preview-refresh')?.addEventListener('click',()=>{p.requestDirectPreview();refresh();});
+ document.querySelectorAll<HTMLElement>('[data-direct-kind]').forEach(el=>el.onclick=()=>{p.directDraft=makeDirectDraft(p,id,el.dataset.directKind!);p.directPreview=null;p.selections['map-command']='1';refresh();});
  document.getElementById('direct-cancel')?.addEventListener('click',cancel);
- for(const key of ['direct-stop','direct-takeover'])document.getElementById(key)?.addEventListener('click',()=>{cancel();run({type:'DIRECT',unit:id,order:{kind:'HOLD',target:u.hex,risk:'LOW',paused:true}});});
- document.getElementById('direct-confirm')?.addEventListener('click',()=>{const d=p.directDraft;if(!d||d.unit!==id)return;const issue=directIssue(p,d);if(issue){p.notice=issue;refresh();return;}const b=p.data.continuous.map.battles.find((b:any)=>distance(b.hex,d.target)===0);cancel();run({type:'DIRECT',unit:id,...(d.kind==='SUPPORT'?{battleId:b.id}:{}),order:{kind:d.kind,target:d.target,risk:'NORMAL',paused:false}});});
- document.getElementById('direct-delegate')?.addEventListener('click',()=>{const group=(document.getElementById('direct-corps') as HTMLSelectElement).value;cancel();run({type:'ASSIGN',unit:id,group});});
+ document.getElementById('direct-details')?.addEventListener('click',()=>{p.selections['ui-panel']=p.selections['ui-panel']==='unit'?'':'unit';refresh();});
+ document.getElementById('direct-inspect')?.addEventListener('click',()=>{cancel();p.selections['map-command']=p.selections['map-command']==='inspect'?'1':'inspect';refresh();});
+ for(const key of ['direct-stop','direct-takeover'])document.getElementById(key)?.addEventListener('click',()=>{cancel();void p.operation({type:'DIRECT',unit:id,order:{kind:'HOLD',target:u.hex,risk:'LOW',paused:true}});});
+ document.getElementById('direct-confirm')?.addEventListener('click',()=>{const d=p.directDraft;if(!d||directIssue(p,d))return;p.submitDirectIntent(d);refresh();});
+ document.getElementById('direct-delegate')?.addEventListener('click',()=>{const group=(document.getElementById('direct-corps') as HTMLSelectElement).value;cancel();void p.operation({type:'ASSIGN',unit:id,group});});
+ document.getElementById('direct-friendly-hex')?.addEventListener('click',()=>{const source=(document.getElementById('direct-source') as HTMLSelectElement).value;if(!source)return;select?.(source);chooseDirectTarget(p,source,u.hex);p.selections['ui-panel']='';refresh();});
 }

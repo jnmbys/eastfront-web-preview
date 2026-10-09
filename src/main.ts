@@ -1,3 +1,4 @@
+import {chooseDirectTarget} from './playable/directCommand.js';
 import {releaseMode,releaseHome,bindReleaseHome} from './playable/release.js';
 import {refreshIndustryViewport} from './playable/industryArt.js';
 import {refreshBattleMapViewport} from './playable/battleMap.js';
@@ -242,8 +243,19 @@ function bindMapViewport():void{
   wrap.addEventListener('pointercancel',(e)=>finish(e as PointerEvent,true));
   wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true));
   wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);});
-  wrap.addEventListener('click',(event)=>{if(!suppressNextClick)return;event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},true);
+  wrap.addEventListener('click',(event)=>{if(!suppressNextClick){handleGrandMapCommand(event);return;}event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},true);
   wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();rebase();},{passive:false});
+}
+function handleGrandMapCommand(event:Event):void{
+ const p=grandPort;if(!p?.continuous)return;const id=presentation.selectedUnitId;if(!id||p.selections['map-command']!=='1'||presentation.privacyGate||!session)return;
+ const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;if(scope.picking)return;
+ const e=event as MouseEvent,svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!svg||!(e.target instanceof Element)||!svg.contains(e.target))return;
+ const hit=document.elementsFromPoint(e.clientX,e.clientY),own=hit.map(n=>n.closest('[data-stack-key]')).find(n=>n&&!n.getAttribute('data-command-owner')?.startsWith('enemy'));
+ if(own)return;
+ if(!p.directDraft?.kind&&hit.some(n=>n.closest('[data-battle-id]')))return;
+ const m=svg.getScreenCTM();if(!m)return;const at=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
+ const enemyCard=hit.map(n=>n.closest('[data-stack-key]')).find(n=>n?.getAttribute('data-command-owner')?.startsWith('enemy'));let hex:any=enemyCard?parseHex(enemyCard.getAttribute('data-anchor')!):null,best=hex?0:Infinity;for(const h of p.data.game.message.payload.view.hexes){const q=hexToPixel(h.coord),d=Math.hypot(q.x-at.x,q.y-at.y);if(d<best){best=d;hex=h.coord;}}
+ if(!hex||best>HEX_SIZE*1.2)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();chooseDirectTarget(p,id,hex);p.selections['ui-panel']='';refreshDynamicView();requestAnimationFrame(()=>keepGrandTargetVisible(hex));
 }
 function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):CoreSvgOptions{
   if(grandPort)return grandArt?{debug:false,rendererMode:'production',assetSet:'p5',lod:lodOverride??'far',scenarioSeed:TERRAIN_VISUAL_SEED,staticTerrainSurface:true}:{debug:false,rendererMode:'prototype',lod:'far'};
@@ -273,10 +285,18 @@ function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
 }
 const dynamicMap=new DynamicMapRenderer();
 const deploymentPanelRenderer=new DeploymentPanelRenderer();
+// Keep a pressed control stable through pointerup/click. Only painting waits;
+// authority time and incoming authorized state continue normally.
+const grandPressedPointers=new Set<number>();let grandPaintPending=false;
+document.addEventListener('pointerdown',e=>{if(grandPort?.continuous)grandPressedPointers.add(e.pointerId);},true);
+const finishGrandPointer=(e:PointerEvent)=>{setTimeout(()=>{grandPressedPointers.delete(e.pointerId);if(!grandPressedPointers.size&&grandPaintPending){grandPaintPending=false;refreshDynamicView();}},0);};
+document.addEventListener('pointerup',finishGrandPointer,true);document.addEventListener('pointercancel',finishGrandPointer,true);document.addEventListener('lostpointercapture',finishGrandPointer,true);
+window.addEventListener('blur',()=>{grandPressedPointers.clear();if(grandPaintPending){grandPaintPending=false;refreshDynamicView();}});
 function refreshDynamicView():void{
   return perf006.measure('viewUpdate',refreshDynamicViewNow);
 }
 function refreshDynamicViewNow():void{
+  if(grandPort?.continuous&&grandPressedPointers.size){grandPaintPending=true;return;}
   if(isNetwork(session))session.requestProjection(presentation);
   if(!session||presentation.privacyGate){render();return;}
   const model=deriveBrowserRenderModel(session,presentation);
@@ -420,7 +440,7 @@ function chooseMoveTarget(hex:ReturnType<typeof parseHex>):void{
 function selectPlayableCounter(id:string):void{
   if(!session)return;
   selectCounter(session,presentation,id);
-  if(grandPort?.continuous){if(grandPort.directDraft&&grandPort.directDraft.unit!==id){grandPort.directDraft=null;grandPort.directPreview=null;const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;scope.picking=null;scope.officerPick=false;}presentation.interactionMode="SELECT" as typeof presentation.interactionMode;return;}
+  if(grandPort?.continuous){grandPort.selections['map-command']='1';grandPort.selections['ui-panel']='';if(grandPort.directDraft&&grandPort.directDraft.unit!==id){grandPort.directDraft=null;grandPort.directPreview=null;const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;scope.picking=null;scope.officerPick=false;}presentation.interactionMode="SELECT" as typeof presentation.interactionMode;requestAnimationFrame(()=>keepGrandTargetVisible(grandPort?.data.continuous.units[id]?.hex));return;}
   if(!grandPort?.data?.ux||presentation.privacyGate||isNetwork(session)&&!session.canSelect)return;
   const model=deriveBrowserRenderModel(session,presentation),u=sessionPlayerView(session).units.find(u=>u.id===id);
   const officers=grandPort.data.officers,delegated=officers?.enabled&&officers.groups.some((g:any)=>g.order&&!g.paused&&g.members.includes(id));
@@ -726,6 +746,13 @@ function bindPlayable(model:BrowserRenderModel):void{
   if(session!==captured)return;const current=deriveBrowserRenderModel(captured,presentation),id=el.dataset.commandUnit??el.dataset.commandLocate,u=current.playerView.units.find(u=>u.id===id&&u.side===current.viewerSide);if(!u)return;
   if(!current.combat?.pending&&!current.readOnly){selectPlayableCounter(u.id);refreshDynamicView();}focusPlanHex(u.hex);
  }));
+}
+function keepGrandTargetVisible(h:any){
+ if(!h)return;const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),wrap=document.querySelector('#map-wrap'),m=svg?.getScreenCTM();if(!svg||!wrap||!m)return;
+ const pt=hexToPixel(h),s=new DOMPoint(pt.x,pt.y).matrixTransform(m),r=wrap.getBoundingClientRect(),strip=document.querySelector('.map-command-strip')?.getBoundingClientRect(),side=document.querySelector('.ui-sidebar')?.getBoundingClientRect();
+ const left=r.left+55,right=Math.min(r.right-55,side?side.left-35:r.right-55),top=r.top+90,bottom=Math.min(r.bottom-100,strip?strip.top-55:r.bottom-100);
+ const dx=s.x<left?left-s.x:s.x>right?right-s.x:0,dy=s.y<top?top-s.y:s.y>bottom?bottom-s.y:0;
+ if(dx||dy){mapViewport={...mapViewport,panX:mapViewport.panX+dx,panY:mapViewport.panY+dy};applyMapViewport();}
 }
 function focusGrandHex(hex:{q:number;r:number},zoomOverride?:number):void{
  const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),wrap=document.querySelector('#map-wrap');if(!svg||!wrap)return;

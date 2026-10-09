@@ -1,9 +1,5 @@
-/** A disclosed own-side condition index, never a win probability or enemy estimate. */
-export function battleReadout(b:any,viewer:string){
- const own=[...new Map((b.participants??[]).filter((u:any)=>u.side===viewer).map((u:any)=>[u.id,u])).values()] as any[];
- const complete=own.length>0&&own.every(u=>Number.isFinite(u.org));
- const value=complete?Math.round(own.reduce((n,u)=>n+Math.max(0,Math.min(100,u.org)),0)/own.length):null;
- return {value,label:'我方平均组织',text:value===null?'?':String(value),
-  symbol:b.status==='WITHDRAWING'?'↶':b.role==='双方投入'?'↔':b.role?.includes('防守')?'◀':'➤',
-  meaning:'数字为本方已知参战部队的平均组织度（0–100），每队只计一次；不含敌军状态，不是胜率、损伤比例或完成进度。颜色沿用本方接触报告：绿为暂能维持，赭为承压，灰为依据不足。箭头朝右为本方进攻，朝左为本方防守，双向箭为双方投入，弯箭为发生撤退；不是地理方向。'};
+/** Coarse authorized contact report; no invented score or enemy private data. */
+export function battleReadout(b:any,_viewer:string){
+ const text=b.status==='WITHDRAWING'?'撤出中':b.outlook==='STRAINED'?'承压':b.outlook==='FAVORABLE'?'可维持':'评估中';
+ return {text,meaning:'本次接触报告：承压表示己方组织低于35或本步平均下降超过12；可维持表示接战至少两步、己方平均组织至少60、本步下降不超过5且人员损失少于8；其余评估中。这只是己方当前承受状况，不是胜率或敌我实力比较。撤出中仅表示实际交战记录正在发生撤出。小箭头沿已授权的实际攻击来源指向交战地；多方向分别保留，缺少来源不猜方向。'};
 }

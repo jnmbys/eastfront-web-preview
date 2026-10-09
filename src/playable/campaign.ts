@@ -1,4 +1,4 @@
-import {directCommand,bindDirectCommand} from './directCommand.js';
+import {directDetails,bindDirectCommand} from './directCommand.js';
 import {ownStatus,aggregateStatus,statusBars,statusText,gearSummary,equipmentDetail,numberStatus} from './unitStatus.js';
 import {commandDock,bindCommandInterface,commandedMembers} from './commandInterface.js';
 import {stackPanel} from './compactForces.js';
@@ -11,7 +11,7 @@ export function campaignTime(p:GrandPort){const c=p.data.continuous;return `<sec
 export function campaignUnit(p:GrandPort,id:string|null){
  const status=id?ownStatus(p,id):null,v=id&&p.data.continuous.units[id],u=p.data.units.find((u:any)=>u.id===id);
  if(!v)return '<p>点选地图部队，或展开堆叠选择成员。</p>';
- return `<h3>${esc(id)} · ${esc(u?.label)}</h3>${directCommand(p,id!)}${statusBars(status)}<p>${esc(status?.action??'未知')} · ${esc(v.reason)}</p><details><summary>人员、装备与补给详情</summary>${equipmentDetail(status)}<p>战役伤亡 ${Math.round(v.losses)}；日常供给 ${Math.round((v.dailySupply?.ratio??0)*100)}%</p><p>火力 ${v.fire.toFixed(1)} · 装甲防护 ${v.protection.toFixed(1)} · 机动 ${v.mobility.toFixed(1)}</p></details>`;
+ return `<h3>${esc(id)} · ${esc(u?.label)}</h3>${directDetails(p,id!)}${statusBars(status)}<p>${esc(status?.action??'未知')} · ${esc(v.reason)}</p><details><summary>人员、装备与补给详情</summary>${equipmentDetail(status)}<p>战役伤亡 ${Math.round(v.losses)}；日常供给 ${Math.round((v.dailySupply?.ratio??0)*100)}%</p><p>火力 ${v.fire.toFixed(1)} · 装甲防护 ${v.protection.toFixed(1)} · 机动 ${v.mobility.toFixed(1)}</p></details>`;
 }
 function objectiveHeadline(c:any,g:any){const rows=Object.values(c.objectives?.units??{}).filter((r:any)=>r.group===g.id) as any[];if(rows.some(r=>r.task==='OCCUPY'))return '安排部队进入最终目标；尚未完成占领或守备到位';if(rows.some(r=>r.task==='GUARD'))return '已安排目标守备；其余部队按当前接触与补给组织行动';return c.objectives.groups[g.id].reason;}
 function objectiveUnitReason(c:any,id:string){const r=c.objectives?.units?.[id];if(r&&c.units[id]?.march&&['APPROACH','OCCUPY'].includes(r.task))return r.task==='OCCUPY'?'沿已接受路段向最终目标行军，尚未到达':'沿已接受接近路段行军，到达后按最新态势评估';return c.tactical.units[id].reason;}
@@ -31,7 +31,7 @@ export function campaignEconomy(p:GrandPort,id:string|null){const d=p.data,x=d.u
 }
 export function bindCampaign(p:GrandPort,id:string|null,refresh:()=>void,focus:(id:string)=>void,pick:(active?:boolean)=>void,locate:(h:any)=>void=()=>{}){
  bindCommandInterface(p,id,refresh,focus,locate);
- bindDirectCommand(p,id,refresh,pick);
+ bindDirectCommand(p,id,refresh,pick,focus);
  bindMapPanel(p,id,refresh);
  document.querySelectorAll<HTMLDetailsElement>('.r2-dock details:not(.r2-stack)').forEach(el=>{const key='disclosure:'+(el.id||el.querySelector('summary')?.textContent?.trim());if(key in p.selections)el.open=p.selections[key]==='1';el.ontoggle=()=>{if(el.isConnected)p.selections[key]=el.open?'1':'';};});
  const stack=document.querySelector<HTMLDetailsElement>('.r2-stack');if(stack)stack.ontoggle=()=>{if(stack.isConnected)p.selections['stack-open']=stack.open?'1':'0';};
