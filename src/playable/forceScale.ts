@@ -25,3 +25,15 @@ export function groupForces(units:DisplayUnit[],viewer:string,corps:any[],ownUni
 }
 /** Match identities by surviving members; position follows real members, never source array order. */
 export function retainGroupKeys(next:ForceGroup[],previous:ForceGroup[]){const used=new Set<string>();for(const g of next){const ids=new Set(g.units.map(u=>u.id)),best=previous.filter(x=>x.affiliation===g.affiliation&&!used.has(x.key)).map(x=>({x,n:x.units.filter(u=>ids.has(u.id)).length})).sort((a,b)=>b.n-a.n||a.x.key.localeCompare(b.x.key))[0];if(best?.n){g.key=best.x.key;}while(used.has(g.key))g.key+='~'+g.units[0]!.id;used.add(g.key);}return next;}
+
+/** R1: a marker is a physical hex, not a screen-distance cluster. No zoom input. */
+export function fixedHexForces(units:DisplayUnit[],viewer:string,corps:any[],ownUnits:Record<string,any>,point:(h:any)=>Point):ForceGroup[]{
+ const cells=new Map<string,ForceGroup>();
+ for(const u of [...new Map(units.map(u=>[u.id,u])).values()].sort((a,b)=>a.id.localeCompare(b.id))){
+  const key=u.hex.q+','+u.hex.r,aff=forceAffiliation(u,viewer,corps,ownUnits);let g=cells.get(key);
+  if(!g){g={key:'hex:'+key,affiliation:aff.id,name:aff.name,color:aff.color,units:[],at:point(u.hex),crossHex:false};cells.set(key,g);}
+  g.units.push(u);
+  if(g.affiliation!==aff.id){g.affiliation='mixed';g.name='同格部队';g.color='#aebac0';}
+ }
+ return [...cells.values()];
+}

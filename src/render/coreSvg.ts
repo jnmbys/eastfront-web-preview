@@ -8,7 +8,7 @@ import type { BrowserRenderModel, CounterModel } from './coreModel.js';
 import { renderProductionBase } from './productionTerrain.js';
 import type { RendererMode, TerrainAssetSet, TerrainLod } from './terrainAssets.js';
 
-export interface CoreSvgOptions { debug:boolean; rendererMode?:RendererMode; assetSet?:TerrainAssetSet; lod?:TerrainLod; scenarioSeed?:number; marshContinuity?:boolean; staticTerrainSurface?:boolean; }
+export interface CoreSvgOptions { debug:boolean; rendererMode?:RendererMode; assetSet?:TerrainAssetSet; lod?:TerrainLod; scenarioSeed?:number; marshContinuity?:boolean; staticTerrainSurface?:boolean; compactForces?:boolean; }
 export interface ViewBoxSpec { minX:number; minY:number; width:number; height:number; }
 
 function esc(value:string):string{return value.replace(/[&<>\"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[char]??char));}
@@ -197,7 +197,7 @@ export function coreSvgOverlayMarkup(model:BrowserRenderModel,options:CoreSvgOpt
 }
 
 export function coreSvgDynamicMarkup(model:BrowserRenderModel,options:CoreSvgOptions):string{
-  return `<g id="interaction-overlays">${coreSvgOverlayMarkup(model,options)}</g>${renderCounters(model)}`;
+  return `<g id="interaction-overlays">${coreSvgOverlayMarkup(model,options)}</g>${options.compactForces?'':renderCounters(model)}`;
 }
 
 export function coreSvgMarkup(model:BrowserRenderModel,options:CoreSvgOptions):string{

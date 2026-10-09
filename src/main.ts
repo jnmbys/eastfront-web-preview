@@ -1,4 +1,4 @@
-import {bindPlanDrawing,paintPlanDraft} from './playable/corpsPlan.js';
+import {MapPlanInput,paintPlanDraft} from './playable/corpsPlan.js';
 import {chooseDirectTarget} from './playable/directCommand.js';
 import {releaseMode,releaseHome,bindReleaseHome} from './playable/release.js';
 import {refreshIndustryViewport} from './playable/industryArt.js';
@@ -210,7 +210,9 @@ const viewportWork=new ViewportWork(scaleChanged=>{
 let releaseMapViewport=()=>{};
 function bindMapViewport():void{
   releaseMapViewport();
-  const wrap=document.querySelector<HTMLElement>('#map-wrap');if(!wrap)return;applyMapViewport();if(grandPort?.continuous)bindPlanDrawing(grandPort,refreshDynamicView);
+  const wrap=document.querySelector<HTMLElement>('#map-wrap');if(!wrap)return;applyMapViewport();
+  const drawing=new MapPlanInput(()=>grandPort,refreshDynamicView);let drawingGesture=false;
+  const listeners=new AbortController();
   const points=new Map<number,MapPoint>();
   let gesture:MapGestureState|null=null;
   let pinch:{view:MapViewport;a:MapPoint;b:MapPoint}|null=null;
@@ -220,9 +222,9 @@ function bindMapViewport():void{
   const local=(e:PointerEvent|WheelEvent):MapPoint=>{const r=bounds;return {x:e.clientX-r.left-r.width/2,y:e.clientY-r.top-r.height/2};};
   const capture=(id:number)=>{try{wrap.setPointerCapture?.(id);}catch{/* Capture may end during cancellation. */}};
   const cancelFrame=()=>{if(panFrame!==null)cancelAnimationFrame(panFrame);panFrame=null;};
-  const abandonGesture=()=>{cancelFrame();points.clear();gesture=null;pinch=null;latest=null;suppressNextClick=true;viewportWork.request();viewportWork.release();};
+  const abandonGesture=()=>{drawing.interrupt();drawingGesture=false;cancelFrame();points.clear();gesture=null;pinch=null;latest=null;suppressNextClick=true;viewportWork.request();viewportWork.release();};
   window.addEventListener('blur',abandonGesture);
-  releaseMapViewport=()=>{cancelFrame();resizeObserver?.disconnect();window.removeEventListener('blur',abandonGesture);viewportWork.dispose();setCityArtInteracting(false);};
+  releaseMapViewport=()=>{listeners.abort();drawing.interrupt();cancelFrame();resizeObserver?.disconnect();window.removeEventListener('blur',abandonGesture);viewportWork.dispose();setCityArtInteracting(false);};
   const flushPan=()=>{panFrame=null;if(pinch){const [a,b]=[...points.values()];if(a&&b){mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a,b,grandPort?12:2.5);applyMapViewport();}return;}if(!gesture?.dragging||!latest)return;mapViewport=gesturePanViewport(gesture,latest.x,latest.y,mapViewport.zoom);applyMapViewport();};
   const queuePan=(x:number,y:number)=>{latest={x,y};if(panFrame===null)panFrame=requestAnimationFrame(flushPan);};
   const rebase=()=>{
@@ -232,32 +234,35 @@ function bindMapViewport():void{
   };
   wrap.addEventListener('pointerdown',(event)=>{
     const e=event as PointerEvent;if(e.button!==0)return;
-    viewportWork.hold();setCityArtInteracting(true);
+    viewportWork.hold();setCityArtInteracting(true);const svg=wrap.querySelector<SVGSVGElement>('#eastfront-map');if(svg)svg.style.willChange='transform';
     if(points.size===0)suppressNextClick=false;
     cancelFrame();flushPan();points.set(e.pointerId,local(e));rebase();
+    if(drawing.enabled){drawingGesture=true;suppressNextClick=true;if(points.size===1){drawing.start(e);capture(e.pointerId);}else drawing.interrupt();e.preventDefault();e.stopPropagation();}
     if(points.size>=2){suppressNextClick=true;for(const id of points.keys())capture(id);e.preventDefault();}
-  });
+  },{capture:true,signal:listeners.signal});
   wrap.addEventListener('pointermove',(event)=>{
     const e=event as PointerEvent;if(!points.has(e.pointerId))return;const p=local(e);points.set(e.pointerId,p);
     if(pinch){queuePan(p.x,p.y);e.preventDefault();return;}
+    if(drawingGesture){if(points.size===1)drawing.move(e);e.preventDefault();e.stopPropagation();return;}
     if(!gesture)return;gesture=updateMapGesture(gesture,p.x,p.y);if(!gesture.dragging)return;
     capture(e.pointerId);queuePan(p.x,p.y);e.preventDefault();
-  });
+  },{capture:true,signal:listeners.signal});
   const finish=(event:PointerEvent,cancelled=false)=>{
     if(!points.has(event.pointerId))return;
     cancelFrame();
     if(pinch)flushPan();
-    if(!pinch&&gesture){if(!cancelled)latest=local(event);flushPan();suppressNextClick= cancelled||suppressNextClick||dragSuppressesTap(gesture,cancelled);}
+    if(drawingGesture)drawing.end(event,cancelled);
+    if(!drawingGesture&&!pinch&&gesture){if(!cancelled)latest=local(event);flushPan();suppressNextClick= cancelled||suppressNextClick||dragSuppressesTap(gesture,cancelled);}
     points.delete(event.pointerId);rebase();
-    if(!points.size){viewportWork.request();viewportWork.release();}
+    if(!points.size){drawingGesture=false;const svg=wrap.querySelector<SVGSVGElement>('#eastfront-map');if(svg)svg.style.willChange='auto';viewportWork.request();viewportWork.release();}
     if(wrap.hasPointerCapture?.(event.pointerId)){try{wrap.releasePointerCapture?.(event.pointerId);}catch{}}
   };
-  wrap.addEventListener('pointerup',(e)=>finish(e as PointerEvent));
-  wrap.addEventListener('pointercancel',(e)=>finish(e as PointerEvent,true));
-  wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true));
-  wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);});
-  wrap.addEventListener('click',(event)=>{if(!suppressNextClick){handleGrandMapCommand(event);return;}event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},true);
-  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();setCityArtInteracting(true);cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();viewportWork.request(true);rebase();},{passive:false});
+  wrap.addEventListener('pointerup',(e)=>finish(e as PointerEvent),{capture:true,signal:listeners.signal});
+  wrap.addEventListener('pointercancel',(e)=>finish(e as PointerEvent,true),{capture:true,signal:listeners.signal});
+  wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true),{signal:listeners.signal});
+  wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);},{signal:listeners.signal});
+  wrap.addEventListener('click',(event)=>{if(!suppressNextClick&&!drawing.enabled){handleGrandMapCommand(event);return;}event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},{capture:true,signal:listeners.signal});
+  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();setCityArtInteracting(true);cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();viewportWork.request(true);rebase();},{passive:false,signal:listeners.signal});
 }
 function handleGrandMapCommand(event:Event):void{
  const p=grandPort;if(!p?.continuous)return;const id=presentation.selectedUnitId;if(!id||p.selections['map-command']!=='1'||presentation.privacyGate||!session)return;
@@ -271,7 +276,7 @@ function handleGrandMapCommand(event:Event):void{
  if(!hex||best>HEX_SIZE*1.2)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();chooseDirectTarget(p,id,hex);p.selections['ui-panel']='';refreshDynamicView();requestAnimationFrame(()=>keepGrandTargetVisible(hex));
 }
 function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):CoreSvgOptions{
-  if(grandPort)return grandArt?{debug:false,rendererMode:'production',assetSet:'p5',lod:lodOverride??'far',scenarioSeed:TERRAIN_VISUAL_SEED,staticTerrainSurface:true}:{debug:false,rendererMode:'prototype',lod:'far'};
+  if(grandPort)return grandArt?{debug:false,rendererMode:'production',assetSet:'p5',lod:lodOverride??'far',scenarioSeed:TERRAIN_VISUAL_SEED,staticTerrainSurface:true,compactForces:!!grandPort.continuous}:{debug:false,rendererMode:'prototype',lod:'far',compactForces:!!grandPort.continuous};
   const vb=viewBoxForHexes(model.hexes),usableWidth=Math.max(560,window.innerWidth-(presentation.panelCollapsed?24:280));
   const screenHexWidth=usableWidth*((Math.sqrt(3)*HEX_SIZE)/vb.width)*mapViewport.zoom;
   const lod=lodOverride??selectTerrainLod(screenHexWidth);

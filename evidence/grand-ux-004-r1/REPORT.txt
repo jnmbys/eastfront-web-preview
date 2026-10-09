@@ -1,0 +1,27 @@
+GRAND-UX-004-R1 — 2026-10-09
+Source baseline 3f2cfcb5872578d1ef1c82d2717a811f51ca8c64; evidence parent 9f6032fedb2ee87dd7be9b0a8efe353bd843468a.
+
+Confirmed causes and changes
+- Drawing used a competing, conditionally installed pointer handler. It now shares the viewport pointer stream, with a current port accessor, capture through unit markers, cached transformed coordinates and retained draft. Array.map(hexToPixel) also passed the index as hex size; explicit one-argument conversion fixes the misplaced line.
+- Continuous mode rebuilt a second, CSS-hidden legacy unit tree on pushes. It is no longer created. Existing terrain/cache/LOD are retained. Camera updates remain local and frame-coalesced; heavy viewport work waits until the gesture ends. Aborted bindings now remove their listeners.
+- All unit markers group only on the authoritative actual hex, independently of zoom. No cross-hex centroid, collision displacement or leader line. Same-hex members are selectable; selected unit has its actual hex outline and coordinate. At full-map scale markers are deliberately small and stay in their hex; enlarge to read details.
+
+Actual browser evidence (Windows Codex IAB, 1024x768 simulated viewport; NOT physical tablet)
+- Paused: eight native drags and one wheel zoom. Running 1x: repeated eight drags and one wheel zoom while real updates advanced 08:35 to 08:45; camera did not revert on subsequent pushes. Pointer-free performance samples in performance-summary.json are rAF intervals, not GPU duration or touch-to-photon latency. Short windows do not prove sustained/mobile performance.
+- Paused baseline/candidate p95 rAF intervals 25.1/20.0ms, max 33.7/29.5ms. Candidate running p95 21.4ms, max32.1ms. No >50ms Long Task observed in these ~1.3–2.0s windows. Tool pacing differs; do not call this a representative percentage speedup or proof Huawei lag is solved.
+- Officer selected; map drag over actual unit markers at 115% produced four accepted hexes 21,4–21,7. Pointerup retained draft. Target25,4 selected, plan confirmed and authoritative group order persisted. Running then moved G014/G017 and brought G018/G019/G020 into real combat. browser-authority.json records the actual test save at tick59; no injected battle.
+- Same-hex three-unit stack24,4 expanded, second member G019 selected. Reload restored the plan paused. Edit/cancel restored the accepted plan; ordinary pan resumed afterward.
+- Screenshots01–03 show real drawing, stack selection and reloaded plan. 04/05 are normal new-game start, identical 1024x768/100% camera and unit deployment, OLD vs NEW territory respectively; they are deliberately different layout versions, not one rewritten save.
+- Two-finger native input is unsupported by this browser tool. Only DOM adapter cancellation tests cover second-pointer interruption. Physical tablet and native pinch remain unverified. No claim of hardware acceptance.
+
+New-campaign scenario change only
+- 1278 land, 2 lakes excluded. Original: German797/Soviet448/neutral33. New: German623 (48.75%), Soviet622 (48.67%), neutral33 (2.58%). Initial actual control equals frozen scoring/political affiliation for every scored hex. German UI control count625 also includes2 lakes; not a land share.
+- Fixed config THEATRE-CORES-UX004-R1 includes the complete weighted hex list; surrender weights983/982. Ordinary core ownership shifts174 hexes. Important-city unique scoring rows and weights unchanged. Initial frontier follows bounded row contours with river preference; all starting units, facilities, nodes and one existing owned rail connection from a source to each national node are protected. Other cross-front spurs can change usable access. This is a scenario change, not only recoloring and not a balance claim.
+- No unit relocation, stock grants, price/production/combat changes. No duplicated factories or rail repairs. New layout is named in new-game confirmation and war overview.
+- Old saves retain their embedded old frozen config, control, vision and economy. Twelve same accepted time steps against original restore retained state/economy/RNG. Both exact known configs load; tampered/unknown configs rejected. New save loads paused.
+
+Release and rollback
+- Existing public service/disk/visitor credentials remain unchanged. Startup verifies and makes campaign.json.before-ux004-r1 once per existing visitor; prior before-ux004 and rotating .bak remain. No user reset.
+- Old-layout saves can return to source3f2cfcb. New-layout saves must be preserved for this or another R1-compatible build; original binary intentionally rejects their layout instead of silently converting it. Do not overwrite them with old-layout backups. Rollback assets/source together, with new-layout visitors retained offline until compatible recovery if needed.
+- No server upgrade, new resource, new authentication or network permission.
+- Targeted check.mjs requires the preserved baseline sibling worktree grand-ux-004-command-experience. It is an offline/DOM regression, distinct from actual browser evidence. Existing codec/production-retention/cancellation checks reused; no whole campaign or industrial retest.

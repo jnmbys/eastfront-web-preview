@@ -14,6 +14,16 @@ export class DynamicMapRenderer {
     return perf006.measure('mapUpdate',()=>this.updateNow(layer,model,options));
   }
   private updateNow(layer:SVGGElement,model:BrowserRenderModel,options:CoreSvgOptions):{full:boolean;units:number} {
+    if(options.compactForces){
+      // Continuous campaigns already have keyed authoritative markers. Do not
+      // recreate a second, CSS-hidden counter tree on each pushed snapshot.
+      let overlays=layer.querySelector('#interaction-overlays');
+      if(!overlays){layer.innerHTML='<g id="interaction-overlays"></g>';overlays=layer.firstElementChild!;}
+      for(const child of Array.from(layer.children))if(child!==overlays)child.remove();
+      const html=coreSvgOverlayMarkup(model,options);
+      if(overlays.getAttribute('data-markup')!==html){overlays.innerHTML=html;overlays.setAttribute('data-markup',html);}
+      this.layer=layer;this.previous=model;return {full:false,units:0};
+    }
     const previous=this.previous,locale=getLocale();
     const deployment=this.layer===layer&&previous?.deployment&&model.deployment&&previous.phase===model.phase&&previous.playerView.viewer===model.playerView.viewer&&previous.viewerControllerId===model.viewerControllerId&&this.locale===locale&&!this.debug&&!options.debug;
     const full=this.layer!==layer||!previous||previous.playerView!==model.playerView||this.locale!==locale||this.debug!==options.debug;
