@@ -19,10 +19,13 @@ export class ViewportWork {
     if(this.dirty)this.arm();
   }
   dispose():void { this.clearTimer();this.held=false;this.dirty=false;this.scaleChanged=false; }
-  private clearTimer():void { if(this.timer!==null)this.cancel(this.timer);this.timer=null; }
+  // Window timer functions require their native receiver. Calling a stored
+  // function as this.schedule()/this.cancel() binds the scheduler as `this`
+  // and throws Illegal invocation in browsers (Node timers tolerate it).
+  private clearTimer():void { if(this.timer!==null)this.cancel.call(globalThis,this.timer);this.timer=null; }
   private arm():void {
     this.clearTimer();
-    this.timer=this.schedule(()=>{
+    this.timer=this.schedule.call(globalThis,()=>{
       this.timer=null;
       const scale=this.scaleChanged;this.dirty=false;this.scaleChanged=false;
       this.paint(scale);
