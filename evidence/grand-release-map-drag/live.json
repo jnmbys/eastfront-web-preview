@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-09T05:15:13.147Z",
+  "scope": "Public HTTPS/WSS, actual transport Client with Node network adapters; existing isolated test visitor, not UI/tablet acceptance",
+  "checks": [
+    "Actual authorized route preview, explicit accepted DIRECT move intent",
+    "Durable SAVE acknowledged",
+    "Paused reconnect preserves intent, no new duplicate command"
+  ],
+  "build": {
+    "release": "GRAND-RELEASE-001",
+    "source": "bdb3384e12bf2b98d7b7c135b9b5e55ab1f27e28",
+    "dirty": false,
+    "rules": "GRAND-TERRITORY-1",
+    "save": "GRAND-RELEASE-TERRITORY-1",
+    "assetsSHA256": "68fc76c6287b891da664c227463d3464815c1c7a11e464f4b48eff21e9f2e62a",
+    "fileCount": 556,
+    "totalBytes": 17971878
+  },
+  "assets": [
+    {
+      "file": "src/main.js",
+      "status": 200,
+      "cache": "private, max-age=0, must-revalidate",
+      "bytes": 118455
+    },
+    {
+      "file": "src/interaction/viewportWork.js",
+      "status": 200,
+      "cache": "private, max-age=0, must-revalidate",
+      "bytes": 1324
+    },
+    {
+      "file": "src/render/cityArtRuntime.js",
+      "status": 200,
+      "cache": "private, max-age=0, must-revalidate",
+      "bytes": 14367
+    }
+  ],
+  "status": "PASS",
+  "series": [
+    {
+      "type": "direct-move",
+      "receiptMs": 797,
+      "result": "APPLIED"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Drag responsiveness repair
 
-Baseline runtime: `41717e84152902b2dd8dbf9e5b8ef1f0cfc`. Same preview service, game rules, authority, transport, visitor isolation and save format. No hardware/tier change.
+Baseline runtime: `41717e84152902b2dd8dbf9e5b8ef5e8ef1f0cfc`. Same preview service, game rules, authority, transport, visitor isolation and save format. No hardware/tier change.
 
 ## Confirmed code path
 
@@ -33,4 +33,12 @@ Browser-control inventory returned a connector fetch error; binding the existing
 
 Ship on the existing `eastfront-grand-preview` Render service by fast-forwarding the preview branch, setting the pinned `RELEASE_SOURCE_SHA`, and retaining all other environment variables and disk. Verify `/release/info` and served module hashes. Existing signed visitor cookie and persistent saves must be retained; users refresh and continue, not clear cookies/new-game.
 
-Rollback to runtime `41717e84152902b2dd8dbf9e5b8ef1f0cfc` through its prior Render deploy if necessary. No save conversion. Existing local services and user progress untouched.
+Rollback to runtime `41717e84152902b2dd8dbf9e5b8ef5e8ef1f0cfc` through its prior Render deploy if necessary. No save conversion. Existing local services and user progress untouched.
+
+## Live verification — 2026-10-09
+
+Render deploy `dep-db47fj5g1s2s738h0gkg` is live at runtime `bdb3384e12bf2b98d7b7c135b9b5e55ab1f27e28`. Both fix and preview branch remote SHAs verified. `/release/info` reports the exact source, unchanged rules/save version and a clean build. The live main, viewport scheduler and city renderer modules compare byte-for-byte with locally built modules; all return revalidation cache headers. The online build manifest is retained in `live.json` (whole-manifest local/cloud hash equality is not claimed).
+
+Actual production transport Client in a Node HTTPS/WSS adapter, using the existing separate test visitor: authorized route preview, DIRECT intent accepted in 797 ms, durable SAVE and paused reconnect retaining that exact intent all pass. This is command acceptance/persistence, not a completed march or graphical drag test. User campaign was not opened or manipulated. Initial probe stopped before any action because its copied expected-version constant was stale; corrected to the deployed full SHA before this successful run.
+
+The graphical browser channel remains unavailable. User should refresh the existing URL and continue the existing campaign, retaining the visitor cookie. No claim that physical-tablet dragging has been validated.
