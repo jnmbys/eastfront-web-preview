@@ -1,0 +1,32 @@
+# Review-only. Do not apply until public access and recurring charges are approved.
+services:
+  - type: web
+    name: eastfront-grand-private-preview
+    runtime: node
+    repo: https://github.com/jnmbys/eastfront-web-preview
+    branch: grand-ui-003-r1-map-command
+    buildCommand: test "$(git rev-parse HEAD)" = "69c7b2a70e3a765fb2838489ea33c68f3434f557" && npm ci --include=dev && node experiments/grand-release-001/build.mjs
+    startCommand: node experiments/grand-release-001/server.mjs
+    region: singapore
+    plan: 0.5c-512mb
+    numInstances: 1
+    autoDeployTrigger: "off"
+    healthCheckPath: /healthz
+    disk:
+      name: grand-release-campaign
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: PUBLIC_ORIGIN
+        sync: false
+      - key: OWNER_PASSWORD_HASH
+        sync: false
+      - key: SAVE_DIR
+        value: /var/data/grand-release-territory-1
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+
