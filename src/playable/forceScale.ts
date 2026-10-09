@@ -8,10 +8,10 @@ export function scaleMode(hexPixels:number,previous?:ScaleMode):ScaleMode {
  if(previous==='middle'&&hexPixels>=31&&hexPixels<=69)return 'middle';return hexPixels<34?'far':hexPixels>63?'near':'middle';
 }
 const distance=(a:any,b:any)=>Math.max(Math.abs(a.q-b.q),Math.abs(a.r-b.r),Math.abs(a.q+a.r-b.q-b.r));
-/** Own current corps only. Direct control overrides the historical roster. Enemies have no inferred corps. */
+/** Own corps membership survives priority manual orders. Enemies have no inferred corps. */
 export function forceAffiliation(u:DisplayUnit,viewer:string,corps:any[],ownUnits:Record<string,any>){
  if(u.side!==viewer)return {id:'enemy:'+u.side,name:'已识别敌军',color:'#be8a7b'};
- const i=ownUnits[u.id]?.direct?-1:corps.findIndex(g=>g.members.includes(u.id));
+ const i=corps.findIndex(g=>g.members.includes(u.id));
  return i<0?{id:'direct:'+viewer,name:'直属部队',color:'#b5bbb0'}:{id:corps[i].id,name:corps[i].name,color:['#8fb9c9','#c6a58d','#b1b889'][i%3]!};
 }
 export function groupForces(units:DisplayUnit[],viewer:string,corps:any[],ownUnits:Record<string,any>,mode:ScaleMode,scale:number,point:(h:any)=>Point):ForceGroup[]{

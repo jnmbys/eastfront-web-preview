@@ -1,3 +1,4 @@
+import {bindOnce} from '../ui/bindOnce.js';
 export interface OfficerPort {data:any;officerGroup:string;officerUnit:string;officerKind:string;officerTarget:{q:number;r:number}|null;officerNotice:string;officerConfig(c:any):Promise<void>;officerChoose(g:string):void;officerOrderTarget(h:{q:number;r:number}):void;}
 const esc=(x:unknown)=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 export function officerPanel(p:OfficerPort,model:any){
@@ -19,13 +20,13 @@ export function officerPanel(p:OfficerPort,model:any){
  <details open><summary>任务记录（真实提交）</summary>${o.reports.slice(-5).reverse().map((r:any)=>`<p>T${r.turn} ${esc(r.officer)} · ${r.accepted?'已执行':'已拒绝'} ${esc(r.action.type)} ${esc(r.action.unitId??r.action.attackerUnitIds?.join('、')??'战后处理')}：${esc(r.reason)}</p>`).join('')||'<p>尚无军官行动。普通计划标记不构成授权。</p>'}</details>`:''}</section>`;
 }
 export function bindOfficers(p:OfficerPort,pick:()=>void){
- const listen=(id:string,fn:()=>void)=>document.getElementById(id)?.addEventListener('click',fn);
+ const listen=(id:string,fn:()=>void)=>bindOnce("src/playable/officers.ts:3754",document.getElementById(id),'click',fn);
  const value=(id:string)=>(document.getElementById(id)as HTMLSelectElement)?.value;
  const config=(type:string,extra={})=>void p.officerConfig({type,group:p.officerGroup,...extra});
- document.querySelector<HTMLInputElement>('#officer-enable')?.addEventListener('change',e=>config('ENABLE',{enabled:(e.target as HTMLInputElement).checked}));
- document.getElementById('officer-unit')?.addEventListener('change',()=>{p.officerUnit=value('officer-unit');});
- document.getElementById('officer-group')?.addEventListener('change',()=>p.officerChoose(value('officer-group')));
- document.getElementById('officer-kind')?.addEventListener('change',()=>{p.officerKind=value('officer-kind');p.officerChoose(p.officerGroup);});
+ bindOnce("src/playable/officers.ts:3996",document.querySelector<HTMLInputElement>('#officer-enable'),'change',e=>config('ENABLE',{enabled:(e.target as HTMLInputElement).checked}));
+ bindOnce("src/playable/officers.ts:4155",document.getElementById('officer-unit'),'change',()=>{p.officerUnit=value('officer-unit');});
+ bindOnce("src/playable/officers.ts:4268",document.getElementById('officer-group'),'change',()=>p.officerChoose(value('officer-group')));
+ bindOnce("src/playable/officers.ts:4383",document.getElementById('officer-kind'),'change',()=>{p.officerKind=value('officer-kind');p.officerChoose(p.officerGroup);});
  listen('officer-assign',()=>config('ASSIGN',{unit:value('officer-unit'),direct:false}));
  listen('officer-recall',()=>config('ASSIGN',{unit:value('officer-unit'),direct:true}));
  listen('officer-target',pick);

@@ -8,7 +8,7 @@ export function patchProduction(parent:Element,next:Element):void{
   const k=key(wanted,i),prior=old.get(k);let node=prior??wanted;
   if(prior&&prior.nodeType!==wanted.nodeType)node=wanted;
   else if(prior instanceof Element&&wanted instanceof Element){
-   const focused=prior===prior.ownerDocument.activeElement;
+   const focused=prior===prior.ownerDocument.activeElement&&['INPUT','SELECT','TEXTAREA'].includes(prior.tagName);
    for(const a of Array.from(prior.attributes))if(!wanted.hasAttribute(a.name)&&a.name!=='open')prior.removeAttribute(a.name);
    for(const a of Array.from(wanted.attributes))if(a.name!=='open'&&prior.getAttribute(a.name)!==a.value)prior.setAttribute(a.name,a.value);
    if(!focused)patchProduction(prior,wanted);

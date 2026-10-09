@@ -1,3 +1,5 @@
+import {mountJoystick} from './interaction/mapJoystick.js';
+import {bindOnce} from './ui/bindOnce.js';
 import {MapPlanInput,paintPlanDraft} from './playable/corpsPlan.js';
 import {chooseDirectTarget} from './playable/directCommand.js';
 import {releaseMode,releaseHome,bindReleaseHome} from './playable/release.js';
@@ -76,7 +78,7 @@ const fogSurface=new FogRuntime();
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 unitAnimations.setReducedMotion(reducedMotion.matches);
 const updateReducedMotion=()=>{unitAnimations.setReducedMotion(reducedMotion.matches);if(reducedMotion.matches)fogSurface.settle();};
-reducedMotion.addEventListener('change',updateReducedMotion);
+bindOnce("src/main.ts:7368",reducedMotion,'change',updateReducedMotion);
 window.addEventListener('pagehide',()=>{unitAnimations.skip();});
 window.addEventListener('pagehide',()=>{terrainPipeline?.pause();terrainZoomObserver?.disconnect();terrainZoomWrap=null;});
 window.addEventListener('pageshow',()=>{if(appStatus==='PLAYING'||appStatus==='LOADING')terrainPipeline?.resume();});
@@ -114,7 +116,7 @@ function parseHex(value:string){const [q,r]=value.split(',').map(Number);return 
 function sideLabel(side:Side):string{return t('faction.side',{side:enumLabel(side)});}
 function phaseLabel(phase:string):string{return phaseName(phase);}
 function issueHtml(issues:readonly {code:string;message:string}[]):string{return issues.length?`<div class="issue-list">${issues.map((issue)=>`<span>${esc(issueText(issue))}</span>`).join('')}</div>`:`<div class="issue-list"><span>${t('common.legal')}</span></div>`;}
-function bindKeyboardActivation(element:Element,action:()=>void):void{element.addEventListener('keydown',(event)=>{const e=event as KeyboardEvent;if(e.key==='Enter'||e.key===' '){e.preventDefault();action();}});}
+function bindKeyboardActivation(element:Element,action:()=>void):void{bindOnce("src/main.ts:11922",element,'keydown',(event)=>{const e=event as KeyboardEvent;if(e.key==='Enter'||e.key===' '){e.preventDefault();action();}});}
 
 function lastActionPanel(current:LocalGameSession):string{
   const result=current.lastResult;const validation=result?.issues.map((issue)=>issue.code).join(', ')||'—';const events=result?.events.map((event)=>event.type).join(', ')||'—';const integrity=current.integrityIssues.length===0?'PASS':current.integrityIssues.map((issue)=>issue.code).join(', ');
@@ -207,13 +209,15 @@ const viewportWork=new ViewportWork(scaleChanged=>{
   else {if(grandArt)scheduleCityArt();if(scaleChanged&&grandPort?.data?.continuous?.map)refreshBattleMapViewport();refreshIndustryViewport();}
   if(scaleChanged)mountCachedTerrainSurface();
 });
+let releaseJoystick=()=>{};
 let releaseMapViewport=()=>{};
 function bindMapViewport():void{
-  releaseMapViewport();
+  releaseMapViewport();releaseJoystick();
   const wrap=document.querySelector<HTMLElement>('#map-wrap');if(!wrap)return;applyMapViewport();
+  if(grandPort?.continuous)releaseJoystick=mountJoystick((dx,dy)=>{mapViewport={...mapViewport,panX:mapViewport.panX+dx,panY:mapViewport.panY+dy};applyMapViewport();},active=>{if(active){viewportWork.hold();setCityArtInteracting(true);}else{viewportWork.release();viewportWork.request();}});
   const drawing=new MapPlanInput(()=>grandPort,refreshDynamicView);let drawingGesture=false;
   const listeners=new AbortController();
-  const points=new Map<number,MapPoint>();
+  const points=new Map<number,MapPoint>();const pressedAt=new Map<number,number>();
   let gesture:MapGestureState|null=null;
   let pinch:{view:MapViewport;a:MapPoint;b:MapPoint}|null=null;
   let suppressNextClick=false;let panFrame:number|null=null;let latest:MapPoint|null=null;
@@ -222,7 +226,7 @@ function bindMapViewport():void{
   const local=(e:PointerEvent|WheelEvent):MapPoint=>{const r=bounds;return {x:e.clientX-r.left-r.width/2,y:e.clientY-r.top-r.height/2};};
   const capture=(id:number)=>{try{wrap.setPointerCapture?.(id);}catch{/* Capture may end during cancellation. */}};
   const cancelFrame=()=>{if(panFrame!==null)cancelAnimationFrame(panFrame);panFrame=null;};
-  const abandonGesture=()=>{drawing.interrupt();drawingGesture=false;cancelFrame();points.clear();gesture=null;pinch=null;latest=null;suppressNextClick=true;viewportWork.request();viewportWork.release();};
+  const abandonGesture=()=>{drawing.interrupt();drawingGesture=false;cancelFrame();points.clear();pressedAt.clear();gesture=null;pinch=null;latest=null;suppressNextClick=true;viewportWork.request();viewportWork.release();};
   window.addEventListener('blur',abandonGesture);
   releaseMapViewport=()=>{listeners.abort();drawing.interrupt();cancelFrame();resizeObserver?.disconnect();window.removeEventListener('blur',abandonGesture);viewportWork.dispose();setCityArtInteracting(false);};
   const flushPan=()=>{panFrame=null;if(pinch){const [a,b]=[...points.values()];if(a&&b){mapViewport=pinchMapViewport(pinch.view,pinch.a,pinch.b,a,b,grandPort?12:2.5);applyMapViewport();}return;}if(!gesture?.dragging||!latest)return;mapViewport=gesturePanViewport(gesture,latest.x,latest.y,mapViewport.zoom);applyMapViewport();};
@@ -232,15 +236,15 @@ function bindMapViewport():void{
     if(entries.length>=2)pinch={view:{...mapViewport},a:{...entries[0]![1]},b:{...entries[1]![1]}};
     else if(entries.length===1){const [id,p]=entries[0]!;gesture=beginMapGesture(id,p.x,p.y,mapViewport);gesture.dragging=suppressNextClick;}
   };
-  wrap.addEventListener('pointerdown',(event)=>{
+  bindOnce("src/main.ts:37656",wrap,'pointerdown',(event)=>{
     const e=event as PointerEvent;if(e.button!==0)return;
     viewportWork.hold();setCityArtInteracting(true);const svg=wrap.querySelector<SVGSVGElement>('#eastfront-map');if(svg)svg.style.willChange='transform';
     if(points.size===0)suppressNextClick=false;
-    cancelFrame();flushPan();points.set(e.pointerId,local(e));rebase();
+    cancelFrame();flushPan();points.set(e.pointerId,local(e));pressedAt.set(e.pointerId,performance.now());rebase();
     if(drawing.enabled){drawingGesture=true;suppressNextClick=true;if(points.size===1){drawing.start(e);capture(e.pointerId);}else drawing.interrupt();e.preventDefault();e.stopPropagation();}
     if(points.size>=2){suppressNextClick=true;for(const id of points.keys())capture(id);e.preventDefault();}
   },{capture:true,signal:listeners.signal});
-  wrap.addEventListener('pointermove',(event)=>{
+  bindOnce("src/main.ts:38384",wrap,'pointermove',(event)=>{
     const e=event as PointerEvent;if(!points.has(e.pointerId))return;const p=local(e);points.set(e.pointerId,p);
     if(pinch){queuePan(p.x,p.y);e.preventDefault();return;}
     if(drawingGesture){if(points.size===1)drawing.move(e);e.preventDefault();e.stopPropagation();return;}
@@ -252,24 +256,24 @@ function bindMapViewport():void{
     cancelFrame();
     if(pinch)flushPan();
     if(drawingGesture)drawing.end(event,cancelled);
-    if(!drawingGesture&&!pinch&&gesture){if(!cancelled)latest=local(event);flushPan();suppressNextClick= cancelled||suppressNextClick||dragSuppressesTap(gesture,cancelled);}
-    points.delete(event.pointerId);rebase();
+    if(!drawingGesture&&!pinch&&gesture){if(!cancelled)latest=local(event);flushPan();suppressNextClick=cancelled||suppressNextClick||dragSuppressesTap(gesture,cancelled)||!!grandPort?.continuous&&performance.now()-(pressedAt.get(event.pointerId)??performance.now())>500;}
+    points.delete(event.pointerId);pressedAt.delete(event.pointerId);rebase();
     if(!points.size){drawingGesture=false;const svg=wrap.querySelector<SVGSVGElement>('#eastfront-map');if(svg)svg.style.willChange='auto';viewportWork.request();viewportWork.release();}
     if(wrap.hasPointerCapture?.(event.pointerId)){try{wrap.releasePointerCapture?.(event.pointerId);}catch{}}
   };
-  wrap.addEventListener('pointerup',(e)=>finish(e as PointerEvent),{capture:true,signal:listeners.signal});
-  wrap.addEventListener('pointercancel',(e)=>finish(e as PointerEvent,true),{capture:true,signal:listeners.signal});
-  wrap.addEventListener('lostpointercapture',(e)=>finish(e as PointerEvent,true),{signal:listeners.signal});
-  wrap.addEventListener('pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);},{signal:listeners.signal});
-  wrap.addEventListener('click',(event)=>{if(!suppressNextClick&&!drawing.enabled){handleGrandMapCommand(event);return;}event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},{capture:true,signal:listeners.signal});
-  wrap.addEventListener('wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();setCityArtInteracting(true);cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();viewportWork.request(true);rebase();},{passive:false,signal:listeners.signal});
+  bindOnce("src/main.ts:39630",wrap,'pointerup',(e)=>finish(e as PointerEvent),{capture:true,signal:listeners.signal});
+  bindOnce("src/main.ts:39738",wrap,'pointercancel',(e)=>finish(e as PointerEvent,true),{capture:true,signal:listeners.signal});
+  bindOnce("src/main.ts:39855",wrap,'lostpointercapture',(e)=>finish(e as PointerEvent,true),{signal:listeners.signal});
+  bindOnce("src/main.ts:39964",wrap,'pointerleave',(e)=>{const p=e as PointerEvent;if(!wrap.hasPointerCapture?.(p.pointerId))finish(p,true);},{signal:listeners.signal});
+  bindOnce("src/main.ts:40122",wrap,'click',(event)=>{if(!suppressNextClick&&!drawing.enabled){handleGrandMapCommand(event);return;}event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();},{capture:true,signal:listeners.signal});
+  bindOnce("src/main.ts:40365",wrap,'wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();setCityArtInteracting(true);cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();viewportWork.request(true);rebase();},{passive:false,signal:listeners.signal});
 }
 function handleGrandMapCommand(event:Event):void{
  const p=grandPort;if(!p?.continuous)return;const id=presentation.selectedUnitId;if(!id||p.selections['map-command']!=='1'||presentation.privacyGate||!session)return;
  const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;if(scope.picking)return;
  const e=event as MouseEvent,svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!svg||!(e.target instanceof Element)||!svg.contains(e.target))return;
  const hit=document.elementsFromPoint(e.clientX,e.clientY),own=hit.map(n=>n.closest('[data-stack-key]')).find(n=>n&&!n.getAttribute('data-command-owner')?.startsWith('enemy'));
- if(own)return;
+ if(own){const h=parseHex(own.getAttribute('data-anchor')!),members=p.data.game.message.payload.view.units.filter((u:any)=>u.side===p.data.viewer&&u.hex.q===h.q&&u.hex.r===h.r).map((u:any)=>u.id);if(members.length===1&&members[0]===id)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();p.friendlyTarget={source:id,hex:h,members};refreshDynamicView();return;}
  if(!p.directDraft?.kind&&hit.some(n=>n.closest('[data-battle-id]')))return;
  const m=svg.getScreenCTM();if(!m)return;const at=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
  const enemyCard=hit.map(n=>n.closest('[data-stack-key]')).find(n=>n?.getAttribute('data-command-owner')?.startsWith('enemy'));let hex:any=enemyCard?parseHex(enemyCard.getAttribute('data-anchor')!):null,best=hex?0:Infinity;for(const h of p.data.game.message.payload.view.hexes){const q=hexToPixel(h.coord),d=Math.hypot(q.x-at.x,q.y-at.y);if(d<best){best=d;hex=h.coord;}}
@@ -295,7 +299,7 @@ function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
    const options=`<section class="panel-block playable-options"><strong><img src="./assets/playable/personnel.svg" alt="">可选辅助 · 己方 ${model.playerView.units.filter(u=>u.side===model.viewerSide).length}</strong><label><input id="flow-auto" type="checkbox" ${c.enabled?'checked':''} ${logisticsPort||grandPort?'disabled':''}> FLOW · 空恢复自动准备</label><label><input id="command-enable" type="checkbox" ${planning?'checked':''}> COMMAND · 计划与行动记录</label><p role="status">${logisticsPort||grandPort?'新模式后勤由人类确认，FLOW自动准备停用。':esc(c.notice)}</p><small>两项独立；默认关闭。关闭不撤销已执行动作。</small></section>`;
    const command=planning&&!model.deployment?(grandPort?.continuous?plan.panel(session,model).replace('现在可选择己方部队移动；攻击在随后战斗阶段。','此处仅为地图计划；行动从军团或直属持续命令提交。'):plan.panel(session,model)):'';
    const results=combatResults(session).html(model,reducedMotion.matches);
-   if(grandPort?.continuous)return campaignDock(grandPort,presentation.selectedUnitId,`<details><summary>城市与工厂</summary>${cityMarkup(grandPort)}</details><details><summary>生产、运输与军队优先级</summary>${grandMarkup(grandPort,presentation.selectedUnitId)}</details>${command}`);
+   if(grandPort?.continuous)return campaignDock(grandPort,presentation.selectedUnitId,grandPort.selections['ui-panel']==='settings'?`<details><summary>城市与工厂</summary>${cityMarkup(grandPort)}</details><details><summary>生产、运输与军队优先级</summary>${grandMarkup(grandPort,presentation.selectedUnitId)}</details>${command}`:'');
    return `<div class="command-panel-scroll playable-dock"><div class="playable-actions">${deploymentPanel(model,locations)}${phasePanel(model)}${presentation.message?`<section class="panel-block status-message"><p>${esc(formatMessage(presentation.message))}</p></section>`:''}${results}</div><div class="playable-inspect"><section class="panel-block selection-block"><span class="eyebrow">当前部队</span>${grandPort?.continuous?campaignUnit(grandPort,presentation.selectedUnitId):selectedSummary(model)}</section></div><div class="playable-tools">${grandPort?grandPort.continuous?campaignOrders(grandPort,presentation.selectedUnitId)+`<details><summary>城市与工厂</summary>${cityMarkup(grandPort)}</details><details><summary>生产、运输与军队优先级</summary>${grandMarkup(grandPort,presentation.selectedUnitId)}</details>`:cityMarkup(grandPort)+officerPanel(grandPort,model)+grandMarkup(grandPort,presentation.selectedUnitId):''}${logisticsPort?logisticsMarkup(logisticsPort):''}${grandPort?.continuous?'':options}${command}</div></div>${deploymentConfirm(model,presentation.selectedDeploymentUnitId,deploymentTouch)}`;
   }
   const results=session?combatResults(session).html(model,typeof reducedMotion!=='undefined'&&reducedMotion.matches):'';
@@ -383,15 +387,15 @@ function bind():void{
   syncFogSurface();
   bindAnimationControls(root,unitAnimations);
   bindModelControls(root,unitAnimations);
-  document.querySelector('#animation-skip')?.addEventListener('click',()=>fogSurface.settle());
-  document.querySelector('#animation-speed')?.addEventListener('change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
+  bindOnce("src/main.ts:58736",document.querySelector('#animation-skip'),'click',()=>fogSurface.settle());
+  bindOnce("src/main.ts:58832",document.querySelector('#animation-speed'),'change',()=>{if(unitAnimations.effectiveSpeed==='instant')fogSurface.settle();});
   bindLanguageControl(root,()=>{forceNetworkRender=true;render();});
-  document.querySelector('#terrain-detail-retry')?.addEventListener('click',()=>{terrainPipeline?.retry();updateTerrainDetailStatus();});
+  bindOnce("src/main.ts:59047",document.querySelector('#terrain-detail-retry'),'click',()=>{terrainPipeline?.retry();updateTerrainDetailStatus();});
   if(appStatus==='HOME'&&!LOCAL_AI_ENABLED)addMultiplayerHomeButton(root,()=>{appStatus='MULTIPLAYER';mountLobby(root,()=>{appStatus='HOME';render();},client=>void enterNetworkMatch(client));});
-  document.querySelector('#new-game-button')?.addEventListener('click',()=>{if(grandPort){leaveLocalAi();return;}if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(grandPort){leaveLocalAi();return;}if(cachedTerrainSurface)startNewGame();});});document.querySelector('#reload-button')?.addEventListener('click',()=>location.reload());
+  bindOnce("src/main.ts:59380",document.querySelector('#new-game-button'),'click',()=>{if(grandPort){leaveLocalAi();return;}if(cachedTerrainSurface)startNewGame();else void boot().then(()=>{if(grandPort){leaveLocalAi();return;}if(cachedTerrainSurface)startNewGame();});});bindOnce("src/main.ts:59639",document.querySelector('#reload-button'),'click',()=>location.reload());
   if(isNetwork(session) && session.client && 'meta' in session.client)updateLocalAiStatus();
   if(!session)return;
-  document.querySelector('#privacy-confirm')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});document.querySelector('#restart-button')?.addEventListener('click',()=>restartGame());document.querySelector('#renderer-toggle')?.addEventListener('click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});document.querySelector('#debug-toggle')?.addEventListener('click',()=>{presentation.debug=!presentation.debug;render();});document.querySelector('#panel-toggle')?.addEventListener('click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});document.querySelector('#zoom-out')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0},grandPort?12:2.5);applyMapViewport();});document.querySelector('#zoom-in')?.addEventListener('click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0},grandPort?12:2.5);applyMapViewport();});document.querySelector('#zoom-reset')?.addEventListener('click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
+  bindOnce("src/main.ts:59847",document.querySelector('#privacy-confirm'),'click',()=>{deploymentTouch=createDeploymentTouch();confirmPrivacyGate(session!,presentation);if(sessionPlayerView(session!).pendingDecision)continueCombatFlow(session!,presentation);render();});bindOnce("src/main.ts:60104",document.querySelector('#restart-button'),'click',()=>restartGame());bindOnce("src/main.ts:60191",document.querySelector('#renderer-toggle'),'click',()=>{presentation.rendererMode=presentation.rendererMode==='production'?'prototype':'production';render();});bindOnce("src/main.ts:60369",document.querySelector('#debug-toggle'),'click',()=>{presentation.debug=!presentation.debug;render();});bindOnce("src/main.ts:60491",document.querySelector('#panel-toggle'),'click',()=>{presentation.panelCollapsed=!presentation.panelCollapsed;render();});bindOnce("src/main.ts:60631",document.querySelector('#zoom-out'),'click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom-.2,{x:0,y:0},grandPort?12:2.5);applyMapViewport();});bindOnce("src/main.ts:60802",document.querySelector('#zoom-in'),'click',()=>{mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+.2,{x:0,y:0},grandPort?12:2.5);applyMapViewport();});bindOnce("src/main.ts:60972",document.querySelector('#zoom-reset'),'click',()=>{mapViewport=defaultMapViewport();applyMapViewport();});bindMapViewport();bindDynamic();
 }
 function showCombatView():void{
   const panel=document.querySelector<HTMLElement>('#side-panel');
@@ -484,30 +488,30 @@ function bindUnitInputs():void{
     if(!id||boundUnitInputs.has(element))return;
     boundUnitInputs.add(element);
     const action=()=>chooseUnitTarget(id);
-    element.addEventListener('click',event=>{event.stopPropagation();action();});
+    bindOnce("src/main.ts:67619",element,'click',event=>{event.stopPropagation();action();});
     if(element.dataset.unitId)bindKeyboardActivation(element,action);
   });
 }
 function bindDeploymentControls():void{
   const confirm=document.querySelector<HTMLButtonElement>('#confirm-deployment');
-  if(confirm&&!boundDeploymentInputs.has(confirm)){boundDeploymentInputs.add(confirm);confirm.addEventListener('click',event=>{
+  if(confirm&&!boundDeploymentInputs.has(confirm)){boundDeploymentInputs.add(confirm);bindOnce("src/main.ts:67983",confirm,'click',event=>{
    const button=event.currentTarget as HTMLButtonElement;button.disabled=true;button.textContent=t('deployment.submitting');
    if(isNetwork(session!)){if(deploymentTouch.key)deploySelectedUnit(session!,presentation,parseHex(deploymentTouch.key));updateNetworkStatus();return;}
    confirmDeploymentTarget(deploymentTouch,session!,presentation);refreshDynamicView();
   });}
-  const ready=document.querySelector('#ready-button');if(ready&&!boundDeploymentInputs.has(ready)){boundDeploymentInputs.add(ready);ready.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});}
-  document.querySelectorAll<HTMLButtonElement>('[data-deploy-destination]').forEach(element=>{if(boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);element.addEventListener('click',()=>{const key=element.dataset.deployDestination;if(!key)return;chooseTouchTarget(key);});});
-  document.querySelectorAll<HTMLElement>('[data-deploy-unit-id]').forEach((element)=>{const id=element.dataset.deployUnitId;if(!id||boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);const action=()=>{deploymentTouch=createDeploymentTouch();selectDeploymentRosterUnit(presentation,id);refreshDynamicView();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
-  document.querySelectorAll<SVGPolygonElement>('[data-role="deployment-hex"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);const action=()=>{chooseTouchTarget(key);};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
+  const ready=document.querySelector('#ready-button');if(ready&&!boundDeploymentInputs.has(ready)){boundDeploymentInputs.add(ready);bindOnce("src/main.ts:68530",ready,'click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});}
+  document.querySelectorAll<HTMLButtonElement>('[data-deploy-destination]').forEach(element=>{if(boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);bindOnce("src/main.ts:68831",element,'click',()=>{const key=element.dataset.deployDestination;if(!key)return;chooseTouchTarget(key);});});
+  document.querySelectorAll<HTMLElement>('[data-deploy-unit-id]').forEach((element)=>{const id=element.dataset.deployUnitId;if(!id||boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);const action=()=>{deploymentTouch=createDeploymentTouch();selectDeploymentRosterUnit(presentation,id);refreshDynamicView();};bindOnce("src/main.ts:69292",element,'click',action);bindKeyboardActivation(element,action);});
+  document.querySelectorAll<SVGPolygonElement>('[data-role="deployment-hex"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundDeploymentInputs.has(element))return;boundDeploymentInputs.add(element);const action=()=>{chooseTouchTarget(key);};bindOnce("src/main.ts:69634",element,'click',action);bindKeyboardActivation(element,action);});
   bindUnitInputs();
 }
 
 function bindDynamic(model?:BrowserRenderModel):void{
   if(LOCAL_AI_ENABLED&&localAi&&session)bindPlayable(model??deriveBrowserRenderModel(session,presentation));
-  document.querySelectorAll<HTMLButtonElement>('[data-view-side]').forEach(element=>{const side=element.dataset.viewSide as Viewer|undefined;if(!side)return;element.addEventListener('click',()=>{switchViewerForDevelopment(session!,presentation,side);render();});});
+  document.querySelectorAll<HTMLButtonElement>('[data-view-side]').forEach(element=>{const side=element.dataset.viewSide as Viewer|undefined;if(!side)return;bindOnce("src/main.ts:70061",element,'click',()=>{switchViewerForDevelopment(session!,presentation,side);render();});});
   // Result inspection is local UI and remains available to non-decision viewers.
-  document.querySelector('#result-close')?.addEventListener('click',()=>{if(session){combatResults(session).close();refreshDynamicView();}});
-  document.querySelectorAll<HTMLElement>('[data-result-history]').forEach(el=>el.addEventListener('click',()=>{
+  bindOnce("src/main.ts:70254",document.querySelector('#result-close'),'click',()=>{if(session){combatResults(session).close();refreshDynamicView();}});
+  document.querySelectorAll<HTMLElement>('[data-result-history]').forEach(el=>bindOnce("src/main.ts:70472",el,'click',()=>{
     if(!session||!el.dataset.resultHistory)return;
     const id=el.dataset.resultHistory,cached=combatResults(session).open(id);
     if(!cached&&!sessionPlayerView(session).pendingDecision&&(!isNetwork(session)||session.interactive))presentation.selectedBattleId=id;
@@ -516,27 +520,27 @@ function bindDynamic(model?:BrowserRenderModel):void{
   if(session&&((model??deriveBrowserRenderModel(session,presentation)).readOnly||isNetwork(session)&&!session.canSelect))return;
   if(session&&isSessionDeployment(session)){bindDeploymentControls();return;}
   paintCombatTargets();
-  document.querySelectorAll<HTMLElement>('[data-remove-attacker]').forEach(el=>el.addEventListener('click',()=>{
+  document.querySelectorAll<HTMLElement>('[data-remove-attacker]').forEach(el=>bindOnce("src/main.ts:71116",el,'click',()=>{
     const id=el.dataset.removeAttacker;if(!id||!session)return;toggleSupportingAttacker(session,presentation,id);refreshDynamicView();
   }));
-  document.querySelectorAll<HTMLElement>('[data-attack-unit]').forEach(el=>el.addEventListener('click',()=>{
+  document.querySelectorAll<HTMLElement>('[data-attack-unit]').forEach(el=>bindOnce("src/main.ts:71367",el,'click',()=>{
     const id=el.dataset.attackUnit;if(!id||!session)return;toggleAttackUnit(session,presentation,id);refreshDynamicView();
   }));
   if(!session)return;
-  document.querySelector('#ready-button')?.addEventListener('click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});
-  document.querySelector('#rail-edge-add')?.addEventListener('click',()=>{const key=document.querySelector<HTMLSelectElement>('#rail-edge-choice')?.value;if(key){toggleRailRepairEdge(session!,presentation,key);render();}});
-  document.querySelector('#rail-mode')?.addEventListener('click',()=>{enterRailRepairMode(presentation);render();});document.querySelector('#rail-clear')?.addEventListener('click',()=>{cancelRailRepair(presentation);render();});document.querySelector('#rail-commit')?.addEventListener('click',()=>{commitRailRepair(session!,presentation);render();});document.querySelector('#rail-no-engineer')?.addEventListener('click',()=>{selectRailEngineer(presentation,null);render();});document.querySelectorAll<HTMLElement>('[data-rail-engineer]').forEach((el)=>el.addEventListener('click',()=>{selectRailEngineer(presentation,el.dataset.railEngineer??null);render();}));
-  document.querySelectorAll<HTMLElement>('[data-ux-occupied]').forEach(el=>el.addEventListener('click',()=>chooseMoveTarget(parseHex(el.dataset.uxOccupied!))));document.querySelector('#move-start')?.addEventListener('click',startMoveSelection);document.querySelector('#move-undo')?.addEventListener('click',()=>editMoveSelection(()=>undoMoveDraft(presentation)));document.querySelector('#move-cancel')?.addEventListener('click',()=>editMoveSelection(()=>cancelMoveDraft(presentation)));document.querySelector('#move-commit')?.addEventListener('click',()=>editMoveSelection(()=>commitMoveDraft(session!,presentation)));document.querySelector('#recover-unit')?.addEventListener('click',()=>{recoverSelectedUnit(session!,presentation);render();});document.querySelector('#entrench-unit')?.addEventListener('click',()=>{entrenchSelectedUnit(session!,presentation);render();});
+  bindOnce("src/main.ts:71555",document.querySelector('#ready-button'),'click',()=>{deploymentTouch=createDeploymentTouch();readyForPhase(session!,presentation);render();});
+  bindOnce("src/main.ts:71718",document.querySelector('#rail-edge-add'),'click',()=>{const key=document.querySelector<HTMLSelectElement>('#rail-edge-choice')?.value;if(key){toggleRailRepairEdge(session!,presentation,key);render();}});
+  bindOnce("src/main.ts:71942",document.querySelector('#rail-mode'),'click',()=>{enterRailRepairMode(presentation);render();});bindOnce("src/main.ts:72056",document.querySelector('#rail-clear'),'click',()=>{cancelRailRepair(presentation);render();});bindOnce("src/main.ts:72168",document.querySelector('#rail-commit'),'click',()=>{commitRailRepair(session!,presentation);render();});bindOnce("src/main.ts:72290",document.querySelector('#rail-no-engineer'),'click',()=>{selectRailEngineer(presentation,null);render();});document.querySelectorAll<HTMLElement>('[data-rail-engineer]').forEach((el)=>bindOnce("src/main.ts:72492",el,'click',()=>{selectRailEngineer(presentation,el.dataset.railEngineer??null);render();}));
+  document.querySelectorAll<HTMLElement>('[data-ux-occupied]').forEach(el=>bindOnce("src/main.ts:72677",el,'click',()=>chooseMoveTarget(parseHex(el.dataset.uxOccupied!))));bindOnce("src/main.ts:72762",document.querySelector('#move-start'),'click',startMoveSelection);bindOnce("src/main.ts:72846",document.querySelector('#move-undo'),'click',()=>editMoveSelection(()=>undoMoveDraft(presentation)));bindOnce("src/main.ts:72965",document.querySelector('#move-cancel'),'click',()=>editMoveSelection(()=>cancelMoveDraft(presentation)));bindOnce("src/main.ts:73088",document.querySelector('#move-commit'),'click',()=>editMoveSelection(()=>commitMoveDraft(session!,presentation)));bindOnce("src/main.ts:73220",document.querySelector('#recover-unit'),'click',()=>{recoverSelectedUnit(session!,presentation);render();});bindOnce("src/main.ts:73346",document.querySelector('#entrench-unit'),'click',()=>{entrenchSelectedUnit(session!,presentation);render();});
   bindUnitInputs();
-  document.querySelectorAll<SVGPolygonElement>('[data-role="move-option"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundMoveInputs.has(element))return;boundMoveInputs.add(element);const action=()=>chooseMoveTarget(parseHex(key));element.addEventListener('click',event=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});
-  document.querySelectorAll<SVGLineElement>('[data-role="rail-repair-edge"]').forEach((element)=>{const key=element.dataset.edgeKey;if(!key)return;const action=()=>{if(presentation.interactionMode!=='RAIL_REPAIR')enterRailRepairMode(presentation);toggleRailRepairEdge(session!,presentation,key);render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});document.querySelectorAll<HTMLElement>('[data-reinforcement-id]').forEach((element)=>{const id=element.dataset.reinforcementId;if(!id)return;element.addEventListener('click',()=>{selectReinforcement(presentation,id);render();});});document.querySelectorAll<SVGPolygonElement>('[data-role="reinforcement-entry"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{deploySelectedReinforcement(session!,presentation,parseHex(key));render();};element.addEventListener('click',action);bindKeyboardActivation(element,action);});
-  document.querySelector('#attack-toggle-selected')?.addEventListener('click',()=>{if(presentation.selectedUnitId)toggleAttackUnit(session!,presentation,presentation.selectedUnitId);refreshDynamicView();});document.querySelector('#attack-clear')?.addEventListener('click',()=>{clearAttackDraft(presentation);refreshDynamicView();});document.querySelector('#attack-declare')?.addEventListener('click',()=>{void submitCombatAttack();});document.querySelector('#attack-art-none')?.addEventListener('click',()=>{selectAttackerArtillery(presentation,null);refreshDynamicView();});document.querySelectorAll<HTMLElement>('[data-attack-artillery]').forEach((el)=>el.addEventListener('click',()=>{selectAttackerArtillery(presentation,el.dataset.attackArtillery??null);refreshDynamicView();}));
-  document.querySelectorAll<SVGPolygonElement>('[data-role="attack-target"]').forEach((el)=>{const action=()=>{const key=el.dataset.hex;if(key){routeCombatTarget(session!,presentation,parseHex(key));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});document.querySelector('#pass-reaction')?.addEventListener('click',()=>{runCombatAction(()=>passCombatReaction(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-defender-artillery]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.defenderArtillery;if(id){runCombatAction(()=>useDefenderArtillery(session!,presentation,id));}}));
-  document.querySelectorAll<HTMLElement>('[data-defender-hq]').forEach(el=>el.addEventListener('click',()=>{const pending=sessionPlayerView(session!).pendingDecision,hqUnitId=el.dataset.defenderHq;if(pending?.kind==='DEFENDER_REACTION'&&hqUnitId)runCombatAction(()=>{dispatchGameAction(session!,{type:'COMBAT_REACTION',controllerId:session!.activeViewerControllerId,battleId:pending.battleId,reaction:{kind:'DEFENDER_HQ_COMMAND',hqUnitId,command:'LAST_STAND'}});});}));
-  document.querySelectorAll<SVGPolygonElement>('[data-role="advance-option"]').forEach(el=>{const action=()=>{if(el.dataset.hex){chooseAdvanceDestination(session!,presentation,parseHex(el.dataset.hex));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});
-  document.querySelectorAll<HTMLElement>('[data-loss-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.lossUnit;if(id){chooseLossAndContinue(session!,presentation,id);showCombatView();}}));document.querySelector('#loss-undo')?.addEventListener('click',()=>{undoLossDraft(presentation);refreshDynamicView();});document.querySelector('#loss-clear')?.addEventListener('click',()=>{clearLossDraft(presentation);refreshDynamicView();});
-  document.querySelectorAll<HTMLElement>('[data-retreater]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.retreater;if(id){chooseRetreater(session!,presentation,id);refreshDynamicView();}}));document.querySelectorAll<HTMLElement|SVGPolygonElement>('[data-role="retreat-option"], [data-retreat-destination]').forEach((el)=>{const action=()=>{const key=el.dataset.hex??el.dataset.retreatDestination;if(key){chooseRetreatDestination(session!,presentation,parseHex(key));showCombatView();}};el.addEventListener('click',action);bindKeyboardActivation(el,action);});document.querySelector('#retreat-undo')?.addEventListener('click',()=>{undoRetreatDestination(presentation);refreshDynamicView();});
-  document.querySelectorAll<HTMLElement>('[data-advance-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.advanceUnit;if(id){chooseAdvancer(session!,presentation,id);refreshDynamicView();}}));document.querySelector('#pass-advance')?.addEventListener('click',()=>{runCombatAction(()=>passAdvance(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-breakthrough-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.breakthroughUnit;if(id){selectBreakthroughUnit(presentation,id);refreshDynamicView();}}));document.querySelectorAll<SVGPolygonElement>('[data-role="breakthrough-option"]').forEach((el)=>el.addEventListener('click',()=>{const key=el.dataset.hex;if(key){extendBreakthroughDraft(session!,presentation,parseHex(key));refreshDynamicView();}}));document.querySelector('#breakthrough-undo')?.addEventListener('click',()=>{undoBreakthroughDraft(presentation);refreshDynamicView();});document.querySelector('#breakthrough-commit')?.addEventListener('click',()=>{runCombatAction(()=>commitBreakthrough(session!,presentation));});document.querySelector('#pass-breakthrough')?.addEventListener('click',()=>{runCombatAction(()=>passBreakthrough(session!,presentation));});document.querySelectorAll<SVGPolygonElement>('[data-role="schwerpunkt-target"]').forEach((el)=>el.addEventListener('click',()=>{const key=el.dataset.hex;if(key){selectSchwerpunktTarget(presentation,parseHex(key));render();}}));document.querySelectorAll<HTMLElement>('[data-schwerpunkt-unit]').forEach((el)=>el.addEventListener('click',()=>{const id=el.dataset.schwerpunktUnit;if(id){runCombatAction(()=>commitSchwerpunkt(session!,presentation,id));}}));document.querySelector('#pass-schwerpunkt')?.addEventListener('click',()=>{runCombatAction(()=>passSchwerpunkt(session!,presentation));});
+  document.querySelectorAll<SVGPolygonElement>('[data-role="move-option"]').forEach((element)=>{const key=element.dataset.hex;if(!key||boundMoveInputs.has(element))return;boundMoveInputs.add(element);const action=()=>chooseMoveTarget(parseHex(key));bindOnce("src/main.ts:73744",element,'click',event=>{event.stopPropagation();action();});bindKeyboardActivation(element,action);});
+  document.querySelectorAll<SVGLineElement>('[data-role="rail-repair-edge"]').forEach((element)=>{const key=element.dataset.edgeKey;if(!key)return;const action=()=>{if(presentation.interactionMode!=='RAIL_REPAIR')enterRailRepairMode(presentation);toggleRailRepairEdge(session!,presentation,key);render();};bindOnce("src/main.ts:74170",element,'click',action);bindKeyboardActivation(element,action);});document.querySelectorAll<HTMLElement>('[data-reinforcement-id]').forEach((element)=>{const id=element.dataset.reinforcementId;if(!id)return;bindOnce("src/main.ts:74394",element,'click',()=>{selectReinforcement(presentation,id);render();});});document.querySelectorAll<SVGPolygonElement>('[data-role="reinforcement-entry"]').forEach((element)=>{const key=element.dataset.hex;if(!key)return;const action=()=>{deploySelectedReinforcement(session!,presentation,parseHex(key));render();};bindOnce("src/main.ts:74725",element,'click',action);bindKeyboardActivation(element,action);});
+  bindOnce("src/main.ts:74811",document.querySelector('#attack-toggle-selected'),'click',()=>{if(presentation.selectedUnitId)toggleAttackUnit(session!,presentation,presentation.selectedUnitId);refreshDynamicView();});bindOnce("src/main.ts:75015",document.querySelector('#attack-clear'),'click',()=>{clearAttackDraft(presentation);refreshDynamicView();});bindOnce("src/main.ts:75141",document.querySelector('#attack-declare'),'click',()=>{void submitCombatAttack();});bindOnce("src/main.ts:75243",document.querySelector('#attack-art-none'),'click',()=>{selectAttackerArtillery(presentation,null);refreshDynamicView();});document.querySelectorAll<HTMLElement>('[data-attack-artillery]').forEach((el)=>bindOnce("src/main.ts:75464",el,'click',()=>{selectAttackerArtillery(presentation,el.dataset.attackArtillery??null);refreshDynamicView();}));
+  document.querySelectorAll<SVGPolygonElement>('[data-role="attack-target"]').forEach((el)=>{const action=()=>{const key=el.dataset.hex;if(key){routeCombatTarget(session!,presentation,parseHex(key));showCombatView();}};bindOnce("src/main.ts:75813",el,'click',action);bindKeyboardActivation(el,action);});bindOnce("src/main.ts:75886",document.querySelector('#pass-reaction'),'click',()=>{runCombatAction(()=>passCombatReaction(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-defender-artillery]').forEach((el)=>bindOnce("src/main.ts:76106",el,'click',()=>{const id=el.dataset.defenderArtillery;if(id){runCombatAction(()=>useDefenderArtillery(session!,presentation,id));}}));
+  document.querySelectorAll<HTMLElement>('[data-defender-hq]').forEach(el=>bindOnce("src/main.ts:76333",el,'click',()=>{const pending=sessionPlayerView(session!).pendingDecision,hqUnitId=el.dataset.defenderHq;if(pending?.kind==='DEFENDER_REACTION'&&hqUnitId)runCombatAction(()=>{dispatchGameAction(session!,{type:'COMBAT_REACTION',controllerId:session!.activeViewerControllerId,battleId:pending.battleId,reaction:{kind:'DEFENDER_HQ_COMMAND',hqUnitId,command:'LAST_STAND'}});});}));
+  document.querySelectorAll<SVGPolygonElement>('[data-role="advance-option"]').forEach(el=>{const action=()=>{if(el.dataset.hex){chooseAdvanceDestination(session!,presentation,parseHex(el.dataset.hex));showCombatView();}};bindOnce("src/main.ts:76950",el,'click',action);bindKeyboardActivation(el,action);});
+  document.querySelectorAll<HTMLElement>('[data-loss-unit]').forEach((el)=>bindOnce("src/main.ts:77099",el,'click',()=>{const id=el.dataset.lossUnit;if(id){chooseLossAndContinue(session!,presentation,id);showCombatView();}}));bindOnce("src/main.ts:77238",document.querySelector('#loss-undo'),'click',()=>{undoLossDraft(presentation);refreshDynamicView();});bindOnce("src/main.ts:77358",document.querySelector('#loss-clear'),'click',()=>{clearLossDraft(presentation);refreshDynamicView();});
+  document.querySelectorAll<HTMLElement>('[data-retreater]').forEach((el)=>bindOnce("src/main.ts:77556",el,'click',()=>{const id=el.dataset.retreater;if(id){chooseRetreater(session!,presentation,id);refreshDynamicView();}}));document.querySelectorAll<HTMLElement|SVGPolygonElement>('[data-role="retreat-option"], [data-retreat-destination]').forEach((el)=>{const action=()=>{const key=el.dataset.hex??el.dataset.retreatDestination;if(key){chooseRetreatDestination(session!,presentation,parseHex(key));showCombatView();}};bindOnce("src/main.ts:77990",el,'click',action);bindKeyboardActivation(el,action);});bindOnce("src/main.ts:78063",document.querySelector('#retreat-undo'),'click',()=>{undoRetreatDestination(presentation);refreshDynamicView();});
+  document.querySelectorAll<HTMLElement>('[data-advance-unit]').forEach((el)=>bindOnce("src/main.ts:78274",el,'click',()=>{const id=el.dataset.advanceUnit;if(id){chooseAdvancer(session!,presentation,id);refreshDynamicView();}}));bindOnce("src/main.ts:78413",document.querySelector('#pass-advance'),'click',()=>{runCombatAction(()=>passAdvance(session!,presentation));});document.querySelectorAll<HTMLElement>('[data-breakthrough-unit]').forEach((el)=>bindOnce("src/main.ts:78624",el,'click',()=>{const id=el.dataset.breakthroughUnit;if(id){selectBreakthroughUnit(presentation,id);refreshDynamicView();}}));document.querySelectorAll<SVGPolygonElement>('[data-role="breakthrough-option"]').forEach((el)=>bindOnce("src/main.ts:78863",el,'click',()=>{const key=el.dataset.hex;if(key){extendBreakthroughDraft(session!,presentation,parseHex(key));refreshDynamicView();}}));bindOnce("src/main.ts:79016",document.querySelector('#breakthrough-undo'),'click',()=>{undoBreakthroughDraft(presentation);refreshDynamicView();});bindOnce("src/main.ts:79152",document.querySelector('#breakthrough-commit'),'click',()=>{runCombatAction(()=>commitBreakthrough(session!,presentation));});bindOnce("src/main.ts:79296",document.querySelector('#pass-breakthrough'),'click',()=>{runCombatAction(()=>passBreakthrough(session!,presentation));});document.querySelectorAll<SVGPolygonElement>('[data-role="schwerpunkt-target"]').forEach((el)=>bindOnce("src/main.ts:79531",el,'click',()=>{const key=el.dataset.hex;if(key){selectSchwerpunktTarget(presentation,parseHex(key));render();}}));document.querySelectorAll<HTMLElement>('[data-schwerpunkt-unit]').forEach((el)=>bindOnce("src/main.ts:79743",el,'click',()=>{const id=el.dataset.schwerpunktUnit;if(id){runCombatAction(()=>commitSchwerpunkt(session!,presentation,id));}}));bindOnce("src/main.ts:79889",document.querySelector('#pass-schwerpunkt'),'click',()=>{runCombatAction(()=>passSchwerpunkt(session!,presentation));});
 
 }
 
@@ -583,9 +587,9 @@ function localAiHome():string {
 }
 function bindLocalAiHome():void {
  bindReleaseHome();
- const modeEl=document.querySelector<HTMLSelectElement>('#play-mode'),sideEl=document.querySelector<HTMLSelectElement>('#ai-side');const fixedSide=()=>{if(sideEl){sideEl.disabled=modeEl?.value==='continuous';if(sideEl.disabled)sideEl.value='GERMAN';}};modeEl?.addEventListener('change',fixedSide);fixedSide();
- document.querySelector('#ai-perf-report')?.addEventListener('click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
- document.querySelector('#ai-start')?.addEventListener('click',()=>{
+ const modeEl=document.querySelector<HTMLSelectElement>('#play-mode'),sideEl=document.querySelector<HTMLSelectElement>('#ai-side');const fixedSide=()=>{if(sideEl){sideEl.disabled=modeEl?.value==='continuous';if(sideEl.disabled)sideEl.value='GERMAN';}};bindOnce("src/main.ts:84459",modeEl,'change',fixedSide);fixedSide();
+ bindOnce("src/main.ts:84518",document.querySelector('#ai-perf-report'),'click',()=>{const field=document.querySelector<HTMLTextAreaElement>('#ai-perf-output')!;field.hidden=false;field.value=JSON.stringify(perf006.report(),null,2);field.select();void navigator.clipboard?.writeText(field.value).catch(()=>{});});
+ bindOnce("src/main.ts:84821",document.querySelector('#ai-start'),'click',()=>{
  const side=(document.querySelector<HTMLSelectElement>('#ai-side')?.value??'GERMAN') as 'GERMAN'|'SOVIET';
  const scenario=(document.querySelector<HTMLSelectElement>('#ai-scenario')?.value??'campaign') as LocalScenario;
  if(document.querySelector<HTMLSelectElement>('#play-mode')?.value==='industry018'&&side!=='GERMAN'){alert('工业018受支持起点仅德军T5；请选择德军。');return;}
@@ -611,25 +615,25 @@ async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):
  const port=grand?new GrandPort(()=>{if(session&&appStatus==='PLAYING')scheduleGrandRefresh();},mode==='continuous'):integrated?new LogisticsPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):createLocalAiWorker();logisticsPort=integrated?port as LogisticsPort:null;grandPort=grand?port as GrandPort:null;
  const client=new LocalAiClient(port,options,()=>{if(localAi===client)updateLocalAiStatus();});localAi=client;appStatus='LOADING';render();
  try{await client.start(options);if(generation!==localGeneration){client.dispose();return;}await enterNetworkMatch(client);}
- catch(error){if(generation!==localGeneration)return;console.error('LOCAL_START_FAILURE',error);grandPort?.preserveOnUnload();client.dispose();if(grand)discardGrandTerrain();grandArt=false;localAi=null;logisticsPort=null;grandPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent=(grand?'战役连接或地图加载失败：':'本地 AI 启动失败：')+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
+ catch(error){if(generation!==localGeneration)return;console.error('LOCAL_START_FAILURE',error);releaseJoystick();grandPort?.preserveOnUnload();client.dispose();if(grand)discardGrandTerrain();grandArt=false;localAi=null;logisticsPort=null;grandPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent=(grand?'战役连接或地图加载失败：':'本地 AI 启动失败：')+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
 }
 function updateLocalAiStatus():void {
  if(grandPort?.continuous){const heading=document.querySelector('.campaign-heading strong');if(heading)heading.textContent='共同时间';const turn=document.querySelector('.campaign-turn');if(turn)turn.textContent='德军统帅 · 苏军AI';const sub=document.querySelector('.map-toolbar>div>span');if(sub)sub.textContent='第聂伯中央战线 · 授权视图';}
  if(!localAi||appStatus==='HOME')return;
  let bar=document.querySelector<HTMLElement>('#local-ai-status');if(!bar){bar=document.createElement('section');bar.id='local-ai-status';bar.className='local-ai-status';root.prepend(bar);}
  const client=localAi,m=client.meta,side=(s:string)=>s==='GERMAN'?'德军':'苏军';
- const status=appStatus==='LOADING'?'正在准备本地对局 / 切换授权视角':localStatus(m,client.state.snapshot?.status==='FINISHED');
+ const status=appStatus==='LOADING'?'正在准备本地对局 / 切换授权视角':grandPort?.continuous?'任意己方部队可直接下令':localStatus(m,client.state.snapshot?.status==='FINISHED');
  if(!bar.querySelector('#ai-exit')){
   bar.innerHTML='<strong>实验 AI：流程验证，策略尚弱</strong><span id="ai-status-text" role="status"></span><span id="ai-status-count"></span><button id="ai-takeover" class="mini-button" hidden></button><button id="ai-diagnostic" class="mini-button">复制诊断</button><button id="ai-exit" class="mini-button">退出 / 新局</button>';
   if(grandPort?.continuous){bar.querySelector('#ai-exit')!.textContent='返回入口（保留进度）';bar.querySelector('#ai-diagnostic')!.textContent='查看诊断';}
-  bar.querySelector('#ai-exit')!.addEventListener('click',leaveLocalAi);
-  bar.querySelector('#ai-diagnostic')!.addEventListener('click',()=>{
+  bindOnce("src/main.ts:89454",bar.querySelector('#ai-exit')!,'click',leaveLocalAi);
+  bindOnce("src/main.ts:89527",bar.querySelector('#ai-diagnostic')!,'click',()=>{
    let field=bar!.querySelector<HTMLTextAreaElement>('#ai-diagnostic-text');
    if(!field){field=document.createElement('textarea');field.id='ai-diagnostic-text';field.readOnly=true;field.setAttribute('aria-label','安全 AI 诊断');bar!.append(field);}
    field.value=JSON.stringify({version:'AI-PERF-006',...client.meta,revision:client.state.snapshot?.matchRevision,...(grandPort?.continuous?{communication:grandPort.wire?.export()}:{}),...(perf006.enabled?{performance:perf006.report()}: {})},null,2);
    field.select();if(!grandPort?.continuous)void navigator.clipboard?.writeText(field.value).catch(()=>{});
   });
-  bar.querySelector('#ai-takeover')!.addEventListener('click',()=>{
+  bindOnce("src/main.ts:90209",bar.querySelector('#ai-takeover')!,'click',()=>{
    if(bar!.querySelector('#ai-takeover-confirm'))return;
    const owner=client.meta.ownerSide,revision=client.state.snapshot?.matchRevision;
    const prompt=document.createElement('span');prompt.id='ai-takeover-confirm';prompt.setAttribute('role','group');prompt.setAttribute('aria-label','确认人工接管');
@@ -723,7 +727,7 @@ async function prepareTerrain(networkModel?:BrowserRenderModel):Promise<void>{
   }
 }
 window.addEventListener('resize',()=>{if(appStatus==='HOME'||appStatus==='PLAYING')render();});
-window.addEventListener('pagehide',()=>{grandPort?.preserveOnUnload();localGeneration++;if(grandPort)discardGrandTerrain();grandArt=false;localAi?.dispose();});
+window.addEventListener('pagehide',()=>{releaseJoystick();grandPort?.preserveOnUnload();localGeneration++;if(grandPort)discardGrandTerrain();grandArt=false;localAi?.dispose();});
 
 // Lobby and HOME need no terrain/session. Local play retains the full Startup Loading UX1 path.
 appStatus='HOME';render();
@@ -740,29 +744,29 @@ function flowEnabled(model:BrowserRenderModel):boolean{return !!session&&LOCAL_A
 function playableContext(s:PlayerSession):playFlow.FlowContext{return {model:deriveBrowserRenderModel(s,presentation),revision:isNetwork(s)?s.matchRevision:-1,ready:isNetwork(s)&&s.interactive,privacy:!!presentation.privacyGate,local:LOCAL_AI_ENABLED&&!!localAi&&isNetwork(s)&&s.client===localAi,rejected:isNetwork(s)&&['actionRejected','outdated'].includes(s.notice??'')};}
 function bindPlayable(model:BrowserRenderModel):void{
  if(grandPort?.continuous)bindCampaign(grandPort,presentation.selectedUnitId,refreshDynamicView,id=>{const u=grandPort?.data.continuous.units[id];if(u){selectPlayableCounter(id);refreshDynamicView();}},(active=true)=>{if(!session)return;if(!active){const p=plan.scope(session,model.viewerControllerId) as any;p.picking=null;p.officerPick=false;refreshDynamicView();return;}commandEnabled.add(session);const p=plan.scope(session,model.viewerControllerId) as any;p.phase=model.phase;p.picking='target';p.officerPick=true;refreshDynamicView();},h=>focusGrandHex(h));
- if(grandPort){bindCities(grandPort,refreshDynamicView);bindOfficers(grandPort,async()=>{if(!session||!grandPort)return;await grandPort.officerBeginTarget();if(!session)return;commandEnabled.add(session);const p=plan.scope(session,model.viewerControllerId) as any;p.phase=model.phase;p.picking='target';p.officerPick=true;refreshDynamicView();});bindGrand(grandPort);document.querySelector('#grand-focus')?.addEventListener('click',()=>{if(!session)return;const id=document.querySelector<HTMLSelectElement>('#grand-unit')?.value,u=sessionPlayerView(session).units.find(u=>u.id===id&&u.side===grandPort?.data.viewer);if(u){selectPlayableCounter(u.id);refreshDynamicView();focusGrandHex(u.hex);}});}
- document.getElementById('logistics-cancel')?.addEventListener('click',()=>{if(!session)return;const scope=plan.scope(session,model.viewerControllerId) as any;scope.picking=null;scope.officerPick=false;if(grandPort)grandPort.directDraft=null;refreshDynamicView();});
+ if(grandPort){bindCities(grandPort,refreshDynamicView);bindOfficers(grandPort,async()=>{if(!session||!grandPort)return;await grandPort.officerBeginTarget();if(!session)return;commandEnabled.add(session);const p=plan.scope(session,model.viewerControllerId) as any;p.phase=model.phase;p.picking='target';p.officerPick=true;refreshDynamicView();});bindGrand(grandPort);bindOnce("src/main.ts:99808",document.querySelector('#grand-focus'),'click',()=>{if(!session)return;const id=document.querySelector<HTMLSelectElement>('#grand-unit')?.value,u=sessionPlayerView(session).units.find(u=>u.id===id&&u.side===grandPort?.data.viewer);if(u){selectPlayableCounter(u.id);refreshDynamicView();focusGrandHex(u.hex);}});}
+ bindOnce("src/main.ts:100140",document.getElementById('logistics-cancel'),'click',()=>{if(!session)return;const scope=plan.scope(session,model.viewerControllerId) as any;scope.picking=null;scope.officerPick=false;if(grandPort)grandPort.directDraft=null;refreshDynamicView();});
  document.querySelectorAll<HTMLElement>('[data-logistics-pick]').forEach(el=>el.onclick=()=>{if(!session||!grandPort)return;grandPort.selections['build-pick']=el.dataset.logisticsPick!;commandEnabled.add(session);const scope=plan.scope(session,model.viewerControllerId) as any;scope.phase=model.phase;scope.picking='target';scope.officerPick=true;refreshDynamicView();});
- document.querySelectorAll<HTMLElement>('[data-ux-focus]').forEach(el=>el.addEventListener('click',()=>{if(!session||presentation.privacyGate)return;focusGrandHex(parseHex(el.dataset.uxFocus!),el.hasAttribute('data-city-zoom')?10:undefined);if(el.hasAttribute('data-city-zoom'))document.querySelector('.city-panel')?.scrollIntoView({block:'start'});}));
+ document.querySelectorAll<HTMLElement>('[data-ux-focus]').forEach(el=>bindOnce("src/main.ts:100849",el,'click',()=>{if(!session||presentation.privacyGate)return;focusGrandHex(parseHex(el.dataset.uxFocus!),el.hasAttribute('data-city-zoom')?10:undefined);if(el.hasAttribute('data-city-zoom'))document.querySelector('.city-panel')?.scrollIntoView({block:'start'});}));
  if(logisticsPort)bindLogistics(logisticsPort);
  if(!session)return;const captured=session,pp=presentation;
  const ctx=playableContext(captured);if(ctx.rejected)playFlow.stopOnRejection(captured,model.viewerControllerId);
- document.querySelector<HTMLInputElement>('#flow-auto')?.addEventListener('change',e=>{playFlow.setEnabled(captured,model.viewerControllerId,(e.target as HTMLInputElement).checked);refreshDynamicView();});
- document.querySelector<HTMLInputElement>('#command-enable')?.addEventListener('change',e=>{if((e.target as HTMLInputElement).checked)commandEnabled.add(captured);else{commandEnabled.delete(captured);plan.scope(captured,model.viewerControllerId).picking=null;}refreshDynamicView();});
+ bindOnce("src/main.ts:101355",document.querySelector<HTMLInputElement>('#flow-auto'),'change',e=>{playFlow.setEnabled(captured,model.viewerControllerId,(e.target as HTMLInputElement).checked);refreshDynamicView();});
+ bindOnce("src/main.ts:101561",document.querySelector<HTMLInputElement>('#command-enable'),'change',e=>{if((e.target as HTMLInputElement).checked)commandEnabled.add(captured);else{commandEnabled.delete(captured);plan.scope(captured,model.viewerControllerId).picking=null;}refreshDynamicView();});
  const ticket=logisticsPort||grandPort?null:playFlow.autoTicket(captured,ctx);
  if(ticket)setTimeout(()=>{if(session===captured&&presentation===pp&&playFlow.runAuto(captured,playableContext(captured),ticket,()=>readyForPhase(captured,pp)))refreshDynamicView();},600);
  if(!commandEnabled.has(captured)||model.deployment)return;
  const p=plan.scope(captured,model.viewerControllerId);
  if(p.phase!==model.phase||model.combat?.pending||model.readOnly)p.picking=null;p.phase=model.phase;
- const button=(id:string,fn:()=>void)=>document.querySelector(id)?.addEventListener('click',()=>{if(session!==captured)return;fn();refreshDynamicView();});
+ const button=(id:string,fn:()=>void)=>bindOnce("src/main.ts:102369",document.querySelector(id),'click',()=>{if(session!==captured)return;fn();refreshDynamicView();});
  button('#command-member',()=>plan.toggleMember(p,model,presentation.selectedUnitId));
  button('#command-target',()=>{if(!model.combat?.pending&&!model.readOnly)p.picking='target';});
  button('#command-origin',()=>{if(!model.combat?.pending&&!model.readOnly)p.picking='origin';});
  button('#command-cancel-pick',()=>{p.picking=null;});
  button('#command-clear',()=>{p.members=[];p.target=null;p.origin=null;p.picking=null;});
  button('#command-focus',()=>{if(p.target)focusPlanHex(p.target);});
- document.querySelectorAll<HTMLElement>('[data-command-remove]').forEach(el=>el.addEventListener('click',()=>{p.members=p.members.filter((id:string)=>id!==el.dataset.commandRemove);refreshDynamicView();}));
- document.querySelectorAll<HTMLElement>('[data-command-unit],[data-command-locate]').forEach(el=>el.addEventListener('click',()=>{
+ document.querySelectorAll<HTMLElement>('[data-command-remove]').forEach(el=>bindOnce("src/main.ts:103058",el,'click',()=>{p.members=p.members.filter((id:string)=>id!==el.dataset.commandRemove);refreshDynamicView();}));
+ document.querySelectorAll<HTMLElement>('[data-command-unit],[data-command-locate]').forEach(el=>bindOnce("src/main.ts:103285",el,'click',()=>{
   if(session!==captured)return;const current=deriveBrowserRenderModel(captured,presentation),id=el.dataset.commandUnit??el.dataset.commandLocate,u=current.playerView.units.find(u=>u.id===id&&u.side===current.viewerSide);if(!u)return;
   if(!current.combat?.pending&&!current.readOnly){selectPlayableCounter(u.id);refreshDynamicView();}focusPlanHex(u.hex);
  }));
@@ -793,5 +797,5 @@ function paintPlanMap(model:BrowserRenderModel):void{
  svg.insertAdjacentHTML('beforeend',plan.overlay(session,model)+plan.picker(session,model));
  // Summary shares the bottom dock, never covers tactical click targets.
  const panel=document.querySelector('.playable-tools');panel?.insertAdjacentHTML('beforeend',plan.summary(session,model));
- svg.querySelectorAll<SVGElement>('[data-command-hex]').forEach(el=>{const mark=()=>{if(!session)return;const now=deriveBrowserRenderModel(session,presentation);const scope=plan.scope(session,now.viewerControllerId)as any;if(!grandPort?.selections['build-pick']&&!grandPort?.directDraft)plan.mark(scope,now,parseHex(el.dataset.commandHex!));else scope.picking=null;if(scope.officerPick&&grandPort){scope.officerPick=false;grandPort.officerOrderTarget(parseHex(el.dataset.commandHex!));}refreshDynamicView();};el.addEventListener('click',e=>{e.stopPropagation();mark();});bindKeyboardActivation(el,mark);});
+ svg.querySelectorAll<SVGElement>('[data-command-hex]').forEach(el=>{const mark=()=>{if(!session)return;const now=deriveBrowserRenderModel(session,presentation);const scope=plan.scope(session,now.viewerControllerId)as any;if(!grandPort?.selections['build-pick']&&!grandPort?.directDraft)plan.mark(scope,now,parseHex(el.dataset.commandHex!));else scope.picking=null;if(scope.officerPick&&grandPort){scope.officerPick=false;grandPort.officerOrderTarget(parseHex(el.dataset.commandHex!));}refreshDynamicView();};bindOnce("src/main.ts:106981",el,'click',e=>{e.stopPropagation();mark();});bindKeyboardActivation(el,mark);});
 }

@@ -20,6 +20,8 @@ export class Campaign extends Base {
   this.prepareMapPlan?.();
   const before=Object.fromEntries(Object.values(this.state.units).map(u=>[u.id,copy(u.hex)]));super.advance();
   const m=this.clock.map,t=this.clock.tick,live=new Set();
+  // No ground/unit mutations inside this report loop: reuse each side's authorized snapshot.
+  const reportViews={};const reportView=side=>reportViews[side]??=(this.fair(side).view);
   for(const raw of this.clock.battles){
    const existing=m.active[raw.id];const b=existing??{...copy(raw),pair:raw.id,id:`battle-${++m.serial}`,since:t,seen:{}};
    b.ticks=existing?b.ticks+1:1;b.units=raw.units;b.initiators=raw.initiators??[];
@@ -28,7 +30,7 @@ export class Campaign extends Base {
    b.status=moved.length?'WITHDRAWING':'ACTIVE';b.updated=t;
    // A displayed location is always derived anew from the requesting player's view.
    m.active[raw.id]=b;
-   for(const side of ['GERMAN','SOVIET']){const dto=this.battleView(b,this.fair(side).view);if(dto)b.seen[side]=dto;}
+   for(const side of ['GERMAN','SOVIET']){const dto=this.battleView(b,reportView(side));if(dto)b.seen[side]=dto;}
    if(destroyed||moved.length&&distance(...raw.units.map(id=>this.state.units[id].hex))>1){this.endBattle(raw.id,destroyed?'已脱离：参战部队损失殆尽':'撤出接触，当前交战结束');}else live.add(raw.id);
   }
   for(const pair of Object.keys(m.active))if(!live.has(pair))this.endBattle(pair,'本时间步未继续交战；不代表已获胜');

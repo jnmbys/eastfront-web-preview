@@ -42,6 +42,7 @@ export class DeploymentPanelRenderer {
   if(!d||!row||row.placed||model.viewerSide!==model.activeSide){
    const production=panel.querySelector('#production-workbench');
    const html=markup();
+   if(panel.querySelector('.command-ui')&&html.includes('command-ui')){const next=panel.ownerDocument.createElement('div');next.innerHTML=html;patchProduction(panel,next);return true;}
    if(production&&html.includes('id="production-workbench"')){
     const next=panel.ownerDocument.createElement('div');next.innerHTML=html;
     const wanted=next.querySelector('#production-workbench')!;

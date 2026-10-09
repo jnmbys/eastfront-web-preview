@@ -1,9 +1,11 @@
+import {bindOnce} from '../ui/bindOnce.js';
 import {directLabels,type DirectDraft} from './directCommand.js';
 import {campaignEconomy} from './campaign.js';
 import {uxMarkup,bindUx} from './grandUx.js';
 import type {WorkerPort} from '../local-ai/client.js';import type {LocalRequest,LocalReply} from '../local-ai/types.js';
 export class GrandPort implements WorkerPort {
  onmessage:WorkerPort['onmessage']=null;onerror:WorkerPort['onerror']=null;data:any=null;notice='';locked=false;selections:Record<string,string>={};
+ friendlyTarget:{source:string;hex:{q:number;r:number};members:string[]}|null=null;
  directDraft:DirectDraft|null=null;directPreview:any=null;directFeedback:Record<string,string>={};private directQuery="";
  requestDirectPreview(){const d=this.directDraft;if(!d?.target)return;this.directPreview=null;this.directQuery=crypto.randomUUID();this.wire.send({type:"QUERY",id:this.directQuery,draft:{uiDirectPreview:true,unit:d.unit,kind:d.kind,target:d.target}});}
  constructionPreview:any=null;private constructionQuery='';
@@ -19,7 +21,7 @@ export class GrandPort implements WorkerPort {
   this.wire.addEventListener('query',(e:any)=>{if(this.dead)return;if(e.detail.payload?.directPreview){if(e.detail.id===this.directQuery&&this.directDraft&&this.directDraft.kind===e.detail.payload.directPreview.kind&&JSON.stringify(this.directDraft.target)===JSON.stringify(e.detail.payload.directPreview.target)){this.directPreview=e.detail.payload.directPreview;this.update();}return;}if(e.detail.payload?.economyPlan){if(e.detail.id===this.constructionQuery){this.constructionPreview=e.detail.payload.economyPlan;this.update();}return;}this.deliverProjection(e.detail);});
   this.wire.addEventListener('completed',(e:any)=>{const row=this.wire.history.find((r:any)=>r.command.requestId===e.detail.requestId);if(row?.command.payload?.mapIntent){const op=row.command.payload,ok=e.detail.status==='applied';this.directFeedback[op.unit]=ok?'已接受 '+(directLabels[op.order.kind]??op.order.kind)+' → '+op.order.target.q+','+op.order.target.r:'未执行：'+(row.result?.reason??'请核对连接');if(this.directDraft?.requestId===e.detail.requestId){if(ok){this.directDraft=null;this.directPreview=null;}else{delete this.directDraft!.requestId;this.directDraft!.error=this.directFeedback[op.unit]??'命令未执行';}}}if(row?.command.payload?.unit&&!row.command.payload.mapIntent&&e.detail.status==='applied')delete this.directFeedback[row.command.payload.unit];this.notice=e.detail.status==='applied'?(row?.command.kind==='SAVE'?'已保存，服务重启后仍可继续。':'命令已确认，授权状态已更新。'):'命令未执行：'+(row?.result?.reason??'UNKNOWN');this.update();if(row)requestAnimationFrame(()=>{row.uiFrameAt=performance.now();});});
   this.wire.addEventListener('error',(e:any)=>{this.notice='通信待核对：'+e.detail.reason;this.update();});
-  this.wire.addEventListener('instance-reset',()=>{this.directDraft=null;delete this.selections['corps-plan'];delete this.selections['plan-tool'];this.pendingProjection=null;this.restoredView=true;this.locked=true;this.notice='已恢复存档，世界暂停；旧会话意图已撤销，请重新规划。';});
+  this.wire.addEventListener('instance-reset',()=>{this.directDraft=null;this.friendlyTarget=null;delete this.selections['corps-plan'];delete this.selections['plan-tool'];this.pendingProjection=null;this.restoredView=true;this.locked=true;this.notice='已恢复存档，世界暂停；旧会话意图已撤销，请重新规划。';});
   this.wire.addEventListener('connected',()=>{this.wireStatus='已连接 · 德军协同端 '+seat.toUpperCase();this.update();});
   this.wire.addEventListener('disconnected',()=>{if(this.dead)return;this.locked=true;this.wireStatus=this.wire.disposed?'本操作端已在另一页面连接；本页停止提交，请关闭本页或明确刷新接管。':'连接中断，正在恢复；未确认命令正在核对；全部操作端断线后世界暂停';this.update();});
   await this.wire.start();
@@ -85,8 +87,8 @@ export function grandMarkup(p:GrandPort,selected:string|null):string{
  <details><summary>仓储与下一T库存</summary>${d.warehouses.map((w:any)=>`<p>${esc(w.label)} ${w.controlled?'己方服务':'失去服务'}：可用${w.P}P＋${w.E2}E2；总占用${w.lots.reduce((n:number,l:any)=>n+l.qty,0)}/${w.capacity}</p>`).join('')}</details>
  <details><summary>战略地点与最近结算</summary><p>E24按当时控制计VP，平分和局。工业/交通收益每E仅一次，反复易手不即时发钱。</p>${d.objectives.map((n:any)=>`<p>${esc(n.label)}：${n.vp}VP，${n.incomeI}I/E；补给源${n.sourceQ/4}点/E · ${esc(n.control??'未确认')}</p>`).join('')}<pre>${esc(JSON.stringify(d.lastLedger,null,1))}</pre></details></section>`;
 }
-export function bindGrand(p:GrandPort){if(p.data?.ux){bindUx(p);return;}for(const id of ['grand-factory','grand-from','grand-to']){const el=document.querySelector<HTMLSelectElement>('#'+id);if(el){if(p.selections[id])el.value=p.selections[id]!;el.addEventListener('change',()=>{p.selections[id]=el.value;});}}const value=(id:string)=>(document.querySelector(id) as HTMLSelectElement)?.value;
- document.querySelectorAll<HTMLElement>('[data-grand-product]').forEach(b=>b.addEventListener('click',()=>void p.operation({type:'ORDER',product:b.dataset.grandProduct,warehouse:value('#grand-factory')})));
- document.querySelector('#grand-ship')?.addEventListener('click',()=>void p.operation({type:'SHIP',from:value('#grand-from'),to:value('#grand-to'),P:1,E2:2}));
- document.querySelectorAll<HTMLElement>('[data-grand-cancel]').forEach(b=>b.addEventListener('click',()=>void p.operation({type:'CANCEL_SHIPMENT',id:b.dataset.grandCancel})));
+export function bindGrand(p:GrandPort){if(p.data?.ux){bindUx(p);return;}for(const id of ['grand-factory','grand-from','grand-to']){const el=document.querySelector<HTMLSelectElement>('#'+id);if(el){if(p.selections[id])el.value=p.selections[id]!;bindOnce("src/playable/grand.ts:18465",el,'change',()=>{p.selections[id]=el.value;});}}const value=(id:string)=>(document.querySelector(id) as HTMLSelectElement)?.value;
+ document.querySelectorAll<HTMLElement>('[data-grand-product]').forEach(b=>bindOnce("src/playable/grand.ts:18688",b,'click',()=>void p.operation({type:'ORDER',product:b.dataset.grandProduct,warehouse:value('#grand-factory')})));
+ bindOnce("src/playable/grand.ts:18821",document.querySelector('#grand-ship'),'click',()=>void p.operation({type:'SHIP',from:value('#grand-from'),to:value('#grand-to'),P:1,E2:2}));
+ document.querySelectorAll<HTMLElement>('[data-grand-cancel]').forEach(b=>bindOnce("src/playable/grand.ts:19054",b,'click',()=>void p.operation({type:'CANCEL_SHIPMENT',id:b.dataset.grandCancel})));
 }

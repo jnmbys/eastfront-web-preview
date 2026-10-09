@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {parseHTML}from'linkedom';
+import {mountJoystick}from'../../.release-territory-preview/src/interaction/mapJoystick.js';
+const {document,window}=parseHTML('<html><body></body></html>');globalThis.document=document;globalThis.window=window;globalThis.localStorage={getItem:()=>null};globalThis.matchMedia=()=>({matches:true});
+let frame,pan=[],held=false;globalThis.requestAnimationFrame=f=>(frame=f,1);globalThis.cancelAnimationFrame=()=>frame=null;
+const dispose=mountJoystick((x,y)=>pan.push([x,y]),v=>held=v),el=document.getElementById('map-joystick');el.getBoundingClientRect=()=>({left:0,top:0,width:100,height:100});let captured=false;el.setPointerCapture=()=>captured=true;el.hasPointerCapture=()=>captured;el.releasePointerCapture=()=>captured=false;
+const event=(x,y)=>({pointerId:1,clientX:x,clientY:y,preventDefault(){},stopPropagation(){}});
+el.onpointerdown(event(75,50));frame(100);frame(116);assert(held&&pan.some(([x,y])=>x<0&&y===0));el.onpointerup();assert(!held&&!frame&&!captured);
+el.onpointerdown(event(75,50));el.onpointermove(event(105,50));assert(!held&&!frame&&!captured);
+el.onpointerdown(event(75,50));el.onpointercancel();assert(!held&&!frame);
+el.onpointerdown(event(75,50));window.dispatchEvent(new window.Event('blur'));assert(!held&&!frame);
+el.onpointerdown(event(75,50));document.hidden=true;document.dispatchEvent(new window.Event('visibilitychange'));assert(!held&&!frame);dispose();assert(!document.getElementById('map-joystick'));
+fs.writeFileSync('evidence/grand-ux-004-r2/joystick-check.json',JSON.stringify({scope:'synthetic component events; not native touch',panOnly:true,upStops:true,outsideStops:true,cancelStops:true,blurStops:true,hiddenStops:true}));console.log('Joystick component cancellation checks passed');

@@ -31,11 +31,12 @@ export class Campaign extends Base {
  advance(){
   const before=Object.fromEntries(Object.entries(this.clock.units).map(([id,v])=>[id,{hex:copy(this.state.units[id].hex),org:v.org,personnel:v.personnel}]));
   super.advance();const e=this.clock.engagements,t=this.clock.tick,byHex=new Map();
+  const reportViews={};const reportView=side=>reportViews[side]??=(this.fair(side).view);
   for(const raw of this.clock.battles){if(!this.clock.map.active[raw.id])continue;const k=key(raw.contactHex);if(!byHex.has(k))byHex.set(k,[]);byHex.get(k).push(raw);}
   for(const [k,b]of Object.entries(e.active))if(!byHex.has(k)){b.status='ENDED';b.endedAt=t;b.result='本地点交战已脱离；不据此判定胜负';e.ended.push(b);delete e.active[k];}
   for(const [k,pairs]of byHex){const prev=e.active[k],units=[...new Set(pairs.flatMap(b=>b.units))].sort(),b=prev??{id:`engagement-${++e.serial}`,hex:copy(pairs[0].contactHex),since:t,seen:{}};
    Object.assign(b,{units,pairs:pairs.map(p=>p.id),ticks:t-b.since+1,updated:t,status:units.some(id=>key(before[id].hex)!==key(this.state.units[id].hex))?'WITHDRAWING':'ACTIVE',initiators:[...new Set(pairs.flatMap(p=>p.initiators))],sources:pairs.flatMap(p=>p.sources),changes:Object.fromEntries(units.map(id=>[id,{org:this.clock.units[id].org-before[id].org,personnel:this.clock.units[id].personnel-before[id].personnel}]))});e.active[k]=b;
-   for(const side of ['GERMAN','SOVIET']){const d=this.groupView(b,this.fair(side).view);if(d)b.seen[side]=d;}
+   for(const side of ['GERMAN','SOVIET']){const d=this.groupView(b,reportView(side));if(d)b.seen[side]=d;}
   }
   e.ended=e.ended.slice(-80);e.actions=[];
   for(const b of Object.values(e.active))for(const s of b.sources){const id=`${b.id}:${s.unit}:${s.kind}`;if(!e.actions.some(a=>a.id===id))e.actions.push({...copy(s),id,battleId:b.id,status:'EXECUTING',path:[s.from,s.to],progress:0});}
@@ -43,7 +44,7 @@ export class Campaign extends Base {
   // supporting formation withdraws. A later attack needs a new explicit command.
   for(const [id,v]of Object.entries(this.clock.units)){
    const o=v.direct;if(!o||o.paused||!['ATTACK','SUPPORT'].includes(o.kind))continue;
-   const view=this.fair(this.state.units[id].side).view,enemy=view.units.some(u=>u.side!==view.viewer&&key(u.hex)===key(o.target));
+   const view=reportView(this.state.units[id].side),enemy=view.units.some(u=>u.side!==view.viewer&&key(u.hex)===key(o.target));
    if(o.kind==='SUPPORT'&&(!e.active[key(o.target)]||key(before[id].hex)!==key(this.state.units[id].hex))){v.direct={kind:'HOLD',target:copy(this.state.units[id].hex),paused:true,risk:o.risk};v.march=null;this.note(this.state.units[id].side,'支援结束，留在当前地块；继续行动需新命令',id);}
    else if(o.kind==='ATTACK'&&!enemy){v.direct={...o,kind:'ADVANCE'};this.note(this.state.units[id].side,'指定目标无已识别敌军，转入有耗时的正常推进',id);}
   }

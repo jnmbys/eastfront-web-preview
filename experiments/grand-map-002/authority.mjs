@@ -11,15 +11,16 @@ export class Campaign extends Base {
   super.advance();const f=this.clock.displayForecast,t=this.clock.tick;
   f.completed=marching.filter(a=>!this.clock.units[a.id].march&&this.state.units[a.id].alive&&key(this.state.units[a.id].hex)===key(a.march.to)).map(a=>({id:'arrived:'+a.id+':'+t,unit:a.id,kind:'MOVE',from:a.from,to:a.march.to,path:[a.from,a.march.to],progress:1,status:'COMPLETED',battleId:null,segment:{completed:a.march.total,total:a.march.total,remainingMinutes:0},reason:'当前路段已由权威状态确认到达',tick:t}));
   const active=Object.values(this.clock.engagements.active);
+  const reportViews={};const reportView=side=>reportViews[side]??=(this.fair(side).view);
   for(const b of active){
    // Authorized close-contact coarse assessment. Never passed to fair()/AI.
    // Keep exact opposing state server-side. Quantize BEFORE trend calculations.
    const units=b.units.map(id=>{const v=this.clock.units[id],u=this.state.units[id];return {id,side:u.side,org:band(v.org,10),strength:band(v.personnel/v.max*100,10),blocked:/退路受阻|包围损失/.test(v.reason??''),supply:this.econ.supply[id].stock>0?'AVAILABLE':'EMPTY',hex:key(u.hex)};});
    const signature=JSON.stringify(units.map(u=>[u.id,u.hex,u.supply,u.blocked]));
    const prior=f.contacts[b.id],row=prior?.signature===signature?prior:{signature,samples:[],changedAt:t};
-   const authorized=['GERMAN','SOVIET'].filter(side=>{const d=this.groupView(b,this.fair(side).view);return d&&!d.unknownParticipants;});
+   const authorized=['GERMAN','SOVIET'].filter(side=>{const d=this.groupView(b,reportView(side));return d&&!d.unknownParticipants;});
    row.samples.push({tick:t,units,authorized});row.samples=row.samples.slice(-6);row.updated=t;f.contacts[b.id]=row;
-   for(const side of ['GERMAN','SOVIET']){const dto=this.groupView(b,this.fair(side).view);if(!dto)continue;const e=dto.unknownParticipants?{status:'ASSESSING',label:'评估中',scope:'本次接触',minutes:null,reason:'参战对象尚未完全识别，不推算整场结束'}:estimate(visibleSamples(row,side),side);f.audit.push({tick:t,battle:b.id,viewer:side,...e});}
+   for(const side of ['GERMAN','SOVIET']){const dto=this.groupView(b,reportView(side));if(!dto)continue;const e=dto.unknownParticipants?{status:'ASSESSING',label:'评估中',scope:'本次接触',minutes:null,reason:'参战对象尚未完全识别，不推算整场结束'}:estimate(visibleSamples(row,side),side);f.audit.push({tick:t,battle:b.id,viewer:side,...e});}
   }
   for(const id of Object.keys(f.contacts))if(!active.some(b=>b.id===id))delete f.contacts[id];
   f.audit=f.audit.slice(-600);

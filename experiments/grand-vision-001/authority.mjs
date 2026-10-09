@@ -19,7 +19,7 @@ export class Campaign extends Base {
   const remembered=rememberPlayerView(v);for(const s of remembered.sightings){const old=mem.knowledge.sightings.find(x=>x.contactId===s.contactId);s.lastSeenMinute=v.contactHexKeys.includes(key(s.hex))?minute:old?.lastSeenMinute??minute;}
   mem.knowledge=remembered;
  }this.bindVision();}
- fair(side){const f=super.fair(side);if(this.vision){const mem=this.vision.sides[side];for(const [k,h]of Object.entries(mem.cells))if(h.lost)delete f.known[k];for(const h of f.view.hexes)if(f.view.identifiedHexKeys.includes(key(h.coord)))f.known[key(h.coord)]=h.control;}return f;}
+ fair(side){const f=super.fair(side);if(this.vision){const mem=this.vision.sides[side],identified=new Set(f.view.identifiedHexKeys);for(const [k,h]of Object.entries(mem.cells))if(h.lost)delete f.known[k];for(const h of f.view.hexes)if(identified.has(key(h.coord)))f.known[key(h.coord)]=h.control;}return f;}
  advance(){super.advance();this.observeVision();}
  transaction(req){const r=super.transaction(req);this.observeVision();return r;}
  save(){const s=super.save();s.vision=copy(this.vision);return s;}

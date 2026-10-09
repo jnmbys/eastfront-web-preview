@@ -47,14 +47,14 @@ export class CampaignAdapter {
     if(['ORDER','PAUSE_GROUP','ASSIGN'].includes(p.type)){const g=this.group(seat,p.groupId);if(dep.commandGeneration!==g.commandGeneration)fail('COMMAND_GENERATION_CHANGED');p.group=g.id;
      if(p.type==='PAUSE_GROUP'){p.type='ORDER';p.order={...copy(g.order),paused:true};}
     }
-    if(['DIRECT','ASSIGN'].includes(p.type)){this.control(seat,p.unit);const u=c.clock.units[p.unit];if(dep.unitGeneration!==u.commandGeneration)fail('UNIT_COMMAND_CHANGED');}
+    if(['DIRECT','ASSIGN','RESUME_PLAN'].includes(p.type)){this.control(seat,p.unit);const u=c.clock.units[p.unit];if(dep.unitGeneration!==u.commandGeneration)fail('UNIT_COMMAND_CHANGED');}
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type)&&dep.economyGeneration!==c.transport.economyGeneration)fail('ECONOMY_CONFIGURATION_CHANGED');
     if(p.type==='BUILD_FACTORY'&&dep.account!==this.accountStamp())fail('RESOURCE_DEPENDENCY_CHANGED');
     if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
     const affected=c.clock.corps.filter(g=>g.id===p.group||p.type==='ASSIGN'&&g.members.includes(p.unit));
     c.transaction({id:e.requestId,version:c.version,operation:p});
     if(['ORDER','ASSIGN'].includes(p.type))for(const g of affected)g.commandGeneration++;
-    if(['DIRECT','ASSIGN'].includes(p.type))c.clock.units[p.unit].commandGeneration++;
+    if(['DIRECT','ASSIGN','RESUME_PLAN'].includes(p.type))c.clock.units[p.unit].commandGeneration++;
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type))c.transport.economyGeneration++;
     if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type))c.transport.worldGeneration++;
    }else fail('UNKNOWN_COMMAND');
