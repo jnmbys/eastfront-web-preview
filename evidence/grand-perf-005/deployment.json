@@ -1,0 +1,24 @@
+{
+  "runtime": "e579dd95dcaea8f1ad885c82ecadc1adde25dac8",
+  "service": "srv-db46117lk1mc73ev50mg",
+  "deploy": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"commit\":{\"createdAt\":\"2026-10-09T12:35:49Z\",\"id\":\"e579dd95dcaea8f1ad885c82ecadc1adde25dac8\",\"message\":\"[CF-Pages-Skip] Reduce combat checkpoint and authorized view copies; keep joystick clear of command panels\"},\"createdAt\":\"2026-10-09T12:37:06.15743Z\",\"finishedAt\":\"2026-10-09T12:38:34.620438Z\",\"id\":\"dep-db4dvsjl550s73beqbt0\",\"startedAt\":\"2026-10-09T12:37:06.113693Z\",\"status\":\"live\",\"trigger\":\"api\",\"updatedAt\":\"2026-10-09T12:38:34.620725Z\"}"
+      }
+    ],
+    "isError": false
+  },
+  "backup": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"hasMore\":false,\"logs\":[{\"id\":\"58bf7125-d7bc-44e7-a796-8b0e8a359f25\",\"labels\":[{\"name\":\"resource\",\"value\":\"srv-db46117lk1mc73ev50mg\"},{\"name\":\"instance\",\"value\":\"srv-db46117lk1mc73ev50mg-kf8sb\"},{\"name\":\"level\",\"value\":\"info\"},{\"name\":\"type\",\"value\":\"app\"}],\"message\":\"PERF005 pre-update checkpoints: 11\",\"timestamp\":\"2026-10-09T12:38:27.780457342Z\"}],\"nextEndTime\":\"2026-10-09T12:38:27.780457342Z\",\"nextStartTime\":\"2026-10-09T12:37:00Z\"}"
+      }
+    ],
+    "isError": false
+  },
+  "spec": "1c-2g unchanged",
+  "rollback": "fbf0eba4732a8bd27f77db291c7c0027c98e5685 reads current save schema; preserve newest visitor saves; do not restore old backup over progress"
+}
