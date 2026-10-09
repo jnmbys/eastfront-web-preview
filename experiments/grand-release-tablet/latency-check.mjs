@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {execFileSync} from 'node:child_process';import {pathToFileURL} from 'node:url';
+import {diff,patch,canonical} from '../grand-play-mp022/sync.mjs';import {CampaignAdapter} from '../grand-play-mp022/adapter.mjs';import {Campaign} from '../grand-release-001/territory.mjs';
+import {NetworkPlayerSession} from '../../.release-territory-preview/src/multiplayer/networkSession.js';import {createPresentationState} from '../../.release-territory-preview/src/state/presentation.js';
+const old=await import('data:text/javascript;base64,'+Buffer.from(execFileSync('git',['show','c46b990:experiments/grand-play-mp022/sync.mjs'])).toString('base64'));
+let seed=7124;const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed;};const tree=n=>n?{a:Array.from({length:rand()%5},()=>tree(n-1)),b:rand()%50,c:rand()%2?null:{value:rand()%20}}:rand()%7;
+for(let i=0;i<60;i++){const a=tree(3),b=structuredClone(a);b.b++;if(i%2)b.a.push(tree(2));if(i%3===0)delete b.c;for(const arrays of [false,true]){const d=diff(a,b,[],undefined,arrays);assert.deepEqual(d,old.diff(a,b,[],undefined,arrays));assert.equal(canonical(patch(a,d)),canonical(b));}}
+const a=new CampaignAdapter({CampaignClass:Campaign,restore:false});a.c.clock.paused=false;let before=await a.view('a');for(let i=0;i<8;i++){await a.step();const after=await a.view('a');const d=diff(before,after,[],undefined,true);assert.deepEqual(d,old.diff(before,after,[],undefined,true));assert.equal(canonical(patch(before,d)),canonical(after));before=after;}
+const snapshot=a.c.snapshot().game.message.payload;let sends=0;const client={state:{snapshot,connection:'CONNECTED'},canMutate:true,subscribe:()=>()=>{},send:()=>{sends++;return 'query';},dispose(){},resyncMatch(){}};
+const p=createPresentationState();p.selectedUnitId=snapshot.view.units.find(u=>u.side==='GERMAN').id;
+const live=new NetworkPlayerSession(client,p,()=>{},false);live.requestProjection();await new Promise(r=>setTimeout(r,20));assert.equal(sends,0);assert.equal(live.renderModel().selectedCounter.id,p.selectedUnitId);live.dispose();
+const legacy=new NetworkPlayerSession(client,p,()=>{});legacy.requestProjection();await new Promise(r=>setTimeout(r,20));assert.equal(sends,1,'Existing phased clients still request projections');legacy.dispose();
+console.log('PASS: identical authorized deltas and patch reconstruction; continuous selection without legacy query; phased query unchanged');

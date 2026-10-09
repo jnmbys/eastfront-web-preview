@@ -9,6 +9,9 @@ export function travel(view,from,to,cap,index=null){
  return Math.max(2,Math.ceil(((e?.road?2:land)+(e?.river?3:0))/cap.mobility));
 }
 export function route(view,start,target,cap,radius=0,budget=rules.searchBudget,index=null){
+ // Index this exact authorized view once per search, not once per expanded edge.
+ // No path or occupancy is retained across state revisions.
+ index??={hexes:new Map(view.hexes.map(h=>[hexKey(h.coord),h])),edges:new Map(view.edges.map(e=>[e.key,e]))};
  const hexes=index?.hexes??new Map(view.hexes.map(h=>[hexKey(h.coord),h])),enemy=new Set(view.units.filter(u=>u.side!==view.viewer).map(u=>hexKey(u.hex)));
  const occupied=new Map();for(const u of view.units.filter(u=>u.side===view.viewer&&u.friendly?.alive))occupied.set(hexKey(u.hex),(occupied.get(hexKey(u.hex))??0)+1);
  const open=[{h:start,g:0}],seen=new Map([[hexKey(start),{g:0,prev:null,h:start}]]);let expanded=0;

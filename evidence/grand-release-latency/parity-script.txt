@@ -1,0 +1,8 @@
+import fs from 'node:fs';import {Campaign} from '../../experiments/grand-release-001/territory.mjs';
+const c=new Campaign(),root='.release-artifact/latency/',mode=process.argv[2];
+if(mode==='initial'){fs.writeFileSync(root+'initial.json',JSON.stringify(c.save()));process.exit(0);}
+c.restore(JSON.parse(fs.readFileSync(root+'initial.json')),false);c.clock.paused=false;c.clock.autopause=false;
+for(const g of c.clock.corps.filter(g=>g.side==='GERMAN'))g.order={...g.order,paused:false,kind:'ADVANCE',target:{q:25,r:4}};
+const started=performance.now();for(let i=0;i<48;i++)c.tick();
+function clean(v){if(Array.isArray(v))return v.map(clean);if(v&&typeof v==='object')return Object.fromEntries(Object.entries(v).filter(([k])=>!['ms','elapsedMs','totalMs','maxMs','lastMs','objectiveMs'].includes(k)&&!k.endsWith('Ms')).map(([k,x])=>[k,clean(x)]));return v;}
+fs.writeFileSync(root+mode+'-state.json',JSON.stringify(clean(c.save())));console.log(mode,Math.round(performance.now()-started),c.clock.tick,c.clock.rng);

@@ -18,7 +18,7 @@ export class NetworkPlayerSession {
   private snapshotDeadline:ReturnType<typeof setTimeout>|null=null;
   private submitting=false;private timer:ReturnType<typeof setTimeout>|null=null;private queryTimer:ReturnType<typeof setTimeout>|null=null;
   private onChange:(kind:'view'|'query'|'status'|'resync')=>void;
-  constructor(readonly client:PlayerClientTransport,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange']){
+  constructor(readonly client:PlayerClientTransport,readonly presentation:PresentationState,onChange:NetworkPlayerSession['onChange'],private readonly legacyProjections=true){
     const snapshot=client.state.snapshot;if(!snapshot)throw new Error('Missing authorized snapshot');
     this.playerView=snapshot.view;this.model=snapshot.model;this.matchRevision=snapshot.matchRevision;this.serverSequence=snapshot.serverSequence;this.status=snapshot.status;this.canAct=snapshot.canAct;this.forced=snapshot.forcedAction;this.onChange=onChange;
     this.restoreDrafts(snapshot);
@@ -55,7 +55,7 @@ export class NetworkPlayerSession {
   private needsProjection():boolean {
     // Deployment roster/zones are entirely in the authorized snapshot. Neither
     // roster selection nor a local destination changes this server projection.
-    return this.status==='ACTIVE'&&this.canAct&&!this.playerView.phase.endsWith('_DEPLOYMENT');
+    return this.legacyProjections&&this.status==='ACTIVE'&&this.canAct&&!this.playerView.phase.endsWith('_DEPLOYMENT');
   }
   private key(draft:QueryDraft):string {return JSON.stringify([this.matchRevision,draft]);}
   requestProjection(p=this.presentation):void {

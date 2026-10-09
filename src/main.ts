@@ -546,7 +546,7 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
     if(kind==='status'){updateNetworkStatus();return;}
     if(kind==='view')deploymentTouch=createDeploymentTouch();
     refreshDynamicView();
-  });
+  },!grandPort?.continuous);
   session=network;
   if(LOCAL_AI_ENABLED&&localAi)plan.observe(network,()=>({viewer:network.activeViewerControllerId,view:sessionPlayerView(network)}));
   terrainPipeline?.resume();
