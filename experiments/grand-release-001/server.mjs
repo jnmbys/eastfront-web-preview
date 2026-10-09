@@ -1,11 +1,11 @@
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {fileURLToPath} from 'node:url';import {gunzipSync} from 'node:zlib';
 import {Campaign} from './territory.mjs';import {start} from '../grand-play-mp022/server.mjs';import {ReleaseAdapter} from './persistence.mjs';import {access} from './access.mjs';
-export async function releaseServer({port=Number(process.env.PORT??4247),host=process.env.HOST??'127.0.0.1',origin=process.env.PUBLIC_ORIGIN??`http://127.0.0.1:${port}`,local=process.env.RELEASE_LOCAL==='1',saveDir=process.env.SAVE_DIR??path.join(os.homedir(),'.eastfront/grand-release-territory-1'),passwordDigest=process.env.OWNER_PASSWORD_HASH,autoTick=true,mid=false,midFile=process.env.RELEASE_MID_FILE}={}){
+export async function releaseServer({port=Number(process.env.PORT??4247),host=process.env.HOST??'127.0.0.1',origin=process.env.PUBLIC_ORIGIN??`http://127.0.0.1:${port}`,local=process.env.RELEASE_LOCAL==='1',saveDir=process.env.SAVE_DIR??path.join(os.homedir(),'.eastfront/grand-release-territory-1'),passwordDigest=process.env.OWNER_PASSWORD_HASH,autoTick=true,mid=false,midFile=process.env.RELEASE_MID_FILE,accessControl}={}){
  if(local&&(process.env.NODE_ENV==='production'||host!=='127.0.0.1'||!origin.startsWith('http://127.0.0.1:')))throw Error('LOCAL_MODE_LOOPBACK_ONLY');
  if(!local&&!origin.startsWith('https:')&&host!=='127.0.0.1')throw Error('PUBLIC_HTTPS_ORIGIN_REQUIRED');
  const originUrl=new URL(origin);if(originUrl.origin!==origin)throw Error('ORIGIN_MUST_BE_EXACT');
  if(!local&&!process.env.SAVE_DIR&&host!=='127.0.0.1')throw Error('PERSISTENT_SAVE_DIR_REQUIRED');
- const auth=access({local,origin,passwordDigest});
+ const auth=accessControl??access({local,origin,passwordDigest});
  if(mid&&!midFile)throw Error('OLD_MID_SAVE_NOT_CONVERTED');
  class Saved extends Campaign{constructor(){super();if(midFile)this.restore(JSON.parse(gunzipSync(fs.readFileSync(midFile))));}}
  const router=async(req,res,adapter,reset)=>{const url=new URL(req.url,origin),json=(code,data)=>{res.writeHead(code,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
