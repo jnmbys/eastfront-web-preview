@@ -45,14 +45,14 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
  });
  function connect(ws,s,req){
   ws.lastPong=Date.now();ws.on('pong',()=>{ws.lastPong=Date.now();});s.connection?.close('REPLACED');s.epoch++;metrics.connections++;
-  const conn={epoch:s.epoch,selection:{},dirty:true,full:true,view:null,viewVersion:0,serial:0,outstanding:[],stream:1,acked:0,trace:[],profile:'clean',closed:false,rendering:false,links:[],
+  const conn={handshaken:false,epoch:s.epoch,selection:{},dirty:true,full:true,view:null,viewVersion:0,serial:0,outstanding:[],stream:1,acked:0,trace:[],profile:'clean',closed:false,rendering:false,links:[],
    close(reason){if(conn.closed)return;conn.closed=true;for(const link of conn.links)link.close();if(ws.readyState===1)ws.close(1013,reason);if(release)queueMicrotask(()=>{if(![...seats.values()].some(x=>x.connection&&!x.connection.closed))void adapter.offline();});}};s.connection=conn;
   const down=new OrderedLink(profiles.clean,text=>{if(ws.readyState===1){if(ws.bufferedAmount>2*1024*1024){conn.close('SOCKET_BACKPRESSURE');return;}const message=JSON.parse(text);if(message.type==='STATE'){message.serverQueueMs=performance.now()-message.enqueuedAt;delete message.enqueuedAt;trace('state-dispatched',{stream:message.stream,version:message.viewVersion,serverQueueMs:message.serverQueueMs});}ws.send(JSON.stringify(message));}},()=>conn.close('DOWN_QUEUE_FULL'));
   const up=new OrderedLink(profiles.clean,text=>void message(text).catch(()=>{metrics.errors++;conn.close('PROTOCOL_ERROR');}),()=>conn.close('UP_QUEUE_FULL'));conn.links=[up,down];
   const observe=(name,link)=>{metrics[`peak${name}Messages`]=Math.max(metrics[`peak${name}Messages`],link.jobs.length);metrics[`peak${name}Bytes`]=Math.max(metrics[`peak${name}Bytes`],link.bytes);};
   const send=data=>{if(conn.closed||s.connection!==conn)return;const text=JSON.stringify({...data,instanceId:adapter.id,connectionEpoch:conn.epoch});metrics.sent++;metrics.sentBytes+=Buffer.byteLength(text);const queued=down.send(text);observe('Down',down);return queued;};
   const trace=(type,detail={})=>{conn.trace.push({type,at:performance.now(),...detail});if(conn.trace.length>2048)conn.trace.shift();};
-  async function push(){if(conn.closed||s.connection!==conn||conn.rendering)return;if(access&&!access.authorized(req)){conn.close('AUTH_EXPIRED');return;}if(conn.outstanding.length&&performance.now()-conn.outstanding[0].sentAt>15000){conn.close('VIEW_ACK_TIMEOUT');return;}if(conn.outstanding.length>=STATE_WINDOW){if(conn.dirty)metrics.coalesced++;return;}if(!conn.dirty)return;if(release&&(down.bytes>128*1024||ws.bufferedAmount>256*1024)){metrics.coalesced++;return;}conn.rendering=true;conn.dirty=false;const stream=conn.stream;
+  async function push(){if(!conn.handshaken)return;if(conn.closed||s.connection!==conn||conn.rendering)return;if(access&&!access.authorized(req)){conn.close('AUTH_EXPIRED');return;}if(conn.outstanding.length&&performance.now()-conn.outstanding[0].sentAt>15000){conn.close('VIEW_ACK_TIMEOUT');return;}if(conn.outstanding.length>=STATE_WINDOW){if(conn.dirty)metrics.coalesced++;return;}if(!conn.dirty)return;if(release&&(down.bytes>128*1024||ws.bufferedAmount>256*1024)){metrics.coalesced++;return;}conn.rendering=true;conn.dirty=false;const stream=conn.stream;
    try{const view=await adapter.view(s.side,conn.selection);if(conn.closed||s.connection!==conn)return;const change=conn.view?diff(conn.view,view,[],undefined,release):null,results=adapter.pending(s.side);
     if(stream!==conn.stream){conn.dirty=true;return;}
     if(!conn.full&&change&&!change.set.length&&!change.remove.length)return;
@@ -66,7 +66,7 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
   }
   conn.push=push;
   async function message(text){if(conn.closed||s.connection!==conn)return;if(access&&!access.authorized(req)){conn.close('AUTH_EXPIRED');return;}const m=JSON.parse(text);
-   if(m.type==='HELLO'){send({type:'WELCOME',nextCommandSeq:adapter.c.transport.next[s.side],side:'GERMAN',era:adapter.era});await push();return;}
+   if(m.type==='HELLO'){if(conn.handshaken)return;conn.handshaken=true;send({type:'WELCOME',nextCommandSeq:adapter.c.transport.next[s.side],side:'GERMAN',era:adapter.era});await push();return;}
    if(m.instanceId!==adapter.id||m.connectionEpoch!==conn.epoch){send({type:'ERROR',reason:'SESSION_EPOCH_OR_INSTANCE_MISMATCH'});return;}
    if(m.type==='PING'){send({type:'PONG',id:m.id});return;}
    if(m.type==='PROFILE'){if(!Object.hasOwn(profiles,m.name))throw Error('PROFILE');conn.profile=m.name;up.profile=profiles[m.name];down.profile=profiles[m.name];send({type:'PROFILE',name:m.name,profile:profiles[m.name]});return;}
