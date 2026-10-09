@@ -11,8 +11,24 @@ const sides=['GERMAN','SOVIET'],other=s=>s==='GERMAN'?'SOVIET':'GERMAN',copy=str
 const digest=x=>createHash('sha256').update(JSON.stringify(x)).digest('hex');
 export function score(config,state){return Object.fromEntries(sides.map(side=>{const rows=config.rows.filter(r=>r.side===side),total=rows.reduce((n,r)=>n+r.weight,0),lost=rows.reduce((n,r)=>n+(state.hexes[r.hex]?.control===other(side)?r.weight:0),0),lostRatio=lost/total;return [side,{total,lost,lostRatio,threshold:config.threshold,progress:Math.min(1,lostRatio/config.threshold)}];}));}
 export class Campaign extends Economy{
+ validateOrder(o){super.validateOrder(o);if(o.planAdvance!==undefined&&(o.planAdvance!==true||o.kind!=='ADVANCE'||!o.front?.length))throw Error('INVALID_FRONT_ADVANCE_PLAN');}
+ prepareMapPlan(){
+  // Optional map plan: first approach assigned frontage, then the explicit final target.
+  // Tactical ownOrder remains above this base assignment and can reserve/withdraw units.
+  const active=this.clock.corps.filter(g=>g.order.planAdvance&&!g.order.paused);if(!active.length&&!this.clock.commandPlans)return;
+  const plans=this.clock.commandPlans??={};
+  for(const g of active){
+   const stamp=JSON.stringify([g.order.kind,g.order.front,g.order.target]);
+   for(const id of g.members){const u=this.state.units[id],front=this.frontAssignments[id];if(!u?.alive||this.clock.units[id].direct||!front)continue;
+    if(plans[id]?.stamp!==stamp)plans[id]={stamp,reached:false};
+    if(distance(u.hex,front)<=1)plans[id].reached=true;
+    if(plans[id].reached)delete this.frontAssignments[id];
+   }
+  }
+  for(const id of Object.keys(plans)){const g=this.clock.corps.find(g=>g.members.includes(id));if(!g?.order.planAdvance||this.clock.units[id]?.direct||!this.state.units[id]?.alive)delete plans[id];}
+ }
  projection(draft){if(draft?.uiDirectPreview)return {directPreview:directPreview(this,draft)};return super.projection(draft);}
- constructor(){super();this.ruleOverride=RULES;this.simRules=RULES;this.clock.rules=RULES.version;this.clock.territory={config:copy(CONFIG),hash:digest(CONFIG),strategic:{}};}
+ constructor(){super();this.frontLimit=24;this.ruleOverride=RULES;this.simRules=RULES;this.clock.rules=RULES.version;this.clock.territory={config:copy(CONFIG),hash:digest(CONFIG),strategic:{}};}
  finish(surrendered,voluntary=false){if(this.clock.ended)return;this.clock.ended={winner:surrendered.length===2?null:other(surrendered[0]),surrendered,tick:this.clock.tick,type:voluntary?'VOLUNTARY':'TERRITORIAL',reason:surrendered.length===2?'双方在同一时间步达到投降阈值，战役共同终止':`${surrendered[0]==='GERMAN'?'德军':'苏军'}${voluntary?'主动投降':'核心战区失守权重达到投降阈值，正式投降'}`};this.clock.paused=true;this.note(this.viewer,this.clock.ended.reason);}
  evaluateSurrender(){if(this.clock.ended)return;const scores=score(this.clock.territory.config,this.state),losers=sides.filter(s=>scores[s].lostRatio>=scores[s].threshold);if(losers.length)this.finish(losers);}
  advance(){if(this.clock.ended)return;if(!Number.isSafeInteger(this.clock.tick+1)||!Number.isFinite(new Date(Date.parse(cfg.date)+(this.clock.tick+1)*300000).getTime()))throw Error('CLOCK_RANGE_EXHAUSTED_SAVE_AND_STOP');super.advance();this.econ.cities.events=this.econ.cities.events.slice(-500);this.evaluateSurrender();}
@@ -39,6 +55,7 @@ export class Campaign extends Economy{
  }
  stateCoordinate(hex){const[q,r]=hex.split(',').map(Number);return {q,r};}
  snapshot(draft){const d=super.snapshot(draft);if(!this.clock.territory)return d;const known=new Map(d.game.message.payload.view.hexes.map(h=>[key(h.coord),h])),scores=score(this.clock.territory.config,this.state);d.continuous.calendar=new Date(Date.parse(cfg.date)+this.clock.tick*300000).toISOString().slice(0,16).replace('T',' ');d.continuous.victoryText='无战役时限；核心战区失守权重达到80%时投降。';
+  d.continuous.geography={version:'THEATRE-PUBLIC-1',cells:CONFIG.rows.map(r=>({hex:r.hex,side:r.side})),labels:[{side:'GERMAN',name:'德军战区'},{side:'SOVIET',name:'苏军战区'}]};
   d.continuous.surrender={version:CONFIG.version,side:this.viewer,scores,own:CONFIG.rows.filter(r=>r.side===this.viewer).map(r=>({...r,control:known.has(r.hex)?known.get(r.hex).control:null,current:known.has(r.hex)})),ended:copy(this.clock.ended)};return d;
  }
 }

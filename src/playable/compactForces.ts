@@ -38,7 +38,9 @@ export function paintCompactForces(layer:SVGElement,p:GrandPort,point:(h:any)=>{
 
   const footprint=mode==='far'?Array.from(new Map(units.map(u=>[u.hex.q+','+u.hex.r,u.hex])).values()).map(h=>{const at=point(h);return `<circle cx="${at.x/size-pos.x}" cy="${at.y/size-pos.y}" r="2.5" fill="${g.color}" stroke="#142a2e" stroke-width=".7" pointer-events="none"/>`;}).join(''):'';
   const hit=`<rect x="${-w/2}" y="-22" width="${w}" height="44" fill="transparent"/>`;
-  const html=leader+footprint+scope+selectedPoint+hit+frame+inside+`<title>${esc(g.name+'；'+summaryText+'；'+units.map(u=>u.id+' '+u.hex.q+','+u.hex.r).join('；'))}</title>`;if(el.getAttribute('data-markup')!==html){el.innerHTML=html;set(el,'data-markup',html);}
+  const pending=own&&Array.from(p.wire?.pending.values()??[]).some((r:any)=>units.some(u=>r.command?.payload?.unit===u.id));
+  const waiting=pending?`<g><circle cx="${w/2-2}" cy="${-h/2}" r="9" fill="#e7d5a3" stroke="#263b40"/><text x="${w/2-2}" y="${-h/2+4}" font-size="12" text-anchor="middle" fill="#263b40">⌛</text><title>命令等待确认；兵位未提前改变</title></g>`:'';
+  const html=leader+footprint+scope+selectedPoint+hit+frame+inside+waiting+`<title>${esc(g.name+'；'+summaryText+'；'+units.map(u=>u.id+' '+u.hex.q+','+u.hex.r).join('；'))}</title>`;if(el.getAttribute('data-markup')!==html){el.innerHTML=html;set(el,'data-markup',html);}
   let down:{x:number;y:number}|null=null;el.onpointerdown=e=>{down={x:e.clientX,y:e.clientY};};const choose=()=>{p.selections['stack-open']='1';p.selections['ui-panel']='unit';p.selections.stack=g.key;p.selections['scale-affiliation']=g.affiliation;p.selections['scale-members']=JSON.stringify(units.map(u=>u.id));if(own&&units.length===1)select(units[0]!.id);else refresh();};el.onclick=e=>{if(!canInspect()||down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>6)return;e.stopPropagation();choose();};el.onkeydown=e=>{if(canInspect()&&['Enter',' '].includes(e.key)){e.preventDefault();choose();}};
  }
  for(const el of Array.from(layer.children))if(!keep.has(el.getAttribute('data-stack-key')!))el.remove();

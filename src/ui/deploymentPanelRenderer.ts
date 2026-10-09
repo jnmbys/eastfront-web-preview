@@ -1,4 +1,5 @@
 import type {BrowserRenderModel} from '../render/coreModel.js';
+import {patchProduction} from './retainedProduction.js';
 import type {DeploymentTouch} from './deploymentTouch.js';
 import {getLocale,t,enumLabel} from '../localization/index.js';
 
@@ -38,7 +39,18 @@ export class DeploymentPanelRenderer {
  clear():void {this.owner=null;this.panel=null;this.key='';this.locations=null;this.cards.clear();this.counts.clear();this.chosen=null;this.cardType='';}
  update(panel:HTMLElement,owner:object,model:BrowserRenderModel,selected:string|null,ui:DeploymentTouch,markup:(locations?:string)=>string,beforeReplace?:()=>void):boolean {
   const d=model.deployment,row=d?.roster.find(r=>r.id===selected);
-  if(!d||!row||row.placed||model.viewerSide!==model.activeSide){beforeReplace?.();this.clear();panel.innerHTML=markup();return false;}
+  if(!d||!row||row.placed||model.viewerSide!==model.activeSide){
+   const production=panel.querySelector('#production-workbench');
+   const html=markup();
+   if(production&&html.includes('id="production-workbench"')){
+    const next=panel.ownerDocument.createElement('div');next.innerHTML=html;
+    const wanted=next.querySelector('#production-workbench')!;
+    patchProduction(production,wanted);
+    production.setAttribute('data-retained-deployment-locations','true');wanted.setAttribute('data-retained-deployment-locations','true');
+    patchShell(panel,next,production);return true;
+   }
+   beforeReplace?.();this.clear();panel.innerHTML=html;return false;
+  }
   const terrain=new Map(model.hexes.map(h=>[`${h.coord.q},${h.coord.r}`,h.terrain]));
   // Revisions alone would invalidate every accepted deployment. Compare every
   // static card dependency instead; type labels, occupancy and selection are patched below.

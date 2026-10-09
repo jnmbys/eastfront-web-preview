@@ -1,3 +1,4 @@
+import {bindPlanDrawing,paintPlanDraft} from './playable/corpsPlan.js';
 import {chooseDirectTarget} from './playable/directCommand.js';
 import {releaseMode,releaseHome,bindReleaseHome} from './playable/release.js';
 import {refreshIndustryViewport} from './playable/industryArt.js';
@@ -87,7 +88,7 @@ function syncFogSurface():void{
 }
 function paintDeploymentFocus(model?:BrowserRenderModel):void{
  syncFogSurface();
- if(grandPort)paintCities(grandPort,refreshDynamicView,grandArt,()=>!!session&&!presentation.privacyGate&&['SELECT','RECOVERY','ENTRENCH','RAIL_REPAIR'].includes(presentation.interactionMode)&&!sessionPlayerView(session).pendingDecision&&!(plan.scope(session,session.activeViewerControllerId) as any).picking);if(grandPort?.continuous){paintCampaign(grandPort,hexToPixel,refreshDynamicView,()=>!!session&&!presentation.privacyGate&&presentation.interactionMode==='SELECT'&&!(plan.scope(session,session.activeViewerControllerId) as any).picking,presentation.selectedUnitId,id=>{selectPlayableCounter(id);refreshDynamicView();});const heading=document.querySelector('.campaign-heading strong');if(heading)heading.textContent='共同时间';const turn=document.querySelector('.campaign-turn');if(turn)turn.textContent='德军统帅 · 苏军AI';const sub=document.querySelector('.map-toolbar>div>span');if(sub)sub.textContent='第聂伯中央战线 · 授权视图';}
+ if(grandPort)paintCities(grandPort,refreshDynamicView,grandArt,()=>!!session&&!presentation.privacyGate&&['SELECT','RECOVERY','ENTRENCH','RAIL_REPAIR'].includes(presentation.interactionMode)&&!sessionPlayerView(session).pendingDecision&&!(plan.scope(session,session.activeViewerControllerId) as any).picking);if(grandPort?.continuous){paintPlanDraft(grandPort);paintCampaign(grandPort,hexToPixel,refreshDynamicView,()=>!!session&&!presentation.privacyGate&&presentation.interactionMode==='SELECT'&&!(plan.scope(session,session.activeViewerControllerId) as any).picking,presentation.selectedUnitId,id=>{selectPlayableCounter(id);refreshDynamicView();});const heading=document.querySelector('.campaign-heading strong');if(heading)heading.textContent='共同时间';const turn=document.querySelector('.campaign-turn');if(turn)turn.textContent='德军统帅 · 苏军AI';const sub=document.querySelector('.map-toolbar>div>span');if(sub)sub.textContent='第聂伯中央战线 · 授权视图';}
  if(grandPort){const svg=document.querySelector('#eastfront-map');svg?.setAttribute('aria-label','大战略实验1280格地图');svg?.querySelector('#grand-objectives')?.remove();svg?.insertAdjacentHTML('beforeend','<g id="grand-objectives" pointer-events="none">'+grandPort.data.objectives.filter((n:any)=>!grandPort?.data.cities||n.vp>0).map((n:any)=>{const pos=hexToPixel(parseHex(n.hex));return `<g transform="translate(${pos.x} ${pos.y})"><circle r="9" fill="none" stroke="#e4b95c" stroke-width="2"/><text y="-26" text-anchor="middle" fill="#302514" font-size="13">${esc(n.label)} · ${n.vp}VP</text></g>`;}).join('')+'</g>');const title=document.querySelector('.map-toolbar>div:first-child>strong');if(title)title.textContent='大战略实验 · 32×40格';const campaign=document.querySelector('.campaign-heading>.eyebrow');if(campaign)campaign.textContent='大战略实验';}
  unitAnimations.sync(session,document.querySelector('#map-wrap'));
  if(LOCAL_AI_ENABLED&&localAi&&session&&!presentation.privacyGate)paintPlanMap(model??deriveBrowserRenderModel(session,presentation));
@@ -209,7 +210,7 @@ const viewportWork=new ViewportWork(scaleChanged=>{
 let releaseMapViewport=()=>{};
 function bindMapViewport():void{
   releaseMapViewport();
-  const wrap=document.querySelector<HTMLElement>('#map-wrap');if(!wrap)return;applyMapViewport();
+  const wrap=document.querySelector<HTMLElement>('#map-wrap');if(!wrap)return;applyMapViewport();if(grandPort?.continuous)bindPlanDrawing(grandPort,refreshDynamicView);
   const points=new Map<number,MapPoint>();
   let gesture:MapGestureState|null=null;
   let pinch:{view:MapViewport;a:MapPoint;b:MapPoint}|null=null;
@@ -297,6 +298,8 @@ function sidePanelMarkup(model:BrowserRenderModel,locations?:string):string{
 }
 const dynamicMap=new DynamicMapRenderer();
 const deploymentPanelRenderer=new DeploymentPanelRenderer();
+let grandRefreshFrame:number|null=null;
+function scheduleGrandRefresh(){if(grandRefreshFrame!==null)return;grandRefreshFrame=requestAnimationFrame(()=>{grandRefreshFrame=null;if(session&&appStatus==='PLAYING')refreshDynamicView();});}
 // Keep a pressed control stable through pointerup/click. Only painting waits;
 // authority time and incoming authorized state continue normally.
 const grandPressedPointers=new Set<number>();let grandPaintPending=false;
@@ -557,7 +560,7 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
     if(network.notice&&!network.client.state.pending)combatResults(network).stopWaiting();
     if(kind==='status'){updateNetworkStatus();return;}
     if(kind==='view')deploymentTouch=createDeploymentTouch();
-    refreshDynamicView();
+    if(grandPort?.continuous)scheduleGrandRefresh();else refreshDynamicView();
   },!grandPort?.continuous);
   session=network;
   if(LOCAL_AI_ENABLED&&localAi)plan.observe(network,()=>({viewer:network.activeViewerControllerId,view:sessionPlayerView(network)}));
@@ -566,7 +569,7 @@ async function enterNetworkMatch(client:LobbyClient|LocalAiClient):Promise<void>
   if(!grandPort&&!cachedTerrainSurface)await boot(network.renderModel());
   if(!grandPort&&!cachedTerrainSurface){network.dispose();return;}
   if(session!==network){network.dispose();return;}
-  session=network;appStatus='PLAYING';presentation.privacyGate=null;if(LOCAL_AI_ENABLED&&localAi)presentation.panelCollapsed=false;render();if(grandPort?.continuous)focusGrandHex({q:25,r:4},4);if(!grandArt)terrainPipeline?.continueAll();
+  session=network;appStatus='PLAYING';presentation.privacyGate=null;if(LOCAL_AI_ENABLED&&localAi)presentation.panelCollapsed=false;render();if(grandPort?.continuous){mapViewport=defaultMapViewport();applyMapViewport();}if(!grandArt)terrainPipeline?.continueAll();
 }
 
 function localAiHome():string {
@@ -600,10 +603,10 @@ async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):
  const fixedSeed=query.get('aiSeed');
  const seed=perf006.enabled&&fixedSeed!==null&&/^\d+$/.test(fixedSeed)&&Number(fixedSeed)<=0xffffffff?Number(fixedSeed):crypto.getRandomValues(new Uint32Array(1))[0]!;
  const options={humanSide,scenario,seed,map:productionMap??{rows:32,cols:40,terrain:{},roads:[],rails:[],rivers:[]},performance:perf006.enabled};
- const port=grand?new GrandPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();},mode==='continuous'):integrated?new LogisticsPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):createLocalAiWorker();logisticsPort=integrated?port as LogisticsPort:null;grandPort=grand?port as GrandPort:null;
+ const port=grand?new GrandPort(()=>{if(session&&appStatus==='PLAYING')scheduleGrandRefresh();},mode==='continuous'):integrated?new LogisticsPort(()=>{if(session&&appStatus==='PLAYING')refreshDynamicView();}):createLocalAiWorker();logisticsPort=integrated?port as LogisticsPort:null;grandPort=grand?port as GrandPort:null;
  const client=new LocalAiClient(port,options,()=>{if(localAi===client)updateLocalAiStatus();});localAi=client;appStatus='LOADING';render();
  try{await client.start(options);if(generation!==localGeneration){client.dispose();return;}await enterNetworkMatch(client);}
- catch(error){if(generation!==localGeneration)return;console.error('LOCAL_START_FAILURE',error);grandPort?.preserveOnUnload();client.dispose();if(grand)discardGrandTerrain();grandArt=false;localAi=null;logisticsPort=null;grandPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent='本地 AI 启动失败：'+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
+ catch(error){if(generation!==localGeneration)return;console.error('LOCAL_START_FAILURE',error);grandPort?.preserveOnUnload();client.dispose();if(grand)discardGrandTerrain();grandArt=false;localAi=null;logisticsPort=null;grandPort=null;session=null;appStatus='HOME';render();const warning=document.createElement('p');warning.textContent=(grand?'战役连接或地图加载失败：':'本地 AI 启动失败：')+(error instanceof Error?error.message:'UNKNOWN');root.prepend(warning);}
 }
 function updateLocalAiStatus():void {
  if(grandPort?.continuous){const heading=document.querySelector('.campaign-heading strong');if(heading)heading.textContent='共同时间';const turn=document.querySelector('.campaign-turn');if(turn)turn.textContent='德军统帅 · 苏军AI';const sub=document.querySelector('.map-toolbar>div>span');if(sub)sub.textContent='第聂伯中央战线 · 授权视图';}

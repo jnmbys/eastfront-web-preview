@@ -1,8 +1,8 @@
 import {hexKey as key,hexDistance as distance} from '../../vendor/eastfront-digital-core/dist/index.js';
 // Bounded, pure authorized-view assignment. No authority, hidden occupancy or RNG.
-export function validateFront(front,view){
+export function validateFront(front,view,limit=8){
  if(front===undefined)return;
- if(!Array.isArray(front)||!front.length||front.length>8)throw Error('FRONT_REQUIRES_1_TO_8_CONNECTED_HEXES');
+ if(!Array.isArray(front)||!front.length||front.length>limit)throw Error('FRONT_REQUIRES_1_TO_'+limit+'_CONNECTED_HEXES');
  const known=new Map(view.hexes.map(h=>[key(h.coord),h]));const seen=new Set();
  for(const h of front){if(!Number.isSafeInteger(h?.q)||!Number.isSafeInteger(h?.r)||!known.has(key(h))||known.get(key(h)).terrain==='LAKE'||seen.has(key(h)))throw Error('INVALID_PUBLIC_FRONT');seen.add(key(h));}
  const reached=[front[0]];while(true){const next=front.find(h=>!reached.includes(h)&&reached.some(p=>distance(p,h)===1));if(!next)break;reached.push(next);}if(reached.length!==front.length)throw Error('FRONT_MUST_BE_CONNECTED');

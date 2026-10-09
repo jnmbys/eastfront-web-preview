@@ -19,7 +19,7 @@ function harness(source){
  const windowEvents=new Map();const context=vm.createContext({window:{addEventListener:(k,f)=>windowEvents.set(k,f),removeEventListener:k=>windowEvents.delete(k)},document:{querySelector:s=>({'#map-wrap':wrap,'#eastfront-map':svg,'#terrain-surface':terrain}[s]??null)},mapViewport:{panX:0,panY:0,zoom:2},grandArt:true,grandPort:{continuous:true,data:{continuous:{map:{}}}},grandPaintPending:false,grandPressedPointers:new Set(),
  setTimeout:later,clearTimeout:id=>jobs.delete(id),requestAnimationFrame:fn=>later(fn,16),cancelAnimationFrame:id=>jobs.delete(id),ResizeObserver:class {observe(){} disconnect(){}},
  scheduleCityArt:()=>counts.city++,refreshBattleMapViewport:()=>counts.battle++,refreshIndustryViewport:()=>counts.industry++,mountCachedTerrainSurface:()=>counts.terrain++,setCityArtInteracting:()=>{},
- refreshDynamicView:()=>counts.statePaint++,handleGrandMapCommand:()=>counts.commands++});
+ bindPlanDrawing:()=>{},refreshDynamicView:()=>counts.statePaint++,handleGrandMapCommand:()=>counts.commands++});
  vm.runInContext(compile(fs.readFileSync('src/interaction/viewportWork.ts','utf8'))+compile(fs.readFileSync('src/web/mapInteraction.ts','utf8').replace(/^import .*$/mg,''))+compile(source.slice(source.indexOf('function applyMapViewport()'),source.indexOf('function handleGrandMapCommand(')))+';bindMapViewport();',context);
  advance(250);for(const k of Object.keys(counts))counts[k]=0;
  const event=(kind,x,y,id=1)=>{const e={button:0,pointerId:id,clientX:x,clientY:y,deltaY:-1,preventDefault(){this.prevented=true;},stopPropagation(){},stopImmediatePropagation(){}};for(const f of listeners.get(kind)??[])f(e);return e;};

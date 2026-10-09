@@ -1,0 +1,521 @@
+{
+  "scope": "Deterministic engine and UI-function checks; not browser/tablet acceptance",
+  "checks": [
+    "No map plan: 24 real steps same state, economy, units, battles and RNG",
+    "Direct intent can confirm while optional preview pending; generations still protected",
+    "One pending unit does not block another unit target",
+    "Factories: existing IDs, finite shared pool; no borrowing from another active line",
+    "Equipment picker includes dormant lines and explicit conversion cost; no checkbox form",
+    "Fixed 48-hour budget preserves real work and output; zero completed output is reported, not counted as delivery",
+    "Map plan accepted by generation-checked adapter; real movement and approach completion over four game hours",
+    "Tactical reserve orders retain priority over plan target",
+    "Direct takeover clears map-plan ownership; tactical state not resurrected",
+    "Front drawing fills connected public terrain, bounded 24; legacy cap8 unchanged",
+    "Public political geography independent of hidden current control and units",
+    "Atomic save/restart preserves optional plan state, economy and paused default"
+  ],
+  "plan": [
+    {
+      "tick": 1,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 21,
+            "r": 5
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 7,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 22,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 21,
+            "r": 5
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 13,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 19,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 22,
+            "r": 5
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 25,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 22,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 31,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 37,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 23,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "role": "ACTIVE"
+        }
+      ]
+    },
+    {
+      "tick": 43,
+      "positions": [
+        {
+          "id": "G-013",
+          "hex": {
+            "q": 21,
+            "r": 4
+          },
+          "reason": "保留真实预备队，等待接替需求；直属或命令暂停",
+          "role": "RESERVE"
+        },
+        {
+          "id": "G-014",
+          "hex": {
+            "q": 24,
+            "r": 3
+          },
+          "reason": "沿原军团任务行动；按已知地形向命令目标推进",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-017",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-018",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-019",
+          "hex": {
+            "q": 24,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已识别相邻敌军；按现有火力与附近友军投入",
+          "role": "ACTIVE"
+        },
+        {
+          "id": "G-020",
+          "hex": {
+            "q": 23,
+            "r": 4
+          },
+          "reason": "沿原军团任务行动；已到任务区域，守备与补充",
+          "role": "ACTIVE"
+        }
+      ]
+    }
+  ],
+  "production": {
+    "ticks": 576,
+    "truckOutput": 0,
+    "manpowerSent": 0,
+    "stock": 8,
+    "line": {
+      "id": "GERMAN:TRUCK",
+      "side": "GERMAN",
+      "product": "TRUCK",
+      "factories": [
+        "FACTORY:GERMAN-industry-1:1"
+      ],
+      "priority": 8,
+      "efficiency": 0.24951388888888573,
+      "progress": 3.9163375289351423,
+      "completed": 0,
+      "resourceFactor": 0.75,
+      "workDay": 2.243749999999972,
+      "missing": [
+        {
+          "resource": "rubber",
+          "need": 2,
+          "got": 1.5
+        }
+      ],
+      "lostWork": 0
+    },
+    "actualTick": 576,
+    "ended": null
+  }
+}

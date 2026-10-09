@@ -1,3 +1,4 @@
+import {paintNationalGeography} from './nationalGeography.js';
 import {battleReadout} from './battleReadout.js';
 import {paintTerritoryMemory} from './territoryVision.js';
 import {battleStatus,statusBars,gearSummary} from './unitStatus.js';
@@ -55,6 +56,7 @@ export function paintBattleMap(p:GrandPort,point:(h:any)=>{x:number;y:number},re
  if(region.getAttribute('data-control-signature')!==signature){const data=controlRegions(view);region.setAttribute('data-control-signature',signature);const keys=new Set<string>();for(const [side,d]of Object.entries(data.fills)){keys.add(side);const el=keyed(region,side,'path');attr(el,'d',d);attr(el,'fill',side===view.viewer?'#28677a':side==='NEUTRAL'?'#a49e84':'#a94739');attr(el,'opacity','.20');}clean(region,keys);
   const wanted=new Set(Object.keys(data.edges));for(const[k,v]of Object.entries(data.edges)){const el=keyed(bounds,k,'path');attr(el,'d',v.d);attr(el,'stroke',v.unknown?'#7c8989':'#cedad4');attr(el,'stroke-width',v.unknown?'1.2':'3');attr(el,'stroke-dasharray',v.unknown?'2 5':'none');attr(el,'fill','none');}clean(bounds,wanted);
  }
+ paintNationalGeography(p);
  const group=c.corps.find((g:any)=>g.id===(p.selections['campaign-group']??c.corps[0].id));const front=p.selections['map-emphasis']==='group'?(group.order.front??[]):[];const frontColor=['#8fb9c9','#c6a58d','#b1b889'][c.corps.indexOf(group)%3]!;
  const slots=keyed(fronts,'slots');patch(slots,front.map((h:any)=>{const q=point(h);return `<circle cx="${q.x}" cy="${q.y}" r="15" fill="none" stroke="${frontColor}" stroke-dasharray="3 3" stroke-width="3"/>`;}).join(''));
  const plan=keyed(fronts,'plan','path');attr(plan,'d',frontPath(front,point));attr(plan,'stroke',frontColor);attr(plan,'stroke-width','6');attr(plan,'stroke-dasharray','10 7');attr(plan,'fill','none');

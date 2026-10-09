@@ -12,7 +12,7 @@ async function connect(cookie){
  const ws=new WebSocket(origin.replace('http','ws')+'/a/ws',{headers:{origin,cookie:cookie+'; '+r.headers.get('set-cookie').split(';')[0]}});sockets.push(ws);let welcome,view;const rows=[];
  const send=m=>ws.send(JSON.stringify({...m,instanceId:welcome?.instanceId,connectionEpoch:welcome?.connectionEpoch}));
  ws.on('message',b=>{const m=JSON.parse(b);rows.push(m);if(m.type==='WELCOME')welcome=m;if(m.type==='STATE'){view=m.full??view;send({type:'VIEW_ACK',stream:m.stream,viewVersion:m.viewVersion});}if(m.type==='RESULT')send({type:'RESULT_ACK',ids:[m.result.requestId]});});
- await new Promise((r,j)=>{ws.once('open',r);ws.once('error',j);});send({type:'HELLO'});for(let i=0;i<200&&!view;i++)await wait(20);assert(view);
+ await new Promise((r,j)=>{ws.once('open',r);ws.once('error',j);});send({type:'HELLO'});for(let i=0;i<200&&!view;i++)await wait(20);assert(view);assert.match(ws.extensions,/permessage-deflate/);
  return {ws,send,rows,get welcome(){return welcome;},get view(){return view;}};
 }
 try{
@@ -38,7 +38,7 @@ try{
  assert.equal(ra.tick,1);assert.equal(rb.tick,0);assert(ra.paused&&rb.paused);assert.notEqual([...s.active.values()][0].service.adapter.era,ca.welcome.era ?? ca.view.era);
  assert.deepEqual([...s.active.values()].map(x=>x.service.adapter.c.transport.next.a),[2,1]);
  const dirs=fs.readdirSync(path.join(saveDir,'visitors'));assert.equal(dirs.length,2);assert(dirs.every(id=>fs.existsSync(path.join(saveDir,'visitors',id,'campaign.json'))));
- const out={checks:['public landing; protected campaign','cross-origin admission denied','two independent browser identities and authorities','HTTP/WS forwarding with original protocol','cross-instance command refused','duplicate does not repeat','forged cookie denied','A progresses without B','disconnect pause','restart paused; separate time and receipt ledgers preserved'],rssBytes:process.memoryUsage().rss,source:'Automated HTTP/WS integration; not public TLS or tablet acceptance'};
+ const out={checks:['public landing; protected campaign','cross-origin admission denied','two independent browser identities and authorities','HTTP/WS forwarding with original protocol; bounded permessage-deflate negotiated','cross-instance command refused','duplicate does not repeat','forged cookie denied','A progresses without B','disconnect pause','restart paused; separate time and receipt ledgers preserved'],rssBytes:process.memoryUsage().rss,source:'Automated HTTP/WS integration; not public TLS or tablet acceptance'};
  fs.mkdirSync('evidence/grand-release-public',{recursive:true});fs.writeFileSync('evidence/grand-release-public/check.json',JSON.stringify(out,null,2));console.log(out);
 }finally{for(const ws of sockets)ws.terminate();await s.close();}
 

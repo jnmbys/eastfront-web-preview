@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import WS from 'ws';
+const origin='https://eastfront-grand-preview.onrender.com',expected=process.env.EXPECT_SOURCE,tag=process.env.PROBE_TAG??'before';
+const saved=JSON.parse(fs.readFileSync('../grand-release-001-tablet-preview/.release-artifact/public-deploy/cloud-resume-private.json'));
+const cookies=new Map([saved.a.split('=')]),nativeFetch=globalThis.fetch,out={at:new Date().toISOString(),scope:'Isolated existing test visitor; actual production Client over public HTTPS/WSS in Node. NOT browser click/redraw/tablet timings.',commands:[],queries:[],views:[],connections:[]};let client;
+const wait=ms=>new Promise(r=>setTimeout(r,ms)),until=async f=>{for(let i=0;i<400&&!f();i++)await wait(50);assert(f(),'bounded wait exceeded');};
+globalThis.fetch=async(p,o={})=>{const r=await nativeFetch(new URL(p,origin),{...o,headers:{...o.headers,origin,cookie:[...cookies].map(([k,v])=>k+'='+v).join('; ')},signal:AbortSignal.timeout(30000)});for(const c of r.headers.getSetCookie()){const [k,v]=c.split(';')[0].split('=');cookies.set(k,v);}return r;};
+globalThis.location={origin};globalThis.document={querySelector:()=>({content:'territory-1'})};globalThis.sessionStorage={getItem:()=>null,setItem:()=>{}};
+globalThis.WebSocket=class extends WS{constructor(url){super(url,{headers:{origin,cookie:[...cookies].map(([k,v])=>k+'='+v).join('; ')}});this.on('error',()=>{});const row={extensions:'',receivedApplicationBytes:0,receivedSocketBytes:0};out.connections.push(row);this.on('open',()=>{row.extensions=this.extensions;});this.on('message',b=>{row.receivedApplicationBytes+=b.length;row.receivedSocketBytes=this._socket.bytesRead;});}};
+const module=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
+try{
+ const info=await(await fetch('/release/info')).json();assert.equal(info.build.source,expected);out.build=info.build;
+ const view=await(await fetch('/transport/view.mjs')).text(),sync=await(await fetch('/sync.mjs')).text();
+ const source=(await(await fetch('/transport/client.mjs')).text()).replace("'/transport/view.mjs'",JSON.stringify(module(view))).replace("'/sync.mjs'",JSON.stringify(module(sync)));
+ const {Client}=await import(module(source));client=new Client('a');client.addEventListener('view',e=>out.views.push(e.detail));await client.start();await until(()=>client.view);assert(client.document().continuous.paused,'only paused isolated test visitor is used');
+ async function submit(kind,payload,keys,dep={}){const id=client.submit(kind,payload,keys,dep);await until(()=>client.history.some(r=>r.command.requestId===id));const r=client.history.find(r=>r.command.requestId===id);assert.equal(r.status,'applied',JSON.stringify(r.result));out.commands.push({kind,payloadType:payload.type,receiptMs:Math.round(r.resultAt-r.sendAt),stateReadyMs:Math.round(r.completedAt-r.sendAt),queueMs:r.result.timing.queueMs,authorityMs:r.result.timing.applyMs});return r;}
+ for(let i=0;i<3;i++){
+  const d=client.document(),unit=Object.keys(d.continuous.units).find(id=>d.continuous.units[id].alive),u=d.continuous.units[unit];let preview;const q='ux004-preview-'+crypto.randomUUID(),at=performance.now();const listener=e=>{if(e.detail.id===q)preview=e.detail.payload.directPreview;};client.addEventListener('query',listener);client.send({type:'QUERY',id:q,draft:{uiDirectPreview:true,unit,kind:'ADVANCE',target:u.hex}});await until(()=>preview);client.removeEventListener('query',listener);out.queries.push({roundTripMs:Math.round(performance.now()-at),reason:preview.reason??null});
+  const now=client.document(),l=now.modern.lines.find(l=>l.factories.length),t=now.transport;
+  await submit('OPERATION',{type:'ECON_LINE',line:l.id,product:l.product,priority:l.priority,factories:l.factories},['economy'],{economyGeneration:t.economyGeneration,account:t.accountStamp});
+ }
+ await submit('SAVE',{},['all']);const epoch=client.epoch;client.disconnect();await until(()=>client.epoch>epoch&&client.version>0);assert(client.document().continuous.paused);out.reconnectedPaused=true;out.status='PASS';
+}finally{client?.dispose();fs.writeFileSync('evidence/grand-ux-004/public-'+tag+'.json',JSON.stringify(out,null,2));console.log(JSON.stringify(out,null,2));}

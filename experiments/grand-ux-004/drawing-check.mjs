@@ -1,0 +1,10 @@
+import {parseHTML} from 'linkedom';import assert from 'node:assert/strict';
+import {bindPlanDrawing,currentPlan} from '../../.release-territory-preview/src/playable/corpsPlan.js';import {hexToPixel} from '../../.release-territory-preview/src/geometry/hex.js';
+const {window}=parseHTML('<html><body><div id="map-wrap"><svg id="eastfront-map"></svg></div></body></html>');globalThis.document=window.document;globalThis.DOMPoint=class{constructor(x,y){this.x=x;this.y=y;}matrixTransform(){return this;}};
+const wrap=document.getElementById('map-wrap'),svg=document.getElementById('eastfront-map');svg.getScreenCTM=()=>({inverse(){return this;}});const captured=new Set();wrap.setPointerCapture=id=>captured.add(id);wrap.hasPointerCapture=id=>captured.has(id);wrap.releasePointerCapture=id=>captured.delete(id);
+let refresh=0,commands=0;const p={data:{instanceId:'test',continuous:{corps:[{id:'g',commandGeneration:1,order:{}}]},game:{message:{payload:{view:{hexes:Array.from({length:25},(_,q)=>({coord:{q,r:0},terrain:'PLAIN'}))}}}}},selections:{'plan-tool':'front'},operation:()=>commands++};
+bindPlanDrawing(p,()=>refresh++);
+const evt=(type,q,id=1)=>{const e=new window.Event(type,{bubbles:true,cancelable:true}),pt=hexToPixel({q,r:0});Object.assign(e,{pointerId:id,clientX:pt.x,clientY:pt.y});wrap.dispatchEvent(e);};
+evt('pointerdown',0);evt('pointermove',5);evt('pointerup',5);assert.equal(currentPlan(p).front.length,6);assert.equal(commands,0);assert.equal(refresh,1);
+const before=p.selections['corps-plan'];evt('pointerdown',6);evt('pointermove',7);evt('pointerdown',8,2);evt('pointerup',7);evt('pointerup',8,2);assert.equal(p.selections['corps-plan'],before);assert.equal(commands,0);
+evt('pointerdown',6);evt('pointercancel',6);assert.equal(p.selections['corps-plan'],before);assert.equal(commands,0);console.log('PASS: real plan drawing handler extends public connected stroke; two-pointer/cancel restores draft; drawing alone submits zero commands. Synthetic events, not physical tablet.');

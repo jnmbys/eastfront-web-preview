@@ -4,7 +4,7 @@ import {assignFront,validateFront} from './front.mjs';
 const copy=structuredClone;
 export class Campaign extends Base {
  constructor(){super();this.clock.map={version:1,serial:0,active:{},ended:[]};this.frontAssignments={};}
- validateOrder(o){super.validateOrder(o);validateFront(o.front,this.fair(this.viewer).view);}
+ validateOrder(o){super.validateOrder(o);validateFront(o.front,this.fair(this.viewer).view,this.frontLimit??8);}
  ownOrder(id){const order=super.ownOrder(id),target=this.frontAssignments?.[id];return target&&!this.clock.units[id].direct?{...order,target}:order;}
  findBattle(id){return Object.values(this.clock.map.active).find(b=>b.id===id);}
  transaction(req){const op=req.operation;
@@ -17,6 +17,7 @@ export class Campaign extends Base {
  }
  advance(){
   this.frontAssignments={};for(const side of ['GERMAN','SOVIET']){const view=this.fair(side).view;for(const g of this.clock.corps.filter(g=>g.side===side&&g.order.front?.length&&!g.order.paused))Object.assign(this.frontAssignments,assignFront(view,g,this.clock.units).assigned);}
+  this.prepareMapPlan?.();
   const before=Object.fromEntries(Object.values(this.state.units).map(u=>[u.id,copy(u.hex)]));super.advance();
   const m=this.clock.map,t=this.clock.tick,live=new Set();
   for(const raw of this.clock.battles){

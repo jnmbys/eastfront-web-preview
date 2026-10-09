@@ -7,7 +7,7 @@ export function makeDirectDraft(p:GrandPort,id:string,kind:string,target:any=nul
 export function chooseDirectTarget(p:GrandPort,id:string,target:any){
  const d=p.directDraft,view=p.data.game.message.payload.view,enemy=view.units.some((u:any)=>u.side!==view.viewer&&distance(u.hex,target)===0);
  const kind=d?.unit===id&&['SUPPORT','RETREAT'].includes(d.kind)?d.kind:enemy?'ATTACK':'ADVANCE';
- if(d?.requestId)return;
+ if(d?.requestId&&d.unit===id)return;
  if(d?.unit===id&&!d.error&&d.generation===p.data.continuous.units[id].commandGeneration&&d.kind===kind&&d.target&&distance(d.target,target)===0)return;
  p.directDraft=makeDirectDraft(p,id,kind,{...target});p.directPreview=null;p.requestDirectPreview();
 }
@@ -29,7 +29,8 @@ export function directIssue(p:GrandPort,d:DirectDraft):string{
  }
  // A preview is advisory. Unrelated world revisions are not command dependencies.
  // The server rechecks the current authorized route and combat conditions atomically.
- if(!p.directPreview)return '正在预览';
+ // Route preview is optional. Acceptance still validates the intent against current authority.
+ if(!p.directPreview)return '';
  if(p.directPreview.version===p.data.version&&p.directPreview.reason)return p.directPreview.reason;
  return '';
 }
@@ -38,7 +39,7 @@ export function directCommand(p:GrandPort,id:string){
  const g=c.corps.find((g:any)=>g.members.includes(id)),direct=!!u.direct||!g,d=p.directDraft?.unit===id?p.directDraft:null;
  const busy=Array.from(p.wire?.pending.values()??[]).some((r:any)=>r.command?.payload?.unit===id),issue=d?directIssue(p,d):'',disabled=p.locked||c.ended||busy;
  const inspect=p.selections['map-command']==='inspect';
- return `<section class="map-command-strip" aria-label="地图指挥"><div class="map-command-heading"><b>${esc(id)} · ${direct?'◇ 直属':esc(g.name)}</b><span>${esc(p.directFeedback[id]??u.reason??'')}${c.paused?' · 世界暂停':''}</span></div><div class="map-command-actions">${d?.target?`<strong>${esc(directLabels[d.kind])} → ${d.target.q},${d.target.r}${direct?'':' · 将接管本队'}</strong><button id="direct-confirm" ${issue||disabled?'disabled':''}>${d.requestId?'等待回执':'确认'+esc(directLabels[d.kind])}</button><button id="direct-cancel">取消</button><small role="status">${esc(issue||'按当前局势核验；虚线路径仅为参考')}</small>`:`<span>${inspect?'查看地物模式':'点地图目标预览'+(direct?'':' · 确认后接管本队')}</span><button data-direct-kind="SUPPORT" ${disabled?'disabled':''}>支援</button><button data-direct-kind="RETREAT" ${disabled?'disabled':''}>撤回</button><button id="direct-stop" ${disabled?'disabled':''}>停止</button>${d?`<b>${esc(directLabels[d.kind])}：点目标</b><button id="direct-cancel">取消</button>`:''}`}<button id="direct-details">部队详情</button><button id="direct-inspect">${inspect?'继续下令':'查看地物'}</button></div></section>`;
+ return `<section class="map-command-strip" aria-label="地图指挥"><div class="map-command-heading"><b>${esc(id)} · ${direct?'◇ 直属':esc(g.name)}</b><span>${esc(p.directFeedback[id]??u.reason??'')}${c.paused?' · 世界暂停':''}</span></div><div class="map-command-actions">${d?.target?`<strong>${esc(directLabels[d.kind])} → ${d.target.q},${d.target.r}${direct?'':' · 将接管本队'}</strong><button id="direct-confirm" ${issue||disabled?'disabled':''}>${d.requestId?'等待回执':'确认'+esc(directLabels[d.kind])}</button><button id="direct-cancel">取消</button><small role="status">${esc(issue||(!p.directPreview?'路线预览计算中；可直接确认，服务器按当前局势核验':'按当前局势核验；虚线路径仅为参考'))}</small>`:`<span>${inspect?'查看地物模式':'点地图目标预览'+(direct?'':' · 确认后接管本队')}</span><button data-direct-kind="SUPPORT" ${disabled?'disabled':''}>支援</button><button data-direct-kind="RETREAT" ${disabled?'disabled':''}>撤回</button><button id="direct-stop" ${disabled?'disabled':''}>停止</button>${d?`<b>${esc(directLabels[d.kind])}：点目标</b><button id="direct-cancel">取消</button>`:''}`}<button id="direct-details">部队详情</button><button id="direct-inspect">${inspect?'继续下令':'查看地物'}</button></div></section>`;
 }
 export function directDetails(p:GrandPort,id:string){const c=p.data.continuous,g=c.corps.find((g:any)=>g.members.includes(id)),u=c.units[id];return `<p>点地图目标即可预览；停止命令不代表已经脱离战斗。</p><label>交给军官<select id="direct-corps">${c.corps.map((x:any)=>`<option value="${esc(x.id)}" ${x.id===g?.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></label><button id="direct-delegate">交回所选军官</button>${!u.direct?'<button id="direct-takeover">接管并停止主动命令</button>':''}<button id="direct-friendly-hex">以本队所在格为目标</button><p>此按钮可向有友军的格位下令：先选作为落点的友军，再在下方选择出发部队。</p><select id="direct-source" aria-label="出发部队">${Object.keys(c.units).filter(k=>c.units[k].alive&&k!==id).map(k=>`<option value="${esc(k)}">${esc(k)}</option>`).join('')}</select>`;}
 export function bindDirectCommand(p:GrandPort,id:string|null,refresh:()=>void,pick:(active?:boolean)=>void,select?:(id:string)=>void){
