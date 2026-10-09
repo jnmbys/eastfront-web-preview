@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-09T04:28:25.328Z",
+  "scope": "Public HTTPS/WSS, actual transport Client with Node network adapters; existing isolated test visitor, not UI/tablet acceptance",
+  "checks": [
+    "Fixed deployed source and existing test save recovered paused after rollout",
+    "650ms delayed HELLO: WELCOME precedes STATE, actual client accepts initial snapshot",
+    "Automatic reconnect while world paused receives state",
+    "Real SAVE receipt and applied authorized state",
+    "No time advancement or reset; saved timestamp returned"
+  ],
+  "build": {
+    "release": "GRAND-RELEASE-001",
+    "source": "c46b99027b6bed494aecb7f01e3f273ae3b41d23",
+    "dirty": false,
+    "rules": "GRAND-TERRITORY-1",
+    "save": "GRAND-RELEASE-TERRITORY-1",
+    "assetsSHA256": "a3f1a829b8094ba3f5bb19391dd2feb41c30d3853a134efc2fadf3b957bb10fc",
+    "fileCount": 554,
+    "totalBytes": 17965422
+  },
+  "tick": 7,
+  "startupMs": 6304,
+  "firstFrames": [
+    {
+      "type": "WELCOME",
+      "epoch": 1
+    },
+    {
+      "type": "STATE",
+      "epoch": 1,
+      "version": 1
+    }
+  ],
+  "status": "PASS"
+}
