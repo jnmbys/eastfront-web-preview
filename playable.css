@@ -299,3 +299,10 @@ body:has(.command-ui) .command-ui button,body:has(.command-ui) .command-ui selec
 .division-palette{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;padding:8px 0}
 .division-palette button{min-height:44px}.division-review{color:#d7c895;border-left:3px solid #c9b075;padding-left:8px}
 .division-designer table{width:100%;border-collapse:collapse;margin:10px 0}.division-designer th,.division-designer td{padding:6px;text-align:left;border-bottom:1px solid #516065}
+
+/* Division review: persistent save and compact summary; detail is opt-in. */
+.division-save-bar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;gap:10px;padding:9px;background:#24363a;border-top:2px solid #92aaa5}.division-save-bar>span{flex:1;font-weight:700}.division-save-bar small{display:block;font-size:11px;font-weight:400}.division-save-bar button{min-height:44px;flex:none}.division-demands>summary{min-height:44px;display:flex;align-items:center;cursor:pointer}.division-slot{min-height:48px}.division-slot b{font-size:19px}.division-grid{margin:8px 0;gap:4px}.division-column{gap:4px}
+
+.command-ui .ui-sidebar[data-mode="division"]{top:64px;bottom:80px}.division-head{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:end}.division-head .button-row{grid-column:1/-1;margin:0}.division-head label{margin:0}.division-review{margin:4px 0}.division-designer .division-grid{margin:6px 0}.division-designer .division-column small{line-height:1.1}
+
+.command-ui .ui-sidebar[data-mode="division"]{position:fixed;height:calc(100dvh - 144px);max-height:calc(100dvh - 144px)}

@@ -51,3 +51,25 @@ test('real persistent save/restart retains drafts and idempotent transport recei
  assert.deepEqual(b.state,a.state);assert.deepEqual(b.econ,a.econ);
  delete b.clock.divisions;assert.deepEqual(b.clock,a.clock);
  });
+
+test('two cooperating clients create the same name: each receipt identifies exactly its own template',async()=>{
+ const a=new ReleaseAdapter({restore:false,CampaignClass:Campaign}),draft=emptyDraft();draft.name='同名模板';
+ const envelope=(seat)=>({instanceId:a.id,era:a.era,requestId:'division-concurrent-'+seat,commandSeq:1,kind:'OPERATION',payload:{type:'DIVISION_DRAFT_SAVE',draft},dependencies:{}});
+ const ea=envelope('a'),eb=envelope('b');
+ const [ra,rb]=await Promise.all([a.submit('a',ea),a.submit('b',eb)]);
+ assert.equal(ra.status,'APPLIED');assert.equal(rb.status,'APPLIED');
+ assert.notEqual(ra.division.templateId,rb.division.templateId);
+ for(const r of [ra,rb]){assert.equal(r.division.templateVersion,1);assert.equal(a.c.clock.divisions.templates[r.division.templateId].name,draft.name);}
+ assert.deepEqual(await a.submit('a',ea),ra);assert.equal(Object.keys(a.c.clock.divisions.templates).length,2);
+ const edit={...ea,requestId:'division-concurrent-edit-a',commandSeq:2,payload:{type:'DIVISION_DRAFT_SAVE',templateId:ra.division.templateId,expectedTemplateVersion:1,draft:{...draft,name:'A修订'}}};
+ const re=await a.submit('a',edit);assert.equal(re.division.templateId,ra.division.templateId);assert.equal(re.division.templateVersion,2);
+ assert.equal(a.c.clock.divisions.templates[rb.division.templateId].name,'同名模板');
+});
+
+test('unverified fifth-row eligibility cannot be granted by a new draft; old drafts remain readable',()=>{
+ const c=new Campaign(),d=emptyDraft();d.regiments[0][4]='INFANTRY';
+ assert.equal(divisionView(c).profile.fifthRow.status,'UNVERIFIED');
+ const before=c.save();assert.throws(()=>c.transaction({id:'division-row-five-1',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',draft:d}}),/SLOT_UNLOCK_UNVERIFIED/);assert.deepEqual(c.save(),before);
+ const old={schema:'DIVISION-DRAFT-1',next:2,templates:{legacy:{...d,id:'legacy',side:'GERMAN',version:1,status:'DRAFT'}}};validateStore(old);c.clock.divisions=old;
+ d.regiments[0][4]=null;c.transaction({id:'division-row-five-2',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',templateId:'legacy',expectedTemplateVersion:1,draft:d}});assert.equal(c.clock.divisions.templates.legacy.regiments[0][4],null);
+});

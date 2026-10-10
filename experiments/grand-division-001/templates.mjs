@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 const demandReference=JSON.parse(fs.readFileSync(new URL('./demand-reference.json',import.meta.url),'utf8'));
+const profile=JSON.parse(fs.readFileSync(new URL('./reference-profile.json',import.meta.url),'utf8'));
 // Persistent design drafts, deliberately distinct from adopted unit establishments.
 // No unverified HOI4 statistic, exchange rate or experience price is executable here.
 export const SCHEMA='DIVISION-DRAFT-1';
@@ -21,11 +22,11 @@ export const catalog=Object.freeze({
 });
 for(const entry of Object.values(catalog))Object.freeze(entry);
 const fail=x=>{throw Error(x);},copy=structuredClone;
-export const emptyDraft=()=>({name:'新编制草案',regiments:Array.from({length:5},()=>Array(5).fill(null)),support:Array(5).fill(null)});
+export const emptyDraft=()=>({name:'新编制草案',regiments:Array.from({length:profile.columns},()=>Array(profile.rows).fill(null)),support:Array(profile.supportSlots).fill(null)});
 export function validateDraft(x){
  if(!x||typeof x.name!=='string'||!x.name.trim()||x.name.trim().length>48)fail('DIVISION_NAME_REQUIRED');
- if(!Array.isArray(x.regiments)||x.regiments.length!==5||!Array.isArray(x.support)||x.support.length!==5)fail('DIVISION_SLOT_SHAPE');
- for(const column of x.regiments){if(!Array.isArray(column)||column.length!==5)fail('DIVISION_SLOT_SHAPE');for(const id of column)if(id!==null&&(typeof id!=='string'||!Object.hasOwn(catalog,id)||catalog[id].role!=='line'))fail('DIVISION_BATTALION_UNKNOWN');}
+ if(!Array.isArray(x.regiments)||x.regiments.length!==profile.columns||!Array.isArray(x.support)||x.support.length!==profile.supportSlots)fail('DIVISION_SLOT_SHAPE');
+ for(const column of x.regiments){if(!Array.isArray(column)||column.length!==profile.rows)fail('DIVISION_SLOT_SHAPE');for(const id of column)if(id!==null&&(typeof id!=='string'||!Object.hasOwn(catalog,id)||catalog[id].role!=='line'))fail('DIVISION_BATTALION_UNKNOWN');}
  for(const id of x.support)if(id!==null&&(typeof id!=='string'||!Object.hasOwn(catalog,id)||catalog[id].role!=='support'))fail('DIVISION_SUPPORT_UNKNOWN');
  const support=x.support.filter(Boolean);if(new Set(support).size!==support.length)fail('DIVISION_DUPLICATE_SUPPORT');
  return {name:x.name.trim(),regiments:copy(x.regiments),support:copy(x.support)};
@@ -35,7 +36,7 @@ export function validateStore(s){
  if(s.schema!==SCHEMA||!Number.isSafeInteger(s.next)||s.next<1||!s.templates||typeof s.templates!=='object'||Array.isArray(s.templates)||Object.keys(s.templates).length>128)fail('DIVISION_SAVE_UNSUPPORTED');
  for(const [id,t]of Object.entries(s.templates)){if(!t||t.id!==id||!['GERMAN','SOVIET'].includes(t.side)||!Number.isSafeInteger(t.version)||t.version<1||t.status!=='DRAFT')fail('DIVISION_SAVE_INVALID');validateDraft(t);}
 }
-export function divisionView(c){return {schema:SCHEMA,adoptionEnabled:false,referenceVerified:false,demandReference:copy(demandReference),templates:copy(Object.values(c.clock.divisions?.templates??{}).filter(t=>t.side===c.viewer)),catalog,blockers:['已读取1.19.3基础需求；科技、DLC条件和费用尚未完整核实','同版本经验、战斗常数与换编退还行为尚缺可核验证据'],usage:[]};}
+export function divisionView(c){return {profile:copy(profile),schema:SCHEMA,adoptionEnabled:false,referenceVerified:false,demandReference:copy(demandReference),templates:copy(Object.values(c.clock.divisions?.templates??{}).filter(t=>t.side===c.viewer)),catalog,blockers:['已读取1.19.3基础需求；科技、DLC条件和费用尚未完整核实','同版本经验、战斗常数与换编退还行为尚缺可核验证据'],usage:[]};}
 export function transaction(c,req){
  const signature=JSON.stringify(req),prior=c.receipts.get(req.id);
  if(prior){if(prior.signature!==signature)fail('ID_REUSE_CONFLICT');return copy(prior.result);}
@@ -48,6 +49,7 @@ export function transaction(c,req){
  let id=op.templateId,version=1;
  if(id){if(typeof id!=='string')fail('DIVISION_TEMPLATE_NOT_OWNED');const old=Object.hasOwn(store.templates,id)?store.templates[id]:null;if(!old||old.side!==c.viewer)fail('DIVISION_TEMPLATE_NOT_OWNED');if(op.expectedTemplateVersion!==old.version)fail('DIVISION_TEMPLATE_CHANGED');version=old.version+1;}
  else {if(Object.keys(store.templates).length>=128)fail('DIVISION_TEMPLATE_LIMIT');id=c.id+':division:'+store.next++;if(Object.hasOwn(store.templates,id))fail('DIVISION_SAVE_INVALID');}
+ for(let column=0;column<profile.columns;column++)for(let row=profile.draftEditableRows;row<profile.rows;row++){const value=draft.regiments[column][row];if(value!==null&&value!==oldStore.templates[op.templateId]?.regiments[column][row])fail('DIVISION_SLOT_UNLOCK_UNVERIFIED');}
  const template={...draft,id,side:c.viewer,version,status:'DRAFT',updatedTick:c.clock.tick};store.templates[id]=template;
  // Commit after all validation. Draft saving is not a free formal template adoption.
  c.clock.divisions=store;c.version++;c.match.matchRevision=c.version;

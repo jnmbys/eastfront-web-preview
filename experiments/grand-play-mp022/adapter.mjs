@@ -38,7 +38,7 @@ export class CampaignAdapter {
   if(typeof e.requestId!=='string'||!/^[-\w:]{8,96}$/.test(e.requestId)||!Number.isSafeInteger(e.commandSeq)||e.commandSeq<1||e.commandSeq>=Number.MAX_SAFE_INTEGER)fail('INVALID_ENVELOPE');
   const signature=canonical(e),prior=c.receipts.get(e.requestId);if(prior){if(prior.transport?.seat!==seat||prior.transport.signature!==signature)fail('ID_REUSE_CONFLICT');return copy(prior.transport.result);}
   if(c.receipts.size>=(this.receiptLimit??4096))fail('RECEIPT_CAPACITY_REACHED');if(e.commandSeq!==c.transport.next[seat])fail('COMMAND_SEQUENCE_GAP');
-  const beforeVersion=c.version,p=copy(e.payload??{}),dep=e.dependencies??{};let reason=null,status='REJECTED',load=false;
+  const beforeVersion=c.version,p=copy(e.payload??{}),dep=e.dependencies??{};let reason=null,status='REJECTED',load=false,divisionReceipt=null;
   const before=e.kind==='LOAD'?{campaign:c.save(),transport:copy(c.transport),era:this.era}:null;
   try{
    if(e.kind==='SAVE'){c.version++;c.match.matchRevision=c.version;}
@@ -52,7 +52,8 @@ export class CampaignAdapter {
     if(p.type==='BUILD_FACTORY'&&dep.account!==this.accountStamp())fail('RESOURCE_DEPENDENCY_CHANGED');
     if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
     const affected=c.clock.corps.filter(g=>g.id===p.group||p.type==='ASSIGN'&&g.members.includes(p.unit));
-    c.transaction({id:e.requestId,version:c.version,operation:p});
+    const accepted=c.transaction({id:e.requestId,version:c.version,operation:p});
+    if(p.type==='DIVISION_DRAFT_SAVE')divisionReceipt={templateId:accepted.templateId,templateVersion:accepted.templateVersion};
     if(['ORDER','ASSIGN'].includes(p.type))for(const g of affected)g.commandGeneration++;
     if(['DIRECT','ASSIGN','RESUME_PLAN'].includes(p.type))c.clock.units[p.unit].commandGeneration++;
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type))c.transport.economyGeneration++;
@@ -61,6 +62,7 @@ export class CampaignAdapter {
    status='APPLIED';
   }catch(error){reason=error.message;if(before){c.restore(before.campaign,false);c.transport=before.transport;this.era=before.era;}}
   const appliedAt=performance.now(),result={requestId:e.requestId,commandSeq:e.commandSeq,instanceId:c.id,status,reason,acceptedRevision:status==='APPLIED'?c.version:null,beforeVersion,operation:++this.operation,simulationPoint:{mode:'SHARED_CLOCK',tick:c.clock.tick},timing:{receivedAt,startedAt,appliedAt,queueMs:startedAt-receivedAt,applyMs:appliedAt-startedAt}};
+  if(status==='APPLIED'&&divisionReceipt)result.division=divisionReceipt;
   const entry=c.receipts.get(e.requestId)??{signature,result:{ok:status==='APPLIED',error:reason}};entry.transport={seat,signature,result,acked:false};c.receipts.set(e.requestId,entry);c.transport.next[seat]=Math.max(c.transport.next[seat],e.commandSeq+1);
   if(e.kind==='SAVE'&&status==='APPLIED'){try{await this.saveFileNow();}catch(error){result.status='REJECTED';result.reason=error.message;result.acceptedRevision=null;}}
   this.record('command-complete',{kind:e.kind,type:p.type,requestId:e.requestId,tick:c.clock.tick,status:result.status,reason:result.reason,payload:p,epoch:c.econ.epoch,account:copy(c.econ.accounts.GERMAN),load});return copy(result);
