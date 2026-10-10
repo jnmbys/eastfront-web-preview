@@ -19,6 +19,8 @@ export async function start(options={}){
  backupBeforeRelease(saveDir);
  backupBeforeRelease(saveDir,'before-ux005');
  console.log('UX005 latest-save backup checksum verified');
+ backupBeforeRelease(saveDir,'before-division003-release');
+ console.log('DIVISION003 all-mode latest-save backup checksum verified');
  const visitors=path.join(saveDir,'visitors');
  if(fs.existsSync(visitors))for(const id of fs.readdirSync(visitors).filter(id=>/^[a-f0-9]{64}$/.test(id))){
   for(const mode of Object.values(campaignModes)){

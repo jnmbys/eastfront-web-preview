@@ -1,0 +1,68 @@
+{
+  "observedDate": "2026-10-10 Asia/Shanghai",
+  "service": {
+    "autoDeploy": "no",
+    "autoDeployTrigger": "off",
+    "branch": "grand-release-002-preview",
+    "createdAt": "2026-10-09T03:33:24.641614Z",
+    "dashboardUrl": "https://dashboard.render.com/web/srv-db46117lk1mc73ev50mg",
+    "id": "srv-db46117lk1mc73ev50mg",
+    "name": "eastfront-grand-preview",
+    "notifyOnFail": "default",
+    "ownerId": "tea-daos1iugekts73erk8j0",
+    "repo": "https://github.com/jnmbys/eastfront-web-preview",
+    "rootDir": "",
+    "serviceDetails": {
+      "buildPlan": "starter",
+      "cache": {
+        "profile": "no-cache"
+      },
+      "disk": {
+        "id": "dsk-db46deflk1mc73f0ik30",
+        "mountPath": "/var/data",
+        "name": "disk",
+        "sizeGB": 1
+      },
+      "env": "node",
+      "envSpecificDetails": {
+        "buildCommand": "test \"$(git rev-parse HEAD)\" = \"$RELEASE_SOURCE_SHA\" && npm ci --include=dev && node experiments/grand-release-002/build.mjs",
+        "startCommand": "node --input-type=module -e \"import {backupBeforeRelease} from './experiments/grand-release-002/backup.mjs'; const root=process.env.SAVE_DIR; if(!root) throw Error('SAVE_DIR_REQUIRED'); backupBeforeRelease(root); backupBeforeRelease(root); console.log('RELEASE002_BACKUP_VERIFIED');\" && exec node experiments/grand-release-002/server.mjs"
+      },
+      "healthCheckPath": "",
+      "ipAllowList": [
+        {
+          "cidrBlock": "0.0.0.0/0",
+          "description": "everywhere"
+        }
+      ],
+      "maintenanceMode": {
+        "enabled": false,
+        "uri": ""
+      },
+      "numInstances": 1,
+      "openPorts": [
+        {
+          "port": 10000,
+          "protocol": "TCP"
+        }
+      ],
+      "plan": "1c-2g",
+      "previews": {
+        "generation": "off"
+      },
+      "pullRequestPreviewsEnabled": "no",
+      "region": "singapore",
+      "renderSubdomainPolicy": "enabled",
+      "runtime": "node",
+      "sshAddress": "srv-db46117lk1mc73ev50mg@ssh.singapore.render.com",
+      "url": "https://eastfront-grand-preview.onrender.com"
+    },
+    "slug": "eastfront-grand-preview",
+    "suspended": "not_suspended",
+    "suspenders": [],
+    "type": "web_service",
+    "updatedAt": "2026-10-10T07:23:02.388821Z"
+  },
+  "deploys": "[{\"commit\":{\"createdAt\":\"2026-10-10T07:20:29Z\",\"id\":\"ba44cd1b5f2ceea4408a9b63a9d31854543c44cd\",\"message\":\"[CF-Pages-Skip] Pace campaign steps and unify map commands, design and combat feedback\"},\"createdAt\":\"2026-10-10T07:21:33.018877Z\",\"finishedAt\":\"2026-10-10T07:23:02.387632Z\",\"id\":\"dep-db4uev2jnfac738j3fc0\",\"startedAt\":\"2026-10-10T07:21:32.990793Z\",\"status\":\"live\",\"trigger\":\"api\",\"updatedAt\":\"2026-10-10T07:23:47.865529Z\"},{\"commit\":{\"createdAt\":\"2026-10-10T06:26:59Z\",\"id\":\"958ebcea1bb43d41f9608e4d3769bc587457adad\",\"message\":\"[CF-Pages-Skip] Repair campaign startup delivery and bounded image loading\"},\"createdAt\":\"2026-10-10T06:27:26.881196Z\",\"finishedAt\":\"2026-10-10T06:28:46.660809Z\",\"id\":\"dep-db4tljg473hc73945o70\",\"startedAt\":\"2026-10-10T06:27:26.854529Z\",\"status\":\"deactivated\",\"trigger\":\"api\",\"updatedAt\":\"2026-10-10T07:23:02.386826Z\"},{\"commit\":{\"createdAt\":\"2026-10-10T05:21:39Z\",\"id\":\"6752015e2f3f198c8c361730587d7f12c9dbe9ab\",\"message\":\"[CF-Pages-Skip] Prepare isolated legacy and division campaign release\"},\"createdAt\":\"2026-10-10T05:58:05.92663Z\",\"finishedAt\":\"2026-10-10T05:59:30.855584Z\",\"id\":\"dep-db4t7rflot8c73cubdkg\",\"startedAt\":\"2026-10-10T05:58:05.895653Z\",\"status\":\"deactivated\",\"trigger\":\"manual\",\"updatedAt\":\"2026-10-10T06:28:46.659915Z\"}]\n\n cursor: hoYe6-nq_uc3cmZsb3Q4YzczY3ViZGtn",
+  "mutations": false
+}

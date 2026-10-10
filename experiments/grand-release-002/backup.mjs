@@ -15,7 +15,7 @@ export function backupBeforeRelease(root,checkpoint='before-release002'){
  const files=[],collect=relative=>{const file=path.join(root,relative);if(!fs.existsSync(file))return;if(fs.lstatSync(file).isSymbolicLink())throw Error('RELEASE_BACKUP_SYMLINK_DENIED');if(relative.endsWith('campaign.json'))readSave(file);files.push({path:relative,bytes:fs.readFileSync(file)});};
  collect('visitor-key');const visitors=path.join(root,'visitors');
  if(fs.existsSync(visitors))for(const id of fs.readdirSync(visitors).filter(id=>/^[a-f0-9]{64}$/.test(id))){
-  collect('visitors/'+id+'/visitor.json');collect('visitors/'+id+'/campaign.json');collect('visitors/'+id+'/division-002/campaign.json');
+  collect('visitors/'+id+'/visitor.json');collect('visitors/'+id+'/campaign.json');collect('visitors/'+id+'/division-002/campaign.json');collect('visitors/'+id+'/division-003/campaign.json');
  }
  const required=files.reduce((n,f)=>n+f.bytes.length,0),disk=fs.statfsSync(root);if(disk.bavail*disk.bsize<required+16*1024*1024)throw Error('RELEASE_BACKUP_DISK_SPACE_INSUFFICIENT');
  for(const f of files)atomicWrite(path.join(dest,f.path),f.bytes);
