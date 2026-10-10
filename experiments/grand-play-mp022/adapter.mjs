@@ -5,6 +5,7 @@ import {Campaign} from '../grand-play-001/authority.mjs';
 import {rules} from '../grand-play-001/rules.mjs';
 import {canonical} from './sync.mjs';
 import {encodeOwnedView as encodeView} from './view.mjs';
+import {INTERACTIVE_STEP_MS,pacedBudget} from './pacing.mjs';
 export const BASELINE='0a7e670e911ffd08cc99419aa5159d422d9189a7';
 const copy=structuredClone,fail=s=>{throw Error(s);},hash=v=>createHash('sha256').update(canonical(v)).digest('hex');
 export class CampaignAdapter {
@@ -50,14 +51,14 @@ export class CampaignAdapter {
     if(['DIRECT','ASSIGN','RESUME_PLAN','DIVISION_FORMAL_ADOPT'].includes(p.type)){this.control(seat,p.unit);const u=c.clock.units[p.unit];if(dep.unitGeneration!==u.commandGeneration)fail('UNIT_COMMAND_CHANGED');}
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type)&&dep.economyGeneration!==c.transport.economyGeneration)fail('ECONOMY_CONFIGURATION_CHANGED');
     if(p.type==='BUILD_FACTORY'&&dep.account!==this.accountStamp())fail('RESOURCE_DEPENDENCY_CHANGED');
-    if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
+    if(['CLOCK','AUTOPAUSE','SURRENDER','DIVISION_TEMPO'].includes(p.type)&&dep.worldGeneration!==c.transport.worldGeneration)fail('WORLD_COMMAND_CHANGED');
     const affected=c.clock.corps.filter(g=>g.id===p.group||p.type==='ASSIGN'&&g.members.includes(p.unit));
     const accepted=c.transaction({id:e.requestId,version:c.version,operation:p});
     if(['DIVISION_DRAFT_SAVE','DIVISION_FORMAL_SAVE','DIVISION_FORMAL_ADOPT'].includes(p.type))divisionReceipt={templateId:accepted.templateId,templateVersion:accepted.templateVersion};
     if(['ORDER','ASSIGN'].includes(p.type))for(const g of affected)g.commandGeneration++;
     if(['DIRECT','ASSIGN','RESUME_PLAN'].includes(p.type))c.clock.units[p.unit].commandGeneration++;
     if(['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(p.type))c.transport.economyGeneration++;
-    if(['CLOCK','AUTOPAUSE','SURRENDER'].includes(p.type))c.transport.worldGeneration++;
+    if(['CLOCK','AUTOPAUSE','SURRENDER','DIVISION_TEMPO'].includes(p.type))c.transport.worldGeneration++;
    }else fail('UNKNOWN_COMMAND');
    status='APPLIED';
   }catch(error){reason=error.message;if(before){c.restore(before.campaign,false);c.transport=before.transport;this.era=before.era;}}
@@ -68,5 +69,6 @@ export class CampaignAdapter {
   this.record('command-complete',{kind:e.kind,type:p.type,requestId:e.requestId,tick:c.clock.tick,status:result.status,reason:result.reason,payload:p,epoch:c.econ.epoch,account:copy(c.econ.accounts.GERMAN),load});return copy(result);
  });}
  async step(){return this.exclusive(()=>{if(this.c.receipts.size>=(this.receiptLimit??4096)){this.c.clock.paused=true;return;}this.record('step-start',{tick:this.c.clock.tick,groups:this.c.clock.corps.filter(g=>g.side==='GERMAN').map(g=>({id:g.permanentId,paused:g.order.paused,generation:g.commandGeneration}))});const changed=this.c.tick();this.record('step-end',{tick:this.c.clock.tick,changed});return changed;});}
- async tick(elapsed){if(this.c.clock.paused||this.c.clock.ended){this.accumulated=0;return;}this.accumulated+=Math.min(1000,elapsed)*this.c.clock.speed;if(this.accumulated>=(this.c.simRules?.wallMs??rules.wallMs)){this.accumulated-=(this.c.simRules?.wallMs??rules.wallMs);return this.step();}}
+ get wallStepMs(){return INTERACTIVE_STEP_MS;}
+ async tick(elapsed){if(this.c.clock.paused||this.c.clock.ended){this.accumulated=0;return;}const next=pacedBudget(this.accumulated,elapsed,this.c.clock.speed,this.wallStepMs);this.accumulated=next.remaining;if(next.due)return this.step();}
 }

@@ -63,6 +63,8 @@ export class Campaign extends Base {
   dto.eligibilityReasons=Object.fromEntries(view.units.filter(u=>u.side===view.viewer).map(u=>[u.id,eligible(view,u,this.capability(u.id),b.hex)]));
   dto.supportEligible=view.units.filter(u=>u.side===view.viewer&&!eligible(view,u,this.capability(u.id),b.hex)).map(u=>u.id);dto.attackEligible=[...dto.supportEligible];
   dto.actions=b.sources.filter(s=>view.units.some(u=>u.id===s.unit&&u.side===view.viewer)).map(x=>copy(x));
+  // Geography from currently identified attackers only; no private enemy state.
+  dto.attackDirections=[...new Map(b.sources.filter(s=>s.kind==='ATTACK'&&view.units.some(u=>u.id===s.unit&&key(u.hex)===key(s.from))).map(s=>[key(s.from)+':'+key(s.to),{from:copy(s.from),to:copy(s.to)}])).values()];
   return dto;
  }
  snapshot(draft){const d=super.snapshot(draft),view=d.game.message.payload.view,e=this.clock.engagements;

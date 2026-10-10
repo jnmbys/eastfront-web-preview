@@ -1,4 +1,5 @@
 import {Campaign as Base} from '../grand-map-r1/authority.mjs';
+import {winEstimate} from './win-estimate.mjs';
 import {band,estimate} from './estimates.mjs';
 const copy=structuredClone,key=h=>h.q+','+h.r;
 const visibleSamples=(row,side)=>{const xs=row?.samples??[];const lastMissing=xs.findLastIndex(s=>!s.authorized?.includes(side));return xs.slice(lastMissing+1);};
@@ -19,14 +20,14 @@ export class Campaign extends Base {
    const signature=JSON.stringify(units.map(u=>[u.id,u.hex,u.supply,u.blocked]));
    const prior=f.contacts[b.id],row=prior?.signature===signature?prior:{signature,samples:[],changedAt:t};
    const authorized=['GERMAN','SOVIET'].filter(side=>{const d=this.groupView(b,reportView(side));return d&&!d.unknownParticipants;});
-   row.samples.push({tick:t,units,authorized});row.samples=row.samples.slice(-6);row.updated=t;f.contacts[b.id]=row;
+   row.samples.push({tick:t,units,authorized});row.samples=row.samples.slice(-6);row.winSamples=[...(prior?.signature===signature?(prior.winSamples??prior.samples):[]),row.samples.at(-1)].slice(-24);row.updated=t;f.contacts[b.id]=row;
    for(const side of ['GERMAN','SOVIET']){const dto=this.groupView(b,reportView(side));if(!dto)continue;const e=dto.unknownParticipants?{status:'ASSESSING',label:'评估中',scope:'本次接触',minutes:null,reason:'参战对象尚未完全识别，不推算整场结束'}:estimate(visibleSamples(row,side),side);f.audit.push({tick:t,battle:b.id,viewer:side,...e});}
   }
   for(const id of Object.keys(f.contacts))if(!active.some(b=>b.id===id))delete f.contacts[id];
   f.audit=f.audit.slice(-600);
  }
  snapshot(draft){const d=super.snapshot(draft),f=this.clock.displayForecast;if(!f)return d;
-  for(const b of d.continuous.map.battles){const row=f.contacts[b.id];b.estimate=b.unknownParticipants?{status:'ASSESSING',label:'评估中',scope:'本次接触',minutes:null,reason:'参战对象尚未完全识别'}:estimate(visibleSamples(row,this.viewer),this.viewer);if(row)b.estimate.changedAt=row.changedAt;}
+  for(const b of d.continuous.map.battles){const row=f.contacts[b.id];b.estimate=b.unknownParticipants?{status:'ASSESSING',label:'评估中',scope:'本次接触',minutes:null,reason:'参战对象尚未完全识别'}:estimate(visibleSamples(row,this.viewer),this.viewer);b.winEstimate=b.unknownParticipants?{percent:null,status:'ASSESSING',reason:'尚有未识别参战者'}:winEstimate(visibleSamples({samples:row?.winSamples??row?.samples},this.viewer),this.viewer);if(row)b.estimate.changedAt=row.changedAt;}
   for(const a of d.continuous.map.actions){const v=this.clock.units[a.unit];if(v?.march&&!v.engaged&&['MOVE','RETREAT'].includes(a.kind)){a.segment={completed:v.march.total-v.march.remaining,total:v.march.total,remainingMinutes:v.march.remaining*5};a.progress=a.segment.completed/a.segment.total;}
    else {delete a.progress;a.activity=a.status==='ACCEPTED'?'已接受，待执行':a.kind==='SUPPORT'?'支援中（不跟进）':'交战中（无行军段）';a.estimate=d.continuous.map.battles.find(b=>b.id===a.battleId)?.estimate;}
   }

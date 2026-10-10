@@ -101,16 +101,17 @@ export async function start({port=4220,autoTick=true,saveFile=path.join(process.
     const stepMs=performance.now()-t;t=performance.now();if(release)await adapter.autoSave();const saveMs=performance.now()-t;
     const end=performance.now(),used=process.cpuUsage();if(end-sampleAt>=1000){
      samples.push({ms:end-sampleAt,ticks:Math.max(0,adapter.c.clock.tick-lastTick)});while(samples.length>10)samples.shift();
-     const ms=samples.reduce((n,x)=>n+x.ms,0),ticks=samples.reduce((n,x)=>n+x.ticks,0),actual=ticks*(adapter.c.simRules?.wallMs??1000)/ms;
-     adapter.runtime={observedSeconds:ms/1000,actualSpeed:actual,limited:!adapter.c.clock.paused&&ms>=5000&&actual<adapter.c.clock.speed*.8,stepMs,saveMs,eventLoopMaxMs:lag.max/1e6,cpuCores:(used.user+used.system-cpu.user-cpu.system)/((end-sampleAt)*1000),rss:process.memoryUsage().rss};
+     const ms=samples.reduce((n,x)=>n+x.ms,0),ticks=samples.reduce((n,x)=>n+x.ticks,0),actual=ticks*adapter.wallStepMs/ms;
+     adapter.runtime={wallStepMs:adapter.wallStepMs,observedSeconds:ms/1000,actualSpeed:actual,limited:!adapter.c.clock.paused&&ms>=5000&&actual<adapter.c.clock.speed*.8,stepMs,saveMs,eventLoopMaxMs:lag.max/1e6,cpuCores:(used.user+used.system-cpu.user-cpu.system)/((end-sampleAt)*1000),rss:process.memoryUsage().rss};
      cpu=used;sampleAt=end;lastTick=adapter.c.clock.tick;lag.reset();if(adapter.c.clock.paused)samples.length=0;
     }
     if(adapter.revision!==before)for(const s of seats.values())if(s.connection)s.connection.dirty=true;
    }catch{metrics.errors++;}finally{ticking=false;}
   }
   // One atomic step, then a real I/O opportunity. Never chain catch-up steps in
-  // microtasks ahead of socket commands. Wall debt is retained by the adapter.
-  if(!closing)tickTimer=setTimeout(runTick,Math.max(20,100-(performance.now()-cycle)));
+  // microtasks ahead of socket commands. Computation is not future time debt.
+  previousTime=performance.now();
+  if(!closing)tickTimer=setTimeout(runTick,100);
  }
  tickTimer=setTimeout(runTick,100);
  const pushTimer=setInterval(()=>{for(const s of seats.values())void s.connection?.push().catch(()=>{metrics.errors++;s.connection.close('VIEW_ERROR');});},150);

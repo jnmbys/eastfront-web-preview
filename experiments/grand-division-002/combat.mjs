@@ -22,7 +22,7 @@ export function attributes(template,actual){
  * Caller supplies actual accepted contacts, authoritative random draws and unit data.
  * No future prediction and no query exposed to policy clients.
  */
-export function resolveContacts({contacts,units,stats,random,minutes=5,tick=0}){
+export function resolveContacts({contacts,units,stats,random,minutes=5,tick=0,damageScale=1}){
  const groups=new Map();for(const c of contacts){const g=groups.get(c.hex)??{ids:new Set(),pairs:[]};g.pairs.push(c);for(const id of c.units)g.ids.add(id);groups.set(c.hex,g);}
  const participating=new Set(),waiting=new Set(),accepted=[];
  for(const [hex,g]of [...groups].sort(([a],[b])=>a.localeCompare(b))){
@@ -36,7 +36,7 @@ export function resolveContacts({contacts,units,stats,random,minutes=5,tick=0}){
  const damage={},orgDamage={},traces=[];
  for(const id of [...opponents.keys()].sort()){const targets=[...opponents.get(id)].sort(),a=stats[id].effective;
   for(const target of targets){const d=stats[target].effective,attack=a.softAttack/targets.length,defense=(attacking.has(target)?d.breakthrough:d.defense)/Math.max(1,opponents.get(target).size),hits=(Math.min(attack,defense)*.1+Math.max(0,attack-defense)*.4)*minutes/60;
-   const hp=hits*.06*(1+Math.floor(random()*2)),org=hits*.053*(1+Math.floor(random()*4));damage[target]=(damage[target]??0)+hp;orgDamage[target]=(orgDamage[target]??0)+org;traces.push({source:id,target,hits,hp,org});
+   const hp=hits*damageScale*.06*(1+Math.floor(random()*2)),org=hits*damageScale*.053*(1+Math.floor(random()*4));damage[target]=(damage[target]??0)+hp;orgDamage[target]=(orgDamage[target]??0)+org;traces.push({source:id,target,hits,hp,org});
   }
  }
  return {damage,orgDamage,participating:[...participating].sort(),waiting:[...waiting].sort(),traces};

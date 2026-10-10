@@ -1,3 +1,4 @@
+import {multiTarget} from './playable/multiCommand.js';
 import {mountJoystick} from './interaction/mapJoystick.js';
 import {bindOnce} from './ui/bindOnce.js';
 import {MapPlanInput,paintPlanDraft} from './playable/corpsPlan.js';
@@ -215,7 +216,7 @@ function bindMapViewport():void{
   releaseMapViewport();releaseJoystick();
   const wrap=document.querySelector<HTMLElement>('#map-wrap');if(!wrap)return;applyMapViewport();
   if(grandPort?.continuous)releaseJoystick=mountJoystick((dx,dy)=>{mapViewport={...mapViewport,panX:mapViewport.panX+dx,panY:mapViewport.panY+dy};applyMapViewport();},active=>{if(active){viewportWork.hold();setCityArtInteracting(true);}else{viewportWork.release();viewportWork.request();}});
-  const drawing=new MapPlanInput(()=>grandPort,refreshDynamicView);let drawingGesture=false;
+  const drawing=new MapPlanInput(()=>grandPort,refreshDynamicView,ids=>{if(ids[0])selectPlayableCounter(ids[0]);});let drawingGesture=false;
   const listeners=new AbortController();
   const points=new Map<number,MapPoint>();const pressedAt=new Map<number,number>();
   let gesture:MapGestureState|null=null;
@@ -280,7 +281,7 @@ function handleGrandMapCommand(event:Event):void{
  if(!p.directDraft?.kind&&hit.some(n=>n.closest('[data-battle-id]')))return;
  const m=svg.getScreenCTM();if(!m)return;const at=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
  const enemyCard=hit.map(n=>n.closest('[data-stack-key]')).find(n=>n?.getAttribute('data-command-owner')?.startsWith('enemy'));let hex:any=enemyCard?parseHex(enemyCard.getAttribute('data-anchor')!):null,best=hex?0:Infinity;for(const h of p.data.game.message.payload.view.hexes){const q=hexToPixel(h.coord),d=Math.hypot(q.x-at.x,q.y-at.y);if(d<best){best=d;hex=h.coord;}}
- if(!hex||best>HEX_SIZE*1.2)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();chooseDirectTarget(p,id,hex);p.selections['ui-panel']='';refreshDynamicView();requestAnimationFrame(()=>keepGrandTargetVisible(hex));
+ if(!hex||best>HEX_SIZE*1.2)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();if(!multiTarget(p,hex))chooseDirectTarget(p,id,hex);p.selections['ui-panel']='';refreshDynamicView();requestAnimationFrame(()=>keepGrandTargetVisible(hex));
 }
 function mapRenderOptions(model:BrowserRenderModel,lodOverride?:TerrainLod):CoreSvgOptions{
   if(grandPort)return grandArt?{debug:false,rendererMode:'production',assetSet:'p5',lod:lodOverride??'far',scenarioSeed:TERRAIN_VISUAL_SEED,staticTerrainSurface:true,compactForces:!!grandPort.continuous}:{debug:false,rendererMode:'prototype',lod:'far',compactForces:!!grandPort.continuous};
@@ -467,7 +468,7 @@ function chooseMoveTarget(hex:ReturnType<typeof parseHex>):void{
 function selectPlayableCounter(id:string):void{
   if(!session)return;
   selectCounter(session,presentation,id);
-  if(grandPort?.continuous){grandPort.selections['map-command']='1';grandPort.selections['ui-panel']='';if(grandPort.directDraft&&grandPort.directDraft.unit!==id){grandPort.directDraft=null;grandPort.directPreview=null;const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;scope.picking=null;scope.officerPick=false;}presentation.interactionMode="SELECT" as typeof presentation.interactionMode;requestAnimationFrame(()=>keepGrandTargetVisible(grandPort?.data.continuous.units[id]?.hex));return;}
+  if(grandPort?.continuous){delete grandPort.selections['multi-units'];delete grandPort.selections['multi-kind'];grandPort.selections['map-command']='1';grandPort.selections['ui-panel']='';if(grandPort.directDraft&&grandPort.directDraft.unit!==id){grandPort.directDraft=null;grandPort.directPreview=null;const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;scope.picking=null;scope.officerPick=false;}presentation.interactionMode="SELECT" as typeof presentation.interactionMode;requestAnimationFrame(()=>keepGrandTargetVisible(grandPort?.data.continuous.units[id]?.hex));return;}
   if(!grandPort?.data?.ux||presentation.privacyGate||isNetwork(session)&&!session.canSelect)return;
   const model=deriveBrowserRenderModel(session,presentation),u=sessionPlayerView(session).units.find(u=>u.id===id);
   const officers=grandPort.data.officers,delegated=officers?.enabled&&officers.groups.some((g:any)=>g.order&&!g.paused&&g.members.includes(id));

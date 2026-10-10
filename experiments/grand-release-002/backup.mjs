@@ -2,9 +2,10 @@ import fs from 'node:fs';import path from 'node:path';import {createHash} from '
 import {readSave,atomicWrite} from '../grand-release-001/persistence.mjs';
 // Runs before the new server admits connections. Render's single-instance disk
 // deployment must first shut down the old writer. Originals are never rewritten.
-export function backupBeforeRelease(root){
+export function backupBeforeRelease(root,checkpoint='before-release002'){
+ if(!/^before-[a-z0-9-]+$/.test(checkpoint))throw Error('INVALID_BACKUP_LABEL');
  if(!fs.existsSync(root))return;
- const dest=path.join(root,'before-release002'),manifestFile=path.join(dest,'manifest.json');
+ const dest=path.join(root,checkpoint),manifestFile=path.join(dest,'manifest.json');
  const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
  if(fs.existsSync(manifestFile)){
   const manifest=JSON.parse(fs.readFileSync(manifestFile));

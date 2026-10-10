@@ -15,6 +15,8 @@ export async function start(options={}){
  const saveDir=options.saveDir??process.env.SAVE_DIR;
  if(!saveDir)throw Error('PERSISTENT_SAVE_DIR_REQUIRED');
  backupBeforeRelease(saveDir);
+ backupBeforeRelease(saveDir,'before-ux005');
+ console.log('UX005 latest-save backup checksum verified');
  const visitors=path.join(saveDir,'visitors');
  if(fs.existsSync(visitors))for(const id of fs.readdirSync(visitors).filter(id=>/^[a-f0-9]{64}$/.test(id))){
   for(const mode of Object.values(campaignModes)){

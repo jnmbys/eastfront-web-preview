@@ -3,6 +3,7 @@ export const industryEnabled=(p:any)=>p.selections['industry-art']!=='off' && ne
 export const workLabels:Record<string,string>={ACTIVE:'生产中',MISSING:'缺原料',IDLE:'未分配',DAMAGED:'厂房损坏',BUILDING:'施工中',QUEUED:'排队施工',OCCUPIED:'失守停工'};
 /** Original compact silhouettes; decorative, product names remain accessible text. */
 export function equipmentIcon(k:string){
+ k=({infantry_equipment_1:'RIFLE',support_equipment_1:'KIT'} as Record<string,string>)[k]??k;
  const paths:Record<string,string>={RIFLE:'M3 16l5-5 3 2 10-9M6 13l4 4M11 10l2 2',GUN:'M4 15h12l-3-5H9l12-5M7 15v4m-3 0h6m5-4 5 4',AT:'M3 15h13l-3-4H9l12-4M5 15v4m-3 0h6m7-4 5 4',TANK:'M3 13h16l3 3-2 3H4l-2-3zM7 13V9h8v4m0-3h7',HEAVY:'M2 13h18l2 3-2 4H3l-2-4zM6 13V7h11v6m0-4h6M5 17h13',KIT:'M4 9h16v11H4zM8 9V5h8v4M9 14h6m-3-3v6',SCOUT:'M3 17V9h6v8zm12 0V9h6v8zM9 12h6M4 9V6h4v3m8 0V6h4v3',TRUCK:'M2 8h12v9H2zM14 11h5l3 4v2h-8M5 17v3m13-3v3',TRAIN:'M5 3h14v15H5zM8 6h8v5H8zM7 15h2m6 0h2M8 18l-3 4m11-4 3 4M6 21h12'};
  return `<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="vertical-align:middle" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="${paths[k]??paths.KIT}"/></svg>`;
 }
