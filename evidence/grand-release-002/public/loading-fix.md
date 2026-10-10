@@ -27,3 +27,18 @@ fully passing. Targeted new checks pass. No Huawei device success claimed.
 
 Public Linux restart/read validation is still pending the corrective publication.
 Original before/reconnect records preserved; independent test credential is ignored.
+
+## Corrective publication
+
+958ebcea1bb43d41f9608e4d3769bc587457adad is Live (dep-db4tljg473hc73945o70).
+Linux startup logged RELEASE002_BACKUP_VERIFIED at 06:28:40 UTC before ready.
+Public asset returned 200/460014 bytes, then authenticated conditional GET 304.
+Public build hash matches local clean build:
+84db3df92f7a193697ae646731f6b19155b67be753d25a31343b047944b48458.
+Same service/1c-2g/disk; only source pin changed. No visitor credential/save mutation.
+
+Post-restart independent test visitor read is NOT passed: service returned its
+two-active-campaign BUSY/503 limit. Did not evict other players or increase limits.
+Public browser inspection timed out; stopped retries. Local real-browser map
+check is not Huawei evidence. Huawei user must receive the new page on refresh;
+no cookie clearing, new campaign or save reset is required.
