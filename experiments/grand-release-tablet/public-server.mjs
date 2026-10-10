@@ -1,6 +1,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import {gzipSync} from 'node:zlib';
 import {randomBytes,createHmac,timingSafeEqual} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {releaseServer} from '../grand-release-001/server.mjs';
@@ -8,7 +9,7 @@ import {readSave,atomicWrite} from '../grand-release-001/persistence.mjs';
 
 // Public admission is separate from campaign authorization. Each browser receives
 // an unguessable signed identity; it never supplies a campaign directory or ID.
-export async function publicServer({port=Number(process.env.PORT??4261),host=process.env.HOST??'127.0.0.1',origin=process.env.PUBLIC_ORIGIN??`http://127.0.0.1:${port}`,saveDir=process.env.SAVE_DIR,maxActive=2,maxVisitors=100,idleMs=30000,autoTick=true}={}){
+export async function publicServer({port=Number(process.env.PORT??4261),host=process.env.HOST??'127.0.0.1',origin=process.env.PUBLIC_ORIGIN??`http://127.0.0.1:${port}`,saveDir=process.env.SAVE_DIR,maxActive=2,maxVisitors=100,idleMs=30000,autoTick=true,campaignModes=null}={}){
  if(!saveDir)throw Error('PERSISTENT_SAVE_DIR_REQUIRED');
  if(process.env.REQUIRE_PERSISTENT_DISK==='1'){
   if(process.platform!=='linux'||!fs.readFileSync('/proc/self/mountinfo','utf8').split('\n').some(line=>line.split(' ')[4]==='/var/data'))throw Error('PERSISTENT_DISK_NOT_MOUNTED');
@@ -41,20 +42,22 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
  }
  const connected=s=>[...s.seats.values()].some(x=>x.connection&&!x.connection.closed);
  async function reap(){for(const[id,x]of active){if(!connected(x.service)&&Date.now()-x.touched>=idleMs){await x.service.close();active.delete(id);}}}
- async function obtain(id){return serial(async()=>{
+ async function obtain(id,mode='legacy'){return serial(async()=>{
+  const activeId=campaignModes?id+':'+mode:id,config=campaignModes?.[mode];
   if(closing)throw Error('SERVICE_CLOSING');
-  await reap();if(active.has(id)){const x=active.get(id);x.touched=Date.now();return x.service;}
+  await reap();if(active.has(activeId)){const x=active.get(activeId);x.touched=Date.now();return x.service;}
   if(active.size>=maxActive)throw Error('BUSY');
   const authorized=req=>identity(req)===id;
   const accessControl={authorized,async gate(req,res){if(authorized(req))return false;res.writeHead(401);res.end('请返回首页重新进入');return true;}};
-  const service=await releaseServer({port:0,host:'127.0.0.1',origin,local:false,saveDir:path.join(root,id),accessControl,autoTick});
-  active.set(id,{service,touched:Date.now()});return service;
+  const service=await releaseServer({port:0,host:'127.0.0.1',origin,local:false,saveDir:path.join(root,id,config?.directory??''),accessControl,autoTick,...(config?{CampaignClass:config.CampaignClass,cookiePrefix:'release002_'+mode+'_',midFile:null}:{})});
+  active.set(activeId,{service,touched:Date.now()});return service;
  });}
  const page=`<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>EASTFRONT 公开试玩</title><style>body{background:#253339;color:#eee;font:18px system-ui;max-width:560px;margin:10vh auto;padding:24px}button{font:inherit;min-height:48px;padding:12px 24px}</style><h1>EASTFRONT</h1><p>独立战役 · 德军对苏军AI</p><p>每位访客独立指挥和保存，不会进入其他人的战役。此浏览器保留30天访问凭证；清除Cookie或换浏览器不会自动找回原局。离线暂停，重新进入后由你继续时间。</p><p>首轮最多同时载入两场战役；满员时请稍后重试。不会覆盖已有存档。</p><form method="post" action="/visitor/start"><button>开始独立试玩</button></form></html>`;
  function reply(res,status,body,type='text/plain; charset=utf-8'){res.writeHead(status,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(body);}
  const request=(req,res)=>void(async()=>{
   if(req.headers.host!==url.host)return reply(res,403,'HOST_DENIED');
-  const pathname=new URL(req.url,origin).pathname;
+  const requestUrl=new URL(req.url,origin),pathname=requestUrl.pathname,mode=requestUrl.searchParams.get('campaign')??'legacy';
+  if(campaignModes&&!Object.hasOwn(campaignModes,mode))return reply(res,400,'UNKNOWN_CAMPAIGN_MODE');
   if(pathname==='/healthz')return reply(res,200,'{"ok":true}','application/json');
   if(pathname==='/visitor/start'&&req.method==='POST'){
    if(req.headers.origin!==origin)return reply(res,403,'ORIGIN_DENIED');
@@ -65,20 +68,32 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
     id=randomBytes(32).toString('hex');fs.mkdirSync(path.join(root,id));fs.writeFileSync(path.join(root,id,'visitor.json'),JSON.stringify({createdAt:new Date().toISOString(),schema:1}),{flag:'wx',mode:0o600});lastAdmission=Date.now();
    }
    const value=id+'.'+(Date.now()+30*86400000);
-   res.writeHead(303,{'Location':'/','Cache-Control':'no-store','Set-Cookie':`grand_visitor=${value}.${signature(value)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=2592000${secure?'; Secure':''}`});res.end();return;
+   res.writeHead(303,{'Location':campaignModes?'/campaigns':'/','Cache-Control':'no-store','Set-Cookie':`grand_visitor=${value}.${signature(value)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=2592000${secure?'; Secure':''}`});res.end();return;
   }
   const id=identity(req);
   if(!id)return reply(res,req.method==='GET'&&pathname==='/'?200:401,page,'text/html; charset=utf-8');
   if(!['GET','HEAD'].includes(req.method)&&req.headers.origin!==origin)return reply(res,403,'ORIGIN_DENIED');
-  const service=await obtain(id);
+  if(campaignModes&&pathname==='/campaigns'&&req.method==='GET'){
+   const rows=Object.entries(campaignModes).map(([key,c])=>{const file=path.join(root,id,c.directory,'campaign.json');let state='尚未建立';if(fs.existsSync(file)){try{const saved=readSave(file);state='已保存 · 游戏步 '+saved.campaign.clock.tick;}catch{state='存档读取失败，请保留文件并联系维护者';}}return `<section><h2>${c.label}</h2><p>${c.description}</p><p>${state}</p><a href="/?campaign=${key}">${fs.existsSync(file)?'继续':'创建并进入'}${c.label}</a></section>`;}).join('');
+   return reply(res,200,`<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>EASTFRONT 战役选择</title><style>body{background:#253339;color:#eee;font:18px system-ui;max-width:720px;margin:5vh auto;padding:24px}section{border:1px solid #78898b;padding:20px;margin:18px 0}a{display:inline-block;color:#fff;background:#405b64;padding:14px;min-height:24px}</style><h1>选择战役</h1><p>两种规则独立保存，创建新编制战役不会替换原局。离开前可手动保存；全部操作端离开后该局暂停。</p>${rows}<p>同一浏览器身份可找回两局；清除访客凭证后不会自动找回。</p></html>`,'text/html; charset=utf-8');
+  }
+  if(campaignModes&&req.method==='GET'&&!['/release/info','/'].includes(pathname)&&!pathname.startsWith('/a/')&&!pathname.startsWith('/b/')&&!pathname.startsWith('/release/')){
+   const special={'/transport/client.mjs':'web/client.mjs','/transport/stateCodec.mjs':'web/stateCodec.mjs','/transport/view.mjs':'view.mjs','/sync.mjs':'sync.mjs'};
+   const base=fileURLToPath(new URL('../../.release-territory-preview/',import.meta.url));
+   const target=special[pathname]?fileURLToPath(new URL('../grand-play-mp022/'+special[pathname],import.meta.url)):path.resolve(base,'.'+decodeURIComponent(pathname));
+   if(!special[pathname]&&!target.startsWith(base))return reply(res,403,'PATH_DENIED');
+   try{const type=({'.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'})[path.extname(target)]??'application/octet-stream';let bytes=fs.readFileSync(target);if(/javascript|css|json|svg/.test(type)&&req.headers['accept-encoding']?.includes('gzip')){bytes=gzipSync(bytes);res.setHeader('Content-Encoding','gzip');res.setHeader('Vary','Accept-Encoding');}return reply(res,200,bytes,type);}catch{return reply(res,404,'NOT_FOUND');}
+  }
+  const service=await obtain(id,mode);
   const upstream=http.request({host:'127.0.0.1',port:service.server.address().port,path:req.url,method:req.method,headers:req.headers},r=>{res.writeHead(r.statusCode,r.headers);r.pipe(res);});
   upstream.on('error',()=>{if(!res.headersSent)reply(res,502,'连接暂时中断，请重新连接');else res.destroy();});req.on('aborted',()=>upstream.destroy());req.pipe(upstream);
  })().catch(e=>{if(!res.headersSent)reply(res,503,e.message==='BUSY'?'当前两场战役正在使用，请稍后重试；你的存档保留。':'服务暂不可用，请稍后重试');else res.destroy();});
  const server=http.createServer(request);
  server.on('upgrade',(req,socket,head)=>void(async()=>{
-  const id=identity(req);
-  if(!id||req.headers.host!==url.host||req.headers.origin!==origin||!/^\/[ab]\/ws$/.test(req.url)){socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n');return;}
-  const service=await obtain(id);
+  const id=identity(req),wsUrl=new URL(req.url,origin),mode=wsUrl.searchParams.get('campaign')??'legacy';
+  if(campaignModes&&!Object.hasOwn(campaignModes,mode)){socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');return;}
+  if(!id||req.headers.host!==url.host||req.headers.origin!==origin||!/^\/[ab]\/ws$/.test(wsUrl.pathname)){socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n');return;}
+  const service=await obtain(id,mode);
   const upstream=http.request({host:'127.0.0.1',port:service.server.address().port,path:req.url,headers:req.headers});
   upstream.on('upgrade',(r,peer,initial)=>{socket.write(`HTTP/1.1 ${r.statusCode} ${r.statusMessage}\r\n`+Object.entries(r.headers).map(([k,v])=>`${k}: ${v}\r\n`).join('')+'\r\n');if(initial.length)socket.write(initial);if(head.length)peer.write(head);socket.pipe(peer);peer.pipe(socket);socket.on('error',()=>peer.destroy());peer.on('error',()=>socket.destroy());socket.on('close',()=>peer.destroy());peer.on('close',()=>socket.destroy());});
   upstream.on('response',r=>{socket.end(`HTTP/1.1 ${r.statusCode} Forbidden\r\nConnection: close\r\n\r\n`);r.resume();});upstream.on('error',()=>socket.destroy());upstream.end();

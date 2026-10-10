@@ -1,0 +1,73 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import zlib from 'node:zlib';
+import WebSocket from 'ws';
+import {start} from './server.mjs';
+import {readSave} from '../grand-release-001/persistence.mjs';
+import {totals,validate} from '../grand-division-002/inventory.mjs';
+const origin='http://127.0.0.1:4270',saveDir=fs.mkdtempSync(path.join(os.tmpdir(),'release002-check-'));
+const opts={port:4270,origin,saveDir,autoTick:false,maxActive:4};let server=await start(opts);const sockets=[],results=[];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const http=(p,cookie='',method='GET',extra={})=>fetch(origin+p,{method,headers:{origin,cookie,...extra},redirect:'manual'});
+const info=async(cookie,mode)=>{const r=await http('/release/info?campaign='+mode,cookie);assert.equal(r.status,200);return r.json();};
+const visitor=async()=>{const r=await http('/visitor/start','','POST');assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/campaigns');return r.headers.get('set-cookie').split(';')[0];};
+const service=(cookie,mode)=>server.active.get(cookie.split('=')[1].split('.')[0]+':'+mode).service;
+async function connect(cookie,mode){
+ const r=await http('/a/session?campaign='+mode,cookie,'POST',{'X-Grand-Protocol':'GRAND-RELEASE-TERRITORY-1'});assert.equal(r.status,200);
+ const seatCookie=r.headers.get('set-cookie').split(';')[0],ws=new WebSocket(origin.replace('http','ws')+'/a/ws?campaign='+mode,{headers:{origin,cookie:cookie+'; '+seatCookie}});sockets.push(ws);const rows=[];let welcome;
+ const send=x=>ws.send(JSON.stringify({...x,instanceId:welcome?.instanceId,connectionEpoch:welcome?.connectionEpoch}));
+ ws.on('message',bytes=>{const m=JSON.parse(bytes);rows.push(m);if(m.type==='WELCOME')welcome=m;if(m.type==='STATE')send({type:'VIEW_ACK',stream:m.stream,viewVersion:m.viewVersion});if(m.type==='RESULT')send({type:'RESULT_ACK',ids:[m.result.requestId]});});
+ await new Promise((r,j)=>{ws.once('open',r);ws.once('error',j);});send({type:'HELLO'});
+ for(let n=0;n<200&&!rows.some(x=>x.type==='STATE');n++)await wait(20);assert(rows.some(x=>x.type==='STATE'));
+ return {ws,rows,send,seatCookie,async command(kind,payload={}){
+  const a=service(cookie,mode).adapter,c=a.c,id='release002-'+crypto.randomUUID();
+  const command={instanceId:a.id,era:a.era,requestId:id,commandSeq:c.transport.next.a,kind,payload,dependencies:{unitGeneration:c.clock.units[payload.unit]?.commandGeneration,worldGeneration:c.transport.worldGeneration,economyGeneration:c.transport.economyGeneration}};
+  const t=performance.now();send({type:'COMMAND',command});for(let n=0;n<400&&!rows.some(x=>x.type==='RESULT'&&x.result.requestId===id);n++)await wait(10);
+  const result=rows.find(x=>x.type==='RESULT'&&x.result.requestId===id)?.result;assert(result,'receipt');assert.equal(result.status,'APPLIED',result.reason);return {command,result,ms:performance.now()-t};
+ }};
+}
+try{
+ assert.equal((await http('/release/info?campaign=division')).status,401);
+ assert.equal((await http('/visitor/start','','POST',{origin:'https://foreign.invalid'})).status,403);
+ const a=await visitor(),legacy=await info(a,'legacy'),lc=await connect(a,'legacy');await lc.command('SAVE');
+ const legacyFile=service(a,'legacy').adapter.saveFile,oldBytes=fs.readFileSync(legacyFile);
+ const division=await info(a,'division'),dc=await connect(a,'division');assert.notEqual(legacy.instanceId,division.instanceId);assert(division.divisionIntegrated&&!division.pieceFixture);
+ assert.deepEqual(fs.readFileSync(legacyFile),oldBytes);assert.equal(service(a,'division').adapter.c.clock.divisionLedger.formal.xp.GERMAN,0);
+ assert.equal((await http('/release/info?campaign=fixture',a)).status,400);
+ assert.equal((await http('/campaigns',a)).status,200);
+ assert.notEqual(lc.seatCookie.split('=')[0],dc.seatCookie.split('=')[0]);
+ const dsave=await dc.command('SAVE');lc.send({type:'COMMAND',command:dsave.command});await wait(80);assert(lc.rows.some(x=>x.type==='ERROR'&&x.reason==='INSTANCE_MISMATCH'));
+ const next=service(a,'division').adapter.c.transport.next.a;dc.send({type:'COMMAND',command:dsave.command});await wait(80);assert.equal(service(a,'division').adapter.c.transport.next.a,next);
+ results.push('same visitor: independent modes/IDs/cookies/save paths; legacy bytes unchanged by division creation; wrong instance rejected; duplicate SAVE not repeated; new mode XP zero; fixture mode rejected');
+ await wait(2050);const b=await visitor(),bd=await info(b,'division');assert.notEqual(bd.instanceId,division.instanceId);const bc=await connect(b,'division');bc.send({type:'COMMAND',command:dsave.command});await wait(80);assert(bc.rows.some(x=>x.type==='ERROR'&&x.reason==='INSTANCE_MISMATCH'));
+ assert.equal((await http('/release/info?campaign=division',a.slice(0,-1)+'x')).status,401);
+ const concurrent=await Promise.all(Array.from({length:4},()=>info(b,'division')));assert(concurrent.every(x=>x.instanceId===bd.instanceId));
+ const replacement=await fetch(origin+'/release/new?campaign=division',{method:'POST',headers:{origin,cookie:b,'Content-Type':'application/json'},body:JSON.stringify({instanceId:bd.instanceId,revision:bd.revision})});
+ assert.equal(replacement.status,200);assert.notEqual((await info(b,'division')).instanceId,bd.instanceId);assert.deepEqual(fs.readFileSync(legacyFile),oldBytes);
+ results.push('distinct signed visitor identity remains isolated; forged identity and foreign commands rejected');
+ // Reuse a real normal-play checkpoint with earned XP; never expose a fixture route.
+ const adapter=service(a,'division').adapter,checkpoint=JSON.parse(zlib.gunzipSync(fs.readFileSync('evidence/grand-division-002/revision/approved-chain/earned.json.gz')));
+ adapter.c.restore(checkpoint,true);adapter.c.transport??={next:{a:1,b:1},worldGeneration:0,economyGeneration:0};adapter.era=crypto.randomUUID();dc.ws.terminate();await wait(100);const resumed=await connect(a,'division');
+ const c=adapter.c,ledger=c.clock.divisionLedger,base=ledger.formal.templates['GERMAN:initial-infantry'],draft=structuredClone(base);draft.support[0]='ENGINEER';draft.name='发布接入复核';
+ const formal=await resumed.command('OPERATION',{type:'DIVISION_FORMAL_SAVE',baseId:base.id,expectedBaseVersion:base.version,draft});
+ const adopted=await resumed.command('OPERATION',{type:'DIVISION_FORMAL_ADOPT',unit:'G-013',expectedUnitRevision:c.clock.divisionLedger.units['G-013'].revision,templateId:formal.result.division.templateId,expectedTemplateVersion:1});
+ assert.equal(c.clock.divisionLedger.units['G-013'].held.support_equipment_1,0);assert.equal(c.clock.divisionLedger.units['G-013'].target.equipment.support_equipment_1,30);
+ const line=c.econ.modern.lines['GERMAN:support_equipment_1'];await resumed.command('OPERATION',{type:'ECON_LINE',line:line.id,product:line.product,factories:Object.values(c.econ.modern.lines).filter(l=>l.side==='GERMAN').flatMap(l=>l.factories).sort().slice(0,2),priority:1});
+ const beforeTick=c.clock.tick,before=totals(c.clock.divisionLedger);c.clock.paused=false;c.clock.autopause=false;
+ for(let n=0;n<48;n++)await adapter.step();c.clock.paused=true;validate(c.clock.divisionLedger);
+ assert(c.clock.divisionLedger.nations.GERMAN.produced.support_equipment_1>0);assert(c.clock.divisionLedger.units['G-013'].held.support_equipment_1>0);
+ results.push({normalCheckpoint:'approved-chain/earned.json.gz; earned XP, not injected',beforeTick,afterTick:c.clock.tick,formal:formal.result.division,adopt:adopted.result.division,unit:c.clock.divisionLedger.units['G-013'],before,after:totals(c.clock.divisionLedger)});
+ await resumed.command('SAVE');const finalTick=c.clock.tick,finalTotals=totals(c.clock.divisionLedger),finalId=c.id;
+ for(const ws of sockets)ws.terminate();await wait(150);await server.close();server=await start(opts);
+ const l2=await info(a,'legacy'),d2=await info(a,'division'),b2=await info(b,'division');
+ assert.equal(l2.instanceId,legacy.instanceId);assert.equal(l2.tick,legacy.tick);assert.equal(d2.instanceId,finalId);assert.equal(d2.tick,finalTick);assert(d2.paused&&l2.paused&&b2.paused);
+ assert.deepEqual(totals(service(a,'division').adapter.c.clock.divisionLedger),finalTotals);
+ const root=path.dirname(legacyFile);assert.equal(readSave(path.join(root,'campaign.json')).campaign.clock.divisionLedger,undefined);assert(readSave(path.join(root,'division-002/campaign.json')).campaign.clock.divisionLedger);
+ assert(fs.existsSync(legacyFile+'.before-release002'));assert(fs.existsSync(path.join(root,'division-002/campaign.json.before-release002')));
+ const afterRestart=await connect(a,'division');afterRestart.send({type:'COMMAND',command:adopted.command});await wait(80);assert(afterRestart.rows.some(x=>x.type==='ERROR'&&x.reason==='RESTORED_SESSION_REPLAN_REQUIRED'));
+ results.push('restart: visitor identity unchanged; both campaigns independently retained and paused; resources unchanged; backups verified; old connection/request era rejected');
+ for(const ws of sockets)ws.terminate();await wait(100);await server.close();
+ const divisionFile=path.join(root,'division-002/campaign.json'),preserved=fs.readFileSync(divisionFile);
+ process.env.RELEASE_DIVISION_ENABLED='0';server=await start(opts);await info(a,'legacy');assert.equal((await http('/release/info?campaign=division',a)).status,400);assert.deepEqual(fs.readFileSync(divisionFile),preserved);delete process.env.RELEASE_DIVISION_ENABLED;
+ results.push('compatibility rollback: division admission disabled; new save byte-for-byte retained, never read by old engine; original campaign still opens');
+ fs.mkdirSync('evidence/grand-release-002',{recursive:true});fs.writeFileSync('evidence/grand-release-002/integration.json',JSON.stringify({kind:'local HTTP/WS integration, no browser or public deployment',results},null,2));console.log('Release integration passed');
+}finally{for(const ws of sockets)ws.terminate();await server.close();}
