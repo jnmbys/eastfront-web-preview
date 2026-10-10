@@ -7,3 +7,5 @@
 01-legacy.jpg 原局；02-campaign-menu.jpg 已有原局、尚未创建新局；03-division-designer.jpg 新编制正常零经验局；04-both-saved.jpg 两局各自保存。当前本机测试局没有替换4267旧候选或用户线上战役。
 
 外部参考：Paradox cavalry bleed PNG 和 Steam ss_242abc1c2ca21f7d8694ba8d9239d8944217b29f JPG 均在浏览器打开时30秒超时；web文本打开只给图片链接，没有可审阅像素。没有声称观看，未重启原版，未继续循环尝试。气泡外观仍沿用002中性箭形/未知问号，最终参考像素对照尚未完成。
+
+最终干净构建重启后，实际浏览器再次进入 legacy 与 division 主页：各自原保存时间保留、默认暂停。返回菜单截图05显示两局继续入口。两份存档重启前后完整哈希一致，见 restart-before/after.json。没有以该界面复核冒称中期链路已由浏览器重做。
