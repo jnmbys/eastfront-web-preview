@@ -1,0 +1,22 @@
+2026-10-10 stage closeout; baseline e17f840cc80be4d9cff9070bb3e54bc499e383d2
+Command: node --test experiments/grand-division-002/freight-progress.test.mjs
+Exit: 0
+8 tests passed, 0 failed; duration 2202.1843 ms.
+
+Existing checks retained:
+0.03 hourly work completes one real 0.04 item across periods, not phantom capacity
+same-period work cannot be reused; no stock is reserved without paid positive capacity
+broken route or changed destination cancels reservation, never refunds spent work
+downsizing returns reserved item once plus actual surplus; fractional work gives no extra equipment
+failed commit discards reservations and work; already settled tick is rejected
+
+Added directed checks:
+captured source removes the authorized route; reserved goods return to original nation once, not the captor
+formal readoption cancels escrow atomically; replay and stale competition do not return goods or capacity twice
+authoritative death cleanup survives save/restart, excludes dead target and never refunds spent capacity
+
+Capture uses the real planNetwork function on a small authorized fixture, then transportProgress.
+Readoption uses formalTransaction, including eligibility failure, receipt replay and stale competition.
+Death uses Campaign.economyStep, recordEquipmentLoss and save/restore on an isolated in-memory Campaign.
+These are directed automated checks, not natural campaign outcomes or browser/tablet acceptance.
+No running user campaign was advanced, saved, loaded or modified by these tests.
