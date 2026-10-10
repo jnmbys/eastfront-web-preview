@@ -1,0 +1,366 @@
+{
+  "label": "actual browser flow; internal injected fixture",
+  "campaignFormat": "DIVISION-PIECES-TEST-1",
+  "pieces": {
+    "schema": "DIVISION-PIECES-TEST-1",
+    "fixture": true,
+    "tick": 6,
+    "fixtureAdoptionFee": 5,
+    "refill": {
+      "personnel": 250,
+      "infantry_equipment": 25,
+      "support_equipment": 10
+    },
+    "units": {
+      "G-013": {
+        "id": "G-013",
+        "side": "GERMAN",
+        "revision": 8,
+        "personnel": 1000,
+        "held": {
+          "infantry_equipment": 100,
+          "support_equipment": 0
+        },
+        "target": {
+          "manpower": 1000,
+          "equipment": {
+            "infantry_equipment": 100
+          }
+        },
+        "org": 85,
+        "trainingExperience": 0.4,
+        "templateId": "c6258183-9cfe-478a-a564-732376c5b593:division:1",
+        "templateVersion": 2
+      },
+      "S-013": {
+        "id": "S-013",
+        "side": "SOVIET",
+        "revision": 0,
+        "personnel": 1000,
+        "held": {
+          "infantry_equipment": 100,
+          "support_equipment": 0
+        },
+        "target": {
+          "manpower": 1000,
+          "equipment": {
+            "infantry_equipment": 100
+          }
+        },
+        "org": 85,
+        "trainingExperience": 0.4,
+        "templateId": null,
+        "templateVersion": null
+      }
+    },
+    "nations": {
+      "GERMAN": {
+        "xp": 20,
+        "manpower": 5000,
+        "stock": {
+          "infantry_equipment": 500,
+          "support_equipment": 100
+        }
+      },
+      "SOVIET": {
+        "xp": 30,
+        "manpower": 5000,
+        "stock": {
+          "infantry_equipment": 500,
+          "support_equipment": 100
+        }
+      }
+    },
+    "lastRefill": [
+      {
+        "unit": "G-013",
+        "personnel": 50,
+        "equipment": {
+          "infantry_equipment": 0,
+          "support_equipment": 0
+        }
+      },
+      {
+        "unit": "S-013",
+        "personnel": 0,
+        "equipment": {
+          "infantry_equipment": 0,
+          "support_equipment": 0
+        }
+      }
+    ],
+    "initial": {
+      "GERMAN": {
+        "personnel": 6000,
+        "infantry_equipment": 600,
+        "support_equipment": 100
+      },
+      "SOVIET": {
+        "personnel": 6000,
+        "infantry_equipment": 600,
+        "support_equipment": 100
+      }
+    },
+    "formalTemplates": {
+      "c6258183-9cfe-478a-a564-732376c5b593:division:1@1": {
+        "id": "c6258183-9cfe-478a-a564-732376c5b593:division:1",
+        "version": 1,
+        "side": "GERMAN",
+        "name": "新编制草案",
+        "status": "FORMAL_TEST",
+        "regiments": [
+          [
+            "INFANTRY",
+            "INFANTRY",
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ],
+        "support": [
+          "ENGINEER",
+          null,
+          null,
+          null,
+          null
+        ],
+        "requirements": {
+          "manpower": 2300,
+          "equipment": {
+            "infantry_equipment": 210,
+            "support_equipment": 30
+          }
+        }
+      },
+      "c6258183-9cfe-478a-a564-732376c5b593:division:1@2": {
+        "id": "c6258183-9cfe-478a-a564-732376c5b593:division:1",
+        "version": 2,
+        "side": "GERMAN",
+        "name": "新编制草案",
+        "status": "FORMAL_TEST",
+        "regiments": [
+          [
+            "INFANTRY",
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ],
+        "support": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "requirements": {
+          "manpower": 1000,
+          "equipment": {
+            "infantry_equipment": 100
+          }
+        }
+      }
+    }
+  },
+  "corps": [
+    {
+      "id": "GERMAN:0",
+      "members": [
+        "G-013",
+        "G-014",
+        "G-017",
+        "G-018",
+        "G-019",
+        "G-020"
+      ],
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 22,
+          "r": 5
+        },
+        "risk": "NORMAL",
+        "paused": true
+      }
+    },
+    {
+      "id": "GERMAN:1",
+      "members": [
+        "G-025",
+        "G-026",
+        "G-029",
+        "G-030",
+        "G-031",
+        "G-032"
+      ],
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 22,
+          "r": 5
+        },
+        "risk": "NORMAL",
+        "paused": true
+      }
+    },
+    {
+      "id": "GERMAN:2",
+      "members": [
+        "G-037",
+        "G-038",
+        "G-041",
+        "G-042",
+        "G-043",
+        "G-044"
+      ],
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 22,
+          "r": 5
+        },
+        "risk": "NORMAL",
+        "paused": true
+      }
+    },
+    {
+      "id": "SOVIET:0",
+      "members": [
+        "S-013",
+        "S-014",
+        "S-017",
+        "S-018",
+        "S-019",
+        "S-020"
+      ],
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 28,
+          "r": 2
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    },
+    {
+      "id": "SOVIET:1",
+      "members": [
+        "S-025",
+        "S-026",
+        "S-029",
+        "S-030",
+        "S-031",
+        "S-032"
+      ],
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 28,
+          "r": 2
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    },
+    {
+      "id": "SOVIET:2",
+      "members": [
+        "S-037",
+        "S-038",
+        "S-041",
+        "S-042",
+        "S-043",
+        "S-044"
+      ],
+      "order": {
+        "kind": "HOLD",
+        "target": {
+          "q": 28,
+          "r": 2
+        },
+        "risk": "NORMAL",
+        "paused": false
+      }
+    }
+  ],
+  "unit": {
+    "id": "G-013",
+    "templateId": "EQUIPPED:G-013",
+    "side": "GERMAN",
+    "type": "INFANTRY",
+    "step": 0,
+    "alive": true,
+    "hex": {
+      "q": 21,
+      "r": 4
+    },
+    "supplyState": "SUPPLIED",
+    "entrenched": false,
+    "hasMoved": false,
+    "hasAttacked": false,
+    "controllerId": "GERMAN",
+    "temporarySupply": false,
+    "dedicatedRailRepair": false,
+    "reconZocIgnoreUsed": false,
+    "artillerySupportUsed": false,
+    "lastHQCommandTurn": null
+  }
+}

@@ -46,5 +46,5 @@ export class ReleaseAdapter extends CampaignAdapter{
  async autoSave(){return this.exclusive(async()=>{if((Date.now()-this.lastSaveAt>=30000||this.c.clock.tick-(this.persistence.tick??0)>=12)&&this.savedRevision!==this.c.version){try{await this.saveFileNow();}catch{}}});}
  async offline(){return this.exclusive(async()=>{if(!this.c.clock.paused){this.c.clock.paused=true;this.c.version++;this.c.transport.worldGeneration++;}try{if(this.savedRevision!==this.c.version)await this.saveFileNow();}catch{}});}
  async newGame(expected){return this.exclusive(async()=>{if(expected.instanceId!==this.id||expected.revision!==this.revision)throw Error('战役状态已变化，请刷新入口后重新确认。');await this.saveFileNow();await atomicWriteAsync(this.saveFile+'.before-new',await fsp.readFile(this.saveFile));
-  const fresh=new CampaignAdapter({CampaignClass:Campaign});this.c=fresh.c;this.era=randomUUID();this.accumulated=0;this.c.clock.paused=true;await this.saveFileNow();return {ok:true};});}
+  const fresh=new CampaignAdapter({CampaignClass:this.releaseClass.newCampaignClass??Campaign});this.c=fresh.c;this.era=randomUUID();this.accumulated=0;this.c.clock.paused=true;await this.saveFileNow();return {ok:true};});}
 }
