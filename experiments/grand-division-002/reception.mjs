@@ -15,6 +15,6 @@ export function accrueReception(credits,factor=1,rates=cfg){
  return Object.fromEntries(Object.entries(credits).map(([k,q])=>[k,Math.floor(q+1e-9)]));
 }
 export function debitReception(credits,sent){
- credits.personnel=Math.max(0,credits.personnel-sent.personnel);
- for(const k of modelIds)credits[k]=Math.max(0,credits[k]-sent.equipment[k]);
+ credits.personnel=Math.max(0,credits.personnel-(sent.creditUse?.personnel??sent.personnel));
+ for(const k of modelIds)credits[k]=Math.max(0,credits[k]-(sent.creditUse?.[k]??sent.equipment[k]));
 }

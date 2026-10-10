@@ -1,0 +1,121 @@
+{
+  "kind": "directed-real-freight-functions",
+  "first": {
+    "personnel": 0,
+    "equipment": {
+      "infantry_equipment_1": 0,
+      "support_equipment_1": 0
+    },
+    "routes": [
+      {
+        "kind": "support_equipment_1",
+        "quantity": 0,
+        "work": 0.03,
+        "route": {
+          "source": "source",
+          "hub": "hub",
+          "path": [
+            "rail"
+          ]
+        },
+        "inTransit": true
+      }
+    ],
+    "reason": "装备已预留，运输分期完成；未到达不计入部队",
+    "cargo": {
+      "train": 0.03,
+      "edges": {
+        "rail": 0.03
+      },
+      "hubs": {
+        "hub": 0.03
+      },
+      "sources": {
+        "source": 0.03
+      }
+    },
+    "creditUse": {
+      "personnel": 0,
+      "infantry_equipment_1": 0,
+      "support_equipment_1": 1
+    },
+    "reserved": [
+      "support_equipment_1"
+    ],
+    "cancelled": [],
+    "inTransit": [
+      {
+        "unit": "A",
+        "side": "GERMAN",
+        "model": "support_equipment_1",
+        "destination": "1,1",
+        "route": {
+          "source": "source",
+          "hub": "hub",
+          "path": [
+            "rail"
+          ]
+        },
+        "required": 0.04,
+        "work": 0.03,
+        "since": 1,
+        "lastTick": 1
+      }
+    ]
+  },
+  "second": {
+    "personnel": 0,
+    "equipment": {
+      "infantry_equipment_1": 0,
+      "support_equipment_1": 1
+    },
+    "routes": [
+      {
+        "kind": "support_equipment_1",
+        "quantity": 0,
+        "work": 0.010000000000000002,
+        "route": {
+          "source": "source",
+          "hub": "hub",
+          "path": [
+            "rail"
+          ]
+        },
+        "inTransit": true
+      }
+    ],
+    "reason": "已按共享余量实际补充",
+    "cargo": {
+      "train": 0.010000000000000002,
+      "edges": {
+        "rail": 0.010000000000000002
+      },
+      "hubs": {
+        "hub": 0.010000000000000002
+      },
+      "sources": {
+        "source": 0.010000000000000002
+      }
+    },
+    "creditUse": {
+      "personnel": 0,
+      "infantry_equipment_1": 0,
+      "support_equipment_1": 0
+    },
+    "reserved": [],
+    "cancelled": [],
+    "inTransit": []
+  },
+  "totals": {
+    "GERMAN": {
+      "personnel": 1300,
+      "infantry_equipment_1": 110,
+      "support_equipment_1": 30
+    },
+    "SOVIET": {
+      "personnel": 0,
+      "infantry_equipment_1": 0,
+      "support_equipment_1": 0
+    }
+  }
+}

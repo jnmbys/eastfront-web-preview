@@ -1,0 +1,38 @@
+✔ paper, actual and supported modifiers stay distinct; missing kit gives no free engineer stats (0.9663ms)
+✔ actual equipment/personnel change damage, old fire is not an input (0.4554ms)
+✔ pair order does not create extra fire; duplicate participant against two opponents splits its attack (0.6896ms)
+✔ width is a shared side allowance including support sources; no infinite participant duplication (0.2229ms)
+✔ real elapsed combat events earn XP once per faction; duplicates and paused time earn nothing (1.9595ms)
+✔ initial zero XP does not invalidate initial template; formal fee is server diff and adoption is free (1.1368ms)
+✔ same-name creates use unique receipt IDs; stale rivals and failed eligibility roll back (1.1228ms)
+✔ 0.03 hourly work completes one real 0.04 item across periods, not phantom capacity (2.9607ms)
+✔ same-period work cannot be reused; no stock is reserved without paid positive capacity (0.4178ms)
+✔ broken route or changed destination cancels reservation, never refunds spent work (0.3147ms)
+✔ downsizing returns reserved item once plus actual surplus; fractional work gives no extra equipment (0.301ms)
+✔ failed commit discards reservations and work; already settled tick is rejected (1.4251ms)
+✔ unchanged legacy rules: same accepted clock actions, 48 steps, state/economy/RNG match baseline (5548.7724ms)
+✔ new save is isolated; new resume is deterministic and no resource grant occurs (9662.7019ms)
+✔ completed withdrawal marker does not block normal adoption; active withdrawal still does (940.9608ms)
+✔ failed formal commit restores resources/templates; stale adoption and enemy unit are rejected (1000.9807ms)
+✔ new authorized snapshot includes model particulars only for own units; no enemy XP/stock/template ledger (966.1263ms)
+✔ explicit model demands: infantry + engineer + cavalry recon; unknown/fifth row rejected (1.1088ms)
+✔ final diff: undo, copy and rename do not create slot changes; support replacement is one changed slot (0.2806ms)
+✔ fractional factory work yields whole items only; no legacy stock interpretation (0.7004ms)
+✔ shared daily/cargo capacity pays once; second unit cannot reuse the same train/rail/hub space (0.563ms)
+✔ broken/disconnected route never delivers; downsizing returns the exact model and preserves state (0.345ms)
+✔ failed conservation and duplicate ticks are rejected; save/restart keeps fractional work and exact stock (1.0568ms)
+✔ component accounting separates unfilled personnel from absent support kit (0.9716ms)
+✔ extracted reception algorithm exactly preserves baseline accrual/debit (15.9255ms)
+✔ one accepted action rendered once while both battle associations remain available (0.5174ms)
+✔ real rate and freight loops reveal 50 day reception cap and indivisible support blockage (162.5779ms)
+✔ approved rates apply only to new campaigns; missing old field restores explicitly as old rate (1114.6305ms)
+✔ two clients create same-name formal templates using authoritative receipt identity (1098.2103ms)
+✔ manual order generation prevents stale adoption; file restart preserves ledger and rejects old connection (2090.357ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18443.9537

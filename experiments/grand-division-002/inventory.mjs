@@ -10,12 +10,14 @@ export function createInventory(manifest){
  for(const n of Object.values(s.nations)){n.produced=zero();n.lost=zero();n.personnelLost=0;}
  s.initial=totals(s);validate(s);return s;
 }
-export function totals(s){return Object.fromEntries(Object.entries(s.nations).map(([side,n])=>{const total={personnel:n.manpower,...n.stock};for(const u of Object.values(s.units).filter(u=>u.side===side)){total.personnel+=u.personnel;for(const k of modelIds)total[k]+=u.held[k];}return [side,total];}));}
+export function totals(s){return Object.fromEntries(Object.entries(s.nations).map(([side,n])=>{const total={personnel:n.manpower,...n.stock};for(const u of Object.values(s.units).filter(u=>u.side===side)){total.personnel+=u.personnel;for(const k of modelIds)total[k]+=u.held[k];}for(const r of Object.values(s.freightReservations??{}))if(r.side===side)total[r.model]+=1;return [side,total];}));}
+export function cancelReservedFreight(s,id){for(const[key,r]of Object.entries(s.freightReservations??{}))if(r.unit===id){s.nations[r.side].stock[r.model]++;delete s.freightReservations[key];}}
 export function validate(s){
  if(s.schema!==SCHEMA||!integer(s.version)||!Number.isSafeInteger(s.settledTick)||s.settledTick< -1)fail('MODEL_SAVE_VERSION');
  for(const side of ['GERMAN','SOVIET']){const n=s.nations[side];if(!n||!integer(n.manpower)||!integer(n.personnelLost)||modelIds.some(k=>!integer(n.stock[k])||!integer(n.produced[k])||!integer(n.lost[k])))fail('MODEL_POOL_INVALID');if(Object.keys(n.stock).some(k=>!modelIds.includes(k)&&!['TRAIN','TRUCK'].includes(k)||!integer(n.stock[k])))fail('MODEL_UNKNOWN_STOCK');}
  for(const[id,u]of Object.entries(s.units)){if(id!==u.id||!s.nations[u.side]||!integer(u.personnel)||!integer(u.target.manpower)||!integer(u.revision)||!finite(u.org)||!finite(u.trainingExperience)||modelIds.some(k=>!integer(u.held[k])||!integer(u.target.equipment[k])))fail('MODEL_UNIT_INVALID');}
  for(const l of Object.values(s.lines))if(!modelIds.includes(l.model)||!finite(l.work)||!integer(l.completed)||!s.nations[l.side])fail('MODEL_LINE_INVALID');
+ for(const[key,r]of Object.entries(s.freightReservations??{}))if(key!==r.unit+':'+r.model||!s.units[r.unit]||s.units[r.unit].side!==r.side||!modelIds.includes(r.model)||!finite(r.work)||!finite(r.required)||r.required<=0||r.work>=r.required||!r.route||!Array.isArray(r.route.path)||typeof r.destination!=='string')fail('MODEL_FREIGHT_RESERVATION_INVALID');
  const total=totals(s);for(const side of ['GERMAN','SOVIET']){const n=s.nations[side];if(total[side].personnel+n.personnelLost!==s.initial[side].personnel)fail('MODEL_PERSONNEL_CONSERVATION');for(const k of modelIds)if(total[side][k]+n.lost[k]!==s.initial[side][k]+n.produced[k])fail('MODEL_EQUIPMENT_CONSERVATION');}
 }
 /** Work is furnished by the existing factory allocator; no factory work is created. */
@@ -30,6 +32,7 @@ export function produce(s,{line,side,model,work}){
 }
 export function returnSurplus(s,id,target){
  const u=s.units[id];if(!u||!integer(target.manpower)||modelIds.some(k=>!integer(target.equipment[k])))fail('MODEL_TARGET_INVALID');
+ cancelReservedFreight(s,id);
  const n=s.nations[u.side],returned={personnel:Math.max(0,u.personnel-target.manpower),equipment:zero()};
  n.manpower+=returned.personnel;u.personnel-=returned.personnel;
  for(const k of modelIds){const q=Math.max(0,u.held[k]-target.equipment[k]);u.held[k]-=q;n.stock[k]+=q;returned.equipment[k]=q;}
