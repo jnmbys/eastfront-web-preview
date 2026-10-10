@@ -28,3 +28,6 @@ await writeFile('dist/diagnostics/transport/build.json',JSON.stringify({sourceCo
 
 const startupDiagnosticPath='dist/app/web/startupDiagnostics.js';
 await writeFile(startupDiagnosticPath,(await readFile(startupDiagnosticPath,'utf8')).replace('__EASTFRONT_SOURCE_COMMIT__',sourceCommit));
+
+// Pure formation calculator, shared by the authoritative candidate and editor.
+await import('node:fs').then(fs=>fs.copyFileSync('src/playable/combinedAttributes.mjs','dist/app/playable/combinedAttributes.mjs'));

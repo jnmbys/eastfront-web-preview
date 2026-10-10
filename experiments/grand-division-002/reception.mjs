@@ -8,13 +8,13 @@ export function receptionRates(policy){
  if(policy!==undefined&&![LEGACY_RECEPTION,CURRENT_RECEPTION].includes(policy))throw Error('UNSUPPORTED_RECEPTION_POLICY');
  return {ticksPerDay:cfg.ticksPerDay,personnelDay:policy===CURRENT_RECEPTION?300:60,equipmentDay:policy===CURRENT_RECEPTION?10:2};
 }
-export function accrueReception(credits,factor=1,rates=cfg){
+export function accrueReception(credits,factor=1,rates=cfg,ids=modelIds){
  const people=rates.personnelDay/rates.ticksPerDay*factor,item=rates.equipmentDay/rates.ticksPerDay*factor;
  credits.personnel=Math.min(1+people,credits.personnel+people);
- for(const k of modelIds)credits[k]=Math.min(1+item,credits[k]+item);
+ for(const k of ids)credits[k]=Math.min(1+item,credits[k]+item);
  return Object.fromEntries(Object.entries(credits).map(([k,q])=>[k,Math.floor(q+1e-9)]));
 }
-export function debitReception(credits,sent){
+export function debitReception(credits,sent,ids=modelIds){
  credits.personnel=Math.max(0,credits.personnel-(sent.creditUse?.personnel??sent.personnel));
- for(const k of modelIds)credits[k]=Math.max(0,credits[k]-(sent.creditUse?.[k]??sent.equipment[k]));
+ for(const k of ids)credits[k]=Math.max(0,credits[k]-(sent.creditUse?.[k]??sent.equipment[k]));
 }

@@ -33,7 +33,7 @@ export function commandDock(p:GrandPort,id:string|null,extra:string){const d=p.d
  if(mode==='division'){title='师编制设计';body=divisionPanel(p,id);}
  if(mode==='war'){title='战争概览';body=warPanel(p);}
  if(mode==='army'){title=group.name;body=planPanel(p)+`<details><summary>部队与补给 · ${commandedMembers(c,group).length}队</summary>${corpsLogistics(p,commandedMembers(c,group))}${campaignOrders(p,id,false)}</details>`;}
- if(mode==='unit'){title='部队指挥';body=stackPanel(p)+(id?campaignUnit(p,id)+(d.modern?modernUnit(p,id):recoveryPanel(p,id))+`<button data-ui-locate-unit="${esc(id)}">定位所选部队</button>`:'<p>点击地图部队，查看状态并下令。</p>');}
+ if(mode==='unit'){title='部队指挥';body=stackPanel(p)+(id?campaignUnit(p,id)+combinedUnit(p,id)+(d.modern?modernUnit(p,id):recoveryPanel(p,id))+`<button data-ui-locate-unit="${esc(id)}">定位所选部队</button>`:'<p>点击地图部队，查看状态并下令。</p>');}
  if(mode==='direct'){title='全部部队 · '+direct.length+'队';body='<p>点击任意己方部队直接下令，保留原军团归属。</p>'+direct.map((id:string)=>`<button class="ui-unit-choice" data-ui-unit="${esc(id)}">${esc(id)} · ${esc(ownStatus(p,id)?.action)}<small>${ownStatus(p,id)?.low?'低组织 · ':''}${esc(gearSummary(ownStatus(p,id)))}</small></button>`).join('');}
  if(mode==='battle'||mode==='tools'){title=mode==='battle'?'战斗指挥':'战线与图层';body=mapPanel(p,id)+(mode==='tools'?`<div hidden>${campaignOrders(p,id,false)}</div>`:'');}
  if(mode==='city'){title='城市管理';body=cityMarkup(p);}
@@ -57,3 +57,5 @@ export function bindCommandInterface(p:GrandPort,id:string|null,refresh:()=>void
  document.querySelectorAll<HTMLElement>('[data-ui-stop]').forEach(el=>el.onclick=()=>{const g=c.corps.find((g:any)=>g.id===el.dataset.uiStop);void p.operation({type:'ORDER',group:g.id,order:{...g.order,paused:true}});});
  document.querySelectorAll<HTMLElement>('[data-ui-unit]').forEach(el=>el.onclick=()=>{document.getElementById('direct-cancel')?.click();p.selections['ui-panel']='unit';select(el.dataset.uiUnit!);});
 }
+
+function combinedUnit(p:GrandPort,id:string){const v=p.data.continuous.units[id],a=v?.division;if(!p.data.divisions?.integrated?.catalog||!a)return '';return `<section class="combined-unit"><b>编制实际能力</b><p>软攻 ${a.effective.softAttack.toFixed(1)}／满编 ${a.paper.softAttack.toFixed(1)} · 硬攻 ${a.effective.hardAttack.toFixed(1)} · 硬度 ${Math.round(a.effective.hardness*100)}%</p><p>装甲 ${a.effective.armor.toFixed(1)} · 穿甲 ${a.effective.piercing.toFixed(1)} · 速度 ${a.effective.speed.toFixed(1)} km/h</p>${v.fuel?.capacity?`<p>燃料 ${v.fuel.held.toFixed(1)} / ${v.fuel.capacity.toFixed(1)} · ${v.fuel.consumptionHour.toFixed(2)}/行动小时</p><small>${esc(v.fuel.reason)}</small>`:''}<details><summary>满编、缺装与燃料</summary><p>攻击、防御、突破按各组成的实际人员装备计算；混编取最慢营。燃料缺口会限制机动与进攻。此为已批准的项目适配。</p></details></section>`;}

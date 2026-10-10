@@ -17,7 +17,7 @@ export function planNetwork(view,e,side,nodes,clock,placements){
  }
  const hubs=Object.values(e.hubs).filter(h=>allowed(h.hex)).sort((a,b)=>a.id.localeCompare(b.id));
  const activeUnits=view.units.filter(u=>u.side===side&&u.friendly?.alive),armyOf=id=>placements.find(p=>p.id===id)?.army;
- let trucks=e.nations[side].stock.TRUCK,truckNeed=0;
+ let trucks=e.nations[side].stock[e.transportTruckModel??'TRUCK'],truckNeed=0;
  const hubRows=hubs.map(h=>{
   const choices=sources.map(s=>paths.get(s.id)?.get(h.hex)).filter(Boolean).sort((a,b)=>b.cap-a.cap||a.path.length-b.path.length||a.source.localeCompare(b.source));
   const route=choices[0]??null,need=h.motor*cfg.truckPerHub;truckNeed+=need;const allocated=Math.min(need,trucks);trucks-=allocated;const range=cfg.footRange+(cfg.motorRange-cfg.footRange)*(need?allocated/need:0),reach=new Map(),queue=[{at:h.hex,cost:0}];
@@ -45,5 +45,5 @@ export function planNetwork(view,e,side,nodes,clock,placements){
   const names={TRAIN:'火车不足',SOURCE:'后方来源满载',HUB:'枢纽满载',RAIL:'铁路拥堵',COVERAGE:'末端覆盖不到',DISCONNECTED:'铁路线路中断',TRUCK:'卡车不足'};if(causes.size)reason=[...new Set([...causes.values()].map(x=>names[x.type]))].join('；');
   rows[u.id]={bottlenecks:[...causes.values()],constraints:[...new Map(constraints.map(x=>[x.type+x.id,x])).values()],need,received:supplied,local,ratio:Math.min(1,supplied/need),access:Math.min(1,access/need),reason,route,routes:reachable.flatMap(h=>h.routes.map(r=>({hub:h.id,path:r.path,source:r.source})))};
  }
- return {side,rows,hubs:hubRows.map(({reach,...h})=>({...h,coverage:[...reach.keys()],used:hubUsed[h.id]??0})),trainUsed,trainDemand,trainNeed:Math.ceil(trainDemand/cfg.trainWork),trains:nation.stock.TRAIN,trucks:nation.stock.TRUCK,trucksUsed:nation.stock.TRUCK-trucks,truckNeed,edges:edgeUsed,sources:sourceUsed,shipments,expanded};
+ return {side,rows,hubs:hubRows.map(({reach,...h})=>({...h,coverage:[...reach.keys()],used:hubUsed[h.id]??0})),trainUsed,trainDemand,trainNeed:Math.ceil(trainDemand/cfg.trainWork),trains:nation.stock.TRAIN,trucks:nation.stock[e.transportTruckModel??'TRUCK'],trucksUsed:nation.stock[e.transportTruckModel??'TRUCK']-trucks,truckNeed,edges:edgeUsed,sources:sourceUsed,shipments,expanded};
 }

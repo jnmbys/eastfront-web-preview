@@ -22,3 +22,5 @@ writeFileSync(preview+'/ai003-build.json',JSON.stringify({task:'AI-003',sourceCo
 cpSync('playable.css',preview+'/playable.css');
 writeFileSync(preview+'/index.html',readFileSync(preview+'/index.html','utf8').replace('</head>','<link rel="stylesheet" href="./playable.css"></head>'));
 cpSync('public/assets/playable',preview+'/assets/playable',{recursive:true});
+
+cpSync('src/playable/combinedAttributes.mjs',preview+'/src/playable/combinedAttributes.mjs');

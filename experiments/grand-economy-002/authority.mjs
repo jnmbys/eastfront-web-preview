@@ -54,7 +54,7 @@ export class Campaign extends Conservative{
   d.modern.demands=demands(e,side,d.game.message.payload.view,this.econ.gear,this.clock.tick);d.modern.explanations=explain(e,side,this.clock,this.econ.gear);d.modern.logisticsObjects={};for(const x of Object.values(d.modern.explanations))for(const r of x.routes)r.objects=r.objects.map(o=>{const id=o.type+':'+o.id,{divisor,...object}=o;d.modern.logisticsObjects[id]=object;return id;});d.modern.management=copy(e.management?.[side]??null);
   for(const r of Object.values(d.modern.network.rows))delete r.constraints;
   const date=new Date(Date.parse(cfg.date)+this.clock.tick*rules.minutes*60000);d.continuous.calendar=date.toISOString().slice(5,16).replace('T',' ');d.continuous.victoryText='七日战役；第五日后中央枢纽与任一侧站区保持24小时可提前结束。';d.continuous.economyRules=VERSION;
-  d.ux.vehicles={TRAIN:{available:n.stock.TRAIN,needed:d.modern.demands.TRAIN.gross},TRUCK:{available:n.stock.TRUCK,needed:d.modern.demands.TRUCK.gross}};
+  d.ux.vehicles={TRAIN:{available:n.stock.TRAIN,needed:d.modern.demands.TRAIN.gross},TRUCK:{available:n.stock[e.transportTruckModel??'TRUCK'],needed:d.modern.demands[e.transportTruckModel??'TRUCK'].gross}};
   for(const g of d.ux.equipment){g.required=copy(e.establishment[g.id]);g.repair={recipe:{},missing:[]};}
   for(const[id,v]of Object.entries(d.continuous.units)){const supply=this.clock.units[id].dailySupply??net.rows[id];if(supply){const {routes,constraints,...current}=supply;v.dailySupply=copy(current);}v.refillStatus=copy(this.clock.units[id].refillStatus);v.reason=v.reason.replace('等待人员和对应装备','按通达率逐步补人补装、恢复组织');}
   // No legacy P packets, cash income, expiry or warehouse demand presented as active rules.

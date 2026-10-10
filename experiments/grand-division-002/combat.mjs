@@ -1,8 +1,11 @@
 import {reference,modelDemand} from './model-demand.mjs';
+import {reference as combinedReference,PROFILE} from '../grand-division-003/catalog.mjs';
+import {combinedAttributes,terrainModifier} from '../grand-division-003/attributes.mjs';
 // Leader-approved project continuous-time adaptation. NOT the HOI4 battle engine.
 export const COMBAT_POLICY='DIVISION-002-COMBAT-ADAPTATION-1';
 const weapon={...reference.models.infantry_equipment_1.archetypeFields,...reference.models.infantry_equipment_1.modelFields};
-export function attributes(template,actual){
+export function attributes(template,actual,profile){
+ if(profile===PROFILE)return combinedAttributes(template,actual,combinedReference);
  const demand=modelDemand(template),ids=[...template.regiments.flat(),...template.support].filter(Boolean);
  const paper={orgMax:0,hp:0,width:0,supply:0,softAttack:0,hardAttack:0,defense:0,breakthrough:0,armor:0,piercing:weapon.ap_attack,speed:4};
  const effective={softAttack:0,hardAttack:0,defense:0,breakthrough:0},components=[];
@@ -22,7 +25,7 @@ export function attributes(template,actual){
  * Caller supplies actual accepted contacts, authoritative random draws and unit data.
  * No future prediction and no query exposed to policy clients.
  */
-export function resolveContacts({contacts,units,stats,random,minutes=5,tick=0,damageScale=1}){
+export function resolveContacts({contacts,units,stats,random,minutes=5,tick=0,damageScale=1,combined=false,terrainFor=()=>null}){
  const groups=new Map();for(const c of contacts){const g=groups.get(c.hex)??{ids:new Set(),pairs:[]};g.pairs.push(c);for(const id of c.units)g.ids.add(id);groups.set(c.hex,g);}
  const participating=new Set(),waiting=new Set(),accepted=[];
  for(const [hex,g]of [...groups].sort(([a],[b])=>a.localeCompare(b))){
@@ -35,7 +38,7 @@ export function resolveContacts({contacts,units,stats,random,minutes=5,tick=0,da
  const opponents=new Map(),attacking=new Set();for(const c of accepted){for(const id of c.initiators??[])attacking.add(id);const[a,b]=c.units;for(const[id,other]of [[a,b],[b,a]]){const set=opponents.get(id)??new Set();set.add(other);opponents.set(id,set);}}
  const damage={},orgDamage={},traces=[];
  for(const id of [...opponents.keys()].sort()){const targets=[...opponents.get(id)].sort(),a=stats[id].effective;
-  for(const target of targets){const d=stats[target].effective,attack=a.softAttack/targets.length,defense=(attacking.has(target)?d.breakthrough:d.defense)/Math.max(1,opponents.get(target).size),hits=(Math.min(attack,defense)*.1+Math.max(0,attack-defense)*.4)*minutes/60;
+  for(const target of targets){const d=stats[target].effective,hardness=combined?Math.max(0,Math.min(1,d.hardness)):0,ground=terrainFor(target),attack=(a.softAttack*(1-hardness)+a.hardAttack*hardness)/targets.length*(combined?1+terrainModifier(stats[id],ground,'attack'):1),defense=(attacking.has(target)?d.breakthrough:d.defense)/Math.max(1,opponents.get(target).size)*(combined?1+terrainModifier(stats[target],ground,'defence'):1),piercing=combined&&d.armor>0?a.piercing/d.armor:1,armorFactor=piercing>=1?1:piercing>=.75?.8:piercing>=.5?.65:.5,hits=(Math.min(attack,defense)*.1+Math.max(0,attack-defense)*.4)*minutes/60*armorFactor;
    const hp=hits*damageScale*.06*(1+Math.floor(random()*2)),org=hits*damageScale*.053*(1+Math.floor(random()*4));damage[target]=(damage[target]??0)+hp;orgDamage[target]=(orgDamage[target]??0)+org;traces.push({source:id,target,hits,hp,org});
   }
  }

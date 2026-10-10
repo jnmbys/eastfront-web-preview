@@ -84,7 +84,7 @@ export function ownership(c){const e=c.econ.modern;if(!e)return;
 }
 export function dailySupply(c){const e=c.econ.modern;
  e.networkSignatures??={};
- for(const side of sides){const view=c.fair(side).view,sig=JSON.stringify([view.units.map(u=>[u.id,key(u.hex)]),view.hexes.filter(h=>h.control===side).map(h=>key(h.coord)),view.edges.filter(x=>x.railway?.present).map(x=>[x.key,x.railway.destroyed,x.bridge?.destroyed,e.rails[x.key]?.level,e.rails[x.key]?.damage]),Object.values(e.hubs).filter(h=>view.hexes.some(x=>key(x.coord)===h.hex&&x.control===side)).map(h=>[h.id,h.level,h.motor])]);
+ for(const side of sides){const view=c.fair(side).view,sig=JSON.stringify([...(e.transportTruckModel?[e.nations[side].stock[e.transportTruckModel],e.divisionDailyNeed]:[]),view.units.map(u=>[u.id,key(u.hex)]),view.hexes.filter(h=>h.control===side).map(h=>key(h.coord)),view.edges.filter(x=>x.railway?.present).map(x=>[x.key,x.railway.destroyed,x.bridge?.destroyed,e.rails[x.key]?.level,e.rails[x.key]?.damage]),Object.values(e.hubs).filter(h=>view.hexes.some(x=>key(x.coord)===h.hex&&x.control===side)).map(h=>[h.id,h.level,h.motor])]);
   if(c.clock.tick%cfg.networkTicks===0||sig!==e.networkSignatures[side]){e.net[side]={...timedNetwork(c,view,side),tick:c.clock.tick};e.networkSignatures[side]=sig;}
  }
 

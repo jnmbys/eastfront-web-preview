@@ -1,3 +1,4 @@
+import {Campaign as Combined} from '../grand-division-003/authority.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -8,6 +9,7 @@ import {readSave,atomicWrite} from '../grand-release-001/persistence.mjs';
 import {backupBeforeRelease} from './backup.mjs';
 
 export const campaignModes=Object.freeze({
+ combined:{CampaignClass:Combined,directory:'division-003',label:'多兵种编制候选',description:'独立新规则：炮兵、摩托与LT-0轻坦；真实件数、燃料与混编属性。旧战役不转换。'},
  legacy:{CampaignClass:Legacy,directory:'',label:'原战役',description:'继续原有规则与进度，不转换人员、库存或部队。'},
  division:{CampaignClass:Division,directory:'division-002',label:'新编制实验战役（步兵先行）',description:'独立新局：步兵、工兵、骑兵侦察。项目战斗适配，非完整钢四复刻；初始经验0，正常生产与运输补充。'}
 });
@@ -27,7 +29,9 @@ export async function start(options={}){
  // Compatibility rollback disables admission to the new engine, never redirects
  // its file into the legacy reader and never deletes its progress.
  const enabled=process.env.RELEASE_DIVISION_ENABLED!=='0';
- return publicServer({...options,saveDir,campaignModes:enabled?campaignModes:{legacy:campaignModes.legacy}});
+ const admitted=enabled?{...campaignModes}:{legacy:campaignModes.legacy};
+ if(process.env.RELEASE_COMBINED_ENABLED==='0')delete admitted.combined;
+ return publicServer({...options,saveDir,campaignModes:admitted});
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const service=await start();console.log('GRAND-RELEASE-002 dual campaign preview ready');let closing=false;

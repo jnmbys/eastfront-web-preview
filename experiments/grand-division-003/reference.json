@@ -1,0 +1,363 @@
+{
+  "environment": "HOI4 1.19.3 user existing environment; recorded enabled DLC; no clean-install claim",
+  "evidenceKind": "file definitions, not observed engine aggregation or unlock verification",
+  "models": {
+    "artillery_equipment_1": {
+      "source": "common/units/equipment/artillery.txt",
+      "archetype": "artillery_equipment",
+      "base": {
+        "scalar": {
+          "reliability": 0.8,
+          "maximum_speed": 4.0,
+          "defense": 11.0,
+          "breakthrough": 10.0,
+          "hardness": 0.0,
+          "armor_value": 0.0,
+          "soft_attack": 26.0,
+          "hard_attack": 2.0,
+          "ap_attack": 5.0,
+          "build_cost_ic": 3.5
+        },
+        "resources": {
+          "tungsten": 1.0,
+          "steel": 2.0
+        }
+      },
+      "concrete": {
+        "scalar": {}
+      },
+      "parent": [],
+      "parentInheritance": "not inferred"
+    },
+    "motorized_equipment_1": {
+      "source": "common/units/equipment/motorized.txt",
+      "archetype": "motorized_equipment",
+      "base": {
+        "scalar": {
+          "maximum_speed": 12.0,
+          "reliability": 0.8,
+          "hardness": 0.1,
+          "breakthrough": 5.0,
+          "build_cost_ic": 2.5,
+          "fuel_consumption": 1.2
+        },
+        "resources": {
+          "rubber": 1.0,
+          "steel": 1.0
+        }
+      },
+      "concrete": {
+        "scalar": {}
+      },
+      "parent": [
+        "motorized_equipment_0"
+      ],
+      "parentInheritance": "not inferred"
+    }
+  },
+  "units": {
+    "ARTILLERY": {
+      "source": "common/units/artillery_brigade.txt",
+      "originalId": "artillery_brigade",
+      "group": "combat_support",
+      "manpower": 500,
+      "need": {
+        "artillery_equipment": 24.0
+      },
+      "stats": {
+        "scalar": {
+          "combat_width": 3.0,
+          "max_strength": 1.6,
+          "max_organisation": 0.0,
+          "weight": 0.5,
+          "supply_consumption": 0.21
+        }
+      },
+      "terrain": {
+        "forest": {
+          "attack": -0.2,
+          "movement": -0.2
+        },
+        "hills": {
+          "movement": -0.05
+        },
+        "mountain": {
+          "movement": -0.2
+        },
+        "jungle": {
+          "attack": -0.25,
+          "movement": -0.2
+        },
+        "marsh": {
+          "attack": -0.2,
+          "movement": -0.3
+        },
+        "fort": {
+          "attack": 0.1
+        },
+        "river": {
+          "attack": -0.2,
+          "movement": -0.2
+        },
+        "amphibious": {
+          "attack": -0.4
+        }
+      },
+      "active": "yes",
+      "unlockVerified": false
+    },
+    "SUPPORT_ARTILLERY": {
+      "source": "common/units/artillery.txt",
+      "originalId": "artillery",
+      "group": "support",
+      "manpower": 300,
+      "need": {
+        "artillery_equipment": 12.0
+      },
+      "stats": {
+        "scalar": {
+          "combat_width": 0.0,
+          "max_organisation": 0.0,
+          "max_strength": 0.2,
+          "weight": 0.1,
+          "supply_consumption": 0.16,
+          "defense": -0.5,
+          "breakthrough": -0.5,
+          "soft_attack": -0.5,
+          "hard_attack": -0.5
+        }
+      },
+      "terrain": {},
+      "active": "yes",
+      "unlockVerified": false
+    },
+    "MOTORIZED": {
+      "source": "common/units/infantry.txt",
+      "originalId": "motorized",
+      "group": "mobile",
+      "manpower": 1200,
+      "need": {
+        "infantry_equipment": 100.0,
+        "motorized_equipment": 35.0
+      },
+      "stats": {
+        "scalar": {
+          "combat_width": 2.0,
+          "max_strength": 25.0,
+          "max_organisation": 60.0,
+          "weight": 0.75,
+          "supply_consumption": 0.065
+        }
+      },
+      "terrain": {
+        "forest": {
+          "attack": -0.1,
+          "movement": -0.5
+        },
+        "mountain": {
+          "attack": -0.05
+        },
+        "jungle": {
+          "attack": -0.2,
+          "movement": -0.5
+        },
+        "marsh": {
+          "attack": -0.1,
+          "movement": -0.3
+        },
+        "urban": {
+          "attack": -0.1
+        },
+        "river": {
+          "attack": -0.1,
+          "movement": -0.1
+        },
+        "amphibious": {
+          "attack": -0.2
+        }
+      },
+      "active": "no",
+      "unlockVerified": false
+    },
+    "LIGHT_ARMOR": {
+      "source": "common/units/light_armor.txt",
+      "originalId": "light_armor",
+      "group": "armor",
+      "manpower": 500,
+      "need": {
+        "light_tank_chassis": 60.0
+      },
+      "stats": {
+        "scalar": {
+          "combat_width": 2.0,
+          "max_organisation": 10.0,
+          "max_strength": 2.0,
+          "weight": 1.0,
+          "supply_consumption": 0.22,
+          "breakthrough": 0.15
+        }
+      },
+      "terrain": {
+        "forest": {
+          "attack": -0.2,
+          "movement": -0.4
+        },
+        "mountain": {
+          "attack": -0.1
+        },
+        "jungle": {
+          "attack": -0.3,
+          "movement": -0.4
+        },
+        "marsh": {
+          "attack": -0.1,
+          "movement": -0.1
+        },
+        "urban": {
+          "attack": -0.4,
+          "defence": -0.1
+        },
+        "river": {
+          "attack": -0.2,
+          "movement": -0.2
+        },
+        "amphibious": {
+          "attack": -0.4
+        }
+      },
+      "active": "yes",
+      "unlockVerified": false
+    }
+  },
+  "tank": {
+    "name": "Leichttraktor",
+    "source": "history/countries/GER - Germany.txt",
+    "requiredDLC": "No Step Back (recorded in prior user-environment evidence)",
+    "chassisId": "light_tank_chassis_0",
+    "moduleSlots": {
+      "main_armament_slot": "tank_small_cannon",
+      "turret_type_slot": "tank_light_two_man_tank_turret",
+      "suspension_type_slot": "tank_christie_suspension",
+      "armor_type_slot": "tank_riveted_armor",
+      "engine_type_slot": "tank_gasoline_engine",
+      "special_type_slot_1": "tank_radio_1"
+    },
+    "upgradeLevels": {
+      "tank_nsb_engine_upgrade": 2.0,
+      "tank_nsb_armor_upgrade": 2.0
+    },
+    "chassisBase": {
+      "scalar": {
+        "fuel_consumption": 0.0,
+        "maximum_speed": 4.0,
+        "build_cost_ic": 2.0,
+        "reliability": 0.8,
+        "hardness": 0.8,
+        "armor_value": 10.0
+      },
+      "resources": {
+        "steel": 1.0
+      }
+    },
+    "chassisConcrete": {
+      "scalar": {}
+    },
+    "modules": {
+      "tank_small_cannon": {
+        "scalar": {},
+        "add_stats": {
+          "soft_attack": 10.0,
+          "hard_attack": 6.0,
+          "ap_attack": 25.0,
+          "build_cost_ic": 1.5,
+          "maximum_speed": -0.1,
+          "reliability": -0.1
+        }
+      },
+      "tank_light_two_man_tank_turret": {
+        "scalar": {},
+        "add_stats": {
+          "build_cost_ic": 1.25,
+          "breakthrough": 10.0
+        },
+        "multiply_stats": {}
+      },
+      "tank_christie_suspension": {
+        "scalar": {},
+        "add_stats": {
+          "build_cost_ic": 1.0
+        },
+        "multiply_stats": {
+          "maximum_speed": 0.2
+        }
+      },
+      "tank_riveted_armor": {
+        "scalar": {},
+        "add_stats": {
+          "defense": 2.0,
+          "breakthrough": 2.0
+        },
+        "multiply_stats": {
+          "build_cost_ic": -0.2
+        }
+      },
+      "tank_gasoline_engine": {
+        "scalar": {},
+        "add_stats": {
+          "build_cost_ic": 1.0,
+          "fuel_consumption": 2.0,
+          "maximum_speed": 0.5
+        },
+        "multiply_stats": {
+          "maximum_speed": 0.15
+        }
+      },
+      "tank_radio_1": {
+        "scalar": {},
+        "add_stats": {
+          "build_cost_ic": 0.5
+        },
+        "multiply_stats": {
+          "defense": 0.2,
+          "breakthrough": 0.15
+        }
+      }
+    },
+    "upgrades": {
+      "tank_nsb_engine_upgrade": {
+        "scalar": {
+          "reliability": -0.015
+        },
+        "add_stats": {
+          "fuel_consumption": 0.05,
+          "build_cost_ic": 0.1,
+          "maximum_speed": 0.1
+        }
+      },
+      "tank_nsb_armor_upgrade": {
+        "scalar": {
+          "reliability": -0.015
+        },
+        "add_stats": {
+          "maximum_speed": -0.1,
+          "breakthrough": 1.25,
+          "build_cost_ic": 0.2,
+          "armor_value": 2.5
+        }
+      }
+    },
+    "aggregationStatus": "pending project policy; these components alone do not prove runtime totals"
+  },
+  "sources": {
+    "common/units/equipment/artillery.txt": "c2288032e61a461af7b3fdb6765f72d256a502f5050567f51e25798bb690cd54",
+    "common/units/equipment/motorized.txt": "b25c3797280f471b89a43da5b02e135091cf205acdf37c09d547a88df52d5128",
+    "common/units/artillery_brigade.txt": "9826452615dfa490c2167480c3e4695283d438e2a719df85fdef06a02d8b8541",
+    "common/units/artillery.txt": "10f299c45b79fe67562e2508fe79ef1db077c1ece995b2eeccff612e4a51e28c",
+    "common/units/infantry.txt": "a59f843848664f84ec4e2c71b32ead8ec0a3d769a3dd55a2c50dfe5eab6476ba",
+    "common/units/light_armor.txt": "2136131fe9952dacefc0df98453ea4365d559a410f49781df3e0124a04ae1f97",
+    "history/countries/GER - Germany.txt": "5e903c2b485b48d8bba38adbe0b6fd5cadc868df4a575d526a1ef2dac4ab66d7",
+    "common/units/equipment/tank_chassis.txt": "5f77546f91c66d99df005314c3c4e2a2f7474753e4a01f6ad9253835dafca4f8",
+    "common/units/equipment/modules/00_tank_modules.txt": "f7322e60ada01f98d9797aae5351f6a47930d99279d0fe85638db0cc18620347",
+    "common/units/equipment/upgrades/land_upgrades.txt": "ae740b01bc165c148bd481603a7b45fc1e56b4e83c9e646060bd572b5c191e13"
+  }
+}

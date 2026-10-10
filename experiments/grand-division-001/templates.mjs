@@ -9,6 +9,7 @@ export const catalog=Object.freeze({
  MOTORIZED:{label:'摩托化步兵营',role:'line',family:'mobile',symbol:'⊗'},
  ARTILLERY:{label:'炮兵营',role:'line',family:'combat_support',symbol:'●'},
  ANTI_TANK:{label:'反坦克营',role:'line',family:'combat_support',symbol:'△'},
+ LIGHT_ARMOR:{label:'轻型坦克营（LT-0）',role:'line',family:'armor',symbol:'▱'},
  MEDIUM_ARMOR:{label:'中型装甲营',role:'line',family:'armor',symbol:'▱'},
  HEAVY_ARMOR:{label:'重型装甲营',role:'line',family:'armor',symbol:'▰'},
  ENGINEER:{label:'工兵支援连',role:'support',symbol:'工'},
