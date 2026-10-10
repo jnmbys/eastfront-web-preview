@@ -10,7 +10,30 @@
       "equipment": {
         "infantry_equipment": 100
       },
-      "group": "infantry"
+      "group": "infantry",
+      "baseAttributes": {
+        "max_strength": 25.0,
+        "max_organisation": 60.0,
+        "default_morale": 0.3,
+        "combat_width": 2.0,
+        "supply_consumption": 0.06,
+        "training_time": 90.0,
+        "suppression": 1.5,
+        "weight": 0.5
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "infantry_weapons",
+          "source": "common/technologies/infantry.txt",
+          "sha256": "caf9c4e98caa721cacbb5afee513841f7826f40f2e254f5bfd953d20fcdf90de",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": []
     },
     "MOTORIZED": {
       "originalId": "motorized",
@@ -21,7 +44,30 @@
         "infantry_equipment": 100,
         "motorized_equipment": 35
       },
-      "group": "mobile"
+      "group": "mobile",
+      "baseAttributes": {
+        "max_strength": 25.0,
+        "max_organisation": 60.0,
+        "default_morale": 0.3,
+        "combat_width": 2.0,
+        "supply_consumption": 0.065,
+        "training_time": 90.0,
+        "suppression": 2.2,
+        "weight": 0.75
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "motorised_infantry",
+          "source": "common/technologies/infantry.txt",
+          "sha256": "caf9c4e98caa721cacbb5afee513841f7826f40f2e254f5bfd953d20fcdf90de",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": []
     },
     "ARTILLERY": {
       "originalId": "artillery_brigade",
@@ -31,7 +77,19 @@
       "equipment": {
         "artillery_equipment": 24
       },
-      "group": "combat_support"
+      "group": "combat_support",
+      "baseAttributes": {
+        "max_strength": 1.6,
+        "max_organisation": 0.0,
+        "default_morale": 0.1,
+        "combat_width": 3.0,
+        "supply_consumption": 0.21,
+        "training_time": 120.0,
+        "weight": 0.5
+      },
+      "activeByDefault": "yes",
+      "unlockSources": [],
+      "uninterpretedEligibilityFields": []
     },
     "ANTI_TANK": {
       "originalId": "anti_tank_brigade",
@@ -41,7 +99,19 @@
       "equipment": {
         "anti_tank_equipment": 36
       },
-      "group": "combat_support"
+      "group": "combat_support",
+      "baseAttributes": {
+        "max_strength": 1.6,
+        "max_organisation": 0.0,
+        "default_morale": 0.0,
+        "combat_width": 1.0,
+        "supply_consumption": 0.1,
+        "training_time": 120.0,
+        "weight": 0.5
+      },
+      "activeByDefault": "yes",
+      "unlockSources": [],
+      "uninterpretedEligibilityFields": []
     },
     "MEDIUM_ARMOR": {
       "originalId": "medium_armor",
@@ -51,7 +121,48 @@
       "equipment": {
         "medium_tank_chassis": 50
       },
-      "group": "armor"
+      "group": "armor",
+      "baseAttributes": {
+        "max_strength": 2.0,
+        "max_organisation": 10.0,
+        "default_morale": 0.3,
+        "combat_width": 2.0,
+        "supply_consumption": 0.25,
+        "training_time": 180.0,
+        "suppression": 2.5,
+        "weight": 1.25
+      },
+      "activeByDefault": "yes",
+      "unlockSources": [
+        {
+          "technology": "basic_medium_tank",
+          "source": "common/technologies/armor.txt",
+          "sha256": "ab42433b2c581b96540a315f0d8df89bf82e7994e07e7eff1fc819c1325de39d",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        },
+        {
+          "technology": "gwtank_chassis",
+          "source": "common/technologies/NSB_armor.txt",
+          "sha256": "e395aed44917925df8966b55af315cf1bc20a80e2336c8486250c62a151d2336",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        },
+        {
+          "technology": "basic_medium_tank_chassis",
+          "source": "common/technologies/NSB_armor.txt",
+          "sha256": "e395aed44917925df8966b55af315cf1bc20a80e2336c8486250c62a151d2336",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": []
     },
     "HEAVY_ARMOR": {
       "originalId": "heavy_armor",
@@ -61,7 +172,48 @@
       "equipment": {
         "heavy_tank_chassis": 40
       },
-      "group": "armor"
+      "group": "armor",
+      "baseAttributes": {
+        "max_strength": 2.0,
+        "max_organisation": 10.0,
+        "default_morale": 0.3,
+        "combat_width": 2.0,
+        "supply_consumption": 0.32,
+        "training_time": 180.0,
+        "suppression": 2.5,
+        "weight": 1.5
+      },
+      "activeByDefault": "yes",
+      "unlockSources": [
+        {
+          "technology": "basic_heavy_tank",
+          "source": "common/technologies/armor.txt",
+          "sha256": "ab42433b2c581b96540a315f0d8df89bf82e7994e07e7eff1fc819c1325de39d",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        },
+        {
+          "technology": "gwtank_chassis",
+          "source": "common/technologies/NSB_armor.txt",
+          "sha256": "e395aed44917925df8966b55af315cf1bc20a80e2336c8486250c62a151d2336",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        },
+        {
+          "technology": "basic_heavy_tank_chassis",
+          "source": "common/technologies/NSB_armor.txt",
+          "sha256": "e395aed44917925df8966b55af315cf1bc20a80e2336c8486250c62a151d2336",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": []
     },
     "ENGINEER": {
       "originalId": "engineer",
@@ -72,7 +224,32 @@
         "infantry_equipment": 10,
         "support_equipment": 30
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 2.0,
+        "max_organisation": 20.0,
+        "default_morale": 0.3,
+        "combat_width": 0.0,
+        "supply_consumption": 0.02,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "tech_engineers",
+          "source": "common/technologies/support.txt",
+          "sha256": "258ef44f24d95e4fea33f1a056affa3280f92f2e3a021910b8f59d20de06ee18",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "RECON": {
       "originalId": "recon",
@@ -83,7 +260,33 @@
         "infantry_equipment": 40,
         "support_equipment": 10
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 2.0,
+        "max_organisation": 20.0,
+        "default_morale": 0.3,
+        "combat_width": 0.0,
+        "supply_consumption": 0.02,
+        "maximum_speed": 0.6,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "tech_recon",
+          "source": "common/technologies/support.txt",
+          "sha256": "258ef44f24d95e4fea33f1a056affa3280f92f2e3a021910b8f59d20de06ee18",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "SUPPORT_ARTILLERY": {
       "originalId": "artillery",
@@ -93,7 +296,22 @@
       "equipment": {
         "artillery_equipment": 12
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 0.2,
+        "max_organisation": 0.0,
+        "default_morale": 0.1,
+        "combat_width": 0.0,
+        "supply_consumption": 0.16,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "yes",
+      "unlockSources": [],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "SUPPORT_AT": {
       "originalId": "anti_tank",
@@ -103,7 +321,22 @@
       "equipment": {
         "anti_tank_equipment": 24
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 0.2,
+        "max_organisation": 0.0,
+        "default_morale": 0.1,
+        "combat_width": 0.0,
+        "supply_consumption": 0.08,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "yes",
+      "unlockSources": [],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "SIGNAL": {
       "originalId": "signal_company",
@@ -114,7 +347,32 @@
         "support_equipment": 20,
         "motorized_equipment": 10
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 1.0,
+        "max_organisation": 20.0,
+        "default_morale": 0.3,
+        "combat_width": 0.0,
+        "supply_consumption": 0.02,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "tech_signal_company",
+          "source": "common/technologies/support.txt",
+          "sha256": "258ef44f24d95e4fea33f1a056affa3280f92f2e3a021910b8f59d20de06ee18",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "LOGISTICS": {
       "originalId": "logistics_company",
@@ -125,7 +383,31 @@
         "support_equipment": 20,
         "motorized_equipment": 10
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 1.0,
+        "max_organisation": 10.0,
+        "default_morale": 0.3,
+        "combat_width": 0.0,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "tech_logistics_company",
+          "source": "common/technologies/support.txt",
+          "sha256": "258ef44f24d95e4fea33f1a056affa3280f92f2e3a021910b8f59d20de06ee18",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "MAINTENANCE": {
       "originalId": "maintenance_company",
@@ -135,7 +417,32 @@
       "equipment": {
         "support_equipment": 25
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 1.0,
+        "max_organisation": 20.0,
+        "default_morale": 0.3,
+        "combat_width": 0.0,
+        "supply_consumption": 0.03,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "tech_maintenance_company",
+          "source": "common/technologies/support.txt",
+          "sha256": "258ef44f24d95e4fea33f1a056affa3280f92f2e3a021910b8f59d20de06ee18",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     },
     "HOSPITAL": {
       "originalId": "field_hospital",
@@ -146,7 +453,66 @@
         "support_equipment": 30,
         "motorized_equipment": 20
       },
-      "group": "support"
+      "group": "support",
+      "baseAttributes": {
+        "max_strength": 2.0,
+        "max_organisation": 20.0,
+        "default_morale": 0.3,
+        "combat_width": 0.0,
+        "supply_consumption": 0.05,
+        "training_time": 120.0,
+        "weight": 0.1
+      },
+      "activeByDefault": "no",
+      "unlockSources": [
+        {
+          "technology": "tech_field_hospital",
+          "source": "common/technologies/support.txt",
+          "sha256": "258ef44f24d95e4fea33f1a056affa3280f92f2e3a021910b8f59d20de06ee18",
+          "conditional": false,
+          "conditions": {},
+          "technologyConditions": {},
+          "qualificationVerified": false
+        }
+      ],
+      "uninterpretedEligibilityFields": [
+        "can_be_parachuted",
+        "regimental"
+      ]
     }
-  }
+  },
+  "columnSizeEffects": [
+    {
+      "doctrine": "new_mobile_warfare",
+      "milestoneIndex": 2,
+      "additionalRows": 1,
+      "source": "common/doctrines/grand_doctrines/land_grand_doctrines.txt",
+      "sha256": "cd81a877366c582f096422320cd7fcf9fb259afcc8d45d3dbb887b37792b329d",
+      "runtimeActivationVerified": false
+    },
+    {
+      "doctrine": "superior_firepower",
+      "milestoneIndex": 1,
+      "additionalRows": 1,
+      "source": "common/doctrines/grand_doctrines/land_grand_doctrines.txt",
+      "sha256": "cd81a877366c582f096422320cd7fcf9fb259afcc8d45d3dbb887b37792b329d",
+      "runtimeActivationVerified": false
+    },
+    {
+      "doctrine": "grand_battleplan",
+      "milestoneIndex": 0,
+      "additionalRows": 1,
+      "source": "common/doctrines/grand_doctrines/land_grand_doctrines.txt",
+      "sha256": "cd81a877366c582f096422320cd7fcf9fb259afcc8d45d3dbb887b37792b329d",
+      "runtimeActivationVerified": false
+    },
+    {
+      "doctrine": "mass_assault",
+      "milestoneIndex": 0,
+      "additionalRows": 1,
+      "source": "common/doctrines/grand_doctrines/land_grand_doctrines.txt",
+      "sha256": "cd81a877366c582f096422320cd7fcf9fb259afcc8d45d3dbb887b37792b329d",
+      "runtimeActivationVerified": false
+    }
+  ]
 }

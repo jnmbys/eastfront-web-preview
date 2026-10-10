@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {Campaign} from '../grand-release-001/territory.mjs';
 import {ReleaseAdapter} from '../grand-release-001/persistence.mjs';
-import {emptyDraft,validateDraft,validateStore,divisionView} from './templates.mjs';
+import {emptyDraft,validateDraft,validateStore,divisionView,requirementsFor} from './templates.mjs';
 const copy=structuredClone;
 test('normal campaign draft lifecycle, replay, conflicts and exact no-resource-change',()=>{
  const c=new Campaign(),before=c.save(),draft=emptyDraft();draft.name='中央步兵';draft.regiments[0][0]='INFANTRY';draft.support[0]='ENGINEER';
@@ -72,4 +72,18 @@ test('unverified fifth-row eligibility cannot be granted by a new draft; old dra
  const before=c.save();assert.throws(()=>c.transaction({id:'division-row-five-1',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',draft:d}}),/SLOT_UNLOCK_UNVERIFIED/);assert.deepEqual(c.save(),before);
  const old={schema:'DIVISION-DRAFT-1',next:2,templates:{legacy:{...d,id:'legacy',side:'GERMAN',version:1,status:'DRAFT'}}};validateStore(old);c.clock.divisions=old;
  d.regiments[0][4]=null;c.transaction({id:'division-row-five-2',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',templateId:'legacy',expectedTemplateVersion:1,draft:d}});assert.equal(c.clock.divisions.templates.legacy.regiments[0][4],null);
+});
+
+test('source-backed demand is authoritative, reference conflicts and forged saved demand fail atomically',()=>{
+ const c=new Campaign(),d=emptyDraft();d.regiments[0][0]='INFANTRY';d.support[0]='ENGINEER';
+ const expected={manpower:1300,equipment:{infantry_equipment:110,support_equipment:30}};
+ assert.deepEqual(requirementsFor(d),expected);
+ const profile=divisionView(c).profile.id,before=c.save();
+ assert.throws(()=>c.transaction({id:'division-reference-old',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',referenceProfileId:'wrong',draft:d}}),/REFERENCE_CHANGED/);assert.deepEqual(c.save(),before);
+ const r=c.transaction({id:'division-reference-new',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',referenceProfileId:profile,draft:d,requirements:{manpower:999999}}});
+ assert.deepEqual(c.clock.divisions.templates[r.templateId].requirements,expected);
+ const saved=c.save(),bad=copy(saved);bad.clock.divisions.templates[r.templateId].requirements.manpower++;
+ assert.throws(()=>c.restore(bad),/SAVED_DEMAND_MISMATCH/);assert.deepEqual(c.save(),saved);
+ const v=divisionView(c);assert.equal(v.demandReference.units.INFANTRY.baseAttributes.max_organisation,60);assert.equal(v.demandReference.units.ENGINEER.baseAttributes.max_organisation,20);
+ assert(v.demandReference.units.INFANTRY.unlockSources.some(x=>x.technology==='infantry_weapons'));assert.equal(v.demandReference.columnSizeEffects.length,4);assert.equal(v.adoptionEnabled,false);
 });

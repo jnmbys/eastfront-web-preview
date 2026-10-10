@@ -31,10 +31,15 @@ export function validateDraft(x){
  const support=x.support.filter(Boolean);if(new Set(support).size!==support.length)fail('DIVISION_DUPLICATE_SUPPORT');
  return {name:x.name.trim(),regiments:copy(x.regiments),support:copy(x.support)};
 }
+export function requirementsFor(draft){
+ const d=validateDraft(draft),equipment={};let manpower=0;
+ for(const id of [...d.regiments.flat(),...d.support]){if(!id)continue;const unit=demandReference.units[id];if(!unit)fail('DIVISION_DEMAND_REFERENCE_MISSING');manpower+=unit.manpower;for(const [kind,count]of Object.entries(unit.equipment))equipment[kind]=(equipment[kind]??0)+count;}
+ return {manpower,equipment:Object.fromEntries(Object.entries(equipment).sort(([a],[b])=>a.localeCompare(b)))};
+}
 export function validateStore(s){
  if(!s)return;
  if(s.schema!==SCHEMA||!Number.isSafeInteger(s.next)||s.next<1||!s.templates||typeof s.templates!=='object'||Array.isArray(s.templates)||Object.keys(s.templates).length>128)fail('DIVISION_SAVE_UNSUPPORTED');
- for(const [id,t]of Object.entries(s.templates)){if(!t||t.id!==id||!['GERMAN','SOVIET'].includes(t.side)||!Number.isSafeInteger(t.version)||t.version<1||t.status!=='DRAFT')fail('DIVISION_SAVE_INVALID');validateDraft(t);}
+ for(const [id,t]of Object.entries(s.templates)){if(!t||t.id!==id||!['GERMAN','SOVIET'].includes(t.side)||!Number.isSafeInteger(t.version)||t.version<1||t.status!=='DRAFT')fail('DIVISION_SAVE_INVALID');validateDraft(t);if(t.requirements&&JSON.stringify(t.requirements)!==JSON.stringify(requirementsFor(t)))fail('DIVISION_SAVED_DEMAND_MISMATCH');}
 }
 export function divisionView(c){return {profile:copy(profile),schema:SCHEMA,adoptionEnabled:false,referenceVerified:false,demandReference:copy(demandReference),templates:copy(Object.values(c.clock.divisions?.templates??{}).filter(t=>t.side===c.viewer)),catalog,blockers:['已读取1.19.3基础需求；科技、DLC条件和费用尚未完整核实','同版本经验、战斗常数与换编退还行为尚缺可核验证据'],usage:[]};}
 export function transaction(c,req){
@@ -45,12 +50,13 @@ export function transaction(c,req){
  if(!['GERMAN','SOVIET'].includes(c.viewer))fail('DIVISION_SIDE_NOT_AUTHORIZED');
  const op=req.operation;if(op.type==='DIVISION_ADOPT')fail('DIVISION_RULE_REVIEW_REQUIRED');
  if(op.type!=='DIVISION_DRAFT_SAVE')fail('DIVISION_OPERATION_UNSUPPORTED');
+ if(op.referenceProfileId!==undefined&&op.referenceProfileId!==profile.id)fail('DIVISION_REFERENCE_CHANGED');
  const draft=validateDraft(op.draft),oldStore=c.clock.divisions??{schema:SCHEMA,next:1,templates:{}},store=copy(oldStore);
  let id=op.templateId,version=1;
  if(id){if(typeof id!=='string')fail('DIVISION_TEMPLATE_NOT_OWNED');const old=Object.hasOwn(store.templates,id)?store.templates[id]:null;if(!old||old.side!==c.viewer)fail('DIVISION_TEMPLATE_NOT_OWNED');if(op.expectedTemplateVersion!==old.version)fail('DIVISION_TEMPLATE_CHANGED');version=old.version+1;}
  else {if(Object.keys(store.templates).length>=128)fail('DIVISION_TEMPLATE_LIMIT');id=c.id+':division:'+store.next++;if(Object.hasOwn(store.templates,id))fail('DIVISION_SAVE_INVALID');}
  for(let column=0;column<profile.columns;column++)for(let row=profile.draftEditableRows;row<profile.rows;row++){const value=draft.regiments[column][row];if(value!==null&&value!==oldStore.templates[op.templateId]?.regiments[column][row])fail('DIVISION_SLOT_UNLOCK_UNVERIFIED');}
- const template={...draft,id,side:c.viewer,version,status:'DRAFT',updatedTick:c.clock.tick};store.templates[id]=template;
+ const template={...draft,requirements:requirementsFor(draft),referenceProfileId:profile.id,id,side:c.viewer,version,status:'DRAFT',updatedTick:c.clock.tick};store.templates[id]=template;
  // Commit after all validation. Draft saving is not a free formal template adoption.
  c.clock.divisions=store;c.version++;c.match.matchRevision=c.version;
  const result={ok:true,version:c.version,templateId:id,templateVersion:version};c.receipts.set(req.id,{signature,result});return copy(result);
