@@ -1,0 +1,769 @@
+{
+  "kind": "directed-real-functions-not-natural-campaign",
+  "rates": {
+    "personnelDay": 60,
+    "equipmentDay": 2,
+    "freightPolicy": {
+      "personnel": 0.02,
+      "infantry_equipment_1": 0.01,
+      "support_equipment_1": 0.04
+    }
+  },
+  "assumptions": "Resting connected single unit; no losses; each required model has one factory starting .3 efficiency with sufficient resources in production case; hourly capacity resets; same production, reception and freight functions as game. Engineer case adds one company to a fully supplied infantry battalion.",
+  "durations": [
+    {
+      "engineer": false,
+      "mode": "stocked",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 16.666666666666668,
+        "infantry_equipment_1": 50
+      },
+      "allDays": 50,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": false,
+      "mode": "production",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 16.666666666666668,
+        "infantry_equipment_1": 50
+      },
+      "allDays": 50,
+      "producedEnoughDays": {
+        "infantry_equipment_1": 7.163194444444445
+      },
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": false,
+      "mode": "transport",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 21.708333333333332,
+        "infantry_equipment_1": 50
+      },
+      "allDays": 50,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 0.04
+    },
+    {
+      "engineer": false,
+      "mode": "no-whole-support",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 41.625,
+        "infantry_equipment_1": 50
+      },
+      "allDays": 50,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 0.03
+    },
+    {
+      "engineer": true,
+      "mode": "stocked",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "personnel": 5,
+        "infantry_equipment_1": 5,
+        "support_equipment_1": 15
+      },
+      "allDays": 15,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": true,
+      "mode": "production",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "personnel": 5,
+        "infantry_equipment_1": 5,
+        "support_equipment_1": 16.256944444444443
+      },
+      "allDays": 16.256944444444443,
+      "producedEnoughDays": {
+        "infantry_equipment_1": 1.2013888888888888,
+        "support_equipment_1": 14.45486111111111
+      },
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": true,
+      "mode": "transport",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "infantry_equipment_1": 5,
+        "personnel": 6.430555555555555,
+        "support_equipment_1": 20.95486111111111
+      },
+      "allDays": 20.95486111111111,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 0.04
+    },
+    {
+      "engineer": true,
+      "mode": "no-whole-support",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "infantry_equipment_1": 5,
+        "personnel": 12.458333333333334
+      },
+      "allDays": null,
+      "observedDays": 120,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 30
+      },
+      "residualWorkPerHour": 0.03,
+      "reason": "单次周期余量不足一件支援装备，容量不跨周期累积；有限观察未补齐"
+    }
+  ],
+  "approvedDurations": [
+    {
+      "engineer": false,
+      "mode": "stocked",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 3.3333333333333335,
+        "infantry_equipment_1": 10
+      },
+      "allDays": 10,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": false,
+      "mode": "production",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 3.3333333333333335,
+        "infantry_equipment_1": 10.20486111111111
+      },
+      "allDays": 10.20486111111111,
+      "producedEnoughDays": {
+        "infantry_equipment_1": 7.163194444444445
+      },
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": false,
+      "mode": "transport",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "personnel": 20.791666666666668,
+        "infantry_equipment_1": 30.73263888888889
+      },
+      "allDays": 30.73263888888889,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 0.04
+    },
+    {
+      "engineer": false,
+      "mode": "no-whole-support",
+      "deficit": {
+        "personnel": 1000,
+        "infantry_equipment_1": 100,
+        "support_equipment_1": 0
+      },
+      "completedDays": {
+        "support_equipment_1": 0,
+        "infantry_equipment_1": 10,
+        "personnel": 41.625
+      },
+      "allDays": 41.625,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 0.03
+    },
+    {
+      "engineer": true,
+      "mode": "stocked",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "personnel": 1,
+        "infantry_equipment_1": 1,
+        "support_equipment_1": 3
+      },
+      "allDays": 3,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": true,
+      "mode": "production",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "personnel": 1,
+        "infantry_equipment_1": 1.2013888888888888,
+        "support_equipment_1": 14.45486111111111
+      },
+      "allDays": 14.45486111111111,
+      "producedEnoughDays": {
+        "infantry_equipment_1": 1.2013888888888888,
+        "support_equipment_1": 14.45486111111111
+      },
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 100
+    },
+    {
+      "engineer": true,
+      "mode": "transport",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "personnel": 6.208333333333333,
+        "infantry_equipment_1": 7.149305555555555,
+        "support_equipment_1": 9.190972222222221
+      },
+      "allDays": 9.190972222222221,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 0
+      },
+      "residualWorkPerHour": 0.04
+    },
+    {
+      "engineer": true,
+      "mode": "no-whole-support",
+      "deficit": {
+        "personnel": 300,
+        "infantry_equipment_1": 10,
+        "support_equipment_1": 30
+      },
+      "completedDays": {
+        "infantry_equipment_1": 1,
+        "personnel": 12.458333333333334
+      },
+      "allDays": null,
+      "observedDays": 120,
+      "producedEnoughDays": {},
+      "remaining": {
+        "infantry_equipment_1": 0,
+        "support_equipment_1": 30
+      },
+      "residualWorkPerHour": 0.03,
+      "reason": "单次周期余量不足一件支援装备，容量不跨周期累积；有限观察未补齐"
+    }
+  ],
+  "attributes": [
+    {
+      "label": "original",
+      "personnel": 1000,
+      "rifles": 100,
+      "support": 0,
+      "policy": "DIVISION-002-COMBAT-ADAPTATION-1",
+      "paper": {
+        "orgMax": 60,
+        "hp": 25,
+        "width": 2,
+        "supply": 0.06,
+        "softAttack": 6,
+        "hardAttack": 1,
+        "defense": 22,
+        "breakthrough": 3,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "effective": {
+        "orgMax": 60,
+        "hp": 25,
+        "width": 2,
+        "supply": 0.06,
+        "softAttack": 6,
+        "hardAttack": 1,
+        "defense": 22,
+        "breakthrough": 3,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 60,
+          "orgWeight": 1,
+          "paper": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          },
+          "effective": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          }
+        }
+      ],
+      "personnelRatio": 1,
+      "equipmentRatios": {
+        "infantry_equipment_1": 1,
+        "support_equipment_1": 0
+      }
+    },
+    {
+      "label": "expanded-no-delivery",
+      "personnel": 1000,
+      "rifles": 100,
+      "support": 0,
+      "policy": "DIVISION-002-COMBAT-ADAPTATION-1",
+      "paper": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 9,
+        "hardAttack": 2,
+        "defense": 46.2,
+        "breakthrough": 7.5,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "effective": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 4.615384615384616,
+        "hardAttack": 0.7692307692307693,
+        "defense": 16.923076923076923,
+        "breakthrough": 2.307692307692308,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "personnelRatio": 0.7692307692307693,
+          "equipmentRatios": {
+            "infantry_equipment_1": 0.9090909090909091
+          },
+          "satisfaction": 0.7692307692307693,
+          "orgTerm": 60,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          },
+          "effective": {
+            "softAttack": 4.615384615384616,
+            "hardAttack": 0.7692307692307693,
+            "defense": 16.923076923076923,
+            "breakthrough": 2.307692307692308
+          }
+        },
+        {
+          "id": "ENGINEER",
+          "personnelRatio": 0.7692307692307693,
+          "equipmentRatios": {
+            "infantry_equipment_1": 0.9090909090909091,
+            "support_equipment_1": 0
+          },
+          "satisfaction": 0,
+          "orgTerm": 20,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 3,
+            "hardAttack": 1,
+            "defense": 24.200000000000003,
+            "breakthrough": 4.5
+          },
+          "effective": {
+            "softAttack": 0,
+            "hardAttack": 0,
+            "defense": 0,
+            "breakthrough": 0
+          }
+        }
+      ],
+      "personnelRatio": 0.7692307692307693,
+      "equipmentRatios": {
+        "infantry_equipment_1": 0.9090909090909091,
+        "support_equipment_1": 0
+      }
+    },
+    {
+      "label": "support-only-missing",
+      "personnel": 1300,
+      "rifles": 110,
+      "support": 0,
+      "policy": "DIVISION-002-COMBAT-ADAPTATION-1",
+      "paper": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 9,
+        "hardAttack": 2,
+        "defense": 46.2,
+        "breakthrough": 7.5,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "effective": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 6,
+        "hardAttack": 1,
+        "defense": 22,
+        "breakthrough": 3,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 60,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          },
+          "effective": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          }
+        },
+        {
+          "id": "ENGINEER",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1,
+            "support_equipment_1": 0
+          },
+          "satisfaction": 0,
+          "orgTerm": 20,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 3,
+            "hardAttack": 1,
+            "defense": 24.200000000000003,
+            "breakthrough": 4.5
+          },
+          "effective": {
+            "softAttack": 0,
+            "hardAttack": 0,
+            "defense": 0,
+            "breakthrough": 0
+          }
+        }
+      ],
+      "personnelRatio": 1,
+      "equipmentRatios": {
+        "infantry_equipment_1": 1,
+        "support_equipment_1": 0
+      }
+    },
+    {
+      "label": "half-support",
+      "personnel": 1300,
+      "rifles": 110,
+      "support": 15,
+      "policy": "DIVISION-002-COMBAT-ADAPTATION-1",
+      "paper": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 9,
+        "hardAttack": 2,
+        "defense": 46.2,
+        "breakthrough": 7.5,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "effective": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 7.5,
+        "hardAttack": 1.5,
+        "defense": 34.1,
+        "breakthrough": 5.25,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 60,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          },
+          "effective": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          }
+        },
+        {
+          "id": "ENGINEER",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1,
+            "support_equipment_1": 0.5
+          },
+          "satisfaction": 0.5,
+          "orgTerm": 20,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 3,
+            "hardAttack": 1,
+            "defense": 24.200000000000003,
+            "breakthrough": 4.5
+          },
+          "effective": {
+            "softAttack": 1.5,
+            "hardAttack": 0.5,
+            "defense": 12.100000000000001,
+            "breakthrough": 2.25
+          }
+        }
+      ],
+      "personnelRatio": 1,
+      "equipmentRatios": {
+        "infantry_equipment_1": 1,
+        "support_equipment_1": 0.5
+      }
+    },
+    {
+      "label": "complete",
+      "personnel": 1300,
+      "rifles": 110,
+      "support": 30,
+      "policy": "DIVISION-002-COMBAT-ADAPTATION-1",
+      "paper": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 9,
+        "hardAttack": 2,
+        "defense": 46.2,
+        "breakthrough": 7.5,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "effective": {
+        "orgMax": 40,
+        "hp": 27,
+        "width": 2,
+        "supply": 0.08,
+        "softAttack": 9,
+        "hardAttack": 2,
+        "defense": 46.2,
+        "breakthrough": 7.5,
+        "armor": 0,
+        "piercing": 4,
+        "speed": 4
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 60,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          },
+          "effective": {
+            "softAttack": 6,
+            "hardAttack": 1,
+            "defense": 22,
+            "breakthrough": 3
+          }
+        },
+        {
+          "id": "ENGINEER",
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1,
+            "support_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 20,
+          "orgWeight": 0.5,
+          "paper": {
+            "softAttack": 3,
+            "hardAttack": 1,
+            "defense": 24.200000000000003,
+            "breakthrough": 4.5
+          },
+          "effective": {
+            "softAttack": 3,
+            "hardAttack": 1,
+            "defense": 24.200000000000003,
+            "breakthrough": 4.5
+          }
+        }
+      ],
+      "personnelRatio": 1,
+      "equipmentRatios": {
+        "infantry_equipment_1": 1,
+        "support_equipment_1": 1
+      }
+    }
+  ]
+}

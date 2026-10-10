@@ -14,7 +14,7 @@ export function planArrow(a:Point,b:Point,paused:boolean){const d=Math.hypot(b.x
 export function paintActionArrows(layer:SVGElement,p:GrandPort,point:(h:any)=>Point,size:number,canInspect:()=>boolean,refresh:()=>void){
  const c=p.data.continuous,actions=c.map.actions??[],keep=new Set<string>(),selectedUnit=p.selections['map-selected-unit'],group=c.corps.find((g:any)=>g.id===(p.selections['campaign-group']??c.corps[0].id)),emphasis=p.selections['map-emphasis'];
  for(const a of actions){if(!a.path?.length||a.path.length<2)continue;keep.add(a.id);let el=Array.from(layer.children).find(e=>e.getAttribute('data-action-id')===a.id) as SVGGElement|undefined;if(!el){el=document.createElementNS(NS,'g');set(el,'data-action-id',a.id);layer.append(el);}
-  const chosen=emphasis==='battle'?a.battleId===p.selections.battle:emphasis==='group'?group?.members.includes(a.unit):emphasis==='action'?a.id===p.selections.action:a.unit===selectedUnit;
+  const chosen=emphasis==='battle'?(a.battleId===p.selections.battle||a.battleIds?.includes(p.selections.battle)):emphasis==='group'?group?.members.includes(a.unit):emphasis==='action'?a.id===p.selections.action:a.unit===selectedUnit;
   const prominent=chosen||!!p.selections.allArrows,ps:Point[]=a.path.map((h:any)=>point(h));
   // Same origin/target attacks retain separate stable lanes; movement routes are never displaced.
   const siblings=['ATTACK','SUPPORT'].includes(a.kind)?actions.filter((x:any)=>['ATTACK','SUPPORT'].includes(x.kind)&&x.from.q===a.from.q&&x.from.r===a.from.r&&x.to.q===a.to.q&&x.to.r===a.to.r).slice().sort((x:any,y:any)=>String(x.unit).localeCompare(String(y.unit))||String(x.id).localeCompare(String(y.id))):[];

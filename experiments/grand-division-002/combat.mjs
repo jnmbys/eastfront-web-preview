@@ -5,16 +5,18 @@ const weapon={...reference.models.infantry_equipment_1.archetypeFields,...refere
 export function attributes(template,actual){
  const demand=modelDemand(template),ids=[...template.regiments.flat(),...template.support].filter(Boolean);
  const paper={orgMax:0,hp:0,width:0,supply:0,softAttack:0,hardAttack:0,defense:0,breakthrough:0,armor:0,piercing:weapon.ap_attack,speed:4};
- const effective={softAttack:0,hardAttack:0,defense:0,breakthrough:0};
+ const effective={softAttack:0,hardAttack:0,defense:0,breakthrough:0},components=[];
  // Pro-rata assignment within this unit: never count the same rifles once per battalion.
  const people=Math.min(1,actual.personnel/demand.manpower),ratio=k=>Math.min(1,(actual.held[k]??0)/(demand.equipment[k]||1));
  for(const id of ids){const u=reference.units[id],a=u.scalarDefinitions;
   paper.orgMax+=a.max_organisation;paper.hp+=a.max_strength;paper.width+=a.combat_width;paper.supply+=a.supply_consumption;
   const served=Math.max(0,Math.min(people,...Object.keys(u.need).map(k=>ratio(k+'_1'))));
-  for(const[k,source]of [['softAttack','soft_attack'],['hardAttack','hard_attack'],['defense','defense'],['breakthrough','breakthrough']]){const n=weapon[source]*(1+(a[source]??0));paper[k]+=n;effective[k]+=n*served;}
+  const contribution={id,personnelRatio:people,equipmentRatios:Object.fromEntries(Object.keys(u.need).map(k=>[k+'_1',ratio(k+'_1')])),satisfaction:served,orgTerm:a.max_organisation,orgWeight:1/ids.length,paper:{},effective:{}};
+  for(const[k,source]of [['softAttack','soft_attack'],['hardAttack','hard_attack'],['defense','defense'],['breakthrough','breakthrough']]){const n=weapon[source]*(1+(a[source]??0));paper[k]+=n;effective[k]+=n*served;contribution.paper[k]=n;contribution.effective[k]=n*served;}
+  components.push(contribution);
  }
  paper.orgMax/=ids.length;
- return {policy:COMBAT_POLICY,paper,effective:{...paper,...effective},personnelRatio:people,equipmentRatios:Object.fromEntries(Object.keys(demand.equipment).map(k=>[k,ratio(k)]))};
+ return {policy:COMBAT_POLICY,paper,effective:{...paper,...effective},components,personnelRatio:people,equipmentRatios:Object.fromEntries(Object.keys(demand.equipment).map(k=>[k,ratio(k)]))};
 }
 /** Simultaneous contact resolution; each participant's fire budget is used once.
  * Caller supplies actual accepted contacts, authoritative random draws and unit data.

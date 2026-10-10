@@ -9,6 +9,8 @@ import {modelDemand,modelIds,reference} from './model-demand.mjs';
 import {initializeFormal,formalTransaction,earnExperience,validateFormal,POLICY} from './formal.mjs';
 import {attributes,resolveContacts,COMBAT_POLICY} from './combat.mjs';
 import {transport} from './freight.mjs';
+import {accrueReception,debitReception,freightPolicy,receptionRates,CURRENT_RECEPTION,LEGACY_RECEPTION} from './reception.mjs';
+import {uniqueActions,explainBattle} from './presentation.mjs';
 const copy=structuredClone,sides=['GERMAN','SOVIET'];
 export const VERSION='GRAND-DIVISION-2-INTEGRATED-1';
 // Leader approved the explicit aluminium/freight/initial-establishment proposal.
@@ -32,7 +34,7 @@ export class Campaign extends Previous{
    nations[side]={manpower:4800,stock:{infantry_equipment_1:0,support_equipment_1:0,TRAIN:this.econ.modern.nations[side].stock.TRAIN,TRUCK:this.econ.modern.nations[side].stock.TRUCK}};
    for(const u of Object.values(this.state.units).filter(u=>u.side===side)){units[u.id]={id:u.id,side,personnel:1000,held:{infantry_equipment_1:100,support_equipment_1:0},target:modelDemand(t),revision:0,org:60,trainingExperience:0,templateId:t.id,templateVersion:1};u.type='INFANTRY';u.step=0;Object.assign(this.clock.units[u.id],{personnel:1000,max:1000,org:100,trainingExperience:0,losses:0});}
   }
-  const p=createInventory({nations,units});p.id=this.id;initializeFormal(p,templates);p.formal.lastExperienceTick=this.clock.tick;p.lossFractions={};p.rateCredits={};this.clock.divisionLedger=p;
+  const p=createInventory({nations,units});p.receptionPolicy=CURRENT_RECEPTION;p.id=this.id;initializeFormal(p,templates);p.formal.lastExperienceTick=this.clock.tick;p.lossFractions={};p.rateCredits={};this.clock.divisionLedger=p;
   const e=this.econ.modern;e.modelProducts=copy(modelProducts);e.lines={};
   for(const side of sides){const factories=Object.values(e.facilities).filter(f=>f.kind==='MIL'&&this.state.hexes[f.hex].control===side).map(f=>f.id).sort();
    Object.keys(modelProducts).forEach((product,i)=>{e.lines[side+':'+product]={id:side+':'+product,side,product,factories:i<2?factories.filter((_,n)=>n%2===i):[],priority:i+1,efficiency:cfg.efficiencyStart,progress:0,completed:0,resourceFactor:1,workDay:0,missing:[],lostWork:0};});
@@ -65,9 +67,9 @@ export class Campaign extends Previous{
   for(const side of sides){const ordered=fairUnits(Object.values(this.state.units).filter(u=>u.side===side&&u.alive),u=>e.priorities[this.placements.find(x=>x.id===u.id)?.army]??3,this.clock.tick);
    for(const {id} of ordered){const u=p.units[id],v=this.clock.units[id],credits=p.rateCredits[id]??={personnel:0,...Object.fromEntries(modelIds.map(k=>[k,0]))},factor=v.engaged?cfg.combatReinforcement:v.march?cfg.marchReinforcement:1;
     // Progress may accumulate up to one dispatch, never bank unlimited catch-up.
-    const peopleRate=cfg.personnelDay/cfg.ticksPerDay*factor,itemRate=cfg.equipmentDay/cfg.ticksPerDay*factor;credits.personnel=Math.min(1+peopleRate,credits.personnel+peopleRate);for(const k of modelIds)credits[k]=Math.min(1+itemRate,credits[k]+itemRate);
-    const r=transport(p,id,{network:e.net[side],rails:e.rails,cargo:e.cargoHour.sides[side],trainCapacity:p.nations[side].stock.TRAIN*cfg.trainWork,sourceCapacity:cfg.sourceFlow,railCapacity:cfg.railFlow,policy:{personnel:1/50,infantry_equipment_1:1/100,support_equipment_1:1/25},rates:Object.fromEntries(Object.entries(credits).map(([k,q])=>[k,Math.floor(q+1e-9)]))});
-    e.cargoHour.sides[side]=r.cargo;credits.personnel=Math.max(0,credits.personnel-r.personnel);for(const k of modelIds)credits[k]=Math.max(0,credits[k]-r.equipment[k]);v.personnel=u.personnel;v.max=u.target.manpower;v.refillStatus={personnel:r.personnel,items:r.equipment,reason:r.reason,personnelRateDay:cfg.personnelDay*factor,tick:this.clock.tick};e.nations[side].personnelSent+=r.personnel;for(const k of modelIds)e.nations[side].reinforced[k]=(e.nations[side].reinforced[k]??0)+r.equipment[k];if(r.personnel||Object.values(r.equipment).some(Boolean))e.ledger.push({kind:'REFILLED',tick:this.clock.tick,side,unit:id,personnel:r.personnel,items:r.equipment});
+    const reception=receptionRates(p.receptionPolicy),rates=accrueReception(credits,factor,reception);
+    const r=transport(p,id,{network:e.net[side],rails:e.rails,cargo:e.cargoHour.sides[side],trainCapacity:p.nations[side].stock.TRAIN*cfg.trainWork,sourceCapacity:cfg.sourceFlow,railCapacity:cfg.railFlow,policy:freightPolicy,rates});
+    e.cargoHour.sides[side]=r.cargo;debitReception(credits,r);v.personnel=u.personnel;v.max=u.target.manpower;v.refillStatus={personnel:r.personnel,items:r.equipment,reason:r.reason,personnelRateDay:reception.personnelDay*factor,equipmentRateDay:reception.equipmentDay*factor,tick:this.clock.tick};e.nations[side].personnelSent+=r.personnel;for(const k of modelIds)e.nations[side].reinforced[k]=(e.nations[side].reinforced[k]??0)+r.equipment[k];if(r.personnel||Object.values(r.equipment).some(Boolean))e.ledger.push({kind:'REFILLED',tick:this.clock.tick,side,unit:id,personnel:r.personnel,items:r.equipment});
    }
    e.nations[side].manpower=p.nations[side].manpower;
   }
@@ -85,9 +87,11 @@ export class Campaign extends Previous{
   }catch(error){this.restore(before,before.clock.paused);throw error;}
  }
  save(){const s=super.save();if(this.clock.divisionLedger){s.format=VERSION;s.divisionRules=VERSION;}return s;}
- restore(s,pause=true){if(s.format!==VERSION||s.divisionRules!==VERSION)throw Error('DIVISION_NEW_CAMPAIGN_SAVE_ONLY');validate(s.clock.divisionLedger);validateFormal(s.clock.divisionLedger);const adapted=copy(s);adapted.format=OLD_RULES.version;delete adapted.divisionRules;delete adapted.clock.divisionLedger;super.restore(adapted,pause);this.clock.divisionLedger=copy(s.clock.divisionLedger);this.clock.rules=VERSION;this.ruleOverride={...OLD_RULES,version:VERSION};this.simRules=this.ruleOverride;this.bindModels(true);this.clock.paused=pause;}
- snapshot(draft){const d=super.snapshot(draft),p=this.clock.divisionLedger;if(!p)return d;d.modern.products=copy(modelProducts);d.ux.products=copy(modelProducts);d.continuous.rules=VERSION;d.divisions.integrated={version:VERSION,policy:POLICY,combatPolicy:COMBAT_POLICY,xp:p.formal.xp[this.viewer],earnedMinutes:p.formal.earnedMinutes[this.viewer],templates:copy(Object.values(p.formal.templates).filter(t=>t.side===this.viewer)),units:copy(Object.values(p.units).filter(u=>u.side===this.viewer)),models:copy(reference.models),battalions:copy(reference.units)};
+ restore(s,pause=true){if(s.format!==VERSION||s.divisionRules!==VERSION)throw Error('DIVISION_NEW_CAMPAIGN_SAVE_ONLY');receptionRates(s.clock.divisionLedger.receptionPolicy);validate(s.clock.divisionLedger);validateFormal(s.clock.divisionLedger);const adapted=copy(s);adapted.format=OLD_RULES.version;delete adapted.divisionRules;delete adapted.clock.divisionLedger;super.restore(adapted,pause);this.clock.divisionLedger=copy(s.clock.divisionLedger);this.clock.divisionLedger.receptionPolicy??=LEGACY_RECEPTION;this.clock.rules=VERSION;this.ruleOverride={...OLD_RULES,version:VERSION};this.simRules=this.ruleOverride;this.bindModels(true);this.clock.paused=pause;}
+ snapshot(draft){const d=super.snapshot(draft),p=this.clock.divisionLedger;if(!p)return d;d.modern.products=copy(modelProducts);d.ux.products=copy(modelProducts);d.continuous.rules=VERSION;d.divisions.integrated={version:VERSION,reception:{policy:p.receptionPolicy??LEGACY_RECEPTION,...receptionRates(p.receptionPolicy)},policy:POLICY,combatPolicy:COMBAT_POLICY,xp:p.formal.xp[this.viewer],earnedMinutes:p.formal.earnedMinutes[this.viewer],templates:copy(Object.values(p.formal.templates).filter(t=>t.side===this.viewer)),units:copy(Object.values(p.units).filter(u=>u.side===this.viewer)),models:copy(reference.models),battalions:copy(reference.units)};
   for(const[id,v]of Object.entries(d.continuous.units)){v.division=this.divisionAttributes(id);v.divisionOrg=this.clock.units[id].org/100*v.division.paper.orgMax;}
+  const m=d.continuous.map;m.actions=uniqueActions(m.actions??[]);
+  for(const b of [...m.battles,...(m.history??[])])explainBattle(b);
   return d;
  }
 }
