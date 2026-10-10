@@ -61,3 +61,7 @@ Second browser capture evidence/02-source-demands.jpg is1280×720 (requested vie
 ## Latest reference scope: owned official DLC (2026-10-10)
 
 User supersedes the base-game-only acceptance constraint. Use 1.19.3 plus owned and enabled official DLC, without Mods; no purchase. See OWNED-DLC-REVIEW.md and evidence/owned-dlc-review.json. Steam lists eight checked DLC entries; installation has 44 descriptors and third-party API replacement files, so installed/enabled is not proof of official ownership. No new game launch or playset mutation occurred. Existing source facts and formal-adoption gates remain. Full personal backups stay local, not Git.
+
+## Latest: user-existing environment runtime observation (supersedes preceding scope)
+
+User authorizes the existing environment without modifying DLC loaders. A new no-Mod playset and paused 1936 Germany test were actually launched after explicit warning acceptance. Runtime 1.19.3 (5632), 43 DLC, 0 Mods; not verified clean. Concrete add/undo/replace/support/copy observations and screenshot paths are in USER-ENVIRONMENT-OBSERVATIONS.md. Window activation failed twice including one recovery, so conversion, exercises and resource return observations remain unfinished. No guessed fee or conversion formula enabled; formal adoption remains gated. Original playsets and full backup retained; no deployment.
