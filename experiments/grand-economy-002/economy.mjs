@@ -1,8 +1,9 @@
 import {occupiedVehicles} from './demand.mjs';
-import {cfg,products,sides,VERSION} from './config.mjs';
+import {cfg,products as defaultProducts,sides,VERSION} from './config.mjs';
 import {fairUnits} from './planning.mjs';
 import {planNetwork} from './network.mjs';
 import {hexKey as key} from '../../vendor/eastfront-digital-core/dist/index.js';
+const products=defaultProducts;
 const copy=structuredClone,zero=()=>Object.fromEntries(Object.keys(products).map(k=>[k,0]));
 export const equipmentNeed=(c,id)=>Object.fromEntries(Object.entries(c.econ.gear.units[id].recipe).map(([k,n])=>[k,n*c.econ.gear.units[id].base.maxDamageSteps]));
 export function initialize(c){
@@ -29,25 +30,25 @@ export function initialize(c){
 export function available(c,f,side){return c.state.hexes[f.hex]?.control===side&&f.damage<1;}
 function timedNetwork(c,view,side){const start=performance.now(),e=c.econ.modern,r=planNetwork(view,e,side,c.nodes,c.clock,c.placements),ms=performance.now()-start;e.networkTiming??={calls:0,totalMs:0,maxMs:0,maxExpanded:0};const t=e.networkTiming;t.calls++;t.totalMs+=ms;t.maxMs=Math.max(t.maxMs,ms);t.maxExpanded=Math.max(t.maxExpanded,r.expanded);return r;}
 export function refreshNetwork(c){const e=c.econ.modern;for(const side of sides)e.net[side]={...timedNetwork(c,c.fair(side).view,side),tick:c.clock.tick};}
-export function setLine(e,side,op){const l=e.lines[op.line];if(!l||l.side!==side||!products[op.product]||!Array.isArray(op.factories)||new Set(op.factories).size!==op.factories.length||!Number.isSafeInteger(op.priority)||op.priority<1||op.priority>9)throw Error('INVALID_PRODUCTION_LINE');
+export function setLine(e,side,op){const products=e.modelProducts??defaultProducts;const l=e.lines[op.line];if(!l||l.side!==side||!products[op.product]||!Array.isArray(op.factories)||new Set(op.factories).size!==op.factories.length||!Number.isSafeInteger(op.priority)||op.priority<1||op.priority>9)throw Error('INVALID_PRODUCTION_LINE');
  const old=l.factories.length,added=op.factories.filter(id=>!l.factories.includes(id)).length;
  if(l.product!==op.product){l.efficiency=Math.max(.1,l.efficiency*cfg.switchRetention);l.lostWork+=l.progress;l.progress=0;l.product=op.product;}
  if(added)l.efficiency=(l.efficiency*Math.max(0,op.factories.length-added)+cfg.addedFactoryEfficiency*added)/Math.max(1,op.factories.length);
  l.factories=[...op.factories];l.priority=op.priority;
  return {lostWork:l.lostWork,efficiency:l.efficiency,oldFactories:old};
 }
-export function production(c,settle=true){const e=c.econ.modern;
- for(const side of sides){const n=e.nations[side],supply={steel:0,tungsten:0,chromium:0,rubber:0};for(const s of e.resourceSites)if(c.state.hexes[s.hex].control===side)for(const[k,v]of Object.entries(s.capacity))supply[k]+=v;
+export function production(c,settle=true){const products=c.econ.modern.modelProducts??defaultProducts;const e=c.econ.modern;
+ for(const side of sides){const n=e.nations[side],supply={steel:0,tungsten:0,chromium:0,rubber:0};for(const s of e.resourceSites)if(c.state.hexes[s.hex].control===side)for(const[k,v]of Object.entries(s.capacity))supply[k]=(supply[k]??0)+v;
   n.resources=copy(supply);n.resourceUsed=Object.fromEntries(Object.keys(supply).map(k=>[k,0]));
   for(const l of Object.values(e.lines).filter(l=>l.side===side).sort((a,b)=>a.priority-b.priority||a.id.localeCompare(b.id))){const fs=l.factories.map(id=>e.facilities[id]).filter(f=>f&&available(c,f,side)&&f.kind==='MIL'),p=products[l.product],factoryCount=fs.reduce((v,f)=>v+1-f.damage,0);l.missing=[];let factor=1;
-   for(const[k,r]of Object.entries(p.resources)){const need=r*factoryCount,got=Math.min(need,supply[k]);supply[k]-=got;n.resourceUsed[k]+=got;if(need>got+1e-8){factor=Math.min(factor,got/need);l.missing.push({resource:k,need,got});}}
+   for(const[k,r]of Object.entries(p.resources)){const need=r*factoryCount,got=Math.min(need,supply[k]??0);supply[k]=(supply[k]??0)-got;n.resourceUsed[k]=(n.resourceUsed[k]??0)+got;if(need>got+1e-8){factor=Math.min(factor,got/need);l.missing.push({resource:k,need,got});}}
    l.resourceFactor=factor;l.workDay=cfg.militaryWorkDay*factoryCount*l.efficiency*factor;
    if(!factoryCount||!settle)continue;l.progress+=l.workDay/cfg.ticksPerDay;l.efficiency=Math.min(cfg.efficiencyCap,l.efficiency+cfg.efficiencyGainDay/cfg.ticksPerDay*factor);
    const qty=Math.floor((l.progress+1e-9)/p.cost);if(qty){l.progress=Math.max(0,l.progress-qty*p.cost);l.completed+=qty;n.stock[l.product]+=qty;n.produced[l.product]+=qty;e.ledger.push({kind:'PRODUCED',tick:c.clock.tick,side,line:l.id,type:l.product,qty});}
   }
  }
 }
-function construction(c){const e=c.econ.modern;
+export function construction(c){const e=c.econ.modern;
  for(const side of sides){let work=Object.values(e.facilities).filter(f=>f.kind==='CIV'&&available(c,f,side)).reduce((n,f)=>n+cfg.civilWorkDay*(1-f.damage)/cfg.ticksPerDay,0);
   for(const q of e.queue.filter(q=>q.side===side&&q.status!=='DONE').sort((a,b)=>a.priority-b.priority||a.serial-b.serial)){
    if(c.state.hexes[q.hex]?.control!==side||q.other&&c.state.hexes[q.other]?.control!==side||q.path?.some(k=>c.state.hexes[k]?.control!==side)){q.status='OCCUPIED';continue;}if(q.kind==='NEW_HUB'&&Object.values(e.hubs).some(h=>h.hex===q.hex)||q.kind==='NEW_RAIL'&&q.segments.every(r=>e.rails[r.id])){q.status='DONE';q.outcome='地点已有设施，未再生成或退还已用工时';continue;}q.status='BUILDING';const used=Math.min(work,q.cost-q.progress);q.progress+=used;work-=used;if(q.progress<q.cost-1e-8)continue;
@@ -81,12 +82,14 @@ export function ownership(c){const e=c.econ.modern;if(!e)return;
  for(const f of Object.values(e.facilities)){const side=c.state.hexes[f.hex].control;if(e.owners[f.id]!==side){e.owners[f.id]=side;f.damage=Math.max(.5,f.damage);for(const l of Object.values(e.lines))l.factories=l.factories.filter(id=>id!==f.id);}}
  for(const r of Object.values(e.rails)){const x=c.state.edges[r.id],owners=[c.state.hexes[key(x.a)].control,c.state.hexes[key(x.b)].control].join('/');if(e.owners[r.id]!==owners){e.owners[r.id]=owners;r.damage=Math.max(.25,r.damage);x.railway.destroyed=true;}}
 }
-export function step(c){const e=c.econ.modern;if(e.settled>=c.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');production(c);construction(c);ownership(c);
+export function dailySupply(c){const e=c.econ.modern;
  e.networkSignatures??={};
  for(const side of sides){const view=c.fair(side).view,sig=JSON.stringify([view.units.map(u=>[u.id,key(u.hex)]),view.hexes.filter(h=>h.control===side).map(h=>key(h.coord)),view.edges.filter(x=>x.railway?.present).map(x=>[x.key,x.railway.destroyed,x.bridge?.destroyed,e.rails[x.key]?.level,e.rails[x.key]?.damage]),Object.values(e.hubs).filter(h=>view.hexes.some(x=>key(x.coord)===h.hex&&x.control===side)).map(h=>[h.id,h.level,h.motor])]);
   if(c.clock.tick%cfg.networkTicks===0||sig!==e.networkSignatures[side]){e.net[side]={...timedNetwork(c,view,side),tick:c.clock.tick};e.networkSignatures[side]=sig;}
  }
 
  for(const u of Object.values(c.state.units).filter(u=>u.alive)){const v=c.clock.units[u.id],r=e.net[u.side].rows[u.id],ratio=r?.ratio??0;v.carriedHours=Math.max(0,Math.min(cfg.carriedHours,v.carriedHours+(ratio>=.99?.5:-(1-ratio))*5/60));const effective=Math.max(ratio,v.carriedHours>0?.65:0);v.dailySupply={...r,effective,carriedHours:v.carriedHours};c.econ.supply[u.id].stock=16*effective;c.econ.supply[u.id].debt=0;}
+}
+export function step(c){const e=c.econ.modern;if(e.settled>=c.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');production(c);construction(c);ownership(c);dailySupply(c);
  reinforcement(c);e.settled=c.clock.tick;c.econ.epoch=Math.floor(c.clock.tick/cfg.networkTicks);c.state.turn=1+c.econ.epoch;
 }

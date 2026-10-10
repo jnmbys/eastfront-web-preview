@@ -1,0 +1,120 @@
+{
+  "environment": "User existing 1.19.3; file definitions, not clean-install or runtime formula verification",
+  "models": {
+    "infantry_equipment_1": {
+      "archetype": "infantry_equipment",
+      "source": "common/units/equipment/infantry.txt",
+      "sha256": "0b2b15df8618b68ceb4892510c965f0d8618b365937fd8e12581a6d512e01cf1",
+      "archetypeFields": {
+        "build_cost_ic": 0.43,
+        "maximum_speed": 4.0,
+        "defense": 20.0,
+        "breakthrough": 2.0,
+        "soft_attack": 3.0,
+        "hard_attack": 0.5,
+        "ap_attack": 1.0,
+        "armor_value": 0.0,
+        "hardness": 0.0,
+        "reliability": 0.9
+      },
+      "modelFields": {
+        "build_cost_ic": 0.5,
+        "defense": 22.0,
+        "breakthrough": 3.0,
+        "soft_attack": 6.0,
+        "hard_attack": 1.0,
+        "ap_attack": 4.0
+      },
+      "archetypeResources": {
+        "steel": 2.0
+      },
+      "modelResources": {},
+      "cost": 0.5,
+      "unit": "piece"
+    },
+    "support_equipment_1": {
+      "archetype": "support_equipment",
+      "source": "common/units/equipment/support.txt",
+      "sha256": "fd41d5223c62cf955d650bbad0b1adecfae6be9e1cc43904fb0118fb5d3e5385",
+      "archetypeFields": {
+        "build_cost_ic": 4.0,
+        "reliability": 0.8
+      },
+      "modelFields": {},
+      "archetypeResources": {
+        "aluminium": 1.0,
+        "steel": 2.0
+      },
+      "modelResources": {},
+      "cost": 4.0,
+      "unit": "piece"
+    }
+  },
+  "units": {
+    "INFANTRY": {
+      "source": "common/units/infantry.txt",
+      "sha256": "a59f843848664f84ec4e2c71b32ead8ec0a3d769a3dd55a2c50dfe5eab6476ba",
+      "manpower": 1000,
+      "need": {
+        "infantry_equipment": 100
+      },
+      "scalarDefinitions": {
+        "max_strength": 25.0,
+        "max_organisation": 60.0,
+        "combat_width": 2.0,
+        "supply_consumption": 0.06
+      },
+      "essential": [],
+      "note": "Scalar modifiers are not final attributes or an approved aggregation formula."
+    },
+    "ENGINEER": {
+      "source": "common/units/engineer.txt",
+      "sha256": "25d88a0e1e19dfd11248546027b19885bad2af87fb42554aeb6fbe89e7cedef0",
+      "manpower": 300,
+      "need": {
+        "infantry_equipment": 10,
+        "support_equipment": 30
+      },
+      "scalarDefinitions": {
+        "max_strength": 2.0,
+        "max_organisation": 20.0,
+        "combat_width": 0.0,
+        "supply_consumption": 0.02,
+        "soft_attack": -0.5,
+        "defense": 0.1,
+        "breakthrough": 0.5,
+        "entrenchment": 2.0
+      },
+      "essential": [
+        "support_equipment"
+      ],
+      "note": "Scalar modifiers are not final attributes or an approved aggregation formula."
+    },
+    "RECON": {
+      "source": "common/units/recon.txt",
+      "sha256": "8a1fe834193f8b648fc6a70df71a07ae318635d500bccc52c0a64a74b2eddcfc",
+      "manpower": 500,
+      "need": {
+        "infantry_equipment": 40,
+        "support_equipment": 10
+      },
+      "scalarDefinitions": {
+        "max_strength": 2.0,
+        "max_organisation": 20.0,
+        "combat_width": 0.0,
+        "supply_consumption": 0.02,
+        "maximum_speed": 0.6,
+        "soft_attack": -0.9,
+        "hard_attack": -0.9,
+        "defense": -0.5,
+        "breakthrough": -0.5,
+        "recon": 1.0
+      },
+      "essential": [
+        "infantry_equipment",
+        "support_equipment"
+      ],
+      "note": "Scalar modifiers are not final attributes or an approved aggregation formula."
+    }
+  }
+}

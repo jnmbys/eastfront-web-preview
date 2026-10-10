@@ -1,10 +1,10 @@
 import {demands} from './demand.mjs';
-import {cfg,products} from './config.mjs';
+import {cfg,products as defaultProducts} from './config.mjs';
 import {setLine} from './economy.mjs';
 import {preview} from './planning.mjs';
 import {hexKey as key,hexDistance} from '../../vendor/eastfront-digital-core/dist/index.js';
 // Same manager can run for either side. Only caller's authorized view and own economy.
-export function manage(c,view,side){const start=performance.now(),e=c.econ.modern,net=e.net[side],cells=new Map(view.hexes.map(h=>[key(h.coord),h])),own=k=>cells.get(k)?.control===side;
+export function manage(c,view,side){const products=c.econ.modern.modelProducts??defaultProducts;const start=performance.now(),e=c.econ.modern,net=e.net[side],cells=new Map(view.hexes.map(h=>[key(h.coord),h])),own=k=>cells.get(k)?.control===side;
  e.management??={};const m=e.management[side]??={reviews:0,lastProduct:-288,lastProject:-72,shortages:{},actions:[],expanded:0};m.reviews++;const need=demands(e,side,view,c.econ.gear,c.clock.tick);
  for(const k of Object.keys(products))m.shortages[k]=need[k].net>1e-9?((m.shortages[k]??0)+1):0;
  const record=(kind,target,reason)=>{const x={tick:c.clock.tick,side,kind,target,reason};m.actions.push(x);m.actions=m.actions.slice(-24);e.ledger.push({kind:'AI_LOGISTICS',...x});};

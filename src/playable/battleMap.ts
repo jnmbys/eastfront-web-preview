@@ -82,7 +82,12 @@ export function paintBattleMap(p:GrandPort,point:(h:any)=>{x:number;y:number},re
   const minor=b.status==='WITHDRAWING'?'撤':b.role==='我方防守'?'守':'攻';
   const readout=battleReadout(b,p.data.viewer);
   const directions=[...new Set((b.actions??[]).filter((a:any)=>a.kind==='ATTACK').map((a:any)=>{const from=point(a.from),to=point(a.to);return Math.round(Math.atan2(to.y-from.y,to.x-from.x)*180/Math.PI);} ))];
+  if(p.data.divisions?.integrated){
+   const angle=Number(directions[0]??0),tip=Number.isFinite(angle)?angle:0;
+   patch(el,`<circle r="26" fill="transparent"/><circle r="21" fill="#182223" stroke="${selected?'#f0ecce':'#0d1516'}" stroke-width="${selected?3:2}"/><path d="M-16,-10 Q-22,0 -16,10 L5,10 L5,16 L22,0 L5,-16 L5,-10 Z" transform="rotate(${tip})" fill="${color}" stroke="#101a1b" stroke-width="2"/><text x="0" y="6" text-anchor="middle" font-size="19" font-weight="bold" fill="#fff9e5" stroke="#1c2929" stroke-width="2" paint-order="stroke">?</text><text x="0" y="35" text-anchor="middle" font-size="10" fill="#edf1e8" stroke="#13201d" stroke-width="2" paint-order="stroke">${minor} · ${readout.text}</text><title>${esc('整场战况数值未建立可靠口径，? 表示未知，不是胜率。箭头沿实际攻击方向；颜色只提示己方维持状态。'+readout.meaning)}</title>`);
+  }else{
   patch(el,`<rect x="-30" y="-24" width="60" height="48" fill="transparent"/><rect x="-28" y="-18" width="56" height="36" rx="10" fill="#182526" stroke="${selected?'#f0ecce':'#101719'}" stroke-width="${selected?3:2}"/><rect x="-25" y="-15" width="50" height="30" rx="8" fill="${color}"/><text x="0" y="5" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff9e5">${readout.text}</text>${directions.map(angle=>`<path transform="rotate(${angle})" d="M29,-5L37,0L29,5" fill="none" stroke="#e9d5bc" stroke-width="2"/>`).join('')}<text x="0" y="30" text-anchor="middle" font-size="10" fill="#edf1e8" stroke="#13201d" stroke-width="2" paint-order="stroke">${esc(b.role)}</text><title>${esc(readout.meaning+'；'+b.reason)}</title>`);
+  }
   let down:{x:number;y:number}|null=null;el.onpointerdown=e=>{down={x:e.clientX,y:e.clientY};};const select=()=>{p.selections['ui-panel']='battle';p.selections.battle=b.id;p.selections['map-emphasis']='battle';refresh();document.getElementById('battle-detail')?.scrollIntoView({block:'nearest'});};
   el.onclick=e=>{if(!canInspect()||down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>6)return;e.stopPropagation();select();};el.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&canInspect()){e.preventDefault();select();}};
  }clean(bubbles,wanted);clean(leaders,wanted);

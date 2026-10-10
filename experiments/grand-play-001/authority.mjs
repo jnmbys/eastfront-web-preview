@@ -101,9 +101,10 @@ export class Campaign extends City {
   const damage={},orgDamage={},battles=[];
   for(const ids of [...pairs.values()].sort((a,b)=>a.join().localeCompare(b.join()))){const [a,b]=ids.map(id=>this.state.units[id]),ca=caps[a.id],cb=caps[b.id];
    const old=clock.battles.find(x=>x.id===ids.join('|')),battle={id:ids.join('|'),units:ids,initiators:ids.filter(id=>intents[id]?.kind==='FIGHT'||arrivals.some(x=>x.id===id)),hex:copy(b.hex),since:old?.since??clock.tick,ticks:(old?.ticks??0)+1};Object.assign(battle,this.combatTrace(ids,intents,arrivals,before,old));battles.push(battle);
-   for(const [u,e,c,ec]of[[a,b,ca,cb],[b,a,cb,ca]]){const risk=this.ownOrder(u.id)?.risk,pressure=risk==='HIGH'?1.3:risk==='LOW'?.75:1,terrain=this.state.hexes[kh(e.hex)].terrain,cover=terrain==='FOREST'||terrain==='CITY'?1.25:1;
+   if(!this.resolveDivisionCombat)for(const [u,e,c,ec]of[[a,b,ca,cb],[b,a,cb,ca]]){const risk=this.ownOrder(u.id)?.risk,pressure=risk==='HIGH'?1.3:risk==='LOW'?.75:1,terrain=this.state.hexes[kh(e.hex)].terrain,cover=terrain==='FOREST'||terrain==='CITY'?1.25:1;
     const hit=c.fire*pressure*(.8+.4*this.random())/(ec.protection*cover)*(1+c.antiArmor*ec.armor*.8);damage[e.id]=(damage[e.id]??0)+hit*(spec.damageScale??1);orgDamage[e.id]=(orgDamage[e.id]??0)+(3+hit*.3)*(spec.orgDamageScale??1);clock.units[u.id].engaged++;this.spend(u.id,spec.combatQ);}
   }
+  if(this.resolveDivisionCombat)this.resolveDivisionCombat({battles,caps,damage,orgDamage});
   clock.battles=battles;
   if(battles.length&&!clock.contactSeen){clock.contactSeen=true;if(clock.autopause)clock.paused=true;this.note(this.viewer,'首次持续交战：可增援、改变力度，或下达撤回命令；时间已'+(clock.paused?'暂停':'继续'));}
   for(const u of units){const v=clock.units[u.id],d=damage[u.id]??0;v.personnel=Math.max(0,v.personnel-d);v.losses+=d;v.org=Math.max(0,v.org-(orgDamage[u.id]??0));u.step=Math.min(this.econ.gear.units[u.id].base.maxDamageSteps-1,Math.floor((v.max-v.personnel)/100));if(v.personnel<=0)u.alive=false;

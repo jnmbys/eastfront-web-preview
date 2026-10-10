@@ -29,7 +29,7 @@ export function planNetwork(view,e,side,nodes,clock,placements){
  const nation=e.nations[side],edgeUsed={},sourceUsed={},hubUsed={},localUsed={},rows={},shipments=[];
  let trainUsed=0,trainDemand=reserved?.train??0;
  const units=fairUnits(activeUnits,u=>e.priorities[armyOf(u.id)]??3,Math.floor(clock.tick/cfg.networkTicks));
- for(const u of units){const v=clock.units[u.id],g=e.establishment[u.id],need=(.6+v.personnel/v.max*.4+ (g.TANK??0)*.12+(g.HEAVY??0)*.18+(g.GUN??0)*.1+(g.TRUCK??0)*.05)*(v.engaged?1.3:v.march?1.15:1),k=key(u.hex);
+ for(const u of units){const v=clock.units[u.id],g=e.establishment[u.id],need=(e.divisionDailyNeed?.[u.id]??(.6+v.personnel/v.max*.4+ (g.TANK??0)*.12+(g.HEAVY??0)*.18+(g.GUN??0)*.1+(g.TRUCK??0)*.05))*(v.engaged?1.3:v.march?1.15:1),k=key(u.hex);
   const localCap=own(k)?(cells.get(k)?.terrain==='CITY'?cfg.localFlow*2:cfg.localFlow):0,local=Math.min(need,Math.max(0,localCap-(localUsed[k]??0)));localUsed[k]=(localUsed[k]??0)+local;let supplied=local,access=0;
   const choices=hubRows.filter(h=>h.reach.has(k)).sort((a,b)=>a.reach.get(k)-b.reach.get(k)||a.id.localeCompare(b.id));
   const causes=new Map(),constraints=[];let reason=choices.length?'铁路断线或待维修':'枢纽末端覆盖不足',route=null;
