@@ -57,3 +57,7 @@ Read-only Steam registry lookup found D:/steam; libraryfolders.vdf identified on
 Installed `wiki/Division_Designer.html` dates2016 and `Experience.html` dates2016: rejected for1.19.3 rules. taw1.10.1 remains a historical cross-check only. Original designer video still unviewed due browser timeout. These are concrete missing evidentiary fields, not a new request for general permission to change architecture.
 
 Second browser capture evidence/02-source-demands.jpg is1280×720 (requested viewport override did not apply to that tab; actual innerWidth/innerHeight checked). After a real4264 service restart, both saved templates and engineer support survived; demand comparison showed1300/110/30. No physical touch, vanilla-game execution, formal adoption or full production/refill acceptance was performed.
+
+## Latest reference scope: owned official DLC (2026-10-10)
+
+User supersedes the base-game-only acceptance constraint. Use 1.19.3 plus owned and enabled official DLC, without Mods; no purchase. See OWNED-DLC-REVIEW.md and evidence/owned-dlc-review.json. Steam lists eight checked DLC entries; installation has 44 descriptors and third-party API replacement files, so installed/enabled is not proof of official ownership. No new game launch or playset mutation occurred. Existing source facts and formal-adoption gates remain. Full personal backups stay local, not Git.
