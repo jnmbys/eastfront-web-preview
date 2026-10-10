@@ -286,3 +286,16 @@ body:has(.command-ui) .command-ui button,body:has(.command-ui) .command-ui selec
 
 /* R3: allocation controls retain their equipment identity while scrolling. */
 .production-line-controls{position:sticky;top:0;z-index:2;background:#2b393c;padding:4px 0;border-bottom:1px solid #536764}.production-line-controls .factory-allocation{flex-wrap:wrap}.plan-primary{border:2px solid #93b49f!important;font-weight:700}.map-command-heading span{white-space:normal}.command-ui .animation-controls{display:flex;flex-wrap:wrap;gap:6px}.command-ui .animation-controls button,.command-ui .animation-controls select{min-height:44px}
+
+/* Division drafts: same campaign sidebar; six compact columns, touch-sized slots. */
+.ui-sidebar[data-mode="division"]{width:min(610px,calc(100vw - 24px));max-width:none}
+.division-designer fieldset{border:0;padding:0;min-width:0}
+.division-designer input,.division-designer select{min-height:44px;width:100%;box-sizing:border-box}
+.division-grid{display:grid;grid-template-columns:repeat(6,minmax(44px,1fr));gap:5px;margin:12px 0}
+.division-column{display:flex;flex-direction:column;gap:5px;text-align:center}
+.division-slot{min-width:44px;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px!important}
+.division-slot b{font-size:23px}.division-slot small{font-size:11px;line-height:1.2}
+.division-slot[aria-pressed="true"]{outline:2px solid #a7c8cb;background:#34464b}
+.division-palette{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;padding:8px 0}
+.division-palette button{min-height:44px}.division-review{color:#d7c895;border-left:3px solid #c9b075;padding-left:8px}
+.division-designer table{width:100%;border-collapse:collapse;margin:10px 0}.division-designer th,.division-designer td{padding:6px;text-align:left;border-bottom:1px solid #516065}

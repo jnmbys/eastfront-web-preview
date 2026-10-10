@@ -29,7 +29,7 @@ export class GrandPort implements WorkerPort {
  private wireSubmit(kind:string,payload:any,keys:string[],dependencies:any={}){try{const request=this.wire.submit(kind,payload,keys,dependencies);this.notice='命令待确认；可继续选择其他部队。';this.update();return request;}catch(e){this.notice='未提交：'+e;}this.update();}
  private wireOperation(operation:any){const op={...operation},g=this.data.continuous.corps.find((g:any)=>g.id===op.group),u=this.data.continuous.units[op.unit],t=this.data.transport;
   if(g)op.groupId=g.permanentId;if(op.type==='ORDER'&&op.order.paused&&!op.replacePausedOrder)op.type='PAUSE_GROUP';delete op.replacePausedOrder;
-  const keys=op.unit?['unit:'+op.unit,...(g?['group:'+g.permanentId]:[])]:g?['group:'+g.permanentId]:['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(op.type)?['economy']:['world'];
+  const keys=op.type==='DIVISION_DRAFT_SAVE'?['division:'+String(op.templateId??'new')]:op.unit?['unit:'+op.unit,...(g?['group:'+g.permanentId]:[])]:g?['group:'+g.permanentId]:['PRODUCTION_LINE','ARMY_PRIORITY','BUILD_FACTORY','ECON_LINE','ECON_BUILD','ECON_QUEUE','ECON_HUB','ECON_PRIORITY'].includes(op.type)?['economy']:['world'];
   return this.wireSubmit('OPERATION',op,keys,{commandGeneration:g?.commandGeneration,unitGeneration:u?.commandGeneration,economyGeneration:t.economyGeneration,worldGeneration:t.worldGeneration,account:t.accountStamp});
  }
  submitDirectIntent(d:DirectDraft){const b=this.data.continuous.map.battles.find((b:any)=>b.hex.q===d.target?.q&&b.hex.r===d.target?.r&&b.status!=='ENDED');const request=this.wireOperation({type:'DIRECT',unit:d.unit,...(d.kind==='SUPPORT'?{battleId:b?.id}:{}),mapIntent:{version:1,unitGeneration:d.generation,groupId:d.groupId,groupGeneration:d.groupGeneration},order:{kind:d.kind,target:d.target,risk:'NORMAL',paused:false}});if(request){d.requestId=request;this.directFeedback[d.unit]='命令等待回执';}this.update();}
@@ -51,7 +51,7 @@ export class GrandPort implements WorkerPort {
   try{const d=await this.api('action',request);pending.confirmedVersion=d.receipt.version;sessionStorage.setItem(this.pendingKey(),JSON.stringify(pending));if(d.instanceId!==pending.instanceId||d.version<pending.confirmedVersion)throw Error('STALE_LEDGER');this.read(d);sessionStorage.removeItem(this.pendingKey());this.notice='已提交，账本已更新。';this.locked=false;
   }catch{await this.reconcile();}this.update();this.schedule();
  }
- async operation(operation:any){if(this.continuous){this.wireOperation(operation);return;}await this.submitBound({id:crypto.randomUUID(),version:this.data.version,operation});}
+ async operation(operation:any){if(this.continuous)return this.wireOperation(operation);await this.submitBound({id:crypto.randomUUID(),version:this.data.version,operation});}
 
  postMessage(m:LocalRequest){this.tail=this.tail.then(()=>this.handle(m)).catch(e=>{this.notice=String(e);this.onerror?.(new Event('error'));});}
  private async handle(m:LocalRequest){this.epoch=m.epoch;if(m.kind==='START'){if(this.continuous){await this.startWire();return;}this.token=sessionStorage.getItem((this.continuous?'grand-play-session':'grand-officer-session'))??'';const d=await this.api('create',{side:m.options.humanSide,resume:!!this.token,mode:this.continuous?'continuous':'legacy'});this.token=d.token;sessionStorage.setItem((this.continuous?'grand-play-session':'grand-officer-session'),this.token);this.read(d);this.startPoll();if(sessionStorage.getItem(this.pendingKey()))await this.reconcile();return;}
