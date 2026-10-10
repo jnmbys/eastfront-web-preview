@@ -109,7 +109,7 @@ export async function imageFromUrl(url:string,entry:TerrainAssetEntry,stage:'htm
     const timer=setTimeout(()=>{
       // WebKit may have complete pixels without delivering load/decode promptly.
       // complete alone is insufficient: broken images also report complete.
-      if(webkitFallback&&img.complete&&canvasFallback())return;
+      if(img.complete&&canvasFallback())return;
       fail('timeout',`Image ${entry.id} timed out after ${timeoutMs}ms${decodeFailure?`; decode=${errorText(decodeFailure)}`:''}${canvasFailure?`; canvas=${errorText(canvasFailure)}`:''}`);
     },timeoutMs);
     const finish=()=>{clearTimeout(timer);img.onload=null;img.onerror=null;};

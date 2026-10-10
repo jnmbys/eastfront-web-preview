@@ -29,6 +29,10 @@ try{
  assert.equal((await http('/release/info?campaign=division')).status,401);
  assert.equal((await http('/visitor/start','','POST',{origin:'https://foreign.invalid'})).status,403);
  const a=await visitor(),legacy=await info(a,'legacy'),lc=await connect(a,'legacy');await lc.command('SAVE');
+ const asset='/assets/terrain/vs2-002/assets/ground/moist_soil.webp',first=await http(asset,a);assert.equal(first.status,200);const etag=first.headers.get('etag');assert(etag);assert.equal(first.headers.get('cache-control'),'private, no-cache');const raw=await first.arrayBuffer();assert.equal(raw.byteLength,Number(first.headers.get('content-length')));
+ assert.equal((await http(asset,a,'GET',{'if-none-match':etag})).status,304);
+ assert.equal((await http(asset,'','GET',{'if-none-match':etag})).status,401);
+ assert.equal((await http(asset,a,'GET',{'if-none-match':'"old-release"'})).status,200);
  const legacyFile=service(a,'legacy').adapter.saveFile,oldBytes=fs.readFileSync(legacyFile);
  const division=await info(a,'division'),dc=await connect(a,'division');assert.notEqual(legacy.instanceId,division.instanceId);assert(division.divisionIntegrated&&!division.pieceFixture);
  assert.deepEqual(fs.readFileSync(legacyFile),oldBytes);assert.equal(service(a,'division').adapter.c.clock.divisionLedger.formal.xp.GERMAN,0);

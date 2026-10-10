@@ -6,6 +6,7 @@ const source=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
 if(process.env.RELEASE_SOURCE_SHA&&process.env.RELEASE_SOURCE_SHA!==source)throw Error('RELEASE_SOURCE_SHA_MISMATCH');
 await import('../grand-release-001/build.mjs');
 const root='.release-territory-preview',index=path.join(root,'index.html');
+await (await import('./bundle-client.mjs')).bundleClient(root);
 fs.writeFileSync(index,fs.readFileSync(index,'utf8').replace('<head>','<head><meta name="grand-campaign-menu" content="release002">'));
 const file=path.join(root,'release-build.json'),manifest=JSON.parse(fs.readFileSync(file,'utf8')),files={};
 function scan(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const f=path.join(dir,e.name);if(e.isDirectory())scan(f);else if(f!==file)files[path.relative(root,f).replaceAll('\\','/')]=createHash('sha256').update(fs.readFileSync(f)).digest('hex');}}

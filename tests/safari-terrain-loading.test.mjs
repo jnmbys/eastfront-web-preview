@@ -97,6 +97,14 @@ test('Safari deadline recovers complete pixels when both load and decode signals
   const image=await pending;assert.equal(image.source,env.canvases[0]);image.release();
 });
 
+test('Android deadline accepts verified decoded pixels even if load event is missing',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const env=environment(t);
+ const pending=imageFromUrl(url,entry,'direct-image-load',caps,60,false);
+ await flush();ready(env.images[0]);t.mock.timers.tick(60);
+ const image=await pending;assert.equal(image.source,env.canvases[0]);assert(!env.trace.includes('fetch'));image.release();
+});
+
 test('broken complete image is rejected, cancelled and cannot report a late success',async t=>{
   t.mock.timers.enable({apis:['setTimeout']});
   let finishDecode;

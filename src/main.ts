@@ -367,7 +367,7 @@ function render():void{
   forceNetworkRender=false;
   deploymentPanelRenderer.clear();
   const profile=responsiveProfile(window.innerWidth,window.innerHeight);
-  if(appStatus==='LOADING'){root.innerHTML=loadingMarkup(startupProgress.snapshot);bind();return;}
+  if(appStatus==='LOADING'){root.innerHTML=loadingMarkup(startupProgress.snapshot);if(grandPort){const card=root.querySelector('.preview-state-card');const note=document.createElement('p');note.textContent=grandPort.data?'已连接战役，正在下载并绘制地图。首次加载可能较慢。':'正在连接你的战役。';card?.append(note);const cancel=document.createElement('button');cancel.textContent='返回入口（保留进度）';cancel.style.minHeight='44px';cancel.onclick=()=>{grandPort?.preserveOnUnload();leaveLocalAi();};card?.append(cancel);}bind();return;}
   if(appStatus==='FATAL'){root.innerHTML=fatalMarkup(fatalMessage||t('game.noResources'));bind();return;}
   if(appStatus==='MULTIPLAYER')return;
   if(appStatus==='HOME'&&LOCAL_AI_ENABLED){root.innerHTML=localAiHome();bindLocalAiHome();return;}
@@ -607,7 +607,7 @@ function leaveLocalAi():void {
 async function startLocalAi(humanSide:'GERMAN'|'SOVIET',scenario:LocalScenario):Promise<void>{
  const mode=document.querySelector<HTMLSelectElement>('#play-mode')?.value,grand=mode==='grand'||mode==='grand-art'||mode==='continuous',integrated=mode==='industry018';
  grandPort=null;grandArt=mode==='grand-art'||mode==='continuous';
- if(grand)discardGrandTerrain();
+ if(grand){discardGrandTerrain();startupProgress.reset();}
  const generation=++localGeneration;
  if(isNetwork(session))session.dispose();else localAi?.dispose();session=null;localAi=null;
  if(!grand&&(!productionMap||!cachedTerrainSurface)){await boot();if(generation!==localGeneration||!productionMap||!cachedTerrainSurface)return;}

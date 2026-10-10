@@ -6,6 +6,7 @@ import {randomBytes,createHmac,timingSafeEqual} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {releaseServer} from '../grand-release-001/server.mjs';
 import {readSave,atomicWrite} from '../grand-release-001/persistence.mjs';
+import {staticResponse} from '../grand-release-002/static-response.mjs';
 
 // Public admission is separate from campaign authorization. Each browser receives
 // an unguessable signed identity; it never supplies a campaign directory or ID.
@@ -82,7 +83,7 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
    const base=fileURLToPath(new URL('../../.release-territory-preview/',import.meta.url));
    const target=special[pathname]?fileURLToPath(new URL('../grand-play-mp022/'+special[pathname],import.meta.url)):path.resolve(base,'.'+decodeURIComponent(pathname));
    if(!special[pathname]&&!target.startsWith(base))return reply(res,403,'PATH_DENIED');
-   try{const type=({'.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'})[path.extname(target)]??'application/octet-stream';let bytes=fs.readFileSync(target);if(/javascript|css|json|svg/.test(type)&&req.headers['accept-encoding']?.includes('gzip')){bytes=gzipSync(bytes);res.setHeader('Content-Encoding','gzip');res.setHeader('Vary','Accept-Encoding');}return reply(res,200,bytes,type);}catch{return reply(res,404,'NOT_FOUND');}
+   try{const type=({'.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'})[path.extname(target)]??'application/octet-stream';let bytes=fs.readFileSync(target);if(/javascript|css|json|svg/.test(type)&&req.headers['accept-encoding']?.includes('gzip')){bytes=gzipSync(bytes);res.setHeader('Content-Encoding','gzip');}return staticResponse(req,res,bytes,type);}catch{return reply(res,404,'NOT_FOUND');}
   }
   const service=await obtain(id,mode);
   const upstream=http.request({host:'127.0.0.1',port:service.server.address().port,path:req.url,method:req.method,headers:req.headers},r=>{res.writeHead(r.statusCode,r.headers);r.pipe(res);});

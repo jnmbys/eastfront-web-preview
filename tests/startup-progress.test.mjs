@@ -19,6 +19,11 @@ const main = read('dist/app/main.js');
 const boot = main.slice(main.indexOf('async function boot('), main.indexOf("window.addEventListener('resize'"));
 const render = main.slice(main.indexOf('function render()'), main.indexOf('function bind()'));
 const deferred = () => { let resolve, reject; const promise = new Promise((a,b) => {resolve=a;reject=b;}); return {promise,resolve,reject}; };
+test('retry resets failed or completed progress and reports the next real asset batch',()=>{
+ const p=new StartupProgress();p.fail();p.reset();p.complete('resources');p.observe({kind:'assets',total:9});p.observe({kind:'asset-complete'});
+ assert.equal(p.snapshot.stage,'assets');assert.equal(p.snapshot.batchCompleted,1);assert.equal(p.snapshot.completedSteps,1);
+ for(const m of STARTUP_MILESTONES)p.complete(m);p.finish();p.reset();assert.equal(p.snapshot.completedSteps,0);assert.equal(p.snapshot.completedAssets,0);
+});
 function bootHarness(overrides = {}) {
   const progress = new StartupProgress(), calls = [], frames = [], snapshots = [];
   progress.subscribe(s => snapshots.push(s));

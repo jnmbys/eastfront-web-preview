@@ -18,6 +18,11 @@ export class StartupProgress {
     totalSteps: STARTUP_MILESTONES.length + 1, completedAssets: 0, batchCompleted: 0, batchTotal: null });
   private readonly listeners = new Set<(snapshot: StartupSnapshot) => void>();
   get snapshot(): StartupSnapshot { return this.value; }
+  reset(): void {
+    this.completed.clear();
+    this.value = Object.freeze({stage:'initializing',completedSteps:0,totalSteps:STARTUP_MILESTONES.length+1,completedAssets:0,batchCompleted:0,batchTotal:null});
+    for(const listener of this.listeners){try{listener(this.value);}catch{}}
+  }
   subscribe(listener: (snapshot: StartupSnapshot) => void): () => void {
     this.listeners.add(listener);
     return () => { this.listeners.delete(listener); };
