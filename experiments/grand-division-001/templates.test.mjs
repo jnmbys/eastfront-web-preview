@@ -7,6 +7,24 @@ import {Campaign} from '../grand-release-001/territory.mjs';
 import {ReleaseAdapter} from '../grand-release-001/persistence.mjs';
 import {emptyDraft,validateDraft,validateStore,divisionView,requirementsFor} from './templates.mjs';
 const copy=structuredClone;
+
+test('unit plans bind IDs and versions, survive restore, remain private and never adopt or spend',()=>{
+ const c=new Campaign(),own=Object.values(c.state.units).find(u=>u.alive&&u.side===c.viewer),enemy=Object.values(c.state.units).find(u=>u.alive&&u.side!==c.viewer);
+ const draft=emptyDraft();draft.regiments[0][0]='INFANTRY';
+ const t=c.transaction({id:'plan-template-create',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',draft}}),before=c.save();
+ const request={id:'plan-unit-set-0001',version:c.version,operation:{type:'DIVISION_PLAN_SET',unit:own.id,templateId:t.templateId,expectedTemplateVersion:t.templateVersion}};
+ const result=c.transaction(request);assert.equal(result.plan.templateId,t.templateId);assert.deepEqual(c.transaction(request),result);
+ const after=c.save();assert.deepEqual(after.state,before.state);assert.deepEqual(after.econ,before.econ);assert.deepEqual(after.clock.units,before.clock.units);
+ const restored=new Campaign();restored.restore(after);assert.deepEqual(restored.clock.divisions,c.clock.divisions);assert.deepEqual(restored.transaction(request),result);
+ const view=divisionView(c);assert(view.units.some(u=>u.id===own.id));assert(!view.units.some(u=>u.id===enemy.id));assert.equal(view.usage.length,1);
+ assert.throws(()=>c.transaction({id:'plan-enemy-set-0001',version:c.version,operation:{...request.operation,unit:enemy.id}}),/UNIT_NOT_OWNED/);
+ c.transaction({id:'plan-template-edit',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',templateId:t.templateId,expectedTemplateVersion:1,draft:{...draft,name:'更新'}}});
+ assert.equal(c.clock.divisions.plans[own.id].templateVersion,1);
+ assert.throws(()=>c.transaction({id:'plan-stale-template',version:c.version,operation:request.operation}),/TEMPLATE_CHANGED/);
+ c.viewer=enemy.side;assert.equal(divisionView(c).usage.length,0);assert(!divisionView(c).units.some(u=>u.id===own.id));c.viewer=own.side;
+ const bad=c.save();bad.clock.divisions.plans[own.id].templateVersion=999;const unchanged=c.save();assert.throws(()=>c.restore(bad),/PLAN_INVALID/);assert.deepEqual(c.save(),unchanged);
+ c.transaction({id:'plan-unit-clear-0001',version:c.version,operation:{type:'DIVISION_PLAN_CLEAR',unit:own.id}});assert.equal(divisionView(c).usage.length,0);assert.deepEqual(c.econ,before.econ);assert.deepEqual(c.clock.units,before.clock.units);
+});
 test('normal campaign draft lifecycle, replay, conflicts and exact no-resource-change',()=>{
  const c=new Campaign(),before=c.save(),draft=emptyDraft();draft.name='中央步兵';draft.regiments[0][0]='INFANTRY';draft.support[0]='ENGINEER';
  const request={id:'division-create-0001',version:c.version,operation:{type:'DIVISION_DRAFT_SAVE',draft}};
