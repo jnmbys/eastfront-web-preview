@@ -1,0 +1,22 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+import {Campaign as Old} from '../blackice-001/r1-campaign.mjs';import {Campaign,VERSION} from './authority.mjs';import {RoomCampaign} from './server.mjs';
+import {totals,validate} from '../grand-division-002/inventory.mjs';import {resolve} from '../blackice-001/combat.mjs';
+const old=new Old(),c=new Campaign(),p=c.clock.divisionLedger,checks=[],out='evidence/blackice-content-002';fs.mkdirSync(out,{recursive:true});
+assert.deepEqual(totals(p),totals(old.clock.divisionLedger));assert.deepEqual(p.nations,old.clock.divisionLedger.nations);checks.push('national manpower/equipment/stock/production/loss ledgers unchanged');
+for(const id of Object.keys(c.state.units)){assert.deepEqual(c.state.units[id].hex,old.state.units[id].hex);assert.deepEqual(c.clock.corps.find(g=>g.members.includes(id)).id,old.clock.corps.find(g=>g.members.includes(id)).id);}checks.push('36 IDs, positions, corps membership preserved');
+const manifest=Object.values(p.units).map(u=>({id:u.id,side:u.side,template:p.formal.templates[u.templateId].name,composition:p.formal.templates[u.templateId].regiments.flat().filter(Boolean),personnel:u.personnel,equipment:u.held,attributes:c.divisionAttributes(u.id)}));
+const pairs=[['G-013','S-013'],['G-018','S-018'],['G-019','S-019']].map(([a,b])=>({units:[a,b],attributes:[c.divisionAttributes(a),c.divisionAttributes(b)]}));
+assert(c.divisionAttributes('S-013').effective.softAttack>c.divisionAttributes('G-013').effective.softAttack);assert(c.divisionAttributes('S-013').paper.supply>c.divisionAttributes('G-013').paper.supply);assert(c.divisionAttributes('S-019').paper.hp<c.divisionAttributes('G-019').paper.hp);checks.push('concentration raises local fire and supply; thin detachment has lower HP, no side multiplier');
+// Use real kernel, identical fixed draws and terrain: faction label does not change results.
+const a=c.divisionAttributes('G-013'),b=c.divisionAttributes('S-013');
+const kernel=(reverse=false)=>resolve({contacts:[{units:['A','B'],initiators:['A'],hex:'0,0'}],units:{A:{side:reverse?'SOVIET':'GERMAN',hex:{q:0,r:0}},B:{side:reverse?'GERMAN':'SOVIET',hex:{q:1,r:0}}},stats:{A:a,B:b},random:()=>.5});
+assert.deepEqual(kernel(),kernel(true));checks.push('real combat kernel faction-swap invariant, unchanged numerical rules');
+const saved=c.save();const restored=new Campaign();restored.restore(saved);assert.deepEqual(totals(restored.clock.divisionLedger),totals(p));assert(restored.clock.paused);assert.throws(()=>restored.restore(old.save()),/CONTENT002/);assert.throws(()=>old.restore(saved),/BLACKICE_NEW/);checks.push('new scenario save restores; cross-version load rejected in both directions');
+let serial=0;const command=op=>c.transaction({id:'content002-check-'+(++serial),version:c.version,operation:op});
+c.viewer='SOVIET';const u=p.units['S-020'],t=p.formal.templates['SOVIET:content002:fire'];
+const req={id:'content002-legal-adopt-1',version:c.version,operation:{type:'DIVISION_FORMAL_ADOPT',unit:u.id,expectedUnitRevision:u.revision,templateId:t.id,expectedTemplateVersion:t.version}};
+const before=totals(p),org=u.org;const accepted=c.transaction(req);assert.deepEqual(c.transaction(req),accepted);assert.deepEqual(totals(c.clock.divisionLedger),before);assert(c.clock.divisionLedger.units[u.id].org<=org);assert.equal(c.clock.divisionLedger.units[u.id].held.artillery_equipment_1,0);checks.push('legal owned prebuilt template adoption creates real gun deficit; no gift; duplicate request identical');
+const stable=JSON.stringify(c.clock.divisionLedger);assert.throws(()=>command({type:'DIVISION_FORMAL_ADOPT',unit:'G-019',expectedUnitRevision:0,templateId:t.id,expectedTemplateVersion:t.version}));assert.equal(JSON.stringify(c.clock.divisionLedger),stable);checks.push('foreign adoption rejected with unchanged ledger');
+c.viewer='GERMAN';command({type:'AUTOPAUSE',enabled:false});command({type:'CLOCK',paused:false,speed:1});for(let i=0;i<36;i++){c.advance();validate(c.clock.divisionLedger);}checks.push('36 full normal steps with economy, AI and conserved new manifest');
+const room=new RoomCampaign();assert.equal(room.clock.rules,VERSION);
+fs.writeFileSync(out+'/check.json',JSON.stringify({checks,manifest,pairs,kernel:kernel(),tick:c.clock.tick,kind:'authority and kernel checks, not browser or balance acceptance'},null,2));console.log(JSON.stringify(checks));

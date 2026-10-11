@@ -4,19 +4,22 @@ import {scheduleFronts} from '../grand-officer-003/front.mjs';
 import {ReleaseAdapter} from '../grand-release-001/persistence.mjs';
 
 export const ROOM_VERSION='BLACKICE-MP-001-ROOM-1';
-export class Campaign extends R1 {
+export function roomCampaign(Base=R1, roomVersion=ROOM_VERSION){ return class Campaign extends Base {
+ static newCampaignClass=this; static roomVersion=roomVersion;
  // Both strategic seats are human. Keep the same tactical/officer implementation;
  // do not invoke the single-player industrial manager or automatic template adoption.
  territoryStrategy() {}
  enemyPlan(view){Conservative.prototype.enemyPlan.call(this,view);scheduleFronts(this);}
  transaction(req){const result=super.transaction(req);if(req.operation?.type==='CLOCK'&&this.clock.room)this.clock.room.pauseReason=req.operation.paused?(this.viewer==='GERMAN'?'德军':'苏军')+'已暂停世界；由房主继续':'';return result;}
- save(){return {...super.save(),roomVersion:ROOM_VERSION};}
- restore(s,pause=true){if(s.roomVersion!==ROOM_VERSION||!s.clock?.room?.members?.a)throw Error('MULTIPLAYER_ROOM_SAVE_REQUIRED');super.restore(s,pause);}
+ save(){return {...super.save(),roomVersion:roomVersion};}
+ restore(s,pause=true){if(s.roomVersion!==roomVersion||!s.clock?.room?.members?.a)throw Error('MULTIPLAYER_ROOM_SAVE_REQUIRED');super.restore(s,pause);}
 }
+}
+export const Campaign=roomCampaign();
 export class RoomAdapter extends ReleaseAdapter {
  constructor(options){super(options);this.connected={a:false,b:false};if(this.c.clock.room)this.c.clock.room.pauseReason='服务恢复；等待双方连接，房主明确继续';}
  seat(seat){if(!['a','b'].includes(seat))throw Error('SEAT_NOT_AUTHORIZED');return seat==='a'?'GERMAN':'SOVIET';}
- summary(seat){const r=this.c.clock.room;return {version:ROOM_VERSION,id:r.id,seat,side:this.seat(seat),host:seat==='a',started:r.started,occupied:{a:!!r.members.a,b:!!r.members.b},connected:{...this.connected},paused:this.c.clock.paused,pauseReason:r.pauseReason,localOnly:true};}
+ summary(seat){const r=this.c.clock.room;return {version:this.c.constructor.roomVersion??ROOM_VERSION,id:r.id,seat,side:this.seat(seat),host:seat==='a',started:r.started,occupied:{a:!!r.members.a,b:!!r.members.b},connected:{...this.connected},paused:this.c.clock.paused,pauseReason:r.pauseReason,localOnly:true};}
  decorateView(seat,d){d.room=this.summary(seat);d.transport.role=seat==='a'?'德军玩家 · 房主':'苏军玩家';}
  async view(seat){const v=await super.view(seat);v.document.release.offlinePolicy='任一玩家断线自动暂停；房主明确继续。';return v;}
  authorizeCommand(seat,e){

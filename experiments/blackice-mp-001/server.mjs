@@ -13,20 +13,20 @@ const root=fileURLToPath(new URL('../../',import.meta.url)),digest=x=>createHash
 const validId=x=>typeof x==='string'&&/^[0-9a-f-]{36}$/.test(x);
 const reply=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
 async function body(req){let s='';for await(const c of req){s+=c;if(s.length>4096)throw Error('REQUEST_TOO_LARGE');}return JSON.parse(s||'{}');}
-export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDATA??root,'Eastfront','blackice-mp-001'),autoTick=true}={}){
+export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDATA??root,'Eastfront','blackice-mp-001'),autoTick=true,CampaignClass=Campaign,roomVersion=ROOM_VERSION,lobbyFile=new URL('./lobby.html',import.meta.url)}={}){
  fs.mkdirSync(saveDir,{recursive:true});const keyFile=path.join(saveDir,'visitor-key');if(!fs.existsSync(keyFile))atomicWrite(keyFile,randomBytes(32));const key=fs.readFileSync(keyFile);
  const rooms=new Map(),loading=new Map(),source=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();let closing=false;
  const cookieName='blackice_mp_visitor',mac=x=>createHmac('sha256',key).update(x).digest('hex');
  function identity(req){const v=req.headers.cookie?.split(';').map(x=>x.trim()).find(x=>x.startsWith(cookieName+'='))?.slice(cookieName.length+1);if(!v||!/^([0-9a-f]{64})\.([0-9a-f]{64})$/.test(v))return null;const[id,sig]=v.split('.');return timingSafeEqual(Buffer.from(sig,'hex'),Buffer.from(mac(id),'hex'))?id:null;}
  const origin=()=>`http://127.0.0.1:${server.address().port}`;
  const file=id=>path.join(saveDir,'rooms',id,'campaign.json');
- function savedRoom(id){if(!validId(id)||!fs.existsSync(file(id)))return null;const s=readSave(file(id));return s.campaign.roomVersion===ROOM_VERSION?s.campaign.clock.room:null;}
+ function savedRoom(id){if(!validId(id)||!fs.existsSync(file(id)))return null;const s=readSave(file(id));return s.campaign.roomVersion===roomVersion?s.campaign.clock.room:null;}
  function membership(id,who){if(!who||!validId(id))return null;const r=rooms.get(id)?.adapter.c.clock.room??savedRoom(id);return r&&Object.keys(r.members).find(s=>r.members[s]===who);}
  function authorized(req,id){const seat=membership(id,identity(req));if(!seat)return false;const route=new URL(req.url,origin()).pathname.match(/^\/(a|b)\//)?.[1];return !route||route===seat;}
  async function open(id,initial){if(rooms.has(id))return rooms.get(id);if(loading.has(id))return loading.get(id);const job=(async()=>{
   if(!initial&&!savedRoom(id))throw Error('ROOM_UNAVAILABLE');
   const access={authorized:req=>authorized(req,id),async gate(req,res){if(!authorized(req,id)){reply(res,403,{error:'ROOM_ACCESS_DENIED'});return true;}return false;}};
-  const service=await startWire({port:0,host:'127.0.0.1',publicOrigin:origin(),autoTick,saveFile:file(id),CampaignClass:Campaign,AdapterClass:RoomAdapter,release:true,staticRoot:path.join(root,'.release-territory-preview'),releaseProtocol:'GRAND-RELEASE-TERRITORY-1',cookiePrefix:'bmp_'+id.replaceAll('-','')+'_',access,
+  const service=await startWire({port:0,host:'127.0.0.1',publicOrigin:origin(),autoTick,saveFile:file(id),CampaignClass,AdapterClass:RoomAdapter,release:true,staticRoot:path.join(root,'.release-territory-preview'),releaseProtocol:'GRAND-RELEASE-TERRITORY-1',cookiePrefix:'bmp_'+id.replaceAll('-','')+'_',access,
    router:async(req,res,a)=>{const url=new URL(req.url,origin());if(url.pathname==='/release/info'){reply(res,200,{instanceId:a.id,revision:a.revision,tick:a.c.clock.tick,paused:a.c.clock.paused,saved:a.persistence.savedAt,room:a.summary(membership(id,identity(req))),source});return true;}if(url.pathname==='/release/new'){reply(res,403,{error:'CREATE_SEPARATE_ROOM_FROM_LOBBY'});return true;}return false;}});
   if(initial){service.adapter.c.clock.room=initial;await service.adapter.saveFileNow();}
   rooms.set(id,service);return service;
@@ -35,11 +35,11 @@ export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDAT
   const url=new URL(req.url,origin());res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Content-Type-Options','nosniff');
   if(req.headers.host!==new URL(origin()).host)return reply(res,403,{error:'HOST_DENIED'});
   if(req.method==='POST'&&req.headers.origin!==origin())return reply(res,403,{error:'ORIGIN_DENIED'});
-  if(url.pathname==='/healthz')return reply(res,200,{ok:true,source,roomVersion:ROOM_VERSION,rules:Campaign.rulesVersion,localOnly:true});
+  if(url.pathname==='/healthz')return reply(res,200,{ok:true,source,roomVersion,rules:CampaignClass.rulesVersion,localOnly:true});
   if(url.pathname==='/visitor/start'&&req.method==='POST'){let id=identity(req);if(!id)id=randomBytes(32).toString('hex');res.setHeader('Set-Cookie',`${cookieName}=${id}.${mac(id)}; HttpOnly; SameSite=Strict; Path=/; Max-Age=2592000`);return reply(res,200,{ok:true});}
   if(url.pathname==='/room/create'&&req.method==='POST'){
    const who=identity(req);if(!who)return reply(res,401,{error:'VISITOR_REQUIRED'});
-   const id=randomUUID(),invite=randomBytes(24).toString('hex');await open(id,{id,version:ROOM_VERSION,members:{a:who,b:null},inviteHash:digest(invite),started:false,pauseReason:'等待另一玩家加入；房主开始后仍初始暂停'});
+   const id=randomUUID(),invite=randomBytes(24).toString('hex');await open(id,{id,version:roomVersion,members:{a:who,b:null},inviteHash:digest(invite),started:false,pauseReason:'等待另一玩家加入；房主开始后仍初始暂停'});
    return reply(res,201,{roomId:id,url:`/?campaign=${id}`,joinUrl:`/rooms?room=${id}#invite=${invite}`});
   }
   if(url.pathname==='/room/join'&&req.method==='POST'){
@@ -53,7 +53,7 @@ export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDAT
    for(const id of fs.existsSync(dir)?fs.readdirSync(dir):[]){const seat=membership(id,who);if(seat){const r=rooms.get(id)?.adapter.c.clock.room??savedRoom(id);rows.push({id,seat,started:r.started,url:`/?campaign=${id}&client=${seat}`});}}
    return reply(res,200,{rooms:rows});
   }
-  if(url.pathname==='/rooms'||url.pathname==='/'&&!url.searchParams.has('campaign')){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(fs.readFileSync(new URL('./lobby.html',import.meta.url)));}
+  if(url.pathname==='/rooms'||url.pathname==='/'&&!url.searchParams.has('campaign')){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(fs.readFileSync(lobbyFile));}
   if(req.method==='GET'&&/\.(?:js|mjs|css|png|webp|jpg|svg|woff2|json)$/.test(url.pathname)){
    const transport={'/transport/client.mjs':'web/client.mjs','/transport/view.mjs':'view.mjs','/transport/stateCodec.mjs':'web/stateCodec.mjs','/sync.mjs':'sync.mjs'};
    const base=transport[url.pathname]?path.join(root,'experiments/grand-play-mp022'):path.join(root,'.release-territory-preview'),target=path.resolve(base,transport[url.pathname]??'.'+decodeURIComponent(url.pathname));
