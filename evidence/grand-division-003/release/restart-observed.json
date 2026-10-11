@@ -1,0 +1,32 @@
+{
+  "source": "3d6eeb3070520fd8d3b03ee5cfdffff8baa149d4",
+  "beforeCheckpointUtc": "2026-10-11T05:00:20.121Z",
+  "previousServerInstance": "srv-db46117lk1mc73ev50mg-k95r7",
+  "restartedServerInstance": "srv-db46117lk1mc73ev50mg-kjg97",
+  "restartReadyUtc": "2026-10-11T05:02:26.530337243Z",
+  "deploys": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "[{\"commit\":{\"createdAt\":\"2026-10-10T13:02:09Z\",\"id\":\"3d6eeb3070520fd8d3b03ee5cfdffff8baa149d4\",\"message\":\"[CF-Pages-Skip] Prepare three-mode release checkpoint and isolation guards\"},\"createdAt\":\"2026-10-10T13:12:49.418602Z\",\"finishedAt\":\"2026-10-10T13:14:17.286715Z\",\"id\":\"dep-db53jkajnfac7394ant0\",\"startedAt\":\"2026-10-10T13:12:49.378485Z\",\"status\":\"live\",\"trigger\":\"manual\",\"updatedAt\":\"2026-10-10T13:14:58.988787Z\"},{\"commit\":{\"createdAt\":\"2026-10-10T07:20:29Z\",\"id\":\"ba44cd1b5f2ceea4408a9b63a9d31854543c44cd\",\"message\":\"[CF-Pages-Skip] Pace campaign steps and unify map commands, design and combat feedback\"},\"createdAt\":\"2026-10-10T13:11:21.257174Z\",\"finishedAt\":\"2026-10-10T13:11:48.816047Z\",\"id\":\"dep-db53iudckfvc738rar0g\",\"startedAt\":\"2026-10-10T13:11:21.229638Z\",\"status\":\"build_failed\",\"trigger\":\"api\",\"updatedAt\":\"2026-10-10T13:11:48.816659Z\"},{\"commit\":{\"createdAt\":\"2026-10-10T07:20:29Z\",\"id\":\"ba44cd1b5f2ceea4408a9b63a9d31854543c44cd\",\"message\":\"[CF-Pages-Skip] Pace campaign steps and unify map commands, design and combat feedback\"},\"createdAt\":\"2026-10-10T07:21:33.018877Z\",\"finishedAt\":\"2026-10-10T07:23:02.387632Z\",\"id\":\"dep-db4uev2jnfac738j3fc0\",\"startedAt\":\"2026-10-10T07:21:32.990793Z\",\"status\":\"deactivated\",\"trigger\":\"api\",\"updatedAt\":\"2026-10-10T13:14:17.2858Z\"}]\n\n cursor: v1VzYt3MMTdldjJqbmZhYzczOGozZmMw"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "restartLogs": {
+    "status": "fulfilled",
+    "value": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\"hasMore\":false,\"logs\":[{\"id\":\"c5215a82-2b3c-4d8e-9020-a261a805cff2\",\"labels\":[{\"name\":\"resource\",\"value\":\"srv-db46117lk1mc73ev50mg\"},{\"name\":\"instance\",\"value\":\"srv-db46117lk1mc73ev50mg-kjg97\"},{\"name\":\"level\",\"value\":\"error\"},{\"name\":\"type\",\"value\":\"app\"}],\"message\":\"\\u001b[32m\\u001b[1m==\\u003e\\u001b(B\\u001b[m \\u001b[1mRunning 'node --input-type=module -e \\\"import {backupBeforeRelease} from './experiments/grand-release-002/backup.mjs'; const root=process.env.SAVE_DIR; if(!root) throw Error('SAVE_DIR_REQUIRED'); backupBeforeRelease(root); backupBeforeRelease(root); console.log('RELEASE002_BACKUP_VERIFIED');\\\" \\u0026\\u0026 exec node experiments/grand-release-002/server.mjs'\\u001b(B\\u001b[m\",\"timestamp\":\"2026-10-11T05:02:25.597988693Z\"},{\"id\":\"1110e775-36a8-4e31-914c-f675e774fcd7\",\"labels\":[{\"name\":\"resource\",\"value\":\"srv-db46117lk1mc73ev50mg\"},{\"name\":\"instance\",\"value\":\"srv-db46117lk1mc73ev50mg-kjg97\"},{\"name\":\"level\",\"value\":\"info\"},{\"name\":\"type\",\"value\":\"app\"}],\"message\":\"GRAND-RELEASE-002 dual campaign preview ready\",\"timestamp\":\"2026-10-11T05:02:26.530337243Z\"}],\"nextEndTime\":\"2026-10-11T05:02:25.597988693Z\",\"nextStartTime\":\"2026-10-11T05:00:20Z\"}"
+        }
+      ],
+      "isError": false
+    }
+  },
+  "scope": "Read-only verification of an already completed restart. No deployment or restart requested in this turn. Startup backup verification refers to the immutable release checkpoint, not a new backup of current progress."
+}

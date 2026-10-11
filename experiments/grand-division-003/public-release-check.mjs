@@ -29,7 +29,7 @@ try{
   const row={mode,instanceId:info.instanceId,commands:[]};results.modes.push(row);
   const fingerprint=()=>{const d=client.document();return {tick:d.continuous.tick,units:hash(d.units),divisions:hash(d.divisions??null),unitCount:d.units?.length,keys:Object.keys(d)};};
   async function submit(kind,payload,keys,dep={}){const id=client.submit(kind,payload,keys,dep);await until(()=>client.history.some(r=>r.command.requestId===id));const r=client.history.find(r=>r.command.requestId===id);assert.equal(r.status,'applied',JSON.stringify(r.result));row.commands.push({kind,operation:payload.type,receiptMs:Math.round(r.resultAt-r.sendAt)});}
-  if(phase==='after'){assert.equal(info.instanceId,checkpoint.modes[mode].instanceId);assert.deepEqual(fingerprint(),checkpoint.modes[mode].fingerprint);row.persistedStateMatch=true;}
+  if(phase==='after'){assert.equal(info.instanceId,checkpoint.modes[mode].instanceId);assert.deepEqual(fingerprint(),checkpoint.modes[mode].fingerprint);row.persistedStateMatch=true;await submit('SAVE',{},['all']);assert.deepEqual(fingerprint(),checkpoint.modes[mode].fingerprint);row.resavedWithoutProgressChange=true;}
   else{
    const world=()=>({worldGeneration:client.document().transport.worldGeneration});
    await submit('OPERATION',{type:'CLOCK',paused:false,speed:1},['world'],world());const tick=client.document().continuous.tick;await until(()=>client.document().continuous.tick>tick);
