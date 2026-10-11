@@ -22,11 +22,12 @@ export class CampaignAdapter {
  seat(seat){if(!['a','b'].includes(seat))fail('SEAT_NOT_AUTHORIZED');return 'GERMAN';}
  control(seat,id){const side=this.seat(seat),a=this.c.match.controllerAssignments.find(x=>x.controllerId===side&&x.viewer===side&&x.seat===side),u=this.c.state.units[id];if(!a||!u?.alive||u.side!==side||u.controllerId!==a.coreControllerId)fail('UNIT_NOT_AUTHORIZED');return u;}
  group(seat,id){const g=this.c.clock.corps.find(g=>g.permanentId===id&&g.side===this.seat(seat));if(!g)fail('GROUP_NOT_AUTHORIZED');for(const id of g.members.filter(id=>this.c.state.units[id]?.alive))this.control(seat,id);return g;}
- accountStamp(){return hash(this.c.econ.accounts.GERMAN);}
+ accountStamp(){return hash(this.c.econ.accounts[this.c.viewer]);}
+ async forSeat(seat,fn){return this.exclusive(async()=>{const old=this.c.viewer;this.c.viewer=this.seat(seat);try{return await fn();}finally{this.c.viewer=old;}});}
  pending(seat){return [...this.c.receipts.values()].filter(r=>r.transport?.seat===seat&&!r.transport.acked).map(r=>copy(r.transport.result));}
  ack(seat,id){const r=this.c.receipts.get(id);if(r?.transport?.seat===seat)r.transport.acked=true;}
- async view(seat){return this.exclusive(()=>{this.seat(seat);const d=this.c.snapshot();d.transport={era:this.era,seat,nextCommandSeq:this.c.transport.next[seat],economyGeneration:this.c.transport.economyGeneration,worldGeneration:this.c.transport.worldGeneration,accountStamp:this.accountStamp(),mode:'GRAND_PLAY_SHARED_CLOCK',role:'同一德军统帅的协同操作端'};return {instanceId:this.id,revision:this.revision,era:this.era,document:encodeView(d)};});}
- async query(seat,draft){return this.exclusive(()=>{this.seat(seat);return this.c.projection(draft);});}
+ async view(seat){return this.forSeat(seat,()=>{this.seat(seat);const d=this.c.snapshot();d.transport={era:this.era,seat,nextCommandSeq:this.c.transport.next[seat],economyGeneration:this.c.transport.economyGeneration,worldGeneration:this.c.transport.worldGeneration,accountStamp:this.accountStamp(),mode:'GRAND_PLAY_SHARED_CLOCK',role:'同一德军统帅的协同操作端'};this.decorateView?.(seat,d);return {instanceId:this.id,revision:this.revision,era:this.era,document:encodeView(d)};});}
+ async query(seat,draft){return this.forSeat(seat,()=>{this.seat(seat);return this.c.projection(draft);});}
  saveFileNow(){if(!this.saveFile)fail('SAVE_UNAVAILABLE');const payload=JSON.stringify({schema:'GRAND-PLAY-MP022-1',campaign:this.c.save(),transport:this.c.transport});const envelope=JSON.stringify({checksum:hash(payload),payload});fs.mkdirSync(path.dirname(this.saveFile),{recursive:true});fs.writeFileSync(this.saveFile+'.tmp',envelope);fs.renameSync(this.saveFile+'.tmp',this.saveFile);}
  loadFile(){if(!this.saveFile)fail('SAVE_UNAVAILABLE');const e=JSON.parse(fs.readFileSync(this.saveFile,'utf8'));if(hash(e.payload)!==e.checksum)fail('SAVE_CHECKSUM_FAILED');const s=JSON.parse(e.payload);if(s.schema!=='GRAND-PLAY-MP022-1'||!s.transport?.next)fail('UNSUPPORTED_SAVE_VERSION');
   const old=this.c.clock,revision=this.c.version;this.c.restore(s.campaign);this.c.transport=copy(s.transport);this.c.version=Math.max(revision,this.c.version)+1;this.c.match.matchRevision=this.c.version;
@@ -34,7 +35,8 @@ export class CampaignAdapter {
   for(const [id,u]of Object.entries(this.c.clock.units))u.commandGeneration=Math.max(u.commandGeneration??0,old.units[id]?.commandGeneration??0)+1;
   this.c.transport.worldGeneration++;this.c.transport.economyGeneration++;this.era=randomUUID();this.accumulated=0;this.c.clock.paused=true;
  }
- async submit(seat,e){const receivedAt=performance.now();return this.exclusive(async()=>{
+ async submit(seat,e,guard){const receivedAt=performance.now();return this.forSeat(seat,async()=>{
+  if(guard&&!guard())fail('CONNECTION_REPLACED');
   this.seat(seat);const c=this.c,startedAt=performance.now();if(e.instanceId!==c.id)fail('INSTANCE_MISMATCH');if(e.era!==this.era)fail('RESTORED_SESSION_REPLAN_REQUIRED');
   if(typeof e.requestId!=='string'||!/^[-\w:]{8,96}$/.test(e.requestId)||!Number.isSafeInteger(e.commandSeq)||e.commandSeq<1||e.commandSeq>=Number.MAX_SAFE_INTEGER)fail('INVALID_ENVELOPE');
   const signature=canonical(e),prior=c.receipts.get(e.requestId);if(prior){if(prior.transport?.seat!==seat||prior.transport.signature!==signature)fail('ID_REUSE_CONFLICT');return copy(prior.transport.result);}
@@ -42,6 +44,7 @@ export class CampaignAdapter {
   const beforeVersion=c.version,p=copy(e.payload??{}),dep=e.dependencies??{};let reason=null,status='REJECTED',load=false,divisionReceipt=null;
   const before=e.kind==='LOAD'?{campaign:c.save(),transport:copy(c.transport),era:this.era}:null;
   try{
+   this.authorizeCommand?.(seat,e);
    if(e.kind==='SAVE'){c.version++;c.match.matchRevision=c.version;}
    else if(e.kind==='LOAD'){this.loadFile();load=true;}
    else if(e.kind==='OPERATION'){
