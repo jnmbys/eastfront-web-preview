@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('src/playable/industryArt.ts');s=p.read_text(encoding='utf8').replace("for(const city of p.data.cities.items)for(const d of city.districts){if(collapsed(city))continue;","for(const city of p.data.cities.items)for(const d of city.districts){if(gazetteer&&!supply&&!(p.selections['ui-panel']==='city'&&p.selections.city===city.id))continue;if(collapsed(city))continue;");p.write_text(s,encoding='utf8')

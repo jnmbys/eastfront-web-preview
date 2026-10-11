@@ -1,0 +1,17 @@
+from pathlib import Path
+p=Path('src/playable/compactForces.ts');s=p.read_text(encoding='utf-8');a=s.index('function troopSymbol');b=s.index('function stackMembers',a)
+s=s[:a]+'''export function forceKind(p:GrandPort,u:any){
+ const f=p.data.divisions?.integrated,t=f?.templates?.find((t:any)=>t.id===f.units?.find((x:any)=>x.id===u.id)?.templateId);
+ // Only own authorized templates; enemy details never inferred from hidden formations.
+ if(!t)return u.type;const counts:Record<string,number>={};for(const x of t.regiments.flat().filter(Boolean))counts[x]=(counts[x]??0)+1;
+ return Object.keys(counts).sort((a,b)=>counts[b]!-counts[a]!||['LIGHT_ARMOR','ANTI_TANK','ARTILLERY','MOTORIZED','INFANTRY'].indexOf(a)-['LIGHT_ARMOR','ANTI_TANK','ARTILLERY','MOTORIZED','INFANTRY'].indexOf(b))[0]??u.type;
+}
+export function troopSymbol(type:string){const t=type.toUpperCase(),shape=/PANZER|TANK|ARMOR/.test(t)?'<path d="M-8 1h16l-2 4H-6zM-4 0v-4h7v4M3 -3h8"/><circle cx="-4" cy="3" r="1"/><circle cx="4" cy="3" r="1"/>':/ANTI_TANK/.test(t)?'<path d="M-8 5L0 -5 8 5ZM-6 0H6"/>':/ARTILLERY/.test(t)?'<path d="M-8 1L7 -5M-2 0L7 5"/><circle cx="-3" cy="3" r="3"/>':/MOTORIZED|TRANSPORT/.test(t)?'<path d="M-9 -5H3V3H-9ZM3 -2H7L10 1V3H3"/><circle cx="-5" cy="4" r="2"/><circle cx="6" cy="4" r="2"/>':/ENGINEER/.test(t)?'<path d="M-8 5V-3H8V5M-4 -3V5M4 -3V5M-8 0H8"/>':/RECON/.test(t)?'<path d="M-7 5L7 -5M2 -5H7V0"/>':/HQ/.test(t)?'<path d="M-6 -6V6M-6 -5H6V1H-6"/>':'<path d="M-8 -5L8 5M-8 5L8 -5M-9 -2L-6 -5M6 5L9 2"/>';
+ return `<g transform="translate(-23 -9)" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">${shape}</g>`;
+}
+'''+s[b:];s=s.replace('troopSymbol(units[0]!.type)','troopSymbol(forceKind(p,units[0]!))');p.write_text(s,encoding='utf-8')
+p=Path('src/playable/nationalGeography.ts');s=p.read_text(encoding='utf-8').replace("'#658d9d':'#ac7770'","'#5594b2':'#b75949'").replace('opacity=".12"','opacity=".17"').replace('stroke-width="8"','stroke-width="2" vector-effect="non-scaling-stroke"').replace('stroke-width="3" stroke-dasharray="18 10"','stroke-width=".8" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"');p.write_text(s,encoding='utf-8')
+p=Path('src/playable/battleMap.ts');s=p.read_text(encoding='utf-8').replace("if(member&&p.selections['map-emphasis']==='group')","if(member&&group.order.kind==='ADVANCE'&&p.selections['map-emphasis']==='group')")
+a=s.index('  patch(el,`<circle r="27"');b=s.index('\n  let down:',a)
+s=s[:a]+'''  patch(el,`<circle r="26" fill="transparent"/><g transform="rotate(${directions[0]??90})"><path d="M-17,-7H10V-12L29,0 10,12V7H-17Z" fill="${color}" stroke="#171916" stroke-width="2.5"/><path d="M12 -8L24 0 12 8" fill="none" stroke="#e6ddbd" stroke-opacity=".45"/></g><circle r="15" fill="#1c211a" stroke="${selected?'#ffedb0':'#0b0e0a'}" stroke-width="${selected?3:2}"/><circle r="12.5" fill="${color}" stroke="#bac2a0" stroke-opacity=".35"/><text y="5" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#fffce9" paint-order="stroke" stroke="#20251b" stroke-width="1">${glyph}</text><path d="M-10,-17l3,-4 2,3 3,-5 3,5 4,-3" fill="none" stroke="#e9e3c9" stroke-width="1.5"/><text x="-17" y="-12" font-size="9" fill="#fff3d6" stroke="#172321" stroke-width="2" paint-order="stroke">${minor}</text><title>${esc((typeof win==='number'?'未校准趋势估计 '+win:'暂无可信战况数值')+'；箭头沿实际主攻方向；'+(b.winEstimate?.reason??''))}</title>`);
+'''+s[b:];p.write_text(s,encoding='utf-8')
