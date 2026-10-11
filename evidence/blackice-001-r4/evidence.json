@@ -1,0 +1,409 @@
+{
+  "date": "2026-10-11",
+  "decision": "C: fixed-version retreat state-machine evidence insufficient; no rule change",
+  "rounds": [
+    {
+      "round": 1,
+      "scope": "Existing fixed local source + R2/R3 + official wiki/guide",
+      "access": [
+        {
+          "url": "https://hoi4.paradoxwikis.com/Land_battle",
+          "result": "401"
+        },
+        {
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=2366487639",
+          "result": "timeout; historical R2 accessible but outdated"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "scope": "Only version-linked retreat/overrun gaps",
+      "queries": [
+        "site.forum.paradoxplaza.com \"Black ICE\" \"retreat\" \"12.3\"",
+        "site.hoi4.paradoxwikis.com \"retreat\" \"combat\" \"overrun\"",
+        "site.steamcommunity.com \"Black ICE\" \"retreat\" \"1.19.2\""
+      ],
+      "result": "No usable version-verified primary behavior evidence returned. Community posts, mixed-mod workshop collections, unrelated game manuals and unversioned defines mirrors not adopted. Search summaries are not rule evidence."
+    }
+  ],
+  "source": {
+    "commit": "649a5410d9ea527a4f1618b58060f7cb9033f781",
+    "version": "BICE12.3.0 / HOI4 1.19.2.0; workshop12.1.0 distinct",
+    "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/defines/00_defines.lua",
+    "sha256": "fba625d721e5df5bdbf7dc0882366a8493ca335dff38c4b3a5c285728c6263e4",
+    "values": [
+      {
+        "name": "COMBAT_MINIMUM_TIME",
+        "assignments": [
+          {
+            "line": 853,
+            "value": 8
+          }
+        ]
+      },
+      {
+        "name": "RETREAT_SPEED_FACTOR",
+        "assignments": [
+          {
+            "line": 1109,
+            "value": 0.4
+          }
+        ]
+      },
+      {
+        "name": "XP_GAIN_PER_OVERRUN_UNIT",
+        "assignments": [
+          {
+            "line": 917,
+            "value": 20
+          }
+        ]
+      },
+      {
+        "name": "XP_GAIN_FOR_SHATTERING",
+        "assignments": [
+          {
+            "line": 918,
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "limits": "Config scalars only. Retreat-speed comment says speed bonus, not proof of .4x movement or exit timing. Naval retreat fields excluded. No engine launch or1.19.3 substitution."
+  },
+  "project": [
+    {
+      "file": "experiments/blackice-001/r1-campaign.mjs",
+      "sha256": "ce9ddf04049981e9ec4d4a98affcf7af7ce80a9039f74a542e64612b3915ea76"
+    },
+    {
+      "file": "experiments/blackice-001/authority.mjs",
+      "sha256": "44b1a1a342d517848c8147da5f3f7a64839b8c6aeb4fbf225e8351fbf0386ef6"
+    },
+    {
+      "file": "experiments/blackice-001/combat.mjs",
+      "sha256": "8d3a7ce4564fa0d3fcdaff5ec27eef6ba6262b7752c2d9c4a12d840a29de0c9d"
+    },
+    {
+      "file": "experiments/grand-officer-001/authority.mjs",
+      "sha256": "809d3eff2226d564234902584ace44633a48233fc22dd4b11b3e2bc1ab11d3d0"
+    },
+    {
+      "file": "experiments/grand-officer-001/policy.mjs",
+      "sha256": "a0b661657085ba56c565a8f03bb53f92d141143d2830ea4243a1a5a90858d9f2"
+    },
+    {
+      "file": "experiments/grand-play-001/authority.mjs",
+      "sha256": "84b1cd873110ee07de764061fb1143d52737aadb596c45a7bbdeb6a2977f69a5"
+    },
+    {
+      "file": "experiments/grand-play-001/planner.mjs",
+      "sha256": "d2b7c4f8383fbf25ed7030d120302c267443794862b893db4bf68fbea8638854"
+    },
+    {
+      "file": "experiments/grand-release-001/territory.mjs",
+      "sha256": "972ad0af4eb00c99f4abe9d231301c6bc66c3216079b745baef00b05f488d93d"
+    },
+    {
+      "file": "experiments/grand-ux-004-r2/manual.mjs",
+      "sha256": "2423f100b9a448d5ff09233129fb461edc8ba154d0e630ec7759edc3be210eae"
+    },
+    {
+      "file": "experiments/grand-division-003/authority.mjs",
+      "sha256": "79a1f0728535f45a72a1b5edefc486152c2304a2cfb28195e51b5c5cafd438f8"
+    }
+  ],
+  "trajectory": {
+    "source": "evidence/blackice-001-r3/results.json.gz",
+    "sha256": "98f1140b525873806bd158e12e611f09ecc6bb9cb9cf81a1b3311925a3ded71d",
+    "scenario": "gun-two",
+    "seed": 219031,
+    "first": 1,
+    "last": 108,
+    "confirmed": 120,
+    "withdrawals": [
+      {
+        "tick": 65,
+        "unit": "S-013",
+        "kind": "START",
+        "orgBefore": 53.89355544268395,
+        "orgAfter": 53.89355544268395,
+        "from": "24,4",
+        "to": "24,4",
+        "withdrawal": {
+          "from": {
+            "q": 24,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 5
+          },
+          "remaining": 39,
+          "total": 39,
+          "since": 65
+        },
+        "phase": "WITHDRAW",
+        "trigger": {
+          "forcedOrg": false,
+          "peopleRatio": 0.5876,
+          "stock": 9.170488888888862,
+          "order": "RETREAT",
+          "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+        },
+        "reason": "正在脱离交战，尚未安全；撤出路段还需 195 分钟"
+      },
+      {
+        "tick": 108,
+        "unit": "S-013",
+        "kind": "ARRIVE",
+        "orgBefore": 27.04381380935262,
+        "orgAfter": 27.04381380935262,
+        "from": "24,4",
+        "to": "24,5",
+        "withdrawal": {
+          "from": {
+            "q": 24,
+            "r": 4
+          },
+          "to": {
+            "q": 24,
+            "r": 5
+          },
+          "remaining": 0.8445973383457513,
+          "total": 39,
+          "since": 65,
+          "acceptedPhysicalSpeed": 3.132972222222219
+        },
+        "phase": "RECOVER",
+        "trigger": {
+          "forcedOrg": false,
+          "peopleRatio": 0.3464,
+          "stock": 4.581911111111071,
+          "order": "REFIT",
+          "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+        },
+        "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+      }
+    ],
+    "samples": [
+      {
+        "tick": 64,
+        "units": {
+          "G-013": {
+            "personnel": 1842,
+            "org": 28.564142278076297,
+            "orgPercent": 96.45035054934853,
+            "hex": "23,4",
+            "engaged": 1,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+          },
+          "S-013": {
+            "personnel": 1488,
+            "org": 19.24193092008687,
+            "orgPercent": 54.97694548596248,
+            "hex": "24,4",
+            "engaged": 1,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+          }
+        }
+      },
+      {
+        "tick": 65,
+        "units": {
+          "G-013": {
+            "personnel": 1841,
+            "org": 28.5466131777883,
+            "orgPercent": 96.3911613795449,
+            "hex": "23,4",
+            "engaged": 1,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+          },
+          "S-013": {
+            "personnel": 1469,
+            "org": 18.86274440493938,
+            "orgPercent": 53.89355544268395,
+            "hex": "24,4",
+            "engaged": 1,
+            "phase": "WITHDRAW",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 39,
+              "total": 39,
+              "since": 65
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 195 分钟"
+          }
+        }
+      },
+      {
+        "tick": 66,
+        "units": {
+          "G-013": {
+            "personnel": 1840,
+            "org": 28.529423120964964,
+            "orgPercent": 96.33311703182974,
+            "hex": "23,4",
+            "engaged": 1,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+          },
+          "S-013": {
+            "personnel": 1460,
+            "org": 18.76782795887981,
+            "orgPercent": 53.622365596799455,
+            "hex": "24,4",
+            "engaged": 1,
+            "phase": "WITHDRAW",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 38,
+              "total": 39,
+              "since": 65,
+              "acceptedPhysicalSpeed": 3.132972222222219
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 190 分钟"
+          }
+        }
+      },
+      {
+        "tick": 107,
+        "units": {
+          "G-013": {
+            "personnel": 1813,
+            "org": 28.21977480262195,
+            "orgPercent": 95.2875512815806,
+            "hex": "23,4",
+            "engaged": 1,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+          },
+          "S-013": {
+            "personnel": 879,
+            "org": 9.563805211465777,
+            "orgPercent": 27.325157747045075,
+            "hex": "24,4",
+            "engaged": 1,
+            "phase": "WITHDRAW",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.6657788574924608,
+              "total": 39,
+              "since": 65,
+              "acceptedPhysicalSpeed": 3.132972222222219
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 3.3288942874623038 分钟"
+          }
+        }
+      },
+      {
+        "tick": 108,
+        "units": {
+          "G-013": {
+            "personnel": 1813,
+            "org": 28.214232023320452,
+            "orgPercent": 95.2688354034197,
+            "hex": "23,4",
+            "engaged": 1,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "承担本军团目标附近主攻；向指定相邻敌军攻击；目标清空后按行军规则推进"
+          },
+          "S-013": {
+            "personnel": 866,
+            "org": 9.465334833273417,
+            "orgPercent": 27.04381380935262,
+            "hex": "24,5",
+            "engaged": 1,
+            "phase": "RECOVER",
+            "withdrawal": null,
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        }
+      },
+      {
+        "tick": 109,
+        "units": {
+          "G-013": {
+            "personnel": 1813,
+            "org": 27.94769356178199,
+            "orgPercent": 94.36883540341971,
+            "hex": "23,4",
+            "engaged": 0,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "缺少可保留的预备队，沿原军团任务行动；按已知地形向命令目标推进"
+          },
+          "S-013": {
+            "personnel": 866,
+            "org": 9.489808583273415,
+            "orgPercent": 27.11373880935262,
+            "hex": "24,5",
+            "engaged": 0,
+            "phase": "RECOVER",
+            "withdrawal": null,
+            "reason": "人员损失严重，等待真实补充；组织度不足，轮换休整"
+          }
+        }
+      },
+      {
+        "tick": 120,
+        "units": {
+          "G-013": {
+            "personnel": 1813,
+            "org": 27.621924331012778,
+            "orgPercent": 93.26883540341977,
+            "hex": "23,4",
+            "engaged": 0,
+            "phase": "ACTIVE",
+            "withdrawal": null,
+            "reason": "缺少可保留的预备队，沿原军团任务行动；按已知地形向命令目标推进"
+          },
+          "S-013": {
+            "personnel": 866,
+            "org": 9.720503791606747,
+            "orgPercent": 27.772867976019278,
+            "hex": "24,5",
+            "engaged": 0,
+            "phase": "RECOVER",
+            "withdrawal": null,
+            "reason": "人员损失严重，等待真实补充；组织度不足，轮换休整"
+          }
+        }
+      }
+    ],
+    "lossDuringWithdrawal": 603,
+    "attackerPersonnelLossBetweenStartAndArrival": 28
+  },
+  "newSimulationRuns": 0
+}
