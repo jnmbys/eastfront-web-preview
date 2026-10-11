@@ -13,10 +13,10 @@ const root=fileURLToPath(new URL('../../',import.meta.url)),digest=x=>createHash
 const validId=x=>typeof x==='string'&&/^[0-9a-f-]{36}$/.test(x);
 const reply=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
 async function body(req){let s='';for await(const c of req){s+=c;if(s.length>4096)throw Error('REQUEST_TOO_LARGE');}return JSON.parse(s||'{}');}
-export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDATA??root,'Eastfront','blackice-mp-001'),autoTick=true,CampaignClass=Campaign,roomVersion=ROOM_VERSION,lobbyFile=new URL('./lobby.html',import.meta.url)}={}){
+export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDATA??root,'Eastfront','blackice-mp-001'),autoTick=true,visitorCookie='blackice_mp_visitor',CampaignClass=Campaign,roomVersion=ROOM_VERSION,lobbyFile=new URL('./lobby.html',import.meta.url)}={}){
  fs.mkdirSync(saveDir,{recursive:true});const keyFile=path.join(saveDir,'visitor-key');if(!fs.existsSync(keyFile))atomicWrite(keyFile,randomBytes(32));const key=fs.readFileSync(keyFile);
  const rooms=new Map(),loading=new Map(),source=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();let closing=false;
- const cookieName='blackice_mp_visitor',mac=x=>createHmac('sha256',key).update(x).digest('hex');
+ const cookieName=visitorCookie,mac=x=>createHmac('sha256',key).update(x).digest('hex');
  function identity(req){const v=req.headers.cookie?.split(';').map(x=>x.trim()).find(x=>x.startsWith(cookieName+'='))?.slice(cookieName.length+1);if(!v||!/^([0-9a-f]{64})\.([0-9a-f]{64})$/.test(v))return null;const[id,sig]=v.split('.');return timingSafeEqual(Buffer.from(sig,'hex'),Buffer.from(mac(id),'hex'))?id:null;}
  const origin=()=>`http://127.0.0.1:${server.address().port}`;
  const file=id=>path.join(saveDir,'rooms',id,'campaign.json');

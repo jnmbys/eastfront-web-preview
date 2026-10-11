@@ -468,7 +468,7 @@ function chooseMoveTarget(hex:ReturnType<typeof parseHex>):void{
 function selectPlayableCounter(id:string):void{
   if(!session)return;
   selectCounter(session,presentation,id);
-  if(grandPort?.continuous){delete grandPort.selections['multi-units'];delete grandPort.selections['multi-kind'];grandPort.selections['map-command']='1';grandPort.selections['ui-panel']='';if(grandPort.directDraft&&grandPort.directDraft.unit!==id){grandPort.directDraft=null;grandPort.directPreview=null;const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;scope.picking=null;scope.officerPick=false;}presentation.interactionMode="SELECT" as typeof presentation.interactionMode;requestAnimationFrame(()=>keepGrandTargetVisible(grandPort?.data.continuous.units[id]?.hex));return;}
+  if(grandPort?.continuous){delete grandPort.selections['hoi-list-hidden'];delete grandPort.selections['multi-units'];delete grandPort.selections['multi-kind'];grandPort.selections['map-command']='1';grandPort.selections['ui-panel']='';if(grandPort.directDraft&&grandPort.directDraft.unit!==id){grandPort.directDraft=null;grandPort.directPreview=null;const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;scope.picking=null;scope.officerPick=false;}presentation.interactionMode="SELECT" as typeof presentation.interactionMode;requestAnimationFrame(()=>keepGrandTargetVisible(grandPort?.data.continuous.units[id]?.hex));return;}
   if(!grandPort?.data?.ux||presentation.privacyGate||isNetwork(session)&&!session.canSelect)return;
   const model=deriveBrowserRenderModel(session,presentation),u=sessionPlayerView(session).units.find(u=>u.id===id);
   const officers=grandPort.data.officers,delegated=officers?.enabled&&officers.groups.some((g:any)=>g.order&&!g.paused&&g.members.includes(id));
@@ -779,7 +779,7 @@ function bindPlayable(model:BrowserRenderModel):void{
 function keepGrandTargetVisible(h:any){
  if(!h)return;const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),wrap=document.querySelector('#map-wrap'),m=svg?.getScreenCTM();if(!svg||!wrap||!m)return;
  const pt=hexToPixel(h),s=new DOMPoint(pt.x,pt.y).matrixTransform(m),r=wrap.getBoundingClientRect(),strip=document.querySelector('.map-command-strip')?.getBoundingClientRect(),side=document.querySelector('.ui-sidebar')?.getBoundingClientRect();
- const left=r.left+55,right=Math.min(r.right-55,side?side.left-35:r.right-55),top=r.top+90,bottom=Math.min(r.bottom-100,strip?strip.top-55:r.bottom-100);
+ const onLeft=!!side&&side.left<r.left+r.width/2,left=Math.max(r.left+55,onLeft?side!.right+25:r.left+55),right=Math.min(r.right-55,side&&!onLeft?side.left-35:r.right-55),top=r.top+90,bottom=Math.min(r.bottom-100,strip?strip.top-55:r.bottom-100);
  const dx=s.x<left?left-s.x:s.x>right?right-s.x:0,dy=s.y<top?top-s.y:s.y>bottom?bottom-s.y:0;
  if(dx||dy){mapViewport={...mapViewport,panX:mapViewport.panX+dx,panY:mapViewport.panY+dy};applyMapViewport();}
 }
@@ -788,7 +788,7 @@ function focusGrandHex(hex:{q:number;r:number},zoomOverride?:number):void{
  mapViewport=defaultMapViewport();applyMapViewport();const m=svg.getScreenCTM(),r=wrap.getBoundingClientRect();if(!m)return;
  const point=hexToPixel(hex),screen=new DOMPoint(point.x,point.y).matrixTransform(m),rect=svg.querySelector('[aria-pressed="true"]')?.getBoundingClientRect();
  const zoom=zoomOverride??Math.min(12,Math.max(2.5,44/Math.max(1,rect?.width??12)));
- mapViewport={zoom,panX:(r.left+r.width/2-screen.x)*zoom-(document.querySelector('.command-ui .ui-sidebar')?.getBoundingClientRect().width??0)/2,panY:(r.top+r.height/2-screen.y)*zoom};applyMapViewport();
+ mapViewport={zoom,panX:(r.left+r.width/2-screen.x)*zoom+(document.querySelector('.hoi-ui .ui-sidebar')?.getBoundingClientRect().width??0)/2,panY:(r.top+r.height/2-screen.y)*zoom};applyMapViewport();
 }
 function focusPlanHex(hex:{q:number;r:number}):void{
  const svg=document.querySelector<SVGSVGElement>('#eastfront-map'),wrap=document.querySelector('#map-wrap');if(!svg||!wrap)return;

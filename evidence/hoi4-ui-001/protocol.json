@@ -1,0 +1,18 @@
+{
+  "schema": "BLACKICE-MP-PROTOCOL-EVIDENCE-1",
+  "passed": true,
+  "checks": [
+    "signed independent visitors; idempotent join; third/cross-room/wrong-seat rejected",
+    "foreign visitor with copied short-lived seat cookie still cannot upgrade WebSocket",
+    "both sides same world; prestart gate; concurrent own manual commands applied",
+    "foreign unit/economy rejected; host-only resume; duplicate result returned without reapply",
+    "replacement connection closes old session",
+    "real time advance; any disconnect pauses; original identity reconnects; guest pause; explicit host resume",
+    "actual child-process exit/restart; same identities/world/tick/RNG/inventory/manual intents; paused; save again; old era rejected"
+  ],
+  "tick": 3,
+  "privateCheckpointHash": "0a32136e7f12248a5acefa9c313170a051dce6974c50ca6369552ecd7e8d55aa",
+  "restart": "real Node child process, exited then launched with same isolated directory",
+  "privacy": "No credentials, invitation or hidden state included",
+  "scope": "HTTP/WS protocol; not browser or remote play"
+}
