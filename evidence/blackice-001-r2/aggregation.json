@@ -1,0 +1,822 @@
+{
+  "orgCases": [
+    {
+      "name": "one-infantry",
+      "parts": [
+        "INFANTRY"
+      ],
+      "paper": {
+        "orgMax": 35,
+        "hp": 25,
+        "width": 2,
+        "supply": 8,
+        "softAttack": 1.4,
+        "hardAttack": 0.5,
+        "defense": 2,
+        "breakthrough": 0.27999999999999997,
+        "armor": 0,
+        "piercing": 0.5,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "need": {
+        "manpower": 1250,
+        "equipment": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 0,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "rawOrgTerms": [
+        35
+      ],
+      "currentWeights": [
+        1
+      ],
+      "hypothesisOnly": {
+        "rawEqualMean": 35,
+        "rawManpowerMean": 35,
+        "applied": false
+      },
+      "fixedExpectedDiagnostic": {
+        "orgLossPerHp": 0.8333333333333333,
+        "hpTo18PercentOrg": 34.440000000000005,
+        "proportionFullHp": 1.3776000000000002,
+        "warning": "ratio of expectations, not a simulated stopping time or BICE final formula"
+      }
+    },
+    {
+      "name": "two-infantry",
+      "parts": [
+        "INFANTRY",
+        "INFANTRY"
+      ],
+      "paper": {
+        "orgMax": 35,
+        "hp": 50,
+        "width": 4,
+        "supply": 16,
+        "softAttack": 2.8,
+        "hardAttack": 1,
+        "defense": 4,
+        "breakthrough": 0.5599999999999999,
+        "armor": 0,
+        "piercing": 0.5,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "need": {
+        "manpower": 2500,
+        "equipment": {
+          "infantry_equipment_1": 250,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 0,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "rawOrgTerms": [
+        35,
+        35
+      ],
+      "currentWeights": [
+        0.5,
+        0.5
+      ],
+      "hypothesisOnly": {
+        "rawEqualMean": 35,
+        "rawManpowerMean": 35,
+        "applied": false
+      },
+      "fixedExpectedDiagnostic": {
+        "orgLossPerHp": 0.8333333333333333,
+        "hpTo18PercentOrg": 34.440000000000005,
+        "proportionFullHp": 0.6888000000000001,
+        "warning": "ratio of expectations, not a simulated stopping time or BICE final formula"
+      }
+    },
+    {
+      "name": "eight-infantry",
+      "parts": [
+        "INFANTRY",
+        "INFANTRY",
+        "INFANTRY",
+        "INFANTRY",
+        "INFANTRY",
+        "INFANTRY",
+        "INFANTRY",
+        "INFANTRY"
+      ],
+      "paper": {
+        "orgMax": 35,
+        "hp": 200,
+        "width": 16,
+        "supply": 64,
+        "softAttack": 11.200000000000001,
+        "hardAttack": 4,
+        "defense": 16,
+        "breakthrough": 2.2399999999999998,
+        "armor": 0,
+        "piercing": 0.5,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "need": {
+        "manpower": 10000,
+        "equipment": {
+          "infantry_equipment_1": 1000,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 0,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "rawOrgTerms": [
+        35,
+        35,
+        35,
+        35,
+        35,
+        35,
+        35,
+        35
+      ],
+      "currentWeights": [
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ],
+      "hypothesisOnly": {
+        "rawEqualMean": 35,
+        "rawManpowerMean": 35,
+        "applied": false
+      },
+      "fixedExpectedDiagnostic": {
+        "orgLossPerHp": 0.8333333333333333,
+        "hpTo18PercentOrg": 34.440000000000005,
+        "proportionFullHp": 0.17220000000000002,
+        "warning": "ratio of expectations, not a simulated stopping time or BICE final formula"
+      }
+    },
+    {
+      "name": "infantry-artillery",
+      "parts": [
+        "INFANTRY",
+        "ARTILLERY"
+      ],
+      "paper": {
+        "orgMax": 29.615384615384617,
+        "hp": 27,
+        "width": 3.5,
+        "supply": 26,
+        "softAttack": 11.9,
+        "hardAttack": 1.025,
+        "defense": 3.5,
+        "breakthrough": 3.28,
+        "armor": 0,
+        "piercing": 1.55,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "need": {
+        "manpower": 1950,
+        "equipment": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 12,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "rawOrgTerms": [
+        35,
+        -8
+      ],
+      "currentWeights": [
+        0.6410256410256411,
+        0.358974358974359
+      ],
+      "hypothesisOnly": {
+        "rawEqualMean": 13.5,
+        "rawManpowerMean": 19.564102564102566,
+        "applied": false
+      },
+      "fixedExpectedDiagnostic": {
+        "orgLossPerHp": 0.8333333333333333,
+        "hpTo18PercentOrg": 29.141538461538467,
+        "proportionFullHp": 1.0793162393162394,
+        "warning": "ratio of expectations, not a simulated stopping time or BICE final formula"
+      }
+    },
+    {
+      "name": "infantry-at",
+      "parts": [
+        "INFANTRY",
+        "ANTI_TANK"
+      ],
+      "paper": {
+        "orgMax": 31.756756756756758,
+        "hp": 27,
+        "width": 3,
+        "supply": 14,
+        "softAttack": 3.9,
+        "hardAttack": 9,
+        "defense": 3.5,
+        "breakthrough": 0.27999999999999997,
+        "armor": 0,
+        "piercing": 19.05,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "need": {
+        "manpower": 1850,
+        "equipment": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 0,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 24
+        }
+      },
+      "rawOrgTerms": [
+        35,
+        -5
+      ],
+      "currentWeights": [
+        0.6756756756756757,
+        0.32432432432432434
+      ],
+      "hypothesisOnly": {
+        "rawEqualMean": 15,
+        "rawManpowerMean": 22.027027027027028,
+        "applied": false
+      },
+      "fixedExpectedDiagnostic": {
+        "orgLossPerHp": 0.8333333333333333,
+        "hpTo18PercentOrg": 31.24864864864865,
+        "proportionFullHp": 1.1573573573573575,
+        "warning": "ratio of expectations, not a simulated stopping time or BICE final formula"
+      }
+    }
+  ],
+  "satisfaction": [
+    {
+      "name": "full",
+      "actual": {
+        "personnel": 1950,
+        "held": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 12,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "effective": {
+        "orgMax": 29.615384615384617,
+        "hp": 27,
+        "width": 3.5,
+        "supply": 26,
+        "softAttack": 11.9,
+        "hardAttack": 1.025,
+        "defense": 3.5,
+        "breakthrough": 3.28,
+        "armor": 0,
+        "piercing": 1.55,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 35,
+          "orgWeight": 0.6410256410256411,
+          "paper": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        },
+        {
+          "id": "ARTILLERY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "artillery_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 20,
+          "orgWeight": 0.358974358974359,
+          "paper": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 10.5,
+            "hardAttack": 0.525,
+            "defense": 1.5,
+            "breakthrough": 3,
+            "armor": 0,
+            "piercing": 2,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 10.5,
+            "hardAttack": 0.525,
+            "defense": 1.5,
+            "breakthrough": 3,
+            "armor": 0,
+            "piercing": 2,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        }
+      ]
+    },
+    {
+      "name": "half-people",
+      "actual": {
+        "personnel": 975,
+        "held": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 12,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "effective": {
+        "orgMax": 29.615384615384617,
+        "hp": 27,
+        "width": 3.5,
+        "supply": 26,
+        "softAttack": 5.95,
+        "hardAttack": 0.5125,
+        "defense": 1.75,
+        "breakthrough": 1.64,
+        "armor": 0,
+        "piercing": 0.775,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 0.5,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 0.5,
+          "orgTerm": 35,
+          "orgWeight": 0.6410256410256411,
+          "paper": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 0.7,
+            "hardAttack": 0.25,
+            "defense": 1,
+            "breakthrough": 0.13999999999999999,
+            "armor": 0,
+            "piercing": 0.25,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        },
+        {
+          "id": "ARTILLERY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 0.5,
+          "equipmentRatios": {
+            "artillery_equipment_1": 1
+          },
+          "satisfaction": 0.5,
+          "orgTerm": 20,
+          "orgWeight": 0.358974358974359,
+          "paper": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 10.5,
+            "hardAttack": 0.525,
+            "defense": 1.5,
+            "breakthrough": 3,
+            "armor": 0,
+            "piercing": 2,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 5.25,
+            "hardAttack": 0.2625,
+            "defense": 0.75,
+            "breakthrough": 1.5,
+            "armor": 0,
+            "piercing": 1,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        }
+      ]
+    },
+    {
+      "name": "zero-guns",
+      "actual": {
+        "personnel": 1950,
+        "held": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 0,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "effective": {
+        "orgMax": 29.615384615384617,
+        "hp": 27,
+        "width": 3.5,
+        "supply": 26,
+        "softAttack": 1.4,
+        "hardAttack": 0.5,
+        "defense": 2,
+        "breakthrough": 0.27999999999999997,
+        "armor": 0,
+        "piercing": 0.35,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 35,
+          "orgWeight": 0.6410256410256411,
+          "paper": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        },
+        {
+          "id": "ARTILLERY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "artillery_equipment_1": 0
+          },
+          "satisfaction": 0,
+          "orgTerm": 20,
+          "orgWeight": 0.358974358974359,
+          "paper": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 10.5,
+            "hardAttack": 0.525,
+            "defense": 1.5,
+            "breakthrough": 3,
+            "armor": 0,
+            "piercing": 2,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 0,
+            "hardAttack": 0,
+            "defense": 0,
+            "breakthrough": 0,
+            "armor": 0,
+            "piercing": 0,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        }
+      ]
+    },
+    {
+      "name": "half-guns",
+      "actual": {
+        "personnel": 1950,
+        "held": {
+          "infantry_equipment_1": 125,
+          "support_equipment_1": 0,
+          "artillery_equipment_1": 6,
+          "motorized_equipment_1": 0,
+          "leichttraktor_lt0": 0,
+          "anti_tank_equipment_2": 0
+        }
+      },
+      "effective": {
+        "orgMax": 29.615384615384617,
+        "hp": 27,
+        "width": 3.5,
+        "supply": 26,
+        "softAttack": 6.65,
+        "hardAttack": 0.7625,
+        "defense": 2.75,
+        "breakthrough": 1.78,
+        "armor": 0,
+        "piercing": 0.85,
+        "hardness": 0,
+        "speed": 4,
+        "fuelHour": 0
+      },
+      "components": [
+        {
+          "id": "INFANTRY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "infantry_equipment_1": 1
+          },
+          "satisfaction": 1,
+          "orgTerm": 35,
+          "orgWeight": 0.6410256410256411,
+          "paper": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 35,
+            "hp": 25,
+            "width": 2,
+            "supply": 8,
+            "softAttack": 1.4,
+            "hardAttack": 0.5,
+            "defense": 2,
+            "breakthrough": 0.27999999999999997,
+            "armor": 0,
+            "piercing": 0.5,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        },
+        {
+          "id": "ARTILLERY",
+          "support": false,
+          "vehicle": null,
+          "personnelRatio": 1,
+          "equipmentRatios": {
+            "artillery_equipment_1": 0.5
+          },
+          "satisfaction": 0.5,
+          "orgTerm": 20,
+          "orgWeight": 0.358974358974359,
+          "paper": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 10.5,
+            "hardAttack": 0.525,
+            "defense": 1.5,
+            "breakthrough": 3,
+            "armor": 0,
+            "piercing": 2,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "effective": {
+            "orgMax": 20,
+            "hp": 2,
+            "width": 1.5,
+            "supply": 18,
+            "softAttack": 5.25,
+            "hardAttack": 0.2625,
+            "defense": 0.75,
+            "breakthrough": 1.5,
+            "armor": 0,
+            "piercing": 1,
+            "hardness": 0,
+            "speed": 4,
+            "fuelHour": 0
+          },
+          "terrain": {}
+        }
+      ]
+    }
+  ],
+  "runtimeUnchangedFromR1": [
+    {
+      "file": "experiments/blackice-001/authority.mjs",
+      "sha256": "44b1a1a342d517848c8147da5f3f7a64839b8c6aeb4fbf225e8351fbf0386ef6"
+    },
+    {
+      "file": "experiments/blackice-001/combat.mjs",
+      "sha256": "8d3a7ce4564fa0d3fcdaff5ec27eef6ba6262b7752c2d9c4a12d840a29de0c9d"
+    },
+    {
+      "file": "experiments/blackice-001/catalog.mjs",
+      "sha256": "5c67bf51c2b2339f62e779e535ab7403bfc76dbd602dace34abd85bbc810dd5d"
+    },
+    {
+      "file": "experiments/blackice-001/config.mjs",
+      "sha256": "d94ad7fe590cbeb7ace498401808616885911127a7f8b6ba8429ecbd667a3458"
+    },
+    {
+      "file": "experiments/blackice-001/r1-campaign.mjs",
+      "sha256": "ce9ddf04049981e9ec4d4a98affcf7af7ce80a9039f74a542e64612b3915ea76"
+    },
+    {
+      "file": "experiments/blackice-001/server.mjs",
+      "sha256": "567b66b009e18da458833d811296412b4b6e8cb1934a4e638ad2f71c63ba8412"
+    },
+    {
+      "file": "experiments/grand-officer-001/authority.mjs",
+      "sha256": "809d3eff2226d564234902584ace44633a48233fc22dd4b11b3e2bc1ab11d3d0"
+    },
+    {
+      "file": "experiments/grand-officer-001/policy.mjs",
+      "sha256": "a0b661657085ba56c565a8f03bb53f92d141143d2830ea4243a1a5a90858d9f2"
+    },
+    {
+      "file": "experiments/grand-division-002/authority.mjs",
+      "sha256": "6e07bfe7bb0e0eeff20e57d11b0d4fb347c7f3052777ebe312f4461bdc5a6712"
+    },
+    {
+      "file": "experiments/grand-division-002/inventory.mjs",
+      "sha256": "86002091950fde883669d6c110c3ae763c0f0613f0e97ac52782ee37462d79f2"
+    },
+    {
+      "file": "src/playable/combinedAttributes.mjs",
+      "sha256": "02b9787055a94211df3d1972f9b1ad4132d38eb7c70fe944923d1a9386707fd5"
+    }
+  ],
+  "originalEvidence": [
+    {
+      "file": "evidence/blackice-001/comparison.json",
+      "sha256": "aac382359a4c9b4cfb2ede876f64981fee12328cbafdd53bc70705040f61ed06"
+    },
+    {
+      "file": "evidence/blackice-001/normal-final.json.gz",
+      "sha256": "efad71f2430dc2caf9462cf3e5bdfa84e7d687143cef394f7fa3c12a9c0a6e31"
+    },
+    {
+      "file": "evidence/blackice-001-r1/forced.json",
+      "sha256": "fa5a81e65c17e6641e3f2b6e441c01bda96e324173bc0a81bc6e9b158a2a84d5"
+    },
+    {
+      "file": "evidence/blackice-001-r1/authority.json",
+      "sha256": "8f1c30daef4a0f7eda7f0870a356c322ff17561b9edb55b0ada8e024ddd9c2b4"
+    },
+    {
+      "file": "evidence/blackice-001-r1/candidate.json",
+      "sha256": "d064d623e63ee8f0d806d67ae88c38793c9e005dd4478b3b0185f0f5b6b7c7b4"
+    },
+    {
+      "file": "evidence/blackice-001-r1/normal-candidate.json",
+      "sha256": "1908b905dfe786171299974e8d32ad741478f32dfd80fcf613966b80fcafb071"
+    }
+  ],
+  "conclusion": "No numerical replacement selected; raw source org and recovery lifecycle are unresolved. Existing normal48h R1 outcome remains applicable."
+}

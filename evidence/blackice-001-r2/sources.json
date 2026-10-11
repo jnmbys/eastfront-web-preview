@@ -1,0 +1,1148 @@
+{
+  "date": "2026-10-11",
+  "commit": "649a5410d9ea527a4f1618b58060f7cb9033f781",
+  "descriptorVersion": "12.3.0",
+  "supportedVersion": "1.19.2.0",
+  "workshopVersion": "12.1.0 (not the source version)",
+  "defineFiles": [
+    "common/defines/00_defines.lua",
+    "common/defines/00_graphics.lua",
+    "common/defines/mpuTheatreIcons_graphics.lua"
+  ],
+  "defines": {
+    "LAND_COMBAT_STR_DAMAGE_MODIFIER": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 864,
+        "value": 0.1
+      }
+    ],
+    "LAND_COMBAT_ORG_DAMAGE_MODIFIER": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 865,
+        "value": 0.05
+      }
+    ],
+    "LAND_COMBAT_STR_DICE_SIZE": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 861,
+        "value": 2
+      }
+    ],
+    "LAND_COMBAT_ORG_DICE_SIZE": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 860,
+        "value": 4
+      }
+    ],
+    "BASE_CHANCE_TO_AVOID_HIT": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 883,
+        "value": 85
+      }
+    ],
+    "CHANCE_TO_AVOID_HIT_AT_NO_DEF": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 884,
+        "value": 63
+      }
+    ],
+    "EQUIPMENT_COMBAT_LOSS_FACTOR": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 990,
+        "value": 0.6
+      }
+    ],
+    "COMBAT_MINIMUM_TIME": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 853,
+        "value": 8
+      }
+    ],
+    "RETREAT_SPEED_FACTOR": [
+      {
+        "file": "common/defines/00_defines.lua",
+        "line": 1109,
+        "value": 0.4
+      }
+    ]
+  },
+  "unitFacts": {
+    "INFANTRY": {
+      "file": "common/units/infantry.txt",
+      "raw": {
+        "org": 35,
+        "hp": 25,
+        "manpower": 1250,
+        "width": 2
+      },
+      "project": {
+        "org": 35,
+        "hp": 25,
+        "manpower": 1250
+      },
+      "engineFinal": "not established by unit definition alone"
+    },
+    "ARTILLERY": {
+      "file": "common/units/artillery_brigade.txt",
+      "raw": {
+        "org": -8,
+        "hp": 2,
+        "manpower": 700,
+        "width": 1.5
+      },
+      "project": {
+        "org": 20,
+        "hp": 2,
+        "manpower": 700
+      },
+      "engineFinal": "not established by unit definition alone"
+    },
+    "ANTI_TANK": {
+      "file": "common/units/anti_tank_brigade.txt",
+      "raw": {
+        "org": -5,
+        "hp": 2,
+        "manpower": 600,
+        "width": 1
+      },
+      "project": {
+        "org": 25,
+        "hp": 2,
+        "manpower": 600
+      },
+      "engineFinal": "not established by unit definition alone"
+    },
+    "ENGINEER": {
+      "file": "common/units/engineer.txt",
+      "raw": {
+        "org": 0,
+        "hp": 2,
+        "manpower": 350,
+        "width": 0
+      },
+      "project": {
+        "org": 25,
+        "hp": 2,
+        "manpower": 350
+      },
+      "engineFinal": "not established by unit definition alone"
+    },
+    "SUPPORT_AT": {
+      "file": "common/units/anti_tank.txt",
+      "raw": {
+        "org": -5,
+        "hp": 1,
+        "manpower": 300,
+        "width": 0.5
+      },
+      "project": {
+        "org": 25,
+        "hp": 1,
+        "manpower": 300
+      },
+      "engineFinal": "not established by unit definition alone"
+    }
+  },
+  "equipment": {
+    "infantry_equipment_1": {
+      "archetype": {
+        "year": 1918,
+        "reliability": 0.65,
+        "maximum_speed": 4,
+        "soft_attack": 1.3,
+        "hard_attack": 0.15,
+        "defense": 2.2,
+        "breakthrough": 0.5,
+        "ap_attack": 0.5,
+        "lend_lease_cost": 0.15,
+        "build_cost_ic": 0.45
+      },
+      "model": {
+        "year": 1936,
+        "priority": 11,
+        "visual_level": 1,
+        "reliability": 0.8,
+        "soft_attack": 1.4,
+        "hard_attack": 0.5,
+        "defense": 2,
+        "breakthrough": 0.4,
+        "ap_attack": 0.5,
+        "build_cost_ic": 0.48
+      },
+      "inheritance": "model-over-archetype candidate interpretation; not an engine final-stat observation",
+      "projectCost": 0.48
+    },
+    "artillery_equipment_1": {
+      "archetype": {
+        "year": 1930,
+        "reliability": 0.35,
+        "defense": 1,
+        "breakthrough": 2.5,
+        "hardness": 0,
+        "armor_value": 0,
+        "soft_attack": 8.5,
+        "hard_attack": 0.425,
+        "ap_attack": 5,
+        "air_attack": 0.1,
+        "lend_lease_cost": 0.8,
+        "build_cost_ic": 5.5
+      },
+      "model": {
+        "year": 1936,
+        "priority": 121,
+        "visual_level": 0,
+        "reliability": 0.35,
+        "defense": 1.5,
+        "breakthrough": 3,
+        "hardness": 0,
+        "armor_value": 0,
+        "soft_attack": 10.5,
+        "hard_attack": 0.525,
+        "ap_attack": 2,
+        "additional_collateral_damage": 105,
+        "lend_lease_cost": 0.9,
+        "build_cost_ic": 6
+      },
+      "inheritance": "model-over-archetype candidate interpretation; not an engine final-stat observation",
+      "projectCost": 6
+    },
+    "anti_tank_equipment_2": {
+      "archetype": {
+        "year": 1918,
+        "reliability": 0.5,
+        "maximum_speed": 4,
+        "air_attack": 0.1,
+        "defense": 1.5,
+        "breakthrough": 0,
+        "armor_value": 0,
+        "ap_attack": 18,
+        "hardness": 0,
+        "lend_lease_cost": 0.6,
+        "build_cost_ic": 4
+      },
+      "model": {
+        "year": 1941,
+        "priority": 101,
+        "visual_level": 0,
+        "soft_attack": 2.5,
+        "hard_attack": 8.5,
+        "ap_attack": 27,
+        "build_cost_ic": 4.5
+      },
+      "inheritance": "model-over-archetype candidate interpretation; not an engine final-stat observation",
+      "projectCost": 4.5
+    },
+    "support_equipment_1": {
+      "archetype": {
+        "year": 1918,
+        "reliability": 0.6,
+        "defense": 0.5,
+        "breakthrough": 0.5,
+        "lend_lease_cost": 0.2,
+        "build_cost_ic": 1.4
+      },
+      "model": {
+        "year": 1930,
+        "priority": 71,
+        "reliability": 0.65,
+        "build_cost_ic": 1.6
+      },
+      "inheritance": "model-over-archetype candidate interpretation; not an engine final-stat observation",
+      "projectCost": 4
+    },
+    "omittedArchetypes": {
+      "infantry_uniforms": {
+        "year": 1918,
+        "defense": 1,
+        "reliability": 0.7,
+        "lend_lease_cost": 0.1,
+        "build_cost_ic": 0.2
+      },
+      "artyhorse_equipment": {
+        "year": 1918,
+        "reliability": 0.6,
+        "maximum_speed": 5,
+        "build_cost_ic": 1.3
+      },
+      "meaning": "Folding these into other inventory does not establish equivalent defense or movement attributes"
+    }
+  },
+  "relatedAssignments": [
+    {
+      "file": "common/units/HQ.txt",
+      "relevantLines": [
+        {
+          "line": 26,
+          "field": "max_organisation"
+        },
+        {
+          "line": 58,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 61,
+          "field": "max_organisation"
+        },
+        {
+          "line": 64,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 67,
+          "field": "max_organisation"
+        },
+        {
+          "line": 98,
+          "field": "max_organisation"
+        },
+        {
+          "line": 136,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 139,
+          "field": "max_organisation"
+        },
+        {
+          "line": 142,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 145,
+          "field": "max_organisation"
+        },
+        {
+          "line": 173,
+          "field": "max_organisation"
+        },
+        {
+          "line": 211,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 214,
+          "field": "max_organisation"
+        },
+        {
+          "line": 217,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 220,
+          "field": "max_organisation"
+        },
+        {
+          "line": 248,
+          "field": "max_organisation"
+        },
+        {
+          "line": 284,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 287,
+          "field": "max_organisation"
+        },
+        {
+          "line": 290,
+          "field": "battalion_mult"
+        },
+        {
+          "line": 293,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/technologies/land_doctrine.txt",
+      "relevantLines": [
+        {
+          "line": 24,
+          "field": "max_organisation"
+        },
+        {
+          "line": 34,
+          "field": "max_organisation"
+        },
+        {
+          "line": 93,
+          "field": "max_organisation"
+        },
+        {
+          "line": 97,
+          "field": "max_organisation"
+        },
+        {
+          "line": 155,
+          "field": "max_organisation"
+        },
+        {
+          "line": 288,
+          "field": "max_organisation"
+        },
+        {
+          "line": 293,
+          "field": "max_organisation"
+        },
+        {
+          "line": 416,
+          "field": "max_organisation"
+        },
+        {
+          "line": 470,
+          "field": "max_organisation"
+        },
+        {
+          "line": 473,
+          "field": "max_organisation"
+        },
+        {
+          "line": 476,
+          "field": "max_organisation"
+        },
+        {
+          "line": 479,
+          "field": "max_organisation"
+        },
+        {
+          "line": 551,
+          "field": "max_organisation"
+        },
+        {
+          "line": 555,
+          "field": "max_organisation"
+        },
+        {
+          "line": 615,
+          "field": "max_organisation"
+        },
+        {
+          "line": 619,
+          "field": "max_organisation"
+        },
+        {
+          "line": 624,
+          "field": "max_organisation"
+        },
+        {
+          "line": 807,
+          "field": "max_organisation"
+        },
+        {
+          "line": 811,
+          "field": "max_organisation"
+        },
+        {
+          "line": 999,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1003,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1007,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1070,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1074,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1258,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1373,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1376,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1379,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1497,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1831,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1935,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1946,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2004,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2432,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2555,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2565,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2625,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2684,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2688,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2691,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2795,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2869,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2876,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2883,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2890,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2916,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2921,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2926,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2931,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3053,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3056,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3059,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3467,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3679,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3737,
+          "field": "max_organisation"
+        },
+        {
+          "line": 3903,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4014,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4018,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4228,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4234,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4350,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4404,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4577,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4582,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4645,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4712,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4784,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4854,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4923,
+          "field": "max_organisation"
+        },
+        {
+          "line": 4993,
+          "field": "max_organisation"
+        },
+        {
+          "line": 6118,
+          "field": "max_organisation"
+        },
+        {
+          "line": 6551,
+          "field": "max_organisation"
+        },
+        {
+          "line": 6793,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/technologies/ww1_land_doctrine.txt",
+      "relevantLines": [
+        {
+          "line": 368,
+          "field": "max_organisation"
+        },
+        {
+          "line": 609,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1418,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1457,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1793,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1836,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1882,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1927,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1931,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1934,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1937,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1940,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2119,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2123,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2127,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2131,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2174,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2181,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2234,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2241,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2299,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2306,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2325,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2443,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2447,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2487,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2528,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2573,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2639,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/technologies/artillery.txt",
+      "relevantLines": [
+        {
+          "line": 1247,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1253,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1259,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1265,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1271,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1277,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1283,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1394,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1658,
+          "field": "max_organisation"
+        },
+        {
+          "line": 1772,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/technologies/infantry.txt",
+      "relevantLines": [
+        {
+          "line": 557,
+          "field": "max_organisation"
+        },
+        {
+          "line": 562,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2268,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2272,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2276,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2386,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2389,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2392,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2578,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2582,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2586,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2639,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2642,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2645,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2935,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2938,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2941,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2975,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2978,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2981,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/technologies/support.txt",
+      "relevantLines": [
+        {
+          "line": 2293,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2348,
+          "field": "max_organisation"
+        },
+        {
+          "line": 2405,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/doctrines/subdoctrines/land/infantry_subdoctrines.txt",
+      "relevantLines": [],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/doctrines/subdoctrines/land/combat_support_subdoctrines.txt",
+      "relevantLines": [],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/modifiers/00_static_modifiers.txt",
+      "relevantLines": [
+        {
+          "line": 101,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 112,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 123,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 178,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 189,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 197,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 206,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 213,
+          "field": "army_defence_factor"
+        },
+        {
+          "line": 220,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 337,
+          "field": "army_attack_factor"
+        },
+        {
+          "line": 658,
+          "field": "max_organisation"
+        },
+        {
+          "line": 668,
+          "field": "max_organisation"
+        }
+      ],
+      "automaticallyApplied": false
+    },
+    {
+      "file": "common/dynamic_modifiers/0_dynamic_modifiers.txt",
+      "relevantLines": [],
+      "automaticallyApplied": false
+    }
+  ],
+  "replacePaths": [
+    "common/technologies",
+    "common/technology_sharing",
+    "common/units/equipment",
+    "common/units/names",
+    "common/units/names_divisions",
+    "common/units/names_ships",
+    "common/units/unit_modifiers",
+    "common/units",
+    "history/units",
+    "common/doctrines/subdoctrines/land"
+  ],
+  "sources": [
+    {
+      "file": "common/defines/00_defines.lua",
+      "sha256": "fba625d721e5df5bdbf7dc0882366a8493ca335dff38c4b3a5c285728c6263e4",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/defines/00_defines.lua"
+    },
+    {
+      "file": "common/defines/00_graphics.lua",
+      "sha256": "ac2fd7ac480ceacc94bae9b439a4e287822c1dc1a13809205b40e6957f3dbd62",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/defines/00_graphics.lua"
+    },
+    {
+      "file": "common/defines/mpuTheatreIcons_graphics.lua",
+      "sha256": "9fae5f94dc3b7df4b6d3e5066d43b585cd13b79dcc85014d042cfed78d8cc394",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/defines/mpuTheatreIcons_graphics.lua"
+    },
+    {
+      "file": "common/units/infantry.txt",
+      "sha256": "61137422b0cbed512355ee1f46110503e515ccfc688169d7d3df55c263c18bc4",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/infantry.txt"
+    },
+    {
+      "file": "common/units/artillery_brigade.txt",
+      "sha256": "4e84fa19bd3dfb88590356ba4d60859c2dc63d0c33d900f0694907c1905296a2",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/artillery_brigade.txt"
+    },
+    {
+      "file": "common/units/anti_tank_brigade.txt",
+      "sha256": "76249325e34b9e4aeb7438eaae10954b1b8f95c80a95298477a210736ea9712a",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/anti_tank_brigade.txt"
+    },
+    {
+      "file": "common/units/engineer.txt",
+      "sha256": "b90c9536759869657a65b4420b4e251257f0f871dfc75cf472d0ffa420d1fe82",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/engineer.txt"
+    },
+    {
+      "file": "common/units/anti_tank.txt",
+      "sha256": "3926190490c18721334d916bd00d2c8fba1142f38cb1fd2282eb7bab10d4d92a",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/anti_tank.txt"
+    },
+    {
+      "file": "common/units/equipment/infantry.txt",
+      "sha256": "bb5022963f0b7d23311c3683a10e3bf609ad2e87999acaf9bc2f26ea22a3cb0d",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/equipment/infantry.txt"
+    },
+    {
+      "file": "common/units/equipment/artillery.txt",
+      "sha256": "697f1a56055452a2089bc0696b7999149ec7507f25d40a941e2de6f1bd7ba36c",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/equipment/artillery.txt"
+    },
+    {
+      "file": "common/units/equipment/anti_tank.txt",
+      "sha256": "3c473d9694917b33a3b34264a2f988a6b3f844bfae7af8faae9463125eaa402d",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/equipment/anti_tank.txt"
+    },
+    {
+      "file": "common/units/equipment/support.txt",
+      "sha256": "31305d0cf5227cb7718f819638bb871a2082fa741a796fab97fde140f97c43d3",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/equipment/support.txt"
+    },
+    {
+      "file": "common/units/HQ.txt",
+      "sha256": "e7b7801bbcb0dc1f2f6802c3b080850f013abd05bcaba5f0070cb9abca2e9d8b",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/HQ.txt"
+    },
+    {
+      "file": "common/technologies/land_doctrine.txt",
+      "sha256": "718f0adb004bee54ea9f90a0483a954bbd06b9ec9498baa1842de90d5e125fbd",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/technologies/land_doctrine.txt"
+    },
+    {
+      "file": "common/technologies/ww1_land_doctrine.txt",
+      "sha256": "9725c33ab9b5b887cf1dd69fb6a4e267ced81eae1f2b0aa310f0ca52052cd20b",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/technologies/ww1_land_doctrine.txt"
+    },
+    {
+      "file": "common/technologies/artillery.txt",
+      "sha256": "633611693a33e078718ec0efcf141885bd73a41864b1bc785ee84a389f96b388",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/technologies/artillery.txt"
+    },
+    {
+      "file": "common/technologies/infantry.txt",
+      "sha256": "e206661734a67e1da8f2debca45b367f87a53d22bb2811b50647adcb0c14ae7e",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/technologies/infantry.txt"
+    },
+    {
+      "file": "common/technologies/support.txt",
+      "sha256": "15f6457e0b937f9f966fb32fa2f0c53100ec9dadc1345b4397e52f5a1dc1e522",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/technologies/support.txt"
+    },
+    {
+      "file": "common/doctrines/subdoctrines/land/infantry_subdoctrines.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/doctrines/subdoctrines/land/infantry_subdoctrines.txt"
+    },
+    {
+      "file": "common/doctrines/subdoctrines/land/combat_support_subdoctrines.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/doctrines/subdoctrines/land/combat_support_subdoctrines.txt"
+    },
+    {
+      "file": "common/modifiers/00_static_modifiers.txt",
+      "sha256": "36f35ee4a726aec946eaeb727a2fc2559d8e69116c54f6b2a5c69fe7cca01cb9",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/modifiers/00_static_modifiers.txt"
+    },
+    {
+      "file": "common/dynamic_modifiers/0_dynamic_modifiers.txt",
+      "sha256": "0a716c6228f7631e219734ff6ca6cc00ba350f5458dc004ef6c0af11a1d8e400",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/dynamic_modifiers/0_dynamic_modifiers.txt"
+    },
+    {
+      "file": "descriptor.mod",
+      "sha256": "150b575049127e50a6d7e0269b38afca025b92fa526025aad50d786ebec89253",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/descriptor.mod"
+    }
+  ],
+  "baseGame": {
+    "version": "Operation Postern v1.19.3.0.c01a (5632)",
+    "definesSHA256": "881b4076a41355fd67771064770338791fc7076bff1038c6271bb0dd0b717ac6",
+    "equipmentLossFactor": 0.7,
+    "role": "1.19.3 user-environment read-only contrast only; does not prove 1.19.2 defaults or engine behavior"
+  },
+  "access": {
+    "gitlabWeb": "403",
+    "officialWikiLandBattle": "401",
+    "officialWikiUnitModding": "401",
+    "localFixedGit": "verified clean commit; blobs read directly",
+    "officialGuide": "accessible but marked outdated; not used for exact formula"
+  },
+  "runtimeChanged": false
+}

@@ -1,0 +1,1426 @@
+{
+  "runtimeRules": "BLACKICE-001-LAND-1-R1",
+  "noTuning": true,
+  "rows": [
+    {
+      "scenario": "infantry",
+      "seed": 219031,
+      "control": "officer",
+      "heldout": false,
+      "identical": true,
+      "before": {
+        "observationEndHours": 18.166666666666668,
+        "lastContactHours": 17.166666666666668,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 169.85301236735987,
+          "S-013": 325.70857451955203
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1104,
+            "held": {
+              "infantry_equipment_1": 112,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 31.718613172915234,
+            "orgPercent": 90.6246090654721,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 925,
+            "held": {
+              "infantry_equipment_1": 93,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 29.84497370961408,
+            "orgPercent": 85.27135345604023,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 148,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 88.56636436438302,
+            "orgAfter": 88.56636436438302,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 57,
+              "total": 57,
+              "since": 148
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.8032,
+              "stock": 0.9471999999999878,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 285 分钟"
+          },
+          {
+            "tick": 206,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 85.14135345604018,
+            "orgAfter": 85.14135345604018,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.6869300911853243,
+              "total": 57,
+              "since": 148,
+              "acceptedPhysicalSpeed": 2.1055999999999986
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.74,
+              "stock": 0.64,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "after": {
+        "observationEndHours": 18.166666666666668,
+        "lastContactHours": 17.166666666666668,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 169.85301236735987,
+          "S-013": 325.70857451955203
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1104,
+            "held": {
+              "infantry_equipment_1": 112,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 31.718613172915234,
+            "orgPercent": 90.6246090654721,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 925,
+            "held": {
+              "infantry_equipment_1": 93,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 29.84497370961408,
+            "orgPercent": 85.27135345604023,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 148,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 88.56636436438302,
+            "orgAfter": 88.56636436438302,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 57,
+              "total": 57,
+              "since": 148
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.8032,
+              "stock": 0.9471999999999878,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 285 分钟"
+          },
+          {
+            "tick": 206,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 85.14135345604018,
+            "orgAfter": 85.14135345604018,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.6869300911853243,
+              "total": 57,
+              "since": 148,
+              "acceptedPhysicalSpeed": 2.1055999999999986
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.74,
+              "stock": 0.64,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "actualLedger": {
+        "GERMAN": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 23,
+          "finalPersonnel": 1104,
+          "actualPersonnelLost": 169,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 16,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 169.85301236735987
+        },
+        "SOVIET": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 925,
+          "actualPersonnelLost": 325,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 32,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 325.70857451955203
+        }
+      },
+      "scope": "Directed actual authority: two retained test units at real 23,4 / 24,4; other test units excluded. Finite initial nation pools; no ongoing injection. Normal AI, economic supply, withdrawal, movement and recovery remain enabled."
+    },
+    {
+      "scenario": "artillery",
+      "seed": 219031,
+      "control": "officer",
+      "heldout": false,
+      "identical": true,
+      "before": {
+        "observationEndHours": 6.833333333333333,
+        "lastContactHours": 5.833333333333333,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 43.17647773226667,
+          "S-013": 1119.2778252852772
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1907,
+            "held": {
+              "infantry_equipment_1": 123,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 12,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 28.608629935940975,
+            "orgPercent": 96.60056861486562,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 131,
+            "held": {
+              "infantry_equipment_1": 14,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 18.026897780396048,
+            "orgPercent": 51.505422229702994,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 33,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 75.6926084492739,
+            "orgAfter": 75.6926084492739,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 34,
+              "total": 34,
+              "since": 33
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5776,
+              "stock": 12.723199999999997,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 170 分钟"
+          },
+          {
+            "tick": 70,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 49.92772709081411,
+            "orgAfter": 49.92772709081411,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.3828264758497353,
+              "total": 34,
+              "since": 33,
+              "acceptedPhysicalSpeed": 3.5775999999999994
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1048,
+              "stock": 8.934399999999995,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "after": {
+        "observationEndHours": 6.833333333333333,
+        "lastContactHours": 5.833333333333333,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 43.17647773226667,
+          "S-013": 1119.2778252852772
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1907,
+            "held": {
+              "infantry_equipment_1": 123,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 12,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 28.608629935940975,
+            "orgPercent": 96.60056861486562,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 131,
+            "held": {
+              "infantry_equipment_1": 14,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 18.026897780396048,
+            "orgPercent": 51.505422229702994,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 33,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 75.6926084492739,
+            "orgAfter": 75.6926084492739,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 34,
+              "total": 34,
+              "since": 33
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5776,
+              "stock": 12.723199999999997,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 170 分钟"
+          },
+          {
+            "tick": 70,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 49.92772709081411,
+            "orgAfter": 49.92772709081411,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.3828264758497353,
+              "total": 34,
+              "since": 33,
+              "acceptedPhysicalSpeed": 3.5775999999999994
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1048,
+              "stock": 8.934399999999995,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "actualLedger": {
+        "GERMAN": {
+          "initialPersonnel": 1950,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 1907,
+          "actualPersonnelLost": 43,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 2,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 43.17647773226667
+        },
+        "SOVIET": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 131,
+          "actualPersonnelLost": 1119,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 111,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 1119.2778252852772
+        }
+      },
+      "scope": "Directed actual authority: two retained test units at real 23,4 / 24,4; other test units excluded. Finite initial nation pools; no ongoing injection. Normal AI, economic supply, withdrawal, movement and recovery remain enabled."
+    },
+    {
+      "scenario": "armor",
+      "seed": 219037,
+      "control": "officer",
+      "heldout": false,
+      "identical": true,
+      "before": {
+        "observationEndHours": 7,
+        "lastContactHours": 6,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 11.342538430156797,
+          "S-013": 1114.006225847883
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1689,
+            "held": {
+              "infantry_equipment_1": 100,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 35,
+              "leichttraktor_lt0": 60,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 44.249111528985274,
+            "orgPercent": 97.69284363542204,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 136,
+            "held": {
+              "infantry_equipment_1": 14,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 16.30061566773488,
+            "orgPercent": 46.57318762209967,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 35,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 75.05485675178035,
+            "orgAfter": 75.05485675178035,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 34,
+              "total": 34,
+              "since": 35
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5768,
+              "stock": 12.518399999999998,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 170 分钟"
+          },
+          {
+            "tick": 72,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 45.061187622099666,
+            "orgAfter": 45.061187622099666,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.4,
+              "total": 34,
+              "since": 35,
+              "acceptedPhysicalSpeed": 3.5519999999999996
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1088,
+              "stock": 8.729599999999994,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "after": {
+        "observationEndHours": 7,
+        "lastContactHours": 6,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 11.342538430156797,
+          "S-013": 1114.006225847883
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1689,
+            "held": {
+              "infantry_equipment_1": 100,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 35,
+              "leichttraktor_lt0": 60,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 44.249111528985274,
+            "orgPercent": 97.69284363542204,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 136,
+            "held": {
+              "infantry_equipment_1": 14,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 16.30061566773488,
+            "orgPercent": 46.57318762209967,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 35,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 75.05485675178035,
+            "orgAfter": 75.05485675178035,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 34,
+              "total": 34,
+              "since": 35
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5768,
+              "stock": 12.518399999999998,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 170 分钟"
+          },
+          {
+            "tick": 72,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 45.061187622099666,
+            "orgAfter": 45.061187622099666,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.4,
+              "total": 34,
+              "since": 35,
+              "acceptedPhysicalSpeed": 3.5519999999999996
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1088,
+              "stock": 8.729599999999994,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "actualLedger": {
+        "GERMAN": {
+          "initialPersonnel": 1700,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 1689,
+          "actualPersonnelLost": 11,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 0,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 11.342538430156797
+        },
+        "SOVIET": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 136,
+          "actualPersonnelLost": 1114,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 111,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 1114.006225847883
+        }
+      },
+      "scope": "Directed actual authority: two retained test units at real 23,4 / 24,4; other test units excluded. Finite initial nation pools; no ongoing injection. Normal AI, economic supply, withdrawal, movement and recovery remain enabled."
+    },
+    {
+      "scenario": "artillery",
+      "seed": 219031,
+      "control": "manual",
+      "heldout": false,
+      "identical": true,
+      "before": {
+        "observationEndHours": 6.5,
+        "lastContactHours": 6.5,
+        "end": "PERSONNEL_ZERO",
+        "requestedDamageCounter": {
+          "G-013": 43.23531818666666,
+          "S-013": 1260.1321341496882
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1907,
+            "held": {
+              "infantry_equipment_1": 123,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 12,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 29.20059944828065,
+            "orgPercent": 98.59942670848011,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 0,
+            "held": {
+              "infantry_equipment_1": 0,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 15.075317927176469,
+            "orgPercent": 43.07233693478991,
+            "hex": "24,4",
+            "alive": false
+          }
+        },
+        "withdrawalEvents": [],
+        "inCombatOrgRecovery": 0
+      },
+      "after": {
+        "observationEndHours": 6.5,
+        "lastContactHours": 6.5,
+        "end": "PERSONNEL_ZERO",
+        "requestedDamageCounter": {
+          "G-013": 43.23531818666666,
+          "S-013": 1260.1321341496882
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1907,
+            "held": {
+              "infantry_equipment_1": 123,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 12,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 29.20059944828065,
+            "orgPercent": 98.59942670848011,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 0,
+            "held": {
+              "infantry_equipment_1": 0,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 15.075317927176469,
+            "orgPercent": 43.07233693478991,
+            "hex": "24,4",
+            "alive": false
+          }
+        },
+        "withdrawalEvents": [],
+        "inCombatOrgRecovery": 0
+      },
+      "actualLedger": {
+        "GERMAN": {
+          "initialPersonnel": 1950,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 1907,
+          "actualPersonnelLost": 43,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 2,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 43.23531818666666
+        },
+        "SOVIET": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 0,
+          "actualPersonnelLost": 1250,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 125,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 1260.1321341496882
+        }
+      },
+      "scope": "Directed actual authority: two retained test units at real 23,4 / 24,4; other test units excluded. Finite initial nation pools; no ongoing injection. Normal AI, economic supply, withdrawal, movement and recovery remain enabled."
+    },
+    {
+      "scenario": "armor",
+      "seed": 781283,
+      "control": "officer",
+      "heldout": true,
+      "identical": true,
+      "before": {
+        "observationEndHours": 6.833333333333333,
+        "lastContactHours": 5.833333333333333,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 10.475659553570138,
+          "S-013": 1103.8588325218639
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1690,
+            "held": {
+              "infantry_equipment_1": 100,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 35,
+              "leichttraktor_lt0": 60,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 44.258163093222585,
+            "orgPercent": 97.71282760841349,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 147,
+            "held": {
+              "infantry_equipment_1": 15,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 17.75516428552544,
+            "orgPercent": 50.72904081578696,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 33,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 75.06689729282814,
+            "orgAfter": 75.06689729282814,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 34,
+              "total": 34,
+              "since": 33
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5848,
+              "stock": 12.723199999999997,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 170 分钟"
+          },
+          {
+            "tick": 70,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 49.151345676898075,
+            "orgAfter": 49.151345676898075,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.3828264758497353,
+              "total": 34,
+              "since": 33,
+              "acceptedPhysicalSpeed": 3.5775999999999994
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1176,
+              "stock": 8.934399999999995,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "after": {
+        "observationEndHours": 6.833333333333333,
+        "lastContactHours": 5.833333333333333,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 10.475659553570138,
+          "S-013": 1103.8588325218639
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1690,
+            "held": {
+              "infantry_equipment_1": 100,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 35,
+              "leichttraktor_lt0": 60,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 44.258163093222585,
+            "orgPercent": 97.71282760841349,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 147,
+            "held": {
+              "infantry_equipment_1": 15,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 17.75516428552544,
+            "orgPercent": 50.72904081578696,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 33,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 75.06689729282814,
+            "orgAfter": 75.06689729282814,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 34,
+              "total": 34,
+              "since": 33
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5848,
+              "stock": 12.723199999999997,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 170 分钟"
+          },
+          {
+            "tick": 70,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 49.151345676898075,
+            "orgAfter": 49.151345676898075,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.3828264758497353,
+              "total": 34,
+              "since": 33,
+              "acceptedPhysicalSpeed": 3.5775999999999994
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1176,
+              "stock": 8.934399999999995,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "actualLedger": {
+        "GERMAN": {
+          "initialPersonnel": 1700,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 1690,
+          "actualPersonnelLost": 10,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 0,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 10.475659553570138
+        },
+        "SOVIET": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 147,
+          "actualPersonnelLost": 1103,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 110,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 1103.8588325218639
+        }
+      },
+      "scope": "Directed actual authority: two retained test units at real 23,4 / 24,4; other test units excluded. Finite initial nation pools; no ongoing injection. Normal AI, economic supply, withdrawal, movement and recovery remain enabled."
+    },
+    {
+      "scenario": "armor",
+      "seed": 914117,
+      "control": "officer",
+      "heldout": true,
+      "identical": true,
+      "before": {
+        "observationEndHours": 7.333333333333333,
+        "lastContactHours": 6.333333333333333,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 10.174219682022398,
+          "S-013": 1125.304387941527
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1690,
+            "held": {
+              "infantry_equipment_1": 100,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 35,
+              "leichttraktor_lt0": 60,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 44.23489762125665,
+            "orgPercent": 97.66146228069648,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 125,
+            "held": {
+              "infantry_equipment_1": 13,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 16.639716175873946,
+            "orgPercent": 47.54204621678271,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 38,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 72.96724646520477,
+            "orgAfter": 72.96724646520477,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 35,
+              "total": 35,
+              "since": 38
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5768,
+              "stock": 12.211199999999996,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 175 分钟"
+          },
+          {
+            "tick": 76,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 46.095119827893825,
+            "orgAfter": 46.095119827893825,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.5610200364298731,
+              "total": 35,
+              "since": 38,
+              "acceptedPhysicalSpeed": 3.5135999999999994
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1,
+              "stock": 8.319999999999993,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "after": {
+        "observationEndHours": 7.333333333333333,
+        "lastContactHours": 6.333333333333333,
+        "end": "CONTACT_ENDED_AFTER_SEPARATION",
+        "requestedDamageCounter": {
+          "G-013": 10.174219682022398,
+          "S-013": 1125.304387941527
+        },
+        "final": {
+          "G-013": {
+            "personnel": 1690,
+            "held": {
+              "infantry_equipment_1": 100,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 35,
+              "leichttraktor_lt0": 60,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 44.23489762125665,
+            "orgPercent": 97.66146228069648,
+            "hex": "23,4",
+            "alive": true
+          },
+          "S-013": {
+            "personnel": 125,
+            "held": {
+              "infantry_equipment_1": 13,
+              "support_equipment_1": 0,
+              "artillery_equipment_1": 0,
+              "motorized_equipment_1": 0,
+              "leichttraktor_lt0": 0,
+              "anti_tank_equipment_2": 0
+            },
+            "org": 16.639716175873946,
+            "orgPercent": 47.54204621678271,
+            "hex": "24,5",
+            "alive": true
+          }
+        },
+        "withdrawalEvents": [
+          {
+            "tick": 38,
+            "unit": "S-013",
+            "kind": "START",
+            "orgBefore": 72.96724646520477,
+            "orgAfter": 72.96724646520477,
+            "from": "24,4",
+            "to": "24,4",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 35,
+              "total": 35,
+              "since": 38
+            },
+            "phase": "WITHDRAW",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.5768,
+              "stock": 12.211199999999996,
+              "order": "RETREAT",
+              "tactical": "S-013 撤出整补；缺少预备队，可能留下缺口"
+            },
+            "reason": "正在脱离交战，尚未安全；撤出路段还需 175 分钟"
+          },
+          {
+            "tick": 76,
+            "unit": "S-013",
+            "kind": "ARRIVE",
+            "orgBefore": 46.095119827893825,
+            "orgAfter": 46.095119827893825,
+            "from": "24,4",
+            "to": "24,5",
+            "withdrawal": {
+              "from": {
+                "q": 24,
+                "r": 4
+              },
+              "to": {
+                "q": 24,
+                "r": 5
+              },
+              "remaining": 0.5610200364298731,
+              "total": 35,
+              "since": 38,
+              "acceptedPhysicalSpeed": 3.5135999999999994
+            },
+            "phase": "RECOVER",
+            "trigger": {
+              "forcedOrg": false,
+              "peopleRatio": 0.1,
+              "stock": 8.319999999999993,
+              "order": "REFIT",
+              "tactical": "已完成撤出路段，进入整补；仍须观察敌军追击"
+            },
+            "reason": "已完成撤出路段，进入整补；仍须观察敌军追击"
+          }
+        ],
+        "inCombatOrgRecovery": 0
+      },
+      "actualLedger": {
+        "GERMAN": {
+          "initialPersonnel": 1700,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 1690,
+          "actualPersonnelLost": 10,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 0,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 10.174219682022398
+        },
+        "SOVIET": {
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 125,
+          "actualPersonnelLost": 1125,
+          "permanentEquipmentLost": {
+            "infantry_equipment_1": 112,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          },
+          "requestedDamageCounter": 1125.304387941527
+        }
+      },
+      "scope": "Directed actual authority: two retained test units at real 23,4 / 24,4; other test units excluded. Finite initial nation pools; no ongoing injection. Normal AI, economic supply, withdrawal, movement and recovery remain enabled."
+    }
+  ]
+}
