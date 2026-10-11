@@ -48,7 +48,7 @@ function* rasterizeVS2WorldSurfaceWork(field: VS2RegionField, textures: Readonly
   });
   const width = Math.ceil(bounds.width / pixelSize), height = Math.ceil(bounds.height / pixelSize), data = new Uint8ClampedArray(width * height * 4);
   const regionMaterials = [0, 2, 3, 4, 5, 6];
-  const lake = [67, 123, 140], background = [187, 179, 147];
+  const lake = [67, 123, 140], background = [48, 60, 61];
   for (let row = 0; row < height; row++) {
       if (++batch % 64 === 0) yield;
     const y = bounds.minY + (row + 0.5) * pixelSize;

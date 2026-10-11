@@ -401,3 +401,52 @@ body:has(.hoi-ui) .hoi-ui .hoi-roster-row[aria-pressed=true]{background:#3b4938;
 .hoi-ui .hoi-roster-bars>i{border-color:#677258;background:#151d15}.hoi-ui .hoi-roster-bars>i>em{background:#8da65c}.hoi-ui .hoi-roster-bars>i+i>em{background:#c4af63}
 .hoi-ui .hoi-commanders .ui-corps-card.selected{outline:1px solid #d1c695;outline-offset:1px}.hoi-ui .hoi-commanders .ui-corps-card.selected>button:first-child{background:#3b4938}
 .hoi-ui .design-stat>strong,.hoi-ui .design-demand{font-variant-numeric:tabular-nums}.hoi-ui details>summary{color:#d0d5c4}
+
+/* HOI4-UI-001 visual pass: original catalogue art, archival fictional portraits. */
+body:has(.hoi-ui) #terrain-surface{filter:none}
+body:has(.hoi-ui) .map-wrap{background:#303c3d}
+body:has(.hoi-ui) .map-wrap:after{display:none}
+.command-ui.hoi-ui{--hoi-panel:#242a26;--hoi-edge:#817c68;--hoi-ink:#ece8d6}
+.hoi-ui .ui-sidebar,.hoi-ui .hoi-time,.hoi-ui .hoi-national,.hoi-ui .hoi-commanders{background-color:#232a25;background-image:repeating-linear-gradient(0deg,#ffffff03 0,#ffffff03 1px,transparent 1px,transparent 4px)}
+.hoi-ui .ui-sidebar>header{background:#41473d;border-bottom:3px double #9c967c;min-height:39px}
+.hoi-ui .ui-sidebar h2{font-size:18px;letter-spacing:2px;color:#eee5c9}
+.hoi-ui .hoi-national{height:29px;border-bottom:2px solid #878269}
+.hoi-ui .hoi-national button{font-size:12px;color:#bfc4b5}
+.hoi-ui .hoi-national b{font-size:14px;color:#efe4bd}
+.hoi-ui .hoi-management>button{background:#3b4136;border-top:2px solid #8b8f78;height:36px!important;gap:5px}
+.hoi-ui .hoi-country{background:#3b4337!important;border-color:#aba082!important;box-shadow:inset 0 0 0 3px #202a24!important}
+.hoi-ui .hoi-country b{font-family:Georgia,'Microsoft YaHei',serif;color:#ebe2c4;letter-spacing:3px}
+.hoi-ui .hoi-commanders .officer-portrait{display:block;flex:none;width:49px;height:61px;filter:none;background-image:url('/assets/playable/hoi-visual/commanders.jpg');background-size:300% 100%;border:1px solid #a8a18c;border-radius:0;box-shadow:none}
+.hoi-ui .portrait-walter{background-position:0 50%}.hoi-ui .portrait-roven{background-position:50% 50%}.hoi-ui .portrait-veil{background-position:100% 50%}
+.hoi-ui .hoi-commanders .ui-corps-card{border-top:3px solid var(--corps);background:#222924}
+.hoi-ui .hoi-commanders .ui-corps-card>button:first-child{background:#30372e;gap:5px}
+.hoi-ui .hoi-commanders .ui-corps-card.selected>button:first-child{background:#4b503c}
+.hoi-ui .hoi-commanders .ui-corps-card b{color:#eee7cd;line-height:1.4}
+.hoi-ui .hoi-commanders .ui-corps-card small{color:#c9ceb9}
+.hoi-ui .equipment-art{display:block;flex:none;width:112px;height:74.67px;background-image:url('/assets/playable/hoi-visual/equipment.jpg');background-size:300% 300%;border:1px solid #58614e}
+.hoi-ui .production-line{padding:7px;background:#252c25;border:1px solid #69735c;border-left:3px solid #8d9b70;margin:6px 0}
+.hoi-ui .production-line-controls{background:#252c25}
+.hoi-ui .production-line header{display:flex;align-items:center;gap:8px}
+.hoi-ui .production-line header>div{flex:1;min-width:0}
+.hoi-ui .production-line header b{font-size:15px;line-height:1.4;color:#f1e8cf}
+.hoi-ui .production-line header strong{min-width:51px;padding:4px;font-size:21px;background:#1d281e;box-shadow:none;border-bottom:2px solid #7f9664}
+.hoi-ui .production-line header strong small{display:block;color:#c1c8b5}
+.hoi-ui .factory-allocation{margin:5px 0 3px;gap:5px;flex-wrap:nowrap}
+.hoi-ui .factory-allocation>span:first-child{color:#c3ccb5}
+.hoi-ui .factory-slots{display:flex;gap:2px;min-width:0;flex:1;overflow:hidden}
+.hoi-ui .factory-slots i{font-style:normal;display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;color:#d4dbb7;background:#48543c;border:1px solid #84916c;font-size:19px}
+.hoi-ui .efficiency-value{font-variant-numeric:tabular-nums;white-space:nowrap;color:#d0d9b8}
+.hoi-ui .production-efficiency{height:9px;background:#141c16;border-color:#526344;margin:4px 0}
+.hoi-ui .production-efficiency i{background:#8da758;box-shadow:inset 0 1px #c4d5a5}
+.hoi-ui .factory-summary{background:#39432f;border:1px solid #7b8967;padding:8px;justify-content:space-between}
+.hoi-ui .factory-summary b{font-size:18px;color:#e8e6c1}
+.hoi-ui .equipment-picker .equipment-art{width:108px;height:72px;max-width:100%;margin:0 auto 4px}
+.hoi-ui .equipment-picker button{display:flex;flex-direction:column;align-items:center;gap:3px}
+.hoi-ui .hoi-roster-row{border-bottom:1px solid #141d16;background:#30382c}
+.hoi-ui .hoi-roster-row b{color:#eee8d0}.hoi-ui .hoi-roster-row small{color:#bcc5ac}
+@media(max-width:1100px){.hoi-ui .equipment-art{width:87px;height:58px}.hoi-ui .production-line header b{font-size:13px}.hoi-ui .hoi-commanders .officer-portrait{width:39px}.hoi-ui .factory-slots i{width:15px}}
+.hoi-ui .production-line .line-convert{min-height:26px;font-size:11px;padding:3px 6px}
+.hoi-ui .production-line details{margin:2px 0 0 6px;padding-top:2px}
+.hoi-ui .production-line .line-shortage{margin:4px 0;min-height:14px;font-size:11px}
+.hoi-ui .factory-slots svg{width:18px;height:18px}
+.hoi-ui .production-line .factory-allocation b{font-size:19px;min-width:20px}

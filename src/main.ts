@@ -682,7 +682,7 @@ async function prepareGrandArt(model:BrowserRenderModel):Promise<void>{
   if(generation!==localGeneration)throw new Error('Terrain session closed');
   const geometry=staticGrandGeometry(model);
   const pipeline=new ProgressiveTerrain<CachedTerrainSurface>(
-    async(lod,control)=>{const started=performance.now();const surface=await buildCachedTerrainSurface(geometry,TERRAIN_VISUAL_SEED,'p5',lod,createVS2TerrainSurfaceHooks(undefined,control,2,true,false).worldBase,lod==='far'?.25:lod==='medium'?.5:.75);surface.canvas.dataset.buildMs=String(Math.round(performance.now()-started));return surface;},
+    async(lod,control)=>{const started=performance.now();const surface=await buildCachedTerrainSurface(geometry,TERRAIN_VISUAL_SEED,'p5',lod,createVS2TerrainSurfaceHooks(undefined,control,2,true,false).worldBase,lod==='far'?.5:lod==='medium'?.75:1);surface.canvas.dataset.buildMs=String(Math.round(performance.now()-started));return surface;},
     lod=>{if(terrainPipeline!==pipeline)return;const surface=pipeline.ready.get(lod);if(surface)cachedTerrainSurfaces.set(lod,surface);if(appStatus==='PLAYING'){mountCachedTerrainSurface();applyMapViewport();}},
     surface=>{surface.canvas.width=0;surface.canvas.height=0;});
   terrainPipeline=pipeline;

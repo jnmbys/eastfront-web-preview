@@ -108,8 +108,8 @@ export async function paintVS2Infrastructure(ctx: CanvasRenderingContext2D, mode
     if (lod !== 'far') await draw('VS2_RIVER_WET_BANK', selected, isMajor ? 9.4 : 7, 0.80);
     await draw('VS2_RIVER_WATER', selected, width, 0.95);
     // A continuous water body unifies tangent-rotated texture brightness at bends.
-    joins(selected, width * 0.82, '#4d8997', 0.77);
-    joins(selected, width * 0.25, '#adcfca', 0.22);
+    joins(selected, width * 0.82, '#397c96', 0.87);
+    joins(selected, width * 0.25, '#b5dae1', 0.48);
   }
   joins(roads, style.roadWidth + 1.2, '#817c52', 0.26);
   joins(roads, style.roadWidth, '#c8b586', 0.85);
