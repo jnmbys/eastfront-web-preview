@@ -43,6 +43,6 @@
 
 ## 关闭与回退
 
-仅关闭本候选：在本分支目录运行 `powershell -File experiments/blackice-001/local.ps1 stop`；脚本核对4275、PID和命令行，保留存档。启动用同脚本 `start`。存档位于 `%LOCALAPPDATA%/Eastfront/blackice-001`。
+仅关闭本候选：在本分支目录运行 `pwsh -File experiments/blackice-001/local.ps1 stop`；脚本核对4275、PID和命令行，保留存档。启动用同脚本 `start`。存档位于 `%LOCALAPPDATA%/Eastfront/blackice-001`。
 
 回退使用原候选入口/原工作区，不把本候选文件交给旧引擎。旧服务和旧存档未迁移、未停止。此分支不自动发布。
