@@ -371,3 +371,33 @@ body:has(.hoi-ui) .map-toolbar{top:94px}
 
 body:has(.hoi-ui) .network-match-status{display:none}
 .hoi-ui .ui-sidebar[data-mode]{bottom:20px;max-height:none;height:auto}
+
+/* HOI4-UI-001 light polish: surfaces and legibility only; no layout or animation. */
+.command-ui.hoi-ui{--hoi-panel:#272c2a;--hoi-edge:#767b6d;--hoi-ink:#e4e4d7;font-family:"Segoe UI","Microsoft YaHei",sans-serif;font-variant-numeric:tabular-nums lining-nums}
+body:has(.hoi-ui) .hoi-ui button{color:#e4e6da;border-color:#737b68 #414a3f #3a4339 #69735f;box-shadow:inset 0 1px #ffffff0b,inset 0 -1px #0005;text-shadow:0 1px #0008}
+body:has(.hoi-ui) .hoi-ui button:hover:not(:disabled){background:#424f40;border-color:#abb292;color:#fff8df}
+body:has(.hoi-ui) .hoi-ui button:focus-visible{outline:2px solid #d1c395;outline-offset:-3px}
+body:has(.hoi-ui) .hoi-ui button[aria-pressed=true]{background:#404f3b;border-color:#b9bb8e;box-shadow:inset 0 -2px #b8b780,inset 0 1px #ffffff14}
+body:has(.hoi-ui) .hoi-ui button:disabled{opacity:1;color:#929c8f;background:#252c26;border-color:#454e44;box-shadow:none;text-shadow:none;cursor:not-allowed}
+.hoi-ui .ui-sidebar{box-shadow:inset 1px 0 #b3b6a322,3px 0 5px #0007}
+.hoi-ui .ui-sidebar>header{background:#373e36;border-bottom:1px solid #8c9279;box-shadow:inset 0 1px #e0dfb91a,inset 0 -2px #161e1a}
+.hoi-ui .ui-sidebar h2{font-family:"Segoe UI","Microsoft YaHei",sans-serif;font-size:16px;font-weight:600;letter-spacing:.5px;color:#e9e3c5}
+.hoi-ui .hoi-icon{color:#c4cbb7}
+.hoi-ui .ui-content{font-size:12px}.hoi-ui .ui-content small{color:#b9c0b0}
+.hoi-national b,.hoi-time>strong{color:#e0dfbd;font-variant-numeric:tabular-nums}
+.hoi-ui .production-line{background:#293029;border-color:#636e5f;box-shadow:inset 0 1px #ffffff0a}
+.hoi-ui .production-line-controls{background:#293029}
+.hoi-ui .production-line header b{font-size:14px;font-weight:600;color:#f0ecda}
+.hoi-ui .production-line header small,.hoi-ui .line-shortage{font-size:11px;color:#b8c2af}
+.hoi-ui .production-line header strong{font-size:18px;min-width:58px;text-align:right;background:#303e2e;color:#d5e0bb;box-shadow:inset 0 0 0 1px #57664d}
+.hoi-ui .production-line header strong small{font-size:10px;font-weight:400}
+.hoi-ui .production-efficiency{border-color:#65725a;background:#141c16}.hoi-ui .production-efficiency i{background:#839b65;box-shadow:inset 0 1px #c4d5a54d}
+.hoi-ui .stock-table table{font-size:12px}.hoi-ui .stock-table th,.hoi-ui .stock-table td{border-color:#475245}
+.hoi-ui .stock-table td,.hoi-ui .stock-table thead th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+.hoi-ui .stock-table tbody th{text-align:left;font-weight:400;color:#ced4c4}
+.hoi-ui .hoi-roster-row{background:#2b322b;border-top-color:#606b5a;border-bottom-color:#3a4638}
+.hoi-ui .hoi-roster-row b{font-size:13px;font-weight:600;letter-spacing:.3px}.hoi-ui .hoi-roster-row small,.hoi-ui .hoi-row-state{font-size:11px;line-height:1.3}
+body:has(.hoi-ui) .hoi-ui .hoi-roster-row[aria-pressed=true]{background:#3b4938;border-color:#b5bd91;box-shadow:inset 3px 0 #ddd5a6}
+.hoi-ui .hoi-roster-bars>i{border-color:#677258;background:#151d15}.hoi-ui .hoi-roster-bars>i>em{background:#8da65c}.hoi-ui .hoi-roster-bars>i+i>em{background:#c4af63}
+.hoi-ui .hoi-commanders .ui-corps-card.selected{outline:1px solid #d1c695;outline-offset:1px}.hoi-ui .hoi-commanders .ui-corps-card.selected>button:first-child{background:#3b4938}
+.hoi-ui .design-stat>strong,.hoi-ui .design-demand{font-variant-numeric:tabular-nums}.hoi-ui details>summary{color:#d0d5c4}
