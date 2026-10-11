@@ -1,0 +1,13 @@
+# CONTENT-001 frozen baseline
+
+Frozen before execution, 2026-10-11. Runtime c69b38b32bcae748dd631a4297fe16118b69fb5f; BLACKICE-001-LAND-1-R1. No rule changes. Normal constructor seed 219031, all 36 units, normal enemy AI, existing starting reserves (including 60 support equipment), no injection.
+
+Automated German player: disable event autopause; give existing corps HOLD fronts; direct HOLD G-025/G-026/G-030 at their initial cells. Reassign the existing gun factory to support_equipment_1 at priority 1 at tick 0 (opportunity cost: gun output). Keep rifle/fuel lines and default logistics. Once naturally earned XP reaches 10, formally save the existing two-infantry template plus ENGINEER and adopt it for these three units when legally eligible; check hourly, no replacement units. No new economic choices after execution starts.
+
+Budget 2880 five-minute steps / ten game days, or natural campaign end. Stop early only when all three have received their entire engineer requirements. Total added needs: 1050 personnel, 15 rifles, 90 support equipment; this exceeds the 60 starting support reserve. No claim that fungible items carry batch provenance; national conservation and support produced/received establish the required production contribution.
+
+First support dispatch to this cohort while arrival is in the future: save through the authority adapter, close the temporary HTTP service and actually exit its Node process. Restart a new process with the same temporary save directory and visitor cookie, verify paused state and exact business-state digest, resume. Collect production work/progress, deficits, reserved/in-transit cargo, arrivals, shared transport usage and conservation each relevant step. Credentials and full saves stay in the temporary directory, not repository evidence.
+
+This is normal-scenario automated authority execution, not browser interaction or real-time performance. HTTP visitor isolation/session is exercised; player commands use the existing authoritative adapter in-process. If no qualifying transit occurs, report restart-in-transit as unverified. On failure identify the specific constraint, no seed search. Max two evidence-led code repairs; no economic rebalancing.
+
+Existing engineer effects: river attacking factor 0.65 + 0.15 × actual engineer satisfaction; fortification contribution 0.05 × satisfaction × accrued works fraction. Forest/hill catalog fields are not claimed effective unless their consumer is found. Effect comparison, if reached, uses a separate controlled calculation from naturally replenished state; it is not a second natural campaign.
