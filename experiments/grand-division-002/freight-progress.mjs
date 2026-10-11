@@ -23,7 +23,7 @@ export function transportProgress(s,id,options){
   }
   if(!r||r.lastTick===tick)continue;r.lastTick=tick;
   const work=Math.min(room(r.route),r.required-r.work);if(work>0){pay(r.route,work);r.work+=work;sent.routes.push({kind:model,quantity:0,work,route:structuredClone(r.route),inTransit:true});}
-  if(r.work>=r.required-1e-12){u.held[model]++;u.revision++;sent.equipment[model]++;delete reservations[key];}
+  if(r.work>=r.required-1e-12){u.held[model]++;u.revision++;sent.equipment[model]++;sent.routes.push({kind:model,quantity:1,work:0,route:structuredClone(r.route),arrivedFromReservation:true});delete reservations[key];}
  }
  sent.inTransit=Object.values(reservations).filter(r=>r.unit===id).map(r=>structuredClone(r));
  if(sent.inTransit.length)sent.reason='装备已预留，运输分期完成；未到达不计入部队';

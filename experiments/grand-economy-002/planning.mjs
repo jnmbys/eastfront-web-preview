@@ -1,7 +1,7 @@
 import {hexKey as key,canonicalEdgeKey as edgeKey,getNeighbors} from '../../vendor/eastfront-digital-core/dist/index.js';
-import {cfg} from './config.mjs';
+import {cfg as defaultCfg} from './config.mjs';
 // Read-only bounded search of current authorized cells/edges; no authoritative probes.
-export function preview(view,e,side,op,version){
+export function preview(view,e,side,op,version){const cfg=e.balanceConfig??defaultCfg;
  const cells=new Map(view.hexes.map(h=>[key(h.coord),h])),edges=new Map(view.edges.map(x=>[x.key,x])),blocked=new Set(view.units.filter(u=>u.side!==side).map(u=>key(u.hex))),own=k=>cells.get(k)?.control===side&&!blocked.has(k)&&!['LAKE','MOUNTAIN'].includes(cells.get(k)?.terrain),out={version,kind:op.kind,start:op.start,end:op.end,valid:false,path:[],segments:[],cost:0,expanded:0,reason:''};
  const stop=s=>({...out,reason:s});
  if(!['NEW_RAIL','NEW_HUB'].includes(op.kind))return stop('请选择新铁路或新枢纽');
@@ -28,3 +28,5 @@ export function preview(view,e,side,op,version){
  return stop(out.expanded>=cfg.planBudget?'有界规划预算已用尽，缩短起终点距离':'本次有界规划未找到路线：控制、地形、过河、在建重叠或24格上限受限');
 }
 export function fairUnits(units,priority,epoch){const sorted=[...units].sort((a,b)=>priority(a)-priority(b)||a.id.localeCompare(b.id)),groups=new Map();for(const u of sorted){const p=priority(u);if(!groups.has(p))groups.set(p,[]);groups.get(p).push(u);}return [...groups.values()].flatMap(a=>{const k=epoch%a.length;return [...a.slice(k),...a.slice(0,k)];});}
+
+const cfg=defaultCfg;

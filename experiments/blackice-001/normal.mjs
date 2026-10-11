@@ -1,0 +1,17 @@
+import fs from 'node:fs';import zlib from 'node:zlib';import assert from 'node:assert/strict';
+import {Campaign} from './authority.mjs';import {validate,totals} from '../grand-division-002/inventory.mjs';import {validateFuel} from '../grand-division-003/fuel.mjs';import {eligibleModel} from '../grand-division-002/authority.mjs';
+const c=new Campaign(),events=[],times=[],out='evidence/blackice-001',seed=219031;fs.mkdirSync(out,{recursive:true});let serial=0,adopted=false,produced=false,refilled=false,contacts=0;
+const cmd=operation=>c.transaction({id:'blackice-normal-'+(++serial),version:c.version,operation});
+const record=(label)=>{const p=c.clock.divisionLedger;events.push({label,tick:c.clock.tick,nations:structuredClone(p.nations),combatants:c.clock.battles.length,withdrawals:structuredClone(c.clock.tactical?.metrics),manager:structuredClone(c.econ.modern.management),adopted,produced,refilled});fs.writeFileSync(out+'/'+label+'.json.gz',zlib.gzipSync(JSON.stringify(c.save())));console.log(label,c.clock.tick);};
+cmd({type:'AUTOPAUSE',enabled:false});for(const g of c.clock.corps.filter(g=>g.side==='GERMAN'))cmd({type:'ORDER',group:g.id,order:{kind:'HOLD',front:g.members.map(id=>c.state.units[id].hex),target:c.state.units[g.members[0]].hex,risk:'NORMAL',paused:false}});
+cmd({type:'CLOCK',paused:false,speed:1});record('normal-start');
+for(let i=0;i<576&&!c.clock.ended;i++){
+ const start=performance.now();c.advance();times.push(performance.now()-start);contacts+=c.clock.battles.length;
+ const p=c.clock.divisionLedger,e=c.econ.modern;
+ produced ||=Object.values(p.nations.GERMAN.produced).some(x=>x>0);refilled ||=e.nations.GERMAN.personnelSent>0||Object.values(e.nations.GERMAN.reinforced).some(x=>x>0);
+ if(!adopted&&p.formal.xp.GERMAN>=10){const u=Object.values(p.units).find(u=>{if(u.side!=='GERMAN'||!c.state.units[u.id].alive)return false;try{eligibleModel(c,u.id);return true;}catch{return false;}});if(u){const base=p.formal.templates[u.templateId],draft=structuredClone(base);draft.name='补工兵防线';draft.support[0]='ENGINEER';const r=cmd({type:'DIVISION_FORMAL_SAVE',baseId:base.id,expectedBaseVersion:base.version,draft});cmd({type:'DIVISION_FORMAL_ADOPT',unit:u.id,expectedUnitRevision:p.units[u.id].revision,templateId:r.templateId,expectedTemplateVersion:r.templateVersion});adopted={unit:u.id,tick:c.clock.tick};
+  const line=e.lines['GERMAN:support_equipment_1'],donor=Object.values(e.lines).find(l=>l.side==='GERMAN'&&l.product==='artillery_equipment_1'&&l.factories.length);if(donor)cmd({type:'ECON_LINE',line:line.id,product:line.product,factories:[donor.factories[0]],priority:1});record('normal-adopted');}}
+ if(c.clock.tick===144)record('normal-mid');if(c.clock.tick%144===0)console.log('hours',c.clock.tick/12,'battles',c.clock.battles.length);
+}
+validate(c.clock.divisionLedger);validateFuel(c);const saved=c.save(),r=new Campaign();r.restore(saved);assert.deepEqual(totals(r.clock.divisionLedger),totals(c.clock.divisionLedger));assert(r.clock.paused);record('normal-final');
+times.sort((a,b)=>a-b);fs.writeFileSync(out+'/normal.json',JSON.stringify({kind:'normal new campaign, automated player, no runtime resource injection; 48h budget is not a game deadline',seed,adopted,produced,refilled,contactSteps:contacts,tick:c.clock.tick,ended:c.clock.ended,ms:{median:times[Math.floor(times.length*.5)],p95:times[Math.floor(times.length*.95)],max:times.at(-1)},events},null,2));

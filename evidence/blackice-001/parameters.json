@@ -1,0 +1,868 @@
+{
+  "scope": "BICE-inspired project model, not BICE engine replication",
+  "source": "649a5410d9ea527a4f1618b58060f7cb9033f781",
+  "cfg": {
+    "planningTicks": 72,
+    "maxRailLength": 24,
+    "planBudget": 1280,
+    "date": "1941-07-01T06:00:00Z",
+    "ticksPerDay": 288,
+    "networkTicks": 12,
+    "militaryWorkDay": 120,
+    "civilWorkDay": 30,
+    "efficiencyStart": 0.3,
+    "efficiencyCap": 0.8,
+    "efficiencyGainDay": 0.015,
+    "switchRetention": 0.25,
+    "addedFactoryEfficiency": 0.1,
+    "manpower": 4800,
+    "personnelDay": 60,
+    "equipmentDay": 2,
+    "combatReinforcement": 0.25,
+    "marchReinforcement": 0.5,
+    "sourceFlow": 18,
+    "localFlow": 0.02,
+    "railFlow": 12,
+    "hubFlow": 12,
+    "trainWork": 80,
+    "truckPerHub": 20,
+    "footRange": 2,
+    "motorRange": 5,
+    "carriedHours": 12,
+    "marchScale": 4,
+    "construction": {
+      "MIL": 1800,
+      "CIV": 2100,
+      "HUB": 300,
+      "RAIL": 36,
+      "REPAIR_RAIL": 60,
+      "REPAIR_FACTORY": 120,
+      "NEW_RAIL": 36,
+      "NEW_HUB": 300
+    },
+    "resourcePerIndustry": {
+      "steel": 2,
+      "tungsten": 0.6,
+      "chromium": 0.4,
+      "rubber": 0.5
+    },
+    "supplyDayDivisor": 24,
+    "combatSupplyFactor": 1.5,
+    "marchSupplyFactor": 1.25,
+    "fuelTonnes": 0.08
+  },
+  "combat": {
+    "cyclesHour": 6,
+    "coveredHit": 0.15,
+    "openHit": 0.37,
+    "hpLoss": 0.1,
+    "orgLoss": 0.05,
+    "width": 75,
+    "extraDirection": 25,
+    "maxWidth": 125
+  },
+  "terrain": {
+    "PLAIN": {
+      "move": 1,
+      "attack": 1,
+      "width": 75
+    },
+    "FOREST": {
+      "move": 1.5,
+      "attack": 0.7,
+      "width": 60
+    },
+    "HILL": {
+      "move": 1.7,
+      "attack": 0.6,
+      "width": 60
+    },
+    "MOUNTAIN": {
+      "move": 2.5,
+      "attack": 0.4,
+      "width": 45
+    },
+    "MARSH": {
+      "move": 2,
+      "attack": 0.6,
+      "width": 45
+    },
+    "CITY": {
+      "move": 1.2,
+      "attack": 0.6,
+      "width": 75
+    }
+  },
+  "freightPolicy": {
+    "personnel": 0.1,
+    "infantry_equipment_1": 0.01,
+    "support_equipment_1": 0.05,
+    "artillery_equipment_1": 1.5,
+    "anti_tank_equipment_2": 1.2,
+    "motorized_equipment_1": 3,
+    "leichttraktor_lt0": 8
+  },
+  "reserve": {
+    "infantry_equipment_1": 600,
+    "support_equipment_1": 60,
+    "artillery_equipment_1": 24,
+    "anti_tank_equipment_2": 24,
+    "motorized_equipment_1": 100,
+    "leichttraktor_lt0": 12,
+    "TRAIN": 8,
+    "FUEL": 400
+  },
+  "models": {
+    "infantry_equipment_1": {
+      "archetype": "infantry_equipment",
+      "cost": 0.48,
+      "archetypeFields": {
+        "maximum_speed": 4,
+        "hardness": 0,
+        "armor_value": 0,
+        "soft_attack": 1.4,
+        "hard_attack": 0.5,
+        "defense": 2,
+        "breakthrough": 0.4,
+        "ap_attack": 0.5,
+        "reliability": 0.8
+      },
+      "modelFields": {},
+      "archetypeResources": {
+        "steel": 2
+      },
+      "modelResources": {},
+      "unit": "piece",
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781 common/units/equipment/infantry.txt:124-147"
+    },
+    "support_equipment_1": {
+      "archetype": "support_equipment",
+      "source": "common/units/equipment/support.txt",
+      "sha256": "fd41d5223c62cf955d650bbad0b1adecfae6be9e1cc43904fb0118fb5d3e5385",
+      "archetypeFields": {
+        "build_cost_ic": 4,
+        "reliability": 0.8
+      },
+      "modelFields": {},
+      "archetypeResources": {
+        "aluminium": 1,
+        "steel": 2
+      },
+      "modelResources": {},
+      "cost": 4,
+      "unit": "piece"
+    },
+    "artillery_equipment_1": {
+      "archetype": "artillery_equipment",
+      "cost": 6,
+      "archetypeFields": {
+        "maximum_speed": 4,
+        "hardness": 0,
+        "armor_value": 0,
+        "soft_attack": 10.5,
+        "hard_attack": 0.525,
+        "defense": 1.5,
+        "breakthrough": 3,
+        "ap_attack": 2,
+        "reliability": 0.35
+      },
+      "modelFields": {},
+      "archetypeResources": {
+        "steel": 3
+      },
+      "modelResources": {},
+      "unit": "piece",
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781 common/units/equipment/artillery.txt:206-237; special production resource omitted"
+    },
+    "motorized_equipment_1": {
+      "archetype": "motorized_equipment",
+      "archetypeFields": {
+        "maximum_speed": 10,
+        "hardness": 0.02,
+        "reliability": 0.6,
+        "fuel_consumption": 1.2
+      },
+      "modelFields": {},
+      "cost": 5,
+      "archetypeResources": {
+        "steel": 3,
+        "rubber": 1
+      },
+      "modelResources": {},
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781 motorized.txt model1; fuel use retained project 100L units",
+      "unit": "piece"
+    },
+    "leichttraktor_lt0": {
+      "archetype": "light_tank_chassis",
+      "archetypeFields": {
+        "fuel_consumption": 2.1,
+        "maximum_speed": 5.940000000000001,
+        "build_cost_ic": 6.280000000000001,
+        "reliability": 0.64,
+        "hardness": 0.8,
+        "armor_value": 15,
+        "soft_attack": 10,
+        "hard_attack": 6,
+        "ap_attack": 25,
+        "breakthrough": 16.674999999999997,
+        "defense": 2.4
+      },
+      "modelFields": {},
+      "cost": 6.280000000000001,
+      "archetypeResources": {
+        "steel": 1
+      },
+      "modelResources": {},
+      "source": "history/countries/GER - Germany.txt",
+      "unit": "piece",
+      "completeVariant": {
+        "name": "Leichttraktor",
+        "source": "history/countries/GER - Germany.txt",
+        "requiredDLC": "No Step Back (recorded in prior user-environment evidence)",
+        "chassisId": "light_tank_chassis_0",
+        "moduleSlots": {
+          "main_armament_slot": "tank_small_cannon",
+          "turret_type_slot": "tank_light_two_man_tank_turret",
+          "suspension_type_slot": "tank_christie_suspension",
+          "armor_type_slot": "tank_riveted_armor",
+          "engine_type_slot": "tank_gasoline_engine",
+          "special_type_slot_1": "tank_radio_1"
+        },
+        "upgradeLevels": {
+          "tank_nsb_engine_upgrade": 2,
+          "tank_nsb_armor_upgrade": 2
+        },
+        "chassisBase": {
+          "scalar": {
+            "fuel_consumption": 0,
+            "maximum_speed": 4,
+            "build_cost_ic": 2,
+            "reliability": 0.8,
+            "hardness": 0.8,
+            "armor_value": 10
+          },
+          "resources": {
+            "steel": 1
+          }
+        },
+        "chassisConcrete": {
+          "scalar": {}
+        },
+        "modules": {
+          "tank_small_cannon": {
+            "scalar": {},
+            "add_stats": {
+              "soft_attack": 10,
+              "hard_attack": 6,
+              "ap_attack": 25,
+              "build_cost_ic": 1.5,
+              "maximum_speed": -0.1,
+              "reliability": -0.1
+            }
+          },
+          "tank_light_two_man_tank_turret": {
+            "scalar": {},
+            "add_stats": {
+              "build_cost_ic": 1.25,
+              "breakthrough": 10
+            },
+            "multiply_stats": {}
+          },
+          "tank_christie_suspension": {
+            "scalar": {},
+            "add_stats": {
+              "build_cost_ic": 1
+            },
+            "multiply_stats": {
+              "maximum_speed": 0.2
+            }
+          },
+          "tank_riveted_armor": {
+            "scalar": {},
+            "add_stats": {
+              "defense": 2,
+              "breakthrough": 2
+            },
+            "multiply_stats": {
+              "build_cost_ic": -0.2
+            }
+          },
+          "tank_gasoline_engine": {
+            "scalar": {},
+            "add_stats": {
+              "build_cost_ic": 1,
+              "fuel_consumption": 2,
+              "maximum_speed": 0.5
+            },
+            "multiply_stats": {
+              "maximum_speed": 0.15
+            }
+          },
+          "tank_radio_1": {
+            "scalar": {},
+            "add_stats": {
+              "build_cost_ic": 0.5
+            },
+            "multiply_stats": {
+              "defense": 0.2,
+              "breakthrough": 0.15
+            }
+          }
+        },
+        "upgrades": {
+          "tank_nsb_engine_upgrade": {
+            "scalar": {
+              "reliability": -0.015
+            },
+            "add_stats": {
+              "fuel_consumption": 0.05,
+              "build_cost_ic": 0.1,
+              "maximum_speed": 0.1
+            }
+          },
+          "tank_nsb_armor_upgrade": {
+            "scalar": {
+              "reliability": -0.015
+            },
+            "add_stats": {
+              "maximum_speed": -0.1,
+              "breakthrough": 1.25,
+              "build_cost_ic": 0.2,
+              "armor_value": 2.5
+            }
+          }
+        },
+        "aggregationStatus": "pending project policy; these components alone do not prove runtime totals"
+      },
+      "aggregation": "Approved project additive then summed multiplicative modifiers; not runtime-verified HOI4 totals"
+    },
+    "anti_tank_equipment_2": {
+      "archetype": "anti_tank_equipment",
+      "cost": 4.5,
+      "archetypeFields": {
+        "maximum_speed": 4,
+        "hardness": 0,
+        "armor_value": 0,
+        "soft_attack": 2.5,
+        "hard_attack": 8.5,
+        "defense": 1.5,
+        "breakthrough": 0,
+        "ap_attack": 27,
+        "reliability": 0.5
+      },
+      "modelFields": {},
+      "archetypeResources": {
+        "steel": 2,
+        "tungsten": 1
+      },
+      "modelResources": {},
+      "unit": "piece",
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781 common/units/equipment/anti_tank.txt model 2; special resource omitted"
+    }
+  },
+  "units": {
+    "INFANTRY": {
+      "manpower": 1250,
+      "need": {
+        "infantry_equipment": 125
+      },
+      "scalarDefinitions": {
+        "max_organisation": 35,
+        "max_strength": 25,
+        "combat_width": 2,
+        "supply_consumption": 8,
+        "breakthrough": -0.3
+      },
+      "terrain": {},
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781; positive org and tonnes/day are project adaptation"
+    },
+    "ARTILLERY": {
+      "manpower": 700,
+      "need": {
+        "artillery_equipment": 12
+      },
+      "scalarDefinitions": {
+        "max_organisation": 20,
+        "max_strength": 2,
+        "combat_width": 1.5,
+        "supply_consumption": 18
+      },
+      "terrain": {},
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781; positive org and tonnes/day are project adaptation"
+    },
+    "MOTORIZED": {
+      "manpower": 1200,
+      "need": {
+        "infantry_equipment": 100,
+        "motorized_equipment": 35
+      },
+      "scalarDefinitions": {
+        "combat_width": 2,
+        "max_strength": 25,
+        "max_organisation": 60,
+        "weight": 0.75,
+        "supply_consumption": 12
+      },
+      "terrain": {
+        "forest": {
+          "attack": -0.1,
+          "movement": -0.5
+        },
+        "mountain": {
+          "attack": -0.05
+        },
+        "jungle": {
+          "attack": -0.2,
+          "movement": -0.5
+        },
+        "marsh": {
+          "attack": -0.1,
+          "movement": -0.3
+        },
+        "urban": {
+          "attack": -0.1
+        },
+        "river": {
+          "attack": -0.1,
+          "movement": -0.1
+        },
+        "amphibious": {
+          "attack": -0.2
+        }
+      },
+      "source": "common/units/infantry.txt",
+      "group": "mobile"
+    },
+    "LIGHT_ARMOR": {
+      "manpower": 500,
+      "need": {
+        "light_tank_chassis": 60
+      },
+      "scalarDefinitions": {
+        "combat_width": 2,
+        "max_organisation": 10,
+        "max_strength": 2,
+        "weight": 1,
+        "supply_consumption": 32,
+        "breakthrough": 0.15
+      },
+      "terrain": {
+        "forest": {
+          "attack": -0.2,
+          "movement": -0.4
+        },
+        "mountain": {
+          "attack": -0.1
+        },
+        "jungle": {
+          "attack": -0.3,
+          "movement": -0.4
+        },
+        "marsh": {
+          "attack": -0.1,
+          "movement": -0.1
+        },
+        "urban": {
+          "attack": -0.4,
+          "defence": -0.1
+        },
+        "river": {
+          "attack": -0.2,
+          "movement": -0.2
+        },
+        "amphibious": {
+          "attack": -0.4
+        }
+      },
+      "source": "common/units/light_armor.txt",
+      "group": "armor"
+    },
+    "ANTI_TANK": {
+      "manpower": 600,
+      "need": {
+        "anti_tank_equipment": 24
+      },
+      "scalarDefinitions": {
+        "max_organisation": 25,
+        "max_strength": 2,
+        "combat_width": 1,
+        "supply_consumption": 6
+      },
+      "terrain": {},
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781; positive org and tonnes/day are project adaptation",
+      "combatModel": "anti_tank_equipment_2"
+    },
+    "ENGINEER": {
+      "manpower": 350,
+      "need": {
+        "infantry_equipment": 5,
+        "support_equipment": 30
+      },
+      "scalarDefinitions": {
+        "max_organisation": 25,
+        "max_strength": 2,
+        "combat_width": 0,
+        "supply_consumption": 2,
+        "soft_attack": -0.4,
+        "hard_attack": -0.2,
+        "defense": -0.2,
+        "breakthrough": -0.4
+      },
+      "terrain": {
+        "forest": {
+          "defence": 0.07
+        },
+        "hills": {
+          "defence": 0.07
+        }
+      },
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781; positive org and tonnes/day are project adaptation"
+    },
+    "RECON": {
+      "source": "common/units/recon.txt",
+      "sha256": "8a1fe834193f8b648fc6a70df71a07ae318635d500bccc52c0a64a74b2eddcfc",
+      "manpower": 500,
+      "need": {
+        "infantry_equipment": 40,
+        "support_equipment": 10
+      },
+      "scalarDefinitions": {
+        "max_strength": 2,
+        "max_organisation": 20,
+        "combat_width": 0,
+        "supply_consumption": 2,
+        "maximum_speed": 0.6,
+        "soft_attack": -0.9,
+        "hard_attack": -0.9,
+        "defense": -0.5,
+        "breakthrough": -0.5,
+        "recon": 1
+      },
+      "essential": [
+        "infantry_equipment",
+        "support_equipment"
+      ],
+      "note": "Scalar modifiers are not final attributes or an approved aggregation formula."
+    },
+    "SUPPORT_ARTILLERY": {
+      "manpower": 350,
+      "need": {
+        "artillery_equipment": 6
+      },
+      "scalarDefinitions": {
+        "max_organisation": 20,
+        "max_strength": 1,
+        "combat_width": 0.5,
+        "supply_consumption": 9,
+        "soft_attack": -0.5,
+        "hard_attack": -0.5
+      },
+      "terrain": {},
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781; positive org and tonnes/day are project adaptation"
+    },
+    "SUPPORT_AT": {
+      "manpower": 300,
+      "need": {
+        "anti_tank_equipment": 12
+      },
+      "scalarDefinitions": {
+        "max_organisation": 25,
+        "max_strength": 1,
+        "combat_width": 0.5,
+        "supply_consumption": 3,
+        "soft_attack": -0.5,
+        "hard_attack": -0.5,
+        "defense": -0.5
+      },
+      "terrain": {},
+      "source": "BICE 649a5410d9ea527a4f1618b58060f7cb9033f781; positive org and tonnes/day are project adaptation",
+      "combatModel": "anti_tank_equipment_2"
+    }
+  },
+  "before": {
+    "cfg": {
+      "planningTicks": 72,
+      "maxRailLength": 24,
+      "planBudget": 1280,
+      "date": "1941-07-01T06:00:00Z",
+      "ticksPerDay": 288,
+      "networkTicks": 12,
+      "militaryWorkDay": 12,
+      "civilWorkDay": 6,
+      "efficiencyStart": 0.3,
+      "efficiencyCap": 0.8,
+      "efficiencyGainDay": 0.08,
+      "switchRetention": 0.4,
+      "addedFactoryEfficiency": 0.1,
+      "manpower": 4800,
+      "personnelDay": 60,
+      "equipmentDay": 2,
+      "combatReinforcement": 0.25,
+      "marchReinforcement": 0.5,
+      "sourceFlow": 18,
+      "localFlow": 0.35,
+      "railFlow": 12,
+      "hubFlow": 12,
+      "trainWork": 80,
+      "truckPerHub": 2,
+      "footRange": 3,
+      "motorRange": 7,
+      "carriedHours": 12,
+      "marchScale": 4,
+      "construction": {
+        "MIL": 30,
+        "CIV": 36,
+        "HUB": 18,
+        "RAIL": 10,
+        "REPAIR_RAIL": 6,
+        "REPAIR_FACTORY": 10,
+        "NEW_RAIL": 8,
+        "NEW_HUB": 24
+      },
+      "resourcePerIndustry": {
+        "steel": 2,
+        "tungsten": 0.6,
+        "chromium": 0.4,
+        "rubber": 0.5
+      }
+    },
+    "models": {
+      "infantry_equipment_1": {
+        "archetype": "infantry_equipment",
+        "source": "common/units/equipment/infantry.txt",
+        "sha256": "0b2b15df8618b68ceb4892510c965f0d8618b365937fd8e12581a6d512e01cf1",
+        "archetypeFields": {
+          "build_cost_ic": 0.43,
+          "maximum_speed": 4,
+          "defense": 20,
+          "breakthrough": 2,
+          "soft_attack": 3,
+          "hard_attack": 0.5,
+          "ap_attack": 1,
+          "armor_value": 0,
+          "hardness": 0,
+          "reliability": 0.9
+        },
+        "modelFields": {
+          "build_cost_ic": 0.5,
+          "defense": 22,
+          "breakthrough": 3,
+          "soft_attack": 6,
+          "hard_attack": 1,
+          "ap_attack": 4
+        },
+        "archetypeResources": {
+          "steel": 2
+        },
+        "modelResources": {},
+        "cost": 0.5,
+        "unit": "piece"
+      },
+      "support_equipment_1": {
+        "archetype": "support_equipment",
+        "source": "common/units/equipment/support.txt",
+        "sha256": "fd41d5223c62cf955d650bbad0b1adecfae6be9e1cc43904fb0118fb5d3e5385",
+        "archetypeFields": {
+          "build_cost_ic": 4,
+          "reliability": 0.8
+        },
+        "modelFields": {},
+        "archetypeResources": {
+          "aluminium": 1,
+          "steel": 2
+        },
+        "modelResources": {},
+        "cost": 4,
+        "unit": "piece"
+      },
+      "artillery_equipment_1": {
+        "archetype": "artillery_equipment",
+        "archetypeFields": {
+          "reliability": 0.8,
+          "maximum_speed": 4,
+          "defense": 11,
+          "breakthrough": 10,
+          "hardness": 0,
+          "armor_value": 0,
+          "soft_attack": 26,
+          "hard_attack": 2,
+          "ap_attack": 5,
+          "build_cost_ic": 3.5
+        },
+        "modelFields": {},
+        "cost": 3.5,
+        "archetypeResources": {
+          "tungsten": 1,
+          "steel": 2
+        },
+        "modelResources": {},
+        "source": "common/units/equipment/artillery.txt",
+        "unit": "piece"
+      },
+      "motorized_equipment_1": {
+        "archetype": "motorized_equipment",
+        "archetypeFields": {
+          "maximum_speed": 12,
+          "reliability": 0.8,
+          "hardness": 0.1,
+          "breakthrough": 5,
+          "build_cost_ic": 2.5,
+          "fuel_consumption": 1.2
+        },
+        "modelFields": {},
+        "cost": 2.5,
+        "archetypeResources": {
+          "rubber": 1,
+          "steel": 1
+        },
+        "modelResources": {},
+        "source": "common/units/equipment/motorized.txt",
+        "unit": "piece"
+      },
+      "leichttraktor_lt0": {
+        "archetype": "light_tank_chassis",
+        "archetypeFields": {
+          "fuel_consumption": 2.1,
+          "maximum_speed": 5.940000000000001,
+          "build_cost_ic": 6.280000000000001,
+          "reliability": 0.64,
+          "hardness": 0.8,
+          "armor_value": 15,
+          "soft_attack": 10,
+          "hard_attack": 6,
+          "ap_attack": 25,
+          "breakthrough": 16.674999999999997,
+          "defense": 2.4
+        },
+        "modelFields": {},
+        "cost": 6.280000000000001,
+        "archetypeResources": {
+          "steel": 1
+        },
+        "modelResources": {},
+        "source": "history/countries/GER - Germany.txt",
+        "unit": "piece",
+        "completeVariant": {
+          "name": "Leichttraktor",
+          "source": "history/countries/GER - Germany.txt",
+          "requiredDLC": "No Step Back (recorded in prior user-environment evidence)",
+          "chassisId": "light_tank_chassis_0",
+          "moduleSlots": {
+            "main_armament_slot": "tank_small_cannon",
+            "turret_type_slot": "tank_light_two_man_tank_turret",
+            "suspension_type_slot": "tank_christie_suspension",
+            "armor_type_slot": "tank_riveted_armor",
+            "engine_type_slot": "tank_gasoline_engine",
+            "special_type_slot_1": "tank_radio_1"
+          },
+          "upgradeLevels": {
+            "tank_nsb_engine_upgrade": 2,
+            "tank_nsb_armor_upgrade": 2
+          },
+          "chassisBase": {
+            "scalar": {
+              "fuel_consumption": 0,
+              "maximum_speed": 4,
+              "build_cost_ic": 2,
+              "reliability": 0.8,
+              "hardness": 0.8,
+              "armor_value": 10
+            },
+            "resources": {
+              "steel": 1
+            }
+          },
+          "chassisConcrete": {
+            "scalar": {}
+          },
+          "modules": {
+            "tank_small_cannon": {
+              "scalar": {},
+              "add_stats": {
+                "soft_attack": 10,
+                "hard_attack": 6,
+                "ap_attack": 25,
+                "build_cost_ic": 1.5,
+                "maximum_speed": -0.1,
+                "reliability": -0.1
+              }
+            },
+            "tank_light_two_man_tank_turret": {
+              "scalar": {},
+              "add_stats": {
+                "build_cost_ic": 1.25,
+                "breakthrough": 10
+              },
+              "multiply_stats": {}
+            },
+            "tank_christie_suspension": {
+              "scalar": {},
+              "add_stats": {
+                "build_cost_ic": 1
+              },
+              "multiply_stats": {
+                "maximum_speed": 0.2
+              }
+            },
+            "tank_riveted_armor": {
+              "scalar": {},
+              "add_stats": {
+                "defense": 2,
+                "breakthrough": 2
+              },
+              "multiply_stats": {
+                "build_cost_ic": -0.2
+              }
+            },
+            "tank_gasoline_engine": {
+              "scalar": {},
+              "add_stats": {
+                "build_cost_ic": 1,
+                "fuel_consumption": 2,
+                "maximum_speed": 0.5
+              },
+              "multiply_stats": {
+                "maximum_speed": 0.15
+              }
+            },
+            "tank_radio_1": {
+              "scalar": {},
+              "add_stats": {
+                "build_cost_ic": 0.5
+              },
+              "multiply_stats": {
+                "defense": 0.2,
+                "breakthrough": 0.15
+              }
+            }
+          },
+          "upgrades": {
+            "tank_nsb_engine_upgrade": {
+              "scalar": {
+                "reliability": -0.015
+              },
+              "add_stats": {
+                "fuel_consumption": 0.05,
+                "build_cost_ic": 0.1,
+                "maximum_speed": 0.1
+              }
+            },
+            "tank_nsb_armor_upgrade": {
+              "scalar": {
+                "reliability": -0.015
+              },
+              "add_stats": {
+                "maximum_speed": -0.1,
+                "breakthrough": 1.25,
+                "build_cost_ic": 0.2,
+                "armor_value": 2.5
+              }
+            }
+          },
+          "aggregationStatus": "pending project policy; these components alone do not prove runtime totals"
+        },
+        "aggregation": "Approved project additive then summed multiplicative modifiers; not runtime-verified HOI4 totals"
+      }
+    }
+  }
+}

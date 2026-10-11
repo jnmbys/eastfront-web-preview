@@ -10,7 +10,7 @@ import {staticResponse} from '../grand-release-002/static-response.mjs';
 
 // Public admission is separate from campaign authorization. Each browser receives
 // an unguessable signed identity; it never supplies a campaign directory or ID.
-export async function publicServer({port=Number(process.env.PORT??4261),host=process.env.HOST??'127.0.0.1',origin=process.env.PUBLIC_ORIGIN??`http://127.0.0.1:${port}`,saveDir=process.env.SAVE_DIR,maxActive=2,maxVisitors=100,idleMs=30000,autoTick=true,campaignModes=null}={}){
+export async function publicServer({port=Number(process.env.PORT??4261),host=process.env.HOST??'127.0.0.1',origin=process.env.PUBLIC_ORIGIN??`http://127.0.0.1:${port}`,saveDir=process.env.SAVE_DIR,maxActive=2,maxVisitors=100,idleMs=30000,autoTick=true,campaignModes=null,defaultMode='legacy'}={}){
  if(!saveDir)throw Error('PERSISTENT_SAVE_DIR_REQUIRED');
  if(process.env.REQUIRE_PERSISTENT_DISK==='1'){
   if(process.platform!=='linux'||!fs.readFileSync('/proc/self/mountinfo','utf8').split('\n').some(line=>line.split(' ')[4]==='/var/data'))throw Error('PERSISTENT_DISK_NOT_MOUNTED');
@@ -57,7 +57,7 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
  function reply(res,status,body,type='text/plain; charset=utf-8'){res.writeHead(status,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(body);}
  const request=(req,res)=>void(async()=>{
   if(req.headers.host!==url.host)return reply(res,403,'HOST_DENIED');
-  const requestUrl=new URL(req.url,origin),pathname=requestUrl.pathname,mode=requestUrl.searchParams.get('campaign')??'legacy';
+  const requestUrl=new URL(req.url,origin),pathname=requestUrl.pathname,mode=requestUrl.searchParams.get('campaign')??defaultMode;
   if(campaignModes&&!Object.hasOwn(campaignModes,mode))return reply(res,400,'UNKNOWN_CAMPAIGN_MODE');
   if(pathname==='/healthz')return reply(res,200,'{"ok":true}','application/json');
   if(pathname==='/visitor/start'&&req.method==='POST'){
@@ -91,7 +91,7 @@ export async function publicServer({port=Number(process.env.PORT??4261),host=pro
  })().catch(e=>{if(!res.headersSent)reply(res,503,e.message==='BUSY'?'当前两场战役正在使用，请稍后重试；你的存档保留。':'服务暂不可用，请稍后重试');else res.destroy();});
  const server=http.createServer(request);
  server.on('upgrade',(req,socket,head)=>void(async()=>{
-  const id=identity(req),wsUrl=new URL(req.url,origin),mode=wsUrl.searchParams.get('campaign')??'legacy';
+  const id=identity(req),wsUrl=new URL(req.url,origin),mode=wsUrl.searchParams.get('campaign')??defaultMode;
   if(campaignModes&&!Object.hasOwn(campaignModes,mode)){socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');return;}
   if(!id||req.headers.host!==url.host||req.headers.origin!==origin||!/^\/[ab]\/ws$/.test(wsUrl.pathname)){socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n');return;}
   const service=await obtain(id,mode);

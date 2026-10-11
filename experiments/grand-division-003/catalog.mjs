@@ -24,7 +24,8 @@ reference.profile=PROFILE;reference.mapping=mapping;reference.families=families;
 reference.qualification={kind:'explicit-project-scenario',lineRows:4,columns:5,supportSlots:5,regimentalSupport:false,technologyTree:false};
 export const modelIds=Object.freeze(Object.keys(reference.models));
 export const freightPolicy={personnel:1/50,infantry_equipment_1:1/100,support_equipment_1:1/25,artillery_equipment_1:1/25,[TRUCK]:1/25,[TANK]:1/10};
-export function demand(t){
+export function demand(t,ref=reference){
+ const {families,supportIds,mapping}=ref,modelIds=Object.keys(ref.models),reference=ref;
  if(!Array.isArray(t.regiments)||t.regiments.length!==5||t.regiments.some(c=>!Array.isArray(c)||c.length!==5)||!Array.isArray(t.support)||t.support.length!==5)throw Error('MODEL_SLOT_SHAPE');
  if(t.regiments.some(c=>c[4]))throw Error('MODEL_FIFTH_ROW_UNVERIFIED');
  for(const c of t.regiments){const ids=c.filter(Boolean);if(ids.some(id=>!families[id]))throw Error('MODEL_LINE_NOT_ENABLED');if(new Set(ids.map(id=>families[id])).size>1)throw Error('MODEL_REGIMENT_FAMILY_MISMATCH');}

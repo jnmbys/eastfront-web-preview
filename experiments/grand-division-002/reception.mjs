@@ -5,13 +5,14 @@ export const freightPolicy=Object.freeze({personnel:1/50,infantry_equipment_1:1/
 export const LEGACY_RECEPTION='DIVISION-RECEPTION-1';
 export const CURRENT_RECEPTION='DIVISION-RECEPTION-2';
 export function receptionRates(policy){
+ if(policy==='BLACKICE-RECEPTION-1')return {ticksPerDay:288,personnelDay:300,equipmentDay:10,modelRates:{infantry_equipment_1:50,support_equipment_1:10,artillery_equipment_1:4,anti_tank_equipment_2:4,motorized_equipment_1:4,leichttraktor_lt0:2}};
  if(policy!==undefined&&![LEGACY_RECEPTION,CURRENT_RECEPTION].includes(policy))throw Error('UNSUPPORTED_RECEPTION_POLICY');
  return {ticksPerDay:cfg.ticksPerDay,personnelDay:policy===CURRENT_RECEPTION?300:60,equipmentDay:policy===CURRENT_RECEPTION?10:2};
 }
 export function accrueReception(credits,factor=1,rates=cfg,ids=modelIds){
  const people=rates.personnelDay/rates.ticksPerDay*factor,item=rates.equipmentDay/rates.ticksPerDay*factor;
  credits.personnel=Math.min(1+people,credits.personnel+people);
- for(const k of ids)credits[k]=Math.min(1+item,credits[k]+item);
+ for(const k of ids){const rate=rates.modelRates?.[k]!==undefined?rates.modelRates[k]/rates.ticksPerDay*factor:item;credits[k]=Math.min(1+rate,credits[k]+rate);}
  return Object.fromEntries(Object.entries(credits).map(([k,q])=>[k,Math.floor(q+1e-9)]));
 }
 export function debitReception(credits,sent,ids=modelIds){

@@ -1,8 +1,8 @@
 import {hexKey as key,canonicalEdgeKey as edgeKey,getNeighbors} from '../../vendor/eastfront-digital-core/dist/index.js';
 import {fairUnits} from './planning.mjs';
-import {cfg} from './config.mjs';
+import {cfg as defaultCfg} from './config.mjs';
 // Input is the authorized current view. No hidden occupancy probes, no enemy private values.
-export function planNetwork(view,e,side,nodes,clock,placements){
+export function planNetwork(view,e,side,nodes,clock,placements){const cfg=e.balanceConfig??defaultCfg;
  const cells=new Map(view.hexes.map(h=>[key(h.coord),h])),edges=new Map(view.edges.map(x=>[x.key,x])),own=k=>cells.get(k)?.control===side&&cells.get(k)?.terrain!=='LAKE';
  const blocked=new Set(view.units.filter(u=>u.side!==side).map(u=>key(u.hex))),allowed=k=>own(k)&&!blocked.has(k);
  const rails=new Map();let expanded=0;
@@ -29,7 +29,7 @@ export function planNetwork(view,e,side,nodes,clock,placements){
  const nation=e.nations[side],edgeUsed={},sourceUsed={},hubUsed={},localUsed={},rows={},shipments=[];
  let trainUsed=0,trainDemand=reserved?.train??0;
  const units=fairUnits(activeUnits,u=>e.priorities[armyOf(u.id)]??3,Math.floor(clock.tick/cfg.networkTicks));
- for(const u of units){const v=clock.units[u.id],g=e.establishment[u.id],need=(e.divisionDailyNeed?.[u.id]??(.6+v.personnel/v.max*.4+ (g.TANK??0)*.12+(g.HEAVY??0)*.18+(g.GUN??0)*.1+(g.TRUCK??0)*.05))*(v.engaged?1.3:v.march?1.15:1),k=key(u.hex);
+ for(const u of units){const v=clock.units[u.id],g=e.establishment[u.id],need=(e.divisionDailyNeed?.[u.id]??(.6+v.personnel/v.max*.4+ (g.TANK??0)*.12+(g.HEAVY??0)*.18+(g.GUN??0)*.1+(g.TRUCK??0)*.05))/(cfg.supplyDayDivisor??1)*(v.engaged?(cfg.combatSupplyFactor??1.3):v.march?(cfg.marchSupplyFactor??1.15):1),k=key(u.hex);
   const localCap=own(k)?(cells.get(k)?.terrain==='CITY'?cfg.localFlow*2:cfg.localFlow):0,local=Math.min(need,Math.max(0,localCap-(localUsed[k]??0)));localUsed[k]=(localUsed[k]??0)+local;let supplied=local,access=0;
   const choices=hubRows.filter(h=>h.reach.has(k)).sort((a,b)=>a.reach.get(k)-b.reach.get(k)||a.id.localeCompare(b.id));
   const causes=new Map(),constraints=[];let reason=choices.length?'铁路断线或待维修':'枢纽末端覆盖不足',route=null;
@@ -45,5 +45,7 @@ export function planNetwork(view,e,side,nodes,clock,placements){
   const names={TRAIN:'火车不足',SOURCE:'后方来源满载',HUB:'枢纽满载',RAIL:'铁路拥堵',COVERAGE:'末端覆盖不到',DISCONNECTED:'铁路线路中断',TRUCK:'卡车不足'};if(causes.size)reason=[...new Set([...causes.values()].map(x=>names[x.type]))].join('；');
   rows[u.id]={bottlenecks:[...causes.values()],constraints:[...new Map(constraints.map(x=>[x.type+x.id,x])).values()],need,received:supplied,local,ratio:Math.min(1,supplied/need),access:Math.min(1,access/need),reason,route,routes:reachable.flatMap(h=>h.routes.map(r=>({hub:h.id,path:r.path,source:r.source})))};
  }
- return {side,rows,hubs:hubRows.map(({reach,...h})=>({...h,coverage:[...reach.keys()],used:hubUsed[h.id]??0})),trainUsed,trainDemand,trainNeed:Math.ceil(trainDemand/cfg.trainWork),trains:nation.stock.TRAIN,trucks:nation.stock[e.transportTruckModel??'TRUCK'],trucksUsed:nation.stock[e.transportTruckModel??'TRUCK']-trucks,truckNeed,edges:edgeUsed,sources:sourceUsed,shipments,expanded};
+ return {side,rows,hubs:hubRows.map(({reach,...h})=>({...h,...(cfg.supplyDayDivisor?{deliveryCosts:Object.fromEntries(reach)}:{}),coverage:[...reach.keys()],used:hubUsed[h.id]??0})),trainUsed,trainDemand,trainNeed:Math.ceil(trainDemand/cfg.trainWork),trains:nation.stock.TRAIN,trucks:nation.stock[e.transportTruckModel??'TRUCK'],trucksUsed:nation.stock[e.transportTruckModel??'TRUCK']-trucks,truckNeed,edges:edgeUsed,sources:sourceUsed,shipments,expanded};
 }
+
+const cfg=defaultCfg;

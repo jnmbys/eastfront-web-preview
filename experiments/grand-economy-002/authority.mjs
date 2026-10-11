@@ -1,6 +1,6 @@
 import {demands} from './demand.mjs';
 import {Conservative} from '../grand-officer-002-r1/authority.mjs';
-import {cfg,rules,VERSION,products,sides} from './config.mjs';
+import {cfg as defaultCfg,rules,VERSION,products,sides} from './config.mjs';
 import * as economy from './economy.mjs';
 import {preview} from './planning.mjs';
 import {manage} from './manager.mjs';
@@ -21,7 +21,7 @@ export class Campaign extends Conservative{
  enemyPlan(view){Conservative.prototype.enemyPlan.call(this,view);if(this.clock.tick%cfg.planningTicks===1)manage(this,view,'SOVIET');}
  projection(draft){if(draft?.type==='ECON_PLAN')return {economyPlan:this.previewConstruction(draft)};return super.projection(draft);}
  previewConstruction(op){const started=performance.now(),r=preview(this.fair(this.viewer).view,this.econ.modern,this.viewer,op,this.version);return {...r,ms:performance.now()-started};}
- enqueue(side,op){const e=this.econ.modern;if(!cfg.construction[op.kind])fail('INVALID_CONSTRUCTION');if(e.queue.some(q=>q.side===side&&q.target===op.target&&q.kind===op.kind&&q.status!=='DONE'))fail('PROJECT_ALREADY_QUEUED');
+ enqueue(side,op){const cfg=this.econ.modern.balanceConfig??defaultCfg;const e=this.econ.modern;if(!cfg.construction[op.kind])fail('INVALID_CONSTRUCTION');if(e.queue.some(q=>q.side===side&&q.target===op.target&&q.kind===op.kind&&q.status!=='DONE'))fail('PROJECT_ALREADY_QUEUED');
   if(['NEW_RAIL','NEW_HUB'].includes(op.kind)){if(op.planVersion!==this.version)fail('PLAN_EXPIRED_REPREVIEW');const p=preview(this.fair(side).view,e,side,op,this.version);if(!p.valid)fail(p.reason);if(op.path&&JSON.stringify(p.path)!==JSON.stringify(op.path))fail('PLAN_PATH_CHANGED');const serial=++e.serial,q={id:'BUILD:'+serial,serial,side,kind:op.kind,target:op.end,hex:op.end,path:p.path,segments:p.segments,cost:p.cost,progress:0,priority:3,status:'QUEUED'};e.queue.push(q);return q.id;}
   let hex,other;
   if(['RAIL','REPAIR_RAIL'].includes(op.kind)){const r=e.rails[op.target],x=this.state.edges[op.target];if(!r||!x)fail('RAIL_NOT_FOUND');hex=key(x.a);other=key(x.b);if(op.kind==='RAIL'&&r.level>=5)fail('RAIL_AT_MAX_LEVEL');if(op.kind==='REPAIR_RAIL'&&!r.damage&&!x.bridge?.destroyed)fail('RAIL_NOT_DAMAGED');}
@@ -62,3 +62,5 @@ export class Campaign extends Conservative{
   return d;
  }
 }
+
+const cfg=defaultCfg;

@@ -1,11 +1,11 @@
-import {reference,modelDemand} from './model-demand.mjs';
+import {referenceFor,reference,modelDemand} from './model-demand.mjs';
 import {reference as combinedReference,PROFILE} from '../grand-division-003/catalog.mjs';
 import {combinedAttributes,terrainModifier} from '../grand-division-003/attributes.mjs';
 // Leader-approved project continuous-time adaptation. NOT the HOI4 battle engine.
 export const COMBAT_POLICY='DIVISION-002-COMBAT-ADAPTATION-1';
 const weapon={...reference.models.infantry_equipment_1.archetypeFields,...reference.models.infantry_equipment_1.modelFields};
 export function attributes(template,actual,profile){
- if(profile===PROFILE)return combinedAttributes(template,actual,combinedReference);
+ if(profile)return combinedAttributes(template,actual,referenceFor(profile));
  const demand=modelDemand(template),ids=[...template.regiments.flat(),...template.support].filter(Boolean);
  const paper={orgMax:0,hp:0,width:0,supply:0,softAttack:0,hardAttack:0,defense:0,breakthrough:0,armor:0,piercing:weapon.ap_attack,speed:4};
  const effective={softAttack:0,hardAttack:0,defense:0,breakthrough:0},components=[];

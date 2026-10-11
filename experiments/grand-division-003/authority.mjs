@@ -25,15 +25,15 @@ export class Campaign extends Previous{
   // resulting deficits and pays real factories/inputs; no inventory or XP injection.
   const unit=view.units.filter(u=>u.side==='SOVIET'&&u.alive!==false&&!a.units.includes(u.id)).sort((x,y)=>x.id.localeCompare(y.id)).find(u=>{try{eligibleModel(this,u.id);return true;}catch{return false;}});
   if(!unit||!Object.values(this.econ.modern.facilities).some(f=>f.kind==='MIL'&&view.hexes.some(h=>h.control==='SOVIET'&&h.coord.q+','+h.coord.r===f.hex)))return;
-  const u=p.units[unit.id],base=p.formal.templates[u.templateId],draft=structuredClone(base),kind=['ARTILLERY','MOTORIZED','LIGHT_ARMOR'][a.sequence%3];draft.name='合成试编 '+kind;
+  const u=p.units[unit.id],base=p.formal.templates[u.templateId],draft=structuredClone(base),kind=(this.constructor.aiKinds??['ARTILLERY','MOTORIZED','LIGHT_ARMOR'])[a.sequence%(this.constructor.aiKinds?.length??3)];draft.name='合成试编 '+kind;
   if(kind==='MOTORIZED')draft.regiments[0][0]=kind;else draft.regiments[1][0]=kind;
   // Reuse the same formal validation, fee and return transaction as the player.
   try{p.version=this.version;const saved=formalTransaction(p,{id:`ai-formal-${this.clock.tick}-${unit.id}`,version:p.version,operation:{type:'FORMAL_SAVE',baseId:base.id,expectedBaseVersion:base.version,draft}},'SOVIET',id=>eligibleModel(this,id));
    const adopted=formalTransaction(saved.state,{id:`ai-adopt-${this.clock.tick}-${unit.id}`,version:saved.state.version,operation:{type:'FORMAL_ADOPT',unit:unit.id,expectedUnitRevision:u.revision,templateId:saved.receipt.templateId,expectedTemplateVersion:1}},'SOVIET',id=>eligibleModel(this,id));
    this.clock.divisionLedger=adopted.state;const next=adopted.state.combinedAI;next.lastDay=day;next.sequence++;next.units.push(unit.id);next.records.push({tick:this.clock.tick,unit:unit.id,kind,paidXP:saved.receipt.paidXP});next.records=next.records.slice(-30);
-   const changed=adopted.state.units[unit.id];changed.org=Math.min(changed.org,attributes(adopted.state.formal.templates[changed.templateId],changed,PROFILE).paper.orgMax);this.bindModels();clampFuel(this,{unit:unit.id,returning:true});this.updateFuelDemand();refreshNetwork(this);
+   const changed=adopted.state.units[unit.id];changed.org=Math.min(changed.org,attributes(adopted.state.formal.templates[changed.templateId],changed,adopted.state.profile).paper.orgMax);this.bindModels();clampFuel(this,{unit:unit.id,returning:true});this.updateFuelDemand();refreshNetwork(this);
   }catch(error){a.lastReason=error.message;}
  }
- restore(s,pause=true){if(s.format!==VERSION||s.clock?.divisionLedger?.profile!==PROFILE)throw Error('COMBINED_SAVE_ONLY');super.restore(s,pause);validateFuel(this);this.updateFuelDemand();}
+ restore(s,pause=true){if(s.format!==(this.constructor.rulesVersion??VERSION)||s.clock?.divisionLedger?.profile!==(this.constructor.modelProfile??PROFILE))throw Error('COMBINED_SAVE_ONLY');super.restore(s,pause);validateFuel(this);this.updateFuelDemand();}
  snapshot(draft){const d=super.snapshot(draft);d.divisions.integrated.fuel={...structuredClone(this.clock.divisionLedger.fuel),units:Object.fromEntries(Object.entries(this.clock.divisionLedger.fuel.units).filter(([id])=>this.state.units[id].side===this.viewer))};delete d.divisions.integrated.fuel.consumed;delete d.divisions.integrated.fuel.lost;d.divisions.integrated.scope='多兵种项目适配：步兵、工兵、侦察、炮兵、摩托及固定LT-0；非完整原版复刻';return d;}
 }

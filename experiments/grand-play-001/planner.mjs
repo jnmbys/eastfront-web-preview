@@ -5,6 +5,7 @@ import {rules} from './rules.mjs';
 export function travel(view,from,to,cap,index=null){
  const h=index?index.hexes.get(hexKey(to)):view.hexes.find(h=>hexKey(h.coord)===hexKey(to));if(!h||h.terrain==='LAKE')return Infinity;
  const e=index?index.edges.get(canonicalEdgeKey(from,to)):view.edges.find(e=>e.key===canonicalEdgeKey(from,to));if(e?.bridge?.destroyed||e?.river==='MAJOR'&&!e.bridge)return Infinity;
+ if(cap.physicalSpeed!==undefined){if(cap.physicalSpeed<=0)return Infinity;const factor=e?.road?1:({PLAIN:1,FOREST:1.5,HILL:1.7,MOUNTAIN:2.5,MARSH:2,CITY:1.2}[h.terrain]??1);return Math.ceil(10/cap.physicalSpeed*12*(factor+(e?.river ? .5 : 0)));}
  const land={PLAIN:3,FOREST:5,HILL:5,MOUNTAIN:8,MARSH:7,CITY:4}[h.terrain]??4;
  return Math.max(2,Math.ceil(((e?.road?2:land)+(e?.river?3:0))/cap.mobility));
 }
