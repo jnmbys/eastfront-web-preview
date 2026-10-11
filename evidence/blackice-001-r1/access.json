@@ -1,0 +1,35 @@
+{
+  "kind": "HTTP admission only; not a browser interaction or rendering check",
+  "unauthenticated": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/campaigns",
+      "status": 401
+    },
+    {
+      "path": "/release/info?campaign=blackice",
+      "status": 401
+    }
+  ],
+  "authenticated": {
+    "menu": 200,
+    "info": 200,
+    "newIsolatedVisitor": true,
+    "tick": 0,
+    "paused": true,
+    "runtimeSource": "d151dd2db838df29c03837b5bb1763919c41f3c6",
+    "rules": [
+      "BLACKICE-001-LAND-1"
+    ]
+  },
+  "properEntry": "http://127.0.0.1:4275/",
+  "steps": [
+    "Open root",
+    "Press 开始独立试玩",
+    "Use the blackice campaign entry in the same browser"
+  ],
+  "identityPrinted": false
+}

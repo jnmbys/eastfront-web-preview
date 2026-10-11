@@ -9,12 +9,12 @@ export function retreatSite(view,u,cap,target,toward=false){
  const enemies=view.units.filter(x=>x.side!==view.viewer),own=view.units.filter(x=>x.side===view.viewer),known=new Map(view.hexes.map(h=>[key(h.coord),h]));
  return getNeighbors(u.hex).filter(h=>known.get(key(h))?.control===view.viewer&&Number.isFinite(travel(view,u.hex,h,cap))&&!enemies.some(e=>distance(e.hex,h)<=1)&&own.filter(v=>key(v.hex)===key(h)).length<rules.stack).sort((a,b)=>(toward?distance(a,target)-distance(b,target):distance(b,target)-distance(a,target))||key(a).localeCompare(key(b)))[0]??null;
 }
-export function planSide(view,own,groups,memory,tick){
+export function planSide(view,own,groups,memory,tick,options={}){
  const states=copy(memory??{}),orders={},events=[];let examined=0;
  const set=(u,row)=>{const old=memory?.[u.id];states[u.id]={...old,...row};if(old?.reason!==row.reason||old?.phase!==row.phase)events.push({unit:u.id,text:row.reason});};
  for(const g of groups){
   const us=view.units.filter(u=>u.side===view.viewer&&g.members.includes(u.id)&&own[u.id]&&!own[u.id].direct),profile=profiles[g.profile],stamp=JSON.stringify(g.order),enemies=view.units.filter(e=>e.side!==view.viewer&&(g.order.front?.length?g.order.front.some(h=>distance(e.hex,h)<=1):distance(e.hex,g.order.target)<=3));
-  for(const u of us){const old=states[u.id];if(old?.stamp!==stamp)delete states[u.id];else if(['RESERVE','ACTIVE','BLOCKED'].includes(old?.phase))delete states[u.id];}
+  for(const u of us){const old=states[u.id];if(old?.stamp!==stamp){if(options.preserveRecoveryOnReplan&&old?.phase==='RECOVER')states[u.id]={...old,stamp};else delete states[u.id];}else if(['RESERVE','ACTIVE','BLOCKED'].includes(old?.phase))delete states[u.id];}
   if(g.order.paused){for(const u of us)delete states[u.id];continue;}
   const threshold=profile.stop+12+(g.order.risk==='LOW'?6:g.order.risk==='HIGH'?-6:0),returnOrg=Math.min(90,threshold+22),reserved=new Set();
   // Carry actual withdrawal/recovery across steps; resume only after the wider recovery threshold and cooldown.

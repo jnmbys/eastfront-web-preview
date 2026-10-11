@@ -14,7 +14,7 @@ export class Campaign extends Previous{
  static newCampaignClass=Campaign;static modelProfile=PROFILE;static rulesVersion=VERSION;static modelProducts=products;static freightPolicy=freightPolicy;static transport=transport;static aiKinds=['ANTI_TANK','ARTILLERY','MOTORIZED','LIGHT_ARMOR'];
  constructor(){
   super();const p=this.clock.divisionLedger,e=this.econ.modern;
-  e.balanceConfig=structuredClone(cfg);p.receptionPolicy='BLACKICE-RECEPTION-1';p.balance={version:VERSION,wear:{},initialManifest:{},source:'649a5410d9ea527a4f1618b58060f7cb9033f781'};
+  e.balanceConfig=structuredClone(cfg);p.receptionPolicy='BLACKICE-RECEPTION-1';p.balance={version:this.constructor.rulesVersion??VERSION,wear:{},initialManifest:{},source:'649a5410d9ea527a4f1618b58060f7cb9033f781'};
   const templates={};
   for(const side of ['GERMAN','SOVIET']){
    const old=p.formal.templates[side+':initial-infantry'],roles=[['INFANTRY','INFANTRY'],['INFANTRY','ARTILLERY'],['INFANTRY','ANTI_TANK'],['MOTORIZED'],['MOTORIZED','LIGHT_ARMOR']];
@@ -64,8 +64,8 @@ export class Campaign extends Previous{
   }
   validate(p);
  }
- restore(s,pause=true){if(s.clock?.divisionLedger?.balance?.version!==VERSION)throw Error('BLACKICE_NEW_CAMPAIGN_REQUIRED');if(JSON.stringify(s.econ?.modern?.balanceConfig)!==JSON.stringify(cfg))throw Error('BLACKICE_CONFIG_MISMATCH');super.restore(s,pause);}
- snapshot(draft){const d=super.snapshot(draft),f=d.divisions.integrated;d.modern.config=structuredClone(cfg);f.scope='黑冰方向实验：营级战斗群／10公里格／共享吨位；不是BICE完整复刻';f.combatPolicy=VERSION;f.balance={version:VERSION,supplyUnit:'吨/小时',fuelUnit:'100升',factory:'一个军厂=10个作坊当量',warnings:['工兵可降低渡河惩罚并加强渐进工事；侦察不扩大视野','未接入动态天气、历史国家学说、完整科技与马匹制服生产']};
+ restore(s,pause=true){if(s.clock?.divisionLedger?.balance?.version!==(this.constructor.rulesVersion??VERSION))throw Error('BLACKICE_NEW_CAMPAIGN_REQUIRED');if(JSON.stringify(s.econ?.modern?.balanceConfig)!==JSON.stringify(cfg))throw Error('BLACKICE_CONFIG_MISMATCH');super.restore(s,pause);}
+ snapshot(draft){const d=super.snapshot(draft),f=d.divisions.integrated;d.modern.config=structuredClone(cfg);f.scope='黑冰方向实验：营级战斗群／10公里格／共享吨位；不是BICE完整复刻';f.combatPolicy=this.clock.rules;f.balance={version:this.clock.rules,supplyUnit:'吨/小时',fuelUnit:'100升',factory:'一个军厂=10个作坊当量',warnings:['工兵可降低渡河惩罚并加强渐进工事；侦察不扩大视野','未接入动态天气、历史国家学说、完整科技与马匹制服生产']};
   d.divisions.demandReference={...d.divisions.demandReference,units:Object.fromEntries(Object.entries(reference.units).map(([id,u])=>[id,{...u,equipment:structuredClone(u.need)}]))};
   f.inTransit.push(...structuredClone((this.clock.divisionLedger.balance.transit??[]).filter(x=>x.side===this.viewer)));
   for(const [id,v]of Object.entries(d.continuous.units)){const incoming=f.inTransit.filter(x=>x.unit===id&&x.arrival);if(incoming.length&&v.refillStatus)v.refillStatus.reason+='；最早在 '+Math.max(0,(Math.min(...incoming.map(x=>x.arrival))-this.clock.tick)*5)+' 游戏分钟后抵达（路线须保持）';}
