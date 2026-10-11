@@ -1,0 +1,184 @@
+{
+  "actualRunChecks": "18 instrumented authority runs plus one observer-disabled duplicate executed assertions in r3-scale.mjs; three overlap cases compared directly to R1 original fields",
+  "trajectoryChecks": "per-step nonnegative people and integer equipment; exactly two tracked units; personnel ledger deltas conserve; no in-combat rest; max576 steps",
+  "runtimeAndOriginalEvidenceUnchanged": [
+    {
+      "file": "experiments/blackice-001/authority.mjs",
+      "sha256": "44b1a1a342d517848c8147da5f3f7a64839b8c6aeb4fbf225e8351fbf0386ef6"
+    },
+    {
+      "file": "experiments/blackice-001/combat.mjs",
+      "sha256": "8d3a7ce4564fa0d3fcdaff5ec27eef6ba6262b7752c2d9c4a12d840a29de0c9d"
+    },
+    {
+      "file": "experiments/blackice-001/catalog.mjs",
+      "sha256": "5c67bf51c2b2339f62e779e535ab7403bfc76dbd602dace34abd85bbc810dd5d"
+    },
+    {
+      "file": "experiments/blackice-001/config.mjs",
+      "sha256": "d94ad7fe590cbeb7ace498401808616885911127a7f8b6ba8429ecbd667a3458"
+    },
+    {
+      "file": "experiments/blackice-001/r1-campaign.mjs",
+      "sha256": "ce9ddf04049981e9ec4d4a98affcf7af7ce80a9039f74a542e64612b3915ea76"
+    },
+    {
+      "file": "experiments/blackice-001/server.mjs",
+      "sha256": "567b66b009e18da458833d811296412b4b6e8cb1934a4e638ad2f71c63ba8412"
+    },
+    {
+      "file": "experiments/grand-officer-001/authority.mjs",
+      "sha256": "809d3eff2226d564234902584ace44633a48233fc22dd4b11b3e2bc1ab11d3d0"
+    },
+    {
+      "file": "experiments/grand-officer-001/policy.mjs",
+      "sha256": "a0b661657085ba56c565a8f03bb53f92d141143d2830ea4243a1a5a90858d9f2"
+    },
+    {
+      "file": "experiments/grand-division-002/authority.mjs",
+      "sha256": "6e07bfe7bb0e0eeff20e57d11b0d4fb347c7f3052777ebe312f4461bdc5a6712"
+    },
+    {
+      "file": "experiments/grand-division-002/inventory.mjs",
+      "sha256": "86002091950fde883669d6c110c3ae763c0f0613f0e97ac52782ee37462d79f2"
+    },
+    {
+      "file": "src/playable/combinedAttributes.mjs",
+      "sha256": "02b9787055a94211df3d1972f9b1ad4132d38eb7c70fe944923d1a9386707fd5"
+    },
+    {
+      "file": "evidence/blackice-001/comparison.json",
+      "sha256": "aac382359a4c9b4cfb2ede876f64981fee12328cbafdd53bc70705040f61ed06"
+    },
+    {
+      "file": "evidence/blackice-001/normal-final.json.gz",
+      "sha256": "efad71f2430dc2caf9462cf3e5bdfa84e7d687143cef394f7fa3c12a9c0a6e31"
+    },
+    {
+      "file": "evidence/blackice-001-r1/forced.json",
+      "sha256": "fa5a81e65c17e6641e3f2b6e441c01bda96e324173bc0a81bc6e9b158a2a84d5"
+    },
+    {
+      "file": "evidence/blackice-001-r1/authority.json",
+      "sha256": "8f1c30daef4a0f7eda7f0870a356c322ff17561b9edb55b0ada8e024ddd9c2b4"
+    },
+    {
+      "file": "evidence/blackice-001-r1/candidate.json",
+      "sha256": "d064d623e63ee8f0d806d67ae88c38793c9e005dd4478b3b0185f0f5b6b7c7b4"
+    },
+    {
+      "file": "evidence/blackice-001-r1/normal-candidate.json",
+      "sha256": "1908b905dfe786171299974e8d32ad741478f32dfd80fcf613966b80fcafb071"
+    }
+  ],
+  "resultsSHA256": "87cf2ca9714687f9bb30a870f5904bc48632747e028cd095bd5c72d2c743a931",
+  "observer": {
+    "instrumented": {
+      "hash": "6cd4ce3aa0d4cbe71bb72e89683db333603fcc5320a3994f92876d9d08d5bc59",
+      "rng": 2875730212,
+      "ledger": {
+        "G-013": {
+          "side": "GERMAN",
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 23,
+          "finalPersonnel": 1104,
+          "actualPersonnelLost": 169,
+          "cumulativeLossOverInitial": 0.1352,
+          "cumulativeLossOverInitialPlusReceived": 0.13275726630007856,
+          "requestedDamageCounter": 169.85301236735987,
+          "equipmentLost": {
+            "infantry_equipment_1": 16,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          }
+        },
+        "S-013": {
+          "side": "SOVIET",
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 925,
+          "actualPersonnelLost": 325,
+          "cumulativeLossOverInitial": 0.26,
+          "cumulativeLossOverInitialPlusReceived": 0.26,
+          "requestedDamageCounter": 325.70857451955203,
+          "equipmentLost": {
+            "infantry_equipment_1": 32,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          }
+        }
+      }
+    },
+    "unobserved": {
+      "hash": "fecef8f393b0ed03b78e04476d292251b019f6bcb76544de1f47900815a8b644",
+      "rng": 2875730212,
+      "ledger": {
+        "G-013": {
+          "side": "GERMAN",
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 23,
+          "finalPersonnel": 1104,
+          "actualPersonnelLost": 169,
+          "cumulativeLossOverInitial": 0.1352,
+          "cumulativeLossOverInitialPlusReceived": 0.13275726630007856,
+          "requestedDamageCounter": 169.85301236735987,
+          "equipmentLost": {
+            "infantry_equipment_1": 16,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          }
+        },
+        "S-013": {
+          "side": "SOVIET",
+          "initialPersonnel": 1250,
+          "receivedPersonnel": 0,
+          "finalPersonnel": 925,
+          "actualPersonnelLost": 325,
+          "cumulativeLossOverInitial": 0.26,
+          "cumulativeLossOverInitialPlusReceived": 0.26,
+          "requestedDamageCounter": 325.70857451955203,
+          "equipmentLost": {
+            "infantry_equipment_1": 32,
+            "support_equipment_1": 0,
+            "artillery_equipment_1": 0,
+            "motorized_equipment_1": 0,
+            "leichttraktor_lt0": 0,
+            "anti_tank_equipment_2": 0,
+            "TRAIN": 0,
+            "FUEL": 0
+          }
+        }
+      }
+    },
+    "excludedDifferences": [
+      {
+        "path": ".clock.divisionLedger.id",
+        "a": "630e996e-4b8e-430a-af7b-8b25951e8bb5",
+        "b": "242dd185-fca5-47c4-b9f8-58554ed1fe75"
+      },
+      {
+        "path": ".clock.objectives.metrics.last.objectiveMs",
+        "a": 0.023699999999735155,
+        "b": 0.02440000000206055
+      }
+    ],
+    "scope": "Actual full state/clock/economy field comparison; only random instance ledger ID and wall-clock objectiveMs differ after base timing exclusions. Initial hash assertion failure retained in record; canonicalizer corrected for subsequent reproduction. No combat/supply/decision/RNG changes.",
+    "originalOverlap": 3,
+    "extraRuns": "Initial unobserved duplicate then one instrumented/unobserved pair to diagnose hash mismatch; same single/single219031, no new seed or condition"
+  }
+}
