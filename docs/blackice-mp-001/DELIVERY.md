@@ -1,5 +1,7 @@
 # BLACKICE-MP-001 — 本地双人候选
 
+P1持续性能作者记录见 [P1-RESULTS.md](P1-RESULTS.md)：已完成隔离双端1×五分钟、4×三分钟持续测量；没有修改运行代码。普通回执达标，完整连续真实绘帧及真机仍未验收，不将原20次点击或短合成器补测当作性能全面通过。
+
 ## 状态与边界
 
 从已审查 `0dfaabf0df7a038f47a0c2c0d68033523f5555dd` 建立 `blackice-mp-001`，工作区 `C:\Users\jinyibo\eastfront\work\blackice-mp-001`。没有修改源黑冰工作区、重启4275、Push、合并或部署。新房间固定 **BLACKICE-001-LAND-1-R1**；R2–R4不是新战斗规则。战斗、经济、运输数值未改。
