@@ -39,6 +39,8 @@ node experiments/blackice-001/r1-protocol.mjs
 
 最后一项使用临时目录和4276，仅协议测试；若占用勿停止其他服务。4275通过 `local.ps1 status` 核对监听，登录后 `/release/info?campaign=blackice-r1` 核对构建SHA；实际STATE的 `continuous.rules` 和存档format须为R1。旧模式应为LAND-1。构建、监听和HTTP通过不代表页面已实际操作；浏览器/真机、公网、气泡视觉仍未验收。此为作者验证候选，待Leader审查，不宣称黑冰平衡或整体验收完成。
 
+本轮运行核验：本机4275 PID50880，运行代码 `92da4bb9934d307ba8cfd7e6c1958d31b1670466`，干净构建。已替换且仅替换原4275进程；重启前没有连接客户端。当前本任务5个持久化文件逐项备份并校验，重启后原文件哈希全部不变。新独立测试访客收到两种模式的真实授权STATE、各自正确规则版本及暂停新局。见 `runtime.json`、`runtime-preservation.json`、`runtime-backup.json`；私有完整备份保存在该机LocalAppData的Eastfront/blackice-001-backups下，不包含在Git中。随后提交仅补运行证据、文档与压缩代表跟踪中的重复路线详情；运行代码不变。远端未推送，公网未改动。
+
 ## 现在如何玩
 
 - 两营步兵维持战线；步炮群用于攻坚，反坦克群应对装甲，机动群必须同时安排车辆和燃料。按实际装备充足率查看有效属性。
