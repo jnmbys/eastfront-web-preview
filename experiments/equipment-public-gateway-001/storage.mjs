@@ -29,4 +29,34 @@ export function validateStorage(d){
  for(const root of Object.values(d)){const key=path.join(root,'visitor-key');if(!fs.existsSync(key)&&files(root).some(f=>!f.endsWith('.gateway-lock')))throw Error('EXISTING_STORAGE_KEY_MISSING');}
 }
 export function initializeKeys(d){for(const root of Object.values(d)){const k=path.join(root,'visitor-key');if(!fs.existsSync(k))atomicWrite(k,randomBytes(32));}directories(d.legacy,d.rooms);}
-export function locks(d){const acquired=[];try{for(const dir of Object.values(d)){const file=path.join(dir,'.gateway-lock');const fd=fs.openSync(file,'wx',0o600);fs.writeFileSync(fd,JSON.stringify({pid:process.pid,started:new Date().toISOString()}));fs.fsyncSync(fd);fs.closeSync(fd);acquired.push(file);const probe=path.join(dir,'.write-probe-'+randomUUID());atomicWrite(probe,'write-check');fs.unlinkSync(probe);}}catch(e){for(const f of acquired)fs.unlinkSync(f);throw Error('SAVE_DIRECTORY_LOCK_OR_WRITE_FAILED',{cause:e});}return ()=>{for(const f of acquired)fs.unlinkSync(f);};}
+export function locks(d){
+ const acquired=[];
+ const release=()=>{
+  const errors=[];
+  for(const own of acquired){
+   if(own.released)continue;
+   try{
+    const st=fs.lstatSync(own.file);
+    // A replacement, including a symlink, belongs to somebody else.
+    if(!st.isFile()||st.dev!==own.dev||st.ino!==own.ino){own.released=true;continue;}
+    if(own.written&&fs.readFileSync(own.file,'utf8')!==own.record){own.released=true;continue;}
+    fs.unlinkSync(own.file);own.released=true;
+   }catch(e){if(e.code==='ENOENT')own.released=true;else errors.push(e);}
+  }
+  if(errors.length)throw new AggregateError(errors,'SAVE_LOCK_RELEASE_FAILED');
+ };
+ try{
+  for(const dir of Object.values(d)){
+   const file=path.join(dir,'.gateway-lock'),fd=fs.openSync(file,'wx',0o600);
+   const st=fs.fstatSync(fd),own={file,dev:st.dev,ino:st.ino,record:JSON.stringify({owner:randomUUID(),pid:process.pid,started:new Date().toISOString()}),written:false,released:false};
+   acquired.push(own);
+   try{fs.writeFileSync(fd,own.record);own.written=true;fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
+   const probe=path.join(dir,'.write-probe-'+randomUUID());
+   try{atomicWrite(probe,'write-check');}finally{if(fs.existsSync(probe))fs.unlinkSync(probe);}
+  }
+ }catch(e){
+  try{release();}catch(cleanup){throw new AggregateError([e,cleanup],'SAVE_DIRECTORY_LOCK_OR_WRITE_FAILED');}
+  throw Error('SAVE_DIRECTORY_LOCK_OR_WRITE_FAILED',{cause:e});
+ }
+ return release;
+}

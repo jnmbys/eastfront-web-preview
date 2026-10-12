@@ -36,8 +36,15 @@ export async function start({port=Number(process.env.PORT),host=process.env.HOST
   if(process.platform!=='linux'||!mount||!fs.readFileSync('/proc/self/mountinfo','utf8').split('\n').some(l=>l.split(' ')[4]===mount))throw Error('PERSISTENT_DISK_NOT_MOUNTED');
   for(const p of Object.values(d))if(!p.startsWith(fs.realpathSync(mount)+path.sep))throw Error('SAVE_DIR_OUTSIDE_PERSISTENT_MOUNT');
  }
- const unlock=locks(d);let legacy,mp,server,closed=false;
- const close=async()=>{if(closed)return;closed=true;const wait=server?new Promise(r=>server.close(r)):Promise.resolve();try{await mp?.close();await legacy?.close();await wait;}finally{unlock();}};
+ const unlock=locks(d);let legacy,mp,server,closing;
+ const close=()=>closing??=(async()=>{
+  const errors=[],attempt=async(fn)=>{try{await fn();}catch(e){errors.push(e);}};
+  const wait=server?new Promise(r=>server.close(r)):Promise.resolve();
+  // All save/close operations run even if a sibling or lock cleanup fails.
+  await attempt(()=>mp?.close());await attempt(()=>legacy?.close());
+  await attempt(()=>wait);await attempt(()=>unlock());
+  if(errors.length)throw new AggregateError(errors,'GATEWAY_CLOSE_FAILED');
+ })();
  try{
   initializeKeys(d);
   legacy=await publicServer({port:0,host:'127.0.0.1',origin,saveDir:d.legacy,campaignModes,autoTick});
@@ -69,7 +76,7 @@ export async function start({port=Number(process.env.PORT),host=process.env.HOST
    p.on('upgrade',(r,peer,initial)=>{socket.write(`HTTP/1.1 ${r.statusCode} ${r.statusMessage}\r\n`+Object.entries(r.headers).map(([k,v])=>`${k}: ${v}\r\n`).join('')+'\r\n');if(initial.length)socket.write(initial);if(head.length)peer.write(head);socket.pipe(peer);peer.pipe(socket);socket.on('close',()=>peer.destroy());peer.on('close',()=>socket.destroy());socket.on('error',()=>peer.destroy());peer.on('error',()=>socket.destroy());});p.on('response',r=>{socket.end(`HTTP/1.1 ${r.statusCode} Forbidden\r\nConnection: close\r\n\r\n`);r.resume();});p.on('error',()=>socket.destroy());p.end();
   }catch{socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n');}});
   await new Promise((r,j)=>{server.once('error',j);server.listen(port,host,r);});return {server,mp,legacy,metadata,close};
- }catch(e){await close();throw e;}
+ }catch(e){try{await close();}catch(cleanup){throw new AggregateError([e,cleanup],'GATEWAY_START_AND_CLOSE_FAILED');}throw e;}
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const tls=process.env.TLS_CERT&&process.env.TLS_KEY?{cert:fs.readFileSync(process.env.TLS_CERT),key:fs.readFileSync(process.env.TLS_KEY)}:null;
