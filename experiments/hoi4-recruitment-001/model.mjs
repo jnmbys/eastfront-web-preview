@@ -20,12 +20,12 @@ function trainingSupply(c,u,city){const e=c.econ.modern,n=e.net[u.side],cargo=e.
 }
 // Recruitment uses the same paid shared-tonnage allocator. A scoped recipient is
 // NOT a field unit; it never enters vision, combat, officer or daily-unit loops.
-function dispatch(c,u,city,returning){const p=c.clock.divisionLedger,r=p.recruitment,e=c.econ.modern,net=e.net[u.side],cfg=e.balanceConfig,n=p.nations[u.side],incoming={personnel:0,...zero(p)};for(const b of r.transit)if(b.unit===u.id&&!b.returning)incoming[b.model]+=b.quantity;
+function dispatch(c,u,city,returning,phase){const p=c.clock.divisionLedger,r=p.recruitment,e=c.econ.modern,net=e.net[u.side],cfg=e.balanceConfig,n=p.nations[u.side],incoming={personnel:0,...zero(p)};for(const b of r.transit)if(b.unit===u.id&&!b.returning)incoming[b.model]+=b.quantity;
  const recipient=returning?{...u,personnel:0,held:zero(p),target:{manpower:u.personnel,equipment:copy(u.held)}}:{...u,personnel:u.personnel+incoming.personnel,held:Object.fromEntries(idsFor(p).map(k=>[k,u.held[k]+incoming[k]]))};
  const pool=returning?{...n,manpower:u.personnel,stock:{...u.held}}:n;
  const scoped={...p,units:{[u.id]:recipient},nations:{...p.nations,[u.side]:pool},freightReservations:r.reservations,vehicleCommitments:returning?{}:p.vehicleCommitments};
- const rates=accrueReception(u.credits,1,receptionRates(p.receptionPolicy),idsFor(p));
- const sent=transportProgress(scoped,u.id,{tick:c.clock.tick,destination:JSON.stringify(city.hexCoord),network:{...net,rows:{[u.id]:{routes:routesFor(city)}}},rails:e.rails,cargo:e.cargoHour.sides[u.side],trainCapacity:n.stock.TRAIN*cfg.trainWork,sourceCapacity:cfg.sourceFlow,railCapacity:cfg.railFlow,policy:c.constructor.freightPolicy,rates});
+ const rates=phase==='equipment'?Object.fromEntries(Object.entries(u.credits).map(([k,v])=>[k,Math.floor(v+1e-9)])):accrueReception(u.credits,1,receptionRates(p.receptionPolicy),idsFor(p));if(phase)for(const k of Object.keys(rates))if((phase==='personnel')!==(k==='personnel'))rates[k]=0;
+ const sent=transportProgress(scoped,u.id,{tick:c.clock.tick,destination:JSON.stringify(city.hexCoord),network:{...net,rows:{[u.id]:{routes:routesFor(city)}}},rails:e.rails,cargo:e.cargoHour.sides[u.side],trainCapacity:n.stock.TRAIN*cfg.trainWork,sourceCapacity:cfg.sourceFlow,railCapacity:cfg.railFlow,policy:c.constructor.freightPolicy,rates,phase});
  e.cargoHour.sides[u.side]=sent.cargo;debitReception(u.credits,sent,idsFor(p));
  if(returning){u.personnel=pool.manpower;u.held=copy(pool.stock);}
  for(const b of sent.routes.filter(b=>b.quantity>0)){const hub=net.hubs.find(h=>h.id===b.route.hub),work=makeWork(c.clock.tick,b.route,hub,u.hex,hub.deliveryCosts?.[u.hex]??0,c.clock.infrastructure);if(returning)work.segments.reverse();const batch={unit:u.id,side:u.side,model:b.kind,quantity:b.quantity,route:b.route,destination:u.hex,dispatched:c.clock.tick,arrival:c.clock.tick+1,weatherWork:work,returning};progressWork(batch,c.clock.tick,c.clock.weather);r.transit.push(batch);}
@@ -43,7 +43,7 @@ export function step(c){const p=c.clock.divisionLedger,r=p.recruitment;if(!r)ret
    dispatch(c,u,city,true);for(const b of Object.values(r.reservations))if(b.unit===u.id)b.returning=true;
    if(!u.personnel&&!Object.values(u.held).some(Boolean)&&!r.transit.some(b=>b.unit===u.id)&&!Object.values(r.reservations).some(b=>b.unit===u.id)){r.history.push({id:u.id,side:u.side,status:'CANCELLED',tick:c.clock.tick});delete r.units[u.id];}else u.reason='取消中：等待到站及使用共享运量返运';continue;
   }
-  dispatch(c,u,city,false);const full=u.personnel===u.target.manpower&&idsFor(p).every(k=>u.held[k]===u.target.equipment[k]);
+  if(c.enqueueEquipment){dispatch(c,u,city,false,'personnel');c.enqueueEquipment('RECRUIT',u.id,u.side,()=>dispatch(c,u,city,false,'equipment'));}else dispatch(c,u,city,false);const full=u.personnel===u.target.manpower&&idsFor(p).every(k=>u.held[k]===u.target.equipment[k]);
   if(full){if(!trainingSupply(c,u,city)){u.reason='训练日常供给受共享运量限制';continue;}u.status='TRAINING';u.trainingExperience=Math.min(POLICY.experience,u.trainingExperience+POLICY.gainDay/288);u.reason='集结训练';for(const[k,q]of Object.entries(u.held)){u.wear[k]+=q*POLICY.wearDay/288;const lost=Math.min(q,Math.floor(u.wear[k]));u.held[k]-=lost;u.wear[k]-=lost;p.nations[u.side].lost[k]+=lost;}if(u.trainingExperience>=POLICY.experience&&idsFor(p).every(k=>u.held[k]===u.target.equipment[k])){u.status='READY';u.reason='训练完成，等待安全部署位置';if(Object.values(c.state.units).filter(x=>x.alive&&hexKey(x.hex)===u.hex).length<c.simRules.stack)c.deployRecruit(u);}}
   else {u.status='ASSEMBLING';u.reason=[u.personnel<u.target.manpower?'缺员 '+(u.target.manpower-u.personnel):'',...idsFor(p).filter(k=>u.held[k]<u.target.equipment[k]).map(k=>(c.econ.modern.modelProducts[k]?.label??k)+' −'+(u.target.equipment[k]-u.held[k])),u.reason].filter(Boolean).join('；');}
  }

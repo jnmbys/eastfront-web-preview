@@ -1,0 +1,2 @@
+import {start} from '../blackice-mp-001/server.mjs';import {roomCampaign} from '../blackice-mp-001/authority.mjs';import {Campaign} from './authority.mjs';
+const version='HOI4-EQUIPMENT-PRIORITY-MP-001-1',s=await start({port:Number(process.env.PORT),saveDir:process.env.SAVE_DIR,autoTick:false,CampaignClass:roomCampaign(Campaign,version),roomVersion:version,visitorCookie:'equipment_priority_test_visitor'});console.log(JSON.stringify({ready:true}));process.on('message',async m=>{if(m==='shutdown'){await s.close();process.exit(0);}});

@@ -8,7 +8,7 @@ export function transport(s,id,options){
  const u=s.units[id],n=s.nations[u.side],ids=idsFor(s),zero=()=>Object.fromEntries(ids.map(k=>[k,0])),arrived={personnel:0,equipment:zero()},routes=options.network.rows[id]?.routes??[],pending=s.balance.transit??=[];
  const kept=[];
  for(const x of pending){
-  if(x.unit!==id){kept.push(x);continue;}
+  if(x.unit!==id||(options.phase&&((options.phase==='personnel')!==(x.model==='personnel')))){kept.push(x);continue;}
   const valid=x.destination===options.destination&&routes.some(r=>same(r,x.route)&&r.path.every(k=>options.rails[k]&&!options.rails[k].damage));
   if(!valid){if(x.model==='personnel')n.manpower+=x.quantity;else n.stock[x.model]+=x.quantity;continue;}
   if(x.weatherWork&&options.weather)progressWork(x,options.tick,options.weather);
