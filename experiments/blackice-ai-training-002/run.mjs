@@ -1,0 +1,7 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {Campaign} from './authority.mjs';import {RearFixture,setupRear} from './fixture.mjs';import {validate} from '../grand-division-002/inventory.mjs';
+for(const [name,c]of [['normal',new Campaign()],['controlled-hold',setupRear(new RearFixture())]]){
+ assert.equal(c.clock.rng,219031);const samples=[],events=[];let last='';for(let i=0;i<576&&!c.clock.ended;i++){c.advance();validate(c.clock.divisionLedger);for(const e of c.clock.aiTraining.events){const key=JSON.stringify(e);if(!events.some(x=>JSON.stringify(x)===key))events.push(e);}
+ if(c.clock.tick%72===0){const row={tick:c.clock.tick,tasks:structuredClone(c.clock.aiTraining.tasks),check:c.clock.aiTraining.lastCheck,people:Object.values(c.clock.divisionLedger.units).reduce((n,u)=>n+u.personnel,0)};samples.push(row);console.log(name,c.clock.tick,events.length);}}
+ const clean=s=>Object.fromEntries(Object.entries(s).map(([id,{hold,stamp,...v}])=>[id,v]));for(const s of samples)s.tasks=clean(s.tasks);
+ fs.writeFileSync('evidence/blackice-ai-training-002/'+name+'.json',JSON.stringify({seed:219031,scope:name==='normal'?'normal new campaign; existing AI; no injection':'controlled legal corps HOLD strategy only; original units/resources; no injection',budgetSteps:576,tick:c.clock.tick,ended:c.clock.ended??null,events,samples,final:clean(c.clock.aiTraining.tasks)},null,2));
+}
