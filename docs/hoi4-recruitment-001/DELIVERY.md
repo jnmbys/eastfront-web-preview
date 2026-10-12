@@ -1,6 +1,8 @@
 # 招募与部署候选 — author handoff
 
 Branch/worktree: `hoi4-recruitment-001`, `C:\Users\jinyibo\eastfront\work\hoi4-recruitment-001`.
+Source/runtime commit: `b2c34a4b02c477c501c005dc4c6d572d92d67cec`. Final handoff may add evidence-only commits; runtime source can be checked in `/release/info` build.source and isolated `out-final.log`.
+
 Independent new rule `HOI4-RECRUITMENT-001-1`. Base factory-conversion remains pending review. No Push, merge, deployment or changes to4298/other existing services.
 
 ## Play
