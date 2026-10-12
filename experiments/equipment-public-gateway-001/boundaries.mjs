@@ -1,0 +1,25 @@
+import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';import {randomBytes,createHash} from 'node:crypto';
+import {start} from './server.mjs';import {directories,validateStorage,RoomCampaign,ROOM_VERSION} from './storage.mjs';import {ReleaseAdapter} from '../grand-release-001/persistence.mjs';import {backup,verify} from './backup.mjs';import {canonical} from '../grand-play-mp022/sync.mjs';
+const dir=fs.mkdtempSync(path.join(os.tmpdir(),'gateway-negative-')),legacyDir=path.join(dir,'old'),mpDir=path.join(dir,'new');fs.mkdirSync(legacyDir);fs.mkdirSync(mpDir);
+const cfg={port:0,host:'127.0.0.1',origin:'https://gateway.example',legacyDir,mpDir,trustProxyIPs:['127.0.0.1'],autoTick:false};const results=[];
+async function rejects(name,options,pattern){await assert.rejects(()=>start({...cfg,...options}),pattern);results.push(name);}
+await rejects('missing explicit directory',{mpDir:undefined},/EXPLICIT_ABSOLUTE/);
+await rejects('nonexistent directory',{mpDir:path.join(dir,'missing')},/UNAVAILABLE/);
+await rejects('overlapping root',{mpDir:legacyDir},/OVERLAP/);
+const nested=path.join(legacyDir,'nested');fs.mkdirSync(nested);await rejects('nested root',{mpDir:nested},/OVERLAP/);fs.rmdirSync(nested);
+await rejects('HTTP public origin',{origin:'http://gateway.example'},/HTTPS/);
+await rejects('no trusted proxy',{trustProxyIPs:[]},/TRUST_PROXY/);
+await rejects('local preview cannot bind public',{localPreview:true,host:'0.0.0.0',origin:'http://127.0.0.1:4302'},/LOOPBACK_ONLY/);
+await rejects('local preview cannot use external hostname',{localPreview:true,origin:'http://gateway.example'},/LOOPBACK_ONLY/);
+const key=randomBytes(32);for(const p of [legacyDir,mpDir])fs.writeFileSync(path.join(p,'visitor-key'),key);
+await rejects('identical keys',{},/KEYS_CONFLICT/);fs.writeFileSync(path.join(mpDir,'visitor-key'),randomBytes(32));
+let s=await start(cfg);
+const request=headers=>new Promise((resolve,reject)=>{http.get({host:'127.0.0.1',port:s.server.address().port,path:'/healthz',headers:{Host:'gateway.example',...headers}},r=>{r.resume();r.on('end',()=>resolve(r.statusCode));}).on('error',reject);});
+assert.equal(await request({}),403);assert.equal(await request({'X-Forwarded-Proto':'http'}),403);assert.equal(await request({'X-Forwarded-Proto':'https'}),200);assert.equal(await request({'X-Forwarded-Proto':'https,http'}),403);assert.equal(await request({'X-Forwarded-Proto':'https','X-Forwarded-Host':'evil.invalid'}),403);
+await rejects('exclusive storage lock',{},/LOCK/);assert.throws(()=>backup(legacyDir,mpDir,path.join(dir,'online-backup')),/OFFLINE/);await s.close();
+s=await start({...cfg,trustProxyIPs:['192.0.2.1']});assert.equal(await request({'X-Forwarded-Proto':'https'}),403);await s.close();results.push('TLS-offload: exact trusted peer + single https scheme; untrusted spoof denied; online backup and second process lock denied');
+const room='11111111-1111-4111-8111-111111111111',file=path.join(mpDir,'rooms',room,'campaign.json');const a=new ReleaseAdapter({CampaignClass:RoomCampaign,saveFile:file});a.c.clock.room={id:room,version:ROOM_VERSION,members:{a:'a'.repeat(64),b:null},started:false};await a.saveFileNow();
+const good=fs.readFileSync(file),e=JSON.parse(good),p=JSON.parse(e.payload);p.campaign.clock.regionalMap.version='WRONG';e.payload=JSON.stringify(p);e.checksum=createHash('sha256').update(canonical(e.payload)).digest('hex');fs.writeFileSync(file,JSON.stringify(e));await rejects('checksummed incompatible map',{},/VERSION_MISMATCH/);fs.writeFileSync(file,good);
+const keyFile=path.join(mpDir,'visitor-key'),savedKey=fs.readFileSync(keyFile);fs.unlinkSync(keyFile);await rejects('existing rooms without signing key',{},/KEY_MISSING/);fs.writeFileSync(keyFile,savedKey);
+const dest=path.join(dir,'offline-backup');backup(legacyDir,mpDir,dest);fs.appendFileSync(path.join(dest,'rooms','visitor-key'),'x');assert.throws(()=>verify(dest),/HASH_MISMATCH/);results.push('wrong map fails closed; existing key not silently regenerated; altered backup hash rejected');
+fs.writeFileSync('evidence/equipment-public-gateway-001/boundaries.json',JSON.stringify({passed:true,results,scope:'synthetic directories only; no system trust or proxy configuration changed'},null,2));console.log('PASS gateway fail-closed boundaries');
