@@ -58,3 +58,7 @@ node experiments/equipment-public-gateway-001/closeout-check.mjs <新结果路�
 上线后必须经真实公开域名检查HTTPS跳转、Secure Cookie、WSS升级、双身份命令/越权拒绝、断线暂停、同身份重连；核实平台实际提供单值https转发元数据，若不一致先诊断，不放宽Host/Origin。检查 `/readyz` 成功且业务仍鉴权，再完成Linux新目录实际保存、Restart service、同一身份/房间恢复默认暂停和再次保存。不得用Deploy代替Restart、历史备份代替最新备份。必要回退保留MP目录，旧引擎不得读取新房间。
 
 本轮未Push、合并、部署、查询/修改公网配置或写线上存档，未重启4302。N2/N3其他限制继续保留，待DeepSeek仅审查代理增量。
+
+## 固定被测版本
+
+运行代码提交：53d8cb8b32581ff312d06428812099fded054f87。在独立临时检出重新构建，source正确、dirty=false。新增证据目录evidence/equipment-public-gateway-001/render-proxy；protocol、strict-protocol各包含一次真实子进程重启，boundaries记录入口边界，closeout记录N1关闭回归。最终后续提交仅补这些证据及本段说明，运行代码不变。空在途队列/未运行经济结算如实保留；本轮没有重新证明长期运输和旧三模式恢复，沿用原已交付证据。

@@ -40,3 +40,7 @@ node experiments/equipment-public-gateway-001/check.mjs
 ## 后续N1/N4收口
 
 上文保留首次交付当时口径，不覆盖历史证据。2026-10-12只追加锁归属与干净构建修复；实际被测运行代码04f43d7e7f633a37f7711a9410019cab3621ef35。新证据在evidence/equipment-public-gateway-001/n1-n4，后续提交仅补工具、报告和证据。只读查询了托管配置与部署状态，未更改公网；最新结论及尚缺实际代理来源、Linux磁盘运行检查见[N1-N4.md](N1-N4.md)。
+
+## Render代理模式增量
+
+仅新增显式INGRESS_MODE=render与只读readyz，默认strict不变；本地TLS/WSS双身份、伪造头/越权拒绝、保存重连和真实进程重启见[RENDER-MODE.md](RENDER-MODE.md)。被测运行提交53d8cb8b32581ff312d06428812099fded054f87；证据单独保存，不覆盖历史。用户补充Linux挂载/权限/699MB结果仅属只读条件，线上新房间及真实Render接入未验。本轮未改公网。
