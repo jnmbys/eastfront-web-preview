@@ -1,10 +1,11 @@
+import {createRegionalMap,regionalView,MAP_VERSION} from './geography.mjs';
 import {Campaign as Base} from '../hoi4-recruitment-001/authority.mjs';
 import {validate} from '../grand-division-002/inventory.mjs';
 export const VERSION='HOI4-EQUIPMENT-PRIORITY-001-1';
 const sides=['GERMAN','SOVIET'],copy=structuredClone;
 export class Campaign extends Base{
  static newCampaignClass=Campaign;static rulesVersion=VERSION;
- constructor(){super();this.clock.equipmentPriority={version:VERSION,sides:Object.fromEntries(sides.map(s=>[s,{policy:'FIELD',levels:{},cursors:{},last:[]}]))};}
+ constructor(){super();createRegionalMap(this);this.clock.equipmentPriority={version:VERSION,sides:Object.fromEntries(sides.map(s=>[s,{policy:'FIELD',levels:{},cursors:{},last:[]}]))};}
  level(kind,id,side){const a=this.clock.equipmentPriority.sides[side],override=a.levels[id];if(override)return override;if(kind==='RECRUIT')return 2;const army=this.placements.find(x=>x.id===id)?.army,v=this.econ.modern.priorities[army]??3;return v<3?1:v>3?3:2;}
  enqueueEquipment(kind,id,side,run){this.equipmentJobs??=[];this.equipmentJobs.push({kind,id,side,run});}
  economyStep(){this.equipmentJobs=[];super.economyStep();const p=this.clock.divisionLedger;
@@ -21,6 +22,6 @@ export class Campaign extends Base{
   else{const u=this.clock.divisionLedger.units[op.unit]??this.clock.divisionLedger.recruitment.units[op.unit];if(!u||u.side!==this.viewer)throw Error('EQUIPMENT_RECIPIENT_NOT_OWNED');if(![0,1,2,3].includes(op.level))throw Error('INVALID_EQUIPMENT_PRIORITY');if(op.level)a.levels[op.unit]=op.level;else delete a.levels[op.unit];}
   this.version++;this.match.matchRevision=this.version;const result={ok:true,version:this.version};this.receipts.set(req.id,{signature,result});return copy(result);
  }
- snapshot(draft){const d=super.snapshot(draft),a=this.clock.equipmentPriority?.sides[this.viewer];if(!a)return d;d.equipmentPriority={version:VERSION,policy:a.policy,levels:copy(a.levels),units:Object.fromEntries([...Object.values(this.clock.divisionLedger.units).filter(u=>u.side===this.viewer).map(u=>[u.id,this.level('FIELD',u.id,u.side)]),...Object.values(this.clock.divisionLedger.recruitment.units).filter(u=>u.side===this.viewer).map(u=>[u.id,this.level('RECRUIT',u.id,u.side)])]),last:copy(a.last)};return d;}
- restore(s,pause=true){if(s.clock?.equipmentPriority?.version!==VERSION)throw Error('EQUIPMENT_PRIORITY_NEW_CAMPAIGN_REQUIRED');super.restore(s,pause);this.equipmentJobs=[];}
+ snapshot(draft){const d=super.snapshot(draft);regionalView(this,d);const a=this.clock.equipmentPriority?.sides[this.viewer];if(!a)return d;d.equipmentPriority={version:VERSION,policy:a.policy,levels:copy(a.levels),units:Object.fromEntries([...Object.values(this.clock.divisionLedger.units).filter(u=>u.side===this.viewer).map(u=>[u.id,this.level('FIELD',u.id,u.side)]),...Object.values(this.clock.divisionLedger.recruitment.units).filter(u=>u.side===this.viewer).map(u=>[u.id,this.level('RECRUIT',u.id,u.side)])]),last:copy(a.last)};return d;}
+ restore(s,pause=true){if(s.clock?.regionalMap?.version!==MAP_VERSION)throw Error('REGIONAL_MAP_NEW_CAMPAIGN_REQUIRED');if(s.clock?.equipmentPriority?.version!==VERSION)throw Error('EQUIPMENT_PRIORITY_NEW_CAMPAIGN_REQUIRED');super.restore(s,pause);this.equipmentJobs=[];}
 }
