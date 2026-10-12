@@ -29,14 +29,15 @@ node experiments/equipment-public-gateway-001/server.mjs
 | `PUBLIC_ORIGIN` | 唯一完整HTTPS origin，如 `https://eastfront-grand-preview.onrender.com`，无尾斜线/路径/查询 |
 | `SAVE_DIR` | **保持原值**，历史为 `/var/data/grand-public-1`，执行前核实 |
 | `MP_SAVE_DIR` | 独立已存在目录，建议 `/var/data/grand-equipment-mp-001`；不能放在SAVE_DIR内部 |
-| `TRUST_PROXY_IPS` | 逗号分隔的可信直连代理IP精确清单；不得填通配符或客户端X-Forwarded-For。上线前依据实际平台接入确认；2026-10-12只读核对与缺项见N1-N4.md |
+| `INGRESS_MODE` | 默认strict；显式render平台模式配置与信任边界见RENDER-MODE.md，不能自动启用 |
+| `TRUST_PROXY_IPS` | strict非直接TLS时使用的可信直连代理IP精确清单；render模式须为空；不得填通配符或客户端X-Forwarded-For。上线前依据实际平台接入确认；2026-10-12只读核对与缺项见N1-N4.md |
 | `REQUIRE_PERSISTENT_DISK` | 生产 `1` |
 | `PERSISTENT_MOUNT` | 当前部署方案 `/var/data`；须在Linux mountinfo中真实存在，两目录都在盘内 |
 | `RELEASE_SOURCE_SHA` | 最终完整提交，可选但建议固定 |
 | `TLS_CERT` / `TLS_KEY` | 应用自行终止TLS时的一对证书路径；Render终止TLS时不设置 |
 | `LOCAL_PREVIEW` | 生产不设置；`1`仅允许127.0.0.1 HTTP，且生产环境拒绝此模式 |
 
-公网必须满足：精确Host、精确Origin；WS及写请求必须有Origin。TLS卸载仅接受清单中直连代理且 `X-Forwarded-Proto` 精确为https，不接受逗号链；不相信客户端转发地址，不用转发Host覆盖真实Host。外层清除转发头后传入回环子服务，子服务继续校验同一公开Origin及自身身份。实际平台代理清单/转发行为仍须部署时核对，不能先放宽校验。
+公网必须满足：精确Host、精确Origin；WS及写请求必须有Origin。strict模式的TLS卸载仅接受清单中直连代理且 `X-Forwarded-Proto` 精确为https，不接受逗号链；不相信客户端转发地址，不用转发Host覆盖真实Host。外层清除转发头后传入回环子服务，子服务继续校验同一公开Origin及自身身份。实际平台代理清单/转发行为仍须部署时核对，不能先放宽校验。
 
 ## 身份与存档保护
 
@@ -80,3 +81,9 @@ node experiments/equipment-public-gateway-001/backup.mjs restore /path/to/backup
 ## N1/N4收口补充
 
 干净检出须先执行上面的npm ci与build，再启动；构建入口已避免提前加载生成依赖。锁包含唯一owner及文件身份，清理只释放仍属于本次的锁；缺失/替换不阻止其他关闭操作，不自动抢占遗留锁。新增验证、实际托管只读结果与代理/Linux缺项见 [N1-N4.md](N1-N4.md)。4302仍保留原运行版本，不代表本次最终源码。N2/N3不扩展修改。
+
+## Render平台模式（增量待审）
+
+经Leader修订，Render可显式设置INGRESS_MODE=render，不再要求固定代理IP。仍严格校验Host/Origin、签名身份、房间/席位/代次。平台环境与https转发头不证明请求者身份；同工作区私网访问仍完整鉴权。仅精确GET/HEAD /readyz返回最小就绪信息。配置、官方依据、验证和上线后核验见[RENDER-MODE.md](RENDER-MODE.md)。
+
+用户最新只读结果：/var/data为ext4 rw，699MB空闲，旧SAVE_DIR=/var/data/grand-public-1可读写；MP_SAVE_DIR未创建。未验证Linux新档写入/重启。

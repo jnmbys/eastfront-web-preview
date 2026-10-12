@@ -13,12 +13,19 @@ import {directories,validateStorage,validateRoom,initializeKeys,locks,RoomCampai
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store','Referrer-Policy':'no-referrer'});res.end(JSON.stringify(data));};
 class PublicRoomAdapter extends RoomAdapter{summary(seat){return {...super.summary(seat),localOnly:false};}}
-export async function start({port=Number(process.env.PORT),host=process.env.HOST,origin=process.env.PUBLIC_ORIGIN,legacyDir=process.env.SAVE_DIR,mpDir=process.env.MP_SAVE_DIR,trustProxyIPs=(process.env.TRUST_PROXY_IPS??'').split(',').filter(Boolean),tls=null,autoTick=true,verifyBuild=true,localPreview=process.env.LOCAL_PREVIEW==='1'}={}){
+export async function start({port=Number(process.env.PORT),host=process.env.HOST,origin=process.env.PUBLIC_ORIGIN,legacyDir=process.env.SAVE_DIR,mpDir=process.env.MP_SAVE_DIR,trustProxyIPs=(process.env.TRUST_PROXY_IPS??'').split(',').filter(Boolean),tls=null,ingressMode=process.env.INGRESS_MODE??'strict',autoTick=true,verifyBuild=true,localPreview=process.env.LOCAL_PREVIEW==='1'}={}){
  if(!Number.isInteger(port)||port<0||port>65535||!host)throw Error('PORT_AND_HOST_REQUIRED');
  if(!origin)throw Error('PUBLIC_ORIGIN_REQUIRED');const url=new URL(origin);
  if(localPreview&&(process.env.NODE_ENV==='production'||host!=='127.0.0.1'||url.hostname!=='127.0.0.1'||url.protocol!=='http:'))throw Error('LOCAL_PREVIEW_LOOPBACK_ONLY');
  if((!localPreview&&url.protocol!=='https:')||url.origin!==origin||url.username||url.password)throw Error('EXACT_HTTPS_ORIGIN_REQUIRED');
- if(trustProxyIPs.some(x=>!net.isIP(x))||(!localPreview&&!tls&&!trustProxyIPs.length))throw Error('EXPLICIT_TRUST_PROXY_IPS_REQUIRED');
+ if(!['strict','render'].includes(ingressMode))throw Error('INGRESS_MODE_INVALID');
+ const render=ingressMode==='render';
+ if(render){
+  // Deployment sanity checks only; these flags never identify a caller.
+  if(localPreview||tls||trustProxyIPs.length)throw Error('RENDER_INGRESS_CONFLICT');
+  if(process.env.RENDER!=='true'||process.env.RENDER_SERVICE_TYPE!=='web'||!/^srv-[a-z0-9]+$/.test(process.env.RENDER_SERVICE_ID??'')||process.env.RENDER_EXTERNAL_HOSTNAME!==url.hostname||process.env.RENDER_EXTERNAL_URL!==origin||Number(process.env.PORT)!==port||!process.env.PORT||(process.env.NODE_ENV==='production'&&port===0))throw Error('RENDER_PLATFORM_CONFIG_REQUIRED');
+ }
+ if(trustProxyIPs.some(x=>!net.isIP(x))||(!render&&!localPreview&&!tls&&!trustProxyIPs.length))throw Error('EXPLICIT_TRUST_PROXY_IPS_REQUIRED');
  const d=directories(legacyDir,mpDir);validateStorage(d);
  // Validate old files with their original readers; never convert them to the room engine.
  const old=path.join(d.legacy,'visitors');
@@ -49,13 +56,15 @@ export async function start({port=Number(process.env.PORT),host=process.env.HOST
   initializeKeys(d);
   legacy=await publicServer({port:0,host:'127.0.0.1',origin,saveDir:d.legacy,campaignModes,autoTick});
   mp=await multiplayer({port:0,saveDir:d.rooms,publicOrigin:origin,allowLoopbackHttp:localPreview,CampaignClass:RoomCampaign,AdapterClass:localPreview?RoomAdapter:PublicRoomAdapter,roomVersion:ROOM_VERSION,validateSaved:validateRoom,visitorCookie:'equipment_mp_visitor',lobbyFile:new URL('./lobby.html',import.meta.url),autoTick});
-  const metadata={source,dirty,build,roomVersion:ROOM_VERSION,rules:VERSION,mapVersion:MAP_VERSION,localOnly:localPreview};
+  const metadata={source,dirty,build,roomVersion:ROOM_VERSION,rules:VERSION,mapVersion:MAP_VERSION,localOnly:localPreview,ingressMode};
   function guard(req){
    if(req.headers.host!==url.host)throw Error('HOST_DENIED');
    if(req.headers.origin&&req.headers.origin!==origin)throw Error('ORIGIN_DENIED');
    if((!['GET','HEAD'].includes(req.method)||req.headers.upgrade)&&req.headers.origin!==origin)throw Error('ORIGIN_REQUIRED');
    const peer=req.socket.remoteAddress?.replace(/^::ffff:/,'');
-   if(!localPreview&&!req.socket.encrypted&&(!trustProxyIPs.includes(peer)||req.headers['x-forwarded-proto']!=='https'))throw Error('HTTPS_TRUSTED_PROXY_REQUIRED');
+   // Render's edge supplies public TLS. Private peers are NOT authenticated by this mode.
+   if(render&&req.headers['x-forwarded-proto']!=='https')throw Error('RENDER_HTTPS_METADATA_REQUIRED');
+   if(!render&&!localPreview&&!req.socket.encrypted&&(!trustProxyIPs.includes(peer)||req.headers['x-forwarded-proto']!=='https'))throw Error('HTTPS_TRUSTED_PROXY_REQUIRED');
    if(req.headers['x-forwarded-host']&&req.headers['x-forwarded-host']!==url.host)throw Error('FORWARDED_HOST_DENIED');
   }
   function route(req){const u=new URL(req.url,origin),mode=u.searchParams.get('campaign');
@@ -68,7 +77,10 @@ export async function start({port=Number(process.env.PORT),host=process.env.HOST
   }
   function headers(req){const h={...req.headers};delete h.forwarded;for(const k of Object.keys(h))if(k.startsWith('x-forwarded-'))delete h[k];return h;}
   const landing='<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>EASTFRONT 战役入口</title><style>body{background:#182321;color:#eadfc6;font:18px system-ui;max-width:760px;margin:8vh auto;padding:24px}a,button{display:block;padding:18px;margin:20px 0;background:#46513c;color:#fff;font:inherit;border:1px solid #9a997c}</style><h1>EASTFRONT</h1><a href="/rooms">新双人战役 · 装备分配与省份候选</a><p>房主德军、受邀玩家苏军。双方连接后由房主开始；各自只看授权信息。</p><form method="post" action="/visitor/start"><button>继续原单人战役／选择旧模式</button></form><p>新房间独立保存，不转换旧战役。请保留本浏览器身份凭证。</p></html>';
-  const handle=(req,res)=>{try{guard(req);const u=new URL(req.url,origin);if(u.pathname==='/healthz')return json(res,200,{ok:true,...metadata});if(u.pathname==='/'&&!u.searchParams.has('campaign')){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(landing);}
+  const handle=(req,res)=>{try{
+   // Exact, read-only probe: no cookies, metadata, proxying or campaign access.
+   if(render&&req.url==='/readyz'&&['GET','HEAD'].includes(req.method))return json(res,closing?503:200,{ok:!closing});
+   guard(req);const u=new URL(req.url,origin);if(u.pathname==='/healthz')return json(res,200,{ok:true,...metadata});if(u.pathname==='/'&&!u.searchParams.has('campaign')){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(landing);}
    const target=route(req),p=http.request({host:'127.0.0.1',port:target.server.address().port,path:req.url,method:req.method,headers:headers(req)},r=>{res.writeHead(r.statusCode,r.headers);r.pipe(res);});p.on('error',()=>{if(!res.headersSent)json(res,503,{error:'UPSTREAM_UNAVAILABLE'});else res.destroy();});req.on('aborted',()=>p.destroy());req.pipe(p);
   }catch(e){json(res,403,{error:e.message});}};
   server=tls?https.createServer(tls,handle):http.createServer(handle);

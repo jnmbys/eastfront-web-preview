@@ -3,7 +3,8 @@ import http from 'node:http';import https from 'node:https';
 import {start} from './server.mjs';
 const cfg=JSON.parse(fs.readFileSync(process.env.GATEWAY_TEST_CONFIG));
 const tls=cfg.cert?{cert:fs.readFileSync(cfg.cert),key:fs.readFileSync(cfg.key)}:null;
-const s=await start({...cfg,...(cfg.proxyMode?{port:0,trustProxyIPs:['127.0.0.1']}:{}),tls:cfg.proxyMode?null:tls,autoTick:false});
+if(cfg.ingressMode==='render')Object.assign(process.env,{RENDER:'true',RENDER_SERVICE_TYPE:'web',RENDER_SERVICE_ID:'srv-synthetic',RENDER_EXTERNAL_HOSTNAME:new URL(cfg.origin).hostname,RENDER_EXTERNAL_URL:cfg.origin,PORT:'0'});
+const s=await start({...cfg,...(cfg.proxyMode?{port:0,trustProxyIPs:cfg.ingressMode==='render'?[]:['127.0.0.1']}:{}),tls:cfg.proxyMode?null:tls,autoTick:false});
 let edge;
 if(cfg.proxyMode){
  // Synthetic TLS terminator only: public Host/Origin retained, proto replaced by the trusted edge.
