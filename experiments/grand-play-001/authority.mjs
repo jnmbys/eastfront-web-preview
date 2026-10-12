@@ -78,7 +78,7 @@ export class Campaign extends City {
   const clock=this.clock;clock.tick++;const views=Object.fromEntries(sides.map(s=>[s,this.fair(s).view]));this.planningViews=views;try{this.enemyPlan(views.SOVIET);}finally{this.planningViews=null;}
   const units=Object.values(this.state.units).filter(u=>u.alive).sort((a,b)=>a.id.localeCompare(b.id)),caps=Object.fromEntries(units.map(u=>[u.id,this.capability(u.id)])),before=this.economyV2?{units:copy(this.state.units)}:copy(this.state),intents={},arrivals=[];
   for(const u of units){const v=clock.units[u.id],g=clock.corps.find(g=>g.members.includes(u.id));v.engaged=0;
-   const own=views[u.side].units.find(x=>x.id===u.id),decision=this.decideAction(views[u.side],own,Object.fromEntries(Object.entries(caps).filter(([id])=>this.state.units[id].side===u.side)),this.ownOrder(u.id),profiles[g.profile]);intents[u.id]=decision;v.reason=decision.reason;clock.metrics.expanded+=decision.expanded??0;
+   const own=views[u.side].units.find(x=>x.id===u.id),decision=this.decideAction(views[u.side],own,Object.fromEntries(Object.entries(caps).filter(([id])=>this.state.units[id].side===u.side)),this.ownOrder(u.id),profiles[g?.profile??0]);intents[u.id]=decision;v.reason=decision.reason;clock.metrics.expanded+=decision.expanded??0;
    if(v.march){if(--v.march.remaining<=0)arrivals.push({id:u.id,...v.march});}
    else if(decision.kind==='MARCH'){u.entrenched=false;v.march={to:decision.to,remaining:decision.duration,total:decision.duration};v.org=Math.max(0,v.org-.8);}
   }

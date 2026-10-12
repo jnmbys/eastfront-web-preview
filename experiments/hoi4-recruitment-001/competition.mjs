@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {Campaign} from './authority.mjs';import {validate,totals} from '../grand-division-002/inventory.mjs';import {step} from './model.mjs';import {refreshNetwork} from '../grand-economy-002/economy.mjs';
+const c=new Campaign(),p=c.clock.divisionLedger,op={type:'RECRUIT_ADD',template:'GERMAN:blackice:0',templateVersion:1,city:'CITY:GERMAN-industry-1',quantity:2};c.transaction({id:'competition-two-001',version:c.version,operation:op});const ids=Object.keys(p.recruitment.units);
+// Controlled bottleneck: existing stock moved into a normal field formation,
+// leaving exactly one piece. No equipment created or destroyed by fixture.
+const field=Object.values(p.units).find(u=>u.side==='GERMAN'),k='infantry_equipment_1',moved=p.nations.GERMAN.stock[k]-1;field.held[k]+=moved;p.nations.GERMAN.stock[k]=1;
+for(const q of Object.values(p.recruitment.units)){q.credits[k]=1;q.credits.personnel=0;}
+c.econ.modern.cargoHour={hour:0,sides:{GERMAN:{train:0,edges:{},hubs:{},sources:{}},SOVIET:{train:0,edges:{},hubs:{},sources:{}}}};
+step(c);validate(p);assert.equal(p.nations.GERMAN.stock[k],0);assert.equal(p.recruitment.transit.filter(b=>b.model===k).reduce((n,b)=>n+b.quantity,0),1);assert(p.recruitment.transit.some(b=>b.unit===ids[0]&&b.model===k));
+c.transaction({id:'competition-cancel-001',version:c.version,operation:{type:'RECRUIT_CANCEL',id:ids[0]}});const before=totals(p);for(let i=0;i<20;i++){c.clock.tick++;step(c);}validate(p);assert.deepEqual(totals(p),before);assert(!p.recruitment.units[ids[0]]);assert(p.recruitment.units[ids[1]].held[k]===1||p.recruitment.transit.some(b=>b.unit===ids[1]&&b.model===k));
+fs.writeFileSync('evidence/hoi4-recruitment-001/competition.json',JSON.stringify({passed:true,scope:'controlled component: same stock one remaining item; serial authoritative allocation; cancellation returns then next queue receives',quantity:1,ids},null,2));console.log('PASS scarce-stock competition + cancellation');

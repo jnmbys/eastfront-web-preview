@@ -1,3 +1,4 @@
+import {recruitmentPanel,bindRecruitment} from './recruitment.js';
 import {trainingPanel} from './training.js';
 import {unitWeather} from './weather.js';
 import {provincePanel,bindProvince} from './provinces.js';
@@ -34,6 +35,7 @@ export function commandDock(p:GrandPort,id:string|null,extra:string){const d=p.d
  const clockPending=Array.from(p.wire?.pending.values()??[]).find((r:any)=>r.command?.payload?.type==='CLOCK') as any;
  const toolbar=hoiTop(p,s);
  let body='',title='';
+ if(mode==='recruitment'){title='招募与部署';body=recruitmentPanel(p);}
  if(mode==='division'){title='师编制设计';body=divisionPanel(p,id);}
  if(mode==='war'){title='战争概览';body=warPanel(p);}
  if(mode==='army'){title=group.name;body=planPanel(p)+`<details><summary>部队与补给 · ${commandedMembers(c,group).length}队</summary>${corpsLogistics(p,commandedMembers(c,group))}${campaignOrders(p,id,false)}</details>`;}
@@ -52,7 +54,7 @@ export function commandDock(p:GrandPort,id:string|null,extra:string){const d=p.d
  if(!mode&&id&&!p.selections['hoi-list-hidden']){title='选中部队';body=hoiRoster(p,id,direct)+`<button data-ui-panel="unit">所选部队详情</button>`;}
  return `<div class="r2-dock command-ui hoi-ui">${toolbar}${roomStatus(p)}${c.ended||p.notice?`<div class="ui-notice" role="status">${c.ended?esc((c.ended.winner==='GERMAN'?'德军获胜':c.ended.winner==='SOVIET'?'苏军获胜':'战役未分胜负')+' · '+c.ended.reason):esc(p.notice)}</div>`:''}${mode||(id&&!p.selections['hoi-list-hidden'])?`<aside class="ui-sidebar" data-mode="${mode||'unit-list'}"><header><h2>${esc(title)}</h2><button id="ui-close" aria-label="收起详情">×</button></header><div class="ui-content">${body}</div></aside>`:''}<div class="ui-map-legend">绿条 组织 · 金条 人员　<span>金色虚线 初始战区 · 浅色实线 已知控制交界</span></div>${id?directCommand(p,id):''}${planStrip(p)}${selectionTools(p)}${bar}</div>`;
 }
-export function bindCommandInterface(p:GrandPort,id:string|null,refresh:()=>void,select:(id:string)=>void,locate:(h:any)=>void){const c=p.data.continuous;window.dispatchEvent(new CustomEvent('map-ui-layout',{detail:[p.selections['ui-panel']??'',!!id,!!p.selections['plan-tool']].join(':')}));const tempoButton=document.getElementById('tempo-upgrade');if(tempoButton)tempoButton.onclick=()=>void p.operation({type:'DIVISION_TEMPO',policy:'DIVISION-TEMPO-2'});bindProvince(p,refresh);bindSelection(p,refresh);bindJoystickSettings();bindDivision(p,refresh);bindCorpsPlan(p,refresh);bindModern(p,refresh);bindWar(p,refresh);
+export function bindCommandInterface(p:GrandPort,id:string|null,refresh:()=>void,select:(id:string)=>void,locate:(h:any)=>void){const c=p.data.continuous;window.dispatchEvent(new CustomEvent('map-ui-layout',{detail:[p.selections['ui-panel']??'',!!id,!!p.selections['plan-tool']].join(':')}));const tempoButton=document.getElementById('tempo-upgrade');if(tempoButton)tempoButton.onclick=()=>void p.operation({type:'DIVISION_TEMPO',policy:'DIVISION-TEMPO-2'});bindRecruitment(p,refresh);bindProvince(p,refresh);bindSelection(p,refresh);bindJoystickSettings();bindDivision(p,refresh);bindCorpsPlan(p,refresh);bindModern(p,refresh);bindWar(p,refresh);
  document.querySelectorAll<HTMLElement>('[data-ui-panel]').forEach(el=>el.onclick=()=>{document.getElementById('direct-cancel')?.click();p.selections['ui-panel']=el.dataset.uiPanel!;if(el.dataset.uiPanel==='province'){p.selections['map-command']='inspect';p.directDraft=null;p.directPreview=null;}refresh();});
  document.querySelectorAll<HTMLElement>('[data-vision-locate]').forEach(el=>el.onclick=()=>{const [q,r]=el.dataset.visionLocate!.split(',').map(Number);locate({q,r});});
  document.querySelectorAll<HTMLElement>('[data-ui-locate-force]').forEach(el=>el.onclick=()=>{const u=p.data.game.message.payload.view.units.find((u:any)=>u.id===el.dataset.uiLocateForce);if(u)locate(u.hex);});

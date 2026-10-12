@@ -1,0 +1,7 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {Campaign} from './authority.mjs';import {validate} from '../grand-division-002/inventory.mjs';
+const c=new Campaign();c.restore(JSON.parse(fs.readFileSync('evidence/hoi4-recruitment-001/normal-end.json','utf8')),false);const id='R-GERMAN-1';assert(c.state.units[id]?.alive);const before=structuredClone(c.state.units[id].hex),tick=c.clock.tick;
+// Same natural checkpoint, isolated continuation: no injected readiness.
+for(let i=0;i<160;i++)c.advance();const organization=c.clock.units[id].org;
+const receipt=c.transaction({id:'recruit-deployed-move-001',version:c.version,operation:{type:'DIRECT',unit:id,order:{kind:'ADVANCE',target:{q:6,r:2},risk:'LOW',paused:false}}});
+for(let i=0;i<180;i++)c.advance();assert.notDeepEqual(c.state.units[id].hex,before);validate(c.clock.divisionLedger);const saved=c.save(),restored=new Campaign();restored.restore(saved);assert.deepEqual(restored.clock.divisionLedger.recruitment.history,c.clock.divisionLedger.recruitment.history);assert.equal(Object.keys(restored.state.units).filter(x=>x===id).length,1);
+fs.writeFileSync('evidence/hoi4-recruitment-001/deployed-action.json',JSON.stringify({source:'normal-end.json isolated continuation, no grants',id,tick,organization,receipt,before,after:c.state.units[id].hex,endTick:c.clock.tick,reason:c.clock.units[id].reason,passed:true},null,2));console.log('PASS actual newly recruited unit movement',c.state.units[id].hex);
