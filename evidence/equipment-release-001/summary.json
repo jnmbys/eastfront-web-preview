@@ -1,0 +1,105 @@
+{
+  "source": "0caa903579a33be35c00ef0097129c1b9666e4be",
+  "windowSeconds": 133.203,
+  "browser": [
+    {
+      "side": "G",
+      "ordinaryReceipts": {
+        "n": 18,
+        "p50": 126.38800000422634,
+        "p95": 177.06799999723444,
+        "max": 177.06799999723444
+      },
+      "saveReceipts": {
+        "n": 1,
+        "p50": 126.66999999783002,
+        "p95": 126.66999999783002,
+        "max": 126.66999999783002
+      },
+      "inAdvanceDirect": {
+        "n": 4,
+        "p50": 130.47899999946821,
+        "p95": 177.06799999723444,
+        "max": 177.06799999723444
+      },
+      "selection": {
+        "n": 4,
+        "p50": 278,
+        "p95": 290,
+        "max": 290
+      },
+      "selectionFailures": 0
+    },
+    {
+      "side": "S",
+      "ordinaryReceipts": {
+        "n": 7,
+        "p50": 129.60000000020955,
+        "p95": 137.57600000099046,
+        "max": 137.57600000099046
+      },
+      "saveReceipts": {
+        "n": 0,
+        "p50": null,
+        "p95": null,
+        "max": null
+      },
+      "inAdvanceDirect": {
+        "n": 4,
+        "p50": 129.60000000020955,
+        "p95": 131.0070000035921,
+        "max": 131.0070000035921
+      },
+      "selection": {
+        "n": 4,
+        "p50": 270,
+        "p95": 279,
+        "max": 279
+      },
+      "selectionFailures": 0
+    }
+  ],
+  "service": {
+    "step": {
+      "n": 73,
+      "p50": 58.37160000001313,
+      "p95": 68.82779999997001,
+      "max": 74.21419999998761
+    },
+    "view": {
+      "n": 204,
+      "p50": 27.474600000015926,
+      "p95": 33.68889999999374,
+      "max": 40.97030000001541
+    },
+    "queue": {
+      "n": 4441,
+      "p50": 0.007500000006984919,
+      "p95": 0.027799999981652945,
+      "max": 0.6182999999728054
+    },
+    "save": {
+      "n": 35,
+      "p50": 35.83879999999772,
+      "p95": 42.039099999994505,
+      "max": 44.695000000006985
+    },
+    "lastTick": 73,
+    "combatSteps": 53,
+    "maxObservedQueueDepth": 2
+  },
+  "restart": {
+    "identicalBeforeAfter": true,
+    "identicalAfterBrowserResave": true,
+    "tick": 73,
+    "transitBatches": 84
+  },
+  "limits": [
+    "loopback Windows/IAB, not public or tablet",
+    "133.203s interaction window includes explicit pause and setup; not continuous FPS benchmark",
+    "server samples cover full run, not restricted to interaction window",
+    "DOM title latency includes automation roundtrip",
+    "screenshots only: no continuous paint/presentation trace",
+    "no memory, message-byte or long-frame measurement in this closeout"
+  ]
+}
