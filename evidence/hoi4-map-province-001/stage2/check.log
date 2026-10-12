@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "scope": "normal authoritative day for mobilization; occupation and delivery controlled fixtures, not natural conquest",
+  "checks": [
+    "1278 land cells complete, unique, connected; 31 capitals in own province; inherited total personnel/equipment unchanged",
+    "province assets and usable resource capacities sum exactly to authorized national lists; no duplicates",
+    "mobilization request retry idempotent; stale/version/foreign province rejects without mutation",
+    "actual 288 authoritative steps: 100 persons mobilized over one day, finite eligibility transferred, no grant",
+    "directed occupation fixture: noncapital loss does not freeze office; capital loss freezes exact local reserve/recruiting; recapture restores remainder without refreshing eligibility",
+    "directed industrial district occupation removes actual factory and production resources while other provincial cells remain friendly; recapture returns existing asset only",
+    "foreign private manpower absent; same authorized input with changed hidden enemy capital/control/order gives identical province view",
+    "existing inventory delivery/downsizing API: provincial and national reserve remain one ledger; exact return, conservation",
+    "new/old save formats mutually rejected; memory restore preserves province maps, orders, eligibility and inventory"
+  ],
+  "events": [
+    {
+      "tick": 72,
+      "reserve": 487,
+      "eligible": 129,
+      "mobilized": 25,
+      "national": 3625
+    },
+    {
+      "tick": 144,
+      "reserve": 500,
+      "eligible": 104,
+      "mobilized": 50,
+      "national": 3638
+    },
+    {
+      "tick": 216,
+      "reserve": 501,
+      "eligible": 79,
+      "mobilized": 75,
+      "national": 3639
+    },
+    {
+      "tick": 288,
+      "reserve": 455,
+      "eligible": 54,
+      "mobilized": 100,
+      "national": 3593
+    }
+  ],
+  "simulationMs": 14847.980500000001,
+  "provinceCount": 31,
+  "land": 1278,
+  "population": 2556000
+}
