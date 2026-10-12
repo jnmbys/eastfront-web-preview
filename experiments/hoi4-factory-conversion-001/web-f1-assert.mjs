@@ -1,0 +1,3 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';
+const dir='evidence/factory-conversion-f1/',read=n=>JSON.parse(fs.readFileSync(dir+n+'.json'));
+const a=read('web-started'),b=read('web-cancelled'),c=read('web-reconnected');assert.deepEqual(a.factory,b.factory);assert.deepEqual(a.lines,b.lines);assert.deepEqual(b.factory,c.factory);assert.deepEqual(b.lines,c.lines);assert.deepEqual(b.queue,c.queue);assert.equal(c.tick,4);assert(c.paused);assert(c.queue[0].cancelled);assert(!c.lines.some(l=>l.factories.includes(c.factory.id)));console.log('PASS browser save readback: kind damage line state and cancelled queue unchanged');

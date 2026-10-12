@@ -6,7 +6,7 @@ import {emptyDraft,transaction as draftTransaction} from '../grand-division-001/
 
 import {fairUnits} from '../grand-economy-002/planning.mjs';
 import {cfg as defaultCfg,products as legacyProducts} from '../grand-economy-002/config.mjs';
-import {production,construction,ownership,dailySupply,refreshNetwork} from '../grand-economy-002/economy.mjs';
+import {production,industryStep,ownership,dailySupply,refreshNetwork} from '../grand-economy-002/economy.mjs';
 import {createInventory,validate,SCHEMA,cancelReservedFreight} from './inventory.mjs';
 import {modelDemand,modelIds,reference,idsFor,referenceFor} from './model-demand.mjs';
 import {initializeFormal,formalTransaction,earnExperience,validateFormal,POLICY} from './formal.mjs';
@@ -70,7 +70,7 @@ export class Campaign extends Previous{
    v.personnel=u.personnel;u.org=Math.min(this.divisionAttributes(id).paper.orgMax,v.org/100*this.divisionAttributes(id).paper.orgMax);if(people)u.revision++;
   }
  }
- economyStep(){const cfg=this.econ.modern.balanceConfig??defaultCfg;const p=this.clock.divisionLedger;if(!p)return super.economyStep();const modelIds=idsFor(p);const e=this.econ.modern;if(e.settled>=this.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');production(this);construction(this);ownership(this);dailySupply(this);if(p.profile)p.vehicleCommitments=Object.fromEntries(sides.map(side=>[side,{[combined.TRUCK]:e.net[side].trucksUsed}]));
+ economyStep(){const cfg=this.econ.modern.balanceConfig??defaultCfg;const p=this.clock.divisionLedger;if(!p)return super.economyStep();const modelIds=idsFor(p);const e=this.econ.modern;if(e.settled>=this.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');industryStep(this);ownership(this);dailySupply(this);if(p.profile)p.vehicleCommitments=Object.fromEntries(sides.map(side=>[side,{[combined.TRUCK]:e.net[side].trucksUsed}]));
   for(const [id,u]of Object.entries(p.units))if(!this.state.units[id]?.alive)cancelReservedFreight(p,id);
   const hour=Math.floor(this.clock.tick/cfg.networkTicks);if(e.cargoHour?.hour!==hour)e.cargoHour={hour,sides:Object.fromEntries(sides.map(s=>[s,{train:0,edges:{},hubs:{},sources:{}}]))};
   for(const side of sides){const ordered=fairUnits(Object.values(this.state.units).filter(u=>u.side===side&&u.alive),u=>e.priorities[this.placements.find(x=>x.id===u.id)?.army]??3,this.clock.tick);

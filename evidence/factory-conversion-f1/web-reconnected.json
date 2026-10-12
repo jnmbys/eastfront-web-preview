@@ -1,0 +1,110 @@
+{
+  "stage": "web-reconnected",
+  "savedAt": "2026-10-12T07:36:14.987Z",
+  "tick": 4,
+  "paused": true,
+  "factory": {
+    "id": "FACTORY:GERMAN-industry-1:1",
+    "hex": "5,2",
+    "district": "CITY:GERMAN-industry-1:D0",
+    "kind": "MIL",
+    "damage": 0
+  },
+  "lines": [
+    {
+      "id": "GERMAN:infantry_equipment_1",
+      "product": "infantry_equipment_1",
+      "factories": [],
+      "progress": 0,
+      "efficiency": 0.3,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:support_equipment_1",
+      "product": "support_equipment_1",
+      "factories": [],
+      "progress": 0,
+      "efficiency": 0.3,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:artillery_equipment_1",
+      "product": "artillery_equipment_1",
+      "factories": [
+        "FACTORY:GERMAN-industry-2:1"
+      ],
+      "progress": 0.5001302083333334,
+      "efficiency": 0.30020833333333335,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:motorized_equipment_1",
+      "product": "motorized_equipment_1",
+      "factories": [],
+      "progress": 0,
+      "efficiency": 0.3,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:leichttraktor_lt0",
+      "product": "leichttraktor_lt0",
+      "factories": [],
+      "progress": 0,
+      "efficiency": 0.3,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:anti_tank_equipment_2",
+      "product": "anti_tank_equipment_2",
+      "factories": [],
+      "progress": 0,
+      "efficiency": 0.3,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:TRAIN",
+      "product": "TRAIN",
+      "factories": [],
+      "progress": 0,
+      "efficiency": 0.3,
+      "completed": 0
+    },
+    {
+      "id": "GERMAN:FUEL",
+      "product": "FUEL",
+      "factories": [
+        "FACTORY:GERMAN-industry-3:1"
+      ],
+      "progress": 0.00013020833333343695,
+      "efficiency": 0.30020833333333335,
+      "completed": 1
+    }
+  ],
+  "queue": [
+    {
+      "id": "BUILD:GERMAN:CONV:1",
+      "serial": 1,
+      "side": "GERMAN",
+      "kind": "CONVERT",
+      "target": "FACTORY:GERMAN-industry-1:1",
+      "hex": "5,2",
+      "from": "MIL",
+      "to": "CIV",
+      "assetRevision": 0,
+      "cost": 1750,
+      "progress": 0.8333333333333334,
+      "status": "DONE",
+      "priority": 3,
+      "queueRank": 1,
+      "started": true,
+      "startedTick": 1,
+      "assigned": [
+        "FACTORY:GERMAN-industry-4:1",
+        "FACTORY:GERMAN-industry-5:1"
+      ],
+      "rate": 60,
+      "cancelled": true,
+      "outcome": "已取消；已用工时不返还，不生成资产"
+    }
+  ]
+}

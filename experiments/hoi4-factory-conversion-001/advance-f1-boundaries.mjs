@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import {Campaign} from '../hoi4-recruitment-001/authority.mjs';
+const rows=[];
+for(const onlySelf of [true,false]){const c=new Campaign(),e=c.econ.modern,civs=Object.values(e.facilities).filter(f=>f.kind==='CIV'&&c.state.hexes[f.hex].control===c.viewer),target=civs[0];if(onlySelf)for(const f of civs.slice(1))f.damage=1;c.transaction({id:'self-build-check',version:c.version,operation:{type:'ECON_BUILD',kind:'CONVERT',target:target.id,to:'MIL'}});const q=e.queue.at(-1);c.advance();assert(!q.assigned.includes(target.id));assert.equal(!!q.started,!onlySelf);assert.equal(q.progress,onlySelf?0:30/288);rows.push({onlySelf,progress:q.progress,assigned:q.assigned,started:!!q.started});}
+const before=JSON.parse(fs.readFileSync('evidence/factory-conversion-f1/before.json')),after=JSON.parse(fs.readFileSync('evidence/factory-conversion-f1/after.json'));assert.deepEqual(before.slice(1),after.slice(1));
+fs.writeFileSync('evidence/factory-conversion-f1/boundaries.json',JSON.stringify({rows,unchangedControls:true},null,2));console.log('PASS self construction exclusion and exact unchanged controls');

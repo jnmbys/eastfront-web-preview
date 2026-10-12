@@ -54,7 +54,8 @@ export function production(c,settle=true){const cfg=c.econ.modern.balanceConfig?
  }
 }
 export function prepareConversion(c){if(!c.clock.factoryConversion)return;reconcileConversion(c);for(const side of sides)beginConversion(c,allocation(c,side));}
-export function construction(c){prepareConversion(c);reconcileOccupation(c);syncCosts(c);const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
+export function industryStep(c){prepareConversion(c);production(c);construction(c,true);}
+export function construction(c,prepared=false){if(!prepared)prepareConversion(c);reconcileOccupation(c);syncCosts(c);const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
  for(const side of sides){let work=Object.values(e.facilities).filter(f=>f.kind==='CIV'&&available(c,f,side)).reduce((n,f)=>n+cfg.civilWorkDay*(1-f.damage)/cfg.ticksPerDay,0);
   const plan=e.civilianQueue?allocation(c,side):null;
   for(const q of e.queue.filter(q=>q.side===side&&q.status!=='DONE').sort(plan?sortQueue:(a,b)=>a.priority-b.priority||a.serial-b.serial)){
@@ -101,7 +102,7 @@ export function dailySupply(c){const cfg=c.econ.modern.balanceConfig??defaultCfg
 
  for(const u of Object.values(c.state.units).filter(u=>u.alive)){const v=c.clock.units[u.id],r=e.net[u.side].rows[u.id],ratio=r?.ratio??0;v.carriedHours=Math.max(0,Math.min(cfg.carriedHours,v.carriedHours+(ratio>=.99?.5:-(1-ratio))*5/60));const effective=cfg.supplyDayDivisor?ratio+(1-ratio)*v.carriedHours/cfg.carriedHours:Math.max(ratio,v.carriedHours>0?.65:0);v.dailySupply={...r,effective,carriedHours:v.carriedHours};c.econ.supply[u.id].stock=16*effective;c.econ.supply[u.id].debt=0;}
 }
-export function step(c){const e=c.econ.modern;if(e.settled>=c.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');prepareConversion(c);production(c);construction(c);ownership(c);dailySupply(c);
+export function step(c){const e=c.econ.modern;if(e.settled>=c.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');industryStep(c);ownership(c);dailySupply(c);
  reinforcement(c);e.settled=c.clock.tick;c.econ.epoch=Math.floor(c.clock.tick/cfg.networkTicks);c.state.turn=1+c.econ.epoch;
 }
 
