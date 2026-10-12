@@ -1,3 +1,4 @@
+import {makeWork,progressWork} from '../blackice-weather-001/freight.mjs';
 import {transportProgress} from '../grand-division-002/freight-progress.mjs';
 import {idsFor} from '../grand-division-002/model-demand.mjs';
 const same=(a,b)=>a.hub===b.hub&&a.source===b.source&&JSON.stringify(a.path)===JSON.stringify(b.path);
@@ -10,6 +11,7 @@ export function transport(s,id,options){
   if(x.unit!==id){kept.push(x);continue;}
   const valid=x.destination===options.destination&&routes.some(r=>same(r,x.route)&&r.path.every(k=>options.rails[k]&&!options.rails[k].damage));
   if(!valid){if(x.model==='personnel')n.manpower+=x.quantity;else n.stock[x.model]+=x.quantity;continue;}
+  if(x.weatherWork&&options.weather)progressWork(x,options.tick,options.weather);
   if(options.tick<x.arrival){kept.push(x);continue;}
   const people=x.model==='personnel',room=Math.max(0,people?u.target.manpower-u.personnel:u.target.equipment[x.model]-u.held[x.model]),q=Math.min(room,x.quantity);
   if(people){u.personnel+=q;n.manpower+=x.quantity-q;arrived.personnel+=q;}else{u.held[x.model]+=q;n.stock[x.model]+=x.quantity-q;arrived.equipment[x.model]+=q;}if(q)u.revision++;
@@ -26,7 +28,8 @@ export function transport(s,id,options){
   // 15min loading; rail 30km/h; terrain/road-weighted last mile, motor 10km/h or foot 5km/h.
   const lastCost=hub?.deliveryCosts?.[`${dest.q},${dest.r}`]??last;
   const duration=Math.max(3,Math.ceil(3+route.path.length*4+lastCost*(hub?.trucks>0?12:24)));
-  kept.push({unit:id,side:u.side,model,quantity,route:structuredClone(route),destination:options.destination,dispatched:options.tick,arrival:options.tick+duration});
+  kept.push({unit:id,side:u.side,model,quantity,route:structuredClone(route),destination:options.destination,dispatched:options.tick,arrival:options.tick+duration,...(options.weather?{weatherWork:makeWork(options.tick,route,hub,`${dest.q},${dest.r}`,lastCost)}:{})});
+  if(options.weather)progressWork(kept.at(-1),options.tick,options.weather);
  }
  return {...sent,personnel:arrived.personnel,equipment:arrived.equipment,inTransit:[...sent.inTransit,...kept.filter(x=>x.unit===id)],reason:kept.some(x=>x.unit===id)?'已扣库发运；装卸、铁路与末端运输尚未完成':sent.reason};
 }

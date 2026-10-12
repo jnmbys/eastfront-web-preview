@@ -1,0 +1,5 @@
+import {Campaign} from './authority.mjs';import {refreshNetwork} from '../grand-economy-002/economy.mjs';
+const modes=[{rain:false,wet:0},{rain:true,wet:1}];
+function controlled(c,m){for(const z of Object.values(c.clock.weather.zones))Object.assign(z,{rain:m.rain,wet:m.wet});}
+export function freightFixture(mode=modes[1]){const a=new Campaign(),id='G-013',p=a.clock.divisionLedger,u=p.units[id],model='infantry_equipment_1';u.held[model]-=1;p.nations[u.side].stock[model]++;controlled(a,mode);refreshNetwork(a);return {a,id,p,u,model};}
+export function freightOptions(a,id,tick,rates){const e=a.econ.modern,p=a.clock.divisionLedger,cfg=e.balanceConfig;return {tick,destination:JSON.stringify(a.state.units[id].hex),network:e.net[p.units[id].side],weather:a.clock.weather,rails:e.rails,cargo:{train:0,edges:{},hubs:{},sources:{}},trainCapacity:p.nations[p.units[id].side].stock.TRAIN*cfg.trainWork,sourceCapacity:cfg.sourceFlow,railCapacity:cfg.railFlow,policy:Campaign.freightPolicy,rates:{personnel:0,...Object.fromEntries(Object.keys(p.units[id].held).map(k=>[k,0])),...rates}};}

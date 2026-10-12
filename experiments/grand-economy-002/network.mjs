@@ -20,10 +20,10 @@ export function planNetwork(view,e,side,nodes,clock,placements){const cfg=e.bala
  let trucks=e.nations[side].stock[e.transportTruckModel??'TRUCK'],truckNeed=0;
  const hubRows=hubs.map(h=>{
   const choices=sources.map(s=>paths.get(s.id)?.get(h.hex)).filter(Boolean).sort((a,b)=>b.cap-a.cap||a.path.length-b.path.length||a.source.localeCompare(b.source));
-  const route=choices[0]??null,need=h.motor*cfg.truckPerHub;truckNeed+=need;const allocated=Math.min(need,trucks);trucks-=allocated;const range=cfg.footRange+(cfg.motorRange-cfg.footRange)*(need?allocated/need:0),reach=new Map(),queue=[{at:h.hex,cost:0}];
-  while(queue.length){queue.sort((a,b)=>a.cost-b.cost||a.at.localeCompare(b.at));const x=queue.shift();if(reach.has(x.at)||x.cost>range)continue;reach.set(x.at,x.cost);expanded++;if(reach.size>1280)break;
-   for(const n of getNeighbors(cells.get(x.at).coord)){const k=key(n),ed=edges.get(edgeKey(cells.get(x.at).coord,n));if(!allowed(k)||ed?.bridge?.destroyed||ed?.river==='MAJOR'&&!ed.bridge||reach.has(k))continue;const terrain=cells.get(k).terrain,cost=ed?.road?.6:terrain==='FOREST'?1.5:terrain==='MOUNTAIN'?2:terrain==='MARSH'?2:1;queue.push({at:k,cost:x.cost+cost});}}
-  return {...h,route,routes:choices,range,trucks:allocated,truckNeed:need,reach,used:0,capacity:route?cfg.hubFlow*h.level:0};
+  const route=choices[0]??null,need=h.motor*cfg.truckPerHub;truckNeed+=need;const allocated=Math.min(need,trucks);trucks-=allocated;const range=cfg.footRange+(cfg.motorRange-cfg.footRange)*(need?allocated/need:0),reach=new Map(),deliveryPaths={},queue=[{at:h.hex,cost:0,path:[]}];
+  while(queue.length){queue.sort((a,b)=>a.cost-b.cost||a.at.localeCompare(b.at));const x=queue.shift();if(reach.has(x.at)||x.cost>range)continue;reach.set(x.at,x.cost);if(clock.weather)deliveryPaths[x.at]=x.path;expanded++;if(reach.size>1280)break;
+   for(const n of getNeighbors(cells.get(x.at).coord)){const k=key(n),ed=edges.get(edgeKey(cells.get(x.at).coord,n));if(!allowed(k)||ed?.bridge?.destroyed||ed?.river==='MAJOR'&&!ed.bridge||reach.has(k))continue;const terrain=cells.get(k).terrain,cost=ed?.road?.6:terrain==='FOREST'?1.5:terrain==='MOUNTAIN'?2:terrain==='MARSH'?2:1;queue.push({at:k,cost:x.cost+cost,path:clock.weather?[...x.path,{hex:k,road:!!ed?.road,cost}]:[]});}}
+  return {...h,route,routes:choices,range,trucks:allocated,truckNeed:need,reach,...(clock.weather?{deliveryPaths}:{}),used:0,capacity:route?cfg.hubFlow*h.level:0};
  });
  const reserved=e.cargoHour?.hour===Math.floor(clock.tick/cfg.networkTicks)?e.cargoHour.sides[side]:null;
  const nation=e.nations[side],edgeUsed={},sourceUsed={},hubUsed={},localUsed={},rows={},shipments=[];

@@ -1,3 +1,4 @@
+import {unitWeather} from './weather.js';
 import {provincePanel,bindProvince} from './provinces.js';
 import {hoiTop,hoiRoster,hoiCommanders} from './hoiLayout.js';
 import {selectionTools,bindSelection} from './multiCommand.js';
@@ -35,7 +36,7 @@ export function commandDock(p:GrandPort,id:string|null,extra:string){const d=p.d
  if(mode==='division'){title='师编制设计';body=divisionPanel(p,id);}
  if(mode==='war'){title='战争概览';body=warPanel(p);}
  if(mode==='army'){title=group.name;body=planPanel(p)+`<details><summary>部队与补给 · ${commandedMembers(c,group).length}队</summary>${corpsLogistics(p,commandedMembers(c,group))}${campaignOrders(p,id,false)}</details>`;}
- if(mode==='unit'){title='部队指挥';body=stackPanel(p)+(id?campaignUnit(p,id)+combinedUnit(p,id)+(d.modern?modernUnit(p,id):recoveryPanel(p,id))+`<button data-ui-locate-unit="${esc(id)}">定位所选部队</button>`:'<p>点击地图部队，查看状态并下令。</p>');}
+ if(mode==='unit'){title='部队指挥';body=stackPanel(p)+(id?campaignUnit(p,id)+unitWeather(c.units[id]?.weather)+combinedUnit(p,id)+(d.modern?modernUnit(p,id):recoveryPanel(p,id))+`<button data-ui-locate-unit="${esc(id)}">定位所选部队</button>`:'<p>点击地图部队，查看状态并下令。</p>');}
  if(mode==='direct'){title='全部部队 · '+direct.length+'队';body='<p>点击任意己方部队直接下令，保留原军团归属。</p>'+direct.map((id:string)=>`<button class="ui-unit-choice" data-ui-unit="${esc(id)}">${esc(id)} · ${esc(ownStatus(p,id)?.action)}<small>${ownStatus(p,id)?.low?'低组织 · ':''}${esc(gearSummary(ownStatus(p,id)))}</small></button>`).join('');}
  if(mode==='battle'||mode==='tools'){title=mode==='battle'?'战斗指挥':'战线与图层';body=mapPanel(p,id)+(mode==='tools'?`<div hidden>${campaignOrders(p,id,false)}</div>`:'');}
  if(mode==='city'){title='城市管理';body=cityMarkup(p);}

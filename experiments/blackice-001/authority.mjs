@@ -39,7 +39,7 @@ export class Campaign extends Previous{
  advance(){
   const works=this.clock.divisionLedger.balance.works??={};
   for(const[id,v]of Object.entries(this.clock.units)){const hex=JSON.stringify(this.state.units[id].hex),old=works[id];if(!old||old.hex!==hex||v.march||this.clock.tactical?.withdrawals?.[id])works[id]={hex,ticks:0};else if(!v.engaged)old.ticks=Math.min(288,old.ticks+1);}
-  for(const[id,w]of Object.entries(this.clock.tactical?.withdrawals??{})){if(w.blockedSignature)continue;const speed=this.capability(id).physicalSpeed;w.acceptedPhysicalSpeed??=speed;const ratio=w.acceptedPhysicalSpeed>0?Math.min(1,speed/w.acceptedPhysicalSpeed):0;w.remaining+=1-ratio;}
+  for(const[id,w]of Object.entries(this.clock.tactical?.withdrawals??{})){if(w.blockedSignature)continue;const speed=this.capability(id).physicalSpeed;w.acceptedPhysicalSpeed??=speed;const ratio=w.acceptedPhysicalSpeed>0?Math.min(1,speed/w.acceptedPhysicalSpeed):0;w.remaining+=1-ratio*(this.groundMarchRate?.(id,w)??1);}
   super.advance();
   for(const[id,v]of Object.entries(this.clock.units))if(v.march&&!v.engaged){v.org=Math.max(0,v.org-.1);this.clock.divisionLedger.units[id].org=v.org/100*this.divisionAttributes(id).paper.orgMax;}
  }
