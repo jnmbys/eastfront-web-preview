@@ -1,3 +1,4 @@
+import {paintForts} from './forts.js';
 import {paintProvinces} from './provinces.js';
 import {bindOnce} from '../ui/bindOnce.js';
 import {paintNationalGeography} from './nationalGeography.js';
@@ -58,7 +59,7 @@ export function paintBattleMap(p:GrandPort,point:(h:any)=>{x:number;y:number},re
  if(region.getAttribute('data-control-signature')!==signature){const data=controlRegions(view);region.setAttribute('data-control-signature',signature);const keys=new Set<string>();for(const [side,d]of Object.entries(data.fills)){keys.add(side);const el=keyed(region,side,'path');attr(el,'d',d);attr(el,'fill',side===view.viewer?'#28677a':side==='NEUTRAL'?'#a49e84':'#a94739');attr(el,'opacity','.20');}clean(region,keys);
   const wanted=new Set(Object.keys(data.edges));for(const[k,v]of Object.entries(data.edges)){const el=keyed(bounds,k,'path');attr(el,'d',v.d);attr(el,'stroke',v.unknown?'#7c8989':'#cedad4');attr(el,'stroke-width',v.unknown?'1.2':'3');attr(el,'stroke-dasharray',v.unknown?'2 5':'none');attr(el,'fill','none');}clean(bounds,wanted);
  }
- paintNationalGeography(p);paintProvinces(p,refresh,canInspect);
+ paintForts(p,refresh,canInspect);paintNationalGeography(p);paintProvinces(p,refresh,canInspect);
  const group=c.corps.find((g:any)=>g.id===(p.selections['campaign-group']??c.corps[0].id));const front=p.selections['map-emphasis']==='group'?(group.order.front??[]):[];const frontColor=['#8fb9c9','#c6a58d','#b1b889'][c.corps.indexOf(group)%3]!;
  const slots=keyed(fronts,'slots');patch(slots,front.map((h:any)=>{const q=point(h);const post=m.fronts.find((f:any)=>f.id===group.id)?.posts?.find((s:any)=>hexKey(s.hex)===hexKey(h));const status=post?.status,label=status==='OCCUPIED'?'驻':status==='EN_ROUTE'?'途':status==='BLOCKED'?'阻':'缺',color=status==='OCCUPIED'?'#9dd1aa':status==='EN_ROUTE'?'#86b6dd':'#edb784';return `<g pointer-events="none"><circle cx="${q.x}" cy="${q.y}" r="16" fill="#172324" fill-opacity=".65" stroke="${color}" stroke-dasharray="${status==='OCCUPIED'?'none':'3 3'}" stroke-width="2"/><text x="${q.x}" y="${q.y+5}" text-anchor="middle" fill="${color}" font-size="14">${label}</text></g>`;}).join(''));
  const plan=keyed(fronts,'plan','path');attr(plan,'d',frontPath(front,point));attr(plan,'stroke',frontColor);attr(plan,'stroke-width','6');attr(plan,'stroke-dasharray','10 7');attr(plan,'fill','none');

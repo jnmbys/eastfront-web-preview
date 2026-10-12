@@ -1,0 +1,42 @@
+{
+  "readDate": "2026-10-12",
+  "bice": "12.3.0 / HOI4 1.19.2.0",
+  "refs": [
+    {
+      "file": "common/buildings/00_buildings.txt",
+      "commit": "649a5410d9ea527a4f1618b58060f7cb9033f781",
+      "sha256": "ed0c85c99d7a71abcc524c210295f9d24272c60a1276148d0fce91a406456aeb",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/buildings/00_buildings.txt"
+    },
+    {
+      "file": "common/defines/00_defines.lua",
+      "commit": "649a5410d9ea527a4f1618b58060f7cb9033f781",
+      "sha256": "fba625d721e5df5bdbf7dc0882366a8493ca335dff38c4b3a5c285728c6263e4",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/defines/00_defines.lua"
+    },
+    {
+      "file": "common/units/engineer.txt",
+      "commit": "649a5410d9ea527a4f1618b58060f7cb9033f781",
+      "sha256": "b90c9536759869657a65b4420b4e251257f0f871dfc75cf472d0ffa420d1fe82",
+      "url": "https://gitlab.com/BlackIce-HOI4/blackice_v4.0/-/blob/649a5410d9ea527a4f1618b58060f7cb9033f781/common/units/engineer.txt"
+    }
+  ],
+  "baseComparison": "User local HOI4 1.19.3, read only; no game launched",
+  "wiki": "https://hoi4.paradoxwikis.com/Land_battle returned 401, search summaries not used as rule evidence",
+  "values": {
+    "bice": {
+      "base": 4500,
+      "extra": 2500,
+      "cap": 12,
+      "penalty": -0.12,
+      "engineerDefense": 0.07
+    },
+    "base": {
+      "base": 500,
+      "extra": 500,
+      "cap": 10,
+      "penalty": -0.15
+    }
+  },
+  "adaptation": "Project scale 2100/10800; extra direction reduces one level to minimum1, penalty cap90%; actual equipped engineer defense added to temporary works; no bombardment/damage"
+}

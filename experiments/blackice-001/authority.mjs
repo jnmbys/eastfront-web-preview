@@ -47,6 +47,7 @@ export class Campaign extends Previous{
   const stats={};for(const id of new Set(battles.flatMap(b=>b.units))){const a=structuredClone(this.divisionAttributes(id)),s=this.clock.units[id].dailySupply?.effective??1;for(const k of ['softAttack','hardAttack','defense','breakthrough'])a.effective[k]*=.3+.7*s;stats[id]=a;}
   const result=resolve({contacts:battles,units:this.state.units,stats,random:()=>this.random(),tick:this.clock.tick,
    ground:(target,source)=>{const a=this.state.units[source].hex,b=this.state.units[target].hex;return {terrain:this.state.hexes[b.q+','+b.r]?.terrain,river:this.state.edges[canonicalEdgeKey(a,b)]?.river};},
+   fixedFortification:this.fixedFortification?.bind(this),
    fortification:id=>Math.min(1,(this.state.units[id].entrenched?(this.clock.divisionLedger.balance.works?.[id]?.ticks??0):0)/288)*(.1+.05*(stats[id].components.find(c=>c.id==='ENGINEER')?.satisfaction??0))});
   for(const id of result.participating){this.clock.units[id].engaged++;this.spend(id,this.simRules.combatQ);}
   for(const[id,hp]of Object.entries(result.damage))damage[id]=hp/Math.max(1,stats[id].paper.hp)*this.clock.units[id].max;
