@@ -1,0 +1,176 @@
+{
+  "checks": [
+    "cap reserved; reverse order cannot build later levels in parallel",
+    "partial capture stops; recapture resumes; cancellation releases successor without upgrade; idempotent",
+    {
+      "componentCompletionSteps": 5600,
+      "cost": 1166.6666666666667,
+      "normalCapacity": 2,
+      "notNaturalCampaign": true
+    },
+    {
+      "factoryWorkBefore": 72,
+      "after": 84
+    },
+    "in-flight segment levels/work survive save, unaffected by subsequent upgrade"
+  ],
+  "transport": [
+    {
+      "level": 1,
+      "wet": false,
+      "blocked": false,
+      "arrival": 138,
+      "work": {
+        "lastTick": 0,
+        "phase": 0,
+        "segments": [
+          {
+            "remaining": 111,
+            "kind": "RAIL"
+          },
+          {
+            "hex": "21,5",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 1,
+            "remaining": 13.090909090909088
+          },
+          {
+            "hex": "21,4",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 1,
+            "remaining": 13.090909090909088
+          }
+        ]
+      }
+    },
+    {
+      "level": 1,
+      "wet": false,
+      "blocked": true,
+      "arrival": null,
+      "work": null
+    },
+    {
+      "level": 1,
+      "wet": true,
+      "blocked": false,
+      "arrival": 147,
+      "work": {
+        "lastTick": 0,
+        "phase": 0,
+        "segments": [
+          {
+            "remaining": 111,
+            "kind": "RAIL"
+          },
+          {
+            "hex": "21,5",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 1,
+            "remaining": 13.090909090909088
+          },
+          {
+            "hex": "21,4",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 1,
+            "remaining": 13.090909090909088
+          }
+        ]
+      }
+    },
+    {
+      "level": 1,
+      "wet": true,
+      "blocked": true,
+      "arrival": null,
+      "work": null
+    },
+    {
+      "level": 2,
+      "wet": false,
+      "blocked": false,
+      "arrival": 135,
+      "work": {
+        "lastTick": 0,
+        "phase": 0,
+        "segments": [
+          {
+            "remaining": 111,
+            "kind": "RAIL"
+          },
+          {
+            "hex": "21,5",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 2,
+            "remaining": 12
+          },
+          {
+            "hex": "21,4",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 2,
+            "remaining": 12
+          }
+        ]
+      }
+    },
+    {
+      "level": 2,
+      "wet": false,
+      "blocked": true,
+      "arrival": null,
+      "work": null
+    },
+    {
+      "level": 2,
+      "wet": true,
+      "blocked": false,
+      "arrival": 144,
+      "work": {
+        "lastTick": 0,
+        "phase": 0,
+        "segments": [
+          {
+            "remaining": 111,
+            "kind": "RAIL"
+          },
+          {
+            "hex": "21,5",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 2,
+            "remaining": 12
+          },
+          {
+            "hex": "21,4",
+            "road": true,
+            "cost": 0.6,
+            "kind": "GROUND",
+            "infrastructureLevel": 2,
+            "remaining": 12
+          }
+        ]
+      }
+    },
+    {
+      "level": 2,
+      "wet": true,
+      "blocked": true,
+      "arrival": null,
+      "work": null
+    }
+  ],
+  "passed": true
+}

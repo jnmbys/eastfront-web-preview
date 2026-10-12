@@ -28,7 +28,7 @@ export function transport(s,id,options){
   // 15min loading; rail 30km/h; terrain/road-weighted last mile, motor 10km/h or foot 5km/h.
   const lastCost=hub?.deliveryCosts?.[`${dest.q},${dest.r}`]??last;
   const duration=Math.max(3,Math.ceil(3+route.path.length*4+lastCost*(hub?.trucks>0?12:24)));
-  kept.push({unit:id,side:u.side,model,quantity,route:structuredClone(route),destination:options.destination,dispatched:options.tick,arrival:options.tick+duration,...(options.weather?{weatherWork:makeWork(options.tick,route,hub,`${dest.q},${dest.r}`,lastCost)}:{})});
+  kept.push({unit:id,side:u.side,model,quantity,route:structuredClone(route),destination:options.destination,dispatched:options.tick,arrival:options.tick+duration,...(options.weather?{weatherWork:makeWork(options.tick,route,hub,`${dest.q},${dest.r}`,lastCost,options.infrastructure)}:{})});
   if(options.weather)progressWork(kept.at(-1),options.tick,options.weather);
  }
  return {...sent,personnel:arrived.personnel,equipment:arrived.equipment,inTransit:[...sent.inTransit,...kept.filter(x=>x.unit===id)],reason:kept.some(x=>x.unit===id)?'已扣库发运；装卸、铁路与末端运输尚未完成':sent.reason};

@@ -1,8 +1,8 @@
 import {groundFactor} from './weather.mjs';
 // Paid tonnage stays in existing escrow. Only the physical last-mile clock changes.
-export function makeWork(tick,route,hub,destination,lastCost){
+export function makeWork(tick,route,hub,destination,lastCost,infrastructure){
  const paths=hub?.deliveryPaths?.[destination];
- return {lastTick:tick,phase:0,segments:[{remaining:3+route.path.length*4,kind:'RAIL'},...(paths??[{hex:destination,road:false,cost:lastCost}]).map(x=>({...x,kind:'GROUND',remaining:x.cost*(hub?.trucks>0?12:24)}))]};
+ return {lastTick:tick,phase:0,segments:[{remaining:3+route.path.length*4,kind:'RAIL'},...(paths??[{hex:destination,road:false,cost:lastCost}]).map(x=>({...x,kind:'GROUND',...(infrastructure?{infrastructureLevel:infrastructure.levels[infrastructure.index[x.hex]]??0}:{}),remaining:x.cost*(hub?.trucks>0?12:24)/(1+.1*(infrastructure?.levels[infrastructure.index[x.hex]]??0))}))]};
 }
 export function progressWork(batch,tick,weather){const w=batch.weatherWork;if(!w||tick<w.lastTick)return;
  // Campaign advances one tick at a time; restoring never charges offline wall time.

@@ -12,6 +12,7 @@ export function commandIcon(kind:string){const paths:Record<string,string>={
  war:'m4 3 16 18M20 3 4 21m0-6 5 5m6 0 5-5',
  settings:'M3 6h18M3 12h18M3 18h18M8 3v6m8 0v6m-9 0v6',
  city:'M3 21V9h6v12m0 0V3h6v18m0 0V12h6v9M1 21h22',
+ province:'M3 20 8 4h8l5 16M9 20l2-5m1-4 1-4M3 13h18',
  map:'m2 6 6-3 8 3 6-3v16l-6 3-8-3-6 3Zm6-3v16m8-13v16'};
  return `<svg viewBox="0 0 24 24" aria-hidden="true" class="hoi-icon"><path d="${paths[kind]??paths.army}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
 }
