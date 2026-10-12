@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "checks": [
+    "accepted training, idempotent retry, paused tick does not change XP/cost",
+    "normal start + 576 real authority steps: training XP, readiness loss and real integer equipment loss",
+    "stop leaves HOLD; positive recovery benefit without national training XP",
+    "new direct command interrupts and preserves corps membership",
+    "foreign unit refusal is atomic",
+    "controlled cap stops automatically, no veteran-level exercise growth",
+    "low supply and equipment rejected",
+    "real combat resolver interrupts training and still computes damage",
+    "old saves refused; own task/debt/XP restored",
+    "training details only in own authorized unit view"
+  ],
+  "events": [
+    {
+      "label": "start",
+      "tick": 0,
+      "xp": 0,
+      "org": 100,
+      "held": {
+        "infantry_equipment_1": 125,
+        "support_equipment_1": 0,
+        "artillery_equipment_1": 12,
+        "motorized_equipment_1": 0,
+        "leichttraktor_lt0": 0,
+        "anti_tank_equipment_2": 0
+      },
+      "training": {
+        "ticks": 0,
+        "wear": {},
+        "lost": {},
+        "active": true,
+        "reason": "基础训练中",
+        "since": 0
+      }
+    },
+    {
+      "label": "48-real-game-hours",
+      "tick": 576,
+      "xp": 0.039936111111111235,
+      "org": 25,
+      "held": {
+        "infantry_equipment_1": 124,
+        "support_equipment_1": 0,
+        "artillery_equipment_1": 12,
+        "motorized_equipment_1": 0,
+        "leichttraktor_lt0": 0,
+        "anti_tank_equipment_2": 0
+      },
+      "training": {
+        "ticks": 576,
+        "wear": {
+          "infantry_equipment_1": 0.24800347222221247,
+          "artillery_equipment_1": 0.12000000000000108
+        },
+        "lost": {
+          "infantry_equipment_1": 1
+        },
+        "active": true,
+        "reason": "基础训练中",
+        "since": 0
+      }
+    },
+    {
+      "label": "stopped-and-recovering",
+      "tick": 577,
+      "xp": 0.039936111111111235,
+      "org": 25.25998402777778,
+      "held": {
+        "infantry_equipment_1": 124,
+        "support_equipment_1": 0,
+        "artillery_equipment_1": 12,
+        "motorized_equipment_1": 0,
+        "leichttraktor_lt0": 0,
+        "anti_tank_equipment_2": 0
+      },
+      "training": {
+        "ticks": 576,
+        "wear": {
+          "infantry_equipment_1": 0.24800347222221247,
+          "artillery_equipment_1": 0.12000000000000108
+        },
+        "lost": {
+          "infantry_equipment_1": 1
+        },
+        "active": false,
+        "reason": "玩家停止，驻守恢复组织",
+        "since": 576
+      }
+    }
+  ]
+}
