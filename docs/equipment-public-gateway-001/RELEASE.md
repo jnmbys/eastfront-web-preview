@@ -29,7 +29,7 @@ node experiments/equipment-public-gateway-001/server.mjs
 | `PUBLIC_ORIGIN` | 唯一完整HTTPS origin，如 `https://eastfront-grand-preview.onrender.com`，无尾斜线/路径/查询 |
 | `SAVE_DIR` | **保持原值**，历史为 `/var/data/grand-public-1`，执行前核实 |
 | `MP_SAVE_DIR` | 独立已存在目录，建议 `/var/data/grand-equipment-mp-001`；不能放在SAVE_DIR内部 |
-| `TRUST_PROXY_IPS` | 逗号分隔的可信直连代理IP精确清单；不得填通配符或客户端X-Forwarded-For。上线前依据实际平台接入确认，本轮未查询公网配置 |
+| `TRUST_PROXY_IPS` | 逗号分隔的可信直连代理IP精确清单；不得填通配符或客户端X-Forwarded-For。上线前依据实际平台接入确认；2026-10-12只读核对与缺项见N1-N4.md |
 | `REQUIRE_PERSISTENT_DISK` | 生产 `1` |
 | `PERSISTENT_MOUNT` | 当前部署方案 `/var/data`；须在Linux mountinfo中真实存在，两目录都在盘内 |
 | `RELEASE_SOURCE_SHA` | 最终完整提交，可选但建议固定 |
@@ -67,7 +67,7 @@ node experiments/equipment-public-gateway-001/backup.mjs restore /path/to/backup
 
 ## 发布与回退
 
-本轮未Push、未修改任何服务或代理配置，未部署。历史自动部署关闭只是旧记录，当前未查询；`[CF-Pages-Skip]`不能保证Render不部署。用户最终批准后才核对当前Live SHA、实际目录、挂载空间、代理IP、Build/Start和触发方式，并手动部署固定SHA；不apply旧0.5核yaml，不增加服务/费用。
+本轮未Push、未修改任何服务或代理配置，未部署。2026-10-12只读查询确认当前自动部署关闭、旧发布命令仍在，详情见N1-N4.md；`[CF-Pages-Skip]`不能保证Render不部署。用户最终批准后才核对当前Live SHA、实际目录、挂载空间、代理IP、Build/Start和触发方式，并手动部署固定SHA；不apply旧0.5核yaml，不增加服务/费用。
 
 回退优先维护停写、保存当前新房间并校验备份，然后恢复旧公网源码及原启动方式、保持原SAVE_DIR。MP_SAVE_DIR完整保留，不交给旧引擎，不用旧备份覆盖玩家最新进度；需要重新开放新模式时使用本批兼容引擎。旧单人身份仍由原签名密钥识别。
 
@@ -76,3 +76,7 @@ node experiments/equipment-public-gateway-001/backup.mjs restore /path/to/backup
 两台远程设备独立身份创建/加入同房，各自下令；第三身份拒绝，苏军可暂停不可继续，断线自动暂停并回原席。两端保存后记录房间及队列/在途摘要，**Restart service**，恢复原双方且默认暂停、再次保存；验证三类旧战役继续读取原进度。检查Linux持久盘写入、停机保存、TLS/WSS与实际代理行为。公网性能、物理屏幕呈现、平板真机不因本机协议通过而通过。
 
 本地审阅入口：`node experiments/equipment-public-gateway-001/preview.mjs`（默认4302，仅回环；端口占用用PREVIEW_PORT指定空闲端口，不停止他人服务）。临时目录位置写入系统临时目录中的 `equipment-public-gateway-preview.json`；在其dir下写入stop文件可安全关闭。`RESTORE=1`重启同一临时局。此便捷入口不进入生产配置。
+
+## N1/N4收口补充
+
+干净检出须先执行上面的npm ci与build，再启动；构建入口已避免提前加载生成依赖。锁包含唯一owner及文件身份，清理只释放仍属于本次的锁；缺失/替换不阻止其他关闭操作，不自动抢占遗留锁。新增验证、实际托管只读结果与代理/Linux缺项见 [N1-N4.md](N1-N4.md)。4302仍保留原运行版本，不代表本次最终源码。N2/N3不扩展修改。
