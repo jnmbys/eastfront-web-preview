@@ -1,3 +1,4 @@
+import {completedConstruction} from './constructionAssets.js';
 import type {GrandPort} from './grand.js';
 import {hexToPixel,hexPolygon,pointString} from '../geometry/hex.js';
 import {building} from '../render/cityArt.js';
@@ -25,7 +26,7 @@ export function paintIndustry(p:GrandPort,refresh:()=>void,canInspect:()=>boolea
  const draw=()=>{const started=performance.now(),ctm=svg.getScreenCTM();if(!ctm)return;const scale=Math.hypot(ctm.a,ctm.b),px=1/scale,m=p.data.modern,supply=!!p.selections['modern-overlay'],parts=new Map<string,string>(),rect=(document.querySelector('#map-wrap')??svg).getBoundingClientRect();
  const visible=(a:{x:number,y:number},margin=90)=>{const x=a.x*ctm.a+a.y*ctm.c+ctm.e,y=a.x*ctm.b+a.y*ctm.d+ctm.f;return x>Math.max(0,rect.left)-margin&&x<Math.min(innerWidth,rect.right)+margin&&y>Math.max(0,rect.top)-margin&&y<Math.min(innerHeight,rect.bottom)+margin;};
  const clickable=(type:string,id:string,label:string,html:string)=>`<g data-logistics-object="${type}:${esc(id)}" tabindex="0" role="button" aria-label="${esc(label)}" style="pointer-events:${canInspect()&&!p.selections['build-pick']?'visiblePainted':'none'}"><title>${esc(label)}</title>${html}</g>`;
- const built=new Set(m.queue.filter((q:any)=>q.kind==='NEW_RAIL'&&q.status==='DONE').flatMap((q:any)=>q.segments.map((s:any)=>s.id)));
+ const built=new Set(completedConstruction(m.queue).filter((q:any)=>q.kind==='NEW_RAIL').flatMap((q:any)=>q.segments.map((s:any)=>s.id)));
  for(const r of m.rails){const a=pos(r.a),b=pos(r.b);if(!visible(a)&&!visible(b))continue;const used=m.logisticsObjects?.['RAIL:'+r.id]?.used??m.network.edges[r.id]??0,cap=12*r.level,alert=r.damage||used>=cap-.001,chosen=p.selections['logistics-object']==='RAIL:'+r.id;
   let art='';if(built.has(r.id)){const length=Math.hypot(a.x-b.x,a.y-b.y),angle=Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI;art=`<g transform="translate(${a.x} ${a.y}) rotate(${angle})" stroke="#625c4d"><path d="M0 0H${length}" stroke-width="4" stroke-dasharray="1 3"/><path d="M0 -1.4H${length}M0 1.4H${length}" stroke-width=".7"/></g>`;}
   if(supply||chosen){const color=r.damage?'#c77057':alert?'#cfaa68':'#82aaa8';art+=clickable('RAIL',r.id,`铁路 ${r.a} 至 ${r.b} · ${r.damage?'损坏':alert?'满载':'可用'}`,`<circle cx="${(a.x+b.x)/2}" cy="${(a.y+b.y)/2}" r="${5*px}" fill="transparent"/><path d="M${a.x} ${a.y}L${b.x} ${b.y}" fill="none" stroke="#172b2d" stroke-width="${7*px}" opacity=".7"/><path d="M${a.x} ${a.y}L${b.x} ${b.y}" fill="none" stroke="${color}" stroke-width="${(chosen?4:2.5)*px}" ${r.damage?`stroke-dasharray="${5*px} ${5*px}"`:''}/>`);}

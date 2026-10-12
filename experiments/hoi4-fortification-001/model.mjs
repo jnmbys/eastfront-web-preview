@@ -5,7 +5,7 @@ export const cost=level=>config.base+config.extra*level;
 export function legal(c,k,side){const h=c.state.hexes[k];return !!h&&h.control===side&&!['LAKE'].includes(h.terrain);}
 export function blocked(c,q){if(q.kind!=='FORT')return '';if(!legal(c,q.hex,q.side))return '失守停工';return c.econ.modern.queue.some(x=>x.kind==='FORT'&&x.hex===q.hex&&x.status!=='DONE'&&x.serial<q.serial)?'等待前级工程':'';}
 // Re-price only unstarted successors after cancellation/capture; invested work is never refunded.
-export function syncCosts(c){if(!c.clock.forts)return;const next={...c.clock.forts.levels};for(const q of c.econ.modern.queue.filter(q=>q.kind==='FORT'&&q.status!=='DONE').sort((a,b)=>a.serial-b.serial)){const level=next[q.hex]??0;if(!q.progress)q.cost=cost(level);q.levelFrom=level;next[q.hex]=level+1;}}
+export function syncCosts(c){if(!c.clock.forts||c.clock.constructionOccupation)return;const next={...c.clock.forts.levels};for(const q of c.econ.modern.queue.filter(q=>q.kind==='FORT'&&q.status!=='DONE').sort((a,b)=>a.serial-b.serial)){const level=next[q.hex]??0;if(!q.progress)q.cost=cost(level);q.levelFrom=level;next[q.hex]=level+1;}}
 export function finish(c,q){const f=c.clock.forts;f.levels[q.hex]=Math.min(config.cap,(f.levels[q.hex]??0)+1);}
 // Accepted, width-admitted contacts only. A unit does not gain fort protection while attacking.
 export function effect(c,target,source,pairs){const d=c.state.units[target],a=c.state.units[source],hex=key(d.hex),level=c.clock.forts?.levels[hex]??0;

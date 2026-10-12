@@ -1,3 +1,4 @@
+import {reconcile as reconcileOccupation} from '../construction-occupation-r1/model.mjs';
 import {finish as finishFort,syncCosts} from '../hoi4-fortification-001/model.mjs';
 import {finish as finishInfrastructure} from '../hoi4-infrastructure-001/model.mjs';
 import {allocation,sortQueue} from '../hoi4-construction-001/construction.mjs';
@@ -51,7 +52,7 @@ export function production(c,settle=true){const cfg=c.econ.modern.balanceConfig?
   }
  }
 }
-export function construction(c){syncCosts(c);const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
+export function construction(c){reconcileOccupation(c);syncCosts(c);const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
  for(const side of sides){let work=Object.values(e.facilities).filter(f=>f.kind==='CIV'&&available(c,f,side)).reduce((n,f)=>n+cfg.civilWorkDay*(1-f.damage)/cfg.ticksPerDay,0);
   const plan=e.civilianQueue?allocation(c,side):null;
   for(const q of e.queue.filter(q=>q.side===side&&q.status!=='DONE').sort(plan?sortQueue:(a,b)=>a.priority-b.priority||a.serial-b.serial)){
