@@ -1,6 +1,6 @@
 import {demands} from './demand.mjs';
 import {cfg as defaultCfg,products as defaultProducts} from './config.mjs';
-import {setLine} from './economy.mjs';
+import {setLine,available} from './economy.mjs';
 import {preview} from './planning.mjs';
 import {hexKey as key,hexDistance} from '../../vendor/eastfront-digital-core/dist/index.js';
 // Same manager can run for either side. Only caller's authorized view and own economy.
@@ -9,7 +9,7 @@ export function manage(c,view,side){const cfg=c.econ.modern.balanceConfig??defau
  for(const k of Object.keys(products))m.shortages[k]=need[k].net>1e-9?((m.shortages[k]??0)+1):0;
  const record=(kind,target,reason)=>{const x={tick:c.clock.tick,side,kind,target,reason};m.actions.push(x);m.actions=m.actions.slice(-24);e.ledger.push({kind:'AI_LOGISTICS',...x});};
  if(c.clock.tick-m.lastProduct>=288){const product=Object.keys(products).filter(k=>m.shortages[k]>=2).sort((a,b)=>{if(e.transportTruckModel){const fuel=k=>k==='FUEL'&&need[k].formation>0&&need[k].stock<1?1:0,unserved=k=>Object.values(e.lines).some(l=>l.side===side&&l.product===k&&l.factories.length)?0:1;const p=fuel(b)-fuel(a)||unserved(b)-unserved(a);if(p)return p;}return need[b].net*products[b].cost-need[a].net*products[a].cost||a.localeCompare(b);})[0],lines=Object.values(e.lines).filter(l=>l.side===side),target=lines.find(l=>l.product===product),donor=lines.filter(l=>l!==target&&l.factories.length).sort((a,b)=>need[a.product].net-need[b.product].net||a.id.localeCompare(b.id))[0];
-  if(target&&donor){const f=donor.factories.find(id=>own(e.facilities[id].hex)&&!e.facilities[id].damage);if(f){setLine(e,side,{line:target.id,product,priority:1,factories:[...target.factories,f]});donor.factories=donor.factories.filter(id=>id!==f);m.lastProduct=c.clock.tick;record('PRODUCTION',product,`连续两次净缺额${need[product].net.toFixed(2)}（运输${need[product].transport.toFixed(2)}＋补装${need[product].formation.toFixed(2)}－国家库存${need[product].stock.toFixed(2)}）；每天最多调拨一厂`);}}
+  if(target&&donor){const f=donor.factories.find(id=>own(e.facilities[id].hex)&&!e.facilities[id].damage&&available(c,e.facilities[id],side));if(f){setLine(e,side,{line:target.id,product,priority:1,factories:[...target.factories,f]});donor.factories=donor.factories.filter(id=>id!==f);m.lastProduct=c.clock.tick;record('PRODUCTION',product,`连续两次净缺额${need[product].net.toFixed(2)}（运输${need[product].transport.toFixed(2)}＋补装${need[product].formation.toFixed(2)}－国家库存${need[product].stock.toFixed(2)}）；每天最多调拨一厂`);}}
  }
  if(c.clock.tick-m.lastProject>=72&&e.queue.filter(q=>q.side===side&&q.status!=='DONE').length<3){let op=null;
   const damaged=Object.values(e.rails).filter(r=>r.damage&&view.edges.some(x=>x.key===r.id&&own(key(x.a))&&own(key(x.b)))).sort((a,b)=>a.id.localeCompare(b.id));

@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "controlled construction component; actual costs/work; no instant finish",
+  "results": [
+    {
+      "kind": "CIV",
+      "steps": 9600,
+      "cost": 1000,
+      "finish": "MIL",
+      "samePermanentFactory": true
+    },
+    {
+      "kind": "MIL",
+      "steps": 8400,
+      "cost": 1750,
+      "finish": "CIV",
+      "samePermanentFactory": true
+    }
+  ],
+  "checks": [
+    "duplicates",
+    "cancel keeps damage and line progress",
+    "zero civilians",
+    "cannot self-build",
+    "damage pause/resume",
+    "hidden queue indistinguishable",
+    "occupier conversion then recapture invalidates",
+    "repeated capture",
+    "old save rejected"
+  ]
+}

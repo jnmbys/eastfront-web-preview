@@ -1,0 +1,5 @@
+import {construction} from '../grand-economy-002/economy.mjs';
+import fs from 'node:fs';import path from 'node:path';import {releaseServer} from '../grand-release-001/server.mjs';import {Campaign} from './authority.mjs';
+const existing=fs.existsSync(path.join(process.env.SAVE_DIR,'campaign.json')),s=await releaseServer({port:0,local:true,origin:'http://127.0.0.1:4299',saveDir:process.env.SAVE_DIR,CampaignClass:Campaign,autoTick:false,cookiePrefix:'construction_restart_'});
+if(!existing){const c=s.adapter.c,f=Object.values(c.econ.modern.facilities).find(f=>f.kind==='MIL'&&c.state.hexes[f.hex].control==='GERMAN');c.transaction({id:'restart-convert-fixed',version:c.version,operation:{type:'ECON_BUILD',kind:'CONVERT',target:f.id,to:'CIV'}});await s.adapter.saveFileNow();}
+process.send({ready:true,pid:process.pid});process.on('message',async m=>{try{if(m.type==='steps'){for(let i=0;i<m.count;i++)s.adapter.c.advance();await s.adapter.saveFileNow();process.send({done:true});}else if(m.type==='state')process.send({state:s.adapter.c.save()});else if(m.type==='stop'){await s.close();process.exit(0);}}catch(e){process.send({error:e.message});}});

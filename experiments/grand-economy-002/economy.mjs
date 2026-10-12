@@ -1,3 +1,4 @@
+import {locked as conversionLocked,reconcile as reconcileConversion,begin as beginConversion,finish as finishConversion} from '../hoi4-factory-conversion-001/model.mjs';
 import {reconcile as reconcileOccupation} from '../construction-occupation-r1/model.mjs';
 import {finish as finishFort,syncCosts} from '../hoi4-fortification-001/model.mjs';
 import {finish as finishInfrastructure} from '../hoi4-infrastructure-001/model.mjs';
@@ -31,7 +32,7 @@ export function initialize(c){
  for(const side of sides)e.initial[side]={stock:copy(e.nations[side].stock),personnel:cfg.manpower,held:Object.fromEntries(Object.keys(products).map(k=>[k,Object.values(c.state.units).filter(u=>u.side===side).reduce((n,u)=>n+(c.econ.gear.units[u.id].held[k]??0),0)]))};
  production(c,false);refreshNetwork(c);
 }
-export function available(c,f,side){return c.state.hexes[f.hex]?.control===side&&f.damage<1;}
+export function available(c,f,side){return c.state.hexes[f.hex]?.control===side&&f.damage<1&&!conversionLocked(c,f,side);}
 function timedNetwork(c,view,side){const start=performance.now(),e=c.econ.modern,r=planNetwork(view,e,side,c.nodes,c.clock,c.placements),ms=performance.now()-start;e.networkTiming??={calls:0,totalMs:0,maxMs:0,maxExpanded:0};const t=e.networkTiming;t.calls++;t.totalMs+=ms;t.maxMs=Math.max(t.maxMs,ms);t.maxExpanded=Math.max(t.maxExpanded,r.expanded);return r;}
 export function refreshNetwork(c){const e=c.econ.modern;for(const side of sides)e.net[side]={...timedNetwork(c,c.fair(side).view,side),tick:c.clock.tick};}
 export function setLine(e,side,op){const cfg=e.balanceConfig??defaultCfg;const products=e.modelProducts??defaultProducts;const l=e.lines[op.line];if(!l||l.side!==side||!products[op.product]||!Array.isArray(op.factories)||new Set(op.factories).size!==op.factories.length||!Number.isSafeInteger(op.priority)||op.priority<1||op.priority>9)throw Error('INVALID_PRODUCTION_LINE');
@@ -52,13 +53,15 @@ export function production(c,settle=true){const cfg=c.econ.modern.balanceConfig?
   }
  }
 }
-export function construction(c){reconcileOccupation(c);syncCosts(c);const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
+export function prepareConversion(c){if(!c.clock.factoryConversion)return;reconcileConversion(c);for(const side of sides)beginConversion(c,allocation(c,side));}
+export function construction(c){prepareConversion(c);reconcileOccupation(c);syncCosts(c);const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
  for(const side of sides){let work=Object.values(e.facilities).filter(f=>f.kind==='CIV'&&available(c,f,side)).reduce((n,f)=>n+cfg.civilWorkDay*(1-f.damage)/cfg.ticksPerDay,0);
   const plan=e.civilianQueue?allocation(c,side):null;
   for(const q of e.queue.filter(q=>q.side===side&&q.status!=='DONE').sort(plan?sortQueue:(a,b)=>a.priority-b.priority||a.serial-b.serial)){
    if(plan){const row=plan.rows.find(r=>r.id===q.id);work=row.rate/cfg.ticksPerDay;q.assigned=row.assigned;q.rate=row.rate;if(!work){q.status=row.reason==='失守停工'?'OCCUPIED':'QUEUED';continue;}}
    if(c.state.hexes[q.hex]?.control!==side||q.other&&c.state.hexes[q.other]?.control!==side||q.path?.some(k=>c.state.hexes[k]?.control!==side)){q.status='OCCUPIED';continue;}if(q.kind==='NEW_HUB'&&Object.values(e.hubs).some(h=>h.hex===q.hex)||q.kind==='NEW_RAIL'&&q.segments.every(r=>e.rails[r.id])){q.status='DONE';q.outcome='地点已有设施，未再生成或退还已用工时';continue;}q.status='BUILDING';const used=Math.min(work,q.cost-q.progress);q.progress+=used;work-=used;if(q.progress<q.cost-1e-8)continue;
-   if(q.kind==='FORT')finishFort(c,q);
+   if(q.kind==='CONVERT')finishConversion(c,q);
+   else if(q.kind==='FORT')finishFort(c,q);
    else if(q.kind==='INFRA')finishInfrastructure(c,q);
    else if(q.kind==='NEW_RAIL'){for(const r of q.segments){if(e.rails[r.id])continue;e.rails[r.id]={id:r.id,level:1,damage:0};const coord=s=>{const[q,r]=s.split(',').map(Number);return {q,r};},x=c.state.edges[r.id]??={key:r.id,a:coord(r.a),b:coord(r.b),road:false,river:null,bridge:null};x.railway={...(x.railway??{}),present:true,destroyed:false};e.owners[r.id]=side+'/'+side;}}
    else if(q.kind==='NEW_HUB'){const id='HUB:'+q.id;e.hubs[id]={id,hex:q.hex,label:'新枢纽 '+q.hex,level:1,motor:0};e.owners[id]=side;}
@@ -98,7 +101,7 @@ export function dailySupply(c){const cfg=c.econ.modern.balanceConfig??defaultCfg
 
  for(const u of Object.values(c.state.units).filter(u=>u.alive)){const v=c.clock.units[u.id],r=e.net[u.side].rows[u.id],ratio=r?.ratio??0;v.carriedHours=Math.max(0,Math.min(cfg.carriedHours,v.carriedHours+(ratio>=.99?.5:-(1-ratio))*5/60));const effective=cfg.supplyDayDivisor?ratio+(1-ratio)*v.carriedHours/cfg.carriedHours:Math.max(ratio,v.carriedHours>0?.65:0);v.dailySupply={...r,effective,carriedHours:v.carriedHours};c.econ.supply[u.id].stock=16*effective;c.econ.supply[u.id].debt=0;}
 }
-export function step(c){const e=c.econ.modern;if(e.settled>=c.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');production(c);construction(c);ownership(c);dailySupply(c);
+export function step(c){const e=c.econ.modern;if(e.settled>=c.clock.tick)throw Error('ECONOMY_TICK_ALREADY_SETTLED');prepareConversion(c);production(c);construction(c);ownership(c);dailySupply(c);
  reinforcement(c);e.settled=c.clock.tick;c.econ.epoch=Math.floor(c.clock.tick/cfg.networkTicks);c.state.turn=1+c.econ.epoch;
 }
 
