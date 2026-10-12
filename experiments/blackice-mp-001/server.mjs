@@ -13,7 +13,7 @@ const root=fileURLToPath(new URL('../../',import.meta.url)),digest=x=>createHash
 const validId=x=>typeof x==='string'&&/^[0-9a-f-]{36}$/.test(x);
 const reply=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
 async function body(req){let s='';for await(const c of req){s+=c;if(s.length>4096)throw Error('REQUEST_TOO_LARGE');}return JSON.parse(s||'{}');}
-export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDATA??root,'Eastfront','blackice-mp-001'),autoTick=true,visitorCookie='blackice_mp_visitor',CampaignClass=Campaign,roomVersion=ROOM_VERSION,lobbyFile=new URL('./lobby.html',import.meta.url)}={}){
+export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDATA??root,'Eastfront','blackice-mp-001'),autoTick=true,staticRoot=path.join(root,'.release-territory-preview'),visitorCookie='blackice_mp_visitor',CampaignClass=Campaign,roomVersion=ROOM_VERSION,lobbyFile=new URL('./lobby.html',import.meta.url)}={}){
  fs.mkdirSync(saveDir,{recursive:true});const keyFile=path.join(saveDir,'visitor-key');if(!fs.existsSync(keyFile))atomicWrite(keyFile,randomBytes(32));const key=fs.readFileSync(keyFile);
  const rooms=new Map(),loading=new Map(),source=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();let closing=false;
  const cookieName=visitorCookie,mac=x=>createHmac('sha256',key).update(x).digest('hex');
@@ -26,7 +26,7 @@ export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDAT
  async function open(id,initial){if(rooms.has(id))return rooms.get(id);if(loading.has(id))return loading.get(id);const job=(async()=>{
   if(!initial&&!savedRoom(id))throw Error('ROOM_UNAVAILABLE');
   const access={authorized:req=>authorized(req,id),async gate(req,res){if(!authorized(req,id)){reply(res,403,{error:'ROOM_ACCESS_DENIED'});return true;}return false;}};
-  const service=await startWire({port:0,host:'127.0.0.1',publicOrigin:origin(),autoTick,saveFile:file(id),CampaignClass,AdapterClass:RoomAdapter,release:true,staticRoot:path.join(root,'.release-territory-preview'),releaseProtocol:'GRAND-RELEASE-TERRITORY-1',cookiePrefix:'bmp_'+id.replaceAll('-','')+'_',access,
+  const service=await startWire({port:0,host:'127.0.0.1',publicOrigin:origin(),autoTick,saveFile:file(id),CampaignClass,AdapterClass:RoomAdapter,release:true,staticRoot,releaseProtocol:'GRAND-RELEASE-TERRITORY-1',cookiePrefix:'bmp_'+id.replaceAll('-','')+'_',access,
    router:async(req,res,a)=>{const url=new URL(req.url,origin());if(url.pathname==='/release/info'){reply(res,200,{instanceId:a.id,revision:a.revision,tick:a.c.clock.tick,paused:a.c.clock.paused,saved:a.persistence.savedAt,room:a.summary(membership(id,identity(req))),source});return true;}if(url.pathname==='/release/new'){reply(res,403,{error:'CREATE_SEPARATE_ROOM_FROM_LOBBY'});return true;}return false;}});
   if(initial){service.adapter.c.clock.room=initial;await service.adapter.saveFileNow();}
   rooms.set(id,service);return service;
@@ -56,12 +56,12 @@ export async function start({port=4277,saveDir=path.join(process.env.LOCALAPPDAT
   if(url.pathname==='/rooms'||url.pathname==='/'&&!url.searchParams.has('campaign')){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(fs.readFileSync(lobbyFile));}
   if(req.method==='GET'&&/\.(?:js|mjs|css|png|webp|jpg|svg|woff2|json)$/.test(url.pathname)){
    const transport={'/transport/client.mjs':'web/client.mjs','/transport/view.mjs':'view.mjs','/transport/stateCodec.mjs':'web/stateCodec.mjs','/sync.mjs':'sync.mjs'};
-   const base=transport[url.pathname]?path.join(root,'experiments/grand-play-mp022'):path.join(root,'.release-territory-preview'),target=path.resolve(base,transport[url.pathname]??'.'+decodeURIComponent(url.pathname));
+   const base=transport[url.pathname]?path.join(root,'experiments/grand-play-mp022'):staticRoot,target=path.resolve(base,transport[url.pathname]??'.'+decodeURIComponent(url.pathname));
    if(!target.startsWith(base+path.sep)||!fs.existsSync(target))return reply(res,404,{error:'NOT_FOUND'});
    res.writeHead(200,{'Content-Type':({'.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.woff2':'font/woff2'})[path.extname(target)],'Cache-Control':'no-store'});return res.end(fs.readFileSync(target));
   }
   const id=url.searchParams.get('campaign');if(!authorized(req,id))return reply(res,403,{error:'ROOM_ACCESS_DENIED'});const svc=await open(id);
-  if(url.pathname==='/'&&req.method==='GET'){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(fs.readFileSync(path.join(root,'.release-territory-preview/index.html'),'utf8').replace('<head>','<head><meta name="blackice-mp" content="1">'));}
+  if(url.pathname==='/'&&req.method==='GET'){res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});return res.end(fs.readFileSync(path.join(staticRoot,'index.html'),'utf8').replace('<head>','<head><meta name="blackice-mp" content="1">'));}
   if(url.pathname==='/room/start'&&req.method==='POST'){try{return reply(res,200,await svc.adapter.startRoom(identity(req)));}catch(e){return reply(res,409,{error:e.message});}}
   // Forward existing HTTP/WS transport unchanged; the outer signed visitor binding
   // is required in addition to the inner per-seat session cookie.

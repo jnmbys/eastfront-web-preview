@@ -1,0 +1,8 @@
+import fs from 'node:fs';import path from 'node:path';
+import {Campaign} from './authority.mjs';import {ArrowFixture} from './arrow-fixture.mjs';import {roomCampaign} from '../blackice-mp-001/authority.mjs';import {start} from '../blackice-mp-001/server.mjs';
+const fixture=process.env.ARROW_FIXTURE==='1',version=fixture?'HOI4-ARROWS-DIRECTED-1':'HOI4-MAP-PROVINCE-VISUAL-1';
+const index=path.resolve('.battle-arrow-preview/index.html');if(!fs.readFileSync(index,'utf8').includes('name="grand-release"'))fs.writeFileSync(index,fs.readFileSync(index,'utf8').replace('<head>','<head><meta name="grand-release" content="territory-1">'));
+const lobby=path.join(process.env.SAVE_DIR,'arrow-lobby.html');fs.mkdirSync(process.env.SAVE_DIR,{recursive:true});fs.writeFileSync(lobby,fs.readFileSync(new URL('../blackice-content-002/lobby.html',import.meta.url),'utf8').replace('EASTFRONT · 德苏编组差异',fixture?'EASTFRONT · 定向交火验证':'EASTFRONT · 战斗箭头候选').replace('1941年7月 · 有限战区实验',fixture?'定向初始部署；真实战斗结算；非自然战果':'1941年7月 · 正常新局'));
+const s=await start({port:Number(process.env.PORT??4287),saveDir:process.env.SAVE_DIR,staticRoot:path.resolve('.battle-arrow-preview'),CampaignClass:roomCampaign(fixture?ArrowFixture:Campaign,version),roomVersion:version,visitorCookie:'hoi_arrow_review',lobbyFile:lobby});
+console.log(JSON.stringify({ready:true,url:s.url,source:s.source,fixture,assets:'.battle-arrow-preview'}));
+let closing=false;const stop=async()=>{if(closing)return;closing=true;await s.close();process.exit(0);};process.on('message',m=>{if(m==='shutdown')void stop();});if(process.env.STOP_FILE)setInterval(()=>{if(fs.existsSync(process.env.STOP_FILE)){fs.unlinkSync(process.env.STOP_FILE);void stop();}},500).unref();
