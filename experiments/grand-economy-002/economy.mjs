@@ -1,3 +1,4 @@
+import {allocation,sortQueue} from '../hoi4-construction-001/construction.mjs';
 import {occupiedVehicles} from './demand.mjs';
 import {cfg as defaultCfg,products as defaultProducts,sides,VERSION} from './config.mjs';
 import {fairUnits} from './planning.mjs';
@@ -50,7 +51,9 @@ export function production(c,settle=true){const cfg=c.econ.modern.balanceConfig?
 }
 export function construction(c){const cfg=c.econ.modern.balanceConfig??defaultCfg;const e=c.econ.modern;
  for(const side of sides){let work=Object.values(e.facilities).filter(f=>f.kind==='CIV'&&available(c,f,side)).reduce((n,f)=>n+cfg.civilWorkDay*(1-f.damage)/cfg.ticksPerDay,0);
-  for(const q of e.queue.filter(q=>q.side===side&&q.status!=='DONE').sort((a,b)=>a.priority-b.priority||a.serial-b.serial)){
+  const plan=e.civilianQueue?allocation(c,side):null;
+  for(const q of e.queue.filter(q=>q.side===side&&q.status!=='DONE').sort(plan?sortQueue:(a,b)=>a.priority-b.priority||a.serial-b.serial)){
+   if(plan){const row=plan.rows.find(r=>r.id===q.id);work=row.rate/cfg.ticksPerDay;q.assigned=row.assigned;q.rate=row.rate;if(!work){q.status=row.reason==='失守停工'?'OCCUPIED':'QUEUED';continue;}}
    if(c.state.hexes[q.hex]?.control!==side||q.other&&c.state.hexes[q.other]?.control!==side||q.path?.some(k=>c.state.hexes[k]?.control!==side)){q.status='OCCUPIED';continue;}if(q.kind==='NEW_HUB'&&Object.values(e.hubs).some(h=>h.hex===q.hex)||q.kind==='NEW_RAIL'&&q.segments.every(r=>e.rails[r.id])){q.status='DONE';q.outcome='地点已有设施，未再生成或退还已用工时';continue;}q.status='BUILDING';const used=Math.min(work,q.cost-q.progress);q.progress+=used;work-=used;if(q.progress<q.cost-1e-8)continue;
    if(q.kind==='NEW_RAIL'){for(const r of q.segments){if(e.rails[r.id])continue;e.rails[r.id]={id:r.id,level:1,damage:0};const coord=s=>{const[q,r]=s.split(',').map(Number);return {q,r};},x=c.state.edges[r.id]??={key:r.id,a:coord(r.a),b:coord(r.b),road:false,river:null,bridge:null};x.railway={...(x.railway??{}),present:true,destroyed:false};e.owners[r.id]=side+'/'+side;}}
    else if(q.kind==='NEW_HUB'){const id='HUB:'+q.id;e.hubs[id]={id,hex:q.hex,label:'新枢纽 '+q.hex,level:1,motor:0};e.owners[id]=side;}
@@ -59,7 +62,7 @@ export function construction(c){const cfg=c.econ.modern.balanceConfig??defaultCf
    else if(q.kind==='REPAIR_FACTORY')e.facilities[q.target].damage=0;
    else if(q.kind==='HUB')e.hubs[q.target].level++;
    else {const id='FACTORY:'+q.id;e.facilities[id]={id,hex:q.hex,district:q.target,kind:q.kind,damage:0};e.owners[id]=side;const district=c.district(q.hex),w=Object.values(c.econ.warehouses).find(w=>w.node===q.hex);c.econ.ux.facilities[id]={id,hex:q.hex,district:district.id,warehouse:w?.id,side,status:'BUILT',economicKind:q.kind,slot:Object.values(e.facilities).filter(f=>f.district===district.id).length-1};}
-   q.status='DONE';e.ledger.push({kind:'BUILT',tick:c.clock.tick,side,project:q.id,type:q.kind,target:q.target});if(work<=0)break;
+   q.status='DONE';e.ledger.push({kind:'BUILT',tick:c.clock.tick,side,project:q.id,type:q.kind,target:q.target});if(work<=0&&!plan)break;
   }
  }
 }

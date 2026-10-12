@@ -270,7 +270,7 @@ function bindMapViewport():void{
   bindOnce("src/main.ts:40365",wrap,'wheel',(event)=>{const e=event as WheelEvent;e.preventDefault();setCityArtInteracting(true);cancelFrame();flushPan();mapViewport=zoomMapAt(mapViewport,mapViewport.zoom+(e.deltaY<0?.15:-.15),local(e),grandPort?12:2.5);applyMapViewport();viewportWork.request(true);rebase();},{passive:false,signal:listeners.signal});
 }
 function handleGrandMapCommand(event:Event):void{
- const p=grandPort;if(!p?.continuous)return;const id=presentation.selectedUnitId;if(!id||p.selections['map-command']!=='1'||presentation.privacyGate||!session)return;
+ const p=grandPort;if(!p?.continuous)return;if(p.selections['construction-tool']&&p.selections['ui-panel']==='economy'&&p.selections['modern-tab']==='construction')return;const id=presentation.selectedUnitId;if(!id||p.selections['map-command']!=='1'||presentation.privacyGate||!session)return;
  const scope=plan.scope(session,deriveBrowserRenderModel(session,presentation).viewerControllerId) as any;if(scope.picking)return;
  const e=event as MouseEvent,svg=document.querySelector<SVGSVGElement>('#eastfront-map');if(!svg||!(e.target instanceof Element)||!svg.contains(e.target))return;
  const hit=document.elementsFromPoint(e.clientX,e.clientY),own=hit.map(n=>n.closest('[data-stack-key]')).find(n=>n&&!n.getAttribute('data-command-owner')?.startsWith('enemy'));
