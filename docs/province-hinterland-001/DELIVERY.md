@@ -16,3 +16,5 @@
 复跑：node experiments/hoi4-equipment-priority-001/map-check.mjs；node experiments/hoi4-equipment-priority-001/restart-check.mjs。正常最终图：设置EVIDENCE_DIR=evidence/province-hinterland-001后运行normal.mjs。其采样修正为逐点深拷贝，早期装备normal.json的stock/produced对象时间序列不可靠，最终样本修正，历史结果保留。
 
 独立入口 http://127.0.0.1:4300/ 。最终运行源码见同目录运行说明；只有本机可用。作者检查不是DeepSeek独立验收。未做真机、公网、长期平衡或重新性能采样；收口，不继续扩展大型系统。
+
+最终正常图观察：同一固定种子288步，招募296人、49件步枪，仍集结；新旧地图都未自然部署。不将这一天称完整招募闭环。构建、双身份与保存重启检查完成。

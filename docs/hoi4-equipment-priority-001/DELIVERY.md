@@ -12,3 +12,6 @@
 证据 evidence/hoi4-equipment-priority-001。构建 node experiments/hoi4-equipment-priority-001/build.mjs；运行须指定独立SAVE_DIR、PORT、STOP_FILE后 node experiments/hoi4-equipment-priority-001/server.mjs。
 
 限制：未做真机、公网或长期平衡；默认FIELD是装备顺序兼容，不是旧交错时间序列逐项一致（见MODEL）。追加新地图另提交和说明。作者验证供独立审查。
+
+收口补充：地图独立提交 61df5c501708898b81bca708596319e6f9c4349e。随后仅补本方分配反馈：已齐装不再显示混合短缺原因，库存不足及本轮已先供对象可见；不改变分配结果。feedback-check.mjs 和双身份protocol复验。最终source以运行 /release/info 的 build.source 为准。
+关闭仅本轮4300：读取 evidence/province-hinterland-001/ui-process.json 的 root，在该目录创建 stop 文件，server会保存并退出；不要按端口杀其他服务。最终保存目录为该root/saves。
